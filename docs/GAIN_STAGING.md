@@ -12,7 +12,7 @@ consistent, clip-free, and comparable across sample libraries.*
 | **Sampler instance master** (UVI/Kontakt output) | **THE calibration knob** — set so the instrument's ceiling hits the reference level; measured, logged | per library, measured |
 | **Sampler FX** | **library-shipped preset FX stay** (they're the instrument's designed sound — calibrate through them; verify via measurement that no limiter audibly squashes the top, as E0 did here). Only FX **we add** get bypassed for calibration | shipped = on, ours = off |
 | **Reaper track fader** | *mix + realism offsets only* (see below) — NOT calibration | 0 dB + documented offset |
-| **Reaper master** | headroom guardian — never boosted | 0 dB always |
+| **Reaper master** | headroom guardian — never boosted; **may be CUT for tutti monitoring** (float summing = bit-transparent upstream; recording taps pre-master) | 0 dB default, cut as needed |
 | **REC track** | honest witness | 0 dB, record: output |
 
 If a level is wrong, fix it at the stage whose job it is — never by nudging
