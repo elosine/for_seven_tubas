@@ -66,6 +66,7 @@
     #lane8 { top: 0; height: 32%; background: #f7f5ef; }
     #lane8 .laneLabel { color: #8a6d3b; }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
+    body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
     .lane:nth-child(1) { top: 32.0%; height: 9.71%; }
     .lane:nth-child(2) { top: 41.71%; height: 9.71%; }
     .lane:nth-child(3) { top: 51.43%; height: 9.71%; }
@@ -1313,6 +1314,11 @@ const Composer = {
                 segments: JSON.parse(JSON.stringify(s.segments)),
                 color: '#2E8B57', opacity: 0.5 });
         });
+        // ALT held = eraser cursor over nodes
+        window.addEventListener('keydown', (e) => { if (e.key === 'Alt') document.body.classList.add('altdown'); });
+        window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
+        window.addEventListener('blur', () => document.body.classList.remove('altdown'));
+
         // ---- Freehand-with-fit (META lane) ----
         this.drawMode = false;
         const drawBtn = document.getElementById('drawBtn');
@@ -1630,6 +1636,15 @@ const Composer = {
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
                 this.saveSession(true);
+                return;
+            }
+
+            // P = open property panel for current selection (META curves need this)
+            if ((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+                if (this.selectedObject) {
+                    this._panelOverride = true;
+                    this.showPropertyPanel();
+                }
                 return;
             }
 
@@ -2630,7 +2645,11 @@ const Composer = {
             this.selectObject(wc);
             this.startWCBodyDrag(wc, e);
         });
-        hp.addEventListener('dblclick', (e) => { e.stopPropagation(); this.addNodeAtClick(wc, e.clientX); });
+        hp.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            if (e.shiftKey) this.spliceCurveAt(wc, e.clientX);
+            else this.addNodeAtClick(wc, e.clientX);
+        });
 
         hl.setAttribute('d', lineD);
         g.appendChild(hl);
@@ -2672,7 +2691,7 @@ const Composer = {
             c.setAttribute('stroke-width', '2');
             c.style.cursor = 'move';
             c.style.pointerEvents = 'all';
-            c.setAttribute('class', 'composerObject');
+            c.setAttribute('class', 'composerObject nodeH');
             c.addEventListener('mousedown', (e) => {
                 e.stopPropagation(); e.preventDefault();
                 if (e.altKey) {   // ALT+click = erase node (interior only)
@@ -2707,13 +2726,29 @@ const Composer = {
             wc._els.nodeHandles.push(c);
         });
 
-        // Mid-segment curvature handles (diamonds): drag vertically to bend the
-        // span between two nodes — each handle owns exactly its own segment.
+        // Mid-segment curvature handles (diamonds + invisible halos): the curve
+        // TRACKS the mouse — a solver finds the slope that puts the curve under
+        // the cursor (within the segment model's reach).
         for (let i = 0; i < wc.nodes.length - 1; i++) {
             const midU = (wc.nodes[i].pos + wc.nodes[i + 1].pos) / 2;
             const v = this.evalWaveCurve(wc, midU);
             const hx = x1 + midU * tw;
             const hy = dims.bottom - v * dims.height;
+            const segIdx = Math.min(i, wc.segments.length - 1);
+            const grab = (e) => {
+                e.stopPropagation(); e.preventDefault();
+                this.startSegmentDrag(wc, segIdx, midU, e);
+            };
+            const halo = document.createElementNS(svgNS, 'circle');
+            halo.setAttribute('cx', hx); halo.setAttribute('cy', hy);
+            halo.setAttribute('r', 14);
+            halo.setAttribute('fill', 'transparent');
+            halo.style.cursor = 'ns-resize';
+            halo.style.pointerEvents = 'all';
+            halo.setAttribute('class', 'composerObject');
+            halo.addEventListener('mousedown', grab);
+            g.appendChild(halo);
+            wc._els.nodeHandles.push(halo);
             const d = document.createElementNS(svgNS, 'rect');
             d.setAttribute('x', hx - 5); d.setAttribute('y', hy - 5);
             d.setAttribute('width', 10); d.setAttribute('height', 10);
@@ -2723,29 +2758,34 @@ const Composer = {
             d.style.cursor = 'ns-resize';
             d.style.pointerEvents = 'all';
             d.setAttribute('class', 'composerObject');
-            d.addEventListener('mousedown', (e) => {
-                e.stopPropagation(); e.preventDefault();
-                this.startSegmentDrag(wc, Math.min(i, wc.segments.length - 1), midU, e);
-            });
+            d.addEventListener('mousedown', grab);
             g.appendChild(d);
             wc._els.nodeHandles.push(d);
         }
+
+        this.renderTransformBox(wc, dims, x1, tw);
     },
 
     startSegmentDrag(wc, segIdx, midU, startEvent) {
         this.pushUndoState();
         const seg = wc.segments[segIdx];
-        const orig = seg.slope || 0;
-        // probe which slope direction lifts the curve at this midpoint
-        const v0 = this.evalWaveCurve(wc, midU);
-        seg.slope = orig + 0.2;
-        const v1 = this.evalWaveCurve(wc, midU);
-        seg.slope = orig;
-        const gain = (v1 - v0) >= 0 ? 1 : -1;
-        const y0 = startEvent.clientY;
+        const laneTop = this.lanes[wc.layer].getBoundingClientRect().top;
+        const dims = this.getLaneDims(wc.layer);
+        const solve = (targetV) => {           // slope such that eval(midU) ~ targetV
+            let lo = -3, hi = 3;
+            const at = s => { const keep = seg.slope; seg.slope = s; const v = this.evalWaveCurve(wc, midU); seg.slope = keep; return v; };
+            const vLo = at(lo), vHi = at(hi);
+            const inc = vHi >= vLo;
+            for (let k = 0; k < 24; k++) {
+                const mid = (lo + hi) / 2;
+                if ((at(mid) < targetV) === inc) lo = mid; else hi = mid;
+            }
+            return (lo + hi) / 2;
+        };
         const onMove = (ev) => {
-            const dy = ev.clientY - y0;
-            seg.slope = Math.max(-3, Math.min(3, orig + gain * (-dy) / 60));
+            const svgY = ev.clientY - laneTop;
+            const targetV = Math.max(0, Math.min(1, (dims.bottom - svgY) / dims.height));
+            seg.slope = Math.round(solve(targetV) * 100) / 100;
             this.updateWCRendering(wc);
             this.renderNodeHandles(wc);
         };
@@ -2757,6 +2797,114 @@ const Composer = {
         };
         window.addEventListener('mousemove', onMove);
         window.addEventListener('mouseup', onUp);
+    },
+
+    // Bounding-box transform: right/left edges retime, top scales height,
+    // corner does both. Rendered with node handles when a curve is selected.
+    renderTransformBox(wc, dims, x1, tw) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const g = wc._els.group;
+        const maxY = Math.max(...wc.nodes.map(n => n.y), 0.5);
+        const yTop = dims.bottom - (maxY / 10) * dims.height;
+        const box = document.createElementNS(svgNS, 'rect');
+        box.setAttribute('x', x1); box.setAttribute('y', yTop);
+        box.setAttribute('width', tw); box.setAttribute('height', dims.bottom - yTop);
+        box.setAttribute('fill', 'none'); box.setAttribute('stroke', '#2E8B57');
+        box.setAttribute('stroke-dasharray', '5 4'); box.setAttribute('stroke-opacity', '0.5');
+        box.style.pointerEvents = 'none';
+        g.appendChild(box);
+        wc._els.nodeHandles.push(box);
+        const mkHandle = (x, y, cursor, kind) => {
+            const h = document.createElementNS(svgNS, 'rect');
+            h.setAttribute('x', x - 6); h.setAttribute('y', y - 6);
+            h.setAttribute('width', 12); h.setAttribute('height', 12);
+            h.setAttribute('fill', '#fff'); h.setAttribute('stroke', '#2E8B57');
+            h.setAttribute('stroke-width', '2');
+            h.style.cursor = cursor; h.style.pointerEvents = 'all';
+            h.setAttribute('class', 'composerObject');
+            h.addEventListener('mousedown', (e) => {
+                e.stopPropagation(); e.preventDefault();
+                this.startBoxDrag(wc, kind, e);
+            });
+            g.appendChild(h);
+            wc._els.nodeHandles.push(h);
+        };
+        const midY = (yTop + dims.bottom) / 2;
+        mkHandle(x1, midY, 'ew-resize', 'left');
+        mkHandle(x1 + tw, midY, 'ew-resize', 'right');
+        mkHandle(x1 + tw / 2, yTop, 'ns-resize', 'top');
+        mkHandle(x1 + tw, yTop, 'nesw-resize', 'corner');
+    },
+
+    startBoxDrag(wc, kind, startEvent) {
+        this.pushUndoState();
+        const dims = this.getLaneDims(wc.layer);
+        const origStart = wc.startSeconds, origEnd = wc.endSeconds;
+        const origYs = wc.nodes.map(n => n.y);
+        const maxY = Math.max(...origYs, 0.5);
+        const x0 = startEvent.clientX, y0 = startEvent.clientY;
+        const onMove = (ev) => {
+            const dt = (ev.clientX - x0) / this.pixelsPerSecond;
+            if (kind === 'left') {
+                wc.startSeconds = Math.max(0, Math.min(origEnd - 0.5, Math.round((origStart + dt) * 100) / 100));
+            }
+            if (kind === 'right' || kind === 'corner') {
+                wc.endSeconds = Math.max(origStart + 0.5, Math.round((origEnd + dt) * 100) / 100);
+            }
+            if (kind === 'top' || kind === 'corner') {
+                const dv = -(ev.clientY - y0) / dims.height * 10;
+                const scale = Math.max(0.1, (maxY + dv) / maxY);
+                wc.nodes.forEach((n, i) => { n.y = Math.max(0, Math.min(10, Math.round(origYs[i] * scale * 100) / 100)); });
+            }
+            this.updateWCRendering(wc);
+            this.renderNodeHandles(wc);
+        };
+        const onUp = () => {
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('mouseup', onUp);
+            this.refreshPanelValues();
+            this.markDirty();
+        };
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+    },
+
+    // Splice: SHIFT+double-click on the line cuts the curve in two at that point
+    spliceCurveAt(wc, clientX) {
+        const tSplit = this.clientXToTime(clientX);
+        const dur = wc.endSeconds - wc.startSeconds;
+        if (tSplit < wc.startSeconds + 0.3 || tSplit > wc.endSeconds - 0.3) return;
+        this.pushUndoState();
+        const u = (tSplit - wc.startSeconds) / dur;
+        const vAt = this.evalWaveCurve(wc, u);
+        const mkSide = (lo, hi) => {
+            const nodes = [];
+            const span = hi - lo;
+            if (lo === 0) nodes.push(...wc.nodes.filter(n => n.pos < hi - 1e-6).map(n => ({ ...n, pos: n.pos / span })));
+            else nodes.push(...wc.nodes.filter(n => n.pos > lo + 1e-6).map(n => ({ ...n, pos: (n.pos - lo) / span })));
+            const boundary = { pos: lo === 0 ? 1 : 0, y: Math.round(vAt * 100) / 10, smooth: 0.35 };
+            if (lo === 0) nodes.push(boundary); else nodes.unshift(boundary);
+            nodes.sort((a, b) => a.pos - b.pos);
+            const segments = [];
+            for (let i = 0; i < nodes.length - 1; i++) {
+                const gu = lo + (nodes[i].pos + nodes[i + 1].pos) / 2 * span;
+                let si = 0;
+                for (let k = 1; k < wc.nodes.length; k++) if (gu > wc.nodes[k - 1].pos) si = Math.min(k - 1, wc.segments.length - 1);
+                segments.push({ ...wc.segments[si] });
+            }
+            return { nodes, segments };
+        };
+        const L = mkSide(0, u), R = mkSide(u, 1);
+        const base = { layer: wc.layer, color: wc.color, opacity: wc.opacity, fillMode: wc.fillMode };
+        const wcL = this.createWaveCurve({ ...base, startSeconds: wc.startSeconds, endSeconds: Math.round(tSplit * 100) / 100, nodes: L.nodes, segments: L.segments });
+        const wcR = this.createWaveCurve({ ...base, startSeconds: Math.round(tSplit * 100) / 100, endSeconds: wc.endSeconds, nodes: R.nodes, segments: R.segments });
+        wcL.sonifyNote = wc.sonifyNote; wcL.technique = wc.technique;
+        wcR.sonifyNote = wc.sonifyNote; wcR.technique = wc.technique;
+        const idx = this.objects.indexOf(wc);
+        if (wc._els && wc._els.group) wc._els.group.remove();
+        if (idx >= 0) this.objects.splice(idx, 1);
+        this.deselectAll();
+        this.markDirty();
     },
 
     updateWCRendering(wc) {
@@ -3115,6 +3263,11 @@ const Composer = {
     showPropertyPanel() {
         const panel = this.propertyPanel;
         if (!panel || !this.selectedObject) { this.hidePropertyPanel(); return; }
+        // META drawing curves: panel only on request (press P) — composer 2026-08-10
+        if (this.selectedObject.type === 'waveCurve' && this.selectedObject.layer === 7 && !this._panelOverride) {
+            this.hidePropertyPanel();
+            return;
+        }
         const obj = this.selectedObject;
         let html = '';
 
@@ -5226,6 +5379,7 @@ const Composer = {
     },
 
     hidePropertyPanel() {
+        this._panelOverride = false;
         if (this.propertyPanel) this.propertyPanel.style.display = 'none';
     },
 
