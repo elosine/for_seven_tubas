@@ -1,0 +1,17 @@
+# Node (future)
+node_modules/
+
+# Reaper — the session file (.rpp) IS committed; these are not
+*.rpp-bak
+*.reapeaks
+reaper/media/
+reaper/Media/
+reaper/Backups/
+reaper/AutoSaves/
+
+# Composer score — canonical scores/*.json ARE committed; safety-net versions are not
+scores/versions/
+
+# OS noise
+Thumbs.db
+.DS_Store

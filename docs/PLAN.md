@@ -1,0 +1,26 @@
+# PLAN — for seven tubas
+
+> **Rules:** IDs are stable — never renumber, only append. Status: `todo` / `doing` /
+> `done` / `deferred`. Position = order. Same conventions as piece #3's PLAN.
+
+## 0. Setup — `doing`
+
+- **0a — Repo + stack seed** — `done 2026-08-10` — piece #3's score app (7 tracks,
+  :5200) + sandbox (:4700) + instruments skeleton copied and adapted. Saving = #3's D8;
+  motive blocks = #3's D9.
+- **0b — loopMIDI + rack** — `doing` (composer) — 7 ports `Tuba1`…`Tuba7`; Reaper rack,
+  one track per port, **input monitoring ON per track** (piece #3 Principle 1 — the
+  silent-killer).
+- **0c — Tuba sample library chosen** — `todo` — name the library; then survey.
+
+## 1. Instrument survey — `todo`
+
+Fill `sandbox/instruments.js` techniques + `docs/instrument_map.json` per tuba; declare
+the switching mechanism (channels / keyswitches / CC#0) once known. Piece #3's survey
+playbook applies (its PROJECT_JOURNAL §5.1).
+
+## 2. Compose — `todo`
+
+Incremental MO carried over from piece #3: composing drives tool-building; the score is
+the combining surface; sandbox available for exploration. Per-track recording in the
+score is still unbuilt (was piece #3's next slice — build here when needed).

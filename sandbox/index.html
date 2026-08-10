@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Virtual Instrument Sandbox</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 24px; background: #1e1e22; color: #ddd; }
+  h1 { font-size: 15px; font-weight: 600; color: #aaa; margin: 0 0 14px; letter-spacing: 1px; }
+  .row { display: flex; align-items: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+  select { font-size: 15px; padding: 6px 10px; background: #2a2a30; color: #ddd; border: 1px solid #444; border-radius: 6px; }
+  #banner { display: none; background: #7a2a2a; color: #fff; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; }
+  button { cursor: pointer; }
+  .tbtn { font-size: 15px; padding: 8px 18px; background: #35353d; color: #ddd; border: 1px solid #555; border-radius: 8px; }
+  .tbtn:disabled { opacity: 0.35; cursor: default; }
+  #rec.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
+  #loop.on, #grid.on { background: #3d5a3d; border-color: #6a9a6a; color: #fff; }
+
+  /* On-screen keyboard */
+  #kbd { position: relative; height: 118px; user-select: none; margin: 14px 0 4px; white-space: nowrap; overflow-x: auto; padding-bottom: 6px; }
+  .wk { display: inline-block; width: 24px; height: 108px; background: #f4f2ee; border: 1px solid #555; border-radius: 0 0 4px 4px; position: relative; cursor: pointer; vertical-align: top; }
+  .wk .lbl { position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; font-size: 9px; color: #666; pointer-events: none; }
+  .bk { position: absolute; width: 15px; height: 64px; background: #222; border: 1px solid #000; border-radius: 0 0 3px 3px; cursor: pointer; z-index: 2; top: 0; }
+  .wk.current { background: #ffd966; }
+  .bk.current { background: #b8860b; }
+  .wk.flash { background: #8fd18f; }
+  .bk.flash { background: #2e7d32; }
+
+  /* Gesture lane: keyboard column + zebra grid + omnipresent cursor */
+  #laneWrap { margin-top: 16px; }
+  #laneCap { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 6px; }
+  #laneRow { display: flex; border: 1px solid #444; border-radius: 8px; overflow: hidden; }
+  #laneKbd { position: relative; width: 44px; background: #26262c; border-right: 1px solid #444; flex-shrink: 0; height: 300px; }
+  #lane { height: 300px; background: #26262c; overflow-x: auto; overflow-y: hidden; flex: 1; }
+  #laneContent { position: relative; height: 100%; }
+  .krow { position: absolute; left: 0; right: 0; }
+  .kw { background: #f0eee9; }
+  .kb { background: #23232a; }
+  .klab { position: absolute; right: 3px; bottom: 0; font-size: 8px; color: #555; }
+  .ksep { position: absolute; left: 0; right: 0; height: 1px; background: #9a9a9a; z-index: 2; }
+  .zebraR { position: absolute; left: 0; right: 0; background: rgba(255,255,255,0.045); z-index: 1; }
+  .lsep { position: absolute; left: 0; right: 0; height: 1px; background: #4a4a55; z-index: 1; }
+  .vsec { position: absolute; top: 0; bottom: 0; width: 1px; background: #34343e; z-index: 1; }
+  .blk { position: absolute; background: #6f9fd8; border: 1px solid #8ab4e8; border-radius: 2px; min-width: 3px; z-index: 3; }
+  #cursor { position: absolute; top: 0; bottom: 0; width: 1px; background: #ff5252; z-index: 5; pointer-events: none; }
+  #laneInfo { font-size: 11px; color: #888; margin-top: 4px; min-height: 14px; }
+</style>
+</head>
+<body>
+<h1>VIRTUAL INSTRUMENT SANDBOX</h1>
+<div id="banner"></div>
+
+<div class="row">
+  <select id="inst"></select>
+  <select id="tech"></select>
+  <button class="tbtn" id="rec">⏺ Record</button>
+  <button class="tbtn" id="play" disabled>▶ Play</button>
+  <button class="tbtn" id="loop">⟳ Loop</button>
+  <button class="tbtn on" id="grid">⊞ Grid</button>
+  <button class="tbtn" id="clear" disabled>Clear</button>
+  <button class="tbtn" id="save" disabled>💾 Save</button>
+  <select id="motives"><option value="">— phrases —</option></select>
+</div>
+
+<div id="kbd"></div>
+
+<div id="laneWrap">
+  <div id="laneCap">Gesture</div>
+  <div id="laneRow"><div id="laneKbd"></div><div id="lane"><div id="laneContent"></div></div></div>
+  <div id="laneInfo"></div>
+</div>
+
+<script src="instruments.js"></script>
+<script>
+const state = { instKey: Object.keys(INSTRUMENTS)[0], techIdx: 0, out: null, inp: null,
+                note: null, vel: 90, len: 2000, looping: false, grid: true,
+                playing: false, playTimers: [], playStart: 0, cursorPos: 0 };
+const rec = { armed: false, t0: null, active: {}, events: [] };
+const $ = id => document.getElementById(id);
+const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const sci = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+const inst = () => INSTRUMENTS[state.instKey];
+const tech = () => inst().techniques[state.techIdx];
+const chan = () => tech().channel - 1;
+const isBlackRow = m => [1,3,6,8,10].includes(m % 12);
+
+// ---- instrument + technique dropdowns (routing stays backstage) ----
+for (const [k, v] of Object.entries(INSTRUMENTS)) {
+  const o = document.createElement('option'); o.value = k; o.textContent = v.label; $('inst').appendChild(o);
+}
+$('inst').onchange = e => { state.instKey = e.target.value; state.techIdx = 0; buildTechSelect(); buildKeyboard(); renderLane(); resolveBindings(); };
+function buildTechSelect() {
+  const sel = $('tech'); sel.innerHTML = '';
+  inst().techniques.forEach((tq, i) => {
+    const o = document.createElement('option'); o.value = i; o.textContent = tq.label;
+    sel.appendChild(o);
+  });
+  sel.value = state.techIdx;
+}
+$('tech').onchange = e => { state.techIdx = +e.target.value; buildKeyboard(); pluck(); };
+
+// ---- MIDI (one persistent access; never re-request on statechange) ----
+function banner(msg) { const b = $('banner'); b.style.display = msg ? 'block' : 'none'; b.textContent = msg || ''; }
+let midiAccess = null, scTimer = null;
+function resolveBindings() {
+  if (!midiAccess) return;
+  let out = null, inp = null;
+  for (const o of midiAccess.outputs.values()) if (o.name === inst().port) out = o;
+  for (const i of midiAccess.inputs.values()) {
+    if (INPUT_MATCH.test(i.name) && !INPUT_EXCLUDE.test(i.name)) { inp = i; break; }
+  }
+  state.out = out;
+  if (state.inp !== inp) {
+    if (state.inp) state.inp.onmidimessage = null;
+    state.inp = inp;
+    if (inp) inp.onmidimessage = onHardwareMidi;
+  }
+  banner(out ? '' : `MIDI port "${inst().port}" not found — is loopMIDI running?`);
+}
+function initMidi() {
+  if (!navigator.requestMIDIAccess) { banner('Web MIDI unavailable — use Chrome.'); return; }
+  navigator.requestMIDIAccess().then(acc => {
+    midiAccess = acc;
+    acc.onstatechange = () => { clearTimeout(scTimer); scTimer = setTimeout(resolveBindings, 400); };
+    resolveBindings();
+  }, () => banner('MIDI access denied.'));
+}
+function sendNote(note, vel, lenMs) {
+  if (!state.out) return;
+  const ch = chan();
+  if (tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
+  state.out.send([0x90 | ch, note, vel]);
+  setTimeout(() => state.out && state.out.send([0x80 | ch, note, 0]), lenMs);
+  flash(note);
+}
+function flash(note) {
+  const el = document.querySelector(`#kbd [data-m="${note}"]`);
+  if (el) { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 160); }
+}
+function pluck() { if (state.note !== null) sendNote(state.note, state.vel, state.len); }
+
+// ---- hardware input: live thru + capture when armed ----
+function onHardwareMidi(e) {
+  const [st, d1, d2] = e.data, cmd = st & 0xF0, ch = chan();
+  const isOn = cmd === 0x90 && d2 > 0, isOff = cmd === 0x80 || (cmd === 0x90 && d2 === 0);
+  if (!isOn && !isOff) return;
+  if (state.out && isOn && tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
+  if (state.out) state.out.send([(isOn ? 0x90 : 0x80) | ch, d1, isOn ? d2 : 0]);
+  if (isOn) { flash(d1); state.note = d1; markCurrent(); }
+  if (!rec.armed) return;
+  const t = e.timeStamp;
+  if (isOn) { if (rec.t0 === null) rec.t0 = t; rec.active[d1] = { on: t - rec.t0, vel: d2 }; }
+  else if (rec.active[d1]) {
+    rec.events.push({ note: d1, vel: rec.active[d1].vel, on: rec.active[d1].on, off: t - rec.t0 });
+    delete rec.active[d1];
+    renderLane();
+  }
+}
+
+// ---- transport ----
+$('rec').onclick = () => {
+  $('rec').blur();
+  stopPlayback();
+  rec.armed = !rec.armed;
+  if (rec.armed && rec.events.length === 0) rec.t0 = null;
+  $('rec').classList.toggle('armed', rec.armed);
+  $('rec').textContent = rec.armed ? '⏺ Recording…' : '⏺ Record';
+  updateButtons();
+};
+function startPlayback() {
+  if (!state.out || rec.events.length === 0) return;
+  stopPlayback(false);
+  const pos = state.cursorPos;
+  const dur = Math.max(...rec.events.map(e => e.off));
+  if (pos >= dur) { state.cursorPos = 0; return startPlayback(); }
+  state.playing = true;
+  state.playStart = performance.now();
+  const ch = chan();
+  if (tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
+  for (const ev of rec.events) {
+    if (ev.off <= pos) continue;
+    state.playTimers.push(setTimeout(() => { if (state.out) { state.out.send([0x90 | ch, ev.note, ev.vel]); flash(ev.note); } }, Math.max(0, ev.on - pos)));
+    state.playTimers.push(setTimeout(() => { if (state.out) state.out.send([0x80 | ch, ev.note, 0]); }, ev.off - pos));
+  }
+  state.playTimers.push(setTimeout(() => {
+    if (state.looping) startPlayback(); else stopPlayback(false);
+  }, dur - pos + (state.looping ? 500 : 150)));
+  cursorTick();
+  updateTransport();
+}
+function stopPlayback(cutNotes = true) {
+  state.playTimers.forEach(clearTimeout);
+  state.playTimers = [];
+  if (state.playing && cutNotes && state.out) {
+    const ch = chan();
+    for (const ev of rec.events) state.out.send([0x80 | ch, ev.note, 0]);
+  }
+  state.playing = false;
+  positionCursor();
+  updateTransport();
+}
+function cursorTick() {
+  if (!state.playing) return;
+  positionCursor(state.cursorPos + (performance.now() - state.playStart));
+  requestAnimationFrame(cursorTick);
+}
+function updateTransport() {
+  $('play').textContent = state.playing ? '⏹ Stop' : '▶ Play';
+  $('loop').classList.toggle('on', state.looping);
+  $('grid').classList.toggle('on', state.grid);
+}
+$('play').onclick = () => { $('play').blur(); state.playing ? stopPlayback() : startPlayback(); };
+$('loop').onclick = () => { $('loop').blur(); state.looping = !state.looping; updateTransport(); };
+$('grid').onclick = () => { $('grid').blur(); state.grid = !state.grid; renderLane(); updateTransport(); };
+$('clear').onclick = () => { $('clear').blur(); stopPlayback(); rec.events = []; rec.active = {}; rec.t0 = null; state.cursorPos = 0; renderLane(); updateButtons(); };
+function updateButtons() {
+  $('play').disabled = rec.events.length === 0;
+  $('clear').disabled = rec.events.length === 0 && !rec.armed;
+  $('save').disabled = rec.events.length === 0;
+}
+
+// ---- phrases ----
+$('save').onclick = async () => {
+  $('save').blur();
+  if (rec.events.length === 0) return;
+  const name = prompt('Name this phrase:');
+  if (!name) return;
+  const body = { name, created: new Date().toISOString(), instrument: state.instKey,
+                 technique: tech().key, events: rec.events, annotations: [] };
+  const r = await fetch('/motives', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  if (r.ok) { const { file } = await r.json(); loadMotiveList(file); }
+};
+async function loadMotiveList(selectFile) {
+  try {
+    const list = await (await fetch('/motives')).json();
+    const sel = $('motives');
+    sel.innerHTML = '<option value="">— phrases —</option>';
+    for (const m of list) {
+      const o = document.createElement('option');
+      o.value = m.file; o.textContent = m.name;
+      sel.appendChild(o);
+    }
+    if (selectFile) sel.value = selectFile;
+  } catch (e) {}
+}
+$('motives').onchange = async e => {
+  if (!e.target.value) return;
+  const m = await (await fetch('/motives/' + e.target.value)).json();
+  stopPlayback();
+  rec.events = m.events || []; rec.active = {}; rec.t0 = null; state.cursorPos = 0;
+  if (m.instrument && INSTRUMENTS[m.instrument] && m.instrument !== state.instKey) {
+    state.instKey = m.instrument; $('inst').value = m.instrument; state.techIdx = 0;
+    buildTechSelect(); buildKeyboard(); resolveBindings();
+  }
+  if (m.technique) {
+    const i = inst().techniques.findIndex(t => t.key === m.technique);
+    if (i >= 0) { state.techIdx = i; buildTechSelect(); }
+  }
+  renderLane();
+};
+
+// ---- gesture lane: fixed semitone rows, keyboard column, zebra grid, cursor ----
+let PXPS = 60; // px per second; Alt+scroll zooms
+function laneSpan() {
+  if (rec.events.length) {
+    return [Math.min(...rec.events.map(e => e.note)) - 2, Math.max(...rec.events.map(e => e.note)) + 2];
+  }
+  return [46, 74];
+}
+function renderLane() {
+  const lane = $('lane'), content = $('laneContent'), kbd = $('laneKbd');
+  content.innerHTML = ''; kbd.innerHTML = '';
+  const [lo, hi] = laneSpan();
+  const rows = hi - lo + 1;
+  const H = lane.clientHeight;
+  const rowH = H / rows;
+  const yOf = m => (hi - m) * rowH;
+  const dur = rec.events.length ? Math.max(...rec.events.map(e => e.off), 1) : 4000;
+  const W = Math.max((dur / 1000) * PXPS + 24, lane.clientWidth);
+  content.style.width = W + 'px';
+  for (let m = hi; m >= lo; m--) {
+    const kr = document.createElement('div');
+    kr.className = 'krow ' + (isBlackRow(m) ? 'kb' : 'kw');
+    kr.style.top = yOf(m) + 'px'; kr.style.height = rowH + 'px';
+    if (m % 12 === 0 && rowH >= 7) kr.innerHTML = `<span class="klab">${sci(m)}</span>`;
+    kbd.appendChild(kr);
+    if ((m % 12 === 4 || m % 12 === 11) && m < hi) {
+      const s = document.createElement('div'); s.className = 'ksep'; s.style.top = yOf(m) + 'px';
+      kbd.appendChild(s);
+    }
+  }
+  if (state.grid) {
+    for (let m = hi; m >= lo; m--) {
+      if (isBlackRow(m)) {
+        const z = document.createElement('div'); z.className = 'zebraR';
+        z.style.top = yOf(m) + 'px'; z.style.height = rowH + 'px';
+        content.appendChild(z);
+      }
+      if ((m % 12 === 4 || m % 12 === 11) && m < hi) {
+        const s = document.createElement('div'); s.className = 'lsep'; s.style.top = yOf(m) + 'px';
+        content.appendChild(s);
+      }
+    }
+    for (let sec = 1; sec <= Math.ceil(dur / 1000); sec++) {
+      const v = document.createElement('div'); v.className = 'vsec';
+      v.style.left = (4 + sec * PXPS) + 'px';
+      content.appendChild(v);
+    }
+  }
+  for (const ev of rec.events) {
+    const b = document.createElement('div'); b.className = 'blk';
+    b.style.left = 4 + (ev.on / 1000) * PXPS + 'px';
+    b.style.width = Math.max(3, ((ev.off - ev.on) / 1000) * PXPS) + 'px';
+    b.style.top = (yOf(ev.note) + 1) + 'px'; b.style.height = Math.max(3, rowH - 2) + 'px';
+    content.appendChild(b);
+  }
+  const cur = document.createElement('div');
+  cur.id = 'cursor';
+  content.appendChild(cur);
+  positionCursor();
+  if (rec.armed) lane.scrollLeft = W;
+  $('laneInfo').textContent = rec.events.length
+    ? `${rec.events.length} notes · ${(dur / 1000).toFixed(2)} s · ${PXPS}px/s`
+    : `${PXPS}px/s`;
+  updateButtons();
+}
+function positionCursor(ms) {
+  const cur = document.getElementById('cursor');
+  if (cur) cur.style.left = (4 + ((ms ?? state.cursorPos) / 1000) * PXPS) + 'px';
+}
+let draggingCursor = false;
+function cursorFromMouse(e) {
+  const lane = $('lane');
+  const x = e.clientX - lane.getBoundingClientRect().left + lane.scrollLeft - 4;
+  state.cursorPos = Math.max(0, (x / PXPS) * 1000);
+  positionCursor();
+}
+$('lane').addEventListener('mousedown', e => {
+  if (e.altKey || state.playing) return;
+  draggingCursor = true;
+  cursorFromMouse(e);
+});
+document.addEventListener('mousemove', e => { if (draggingCursor) cursorFromMouse(e); });
+document.addEventListener('mouseup', () => { draggingCursor = false; });
+$('lane').addEventListener('wheel', e => {
+  if (!e.altKey) return;
+  e.preventDefault();
+  const lane = $('lane');
+  const zoomIn = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX > 0 : e.deltaY < 0;
+  const mouseX = e.clientX - lane.getBoundingClientRect().left;
+  const tAtMouse = (lane.scrollLeft + mouseX - 4) / PXPS;
+  PXPS = Math.round(Math.min(400, Math.max(8, PXPS * (zoomIn ? 1.25 : 0.8))));
+  renderLane();
+  lane.scrollLeft = Math.max(0, tAtMouse * PXPS + 4 - mouseX);
+}, { passive: false });
+
+// ---- on-screen keyboard ----
+function buildKeyboard() {
+  const kbd = $('kbd'); kbd.innerHTML = '';
+  const rangeLow = tech().rangeLow ?? inst().rangeLow;
+  const rangeHigh = tech().rangeHigh ?? inst().rangeHigh;
+  let whiteX = 0;
+  for (let m = rangeLow; m <= rangeHigh; m++) {
+    const black = [1,3,6,8,10].includes(m % 12);
+    const el = document.createElement('div');
+    el.dataset.m = m;
+    if (black) { el.className = 'bk'; el.style.left = (whiteX - 8) + 'px'; }
+    else {
+      el.className = 'wk';
+      if (m % 12 === 0) el.innerHTML = `<span class="lbl">${sci(m)}</span>`;
+      whiteX += 24;
+    }
+    el.onmousedown = () => { state.note = m; markCurrent(); pluck(); };
+    kbd.appendChild(el);
+  }
+}
+function markCurrent() {
+  document.querySelectorAll('#kbd .current').forEach(e => e.classList.remove('current'));
+  const el = document.querySelector(`#kbd [data-m="${state.note}"]`);
+  if (el) el.classList.add('current');
+}
+
+// ---- keys: SPACE = play/stop, ENTER = re-pluck ----
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space') { e.preventDefault(); state.playing ? stopPlayback() : startPlayback(); }
+  else if (e.code === 'Enter') { e.preventDefault(); pluck(); }
+});
+
+buildTechSelect(); buildKeyboard(); initMidi(); renderLane(); loadMotiveList();
+</script>
+</body>
+</html>

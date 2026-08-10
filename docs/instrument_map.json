@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "description": "Instrument map for the seven-tubas piece. Bridges musical intent (score objects) to sampler routing/articulations. STUB: fills in once the tuba sample library is chosen and surveyed; port/technique skeleton lives in sandbox/instruments.js.",
+    "octaveConvention": "Pin the sampler's octave display at first contact (Kontakt & UVI show middle C / MIDI 60 as C3).",
+    "status": "Stub — registry loads clean with zero instruments.",
+    "midiCapabilityDefaults": {}
+  },
+  "patternRules": {},
+  "ccMappings": {},
+  "instruments": {}
+}
