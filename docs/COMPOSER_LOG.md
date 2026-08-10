@@ -4,6 +4,22 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Back to Xenakis: Metastaseis/Pithoprakta as the model (dictated)
+
+"Looking at Metastaseis and Pithoprakta — how he created these clouds. They have very
+clear density profiles that grow and shrink. On a cursory listen it seems it's really
+the onset density — the number of players playing at the same time, or just the onset
+density. I recognize seven is going to limit the effect. The durations are just
+heterogeneous — not a uniform increase. Maybe it's more straightforward than I'm
+making it out — as simple as more people playing and more onsets. Since these pieces
+are for acoustic instruments, we can achieve something similar with the tuba — we're
+just not pulling on the right strings. Put the granular metaphor on hold; stick with
+the sound mass/cloud as achieved by Xenakis, and boil down a few rules."
+
+*(→ XENAKIS_MASS_RULES.md: two species (point-cloud w/ attacked atoms; line-mass in
+pitch space); X1–X8; finding 13 explained by X3 — our swells were onset-less points.
+Proposed: XT1 tuba point-cloud, XT2 line-mass (needs pitch opened).)*
+
 ## 2026-08-10 — The reset: reject naive approaches, find what we can build on (dictated)
 
 "It feels like we've lost some progress — these two [ISO tests] represent the ones
