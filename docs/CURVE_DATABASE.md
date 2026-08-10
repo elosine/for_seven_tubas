@@ -363,8 +363,8 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 
 ### 024 — SC2: star-cloud (Gaussian continuum, everything-heterogeneous)
 - **Date:** 2026-08-10 · **Status:** experiment
-- SC1 verdict: "approach correct" · uniform 0.08 s cuts read as pattern ("beach
-  territory") → **releases now vary 0.15–0.45 s** (composer's key insight carried:
+- SC1 verdict: "approach correct" · uniform 0.08 s cuts read as pattern ("BEATS
+  territory" — transcription corrected: the sharp cuts were metering the texture) → **releases now vary 0.15–0.45 s** (composer's key insight carried:
   "patterning takes over if ANYTHING is the same").
 - **Changes:** true Gaussian rate bell (0.25→5.5→0.25 endings/s, σ 5.5, T 30 s) ·
   0.25 s windows · shorter/wider durations (base 1.4, σ 0.4 → realized 0.53–3.0 s)
@@ -375,3 +375,15 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **TODO (composer):** once by-ear approved, second pass to extract/codify the
   underlying algorithm.
 - **Archive:** `sc2-star-cloud`
+
+### 025 — SC3: the dense seven seconds (work-backwards pass)
+- **Date:** 2026-08-10 · **Status:** current focus
+- Composer's pass structure: get the DENSEST region right first, then the sparse
+  regions, then the ramp. Ramp-up long and unfussy; **a clear middle 7 s at max
+  density is the object of judgment.**
+- **Releases recalibrated:** vary 0.05–0.18 s — floor ≈ a tongue-stop (performance
+  reality as guideline, not full pass), ceiling "a fair bit shorter" than SC2's 0.45.
+- **Durations longer** (base 2.0 s, σ 0.4) — feasibility coupling still compresses
+  them where endings crowd (physics), so long swells live at the edges.
+- Trajectory: 10 s rise (0.3→5.5 endings/s) · **7 s hold at 5.5/s** · 6 s fall.
+- **Archive:** `sc3-dense-hold`
