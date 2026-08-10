@@ -668,12 +668,15 @@ function compileSwellCloud(C, spec) {
     windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
     for (let k = 0; k < n; k++) {
       const slot = wLen / n;
-      const peak = T0 + w0 + k * slot + Math.random() * slot;   // jittered ending
+      const peak = spec.uniformWindows
+        ? T0 + w0 + Math.random() * wLen                        // max randomness given quota
+        : T0 + w0 + k * slot + Math.random() * slot;            // stratified jitter
       const localRate = rateAt(peak - T0);
       // feasibility-coupled mean: dense endings force shorter swells
       const mean = Math.min(spec.sizeBase != null ? spec.sizeBase : 1.8, 0.8 * parts / localRate);
       let D = mean * Math.exp(sizeSigma * gauss());
-      D = Math.max(0.4, Math.min(3, D));
+      const dc = spec.durClamp || [0.4, 3];
+      D = Math.max(dc[0], Math.min(dc[1], D));
       const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
       const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
       const Rr = relRange[0] + Math.random() * (relRange[1] - relRange[0]);   // releases vary too (L1)

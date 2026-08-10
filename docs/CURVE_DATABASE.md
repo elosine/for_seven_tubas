@@ -387,3 +387,15 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   them where endings crowd (physics), so long swells live at the edges.
 - Trajectory: 10 s rise (0.3→5.5 endings/s) · **7 s hold at 5.5/s** · 6 s fall.
 - **Archive:** `sc3-dense-hold`
+
+### 026 — SC4: max-dense push
+- **Date:** 2026-08-10 · **Status:** current focus
+- Composer: denser + noisier, attack from both ends. **Releases 0.02–0.08 s**
+  (floor = true rexpodec, the backward-masked attack) · **durations 0.5–1.6 s**
+  (500 ms floor per composer; sharper surge ratios 3–6×) · **placement max-random**
+  (uniform within quota windows — Poisson-conditioned-on-count, the noisiest
+  placement that still guarantees the trend).
+- Trajectory: 8 s ramp → **7 s hold at 8.5 endings/s requested** → 5 s fall.
+- Realized hold: **48 endings = 6.9/s**, median gap 0.13 s, tightest 0.000 s
+  (simultaneous pair — true cluster), widest 0.38 s. 80 swells total, 13 dropped.
+- **Archive:** `sc4-max-dense`
