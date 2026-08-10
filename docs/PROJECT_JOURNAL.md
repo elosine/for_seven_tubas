@@ -46,6 +46,14 @@ piece #3's `docs/` — registered as an additional working directory.
   binding + score playback both patched). *Rejected:* UVI port-B via Reaper MIDI bus 2 —
   breaks the clean loopMIDI-port-per-instance wiring. *Slot order = composer's UVI
   screenshots 2026-08-10; keep it identical across all 7 tuba pairs.*
+- **D3** *(2026-08-10)* — **Experiment MIDI renders the inferred PERFORMANCE of an
+  animated curve, never the curve itself.** The curve is notation (D7 lineage);
+  performers track it visually, so renders pass through a performer model (lag,
+  smoothing, ~7-level dynamic resolution, eased onsets, anticipation, breath caps,
+  per-player jitter — v0 parameters in CRESCENDO_EXPERIMENTS.md, tuned by ear).
+  *Why:* curve-literal MIDI would optimize textures no ensemble can play; assessments
+  must be of playable renderings. Curve-literal renders remain available as an A/B
+  reference only.
 
 ## §5 Done
 
