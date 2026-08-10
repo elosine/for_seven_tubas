@@ -1,7 +1,7 @@
-# sample_length_probe.ps1 — SI2 tuba sample-length probe (piece #4).
+﻿# sample_length_probe.ps1 - SI2 tuba sample-length probe (piece #4).
 # Deterministic schedule: for each of the 21 techniques (tuba1 + tuba1b instances),
 # hold a note far longer than any plausible sample, and let the recording show where
-# the audio actually dies. The schedule is written to last_schedule.json — the
+# the audio actually dies. The schedule is written to last_schedule.json - the
 # analyzer's ground truth (schedule-vs-audio cross-check, piece #3 RR-parade lesson).
 #
 # Usage:  powershell -File probes\sample_length_probe.ps1
@@ -44,7 +44,7 @@ public class MidiOut {
 }
 '@
 
-# Technique table — mirrors sandbox/instruments.js tuba1 (slot order = UVI build ground truth)
+# Technique table - mirrors sandbox/instruments.js tuba1 (slot order = UVI build ground truth)
 $techs = @(
     @{ tech = 'Ordinario';                   port = 'tuba1';  ch = 1  },
     @{ tech = 'Bisbigliando';                port = 'tuba1';  ch = 2  },
@@ -73,7 +73,7 @@ $techs = @(
 $handles = @{}
 foreach ($p in ($techs | ForEach-Object { $_.port } | Sort-Object -Unique)) {
     $idx = [MidiOut]::Find($p)
-    if ($idx -lt 0) { Write-Error "loopMIDI port '$p' not found — is loopMIDI running?"; exit 1 }
+    if ($idx -lt 0) { Write-Error "loopMIDI port '$p' not found - is loopMIDI running?"; exit 1 }
     $h = [IntPtr]::Zero
     $rc = [MidiOut]::midiOutOpen([ref]$h, [uint32]$idx, [IntPtr]::Zero, [IntPtr]::Zero, 0)
     if ($rc -ne 0) { Write-Error "midiOutOpen failed for '$p' (rc=$rc)"; exit 1 }

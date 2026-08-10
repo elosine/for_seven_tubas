@@ -62,8 +62,8 @@ def main():
     first_idx = np.argmax(above) if above.any() else None
     if first_idx is None:
         sys.exit("No audio above threshold found — wrong file, or floor too high?")
-    t0 = t[first_idx]
-    print(f"Noise floor {floor_db:.1f} dB, threshold {thresh:.1f} dB, first onset at {t0:.2f}s in file")
+    t0 = t[first_idx] - events[0]["onMs"] / 1000.0   # file time of schedule t=0
+    print(f"Noise floor {floor_db:.1f} dB, threshold {thresh:.1f} dB, first onset at {t[first_idx]:.2f}s in file")
 
     end_hold = int(END_HOLD_S / (HOP_MS / 1000))
     results = []
