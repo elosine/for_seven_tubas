@@ -4,17 +4,19 @@
 // Schema note: a technique's optional `port` overrides the instrument-level port —
 // the minimal switching abstraction extension (senders resolve tech.port || inst.port).
 // Slot order transcribed from composer's UVI screenshots 2026-08-10 (ground truth).
+// KS zone (UVI display: middle C / MIDI 60 = C3): Cresc&Decr KS switches at C0/C#0/D0
+// = MIDI 24/25/26 (cut-end / tail / decresc). PROBE-FLOOR RULE: playable notes >= 28.
 const INSTRUMENTS = {
   tuba1: {
     label: "Tuba 1",
     port: "tuba1",     // primary instance "Tuba1 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -39,13 +41,13 @@ const INSTRUMENTS = {
   tuba2: {
     label: "Tuba 2",
     port: "tuba2",     // primary instance "Tuba2 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -70,13 +72,13 @@ const INSTRUMENTS = {
   tuba3: {
     label: "Tuba 3",
     port: "tuba3",     // primary instance "Tuba3 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -101,13 +103,13 @@ const INSTRUMENTS = {
   tuba4: {
     label: "Tuba 4",
     port: "tuba4",     // primary instance "Tuba4 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -132,13 +134,13 @@ const INSTRUMENTS = {
   tuba5: {
     label: "Tuba 5",
     port: "tuba5",     // primary instance "Tuba5 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -163,13 +165,13 @@ const INSTRUMENTS = {
   tuba6: {
     label: "Tuba 6",
     port: "tuba6",     // primary instance "Tuba6 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
@@ -194,13 +196,13 @@ const INSTRUMENTS = {
   tuba7: {
     label: "Tuba 7",
     port: "tuba7",     // primary instance "Tuba7 SI2": techniques on channels A1-A16
-    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
+    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
-      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
       { key: "cuivre", label: "Cuivre", channel: 5 },
       { key: "fx_menu", label: "FX Menu", channel: 6 },
       { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
