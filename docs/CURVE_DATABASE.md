@@ -360,3 +360,18 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - Manifest: 40 swells (5 dropped) · durations 0.62/1.70/3.00 s · parts 6-6-6-5-6-6-5.
 - **Program:** SC2 = duration/onset variety dials · SC3 = shape sweep.
 - **Archive:** `sc1-ending-arch`
+
+### 024 — SC2: star-cloud (Gaussian continuum, everything-heterogeneous)
+- **Date:** 2026-08-10 · **Status:** experiment
+- SC1 verdict: "approach correct" · uniform 0.08 s cuts read as pattern ("beach
+  territory") → **releases now vary 0.15–0.45 s** (composer's key insight carried:
+  "patterning takes over if ANYTHING is the same").
+- **Changes:** true Gaussian rate bell (0.25→5.5→0.25 endings/s, σ 5.5, T 30 s) ·
+  0.25 s windows · shorter/wider durations (base 1.4, σ 0.4 → realized 0.53–3.0 s)
+- **Scatter verified by time-region** (endings count / median gap): edge 6 / 0.82 s ·
+  approach 15 / 0.28 · apex 23 / 0.22 · release 15 / 0.36 · edge 7 / 0.77 —
+  a continuous densification with micro-clumps (tightest pair 0.04 s). 66 endings.
+- Dial noted: bell σ controls how sparse the edges get (σ 4 = starker contrast).
+- **TODO (composer):** once by-ear approved, second pass to extract/codify the
+  underlying algorithm.
+- **Archive:** `sc2-star-cloud`

@@ -621,26 +621,34 @@ function compileStratified(C, spec) {
 // Single-species by composer instruction (SC3 restores shape variety).
 function compileSwellCloud(C, spec) {
   const T0 = spec.t0 != null ? spec.t0 : 2;
-  const parts = 7, SEP = 0.05, WIN = 0.5;
+  const parts = 7, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
   const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
-  const R = spec.cutRelease != null ? spec.cutRelease : 0.08;
+  const relRange = spec.releaseRange || [spec.cutRelease != null ? spec.cutRelease : 0.08, spec.cutRelease != null ? spec.cutRelease : 0.08];
   const sizeSigma = spec.sizeSigma != null ? spec.sizeSigma : 0.35;
   const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;
   const levelSigma = 0.06;
   const ratioRange = spec.ratioRange || [2, 4];
-  const traj = spec.trajectory;   // [{dur, from, to}] in ENDINGS per second
-  const total = traj.reduce((s, l) => s + l.dur, 0);
-  const rateAt = tt => {
-    let acc = 0;
-    for (const leg of traj) {
-      if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
-        const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
-        return leg.from * Math.pow(leg.to / leg.from, f);
+  let total, rateAt;
+  if (spec.gaussian) {
+    // smooth star-cloud bell: rate(t) = rMin + (rMax-rMin)*exp(-(t-T/2)^2 / 2sigma^2)
+    const g = spec.gaussian;
+    total = g.T;
+    rateAt = tt => g.rMin + (g.rMax - g.rMin) * Math.exp(-Math.pow(tt - g.T / 2, 2) / (2 * g.sigma * g.sigma));
+  } else {
+    const traj = spec.trajectory;
+    total = traj.reduce((s, l) => s + l.dur, 0);
+    rateAt = tt => {
+      let acc = 0;
+      for (const leg of traj) {
+        if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
+          const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
+          return leg.from * Math.pow(leg.to / leg.from, f);
+        }
+        acc += leg.dur;
       }
-      acc += leg.dur;
-    }
-    return traj[traj.length - 1].to;
-  };
+      return traj[traj.length - 1].to;
+    };
+  }
   const gauss = () => {
     let u = 0, v = 0;
     while (u === 0) u = Math.random();
@@ -668,9 +676,10 @@ function compileSwellCloud(C, spec) {
       D = Math.max(0.4, Math.min(3, D));
       const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
       const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
-      const start = peak - D, end = peak + R;
+      const Rr = relRange[0] + Math.random() * (relRange[1] - relRange[0]);   // releases vary too (L1)
+      const start = peak - D, end = peak + Rr;
       if (start < 0.1) continue;
-      const p = Math.round((D / (D + R)) * 1000) / 1000;
+      const p = Math.round((D / (D + Rr)) * 1000) / 1000;
       candidates.push({
         start, end, peak, grain: D,
         nodes: [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }],
