@@ -56,6 +56,10 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
    category/boundary structure heard at 8 s largely collapses at 4 s (differences
    compress) and at 16 s (differences wash out). Held as a single-listener
    impression, not a rule; compositionally the skew dial is a directional nudge.
+10. **Static overlap density = repetition, at BOTH poles** (S2a/S2b): dense Risset
+    spacing reads as "a loop of the crescendo's last bit"; sparse threshold-relay
+    reads as "repeated events." The ensemble crescendo lives in the **derivative of
+    overlap density** (and, hypothesis, in evolving harmony once off unison).
 
 ## TODO before "paper" status
 

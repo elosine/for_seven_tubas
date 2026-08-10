@@ -127,6 +127,12 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
   repeated events. I'm looking for something more dramatic in terms of overlap — maybe
   the crescendo happens in the AMOUNT of overlap, the ensemble crescendo." → the S3
   overlap-evolution slot is the direction; static staggers read as repetition.
+- **2026-08-10 · S2a re-audition (rack corrected)** — "sounds like a loop on the last
+  bit of a crescendo. The delta really does need to be in the overlap. And since it's
+  the same note, this might be unique to unison — with a chord there'll be something
+  more interesting with the harmony evolving." **Both static poles (dense pile, sparse
+  relay) fail the same way. Finding: ensemble drama lives in the DERIVATIVE of
+  overlap density, not its value. Next: shifting overlap + move from unison.**
 
 - **2026-08-10 · S1a · shape line-up** — A/B/C keep, D cut (verdicts above). Technical:
   **entry-bite diagnosed and fixed** — each curve ends at CC7=127, so the next note-on
