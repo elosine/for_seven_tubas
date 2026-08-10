@@ -267,3 +267,130 @@ function compileGrains(C, spec) {
   };
   return { placed, manifest };
 }
+
+
+// ---- compileMetaGrains: fill drawn META shapes (layer 7) with grains ----
+// The draw-a-fish engine. Reads every META curve in the loaded score; fills the
+// tuba lanes so the texture follows the drawn intensity: height drives density +
+// grain size + level together (the intensity bundle), placement = inhomogeneous
+// Poisson (thinning), envelope mix per the current mass recipe.
+function compileMetaGrains(C, spec) {
+  spec = spec || {};
+  const metas = spec.metas || C.objects.filter(o => o.type === 'waveCurve' && o.layer === 7);
+  if (!metas.length) return { error: 'no META curves in this score' };
+  const parts = 7, R = spec.release != null ? spec.release : 0.3, SEP = 0.05;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const rec = {
+    densityMin: spec.densityMin != null ? spec.densityMin : 0.25,
+    densityMax: spec.densityMax != null ? spec.densityMax : 3.2,
+    sizeLo: spec.sizeLo != null ? spec.sizeLo : 2.4,     // grain at m=0 (audible sec)
+    sizeHi: spec.sizeHi != null ? spec.sizeHi : 1.4,     // grain at m=1
+    sizeScatter: spec.sizeScatter != null ? spec.sizeScatter : 0.35,
+    levelMin: spec.levelMin != null ? spec.levelMin : 0.75,
+    levelScatter: 0.06,
+    mix: spec.mix || { sine: 0.6, expodec: 0.25, rexpodec: 0.15 },
+    ratioRange: spec.ratioRange || [2, 6]
+  };
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+  const pick = mix => {
+    const entries = Object.entries(mix).filter(e => e[1] > 0);
+    let r = Math.random() * entries.reduce((s, e) => s + e[1], 0);
+    for (const [k, w] of entries) { r -= w; if (r <= 0) return k; }
+    return entries[0][0];
+  };
+  const thetaOf = ratio => { const k = Math.log(ratio); return Math.log((Math.exp(k) + 1) / 2) / k; };
+
+  const candidates = [];
+  const perShape = [];
+  for (const meta of metas) {
+    const S = meta.startSeconds, E = meta.endSeconds, span = E - S;
+    const N = Math.max(1, Math.round(rec.densityMax * span));
+    let accepted = 0;
+    for (let i = 0; i < N; i++) {
+      const tt = S + Math.random() * span;
+      const m = Math.max(0, Math.min(1, C.evalWaveCurve(meta, (tt - S) / span)));
+      const dens = rec.densityMin + (rec.densityMax - rec.densityMin) * m;
+      if (Math.random() > dens / rec.densityMax) continue;   // thinning
+      accepted++;
+      const type = pick(rec.mix);
+      let grain = (rec.sizeLo * Math.pow(rec.sizeHi / rec.sizeLo, m)) * Math.exp(rec.sizeScatter * gauss());
+      grain = Math.max(0.3, Math.min(6, grain));
+      const ratio = rec.ratioRange[0] * Math.pow(rec.ratioRange[1] / rec.ratioRange[0], Math.random());
+      let lv = spec.levelFlat != null
+        ? spec.levelFlat + gauss() * rec.levelScatter
+        : rec.levelMin + (1 - rec.levelMin) * m + gauss() * rec.levelScatter;
+      lv = Math.max(0.4, Math.min(1, lv));
+      let start, end, nodes, segments;
+      const slope = Math.log(ratio) / 4;
+      if (type === 'sine') {
+        start = tt - grain / 2; end = tt + grain / 2;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: 0.5, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 }];
+      } else if (type === 'expodec') {
+        const atk = Math.max(0.08, grain * 0.08);
+        start = tt - atk; end = start + grain;
+        const p = Math.round((atk / grain) * 1000) / 1000;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'power', slope: 0 }, { model: 'logarithmic', slope: -0.5 }];
+      } else {
+        const theta = thetaOf(ratio);
+        const attack = grain / (1 - theta);
+        start = tt - attack; end = tt + R;
+        const p = Math.round((attack / (attack + R)) * 1000) / 1000;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'exponential', slope: slope }, { model: 'power', slope: 0 }];
+      }
+      if (start < 0.1) continue;
+      candidates.push({ start, end, peak: tt, nodes, segments, type, grain });
+    }
+    perShape.push({ span: [S, E], candidates: accepted });
+  }
+
+  const wTot = Object.values(rec.mix).reduce((s, w) => s + w, 0);
+  const rexShare = (rec.mix.rexpodec || 0) / (wTot || 1);
+  const rexParts = rexShare > 0 ? Math.max(1, Math.round(parts * rexShare * 1.5)) : 0;
+  const partOrderFor = type => {
+    const order = [];
+    if (type === 'rexpodec') {
+      for (let p = 0; p < rexParts; p++) order.push(p);
+      for (let p = rexParts; p < parts; p++) order.push(p);
+    } else {
+      for (let p = rexParts; p < parts; p++) order.push(p);
+      for (let p = 0; p < rexParts; p++) order.push(p);
+    }
+    return order;
+  };
+  candidates.sort((a, b) => a.start - b.start);
+  const lastEnd = new Array(parts).fill(-Infinity);
+  let dropped = 0;
+  const placed = [];
+  const typeCount = { rexpodec: 0, sine: 0, expodec: 0 };
+  for (const ev of candidates) {
+    let chosen = -1;
+    for (const cand of partOrderFor(ev.type)) {
+      if (ev.start >= lastEnd[cand] + SEP) { chosen = cand; break; }
+    }
+    if (chosen < 0) { dropped++; continue; }
+    lastEnd[chosen] = ev.end;
+    typeCount[ev.type]++;
+    placed.push({ ...ev, part: chosen });
+  }
+  placed.sort((a, b) => a.peak - b.peak);
+  placed.forEach((ev, i) => {
+    const wc = C.createWaveCurve({
+      startSeconds: Math.round(ev.start * 100) / 100, endSeconds: Math.round(ev.end * 100) / 100,
+      layer: ev.part, nodes: ev.nodes, segments: ev.segments,
+      color: HUES[ev.part % HUES.length], opacity: 0.3,
+      performanceNotes: `FILL ${ev.type[0]}${i + 1}`
+    });
+    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    wc.technique = spec.technique || 'ord';
+  });
+  C.deselectAll();
+  return { manifest: { shapes: perShape, placed: placed.length, dropped, types: typeCount } };
+}
