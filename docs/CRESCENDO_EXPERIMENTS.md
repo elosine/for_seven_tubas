@@ -31,7 +31,17 @@ itself (first done in S1b).
 Step CC#7 0→127 on held Ordinario (per adopted patch), record, RMS per step → CC→dB
 transfer + inverse. All later shapes drawn in true dB space through this map.
 
-### S1 — Trajectory shapes, single voice — `doing` (A–D drawn in score, awaiting audition)
+### S1 — Trajectory shapes, single voice — `doing`
+- S1a `done 2026-08-10`: **D cut** (sigmoid — "doesn't distinguish itself enough").
+  Survivors: **A = "a bloom"** · **B = its own category** (linear, "probably not your
+  typical crescendo") · **C = "the expected crescendo."**
+  **Notation finding: a traditional hairpin ≈ C (exponential), NOT B (linear).**
+- S1c `doing`: B→C spectrum — exponential slopes 0.2 / 0.4 / 0.6 / [0.8 = C] / 1.2 /
+  1.8, at 0:50–1:46 on the score. Question: is there a perceptible spectrum, and how
+  many distinct stops does it have?
+- S1d `todo`: A-spectrum (bloom family settings) — after S1c settles.
+- Open meta-question (composer): does the VISUAL shape convey the sound? Needs "a more
+  scientific approach" — the visual-perception→sound pipeline study, later.
 - S1a: T1/T2/T3/T4 line-up — one tuba, one mid pitch, L = 8 s, calibrated CC7.
 - S1b: winner rendered curve-literal vs performer-model — does the model matter?
 
@@ -74,3 +84,8 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
   Clipping: only the cc-127 step touched 0 dBFS (0.12% of samples — negligible).
   **Note for ensemble takes: drop REC fader ~−10 dB** (one tuba at full already kisses
   0 dBFS; seven will sum ~+8 dB).
+
+- **2026-08-10 · S1a · shape line-up** — A/B/C keep, D cut (verdicts above). Technical:
+  **entry-bite diagnosed and fixed** — each curve ends at CC7=127, so the next note-on
+  raced UVI's volume smoothing; fix = pre-arm (entry CC sent 150 ms before note-on).
+  Gain staging calibrated same session (see GAIN_STAGING.md ledger).

@@ -6428,6 +6428,7 @@ const Composer = {
 
     _cc7Map: null,               // normalized [{cc, x}] ascending in x
     _activeCurvePlayback: {},
+    _curvePreArm: {},            // curveId -> true once entry CC is sent ahead of noteOn
     _lastCurveTimeSec: null,
 
     async loadCC7Map() {
@@ -6491,20 +6492,33 @@ const Composer = {
             const ch = ((tech && tech.channel) || 1) - 1;
             const st = this._activeCurvePlayback[wc.id];
 
+            const PREARM_S = 0.15;   // settle CC7 before the attack (kills the entry bite)
             const inside = currentTimeSec >= wc.startSeconds && currentTimeSec <= wc.endSeconds;
             if (!inside) {
                 if (st) {
                     output.send([0x80 | ch, st.note, 0]);
                     delete this._activeCurvePlayback[wc.id];
                 }
+                if (currentTimeSec >= wc.startSeconds - PREARM_S && currentTimeSec < wc.startSeconds) {
+                    if (!this._curvePreArm[wc.id]) {
+                        if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
+                        output.send([0xB0 | ch, 7, this.curveValToCC(this.evalWaveCurve(wc, 0))]);
+                        this._curvePreArm[wc.id] = true;
+                    }
+                } else {
+                    delete this._curvePreArm[wc.id];
+                }
                 return;
             }
             const t01 = (currentTimeSec - wc.startSeconds) / Math.max(1e-6, wc.endSeconds - wc.startSeconds);
             const cc = this.curveValToCC(this.evalWaveCurve(wc, t01));
             if (!st) {
-                if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
-                output.send([0xB0 | ch, 7, cc]);
+                if (!this._curvePreArm[wc.id]) {   // scrubbed in mid-curve: no pre-arm happened
+                    if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
+                    output.send([0xB0 | ch, 7, cc]);
+                }
                 output.send([0x90 | ch, wc.sonifyNote, 100]);
+                delete this._curvePreArm[wc.id];
                 this._activeCurvePlayback[wc.id] = { note: wc.sonifyNote, lastCC: cc, lastSend: performance.now() };
                 return;
             }
@@ -6528,6 +6542,7 @@ const Composer = {
             }
         }
         this._activeCurvePlayback = {};
+        this._curvePreArm = {};
     },
 
     // ========== MOTIVE BLOCKS (linked references into the motive library) ==========

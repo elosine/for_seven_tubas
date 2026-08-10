@@ -4,6 +4,22 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — S1 verdicts (dictated)
+
+"Get rid of the last one [D] — it doesn't distinguish itself enough. Number one [A]
+I would describe like a bloom — though I'm not sure the visual shape conveys a sound;
+we'll do a more scientific approach to that later. The middle one [B, linear] can
+stay as is — while it's linear, it's probably not what I would describe as your
+typical crescendo. When there's a hairpin in traditional notation, it probably sounds
+more like three [C] rather than two [B]. But two has its own sound category. The last
+one [C] I would equate to the expected crescendo. Let's probe the spectrum — just
+after linear to something more extreme, a few examples in between, and let me see if
+there's a difference, if there's a spectrum. Curve number one [A] — there might be a
+bit of a spectrum there too, but let's sort out three first."
+
+*(→ S1c B→C spectrum drawn; hairpin≈exponential logged as notation-mapping finding;
+entry-bite fixed via CC pre-arm.)*
+
 ## 2026-08-10 — Simplification: the causal chain is visual shape → performer → sound
 
 "I want to simplify as much as possible. The cause-effect I'm looking for is visual
