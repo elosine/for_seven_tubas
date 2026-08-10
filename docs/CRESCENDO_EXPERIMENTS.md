@@ -112,6 +112,7 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s3a-arch-smooth` | S3 arch, noise 0: interval 8→1.2→8 s over 180 s, linear segments, L 8 s surge 5×, unison, 51 entries. |
 | `s3b-arch-wander` | S3 arch, wander noise ±40 %: same trend, 54 entries. |
 | `s3c-delta-ladder` | S3c: three 7-entry groups, stagger tightening from 2.55 s by Δ = 0.15/0.30/0.40 s per entry; surge 5×, unison, smooth. |
+| `s3d-bell-3dial` | S3d: 80 s bell, three dials co-varying — L 8→2→8 s, spacing 2.55→0.29→2.55 s, peak 70→100→70 %; surge 5×, unison, 113 entries. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log

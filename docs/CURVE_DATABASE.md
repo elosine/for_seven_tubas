@@ -81,3 +81,13 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **The dial:** per-entry stagger tightening Δ. Three groups: **Δ = 0.15 s** (2.55→1.80)
   · **Δ = 0.30 s** (2.55→1.05) · **Δ = 0.40 s** (2.55→0.55)
 - **Archive:** score `s3c-delta-ladder` (21 curves, groups at 0:02 / 0:31 / 0:58)
+
+### 005 — Three-dial bell (S3d)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Meta:** symmetric ARCH, T = 80 s, all three dials riding it (geometric interpolation):
+  swell length **8→2→8 s** · entry spacing **2.55→0.29→2.55 s** (zero-point edges →
+  all-7 churn apex) · per-swell peak **70→100→70 %** of dB span
+- **Note curve:** C3 Surge 5× throughout · unison pitch 45 · Ordinario · round-robin ·
+  smooth (noise 0) · 113 entries
+- **Design:** density + movement + level co-varying; apex = churn (movement), not holds
+- **Archive:** score `s3d-bell-3dial`
