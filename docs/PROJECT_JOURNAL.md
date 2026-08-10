@@ -19,7 +19,17 @@ piece #3's `docs/` — registered as an additional working directory.
   Rack in progress: `Tuba1 SI2` + `Tuba1b SI2` built; tubas 2–7 = duplicate pairs,
   same slot order, ports `tubaN`/`tubaNb`. Monitoring ON per track — #3 Principle 1.
 - **Probe skipped by composer** ("no need") — behaviors learned while composing,
-  per-need. Provisional range MIDI 22–65. **Straight to composing: score on :5200.**
+  per-need. Range F0–E3 (MIDI 29–64) composer-dictated.
+- **CRESCENDO RESEARCH ARC (2026-08-10, full day):** taxonomy + experiments running —
+  orient from **docs/RESEARCH_INDEX.md** (question, doc map, findings 1–10, TODOs).
+  Vocabulary: BLOOM/LINEAR/SURGE families, ratio, THRESHOLD. Battery in
+  CRESCENDO_EXPERIMENTS.md; patterns in CURVE_DATABASE.md (entries 001–004). Gain
+  staging calibrated (GAIN_STAGING.md ledger). **Awaiting composer verdicts: S3
+  arch A/B (s3a smooth / s3b wander) + S3c delta ladder.** Next threads: shifting
+  overlap refinement, chord material (composer to dictate), noise dial, then S6/S7.
+- **On restart:** servers relaunch with `node score/server.js` (:5200) and
+  `node sandbox/serve.js` (:4700); loopMIDI + Reaper rack (14 tuba instances,
+  master −6 for tutti) are composer-side.
 
 **Blockers:** none.
 
