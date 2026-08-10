@@ -13,7 +13,7 @@ piece #3's `docs/` — registered as an additional working directory.
 **Last session:** *2026-08-10 (session 1, Claude Code)* — **Repo seeded from piece #3.**
 - Composer score adapted: 7 tracks labeled Tuba 1–7, canonical score `scores/7tubas.json`,
   port 5200. Sandbox on 4700. `sandbox/instruments.js`: 7 skeleton instruments
-  (ports `Tuba1`…`Tuba7`, placeholder Ordinario ch1, provisional range MIDI 22–65).
+  (ports `tuba1`…`tuba7`, placeholder Ordinario ch1, provisional range MIDI 22–65).
 - **Composer is building loopMIDI ports + Reaper rack now** (0b). Port names must match
   `instruments.js` exactly (case-sensitive). Monitoring ON per track — #3 Principle 1.
 - **Open:** tuba sample library not yet named (0c) → survey (1) → techniques fill in.

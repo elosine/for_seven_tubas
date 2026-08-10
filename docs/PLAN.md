@@ -8,10 +8,10 @@
 - **0a — Repo + stack seed** — `done 2026-08-10` — piece #3's score app (7 tracks,
   :5200) + sandbox (:4700) + instruments skeleton copied and adapted. Saving = #3's D8;
   motive blocks = #3's D9.
-- **0b — loopMIDI + rack** — `doing` (composer) — 7 ports `Tuba1`…`Tuba7`; Reaper rack,
+- **0b — loopMIDI + rack** — `doing` (composer) — 7 ports `tuba1`…`tuba7` (lowercase); Reaper rack,
   one track per port, **input monitoring ON per track** (piece #3 Principle 1 — the
   silent-killer).
-- **0c — Tuba sample library chosen** — `todo` — name the library; then survey.
+- **0c — Tuba sample library chosen** — `done 2026-08-10` — **IRCAM Solo Instruments 2 (tuba)**, same library family as piece #3's harp/accordion: UVI channel-per-technique switching, all of #3's UVI quirks apply (SAMPLER_QUIRKS.md there).
 
 ## 1. Instrument survey — `todo`
 

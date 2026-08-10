@@ -8,7 +8,7 @@
 const INSTRUMENTS = {
   tuba1: {
     label: "Tuba 1",
-    port: "Tuba1",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba1",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -18,7 +18,7 @@ const INSTRUMENTS = {
 
   tuba2: {
     label: "Tuba 2",
-    port: "Tuba2",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba2",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -28,7 +28,7 @@ const INSTRUMENTS = {
 
   tuba3: {
     label: "Tuba 3",
-    port: "Tuba3",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba3",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -38,7 +38,7 @@ const INSTRUMENTS = {
 
   tuba4: {
     label: "Tuba 4",
-    port: "Tuba4",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba4",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -48,7 +48,7 @@ const INSTRUMENTS = {
 
   tuba5: {
     label: "Tuba 5",
-    port: "Tuba5",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba5",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -58,7 +58,7 @@ const INSTRUMENTS = {
 
   tuba6: {
     label: "Tuba 6",
-    port: "Tuba6",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba6",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
@@ -68,7 +68,7 @@ const INSTRUMENTS = {
 
   tuba7: {
     label: "Tuba 7",
-    port: "Tuba7",       // loopMIDI port, exact name (case-sensitive)
+    port: "tuba7",       // loopMIDI port, exact name (case-sensitive)
     rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
