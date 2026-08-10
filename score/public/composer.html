@@ -1311,7 +1311,7 @@ const Composer = {
             this.createWaveCurve({ startSeconds: Math.max(0, t0), endSeconds: Math.max(0, t0) + 20,
                 layer: 7, nodes: JSON.parse(JSON.stringify(s.nodes)),
                 segments: JSON.parse(JSON.stringify(s.segments)),
-                color: '#8a6d3b', opacity: 0.5 });
+                color: '#2E8B57', opacity: 0.5 });
         });
         // ---- Freehand-with-fit (META lane) ----
         this.drawMode = false;
@@ -1326,10 +1326,24 @@ const Composer = {
             if (!this.drawMode || e.button !== 0) return;
             e.preventDefault(); e.stopPropagation();
             sketch = [];
-            const move = (ev) => sketch.push({ x: ev.clientX, y: ev.clientY });
+            const svgNS = 'http://www.w3.org/2000/svg';
+            const ov = document.createElementNS(svgNS, 'svg');
+            ov.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:999';
+            const pl = document.createElementNS(svgNS, 'polyline');
+            pl.setAttribute('fill', 'none');
+            pl.setAttribute('stroke', '#2E8B57');
+            pl.setAttribute('stroke-width', '2');
+            pl.setAttribute('stroke-dasharray', '4 3');
+            ov.appendChild(pl);
+            document.body.appendChild(ov);
+            const move = (ev) => {
+                sketch.push({ x: ev.clientX, y: ev.clientY });
+                pl.setAttribute('points', sketch.map(p => `${p.x},${p.y}`).join(' '));
+            };
             const up = () => {
                 window.removeEventListener('mousemove', move);
                 window.removeEventListener('mouseup', up);
+                ov.remove();
                 this.fitSketch(sketch);
                 sketch = null;
             };
@@ -1862,8 +1876,9 @@ const Composer = {
         this.createWaveCurve({
             startSeconds: Math.max(0, Math.round(t0 * 100) / 100),
             endSeconds: Math.round(t1 * 100) / 100,
-            layer: 7, nodes, segments, color: '#8a6d3b', opacity: 0.5
+            layer: 7, nodes, segments, color: '#2E8B57', opacity: 0.5
         });
+        this.deselectAll();   // no panel pop on draw (composer request)
     },
 
     rdp(points, eps) {
@@ -2165,7 +2180,7 @@ const Composer = {
         hp.setAttribute('fill', 'transparent');
         hp.setAttribute('stroke', 'transparent');
         hp.setAttribute('stroke-width', '8');
-        hp.style.cursor = 'grab';
+        hp.style.cursor = 'copy';   // dblclick = add node
         hp.style.pointerEvents = 'fill';
         hp.addEventListener('mousedown', (e) => {
             e.stopPropagation(); e.preventDefault();
@@ -2603,7 +2618,7 @@ const Composer = {
         hp.setAttribute('stroke', 'transparent');
         hp.setAttribute('stroke-width', '20');
         hp.setAttribute('class', 'composerObject');
-        hp.style.cursor = 'grab';
+        hp.style.cursor = 'copy';   // dblclick = add node
         hp.style.pointerEvents = 'stroke';
         hp.addEventListener('mousedown', (e) => {
             e.stopPropagation(); e.preventDefault();
@@ -2651,15 +2666,27 @@ const Composer = {
             const c = document.createElementNS(svgNS, 'circle');
             c.setAttribute('cx', cx);
             c.setAttribute('cy', cy);
-            c.setAttribute('r', 5);
+            c.setAttribute('r', 7);
             c.setAttribute('fill', this.selectedNodeIdx === idx ? '#FFD700' : '#fff');
             c.setAttribute('stroke', '#333');
-            c.setAttribute('stroke-width', '1.5');
-            c.style.cursor = 'grab';
+            c.setAttribute('stroke-width', '2');
+            c.style.cursor = 'move';
             c.style.pointerEvents = 'all';
             c.setAttribute('class', 'composerObject');
             c.addEventListener('mousedown', (e) => {
                 e.stopPropagation(); e.preventDefault();
+                if (e.altKey) {   // ALT+click = erase node (interior only)
+                    if (idx > 0 && idx < wc.nodes.length - 1) {
+                        this.pushUndoState();
+                        wc.nodes.splice(idx, 1);
+                        wc.segments.splice(Math.min(idx, wc.segments.length - 1), 1);
+                        this.selectedNodeIdx = -1;
+                        this.updateWCRendering(wc);
+                        this.renderNodeHandles(wc);
+                        this.markDirty();
+                    }
+                    return;
+                }
                 this.selectedNodeIdx = idx;
                 this.renderNodeHandles(wc);
                 this.showPropertyPanel();
@@ -2679,6 +2706,57 @@ const Composer = {
             g.appendChild(c);
             wc._els.nodeHandles.push(c);
         });
+
+        // Mid-segment curvature handles (diamonds): drag vertically to bend the
+        // span between two nodes — each handle owns exactly its own segment.
+        for (let i = 0; i < wc.nodes.length - 1; i++) {
+            const midU = (wc.nodes[i].pos + wc.nodes[i + 1].pos) / 2;
+            const v = this.evalWaveCurve(wc, midU);
+            const hx = x1 + midU * tw;
+            const hy = dims.bottom - v * dims.height;
+            const d = document.createElementNS(svgNS, 'rect');
+            d.setAttribute('x', hx - 5); d.setAttribute('y', hy - 5);
+            d.setAttribute('width', 10); d.setAttribute('height', 10);
+            d.setAttribute('transform', `rotate(45 ${hx} ${hy})`);
+            d.setAttribute('fill', '#2E8B57'); d.setAttribute('fill-opacity', '0.85');
+            d.setAttribute('stroke', '#1b5e20'); d.setAttribute('stroke-width', '1.5');
+            d.style.cursor = 'ns-resize';
+            d.style.pointerEvents = 'all';
+            d.setAttribute('class', 'composerObject');
+            d.addEventListener('mousedown', (e) => {
+                e.stopPropagation(); e.preventDefault();
+                this.startSegmentDrag(wc, Math.min(i, wc.segments.length - 1), midU, e);
+            });
+            g.appendChild(d);
+            wc._els.nodeHandles.push(d);
+        }
+    },
+
+    startSegmentDrag(wc, segIdx, midU, startEvent) {
+        this.pushUndoState();
+        const seg = wc.segments[segIdx];
+        const orig = seg.slope || 0;
+        // probe which slope direction lifts the curve at this midpoint
+        const v0 = this.evalWaveCurve(wc, midU);
+        seg.slope = orig + 0.2;
+        const v1 = this.evalWaveCurve(wc, midU);
+        seg.slope = orig;
+        const gain = (v1 - v0) >= 0 ? 1 : -1;
+        const y0 = startEvent.clientY;
+        const onMove = (ev) => {
+            const dy = ev.clientY - y0;
+            seg.slope = Math.max(-3, Math.min(3, orig + gain * (-dy) / 60));
+            this.updateWCRendering(wc);
+            this.renderNodeHandles(wc);
+        };
+        const onUp = () => {
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('mouseup', onUp);
+            this.refreshPanelValues();
+            this.markDirty();
+        };
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
     },
 
     updateWCRendering(wc) {
