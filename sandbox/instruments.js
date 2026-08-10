@@ -10,8 +10,8 @@ const INSTRUMENTS = {
   tuba1: {
     label: "Tuba 1",
     port: "tuba1",     // primary instance "Tuba1 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -41,8 +41,8 @@ const INSTRUMENTS = {
   tuba2: {
     label: "Tuba 2",
     port: "tuba2",     // primary instance "Tuba2 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -72,8 +72,8 @@ const INSTRUMENTS = {
   tuba3: {
     label: "Tuba 3",
     port: "tuba3",     // primary instance "Tuba3 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -103,8 +103,8 @@ const INSTRUMENTS = {
   tuba4: {
     label: "Tuba 4",
     port: "tuba4",     // primary instance "Tuba4 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -134,8 +134,8 @@ const INSTRUMENTS = {
   tuba5: {
     label: "Tuba 5",
     port: "tuba5",     // primary instance "Tuba5 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -165,8 +165,8 @@ const INSTRUMENTS = {
   tuba6: {
     label: "Tuba 6",
     port: "tuba6",     // primary instance "Tuba6 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },
@@ -196,8 +196,8 @@ const INSTRUMENTS = {
   tuba7: {
     label: "Tuba 7",
     port: "tuba7",     // primary instance "Tuba7 SI2": techniques on channels A1-A16
-    rangeLow: 28,        // provisional; KS zone below at MIDI 24–26 (display C0–D0) — floor rule: no playable notes < 28
-    rangeHigh: 65,       // provisional: F4
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
       { key: "bisb", label: "Bisbigliando", channel: 2 },

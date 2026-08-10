@@ -4,8 +4,8 @@
 # chromatic walk: every semitone FromPitch..ToPitch held HoldMs at Velocity.
 # Schedule written to last_schedule.json (analyzer ground truth).
 param(
-    [int]$FromPitch = 36,      # UVI display C1
-    [int]$ToPitch = 84,        # UVI display C4
+    [int]$FromPitch = 29,      # UVI display F0 (composer-dictated range)
+    [int]$ToPitch = 64,        # UVI display E3
     [int]$HoldMs = 15000,
     [int]$GapMs = 3000,        # tail needs room to ring out
     [int]$KsPitch = 25,        # UVI display C#0 = "cresc with tail"
