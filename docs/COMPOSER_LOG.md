@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The stochastic sound mass; the grain (dictated)
+
+"Not there yet for the precision comparison — defer until the mechanism is nailed
+down. Only jitter-high and Poisson approach what I'm thinking, and maybe by
+accident. The others revealed there has to be a BASELINE of jitter — otherwise it
+sounds like a straight acceleration, a pulse almost. Sometimes there were clusters
+of crescendos that sounded like the density I was looking for — THE STOCHASTIC
+SOUND MASS. Characteristics: no direct repetition — different durations from each
+other, different curve shapes, enough that you hear chaos internally. And back to
+threshold-to-peak as the operable range — the duration of the actual crescendo,
+threshold to peak: think of that as THE GRAIN. Elements: amount of simultaneous
+overlap · grain duration · per-crescendo difference/jitter in duration, curve
+speed, overlap, repetition rate — overall: how quickly am I perceiving the
+REARTICULATION of the crescendo regardless of part. Break it down very basically;
+zero in on the proper components to vary, the extent each needs to vary, and their
+truthful sonic consequences. Much more broken down, systematic."
+
+*(→ Reframe: granular synthesis at ensemble scale — grains scheduled in grain-time,
+parameters as DISTRIBUTIONS not values; static-bed Z-series calibration proposed.)*
+
 ## 2026-08-10 — ADSR, fluidity, the Gehry/Xenakis compiler (dictated)
 
 "Let's have some basic internal concept of ADSR — a relatively short release for
