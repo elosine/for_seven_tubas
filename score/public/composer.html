@@ -1639,6 +1639,17 @@ const Composer = {
                 return;
             }
 
+            // X = split the selected curve at the playhead
+            if ((e.key === 'x' || e.key === 'X') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+                const sel = this.selectedObject;
+                if (sel && sel.type === 'waveCurve') {
+                    const tSplit = this.getTimeAtPlayhead();
+                    const playheadX = window.innerWidth / 2;
+                    this.spliceCurveAt(sel, playheadX);
+                }
+                return;
+            }
+
             // P = open property panel for current selection (META curves need this)
             if ((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
                 if (this.selectedObject) {
@@ -2005,6 +2016,29 @@ const Composer = {
     },
 
     // ========== CURVE MATH (ported from CurveMaker) ==========
+
+    computeSegY(seg, y1Norm, y2Norm, t) {
+        if (seg && seg.model === 'ctrl') {
+            const cx = Math.max(0.02, Math.min(0.98, seg.cx != null ? seg.cx : 0.5));
+            const cy = Math.max(0, Math.min(1, seg.cy != null ? seg.cy : (y1Norm + y2Norm) / 2));
+            const a = 1 - 2 * cx, b = 2 * cx, c = -t;
+            let bT;
+            if (Math.abs(a) < 0.0001) bT = t;
+            else {
+                const disc = b * b - 4 * a * c;
+                if (disc < 0) bT = t;
+                else {
+                    const sq = Math.sqrt(disc);
+                    const t1 = (-b + sq) / (2 * a), t2 = (-b - sq) / (2 * a);
+                    bT = (t1 >= 0 && t1 <= 1) ? t1 : t2;
+                    bT = Math.max(0, Math.min(1, bT));
+                }
+            }
+            const omt = 1 - bT;
+            return omt * omt * y1Norm + 2 * omt * bT * cy + bT * bT * y2Norm;
+        }
+        return this.computeYAtT(seg ? (seg.model || 'bezier') : 'bezier', seg ? (seg.slope || 0) : 0, y1Norm, y2Norm, t);
+    },
 
     computeYAtT(model, slope, y1Norm, y2Norm, t) {
         t = Math.max(0, Math.min(1, t));
@@ -2449,7 +2483,7 @@ const Composer = {
             if (segLen <= 0) return n0.y / 10;
             const t = Math.max(0, Math.min(1, (posNorm - n0.pos) / segLen));
             const s = segments[segIdx];
-            return self.computeYAtT(s.model || 'bezier', s.slope || 0, n0.y / 10, n1.y / 10, t);
+            return self.computeSegY(s, n0.y / 10, n1.y / 10, t);
         }
 
         if (!hasSmooth) {
@@ -2726,24 +2760,31 @@ const Composer = {
             wc._els.nodeHandles.push(c);
         });
 
-        // Mid-segment curvature handles (diamonds + invisible halos): the curve
-        // TRACKS the mouse — a solver finds the slope that puts the curve under
-        // the cursor (within the segment model's reach).
+        // Bezier control diamonds: each sits at its segment's control point and
+        // drags in BOTH axes — vertical = bulge, horizontal = lean the curve.
         for (let i = 0; i < wc.nodes.length - 1; i++) {
-            const midU = (wc.nodes[i].pos + wc.nodes[i + 1].pos) / 2;
-            const v = this.evalWaveCurve(wc, midU);
-            const hx = x1 + midU * tw;
-            const hy = dims.bottom - v * dims.height;
+            const nA = wc.nodes[i], nB = wc.nodes[i + 1];
             const segIdx = Math.min(i, wc.segments.length - 1);
+            const seg = wc.segments[segIdx];
+            let hu, hv;
+            if (seg && seg.model === 'ctrl') {
+                hu = nA.pos + (seg.cx != null ? seg.cx : 0.5) * (nB.pos - nA.pos);
+                hv = seg.cy != null ? seg.cy : (nA.y + nB.y) / 20;
+            } else {
+                hu = (nA.pos + nB.pos) / 2;
+                hv = this.evalWaveCurve(wc, hu);
+            }
+            const hx = x1 + hu * tw;
+            const hy = dims.bottom - hv * dims.height;
             const grab = (e) => {
                 e.stopPropagation(); e.preventDefault();
-                this.startSegmentDrag(wc, segIdx, midU, e);
+                this.startSegmentDrag(wc, i, e);
             };
             const halo = document.createElementNS(svgNS, 'circle');
             halo.setAttribute('cx', hx); halo.setAttribute('cy', hy);
             halo.setAttribute('r', 14);
             halo.setAttribute('fill', 'transparent');
-            halo.style.cursor = 'ns-resize';
+            halo.style.cursor = 'move';
             halo.style.pointerEvents = 'all';
             halo.setAttribute('class', 'composerObject');
             halo.addEventListener('mousedown', grab);
@@ -2755,7 +2796,7 @@ const Composer = {
             d.setAttribute('transform', `rotate(45 ${hx} ${hy})`);
             d.setAttribute('fill', '#2E8B57'); d.setAttribute('fill-opacity', '0.85');
             d.setAttribute('stroke', '#1b5e20'); d.setAttribute('stroke-width', '1.5');
-            d.style.cursor = 'ns-resize';
+            d.style.cursor = 'move';
             d.style.pointerEvents = 'all';
             d.setAttribute('class', 'composerObject');
             d.addEventListener('mousedown', grab);
@@ -2766,26 +2807,32 @@ const Composer = {
         this.renderTransformBox(wc, dims, x1, tw);
     },
 
-    startSegmentDrag(wc, segIdx, midU, startEvent) {
+    startSegmentDrag(wc, nodeIdx, startEvent) {
         this.pushUndoState();
+        const segIdx = Math.min(nodeIdx, wc.segments.length - 1);
         const seg = wc.segments[segIdx];
-        const laneTop = this.lanes[wc.layer].getBoundingClientRect().top;
+        const nA = wc.nodes[nodeIdx], nB = wc.nodes[nodeIdx + 1];
+        // Convert to a real control-point segment, preserving the current shape:
+        // choose cy so the curve midpoint stays where it is right now.
+        if (seg.model !== 'ctrl') {
+            const midU = (nA.pos + nB.pos) / 2;
+            const vMid = this.evalWaveCurve(wc, midU);
+            seg.model = 'ctrl';
+            seg.cx = 0.5;
+            seg.cy = Math.max(0, Math.min(1, 2 * vMid - (nA.y + nB.y) / 20));
+        }
+        const laneRect = this.lanes[wc.layer].getBoundingClientRect();
         const dims = this.getLaneDims(wc.layer);
-        const solve = (targetV) => {           // slope such that eval(midU) ~ targetV
-            let lo = -3, hi = 3;
-            const at = s => { const keep = seg.slope; seg.slope = s; const v = this.evalWaveCurve(wc, midU); seg.slope = keep; return v; };
-            const vLo = at(lo), vHi = at(hi);
-            const inc = vHi >= vLo;
-            for (let k = 0; k < 24; k++) {
-                const mid = (lo + hi) / 2;
-                if ((at(mid) < targetV) === inc) lo = mid; else hi = mid;
-            }
-            return (lo + hi) / 2;
-        };
+        const x1 = wc.startSeconds * this.pixelsPerSecond;
+        const tw = (wc.endSeconds - wc.startSeconds) * this.pixelsPerSecond;
         const onMove = (ev) => {
-            const svgY = ev.clientY - laneTop;
-            const targetV = Math.max(0, Math.min(1, (dims.bottom - svgY) / dims.height));
-            seg.slope = Math.round(solve(targetV) * 100) / 100;
+            // mouse -> (u within curve, v in lane) -> control point
+            const svgY = ev.clientY - laneRect.top;
+            const playheadX = window.innerWidth / 2;
+            const contentX = (ev.clientX - playheadX) + this.scrollOffset;
+            const u = (contentX - x1) / Math.max(1e-6, tw);
+            seg.cx = Math.max(0.02, Math.min(0.98, (u - nA.pos) / Math.max(1e-6, nB.pos - nA.pos)));
+            seg.cy = Math.max(0, Math.min(1, (dims.bottom - svgY) / dims.height));
             this.updateWCRendering(wc);
             this.renderNodeHandles(wc);
         };
@@ -6849,7 +6896,7 @@ const Composer = {
                 const a = nodes[i - 1], b = nodes[i];
                 const seg = wc.segments[Math.min(i - 1, wc.segments.length - 1)] || { model: 'bezier', slope: 0 };
                 const lt = (t01 - a.pos) / Math.max(1e-6, b.pos - a.pos);
-                return this.computeYAtT(seg.model, seg.slope || 0, a.y / 10, b.y / 10, lt);
+                return this.computeSegY(seg, a.y / 10, b.y / 10, lt);
             }
         }
         return nodes[nodes.length - 1].y / 10;
