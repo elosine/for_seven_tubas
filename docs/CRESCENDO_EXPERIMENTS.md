@@ -97,6 +97,14 @@ placeholder slots: U (unison), C3 (triadic), C5, C7 (cluster/spread), each ×3 r
 Winners promoted into RISSET_RECIPES patterns: A-smooth (one swell per cycle) vs
 B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2–S4.
 
+## Score archive (named scores, loadable from the Load dropdown)
+
+| Score | Contents |
+|---|---|
+| `s1-shape-battery` | The complete S1 series as auditioned 2026-08-10: A/B/C line-up, B→C spectrum (BC-1..5), bloom spectrum (AB-1..5), duration×skew grid (D4/D16). Frozen record of every S1 stimulus. |
+| `s2a-overlap-8s` | S2a: 7-voice overlap texture — 8 s expected-crescendo swells (5× skew), Risset spacing (stagger = 8.5/7 ≈ 1.21 s incl. 0.5 s per-voice breath gap), same pitch (45), 4 minutes, 192 curves. |
+| `7tubas` | The working score — zeroed after S1 archive. |
+
 ## Results log
 
 *(append entries: date · experiment · params · WAV file · verdict verbatim)*
