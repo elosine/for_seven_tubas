@@ -61,6 +61,10 @@ internals and percept — calibrated by ear, experiment by experiment.
 - **The repetition dial connects them:** 1 swell/part = pure convergent (deterministic);
   many short repeats with gaps = statistical convergent (the Xenakis middle); no shared
   apex at all = flow.
+- **Contrapuntal strategy family (composer, 2026-08-10):** borrow models from fugue /
+  stretto / mensuration & prolation canon (Ockeghem) — same swell-material at
+  different rates, phase-locked to structural arrivals. To be tested alongside the
+  statistical models; whichever works, works.
 
 ## Used-pattern entries
 
@@ -135,3 +139,13 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Context:** S4a fan verdict "just sounds like one crescendo, as expected";
   S4b statistical "not correct" — this isolates the layered-subdivision mechanism.
 - **Archive:** `s4c-subdivision-9s` (10 curves)
+
+### 009 — Prolation/acceleration canon, 13 s (S4d)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Structure:** part 1 = one 13 s anchor swell; parts 2–4 = four swells each in
+  geometric shrink (ratios 0.75 / 0.65 / 0.55) — first longest → last shortest, so
+  peak-arrivals accelerate per part; ratios differ between parts so **no interior
+  peaks coincide** (min spacing ≈ 0.45 s); **all final peaks converge at 0:15**.
+- Interior peak times — p2: 4.75/8.32/10.99 · p3: 5.54/9.14/11.48 · p4: 6.44/9.98/11.93
+- **Note curve:** surge 5× each, full peak, unison 45, Ordinario
+- **Archive:** `s4d-prolation-13s` (13 curves)

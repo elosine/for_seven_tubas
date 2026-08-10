@@ -116,6 +116,7 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s4a-fan-9s` | S4a convergent fan: 7 swells, staggered entries on the surge inverse, all peaking at 0:11. |
 | `s4b-statistical-28s` | S4b statistical convergent: 14 s opener, cycling swells w/ gaps, all final peaks at 0:30. |
 | `s4c-subdivision-9s` | S4c subdivision stack: parts 1–4 divide 9 s into 1/2/3/4 swells, all converging at 0:11. |
+| `s4d-prolation-13s` | S4d prolation canon: 13 s; anchor + three 4-swell accelerating parts (distinct ratios, no unison interior peaks), all converging at 0:15. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log

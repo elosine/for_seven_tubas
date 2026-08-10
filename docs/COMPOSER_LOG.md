@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Counterpoint recognized (dictated)
+
+"We are actually dealing with counterpoint. We can borrow examples from Fugue,
+Stretto, mensuration canons, Ockeghem. Let's use some of these models and see if
+they apply as well as the statistical mathematical ones, and see which ones work.
+Each part represents a density mode or node — it's not about different amounts of
+swells per participant. [13 s example: parts 2–4 with four swells each, first
+longest to last shortest, length-series differing between parts so peaks don't
+hit in unison.]"
+
+*(→ Contrapuntal strategy family added to the realization model alongside the
+statistical one; S4d built as an acceleration/prolation canon.)*
+
 ## 2026-08-10 — Peak-aligned duration modulation; the Xenakis frame (dictated)
 
 "Eventually maybe the score object is just a meta bell or crescendo on a meta track —
