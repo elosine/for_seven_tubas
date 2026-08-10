@@ -17,10 +17,10 @@
 
 - **1a — Technique roster** — `done 2026-08-10` — 21 SI2 tuba techniques transcribed
   from the composer's UVI build (slot order = ground truth); dual-port model = D2.
-- **1b — Probe & characterize** — `todo` — per-technique: true ranges, velocity/CC
-  behavior, KS-preset internals (Cresc&Decr, Finger Modes, Ord&Flz, Play&Sing, Trills),
-  menu patches (Chromatic Scale, FX, Glissando), quartertone mapping. Piece #3's survey
-  playbook applies (its PROJECT_JOURNAL §5.1); ear-first, per-need depth.
+- **1b — Probe & characterize** — `skipped → per-need` *(composer 2026-08-10: "no need
+  for probe")* — technique behaviors (KS internals, menu patches, quartertone mapping,
+  true ranges) learned while composing; AI surfaces piece #3-style probes only when a
+  musical question demands one.
 
 ## 2. Compose — `todo`
 

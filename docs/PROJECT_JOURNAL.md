@@ -18,8 +18,8 @@ piece #3's `docs/` — registered as an additional working directory.
   UVI build into `instruments.js` — real slot lists, dual instances per tuba (D2).
   Rack in progress: `Tuba1 SI2` + `Tuba1b SI2` built; tubas 2–7 = duplicate pairs,
   same slot order, ports `tubaN`/`tubaNb`. Monitoring ON per track — #3 Principle 1.
-- **Open:** ranges + KS-preset internals + menu-patch behaviors (Chromatic Scale,
-  FX/Glissando Menus, Finger Modes) = survey per-need; provisional range MIDI 22–65.
+- **Probe skipped by composer** ("no need") — behaviors learned while composing,
+  per-need. Provisional range MIDI 22–65. **Straight to composing: score on :5200.**
 
 **Blockers:** none.
 
