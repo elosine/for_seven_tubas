@@ -402,3 +402,59 @@ function compileMetaGrains(C, spec) {
   placed.forEach(e => perPart[e.part]++);
   return { manifest: { shapes: perShape, placed: placed.length, dropped, types: typeCount, perPart } };
 }
+
+
+// ---- compileCurveIso: DETERMINISTIC curve realization for parameter isolation ----
+// The interpolation contract (composer + AI, 2026-08-10):
+//   1. The curve is sampled AT EACH GRAIN'S ONSET (causal: a player starting a swell
+//      reads the curve where they start).
+//   2. Onsets advance by rate integration: next = current + spacing(curve here) —
+//      smooth by construction, zero statistical noise. Noise returns later as a dial.
+//   3. mode 'duration': onset spacing FIXED, grain duration follows the curve.
+//      mode 'rate':     grain duration FIXED, onset spacing follows the curve
+//                       (geometrically: sparse lows, packed highs).
+//      mode 'both':     both follow.
+// Sine grains only; round-robin parts with busy-skip; level flat.
+function compileCurveIso(C, spec) {
+  const meta = spec.meta;
+  const S = meta.startSeconds, E = meta.endSeconds, span = E - S;
+  const parts = 7, SEP = 0.05;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const durAt = m => spec.durMin + (spec.durMax - spec.durMin) * m;
+  const rateAt = m => spec.rateMin * Math.pow(spec.rateMax / spec.rateMin, m);
+  const lastEnd = new Array(parts).fill(-Infinity);
+  let t = S, i = 0, skipped = 0;
+  const placed = [];
+  while (t <= E - 0.05) {
+    const m = Math.max(0, Math.min(1, C.evalWaveCurve(meta, (t - S) / span)));
+    const dur = (spec.mode === 'duration' || spec.mode === 'both') ? durAt(m) : spec.durFixed;
+    const spacing = (spec.mode === 'rate' || spec.mode === 'both') ? 1 / rateAt(m) : spec.spacingFixed;
+    let part = -1;
+    for (let k = 0; k < parts; k++) {
+      const cand = (i + k) % parts;
+      if (t >= lastEnd[cand] + SEP) { part = cand; break; }
+    }
+    if (part >= 0) {
+      lastEnd[part] = t + dur;
+      const lv = spec.levelFlat != null ? spec.levelFlat : 0.9;
+      const wc = C.createWaveCurve({
+        startSeconds: Math.round(t * 100) / 100, endSeconds: Math.round((t + dur) * 100) / 100,
+        layer: part,
+        nodes: [{ pos: 0, y: 0, smooth: 0.25 }, { pos: 0.5, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }],
+        segments: [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 }],
+        color: HUES[part], opacity: 0.3, performanceNotes: `ISO ${spec.mode[0]}${i + 1}`
+      });
+      wc.sonifyNote = spec.note != null ? spec.note : 45;
+      wc.technique = 'ord';
+      placed.push({ t: Math.round(t * 100) / 100, dur: Math.round(dur * 100) / 100 });
+    } else skipped++;
+    t += spacing; i++;
+  }
+  C.deselectAll();
+  const first = placed[0], last = placed[placed.length - 1];
+  return { manifest: { placed: placed.length, skipped,
+    firstGrain: first, lastGrain: last,
+    spacingRange: spec.mode === 'rate' || spec.mode === 'both'
+      ? [Math.round(100 / rateAt(1)) / 100, Math.round(100 / rateAt(0)) / 100] : spec.spacingFixed,
+    durRange: spec.mode === 'duration' || spec.mode === 'both' ? [spec.durMin, spec.durMax] : spec.durFixed } };
+}

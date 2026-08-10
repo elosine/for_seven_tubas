@@ -297,3 +297,16 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - Scheduler lessons en route (manifests caught both pre-listening): assignment must be
   in START order (preamble claims the lane, not the peak), and long-preamble species
   starve without it — an ensemble-resource phenomenon real orchestration also has.
+
+### 021 — ISO pair: the interpolation contract + parameter isolation
+- **Date:** 2026-08-10 · **Status:** experiment · **Engine:** compileCurveIso (deterministic)
+- **The interpolation contract:** curve sampled at each grain's ONSET; onsets advance
+  by rate integration (next = now + spacing(curve here)); zero statistical noise —
+  noise returns later as a measured dial. (Lesson: Poisson at small N cannot represent
+  a curve — determinism first, stochastics after calibration.)
+- `iso-duration`: spacing FIXED 0.8 s; grain duration follows the slope 0.3→2.5 s
+  (16 grains). Overlap grows purely by elongation; peaks-per-second CONSTANT.
+- `iso-rate`: duration FIXED 0.5 s; spacing follows the slope geometrically 2.0→0.13 s
+  (47 grains). Overlap grows purely by arrival rate; peaks-per-second RISES.
+- Source shape: composer's redrawn 12.4 s slope (rise ~5 s → plateau → settle),
+  copied from `shapesfilltest001` into each ISO score.
