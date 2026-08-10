@@ -4,6 +4,20 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Sculpting rounds (dictated, condensed)
+
+Rounds of draw-tool feedback: live stroke preview needed ("can't see the line as I
+draw"); green for meta curves; no panel pop; nodes hard to grab; diamonds → real
+2-axis sculpting ("move the diamond horizontally... weight one side of the curve
+versus the other; it just makes the hump bigger or smaller"); eraser cursor on ALT;
+splice at the playhead ("split it at the cursor — it's not clear where I'm
+splitting"), then moved to ALT+X; diamonds drifting off the line → pinned on-curve.
+Verdict at close: "slightly clunky, but workable for now."
+
+*(→ Final grammar: circles move points · on-curve diamonds lean/bulge spans
+(doubling rule) · dblclick adds · ALT-click erases · ALT+X splits at playhead ·
+box handles stretch/retime · P opens panel.)*
+
 ## 2026-08-10 — Freehand-with-fit; more vertical room (dictated)
 
 "Move directly to freehand with fit — but talk options first. Gehry metaphor:
