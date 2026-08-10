@@ -404,6 +404,12 @@ const server = http.createServer((req, res) => {
             });
         }
     }
+    if (req.method === 'GET' && url.startsWith('/probes/') && url.endsWith('.json')) {
+        const pfile = path.join(ROOT, '..', 'probes', path.basename(url));
+        if (!fs.existsSync(pfile)) { res.statusCode = 404; return res.end('{}'); }
+        res.setHeader('Content-Type', 'application/json');
+        return fs.createReadStream(pfile).pipe(res);
+    }
     if (req.method === 'GET' && url === '/sandbox/instruments.js') {
         res.setHeader('Content-Type', 'text/javascript');
         return fs.createReadStream(path.join(ROOT, '..', 'sandbox', 'instruments.js')).pipe(res);

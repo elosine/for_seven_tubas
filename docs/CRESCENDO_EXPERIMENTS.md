@@ -27,11 +27,11 @@ itself (first done in S1b).
 
 ## The battery
 
-### S0 — CC#7→dB calibration — `todo` *(prerequisite)*
+### S0 — CC#7→dB calibration — `done 2026-08-10`
 Step CC#7 0→127 on held Ordinario (per adopted patch), record, RMS per step → CC→dB
 transfer + inverse. All later shapes drawn in true dB space through this map.
 
-### S1 — Trajectory shapes, single voice — `todo`
+### S1 — Trajectory shapes, single voice — `doing` (A–D drawn in score, awaiting audition)
 - S1a: T1/T2/T3/T4 line-up — one tuba, one mid pitch, L = 8 s, calibrated CC7.
 - S1b: winner rendered curve-literal vs performer-model — does the model matter?
 
@@ -65,3 +65,12 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 ## Results log
 
 *(append entries: date · experiment · params · WAV file · verdict verbatim)*
+
+- **2026-08-10 · S0 (E0) · CC7 calibration** — WAV `reaper/Media/03-REC-260810_1134.wav`
+  · Ordinario, pitch 45, vel 100, 33 retriggered steps. **Law ≈ 40·log₁₀(cc/127)**
+  (steep at bottom: cc 4→8 = 11.6 dB; shallow at top: cc 120→127 = 0.9 dB). Span
+  **58.1 dB**; CC 0 = silence. Map: `probes/cc7_map.json`; inverse baked into the
+  score's curve sonification (verified: drawn-linear → 13.7/15.3/14.9 dB per quarter).
+  Clipping: only the cc-127 step touched 0 dBFS (0.12% of samples — negligible).
+  **Note for ensemble takes: drop REC fader ~−10 dB** (one tuba at full already kisses
+  0 dBFS; seven will sum ~+8 dB).

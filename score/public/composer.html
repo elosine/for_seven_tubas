@@ -1291,6 +1291,9 @@ const Composer = {
         // Motive library (linked blocks reference these files)
         this.loadMotiveLibrary();
 
+        // CC7 calibration map (curve sonification, E0)
+        this.loadCC7Map();
+
         // Auto-load last session from localStorage
         const last = localStorage.getItem('composerLastSession');
         if (last) {
@@ -1381,10 +1384,11 @@ const Composer = {
         const timeSec = this.scrollOffset / this.pixelsPerSecond;
         this.updateTimeDisplay(timeSec);
 
-        // Playhead-triggered zone + motive MIDI playback
+        // Playhead-triggered zone + motive + curve MIDI playback
         if (this.isPlaying) {
             this.tickZoneMidiPlayback(timeSec);
             this.tickMotivePlayback(timeSec);
+            this.tickCurvePlayback(timeSec);
         }
     },
 
@@ -1478,6 +1482,8 @@ const Composer = {
         this._lastPlayheadTimeSec = null;
         this._activeMotivePlayback = {};
         this._lastMotiveTimeSec = null;
+        this.flushCurvePlayback();
+        this._lastCurveTimeSec = null;
     },
 
     animatePlay() {
@@ -2896,6 +2902,11 @@ const Composer = {
                 html += this.ppRow('Opacity', 'number', 'opacity', obj.opacity, 'step="0.05" min="0" max="1"');
                 html += this.ppRow('Track', 'select', 'layer', obj.layer, '',
                     TRACKS.map((t, i) => [String(i), t.label]));
+                html += this.ppRow('Sound note (MIDI, blank=off)', 'number', 'sonifyNote', obj.sonifyNote != null ? obj.sonifyNote : '', 'step="1" min="0" max="127"');
+                {
+                    const wcTechs = this.trackTechniques(obj.layer);
+                    if (wcTechs.length) html += this.ppRow('Technique', 'select', 'technique', obj.technique || wcTechs[0].key, '', wcTechs.map(t => [t.key, t.label]));
+                }
 
                 if (this.selectedNodeIdx >= 0 && this.selectedNodeIdx < obj.nodes.length) {
                     const node = obj.nodes[this.selectedNodeIdx];
@@ -5611,6 +5622,9 @@ const Composer = {
             this.showPropertyPanel();
             this.markDirty();
             return;
+        } else if (field === 'sonifyNote' && obj.type === 'waveCurve') {
+            const pv = parseInt(value, 10);
+            obj.sonifyNote = isNaN(pv) ? null : Math.max(0, Math.min(127, pv));
         } else if (field === 'motiveName' && obj.type === 'motive') {
             const m = this.motiveData(obj.motiveId);
             if (m) {
@@ -6396,6 +6410,115 @@ const Composer = {
             if (this.selectedObject && this.selectedObject.id === zone.id) this.selectedObject = zone;
             hl.style.display = '';
         }
+    },
+
+    // ========== CURVE SONIFICATION (E-series: drawn dB shapes -> note + CC7) ==========
+    // A waveCurve with sonifyNote set plays as: noteOn at curve start, CC#7 stream
+    // tracing the curve through the measured CC7->dB inverse (probes/cc7_map.json,
+    // E0 calibration), noteOff at curve end. Drawn shape = heard dB shape.
+
+    _cc7Map: null,               // normalized [{cc, x}] ascending in x
+    _activeCurvePlayback: {},
+    _lastCurveTimeSec: null,
+
+    async loadCC7Map() {
+        try {
+            const m = await (await fetch('/probes/cc7_map.json')).json();
+            if (m && m.normalized && m.normalized.length > 2) {
+                this._cc7Map = m.normalized.slice().sort((a, b) => a.x - b.x);
+                console.log('[CC7 map] loaded:', this._cc7Map.length, 'points, span', m.dbSpan, 'dB');
+            }
+        } catch (e) { console.warn('[CC7 map] unavailable - falling back to linear CC'); }
+    },
+
+    curveValToCC(v) {
+        v = Math.max(0, Math.min(1, v));
+        const map = this._cc7Map;
+        if (!map) return Math.round(v * 127);
+        if (v <= map[0].x) return Math.round(map[0].cc * (v / Math.max(1e-6, map[0].x)));
+        for (let i = 1; i < map.length; i++) {
+            if (v <= map[i].x) {
+                const a = map[i - 1], b = map[i];
+                const f = (v - a.x) / Math.max(1e-6, b.x - a.x);
+                return Math.round(a.cc + f * (b.cc - a.cc));
+            }
+        }
+        return map[map.length - 1].cc;
+    },
+
+    evalWaveCurve(wc, t01) {
+        const nodes = wc.nodes;
+        if (!nodes || nodes.length < 2) return 0;
+        t01 = Math.max(0, Math.min(1, t01));
+        for (let i = 1; i < nodes.length; i++) {
+            if (t01 <= nodes[i].pos || i === nodes.length - 1) {
+                const a = nodes[i - 1], b = nodes[i];
+                const seg = wc.segments[Math.min(i - 1, wc.segments.length - 1)] || { model: 'bezier', slope: 0 };
+                const lt = (t01 - a.pos) / Math.max(1e-6, b.pos - a.pos);
+                return this.computeYAtT(seg.model, seg.slope || 0, a.y / 10, b.y / 10, lt);
+            }
+        }
+        return nodes[nodes.length - 1].y / 10;
+    },
+
+    curveTechniqueFor(wc) {
+        const techs = this.trackTechniques(wc.layer);
+        return techs.find(t => t.key === wc.technique) || techs[0] || null;
+    },
+
+    tickCurvePlayback(currentTimeSec) {
+        if (!this._zoneMidiInited) return;
+        const prevTime = this._lastCurveTimeSec;
+        this._lastCurveTimeSec = currentTimeSec;
+        if (prevTime == null) return;
+
+        this.objects.forEach(wc => {
+            if (wc.type !== 'waveCurve' || wc.sonifyNote == null) return;
+            const inst = this.trackInstrument(wc.layer);
+            if (!inst) return;
+            const tech = this.curveTechniqueFor(wc);
+            const output = this._zoneMidiOutputs[((tech && tech.port) || inst.port || '').toLowerCase()];
+            if (!output) return;
+            const ch = ((tech && tech.channel) || 1) - 1;
+            const st = this._activeCurvePlayback[wc.id];
+
+            const inside = currentTimeSec >= wc.startSeconds && currentTimeSec <= wc.endSeconds;
+            if (!inside) {
+                if (st) {
+                    output.send([0x80 | ch, st.note, 0]);
+                    delete this._activeCurvePlayback[wc.id];
+                }
+                return;
+            }
+            const t01 = (currentTimeSec - wc.startSeconds) / Math.max(1e-6, wc.endSeconds - wc.startSeconds);
+            const cc = this.curveValToCC(this.evalWaveCurve(wc, t01));
+            if (!st) {
+                if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
+                output.send([0xB0 | ch, 7, cc]);
+                output.send([0x90 | ch, wc.sonifyNote, 100]);
+                this._activeCurvePlayback[wc.id] = { note: wc.sonifyNote, lastCC: cc, lastSend: performance.now() };
+                return;
+            }
+            const now = performance.now();
+            if (cc !== st.lastCC && now - st.lastSend >= 25) {
+                output.send([0xB0 | ch, 7, cc]);
+                st.lastCC = cc; st.lastSend = now;
+            }
+        });
+    },
+
+    flushCurvePlayback() {
+        for (const [id, st] of Object.entries(this._activeCurvePlayback)) {
+            const wc = this.objects.find(o => o.id === id);
+            if (wc) {
+                const inst = this.trackInstrument(wc.layer);
+                const tech = this.curveTechniqueFor(wc);
+                const output = inst && this._zoneMidiOutputs[((tech && tech.port) || inst.port || '').toLowerCase()];
+                const ch = ((tech && tech.channel) || 1) - 1;
+                if (output) { output.send([0x80 | ch, st.note, 0]); output.send([0xB0 | ch, 7, 127]); }
+            }
+        }
+        this._activeCurvePlayback = {};
     },
 
     // ========== MOTIVE BLOCKS (linked references into the motive library) ==========
