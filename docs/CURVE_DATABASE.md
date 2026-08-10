@@ -66,6 +66,33 @@ internals and percept — calibrated by ear, experiment by experiment.
   different rates, phase-locked to structural arrivals. To be tested alongside the
   statistical models; whichever works, works.
 
+## The compiler (time-warp) — path to full fluidity (2026-08-10)
+
+**The unifying mechanism.** Any drawn meta-curve m(t) compiles to a part schedule by
+TIME-WARPING: integrate m into cumulative activity Λ(t); place swell-peaks evenly in
+Λ-space; map back through Λ⁻¹ — peaks cluster exactly where the drawn curve is high.
+One event-budget knob + the drawing = the whole schedule. Fine gradation is native:
+a slightly-curvier drawing shifts every internal time continuously (the Gehry
+property). **The fluidity/noise dial = the placement statistic in warped time**:
+even (mechanical) · jittered σ (humanized) · Poisson (fully stochastic — Xenakis's
+Achorripsis machinery: Poisson counts, exponential gaps, instrument×time matrix;
+our upgrade = continuous drawn curves + calibrated playback instead of matrix cells).
+
+**Compiler inputs (the full parameter set):**
+1. meta shape m(t) — drawn, any complexity  2. event budget N (or peak density)
+3. placement statistic: even / jitter(σ) / Poisson  4. duration law D(t) (+ breath caps)
+5. per-swell envelope: attack family+ratio · release R · optional hold  6. level law
+7. alignment: flow / convergent peak-locks (counterpoint hooks)  8. part assignment
+
+**Path:** T1 releases (done — 010) · T2 build the compiler as a generator (test: "5 s,
+acceleration build, quick release" compiled automatically) · T3 placement-statistic
+ladder on one shape (even/jitter/Poisson — prices fluidity; absorbs the jitter test)
+· T4 gradation discrimination (m vs slightly-curvier m — the Gehry resolution claim)
+· T5 promote compiler → meta-track score object (P2).
+**Tools:** numpy/scipy suffice (inhomogeneous-Poisson sampling via time-warp inverse);
+no new software needed. Sources: Xenakis *Formalized Music*; Arsenault, *Achorripsis:
+The Matrix Game*; Childs, *Achorripsis: A Sonification of Probability Distributions*.
+
 ## Used-pattern entries
 
 *Schema: id · date · style/ratio · length · threshold · peak behavior · deployment ·
@@ -149,3 +176,10 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - Interior peak times — p2: 4.75/8.32/10.99 · p3: 5.54/9.14/11.48 · p4: 6.44/9.98/11.93
 - **Note curve:** surge 5× each, full peak, unison 45, Ordinario
 - **Archive:** `s4d-prolation-13s` (13 curves)
+
+### 010 — Prolation canon with releases (S4e)
+- **Date:** 2026-08-10 · **Status:** experiment
+- Same structure as 009 + **ADSR v0: 0.35 s drawn linear release after every peak**
+  (3-node curves; peaks stay on the exact grid; same-track starts shifted past the
+  previous release). Collective peak at 0:15 now releases together over 0.35 s.
+- **Archive:** `s4e-release-13s` (13 curves)

@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — ADSR, fluidity, the Gehry/Xenakis compiler (dictated)
+
+"Let's have some basic internal concept of ADSR — a relatively short release for
+each of these; the abrupt releases make them sound like articulation. The strict
+mathematical acceleration is too precise. The wall: I have a sense of the meta
+shape, and a vaguer sense of internal mechanism — duration and overlap — but not
+how to drill into the precise tweaks for full fluidity. Another metaphor alongside
+Xenakis: Frank Gehry — very fluid curves AND precise. If I wanted a shape lasting
+only five seconds with a nice acceleration-and-build feel and a quick release, we'd
+find the internals to build it. If I drew some complex meta shape, we'd have a
+sense of how to divvy out the internal individual crescendos to produce that sound
+— with extreme versions possible, and fine gradation, so a curve and a slightly
+more curved version could be realized and you could hear the difference. I'm
+essentially doing Xenakis, but with animated notation that might have more
+precision. Worth bringing in Formalized Music. Then: available tools to calculate
+these things, and build the appropriate tests."
+
+*(→ The time-warp compiler identified as the unifying mechanism; path T1–T5 in
+CURVE_DATABASE; Achorripsis lineage confirmed and cited.)*
+
 ## 2026-08-10 — Counterpoint recognized (dictated)
 
 "We are actually dealing with counterpoint. We can borrow examples from Fugue,
