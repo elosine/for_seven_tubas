@@ -44,7 +44,10 @@ Five independent dimensions; a "crescendo" is a coordinate in this space.
 > are **BLOOM** (front-loaded) and **SURGE** (back-loaded); a full spec reads
 > "8 seconds, surge 5×". Back-pocket alternates for the paper: head-heavy /
 > tail-heavy. The ~10:1 ratio is the working boundary of each family (findings 7–8).
-> Halfway-loudness-moment name: under discussion.
+> The halfway-loudness moment = the **THRESHOLD** ("surge 5×, threshold at
+> two-thirds"). *Note for writing/paper (composer): fuller form ≈ "event perceptual
+> threshold" — the moment the event is perceived to properly begin; arithmetically
+> the median of the growth distribution.*
 
 | ID | Family | dB profile | Character / prediction | Score curve model |
 |---|---|---|---|---|
