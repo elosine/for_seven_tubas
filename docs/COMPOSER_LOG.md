@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Ratio adopted; performer-side deferred to notation time
+
+"I understand the ratio — we can keep that. Let's come up with names for the two
+sides, and the halfway-loudness moment. And help me not forget the performer
+interpretation, visual interpretation side of things: I just want to get some overlap
+and actual models under the belt. We'll do a straight visual-curve-to-sound-curve
+correspondence for now, and later, after analysis and research, we'll see if the
+performance score curves need to be changed in some way to produce the same sound
+effect."
+
+*(→ D3 application note updated: experiments = curve-literal; performer transform
+revisited at notation time; AI carries the reminder.)*
+
 ## 2026-08-10 — S1 verdicts (dictated)
 
 "Get rid of the last one [D] — it doesn't distinguish itself enough. Number one [A]

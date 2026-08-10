@@ -53,7 +53,11 @@ piece #3's `docs/` — registered as an additional working directory.
   per-player jitter — v0 parameters in CRESCENDO_EXPERIMENTS.md, tuned by ear).
   *Why:* curve-literal MIDI would optimize textures no ensemble can play; assessments
   must be of playable renderings. Curve-literal renders remain available as an A/B
-  reference only.
+  reference only. **Application timing (composer, 2026-08-10): the experiment phase
+  runs STRAIGHT curve→sound (curve-literal) to build models first; the performer
+  transform gets applied/tested at NOTATION time — "we'll see if the performance
+  score curves need to be changed to produce the same sound effect." AI duty: resurface
+  this before any performance-score notation is derived from experiment curves.**
 
 ## §5 Done
 
