@@ -1314,6 +1314,13 @@ const Composer = {
                 segments: JSON.parse(JSON.stringify(s.segments)),
                 color: '#2E8B57', opacity: 0.5 });
         });
+        // Window resize: lane geometry changes, everything must re-render
+        let _rsz = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(_rsz);
+            _rsz = setTimeout(() => { this.generateTicks(); this.renderAll(); this.applyScroll(); }, 150);
+        });
+
         // ALT held = eraser cursor over nodes
         window.addEventListener('keydown', (e) => { if (e.key === 'Alt') document.body.classList.add('altdown'); });
         window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
@@ -2102,7 +2109,8 @@ const Composer = {
         const lane = this.lanes[laneIdx];
         if (!lane) return { top: 30, bottom: 100, height: 70 };
         const rect = lane.getBoundingClientRect();
-        const padTop = 28, padBottom = 8;
+        const padTop = Math.min(28, Math.round(rect.height * 0.20));
+        const padBottom = Math.min(8, Math.round(rect.height * 0.08));
         return { top: padTop, bottom: rect.height - padBottom, height: rect.height - padTop - padBottom };
     },
 

@@ -184,16 +184,18 @@ function compileGrains(C, spec) {
   const wTot = Object.values(mix).reduce((s, w) => s + w, 0);
   const rexShare = (mix.rexpodec || 0) / (wTot || 1);
   const rexParts = rexShare > 0 ? Math.max(1, Math.round(parts * rexShare * 1.5)) : 0;
+  let _rr = 0;   // rotate within each pool so sparse fills spread across all tubas
   const partOrderFor = type => {
-    const order = [];
+    const pool = [], rest = [];
     if (type === 'rexpodec') {
-      for (let p = 0; p < rexParts; p++) order.push(p);
-      for (let p = rexParts; p < parts; p++) order.push(p);
+      for (let p = 0; p < rexParts; p++) pool.push(p);
+      for (let p = rexParts; p < parts; p++) rest.push(p);
     } else {
-      for (let p = rexParts; p < parts; p++) order.push(p);
-      for (let p = 0; p < rexParts; p++) order.push(p);
+      for (let p = rexParts; p < parts; p++) pool.push(p);
+      for (let p = 0; p < rexParts; p++) rest.push(p);
     }
-    return order;
+    const r = _rr++ % Math.max(1, pool.length);
+    return pool.slice(r).concat(pool.slice(0, r)).concat(rest);
   };
 
   // Pass 1: draw all candidates (type, size, shape, span). Pass 2 assigns in START
@@ -314,7 +316,9 @@ function compileMetaGrains(C, spec) {
     for (let i = 0; i < N; i++) {
       const tt = S + Math.random() * span;
       const m = Math.max(0, Math.min(1, C.evalWaveCurve(meta, (tt - S) / span)));
-      const dens = rec.densityMin + (rec.densityMax - rec.densityMin) * m;
+      const dens = spec.densityMap === 'geo'
+        ? rec.densityMin * Math.pow(rec.densityMax / rec.densityMin, m)
+        : rec.densityMin + (rec.densityMax - rec.densityMin) * m;
       if (Math.random() > dens / rec.densityMax) continue;   // thinning
       accepted++;
       const type = pick(rec.mix);
@@ -354,16 +358,18 @@ function compileMetaGrains(C, spec) {
   const wTot = Object.values(rec.mix).reduce((s, w) => s + w, 0);
   const rexShare = (rec.mix.rexpodec || 0) / (wTot || 1);
   const rexParts = rexShare > 0 ? Math.max(1, Math.round(parts * rexShare * 1.5)) : 0;
+  let _rr = 0;   // rotate within each pool so sparse fills spread across all tubas
   const partOrderFor = type => {
-    const order = [];
+    const pool = [], rest = [];
     if (type === 'rexpodec') {
-      for (let p = 0; p < rexParts; p++) order.push(p);
-      for (let p = rexParts; p < parts; p++) order.push(p);
+      for (let p = 0; p < rexParts; p++) pool.push(p);
+      for (let p = rexParts; p < parts; p++) rest.push(p);
     } else {
-      for (let p = rexParts; p < parts; p++) order.push(p);
-      for (let p = 0; p < rexParts; p++) order.push(p);
+      for (let p = rexParts; p < parts; p++) pool.push(p);
+      for (let p = 0; p < rexParts; p++) rest.push(p);
     }
-    return order;
+    const r = _rr++ % Math.max(1, pool.length);
+    return pool.slice(r).concat(pool.slice(0, r)).concat(rest);
   };
   candidates.sort((a, b) => a.start - b.start);
   const lastEnd = new Array(parts).fill(-Infinity);
@@ -392,5 +398,7 @@ function compileMetaGrains(C, spec) {
     wc.technique = spec.technique || 'ord';
   });
   C.deselectAll();
-  return { manifest: { shapes: perShape, placed: placed.length, dropped, types: typeCount } };
+  const perPart = new Array(parts).fill(0);
+  placed.forEach(e => perPart[e.part]++);
+  return { manifest: { shapes: perShape, placed: placed.length, dropped, types: typeCount, perPart } };
 }
