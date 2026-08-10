@@ -4,6 +4,28 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Simplification: the causal chain is visual shape → performer → sound
+
+"I want to simplify as much as possible. The cause-effect I'm looking for is visual
+shape → sound, with the performer in between, which we will infer. First: establish
+what categories of crescendo SOUND there are — two, three, four, how many — and how
+we distinguish them. They should be distinct, and it's those particular sounds we're
+targeting. Then for each category, find the visual curve shape (and speed of
+following, etc.) that will address that category — making assumptions about how the
+animation will actually be played, so the MIDI is that interpreted version, not a
+mathematical trace of the curve.
+
+Let's start with the categories, and jump into the composer score for this: I'll
+have you draw the verbatim curve and play it for me — MIDI follows the curve
+precisely — to find whether there's any actual distinction. It could be there's just
+one type of crescendo shape I want to use. Then we'll try those at different lengths,
+maybe different volume changes. Then we'll solve whether the visual curve has to
+change to produce that sound, given the performer won't follow it like a computer."
+
+*(→ Sound-first taxonomy: categories of crescendo percept, discovered by ear via
+curve-literal renders IN THE SCORE; drawn curves later inverse-filtered through the
+performer model (D3) to hit the surviving categories.)*
+
 ## 2026-08-10 — Crescendo experiment notes (dictated)
 
 "I want to try crescendos where the overlapping increases, and one where it starts
