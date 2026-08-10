@@ -45,7 +45,8 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
 7. **Shape→duration perceptual conversion** (S1c): back-loading beyond ≈exp-slope 0.6
    (k≈2.4) stops sounding like a shape variant of the same-length crescendo and starts
    sounding like a *shorter* crescendo; the usable same-length shape spectrum is
-   linear → k≈2.4, with the "expected crescendo" at k≈1.6–2.4.
+   linear → k≈2.4, with the "expected crescendo" at k≈1.6–2.4. **Working rule for
+   composition: ~10:1 end:start skew = the approximate spectrum boundary.**
 
 ## TODO before "paper" status
 
@@ -55,3 +56,6 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
 - [ ] Decide audio archival channel (git-LFS vs FLAC-in-repo vs external + index).
 - [ ] The visual-perception→sound "does the shape convey the sound" study (composer
       meta-question, S1a).
+- [ ] **If the 10:1 skew tolerance becomes a paper point**: literature dig for existing
+      perceptual findings on loudness-ramp curvature / skew-ratio discrimination
+      (composer, 2026-08-10 — none surfaced in the first research pass).

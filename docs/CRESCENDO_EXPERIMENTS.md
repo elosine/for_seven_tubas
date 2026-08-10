@@ -45,7 +45,12 @@ transfer + inverse. All later shapes drawn in true dB space through this map.
   beginning. End behavior dominates the percept (P2 confirmed by ear). Precise flip
   point not needed — "somewhere around curve three." Vocabulary for the family: TBD
   (composer will clarify).
-- S1d `todo`: A-spectrum (bloom family settings) — after S1c settles.
+- S1d `doing`: **bloom spectrum** (logarithmic/tanh family), matched to the BC ladder
+  by start:end growth ratio — AB-1 2× (slope −0.18) · AB-2 5× (−0.29) · AB-3 11×
+  (−0.37) · AB-4 25× (−0.46) · AB-5 120× (−0.62), at 1:52–3:00. Note: original A
+  (−0.8) ≈ **745×** — far out on its own family; it stays at 0:02 as the extreme
+  reference. Mirrored question: does heavy front-loading flip to "a SHORT crescendo
+  at the start, then a long held note"?
 - Open meta-question (composer): does the VISUAL shape convey the sound? Needs "a more
   scientific approach" — the visual-perception→sound pipeline study, later.
 - S1a: T1/T2/T3/T4 line-up — one tuba, one mid pitch, L = 8 s, calibrated CC7.
