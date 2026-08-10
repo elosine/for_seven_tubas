@@ -178,8 +178,30 @@ function compileGrains(C, spec) {
   const typeCount = { rexpodec: 0, sine: 0, expodec: 0 };
   let audibleSum = 0;
 
+  // Reserved lanes: long-preamble grains (rexpodec) starve under greedy assignment —
+  // dedicate them a share of parts; cheap grains prefer the rest, spillover allowed.
+  const mix = spec.envelopeMix || { rexpodec: 1 };
+  const wTot = Object.values(mix).reduce((s, w) => s + w, 0);
+  const rexShare = (mix.rexpodec || 0) / (wTot || 1);
+  const rexParts = rexShare > 0 ? Math.max(1, Math.round(parts * rexShare * 1.5)) : 0;
+  const partOrderFor = type => {
+    const order = [];
+    if (type === 'rexpodec') {
+      for (let p = 0; p < rexParts; p++) order.push(p);
+      for (let p = rexParts; p < parts; p++) order.push(p);
+    } else {
+      for (let p = rexParts; p < parts; p++) order.push(p);
+      for (let p = 0; p < rexParts; p++) order.push(p);
+    }
+    return order;
+  };
+
+  // Pass 1: draw all candidates (type, size, shape, span). Pass 2 assigns in START
+  // order — long-preamble grains begin far before their peaks and must claim lanes
+  // when their PREAMBLE begins, not when their peak arrives.
+  const candidates = [];
   for (const peak of peaks) {
-    const type = pick(spec.envelopeMix || { rexpodec: 1 });
+    const type = pick(mix);
     let grain = spec.grainMean * Math.exp((spec.grainScatter || 0) * gauss());
     grain = Math.max(0.4, Math.min(6, grain));
     const ratio = spec.ratioRange
@@ -209,17 +231,22 @@ function compileGrains(C, spec) {
       segments = [{ model: 'exponential', slope }, { model: 'power', slope: 0 }];
     }
     if (start < 0.1) { dropped++; continue; }
+    candidates.push({ start, end, peak, nodes, segments, type, grain });
+  }
+
+  candidates.sort((a, b) => a.start - b.start);
+  for (const ev of candidates) {
     let chosen = -1;
-    for (let k = 0; k < parts; k++) {
-      const cand = (placed.length + k) % parts;
-      if (start >= lastEnd[cand] + SEP) { chosen = cand; break; }
+    for (const cand of partOrderFor(ev.type)) {
+      if (ev.start >= lastEnd[cand] + SEP) { chosen = cand; break; }
     }
     if (chosen < 0) { dropped++; continue; }
-    lastEnd[chosen] = end;
-    typeCount[type]++;
-    audibleSum += grain;
-    placed.push({ start, end, peak, part: chosen, nodes, segments, type });
+    lastEnd[chosen] = ev.end;
+    typeCount[ev.type]++;
+    audibleSum += ev.grain;
+    placed.push(ev);
   }
+  placed.sort((a, b) => a.peak - b.peak);
 
   placed.forEach((ev, i) => {
     const wc = C.createWaveCurve({

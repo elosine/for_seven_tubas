@@ -281,3 +281,19 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - `w5-mass45`: realized **2.68 grains/s**, audible overlap 3.22 (67 grains)
 - Both far past the old 1.4/s rexpodec ceiling — diversity purchased the density,
   as finding 11 predicted. Question: is it ONE mass now — and which density?
+
+### 019 — R1 "onset-mass" recipe candidate (mined from the keeper passage)
+- **Date:** 2026-08-10 · **Status:** candidate awaiting verdict
+- **Forensic seed** (w5-mass45 @ 14.68–17.5 s): 3.19 swell-onsets/s · ~4.7 sounding ·
+  types sine 6 / expodec 2 / rexpodec 1 — the loved moment was a sine+accent cloud.
+- **Recipe:** density 3.2/s · grain 1.8 s ±35 % (composer: "a little longer") · mix
+  sine .6 / expodec .25 / rexpodec .15 · ratios 2–6× · levels 85–100 % · Poisson
+- Realized: 2.40/s, 4.5 sounding, 60 grains. **Archive:** `r1-onsetmass`
+
+### 020 — R2 shape-lends ladder (what each species provides)
+- Same bed as R1; only the species mix varies:
+  `r2-sine` all sine (2.64/s realized) · `r2-sine-rex` .7/.3 (1.96/s — rexpodec's
+  density price, measured) · `r2-accents` .65/.15/.2 (2.08/s)
+- Scheduler lessons en route (manifests caught both pre-listening): assignment must be
+  in START order (preamble claims the lane, not the peak), and long-preamble species
+  starve without it — an ensemble-resource phenomenon real orchestration also has.
