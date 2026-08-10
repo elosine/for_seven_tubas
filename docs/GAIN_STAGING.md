@@ -68,4 +68,5 @@ Notes:
 
 | Date | Library / instance | Reference patch | Instance master | Measured ceiling | By |
 |---|---|---|---|---|---|
-| *(pending first calibration run)* | | | | | |
+| 2026-08-10 | IRCAM SI2 Tuba · `Tuba1 SI2` | Ordinario (A1), pitch 45, vel 127 + CC7 127 | −7.3 dB from default (composer-set) | **−17.8 dBFS RMS**, peak −5.5 (`03-REC-260810_1204.wav`) | probe + measure_rms |
+| — | `Tuba1b SI2` + tubas 2–7 pairs | same | **copy Tuba1's value** | (spot-check any one) | — |
