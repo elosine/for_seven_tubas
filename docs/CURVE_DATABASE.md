@@ -93,6 +93,36 @@ ladder on one shape (even/jitter/Poisson — prices fluidity; absorbs the jitter
 no new software needed. Sources: Xenakis *Formalized Music*; Arsenault, *Achorripsis:
 The Matrix Game*; Childs, *Achorripsis: A Sonification of Probability Distributions*.
 
+## The recipe architecture (CATIA layer, composer 2026-08-10)
+
+**Three layers, strict division of labor:**
+1. **Composer layer** — draws/sculpts the meta shape(s). Nothing else.
+2. **Recipe layer** *(what the W/Z tests exist to learn)* — a fixed mapping from local
+   meta value m to distribution settings for every grain parameter. Once learned, ANY
+   drawn shape compiles through it.
+3. **Engine layer** — the time-warp compiler + grain-time scheduling (grain =
+   threshold→peak, the audible crescendo; ≈ Roads' *rexpodec* envelope at ~1000×
+   the microsound timescale — the metaphor imports the parameter space, NOT the
+   perceptual conclusions, which must be re-derived at breath scale).
+
+**Salience principle (the answer to "too many parameters"):** a parameter is salient
+iff varying it alone produces a reliably nameable difference in the mass. Salient →
+the recipe drives it from m. Non-salient → frozen at a fixed good value and REMOVED
+from the search space. Dimensionality reduction by ear.
+
+**Test program:** Stage 1 screening (max-contrast A/B per candidate on a static bed)
+→ Stage 2 resolution ladders (only for parameters that pass) → Stage 3 recipe v1
+assembled, one meta arch compiled through it, A/B'd against the naive arch →
+Stage 4 the deferred precision/gradation test (T4) returns once the recipe is real.
+First sitting: **W0** density fusion ladder (0.5/1/2/4 grains/s, all else frozen —
+sets the bed) · **W1** the bed · **W2** size-scatter A/B (±0 vs ±50%) · **W3**
+envelope-heterogeneity A/B (all surge-5× vs mixed ratios + 30% bloom).
+Verdicts append to the consequences table below.
+
+## Consequences table (dial → value → what it sounds like, verbatim)
+
+*(appended as W/Z verdicts arrive)*
+
 ## Used-pattern entries
 
 *Schema: id · date · style/ratio · length · threshold · peak behavior · deployment ·

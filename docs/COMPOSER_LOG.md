@@ -4,6 +4,25 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Granular embraced; the CATIA division of labor (dictated)
+
+"Granular synthesis is a good metaphor — let's use it, think of it as pure sound,
+sort out performance consequences later. Parameters: grain envelope/shape (sine,
+expodec, rexpodec, combinations), heterogeneity of envelopes, a variation slider
+per parameter (grain duration consistent or ranged), grain overlap, etcetera. The
+problem: TOO MANY PARAMETERS — this is where AI could really help. As composer I
+want to be responsible for the meta shape — the Frank Gehry draw/sculpt — with the
+CATIA engine underneath: if I draw a fish, the software sorts out the necessary
+statistical complexity — grain shapes, curves, heterogeneity — to achieve that
+shape in sonic terms. The task: find the SALIENT elements (does grain duration
+matter? is granular even right?), find the appropriate RESOLUTION of change within
+each, and the right COMBINATION to produce the meta-shape effect. We need a RECIPE.
+Devise tests to reliably discern these, progressively — some may be dead ends, but
+I want building blocks."
+
+*(→ Salience-first program adopted; three-layer architecture (composer/recipe/
+engine); crescendo-grain ≈ Roads' RExpodec at 1000× timescale. Tests W0–W3.)*
+
 ## 2026-08-10 — The stochastic sound mass; the grain (dictated)
 
 "Not there yet for the precision comparison — defer until the mechanism is nailed
