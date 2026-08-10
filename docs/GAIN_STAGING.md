@@ -10,7 +10,7 @@ consistent, clip-free, and comparable across sample libraries.*
 |---|---|---|
 | **MIDI** (velocity / CC7 / CC1) | *musical dynamics* — the full range is always available; never restricted to avoid clipping | free |
 | **Sampler instance master** (UVI/Kontakt output) | **THE calibration knob** — set so the instrument's ceiling hits the reference level; measured, logged | per library, measured |
-| **Sampler master FX** | none during calibration/demo — **limiters/maximizers OFF** (they bend level linearity and break apples-to-apples); reverb = taste, but be consistent | bypass dynamics |
+| **Sampler FX** | **library-shipped preset FX stay** (they're the instrument's designed sound — calibrate through them; verify via measurement that no limiter audibly squashes the top, as E0 did here). Only FX **we add** get bypassed for calibration | shipped = on, ours = off |
 | **Reaper track fader** | *mix + realism offsets only* (see below) — NOT calibration | 0 dB + documented offset |
 | **Reaper master** | headroom guardian — never boosted | 0 dB always |
 | **REC track** | honest witness | 0 dB, record: output |
