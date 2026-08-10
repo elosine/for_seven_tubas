@@ -183,3 +183,24 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (3-node curves; peaks stay on the exact grid; same-track starts shifted past the
   previous release). Collective peak at 0:15 now releases together over 0.35 s.
 - **Archive:** `s4e-release-13s` (13 curves)
+
+### 011 — T2 acceptance: "5 s, acceleration build, quick release" (compiled)
+- **Date:** 2026-08-10 · **Status:** experiment · **Compiler:** `score/public/compiler.js`
+- Spec: T 5 s · surge 5× meta · 10 events · even · durations 2.5→0.8 s · release 0.25 · 4 parts
+- Manifest: 10/10 placed · peak gaps 0.20–0.90 s (median 0.31) · attacks 0.63–2.12 s
+- **Archive:** `t2-accept-5s`
+
+### 012 — T3 fluidity ladder (one shape, four placement statistics)
+- **Date:** 2026-08-10 · **Status:** experiment
+- Shared spec: T 20 s · surge 5× · 18 events · durations 8→2 s · release 0.35 · 7 parts
+- The dial, measured (min/median/max peak-gap):
+  `t3-even` 0.43/0.68/2.83 · `t3-jitter-lo` (σ.15) 0.33/0.67/3.20 ·
+  `t3-jitter-hi` (σ.35) 0.24/0.71/4.34 · `t3-poisson` **0.01**/0.33/2.70
+- Poisson produces near-collisions (0.01 s) — true cloud behavior; jitter widens the
+  extremes while holding the median: the mechanical→fluid axis is measurably real.
+
+### 013 — T4 gradation pair (the Gehry resolution test)
+- **Date:** 2026-08-10 · **Status:** experiment
+- `t4-a-4x` vs `t4-b-6x`: identical spec (as 012, even placement), meta ratio 4× vs 6×.
+- Summary statistics nearly identical (median gap 0.70 vs 0.67) — by design: the
+  difference lives in the time-distribution, not the totals. Question: audible?

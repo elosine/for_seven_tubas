@@ -118,6 +118,9 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s4c-subdivision-9s` | S4c subdivision stack: parts 1–4 divide 9 s into 1/2/3/4 swells, all converging at 0:11. |
 | `s4d-prolation-13s` | S4d prolation canon: 13 s; anchor + three 4-swell accelerating parts (distinct ratios, no unison interior peaks), all converging at 0:15. |
 | `s4e-release-13s` | S4e: prolation canon (as 009) + 0.35 s releases on every swell — ADSR v0. |
+| `t2-accept-5s` | Compiler acceptance: 5 s surge meta, 10 events, 4 parts. |
+| `t3-even` / `t3-jitter-lo` / `t3-jitter-hi` / `t3-poisson` | Fluidity ladder: same 20 s surge meta, placement statistic varies. |
+| `t4-a-4x` / `t4-b-6x` | Gradation pair: 4× vs 6× meta, otherwise identical. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log
