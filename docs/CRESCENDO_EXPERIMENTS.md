@@ -58,6 +58,13 @@ transfer + inverse. All later shapes drawn in true dB space through this map.
   the ABSOLUTE seconds spent below the audibility floor, not the ratio alone. Grid:
   L = 4 s and 16 s × skews 5× / 11× / 25×, at 2:54–4:14 on the score. (8 s versions
   already exist in S1c.)
+  **Result (`done 2026-08-10`): inconclusive / not compositionally significant.**
+  4 s: differences "much more subtle" — 5× standard, 11× "slightly shorter, hearing
+  the tail," 25× ≈ 11× (slope stops mattering). 16 s: 5× ≈ 11× ("bigger bloom" at
+  most), 25× indistinguishable. Composer: no rule adopted — **the skew dial becomes a
+  composition-time nudge** ("when the standard curve at a certain length isn't
+  achieving the effect, I'll have a sense of which direction to push"). Single-listener
+  light-touch pass; revisit only if composing surfaces a need.
 - Open meta-question (composer): does the VISUAL shape convey the sound? Needs "a more
   scientific approach" — the visual-perception→sound pipeline study, later.
 - S1a: T1/T2/T3/T4 line-up — one tuba, one mid pitch, L = 8 s, calibrated CC7.

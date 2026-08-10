@@ -51,6 +51,10 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
    (front-loaded) family — beyond it, stimuli read as "a short crescendo, then a long
    tone." Both families flip from shape-variant to duration-variant at roughly the
    same growth-ratio. (Scale-invariance across L under test — S1e.)
+9. **Skew discriminability peaks at breath scale** (S1e, light-touch): the vivid
+   category/boundary structure heard at 8 s largely collapses at 4 s (differences
+   compress) and at 16 s (differences wash out). Held as a single-listener
+   impression, not a rule; compositionally the skew dial is a directional nudge.
 
 ## TODO before "paper" status
 
