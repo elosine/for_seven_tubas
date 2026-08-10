@@ -4,6 +4,22 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The reset: reject naive approaches, find what we can build on (dictated)
+
+"It feels like we've lost some progress — these two [ISO tests] represent the ones
+that are rejected: the rate one is just a repeated pattern; the duration ones don't
+change in their amount of overlap. Reset and reject these approaches. There's a
+certain amount of complexity here that's difficult to codify — the 'sound of the
+curve' will be some more complex composite of overlaps, peak distribution, curve
+duration and jitter. I want to find a way to systematically make progress — steps
+robust enough that we don't go back. Draw some conclusions, document them, move on.
+Maybe ignore the curve data for now: just an increase in density and activity over
+five seconds, plateau two or three, descend to about midpoint. I need one of the
+things we can build on."
+
+*(→ Laws L1–L3 carved into CURVE_DATABASE; stratified engine = the synthesis;
+keeper stats = the anchored plateau.)*
+
 ## 2026-08-10 — Sculpting rounds (dictated, condensed)
 
 Rounds of draw-tool feedback: live stroke preview needed ("can't see the line as I

@@ -458,3 +458,155 @@ function compileCurveIso(C, spec) {
       ? [Math.round(100 / rateAt(1)) / 100, Math.round(100 / rateAt(0)) / 100] : spec.spacingFixed,
     durRange: spec.mode === 'duration' || spec.mode === 'both' ? [spec.durMin, spec.durMax] : spec.durFixed } };
 }
+
+
+// ---- compileStratified: LAW-ENFORCING trajectory renderer ----
+// L1 scatter floors baked in (override only via spec.lawOverride, marked in manifest).
+// L2 quota windows: the trajectory hands each window an exact budget (fractional
+// accumulator); ALL randomness lives inside windows. L3 defaults = keeper stats.
+// trajectory: [{dur, from, to}] in onsets/sec (geometric interpolation within legs).
+function compileStratified(C, spec) {
+  const T0 = spec.t0 != null ? spec.t0 : 2;
+  const parts = 7, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const FLOORS = { sizeSigma: 0.35, levelSigma: 0.05, minSpecies: 2 };
+  const lawNotes = [];
+  let sizeSigma = spec.sizeSigma != null ? spec.sizeSigma : 0.45;
+  if (sizeSigma < FLOORS.sizeSigma && !spec.lawOverride) { sizeSigma = FLOORS.sizeSigma; lawNotes.push('sizeSigma clamped to floor'); }
+  const mix = spec.mix || { sine: 0.65, expodec: 0.22, rexpodec: 0.13 };
+  if (Object.values(mix).filter(w => w > 0).length < FLOORS.minSpecies && !spec.lawOverride) lawNotes.push('WARNING: single-species mix (law-breaking)');
+  const levelSigma = Math.max(spec.lawOverride ? 0 : FLOORS.levelSigma, spec.levelSigma != null ? spec.levelSigma : 0.06);
+  const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;
+  const R = spec.release != null ? spec.release : 0.3;
+  const ratioRange = spec.ratioRange || [2, 6];
+  const traj = spec.trajectory;
+  const total = traj.reduce((s, leg) => s + leg.dur, 0);
+  const densAt = tt => {
+    let acc = 0;
+    for (const leg of traj) {
+      if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
+        const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
+        return leg.from * Math.pow(leg.to / leg.from, f);
+      }
+      acc += leg.dur;
+    }
+    return traj[traj.length - 1].to;
+  };
+  // grain mean size follows density: sparse -> longer (keeper-anchored)
+  const dMax = Math.max(...traj.map(l => Math.max(l.from, l.to)));
+  const sizeAt = d => {
+    const m = Math.max(0, Math.min(1, d / dMax));
+    const lo = spec.sizeSparse != null ? spec.sizeSparse : 1.8;
+    const hi = spec.sizeDense != null ? spec.sizeDense : 1.3;
+    return lo * Math.pow(hi / lo, m);
+  };
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+  const pick = mm => {
+    const entries = Object.entries(mm).filter(e => e[1] > 0);
+    let r = Math.random() * entries.reduce((s, e) => s + e[1], 0);
+    for (const [k, w] of entries) { r -= w; if (r <= 0) return k; }
+    return entries[0][0];
+  };
+  const thetaOf = ratio => { const k = Math.log(ratio); return Math.log((Math.exp(k) + 1) / 2) / k; };
+
+  // L2: window budgets with fractional accumulator; stratified-jittered onsets inside
+  const candidates = [];
+  const windows = [];
+  let acc = 0;
+  for (let w0 = 0; w0 < total; w0 += WIN) {
+    const wLen = Math.min(WIN, total - w0);
+    const d = densAt(w0 + wLen / 2);
+    acc += d * wLen;
+    const n = Math.floor(acc);
+    acc -= n;
+    windows.push({ at: +(w0.toFixed(2)), budget: n, dens: +(d.toFixed(2)) });
+    for (let k = 0; k < n; k++) {
+      const slot = wLen / n;
+      const tt = T0 + w0 + k * slot + Math.random() * slot;   // stratified jitter
+      const dHere = densAt(tt - T0);
+      const type = pick(mix);
+      let grain = sizeAt(dHere) * Math.exp(sizeSigma * gauss());
+      grain = Math.max(0.3, Math.min(6, grain));
+      let lv = Math.max(0.4, Math.min(1, levelFlat + gauss() * levelSigma));
+      const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
+      let start, end, nodes, segments;
+      if (type === 'sine') {
+        start = tt - grain / 2; end = tt + grain / 2;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: 0.5, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 }];
+      } else if (type === 'expodec') {
+        const atk = Math.max(0.08, grain * 0.08);
+        start = tt - atk; end = start + grain;
+        const p = Math.round((atk / grain) * 1000) / 1000;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'power', slope: 0 }, { model: 'logarithmic', slope: -0.5 }];
+      } else {
+        const theta = thetaOf(ratio);
+        const attack = grain / (1 - theta);
+        start = tt - attack; end = tt + R;
+        const p = Math.round((attack / (attack + R)) * 1000) / 1000;
+        nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+        segments = [{ model: 'exponential', slope: Math.log(ratio) / 4 }, { model: 'power', slope: 0 }];
+      }
+      if (start < 0.1) continue;
+      candidates.push({ start, end, peak: tt, nodes, segments, type, grain });
+    }
+  }
+
+  const wTot = Object.values(mix).reduce((s, w) => s + w, 0);
+  const rexShare = (mix.rexpodec || 0) / (wTot || 1);
+  const rexParts = rexShare > 0 ? Math.max(1, Math.round(parts * rexShare * 1.5)) : 0;
+  let _rr = 0;
+  const partOrderFor = type => {
+    const pool = [], rest = [];
+    if (type === 'rexpodec') {
+      for (let p = 0; p < rexParts; p++) pool.push(p);
+      for (let p = rexParts; p < parts; p++) rest.push(p);
+    } else {
+      for (let p = rexParts; p < parts; p++) pool.push(p);
+      for (let p = 0; p < rexParts; p++) rest.push(p);
+    }
+    const r = _rr++ % Math.max(1, pool.length);
+    return pool.slice(r).concat(pool.slice(0, r)).concat(rest);
+  };
+  candidates.sort((a, b) => a.start - b.start);
+  const lastEnd = new Array(parts).fill(-Infinity);
+  let dropped = 0;
+  const placed = [];
+  const typeCount = { rexpodec: 0, sine: 0, expodec: 0 };
+  for (const ev of candidates) {
+    let chosen = -1;
+    for (const cand of partOrderFor(ev.type)) {
+      if (ev.start >= lastEnd[cand] + SEP) { chosen = cand; break; }
+    }
+    if (chosen < 0) { dropped++; continue; }
+    lastEnd[chosen] = ev.end;
+    typeCount[ev.type]++;
+    placed.push({ ...ev, part: chosen });
+  }
+  placed.sort((a, b) => a.peak - b.peak);
+  placed.forEach((ev, i) => {
+    const wc = C.createWaveCurve({
+      startSeconds: Math.round(ev.start * 100) / 100, endSeconds: Math.round(ev.end * 100) / 100,
+      layer: ev.part, nodes: ev.nodes, segments: ev.segments,
+      color: HUES[ev.part % HUES.length], opacity: 0.3,
+      performanceNotes: `STR ${ev.type[0]}${i + 1}`
+    });
+    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    wc.technique = 'ord';
+  });
+  C.deselectAll();
+  const durs = placed.map(e => e.grain).sort((a, b) => a - b);
+  const perPart = new Array(parts).fill(0);
+  placed.forEach(e => perPart[e.part]++);
+  return { manifest: {
+    laws: lawNotes.length ? lawNotes : 'clean',
+    windows, placed: placed.length, dropped, types: typeCount, perPart,
+    grainSpread: durs.length ? [+durs[0].toFixed(2), +durs[Math.floor(durs.length / 2)].toFixed(2), +durs[durs.length - 1].toFixed(2)] : null
+  } };
+}

@@ -66,6 +66,22 @@ internals and percept — calibrated by ear, experiment by experiment.
   different rates, phase-locked to structural arrivals. To be tested alongside the
   statistical models; whichever works, works.
 
+## THE LAWS (carved 2026-08-10 after the ISO regression — every future test obeys)
+
+- **L1 — Scatter floors are mandatory.** Uniformity in ANY parameter reads as pattern
+  (finding 10; re-confirmed by ISO rejections). Engine defaults enforce: duration
+  spread σ ≥ 0.35, jittered onsets, ≥ 2 envelope species. Uniform stimuli require an
+  explicit `lawOverride` and are marked law-breaking in their manifest.
+- **L2 — Trends are quota-guaranteed, never statistical.** Small time-windows receive
+  deterministic budgets from the trajectory (fractional accumulator, exact over time);
+  ALL randomness lives inside windows. (Poisson small-N cannot draw a curve; grids
+  kill the mass — stratified scheduling is the synthesis: chaos inside, quotas outside.)
+- **L3 — The keeper passage is the calibrated plateau target** (w5-mass45 @ 14.68–17.5,
+  measured): ~3.2 onsets/s · durations wide 0.58–2.61 s · sine-heavy + expodec accents,
+  rexpodec rare · ~4.7 sounding.
+- *Meta-law:* a stimulus violating the laws cannot calibrate anything — you hear the
+  violation, not the parameter. (The ISO pair's lesson; entries 021 marked REJECTED.)
+
 ## The compiler (time-warp) — path to full fluidity (2026-08-10)
 
 **The unifying mechanism.** Any drawn meta-curve m(t) compiles to a part schedule by
@@ -298,7 +314,7 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   in START order (preamble claims the lane, not the peak), and long-preamble species
   starve without it — an ensemble-resource phenomenon real orchestration also has.
 
-### 021 — ISO pair: the interpolation contract + parameter isolation
+### 021 — ISO pair: the interpolation contract + parameter isolation — **REJECTED (violates L1)**
 - **Date:** 2026-08-10 · **Status:** experiment · **Engine:** compileCurveIso (deterministic)
 - **The interpolation contract:** curve sampled at each grain's ONSET; onsets advance
   by rate integration (next = now + spacing(curve here)); zero statistical noise —
@@ -310,3 +326,14 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (47 grains). Overlap grows purely by arrival rate; peaks-per-second RISES.
 - Source shape: composer's redrawn 12.4 s slope (rise ~5 s → plateau → settle),
   copied from `shapesfilltest001` into each ISO score.
+
+### 022 — Stratified trajectory 001 (the laws' first render)
+- **Date:** 2026-08-10 · **Status:** the build-on candidate
+- **Engine:** compileStratified (L1 floors enforced · L2 quota windows 0.5 s · L3 keeper
+  anchor). Trajectory (spoken, no drawn curve): rise 0.5→3.2 onsets/s over 5 s ·
+  plateau 3.2/s for 2.5 s · descend to 1.6/s over 4 s.
+- Manifest: laws CLEAN · 20 grains placed (3 dropped) · types sine 13 / rexpodec 4 /
+  expodec 3 · grain spread 0.77 / 1.82 / 3.10 s (min/med/max — keeper-wide) ·
+  window budgets track the trajectory exactly (see entry JSON in git).
+- **Success test:** the plateau should reproduce the keeper feel on demand.
+- **Archive:** `strat-trajectory-001`
