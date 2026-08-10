@@ -60,6 +60,10 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
     spacing reads as "a loop of the crescendo's last bit"; sparse threshold-relay
     reads as "repeated events." The ensemble crescendo lives in the **derivative of
     overlap density** (and, hypothesis, in evolving harmony once off unison).
+11. **The preamble occupancy ceiling, measured** (W0 manifests): 1.5 s rexpodec grains
+    at 5× occupy ~5 s of a part → 7 parts cap at ≈1.4 grains/s regardless of requested
+    density. Preamble-free grain types (sine, expodec) raise the ceiling — envelope-type
+    mixing is a density resource, not only a color.
 
 ## TODO before "paper" status
 

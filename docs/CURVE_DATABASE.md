@@ -234,3 +234,25 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - `t4-a-4x` vs `t4-b-6x`: identical spec (as 012, even placement), meta ratio 4× vs 6×.
 - Summary statistics nearly identical (median gap 0.70 vs 0.67) — by design: the
   difference lives in the time-distribution, not the totals. Question: audible?
+
+### 014 — W0 density fusion ladder
+- **Date:** 2026-08-10 · **Status:** experiment · **Engine:** compileGrains (v2)
+- Frozen: grain 1.5 s (threshold→peak) · rexpodec · ratio 5× · unison 45 · Poisson bed · T 25 s
+- Requested 0.5/1/2/4 grains/s → **realized 0.48 / 0.88 / 1.12 / 1.28** (drops 1/3/22/68)
+- **FINDING 11 (measured, pre-listening): the preamble occupancy ceiling.** A 1.5 s
+  grain at 5× carries a 3.2 s preamble → ~5 s part-occupancy → 7 parts cap at ≈1.4
+  grains/s. The ladder's top rungs compress against it. To reach true 2–4 grains/s:
+  shorter grains, lower ratios, or preamble-free types (sine/expodec) — w4-types
+  measured the highest density (1.32/s) *because* mixed types are cheaper. Type
+  mixing buys density headroom, not just color.
+- **Archive:** `w0-d05` `w0-d1` `w0-d2` `w0-d4`
+
+### 015 — W2 size-scatter screening (A = w0-d2, B = w2-scatter)
+- grain lognormal σ 0.4 (≈ ±50 %) vs frozen 1.5 s; density provisional 2/s. Salient?
+
+### 016 — W3 ratio-scatter screening (A = w0-d2, B = w3-ratios)
+- ratios drawn 3–8× vs all 5×. Salient?
+
+### 017 — W4 envelope-type screening (A = w0-d2, B = w4-types)
+- mix rexpodec .5 / sine .3 / expodec .2 vs all-rexpodec. Realized 33 grains,
+  overlap 1.98 (highest of the set). Salient — and structurally density-cheaper?

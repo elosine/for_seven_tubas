@@ -136,3 +136,107 @@ function compileMeta(C, spec) {
   };
   return { placed, manifest };
 }
+
+
+// ---- compileGrains: static-bed grain clouds (W/Z series; engine v2) ----
+// Grain = the AUDIBLE event. Types (Roads vocabulary, breath-scale):
+//   rexpodec: slow rise to peak at end + quick release (the crescendo-grain)
+//   sine:     symmetric swell, peak mid (hanning-ish; messa di voce)
+//   expodec:  near-instant attack, long decay (fp)
+// All scheduled by PEAK time (rearticulation = peak arrivals, part-agnostic).
+// spec: { T, density (grains/sec), grainMean (audible sec), grainScatter (lognormal
+//   sigma, 0=frozen), envelopeMix: {rexpodec,sine,expodec} weights,
+//   ratio: 5, ratioRange: [lo,hi]|null, level:{min,max}, levelScatter,
+//   release: 0.3, parts, note, technique, tag }
+function compileGrains(C, spec) {
+  const T0 = 2, T = spec.T, parts = spec.parts || 7;
+  const R = spec.release != null ? spec.release : 0.3;
+  const SEP = 0.05;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+  const pick = mix => {
+    const entries = Object.entries(mix).filter(e => e[1] > 0);
+    let r = Math.random() * entries.reduce((s, e) => s + e[1], 0);
+    for (const [k, w] of entries) { r -= w; if (r <= 0) return k; }
+    return entries[0][0];
+  };
+  const thetaOf = ratio => { const k = Math.log(ratio); return Math.log((Math.exp(k) + 1) / 2) / k; };
+
+  const N = Math.round(spec.density * T);
+  const peaks = [];
+  for (let i = 0; i < N; i++) peaks.push(T0 + Math.random() * T);   // homogeneous Poisson bed
+  peaks.sort((a, b) => a - b);
+
+  const lastEnd = new Array(parts).fill(-Infinity);
+  let dropped = 0;
+  const placed = [];
+  const typeCount = { rexpodec: 0, sine: 0, expodec: 0 };
+  let audibleSum = 0;
+
+  for (const peak of peaks) {
+    const type = pick(spec.envelopeMix || { rexpodec: 1 });
+    let grain = spec.grainMean * Math.exp((spec.grainScatter || 0) * gauss());
+    grain = Math.max(0.4, Math.min(6, grain));
+    const ratio = spec.ratioRange
+      ? spec.ratioRange[0] * Math.pow(spec.ratioRange[1] / spec.ratioRange[0], Math.random())
+      : (spec.ratio || 5);
+    const lvBase = spec.level ? spec.level.min + Math.random() * 0 : 1;
+    let lv = (spec.level ? spec.level.min + (spec.level.max - spec.level.min) * Math.random() : 1);
+    if (spec.levelScatter) lv = Math.max(0.5, Math.min(1, lv + gauss() * spec.levelScatter));
+    let start, end, nodes, segments;
+    const slope = Math.log(ratio) / 4;
+    if (type === 'sine') {
+      start = peak - grain / 2; end = peak + grain / 2;
+      nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: 0.5, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+      segments = [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 }];
+    } else if (type === 'expodec') {
+      const atk = Math.max(0.08, grain * 0.08);
+      start = peak - atk; end = start + grain;
+      const p = Math.round((atk / grain) * 1000) / 1000;
+      nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+      segments = [{ model: 'power', slope: 0 }, { model: 'logarithmic', slope: -0.5 }];
+    } else {
+      const theta = thetaOf(ratio);
+      const attack = grain / (1 - theta);            // preamble + grain
+      start = peak - attack; end = peak + R;
+      const p = Math.round((attack / (attack + R)) * 1000) / 1000;
+      nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+      segments = [{ model: 'exponential', slope }, { model: 'power', slope: 0 }];
+    }
+    if (start < 0.1) { dropped++; continue; }
+    let chosen = -1;
+    for (let k = 0; k < parts; k++) {
+      const cand = (placed.length + k) % parts;
+      if (start >= lastEnd[cand] + SEP) { chosen = cand; break; }
+    }
+    if (chosen < 0) { dropped++; continue; }
+    lastEnd[chosen] = end;
+    typeCount[type]++;
+    audibleSum += grain;
+    placed.push({ start, end, peak, part: chosen, nodes, segments, type });
+  }
+
+  placed.forEach((ev, i) => {
+    const wc = C.createWaveCurve({
+      startSeconds: Math.round(ev.start * 100) / 100, endSeconds: Math.round(ev.end * 100) / 100,
+      layer: ev.part, nodes: ev.nodes, segments: ev.segments,
+      color: HUES[ev.part % HUES.length], opacity: 0.3,
+      performanceNotes: `${spec.tag || 'W'} ${ev.type[0]}${i + 1}`
+    });
+    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    wc.technique = spec.technique || 'ord';
+  });
+  C.deselectAll();
+
+  const manifest = {
+    requested: N, placed: placed.length, dropped, types: typeCount,
+    realizedDensity: +(placed.length / T).toFixed(2),
+    audibleOverlap: +(audibleSum / T).toFixed(2),      // expected simultaneous audible grains
+  };
+  return { placed, manifest };
+}
