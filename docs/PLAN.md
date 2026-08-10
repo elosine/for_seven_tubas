@@ -27,3 +27,12 @@
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the
 score is still unbuilt (was piece #3's next slice — build here when needed).
+
+## Parking lot
+
+- **P1 — Reaper scriptability / AI bridge** *(composer, 2026-08-10: "full access and
+  scriptability to AI of Reaper" — e.g. "set every UVI instance to −7.3" as one
+  command)*. Tiers: T0 offline .rpp batch-edits + FX-chunk cloning (available now) ·
+  T1 ReaScript command-file daemon (~1 day) · T2 MCP tool surface (evaluate community
+  Reaper-MCP first). Caveat: plugin-internal knobs need UVI Param exposure or a
+  utility-gain FX as the scriptable calibration knob. Build when the pain recurs.
