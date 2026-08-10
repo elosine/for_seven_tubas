@@ -102,7 +102,8 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | Score | Contents |
 |---|---|
 | `s1-shape-battery` | The complete S1 series as auditioned 2026-08-10: A/B/C line-up, B→C spectrum (BC-1..5), bloom spectrum (AB-1..5), duration×skew grid (D4/D16). Frozen record of every S1 stimulus. |
-| `s2b-overlap-threshold` | S2b: 7-voice relay — each voice enters at the previous voice's THRESHOLD (surge 5×, stagger 5.45 s), 8 s swells, pitch 45, 4 min, 43 curves. |
+| `s2a-overlap-8s` | S2a (regenerated): 7-voice Risset-spacing texture — surge 5× 8 s swells, stagger 8.5/7 ≈ 1.21 s, pitch 45, 4 min, 192 curves. First-listen verdict VOID (rack misconfigured); re-audition pending. |
+| `s2b-overlap-threshold` | S2b: 7-voice relay — each voice enters at the previous voice's THRESHOLD (surge 5×, stagger 5.45 s), 8 s swells, pitch 45, 4 min, 43 curves. Verdict: "simply repeated events" — direction → shifting overlap (S3). |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log
@@ -118,10 +119,14 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
   **Note for ensemble takes: drop REC fader ~−10 dB** (one tuba at full already kisses
   0 dBFS; seven will sum ~+8 dB).
 
-- **2026-08-10 · S2a · Risset-spacing overlap (stagger L/7)** — SCRAPPED. Composer:
-  clipping at tutti (fix: master fader cut — protocol amended) and "this test wasn't
-  particularly interesting." Score file deleted; construction remains reproducible
-  from git history. → replaced by S2b (threshold-spaced relay).
+- **2026-08-10 · S2a · Risset-spacing overlap (stagger L/7)** — first-listen verdict
+  ("not particularly interesting") **VOIDED — rack was misconfigured**; score
+  regenerated from documented construction for re-audition. (Clipping fix stands:
+  master-fader cut.)
+- **2026-08-10 · S2b · threshold-spaced relay** — composer: "these sound like simply
+  repeated events. I'm looking for something more dramatic in terms of overlap — maybe
+  the crescendo happens in the AMOUNT of overlap, the ensemble crescendo." → the S3
+  overlap-evolution slot is the direction; static staggers read as repetition.
 
 - **2026-08-10 · S1a · shape line-up** — A/B/C keep, D cut (verdicts above). Technical:
   **entry-bite diagnosed and fixed** — each curve ends at CC7=127, so the next note-on

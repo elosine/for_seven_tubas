@@ -44,4 +44,6 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   previous voice's threshold → stagger 5.45 s; ~1–2 voices sounding; 4 min
 - **Material:** unison pitch 45 (display A1), Ordinario
 - **Archive:** score `s2b-overlap-threshold` (43 curves)
-- **Notes:** *(composer verdict pending)*
+- **Notes:** composer: "simply repeated events... I'm looking for something more
+  dramatic in terms of overlap — maybe the crescendo happens in the amount of overlap,
+  the ensemble crescendo." Static stagger = repetition; direction → shifting overlap.
