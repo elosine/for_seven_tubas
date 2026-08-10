@@ -30,6 +30,13 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 
 ## Parking lot
 
+- **P2 — Meta-track score object** *(composer, 2026-08-10)*: a meta track in the
+  composer score where one drawn meta-curve (bell/crescendo, duration, dials) auto-
+  generates the seven part-curves underneath via a chosen realization strategy
+  (flow/convergent, repetition, noise). The generator scripts running in experiments
+  ARE the prototype; promote to a score object when the strategies stabilize.
+  (G5/palette lineage: a named, parameterized, reusable unit.)
+
 - **P1 — Reaper scriptability / AI bridge** *(composer, 2026-08-10: "full access and
   scriptability to AI of Reaper" — e.g. "set every UVI instance to −7.3" as one
   command)*. Tiers: T0 offline .rpp batch-edits + FX-chunk cloning (available now) ·

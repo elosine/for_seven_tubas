@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Peak-aligned duration modulation; the Xenakis frame (dictated)
+
+"Eventually maybe the score object is just a meta bell or crescendo on a meta track —
+I draw the shape over the duration, and the parts fill in underneath. Not ready yet.
+Duration hasn't been taken into account — that's the missing key. The nine-second
+example: the first curve is nine seconds to apex, the others come in progressively
+shorter but ALL apex at nine seconds. The dial is the duration of the subsequent
+curves — essentially equivalent to the meta-crescendo curve. Longer version (say
+14 s, over 28): adjust the duration of each curve AND the repetition rate so that
+as you reach the apex, statistically more and more parts overlap — there might be
+gaps, not just one after another. One end: a single crescendo per part at different
+lengths. Other end: rapid repeating, calibrated for growing overlap. This is
+Xenakis-like — stochastic plots: a plot of an overall texture, and we build the
+internal components. Don't assume a linear progression — we want the PERCEIVED
+overall feel: density, motion, volume following the drawn shape. Noise later."
+
+*(→ Two alignment paradigms identified: FLOW (onset-chained — everything so far)
+vs CONVERGENT (peak-aligned — new). Organization in CURVE_DATABASE; meta-track
+parked in PLAN.)*
+
 ## 2026-08-10 — The MOVEMENT dial (dictated)
 
 "Holding a density, there is a movement dial. On one end, all seven are just playing

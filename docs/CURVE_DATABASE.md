@@ -43,6 +43,25 @@ Each dial can follow its own meta-curve (bloom/linear/surge/arch + noise).
 *Metric note: threshold-to-peak counting undercounts busy short-swell textures
 (preambles become audible at short L) — for churn states track SOUNDING count.*
 
+## The realization model (Xenakis frame, composer 2026-08-10)
+
+**Level 1 — the plot:** a drawn meta-curve over duration T describing the PERCEIVED
+texture trajectory (density + movement + level). **Level 2 — the internals:** part
+schedules constructed to make the ear report the plot. No linearity assumed between
+internals and percept — calibrated by ear, experiment by experiment.
+
+**Two alignment paradigms for the internals:**
+- **FLOW (onset-chained):** independent swells entering in sequence; overlap emerges
+  statistically from spacing × duration; peaks are scattered — no collective climax.
+  (All builds through S3d.)
+- **CONVERGENT (peak-aligned):** swells share one apex instant — staggered entries,
+  co-terminating peaks, progressively shorter durations. The entry-time distribution
+  is the meta-curve's inverse, EXACTLY: k voices sound when the plot says k. True
+  collective arrival; the +8.5 dB tutti sum lands in one moment.
+- **The repetition dial connects them:** 1 swell/part = pure convergent (deterministic);
+  many short repeats with gaps = statistical convergent (the Xenakis middle); no shared
+  apex at all = flow.
+
 ## Used-pattern entries
 
 *Schema: id · date · style/ratio · length · threshold · peak behavior · deployment ·
