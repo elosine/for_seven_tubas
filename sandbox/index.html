@@ -81,6 +81,7 @@ const sci = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
 const inst = () => INSTRUMENTS[state.instKey];
 const tech = () => inst().techniques[state.techIdx];
 const chan = () => tech().channel - 1;
+const port = () => tech().port || inst().port;
 const isBlackRow = m => [1,3,6,8,10].includes(m % 12);
 
 // ---- instrument + technique dropdowns (routing stays backstage) ----
@@ -96,7 +97,7 @@ function buildTechSelect() {
   });
   sel.value = state.techIdx;
 }
-$('tech').onchange = e => { state.techIdx = +e.target.value; buildKeyboard(); pluck(); };
+$('tech').onchange = e => { state.techIdx = +e.target.value; resolveBindings(); buildKeyboard(); pluck(); };
 
 // ---- MIDI (one persistent access; never re-request on statechange) ----
 function banner(msg) { const b = $('banner'); b.style.display = msg ? 'block' : 'none'; b.textContent = msg || ''; }
@@ -104,7 +105,7 @@ let midiAccess = null, scTimer = null;
 function resolveBindings() {
   if (!midiAccess) return;
   let out = null, inp = null;
-  for (const o of midiAccess.outputs.values()) if (o.name === inst().port) out = o;
+  for (const o of midiAccess.outputs.values()) if (o.name === port()) out = o;
   for (const i of midiAccess.inputs.values()) {
     if (INPUT_MATCH.test(i.name) && !INPUT_EXCLUDE.test(i.name)) { inp = i; break; }
   }
@@ -114,7 +115,7 @@ function resolveBindings() {
     state.inp = inp;
     if (inp) inp.onmidimessage = onHardwareMidi;
   }
-  banner(out ? '' : `MIDI port "${inst().port}" not found — is loopMIDI running?`);
+  banner(out ? '' : `MIDI port "${port()}" not found — is loopMIDI running?`);
 }
 function initMidi() {
   if (!navigator.requestMIDIAccess) { banner('Web MIDI unavailable — use Chrome.'); return; }

@@ -13,11 +13,14 @@
   silent-killer).
 - **0c — Tuba sample library chosen** — `done 2026-08-10` — **IRCAM Solo Instruments 2 (tuba)**, same library family as piece #3's harp/accordion: UVI channel-per-technique switching, all of #3's UVI quirks apply (SAMPLER_QUIRKS.md there).
 
-## 1. Instrument survey — `todo`
+## 1. Instrument survey — `doing`
 
-Fill `sandbox/instruments.js` techniques + `docs/instrument_map.json` per tuba; declare
-the switching mechanism (channels / keyswitches / CC#0) once known. Piece #3's survey
-playbook applies (its PROJECT_JOURNAL §5.1).
+- **1a — Technique roster** — `done 2026-08-10` — 21 SI2 tuba techniques transcribed
+  from the composer's UVI build (slot order = ground truth); dual-port model = D2.
+- **1b — Probe & characterize** — `todo` — per-technique: true ranges, velocity/CC
+  behavior, KS-preset internals (Cresc&Decr, Finger Modes, Ord&Flz, Play&Sing, Trills),
+  menu patches (Chromatic Scale, FX, Glissando), quartertone mapping. Piece #3's survey
+  playbook applies (its PROJECT_JOURNAL §5.1); ear-first, per-need depth.
 
 ## 2. Compose — `todo`
 

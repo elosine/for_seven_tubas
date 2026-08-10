@@ -6791,7 +6791,8 @@ const Composer = {
             if (!m || !m.events || !m.events.length) return;
             const inst = this.trackInstrument(mo.layer);
             if (!inst) return;
-            const output = this._zoneMidiOutputs[(inst.port || '').toLowerCase()];
+            const tech0 = this.trackTechniqueFor(mo);
+            const output = this._zoneMidiOutputs[((tech0 && tech0.port) || inst.port || '').toLowerCase()];
             if (!output) return;
 
             const blockStart = mo.startTime;
@@ -6817,7 +6818,7 @@ const Composer = {
             const st = this._activeMotivePlayback[mo.id];
             const elapsedMs = (currentTimeSec - blockStart) * 1000;
             const lookaheadMs = 100;
-            const tech = this.trackTechniqueFor(mo);
+            const tech = tech0;
             const ch = ((tech && tech.channel) || 1) - 1;
 
             while (st.nextEventIdx < m.events.length) {

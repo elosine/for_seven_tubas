@@ -1,78 +1,224 @@
-// Proto rendering-recipe config — for seven tubas (inherits the piece #3 model:
-// INSTRUMENT (one rack track / sampler instance / loopMIDI port) → TECHNIQUES.
-// Routing is a BACKEND concern: the UI shows labels only.
-//
-// SKELETON: one placeholder technique per tuba until the sample library is chosen
-// and surveyed. Techniques grow from the survey; switching mechanism (channels /
-// keyswitches / CC#0) declared per instrument when known (see piece #3 recipes).
+// Rendering-recipe config — for seven tubas (IRCAM SI2 tuba, UVI channel-per-technique).
+// SI2 tuba = 21 techniques > 16 channels, so each tuba spans TWO UVI instances/ports:
+//   "tubaN"  (slots A1-A16, techniques 1-16)  ·  "tubaNb" (slots A1-A5, techniques 17-21)
+// Schema note: a technique's optional `port` overrides the instrument-level port —
+// the minimal switching abstraction extension (senders resolve tech.port || inst.port).
+// Slot order transcribed from composer's UVI screenshots 2026-08-10 (ground truth).
 const INSTRUMENTS = {
   tuba1: {
     label: "Tuba 1",
-    port: "tuba1",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba1",     // primary instance "Tuba1 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba1b SI2" (port tuba1b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba1b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba1b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba1b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba1b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba1b" },
     ],
   },
 
   tuba2: {
     label: "Tuba 2",
-    port: "tuba2",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba2",     // primary instance "Tuba2 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba2b SI2" (port tuba2b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba2b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba2b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba2b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba2b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba2b" },
     ],
   },
 
   tuba3: {
     label: "Tuba 3",
-    port: "tuba3",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba3",     // primary instance "Tuba3 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba3b SI2" (port tuba3b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba3b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba3b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba3b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba3b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba3b" },
     ],
   },
 
   tuba4: {
     label: "Tuba 4",
-    port: "tuba4",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba4",     // primary instance "Tuba4 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba4b SI2" (port tuba4b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba4b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba4b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba4b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba4b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba4b" },
     ],
   },
 
   tuba5: {
     label: "Tuba 5",
-    port: "tuba5",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba5",     // primary instance "Tuba5 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba5b SI2" (port tuba5b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba5b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba5b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba5b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba5b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba5b" },
     ],
   },
 
   tuba6: {
     label: "Tuba 6",
-    port: "tuba6",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba6",     // primary instance "Tuba6 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba6b SI2" (port tuba6b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba6b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba6b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba6b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba6b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba6b" },
     ],
   },
 
   tuba7: {
     label: "Tuba 7",
-    port: "tuba7",       // loopMIDI port, exact name (case-sensitive)
-    rangeLow: 22,        // provisional: pedal B♭0; tighten after library survey
+    port: "tuba7",     // primary instance "Tuba7 SI2": techniques on channels A1-A16
+    rangeLow: 22,        // provisional: pedal B♭0; tighten per technique during survey
     rangeHigh: 65,       // provisional: F4
     techniques: [
       { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4 },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba7b SI2" (port tuba7b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba7b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba7b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba7b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba7b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba7b" },
     ],
   },
 };

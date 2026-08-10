@@ -14,9 +14,12 @@ piece #3's `docs/` — registered as an additional working directory.
 - Composer score adapted: 7 tracks labeled Tuba 1–7, canonical score `scores/7tubas.json`,
   port 5200. Sandbox on 4700. `sandbox/instruments.js`: 7 skeleton instruments
   (ports `tuba1`…`tuba7`, placeholder Ordinario ch1, provisional range MIDI 22–65).
-- **Composer is building loopMIDI ports + Reaper rack now** (0b). Port names must match
-  `instruments.js` exactly (case-sensitive). Monitoring ON per track — #3 Principle 1.
-- **Open:** tuba sample library not yet named (0c) → survey (1) → techniques fill in.
+- **Library = IRCAM SI2 tuba (0c done): 21 techniques**, transcribed from the composer's
+  UVI build into `instruments.js` — real slot lists, dual instances per tuba (D2).
+  Rack in progress: `Tuba1 SI2` + `Tuba1b SI2` built; tubas 2–7 = duplicate pairs,
+  same slot order, ports `tubaN`/`tubaNb`. Monitoring ON per track — #3 Principle 1.
+- **Open:** ranges + KS-preset internals + menu-patch behaviors (Chromatic Scale,
+  FX/Glissando Menus, Finger Modes) = survey per-need; provisional range MIDI 22–65.
 
 **Blockers:** none.
 
@@ -36,6 +39,13 @@ piece #3's `docs/` — registered as an additional working directory.
   direct on-score editing) apply as written. *Why:* the protocols were designed
   piece-agnostic (engine vs. palette); seven tracks is palette data. Divergences get
   their own D-entries here.
+- **D2** *(2026-08-10)* — **21 techniques > 16 channels → each tuba spans TWO UVI
+  instances/ports** (`tubaN` = techniques 1–16 on A1–A16 · `tubaNb` = 17–21 on A1–A5;
+  composer's build, session 1). Schema extension: a technique's optional `port`
+  overrides the instrument port — senders resolve `tech.port || inst.port` (sandbox
+  binding + score playback both patched). *Rejected:* UVI port-B via Reaper MIDI bus 2 —
+  breaks the clean loopMIDI-port-per-instance wiring. *Slot order = composer's UVI
+  screenshots 2026-08-10; keep it identical across all 7 tuba pairs.*
 
 ## §5 Done
 
