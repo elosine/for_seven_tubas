@@ -47,3 +47,16 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Notes:** composer: "simply repeated events... I'm looking for something more
   dramatic in terms of overlap — maybe the crescendo happens in the amount of overlap,
   the ensemble crescendo." Static stagger = repetition; direction → shifting overlap.
+
+### 002 — Arch, smooth (S3a)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Note curve:** C3 Surge 5× · L = 8 s · unison pitch 45 · Ordinario · 7 voices round-robin
+- **Meta-curve:** contour ARCH · nadir interval 8 s ↔ apex 1.2 s · rise 90 s / fall 90 s
+  (symmetric) · ascent/descent LINEAR (in interval space) · **noise 0 (smooth)** · 51 entries
+- **Archive:** score `s3a-arch-smooth`
+
+### 003 — Arch, wander (S3b)
+- **Date:** 2026-08-10 · **Status:** experiment
+- Identical to 002 except **noise = wander** (mean-reverting walk, ±40 % of local
+  interval, min-clamped at apex spacing) · 54 entries
+- **Archive:** score `s3b-arch-wander`

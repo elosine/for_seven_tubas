@@ -74,7 +74,9 @@ transfer + inverse. All later shapes drawn in true dB space through this map.
 Stagger swept across takes: 100% (unison) · ~86% (L/7 Risset spacing) · 75% · 50% ·
 25% · 0% (sequential relay). Same shape, same pitch material.
 
-### S3 — Overlap evolution within one pattern — `todo` *(composer note)*
+### S3 — Overlap evolution within one pattern — `doing` *(composer note; meta-curve grammar adopted 2026-08-10: contour/range/timing/segment-shapes/noise — see COMPOSER_LOG + CURVE_DATABASE 002-003)*
+- S3-arch A/B `doing`: same arch (interval 8→1.2→8 s over 3 min, linear segments,
+  L = 8 s surge 5×, unison) — noise 0 vs. wander ±40 %. Isolates the jaggedness dial.
 - S3a: overlap **increases** across the pattern (sequential → piled).
 - S3b: **unison start → no overlap** (block dissolves into a relay).
 - S3c (mirror, cheap): no-overlap → unison.
@@ -104,6 +106,8 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s1-shape-battery` | The complete S1 series as auditioned 2026-08-10: A/B/C line-up, B→C spectrum (BC-1..5), bloom spectrum (AB-1..5), duration×skew grid (D4/D16). Frozen record of every S1 stimulus. |
 | `s2a-overlap-8s` | S2a (regenerated): 7-voice Risset-spacing texture — surge 5× 8 s swells, stagger 8.5/7 ≈ 1.21 s, pitch 45, 4 min, 192 curves. First-listen verdict VOID (rack misconfigured); re-audition pending. |
 | `s2b-overlap-threshold` | S2b: 7-voice relay — each voice enters at the previous voice's THRESHOLD (surge 5×, stagger 5.45 s), 8 s swells, pitch 45, 4 min, 43 curves. Verdict: "simply repeated events" — direction → shifting overlap (S3). |
+| `s3a-arch-smooth` | S3 arch, noise 0: interval 8→1.2→8 s over 180 s, linear segments, L 8 s surge 5×, unison, 51 entries. |
+| `s3b-arch-wander` | S3 arch, wander noise ±40 %: same trend, 54 entries. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log
