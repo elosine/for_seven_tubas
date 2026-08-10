@@ -62,13 +62,16 @@
     .lane {
         position: absolute; left: 0; right: 0; overflow: hidden;
     }
-    .lane:nth-child(1) { top: 0.0%; height: 14.29%; }
-    .lane:nth-child(2) { top: 14.29%; height: 14.29%; }
-    .lane:nth-child(3) { top: 28.57%; height: 14.29%; }
-    .lane:nth-child(4) { top: 42.86%; height: 14.29%; }
-    .lane:nth-child(5) { top: 57.14%; height: 14.29%; }
-    .lane:nth-child(6) { top: 71.43%; height: 14.29%; }
-    .lane:nth-child(7) { top: 85.71%; height: 14.29%; }
+    /* META drawing lane (DOM lane8, layer index 7) sits on top, double height */
+    #lane8 { top: 0; height: 22%; background: #f7f5ef; }
+    #lane8 .laneLabel { color: #8a6d3b; }
+    .lane:nth-child(1) { top: 22.0%; height: 11.14%; }
+    .lane:nth-child(2) { top: 33.14%; height: 11.14%; }
+    .lane:nth-child(3) { top: 44.29%; height: 11.14%; }
+    .lane:nth-child(4) { top: 55.43%; height: 11.14%; }
+    .lane:nth-child(5) { top: 66.57%; height: 11.14%; }
+    .lane:nth-child(6) { top: 77.71%; height: 11.14%; }
+    .lane:nth-child(7) { top: 88.86%; height: 11.14%; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -318,6 +321,10 @@
         <span class="laneLabel">Tuba 7</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
+    <div class="lane" id="lane8">
+        <span class="laneLabel">META — drawing layer</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
 
     <!-- Playhead -->
     <div id="playhead"></div>
@@ -341,6 +348,7 @@
         <option value="4">Tuba 5</option>
         <option value="5">Tuba 6</option>
         <option value="6">Tuba 7</option>
+        <option value="7">META</option>
     </select>
     <button id="wcDrawBtn">Draw Curve</button>
     <span style="color:#ccc">|</span>
@@ -352,6 +360,17 @@
     <span style="color:#ccc">|</span>
     <select id="motiveSelect"><option value="">— motives —</option></select>
     <button id="motivePlaceBtn">Place Motive</button>
+    <span style="color:#ccc">|</span>
+    <select id="stampSelect">
+        <option value="arch">Arch</option>
+        <option value="surge">Surge</option>
+        <option value="bloom">Bloom</option>
+        <option value="line">Line</option>
+        <option value="saw">Sawtooth</option>
+    </select>
+    <button id="stampBtn">Stamp → META</button>
+    <span style="color:#ccc">|</span>
+    <button id="clearAllBtn">Clear All</button>
 </div>
 
 <!-- Floating property panel -->
@@ -1225,7 +1244,7 @@ const Composer = {
 
     init() {
         // Cache DOM
-        this.lanes = [1, 2, 3, 4, 5, 6, 7].map(i => document.getElementById(`lane${i}`));
+        this.lanes = [1, 2, 3, 4, 5, 6, 7, 8].map(i => document.getElementById(`lane${i}`));
         this.tickGroups = this.lanes.map(l => l.querySelector('.tickGroup'));
         this.contentGroups = this.lanes.map(l => l.querySelector('.contentGroup'));
         this.sessionNameInput = document.getElementById('sessionName');
@@ -1263,6 +1282,39 @@ const Composer = {
         if (mpBtn) mpBtn.addEventListener('click', () => {
             const sel = document.getElementById('motiveSelect');
             if (sel && sel.value) this.createMotiveBlock(sel.value);
+        });
+        const stampBtn = document.getElementById('stampBtn');
+        if (stampBtn) stampBtn.addEventListener('click', () => {
+            const kind = document.getElementById('stampSelect').value;
+            const t0 = this.getTimeAtPlayhead();
+            const STAMPS = {
+                arch:  { nodes: [{pos:0,y:0,smooth:.25},{pos:.5,y:10,smooth:.25},{pos:1,y:0,smooth:.25}],
+                         segments: [{model:'sigmoid',slope:.6},{model:'sigmoid',slope:.6}] },
+                surge: { nodes: [{pos:0,y:0,smooth:.25},{pos:1,y:10,smooth:.25}],
+                         segments: [{model:'exponential',slope:.4}] },
+                bloom: { nodes: [{pos:0,y:0,smooth:.25},{pos:1,y:10,smooth:.25}],
+                         segments: [{model:'logarithmic',slope:-.29}] },
+                line:  { nodes: [{pos:0,y:0,smooth:.25},{pos:1,y:10,smooth:.25}],
+                         segments: [{model:'power',slope:0}] },
+                saw:   { nodes: [{pos:0,y:0,smooth:.25},{pos:.85,y:10,smooth:.25},{pos:1,y:0,smooth:.25}],
+                         segments: [{model:'exponential',slope:.4},{model:'power',slope:0}] }
+            };
+            const s = STAMPS[kind];
+            this.createWaveCurve({ startSeconds: Math.max(0, t0), endSeconds: Math.max(0, t0) + 20,
+                layer: 7, nodes: JSON.parse(JSON.stringify(s.nodes)),
+                segments: JSON.parse(JSON.stringify(s.segments)),
+                color: '#8a6d3b', opacity: 0.5 });
+        });
+        const clearBtn = document.getElementById('clearAllBtn');
+        if (clearBtn) clearBtn.addEventListener('click', () => {
+            if (!confirm('Clear ALL objects from this score?')) return;
+            this.pushUndoState();
+            this.objects.forEach(o => { if (o._els && o._els.group) o._els.group.remove(); });
+            this.objects = [];
+            this.markers = [];
+            this.deselectAll();
+            this.renderAll();
+            this.markDirty();
         });
         this.propertyPanel = document.getElementById('propertyPanel');
         this.zoomIndicator = document.getElementById('zoomIndicator');
@@ -1754,11 +1806,11 @@ const Composer = {
 
     // Get the track index from a Y position in the lane container
     getLaneFromY(clientY) {
-        const container = document.getElementById('laneContainer');
-        const rect = container.getBoundingClientRect();
-        const relY = clientY - rect.top;
-        const laneHeight = rect.height / this.lanes.length;
-        return Math.max(0, Math.min(this.lanes.length - 1, Math.floor(relY / laneHeight)));
+        for (let i = 0; i < this.lanes.length; i++) {
+            const r = this.lanes[i].getBoundingClientRect();
+            if (clientY >= r.top && clientY <= r.bottom) return i;
+        }
+        return this.lanes.length - 1;
     },
 
     // Convert client X to time in seconds
@@ -2911,7 +2963,7 @@ const Composer = {
                 html += this.ppRow('Fill', 'select', 'fillMode', obj.fillMode, '', ['line', 'bottom', 'top']);
                 html += this.ppRow('Opacity', 'number', 'opacity', obj.opacity, 'step="0.05" min="0" max="1"');
                 html += this.ppRow('Track', 'select', 'layer', obj.layer, '',
-                    TRACKS.map((t, i) => [String(i), t.label]));
+                    TRACKS.map((t, i) => [String(i), t.label]).concat([['7', 'META']]));
                 html += this.ppRow('Sound note (MIDI, blank=off)', 'number', 'sonifyNote', obj.sonifyNote != null ? obj.sonifyNote : '', 'step="1" min="0" max="127"');
                 {
                     const wcTechs = this.trackTechniques(obj.layer);

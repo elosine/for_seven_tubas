@@ -4,6 +4,17 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The drawing layer (dictated)
+
+"Design a curve drawing layer — the top two tracks become one track, that's my
+drawing layer; compress the seven tuba tracks into the remaining space. Then devise
+the drawing tools: I find freehand too erratic — maybe I lack the skill — it's not
+precise enough, though we may need it in certain cases. Find the right kind of meta
+shape drawing tools or combination of tools."
+
+*(→ META lane built (layer 7, top, double height, silent). Tools v1: stamp palette
+(arch/surge/bloom/line/saw) + full node editing; freehand-with-fit offered as v2.)*
+
 ## 2026-08-10 — Granular embraced; the CATIA division of labor (dictated)
 
 "Granular synthesis is a good metaphor — let's use it, think of it as pure sound,
