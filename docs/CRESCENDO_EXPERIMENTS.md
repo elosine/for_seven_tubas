@@ -45,12 +45,19 @@ transfer + inverse. All later shapes drawn in true dB space through this map.
   beginning. End behavior dominates the percept (P2 confirmed by ear). Precise flip
   point not needed — "somewhere around curve three." Vocabulary for the family: TBD
   (composer will clarify).
-- S1d `doing`: **bloom spectrum** (logarithmic/tanh family), matched to the BC ladder
-  by start:end growth ratio — AB-1 2× (slope −0.18) · AB-2 5× (−0.29) · AB-3 11×
-  (−0.37) · AB-4 25× (−0.46) · AB-5 120× (−0.62), at 1:52–3:00. Note: original A
-  (−0.8) ≈ **745×** — far out on its own family; it stays at 0:02 as the extreme
-  reference. Mirrored question: does heavy front-loading flip to "a SHORT crescendo
-  at the start, then a long held note"?
+- S1d `done 2026-08-10`: **the flip mirrors.** AB-1/AB-2 (2×/5×) = "similar — a long
+  bloom." AB-3 (11×) = "a different quality of bloom — blooms quicker, but I can
+  still hear crescendo towards the end" (bloom + still-a-crescendo: the boundary
+  specimen). AB-4/AB-5 (25×/120×) = "shorter crescendos with a sustained tail... the
+  second part doesn't sound like a crescendo anymore — a long tone." **Same ≈10:1
+  flip boundary on both sides of linear.**
+- S1e `doing`: **duration × skew** (composer): are the categories/boundary
+  scale-invariant with crescendo length? Curve settings ARE normalized (same slope =
+  same drawn shape at any L), so mechanically duration is a pure stretch — the open
+  question is whether PERCEPTION stretches with it. Hypothesis: the flip may track
+  the ABSOLUTE seconds spent below the audibility floor, not the ratio alone. Grid:
+  L = 4 s and 16 s × skews 5× / 11× / 25×, at 2:54–4:14 on the score. (8 s versions
+  already exist in S1c.)
 - Open meta-question (composer): does the VISUAL shape convey the sound? Needs "a more
   scientific approach" — the visual-perception→sound pipeline study, later.
 - S1a: T1/T2/T3/T4 line-up — one tuba, one mid pitch, L = 8 s, calibrated CC7.

@@ -47,6 +47,10 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
    sounding like a *shorter* crescendo; the usable same-length shape spectrum is
    linear → k≈2.4, with the "expected crescendo" at k≈1.6–2.4. **Working rule for
    composition: ~10:1 end:start skew = the approximate spectrum boundary.**
+8. **The flip is symmetric** (S1d): the same ≈10:1 boundary appears in the bloom
+   (front-loaded) family — beyond it, stimuli read as "a short crescendo, then a long
+   tone." Both families flip from shape-variant to duration-variant at roughly the
+   same growth-ratio. (Scale-invariance across L under test — S1e.)
 
 ## TODO before "paper" status
 
