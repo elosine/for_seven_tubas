@@ -1639,8 +1639,9 @@ const Composer = {
                 return;
             }
 
-            // X = split the selected curve at the playhead
-            if ((e.key === 'x' || e.key === 'X') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+            // ALT+X = split the selected curve at the playhead
+            if (e.altKey && (e.key === 'x' || e.key === 'X') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
                 const sel = this.selectedObject;
                 if (sel && sel.type === 'waveCurve') {
                     const tSplit = this.getTimeAtPlayhead();
@@ -2020,7 +2021,7 @@ const Composer = {
     computeSegY(seg, y1Norm, y2Norm, t) {
         if (seg && seg.model === 'ctrl') {
             const cx = Math.max(0.02, Math.min(0.98, seg.cx != null ? seg.cx : 0.5));
-            const cy = Math.max(0, Math.min(1, seg.cy != null ? seg.cy : (y1Norm + y2Norm) / 2));
+            const cy = Math.max(-0.4, Math.min(1.4, seg.cy != null ? seg.cy : (y1Norm + y2Norm) / 2));
             const a = 1 - 2 * cx, b = 2 * cx, c = -t;
             let bT;
             if (Math.abs(a) < 0.0001) bT = t;
@@ -2035,7 +2036,7 @@ const Composer = {
                 }
             }
             const omt = 1 - bT;
-            return omt * omt * y1Norm + 2 * omt * bT * cy + bT * bT * y2Norm;
+            return Math.max(0, Math.min(1, omt * omt * y1Norm + 2 * omt * bT * cy + bT * bT * y2Norm));
         }
         return this.computeYAtT(seg ? (seg.model || 'bezier') : 'bezier', seg ? (seg.slope || 0) : 0, y1Norm, y2Norm, t);
     },
@@ -2766,14 +2767,13 @@ const Composer = {
             const nA = wc.nodes[i], nB = wc.nodes[i + 1];
             const segIdx = Math.min(i, wc.segments.length - 1);
             const seg = wc.segments[segIdx];
-            let hu, hv;
+            let hu;
             if (seg && seg.model === 'ctrl') {
                 hu = nA.pos + (seg.cx != null ? seg.cx : 0.5) * (nB.pos - nA.pos);
-                hv = seg.cy != null ? seg.cy : (nA.y + nB.y) / 20;
             } else {
                 hu = (nA.pos + nB.pos) / 2;
-                hv = this.evalWaveCurve(wc, hu);
             }
+            const hv = this.evalWaveCurve(wc, hu);   // diamond stays ON the line
             const hx = x1 + hu * tw;
             const hy = dims.bottom - hv * dims.height;
             const grab = (e) => {
@@ -2832,7 +2832,9 @@ const Composer = {
             const contentX = (ev.clientX - playheadX) + this.scrollOffset;
             const u = (contentX - x1) / Math.max(1e-6, tw);
             seg.cx = Math.max(0.02, Math.min(0.98, (u - nA.pos) / Math.max(1e-6, nB.pos - nA.pos)));
-            seg.cy = Math.max(0, Math.min(1, (dims.bottom - svgY) / dims.height));
+            const vMouse = (dims.bottom - svgY) / dims.height;
+            // doubling rule: control sits beyond the mouse so the CURVE passes at the mouse
+            seg.cy = Math.max(-0.4, Math.min(1.4, 2 * vMouse - (nA.y + nB.y) / 20));
             this.updateWCRendering(wc);
             this.renderNodeHandles(wc);
         };
