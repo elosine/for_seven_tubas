@@ -4,6 +4,22 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The ensemble-crescendo dials (dictated, post-restart)
+
+"The salient factors: the amount of parts playing simultaneously — and I'll consider
+simultaneity based on THRESHOLD TO PEAK; two parts are playing together if both are
+somewhere between threshold and peak. We might adjust this later. Then the duration
+of max overlap. If we use the crescendo shapes we solved for as the general shape,
+the volume/amplitude will equal the amount of overlap — so apex will be all seven.
+And the curve speed — the delta — is the amount/speed with which the overlap stacks
+up. So we need to modulate both the onsets (when the envelopes come in) and their
+durations. Take the standard eight-second curve: if I wanted my overall shape to
+follow that curve, how do the internal mechanisms work so the overall sound sounds
+like the overall curve?"
+
+*(→ Analysis in chat: Little's-law identity N = rate × delivery-time; the ceiling
+theorem N_sustained ≤ 7·(1−threshold); apex-as-moment vs apex-as-plateau fork.)*
+
 ## 2026-08-10 — The meta-curve grammar (dictated)
 
 "Think of a Gaussian bell, metaphorically — apex and the opposite of apex. Variable
