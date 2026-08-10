@@ -1294,11 +1294,20 @@ const Composer = {
         // CC7 calibration map (curve sonification, E0)
         this.loadCC7Map();
 
-        // Auto-load last session from localStorage
+        // Auto-load last session from localStorage; fresh browsers fall back
+        // to the most recently modified score on the server
         const last = localStorage.getItem('composerLastSession');
         if (last) {
             this.sessionNameInput.value = last;
             this.loadSession(last);
+        } else {
+            fetch('/api/composer/list').then(r => r.json()).then(result => {
+                if (result.success && result.sessions.length) {
+                    const newest = result.sessions[0].name;
+                    this.sessionNameInput.value = newest;
+                    this.loadSession(newest);
+                }
+            }).catch(() => {});
         }
 
         console.log('Composer initialized');
