@@ -337,3 +337,11 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   window budgets track the trajectory exactly (see entry JSON in git).
 - **Success test:** the plateau should reproduce the keeper feel on demand.
 - **Archive:** `strat-trajectory-001`
+- **Verdict (composer):** "Overall it sounds better — maybe because of the
+  heterogeneity. But there's not a real good sense of build or plateau or descent —
+  the motion is not perceptible." **Texture ✓, trajectory ✗.** → Finding 13: with
+  level held flat, a 6.4× density change over 5 s at breath-scale grains did NOT
+  read as motion. Placement was exact (budgets verified) — so the gap is in CUE
+  MAPPING, not scheduling. Contrast: every build that DID read as motion (S3d bell,
+  meta-fills) had level and/or size riding along. Hypothesis: perceived motion is a
+  composite cue — level is likely the strongest carrier, density alone is weak.

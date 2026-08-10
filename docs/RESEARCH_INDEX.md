@@ -64,6 +64,11 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
     at 5× occupy ~5 s of a part → 7 parts cap at ≈1.4 grains/s regardless of requested
     density. Preamble-free grain types (sine, expodec) raise the ceiling — envelope-type
     mixing is a density resource, not only a color.
+12b. **Density alone is a weak motion cue at breath scale** (strat-001): an exactly-
+    rendered 6.4× density trajectory with flat level was imperceptible as build/
+    plateau/descent, while the texture itself improved (heterogeneity). Motion
+    perception appears to need a cue bundle — level suspected primary. (→ cue-
+    contribution A/B series.)
 12. **The two strata of the crescendo-grain** (W0 verdict): the second half
     (threshold→peak) IS the grain and its stochastic overlap works; the uniform first
     halves (preambles) read as a mechanical understory. The texture has two coupled
