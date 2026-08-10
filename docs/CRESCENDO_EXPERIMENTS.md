@@ -123,6 +123,7 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `t4-a-4x` / `t4-b-6x` | Gradation pair: 4× vs 6× meta, otherwise identical. |
 | `w0-d05` / `w0-d1` / `w0-d2` / `w0-d4` | W0 density ladder (realized 0.48/0.88/1.12/1.28 grains/s — see finding 11). |
 | `w2-scatter` / `w3-ratios` / `w4-types` | Screening A/Bs vs `w0-d2`: size scatter · ratio scatter · envelope-type mix. |
+| `w5-mass3` / `w5-mass45` | The mass bid: full diversity (sizes/ratios/types/levels), realized 2.1 and 2.7 grains/s. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log

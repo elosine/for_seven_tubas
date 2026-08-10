@@ -271,3 +271,13 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 ### 017 — W4 envelope-type screening (A = w0-d2, B = w4-types)
 - mix rexpodec .5 / sine .3 / expodec .2 vs all-rexpodec. Realized 33 grains,
   overlap 1.98 (highest of the set). Salient — and structurally density-cheaper?
+
+### 018 — W5 the mass bid (diversity breaks the ceiling)
+- **Date:** 2026-08-10 · **Status:** experiment
+- Everything the verdicts asked for at once: grain 1.2 s ±45 % · types rex .45 /
+  sine .35 / expodec .2 · ratios 2–6× (shorter, steeper preambles) · levels 85–100 %
+  · Poisson · T 25 s
+- `w5-mass3`: realized **2.12 grains/s**, audible overlap 2.45 (53 grains)
+- `w5-mass45`: realized **2.68 grains/s**, audible overlap 3.22 (67 grains)
+- Both far past the old 1.4/s rexpodec ceiling — diversity purchased the density,
+  as finding 11 predicted. Question: is it ONE mass now — and which density?
