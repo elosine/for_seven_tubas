@@ -121,7 +121,22 @@ Verdicts append to the consequences table below.
 
 ## Consequences table (dial → value → what it sounds like, verbatim)
 
-*(appended as W/Z verdicts arrive)*
+- **Density 0.5→1.3/s (W0, 2026-08-10):** "much better"; at 1.3 "approaching the sound
+  mass but only at the peaks — I hear five separate sound masses; pushed together it
+  would be continuous. Maybe slightly denser from there." → target sits ABOVE the
+  1.4/s rexpodec ceiling.
+- **The two halves (W0):** "the second half sounds more like the grain itself — the
+  overlap and randomness of just that second half is working. The first half is not
+  without impact, but the onset feels mechanical. Durations are all quite similar —
+  different durations and different curves might accomplish both beginning sound mass
+  and end sound mass."
+- **Size scatter ±50 % (W2):** SALIENT — "satisfying as a texture." Open: "durations a
+  bit too long, or needs greater diversity — not sure yet."
+- **Ratio scatter 3–8× (W3):** SALIENT — "several different waves, short waves; pushed
+  together → approaching sound mass."
+- **Type mix (W4):** SALIENT — "effective. All those envelope types work — nice profile
+  and sound." Direction: shape-diversity gradients or per-recipe; "may be no systematic
+  formula — in that case we develop individual recipes.
 
 ## Used-pattern entries
 

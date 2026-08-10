@@ -64,6 +64,12 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
     at 5× occupy ~5 s of a part → 7 parts cap at ≈1.4 grains/s regardless of requested
     density. Preamble-free grain types (sine, expodec) raise the ceiling — envelope-type
     mixing is a density resource, not only a color.
+12. **The two strata of the crescendo-grain** (W0 verdict): the second half
+    (threshold→peak) IS the grain and its stochastic overlap works; the uniform first
+    halves (preambles) read as a mechanical understory. The texture has two coupled
+    overlap profiles — grain-stratum and understory — and preamble DIVERSITY
+    (durations, ratios, types) is the lever that turns the understory from mechanical
+    ramps into a soft bed. All three scatter dials screened SALIENT (W2/W3/W4); none frozen.
 
 ## TODO before "paper" status
 
