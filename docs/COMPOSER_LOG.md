@@ -4,6 +4,21 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The meta-curve grammar (dictated)
+
+"Think of a Gaussian bell, metaphorically — apex and the opposite of apex. Variable
+duration: the amount of time it takes to get to the apex and back down. Or it could
+be sawtooth-shaped. The curve up or down can be various shapes — a meta crescendo
+that follows a different shape to the apex, and whatever in between, we can control
+that. And if you zoom into the curve, we control the jaggedness: on one extreme,
+over x seconds it eventually reaches the apex but with a lot of randomness in
+between — variability in the overlap. On the other end, totally smooth — overlap
+increases smoothly along the curve."
+
+*(→ The meta-curve gets the full grammar: contour (arch/sawtooth/…), nadir↔apex
+range, time-to-apex/back, segment shapes from the same Bloom/Linear/Surge families,
+and a noise/jaggedness dial. Discussion below in chat; schema → CURVE_DATABASE.)*
+
 ## 2026-08-10 — Ratio adopted; performer-side deferred to notation time
 
 "I understand the ratio — we can keep that. Let's come up with names for the two
