@@ -110,3 +110,17 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   smooth (noise 0) · 113 entries
 - **Design:** density + movement + level co-varying; apex = churn (movement), not holds
 - **Archive:** score `s3d-bell-3dial`
+
+### 006 — Convergent fan, 9 s (S4a)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Alignment:** CONVERGENT — all 7 peaks land together at 0:11; entries along the
+  surge-5× inverse profile; durations 9 / 6.15 / 4.27 / 2.86 / 1.74 / 0.80 / 0.60 s
+- **Note curve:** surge 5× each, full peak, unison 45, collective cut at apex
+- **Archive:** `s4a-fan-9s` (7 curves)
+
+### 007 — Statistical convergent, 28 s (S4b)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Alignment:** CONVERGENT-statistical — part 1 opens with a 14 s breath; parts cycle
+  swells with gaps (duty 25 %→100 %, durations 14→3 s, per-part gap factors for
+  desynchronization); every part's final swell peaks together at 0:30
+- **Archive:** `s4b-statistical-28s` (21 curves)
