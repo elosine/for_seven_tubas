@@ -124,3 +124,14 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   swells with gaps (duty 25 %→100 %, durations 14→3 s, per-part gap factors for
   desynchronization); every part's final swell peaks together at 0:30
 - **Archive:** `s4b-statistical-28s` (21 curves)
+
+### 008 — Subdivision stack, 9 s (S4c)
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Structure:** 4 parts, mensuration-canon of swells — part 1: one 9 s swell ·
+  part 2: two 4.5 s · part 3: three 3 s · part 4: four 2.25 s. All interior peaks
+  on the subdivision grid; ALL final peaks together at 0:11. 0.15 s re-articulation
+  gap shaved off the start of each subsequent swell (peaks stay exact).
+- **Note curve:** surge 5× each, full peak, unison 45, Ordinario
+- **Context:** S4a fan verdict "just sounds like one crescendo, as expected";
+  S4b statistical "not correct" — this isolates the layered-subdivision mechanism.
+- **Archive:** `s4c-subdivision-9s` (10 curves)

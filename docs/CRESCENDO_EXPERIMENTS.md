@@ -115,6 +115,7 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s3d-bell-3dial` | S3d: 80 s bell, three dials co-varying — L 8→2→8 s, spacing 2.55→0.29→2.55 s, peak 70→100→70 %; surge 5×, unison, 113 entries. |
 | `s4a-fan-9s` | S4a convergent fan: 7 swells, staggered entries on the surge inverse, all peaking at 0:11. |
 | `s4b-statistical-28s` | S4b statistical convergent: 14 s opener, cycling swells w/ gaps, all final peaks at 0:30. |
+| `s4c-subdivision-9s` | S4c subdivision stack: parts 1–4 divide 9 s into 1/2/3/4 swells, all converging at 0:11. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log
