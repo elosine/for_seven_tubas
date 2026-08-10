@@ -345,3 +345,18 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   MAPPING, not scheduling. Contrast: every build that DID read as motion (S3d bell,
   meta-fills) had level and/or size riding along. Hypothesis: perceived motion is a
   composite cue — level is likely the strongest carrier, density alone is weak.
+
+### 023 — SC1: ending-density arch (the swell-cloud, peak-cut scheduling)
+- **Date:** 2026-08-10 · **Status:** the convergence build
+- **The species insight:** the peak-cut IS the attack (reversed pizzicato) — Xenakis
+  X3 attack-salience translated into the crescendo-cloud. ENDINGS are scheduled;
+  onsets back-calculated (onset = peak − duration).
+- **Engine:** compileSwellCloud — ending-rate quota windows (L2) · jittered peaks (L1)
+  · durations lognormal σ0.35 with mean feasibility-coupled to local ending-rate
+  (dense endings force shorter swells) · steep surge ratios 2–4× · cut release 0.08 s
+  · level flat 0.9 (honest test: does ending-density alone carry motion?) ·
+  single-species by composer instruction (SC3 restores variety).
+- **Trajectory:** endings/s 0.3 →(12 s)→ 3.5 · apex 4 s · →(12 s)→ 0.3. 28 s total.
+- Manifest: 40 swells (5 dropped) · durations 0.62/1.70/3.00 s · parts 6-6-6-5-6-6-5.
+- **Program:** SC2 = duration/onset variety dials · SC3 = shape sweep.
+- **Archive:** `sc1-ending-arch`

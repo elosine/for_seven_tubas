@@ -4,6 +4,21 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The convergence: peak-cut = attack; the SC program (dictated)
+
+"Let's stick with this crescendo-based cloud — swell and cut, the original shape.
+Invert the onset to offset: the peak of the swell is the equivalent of the attack.
+Build the density of those swells — a density of one swell peak following another.
+Randomness so it doesn't sound periodic; durations variable too. First order of
+business: an escalating/de-escalating series of curve ENDINGS — densest point =
+endings following each other densely, edges spaced out — a Gaussian-style curve.
+Stage two: variety of curve durations and onsets, backwards calculated from the
+swell density. Stage three: vary the curve shape, then the variety itself. [Line-
+mass understood and held; point-cloud framework noted but maybe not this piece.]"
+
+*(→ SC1 built: ending-density arch, feasibility-coupled durations, flat level as
+the honest ending-density test. DB 023.)*
+
 ## 2026-08-10 — Back to Xenakis: Metastaseis/Pithoprakta as the model (dictated)
 
 "Looking at Metastaseis and Pithoprakta — how he created these clouds. They have very

@@ -610,3 +610,108 @@ function compileStratified(C, spec) {
     grainSpread: durs.length ? [+durs[0].toFixed(2), +durs[Math.floor(durs.length / 2)].toFixed(2), +durs[durs.length - 1].toFixed(2)] : null
   } };
 }
+
+
+// ---- compileSwellCloud: SC-series — the crescendo-cloud with PEAK-CUT scheduling ----
+// The composer's species (2026-08-10): swell-and-cut atoms; the peak-cut IS the
+// attack (a reversed pizzicato). We schedule ENDING density on a trajectory
+// (L2 quota windows, jittered inside per L1); onsets are back-calculated
+// (onset = peak - duration). Durations: lognormal spread whose MEAN couples to
+// local ending-rate feasibility (dense endings force shorter swells - physics).
+// Single-species by composer instruction (SC3 restores shape variety).
+function compileSwellCloud(C, spec) {
+  const T0 = spec.t0 != null ? spec.t0 : 2;
+  const parts = 7, SEP = 0.05, WIN = 0.5;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const R = spec.cutRelease != null ? spec.cutRelease : 0.08;
+  const sizeSigma = spec.sizeSigma != null ? spec.sizeSigma : 0.35;
+  const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;
+  const levelSigma = 0.06;
+  const ratioRange = spec.ratioRange || [2, 4];
+  const traj = spec.trajectory;   // [{dur, from, to}] in ENDINGS per second
+  const total = traj.reduce((s, l) => s + l.dur, 0);
+  const rateAt = tt => {
+    let acc = 0;
+    for (const leg of traj) {
+      if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
+        const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
+        return leg.from * Math.pow(leg.to / leg.from, f);
+      }
+      acc += leg.dur;
+    }
+    return traj[traj.length - 1].to;
+  };
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+
+  const candidates = [];
+  const windows = [];
+  let acc = 0;
+  for (let w0 = 0; w0 < total; w0 += WIN) {
+    const wLen = Math.min(WIN, total - w0);
+    const rate = rateAt(w0 + wLen / 2);
+    acc += rate * wLen;
+    const n = Math.floor(acc);
+    acc -= n;
+    windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
+    for (let k = 0; k < n; k++) {
+      const slot = wLen / n;
+      const peak = T0 + w0 + k * slot + Math.random() * slot;   // jittered ending
+      const localRate = rateAt(peak - T0);
+      // feasibility-coupled mean: dense endings force shorter swells
+      const mean = Math.min(spec.sizeBase != null ? spec.sizeBase : 1.8, 0.8 * parts / localRate);
+      let D = mean * Math.exp(sizeSigma * gauss());
+      D = Math.max(0.4, Math.min(3, D));
+      const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
+      const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
+      const start = peak - D, end = peak + R;
+      if (start < 0.1) continue;
+      const p = Math.round((D / (D + R)) * 1000) / 1000;
+      candidates.push({
+        start, end, peak, grain: D,
+        nodes: [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p, y: 10 * lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }],
+        segments: [{ model: 'exponential', slope: Math.log(ratio) / 4 }, { model: 'power', slope: 0 }],
+        type: 'swellcut'
+      });
+    }
+  }
+  candidates.sort((a, b) => a.start - b.start);
+  const lastEnd = new Array(parts).fill(-Infinity);
+  let _rr = 0, dropped = 0;
+  const placed = [];
+  for (const ev of candidates) {
+    let chosen = -1;
+    for (let k = 0; k < parts; k++) {
+      const cand = (_rr + k) % parts;
+      if (ev.start >= lastEnd[cand] + SEP) { chosen = cand; break; }
+    }
+    if (chosen < 0) { dropped++; continue; }
+    _rr = (chosen + 1) % parts;
+    lastEnd[chosen] = ev.end;
+    placed.push({ ...ev, part: chosen });
+  }
+  placed.sort((a, b) => a.peak - b.peak);
+  placed.forEach((ev, i) => {
+    const wc = C.createWaveCurve({
+      startSeconds: Math.round(ev.start * 100) / 100, endSeconds: Math.round(ev.end * 100) / 100,
+      layer: ev.part, nodes: ev.nodes, segments: ev.segments,
+      color: HUES[ev.part % HUES.length], opacity: 0.3,
+      performanceNotes: `SC e${i + 1}`
+    });
+    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    wc.technique = 'ord';
+  });
+  C.deselectAll();
+  const durs = placed.map(e => e.grain).sort((a, b) => a - b);
+  const perPart = new Array(parts).fill(0);
+  placed.forEach(e => perPart[e.part]++);
+  return { manifest: {
+    note: 'single-species (swell-cut) by composer instruction — SC3 restores variety',
+    windows, placed: placed.length, dropped, perPart,
+    durSpread: durs.length ? [+durs[0].toFixed(2), +durs[Math.floor(durs.length / 2)].toFixed(2), +durs[durs.length - 1].toFixed(2)] : null
+  } };
+}
