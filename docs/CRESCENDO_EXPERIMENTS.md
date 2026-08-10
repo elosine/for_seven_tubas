@@ -36,9 +36,15 @@ transfer + inverse. All later shapes drawn in true dB space through this map.
   Survivors: **A = "a bloom"** · **B = its own category** (linear, "probably not your
   typical crescendo") · **C = "the expected crescendo."**
   **Notation finding: a traditional hairpin ≈ C (exponential), NOT B (linear).**
-- S1c `doing`: B→C spectrum — exponential slopes 0.2 / 0.4 / 0.6 / [0.8 = C] / 1.2 /
-  1.8, at 0:50–1:46 on the score. Question: is there a perceptible spectrum, and how
-  many distinct stops does it have?
+- S1c `done 2026-08-10`: **the usable shape-spectrum runs linear → ≈BC-3 (slope 0.6)**.
+  Composer: the "standard/expected crescendo" sits **between BC-2 and BC-3** (slopes
+  0.4–0.6) — LEFTward of the original C guess. BC-1 = "a long crescendo." **Beyond
+  ≈BC-3, curvature stops reading as shape and reads as a SHORTER crescendo** (BC-4,
+  BC-5: "shorter crescendos rather than the same crescendo in a different curve") —
+  the quiet early portion falls below the perceptual onset floor, deferring the heard
+  beginning. End behavior dominates the percept (P2 confirmed by ear). Precise flip
+  point not needed — "somewhere around curve three." Vocabulary for the family: TBD
+  (composer will clarify).
 - S1d `todo`: A-spectrum (bloom family settings) — after S1c settles.
 - Open meta-question (composer): does the VISUAL shape convey the sound? Needs "a more
   scientific approach" — the visual-perception→sound pipeline study, later.
