@@ -20,6 +20,7 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
 | `GAIN_STAGING.md` | Level-calibration protocol + ledger (measurement validity) |
 | `SI2_tuba_sample_lengths.md` | Instrument dataset: per-note crescendo-sample lengths |
 | `COMPOSER_LOG.md` | Composer's verbatim dictated notes, dated (primary source) |
+| `CURVE_DATABASE.md` | The three styles (Bloom/Linear/Surge) + catalog of used patterns (entries added as used) |
 | `research/audio/INDEX.md` | Audio evidence index (files kept out of git for now) |
 | `probes/` | All measurement instruments (MIDI probes + analyzers), reusable |
 | `scores/7tubas.json` + git history | Every auditioned stimulus, reproducible at any past state |
