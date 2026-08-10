@@ -77,6 +77,9 @@ Stagger swept across takes: 100% (unison) · ~86% (L/7 Risset spacing) · 75% ·
 ### S3 — Overlap evolution within one pattern — `doing` *(composer note; meta-curve grammar adopted 2026-08-10: contour/range/timing/segment-shapes/noise — see COMPOSER_LOG + CURVE_DATABASE 002-003)*
 - S3-arch A/B `doing`: same arch (interval 8→1.2→8 s over 3 min, linear segments,
   L = 8 s surge 5×, unison) — noise 0 vs. wander ±40 %. Isolates the jaggedness dial.
+- S3c `doing`: **delta ladder** — isolate the RATE of overlap increase. Zero point =
+  peak(n) on threshold(n+1) (stagger 2.55 s); three 7-entry groups tightening by
+  Δ = 0.15 / 0.30 / 0.40 s per entry. Smooth; noise deferred. (DB entry 004.)
 - S3a: overlap **increases** across the pattern (sequential → piled).
 - S3b: **unison start → no overlap** (block dissolves into a relay).
 - S3c (mirror, cheap): no-overlap → unison.
@@ -108,6 +111,7 @@ B-ratchet (stepped series per part), stagger = L/7 baseline, then informed by S2
 | `s2b-overlap-threshold` | S2b: 7-voice relay — each voice enters at the previous voice's THRESHOLD (surge 5×, stagger 5.45 s), 8 s swells, pitch 45, 4 min, 43 curves. Verdict: "simply repeated events" — direction → shifting overlap (S3). |
 | `s3a-arch-smooth` | S3 arch, noise 0: interval 8→1.2→8 s over 180 s, linear segments, L 8 s surge 5×, unison, 51 entries. |
 | `s3b-arch-wander` | S3 arch, wander noise ±40 %: same trend, 54 entries. |
+| `s3c-delta-ladder` | S3c: three 7-entry groups, stagger tightening from 2.55 s by Δ = 0.15/0.30/0.40 s per entry; surge 5×, unison, smooth. |
 | `7tubas` | The working score — zeroed after S1 archive. |
 
 ## Results log

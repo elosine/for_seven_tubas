@@ -60,3 +60,13 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - Identical to 002 except **noise = wander** (mean-reverting walk, ±40 % of local
   interval, min-clamped at apex spacing) · 54 entries
 - **Archive:** score `s3b-arch-wander`
+
+### 004 — Delta ladder (S3c): isolated overlap-increase rate
+- **Date:** 2026-08-10 · **Status:** experiment
+- **Note curve:** C3 Surge 5× · L = 8 s · unison pitch 45 · Ordinario · 7 entries per
+  group, one round of the tubas · smooth (noise 0)
+- **Zero point (composer def.):** minimum overlap = peak(n) aligned with
+  threshold(n+1) → base stagger = L − threshold-time = 2.55 s
+- **The dial:** per-entry stagger tightening Δ. Three groups: **Δ = 0.15 s** (2.55→1.80)
+  · **Δ = 0.30 s** (2.55→1.05) · **Δ = 0.40 s** (2.55→0.55)
+- **Archive:** score `s3c-delta-ladder` (21 curves, groups at 0:02 / 0:31 / 0:58)
