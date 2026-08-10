@@ -117,9 +117,10 @@ def main():
              f" · {sched['created'][:10]} · tuba1 pair (applies to all 7 tubas)", "",
              "SUSTAINED = held to note-off (>= hold; loops or long sample). FIXED = sample's own length.",
              "SILENT = nothing sounded at that pitch (dead zone).", "",
-             "| Technique | Pitch | Verdict | Sounded (s) |", "|---|---|---|---|"]
+             "| Technique | UVI display | Sci (MIDI) | Verdict | Sounded (s) |", "|---|---|---|---|---|"]
+    uvi = lambda m: names[m % 12] + str(m // 12 - 2)
     for r in results:
-        lines.append(f"| {r['tech']} | {sci(r['pitch'])} ({r['pitch']}) | {r['verdict']} | {r['soundedSec']} |")
+        lines.append(f"| {r['tech']} | {uvi(r['pitch'])} | {sci(r['pitch'])} ({r['pitch']}) | {r['verdict']} | {r['soundedSec']} |")
     md = "\n".join(lines) + "\n"
     md_path = os.path.join(REPO, "docs", "SI2_tuba_sample_lengths.md")
     open(md_path, "w", encoding="utf-8", newline="\n").write(md)
