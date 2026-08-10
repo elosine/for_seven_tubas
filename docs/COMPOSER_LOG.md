@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Freehand-with-fit; more vertical room (dictated)
+
+"Move directly to freehand with fit — but talk options first. Gehry metaphor:
+essentially freehand but without the jagged points; afterwards I add nodes or
+adjust the humps easily. Maybe a pseudo-Bezier mode too. And eat one more track —
+I need more vertical room; compress the other seven down. The dials might become
+a pop-out thing eventually. Prototype in what exists and I'll comment."
+
+*(→ Options laid out (sketch→fit / lazy pen / click-through pen / relax button);
+Option 1 prototyped: Draw toggle + fit-strength dial, pre-smooth + point-reduction.
+Noisy 120-pt arch → 10/6/3 nodes at light/medium/heavy. META now 32 %. Pop-out
+tool palette parked for next UI pass; click-through pen = next tool if wanted.)*
+
 ## 2026-08-10 — The drawing layer (dictated)
 
 "Design a curve drawing layer — the top two tracks become one track, that's my

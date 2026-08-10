@@ -62,16 +62,17 @@
     .lane {
         position: absolute; left: 0; right: 0; overflow: hidden;
     }
-    /* META drawing lane (DOM lane8, layer index 7) sits on top, double height */
-    #lane8 { top: 0; height: 22%; background: #f7f5ef; }
+    /* META drawing lane (DOM lane8, layer index 7): triple height, on top */
+    #lane8 { top: 0; height: 32%; background: #f7f5ef; }
     #lane8 .laneLabel { color: #8a6d3b; }
-    .lane:nth-child(1) { top: 22.0%; height: 11.14%; }
-    .lane:nth-child(2) { top: 33.14%; height: 11.14%; }
-    .lane:nth-child(3) { top: 44.29%; height: 11.14%; }
-    .lane:nth-child(4) { top: 55.43%; height: 11.14%; }
-    .lane:nth-child(5) { top: 66.57%; height: 11.14%; }
-    .lane:nth-child(6) { top: 77.71%; height: 11.14%; }
-    .lane:nth-child(7) { top: 88.86%; height: 11.14%; }
+    #drawBtn.on { background: #8a6d3b; color: #fff; }
+    .lane:nth-child(1) { top: 32.0%; height: 9.71%; }
+    .lane:nth-child(2) { top: 41.71%; height: 9.71%; }
+    .lane:nth-child(3) { top: 51.43%; height: 9.71%; }
+    .lane:nth-child(4) { top: 61.14%; height: 9.71%; }
+    .lane:nth-child(5) { top: 70.86%; height: 9.71%; }
+    .lane:nth-child(6) { top: 80.57%; height: 9.71%; }
+    .lane:nth-child(7) { top: 90.29%; height: 9.71%; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -371,6 +372,13 @@
     <button id="stampBtn">Stamp → META</button>
     <span style="color:#ccc">|</span>
     <button id="clearAllBtn">Clear All</button>
+    <span style="color:#ccc">|</span>
+    <button id="drawBtn">&#9998; Draw</button>
+    <select id="fitSelect">
+        <option value="0.015">Fit: light</option>
+        <option value="0.03" selected>Fit: medium</option>
+        <option value="0.06">Fit: heavy</option>
+    </select>
 </div>
 
 <!-- Floating property panel -->
@@ -1305,6 +1313,31 @@ const Composer = {
                 segments: JSON.parse(JSON.stringify(s.segments)),
                 color: '#8a6d3b', opacity: 0.5 });
         });
+        // ---- Freehand-with-fit (META lane) ----
+        this.drawMode = false;
+        const drawBtn = document.getElementById('drawBtn');
+        if (drawBtn) drawBtn.addEventListener('click', () => {
+            this.drawMode = !this.drawMode;
+            drawBtn.classList.toggle('on', this.drawMode);
+        });
+        const metaLane = this.lanes[7];
+        let sketch = null;
+        metaLane.addEventListener('mousedown', (e) => {
+            if (!this.drawMode || e.button !== 0) return;
+            e.preventDefault(); e.stopPropagation();
+            sketch = [];
+            const move = (ev) => sketch.push({ x: ev.clientX, y: ev.clientY });
+            const up = () => {
+                window.removeEventListener('mousemove', move);
+                window.removeEventListener('mouseup', up);
+                this.fitSketch(sketch);
+                sketch = null;
+            };
+            window.addEventListener('mousemove', move);
+            window.addEventListener('mouseup', up);
+            sketch.push({ x: e.clientX, y: e.clientY });
+        }, true);
+
         const clearBtn = document.getElementById('clearAllBtn');
         if (clearBtn) clearBtn.addEventListener('click', () => {
             if (!confirm('Clear ALL objects from this score?')) return;
@@ -1472,6 +1505,7 @@ const Composer = {
         const container = document.getElementById('laneContainer');
 
         container.addEventListener('mousedown', (e) => {
+            if (this.drawMode) return;   // freehand capture owns the mouse
             // Only drag with middle mouse or left mouse on empty space
             if (e.button === 1 || (e.button === 0 && e.target.closest('.lane') && !e.target.closest('.composerObject'))) {
                 dragging = true;
@@ -1786,6 +1820,71 @@ const Composer = {
                 this.saveSession();
             }
         }, 5000);
+    },
+
+    // ========== FREEHAND FIT (sketch -> clean node curve on META) ==========
+
+    fitSketch(raw) {
+        if (!raw || raw.length < 3) return;
+        const laneRect = this.lanes[7].getBoundingClientRect();
+        const dims = this.getLaneDims(7);
+        // client coords -> (time, y01); enforce monotonic time
+        let pts = raw.map(p => ({
+            t: this.clientXToTime(p.x),
+            v: Math.max(0, Math.min(1, 1 - (p.y - laneRect.top - dims.top) / dims.height))
+        }));
+        const mono = [pts[0]];
+        for (const p of pts) if (p.t > mono[mono.length - 1].t + 0.01) mono.push(p);
+        if (mono.length < 3) return;
+        const t0 = mono[0].t, t1 = mono[mono.length - 1].t;
+        if (t1 - t0 < 0.5) return;
+        // normalize to (u,v) unit square
+        let norm = mono.map(p => ({ u: (p.t - t0) / (t1 - t0), v: p.v }));
+        const eps = parseFloat(document.getElementById('fitSelect')?.value || '0.03');
+        // pre-smooth: the jag-killer (window scales with fit strength); RDP then reduces
+        const win = eps <= 0.015 ? 5 : eps <= 0.03 ? 9 : 15;
+        for (let pass = 0; pass < 2; pass++) {
+            const sm = norm.map((p, i) => {
+                let s = 0, n = 0;
+                for (let k = -win; k <= win; k++) {
+                    const j = i + k;
+                    if (j >= 0 && j < norm.length) { s += norm[j].v; n++; }
+                }
+                return { u: p.u, v: s / n };
+            });
+            norm = sm;
+        }
+        const keep = this.rdp(norm, eps);
+        const nodes = keep.map(p => ({ pos: Math.round(p.u * 1000) / 1000, y: Math.round(p.v * 100) / 10, smooth: 0.35 }));
+        nodes[0].pos = 0; nodes[nodes.length - 1].pos = 1;
+        const segments = [];
+        for (let i = 0; i < nodes.length - 1; i++) segments.push({ model: 'bezier', slope: 0 });
+        this.createWaveCurve({
+            startSeconds: Math.max(0, Math.round(t0 * 100) / 100),
+            endSeconds: Math.round(t1 * 100) / 100,
+            layer: 7, nodes, segments, color: '#8a6d3b', opacity: 0.5
+        });
+    },
+
+    rdp(points, eps) {
+        if (points.length < 3) return points;
+        const d2line = (p, a, b) => {
+            const dx = b.u - a.u, dy = b.v - a.v;
+            const L2 = dx * dx + dy * dy;
+            if (L2 < 1e-12) return Math.hypot(p.u - a.u, p.v - a.v);
+            const s = ((p.u - a.u) * dx + (p.v - a.v) * dy) / L2;
+            const cs = Math.max(0, Math.min(1, s));
+            return Math.hypot(p.u - (a.u + cs * dx), p.v - (a.v + cs * dy));
+        };
+        let maxD = 0, idx = 0;
+        for (let i = 1; i < points.length - 1; i++) {
+            const d = d2line(points[i], points[0], points[points.length - 1]);
+            if (d > maxD) { maxD = d; idx = i; }
+        }
+        if (maxD <= eps) return [points[0], points[points.length - 1]];
+        const left = this.rdp(points.slice(0, idx + 1), eps);
+        const right = this.rdp(points.slice(idx), eps);
+        return left.slice(0, -1).concat(right);
     },
 
     // ========== UTILITY ==========
