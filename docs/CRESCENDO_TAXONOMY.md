@@ -40,6 +40,12 @@ Five independent dimensions; a "crescendo" is a coordinate in this space.
 
 ### D1 — Trajectory family (shape in dB space)
 
+> **Official vocabulary (composer, 2026-08-10):** the two sides of the growth-ratio
+> are **BLOOM** (front-loaded) and **SURGE** (back-loaded); a full spec reads
+> "8 seconds, surge 5×". Back-pocket alternates for the paper: head-heavy /
+> tail-heavy. The ~10:1 ratio is the working boundary of each family (findings 7–8).
+> Halfway-loudness-moment name: under discussion.
+
 | ID | Family | dB profile | Character / prediction | Score curve model |
 |---|---|---|---|---|
 | T1 | **Steady** | linear in dB | the ruler; neutral growth | power, slope 0 |
