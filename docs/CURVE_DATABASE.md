@@ -32,6 +32,17 @@ Vocabulary: CRESCENDO_TAXONOMY.md · findings: RESEARCH_INDEX.md.*
 | 11× (boundary quality) | −0.37 | 0.28 |
 | 25× (past — short cresc + long tone) | −0.46 | ~0.24 |
 
+## The ensemble dials (meta-level, composer 2026-08-10)
+
+- **DENSITY** — voices in delivery at once (threshold-to-peak counting; apex = 7)
+- **MOVEMENT** — at fixed density, the spectrum long-tones ↔ churn (rapid shortest
+  swells). Identity: density = rate × delivery-time — density fixes the *product*,
+  movement chooses the *split* (few-long vs many-short).
+- **LEVEL** — per-swell peak scaling (how loud each swell gets)
+Each dial can follow its own meta-curve (bloom/linear/surge/arch + noise).
+*Metric note: threshold-to-peak counting undercounts busy short-swell textures
+(preambles become audible at short L) — for churn states track SOUNDING count.*
+
 ## Used-pattern entries
 
 *Schema: id · date · style/ratio · length · threshold · peak behavior · deployment ·

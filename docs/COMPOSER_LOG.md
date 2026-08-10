@@ -4,6 +4,21 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — The MOVEMENT dial (dictated)
+
+"Holding a density, there is a movement dial. On one end, all seven are just playing
+a long tone. On the other end, rapid repeated entries — the shortest possible
+crescendo repeated and overlapped. It's really less about volume than texture and
+energy. My understanding: there's a meta shape (bloom, exponential, or bell), and
+underneath is more opaque to me — that's what I want to figure out. If we wanted a
+bell curve with the seven tubas: how to tweak the overlap and duration of each
+individual crescendo so the swells grow in both intensity/volume AND movement —
+more busy — and then the other direction, less busy and less volume."
+
+*(→ Movement = the factorization choice inside density = rate × duration: same
+density from few-long or many-short. Three dials: Density / Movement / Level.
+Bell build: L 8→2 s, spacing 2.55→0.29 s, peak 70→100 %, all riding the arch.)*
+
 ## 2026-08-10 — The ensemble-crescendo dials (dictated, post-restart)
 
 "The salient factors: the amount of parts playing simultaneously — and I'll consider
