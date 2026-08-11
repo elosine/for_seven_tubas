@@ -420,3 +420,62 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (0.8/1.5/2.5 s) sequential on Tuba 1, labeled via performanceNotes, ~70 s.
 - **Open (composer):** bless/rename `surge`; verdicts per shape → which enter the
   engine's envelopeMix.
+
+### 028 — Pass 2: the onset-driven cloud (compileOnsetCloud) + the short-grain category
+- **Date:** 2026-08-11 (AI, from composer dictation) · **Status:** battery built, awaiting listen
+- **Generative flip (four-pass plan pass 2):** ONSETS are scheduled (L2 quota
+  windows, uniform-in-window = max random; causal random part assignment = max
+  scatter), durations FOLLOW. Physical law enforced: no overlap within a part +
+  re-articulation gap (0.08 s dial).
+- **The short-grain category (composer's model, AI's transcription — confirm):**
+  on the short end, all durations inside one band are ONE perceptual category
+  ("the short grain": band 0.6–0.9 s, min raised from SC4's 0.5); diversity can't
+  come from variety inside it. The rest of each draw is ONE random selection,
+  uniform across (0.9, maxDur] — uniform (not log) so it leans LONG. Dial:
+  pShort 0.45.
+- **The evaluation instrument (composer: "when does this become a factor"):** the
+  manifest reports truncation (dense grains whose target duration got cut by the
+  part's next onset) overall AND inside the apex window, target-vs-realized
+  duration histograms, apex occupancy, onset-gap CV global + per-part.
+- **Feasibility sweep (headless, 40 trials/cell, 10 parts, apex = 7 s hold):**
+  - Onset-rate ceiling ≈ 11/s (drops begin at 12/s; 6–10/s place 100%).
+  - Truncation is ALREADY a factor at any dense apex: 29% at 6/s even with
+    maxDur 1.6; ~46–57% at 8/s; ~2/3 at 10/s.
+  - **Surviving apex duration mix (the real tradeoff):**
+    | apex | maxDur | short | 1–2 s | 2–3 s | 3 s+ |
+    |---|---|---|---|---|---|
+    | 6/s | 4.5 | 57% | 33% | 7% | 3% |
+    | 8/s | 3.5 | 65% | 32% | 3% | 0% |
+    | 10/s | 3.5 | 81% | 18% | 1% | 0% |
+  - **Structural finding:** at 8+/s with random assignment, mean per-part gap
+    (parts/rate ≈ 1.25 s) crushes the long tail regardless of the maxDur dial.
+    The dial only matters below ~6/s. Density and duration-diversity cannot
+    coexist in ONE stream at a dense apex.
+- **The Xenakis answer — superposition (`longStream` option):** a sparse stream
+  of long grains (0.7/s, 2.2–5 s) whose spans are RESERVED on rotating lanes,
+  threaded through the dense mass. At apex 8/s this restores the 3 s+ band
+  (0%→~6–8%, near-zero drops, occupancy 0.74) — and POLARIZES the mix (very
+  short + very long, hollowed 1–2 s middle): points + lines, the two Xenakis
+  species superposed. Predicted to be the best match for "wide diversity of note
+  durs while maintaining a dense sound."
+
+### 029 — The OC listening battery (pass 2, awaiting composer)
+- **Scores in the Load dropdown** (all 10-part unless noted; apex = 7 s hold,
+  8 s ramp in, 5 s fall; apexWindow 8–15 s score-time):
+  - **oc1-apex8-md3p5** — pure hypothesis point: 8/s, maxDur 3.5. Realized apex:
+    8.0 onsets/s, mix short 66%/1–2s 29%/2–3s 5%.
+  - **oc2-apex6-md4p5** — density traded for diversity: 6/s, maxDur 4.5.
+  - **oc3-apex8-superposed** — 8/s + longStream 0.7/s (14 longs placed, 3 s+
+    band present at apex). The polarized/Xenakis candidate.
+  - **oc4-apex10-md2p5** — max push: 10/s; diversity collapses (58 short vs
+    12 mid at apex). The density-ceiling anchor.
+  - **oc0-preview7** — 7-PART preview (5.6/s = equal per-part load to oc1),
+    listenable BEFORE the tuba 8–10 hardware exists.
+- **Listening questions:** (1) does oc1 already satisfy the density sound-image,
+  or do the truncated durs read as "too short/uniform" (finding-10 risk)?
+  (2) oc3 vs oc1: does the long-grain thread ADD depth or read as a separate
+  layer? Is the hollowed middle audible/good? (3) oc4 vs oc1: what does +2/s
+  actually buy at the cost of the mid band? (4) oc2: is 6/s still "max density"
+  to the ear? → verdicts pick the model; dials then fine-tune.
+- ⚠ 10-part scores sound on 7 parts only until loopMIDI/UVI hardware for
+  tubas 8–10 exists (AUTOMATION_EVAL.md; setup script awaiting approval).

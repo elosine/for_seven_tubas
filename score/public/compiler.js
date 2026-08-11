@@ -822,3 +822,201 @@ function compileSwellCloud(C, spec) {
     durSpread: durs.length ? [+durs[0].toFixed(2), +durs[Math.floor(durs.length / 2)].toFixed(2), +durs[durs.length - 1].toFixed(2)] : null
   } };
 }
+
+// ========== PASS 2: THE ONSET-DRIVEN CLOUD (compileOnsetCloud) ==========
+// Composer 2026-08-11 — flips the generative direction: schedule ONSETS (varied
+// gaps, yet dense), durations follow. Physical law: no overlap within a part +
+// re-articulation gap. Duration model = the SHORT-GRAIN CATEGORY hypothesis:
+// all durs in a short band are ONE perceptual category ("the short grain");
+// diversity lives in a single random selection across the longer range.
+// The manifest IS the evaluation instrument for apex-density vs diversity:
+// truncation fraction (esp. inside the apex window) shows exactly when the
+// physical limit starts eating the duration distribution.
+//
+// spec: { trajectory: [{dur,from,to}] (ONSET rate legs, geometric interp),
+//   window: 0.25, parts: 10,
+//   durModel: { shortBand: [0.6, 0.9], pShort: 0.45, maxDur: 3.5 },
+//   reArtic: 0.08, releaseRange: [0.02, 0.08], ratioRange: [3, 6],
+//   levelFlat: 0.9, apexWindow: [t0, t1] (score-relative, for apex metrics),
+//   note: 45, technique: 'ord', tag: 'OC' }
+function compileOnsetCloud(C, spec) {
+  const T0 = 2;
+  const parts = spec.parts || 10;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
+  const dm = spec.durModel || {};
+  const shortBand = dm.shortBand || [0.6, 0.9];
+  const pShort = dm.pShort != null ? dm.pShort : 0.45;
+  const maxDur = dm.maxDur != null ? dm.maxDur : 3.5;
+  const reArtic = spec.reArtic != null ? spec.reArtic : 0.08;
+  const relRange = spec.releaseRange || [0.02, 0.08];
+  const ratioRange = spec.ratioRange || [3, 6];
+  const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;
+  const levelSigma = 0.06;
+  const WIN = spec.window != null ? spec.window : 0.25;
+  const traj = spec.trajectory;
+  const total = traj.reduce((s, l) => s + l.dur, 0);
+  const rateAt = tt => {
+    let acc = 0;
+    for (const leg of traj) {
+      if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
+        const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
+        return leg.from * Math.pow(leg.to / leg.from, f);
+      }
+      acc += leg.dur;
+    }
+    return traj[traj.length - 1].to;
+  };
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+
+  // ---- 1. Onset stream: L2 quota windows, uniform placement (max random) ----
+  const onsets = [];
+  const windows = [];
+  let acc = 0;
+  for (let w0 = 0; w0 < total; w0 += WIN) {
+    const wLen = Math.min(WIN, total - w0);
+    const rate = rateAt(w0 + wLen / 2);
+    acc += rate * wLen;
+    const n = Math.floor(acc);
+    acc -= n;
+    windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
+    for (let k = 0; k < n; k++) onsets.push(T0 + w0 + Math.random() * wLen);
+  }
+  onsets.sort((a, b) => a - b);
+
+  // ---- 1b. Optional LONG STREAM (Xenakis superposition): a sparse stream of
+  // long grains threaded through the dense mass on rotating lanes. Their spans
+  // are RESERVED at assignment (blockedUntil), so the dense stream can't land
+  // on a sounding long grain — this is how wide dur-diversity survives at a
+  // dense apex (X-rules: species superposition).
+  const ls = spec.longStream || null;   // { rate: 0.7, durRange: [2.2, 5] }
+  const longOnsets = [];
+  if (ls) {
+    let lacc = 0;
+    for (let w0 = 0; w0 < total; w0 += WIN) {
+      const wLen = Math.min(WIN, total - w0);
+      lacc += ls.rate * wLen;
+      const n = Math.floor(lacc);
+      lacc -= n;
+      for (let k = 0; k < n; k++) longOnsets.push(T0 + w0 + Math.random() * wLen);
+    }
+  }
+  const stream = onsets.map(t => ({ t, isLong: false }))
+    .concat(longOnsets.map(t => ({ t, isLong: true })))
+    .sort((a, b) => a.t - b.t);
+
+  // ---- 2. Part assignment: causal, RANDOM among feasible (max scatter) ----
+  // Feasibility floor: at least a short grain + max release + reArtic must fit.
+  const footprint = shortBand[0] + relRange[1] + reArtic;
+  const lastOnset = new Array(parts).fill(-Infinity);
+  const blockedUntil = new Array(parts).fill(-Infinity);
+  const assigned = [];
+  let dropped = 0, longDropped = 0;
+  for (const o of stream) {
+    const t = o.t;
+    const feas = [];
+    for (let p = 0; p < parts; p++) {
+      if (t - lastOnset[p] >= footprint && t >= blockedUntil[p]) feas.push(p);
+    }
+    if (!feas.length) { if (o.isLong) longDropped++; else dropped++; continue; }
+    const p = feas[Math.floor(Math.random() * feas.length)];
+    lastOnset[p] = t;
+    const a = { t, part: p, isLong: o.isLong };
+    if (o.isLong) {
+      // duration fixed NOW and the span reserved
+      a.longDur = ls.durRange[0] + Math.random() * (ls.durRange[1] - ls.durRange[0]);
+      blockedUntil[p] = t + a.longDur + relRange[1] + reArtic;
+    }
+    assigned.push(a);
+  }
+
+  // ---- 3. Durations: two-category target, capped by the part's next onset ----
+  const byPart = new Array(parts).fill(null).map(() => []);
+  assigned.forEach(a => byPart[a.part].push(a));
+  byPart.forEach(list => list.forEach((a, i) => { a.next = i + 1 < list.length ? list[i + 1].t : Infinity; }));
+  const events = [];
+  let truncated = 0, shortfallSum = 0;
+  for (const a of assigned) {
+    const release = relRange[0] + Math.random() * (relRange[1] - relRange[0]);
+    let target, dur, wasTrunc = false;
+    if (a.isLong) {
+      // long-stream grain: span was reserved at assignment, never truncated
+      target = dur = Math.min(a.longDur, total + T0 - a.t);
+    } else {
+      target = Math.random() < pShort
+        ? shortBand[0] + Math.random() * (shortBand[1] - shortBand[0])     // the short grain
+        : shortBand[1] + Math.random() * (maxDur - shortBand[1]);          // one random selection (uniform = leans long)
+      const cap = a.next - a.t - release - reArtic;
+      dur = Math.min(target, cap, total + T0 - a.t);
+      if (target > cap) { wasTrunc = true; truncated++; shortfallSum += target - cap; }
+    }
+    const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
+    const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
+    events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc, isLong: !!a.isLong });
+  }
+
+  // ---- 4. Render: surge envelopes, onset-anchored ----
+  events.forEach((ev, i) => {
+    const env = grainEnvelope('surge', { dur: ev.dur, lv: ev.lv, ratio: ev.ratio, release: ev.release });
+    const wc = C.createWaveCurve({
+      startSeconds: Math.round(ev.onset * 100) / 100,
+      endSeconds: Math.round((ev.onset + ev.dur + ev.release) * 100) / 100,
+      layer: ev.part, nodes: env.nodes, segments: env.segments,
+      color: HUES[ev.part % HUES.length], opacity: 0.3,
+      performanceNotes: (spec.tag || 'OC') + ' o' + (i + 1)
+    });
+    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    wc.technique = spec.technique || 'ord';
+    wc.envShape = 'surge';
+  });
+  C.deselectAll();
+
+  // ---- 5. Manifest: the apex-density vs diversity evaluation instrument ----
+  const aw = spec.apexWindow || null;
+  const inApex = ev => aw ? (ev.onset - T0 >= aw[0] && ev.onset - T0 <= aw[1]) : false;
+  const gaps = [];
+  for (let i = 1; i < assigned.length; i++) gaps.push(assigned[i].t - assigned[i - 1].t);
+  const stats = arr => {
+    if (!arr.length) return null;
+    const s = [...arr].sort((a, b) => a - b);
+    const mean = arr.reduce((x, y) => x + y, 0) / arr.length;
+    const sd = Math.sqrt(arr.reduce((x, y) => x + (y - mean) * (y - mean), 0) / arr.length);
+    return { min: +s[0].toFixed(3), med: +s[Math.floor(s.length / 2)].toFixed(3), max: +s[s.length - 1].toFixed(3), cv: +(sd / mean).toFixed(2) };
+  };
+  const partGapCVs = byPart.filter(l => l.length > 2).map(list => {
+    const g = list.slice(1).map((a, i) => a.t - list[i].t);
+    return stats(g).cv;
+  });
+  const band = d => d < shortBand[1] ? 'short' : d < 2 ? '1-2s' : d < 3 ? '2-3s' : '3s+';
+  const hist = evs => {
+    const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 };
+    evs.forEach(e => h[band(e.dur)]++);
+    return h;
+  };
+  const apexEvents = events.filter(inApex);
+  const denseEvents = events.filter(e => !e.isLong);
+  const apexDense = apexEvents.filter(e => !e.isLong);
+  const soundSum = events.reduce((s, e) => s + e.dur + e.release, 0);
+  const perPart = byPart.map(l => l.length);
+  return { manifest: {
+    onsets: onsets.length, placed: assigned.length, dropped,
+    longStream: ls ? { placed: events.filter(e => e.isLong).length, dropped: longDropped,
+                       durs: events.filter(e => e.isLong).map(e => +e.dur.toFixed(1)) } : null,
+    onsetGaps: stats(gaps),
+    perPartGapCV: partGapCVs.length ? +(partGapCVs.reduce((a, b) => a + b, 0) / partGapCVs.length).toFixed(2) : null,
+    durTargetHist: (() => { const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 }; events.forEach(e => h[band(e.target)]++); return h; })(),
+    durRealizedHist: hist(events),
+    truncation: { overall: +(truncated / Math.max(1, denseEvents.length)).toFixed(3),
+                  apex: aw ? +(apexDense.filter(e => e.wasTrunc).length / Math.max(1, apexDense.length)).toFixed(3) : null,
+                  meanShortfall: truncated ? +(shortfallSum / truncated).toFixed(2) : 0 },
+    occupancy: { overall: +(soundSum / (parts * total)).toFixed(2),
+                 apex: aw ? +(apexEvents.reduce((s, e) => s + Math.min(e.dur, aw[1] - (e.onset - T0)), 0) / (parts * (aw[1] - aw[0]))).toFixed(2) : null },
+    apexRealized: aw ? { onsetsPerSec: +(apexEvents.length / (aw[1] - aw[0])).toFixed(1),
+                         durHist: hist(apexEvents) } : null,
+    perPart, windowCount: windows.length
+  } };
+}
