@@ -110,6 +110,93 @@ function compileEnvCatalog(C, spec) {
   return { manifest: { shapes: GRAIN_ENV_SHAPES.length, exemplars: placed.length, totalLen: +t.toFixed(1), placed } };
 }
 
+// ========== LADDER-BATTERY GENERATOR (ENGINE_FRAMEWORK.md §3) ==========
+// One dial × k steps × ONE frozen seed → k saved scores named `${name}-L1..Lk`
+// plus a ladder sheet (rung → value → key manifest numbers). The realization is
+// identical across rungs except where the dial acts — informed A/B by design.
+//
+//   await generateLadder(Composer, {
+//     name: 'lad-maxdur', engine: 'onset', base: { ...oc1 spec... },
+//     dial: 'maxDur',                  // named dial or {path:'durModel.maxDur', mode:'mul'}
+//     factors: [0.64, 0.8, 1, 1.25, 1.56],   // mul dials (default, ×1.25 ladder)
+//     // values: [...]                 // or absolute values
+//     seed: 12345                      // optional; auto-generated once, shared by all rungs
+//   });
+//
+// Named dials — onset engine: apexRate (scales EVERY trajectory rate, keeps the
+// shape), maxDur, shortBand, pShort (additive), release, ratio, reArtic, window,
+// longRate, longDur. Swell engine: rate (=apexRate), sizeBase, sizeSigma (add),
+// durClamp, release, ratio, window. Anything else: {path, mode}.
+const LADDER_DIALS = {
+  apexRate: { path: 'trajectory', mode: 'traj' }, rate: { path: 'trajectory', mode: 'traj' },
+  maxDur: { path: 'durModel.maxDur', mode: 'mul' },
+  shortBand: { path: 'durModel.shortBand', mode: 'mul' },
+  pShort: { path: 'durModel.pShort', mode: 'add' },
+  release: { path: 'releaseRange', mode: 'mul' },
+  ratio: { path: 'ratioRange', mode: 'mul' },
+  reArtic: { path: 'reArtic', mode: 'mul' },
+  window: { path: 'window', mode: 'mul' },
+  longRate: { path: 'longStream.rate', mode: 'mul' },
+  longDur: { path: 'longStream.durRange', mode: 'mul' },
+  sizeBase: { path: 'sizeBase', mode: 'mul' },
+  sizeSigma: { path: 'sizeSigma', mode: 'add' },
+  durClamp: { path: 'durClamp', mode: 'mul' },
+};
+
+function ladderGetSet(obj, path) {
+  const keys = path.split('.');
+  let o = obj;
+  for (let i = 0; i < keys.length - 1; i++) o = o[keys[i]];
+  const k = keys[keys.length - 1];
+  return { get: () => o[k], set: v => { o[k] = v; } };
+}
+
+function ladderApply(spec, dial, factorOrDelta, absValue) {
+  const d = typeof dial === 'string' ? LADDER_DIALS[dial] : dial;
+  if (!d) throw new Error('unknown ladder dial: ' + dial);
+  if (d.mode === 'traj') {   // scale every rate in the trajectory, preserving shape
+    spec.trajectory.forEach(leg => { leg.from *= factorOrDelta; leg.to *= factorOrDelta; });
+    return +(Math.max(...spec.trajectory.map(l => Math.max(l.from, l.to)))).toFixed(2);
+  }
+  const { get, set } = ladderGetSet(spec, d.path);
+  const cur = get();
+  let next;
+  if (absValue != null) next = absValue;
+  else if (Array.isArray(cur)) next = cur.map(x => d.mode === 'add' ? +(x + factorOrDelta).toFixed(3) : +(x * factorOrDelta).toFixed(3));
+  else next = d.mode === 'add' ? +(cur + factorOrDelta).toFixed(3) : +(cur * factorOrDelta).toFixed(3);
+  set(next);
+  return next;
+}
+
+async function generateLadder(C, opts) {
+  const engine = opts.engine === 'swell' ? compileSwellCloud : compileOnsetCloud;
+  const seed = opts.seed != null ? opts.seed : Math.floor(Math.random() * 4294967296);
+  const steps = opts.values ? opts.values : (opts.factors || [0.64, 0.8, 1, 1.25, 1.56]);
+  const sheet = [];
+  for (let i = 0; i < steps.length; i++) {
+    const spec = JSON.parse(JSON.stringify(opts.base));
+    spec.seed = seed;
+    spec.tag = (opts.base.tag || 'LAD') + '-L' + (i + 1);
+    const value = ladderApply(spec, opts.dial, opts.values ? null : steps[i], opts.values ? steps[i] : null);
+    C.objects = []; C.markers = []; C.nextId = 1;
+    C.selectedObject = null; C.selectedObjects = [];
+    const res = engine(C, spec);
+    if (C.renderAll) C.renderAll();
+    const scoreName = opts.name + '-L' + (i + 1);
+    if (C.sessionNameInput) { C.sessionNameInput.value = scoreName; await C.saveSession(false); }
+    const m = res.manifest;
+    sheet.push({
+      rung: 'L' + (i + 1), score: scoreName,
+      dialValue: value, step: steps[i],
+      placed: m.placed, apexOnsets: m.apexRealized ? m.apexRealized.onsetsPerSec : null,
+      truncApex: m.truncation ? m.truncation.apex : null,
+      occApex: m.occupancy ? m.occupancy.apex : null,
+      apexDurs: m.apexRealized ? m.apexRealized.durHist : null,
+    });
+  }
+  return { seed, dial: opts.dial, name: opts.name, sheet };
+}
+
 // Deterministic RNG (mulberry32). Every engine render is seeded: pass spec.seed
 // to reproduce a realization EXACTLY, or omit it and read the auto-seed back from
 // the manifest. This is the informed-A/B backbone (ENGINE_FRAMEWORK.md): change

@@ -97,6 +97,26 @@ Per-dial step table (one A/B step | category jump):
 - Never change two dials in one battery; never compare across different seeds
   when the dial change is < ~2 JND (realization noise swamps it).
 
+**The generator** (`generateLadder` in compiler.js, run from the composer page —
+usually AI drives it on request):
+
+```js
+await generateLadder(Composer, {
+  name: 'lad-maxdur', engine: 'onset',      // or 'swell'
+  base: { /* the incumbent spec, e.g. oc1's */ },
+  dial: 'maxDur',            // named: apexRate, maxDur, shortBand, pShort, release,
+                             // ratio, reArtic, window, longRate, longDur, sizeBase,
+                             // sizeSigma, durClamp — or {path:'durModel.maxDur', mode:'mul'}
+  factors: [0.64, 0.8, 1, 1.25, 1.56],      // default ×1.25 ladder; or values: [2, 3, 4]
+  seed: 12345                // optional; auto-generated once, frozen across rungs
+});
+```
+
+Saves `name-L1..Lk` to the Load dropdown and returns the **ladder sheet** (rung →
+dial value → placed/apex-rate/truncation/occupancy/dur-mix) for the database entry.
+Factor-1 rung = the incumbent exactly (verified). `apexRate` scales every
+trajectory rate so the density curve keeps its shape.
+
 ## 4. New-engine candidate evaluation
 
 1. Every candidate states **one structural claim** ("duration diversity at density
@@ -152,6 +172,6 @@ must shrink. If it doesn't, the lesson was mis-read or it's model-level after al
 | Headless feasibility sweeps (node, stubbed score) | live (pass-2 sweep) |
 | Grain-editing suite (the hand-tweak instrumentation) | live |
 | `tools/analyze_tweaks.js` (delta classifier) | live, validated |
-| Ladder-battery generator (one dial × k steps × same seed, auto-saved scores) | next build, on demand |
+| Ladder-battery generator `generateLadder` (one dial × k steps × same seed, auto-saved scores + ladder sheet) | live 2026-08-11, validated |
 | Law linter (auto L1/L2 floor checks on every manifest) | next build |
 | Residual-shrink auto-check (lesson → regenerate → re-diff) | manual for now |
