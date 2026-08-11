@@ -43,13 +43,23 @@ held) · P1 Reaper bridge · P2 meta-track object · paper TODOs (RESEARCH_INDEX
 COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
 `node sandbox/serve.js` (:4700). Score archive in the Load dropdown (sc1–sc4 etc.).
 
-**Post-wrap addendum (2026-08-10, composer notes — AI working independently):**
-10-part expansion + composer-score UI batch (floating draw tool, grain-edit suite,
-apex dots, Roads env catalog) — slate + statuses in PLAN §4/parking + chat rundown.
-Penn State tuba/euphonium ensemble research for the festival application →
-docs/PENN_STATE_RESEARCH.md. Mandates M1–M3 added for the performance score.
+**Post-wrap addendum (2026-08-10, composer notes — AI executed independently
+2026-08-11, all committed/pushed; full statuses in PLAN §4):**
+- **Penn State research done** (PENN_STATE_RESEARCH.md): **deadline Sept 4, 2026**;
+  ensemble ballpark 12–20, ≥9 euphoniums documented; 10 parts + M1 fits the call.
+- **10-part expansion done**: 10 full-height lanes; old scores auto-migrate.
+  ⚠ Composer hardware: loopMIDI `tuba8/8b…tuba10/10b` + 6 UVI instances + Reaper
+  tracks (input monitoring ON) still to be created.
+- **Floating draw window done** (META = layer 10): timeline-locked, transparent,
+  drag ↕, ✕ hides, click-through outside draw mode.
+- **Grain suite done**: apex dots · go-time box + dotted start line · horizontal-
+  only shape drag · amplitude/duration/release handles (as-if-generated, peak
+  fixed) · `Grain env` toggle · node/diamond/splice tools removed for grains.
+- **Roads env catalog done** (DB 027): 8 shapes; **listen to `env-catalog` score**;
+  name `surge` proposed for our classic crescendo-cut.
 
-**Blockers:** none.
+**Blockers:** none. Awaiting composer: env-catalog listen + surge naming; tuba
+8–10 hardware; then the four-pass plan (passes 2–4).
 
 ## §3 Principles
 

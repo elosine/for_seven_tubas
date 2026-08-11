@@ -43,6 +43,30 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 - **M3 — Env-release notation devices** (see P3): reliably variable release
   vocabulary; scrolling curves won't serve releases.
 
+## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
+
+- **4a — Penn State research** — `done 2026-08-11` — docs/PENN_STATE_RESEARCH.md.
+  **Deadline Sept 4, 2026.** Ensemble ballpark 12–20 (≥9 euphoniums documented);
+  10 parts + M1 fits the call.
+- **4b — 10-part expansion** — `done 2026-08-11` — 10 full-height lanes, TRACKS/
+  engines/instruments → 10; old scores auto-migrate (layoutVersion 2).
+  **Composer hardware TODO: loopMIDI ports `tuba8`/`tuba8b`…`tuba10`/`tuba10b`
+  + 6 UVI instances + Reaper tracks (input monitoring ON).**
+- **4c — Floating draw tool** — `done 2026-08-11` — META layer (now 10) is a
+  floating window: timeline-locked (shared scroll transform), semi-transparent,
+  vertical drag via label, ✕ hides, click-through when not in draw mode; opens
+  on Draw / Stamp.
+- **4d — Grain-editing suite** — `done 2026-08-11` — apex dots (all part-lane
+  envelopes); grains: no node/diamond/splice tools, dotted start line + go-time
+  box, horizontal-only whole-shape drag, top amplitude handle, left duration
+  handle (as-if-generated: peak+release fixed), right release handle, `Grain env`
+  panel toggle (Roads catalog swap, peak-anchored).
+- **4e — Roads envelope catalog** — `done 2026-08-11` — `grainEnvelope()` ×8
+  shapes (DB 027) + `env-catalog` audition score in the Load dropdown (~70 s,
+  Tuba 1). **Composer:** listen + bless shapes; **name for our classic
+  crescendo-cut: `surge` proposed** (matches BLOOM/SURGE vocabulary) — rename
+  welcome.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +
