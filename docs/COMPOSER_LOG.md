@@ -4,6 +4,23 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — The engine-development framework (dictated)
+
+"Let's develop a systematic framework for developing the grain generative engine.
+Mental model so far: you generated some grains and scattered the apexes — what did
+you use? Branch here: I listen, we can choose to tweak current engine settings or
+choose a new engine. How to evaluate best new-engine candidates? If it's tweak, how
+to understand which tweaks and the scale/scope — like, are 5 ms changes good or do
+they need to be 100 ms, or does the range need to be expanded by .5 or multiples of
+100 — so, informed A/B testing. Then I included a feedback loop: generate → I
+manually tweak → analysis → extract data/lessons from the manual tweak. What are
+the types of analysis tools, and how to extract lessons from a tweak — in other
+words, how to determine if tweaks point to a new model or settings adjustments, and
+then how much or which direction from either. This is a conceptual start — let's
+build from here."
+
+*(→ ENGINE_FRAMEWORK.md; seeded engines; tools/analyze_tweaks.js.)*
+
 ## 2026-08-11 — Automation eval; pass 2 spec: onset-driven density, the short-grain category (dictated)
 
 "Can you give me an eval for AI adding ports to loopMIDI, and to the Reaper config

@@ -84,6 +84,10 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   realistic parameter scales (rate-of-change limits). Current research = learning
   what "correct" is; the engine codifies it. Methodology note: generate → tweak
   manually → reverse-analyze tweaks to refine the generator.
+  **Methodology formalized 2026-08-11 → docs/ENGINE_FRAMEWORK.md** (span test for
+  tweak-vs-new-model, Weber-law A/B step sizes, seeded renders, validated tweak
+  analyzer `tools/analyze_tweaks.js`). Next builds queued there: ladder-battery
+  generator, law linter.
 - **P2 — Meta-track score object** *(composer, 2026-08-10)*: a meta track in the
   composer score where one drawn meta-curve (bell/crescendo, duration, dials) auto-
   generates the seven part-curves underneath via a chosen realization strategy

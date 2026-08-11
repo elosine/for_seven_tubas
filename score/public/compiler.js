@@ -110,6 +110,20 @@ function compileEnvCatalog(C, spec) {
   return { manifest: { shapes: GRAIN_ENV_SHAPES.length, exemplars: placed.length, totalLen: +t.toFixed(1), placed } };
 }
 
+// Deterministic RNG (mulberry32). Every engine render is seeded: pass spec.seed
+// to reproduce a realization EXACTLY, or omit it and read the auto-seed back from
+// the manifest. This is the informed-A/B backbone (ENGINE_FRAMEWORK.md): change
+// ONE dial with the SAME seed and the two renders differ only where the dial acts.
+function makeRand(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
 function compileMeta(C, spec) {
   const T0 = 2;
   const T = spec.T;
@@ -715,6 +729,8 @@ function compileStratified(C, spec) {
 // local ending-rate feasibility (dense endings force shorter swells - physics).
 // Single-species by composer instruction (SC3 restores shape variety).
 function compileSwellCloud(C, spec) {
+  const seed = spec.seed != null ? (spec.seed >>> 0) : Math.floor(Math.random() * 4294967296);
+  const rand = makeRand(seed);
   const T0 = spec.t0 != null ? spec.t0 : 2;
   const parts = spec.parts || 10, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
   const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
@@ -746,8 +762,8 @@ function compileSwellCloud(C, spec) {
   }
   const gauss = () => {
     let u = 0, v = 0;
-    while (u === 0) u = Math.random();
-    while (v === 0) v = Math.random();
+    while (u === 0) u = rand();
+    while (v === 0) v = rand();
     return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   };
 
@@ -764,8 +780,8 @@ function compileSwellCloud(C, spec) {
     for (let k = 0; k < n; k++) {
       const slot = wLen / n;
       const peak = spec.uniformWindows
-        ? T0 + w0 + Math.random() * wLen                        // max randomness given quota
-        : T0 + w0 + k * slot + Math.random() * slot;            // stratified jitter
+        ? T0 + w0 + rand() * wLen                        // max randomness given quota
+        : T0 + w0 + k * slot + rand() * slot;            // stratified jitter
       const localRate = rateAt(peak - T0);
       // feasibility-coupled mean: dense endings force shorter swells
       const mean = Math.min(spec.sizeBase != null ? spec.sizeBase : 1.8, 0.8 * parts / localRate);
@@ -773,8 +789,8 @@ function compileSwellCloud(C, spec) {
       const dc = spec.durClamp || [0.4, 3];
       D = Math.max(dc[0], Math.min(dc[1], D));
       const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
-      const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
-      const Rr = relRange[0] + Math.random() * (relRange[1] - relRange[0]);   // releases vary too (L1)
+      const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
+      const Rr = relRange[0] + rand() * (relRange[1] - relRange[0]);   // releases vary too (L1)
       const start = peak - D, end = peak + Rr;
       if (start < 0.1) continue;
       const p = Math.round((D / (D + Rr)) * 1000) / 1000;
@@ -818,6 +834,7 @@ function compileSwellCloud(C, spec) {
   placed.forEach(e => perPart[e.part]++);
   return { manifest: {
     note: 'single-species (swell-cut) by composer instruction — SC3 restores variety',
+    seed,
     windows, placed: placed.length, dropped, perPart,
     durSpread: durs.length ? [+durs[0].toFixed(2), +durs[Math.floor(durs.length / 2)].toFixed(2), +durs[durs.length - 1].toFixed(2)] : null
   } };
@@ -840,6 +857,8 @@ function compileSwellCloud(C, spec) {
 //   levelFlat: 0.9, apexWindow: [t0, t1] (score-relative, for apex metrics),
 //   note: 45, technique: 'ord', tag: 'OC' }
 function compileOnsetCloud(C, spec) {
+  const seed = spec.seed != null ? (spec.seed >>> 0) : Math.floor(Math.random() * 4294967296);
+  const rand = makeRand(seed);
   const T0 = 2;
   const parts = spec.parts || 10;
   const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
@@ -868,8 +887,8 @@ function compileOnsetCloud(C, spec) {
   };
   const gauss = () => {
     let u = 0, v = 0;
-    while (u === 0) u = Math.random();
-    while (v === 0) v = Math.random();
+    while (u === 0) u = rand();
+    while (v === 0) v = rand();
     return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   };
 
@@ -884,7 +903,7 @@ function compileOnsetCloud(C, spec) {
     const n = Math.floor(acc);
     acc -= n;
     windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
-    for (let k = 0; k < n; k++) onsets.push(T0 + w0 + Math.random() * wLen);
+    for (let k = 0; k < n; k++) onsets.push(T0 + w0 + rand() * wLen);
   }
   onsets.sort((a, b) => a - b);
 
@@ -902,7 +921,7 @@ function compileOnsetCloud(C, spec) {
       lacc += ls.rate * wLen;
       const n = Math.floor(lacc);
       lacc -= n;
-      for (let k = 0; k < n; k++) longOnsets.push(T0 + w0 + Math.random() * wLen);
+      for (let k = 0; k < n; k++) longOnsets.push(T0 + w0 + rand() * wLen);
     }
   }
   const stream = onsets.map(t => ({ t, isLong: false }))
@@ -923,12 +942,12 @@ function compileOnsetCloud(C, spec) {
       if (t - lastOnset[p] >= footprint && t >= blockedUntil[p]) feas.push(p);
     }
     if (!feas.length) { if (o.isLong) longDropped++; else dropped++; continue; }
-    const p = feas[Math.floor(Math.random() * feas.length)];
+    const p = feas[Math.floor(rand() * feas.length)];
     lastOnset[p] = t;
     const a = { t, part: p, isLong: o.isLong };
     if (o.isLong) {
       // duration fixed NOW and the span reserved
-      a.longDur = ls.durRange[0] + Math.random() * (ls.durRange[1] - ls.durRange[0]);
+      a.longDur = ls.durRange[0] + rand() * (ls.durRange[1] - ls.durRange[0]);
       blockedUntil[p] = t + a.longDur + relRange[1] + reArtic;
     }
     assigned.push(a);
@@ -941,21 +960,21 @@ function compileOnsetCloud(C, spec) {
   const events = [];
   let truncated = 0, shortfallSum = 0;
   for (const a of assigned) {
-    const release = relRange[0] + Math.random() * (relRange[1] - relRange[0]);
+    const release = relRange[0] + rand() * (relRange[1] - relRange[0]);
     let target, dur, wasTrunc = false;
     if (a.isLong) {
       // long-stream grain: span was reserved at assignment, never truncated
       target = dur = Math.min(a.longDur, total + T0 - a.t);
     } else {
-      target = Math.random() < pShort
-        ? shortBand[0] + Math.random() * (shortBand[1] - shortBand[0])     // the short grain
-        : shortBand[1] + Math.random() * (maxDur - shortBand[1]);          // one random selection (uniform = leans long)
+      target = rand() < pShort
+        ? shortBand[0] + rand() * (shortBand[1] - shortBand[0])     // the short grain
+        : shortBand[1] + rand() * (maxDur - shortBand[1]);          // one random selection (uniform = leans long)
       const cap = a.next - a.t - release - reArtic;
       dur = Math.min(target, cap, total + T0 - a.t);
       if (target > cap) { wasTrunc = true; truncated++; shortfallSum += target - cap; }
     }
     const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
-    const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], Math.random());
+    const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
     events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc, isLong: !!a.isLong });
   }
 
@@ -1003,6 +1022,7 @@ function compileOnsetCloud(C, spec) {
   const soundSum = events.reduce((s, e) => s + e.dur + e.release, 0);
   const perPart = byPart.map(l => l.length);
   return { manifest: {
+    seed,
     onsets: onsets.length, placed: assigned.length, dropped,
     longStream: ls ? { placed: events.filter(e => e.isLong).length, dropped: longDropped,
                        durs: events.filter(e => e.isLong).map(e => +e.dur.toFixed(1)) } : null,
