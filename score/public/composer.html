@@ -2049,6 +2049,13 @@ const Composer = {
         return META_LAYER - 1;
     },
 
+    // A "grain" = a generated, sonified envelope on a part lane. Grains get the
+    // dedicated editing suite (amplitude/duration handles, go-time box) INSTEAD
+    // of the node/diamond/splice tools (composer, 2026-08-10 addendum).
+    isGrain(wc) {
+        return !!wc && wc.type === 'waveCurve' && wc.sonifyNote != null && wc.layer < META_LAYER;
+    },
+
     openMetaWin() {
         const w = this.lanes[META_LAYER];
         if (!w.classList.contains('open')) {
@@ -2791,6 +2798,7 @@ const Composer = {
         });
         hp.addEventListener('dblclick', (e) => {
             e.stopPropagation();
+            if (this.isGrain(wc)) return;   // grains: no node/splice tools
             if (e.shiftKey) this.spliceCurveAt(wc, e.clientX);
             else this.addNodeAtClick(wc, e.clientX);
         });
@@ -2847,6 +2855,33 @@ const Composer = {
         wc._els.nodeHandles = [];
         const x1 = wc.startSeconds * this.pixelsPerSecond;
         const tw = (wc.endSeconds - wc.startSeconds) * this.pixelsPerSecond;
+
+        if (this.isGrain(wc)) {
+            // Grain suite: dotted start line + go-time box + transform box only.
+            const sl = document.createElementNS(svgNS, 'line');
+            sl.setAttribute('x1', x1); sl.setAttribute('x2', x1);
+            sl.setAttribute('y1', dims.top); sl.setAttribute('y2', dims.bottom);
+            sl.setAttribute('stroke', '#333'); sl.setAttribute('stroke-dasharray', '3 3');
+            sl.setAttribute('stroke-opacity', '0.7');
+            sl.style.pointerEvents = 'none';
+            g.appendChild(sl); wc._els.nodeHandles.push(sl);
+            const gtBox = document.createElementNS(svgNS, 'rect');
+            gtBox.setAttribute('x', x1 - 21); gtBox.setAttribute('y', dims.top);
+            gtBox.setAttribute('width', 42); gtBox.setAttribute('height', 13);
+            gtBox.setAttribute('fill', '#fff'); gtBox.setAttribute('stroke', '#333');
+            gtBox.setAttribute('stroke-width', '1'); gtBox.setAttribute('rx', '2');
+            gtBox.style.pointerEvents = 'none';
+            g.appendChild(gtBox); wc._els.nodeHandles.push(gtBox);
+            const gtTxt = document.createElementNS(svgNS, 'text');
+            gtTxt.setAttribute('x', x1); gtTxt.setAttribute('y', dims.top + 10);
+            gtTxt.setAttribute('text-anchor', 'middle');
+            gtTxt.setAttribute('font-size', '9'); gtTxt.setAttribute('fill', '#333');
+            gtTxt.textContent = wc.startSeconds.toFixed(2);
+            gtTxt.style.pointerEvents = 'none';
+            g.appendChild(gtTxt); wc._els.nodeHandles.push(gtTxt);
+            this.renderTransformBox(wc, dims, x1, tw);
+            return;
+        }
 
         wc.nodes.forEach((node, idx) => {
             const cx = x1 + node.pos * tw;
@@ -3013,10 +3048,18 @@ const Composer = {
             wc._els.nodeHandles.push(h);
         };
         const midY = (yTop + dims.bottom) / 2;
-        mkHandle(x1, midY, 'ew-resize', 'left');
-        mkHandle(x1 + tw, midY, 'ew-resize', 'right');
-        mkHandle(x1 + tw / 2, yTop, 'ns-resize', 'top');
-        mkHandle(x1 + tw, yTop, 'nesw-resize', 'corner');
+        if (this.isGrain(wc)) {
+            // Grain semantics: left = duration "as if generated" (peak + release
+            // stay put, the swell stretches), right = release length, top = amplitude.
+            mkHandle(x1, midY, 'ew-resize', 'grainDur');
+            mkHandle(x1 + tw, midY, 'ew-resize', 'right');
+            mkHandle(x1 + tw / 2, yTop, 'ns-resize', 'top');
+        } else {
+            mkHandle(x1, midY, 'ew-resize', 'left');
+            mkHandle(x1 + tw, midY, 'ew-resize', 'right');
+            mkHandle(x1 + tw / 2, yTop, 'ns-resize', 'top');
+            mkHandle(x1 + tw, yTop, 'nesw-resize', 'corner');
+        }
     },
 
     startBoxDrag(wc, kind, startEvent) {
@@ -3026,10 +3069,28 @@ const Composer = {
         const origYs = wc.nodes.map(n => n.y);
         const maxY = Math.max(...origYs, 0.5);
         const x0 = startEvent.clientX, y0 = startEvent.clientY;
+        // Peak-anchored duration stretch (grains): peak time and everything after
+        // it (the release) stay fixed; pre-peak node times scale — the curve is
+        // re-derived as if generated at the new duration. Segments (hence ratio)
+        // are untouched, matching the engines' duration-independent shape params.
+        const origNodes = wc.nodes.map(n => ({ ...n }));
+        let apexIdx = 0, apexYv = -Infinity;
+        origNodes.forEach((n, i) => { if (n.y > apexYv) { apexYv = n.y; apexIdx = i; } });
+        const tPeak = origStart + origNodes[apexIdx].pos * (origEnd - origStart);
         const onMove = (ev) => {
             const dt = (ev.clientX - x0) / this.pixelsPerSecond;
             if (kind === 'left') {
                 wc.startSeconds = Math.max(0, Math.min(origEnd - 0.5, Math.round((origStart + dt) * 100) / 100));
+            }
+            if (kind === 'grainDur') {
+                const s2 = Math.max(0, Math.min(tPeak - 0.15, Math.round((origStart + dt) * 100) / 100));
+                const f = (tPeak - s2) / Math.max(1e-6, tPeak - origStart);
+                wc.startSeconds = s2;
+                wc.nodes = origNodes.map(n => {
+                    const t = origStart + n.pos * (origEnd - origStart);
+                    const t2 = t <= tPeak ? tPeak - (tPeak - t) * f : t;
+                    return { ...n, pos: Math.max(0, Math.min(1, Math.round((t2 - s2) / (origEnd - s2) * 1000) / 1000)) };
+                });
             }
             if (kind === 'right' || kind === 'corner') {
                 wc.endSeconds = Math.max(origStart + 0.5, Math.round((origEnd + dt) * 100) / 100);
@@ -3045,6 +3106,7 @@ const Composer = {
         const onUp = () => {
             window.removeEventListener('mousemove', onMove);
             window.removeEventListener('mouseup', onUp);
+            this.renderWaveCurve(wc);   // reposition the apex dot
             this.refreshPanelValues();
             this.markDirty();
         };
@@ -3297,7 +3359,9 @@ const Composer = {
             wc.startSeconds = Math.round(newStart * 20) / 20;
             wc.endSeconds = Math.round((wc.startSeconds + dur) * 20) / 20;
 
-            if (constrainAxis !== 'h') {
+            // Grains move horizontally ONLY (composer: whole-shape grab = retime,
+            // never a lane/level change) — SHIFT-v is also ignored for them.
+            if (constrainAxis !== 'h' && !this.isGrain(wc)) {
                 wc.layer = this.getLaneFromY(e.clientY);
             }
 
@@ -3481,6 +3545,12 @@ const Composer = {
                 {
                     const wcTechs = this.trackTechniques(obj.layer);
                     if (wcTechs.length) html += this.ppRow('Technique', 'select', 'technique', obj.technique || wcTechs[0].key, '', wcTechs.map(t => [t.key, t.label]));
+                }
+                if (this.isGrain(obj) && typeof GRAIN_ENV_SHAPES !== 'undefined') {
+                    // Grain env toggle: swap the envelope family "as if generated"
+                    // — peak time, level, and span carry over (Roads catalog, DB 027)
+                    html += this.ppRow('Grain env', 'select', 'grainEnv', obj.envShape || '', '',
+                        [['', '(keep)']].concat(GRAIN_ENV_SHAPES.map(s => [s, s])));
                 }
 
                 if (this.selectedNodeIdx >= 0 && this.selectedNodeIdx < obj.nodes.length) {
@@ -6094,6 +6164,25 @@ const Composer = {
             const key = field.split('.')[1];
             if (key === 'model') seg.model = value;
             else if (key === 'slope') seg.slope = parseFloat(value);
+        } else if (field === 'grainEnv' && obj.type === 'waveCurve') {
+            if (!value) return;
+            // As-if-generated envelope swap: rebuild nodes/segments from the Roads
+            // catalog anchored at the current peak time, level, and sounding span.
+            const span = obj.endSeconds - obj.startSeconds;
+            let aIdx = 0, aY = -Infinity;
+            obj.nodes.forEach((n, i) => { if (n.y > aY) { aY = n.y; aIdx = i; } });
+            const tPeak = obj.startSeconds + obj.nodes[aIdx].pos * span;
+            const env = grainEnvelope(value, { dur: span, lv: aY / 10, ratio: 4, release: 0.06 });
+            obj.startSeconds = Math.max(0, Math.round((tPeak - env.pre) * 100) / 100);
+            obj.endSeconds = Math.round((tPeak + env.post) * 100) / 100;
+            obj.nodes = env.nodes;
+            obj.segments = env.segments;
+            obj.envShape = value;
+            this.selectedNodeIdx = -1;
+            this.renderWaveCurve(obj);
+            this.refreshPanelValues();
+            this.markDirty();
+            return;
         } else if (field.startsWith('ostinatoParams.') && obj.type === 'zone') {
             if (!obj.ostinatoParams) obj.ostinatoParams = { smooth: 0.7, speed: 1.0, stretch: 1.5 };
             const key = field.split('.')[1];
