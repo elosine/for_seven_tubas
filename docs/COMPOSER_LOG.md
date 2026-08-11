@@ -4,6 +4,34 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Post-wrap addendum: releases, generative engine, Penn State, 10 parts (dictated)
+
+"1) A vocabulary and animated/notational devices for the RELEASE portion of the
+envelope for tuba/brass — the abrupt stop like the rexpodec might be a tongue stop;
+the scrolling curve won't work for env-release, so devices that let players release
+in reliably variable ways. 2) After the stochastic-cloud research: a statistical/
+mathematical model/GENERATOR for these gestures — variability in the right bounds,
+plot grain peaks per our density decisions, generate grain-dur series and shapes —
+a shape-to-sound translator; and the drawing tool must produce shapes with realistic
+parameter scales (limits on rates of change). I know we discussed recipes, but I now
+feel comfortable trying a generative engine — the issue was the theoretical model
+wasn't translating into the right sound; that's the research we're doing.
+3) Penn State new music festival application — tuba/euphonium ensemble category,
+minimum 6 parts; research their ensemble's max size. 4) Expand THIS piece to 10
+parts; generate additional parts on the fly as variations of the 10 (e.g., 19
+independent parts at first rehearsal); real-time transposition/octave/tessitura
+adaptation so any part is readable by any tuba/euphonium family member — a MANDATE
+for performance-score notation. 5) Composer score: 10 lanes full-height; the shape
+tool becomes a floating window locked to the timeline, transparent, with cursor.
+6) Grain editing: adjust parameters with MIDI following — apex dot on every envelope;
+whole-shape grab (bounding box, horizontal-only move); dotted start line + go-time
+number box; for grains REMOVE node/curve tools — just amplitude handle (top) and
+duration handle (side), both 'as if generated at that value', with indicators; and a
+grain-env toggle: sine, [our classic crescendo — name it], expodec, plus calculate
+ALL the Curtis Roads envelope shapes for audition, to settle a tuba/brass-specific
+set. 7) Note: generate shape-cloud → tweak manually → REVERSE-ANALYZE the tweaks to
+inform the generative algorithm. Work independently; document/commit/push as you go."
+
 ## 2026-08-10 — Day wrap: SC4 approved; the four-pass plan (dictated)
 
 "That's pretty good — when we finish the other parameters we can revisit. Slight

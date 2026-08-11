@@ -43,6 +43,12 @@ held) · P1 Reaper bridge · P2 meta-track object · paper TODOs (RESEARCH_INDEX
 COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
 `node sandbox/serve.js` (:4700). Score archive in the Load dropdown (sc1–sc4 etc.).
 
+**Post-wrap addendum (2026-08-10, composer notes — AI working independently):**
+10-part expansion + composer-score UI batch (floating draw tool, grain-edit suite,
+apex dots, Roads env catalog) — slate + statuses in PLAN §4/parking + chat rundown.
+Penn State tuba/euphonium ensemble research for the festival application →
+docs/PENN_STATE_RESEARCH.md. Mandates M1–M3 added for the performance score.
+
 **Blockers:** none.
 
 ## §3 Principles

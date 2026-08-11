@@ -33,8 +33,28 @@ Incremental MO carried over from piece #3: composing drives tool-building; the s
 the combining surface; sandbox available for exploration. Per-track recording in the
 score is still unbuilt (was piece #3's next slice — build here when needed).
 
+## 3. Performance score — MANDATES (composer, 2026-08-10; bind all future notation work)
+
+- **M1 — On-the-fly part multiplication.** 10 base parts; additional independent
+  parts generated as variations of a base part at rehearsal time (e.g., 19 parts
+  from the 10 for whoever shows up).
+- **M2 — Family adaptation.** Real-time transposition + octave/tessitura adaptation
+  so ANY part is readable by ANY tuba/euphonium family member.
+- **M3 — Env-release notation devices** (see P3): reliably variable release
+  vocabulary; scrolling curves won't serve releases.
+
 ## Parking lot
 
+- **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +
+  animated/notational devices for envelope releases (tongue-stop = the rexpodec cut,
+  through slower releases); design WITH composer — queued for a working session.
+- **P4 — The generative engine** *(composer, 2026-08-10 — supersedes recipes-only
+  stance)*: statistical model/generator for the cloud gestures once research settles:
+  right-bounded variability per element · peak plotting per density law · grain-dur
+  and shape series generation · shape→sound translator · drawing tool constrained to
+  realistic parameter scales (rate-of-change limits). Current research = learning
+  what "correct" is; the engine codifies it. Methodology note: generate → tweak
+  manually → reverse-analyze tweaks to refine the generator.
 - **P2 — Meta-track score object** *(composer, 2026-08-10)*: a meta track in the
   composer score where one drawn meta-curve (bell/crescendo, duration, dials) auto-
   generates the seven part-curves underneath via a chosen realization strategy
