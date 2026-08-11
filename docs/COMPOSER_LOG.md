@@ -4,6 +4,42 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — Automation eval; pass 2 spec: onset-driven density, the short-grain category (dictated)
+
+"Can you give me an eval for AI adding ports to loopMIDI, and to the Reaper config
+that will allow AI to create new tracks, add VSTi, config inputs, input-enable new
+MIDI ports. And give potential solves to direct access to UVI — actually first
+cost/benefit: I think the only thing so far was instance volume. For the new track
+[8] 9 and 10 setup, is any direct UVI access necessary? If yes, then solution to
+that — MCP? Claude co-work? If not, then defer until bites.
+
+Then let's prepare cloud tests for when I can attend here. First max density apex,
+new tests for 10 parts. I think in anticipation of the next set of tests: slightly
+longer min grain dur, longer max grain dur, and that probably means greater
+diversity of grain durs — maybe we can lean towards longer. Or the mental model is:
+on the short end of the spectrum, all durs within a certain range are treated as ONE
+category, 'the short grain', then the rest as one random selection — clarify with me
+if this doesn't make sense.
+
+Then — this is to test the max-density grain-dur/onset algo/model — let's drive the
+test clouds with ONSET diversity: the gaps between onset times varied and yet dense.
+The physical limitation is re-articulation time — no overlap within one part, and a
+short gap to re-articulate a new note. We may have to lower apex density. Let's have
+a way to EVALUATE — so when this becomes a factor, and how to modulate/evaluate:
+greater apex density vs. onset/grain-dur diversity.
+
+I think the current mental model of the current hypothesis is: at max density there
+is an optimal max grain duration that will satisfy the sound-image of density
+through grain-dur diversity and onset density/diversity. But also I would say the
+previous models had good apex density — or getting there, not perfect yet — and
+maybe grain durs too short, or not enough diversity. Xenakis has pretty wide
+diversity of note durs while maintaining a dense sound — so same, please.
+
+Document asks/my analysis, generate plan/proposal, execute what you can — more for
+the grain tests. I'll look at the automation proposals before implementation."
+
+*(→ AUTOMATION_EVAL.md; pass 2 engine compileOnsetCloud; CURVE_DATABASE 028.)*
+
 ## 2026-08-10 — Post-wrap addendum: releases, generative engine, Penn State, 10 parts (dictated)
 
 "1) A vocabulary and animated/notational devices for the RELEASE portion of the
