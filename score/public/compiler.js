@@ -15,6 +15,101 @@
 //   });
 //   // curves are created on the loaded score; res.manifest has the numbers.
 
+// ========== CURTIS ROADS GRAIN-ENVELOPE CATALOG (Microsound ch. 3) ==========
+// Every classic grain envelope as a waveCurve recipe, PEAK-ANCHORED: given the
+// perceptually salient moment (the peak), each recipe reports how many seconds
+// it needs before (pre) and after (post) so engines can schedule the peak and
+// back-calculate the span — the swell-cloud scheduling model generalized.
+//   grainEnvelope(shape, { dur, lv, ratio, release })
+//     dur     total sounding length (s)             lv      0..1 amplitude
+//     ratio   end:start growth (exponential shapes) release cut-tail length (s)
+// Shapes: 'sine' (Hanning bell) · 'gaussian' · 'quasi-gaussian' (Tukey flat-top)
+//   · 'triangle' · 'trapezoid' (linear ASR) · 'expodec' · 'surge' (= rexpodec,
+//   our classic crescendo-cut — name proposed to composer) · 'sinc' (main lobe
+//   + faint echo lobe; playable approximation of the side-lobe shape).
+const GRAIN_ENV_SHAPES = ['sine', 'gaussian', 'quasi-gaussian', 'triangle',
+  'trapezoid', 'expodec', 'surge', 'sinc'];
+
+function grainEnvelope(shape, o) {
+  const dur = o.dur, lv = o.lv != null ? o.lv : 0.9;
+  const ratio = o.ratio || 4, R = o.release != null ? o.release : 0.06;
+  const Y = 10 * lv, sm = 0.25;
+  const n = (pos, y) => ({ pos: Math.round(pos * 1000) / 1000, y: Math.round(y * 100) / 100, smooth: sm });
+  switch (shape) {
+    case 'sine':            // raised cosine / Hanning — messa di voce
+      return { pre: dur / 2, post: dur / 2,
+        nodes: [n(0, 0), n(0.5, Y), n(1, 0)],
+        segments: [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 }] };
+    case 'gaussian':        // concentrated peak, long quiet tails
+      return { pre: dur / 2, post: dur / 2,
+        nodes: [n(0, 0), n(0.5, Y), n(1, 0)],
+        segments: [{ model: 'sigmoid', slope: 0.95 }, { model: 'sigmoid', slope: 0.95 }] };
+    case 'quasi-gaussian':  // Tukey flat-top: smooth up, held apex, smooth down
+      return { pre: dur / 2, post: dur / 2, peakPos: 0.5,
+        nodes: [n(0, 0), n(0.3, Y), n(0.7, Y), n(1, 0)],
+        segments: [{ model: 'sigmoid', slope: 0.7 }, { model: 'power', slope: 0 }, { model: 'sigmoid', slope: 0.7 }] };
+    case 'triangle':        // line-segment bell
+      return { pre: dur / 2, post: dur / 2,
+        nodes: [n(0, 0), n(0.5, Y), n(1, 0)],
+        segments: [{ model: 'power', slope: 0 }, { model: 'power', slope: 0 }] };
+    case 'trapezoid': {     // linear attack-sustain-release
+      return { pre: dur * 0.15, post: dur * 0.85, peakPos: 0.15,
+        nodes: [n(0, 0), n(0.15, Y), n(0.85, Y), n(1, 0)],
+        segments: [{ model: 'power', slope: 0 }, { model: 'power', slope: 0 }, { model: 'power', slope: 0 }] };
+    }
+    case 'expodec': {       // sharp attack, exponential decay
+      const atk = Math.max(0.08, dur * 0.08), p = atk / dur;
+      return { pre: atk, post: dur - atk, peakPos: p,
+        nodes: [n(0, 0), n(p, Y), n(1, 0)],
+        segments: [{ model: 'power', slope: 0 }, { model: 'logarithmic', slope: -0.5 }] };
+    }
+    case 'surge': {         // rexpodec: exponential swell -> peak-cut (the attack)
+      const p = dur / (dur + R);
+      return { pre: dur, post: R, peakPos: p,
+        nodes: [n(0, 0), n(p, Y), n(1, 0)],
+        segments: [{ model: 'exponential', slope: Math.log(ratio) / 4 }, { model: 'power', slope: 0 }] };
+    }
+    case 'sinc': {          // main lobe + one faint echo lobe
+      return { pre: dur * 0.42, post: dur * 0.58, peakPos: 0.42,
+        nodes: [n(0, 0), n(0.42, Y), n(0.62, 0.2), n(0.78, Y * 0.25), n(1, 0)],
+        segments: [{ model: 'sigmoid', slope: 0.6 }, { model: 'sigmoid', slope: 0.6 },
+                   { model: 'sigmoid', slope: 0.5 }, { model: 'sigmoid', slope: 0.5 }] };
+    }
+    default: throw new Error('unknown grain envelope: ' + shape);
+  }
+}
+
+// Audition score: every catalog shape at three durations, sequential on one part,
+// labeled via performanceNotes. compileEnvCatalog(Composer, { note, part, level }).
+function compileEnvCatalog(C, spec) {
+  spec = spec || {};
+  const note = spec.note != null ? spec.note : 45;
+  const part = spec.part != null ? spec.part : 0;
+  const lv = spec.level != null ? spec.level : 0.9;
+  const DURS = spec.durs || [0.8, 1.5, 2.5];
+  const GAP = spec.gap != null ? spec.gap : 1.2;
+  let t = 2;
+  const placed = [];
+  for (const shape of GRAIN_ENV_SHAPES) {
+    for (const dur of DURS) {
+      const env = grainEnvelope(shape, { dur, lv, ratio: 4, release: 0.06 });
+      const start = t, end = t + env.pre + env.post;
+      const wc = C.createWaveCurve({
+        startSeconds: Math.round(start * 100) / 100, endSeconds: Math.round(end * 100) / 100,
+        layer: part, nodes: env.nodes, segments: env.segments,
+        color: '#1565C0', opacity: 0.35,
+        performanceNotes: `${shape} ${dur}s`
+      });
+      wc.sonifyNote = note;
+      wc.technique = 'ord';
+      placed.push({ shape, dur, start: +start.toFixed(2) });
+      t = end + GAP;
+    }
+  }
+  C.deselectAll();
+  return { manifest: { shapes: GRAIN_ENV_SHAPES.length, exemplars: placed.length, totalLen: +t.toFixed(1), placed } };
+}
+
 function compileMeta(C, spec) {
   const T0 = 2;
   const T = spec.T;

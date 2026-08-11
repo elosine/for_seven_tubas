@@ -402,3 +402,21 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Verdict (composer, session wrap):** "That's pretty good... pretty good for now" —
   provisionally approved; revisit after the other parameters. **Tabled:** release
   shape/duration fine-tuning.
+
+### 027 — The Roads envelope catalog (grainEnvelope + env-catalog audition score)
+- **Date:** 2026-08-11 (AI independent batch) · **Status:** built, awaiting listen
+- **What:** every classic grain envelope from Roads' *Microsound* ch. 3 as a
+  peak-anchored waveCurve recipe — `grainEnvelope(shape, {dur, lv, ratio, release})`
+  in compiler.js returns `{nodes, segments, pre, post}` so engines can schedule the
+  salient peak and back-calculate the span (the swell-cloud scheduling model
+  generalized to all shapes).
+- **Shapes (8):** `sine` (Hanning bell) · `gaussian` (concentrated peak, quiet
+  tails) · `quasi-gaussian` (Tukey flat-top: swell→held apex→fall) · `triangle`
+  (linear bell) · `trapezoid` (linear ASR) · `expodec` (sharp attack, exp decay) ·
+  **`surge`** (rexpodec: exponential swell→peak-cut — OUR classic crescendo; name
+  proposed to composer, matches the BLOOM/SURGE vocabulary) · `sinc` (main lobe +
+  faint echo lobe, playable approximation).
+- **Audition:** `env-catalog` in the Load dropdown — 8 shapes × 3 durations
+  (0.8/1.5/2.5 s) sequential on Tuba 1, labeled via performanceNotes, ~70 s.
+- **Open (composer):** bless/rename `surge`; verdicts per shape → which enter the
+  engine's envelopeMix.
