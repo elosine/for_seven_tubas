@@ -223,6 +223,99 @@ const INSTRUMENTS = {
       { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba7b" },
     ],
   },
+
+  tuba8: {
+    label: "Tuba 8",
+    port: "tuba8",     // primary instance "Tuba8 SI2": techniques on channels A1-A16
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
+    techniques: [
+      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba8b SI2" (port tuba8b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba8b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba8b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba8b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba8b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba8b" },
+    ],
+  },
+
+  tuba9: {
+    label: "Tuba 9",
+    port: "tuba9",     // primary instance "Tuba9 SI2": techniques on channels A1-A16
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
+    techniques: [
+      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba9b SI2" (port tuba9b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba9b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba9b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba9b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba9b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba9b" },
+    ],
+  },
+
+  tuba10: {
+    label: "Tuba 10",
+    port: "tuba10",     // primary instance "Tuba10 SI2": techniques on channels A1-A16
+    rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
+    rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
+    techniques: [
+      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "bisb", label: "Bisbigliando", channel: 2 },
+      { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
+      { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
+      { key: "cuivre", label: "Cuivre", channel: 5 },
+      { key: "fx_menu", label: "FX Menu", channel: 6 },
+      { key: "filt_voice", label: "Filtered by Voice", channel: 7 },
+      { key: "finger_modes_ks", label: "Finger Modes KS", channel: 8 },
+      { key: "flz_voice_unison", label: "Flatterzunge & Voice Unison", channel: 9 },
+      { key: "flz", label: "Flatterzunge", channel: 10 },
+      { key: "fortepiano", label: "Fortepiano", channel: 11 },
+      { key: "gliss_menu", label: "Glissando Menu", channel: 12 },
+      { key: "high_reg_ord", label: "High Register Ordinario", channel: 13 },
+      { key: "mute_ord", label: "Mute Ordinario", channel: 14 },
+      { key: "ord_flz_ks", label: "Ord & Flatterzunge KS", channel: 15 },
+      { key: "pedal_tone", label: "Pedal Tone", channel: 16 },
+      // overflow instance "Tuba10b SI2" (port tuba10b): slots restart at A1
+      { key: "play_sing_ks", label: "Play & Sing KS", channel: 1, port: "tuba10b" },
+      { key: "quartertones", label: "Quartertones Ordinario", channel: 2, port: "tuba10b" },
+      { key: "single_tonguing", label: "Single Tonguing", channel: 3, port: "tuba10b" },
+      { key: "staccato", label: "Staccato", channel: 4, port: "tuba10b" },
+      { key: "trills_ks", label: "Trills KS", channel: 5, port: "tuba10b" },
+    ],
+  },
 };
 
 // Hardware capture input. Keystation 88 MK3 exposes "Keystation 88 MK3" (keys) and

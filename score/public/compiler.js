@@ -19,11 +19,11 @@ function compileMeta(C, spec) {
   const T0 = 2;
   const T = spec.T;
   const N = spec.events;
-  const parts = spec.parts || 7;
+  const parts = spec.parts || 10;
   const R = spec.release != null ? spec.release : 0.35;
   const SEP = 0.05;
   const MIN_ATTACK = 0.5;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const level = spec.level || { min: 1, max: 1 };
   const attack = spec.attack || { model: 'exponential', slope: 0.4 };
 
@@ -149,10 +149,10 @@ function compileMeta(C, spec) {
 //   ratio: 5, ratioRange: [lo,hi]|null, level:{min,max}, levelScatter,
 //   release: 0.3, parts, note, technique, tag }
 function compileGrains(C, spec) {
-  const T0 = 2, T = spec.T, parts = spec.parts || 7;
+  const T0 = 2, T = spec.T, parts = spec.parts || 10;
   const R = spec.release != null ? spec.release : 0.3;
   const SEP = 0.05;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const gauss = () => {
     let u = 0, v = 0;
     while (u === 0) u = Math.random();
@@ -278,10 +278,10 @@ function compileGrains(C, spec) {
 // Poisson (thinning), envelope mix per the current mass recipe.
 function compileMetaGrains(C, spec) {
   spec = spec || {};
-  const metas = spec.metas || C.objects.filter(o => o.type === 'waveCurve' && o.layer === 7);
+  const metas = spec.metas || C.objects.filter(o => o.type === 'waveCurve' && o.layer === 10);
   if (!metas.length) return { error: 'no META curves in this score' };
-  const parts = 7, R = spec.release != null ? spec.release : 0.3, SEP = 0.05;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const parts = spec.parts || 10, R = spec.release != null ? spec.release : 0.3, SEP = 0.05;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const rec = {
     densityMin: spec.densityMin != null ? spec.densityMin : 0.25,
     densityMax: spec.densityMax != null ? spec.densityMax : 3.2,
@@ -418,8 +418,8 @@ function compileMetaGrains(C, spec) {
 function compileCurveIso(C, spec) {
   const meta = spec.meta;
   const S = meta.startSeconds, E = meta.endSeconds, span = E - S;
-  const parts = 7, SEP = 0.05;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const parts = spec.parts || 10, SEP = 0.05;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const durAt = m => spec.durMin + (spec.durMax - spec.durMin) * m;
   const rateAt = m => spec.rateMin * Math.pow(spec.rateMax / spec.rateMin, m);
   const lastEnd = new Array(parts).fill(-Infinity);
@@ -467,8 +467,8 @@ function compileCurveIso(C, spec) {
 // trajectory: [{dur, from, to}] in onsets/sec (geometric interpolation within legs).
 function compileStratified(C, spec) {
   const T0 = spec.t0 != null ? spec.t0 : 2;
-  const parts = 7, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const parts = spec.parts || 10, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const FLOORS = { sizeSigma: 0.35, levelSigma: 0.05, minSpecies: 2 };
   const lawNotes = [];
   let sizeSigma = spec.sizeSigma != null ? spec.sizeSigma : 0.45;
@@ -621,8 +621,8 @@ function compileStratified(C, spec) {
 // Single-species by composer instruction (SC3 restores shape variety).
 function compileSwellCloud(C, spec) {
   const T0 = spec.t0 != null ? spec.t0 : 2;
-  const parts = 7, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
-  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41'];
+  const parts = spec.parts || 10, SEP = 0.05, WIN = spec.window != null ? spec.window : 0.5;
+  const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const relRange = spec.releaseRange || [spec.cutRelease != null ? spec.cutRelease : 0.08, spec.cutRelease != null ? spec.cutRelease : 0.08];
   const sizeSigma = spec.sizeSigma != null ? spec.sizeSigma : 0.35;
   const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;

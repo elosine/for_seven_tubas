@@ -62,18 +62,42 @@
     .lane {
         position: absolute; left: 0; right: 0; overflow: hidden;
     }
-    /* META drawing lane (DOM lane8, layer index 7): triple height, on top */
-    #lane8 { top: 0; height: 32%; background: #f7f5ef; }
-    #lane8 .laneLabel { color: #8a6d3b; }
+    /* META drawing layer (layer index 10): FLOATING WINDOW overlaying the lanes.
+       Full-width so the shared scroll transform keeps its content timeline-locked;
+       semi-transparent so the parts underneath stay visible; draggable vertically
+       via its label strip; hidden until draw mode / stamp opens it. */
+    #laneMeta {
+        top: 22%; height: 30%; background: rgba(247,245,239,0.55); z-index: 40;
+        border-top: 1px dashed #8a6d3b; border-bottom: 1px dashed #8a6d3b;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.12); display: none;
+    }
+    #laneMeta.open { display: block; }
+    /* Click-through when not drawing: the parts underneath stay fully editable.
+       Window chrome + its own curve hit-paths/handles re-enable themselves. */
+    #laneMeta { pointer-events: none; }
+    #laneMeta.drawing { pointer-events: auto; }
+    #laneMeta .contentGroup circle, #laneMeta .contentGroup rect { pointer-events: auto; }
+    #laneMeta .laneLabel {
+        color: #8a6d3b; pointer-events: auto; cursor: ns-resize;
+        background: rgba(247,245,239,0.85); padding: 1px 5px; border-radius: 2px;
+    }
+    #laneMeta .metaClose {
+        position: absolute; right: 6px; top: 1px; z-index: 3; cursor: pointer;
+        color: #8a6d3b; font-size: 13px; background: transparent; border: none;
+        pointer-events: auto;
+    }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
-    .lane:nth-child(1) { top: 32.0%; height: 9.71%; }
-    .lane:nth-child(2) { top: 41.71%; height: 9.71%; }
-    .lane:nth-child(3) { top: 51.43%; height: 9.71%; }
-    .lane:nth-child(4) { top: 61.14%; height: 9.71%; }
-    .lane:nth-child(5) { top: 70.86%; height: 9.71%; }
-    .lane:nth-child(6) { top: 80.57%; height: 9.71%; }
-    .lane:nth-child(7) { top: 90.29%; height: 9.71%; }
+    .lane:nth-child(1)  { top: 0%;  height: 10%; }
+    .lane:nth-child(2)  { top: 10%; height: 10%; }
+    .lane:nth-child(3)  { top: 20%; height: 10%; }
+    .lane:nth-child(4)  { top: 30%; height: 10%; }
+    .lane:nth-child(5)  { top: 40%; height: 10%; }
+    .lane:nth-child(6)  { top: 50%; height: 10%; }
+    .lane:nth-child(7)  { top: 60%; height: 10%; }
+    .lane:nth-child(8)  { top: 70%; height: 10%; }
+    .lane:nth-child(9)  { top: 80%; height: 10%; }
+    .lane:nth-child(10) { top: 90%; height: 10%; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -324,7 +348,20 @@
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane8">
-        <span class="laneLabel">META — drawing layer</span>
+        <span class="laneLabel">Tuba 8</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane9">
+        <span class="laneLabel">Tuba 9</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane10">
+        <span class="laneLabel">Tuba 10</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="laneMeta">
+        <span class="laneLabel">META — draw window (drag ↕)</span>
+        <button class="metaClose" title="Hide draw window">✕</button>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
 
@@ -350,7 +387,10 @@
         <option value="4">Tuba 5</option>
         <option value="5">Tuba 6</option>
         <option value="6">Tuba 7</option>
-        <option value="7">META</option>
+        <option value="7">Tuba 8</option>
+        <option value="8">Tuba 9</option>
+        <option value="9">Tuba 10</option>
+        <option value="10">META</option>
     </select>
     <button id="wcDrawBtn">Draw Curve</button>
     <span style="color:#ccc">|</span>
@@ -1187,7 +1227,14 @@ const TRACKS = [
     { id: 'tuba5', label: 'Tuba 5', instKey: 'tuba5' },
     { id: 'tuba6', label: 'Tuba 6', instKey: 'tuba6' },
     { id: 'tuba7', label: 'Tuba 7', instKey: 'tuba7' },
+    { id: 'tuba8', label: 'Tuba 8', instKey: 'tuba8' },
+    { id: 'tuba9', label: 'Tuba 9', instKey: 'tuba9' },
+    { id: 'tuba10', label: 'Tuba 10', instKey: 'tuba10' },
 ];
+
+// META drawing layer index (the floating draw window = lanes[META_LAYER]).
+// v1 seven-part layout had META at layer 7 — restoreData migrates old scores.
+const META_LAYER = 10;
 
 const Composer = {
     // Shared color palette — workshop colors (from index.html --clr-* vars)
@@ -1253,7 +1300,8 @@ const Composer = {
 
     init() {
         // Cache DOM
-        this.lanes = [1, 2, 3, 4, 5, 6, 7, 8].map(i => document.getElementById(`lane${i}`));
+        this.lanes = ['lane1', 'lane2', 'lane3', 'lane4', 'lane5', 'lane6', 'lane7',
+            'lane8', 'lane9', 'lane10', 'laneMeta'].map(id => document.getElementById(id));
         this.tickGroups = this.lanes.map(l => l.querySelector('.tickGroup'));
         this.contentGroups = this.lanes.map(l => l.querySelector('.contentGroup'));
         this.sessionNameInput = document.getElementById('sessionName');
@@ -1309,8 +1357,9 @@ const Composer = {
                          segments: [{model:'exponential',slope:.4},{model:'power',slope:0}] }
             };
             const s = STAMPS[kind];
+            this.openMetaWin();
             this.createWaveCurve({ startSeconds: Math.max(0, t0), endSeconds: Math.max(0, t0) + 20,
-                layer: 7, nodes: JSON.parse(JSON.stringify(s.nodes)),
+                layer: META_LAYER, nodes: JSON.parse(JSON.stringify(s.nodes)),
                 segments: JSON.parse(JSON.stringify(s.segments)),
                 color: '#2E8B57', opacity: 0.5 });
         });
@@ -1326,14 +1375,39 @@ const Composer = {
         window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
         window.addEventListener('blur', () => document.body.classList.remove('altdown'));
 
-        // ---- Freehand-with-fit (META lane) ----
+        // ---- Freehand-with-fit (META floating draw window) ----
         this.drawMode = false;
         const drawBtn = document.getElementById('drawBtn');
         if (drawBtn) drawBtn.addEventListener('click', () => {
             this.drawMode = !this.drawMode;
             drawBtn.classList.toggle('on', this.drawMode);
+            this.lanes[META_LAYER].classList.toggle('drawing', this.drawMode);
+            if (this.drawMode) this.openMetaWin();
         });
-        const metaLane = this.lanes[7];
+        const metaLane = this.lanes[META_LAYER];
+        // Window chrome: ✕ hides (and exits draw mode); label strip drags vertically.
+        metaLane.querySelector('.metaClose').addEventListener('click', () => {
+            this.closeMetaWin();
+            if (this.drawMode) { this.drawMode = false; drawBtn?.classList.remove('on'); }
+            metaLane.classList.remove('drawing');
+        });
+        metaLane.querySelector('.laneLabel').addEventListener('mousedown', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            const contRect = document.getElementById('laneContainer').getBoundingClientRect();
+            const startY = e.clientY, startTop = metaLane.offsetTop;
+            const winH = metaLane.offsetHeight;
+            const onMove = (ev) => {
+                const top = Math.max(0, Math.min(contRect.height - winH, startTop + ev.clientY - startY));
+                metaLane.style.top = top + 'px';
+            };
+            const onUp = () => {
+                window.removeEventListener('mousemove', onMove);
+                window.removeEventListener('mouseup', onUp);
+                this.renderAll();   // lane geometry moved under the curves
+            };
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onUp);
+        });
         let sketch = null;
         metaLane.addEventListener('mousedown', (e) => {
             if (!this.drawMode || e.button !== 0) return;
@@ -1731,6 +1805,7 @@ const Composer = {
         const stripEls = (key, val) => key === '_els' ? undefined : val;
         return JSON.parse(JSON.stringify({
             version: 1,
+            layoutVersion: 2,   // 10 tuba lanes, META = layer 10 (was 7 in v1 layout)
             tracks: TRACKS,
             assets: this.assets || {},
             metadata: {
@@ -1750,6 +1825,13 @@ const Composer = {
 
     restoreData(data) {
         this.objects = (data.objects || []).map(o => { delete o._els; return o; });
+        // v1 (7-part) scores: META drawing layer was 7, now 10. Hand-drawn/stamped
+        // curves never carry sonifyNote; generated grains always do — safe discriminator.
+        if (data.layoutVersion == null) {
+            for (const o of this.objects) {
+                if (o.type === 'waveCurve' && o.layer === 7 && o.sonifyNote == null) o.layer = META_LAYER;
+            }
+        }
         this.markers = (data.markers || []).map(m => { delete m._els; return m; });
         this.databases = data.databases || {};
         this.assets = data.assets || {};
@@ -1874,8 +1956,8 @@ const Composer = {
 
     fitSketch(raw) {
         if (!raw || raw.length < 3) return;
-        const laneRect = this.lanes[7].getBoundingClientRect();
-        const dims = this.getLaneDims(7);
+        const laneRect = this.lanes[META_LAYER].getBoundingClientRect();
+        const dims = this.getLaneDims(META_LAYER);
         // client coords -> (time, y01); enforce monotonic time
         let pts = raw.map(p => ({
             t: this.clientXToTime(p.x),
@@ -1910,7 +1992,7 @@ const Composer = {
         this.createWaveCurve({
             startSeconds: Math.max(0, Math.round(t0 * 100) / 100),
             endSeconds: Math.round(t1 * 100) / 100,
-            layer: 7, nodes, segments, color: '#2E8B57', opacity: 0.5
+            layer: META_LAYER, nodes, segments, color: '#2E8B57', opacity: 0.5
         });
         this.deselectAll();   // no panel pop on draw (composer request)
     },
@@ -1952,13 +2034,31 @@ const Composer = {
         return px / this.pixelsPerSecond;
     },
 
-    // Get the track index from a Y position in the lane container
+    // Get the track index from a Y position in the lane container.
+    // The META draw window overlays the tuba lanes — it claims hits only in
+    // draw mode, so ordinary clicks fall through to the parts underneath.
     getLaneFromY(clientY) {
-        for (let i = 0; i < this.lanes.length; i++) {
+        if (this.drawMode) {
+            const r = this.lanes[META_LAYER].getBoundingClientRect();
+            if (clientY >= r.top && clientY <= r.bottom) return META_LAYER;
+        }
+        for (let i = 0; i < META_LAYER; i++) {
             const r = this.lanes[i].getBoundingClientRect();
             if (clientY >= r.top && clientY <= r.bottom) return i;
         }
-        return this.lanes.length - 1;
+        return META_LAYER - 1;
+    },
+
+    openMetaWin() {
+        const w = this.lanes[META_LAYER];
+        if (!w.classList.contains('open')) {
+            w.classList.add('open');
+            this.generateTicks(); this.renderAll(); this.applyScroll();   // geometry was display:none
+        }
+    },
+
+    closeMetaWin() {
+        this.lanes[META_LAYER].classList.remove('open');
     },
 
     // Convert client X to time in seconds
@@ -2109,6 +2209,7 @@ const Composer = {
         const lane = this.lanes[laneIdx];
         if (!lane) return { top: 30, bottom: 100, height: 70 };
         const rect = lane.getBoundingClientRect();
+        if (rect.height === 0) return { top: 30, bottom: 100, height: 70 };   // hidden META window
         const padTop = Math.min(28, Math.round(rect.height * 0.20));
         const padBottom = Math.min(8, Math.round(rect.height * 0.08));
         return { top: padTop, bottom: rect.height - padBottom, height: rect.height - padTop - padBottom };
@@ -2697,6 +2798,31 @@ const Composer = {
         hl.setAttribute('d', lineD);
         g.appendChild(hl);
         g.appendChild(p);
+
+        // Apex dot (composer 2026-08-10): every envelope on a part lane shows a
+        // small dot at its apex — the ending/attack moment of the swell species.
+        // "Apex" = the loudest interior node; 2-node ramps have none.
+        if (wc.layer < META_LAYER && wc.nodes.length >= 3) {
+            let apexIdx = -1, apexY = -Infinity;
+            for (let i = 1; i < wc.nodes.length - 1; i++) {
+                if (wc.nodes[i].y > apexY) { apexY = wc.nodes[i].y; apexIdx = i; }
+            }
+            if (apexIdx >= 0 && apexY >= wc.nodes[0].y && apexY >= wc.nodes[wc.nodes.length - 1].y) {
+                const dims = this.getLaneDims(wc.layer);
+                const an = wc.nodes[apexIdx];
+                const ax = (wc.startSeconds + an.pos * (wc.endSeconds - wc.startSeconds)) * this.pixelsPerSecond;
+                const dot = document.createElementNS(svgNS, 'circle');
+                dot.setAttribute('cx', ax);
+                dot.setAttribute('cy', dims.bottom - (an.y / 10) * dims.height);
+                dot.setAttribute('r', '2.6');
+                dot.setAttribute('fill', '#222');
+                dot.setAttribute('stroke', '#fff');
+                dot.setAttribute('stroke-width', '0.8');
+                dot.style.pointerEvents = 'none';
+                g.appendChild(dot);
+            }
+        }
+
         g.appendChild(hp);
 
         this.elementCache.set(wc.id, g);
@@ -3321,7 +3447,7 @@ const Composer = {
         const panel = this.propertyPanel;
         if (!panel || !this.selectedObject) { this.hidePropertyPanel(); return; }
         // META drawing curves: panel only on request (press P) — composer 2026-08-10
-        if (this.selectedObject.type === 'waveCurve' && this.selectedObject.layer === 7 && !this._panelOverride) {
+        if (this.selectedObject.type === 'waveCurve' && this.selectedObject.layer === META_LAYER && !this._panelOverride) {
             this.hidePropertyPanel();
             return;
         }
@@ -3350,7 +3476,7 @@ const Composer = {
                 html += this.ppRow('Fill', 'select', 'fillMode', obj.fillMode, '', ['line', 'bottom', 'top']);
                 html += this.ppRow('Opacity', 'number', 'opacity', obj.opacity, 'step="0.05" min="0" max="1"');
                 html += this.ppRow('Track', 'select', 'layer', obj.layer, '',
-                    TRACKS.map((t, i) => [String(i), t.label]).concat([['7', 'META']]));
+                    TRACKS.map((t, i) => [String(i), t.label]).concat([[String(META_LAYER), 'META']]));
                 html += this.ppRow('Sound note (MIDI, blank=off)', 'number', 'sonifyNote', obj.sonifyNote != null ? obj.sonifyNote : '', 'step="1" min="0" max="127"');
                 {
                     const wcTechs = this.trackTechniques(obj.layer);

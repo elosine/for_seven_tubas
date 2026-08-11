@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "score",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["score/server.js"],
+      "port": 5200
+    }
+  ]
+}
