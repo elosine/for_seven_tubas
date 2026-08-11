@@ -10,26 +10,38 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**Last session:** *2026-08-10 (session 1, Claude Code)* — **Repo seeded from piece #3.**
-- Composer score adapted: 7 tracks labeled Tuba 1–7, canonical score `scores/7tubas.json`,
-  port 5200. Sandbox on 4700. `sandbox/instruments.js`: 7 skeleton instruments
-  (ports `tuba1`…`tuba7`, placeholder Ordinario ch1, provisional range MIDI 22–65).
-- **Library = IRCAM SI2 tuba (0c done): 21 techniques**, transcribed from the composer's
-  UVI build into `instruments.js` — real slot lists, dual instances per tuba (D2).
-  Rack in progress: `Tuba1 SI2` + `Tuba1b SI2` built; tubas 2–7 = duplicate pairs,
-  same slot order, ports `tubaN`/`tubaNb`. Monitoring ON per track — #3 Principle 1.
-- **Probe skipped by composer** ("no need") — behaviors learned while composing,
-  per-need. Range F0–E3 (MIDI 29–64) composer-dictated.
-- **CRESCENDO RESEARCH ARC (2026-08-10, full day):** taxonomy + experiments running —
-  orient from **docs/RESEARCH_INDEX.md** (question, doc map, findings 1–10, TODOs).
-  Vocabulary: BLOOM/LINEAR/SURGE families, ratio, THRESHOLD. Battery in
-  CRESCENDO_EXPERIMENTS.md; patterns in CURVE_DATABASE.md (entries 001–004). Gain
-  staging calibrated (GAIN_STAGING.md ledger). **Awaiting composer verdicts: S3
-  arch A/B (s3a smooth / s3b wander) + S3c delta ladder.** Next threads: shifting
-  overlap refinement, chord material (composer to dictate), noise dial, then S6/S7.
-- **On restart:** servers relaunch with `node score/server.js` (:5200) and
-  `node sandbox/serve.js` (:4700); loopMIDI + Reaper rack (14 tuba instances,
-  master −6 for tutti) are composer-side.
+**Last session:** *2026-08-10 (day 1, Claude Code — one long day, multiple arcs)*
+- **Setup arcs:** stack seeded from piece #3 (7-track composer :5200, sandbox :4700) ·
+  SI2 tuba roster 21 techniques, dual-port model (D2) · cresc sample lengths measured
+  (docs/SI2_tuba_sample_lengths.md) · CC7 law calibrated (probes/cc7_map.json) ·
+  gain staging protocol + ledger (GAIN_STAGING.md; instance master −7.3, master −6
+  tutti, REC −10) · META drawing layer + freehand-fit + sculpt tools in the score.
+- **Research arc (the day's core):** crescendo taxonomy (P1–P4, sourced) · vocabulary
+  BLOOM/SURGE/THRESHOLD · findings 1–13 (RESEARCH_INDEX.md) · **THE LAWS L1–L3**
+  (CURVE_DATABASE.md — scatter floors mandatory; quota-guaranteed trends; keeper
+  stats = plateau anchor) · **Xenakis mass rules X1–X8** (XENAKIS_MASS_RULES.md) ·
+  the piece's own species: the SWELL-CLOUD, where **the peak-cut IS the attack**.
+- **State: `sc4-max-dense` approved "pretty good for now"** — 7 s hold at 6.9
+  endings/s · releases 0.02–0.08 s (rexpodec floor) · durations 0.5–1.6 s (surge
+  3–6×) · max-random quota placement. Engine: compileSwellCloud (compiler.js).
+
+**Next up — the four-pass plan (composer, day wrap):**
+1. *(done this day)* the dense hold — SC4.
+2. **Durations driven by ONSET scattering** — scatter onsets, durations follow
+   (flips the current peak-driven generative direction).
+3. **The least dense texture** — get sparse right.
+4. **Perceivable density gradations** — speed of least→most dense, gradual vs
+   jumps vs in-between.
+
+**Open at session end (tabled):** release shape/duration fine-tune · level-riding
+A/B (finding 13) · envelope-shape variety (old SC3 stage) · noise-dial formalization
+· algorithm codification second pass · chord/pitch material (S6; line-mass species
+held) · P1 Reaper bridge · P2 meta-track object · paper TODOs (RESEARCH_INDEX).
+
+**Orientation for a cold session:** RESEARCH_INDEX.md (map) → CURVE_DATABASE.md
+(laws + entries 001–026 + consequences table) → XENAKIS_MASS_RULES.md →
+COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
+`node sandbox/serve.js` (:4700). Score archive in the Load dropdown (sc1–sc4 etc.).
 
 **Blockers:** none.
 
@@ -69,9 +81,19 @@ piece #3's `docs/` — registered as an additional working directory.
   score curves need to be changed to produce the same sound effect." AI duty: resurface
   this before any performance-score notation is derived from experiment curves.**
 
+- **D3** *(2026-08-10)* — **The mass-texture laws and species live in the research
+  docs, with force of decision:** L1 scatter floors / L2 quota trends / L3 keeper
+  anchor (CURVE_DATABASE.md) · Xenakis rules X1–X8 (XENAKIS_MASS_RULES.md) · the
+  swell-cloud species with peak-cut-as-attack. Engines enforce L1/L2 by default;
+  uniform stimuli require explicit override. *(Note: an earlier D3 re performer-model
+  rendering also stands — see the experiments doc; renumber on next journal pass.)*
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
+- 2026-08-10 — Gain staging calibrated; CC7 law measured; cresc lengths DB.
+- 2026-08-10 — Crescendo research arc: laws, Xenakis rules, swell-cloud species;
+  **SC4 dense hold approved (provisional)**.
 
 ## §6 Human Notes
 

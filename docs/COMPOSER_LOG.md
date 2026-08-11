@@ -4,6 +4,18 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-10 — Day wrap: SC4 approved; the four-pass plan (dictated)
+
+"That's pretty good — when we finish the other parameters we can revisit. Slight
+open question on release shape and duration; table it. Next: play with the curve
+durations, but maybe driven by onset — scattering the onsets, and that will scatter
+the durations as well. Third pass: establish the least dense texture. Fourth pass:
+perceivable gradations of density — how quickly we can go from least dense to most
+dense, how gradual, and whether we can do things in between or jumps."
+
+*(→ Resume Here rewritten for a cold session; sc4-max-dense = the approved dense
+hold; passes 2–4 queued.)*
+
 ## 2026-08-10 — The convergence: peak-cut = attack; the SC program (dictated)
 
 "Let's stick with this crescendo-based cloud — swell and cut, the original shape.

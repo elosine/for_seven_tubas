@@ -399,3 +399,6 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - Realized hold: **48 endings = 6.9/s**, median gap 0.13 s, tightest 0.000 s
   (simultaneous pair — true cluster), widest 0.38 s. 80 swells total, 13 dropped.
 - **Archive:** `sc4-max-dense`
+- **Verdict (composer, session wrap):** "That's pretty good... pretty good for now" —
+  provisionally approved; revisit after the other parameters. **Tabled:** release
+  shape/duration fine-tuning.

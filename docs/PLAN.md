@@ -22,7 +22,12 @@
   true ranges) learned while composing; AI surfaces piece #3-style probes only when a
   musical question demands one.
 
-## 2. Compose — `todo`
+## 2. Compose — `doing` (research-first)
+
+- **2a — Crescendo / sound-mass research arc** — `doing` — taxonomy, laws L1–L3,
+  Xenakis rules, the swell-cloud species (peak-cut = attack). SC4 dense hold
+  approved 2026-08-10; four-pass plan in journal §2. All in docs/RESEARCH_INDEX.md
+  + CURVE_DATABASE.md.
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the
