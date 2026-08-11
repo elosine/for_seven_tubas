@@ -28,6 +28,11 @@
   Xenakis rules, the swell-cloud species (peak-cut = attack). SC4 dense hold
   approved 2026-08-10; four-pass plan in journal §2. All in docs/RESEARCH_INDEX.md
   + CURVE_DATABASE.md.
+- **2b — Pass 2: onset-driven max density (10 parts)** — `doing 2026-08-11` —
+  compileOnsetCloud built (short-grain category model, physical re-artic law,
+  longStream superposition); feasibility sweep + OC listening battery ready
+  (DB 028/029): oc1–oc4 ten-part + oc0-preview7 (listenable pre-hardware).
+  **Awaiting composer listen + verdicts.**
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the
@@ -86,9 +91,11 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   ARE the prototype; promote to a score object when the strategies stabilize.
   (G5/palette lineage: a named, parameterized, reusable unit.)
 
-- **P1 — Reaper scriptability / AI bridge** *(composer, 2026-08-10: "full access and
-  scriptability to AI of Reaper" — e.g. "set every UVI instance to −7.3" as one
-  command)*. Tiers: T0 offline .rpp batch-edits + FX-chunk cloning (available now) ·
-  T1 ReaScript command-file daemon (~1 day) · T2 MCP tool surface (evaluate community
-  Reaper-MCP first). Caveat: plugin-internal knobs need UVI Param exposure or a
-  utility-gain FX as the scriptable calibration knob. Build when the pain recurs.
+- **P1 — Reaper scriptability / AI bridge** *(composer, 2026-08-10; eval done
+  2026-08-11 → docs/AUTOMATION_EVAL.md)*. **Verdicts:** loopMIDI ports = manual
+  (2 min, once) · Reaper tuba 8–10 setup = one-shot ReaScript
+  `tools/setup_tuba8_10.lua` (clones full UVI state incl. −7.3 volume via
+  TrackFX_CopyToTrack — **awaiting composer approval to run**) · UVI direct
+  access NOT needed → defer until bites (ranked solves in the eval doc;
+  utility-gain FX first). T1 daemon / T2 MCP still deferred until live-control
+  pain recurs.

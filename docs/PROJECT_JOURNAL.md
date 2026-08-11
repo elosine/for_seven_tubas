@@ -58,8 +58,22 @@ COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
 - **Roads env catalog done** (DB 027): 8 shapes; **listen to `env-catalog` score**;
   name `surge` proposed for our classic crescendo-cut.
 
-**Blockers:** none. Awaiting composer: env-catalog listen + surge naming; tuba
-8–10 hardware; then the four-pass plan (passes 2–4).
+**2026-08-11 second batch (automation eval + pass 2, AI independent):**
+- **Automation eval** (AUTOMATION_EVAL.md): loopMIDI = manual; Reaper tuba 8–10
+  = one-shot ReaScript `tools/setup_tuba8_10.lua` **awaiting approval** (clones
+  full UVI state — no UVI access needed → deferred until bites).
+- **Pass 2 built** (DB 028/029): compileOnsetCloud — onset-driven, short-grain
+  category duration model, re-artic physical law, truncation/occupancy manifest
+  as the density-vs-diversity evaluation instrument. Sweep: 10-part onset
+  ceiling ~11/s; at 8+/s one stream can't keep long durs → `longStream`
+  superposition (points + lines) restores them.
+- **OC listening battery saved:** oc1-apex8-md3p5 · oc2-apex6-md4p5 ·
+  oc3-apex8-superposed · oc4-apex10-md2p5 (10-part) · **oc0-preview7
+  (listenable NOW, pre-hardware)**. Listening questions in DB 029.
+
+**Blockers:** none. Awaiting composer: OC battery listen (oc0 works today) +
+short-grain-category model confirmation; setup_tuba8_10.lua approval; loopMIDI
+ports; env-catalog listen + surge naming; then passes 3–4.
 
 ## §3 Principles
 
