@@ -907,3 +907,15 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Listening:** does B reach a CLIMAX where A stays samey? Does the whole ramp
   now read linear begin-to-end (the re-centering check)? If B works: the climax
   recipe = rate to fusion + level beyond it (the cue-bundle law taking shape).
+
+### 043i — dens10-levelsurge: back-loaded level curve (awaiting listen)
+- **dens9 verdict:** B (level ramp) delivers the climax; A (rate-only) reads
+  ambiguous above fusion ✓ finding 15. But B's perceived peak lands ~t115 = 75%
+  through — the LINEAR level ramp saturates early (0.94 of ceiling by u 0.75).
+- **`dens10-levelsurge`** — dens9-B + **`accel.levelCurve` 0.5**: the crescendo
+  dial applied to the level trajectory — at 75% through, only ~40% of the
+  loudness rise has happened; the final quarter carries the swell. Peak t=62,
+  hold to 65, seed 20260822.
+- **The emerging climax recipe:** rate accel (composer-linear curve) to fusion
+  + surge-shaped level beyond it. If the perceived peak now lands AT the end,
+  this becomes RECIPE BUILD-1.

@@ -1309,7 +1309,14 @@ function compileOnsetCloud(C, spec) {
       // the finding-13 level cue finally deployed). Hold keeps the end value.
       let lvBase = levelFlat;
       if (accel && accel.levelRamp) {
-        const uL = Math.max(0, Math.min(1, (pk - T0) / accel.T));
+        let uL = Math.max(0, Math.min(1, (pk - T0) / accel.T));
+        // accel.levelCurve: the crescendo-family dial on the LEVEL trajectory
+        // (0 = linear; >0 back-loads the loudness swell so the climax lands at
+        // the END — dens9 verdict: linear level peaked perceptually at ~75%).
+        if (accel.levelCurve) {
+          const kL = 4 * accel.levelCurve;
+          uL = (Math.exp(kL * uL) - 1) / (Math.exp(kL) - 1);
+        }
         lvBase = accel.levelRamp[0] + (accel.levelRamp[1] - accel.levelRamp[0]) * uL;
       }
       const lv = Math.max(0.3, Math.min(1, lvBase + gauss() * levelSigma));

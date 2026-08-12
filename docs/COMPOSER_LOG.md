@@ -4,6 +4,17 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — dens9 verdict: B (level cue) works; perceived peak at ~115 (dictated)
+
+"B works better — seems to peak at around 115; notice a little change at end
+but more subtle. A was hard to get a grasp — maybe parts smooth and sometimes
+seems to jump speed, but hard to tell."
+
+*(→ level-carries-climax CONFIRMED; linear level saturates early (perceived
+peak at 75% of ramp) → accel.levelCurve: the crescendo dial on the LEVEL
+trajectory, back-loading the swell. dens10-levelsurge (levelCurve 0.5).
+DB 043i.)*
+
 ## 2026-08-12 — dens8 verdict: the shifted expectations; no climax above fusion (dictated)
 
 "#1's ramp sounds like linear until 41 s then plateau-ish til end — the
