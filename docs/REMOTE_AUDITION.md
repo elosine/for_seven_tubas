@@ -21,9 +21,15 @@ studio desktop; Reaper on **WASAPI shared → default Realtek out** (`mode=3`,
 
 ## Gotchas
 
-- **Don't switch Reaper to ASIO** for remote sessions — WASAPI shared is what
-  makes this work. (If an ASIO interface enters the studio later, add a
-  "remote" WASAPI device preset in Reaper and toggle per session.)
+- **The audio-system toggle (CONFIRMED in practice 2026-08-12):** the studio
+  config is ASIO; remote sessions need **Preferences → Audio → Device → Audio
+  system: WASAPI** (Shared, Output = Default output device) — the stored WASAPI
+  settings are already right, just flip the dropdown. Back in the studio, flip
+  back to ASIO. First remote session hit exactly this: meters moving, no sound,
+  "[audio device closed]".
+- **After reconnecting CRD**, if sound dies: Options → Reset all MIDI/audio
+  devices (the WASAPI stream re-opens against the current default device — CRD
+  swaps the default when sessions cycle).
 - CRD audio is compressed (fine for texture auditioning; not for mastering
   judgments). For full-quality listening use the file pipeline (PLAN 5a
   option 2) when built.

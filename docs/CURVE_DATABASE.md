@@ -650,3 +650,13 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (2) pitch fields: does the mass keep its identity off unison? does chromatic
   read as thickened unison or as harmony? does the quartal stack turn the field
   chordal (finding 14 interaction — apex-stack loudness on real intervals)?
+
+### 036v — Envelope elimination VERDICT (first remote verdict, via CRD 2026-08-12)
+- **KEEP (4):** `sine` (#1) · `quasi-gaussian` (#3 — the flat-top; composer asked
+  "tri-something?" — naming confirmation pending, sound chosen by ear) ·
+  `expodec` (#6) · `surge` (#7).
+- **CUT (4):** gaussian · triangle · trapezoid · sinc.
+- **Engine consequence:** the grain species set for the cloud engines becomes
+  {sine, quasi-gaussian, expodec, surge}; next = species-MIX pass in the dense
+  hold (sequence-alternation hypothesis from DH4 applies to species) + per-shape
+  tier calibration check (composer hunch: perceived length varies by shape).

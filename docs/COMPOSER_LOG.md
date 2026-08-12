@@ -4,6 +4,16 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Envelope elimination pass (dictated, FIRST REMOTE VERDICT via CRD)
+
+"Envelopes: let's use 1 (sin?), 3 — is that tri-something? — and the penultimate
+and the one before that, I presume expo/rexpo."
+
+*(Catalog order: 1 sine · 2 gaussian · 3 quasi-gaussian flat-top · 4 triangle ·
+5 trapezoid · 6 expodec · 7 surge · 8 sinc. Reading: KEEP {sine, #3 =
+quasi-gaussian (not triangle — confirmation pending), expodec, surge}; CUT
+{gaussian, triangle, trapezoid, sinc}. → DB 036v.)*
+
 ## 2026-08-12 — Infrastructure ask: the remote audition pipeline (dictated)
 
 "A couple of infrastructure things: I would like to set up some Reaper and
