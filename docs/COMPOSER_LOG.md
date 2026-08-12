@@ -4,6 +4,20 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — Next: grain type; pitch fields enter (dictated)
+
+"What is the next one to go for? Maybe grain type. Can you sort out a preview so I
+can hear the new grain types — and in our three categories of durations, these
+might need to be calibrated depending on the grain type. If you can give me all
+the different grain types, I'll probably want to eliminate some. And then, just
+for listening: can I hear DH5a — leave the existing one there — and further down
+the timeline, a chromatic one: ten pitches in one octave, doesn't have to be
+sequential. And then, again down the timeline, another one with stacked fourths
+and fifths."
+
+*(→ env-catalog regenerated at tier durs; dh5a-pitchfields: unison / chromatic /
+quartal segments, same seed. DB 036.)*
+
 ## 2026-08-11 — DH5 verdict: both pass; the apex-stack loudness; pass-2 wrap (dictated)
 
 "Both of those are good. A is good enough — so clumping is reduced. And B works as

@@ -946,7 +946,7 @@ function compileSwellCloud(C, spec) {
 function compileOnsetCloud(C, spec) {
   const seed = spec.seed != null ? (spec.seed >>> 0) : Math.floor(Math.random() * 4294967296);
   const rand = makeRand(seed);
-  const T0 = 2;
+  const T0 = spec.t0 != null ? spec.t0 : 2;   // timeline offset: renders can sit down-timeline
   const parts = spec.parts || 10;
   const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];
   const dm = spec.durModel || {};
@@ -1150,7 +1150,10 @@ function compileOnsetCloud(C, spec) {
       color: HUES[ev.part % HUES.length], opacity: 0.3,
       performanceNotes: (spec.tag || 'OC') + ' o' + (i + 1)
     });
-    wc.sonifyNote = spec.note != null ? spec.note : 45;
+    // pitch field: spec.notes = per-part pitch array (stack/cluster voicings);
+    // falls back to the single spec.note unison
+    wc.sonifyNote = spec.notes ? spec.notes[ev.part % spec.notes.length]
+                               : (spec.note != null ? spec.note : 45);
     wc.technique = spec.technique || 'ord';
     wc.envShape = 'surge';
   });

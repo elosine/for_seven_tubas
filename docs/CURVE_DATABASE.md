@@ -628,3 +628,25 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Deferred fine-tune hooks:** level scatter (finding 13 A/B still tabled) ·
   envelope-species mix (old SC3 stage; sequence-alternation hypothesis applies) ·
   vertical/peak-coincidence control (finding 14).
+
+### 036 — Grain-type audition (tier-aligned) + the first PITCH FIELDS (awaiting listen)
+- **Date:** 2026-08-11 · **Status:** awaiting listen
+- **Next parameter (composer): grain type.** `env-catalog` REGENERATED with
+  tier-aligned durations 0.8 / 2.2 / 4.5 s (short/mid/long exemplars) — 8 Roads
+  shapes × 3, sequential on Tuba 1, ~91 s. Composer intends elimination pass;
+  note: tier calibration may be per-shape (composer hunch — shapes carry their
+  own perceived-length character).
+- **`dh5a-pitchfields`** — three MAXDENSE-1 renders down one timeline, SAME seed
+  (20260815): identical rhythm/durations, only the pitch field changes.
+  Engine additions: `spec.t0` (timeline offset) + `spec.notes` (per-part pitch
+  array).
+  - **2–22 s: unison 45** (DH5a verbatim)
+  - **24–44 s: chromatic** — 10 of 12 pitches in one octave (41–52), scattered
+    (non-sequential) assignment
+  - **46–66 s: stacked 4ths/5ths** — pure-4th chain 29→64 + octave doublings 41/56
+    (constraint: 10 distinct pitches all ≥P4 apart cannot fit the 29–64 range,
+    so an 8-note quartal stack + 2 octave doublings)
+- **Listening questions:** (1) which grain types survive the elimination?
+  (2) pitch fields: does the mass keep its identity off unison? does chromatic
+  read as thickened unison or as harmony? does the quartal stack turn the field
+  chordal (finding 14 interaction — apex-stack loudness on real intervals)?
