@@ -39,9 +39,15 @@
   illegible; DH8 morph pinned; DH9 KS-surge kept as OPTION (back to all CC7 —
   performer-achievable). **Standing mix {surge .7, sine .3}.** Thorough env
   research returns post-piece. DB 036–040.
-- **2d — Density-delta calibration (continuous change)** — `doing 2026-08-12` —
-  dens1-builds (long/med/short/real-short ramps 0.5→7/s + 12 s holds) awaiting
-  listen; feeds the transition-behavior/speed-limits step (roadmap §6.2). DB 041.
+- **2d — Density-delta calibration (continuous change)** — `captured 2026-08-12`
+  — the dens1–dens10 arc, closed by composer to enter the piece. Full capture:
+  **DB 044** (finding 15 count-regime law · apex-scramble fix/peak-anchored law ·
+  accelerando scheduler + one-dial curve re-centered · level-carries-climax ·
+  RECIPE BUILD-1 provisional). Refinement returns per-container.
+- **2e — CONTAINERS: the piece paradigm** — `doing 2026-08-12` — shaped META
+  curves = visual targets, filled by the engines, refined later (DB 045).
+  v1 Density Build container shipped (stamp; dur edges + curvature diamond);
+  cont-build-001 awaiting the composer's shaping; naming system NAMING.md.
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the

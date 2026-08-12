@@ -45,14 +45,25 @@ approved provisional.
 COMPOSER_LOG.md (verbatim). Server: `node score/server.js` (:5200). Score archive
 in the Load dropdown.
 
-**Mid-session checkpoint (2026-08-12, day 3 — remote-workflow day):** CRD
-remote listening LIVE (REMOTE_AUDITION.md; first remote verdicts) · env species:
-kept {sine, expodec, surge}, blends illegible, research DEFERRED; standing mix
-{surge .7, sine .3}, all CC7 (KS-sampled surge kept as option, sonifyMode 'ks' +
-per-note length guard) · engine: envMix/envMixRamp(points)/surgeKS/spec.t0/
-spec.notes · pitch fields opened (dh5a-pitchfields) · ROADMAP to Sept 4 = PLAN
-§6 · 5b two-way page control slated · **awaiting listen: dens1-builds (density-
-delta battery, DB 041), dh9, dh7, pitchfields**.
+**Session end (2026-08-12, day 3 — remote workflow + the density arc + containers):**
+- **CRD remote listening LIVE** (REMOTE_AUDITION.md; whole day driven remotely).
+- **Species settled for now:** kept {sine, expodec, surge}; standing mix
+  {.70/.21/.09}, alt species short+mid tiers only; all CC7 (KS-sampled surge
+  shelved as option); env research deferred.
+- **THE DENSITY ARC (dens1–10) → DB 044:** finding 15 (count-regime law, fusion
+  ceiling) · apex-scramble bug fixed (peak-anchored law) · accelerando scheduler
+  (composer-designed) · one-dial curve RE-CENTERED to composer's ear · level
+  carries climax (12b/13 resolved) · RECIPE BUILD-1 (provisional; dens10 unheard).
+- **CONTAINERS begun (DB 045):** v1 Density Build stamp (dur + curvature
+  diamond); cont-build-001 awaiting shaping; NAMING.md adopted
+  (cont-* / piece-s* / archive).
+- Per-part SOLO buttons; engine additions: anchor 'peak', accel{curve, ramped
+  noiseSigma, levelRamp, levelCurve}, envMixRamp points, altTiersMax.
+
+**Open at session end:** composer shapes cont-build-001 → AI fills via BUILD-1
+(dur→span, curvature→accel.curve) — THE NEXT WORKING STEP · dens10 verdict
+(levelCurve value) outstanding · piece-s01 assembly follows the first filled
+container.
 
 **Blockers:** none.
 
@@ -105,6 +116,12 @@ delta battery, DB 041), dh9, dh7, pitchfields**.
   time-range, note}). Fine-tuning happens in-piece against a named target texture,
   not by reopening calibration. *Why:* five listen-cycles converged; the composer
   declared the two parameters well explored.
+
+- **D5** *(2026-08-12)* — **Wrap-protocol divergence (piece #4 only):** at
+  Session End, DO NOT ask "any lessons/gotchas to capture?" — the composer
+  explicitly volunteers wrap additions; absence of them in the wrap directive
+  means "no further input." (Supersedes SESSION_PROTOCOL.md step 2 for this
+  piece; the protocol file itself lives read-only in piece #3.)
 
 ## §5 Done
 
