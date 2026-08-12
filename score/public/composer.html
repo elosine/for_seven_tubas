@@ -87,6 +87,15 @@
         pointer-events: auto;
     }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
+    /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
+    .soloBtn {
+        position: absolute; left: 58px; top: 2px; z-index: 3;
+        width: 16px; height: 15px; padding: 0; font-size: 9px; line-height: 13px;
+        border: 1px solid #bbb; background: #fff; color: #999; cursor: pointer;
+        border-radius: 2px;
+    }
+    .soloBtn.on { background: #f9a825; border-color: #f57f17; color: #fff; }
+    .lane.soloDim svg { opacity: 0.3; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
     .lane:nth-child(1)  { top: 0%;  height: 10%; }
     .lane:nth-child(2)  { top: 10%; height: 10%; }
@@ -1375,6 +1384,31 @@ const Composer = {
         window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
         window.addEventListener('blur', () => document.body.classList.remove('altdown'));
 
+        // ---- Per-part solo buttons (composer 2026-08-12) ----
+        this.soloParts = new Set();
+        for (let i = 0; i < META_LAYER; i++) {
+            const b = document.createElement('button');
+            b.className = 'soloBtn';
+            b.textContent = 'S';
+            b.title = 'Solo this part (ALT+click = exclusive solo)';
+            const layer = i;
+            b.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (e.altKey) {
+                    const wasOnly = this.soloParts.size === 1 && this.soloParts.has(layer);
+                    this.soloParts.clear();
+                    if (!wasOnly) this.soloParts.add(layer);
+                } else if (this.soloParts.has(layer)) {
+                    this.soloParts.delete(layer);
+                } else {
+                    this.soloParts.add(layer);
+                }
+                this.updateSoloVisuals();
+            });
+            b.addEventListener('mousedown', (e) => e.stopPropagation());
+            this.lanes[i].appendChild(b);
+        }
+
         // ---- Freehand-with-fit (META floating draw window) ----
         this.drawMode = false;
         const drawBtn = document.getElementById('drawBtn');
@@ -2047,6 +2081,22 @@ const Composer = {
             if (clientY >= r.top && clientY <= r.bottom) return i;
         }
         return META_LAYER - 1;
+    },
+
+    // ---- Per-part SOLO (composer 2026-08-12) ----
+    // Any solo active -> only soloed parts send MIDI. Playback gating lives in
+    // tickCurvePlayback (sounding notes on un-soloed parts get clean noteOffs
+    // via the outside-branch) and tickMotivePlayback.
+    isPartAudible(layer) {
+        return !this.soloParts || this.soloParts.size === 0 || this.soloParts.has(layer);
+    },
+
+    updateSoloVisuals() {
+        for (let i = 0; i < META_LAYER; i++) {
+            const btn = this.lanes[i].querySelector('.soloBtn');
+            if (btn) btn.classList.toggle('on', this.soloParts.has(i));
+            this.lanes[i].classList.toggle('soloDim', this.soloParts.size > 0 && !this.soloParts.has(i));
+        }
     },
 
     // A "grain" = a generated, sonified envelope on a part lane. Grains get the
@@ -7158,13 +7208,15 @@ const Composer = {
                 output.send([0x80 | ch, wc.ksNote, 0]);
                 output.send([0xB0 | ch, 7, this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)]);
             };
-            const inside = currentTimeSec >= wc.startSeconds && currentTimeSec <= wc.endSeconds;
+            // solo gate: un-soloed parts take the outside path (clean noteOff)
+            const inside = this.isPartAudible(wc.layer)
+                && currentTimeSec >= wc.startSeconds && currentTimeSec <= wc.endSeconds;
             if (!inside) {
                 if (st) {
                     output.send([0x80 | ch, st.note, 0]);
                     delete this._activeCurvePlayback[wc.id];
                 }
-                if (currentTimeSec >= wc.startSeconds - PREARM_S && currentTimeSec < wc.startSeconds) {
+                if (this.isPartAudible(wc.layer) && currentTimeSec >= wc.startSeconds - PREARM_S && currentTimeSec < wc.startSeconds) {
                     if (!this._curvePreArm[wc.id]) {
                         if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
                         if (ksMode) ksArm();
@@ -7601,6 +7653,7 @@ const Composer = {
 
         this.objects.forEach(mo => {
             if (mo.type !== 'motive') return;
+            if (!this.isPartAudible(mo.layer)) return;   // solo gate
             const m = this.motiveData(mo.motiveId);
             if (!m || !m.events || !m.events.length) return;
             const inst = this.trackInstrument(mo.layer);
