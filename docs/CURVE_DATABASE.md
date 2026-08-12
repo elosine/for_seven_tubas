@@ -824,3 +824,27 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   2.0→0.143 s, 12 s hold, standing mix/tiers unchanged, seed 20260822.
 - Purpose: calibrate the acceleration percept itself; noise σ returns as its
   own ladder afterwards.
+
+### 043c — THE APEX-SCRAMBLE BUG + peak-anchored scheduling (the dens4 fix)
+- **Date:** 2026-08-12 · **Status:** fixed, verified; regenerated dens4 awaiting listen
+- **The bug (composer's ear caught it across dens1–4):** since pass 2 the engine
+  scheduled ONSETS, but the perceptual attack for surge (70%) is the APEX =
+  onset + dur; random durations (0.6–5 s) scrambled every density trajectory in
+  apex-space. Measured on the \"pure\" accel: onset gaps orderly (first: 2.00,
+  1.83, 1.69, 1.15…) — apex gaps near-random (1.52, 2.48, 2.75, 0.29, 0.07,
+  3.37…; CV 0.94). Reserved tiers also injected window-random onsets into the
+  \"deterministic\" chain.
+- **Engine principle (carved):** THE SCHEDULING ANCHOR MUST BE THE PERCEPTUAL
+  ATTACK POINT. New `anchor: 'peak'` mode: generated points = PEAK times;
+  species-aware pre/post from the envelope geometry (surge peak at end, sine
+  center, expodec near start); onsets back-calculated; per-part interval
+  reservation in peak order; back-span truncation when a part can't host the
+  full swell (17% at the pure accel — silent early starts shrink, peaks stay).
+  This is the SC swell-cloud insight (peak-cut scheduling) rejoining the OC
+  machinery — full circle, now with tiers/species/accel.
+- **Verified:** σ=0 chain → realized apex gaps EXACTLY 2.00/1.83/1.69/1.57/1.47…
+  monotone to the hold, 0 drops. dens4-accel-pure regenerated peak-anchored
+  (seed 20260822).
+- **Standing:** accel builds default to anchor:'peak'. Stationary quota textures
+  keep onset-anchor (their max-randomness hides the scramble — but revisit if
+  apex-precision passages emerge).

@@ -1052,6 +1052,15 @@ function compileOnsetCloud(C, spec) {
   }
   onsets.sort((a, b) => a - b);
 
+  // ---- PEAK-ANCHORED scheduling (spec.anchor 'peak'; the dens4 bug fix) ----
+  // The generated points are PEAK times — the perceptual attacks. Durations and
+  // species are drawn per point, ONSETS BACK-CALCULATED (onset = peak - pre),
+  // per-part interval scheduling in peak order. Fixes the apex-scramble:
+  // onset-anchored accel left apex gaps near-random (CV 0.94 vs onset 0.39,
+  // dens4 diagnosis 2026-08-12 — the bug the composer was hearing).
+  const peakMode = spec.anchor === 'peak';
+  let peakEvents = null, peakDropped = 0, peakTrunc = 0;
+
   // ---- 1b. Optional LONG STREAM (Xenakis superposition): a sparse stream of
   // long grains threaded through the dense mass on rotating lanes. Their spans
   // are RESERVED at assignment (blockedUntil), so the dense stream can't land
@@ -1059,7 +1068,8 @@ function compileOnsetCloud(C, spec) {
   // dense apex (X-rules: species superposition).
   const ls = spec.longStream || null;   // legacy { rate: 0.7, durRange: [2.2, 5] }
   // Reserved streams: tiers 1..k (share-scaled) or the legacy longStream (fixed rate)
-  const resStreams = tiers
+  const resStreams = peakMode ? []
+    : tiers
     ? tiers.slice(1).map((t, i) => ({ share: t.share, range: t.range, tier: i + 1 }))
     : (ls ? [{ rate: ls.rate, range: ls.durRange, tier: 1 }] : []);
   let merged = onsets.map(t => ({ t, res: 0 }));
@@ -1086,7 +1096,7 @@ function compileOnsetCloud(C, spec) {
   // quotas and per-tier rates stay exact): dense-tier runs capped at 3
   // (unavoidable floor at majority share), every other tier capped at 1.
   let altSwaps = 0;
-  if (dm.alternate && tiers) {
+  if (!peakMode && dm.alternate && tiers) {
     const capFor = ti => ti === 0 ? 3 : 1;
     let run = 1;
     for (let i = 1; i < stream.length; i++) {
@@ -1116,7 +1126,7 @@ function compileOnsetCloud(C, spec) {
   const shortRun = new Array(parts).fill(0);
   const assigned = [];
   let dropped = 0, longDropped = 0, converted = 0;
-  for (const o of stream) {
+  for (const o of (peakMode ? [] : stream)) {
     const t = o.t;
     const feas = [];
     for (let p = 0; p < parts; p++) {
@@ -1207,9 +1217,88 @@ function compileOnsetCloud(C, spec) {
     return pick;
   };
 
-  const events = [];
+  if (peakMode) {
+    peakEvents = [];
+    const lastEndP = new Array(parts).fill(0.1 - reArtic);
+    const lastShapeP = new Array(parts).fill(null);
+    const shortRunP = new Array(parts).fill(0);
+    const tierW = tiers ? tiers.map(t => t.share) : null;
+    const tierTot = tierW ? tierW.reduce((a, b) => a + b, 0) : 0;
+    let lastGlobalShape = null;
+    const preOf = (sh, d) => sh === 'surge' ? d : sh === 'sine' ? d / 2
+      : sh === 'expodec' ? Math.max(0.08, d * 0.08) : d / 2;
+    const postOf = (sh, d, rel) => sh === 'surge' ? rel : sh === 'sine' ? d / 2
+      : sh === 'expodec' ? d - Math.max(0.08, d * 0.08) : d / 2;
+    for (const pk of onsets) {
+      let tierIdx = 0;
+      if (tierW) {
+        let r = rand() * tierTot;
+        for (let k = 0; k < tierW.length; k++) { r -= tierW[k]; if (r <= 0) { tierIdx = k; break; } }
+      }
+      const range = tiers ? tiers[tierIdx].range : shortBand;
+      const target = range[0] + rand() * (range[1] - range[0]);
+      const release = relRange[0] + rand() * (relRange[1] - relRange[0]);
+      // species: mix weights (altTiersMax respected), global no-immediate-repeat
+      let shape = 'surge';
+      if ((envMix || envRamp) && tierIdx <= (spec.altTiersMax != null ? spec.altTiersMax : Infinity)) {
+        const w = mixAt(pk - T0) || { surge: 1 };
+        const keys = Object.keys(w);
+        const tot = keys.reduce((sm, k) => sm + w[k], 0);
+        for (let tries = 0; tries < 2; tries++) {
+          let r = rand() * tot;
+          shape = keys[keys.length - 1];
+          for (const k of keys) { r -= w[k]; if (r <= 0) { shape = k; break; } }
+          if (shape !== lastGlobalShape) break;
+        }
+      }
+      lastGlobalShape = shape;
+      const need = preOf(shape, target);
+      const feas = [];
+      for (let p = 0; p < parts; p++) if (pk - need >= lastEndP[p] + reArtic) feas.push(p);
+      let dur = target, part = -1;
+      if (feas.length) {
+        let pool = feas.filter(p => lastShapeP[p] !== shape);
+        if (!pool.length) pool = feas;
+        if (tierIdx === 0 && dm.maxShortRun != null) {
+          const fresh = pool.filter(p => shortRunP[p] < dm.maxShortRun);
+          if (fresh.length) pool = fresh;
+        }
+        part = pool[Math.floor(rand() * pool.length)];
+      } else {
+        // shrink to the most-available part (back-span truncation)
+        let best = 0, bestAvail = -Infinity;
+        for (let p = 0; p < parts; p++) {
+          const av = pk - (lastEndP[p] + reArtic);
+          if (av > bestAvail) { bestAvail = av; best = p; }
+        }
+        const durMax = shape === 'surge' ? bestAvail : shape === 'sine' ? bestAvail * 2 : bestAvail / 0.09;
+        if (!(durMax >= 0.4)) { peakDropped++; continue; }
+        dur = Math.min(target, durMax);
+        part = best;
+        peakTrunc++;
+      }
+      const post = postOf(shape, dur, release);
+      lastEndP[part] = pk + post;
+      lastShapeP[part] = shape;
+      if (tierIdx === 0) shortRunP[part]++; else shortRunP[part] = 0;
+      const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
+      const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
+      peakEvents.push({ onset: pk - preOf(shape, dur), part, dur, target, release, lv, ratio,
+                        wasTrunc: dur < target - 1e-9, isLong: tierIdx >= 2, tier: tierIdx, shape });
+    }
+  }
+
+  const events = peakMode ? peakEvents : [];
   let truncated = 0, shortfallSum = 0;
-  for (const a of assigned) {
+  if (peakMode) {
+    dropped = peakDropped;
+    truncated = peakTrunc;
+    // manifest mirrors: gap/per-part stats come from the assigned list
+    peakEvents.forEach(e => assigned.push({ t: e.onset, part: e.part }));
+    assigned.sort((x, y) => x.t - y.t);
+    assigned.forEach(x => byPart[x.part].push(x));
+  }
+  for (const a of (peakMode ? [] : assigned)) {
     const release = relRange[0] + rand() * (relRange[1] - relRange[0]);
     let target, dur, wasTrunc = false;
     if (a.res) {

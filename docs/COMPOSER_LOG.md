@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — THE BUG FOUND: apex-scramble; peak-anchored scheduling (composer-triggered)
+
+"Something not quite right, and it may be the bug I was hearing — the lack of
+ramp; this one is not a pure accel. Can you look at the apexes in the generated
+timeline and troubleshoot?"
+
+*(→ diagnosis confirmed: the engine accelerated ONSETS but the ear hears APEXES
+(peak-cut = attack); durations 0.6–5 s scrambled the chain — apex-gap CV 0.94 vs
+onset 0.39; reserved tiers also leaked window-randomness. FIX: anchor:'peak' —
+chain points = peak times, species-aware pre/post, onsets back-calculated,
+per-part reservation in peak order. Verified: apex gaps exactly the chain
+(2.00, 1.83, 1.69…), zero drops. dens4-accel-pure regenerated. DB 043c.)*
+
 ## 2026-08-12 — dens2 verdict: flattened; the ACCELERANDO model advised (dictated)
 
 "That one flattened most of the way — a little bit of build in the beginning
