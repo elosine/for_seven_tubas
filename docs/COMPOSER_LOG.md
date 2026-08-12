@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — DH5 verdict: both pass; the apex-stack loudness; pass-2 wrap (dictated)
+
+"Both of those are good. A is good enough — so clumping is reduced. And B works as
+well. I think the apex onsets are dense enough to still give it a dense feel. Also,
+I'm hearing the SIMULTANEITY — vertical texture, chord-like, even though these are
+unisons. There's a certain part of the end of the envelope that, when those are
+stacked together, you get — not an attack, but a LOUDNESS there. Those are
+interesting sounds and add to the field of density. I don't think we need to dial
+those in, but if certain patterns emerge we could capture that sort of overlap as a
+recipe, if I want to. Actually, any excerpts that sound particularly interesting
+could be excerpted as well. That was a new observation: you get the quote-unquote
+attack from the apex, but you also hear when several curves overlap in their
+loudest parts. For now those two parameters are well explored and we have enough to
+go with — we can fine-tune when all the parameters are in, and when I'm looking for
+a particular type of texture in the actual piece. We're getting a good handle on
+what the dials are and what their scale is. These were productive tests."
+
+*(→ DB 034v verdict + RECIPE MAXDENSE-1 (DB 035); finding 14 apex-stack loudness;
+keeper-excerpt practice adopted; PLAN 2b done.)*
+
 ## 2026-08-11 — DH4 verdict: midshift wins, go further; duration is multidimensional (dictated)
 
 "Mid shift is better. I think we can go even more in this direction. The sonic

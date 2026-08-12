@@ -58,22 +58,30 @@ COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
 - **Roads env catalog done** (DB 027): 8 shapes; **listen to `env-catalog` score**;
   name `surge` proposed for our classic crescendo-cut.
 
-**2026-08-11 second batch (automation eval + pass 2, AI independent):**
-- **Automation eval** (AUTOMATION_EVAL.md): loopMIDI = manual; Reaper tuba 8–10
-  = one-shot ReaScript `tools/setup_tuba8_10.lua` **awaiting approval** (clones
-  full UVI state — no UVI access needed → deferred until bites).
-- **Pass 2 built** (DB 028/029): compileOnsetCloud — onset-driven, short-grain
-  category duration model, re-artic physical law, truncation/occupancy manifest
-  as the density-vs-diversity evaluation instrument. Sweep: 10-part onset
-  ceiling ~11/s; at 8+/s one stream can't keep long durs → `longStream`
-  superposition (points + lines) restores them.
-- **OC listening battery saved:** oc1-apex8-md3p5 · oc2-apex6-md4p5 ·
-  oc3-apex8-superposed · oc4-apex10-md2p5 (10-part) · **oc0-preview7
-  (listenable NOW, pre-hardware)**. Listening questions in DB 029.
+**2026-08-11 PASS 2 COMPLETE (live calibration sitting, OC→DH1–DH5):**
+The full onset/duration calibration arc ran start-to-finish with the composer at
+the desk — five listen-verdict-generate cycles in one day. Results:
+- **LAW L4 carved** (perceptual scale/bluntness): in-mass diversity needs
+  category-sized jumps; **×2.75 spacing adopted**; duration axis saturates both
+  ends → 4 categories (short/mid/long/exceptional-for-effect).
+- **RECIPE MAXDENSE-1 (DB 035)** — the calibrated max-density dial set: 7/s hold,
+  tier shares 0.62/0.26/0.09/0.03…0.54/0.30/0.12/0.04 (dh5a…dh5b tolerance band),
+  maxShortRun 2 + short→mid conversion + run-breaking longs, alternate on.
+- **Finding 14**: apex-stack loudness (co-peaking swells = vertical chord-like
+  loudness event; a second density resource). Parked as capturable recipe.
+- **Keeper-excerpt practice adopted**: interesting excerpts = {score, seed,
+  range, note}, collected as they appear.
+- Engine framework proven in anger: seeded ladders, span tests (maxDur shown
+  inert → superposition; global alternation shown non-lever), honest negatives
+  documented. ENGINE_FRAMEWORK.md is the method.
+- **Automation eval** (AUTOMATION_EVAL.md): Reaper tuba 8–10 one-shot ReaScript
+  ready (`tools/setup_tuba8_10.lua`); UVI access deferred-until-bites. Hardware
+  now UP (10-part renders sounding since DH1-regen).
 
-**Blockers:** none. Awaiting composer: OC battery listen (oc0 works today) +
-short-grain-category model confirmation; setup_tuba8_10.lua approval; loopMIDI
-ports; env-catalog listen + surge naming; then passes 3–4.
+**Blockers:** none. **Next:** four-pass plan passes 3 (least dense — gap
+distribution hypothesis from DH2 obs 1 waits here) + 4 (density gradations) ·
+envelope-species mix pass (sequence-alternation hypothesis applies) · env-catalog
+listen + surge naming still open · level-scatter A/B (finding 13) tabled.
 
 ## §3 Principles
 
@@ -124,6 +132,9 @@ ports; env-catalog listen + surge naming; then passes 3–4.
 - 2026-08-10 — Gain staging calibrated; CC7 law measured; cresc lengths DB.
 - 2026-08-10 — Crescendo research arc: laws, Xenakis rules, swell-cloud species;
   **SC4 dense hold approved (provisional)**.
+- 2026-08-11 — 10-part expansion + UI batch + Roads catalog + engine framework.
+- 2026-08-11 — **Pass 2 complete**: L4 carved, MAXDENSE-1 recipe adopted (DB 035),
+  finding 14; five live calibration cycles (OC, DH1–DH5).
 
 ## §6 Human Notes
 

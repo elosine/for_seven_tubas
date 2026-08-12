@@ -28,11 +28,12 @@
   Xenakis rules, the swell-cloud species (peak-cut = attack). SC4 dense hold
   approved 2026-08-10; four-pass plan in journal §2. All in docs/RESEARCH_INDEX.md
   + CURVE_DATABASE.md.
-- **2b — Pass 2: onset-driven max density (10 parts)** — `doing 2026-08-11` —
-  compileOnsetCloud built (short-grain category model, physical re-artic law,
-  longStream superposition); feasibility sweep + OC listening battery ready
-  (DB 028/029): oc1–oc4 ten-part + oc0-preview7 (listenable pre-hardware).
-  **Awaiting composer listen + verdicts.**
+- **2b — Pass 2: onset-driven max density (10 parts)** — `done 2026-08-11` —
+  full calibration arc OC→DH1–DH5 in one sitting: onset scattering validated ·
+  LAW L4 carved (×2.75 category spacing; both-ends saturation; 4 duration
+  categories) · anti-clump machinery (maxShortRun, conversion, run-breaking
+  longs) · **RECIPE MAXDENSE-1 adopted (DB 035)** · finding 14 (apex-stack
+  loudness) logged. Fine-tune deferred to in-piece texture work.
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the

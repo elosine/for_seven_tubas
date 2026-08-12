@@ -598,3 +598,33 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   near-balance the texture? (2) does clumping survive in either (→ window-balance
   mechanism next)? (3) dh5b's higher drop price: does the hold still feel 7/s-
   dense, or thinner?
+
+### 034v — DH5 VERDICT: both pass; pass-2 parameters declared well-explored
+- **Composer (2026-08-11):** "Both of those are good. A is good enough — clumping
+  is reduced. And B works as well… apex onsets are dense enough to still give a
+  dense feel." Fine-tuning deferred to when ALL parameters are in and a specific
+  piece-texture is being sought. "We're getting a good handle on what the dials
+  are and what their scale is."
+- **New observation → finding 14 (RESEARCH_INDEX):** the APEX-STACK loudness —
+  co-peaking swells read as a vertical chord-like loudness event (not an attack),
+  even on unisons; adds to the density field. Parked as a capturable recipe
+  (peak-coincidence control) if patterns emerge; no dialing-in now.
+- **Practice adopted:** any excerpt that sounds particularly interesting gets
+  KEPT — named excerpt = {score, seed, time-range, note}; the L3-keeper practice
+  generalized to a running collection.
+
+### 035 — RECIPE: MAXDENSE-1 (the calibrated max-density dial set — pass 2 output)
+- **The first CATIA-layer recipe.** Engine compileOnsetCloud; all values
+  composer-calibrated over DH1–DH5, 2026-08-11:
+  - hold rate **7 onsets/s** (10 parts; ceiling ≈ 11/s; density feel confirmed)
+  - duration tiers (**L4, ×2.75**): short 0.6–1.0 · mid 1.65–2.75 · long 4.0–5.0
+    · exceptional 6.5–8.0 ("for effect")
+  - shares: **0.62/0.26/0.09/0.03 (= dh5a, "good enough") … 0.54/0.30/0.12/0.04
+    (= dh5b)** — the A–B span is the recipe's tolerance band
+  - `maxShortRun: 2` (rest > 2 s resets; longs target worst-run part; saturated
+    shorts convert to mids) · `alternate: true` · reArtic 0.08 · releases
+    0.02–0.08 (rexpodec floor) · ratio 3–6 · envelope: surge · seed-reproducible
+  - reference renders: dh5a-mid26 / dh5b-mid30 (seed 20260815)
+- **Deferred fine-tune hooks:** level scatter (finding 13 A/B still tabled) ·
+  envelope-species mix (old SC3 stage; sequence-alternation hypothesis applies) ·
+  vertical/peak-coincidence control (finding 14).

@@ -75,6 +75,17 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
     overlap profiles — grain-stratum and understory — and preamble DIVERSITY
     (durations, ratios, types) is the lever that turns the understory from mechanical
     ramps into a soft bed. All three scatter dials screened SALIENT (W2/W3/W4); none frozen.
+13b. **LAW L4 — the perceptual-scale (bluntness) law** (DH1–DH3 arc, composer-confirmed
+    2026-08-11): in-mass discrimination is coarse; parameter diversity must jump in
+    category-sized steps (×2.75 adopted) to be heard; the duration axis saturates at
+    both ends → 4 usable categories. Full statement in CURVE_DATABASE laws.
+14. **The apex-stack loudness** (composer, DH5 listen, 2026-08-11): when several
+    swells overlap in their LOUDEST portions, the stack reads as a vertical,
+    chord-like event — "not an attack, but a loudness there" — even on unisons.
+    A second density resource beside the peak-cut attack: the field carries both
+    attack-points (apexes) and loudness-masses (co-peaking overlaps). Not dialed-in
+    deliberately yet; parked as a capturable RECIPE (peak-coincidence control) if
+    patterns emerge in the piece. Related: the +8.5 dB convergent-tutti note.
 
 ## TODO before "paper" status
 
