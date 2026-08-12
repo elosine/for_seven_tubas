@@ -16,6 +16,19 @@ to be implemented and then I'll give the go."
 
 *(→ plan presented; PLAN 5a opened pending go.)*
 
+**Backup/reframe (same day):** "I have remote access, and a PC laptop as a remote
+device as well as my phone — I just thought phone-listening via Google Drive
+would be easiest. I also have a Hetzner share. The objective is twofold; the main
+one right now is to LISTEN REMOTELY; second, less important, is to build some
+automation infrastructure. Ideally, from the remote laptop (probably best
+candidate) or phone, I can listen to the score examples AND watch the score in
+real time. If that's too big a project, then the most expedient route to an audio
+file I can listen to remotely — present some options."
+
+*(→ options 1–3 presented: remote-desktop-with-audio first (zero build; ASIO
+gotcha flagged) · async file/video pipeline via Hetzner/Drive · full live-stream
+build deferred. PLAN 5a reframed.)*
+
 ## 2026-08-11 — Next: grain type; pitch fields enter (dictated)
 
 "What is the next one to go for? Maybe grain type. Can you sort out a preview so I
