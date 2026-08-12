@@ -26,6 +26,13 @@ the APEXES (peak-cut = attack; onsets back-calculated), OC scatters the ONSETS
 **Since 2026-08-11 every render is seeded** (`spec.seed`, auto-seed echoed in the
 manifest): any realization can be reproduced exactly.
 
+## 0b. The reverse-engineering approach (D6, composer 2026-08-12 — governs the piece phase)
+
+The piece is the training corpus. Machinery is adapted PER SHAPE until each
+container sounds as intended; generalizable lessons (dials, mechanisms, recipe
+variants) are extracted from the accumulated shape-work — not imposed globally
+in advance. The loop below serves that extraction.
+
 ## 1. The development loop (the composer's model, formalized)
 
 ```

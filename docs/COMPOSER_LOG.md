@@ -4,6 +4,20 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Wrap addendum: the reverse-engineering approach (dictated)
+
+"Let me just add for the journal: I'm trying a REVERSE-ENGINEERING approach.
+Instead of trying to get the engines or generators to behave in a global way
+and produce good sonic results, I'll construct the piece and fill in the sound
+shapes as I want them to sound — and in constructing the sonic shapes,
+hopefully they will inform the machine, where they will be more and more
+capable of reproducing a variety of sonic shapes. So let's adapt the machinery
+per shape, with the goal of generating the desired sound — but also extract
+generalizable lessons through this."
+
+*(→ D6: the piece is the training corpus; per-shape adaptation is the method;
+generalization is extracted, not imposed.)*
+
 ## 2026-08-12 — STOP; into the piece: containers; naming; wrap-protocol change (dictated)
 
 "Let's stop this process here — just capture all we learned. I want to get into

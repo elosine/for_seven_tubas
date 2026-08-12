@@ -123,6 +123,17 @@ container.
   means "no further input." (Supersedes SESSION_PROTOCOL.md step 2 for this
   piece; the protocol file itself lives read-only in piece #3.)
 
+- **D6** *(2026-08-12, composer wrap addendum)* — **The reverse-engineering
+  approach governs the piece phase:** do NOT pursue globally-well-behaved
+  generators top-down. Construct the piece shape by shape, adapting the
+  machinery PER SHAPE until each sounds as intended; the accumulated per-shape
+  adaptations inform the machine ("more and more capable of reproducing a
+  variety of sonic shapes"). AI duty: after each shape is approved, extract the
+  GENERALIZABLE lesson (new dial? new mechanism? recipe variant?) into the
+  docs — generalization is harvested from the shapes, not imposed on them.
+  *(Extends P4's generate→tweak→reverse-analyze loop to the whole piece;
+  the containers (2e) are the vehicle.)*
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
