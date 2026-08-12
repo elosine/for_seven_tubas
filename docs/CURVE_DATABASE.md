@@ -660,3 +660,22 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   {sine, quasi-gaussian, expodec, surge}; next = species-MIX pass in the dense
   hold (sequence-alternation hypothesis from DH4 applies to species) + per-shape
   tier calibration check (composer hunch: perceived length varies by shape).
+
+### 037 — DH6: the species-mix pass (A/B, awaiting listen)
+- **Date:** 2026-08-12 · **Status:** awaiting listen (remote via CRD works)
+- **Engine:** `envMix` in compileOnsetCloud — per-grain species from weighted mix
+  over the four KEPT shapes (036v: sine, quasi-gaussian, expodec, surge), with a
+  per-part no-immediate-repeat redraw (alternation instinct applied to species).
+  All shapes onset-anchored via grainEnvelope; surge keeps the peak-cut release,
+  the others end at zero naturally. Species applies to ALL tiers (long reserved
+  grains can now be messa-di-voce sines etc.).
+- **A/B, seed 20260816, MAXDENSE-1 base — scheduling IDENTICAL between the two
+  (same tier structure realized), only species labels differ:**
+  - `dh6a-mix-even`: surge .3 / sine .3 / qg .2 / expodec .2 → apex 20/19/12/18
+  - `dh6b-mix-surgelead`: surge .55 / sine .2 / qg .15 / expodec .1 → apex 36/13/11/9
+- **Listening questions:** (1) does density SURVIVE the even mix — sine/qg peaks
+  have no attack bite (X-rule attack salience; the apexes thin from ~50 cuts to
+  ~20) — or does the field go soft? (2) surge-lead: do the color species read as
+  accents inside a surge field (the L3-keeper logic at max density)? (3) per-shape
+  tier calibration: do mid-tier sines/flat-tops FEEL longer than mid-tier surges
+  (L4 per-shape offsets needed)? (4) which mix is the texture?

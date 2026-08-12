@@ -1113,6 +1113,26 @@ function compileOnsetCloud(C, spec) {
   const byPart = new Array(parts).fill(null).map(() => []);
   assigned.forEach(a => byPart[a.part].push(a));
   byPart.forEach(list => list.forEach((a, i) => { a.next = i + 1 < list.length ? list[i + 1].t : Infinity; }));
+  // Envelope species mix (2c pass): per-grain shape from weighted mix, with a
+  // per-part no-immediate-repeat redraw — the DH4 alternation instinct applied
+  // to species (same-species runs in a part read as clumps).
+  const envMix = spec.envMix || null;   // e.g. {surge:.55, sine:.2, 'quasi-gaussian':.15, expodec:.1}
+  const mixShapes = envMix ? Object.keys(envMix) : null;
+  const mixTotal = envMix ? mixShapes.reduce((s, k) => s + envMix[k], 0) : 0;
+  const lastShape = new Array(parts).fill(null);
+  const drawShape = (part) => {
+    if (!envMix) return 'surge';
+    let pick;
+    for (let tries = 0; tries < 2; tries++) {
+      let r = rand() * mixTotal;
+      pick = mixShapes[mixShapes.length - 1];
+      for (const k of mixShapes) { r -= envMix[k]; if (r <= 0) { pick = k; break; } }
+      if (pick !== lastShape[part]) break;   // redraw once on immediate repeat
+    }
+    lastShape[part] = pick;
+    return pick;
+  };
+
   const events = [];
   let truncated = 0, shortfallSum = 0;
   for (const a of assigned) {
@@ -1137,25 +1157,27 @@ function compileOnsetCloud(C, spec) {
     }
     const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
     const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
-    events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc, isLong: !!a.res, tier: a.res });
+    events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc,
+                  isLong: !!a.res, tier: a.res, shape: drawShape(a.part) });
   }
 
-  // ---- 4. Render: surge envelopes, onset-anchored ----
+  // ---- 4. Render: onset-anchored envelopes (species per grain) ----
   events.forEach((ev, i) => {
-    const env = grainEnvelope('surge', { dur: ev.dur, lv: ev.lv, ratio: ev.ratio, release: ev.release });
+    const shape = ev.shape || 'surge';
+    const env = grainEnvelope(shape, { dur: ev.dur, lv: ev.lv, ratio: ev.ratio, release: ev.release });
     const wc = C.createWaveCurve({
       startSeconds: Math.round(ev.onset * 100) / 100,
-      endSeconds: Math.round((ev.onset + ev.dur + ev.release) * 100) / 100,
+      endSeconds: Math.round((ev.onset + env.pre + env.post) * 100) / 100,
       layer: ev.part, nodes: env.nodes, segments: env.segments,
       color: HUES[ev.part % HUES.length], opacity: 0.3,
-      performanceNotes: (spec.tag || 'OC') + ' o' + (i + 1)
+      performanceNotes: (spec.tag || 'OC') + ' ' + shape[0] + (i + 1)
     });
     // pitch field: spec.notes = per-part pitch array (stack/cluster voicings);
     // falls back to the single spec.note unison
     wc.sonifyNote = spec.notes ? spec.notes[ev.part % spec.notes.length]
                                : (spec.note != null ? spec.note : 45);
     wc.technique = spec.technique || 'ord';
-    wc.envShape = 'surge';
+    wc.envShape = shape;
   });
   C.deselectAll();
 
@@ -1198,6 +1220,12 @@ function compileOnsetCloud(C, spec) {
     }) : null,
     reservedDropped: resStreams.length ? longDropped : null,
     convertedShorts: converted,
+    speciesMix: envMix ? (() => {
+      const all = {}, apex = {};
+      events.forEach(e => { all[e.shape] = (all[e.shape] || 0) + 1; });
+      apexEvents.forEach(e => { apex[e.shape] = (apex[e.shape] || 0) + 1; });
+      return { all, apex };
+    })() : null,
     alternation: tiers ? (() => {
       const seq = events.slice().sort((a, b) => a.onset - b.onset).map(e => e.tier);
       let maxRun = 1, run = 1;
