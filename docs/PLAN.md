@@ -77,6 +77,18 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   crescendo-cut: `surge` proposed** (matches BLOOM/SURGE vocabulary) — rename
   welcome.
 
+## 5. Infrastructure
+
+- **5a — Remote audition pipeline** — `todo (plan presented 2026-08-12, awaiting
+  go + composer choices)* — phone-triggered start-to-finish: load score → arm/
+  record Reaper → play composer score → stop → upload to Google Drive
+  (jusyangster@gmail). Architecture: phone control page on the score server ·
+  WS control channel to the desktop composer page (playback lives in the
+  browser) · Reaper built-in web-RC for record/stop · REC MIX folder-parent
+  track records the output mix · rclone (or Drive Desktop folder) upload.
+  Phases: (1) Reaper record round-trip · (2) WS + one-button local chain ·
+  (3) upload + phone-on-LAN · (4, optional) Tailscale for away-from-home.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

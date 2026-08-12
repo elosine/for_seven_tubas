@@ -4,6 +4,18 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Infrastructure ask: the remote audition pipeline (dictated)
+
+"A couple of infrastructure things: I would like to set up some Reaper and
+composer functions — let's see if we can complete this task and build the
+structures in doing. I would like to listen to examples remotely on my phone.
+Start to finish: load a score in the composer score → record-activate the Reaper
+record track → record in Reaper → play in the composer score → stop in Reaper →
+load the file to Google Drive, jusyangster@gmail. Give me the plan of what needs
+to be implemented and then I'll give the go."
+
+*(→ plan presented; PLAN 5a opened pending go.)*
+
 ## 2026-08-11 — Next: grain type; pitch fields enter (dictated)
 
 "What is the next one to go for? Maybe grain type. Can you sort out a preview so I
