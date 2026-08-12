@@ -736,3 +736,23 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Listening questions:** (1) the sampled surge vs CC7 surge: worth it (bite,
   body)? (2) short-grain quieting: acceptable/desirable? (3) the morph to sine:
   where does the mass lose its attack-carried density (X-rule risk)?
+
+### 041 — dens1-builds: the density-delta battery (awaiting listen) + standing decisions
+- **Date:** 2026-08-12 · **Status:** awaiting listen
+- **Standing decisions (composer):** ALL CC7 again — the KS-sampled surge stays
+  AVAILABLE (`surgeKS`) but performers can get closer to CC7-shaped swells ·
+  grain-env diversity research DEFERRED to a future thorough pass ("not getting
+  a concrete sense") · **standing mix adopted: {surge 0.7, sine 0.3}**, random ·
+  focus shifts to MATERIALS (recipe paradigm) for the piece.
+- **`dens1-builds`** — one timeline, four builds, each ramping 0.5→7 onsets/s
+  (geometric) then holding max 12 s; MAXDENSE-1 tiers; standing mix; seed
+  20260819. Min density = solo-part territory (composer: "min density might be
+  just one part").
+  - **LONG 2–59 s** (45 s ramp) · **MED 65–99 s** (22 s) · **SHORT 105–127 s**
+    (10 s) · **REAL-SHORT 133–149 s** (4 s)
+- **The question being calibrated: the perceptual delta of density under
+  CONTINUOUS change** — (1) at which ramp length does the build read as motion
+  (vs finding 12b's imperceptible drift on one end, vs a jump-cut on the other)?
+  (2) where in each ramp does "getting denser" actually kick in (the density
+  threshold moment)? (3) does the sparse opening (~1 part) read as the SAME
+  texture rarefied, or a different thing that becomes the texture?

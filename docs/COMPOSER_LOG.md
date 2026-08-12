@@ -4,6 +4,27 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Back to CC7; env research deferred; INTO MATERIALS: density builds (dictated)
+
+"Let's keep this [KS] mode as a possibility but go back to all CC7 — I think
+performers can achieve something closer to that. More research needs to be done
+to nail down grain-env diversity; I'm not getting a concrete sense of what it's
+doing, but let's defer — get into developing specific musical materials, the
+recipe paradigm, for this piece, and hopefully get back to a thorough set of
+experiments in the future. For now let's mix in some alternate grain-envs —
+maybe something like 30%, random for now, maybe 70/30 in that portion rex/sin
+[= surge .7 / sine .3]. Then can you generate some density curves — let's not
+worry yet about 'least dense' unless that becomes necessary; I'm more interested
+in the PERCEPTUAL DELTA of density. Generate a long, med, short, real-short
+BUILD, sustaining max density for a while after each — long ramp from
+not-so-dense to max density, etc. I'm more interested in CONTINUOUS change, so
+calibrating that. Don't feel you need to use all 10 parts all the time — min
+density might be just one part. Please generate, then do a mid-sesh wrap,
+commit, push."
+
+*(→ standing mix {surge .7, sine .3}, all CC7 (KS kept as option); dens1-builds
+4-ramp battery; grain-env research → deferred/future; DB 041.)*
+
 ## 2026-08-12 — DH8 pinned; strategy to Penn State; KS-surge; AI-driven workflow (dictated)
 
 "[DH8] Not quite sure how to characterize, but I have a sense of maybe how to

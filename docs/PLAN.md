@@ -34,10 +34,14 @@
   categories) · anti-clump machinery (maxShortRun, conversion, run-breaking
   longs) · **RECIPE MAXDENSE-1 adopted (DB 035)** · finding 14 (apex-stack
   loudness) logged. Fine-tune deferred to in-piece texture work.
-- **2c — Grain-type (envelope species) pass + pitch fields** — `doing 2026-08-11`
-  — env-catalog audition at tier durs (8 Roads shapes; composer elimination pass
-  pending; per-shape tier calibration suspected) · dh5a-pitchfields
-  (unison/chromatic/quartal, same seed) awaiting listen. DB 036.
+- **2c — Grain-type (envelope species) pass + pitch fields** — `deferred-usable
+  2026-08-12` — kept {sine, expodec, surge}; quasi-gauss cut; DH6 blends
+  illegible; DH8 morph pinned; DH9 KS-surge kept as OPTION (back to all CC7 —
+  performer-achievable). **Standing mix {surge .7, sine .3}.** Thorough env
+  research returns post-piece. DB 036–040.
+- **2d — Density-delta calibration (continuous change)** — `doing 2026-08-12` —
+  dens1-builds (long/med/short/real-short ramps 0.5→7/s + 12 s holds) awaiting
+  listen; feeds the transition-behavior/speed-limits step (roadmap §6.2). DB 041.
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the

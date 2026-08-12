@@ -45,6 +45,15 @@ approved provisional.
 COMPOSER_LOG.md (verbatim). Server: `node score/server.js` (:5200). Score archive
 in the Load dropdown.
 
+**Mid-session checkpoint (2026-08-12, day 3 — remote-workflow day):** CRD
+remote listening LIVE (REMOTE_AUDITION.md; first remote verdicts) · env species:
+kept {sine, expodec, surge}, blends illegible, research DEFERRED; standing mix
+{surge .7, sine .3}, all CC7 (KS-sampled surge kept as option, sonifyMode 'ks' +
+per-note length guard) · engine: envMix/envMixRamp(points)/surgeKS/spec.t0/
+spec.notes · pitch fields opened (dh5a-pitchfields) · ROADMAP to Sept 4 = PLAN
+§6 · 5b two-way page control slated · **awaiting listen: dens1-builds (density-
+delta battery, DB 041), dh9, dh7, pitchfields**.
+
 **Blockers:** none.
 
 ## §3 Principles
