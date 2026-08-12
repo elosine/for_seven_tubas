@@ -1120,14 +1120,27 @@ function compileOnsetCloud(C, spec) {
   // envMixRamp = {from:{...}, to:{...}}: weights interpolate linearly across the
   // render — "introduce" a species over the segment (composer, DH7).
   const envRamp = spec.envMixRamp || null;
+  const lerpW = (a, b, f) => {
+    const keys = [...new Set([...Object.keys(a), ...Object.keys(b)])];
+    const w = {};
+    keys.forEach(k => { w[k] = (a[k] || 0) + ((b[k] || 0) - (a[k] || 0)) * f; });
+    return w;
+  };
   const mixAt = (tt) => {
-    if (envRamp) {
-      const f = Math.max(0, Math.min(1, tt / total));
-      const keys = [...new Set([...Object.keys(envRamp.from), ...Object.keys(envRamp.to)])];
-      const w = {};
-      keys.forEach(k => { w[k] = (envRamp.from[k] || 0) + ((envRamp.to[k] || 0) - (envRamp.from[k] || 0)) * f; });
-      return w;
+    if (envRamp && envRamp.points) {
+      // piecewise-linear waypoints: [{t, w}, ...] — holds + transitions in one
+      // continuous render (no segment seams)
+      const pts = envRamp.points;
+      if (tt <= pts[0].t) return pts[0].w;
+      for (let i = 1; i < pts.length; i++) {
+        if (tt <= pts[i].t) {
+          const f = (tt - pts[i - 1].t) / Math.max(1e-6, pts[i].t - pts[i - 1].t);
+          return lerpW(pts[i - 1].w, pts[i].w, f);
+        }
+      }
+      return pts[pts.length - 1].w;
     }
+    if (envRamp) return lerpW(envRamp.from, envRamp.to, Math.max(0, Math.min(1, tt / total)));
     return envMix;
   };
   const lastShape = new Array(parts).fill(null);

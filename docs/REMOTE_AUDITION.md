@@ -30,6 +30,9 @@ studio desktop; Reaper on **WASAPI shared → default Realtek out** (`mode=3`,
 - **After reconnecting CRD**, if sound dies: Options → Reset all MIDI/audio
   devices (the WASAPI stream re-opens against the current default device — CRD
   swaps the default when sessions cycle).
+- **Mute the studio while listening remotely:** WIN+R → mmsys.cpl → Playback →
+  right-click Speakers (Realtek) → Properties → Levels → mute. Only the physical
+  endpoint mutes; the CRD device (remote ears) is unaffected. Unmute when home.
 - CRD audio is compressed (fine for texture auditioning; not for mastering
   judgments). For full-quality listening use the file pipeline (PLAN 5a
   option 2) when built.

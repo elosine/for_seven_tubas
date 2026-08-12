@@ -696,3 +696,22 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   first grains — and does the field's character shift or just color? (2) seg 3 vs
   seg 1: legible now that it arrives staged? (3) does sine's entry (seg 3 only)
   soften the density (attack-salience risk)?
+
+### 039 — DH8: continuous surge→expodec morph (awaiting listen)
+- **Date:** 2026-08-12 · **Status:** awaiting listen
+- **`dh8-surge-to-expodec`** — ONE continuous 48 s render (no ramp in/out, no
+  segment seams): flat 7/s, MAXDENSE-1 tiers. Engine addition: `envMixRamp.points`
+  (piecewise-linear mix waypoints — holds + transitions in a single schedule).
+  - 0–14 s: 100% surge · 14–34 s: linear morph (realized 31%→74% expodec through
+    the transition) · 34–48 s: 100% expodec. No sine. 239 grains.
+  - Realized ≈5 onsets/s under the anti-run/tier constraints (the known
+    constraint price at sustained density — the DH5-approved feel).
+- **The compositional device being auditioned:** the SPECIES TRAJECTORY — where
+  the attack lives (end-of-grain → start-of-grain) migrating across a texture
+  while density holds still. Composer's remote-mute workflow documented in
+  REMOTE_AUDITION (mmsys.cpl → mute Realtek endpoint only).
+- **Listening questions:** (1) does the morph read as ONE texture transforming
+  (fluidity!) or as a crossfade of two textures? (2) where is the perceptual
+  tipping point — before/at/after 50%? (3) full-expodec hold: does density
+  survive when every attack is grain-INITIAL (forward-masked tails vs the
+  surge's backward-masked builds)?
