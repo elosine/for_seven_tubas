@@ -4,6 +4,33 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — DH2 observations: gaps read as figures; the perceptual-scale problem (dictated)
+
+"A couple observations. When there are longer durations, they blend well. But when
+there are gaps — a not-playing gap — they are plenty discernible. I think it was
+L1: some of the parts had gaps, and they stood out, because they were prominent.
+My guess is that if ALL the parts had gaps — and we can play with this in the
+sparse section when we get there — and they were generally distributed, they might
+not be as prominent. That's a guess. When the gaps were reduced it felt like a
+more continuous texture; when there were gaps, there were pockets of activity,
+interrupted, less continuous.
+
+Second observation: at least for dur, and maybe also for onset, there is a SCALE
+issue, for lack of a better term. I don't think we have the scale quite nailed.
+Even though I see there's a diversity of shorter grain durs, the difference needs
+to be GREATER to sense the diversity. Ballpark, from the image (L4, Tuba 8): most
+of those sound too similar — maybe envelope/grain 6 of Tuba 8 [1.08 s], or grain 6
+of Tuba 7 [1.47 s] — everything that size and under counts as ONE grain length.
+Then you have a bigger gap [in value], and then an even longer one, and around
+that range is similar. The grain durs need to be MORE DIFFERENT. And I know we're
+dealing with the most dense, but when we start shaping, I imagine it's similar for
+the apex distances — the spaces between apexes have to be bigger than we expect to
+be able to detect [difference]. Mathematically it makes sense, but perceptually we
+probably have to be more BLUNT about the difference in change in ALL the
+parameters. Read this back to me in your own words so we're on the same page."
+
+*(→ readback + the tiered-duration proposal; DB 031v pending confirmation.)*
+
 ## 2026-08-11 — DH1 verdict: longs blend; sacrifice density for envelope-length diversity (dictated)
 
 "Okay. I think the long durations work well. And I think it blends well, and I
