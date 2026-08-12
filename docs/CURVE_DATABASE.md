@@ -813,3 +813,14 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (2) γ taste: steady vs late-sharpening? (3) is σ 0.15 the right noise — random
   enough for mass, tame enough to keep the trend? (4) T=60: right span, or
   longer?
+
+### 043b — dens4-accel-pure: the naked accelerando (calibration stimulus)
+- **Composer (dens3 verdict):** "better — detecting a sense of swell, but not
+  calibrated. Try first NO noise, just the long — essentially a regular
+  acceleration."
+- **`dens4-accel-pure`** — single segment 2–74 s: γ=1, σ=0 (DETERMINISTIC gap
+  chain — deliberate L1 override as an isolation stimulus: hear the naked
+  acceleration mechanism before re-adding calibrated noise), T=60, gaps
+  2.0→0.143 s, 12 s hold, standing mix/tiers unchanged, seed 20260822.
+- Purpose: calibrate the acceleration percept itself; noise σ returns as its
+  own ladder afterwards.
