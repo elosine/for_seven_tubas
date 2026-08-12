@@ -984,12 +984,18 @@ function compileOnsetCloud(C, spec) {
   const WIN = spec.window != null ? spec.window : 0.25;
   const traj = spec.trajectory;
   const total = traj.reduce((s, l) => s + l.dur, 0);
+  // leg.mode: 'geo' (default — constant % growth) or 'linear' (constant
+  // onsets/s² growth). Perceptual note (dens1 LONG verdict): sounding-count
+  // ∝ rate, and the ear tracks count-regime crossings — geometric ramps spend
+  // most of their time below the polyphony threshold.
   const rateAt = tt => {
     let acc = 0;
     for (const leg of traj) {
       if (tt <= acc + leg.dur || leg === traj[traj.length - 1]) {
         const f = Math.max(0, Math.min(1, (tt - acc) / leg.dur));
-        return leg.from * Math.pow(leg.to / leg.from, f);
+        return leg.mode === 'linear'
+          ? leg.from + (leg.to - leg.from) * f
+          : leg.from * Math.pow(leg.to / leg.from, f);
       }
       acc += leg.dur;
     }

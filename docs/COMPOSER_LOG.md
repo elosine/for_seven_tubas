@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — LONG-ramp verdict: three stages, steps at ~19 and ~35 (dictated)
+
+"For the long one — this is the closest, but it seems to get dense around 35;
+quite sparse til 19, then step up. So essentially 3 stages: start to 19, 19 to
+35 — no real sense of change [within stages]. I think focus on apex density.
+What do you suggest for a smoother density curve, and can you explain the
+mechanism?"
+
+*(→ the sounding-count regime analysis (candidate finding 15): steps = count
+crossings 1→2 (~t19, rate 1.5/s) and fuse-into-mass ~4.5 (~t35, rate 3.9/s);
+geometric ramp spends 40% of its time below the polyphony threshold. dens2-long-ab
+A/B: linear vs regime-engineered ramp; engine leg.mode 'linear'. DB 042.)*
+
 ## 2026-08-12 — Mix correction before ramp evaluation (dictated)
 
 "Let's make some adjustments before I can evaluate ramp: there seem to be very

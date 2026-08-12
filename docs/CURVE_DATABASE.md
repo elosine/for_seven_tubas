@@ -764,3 +764,29 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   tiers only — all longs surge** (new engine dial `altTiersMax`).
 - Same four builds/seed as 041; realized e.g. MED: 69 surge / 28 expodec /
   11 sine, zero non-surge longs.
+
+### 042 — dens2-long-ab: the sounding-count regime analysis + smoother-ramp A/B
+- **Date:** 2026-08-12 · **Status:** awaiting listen
+- **The mechanism behind the LONG build's three stages (candidate finding 15):**
+  the ear doesn't hear onset-rate — it hears SOUNDING COUNT (≈ rate × mean grain
+  dur ~1.15 s) and gaps. The geometric ramp 0.5→7/s over 45 s crosses two
+  categorical boundaries: count ≈ 2 ("now it's polyphonic") at rate ~1.5/s =
+  **t≈19** ✓ and count ≈ 4–5 (voices fuse into mass) at rate ~3.9/s = **t≈35** ✓
+  — exactly the composer's heard steps. Below count 1 (t<13) there is no density
+  percept at all, only events; and geometric interpolation spends ~40% of the
+  ramp down there. Small-integer count crossings are CATEGORICAL (1→2 is a
+  doubling + a qualitative change; 4→5 barely registers) — L4 extended to
+  density; also X-rules' "terraced evolution" arriving uninvited.
+- **Consequences:** a 0.5→7 build cannot be made fully smooth at the bottom —
+  the polyphony crossing is intrinsically step-like. It CAN be shortened,
+  shifted, or masked (cue-bundle: level/duration ramps — finding 12b).
+- **A/B `dens2-long-ab`** (engine: `leg.mode 'linear'`; same seed 20260820,
+  standing mix, 45 s ramp + 12 s hold each):
+  - **A 2–59 s LINEAR** rate 0.5→7: mid-ramp absolute growth is much faster
+    (t19 ≈ 3.2/s vs geometric 1.5) — the sparse regime shrinks to ~7 s.
+  - **B 65–122 s REGIME-ENGINEERED**: 6 s sprint through sparse (0.5→1.6) ·
+    26 s slow audible middle (1.6→4.2 linear) · 13 s controlled entry into mass
+    (4.2→7) — ramp time spent where the ear can track change.
+- **Listening:** which reads closer to ONE continuous build? Where do steps
+  remain (they'll mark the truly categorical boundaries)? If a step at the
+  bottom survives both: embrace terracing there (X8) or mask with level ramp.
