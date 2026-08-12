@@ -79,8 +79,11 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 
 ## 5. Infrastructure
 
-- **5a — Remote audition pipeline** — `todo (plan presented 2026-08-12, awaiting
-  go + composer choices)* — phone-triggered start-to-finish: load score → arm/
+- **5a — Remote audition pipeline** — `doing 2026-08-12` — **Option 1 READY:
+  CRD watch+listen (docs/REMOTE_AUDITION.md; desktop config verified — WASAPI
+  shared, no changes needed; start_score_server.bat helper). Awaiting composer
+  live test.** Option 2 (REC MIX + Hetzner/Drive file+video pipeline) = next
+  build on go. Option 3 (live stream) deferred. Original phone-trigger plan:* — phone-triggered start-to-finish: load score → arm/
   record Reaper → play composer score → stop → upload to Google Drive
   (jusyangster@gmail). Architecture: phone control page on the score server ·
   WS control channel to the desktop composer page (playback lives in the
