@@ -572,3 +572,29 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (2) A vs B: which shorts/mids balance is the texture — A (shortier, livelier)
   or B (mid-weighted, blendier)? (3) do the 1–2 exceptional longs read as
   "effect" or as accident?
+
+### 034 — DH5: the multidimensional-duration synthesis + further mid-shift (A/B, awaiting listen)
+- **Date:** 2026-08-11 · **Status:** awaiting listen
+- **Composer's DH4 verdict:** midshift wins, go further. New hypothesis: duration
+  diversity is MULTIDIMENSIONAL — the ear hears the value distribution AND the
+  repetition (sequence); same-tier runs read as clumps; alternation smooths.
+  Apex/onset placement, by contrast, is one-dimensional (a point process — scatter
+  statistics capture it). *Held as hypothesis; law-carving deferred to listen.*
+- **Engine finding (honest negative):** a global alternation swap-pass changed
+  almost nothing — the L2 quota substreams ALREADY interleave tiers evenly
+  (realized max global same-tier run ≈ 4–5 with or without it, 2–4 swaps/~130
+  events). The global-sequence dimension is handled by existing machinery; the
+  audible "clumping" levers are the SHARE BALANCE and per-part runs (shorts cap
+  live since DH4). Mechanism kept (`durModel.alternate`, on, ~free) but it is
+  NOT the A/B variable. If clumping persists at dh5b, next hypothesis = local-
+  window dominance (a window-balance quota — new mechanism).
+- **A/B `dh5a-mid26` vs `dh5b-mid30`** (seed 20260815, 7/s hold, maxShortRun 2,
+  alternate on; end-fit guard added for reserved grains):
+  - dh5a shares 0.62/0.26/0.09/0.03 → apex 42 short / 28 mid / 6 long (t4 fell
+    outside the hold this seed) · drops 13/7
+  - dh5b shares 0.54/0.30/0.12/0.04 → apex 28 / 25 / 7 / 2 — short/mid nearly
+    BALANCED · drops 22/12 (the constraint price; realized apex rate dips)
+- **Listening questions:** (1) is dh5a already "enough more" or is dh5b's
+  near-balance the texture? (2) does clumping survive in either (→ window-balance
+  mechanism next)? (3) dh5b's higher drop price: does the hold still feel 7/s-
+  dense, or thinner?

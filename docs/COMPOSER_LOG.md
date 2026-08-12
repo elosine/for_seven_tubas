@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — DH4 verdict: midshift wins, go further; duration is multidimensional (dictated)
+
+"Mid shift is better. I think we can go even more in this direction. The sonic
+effect is: when you have several similar durations in a row, you get a CLUMPING
+effect — not necessarily bad, but it becomes perceptually salient. If we have more
+of an ALTERNATION of durations — and this might also go for grain envelope types
+when we get there — you get a noisier, smoother texture. What I'm thinking is: the
+APEX is fairly one-dimensional, it represents a point — the attack — so it's just
+the statistical scattering; it'll give you one effect or another in the larger
+texture. Whereas DURATION is multidimensional: you're hearing the differences in
+duration AND you're hearing the repetition too. Even within parts — it's hard to
+tell, could be globally as well. When I'm hearing a lot of short ones in a row it
+has a particular, perceptible effect. I don't have a full grasp on this, but it
+seems like the diversity dial needs to be on multiple dimensions for grain
+duration. Give me your synthesis back, see if it merits another generation — in
+the mid-shift direction, maybe even more."
+
+*(→ synthesis; DH5 A/B: further mid-shift vs + global alternation pass; DB 034.
+Sequence-level salience held as hypothesis — carve into law only after listen.)*
+
 ## 2026-08-11 — DH3 verdict: L2 spacing wins; long-end saturation; shorts clump (dictated)
 
 "L2 is probably the best, the most distinct. It might be a slightly sliding scale:

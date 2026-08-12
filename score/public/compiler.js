@@ -1023,10 +1023,39 @@ function compileOnsetCloud(C, spec) {
       lacc += (rs.share != null ? rs.share * rateAt(w0 + wLen / 2) : rs.rate) * wLen;
       const n = Math.floor(lacc);
       lacc -= n;
-      for (let k = 0; k < n; k++) merged.push({ t: T0 + w0 + rand() * wLen, res: rs.tier, range: rs.range });
+      for (let k = 0; k < n; k++) {
+        const rt = T0 + w0 + rand() * wLen;
+        // a reserved grain that can't fit its minimum before score end is skipped
+        if (rt + rs.range[0] <= T0 + total) merged.push({ t: rt, res: rs.tier, range: rs.range });
+      }
     }
   }
   const stream = merged.sort((a, b) => a.t - b.t);
+
+  // ALTERNATION pass (composer hypothesis, DH4 verdict): duration is
+  // multidimensional — the ear hears the values AND the repetition. Same-tier
+  // runs in the GLOBAL onset order read as clumps; alternation smooths. This
+  // pass swaps tier TAGS between nearby onsets (times never move, so window
+  // quotas and per-tier rates stay exact): dense-tier runs capped at 3
+  // (unavoidable floor at majority share), every other tier capped at 1.
+  let altSwaps = 0;
+  if (dm.alternate && tiers) {
+    const capFor = ti => ti === 0 ? 3 : 1;
+    let run = 1;
+    for (let i = 1; i < stream.length; i++) {
+      if (stream[i].res === stream[i - 1].res) run++; else run = 1;
+      if (run > capFor(stream[i].res)) {
+        let j = i + 1;
+        while (j < stream.length && stream[j].res === stream[i].res) j++;
+        if (j < stream.length) {
+          const tags = { res: stream[i].res, range: stream[i].range };
+          stream[i].res = stream[j].res; stream[i].range = stream[j].range;
+          stream[j].res = tags.res; stream[j].range = tags.range;
+          altSwaps++; run = 1;
+        }
+      }
+    }
+  }
 
   // ---- 2. Part assignment: causal, RANDOM among feasible (max scatter) ----
   // Feasibility floor: at least a short grain + max release + reArtic must fit.
@@ -1166,6 +1195,12 @@ function compileOnsetCloud(C, spec) {
     }) : null,
     reservedDropped: resStreams.length ? longDropped : null,
     convertedShorts: converted,
+    alternation: tiers ? (() => {
+      const seq = events.slice().sort((a, b) => a.onset - b.onset).map(e => e.tier);
+      let maxRun = 1, run = 1;
+      for (let i = 1; i < seq.length; i++) { run = seq[i] === seq[i - 1] ? run + 1 : 1; maxRun = Math.max(maxRun, run); }
+      return { enabled: !!dm.alternate, swaps: altSwaps, maxGlobalRunRealized: maxRun };
+    })() : null,
     onsetGaps: stats(gaps),
     perPartGapCV: partGapCVs.length ? +(partGapCVs.reduce((a, b) => a + b, 0) / partGapCVs.length).toFixed(2) : null,
     durTargetHist: (() => { const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 }; events.forEach(e => h[band(e.target)]++); return h; })(),
