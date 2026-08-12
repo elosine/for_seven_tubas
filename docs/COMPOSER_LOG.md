@@ -4,6 +4,20 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — dens8 verdict: the shifted expectations; no climax above fusion (dictated)
+
+"#1's ramp sounds like linear until 41 s then plateau-ish til end — the
+smoothest linear ramp is begin to ~41; this is what I would have expected from
+#2. #2 sounds like a much slower ramp to about 121 and then samey after — what
+I might have expected from #3. #3: slow ramp til about 193, doesn't necessarily
+step up but feels same-ey after — I don't get a sense of it reaching climax."
+
+*(→ SYSTEMATIC one-notch shift: composer's perceptual-linear = raw curve −0.4 →
+dial RE-CENTERED (ACCEL_CURVE_ZERO). Universal top-end sameness above ~4/s at
+ALL curvatures = finding 15's fusion ceiling CONFIRMED — rate cannot deliver
+climax past fusion → accel.levelRamp built (finding-13 level cue deployed).
+dens9-climax-ab. DB 043h.)*
+
 ## 2026-08-12 — The one-dial accel curve, like the crescendo curves (dictated)
 
 "I was picturing it as a curve like the ones we use for the individual

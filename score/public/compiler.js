@@ -1028,14 +1028,17 @@ function compileOnsetCloud(C, spec) {
   // surge-side (little change early, swell into the peak). Perceptual zero is
   // calibrated by ear (dens8 ladder), then the dial gets re-centered.
   // accel.gamma kept for back-compat (u^gamma warp) when curve is absent.
+  // ACCEL_CURVE_ZERO: composer-calibrated 2026-08-12 (dens8 ladder) — their
+  // perceptual-linear sat at raw curve −0.4 (every rung read one notch more
+  // back-loaded than designed). The dial is RE-CENTERED: user curve 0 = "even
+  // change to the composer's ear"; bloom/surge are deviations from that zero.
+  const ACCEL_CURVE_ZERO = -0.4;
   const accelWarp = accel ? (u => {
     u = Math.max(0, Math.min(1, u));
-    if (accel.curve != null) {
-      const k = 4 * accel.curve;
-      if (Math.abs(k) < 0.01) return u;
-      return (Math.exp(k * u) - 1) / (Math.exp(k) - 1);
-    }
-    return Math.pow(u, accel.gamma != null ? accel.gamma : 1);
+    if (accel.gamma != null && accel.curve == null) return Math.pow(u, accel.gamma);
+    const k = 4 * ((accel.curve || 0) + ACCEL_CURVE_ZERO);
+    if (Math.abs(k) < 0.01) return u;
+    return (Math.exp(k * u) - 1) / (Math.exp(k) - 1);
   }) : null;
   const gapAt = accel ? (u => accel.gapStart * Math.pow(accel.gapEnd / accel.gapStart, accelWarp(u))) : null;
   const rateAtEff = accel
@@ -1301,7 +1304,15 @@ function compileOnsetCloud(C, spec) {
       lastEndP[part] = pk + post;
       lastShapeP[part] = shape;
       if (tierIdx === 0) shortRunP[part]++; else shortRunP[part] = 0;
-      const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
+      // accel.levelRamp [start,end]: LEVEL carries the climax where rate
+      // saturates (count fusion > ~4/s reads samey — finding 15 upper bound;
+      // the finding-13 level cue finally deployed). Hold keeps the end value.
+      let lvBase = levelFlat;
+      if (accel && accel.levelRamp) {
+        const uL = Math.max(0, Math.min(1, (pk - T0) / accel.T));
+        lvBase = accel.levelRamp[0] + (accel.levelRamp[1] - accel.levelRamp[0]) * uL;
+      }
+      const lv = Math.max(0.3, Math.min(1, lvBase + gauss() * levelSigma));
       const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
       peakEvents.push({ onset: pk - preOf(shape, dur), part, dur, target, release, lv, ratio,
                         wasTrunc: dur < target - 1e-9, isLong: tierIdx >= 2, tier: tierIdx, shape });

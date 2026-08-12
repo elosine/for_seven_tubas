@@ -890,3 +890,20 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Ladder `dens8-curve-ladder`** (pure σ=0, T=60, 3 s holds, seed 20260822):
   curve **−0.4 (peak at t=62)** · **0 (peak at t=130)** · **+0.4 (peak at
   t=198)**. Segments 2–65 / 70–133 / 138–201 s.
+
+### 043h — Dial re-centered; the climax problem; dens9-climax-ab (awaiting listen)
+- **dens8 verdicts (composer):** every rung read ONE NOTCH more back-loaded than
+  designed → **perceptual-linear = raw −0.4 → `accel.curve` RE-CENTERED**
+  (ACCEL_CURVE_ZERO = −0.4; user 0 now = composer's even; verified identical gap
+  profile). AND: at all three curvatures the stretch above ~4 onsets/s read
+  \"samey/no climax\" — **finding 15's fusion ceiling CONFIRMED at three
+  curvatures: rate cannot deliver climax beyond count-fusion.**
+- **The climax hypothesis (finding 13's moment):** hand the final intensification
+  to LEVEL — `accel.levelRamp [start, end]`, apex loudness lerped across the
+  accel (hold keeps end value). Verified: apex levels 7.5→9.6 across the ramp.
+- **A/B `dens9-climax-ab`** (re-centered even curve, pure σ=0, T=60, 3 s hold,
+  seed 20260822): **A 2–65 s (peak 62) flat level** — the rate-only reference ·
+  **B 70–133 s (peak 130) + levelRamp 0.75→1.0**.
+- **Listening:** does B reach a CLIMAX where A stays samey? Does the whole ramp
+  now read linear begin-to-end (the re-centering check)? If B works: the climax
+  recipe = rate to fusion + level beyond it (the cue-bundle law taking shape).
