@@ -868,3 +868,11 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   gap is audible), fully stochastic mass late (±35%+ where density masks it).
   Verified apex-gap CV: 0.17 early → 0.30 late. **Max density reached at t=62 s;
   hold 62–74 s.**
+
+### 043f — dens7-accel-pure3: pure accel, 3 s peak (awaiting listen)
+- **Composer (dens6 verdict):** back to pure accel; γ=1 is "too gradual at
+  beginning and not enough perceptible change at end"; hold trimmed to 3 s.
+- **`dens7-accel-pure3`**: σ=0, γ=1, T=60, seed 20260822 — **peak at t=62,
+  hold 62–65**. Same curve as dens4, isolated hold-length change; the curve
+  fix (gapStart down + γ up, per the dial description in chat) awaits the
+  composer's pick.
