@@ -482,15 +482,17 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 
 ### 030 — DH1: the dense-hold ladder (grain dur at density; the span test, audible)
 - **Date:** 2026-08-11 · **Status:** awaiting listen (composer at the desk)
-- **Design:** 18 s dense-hold scores (2 s in → 14 s HOLD at 5.6/s → 2 s out),
-  7 parts (listenable pre-hardware; per-part load = 10-part 8/s), ONE frozen
-  seed (20260811) — every score is the same realization, only the dial differs.
+- **Design:** 18 s dense-hold scores (2 s in → 14 s HOLD at 8/s → 2 s out),
+  **10 parts** (composer: hardware up, "do 10 from now on"; first cut was
+  7-part, superseded same day), ONE frozen seed (20260811) — every score is the
+  same realization, only the dial differs.
 - **maxDur ladder** `dh1-maxdur-L1..L4` = 1.6 / 2.5 / 3.5 / 5.0 s. The sheet
   already shows the dial is nearly INERT at this density in one stream: realized
-  apex mix ~49 short / 28 1–2 s / ≤1 longer at every rung (only truncation rises,
-  44%→64%). **If L1 ≈ L4 by ear, the span test confirms: new mechanism needed.**
-- **dh1-superposed** = same seed + longStream 0.5/s [2.2–5 s]: apex mix gains a
-  real long band (4× 3 s+, 2× 2–3 s vs ≤1), occupancy 0.71→0.78. The A/B partner
-  that tests the mechanism.
+  apex mix ~72 short / 37–40 1–2 s / ≤3 longer at every rung (only truncation
+  rises, 46%→65%). **If L1 ≈ L4 by ear, the span test confirms: new mechanism
+  needed.**
+- **dh1-superposed** = same seed + longStream 0.7/s [2.2–5 s]: apex mix gains a
+  real long band (6× 3 s+, 6× 2–3 s vs ≤3), occupancy 0.71→0.80, 12 longs. The
+  A/B partner that tests the mechanism.
 - **Listening order:** L1 → L4 (do they differ AT ALL in the dense image?) →
   dh1-superposed (does the long thread complete "the whole picture"?).
