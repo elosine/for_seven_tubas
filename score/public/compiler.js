@@ -1033,8 +1033,13 @@ function compileOnsetCloud(C, spec) {
   const footprint = denseRange[0] + relRange[1] + reArtic;
   const lastOnset = new Array(parts).fill(-Infinity);
   const blockedUntil = new Array(parts).fill(-Infinity);
+  // Anti-clump (composer, DH3): cap CONSECUTIVE short-tier grains per part —
+  // runs of shorts in one part read as "lots of short ones". A reserved-tier
+  // grain resets the part's run.
+  const maxShortRun = dm.maxShortRun != null ? dm.maxShortRun : null;
+  const shortRun = new Array(parts).fill(0);
   const assigned = [];
-  let dropped = 0, longDropped = 0;
+  let dropped = 0, longDropped = 0, converted = 0;
   for (const o of stream) {
     const t = o.t;
     const feas = [];
@@ -1042,7 +1047,29 @@ function compileOnsetCloud(C, spec) {
       if (t - lastOnset[p] >= footprint && t >= blockedUntil[p]) feas.push(p);
     }
     if (!feas.length) { if (o.res) longDropped++; else dropped++; continue; }
-    const p = feas[Math.floor(rand() * feas.length)];
+    // a rest perceptually resets a part's short-run ("in a row" = close in time)
+    if (maxShortRun != null) feas.forEach(p => { if (t - lastOnset[p] > 2.0) shortRun[p] = 0; });
+    let pool = feas;
+    if (maxShortRun != null) {
+      if (o.res) {
+        // long grains are the run-breakers: target the worst short-run part
+        const worst = Math.max(...feas.map(p => shortRun[p]));
+        if (worst > 0) pool = feas.filter(p => shortRun[p] === worst);
+      } else {
+        const fresh = feas.filter(p => shortRun[p] < maxShortRun);
+        if (fresh.length) pool = fresh;   // soft cap: never drop just for run length
+        else if (tiers && tiers.length > 1) {
+          // every feasible part is run-saturated: CONVERT this short onset into a
+          // mid-tier grain — breaks the worst run while keeping the onset density
+          o.res = 1; o.range = tiers[1].range;
+          converted++;
+          const worst = Math.max(...feas.map(p => shortRun[p]));
+          pool = feas.filter(p => shortRun[p] === worst);
+        }
+      }
+    }
+    const p = pool[Math.floor(rand() * pool.length)];
+    if (o.res) shortRun[p] = 0; else shortRun[p]++;
     lastOnset[p] = t;
     const a = { t, part: p, res: o.res };
     if (o.res) {
@@ -1138,6 +1165,7 @@ function compileOnsetCloud(C, spec) {
                meanDur: evs.length ? +(evs.reduce((s, e) => s + e.dur, 0) / evs.length).toFixed(2) : null };
     }) : null,
     reservedDropped: resStreams.length ? longDropped : null,
+    convertedShorts: converted,
     onsetGaps: stats(gaps),
     perPartGapCV: partGapCVs.length ? +(partGapCVs.reduce((a, b) => a + b, 0) / partGapCVs.length).toFixed(2) : null,
     durTargetHist: (() => { const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 }; events.forEach(e => h[band(e.target)]++); return h; })(),

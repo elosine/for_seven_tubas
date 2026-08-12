@@ -4,6 +4,23 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — DH3 verdict: L2 spacing wins; long-end saturation; shorts clump (dictated)
+
+"L2 is probably the best, the most distinct. It might be a slightly sliding scale:
+all of the short ones sound the same, and as they get very long they all START
+sounding long. One long one sounds the same as another quite-a-bit-longer one —
+on the long scale there's a threshold: once it's of a certain length, everything
+beyond that still sounds long. So the very long ones should be more exceptional,
+more rare — use the extra-long ones FOR EFFECT, and have the long ones on the
+shorter side be the go-to ones. The medium ones sound medium — the middle ones are
+discernible, that's fine. For [L]2 I can hear the different grain shapes. And the
+short ones — I think because you're hearing the apex maybe? — it sounds like
+there's LOTS of short ones. So two is good for grain shape, but maybe there needs
+to be fewer short ones in a row in any given part, or better blend."
+
+*(→ L4 refined: both-ends saturation, 4 perceptual categories; ×2.75 adopted;
+maxShortRun anti-clump in engine; DH4 A/B; DB 033.)*
+
 ## 2026-08-11 — Readback confirmed; directive: perceptual dur-diversity next (dictated)
 
 "Yes. That's a great summary — aptly put. Thank you. So then let's see if we can…

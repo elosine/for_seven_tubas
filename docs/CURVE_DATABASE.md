@@ -89,6 +89,11 @@ internals and percept — calibrated by ear, experiment by experiment.
   "the spaces between apexes have to be bigger than we expect"). Corollary of
   the DH1/DH2 homogeneity verdicts; anchors: Tuba 8 g6 = 1.08 s vs the 0.6–0.9
   crowd — inaudibly different in-texture.
+  **Refinement (DH3 verdict):** the axis saturates at BOTH ends — below ~1 s all
+  is "short", beyond ~5 s all is "long" ("once it's of a certain length,
+  everything beyond still sounds long"). Usable duration categories ≈ 4: short
+  0.6–1.0 · medium ~1.65–2.75 · go-to long ~4–5 · exceptional >6.5, rare, FOR
+  EFFECT. **Spacing constant adopted: ×2.75** (DH3-L2, composer-confirmed).
 - *Meta-law:* a stimulus violating the laws cannot calibrate anything — you hear the
   violation, not the parameter. (The ISO pair's lesson; entries 021 marked REJECTED.)
 
@@ -548,3 +553,22 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   distinct grain-lengths (not two, not a blur)? That spacing calibrates L4's
   constant. (2) Does the tier-2 middle read as its own voice or as "long-ish
   short"? (3) Is 6.5 s a real tuba ceiling or should t3 cap lower/higher?
+
+### 033 — DH4: four categories + the anti-run constraint (A/B, awaiting listen)
+- **Date:** 2026-08-11 · **Status:** awaiting listen
+- **DH3 verdicts folded in:** ×2.75 adopted · long-end saturation → tier 3
+  becomes go-to long [4.0–5.0 s], NEW tier 4 exceptional [6.5–8.0 s] at share
+  0.02 (~1–2 per hold, "for effect") · shorts clump → `maxShortRun: 2`.
+- **The anti-run mechanism (engine):** a rest > 2 s resets a part's run; long
+  grains TARGET the worst-run part; when every feasible part is run-saturated
+  the short onset CONVERTS to a medium (density kept, run broken; counted in
+  manifest as convertedShorts). Verified: worst perceptual run 9 → 2–3.
+- **A/B, seed 20260814, 18 s hold at 7/s:**
+  - `dh4a-caprun` — DH3 shares kept; conversions do the balancing (16 converted;
+    apex mix 54/27/4/1; drops 10/4)
+  - `dh4b-midshift` — shares shifted to mids 0.70/0.21/0.07/0.02 (8 converted;
+    apex mix 46/24/6/1; drops 15/7; strict worst-run 2)
+- **Listening questions:** (1) is the shorts-clump complaint gone in both?
+  (2) A vs B: which shorts/mids balance is the texture — A (shortier, livelier)
+  or B (mid-weighted, blendier)? (3) do the 1–2 exceptional longs read as
+  "effect" or as accident?
