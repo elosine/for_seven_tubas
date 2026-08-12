@@ -715,3 +715,24 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   tipping point — before/at/after 50%? (3) full-expodec hold: does density
   survive when every attack is grain-INITIAL (forward-masked tails vs the
   surge's backward-masked builds)?
+
+### 040 — DH9: surge→sine morph on the SAMPLED crescendo (awaiting listen)
+- **Date:** 2026-08-12 · **Status:** awaiting listen · DH8 = PINNED (composer:
+  "a sense of maybe how to use" — characterization deferred, device kept)
+- **`dh9-surge-to-sine`** — same continuous 48 s design and SAME SEED as DH8
+  (identical scheduling): 14 s pure surge → 20 s morph → 14 s pure sine.
+- **THE SURGE CHANGED (composer):** surge grains now ride the REAL sampled
+  crescendo — technique `cresc_decr_ks`, **KS C0 = cresc-cut-no-tail** — via the
+  new `sonifyMode:'ks'` playback path (KS latch + static CC7 level in the
+  pre-arm; NO CC7 stream — the sample is the crescendo; noteOff = the cut).
+  **Sample-length guard** (per-note measured table now in compiler.js,
+  3.39–5.86 s): grains that don't fit revert to CC7 per the composer's rule —
+  realized 115 KS / 5 CC7 fallbacks (the exceptional-tier grains at note 45's
+  4.98 s sample).
+- **Physics note to listen FOR:** the sample's own arc sets loudness growth —
+  short KS grains speak only its quiet opening, so the short tier gets quieter
+  and the long tier carries more weight than under CC7 shaping. Real-crescendo
+  physics, not a bug — but it rebalances the field.
+- **Listening questions:** (1) the sampled surge vs CC7 surge: worth it (bite,
+  body)? (2) short-grain quieting: acceptable/desirable? (3) the morph to sine:
+  where does the mass lose its attack-carried density (X-rule risk)?

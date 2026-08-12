@@ -30,6 +30,18 @@
 const GRAIN_ENV_SHAPES = ['sine', 'gaussian', 'quasi-gaussian', 'triangle',
   'trapezoid', 'expodec', 'surge', 'sinc'];
 
+// Measured SI2 cresc-KS sample lengths per MIDI note (SI2_tuba_sample_lengths.md,
+// probe 2026-08-10, C#0 variant; C0 cut variant assumed same multisamples).
+// Surge grains rendered on the SAMPLED crescendo (composer 2026-08-12) must fit
+// inside the sample — longer grains revert to CC7 shaping (the composer's rule).
+const CRESC_SAMPLE_LEN = {
+  29: 4.44, 30: 4.2, 31: 3.96, 32: 3.73, 33: 4.02, 34: 3.8, 35: 3.58, 36: 3.39,
+  37: 4.09, 38: 3.86, 39: 3.64, 40: 3.44, 41: 4.79, 42: 4.52, 43: 4.27, 44: 4.03,
+  45: 4.98, 46: 4.7, 47: 4.44, 48: 4.19, 49: 5.86, 50: 5.54, 51: 5.23, 52: 4.93,
+  53: 5.17, 54: 4.88, 55: 4.61, 56: 4.35, 57: 5.43, 58: 5.12, 59: 4.84, 60: 4.57,
+  61: 4.98, 62: 4.7, 63: 4.44, 64: 4.19
+};
+
 function grainEnvelope(shape, o) {
   const dur = o.dur, lv = o.lv != null ? o.lv : 0.9;
   const ratio = o.ratio || 4, R = o.release != null ? o.release : 0.06;
@@ -1189,6 +1201,7 @@ function compileOnsetCloud(C, spec) {
   }
 
   // ---- 4. Render: onset-anchored envelopes (species per grain) ----
+  let ksCount = 0, ksFallback = 0;
   events.forEach((ev, i) => {
     const shape = ev.shape || 'surge';
     const env = grainEnvelope(shape, { dur: ev.dur, lv: ev.lv, ratio: ev.ratio, release: ev.release });
@@ -1205,6 +1218,21 @@ function compileOnsetCloud(C, spec) {
                                : (spec.note != null ? spec.note : 45);
     wc.technique = spec.technique || 'ord';
     wc.envShape = shape;
+    // SAMPLED-CRESCENDO surge (composer 2026-08-12): surge grains ride the real
+    // cresc-KS sample (C0 = cut, no tail) when they FIT inside it; longer ones
+    // revert to CC7 shaping (the composer's rule). Physics note: the sample's
+    // own arc sets loudness growth — short grains reach only its quiet start.
+    if (spec.surgeKS && shape === 'surge') {
+      const sampLen = CRESC_SAMPLE_LEN[wc.sonifyNote];
+      if (sampLen && ev.dur + ev.release <= sampLen - 0.15) {
+        wc.technique = 'cresc_decr_ks';
+        wc.sonifyMode = 'ks';
+        wc.ksNote = spec.surgeKS.ksNote != null ? spec.surgeKS.ksNote : 24;
+        ksCount++;
+      } else {
+        ksFallback++;
+      }
+    }
   });
   C.deselectAll();
 
@@ -1247,6 +1275,7 @@ function compileOnsetCloud(C, spec) {
     }) : null,
     reservedDropped: resStreams.length ? longDropped : null,
     convertedShorts: converted,
+    surgeKS: spec.surgeKS ? { ks: ksCount, cc7Fallback: ksFallback } : null,
     speciesMix: (envMix || envRamp) ? (() => {
       const all = {}, apex = {};
       events.forEach(e => { all[e.shape] = (all[e.shape] || 0) + 1; });

@@ -91,6 +91,23 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   track records the output mix · rclone (or Drive Desktop folder) upload.
   Phases: (1) Reaper record round-trip · (2) WS + one-button local chain ·
   (3) upload + phone-on-LAN · (4, optional) Tailscale for away-from-home.
+- **5b — Two-way page control (AI realtime control of the web pages)** — `todo
+  (composer 2026-08-12: AI-generated scores beat manual sandbox; "develop some
+  two-way infrastructure so you have realtime control of the web pages")* —
+  WS/SSE channel in server.js + page handlers (load/play/stop/seek), driveable
+  by AI via HTTP POST; also the backbone for 5a's phone control page. Sandbox
+  engagement returns UNDER AI CONTROL when needed.
+
+## 6. ROADMAP to Penn State deadline (composer, 2026-08-12; due Sept 4, 2026)
+
+1. **Finish the grain** (2c: species verdicts; make it USEFUL, not exhaustive).
+2. **Transition behavior + speed limits** — DH8-style morphs for ALL parameters,
+   with density as the one dial; rate-of-change limits (P4's realistic-scales
+   note becomes its own research step).
+3. **Sound toolbox** — motives/gestures for the piece (recipes as named units).
+4. **MAKE THE PIECE.**
+5. **Paper FROM the piece** (process + research), then augment paper/engine with
+   additional research if time allows.
 
 ## Parking lot
 

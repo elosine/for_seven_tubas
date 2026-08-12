@@ -4,6 +4,27 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — DH8 pinned; strategy to Penn State; KS-surge; AI-driven workflow (dictated)
+
+"[DH8] Not quite sure how to characterize, but I have a sense of maybe how to
+use — let's put a pin in it. Strategy to Penn State due date: get into the piece.
+A few more things in the cloud research, but then into building a sound
+(motives/gestures) toolbox for the piece, make the piece, back into the paper
+FROM the piece — describing the process, research — then, if there's time,
+augment the paper/engine with additional research. I do want to finish up the
+grain, at least so it's useful; then develop the TRANSITION BEHAVIOR and SPEED
+LIMITS — not unlike what we just did, but for all parameters, with 'density' as
+the one dial. So: can I have the same but from surge to sin. Also a change to
+the surge: use the crescendo KS patch for those — the C0 I believe, this is
+cres without tail — and mind max length; I don't think we exceed it here, but
+if we do we'll need to revert to CC7 for those. Finally: this AI-generated
+save-score is working better than manual sandbox, so we'll continue this way —
+maybe engage sandbox, but under AI control; might have to develop some two-way
+infrastructure so you have realtime control of the web pages."
+
+*(→ roadmap in PLAN §6; dh9 surge(KS)→sine; KS sonify mode in playback engine;
+PLAN 5b two-way page control. DB 040.)*
+
 ## 2026-08-12 — DH6 verdict: illegible; drop quasi-gauss; staged introduction (dictated)
 
 "Not what I expected — hard to provide analysis. Let's drop the quasi-gauss. Can

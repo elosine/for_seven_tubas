@@ -7148,7 +7148,16 @@ const Composer = {
             const ch = ((tech && tech.channel) || 1) - 1;
             const st = this._activeCurvePlayback[wc.id];
 
-            const PREARM_S = 0.15;   // settle CC7 before the attack (kills the entry bite)
+            const PREARM_S = 0.15;   // settle CC7/KS before the attack (kills the entry bite)
+            // KS mode (composer 2026-08-12): the grain rides a keyswitched SAMPLE
+            // (cresc-cut) — latch the KS + set a STATIC level in the pre-arm, no
+            // CC7 stream during the grain; noteOff at curve end = the cut.
+            const ksMode = wc.sonifyMode === 'ks' && wc.ksNote != null;
+            const ksArm = () => {
+                output.send([0x90 | ch, wc.ksNote, 100]);   // latch the keyswitch
+                output.send([0x80 | ch, wc.ksNote, 0]);
+                output.send([0xB0 | ch, 7, this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)]);
+            };
             const inside = currentTimeSec >= wc.startSeconds && currentTimeSec <= wc.endSeconds;
             if (!inside) {
                 if (st) {
@@ -7158,7 +7167,8 @@ const Composer = {
                 if (currentTimeSec >= wc.startSeconds - PREARM_S && currentTimeSec < wc.startSeconds) {
                     if (!this._curvePreArm[wc.id]) {
                         if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
-                        output.send([0xB0 | ch, 7, this.curveValToCC(this.evalWaveCurve(wc, 0))]);
+                        if (ksMode) ksArm();
+                        else output.send([0xB0 | ch, 7, this.curveValToCC(this.evalWaveCurve(wc, 0))]);
                         this._curvePreArm[wc.id] = true;
                     }
                 } else {
@@ -7167,11 +7177,12 @@ const Composer = {
                 return;
             }
             const t01 = (currentTimeSec - wc.startSeconds) / Math.max(1e-6, wc.endSeconds - wc.startSeconds);
-            const cc = this.curveValToCC(this.evalWaveCurve(wc, t01));
+            const cc = ksMode ? null : this.curveValToCC(this.evalWaveCurve(wc, t01));
             if (!st) {
                 if (!this._curvePreArm[wc.id]) {   // scrubbed in mid-curve: no pre-arm happened
                     if (tech && tech.cc0 != null) output.send([0xB0 | ch, 0, tech.cc0]);
-                    output.send([0xB0 | ch, 7, cc]);
+                    if (ksMode) ksArm();
+                    else output.send([0xB0 | ch, 7, cc]);
                 }
                 output.send([0x90 | ch, wc.sonifyNote, 100]);
                 delete this._curvePreArm[wc.id];
@@ -7179,7 +7190,7 @@ const Composer = {
                 return;
             }
             const now = performance.now();
-            if (cc !== st.lastCC && now - st.lastSend >= 25) {
+            if (!ksMode && cc !== st.lastCC && now - st.lastSend >= 25) {
                 output.send([0xB0 | ch, 7, cc]);
                 st.lastCC = cc; st.lastSend = now;
             }
