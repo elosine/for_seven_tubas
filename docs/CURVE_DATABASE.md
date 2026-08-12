@@ -790,3 +790,26 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Listening:** which reads closer to ONE continuous build? Where do steps
   remain (they'll mark the truly categorical boundaries)? If a step at the
   bottom survives both: embrace terracing there (X8) or mask with level ramp.
+
+### 043 — dens3-accel-ab: the ACCELERANDO scheduler (composer-designed, awaiting listen)
+- **Date:** 2026-08-12 · **Status:** awaiting listen
+- **dens2 verdict:** over-corrected — front-loaded ramps read as "dense by 20,
+  flat after." Quota-window scheduling diagnosed as the wrong generator for
+  BUILDS: window-scale randomness swamps the gap trend at sparse rates.
+- **The composer's algorithm (built as `spec.accel`):** time-domain point
+  placement — the gap chain shrinks along an acceleration curve
+  gap(u) = gapStart·(gapEnd/gapStart)^(u^γ); **γ = the gradual/sudden dial**;
+  each gap × lognormal jitter (noiseSigma — sound-mass randomness at per-gap
+  timescale, zero-mean in log so the trend is untouched); after T, holds at
+  gapEnd. Reserved tiers ride the equivalent rate curve. Duration T freely
+  tweakable ("longer time span to make a smooth change happen").
+- **Division of labor now explicit:** quota windows = STATIONARY textures;
+  accelerando chain = TRANSITIONS. (The two generators coexist in
+  compileOnsetCloud: trajectory vs accel.)
+- **A/B `dens3-accel-ab`** (seed 20260821, standing mix, T=60 s, gaps 2.0→0.143 s,
+  σ 0.15, 12 s hold): **A 2–74 s γ=1.0** (steady accelerando; verified gap trend
+  1.29→0.65→0.30→0.19 s) · **B 80–152 s γ=1.75** (gradual-then-sudden).
+- **Listening:** (1) does the accelerando read as ONE continuous build at last?
+  (2) γ taste: steady vs late-sharpening? (3) is σ 0.15 the right noise — random
+  enough for mass, tame enough to keep the trend? (4) T=60: right span, or
+  longer?

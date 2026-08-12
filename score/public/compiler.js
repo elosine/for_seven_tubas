@@ -982,8 +982,10 @@ function compileOnsetCloud(C, spec) {
   const levelFlat = spec.levelFlat != null ? spec.levelFlat : 0.9;
   const levelSigma = 0.06;
   const WIN = spec.window != null ? spec.window : 0.25;
-  const traj = spec.trajectory;
-  const total = traj.reduce((s, l) => s + l.dur, 0);
+  const traj = spec.trajectory || null;
+  const accel = spec.accel || null;   // {T, gapStart, gapEnd, gamma, noiseSigma, hold}
+  const total = accel ? accel.T + (accel.hold != null ? accel.hold : 0)
+                      : traj.reduce((s, l) => s + l.dur, 0);
   // leg.mode: 'geo' (default — constant % growth) or 'linear' (constant
   // onsets/s² growth). Perceptual note (dens1 LONG verdict): sounding-count
   // ∝ rate, and the ear tracks count-regime crossings — geometric ramps spend
@@ -1008,18 +1010,45 @@ function compileOnsetCloud(C, spec) {
     return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   };
 
-  // ---- 1. Onset stream: L2 quota windows, uniform placement (max random) ----
+  // ---- 1. Onset stream ----
+  // Two generators:
+  // (a) QUOTA WINDOWS (default): L2 rate-curve → windowed budgets → uniform
+  //     placement. Right for STATIONARY textures; at sparse rates the window
+  //     randomness is huge relative to the gaps — builds read lumpy (dens2).
+  // (b) ACCELERANDO (spec.accel; composer's time-domain model 2026-08-12): the
+  //     apex points are placed DIRECTLY as a gap chain shrinking along an
+  //     acceleration curve — gap(u) = gapStart·(gapEnd/gapStart)^(u^gamma),
+  //     u = t/T. gamma = the gradual/sudden dial (1 = steady accelerando,
+  //     >1 = gentle-then-sharpening). Each gap × lognormal jitter (noiseSigma)
+  //     — sound-mass randomness at the per-gap timescale, zero-mean in log so
+  //     the density trend itself is untouched. After T, holds at gapEnd.
+  const gapAt = accel ? (u => accel.gapStart * Math.pow(accel.gapEnd / accel.gapStart,
+    Math.pow(Math.max(0, Math.min(1, u)), accel.gamma != null ? accel.gamma : 1))) : null;
+  const rateAtEff = accel
+    ? (tt => 1 / gapAt(Math.min(tt, accel.T) / accel.T))
+    : rateAt;
   const onsets = [];
   const windows = [];
-  let acc = 0;
-  for (let w0 = 0; w0 < total; w0 += WIN) {
-    const wLen = Math.min(WIN, total - w0);
-    const rate = rateAt(w0 + wLen / 2) * denseShare;
-    acc += rate * wLen;
-    const n = Math.floor(acc);
-    acc -= n;
-    windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
-    for (let k = 0; k < n; k++) onsets.push(T0 + w0 + rand() * wLen);
+  if (accel) {
+    const sigma = accel.noiseSigma != null ? accel.noiseSigma : 0.15;
+    let t = 0;
+    const end = accel.T + (accel.hold != null ? accel.hold : 0);
+    while (t < end) {
+      onsets.push(T0 + t);
+      const g = gapAt(Math.min(t, accel.T) / accel.T);
+      t += g * Math.exp(sigma * gauss());
+    }
+  } else {
+    let acc = 0;
+    for (let w0 = 0; w0 < total; w0 += WIN) {
+      const wLen = Math.min(WIN, total - w0);
+      const rate = rateAt(w0 + wLen / 2) * denseShare;
+      acc += rate * wLen;
+      const n = Math.floor(acc);
+      acc -= n;
+      windows.push({ at: +(w0.toFixed(1)), budget: n, rate: +rate.toFixed(2) });
+      for (let k = 0; k < n; k++) onsets.push(T0 + w0 + rand() * wLen);
+    }
   }
   onsets.sort((a, b) => a - b);
 
@@ -1038,7 +1067,7 @@ function compileOnsetCloud(C, spec) {
     let lacc = 0;
     for (let w0 = 0; w0 < total; w0 += WIN) {
       const wLen = Math.min(WIN, total - w0);
-      lacc += (rs.share != null ? rs.share * rateAt(w0 + wLen / 2) : rs.rate) * wLen;
+      lacc += (rs.share != null ? rs.share * rateAtEff(w0 + wLen / 2) : rs.rate) * wLen;
       const n = Math.floor(lacc);
       lacc -= n;
       for (let k = 0; k < n; k++) {

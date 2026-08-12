@@ -4,6 +4,25 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — dens2 verdict: flattened; the ACCELERANDO model advised (dictated)
+
+"That one flattened most of the way — a little bit of build in the beginning
+then quite dense for most; by 20 pretty dense. The reason I asked about the
+machinery is to see if I could advise: looks like we need more of a GRADUAL
+change of apexes. I don't know if there's a different algo that is more linear —
+metaphor: time-domain vs frequency-domain in FFT. So: increase in apex points
+gradually over time — something like an ACCELERATION, and we can apply different
+curves to the acceleration (faster or slower) — that would be the gradual/sudden
+dial. Then overlay a NOISE algo calibrated to the right time scale, so the
+result is sound-mass randomness over smooth accel, but not dramatic enough to
+alter the relative density through time. And if we need to tweak the overall
+duration of the curve until we dial it in — a longer time span to make a smooth
+change happen — we can."
+
+*(→ the composer designed the scheduler: spec.accel gap-chain generator built
+exactly to this spec — time-domain point placement, gamma = gradual/sudden,
+lognormal per-gap jitter. dens3-accel-ab. DB 043.)*
+
 ## 2026-08-12 — LONG-ramp verdict: three stages, steps at ~19 and ~35 (dictated)
 
 "For the long one — this is the closest, but it seems to get dense around 35;
