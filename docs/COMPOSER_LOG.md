@@ -4,6 +4,15 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — Readback confirmed; directive: perceptual dur-diversity next (dictated)
+
+"Yes. That's a great summary — aptly put. Thank you. So then let's see if we can…
+the apex density is fine. Let's see if we can get that perceptual grain duration
+and diversity in the next go."
+
+*(→ bluntness principle carved as LAW L4; tiered duration model in the engine;
+DH3 spacing ladder; DB 032.)*
+
 ## 2026-08-11 — DH2 observations: gaps read as figures; the perceptual-scale problem (dictated)
 
 "A couple observations. When there are longer durations, they blend well. But when

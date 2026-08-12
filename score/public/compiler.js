@@ -953,6 +953,17 @@ function compileOnsetCloud(C, spec) {
   const shortBand = dm.shortBand || [0.6, 0.9];
   const pShort = dm.pShort != null ? dm.pShort : 0.45;
   const maxDur = dm.maxDur != null ? dm.maxDur : 3.5;
+  // TIERED duration model (LAW L4, composer-confirmed 2026-08-11): perceived
+  // diversity needs category-sized jumps (~×2.5 between tiers); variety inside a
+  // tier is texture, not difference. tiers[0] = the capped dense stream; every
+  // further tier is RESERVED (span claimed at assignment — never truncated),
+  // its rate = share × trajectory rate, so tiers thin out with the arch.
+  //   durModel: { tiers: [ {range:[0.6,1.0], share:0.786},
+  //                        {range:[1.9,2.75], share:0.143},
+  //                        {range:[4.5,6.0],  share:0.071} ] }
+  const tiers = dm.tiers || null;
+  const denseRange = tiers ? tiers[0].range : shortBand;
+  const denseShare = tiers ? tiers[0].share : 1;
   const reArtic = spec.reArtic != null ? spec.reArtic : 0.08;
   const relRange = spec.releaseRange || [0.02, 0.08];
   const ratioRange = spec.ratioRange || [3, 6];
@@ -985,7 +996,7 @@ function compileOnsetCloud(C, spec) {
   let acc = 0;
   for (let w0 = 0; w0 < total; w0 += WIN) {
     const wLen = Math.min(WIN, total - w0);
-    const rate = rateAt(w0 + wLen / 2);
+    const rate = rateAt(w0 + wLen / 2) * denseShare;
     acc += rate * wLen;
     const n = Math.floor(acc);
     acc -= n;
@@ -999,25 +1010,27 @@ function compileOnsetCloud(C, spec) {
   // are RESERVED at assignment (blockedUntil), so the dense stream can't land
   // on a sounding long grain — this is how wide dur-diversity survives at a
   // dense apex (X-rules: species superposition).
-  const ls = spec.longStream || null;   // { rate: 0.7, durRange: [2.2, 5] }
-  const longOnsets = [];
-  if (ls) {
+  const ls = spec.longStream || null;   // legacy { rate: 0.7, durRange: [2.2, 5] }
+  // Reserved streams: tiers 1..k (share-scaled) or the legacy longStream (fixed rate)
+  const resStreams = tiers
+    ? tiers.slice(1).map((t, i) => ({ share: t.share, range: t.range, tier: i + 1 }))
+    : (ls ? [{ rate: ls.rate, range: ls.durRange, tier: 1 }] : []);
+  let merged = onsets.map(t => ({ t, res: 0 }));
+  for (const rs of resStreams) {
     let lacc = 0;
     for (let w0 = 0; w0 < total; w0 += WIN) {
       const wLen = Math.min(WIN, total - w0);
-      lacc += ls.rate * wLen;
+      lacc += (rs.share != null ? rs.share * rateAt(w0 + wLen / 2) : rs.rate) * wLen;
       const n = Math.floor(lacc);
       lacc -= n;
-      for (let k = 0; k < n; k++) longOnsets.push(T0 + w0 + rand() * wLen);
+      for (let k = 0; k < n; k++) merged.push({ t: T0 + w0 + rand() * wLen, res: rs.tier, range: rs.range });
     }
   }
-  const stream = onsets.map(t => ({ t, isLong: false }))
-    .concat(longOnsets.map(t => ({ t, isLong: true })))
-    .sort((a, b) => a.t - b.t);
+  const stream = merged.sort((a, b) => a.t - b.t);
 
   // ---- 2. Part assignment: causal, RANDOM among feasible (max scatter) ----
   // Feasibility floor: at least a short grain + max release + reArtic must fit.
-  const footprint = shortBand[0] + relRange[1] + reArtic;
+  const footprint = denseRange[0] + relRange[1] + reArtic;
   const lastOnset = new Array(parts).fill(-Infinity);
   const blockedUntil = new Array(parts).fill(-Infinity);
   const assigned = [];
@@ -1028,14 +1041,14 @@ function compileOnsetCloud(C, spec) {
     for (let p = 0; p < parts; p++) {
       if (t - lastOnset[p] >= footprint && t >= blockedUntil[p]) feas.push(p);
     }
-    if (!feas.length) { if (o.isLong) longDropped++; else dropped++; continue; }
+    if (!feas.length) { if (o.res) longDropped++; else dropped++; continue; }
     const p = feas[Math.floor(rand() * feas.length)];
     lastOnset[p] = t;
-    const a = { t, part: p, isLong: o.isLong };
-    if (o.isLong) {
-      // duration fixed NOW and the span reserved
-      a.longDur = ls.durRange[0] + rand() * (ls.durRange[1] - ls.durRange[0]);
-      blockedUntil[p] = t + a.longDur + relRange[1] + reArtic;
+    const a = { t, part: p, res: o.res };
+    if (o.res) {
+      // duration fixed NOW and the span reserved (never truncated — LAW L4 tiers)
+      a.resDur = o.range[0] + rand() * (o.range[1] - o.range[0]);
+      blockedUntil[p] = t + a.resDur + relRange[1] + reArtic;
     }
     assigned.push(a);
   }
@@ -1049,9 +1062,15 @@ function compileOnsetCloud(C, spec) {
   for (const a of assigned) {
     const release = relRange[0] + rand() * (relRange[1] - relRange[0]);
     let target, dur, wasTrunc = false;
-    if (a.isLong) {
-      // long-stream grain: span was reserved at assignment, never truncated
-      target = dur = Math.min(a.longDur, total + T0 - a.t);
+    if (a.res) {
+      // reserved-tier grain: span was claimed at assignment, never truncated
+      target = dur = Math.min(a.resDur, total + T0 - a.t);
+    } else if (tiers) {
+      // dense tier: uniform within tier (within-tier variety is texture — L4)
+      target = denseRange[0] + rand() * (denseRange[1] - denseRange[0]);
+      const cap = a.next - a.t - release - reArtic;
+      dur = Math.min(target, cap, total + T0 - a.t);
+      if (target > cap) { wasTrunc = true; truncated++; shortfallSum += target - cap; }
     } else {
       target = rand() < pShort
         ? shortBand[0] + rand() * (shortBand[1] - shortBand[0])     // the short grain
@@ -1062,7 +1081,7 @@ function compileOnsetCloud(C, spec) {
     }
     const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
     const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
-    events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc, isLong: !!a.isLong });
+    events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc, isLong: !!a.res, tier: a.res });
   }
 
   // ---- 4. Render: surge envelopes, onset-anchored ----
@@ -1097,7 +1116,7 @@ function compileOnsetCloud(C, spec) {
     const g = list.slice(1).map((a, i) => a.t - list[i].t);
     return stats(g).cv;
   });
-  const band = d => d < shortBand[1] ? 'short' : d < 2 ? '1-2s' : d < 3 ? '2-3s' : '3s+';
+  const band = d => d < denseRange[1] ? 'short' : d < 2 ? '1-2s' : d < 3 ? '2-3s' : '3s+';
   const hist = evs => {
     const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 };
     evs.forEach(e => h[band(e.dur)]++);
@@ -1113,6 +1132,12 @@ function compileOnsetCloud(C, spec) {
     onsets: onsets.length, placed: assigned.length, dropped,
     longStream: ls ? { placed: events.filter(e => e.isLong).length, dropped: longDropped,
                        durs: events.filter(e => e.isLong).map(e => +e.dur.toFixed(1)) } : null,
+    tierMix: tiers ? tiers.map((t, i) => {
+      const evs = apexEvents.filter(e => e.tier === i);
+      return { tier: i, range: t.range, apexCount: evs.length,
+               meanDur: evs.length ? +(evs.reduce((s, e) => s + e.dur, 0) / evs.length).toFixed(2) : null };
+    }) : null,
+    reservedDropped: resStreams.length ? longDropped : null,
     onsetGaps: stats(gaps),
     perPartGapCV: partGapCVs.length ? +(partGapCVs.reduce((a, b) => a + b, 0) / partGapCVs.length).toFixed(2) : null,
     durTargetHist: (() => { const h = { short: 0, '1-2s': 0, '2-3s': 0, '3s+': 0 }; events.forEach(e => h[band(e.target)]++); return h; })(),

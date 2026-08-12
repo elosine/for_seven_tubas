@@ -79,6 +79,16 @@ internals and percept — calibrated by ear, experiment by experiment.
 - **L3 — The keeper passage is the calibrated plateau target** (w5-mass45 @ 14.68–17.5,
   measured): ~3.2 onsets/s · durations wide 0.58–2.61 s · sine-heavy + expodec accents,
   rexpodec rare · ~4.7 sounding.
+- **L4 — The perceptual-scale law (BLUNTNESS; composer-confirmed 2026-08-11):**
+  inside a dense mass, discrimination is far coarser than in isolation — variety
+  within ~×1.5 of a value FUSES into one perceptual category. For a parameter's
+  diversity to be HEARD, its values must jump in category-sized steps (~×2.5–3
+  between tiers); within-tier jitter is texture (still required by L1), only
+  between-tier jumps read as "different." Applies to ALL parameters — durations
+  first (the tiered duration model), apex spacings expected next (composer:
+  "the spaces between apexes have to be bigger than we expect"). Corollary of
+  the DH1/DH2 homogeneity verdicts; anchors: Tuba 8 g6 = 1.08 s vs the 0.6–0.9
+  crowd — inaudibly different in-texture.
 - *Meta-law:* a stimulus violating the laws cannot calibrate anything — you hear the
   violation, not the parameter. (The ISO pair's lesson; entries 021 marked REJECTED.)
 
@@ -518,3 +528,23 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   - L4 8/s: 92 / 17 / 3 / 7 — the DH1 homogeneity, kept as anchor
 - **Listening question:** walking L4 → L1, where does "plenty dense" stop being
   true? The highest rung that still reads diverse = the working apex.
+
+### 032 — DH3: the tiered duration model + spacing ladder (LAW L4 applied)
+- **Date:** 2026-08-11 · **Status:** awaiting listen
+- **Engine change:** `durModel.tiers` in compileOnsetCloud — tier 0 = capped
+  dense stream; every higher tier is RESERVED (span claimed at assignment, never
+  truncated; rate = share × trajectory, so tiers thin with the arch). This
+  generalizes longStream (kept as legacy) into the L4 mechanism: within-tier
+  jitter = texture, between-tier spacing = the audible diversity.
+- **DH2 verdicts folded in:** apex density fine → hold fixed at 7/s; longs blend
+  → tier 3 is the long thread; homogeneity → tier spacing is THE dial now.
+- **Ladder `dh3-spacing-L1..L3`** (18 s hold, 10 parts, seed 20260813; tier 1 =
+  0.6–1.0 s, shares 0.786/0.143/0.071; tier 2 = ×s, tier 3 = ×s², capped 6.5 s
+  for breath):
+  - L1 ×2.0: tiers realize 0.77 / 1.56 / 3.05 s (77/14/7 at apex)
+  - L2 ×2.75: 0.74 / 2.19 / 5.16 s (72/12/7) — the predicted "blunt enough"
+  - L3 ×3.5: 0.74 / 2.67 / 5.13 s (71/13/6) — t3 hits the breath ceiling
+- **Listening questions:** (1) walking L1→L3, when do you first hear THREE
+  distinct grain-lengths (not two, not a blur)? That spacing calibrates L4's
+  constant. (2) Does the tier-2 middle read as its own voice or as "long-ish
+  short"? (3) Is 6.5 s a real tuba ceiling or should t3 cap lower/higher?
