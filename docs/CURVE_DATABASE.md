@@ -857,3 +857,14 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   20260822) + per-gap lognormal jitter σ=0.15 restored. A/B partner: pure
   (dens4) vs sound-mass (dens5) — calibrates whether σ 0.15 roughens without
   losing the swell.
+
+### 043e — dens6-accel-noiseramp: the RAMPED noise dial (awaiting listen)
+- **Composer (dens5 verdict):** more random overall, but the sparse opening had
+  "too much noise movement" — constant relative jitter = big absolute wobble on
+  exposed gaps. **Dial upgraded: `noiseSigma: [start, end]`** — σ interpolates
+  across the accel (hold uses the end value).
+- **`dens6-accel-noiseramp`**: dens4/5 base (peak-anchored, γ=1, T=60, seed
+  20260822), **σ 0.06 → 0.35** — near-clean accelerando early (±6% where every
+  gap is audible), fully stochastic mass late (±35%+ where density masks it).
+  Verified apex-gap CV: 0.17 early → 0.30 late. **Max density reached at t=62 s;
+  hold 62–74 s.**

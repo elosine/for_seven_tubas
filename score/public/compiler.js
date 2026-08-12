@@ -1030,13 +1030,19 @@ function compileOnsetCloud(C, spec) {
   const onsets = [];
   const windows = [];
   if (accel) {
-    const sigma = accel.noiseSigma != null ? accel.noiseSigma : 0.15;
+    // noiseSigma: number (constant) or [start, end] — RAMPED noise (composer
+    // 2026-08-12: constant relative jitter is too much wobble on the exposed
+    // sparse gaps; taper it in as density grows and deviations get masked).
+    const sig = accel.noiseSigma;
+    const sigAt = u => Array.isArray(sig)
+      ? sig[0] + (sig[1] - sig[0]) * Math.max(0, Math.min(1, u))
+      : (sig != null ? sig : 0.15);
     let t = 0;
     const end = accel.T + (accel.hold != null ? accel.hold : 0);
     while (t < end) {
       onsets.push(T0 + t);
-      const g = gapAt(Math.min(t, accel.T) / accel.T);
-      t += g * Math.exp(sigma * gauss());
+      const u = Math.min(t, accel.T) / accel.T;
+      t += gapAt(u) * Math.exp(sigAt(u) * gauss());
     }
   } else {
     let acc = 0;
