@@ -4,6 +4,28 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — STOP; into the piece: containers; naming; wrap-protocol change (dictated)
+
+"Let's stop this process here — just capture all we learned. I want to get into
+the piece: we'll move to recipe and even CONTAINERS, and hopefully come back to
+refine. What I mean: I'll have a container like 'starting the piece with a
+density build over 18 seconds' — some graphic like a curve — I'll get it
+visually like I want the sound to be, then we fill it with the existing
+technology; move forward like this, and time permitting come back to any given
+container and refine the grain recipe to better reflect it. There will be some
+new ones, but same: get the shape to acceptable, come back and refine later. I
+would like a meta layer — probably drawer for now, I think we have implemented
+this. Start with a density curve over 16 seconds like our surge curve — for
+this one, in the meta score, can I have control over dur and just a handle for
+curvature. And devise, probably just a naming system, for sandbox save files —
+ones that represent a single shape — and the score files we'll add these to.
+Then wrap, commit, push. Let's update the protocol: I'll explicitly say if I
+have anything to add for a wrap — if I don't include it, assume no further
+input from me."
+
+*(→ density arc captured (DB 044, finding 15 indexed); container v1 shipped
+(DB 045, cont-build-001); NAMING.md; D5 wrap-protocol divergence; session end.)*
+
 ## 2026-08-12 — dens9 verdict: B (level cue) works; perceived peak at ~115 (dictated)
 
 "B works better — seems to peak at around 115; notice a little change at end

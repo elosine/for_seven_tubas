@@ -919,3 +919,48 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **The emerging climax recipe:** rate accel (composer-linear curve) to fusion
   + surge-shaped level beyond it. If the perceived peak now lands AT the end,
   this becomes RECIPE BUILD-1.
+
+### 044 — DENSITY ARC CAPTURE (the dens1–dens10 calibration, closed 2026-08-12)
+*Process stopped by composer to enter the piece; refinement returns per-container.*
+
+**What the arc established (one day, ten scores, composer remote via CRD):**
+1. **Finding 15 (CONFIRMED, 3 curvatures):** density is perceived as SOUNDING-
+   COUNT REGIMES — isolated events (count<1) → polyphonic (crossing ~2) →
+   fused mass (~4–5). The crossings are categorical steps; **above ~4 onsets/s
+   rate delivers NO further percept** (the fusion ceiling — "samey, no climax").
+2. **The APEX-SCRAMBLE bug + peak-anchored law (043c):** the scheduling anchor
+   must be the perceptual attack point; onset-anchoring scrambled every
+   trajectory (apex-gap CV 0.94). `anchor:'peak'` = standard for builds.
+3. **Two schedulers, division of labor:** quota windows = stationary textures ·
+   the composer-designed ACCELERANDO gap chain = transitions (time-domain point
+   placement; `accel {T, gapStart, gapEnd, curve, noiseSigma, hold}`).
+4. **The one-dial curve, re-centered:** `accel.curve` = the crescendo family on
+   the density trajectory; composer's perceptual-linear sat at raw −0.4 →
+   ACCEL_CURVE_ZERO re-centering (user 0 = their even; systematic one-notch
+   shift across the dens8 ladder).
+5. **Climax = the cue bundle (findings 12b/13 resolved):** rate builds to
+   fusion; LEVEL carries the climax beyond it (`levelRamp` + `levelCurve`,
+   crescendo-family, back-loaded — linear level peaked perceptually at 75%).
+6. **Noise is a ramped dial:** constant relative jitter wobbles the exposed
+   sparse gaps; `noiseSigma [start, end]` tapers it in as density masks it.
+7. **RECIPE BUILD-1 (PROVISIONAL — dens10 unheard at wrap):** anchor 'peak' ·
+   accel T≈60 (freely scaled), gaps 2.0→0.143, curve 0 (re-centered), σ 0 (or
+   ramped [0.06, 0.35] for mass-surface), hold to taste · levelRamp [0.75, 1.0]
+   levelCurve ~0.5 · MAXDENSE-1 tiers/mix/anti-clump · standing species mix.
+**Open when refinement resumes:** dens10 verdict (levelCurve value) · noise σ
+ladder at the top end · the fusion-boundary rate as an explicit dial · shorter
+builds (the original 4-length question, superseded by curve calibration).
+
+### 045 — CONTAINERS: the piece paradigm begins (v1 shipped)
+- **The MO (composer):** a container = a shaped META curve for a passage (e.g.,
+  "density build over 18 s") — composer shapes it VISUALLY to look like the
+  intended sound; AI fills it with existing technology; move forward; return to
+  refine any container's recipe later, time permitting.
+- **v1 container: Density Build** — stamp "▣ Container: Density Build" → 16 s
+  gold curve on the META window with **duration (box edges) + ONE curvature
+  diamond** (crescendo-family dial, live `curve/dur` readout); no node tools;
+  horizontal-only body drag. Fill mapping: dur → accel span scaling ·
+  curvature → accel.curve · RECIPE BUILD-1 supplies everything else.
+- **First shape file: `cont-build-001`** (awaiting the composer's shaping).
+- **Naming system adopted → docs/NAMING.md** (`cont-*` shapes · `piece-s*`
+  sections · everything else = frozen research archive).

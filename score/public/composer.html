@@ -418,6 +418,7 @@
         <option value="bloom">Bloom</option>
         <option value="line">Line</option>
         <option value="saw">Sawtooth</option>
+        <option value="container-build">▣ Container: Density Build</option>
     </select>
     <button id="stampBtn">Stamp → META</button>
     <span style="color:#ccc">|</span>
@@ -1365,6 +1366,24 @@ const Composer = {
                 saw:   { nodes: [{pos:0,y:0,smooth:.25},{pos:.85,y:10,smooth:.25},{pos:1,y:0,smooth:.25}],
                          segments: [{model:'exponential',slope:.4},{model:'power',slope:0}] }
             };
+            // CONTAINERS (composer 2026-08-12, the piece paradigm): a shaped META
+            // curve = the visual target for a passage; filled with the engines,
+            // refined later. v1: density build — duration via edges, ONE
+            // curvature handle (the crescendo-family dial).
+            if (kind === 'container-build') {
+                this.openMetaWin();
+                const wc = this.createWaveCurve({
+                    startSeconds: Math.max(0, t0), endSeconds: Math.max(0, t0) + 16,
+                    layer: META_LAYER,
+                    nodes: [{ pos: 0, y: 0.5, smooth: 0.25 }, { pos: 1, y: 9.5, smooth: 0.25 }],
+                    segments: [{ model: 'exponential', slope: 0.4 }],
+                    color: '#B8860B', opacity: 0.55,
+                    performanceNotes: 'CONTAINER density-build'
+                });
+                wc.isContainer = 'density-build';
+                this.renderWaveCurve(wc);
+                return;
+            }
             const s = STAMPS[kind];
             this.openMetaWin();
             this.createWaveCurve({ startSeconds: Math.max(0, t0), endSeconds: Math.max(0, t0) + 20,
@@ -2848,7 +2867,7 @@ const Composer = {
         });
         hp.addEventListener('dblclick', (e) => {
             e.stopPropagation();
-            if (this.isGrain(wc)) return;   // grains: no node/splice tools
+            if (this.isGrain(wc) || wc.isContainer) return;   // no node/splice tools
             if (e.shiftKey) this.spliceCurveAt(wc, e.clientX);
             else this.addNodeAtClick(wc, e.clientX);
         });
@@ -2905,6 +2924,52 @@ const Composer = {
         wc._els.nodeHandles = [];
         const x1 = wc.startSeconds * this.pixelsPerSecond;
         const tw = (wc.endSeconds - wc.startSeconds) * this.pixelsPerSecond;
+
+        if (wc.isContainer) {
+            // CONTAINER handles: duration via box edges + ONE curvature diamond
+            // (the crescendo-family dial on the container's trajectory).
+            const seg = wc.segments[0];
+            const hu = 0.5;
+            const hv = this.evalWaveCurve(wc, hu);
+            const hx = x1 + hu * tw;
+            const hy = dims.bottom - hv * dims.height;
+            const d = document.createElementNS(svgNS, 'rect');
+            d.setAttribute('x', hx - 6); d.setAttribute('y', hy - 6);
+            d.setAttribute('width', 12); d.setAttribute('height', 12);
+            d.setAttribute('transform', `rotate(45 ${hx} ${hy})`);
+            d.setAttribute('fill', '#B8860B'); d.setAttribute('stroke', '#7a5a08');
+            d.setAttribute('stroke-width', '1.5');
+            d.style.cursor = 'ns-resize'; d.style.pointerEvents = 'all';
+            d.setAttribute('class', 'composerObject');
+            d.addEventListener('mousedown', (e) => {
+                e.stopPropagation(); e.preventDefault();
+                this.pushUndoState();
+                const startY = e.clientY, startSlope = seg.slope || 0;
+                const onMove = (ev) => {
+                    seg.slope = Math.max(-1, Math.min(1,
+                        startSlope + (startY - ev.clientY) / dims.height * 2));
+                    this.updateWCRendering(wc);
+                    this.renderNodeHandles(wc);
+                };
+                const onUp = () => {
+                    window.removeEventListener('mousemove', onMove);
+                    window.removeEventListener('mouseup', onUp);
+                    this.refreshPanelValues(); this.markDirty();
+                };
+                window.addEventListener('mousemove', onMove);
+                window.addEventListener('mouseup', onUp);
+            });
+            g.appendChild(d); wc._els.nodeHandles.push(d);
+            const lbl = document.createElementNS(svgNS, 'text');
+            lbl.setAttribute('x', hx + 12); lbl.setAttribute('y', hy - 8);
+            lbl.setAttribute('font-size', '10'); lbl.setAttribute('fill', '#7a5a08');
+            lbl.textContent = 'curve ' + (seg.slope || 0).toFixed(2) +
+                ' · ' + (wc.endSeconds - wc.startSeconds).toFixed(1) + 's';
+            lbl.style.pointerEvents = 'none';
+            g.appendChild(lbl); wc._els.nodeHandles.push(lbl);
+            this.renderTransformBox(wc, dims, x1, tw);
+            return;
+        }
 
         if (this.isGrain(wc)) {
             // Grain suite: dotted start line + go-time box + transform box only.
@@ -3098,7 +3163,11 @@ const Composer = {
             wc._els.nodeHandles.push(h);
         };
         const midY = (yTop + dims.bottom) / 2;
-        if (this.isGrain(wc)) {
+        if (wc.isContainer) {
+            // containers: duration edges only (curvature has its own diamond)
+            mkHandle(x1, midY, 'ew-resize', 'left');
+            mkHandle(x1 + tw, midY, 'ew-resize', 'right');
+        } else if (this.isGrain(wc)) {
             // Grain semantics: left = duration "as if generated" (peak + release
             // stay put, the swell stretches), right = release length, top = amplitude.
             mkHandle(x1, midY, 'ew-resize', 'grainDur');
@@ -3409,9 +3478,9 @@ const Composer = {
             wc.startSeconds = Math.round(newStart * 20) / 20;
             wc.endSeconds = Math.round((wc.startSeconds + dur) * 20) / 20;
 
-            // Grains move horizontally ONLY (composer: whole-shape grab = retime,
-            // never a lane/level change) — SHIFT-v is also ignored for them.
-            if (constrainAxis !== 'h' && !this.isGrain(wc)) {
+            // Grains and containers move horizontally ONLY (whole-shape grab =
+            // retime, never a lane change) — SHIFT-v is also ignored for them.
+            if (constrainAxis !== 'h' && !this.isGrain(wc) && !wc.isContainer) {
                 wc.layer = this.getLaneFromY(e.clientY);
             }
 

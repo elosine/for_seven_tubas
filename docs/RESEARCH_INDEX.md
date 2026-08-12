@@ -79,6 +79,11 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
     2026-08-11): in-mass discrimination is coarse; parameter diversity must jump in
     category-sized steps (×2.75 adopted) to be heard; the duration axis saturates at
     both ends → 4 usable categories. Full statement in CURVE_DATABASE laws.
+15. **The sounding-count regime law** (dens1–dens10 arc, composer-confirmed at three
+    curvatures, 2026-08-12): density percept = count regimes (events <1 → polyphonic
+    ~2 → fused ~4–5); crossings are categorical; above ~4 onsets/s rate is percept-
+    inert (the fusion ceiling) — climax must come from the cue bundle (level: 12b/13
+    resolved). Full capture: CURVE_DATABASE 044.
 14. **The apex-stack loudness** (composer, DH5 listen, 2026-08-11): when several
     swells overlap in their LOUDEST portions, the stack reads as a vertical,
     chord-like event — "not an attack, but a loudness there" — even on unisons.
