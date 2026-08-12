@@ -1022,8 +1022,22 @@ function compileOnsetCloud(C, spec) {
   //     >1 = gentle-then-sharpening). Each gap × lognormal jitter (noiseSigma)
   //     — sound-mass randomness at the per-gap timescale, zero-mean in log so
   //     the density trend itself is untouched. After T, holds at gapEnd.
-  const gapAt = accel ? (u => accel.gapStart * Math.pow(accel.gapEnd / accel.gapStart,
-    Math.pow(Math.max(0, Math.min(1, u)), accel.gamma != null ? accel.gamma : 1))) : null;
+  // accel.curve: THE one-dial curvature (composer 2026-08-12) — same family and
+  // slope convention as the crescendo segment models ('exponential', k = 4·curve):
+  // curve < 0 = bloom-side (ramp early, gradual late) · 0 = even · curve > 0 =
+  // surge-side (little change early, swell into the peak). Perceptual zero is
+  // calibrated by ear (dens8 ladder), then the dial gets re-centered.
+  // accel.gamma kept for back-compat (u^gamma warp) when curve is absent.
+  const accelWarp = accel ? (u => {
+    u = Math.max(0, Math.min(1, u));
+    if (accel.curve != null) {
+      const k = 4 * accel.curve;
+      if (Math.abs(k) < 0.01) return u;
+      return (Math.exp(k * u) - 1) / (Math.exp(k) - 1);
+    }
+    return Math.pow(u, accel.gamma != null ? accel.gamma : 1);
+  }) : null;
+  const gapAt = accel ? (u => accel.gapStart * Math.pow(accel.gapEnd / accel.gapStart, accelWarp(u))) : null;
   const rateAtEff = accel
     ? (tt => 1 / gapAt(Math.min(tt, accel.T) / accel.T))
     : rateAt;

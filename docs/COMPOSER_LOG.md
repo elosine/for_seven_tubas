@@ -4,6 +4,18 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — The one-dial accel curve, like the crescendo curves (dictated)
+
+"I was picturing it as a curve like the ones we use for the individual
+crescendos — can we get to ONE dial? So: more ramp at beginning, gradual ramp at
+end → to linear, even change throughout → to little change at beginning, swell
+at end. Or is it more complex? Or do we just have to calibrate the dial?"
+
+*(→ exactly right and not more complex: accel.curve built on the SAME family and
+slope convention as the crescendo segment models (exponential, k = 4·curve);
+bloom-side < 0 < surge-side. The center ("even to the ear") is a calibration —
+dens8-curve-ladder, then re-center. DB 043g.)*
+
 ## 2026-08-12 — THE BUG FOUND: apex-scramble; peak-anchored scheduling (composer-triggered)
 
 "Something not quite right, and it may be the bug I was hearing — the lack of

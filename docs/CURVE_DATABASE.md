@@ -876,3 +876,17 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   hold 62–65**. Same curve as dens4, isolated hold-length change; the curve
   fix (gapStart down + γ up, per the dial description in chat) awaits the
   composer's pick.
+
+### 043g — dens8-curve-ladder: the ONE-DIAL accel curve (calibration, awaiting listen)
+- **The dial (composer-designed):** `accel.curve` ∈ −1…+1 — the CRESCENDO CURVE
+  FAMILY applied to the density trajectory (same exponential model and slope
+  convention as the segment curves, k = 4·curve). Bloom-side (<0): density ramps
+  early, eases late. 0: the current geometric (log-even). Surge-side (>0):
+  holds back, swells into the peak. γ kept for back-compat.
+- **The calibration question:** which value reads as \"even change throughout\"?
+  (Linear-rate was too front-loaded (dens2), geometric too back-loaded at the
+  start (dens7) — perceptual zero lies between/around; after the pick, the dial
+  gets RE-CENTERED so 0 = the composer's even.)
+- **Ladder `dens8-curve-ladder`** (pure σ=0, T=60, 3 s holds, seed 20260822):
+  curve **−0.4 (peak at t=62)** · **0 (peak at t=130)** · **+0.4 (peak at
+  t=198)**. Segments 2–65 / 70–133 / 138–201 s.
