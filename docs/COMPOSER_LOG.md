@@ -4,6 +4,17 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Mix correction before ramp evaluation (dictated)
+
+"Let's make some adjustments before I can evaluate ramp: there seem to be very
+little or no expodec (these are the attack and quick decay?) — so 70/30
+surge/other; other: 70/30 expodec/sine. And if possible just medium and short
+envs for the other — any long should all be surge."
+
+*(→ standing mix now {surge .70, expodec .21, sine .09}; alt species restricted
+to tiers short+mid (altTiersMax engine dial); longs always surge. dens1-builds
+regenerated.)*
+
 ## 2026-08-12 — Back to CC7; env research deferred; INTO MATERIALS: density builds (dictated)
 
 "Let's keep this [KS] mode as a possibility but go back to all CC7 — I think

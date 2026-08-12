@@ -756,3 +756,11 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   (2) where in each ramp does "getting denser" actually kick in (the density
   threshold moment)? (3) does the sparse opening (~1 part) read as the SAME
   texture rarefied, or a different thing that becomes the texture?
+
+### 041b — dens1-builds REGENERATED (mix correction, awaiting listen)
+- **Composer:** expodec was missing entirely (the earlier "rex/sin" mix had no
+  expodec). **Standing mix corrected: surge .70 / expodec .21 / sine .09**
+  (70/30 surge/other; other = 70/30 expodec/sine) · **alt species on short+mid
+  tiers only — all longs surge** (new engine dial `altTiersMax`).
+- Same four builds/seed as 041; realized e.g. MED: 69 surge / 28 expodec /
+  11 sine, zero non-surge longs.

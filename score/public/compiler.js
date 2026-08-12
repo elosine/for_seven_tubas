@@ -1196,8 +1196,14 @@ function compileOnsetCloud(C, spec) {
     }
     const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
     const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
+    // altTiersMax (composer 2026-08-12): alternate species only on tiers <= max
+    // (short/medium); longer tiers are ALWAYS surge.
+    const altMax = spec.altTiersMax != null ? spec.altTiersMax : Infinity;
+    let shape;
+    if ((a.res || 0) > altMax) { shape = 'surge'; lastShape[a.part] = 'surge'; }
+    else shape = drawShape(a.part, a.t - T0);
     events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc,
-                  isLong: !!a.res, tier: a.res, shape: drawShape(a.part, a.t - T0) });
+                  isLong: !!a.res, tier: a.res, shape });
   }
 
   // ---- 4. Render: onset-anchored envelopes (species per grain) ----
