@@ -10,78 +10,42 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**Last session:** *2026-08-10 (day 1, Claude Code — one long day, multiple arcs)*
-- **Setup arcs:** stack seeded from piece #3 (7-track composer :5200, sandbox :4700) ·
-  SI2 tuba roster 21 techniques, dual-port model (D2) · cresc sample lengths measured
-  (docs/SI2_tuba_sample_lengths.md) · CC7 law calibrated (probes/cc7_map.json) ·
-  gain staging protocol + ledger (GAIN_STAGING.md; instance master −7.3, master −6
-  tutti, REC −10) · META drawing layer + freehand-fit + sculpt tools in the score.
-- **Research arc (the day's core):** crescendo taxonomy (P1–P4, sourced) · vocabulary
-  BLOOM/SURGE/THRESHOLD · findings 1–13 (RESEARCH_INDEX.md) · **THE LAWS L1–L3**
-  (CURVE_DATABASE.md — scatter floors mandatory; quota-guaranteed trends; keeper
-  stats = plateau anchor) · **Xenakis mass rules X1–X8** (XENAKIS_MASS_RULES.md) ·
-  the piece's own species: the SWELL-CLOUD, where **the peak-cut IS the attack**.
-- **State: `sc4-max-dense` approved "pretty good for now"** — 7 s hold at 6.9
-  endings/s · releases 0.02–0.08 s (rexpodec floor) · durations 0.5–1.6 s (surge
-  3–6×) · max-random quota placement. Engine: compileSwellCloud (compiler.js).
+**Last session:** *2026-08-11 (day 2, Claude Code) — the calibration day*
+- **Independent batch:** Penn State research (**deadline Sept 4, 2026**; 10 parts
+  + M1 fits the call) · 10-part expansion + floating META draw window + grain-edit
+  suite + Roads env catalog (DB 027) · automation eval (AUTOMATION_EVAL.md; UVI
+  deferred-until-bites; tuba 8–10 hardware now UP) · engine framework
+  (ENGINE_FRAMEWORK.md: seeded renders, ladder batteries, span test, validated
+  tweak analyzer).
+- **PASS 2 COMPLETE (live sitting, OC→DH1–DH5):** LAW L4 carved (×2.75 category
+  spacing; both-ends saturation; 4 duration categories) · anti-clump machinery
+  (maxShortRun, short→mid conversion, run-breaking longs) · **RECIPE MAXDENSE-1
+  (DB 035)** · finding 14 (apex-stack loudness) · keeper-excerpt practice.
+- **Grain-type pass OPENED (PLAN 2c):** env-catalog regenerated at tier durs
+  (0.8/2.2/4.5) · dh5a-pitchfields = unison/chromatic/quartal down one timeline,
+  same seed (engine additions: `spec.t0`, `spec.notes`).
 
-**Next up — the four-pass plan (composer, day wrap):**
-1. *(done this day)* the dense hold — SC4.
-2. **Durations driven by ONSET scattering** — scatter onsets, durations follow
-   (flips the current peak-driven generative direction).
-3. **The least dense texture** — get sparse right.
-4. **Perceivable density gradations** — speed of least→most dense, gradual vs
-   jumps vs in-between.
+**Open at session end (awaiting composer listen):** env-catalog elimination pass
+(8 shapes; per-shape tier calibration suspected) · dh5a-pitchfields verdicts
+(mass identity off-unison? finding-14 × real intervals) · `surge` naming still
+unconfirmed.
 
-**Open at session end (tabled):** release shape/duration fine-tune · level-riding
-A/B (finding 13) · envelope-shape variety (old SC3 stage) · noise-dial formalization
-· algorithm codification second pass · chord/pitch material (S6; line-mass species
-held) · P1 Reaper bridge · P2 meta-track object · paper TODOs (RESEARCH_INDEX).
+**Next up:** grain-type verdicts → envelope-species mix pass (sequence-alternation
+hypothesis applies) · four-pass plan pass 3 (least dense — DH2 gap-distribution
+hypothesis waits there) + pass 4 (gradations) · level-scatter A/B (finding 13) ·
+P3 release-vocabulary session.
+
+**Day 1 (2026-08-10, compressed):** stack seeded from piece #3 · SI2 roster,
+dual-port D2 · CC7 law + gain staging calibrated · research arc: laws L1–L3,
+Xenakis rules X1–X8, the swell-cloud species (peak-cut = attack) · SC4 dense hold
+approved provisional.
 
 **Orientation for a cold session:** RESEARCH_INDEX.md (map) → CURVE_DATABASE.md
-(laws + entries 001–026 + consequences table) → XENAKIS_MASS_RULES.md →
-COMPOSER_LOG.md (verbatim). Servers: `node score/server.js` (:5200),
-`node sandbox/serve.js` (:4700). Score archive in the Load dropdown (sc1–sc4 etc.).
+(laws L1–L4, entries 001–036, MAXDENSE-1) → ENGINE_FRAMEWORK.md (the method) →
+COMPOSER_LOG.md (verbatim). Server: `node score/server.js` (:5200). Score archive
+in the Load dropdown.
 
-**Post-wrap addendum (2026-08-10, composer notes — AI executed independently
-2026-08-11, all committed/pushed; full statuses in PLAN §4):**
-- **Penn State research done** (PENN_STATE_RESEARCH.md): **deadline Sept 4, 2026**;
-  ensemble ballpark 12–20, ≥9 euphoniums documented; 10 parts + M1 fits the call.
-- **10-part expansion done**: 10 full-height lanes; old scores auto-migrate.
-  ⚠ Composer hardware: loopMIDI `tuba8/8b…tuba10/10b` + 6 UVI instances + Reaper
-  tracks (input monitoring ON) still to be created.
-- **Floating draw window done** (META = layer 10): timeline-locked, transparent,
-  drag ↕, ✕ hides, click-through outside draw mode.
-- **Grain suite done**: apex dots · go-time box + dotted start line · horizontal-
-  only shape drag · amplitude/duration/release handles (as-if-generated, peak
-  fixed) · `Grain env` toggle · node/diamond/splice tools removed for grains.
-- **Roads env catalog done** (DB 027): 8 shapes; **listen to `env-catalog` score**;
-  name `surge` proposed for our classic crescendo-cut.
-
-**2026-08-11 PASS 2 COMPLETE (live calibration sitting, OC→DH1–DH5):**
-The full onset/duration calibration arc ran start-to-finish with the composer at
-the desk — five listen-verdict-generate cycles in one day. Results:
-- **LAW L4 carved** (perceptual scale/bluntness): in-mass diversity needs
-  category-sized jumps; **×2.75 spacing adopted**; duration axis saturates both
-  ends → 4 categories (short/mid/long/exceptional-for-effect).
-- **RECIPE MAXDENSE-1 (DB 035)** — the calibrated max-density dial set: 7/s hold,
-  tier shares 0.62/0.26/0.09/0.03…0.54/0.30/0.12/0.04 (dh5a…dh5b tolerance band),
-  maxShortRun 2 + short→mid conversion + run-breaking longs, alternate on.
-- **Finding 14**: apex-stack loudness (co-peaking swells = vertical chord-like
-  loudness event; a second density resource). Parked as capturable recipe.
-- **Keeper-excerpt practice adopted**: interesting excerpts = {score, seed,
-  range, note}, collected as they appear.
-- Engine framework proven in anger: seeded ladders, span tests (maxDur shown
-  inert → superposition; global alternation shown non-lever), honest negatives
-  documented. ENGINE_FRAMEWORK.md is the method.
-- **Automation eval** (AUTOMATION_EVAL.md): Reaper tuba 8–10 one-shot ReaScript
-  ready (`tools/setup_tuba8_10.lua`); UVI access deferred-until-bites. Hardware
-  now UP (10-part renders sounding since DH1-regen).
-
-**Blockers:** none. **Next:** four-pass plan passes 3 (least dense — gap
-distribution hypothesis from DH2 obs 1 waits here) + 4 (density gradations) ·
-envelope-species mix pass (sequence-alternation hypothesis applies) · env-catalog
-listen + surge naming still open · level-scatter A/B (finding 13) tabled.
+**Blockers:** none.
 
 ## §3 Principles
 
@@ -125,6 +89,13 @@ listen + surge naming still open · level-scatter A/B (finding 13) tabled.
   swell-cloud species with peak-cut-as-attack. Engines enforce L1/L2 by default;
   uniform stimuli require explicit override. *(Note: an earlier D3 re performer-model
   rendering also stands — see the experiments doc; renumber on next journal pass.)*
+
+- **D4** *(2026-08-11)* — **Pass-2 outputs carry force of decision:** LAW L4
+  (perceptual scale/bluntness, ×2.75 spacing) · RECIPE MAXDENSE-1 (DB 035) is THE
+  starting point for max-density passages · keeper-excerpt practice ({score, seed,
+  time-range, note}). Fine-tuning happens in-piece against a named target texture,
+  not by reopening calibration. *Why:* five listen-cycles converged; the composer
+  declared the two parameters well explored.
 
 ## §5 Done
 

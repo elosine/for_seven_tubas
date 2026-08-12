@@ -34,6 +34,10 @@
   categories) · anti-clump machinery (maxShortRun, conversion, run-breaking
   longs) · **RECIPE MAXDENSE-1 adopted (DB 035)** · finding 14 (apex-stack
   loudness) logged. Fine-tune deferred to in-piece texture work.
+- **2c — Grain-type (envelope species) pass + pitch fields** — `doing 2026-08-11`
+  — env-catalog audition at tier durs (8 Roads shapes; composer elimination pass
+  pending; per-shape tier calibration suspected) · dh5a-pitchfields
+  (unison/chromatic/quartal, same seed) awaiting listen. DB 036.
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the
