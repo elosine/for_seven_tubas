@@ -496,3 +496,25 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   A/B partner that tests the mechanism.
 - **Listening order:** L1 → L4 (do they differ AT ALL in the dense image?) →
   dh1-superposed (does the long thread complete "the whole picture"?).
+
+### 030v — DH1 VERDICT (composer, at the desk)
+- "The long durations work well… it blends well" — **longStream superposition
+  CONFIRMED, graduates to engine core** (not a separate layer to the ear).
+- "Plenty dense… sort of a homogeneity… [dense grains] too close in similarity"
+  — the truncation signature heard directly (realized 98 short / 9 mid at 8/s).
+- **Direction:** "lean towards diversity of envelope lengths and sacrifice some
+  apex density… a mix of really long and, within a certain range, a larger
+  diversity." → DH2.
+
+### 031 — DH2: the density↔diversity tradeoff ladder (awaiting listen)
+- **Base = the diversity lean:** maxDur 4.5, pShort 0.35 (fewer short-category
+  draws), longStream 0.7/s [2.2–5 s] kept, 10 parts, 18 s dense hold, seed
+  20260812 frozen.
+- **One dial: hold rate** — `dh2-rate-L1..L4` = 5 / 6 / 7 / 8 onsets/s. Realized
+  apex mixes (short / 1–2 s / 2–3 s / 3 s+):
+  - L1 5/s: 33 / 35 / 4 / 8 — near-balanced, maximum diversity expression
+  - L2 6/s: 50 / 32 / 6 / 6 — predicted sweet spot
+  - L3 7/s: 73 / 25 / 3 / 7
+  - L4 8/s: 92 / 17 / 3 / 7 — the DH1 homogeneity, kept as anchor
+- **Listening question:** walking L4 → L1, where does "plenty dense" stop being
+  true? The highest rung that still reads diverse = the working apex.

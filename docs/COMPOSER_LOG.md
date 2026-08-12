@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-11 — DH1 verdict: longs blend; sacrifice density for envelope-length diversity (dictated)
+
+"Okay. I think the long durations work well. And I think it blends well, and I
+think I would lean more towards a diversity of envelope lengths and sacrifice some
+of the apex density. The last test was plenty dense, and there was sort of a
+homogeneity. So I don't know what that means for the engine. But a mix of really
+long and then, within a certain range, a larger diversity. So here, I'm not sure
+how much we tried with the other parts, but they're kind of too close in
+similarity."
+
+*(→ longStream graduates to engine core; DH2 rate ladder at diversity-leaning
+settings; DB 030 verdict + 031.)*
+
 ## 2026-08-11 — The engine-development framework (dictated)
 
 "Let's develop a systematic framework for developing the grain generative engine.
