@@ -848,3 +848,12 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
 - **Standing:** accel builds default to anchor:'peak'. Stationary quota textures
   keep onset-anchor (their max-randomness hides the scramble — but revisit if
   apex-precision passages emerge).
+
+### 043d — dens5-accel-noise: calibrated noise atop the fixed accelerando
+- **Composer (dens4-peak verdict):** "better" · end-plateau identified as the
+  DESIGNED 12 s hold (straight-line request disregarded per composer's rule);
+  note: the ramp top also perceptually saturates ~5/s+ (count categories).
+- **`dens5-accel-noise`** — dens4 exactly (peak-anchored, γ=1, T=60, seed
+  20260822) + per-gap lognormal jitter σ=0.15 restored. A/B partner: pure
+  (dens4) vs sound-mass (dens5) — calibrates whether σ 0.15 roughens without
+  losing the swell.
