@@ -4,6 +4,17 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — DH6 verdict: illegible; drop quasi-gauss; staged introduction (dictated)
+
+"Not what I expected — hard to provide analysis. Let's drop the quasi-gauss. Can
+we have — what's the length? — so one length as before, surge; then over the same
+length, introduce rex or exp — the attack-first one [= expodec]; then one full
+length, mixed."
+
+*(→ kept roster now {sine, expodec, surge}. DH7: three 18 s segments down one
+timeline, same seed — pure surge · surge with expodec RAMPING IN across the
+segment · full three-species mix. Engine: envMixRamp. DB 038.)*
+
 ## 2026-08-12 — Envelope elimination pass (dictated, FIRST REMOTE VERDICT via CRD)
 
 "Envelopes: let's use 1 (sin?), 3 — is that tri-something? — and the penultimate

@@ -679,3 +679,20 @@ material · archive ref · status (experiment / adopted / in-piece @ location) �
   accents inside a surge field (the L3-keeper logic at max density)? (3) per-shape
   tier calibration: do mid-tier sines/flat-tops FEEL longer than mid-tier surges
   (L4 per-shape offsets needed)? (4) which mix is the texture?
+
+### 038 — DH7: staged species introduction (awaiting listen)
+- **Date:** 2026-08-12 · **Status:** awaiting listen
+- **DH6 verdict:** full blends illegible ("not what I expected, hard to provide
+  analysis") — **quasi-gaussian DROPPED**; kept roster now {sine, expodec, surge}.
+  Lesson for the framework: introduce species STAGED, not all at once.
+- **`dh7-species-intro`** — three 18 s dense-hold segments, one timeline, same
+  seed (20260817), MAXDENSE-1 base. Engine addition: `envMixRamp` ({from, to}
+  weights interpolated across the render — "introduce a species over the length").
+  - **2–20 s: pure surge** (88 grains — the reference sound)
+  - **24–42 s: expodec ramps in** 0→35% (realized 70 surge / 18 expodec,
+    9%→33% first/second half)
+  - **46–64 s: full mix** surge .5 / expodec .25 / sine .25 (44/25/19)
+- **Listening questions:** (1) in seg 2, WHEN do you start hearing the attack-
+  first grains — and does the field's character shift or just color? (2) seg 3 vs
+  seg 1: legible now that it arrives staged? (3) does sine's entry (seg 3 only)
+  soften the density (attack-salience risk)?

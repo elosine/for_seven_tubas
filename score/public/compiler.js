@@ -1116,17 +1116,31 @@ function compileOnsetCloud(C, spec) {
   // Envelope species mix (2c pass): per-grain shape from weighted mix, with a
   // per-part no-immediate-repeat redraw — the DH4 alternation instinct applied
   // to species (same-species runs in a part read as clumps).
-  const envMix = spec.envMix || null;   // e.g. {surge:.55, sine:.2, 'quasi-gaussian':.15, expodec:.1}
-  const mixShapes = envMix ? Object.keys(envMix) : null;
-  const mixTotal = envMix ? mixShapes.reduce((s, k) => s + envMix[k], 0) : 0;
+  const envMix = spec.envMix || null;   // e.g. {surge:.55, sine:.2, expodec:.1}
+  // envMixRamp = {from:{...}, to:{...}}: weights interpolate linearly across the
+  // render — "introduce" a species over the segment (composer, DH7).
+  const envRamp = spec.envMixRamp || null;
+  const mixAt = (tt) => {
+    if (envRamp) {
+      const f = Math.max(0, Math.min(1, tt / total));
+      const keys = [...new Set([...Object.keys(envRamp.from), ...Object.keys(envRamp.to)])];
+      const w = {};
+      keys.forEach(k => { w[k] = (envRamp.from[k] || 0) + ((envRamp.to[k] || 0) - (envRamp.from[k] || 0)) * f; });
+      return w;
+    }
+    return envMix;
+  };
   const lastShape = new Array(parts).fill(null);
-  const drawShape = (part) => {
-    if (!envMix) return 'surge';
+  const drawShape = (part, tt) => {
+    const w = mixAt(tt);
+    if (!w) return 'surge';
+    const keys = Object.keys(w);
+    const totW = keys.reduce((s, k) => s + w[k], 0);
     let pick;
     for (let tries = 0; tries < 2; tries++) {
-      let r = rand() * mixTotal;
-      pick = mixShapes[mixShapes.length - 1];
-      for (const k of mixShapes) { r -= envMix[k]; if (r <= 0) { pick = k; break; } }
+      let r = rand() * totW;
+      pick = keys[keys.length - 1];
+      for (const k of keys) { r -= w[k]; if (r <= 0) { pick = k; break; } }
       if (pick !== lastShape[part]) break;   // redraw once on immediate repeat
     }
     lastShape[part] = pick;
@@ -1158,7 +1172,7 @@ function compileOnsetCloud(C, spec) {
     const lv = Math.max(0.5, Math.min(1, levelFlat + gauss() * levelSigma));
     const ratio = ratioRange[0] * Math.pow(ratioRange[1] / ratioRange[0], rand());
     events.push({ onset: a.t, part: a.part, dur, target, release, lv, ratio, wasTrunc,
-                  isLong: !!a.res, tier: a.res, shape: drawShape(a.part) });
+                  isLong: !!a.res, tier: a.res, shape: drawShape(a.part, a.t - T0) });
   }
 
   // ---- 4. Render: onset-anchored envelopes (species per grain) ----
@@ -1220,7 +1234,7 @@ function compileOnsetCloud(C, spec) {
     }) : null,
     reservedDropped: resStreams.length ? longDropped : null,
     convertedShorts: converted,
-    speciesMix: envMix ? (() => {
+    speciesMix: (envMix || envRamp) ? (() => {
       const all = {}, apex = {};
       events.forEach(e => { all[e.shape] = (all[e.shape] || 0) + 1; });
       apexEvents.forEach(e => { apex[e.shape] = (apex[e.shape] || 0) + 1; });
