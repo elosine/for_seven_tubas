@@ -4,6 +4,15 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-12 — Note to self: play the shapes (dictated)
+
+"One more reminder note to myself: try PLAYING some of the shapes as another
+way to collect data models."
+
+*(→ journal §6 Human Notes. Performed shapes = a second corpus for D6: real
+performance curves as ground truth for the machine models; connects to D3's
+performer-model question.)*
+
 ## 2026-08-12 — Wrap addendum: the reverse-engineering approach (dictated)
 
 "Let me just add for the journal: I'm trying a REVERSE-ENGINEERING approach.

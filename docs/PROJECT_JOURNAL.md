@@ -146,3 +146,8 @@ container.
 
 ## §6 Human Notes
 
+- *(2026-08-12)* **Try PLAYING some of the shapes** — as another way to collect
+  data models (performed shapes = ground truth for D6's harvest; ties to D3's
+  performer-model question; the Stereo-Mix capture path from the probes could
+  record it).
+
