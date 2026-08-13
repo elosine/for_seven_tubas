@@ -87,6 +87,8 @@
         pointer-events: auto;
     }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
+    #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
+    #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
     .soloBtn {
         position: absolute; left: 58px; top: 2px; z-index: 3;
@@ -422,6 +424,10 @@
     </select>
     <button id="stampBtn">Stamp → META</button>
     <button id="cc7ResetBtn" title="All-notes-off + CC7=127 on every port/channel">CC7 Reset</button>
+    <span style="color:#ccc">|</span>
+    <select id="recLaneSel" title="record target part"></select>
+    <select id="recTechSel" title="capture technique"></select>
+    <button id="recBtn" title="Capture played notes into the target lane (play the score to record against the scroll)">&#9210; Rec</button>
     <span style="color:#ccc">|</span>
     <button id="clearAllBtn">Clear All</button>
     <span style="color:#ccc">|</span>
@@ -1413,6 +1419,35 @@ const Composer = {
             setTimeout(() => { cc7Btn.textContent = 'CC7 Reset'; }, 1500);
         });
 
+        // ---- Score-lane MIDI recording controls (composer 2026-08-13) ----
+        const recLaneSel = document.getElementById('recLaneSel');
+        const recTechSel = document.getElementById('recTechSel');
+        const recBtn = document.getElementById('recBtn');
+        if (recLaneSel && recTechSel && recBtn) {
+            TRACKS.forEach((t, i) => {
+                const o = document.createElement('option');
+                o.value = i; o.textContent = t.label;
+                recLaneSel.appendChild(o);
+            });
+            const techs = (typeof INSTRUMENTS !== 'undefined' && INSTRUMENTS.tuba1)
+                ? INSTRUMENTS.tuba1.techniques : [];
+            techs.forEach(tq => {
+                const o = document.createElement('option');
+                o.value = tq.key; o.textContent = tq.label;
+                recTechSel.appendChild(o);
+            });
+            recTechSel.value = 'staccato';
+            recLaneSel.addEventListener('change', () => { this.recTargetLayer = parseInt(recLaneSel.value) || 0; });
+            recTechSel.addEventListener('change', () => { this.recTech = recTechSel.value; });
+            recBtn.addEventListener('click', async () => {
+                if (!this._zoneMidiInited && this.initZoneMidi) await this.initZoneMidi();
+                this.recArm = !this.recArm;
+                if (!this.recArm) this._recActive = {};
+                recBtn.classList.toggle('armed', this.recArm);
+                recBtn.innerHTML = this.recArm ? '&#9210; Recording&#8230;' : '&#9210; Rec';
+            });
+        }
+
         // ---- Per-part solo buttons (composer 2026-08-12) ----
         this.soloParts = new Set();
         for (let i = 0; i < META_LAYER; i++) {
@@ -1717,6 +1752,87 @@ const Composer = {
             }
             // Vertical scroll without Ctrl: pass through (node slope handlers use stopPropagation)
         }, { passive: false });
+    },
+
+    // ========== SCORE-LANE MIDI RECORDING (composer 2026-08-13: play the shape,
+    // AI extrapolates + fleshes out — the working-backwards loop) ==========
+    // Notes land at the scrolling playhead with DRIVER timestamps (no quantize),
+    // render instantly as flat 'plain' grains (grain-suite editable), and echo
+    // through the capture technique's port/channel so you hear what you play.
+
+    recArm: false,
+    recTargetLayer: 0,
+    recTech: 'staccato',
+    _recActive: {},
+    _hwInput: null,
+
+    bindHwInput() {
+        const acc = this._zoneMidiAccess;
+        if (!acc) return;
+        const MATCH = /keystation/i, EXCLUDE = /^MIDIIN\d+/i;
+        const cands = [...acc.inputs.values()].filter(i => MATCH.test(i.name) && !EXCLUDE.test(i.name));
+        const inp = cands.find(i => !/mirror/i.test(i.name)) || cands[0] || null;
+        if (this._hwInput === inp) return;
+        if (this._hwInput) this._hwInput.onmidimessage = null;
+        this._hwInput = inp;
+        if (inp) inp.onmidimessage = (e) => this.onHwMidi(e);
+        console.log('[score-rec] keyboard input:', inp ? inp.name : 'NONE');
+    },
+
+    recNowSec(timeStamp) {
+        return this.isPlaying
+            ? (this.playStartOffset / this.pixelsPerSecond) + (timeStamp - this.playStartTime) / 1000
+            : this.scrollOffset / this.pixelsPerSecond;
+    },
+
+    recRouting() {
+        const t = TRACKS[this.recTargetLayer];
+        const inst = t && typeof INSTRUMENTS !== 'undefined' && INSTRUMENTS[t.instKey];
+        if (!inst) return null;
+        const tech = (inst.techniques || []).find(q => q.key === this.recTech) || inst.techniques[0];
+        const out = this._zoneMidiOutputs[((tech.port || inst.port) || '').toLowerCase()];
+        return out ? { out, ch: (tech.channel || 1) - 1, tech } : null;
+    },
+
+    onHwMidi(e) {
+        const [st, d1, d2] = e.data, cmd = st & 0xF0;
+        const isOn = cmd === 0x90 && d2 > 0;
+        const isOff = cmd === 0x80 || (cmd === 0x90 && d2 === 0);
+        if (!isOn && !isOff) return;
+        const r = this.recRouting();
+        if (r) {   // live thru: hear the capture patch while playing
+            if (isOn) {
+                r.out.send([0xB0 | r.ch, 7, 127]);
+                if (r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]);
+            }
+            r.out.send([(isOn ? 0x90 : 0x80) | r.ch, d1, isOn ? d2 : 0]);
+        }
+        if (!this.recArm) return;
+        const now = this.recNowSec(e.timeStamp);
+        if (isOn) {
+            this._recActive[d1] = { on: now, ts: e.timeStamp, vel: d2 };
+        } else if (this._recActive[d1]) {
+            const a = this._recActive[d1];
+            delete this._recActive[d1];
+            const lv = Math.max(1, Math.round((a.vel / 127) * 100) / 10);
+            // duration = real elapsed driver time (correct whether or not the
+            // score is scrolling; static playhead would collapse spans otherwise)
+            const durSec = (e.timeStamp - a.ts) / 1000;
+            const wc = this.createWaveCurve({
+                startSeconds: Math.round(a.on * 1000) / 1000,
+                endSeconds: Math.round((a.on + Math.max(0.05, durSec)) * 1000) / 1000,
+                layer: this.recTargetLayer,
+                nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }],
+                segments: [{ model: 'power', slope: 0 }],
+                color: '#607D8B', opacity: 0.55,
+                performanceNotes: 'TAKE'
+            });
+            wc.sonifyNote = d1;
+            wc.technique = this.recTech;
+            wc.sonifyMode = 'plain';
+            this.renderWaveCurve(wc);
+            this.markDirty();
+        }
     },
 
     // ========== PLAY / PAUSE ==========
@@ -7281,10 +7397,14 @@ const Composer = {
             // KS mode (composer 2026-08-12): the grain rides a keyswitched SAMPLE
             // (cresc-cut) — latch the KS + set a STATIC level in the pre-arm, no
             // CC7 stream during the grain; noteOff at curve end = the cut.
-            const ksMode = wc.sonifyMode === 'ks' && wc.ksNote != null;
+            // 'ks' = keyswitched sample; 'plain' = captured note (static level,
+            // no CC7 stream) — both bypass curve-following
+            const ksMode = (wc.sonifyMode === 'ks' && wc.ksNote != null) || wc.sonifyMode === 'plain';
             const ksArm = () => {
-                output.send([0x90 | ch, wc.ksNote, 100]);   // latch the keyswitch
-                output.send([0x80 | ch, wc.ksNote, 0]);
+                if (wc.sonifyMode === 'ks' && wc.ksNote != null) {
+                    output.send([0x90 | ch, wc.ksNote, 100]);   // latch the keyswitch
+                    output.send([0x80 | ch, wc.ksNote, 0]);
+                }
                 output.send([0xB0 | ch, 7, this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)]);
             };
             // solo gate: un-soloed parts take the outside path (clean noteOff)
@@ -10731,6 +10851,12 @@ const Composer = {
             access.outputs.forEach((output) => {
                 this._zoneMidiOutputs[output.name.toLowerCase()] = output;
             });
+            this._zoneMidiAccess = access;
+            access.onstatechange = () => {
+                clearTimeout(this._hwRebindTimer);
+                this._hwRebindTimer = setTimeout(() => this.bindHwInput(), 400);
+            };
+            this.bindHwInput();
             this._zoneMidiInited = true;
         } catch (e) {
             console.warn('Zone MIDI init failed:', e);
