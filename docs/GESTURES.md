@@ -49,6 +49,13 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s04**: THREE gestures, all with movable META shapes — (1) the opening
+  big build finally drawn: **long crescendo wedge** over 2.0–34.65 s, bound to
+  the whole opening (`grp-g1-opening`, draggable as one unit); (2) the scr2
+  burst at 36.2 s (composer dragged it 36.54→36.2 — first in-the-wild group
+  drag); (3) **VERT01-03 fp blast** parked at 40.0 s, note duration 1.98 s
+  (composer heard the fp decay done at 5.88 in harmony-blasts; onset was 3.9),
+  decay-wedge shape, composer will drag into place (`grp-vert03-fp-01`).
 - **piece-s03**: the B2 × BbE-2oct excerpt REPLACED by **CLUST02-A scr2 ×
   BbE-2oct** (the denser scrambled burst, 31 notes ≈ 19/s) at the same spot,
   36.54 s, movable META group shape (`grp-scr2-bbe-01`).
