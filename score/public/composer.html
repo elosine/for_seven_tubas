@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b15-panelscale</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b16-boxscale</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <span>|</span>
@@ -3510,6 +3510,13 @@ const Composer = {
         this.pushUndoState();
         const dims = this.getLaneDims(wc.layer);
         const origStart = wc.startSeconds, origEnd = wc.endSeconds;
+        // META group shape: the green box handles retime the MEMBERS too (this
+        // was the composer's actual resize path all along — 2026-08-13)
+        const isGroupShape = !!wc.groupId && wc.layer === META_LAYER;
+        const grpMembers = isGroupShape
+            ? this.objects.filter(o => o !== wc && o.groupId === wc.groupId)
+                .map(o => ({ o, start: o.startSeconds, end: o.endSeconds, time: o.time }))
+            : [];
         const origYs = wc.nodes.map(n => n.y);
         const maxY = Math.max(...origYs, 0.5);
         const x0 = startEvent.clientX, y0 = startEvent.clientY;
@@ -3543,6 +3550,20 @@ const Composer = {
                 const dv = -(ev.clientY - y0) / dims.height * 10;
                 const scale = Math.max(0.1, (maxY + dv) / maxY);
                 wc.nodes.forEach((n, i) => { n.y = Math.max(0, Math.min(10, Math.round(origYs[i] * scale * 100) / 100)); });
+            }
+            if (isGroupShape && (kind === 'left' || kind === 'right' || kind === 'corner')) {
+                const ratio = (wc.endSeconds - wc.startSeconds) / (origEnd - origStart);
+                const map = t => +(wc.startSeconds + (t - origStart) * ratio).toFixed(3);
+                for (const m of grpMembers) {
+                    if (m.o.type === 'marker') {
+                        m.o.time = Math.max(0, map(m.time));
+                        this.renderMarker(m.o);
+                    } else {
+                        m.o.startSeconds = map(m.start);
+                        m.o.endSeconds = Math.max(m.o.startSeconds + 0.02, map(m.end));
+                        this.renderWaveCurve(m.o);
+                    }
+                }
             }
             this.updateWCRendering(wc);
             this.renderNodeHandles(wc);
