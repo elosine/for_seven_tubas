@@ -43,6 +43,20 @@
   .blk { position: absolute; background: #6f9fd8; border: 1px solid #8ab4e8; border-radius: 2px; min-width: 3px; z-index: 3; }
   #cursor { position: absolute; top: 0; bottom: 0; width: 1px; background: #ff5252; z-index: 5; pointer-events: none; }
   #laneInfo { font-size: 11px; color: #888; margin-top: 4px; min-height: 14px; }
+  .takeChip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+    padding: 3px 8px; border: 1px solid #555; border-radius: 6px; cursor: pointer;
+    user-select: none; background: #2a2a30; }
+  .takeChip.muted { opacity: 0.35; }
+  .takeChip .dot { width: 10px; height: 10px; border-radius: 3px; }
+  .takeChip .tx { color: #999; margin-left: 2px; cursor: pointer; }
+  .takeChip .tx:hover { color: #fff; }
+  #ruler { position: absolute; top: 0; left: 0; height: 16px; background: #1b1b20;
+    border-bottom: 1px solid #444; z-index: 4; }
+  .rlab { position: absolute; top: 1px; font-size: 9px; color: #7a7a88; }
+  .rtick { position: absolute; top: 10px; bottom: 0; width: 1px; background: #4a4a58; }
+  .vminor { position: absolute; top: 16px; bottom: 0; width: 1px; background: #2d2d36; z-index: 1; }
+  .blk { cursor: grab; }
+  .blk:active { cursor: grabbing; }
 </style>
 </head>
 <body>
@@ -61,6 +75,8 @@
   <select id="motives"><option value="">— phrases —</option></select>
 </div>
 
+<div class="row" id="takesBar"></div>
+
 <div id="kbd"></div>
 
 <div id="laneWrap">
@@ -74,7 +90,19 @@
 const state = { instKey: Object.keys(INSTRUMENTS)[0], techIdx: 0, out: null, inp: null,
                 note: null, vel: 90, len: 2000, looping: false, grid: true,
                 playing: false, playTimers: [], playStart: 0, cursorPos: 0 };
-const rec = { armed: false, t0: null, active: {}, events: [] };
+// MULTITRACK takes (composer 2026-08-13: build clouds by playing) - each take
+// is one recorded layer on the shared timeline; overlaid in the lane by color.
+const TAKE_COLORS = ['#6f9fd8','#d88f6f','#8fd18f','#d8c76f','#b98fd8','#6fd8c7','#d86fa8','#a8d86f'];
+const rec = { armed: false, t0: null, anchor: 0, active: {}, takes: [], curTake: null, seq: 0 };
+const allEvents = () => rec.takes.filter(t => !t.mute).flatMap(t => t.events);
+const anyEvents = () => rec.takes.some(t => t.events.length);
+function ensureTake() {
+  if (rec.curTake) return rec.curTake;
+  rec.curTake = { id: ++rec.seq, color: TAKE_COLORS[(rec.seq - 1) % TAKE_COLORS.length], mute: false, events: [] };
+  rec.takes.push(rec.curTake);
+  renderTakesBar();
+  return rec.curTake;
+}
 const $ = id => document.getElementById(id);
 const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const sci = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
@@ -160,9 +188,17 @@ function onHardwareMidi(e) {
   if (isOn) { flash(d1); state.note = d1; markCurrent(); }
   if (!rec.armed) return;
   const t = e.timeStamp;
-  if (isOn) { if (rec.t0 === null) rec.t0 = t; rec.active[d1] = { on: t - rec.t0, vel: d2 }; }
-  else if (rec.active[d1]) {
-    rec.events.push({ note: d1, vel: rec.active[d1].vel, on: rec.active[d1].on, off: t - rec.t0 });
+  // time base: overdub rides the playback clock; standalone anchors the first
+  // note at the cursor (punch-in)
+  const evTime = () => state.playing
+    ? state.cursorPos + (performance.now() - state.playStart)
+    : rec.anchor + (t - rec.t0);
+  if (isOn) {
+    if (!state.playing && rec.t0 === null) { rec.t0 = t; rec.anchor = state.cursorPos; }
+    ensureTake();
+    rec.active[d1] = { on: evTime(), vel: d2 };
+  } else if (rec.active[d1]) {
+    rec.curTake.events.push({ note: d1, vel: rec.active[d1].vel, on: rec.active[d1].on, off: evTime() });
     delete rec.active[d1];
     renderLane();
   }
@@ -171,31 +207,40 @@ function onHardwareMidi(e) {
 // ---- transport ----
 $('rec').onclick = () => {
   $('rec').blur();
-  stopPlayback();
   rec.armed = !rec.armed;
-  if (rec.armed && rec.events.length === 0) rec.t0 = null;
+  if (rec.armed) { rec.t0 = null; rec.curTake = null; }   // new take, anchored at cursor
+  else {
+    if (rec.curTake && rec.curTake.events.length === 0) {  // drop empty take
+      rec.takes = rec.takes.filter(t => t !== rec.curTake);
+    }
+    rec.curTake = null; rec.t0 = null;
+    renderTakesBar();
+  }
   $('rec').classList.toggle('armed', rec.armed);
   $('rec').textContent = rec.armed ? '⏺ Recording…' : '⏺ Record';
   updateButtons();
 };
 function startPlayback() {
-  if (!state.out || rec.events.length === 0) return;
+  const evs = allEvents();
+  if (!state.out || (evs.length === 0 && !rec.armed)) return;
   stopPlayback(false);
   const pos = state.cursorPos;
-  const dur = Math.max(...rec.events.map(e => e.off));
-  if (pos >= dur) { state.cursorPos = 0; return startPlayback(); }
+  const dur = evs.length ? Math.max(...evs.map(e => e.off)) : 0;
+  if (!rec.armed && pos >= dur) { state.cursorPos = 0; return startPlayback(); }
   state.playing = true;
   state.playStart = performance.now();
   const ch = chan();
   if (tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
-  for (const ev of rec.events) {
+  for (const ev of allEvents()) {
     if (ev.off <= pos) continue;
     state.playTimers.push(setTimeout(() => { if (state.out) { state.out.send([0x90 | ch, ev.note, ev.vel]); flash(ev.note); } }, Math.max(0, ev.on - pos)));
     state.playTimers.push(setTimeout(() => { if (state.out) state.out.send([0x80 | ch, ev.note, 0]); }, ev.off - pos));
   }
-  state.playTimers.push(setTimeout(() => {
-    if (state.looping) startPlayback(); else stopPlayback(false);
-  }, dur - pos + (state.looping ? 500 : 150)));
+  if (!rec.armed) {   // overdub = open-ended; user stops manually
+    state.playTimers.push(setTimeout(() => {
+      if (state.looping) startPlayback(); else stopPlayback(false);
+    }, dur - pos + (state.looping ? 500 : 150)));
+  }
   cursorTick();
   updateTransport();
 }
@@ -204,7 +249,7 @@ function stopPlayback(cutNotes = true) {
   state.playTimers = [];
   if (state.playing && cutNotes && state.out) {
     const ch = chan();
-    for (const ev of rec.events) state.out.send([0x80 | ch, ev.note, 0]);
+    for (const ev of allEvents()) state.out.send([0x80 | ch, ev.note, 0]);
   }
   state.playing = false;
   positionCursor();
@@ -223,21 +268,42 @@ function updateTransport() {
 $('play').onclick = () => { $('play').blur(); state.playing ? stopPlayback() : startPlayback(); };
 $('loop').onclick = () => { $('loop').blur(); state.looping = !state.looping; updateTransport(); };
 $('grid').onclick = () => { $('grid').blur(); state.grid = !state.grid; renderLane(); updateTransport(); };
-$('clear').onclick = () => { $('clear').blur(); stopPlayback(); rec.events = []; rec.active = {}; rec.t0 = null; state.cursorPos = 0; renderLane(); updateButtons(); };
+$('clear').onclick = () => { $('clear').blur(); stopPlayback(); rec.takes = []; rec.curTake = null; rec.active = {}; rec.t0 = null; rec.seq = 0; state.cursorPos = 0; renderTakesBar(); renderLane(); updateButtons(); };
 function updateButtons() {
-  $('play').disabled = rec.events.length === 0;
-  $('clear').disabled = rec.events.length === 0 && !rec.armed;
-  $('save').disabled = rec.events.length === 0;
+  $('play').disabled = !anyEvents() && !rec.armed;
+  $('clear').disabled = !rec.takes.length && !rec.armed;
+  $('save').disabled = !anyEvents();
+}
+
+function renderTakesBar() {
+  const bar = $('takesBar');
+  bar.innerHTML = '';
+  rec.takes.forEach((tk, i) => {
+    const chip = document.createElement('span');
+    chip.className = 'takeChip' + (tk.mute ? ' muted' : '');
+    chip.innerHTML = '<span class="dot" style="background:' + tk.color + '"></span>T' + tk.id +
+      ' <span style="color:#777;font-size:10px">' + tk.events.length + 'n</span><span class="tx" title="delete">✕</span>';
+    chip.title = 'click = mute/unmute';
+    chip.onclick = (e) => {
+      if (e.target.classList.contains('tx')) {
+        rec.takes.splice(i, 1);
+        if (rec.curTake === tk) rec.curTake = null;
+      } else tk.mute = !tk.mute;
+      renderTakesBar(); renderLane(); updateButtons();
+    };
+    bar.appendChild(chip);
+  });
 }
 
 // ---- phrases ----
 $('save').onclick = async () => {
   $('save').blur();
-  if (rec.events.length === 0) return;
+  if (!anyEvents()) return;
   const name = prompt('Name this phrase:');
   if (!name) return;
+  const merged = allEvents().slice().sort((a, b) => a.on - b.on);
   const body = { name, created: new Date().toISOString(), instrument: state.instKey,
-                 technique: tech().key, events: rec.events, annotations: [] };
+                 technique: tech().key, events: merged, takes: rec.takes, annotations: [] };
   const r = await fetch('/motives', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
   if (r.ok) { const { file } = await r.json(); loadMotiveList(file); }
 };
@@ -258,7 +324,11 @@ $('motives').onchange = async e => {
   if (!e.target.value) return;
   const m = await (await fetch('/motives/' + e.target.value)).json();
   stopPlayback();
-  rec.events = m.events || []; rec.active = {}; rec.t0 = null; state.cursorPos = 0;
+  rec.takes = (m.takes && m.takes.length) ? m.takes
+    : [{ id: 1, color: TAKE_COLORS[0], mute: false, events: m.events || [] }];
+  rec.seq = Math.max.apply(null, rec.takes.map(t => t.id).concat([0]));
+  rec.curTake = null; rec.active = {}; rec.t0 = null; state.cursorPos = 0;
+  renderTakesBar();
   if (m.instrument && INSTRUMENTS[m.instrument] && m.instrument !== state.instKey) {
     state.instKey = m.instrument; $('inst').value = m.instrument; state.techIdx = 0;
     buildTechSelect(); buildKeyboard(); resolveBindings();
@@ -273,32 +343,46 @@ $('motives').onchange = async e => {
 // ---- gesture lane: fixed semitone rows, keyboard column, zebra grid, cursor ----
 let PXPS = 60; // px per second; Alt+scroll zooms
 function laneSpan() {
-  if (rec.events.length) {
-    return [Math.min(...rec.events.map(e => e.note)) - 2, Math.max(...rec.events.map(e => e.note)) + 2];
+  const evs = rec.takes.flatMap(t => t.events);
+  if (evs.length) {
+    return [Math.min(...evs.map(e => e.note)) - 2, Math.max(...evs.map(e => e.note)) + 2];
   }
   return [46, 74];
 }
 function renderLane() {
   const lane = $('lane'), content = $('laneContent'), kbd = $('laneKbd');
   content.innerHTML = ''; kbd.innerHTML = '';
+  const RULER_H = 16;
+  const evsAll = rec.takes.flatMap(t => t.events);
   const [lo, hi] = laneSpan();
   const rows = hi - lo + 1;
   const H = lane.clientHeight;
-  const rowH = H / rows;
-  const yOf = m => (hi - m) * rowH;
-  const dur = rec.events.length ? Math.max(...rec.events.map(e => e.off), 1) : 4000;
+  const rowH = (H - RULER_H) / rows;
+  const yOf = m => RULER_H + (hi - m) * rowH;
+  const dur = evsAll.length ? Math.max(...evsAll.map(e => e.off), 1) : 8000;
   const W = Math.max((dur / 1000) * PXPS + 24, lane.clientWidth);
   content.style.width = W + 'px';
   for (let m = hi; m >= lo; m--) {
     const kr = document.createElement('div');
     kr.className = 'krow ' + (isBlackRow(m) ? 'kb' : 'kw');
     kr.style.top = yOf(m) + 'px'; kr.style.height = rowH + 'px';
-    if (m % 12 === 0 && rowH >= 7) kr.innerHTML = `<span class="klab">${sci(m)}</span>`;
+    if (m % 12 === 0 && rowH >= 7) kr.innerHTML = '<span class="klab">' + sci(m) + '</span>';
     kbd.appendChild(kr);
     if ((m % 12 === 4 || m % 12 === 11) && m < hi) {
-      const s = document.createElement('div'); s.className = 'ksep'; s.style.top = yOf(m) + 'px';
-      kbd.appendChild(s);
+      const sp = document.createElement('div'); sp.className = 'ksep'; sp.style.top = yOf(m) + 'px';
+      kbd.appendChild(sp);
     }
+  }
+  // timeline ruler: labeled seconds + ticks
+  const ruler = document.createElement('div');
+  ruler.id = 'ruler'; ruler.style.width = W + 'px';
+  content.appendChild(ruler);
+  const labStep = PXPS >= 40 ? 1 : 2;
+  for (let sec = 0; sec <= Math.ceil(W / PXPS); sec += labStep) {
+    const tk = document.createElement('div'); tk.className = 'rtick';
+    tk.style.left = (4 + sec * PXPS) + 'px'; ruler.appendChild(tk);
+    const lb = document.createElement('div'); lb.className = 'rlab';
+    lb.style.left = (7 + sec * PXPS) + 'px'; lb.textContent = sec + 's'; ruler.appendChild(lb);
   }
   if (state.grid) {
     for (let m = hi; m >= lo; m--) {
@@ -308,33 +392,79 @@ function renderLane() {
         content.appendChild(z);
       }
       if ((m % 12 === 4 || m % 12 === 11) && m < hi) {
-        const s = document.createElement('div'); s.className = 'lsep'; s.style.top = yOf(m) + 'px';
-        content.appendChild(s);
+        const sp = document.createElement('div'); sp.className = 'lsep'; sp.style.top = yOf(m) + 'px';
+        content.appendChild(sp);
       }
     }
-    for (let sec = 1; sec <= Math.ceil(dur / 1000); sec++) {
-      const v = document.createElement('div'); v.className = 'vsec';
-      v.style.left = (4 + sec * PXPS) + 'px';
+    // vertical grid: zoom-adaptive minor lines + full-second lines
+    const minor = PXPS >= 140 ? 0.25 : PXPS >= 70 ? 0.5 : PXPS >= 30 ? 1 : 2;
+    for (let tSec = minor; tSec <= W / PXPS; tSec += minor) {
+      const isSec = Math.abs(tSec - Math.round(tSec)) < 1e-6;
+      const v = document.createElement('div');
+      v.className = isSec ? 'vsec' : 'vminor';
+      v.style.left = (4 + tSec * PXPS) + 'px';
       content.appendChild(v);
     }
   }
-  for (const ev of rec.events) {
-    const b = document.createElement('div'); b.className = 'blk';
-    b.style.left = 4 + (ev.on / 1000) * PXPS + 'px';
-    b.style.width = Math.max(3, ((ev.off - ev.on) / 1000) * PXPS) + 'px';
-    b.style.top = (yOf(ev.note) + 1) + 'px'; b.style.height = Math.max(3, rowH - 2) + 'px';
-    content.appendChild(b);
+  // takes overlaid by color; muted takes ghosted; blocks draggable (move/resize)
+  for (const tk of rec.takes) {
+    for (const ev of tk.events) {
+      const b = document.createElement('div'); b.className = 'blk';
+      b.style.left = 4 + (ev.on / 1000) * PXPS + 'px';
+      b.style.width = Math.max(3, ((ev.off - ev.on) / 1000) * PXPS) + 'px';
+      b.style.top = (yOf(ev.note) + 1) + 'px'; b.style.height = Math.max(3, rowH - 2) + 'px';
+      b.style.background = tk.color; b.style.borderColor = tk.color;
+      if (tk.mute) { b.style.opacity = 0.25; }
+      else b.addEventListener('mousedown', e => startBlkDrag(e, tk, ev, { rowH, hi, RULER_H }));
+      content.appendChild(b);
+    }
   }
   const cur = document.createElement('div');
   cur.id = 'cursor';
   content.appendChild(cur);
   positionCursor();
-  if (rec.armed) lane.scrollLeft = W;
-  $('laneInfo').textContent = rec.events.length
-    ? `${rec.events.length} notes · ${(dur / 1000).toFixed(2)} s · ${PXPS}px/s`
-    : `${PXPS}px/s`;
+  if (rec.armed && !state.playing) lane.scrollLeft = W;
+  const n = evsAll.length;
+  $('laneInfo').textContent = n
+    ? rec.takes.length + ' take' + (rec.takes.length > 1 ? 's' : '') + ' · ' + n + ' notes · ' +
+      (dur / 1000).toFixed(2) + ' s · ' + PXPS + 'px/s · drag note = move, right edge = resize'
+    : PXPS + 'px/s';
+  renderTakesBar();   // keep chip note-counts live during recording
   updateButtons();
 }
+
+// note editing: drag body = move (time + pitch), drag right edge = resize
+function startBlkDrag(e, tk, ev, geo) {
+  if (state.playing || rec.armed) return;
+  e.preventDefault(); e.stopPropagation();
+  const b = e.currentTarget;
+  const rect = b.getBoundingClientRect();
+  const resize = e.clientX > rect.right - 7;
+  const sx = e.clientX, sy = e.clientY;
+  const o = { on: ev.on, off: ev.off, note: ev.note };
+  const onMove = mv => {
+    const dMs = (mv.clientX - sx) / PXPS * 1000;
+    if (resize) {
+      ev.off = Math.max(o.on + 30, o.off + dMs);
+    } else {
+      const dRows = Math.round((mv.clientY - sy) / geo.rowH);
+      const shift = Math.max(-o.on, dMs);
+      ev.on = o.on + shift; ev.off = o.off + shift;
+      ev.note = Math.max(21, Math.min(108, o.note - dRows));
+    }
+    b.style.left = 4 + (ev.on / 1000) * PXPS + 'px';
+    b.style.width = Math.max(3, ((ev.off - ev.on) / 1000) * PXPS) + 'px';
+    b.style.top = (geo.RULER_H + (geo.hi - ev.note) * geo.rowH + 1) + 'px';
+  };
+  const onUp = () => {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    renderLane();
+  };
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
 function positionCursor(ms) {
   const cur = document.getElementById('cursor');
   if (cur) cur.style.left = (4 + ((ms ?? state.cursorPos) / 1000) * PXPS) + 'px';
@@ -348,6 +478,7 @@ function cursorFromMouse(e) {
 }
 $('lane').addEventListener('mousedown', e => {
   if (e.altKey || state.playing) return;
+  if (e.target.classList.contains('blk')) return;   // note drag, not cursor
   draggingCursor = true;
   cursorFromMouse(e);
 });
