@@ -8,14 +8,16 @@ const fs = require('fs');
 
 // ---- DIALS ----
 const N = 10;
-const GAP0 = 2.2, R = 0.75;   // first peak gap (s), geometric ratio
-const DUR = 1.6;              // short envelope (s)
-const POS_APEX = 0.7;         // apex 70% in -> 1.12s rise, 0.48s fall
+const GAP0 = 2.2, R = 0.80;   // first peak gap (s), geometric ratio (0.75 too rapid)
+const FALL = 0.48;            // release after the apex (s) — unchanged from -03
+const RISE = 1.6 * 1.4 - FALL;   // -04: grain 40% longer, ALL added left of the fixed apex
+const DUR = RISE + FALL;
+const POS_APEX = RISE / DUR;
 const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
-
-const pcs = [0, 2, 4, 5, 6, 8, 10, 11].map(x => (x + 5) % 12);   // m6 on F
-const POOL = []; for (let p = 30; p <= 65; p++) if (pcs.includes(p % 12)) POOL.push(p);
+const PITCH = 41;             // one pitch: the first available F (F2)
+const COLOR = '#3B7EA1';      // blue instead of brown
+const OUT = 'cressand-04';
 
 // peak times: accelerating chain
 const peaks = [];
@@ -24,7 +26,7 @@ for (let k = 0; k < N; k++) { peaks.push(t); if (k < N - 1) t += GAP0 * Math.pow
 
 let nid = 1; const objs = [];
 objs.push({ id: 'mk-' + (nid++), type: 'marker', layer: 0, time: 2,
-  label: 'CRES-SAND 03 · 10 peaks, straight accel ' + GAP0 + 's x' + R + ', all max', color: '#B8860B',
+  label: OUT.toUpperCase() + ' · 10 peaks, accel ' + GAP0 + 's x' + R + ', left-stretched, F2', color: COLOR,
   performanceNotes: '', properties: {} });
 
 peaks.forEach((pt, i) => {
@@ -37,17 +39,18 @@ peaks.forEach((pt, i) => {
       { pos: 1, y: LV_EDGE, smooth: 0.35 },
     ],
     segments: [{ model: 'power', slope: 0.45 }, { model: 'power', slope: -0.3 }],
-    color: '#B8860B', fillMode: 'bottom', opacity: 0.5,
+    color: COLOR, fillMode: 'bottom', opacity: 0.5,
     performanceNotes: 'peak ' + (i + 1) + '/' + N + ' @' + pt.toFixed(2), properties: {},
-    sonifyNote: POOL[i % POOL.length], technique: 'ord', recVel: 112 });
+    sonifyNote: PITCH, technique: 'ord', recVel: 112 });
 });
 
 const tracks = (raw => (raw.data || raw).tracks)(JSON.parse(fs.readFileSync('scores/cluster_samples_01.json', 'utf8')));
-fs.writeFileSync('scores/cressand-03.json', JSON.stringify({ version: 1, layoutVersion: 2,
+fs.writeFileSync('scores/' + OUT + '.json', JSON.stringify({ version: 1, layoutVersion: 2,
   tracks, assets: {},
   metadata: { created: new Date().toISOString(), modified: new Date().toISOString() },
   objects: objs, markers: [], databases: { chordShapes: [], sets: [], cells: [] }, nextId: nid }));
 
 const gaps = peaks.slice(1).map((p, i) => (p - peaks[i]).toFixed(2));
-console.log('cressand-03: peaks at', peaks.map(p => p.toFixed(2)).join(', '));
-console.log('peak gaps:', gaps.join(', '), '| span', (peaks[N - 1] - peaks[0]).toFixed(1) + 's');
+console.log(OUT + ': peaks at', peaks.map(p => p.toFixed(2)).join(', '));
+console.log('peak gaps:', gaps.join(', '), '| span', (peaks[N - 1] - peaks[0]).toFixed(1) + 's',
+  '| dur', DUR.toFixed(2) + 's (rise ' + RISE.toFixed(2) + ' / fall ' + FALL + ')');
