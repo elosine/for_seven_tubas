@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b13-resize</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b14-cuivre</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <span>|</span>
@@ -1766,7 +1766,8 @@ const Composer = {
                 const delta = e.deltaX || e.deltaY;
                 if (delta === 0) return;
                 const timeAtPlayhead = this.scrollOffset / this.pixelsPerSecond;
-                const zoomFactor = delta > 0 ? 0.85 : 1.18;
+                // direction flipped 2026-08-13 (composer uses horizontal scroll)
+                const zoomFactor = delta > 0 ? 1.18 : 0.85;
                 this.pixelsPerSecond = Math.max(5, Math.min(500, this.pixelsPerSecond * zoomFactor));
                 this.scrollOffset = timeAtPlayhead * this.pixelsPerSecond;
                 this.generateTicks();
@@ -1949,6 +1950,15 @@ const Composer = {
             if ((e.key === 'g' || e.key === 'G') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
                 e.preventDefault();
                 this.convertSelectedToSurge();
+                return;
+            }
+
+            // C = convert selected note(s) to CUIVRE via pitch palette (the
+            // cuivre range is tiny — 60-67 — so conversion always asks WHICH
+            // pitch; hovering a palette key previews it through the track port)
+            if ((e.key === 'c' || e.key === 'C') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
+                this.openCuivrePalette();
                 return;
             }
 
@@ -2303,6 +2313,65 @@ const Composer = {
 
     // Convert selected plain (captured) notes into surge crescendos: the played
     // onset becomes the apex, the swell back-fills as far as the lane allows.
+    // ---- cuivre palette (C key) ----
+    // Per-note articulation change with pitch choice: cuivre's range is only
+    // 60-67, so converting always asks which pitch. Hover = preview through
+    // the first selected note's track port; click = apply to all selected.
+    // Other techniques don't need this — select note, P, Technique dropdown.
+    openCuivrePalette() {
+        const sel = (this.selectedObjects || []).filter(o =>
+            o.type === 'waveCurve' && o.sonifyNote != null && o.layer < META_LAYER);
+        if (!sel.length) { this.saveStatus.textContent = 'Select note(s), then press C'; return; }
+        this.closeCuivrePalette();
+        const t = TRACKS[sel[0].layer];
+        const inst = typeof INSTRUMENTS !== 'undefined' && INSTRUMENTS[t.instKey];
+        const tech = inst && (inst.techniques || []).find(q => q.key === 'cuivre');
+        if (!tech) { this.saveStatus.textContent = 'No cuivre on this track'; return; }
+        const port = tech.port || inst.port, ch = tech.channel;
+        const names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const label = m => names[m % 12] + (Math.floor(m / 12) - 2); // Reaper octaves (C3 = 60)
+        const pal = document.createElement('div');
+        pal.id = 'cuivrePalette';
+        pal.style.cssText = 'position:fixed; left:50%; top:70px; transform:translateX(-50%);' +
+            'z-index:9999; background:#222; border:1px solid #B8860B; border-radius:6px;' +
+            'padding:8px; display:flex; gap:4px; align-items:center; box-shadow:0 4px 16px rgba(0,0,0,.5)';
+        const title = document.createElement('span');
+        title.textContent = 'cuivre → pick pitch (hover previews):';
+        title.style.cssText = 'color:#B8860B; font-size:11px; margin-right:4px';
+        pal.appendChild(title);
+        for (let m = tech.rangeLow; m <= tech.rangeHigh; m++) {
+            const b = document.createElement('button');
+            b.textContent = label(m);
+            b.title = 'MIDI ' + m;
+            b.style.cssText = 'background:#333; color:#ddd; border:1px solid #555;' +
+                'border-radius:4px; padding:6px 9px; cursor:pointer; font-size:12px';
+            b.addEventListener('mouseenter', () => { b.style.background = '#4a3a12'; this.auditionNote(port, ch, m, 112, 400); });
+            b.addEventListener('mouseleave', () => { b.style.background = '#333'; });
+            b.addEventListener('click', () => {
+                this.pushUndoState();
+                sel.forEach(wc => { wc.technique = 'cuivre'; wc.sonifyNote = m; this.renderWaveCurve(wc); });
+                this.markDirty();
+                this.saveStatus.textContent = 'cuivre ' + label(m) + ' → ' + sel.length + ' note(s)';
+                this.closeCuivrePalette();
+            });
+            pal.appendChild(b);
+        }
+        const close = document.createElement('button');
+        close.textContent = '✕';
+        close.style.cssText = 'background:none; color:#888; border:none; cursor:pointer; margin-left:4px';
+        close.addEventListener('click', () => this.closeCuivrePalette());
+        pal.appendChild(close);
+        document.body.appendChild(pal);
+        this._cuivrePal = pal;
+        this._cuivreEsc = (ev) => { if (ev.key === 'Escape') this.closeCuivrePalette(); };
+        window.addEventListener('keydown', this._cuivreEsc);
+    },
+
+    closeCuivrePalette() {
+        if (this._cuivrePal) { this._cuivrePal.remove(); this._cuivrePal = null; }
+        if (this._cuivreEsc) { window.removeEventListener('keydown', this._cuivreEsc); this._cuivreEsc = null; }
+    },
+
     convertSelectedToSurge() {
         const targets = (this.selectedObjects.length ? this.selectedObjects
             : (this.selectedObject ? [this.selectedObject] : []))
@@ -6536,6 +6605,7 @@ const Composer = {
         const ch = (channel || 1) - 1;
         const vel = Math.max(1, Math.min(127, velocity || 115));
         const dur = durationMs || 200;
+        output.send([0xB0 | ch, 7, 127]);   // auditions always at full level (CC7 residue guard)
         output.send([0x90 | ch, midi, vel]);
         setTimeout(() => { output.send([0x80 | ch, midi, 0]); }, dur);
     },
