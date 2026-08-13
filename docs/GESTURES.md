@@ -37,7 +37,8 @@ spread-placed 10 notes) · four 7-note chromatic clusters: **low** 30–36,
 30,36,43,47,56,57,58).
 
 **Pairing shortlist:** B2 × BbE-2oct (on the SHORTER list) · M × 5ths root 30
-(keeper, as is) · L2 × OPEN — auditioning the four chromatic clusters.
+(keeper, as is) · **L2 × cluster spread** (PINNED, composer 2026-08-13 —
+bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 **Audition scores:**
 - `harmony-blasts` — all 21 harmonies × three blasts each (staccato 0.4 s /
