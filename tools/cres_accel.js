@@ -11,10 +11,10 @@ const N = 10;
 // -08: gaps interpolate LINEARLY start->end (more gradual accel than the
 // geometric chain; "start a little faster, get faster more gradually")
 const GAP_START = 1.1, GAP_END = 0.22;
-const FALL = 0.1;             // abrupt rexpodec-style cut (kept from -05)
+const FALL = 0;               // -13: TRUE CLIFF - the note ENDS at its apex (tongue stop)
 // -08: sharper baseline + sharpening as gaps shrink (rise steepens INTO the
 // peak; slope ramps per note)
-const RISE_SLOPE0 = 0.35, RISE_SLOPE1 = 0.85;
+const RISE_SLOPE0 = 0.6, RISE_SLOPE1 = 0.95;   // -13: almost percussive
 const FALL_SLOPE = -0.7;      // steep drop
 // -09: THE RISE IS THE NUCLEUS (composer). Rise length is now the first-class
 // dial — constant (or gently ramped) across all ten, at the length that
@@ -26,7 +26,7 @@ const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
 const PITCH = 41;             // one pitch: the first available F (F2)
 const COLOR = '#3B7EA1';      // blue instead of brown
-const OUT = 'cressand-11';
+const OUT = 'cressand-13';
 
 // peak times: linear gap ramp
 const peaks = [];
@@ -45,6 +45,18 @@ peaks.forEach((pt, i) => {
   const u = i / (N - 1);
   const rise = RISE0 + (RISE1 - RISE0) * u;
   const riseSlope = +(RISE_SLOPE0 + (RISE_SLOPE1 - RISE_SLOPE0) * u).toFixed(2);
+  if (FALL === 0) {
+    // true cliff: two-node envelope, apex AT the note end (tongue stop)
+    const start = pt - rise;
+    objs.push({ id: 'wc-' + (nid++), type: 'waveCurve', layer: i % 10,
+      startSeconds: +start.toFixed(3), endSeconds: +pt.toFixed(3),
+      nodes: [{ pos: 0, y: LV_EDGE, smooth: 0.35 }, { pos: 1, y: LV_APEX, smooth: 0.35 }],
+      segments: [{ model: 'power', slope: riseSlope }],
+      color: COLOR, fillMode: 'bottom', opacity: 0.5,
+      performanceNotes: 'peak ' + (i + 1) + '/' + N + ' @' + pt.toFixed(2), properties: {},
+      sonifyNote: PITCH, technique: 'ord', recVel: 112 });
+    return;
+  }
   const dur = rise + FALL;
   const apexPos = rise / dur;
   const start = pt - rise;
