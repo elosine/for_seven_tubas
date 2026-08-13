@@ -4,6 +4,26 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — The reorganization ask: playable A1, envelope strategy, stretch machinery queued (dictated)
+
+"Pause the algorithm enhancing — the two samples I played are pretty good; use
+those, recreate those. Big goal: the meta score in place — shapes and generated
+versions based on something I played. For this shape: first make them PLAYABLE,
+distributed over ten parts, essentially the same as I played. Then be able to
+change the DURATION but keep the general feel — an interpolation strategy: call
+it curve one and curve two, and I can get a one-minute or three-minute version
+of either. Build that machinery. [HOLD on inserting into the piece score — first
+let me hear it.] So: your version of number one that I played, distributed
+across ten and thinned where unplayable. Then duration and envelopes — initial
+strategy: SURGE envelopes at the beginning with current onsets as the APEXES;
+a density-based transition — crossfade between fewer of those and more
+staccatos; at the end, all staccato. Reorganize sample one, let me hear it;
+we save on thumbs-up, then iterate versions with envelopes and duration."
+
+*(→ tools/make_playable.js; A1-5-playable (SEG A verbatim/10-part, SEG B
+envelope strategy). QUEUED: duration-stretch machinery (curve1/curve2, keep-
+the-feel time scaling); piece-score insertion on thumbs-up.)*
+
 ## 2026-08-13 — Sample-set decision: library model now, pooling held (dictated)
 
 "Let's put a hold on the sample-set mechanism. With the ostinatos I just had a
