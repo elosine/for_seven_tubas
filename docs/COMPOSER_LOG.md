@@ -4,6 +4,18 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — Sample-set decision: library model now, pooling held (dictated)
+
+"Let's put a hold on the sample-set mechanism. With the ostinatos I just had a
+variety of sample sets, and we can pull from one or another for variety —
+that's fine for now. Placeholder for later: more sophisticated combination or
+analysis. The two models: (1) a LIBRARY of individual samples — alternate
+generating from any single sample; (2) generalizing from a POOL to get a more
+nuanced generative machine. We'll hold on the augmenting machine."
+
+*(→ adopted: per-sample library generation (the ostinato-set precedent);
+pooling/consensus/morph = placeholder. Library: A1-5, A2-hp-whole.)*
+
 ## 2026-08-13 — Ordinario range measured (dictated)
 
 "Tuba ordinario goes up to the F4, and only goes down to F#1."

@@ -56,7 +56,10 @@
   47 violations; siblings 143/134 notes). **PLACEHOLDERS for the return pass:**
   robustified windowed fit (cluster-resistant) · richer ops (stretch, density-
   scale, curve-warp, thin-to-N, excerpt) · sample-set enrichment (more takes +
-  algorithmic siblings, audition-culled).
+  algorithmic siblings, audition-culled). **Sample-set decision 2026-08-13:
+  LIBRARY model adopted (per-sample generation, ostinato-set precedent;
+  library: A1-5, A2-hp-whole) — POOLING/consensus/morph ("the augmenting
+  machine") = HELD, placeholder for later.**
 
 Incremental MO carried over from piece #3: composing drives tool-building; the score is
 the combining surface; sandbox available for exploration. Per-track recording in the
