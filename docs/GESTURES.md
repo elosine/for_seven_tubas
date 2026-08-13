@@ -115,6 +115,16 @@ crossfades wherever possible; probability only where physics has no opinion.
 - **Overlapping-crescendo pulse**: each part progressively more overlap —
   reads as a *pulse of crescendos* inside a continuous texture ("a continuous
   crescendo of crescendos, not one continuous crescendo"). The Risset lineage.
+  **IN PROGRESS — the cressand series (01–15, 2026-08-13). PINNED so far:**
+  the RISE is the pulse's nucleus (first-class dial; ~2.07 s = +15% baseline);
+  overlap emerges from the accelerando (don't derive rise from gaps — it
+  starves the ends); **min gap anchored at 0.44 s on the final pair** + the
+  **working-backwards methodology** (build the chain from the min gap
+  outward); true-cliff release (note ends AT apex, tongue-stop); percussive
+  rise curves 0.6→0.95; unison F2. Balance law: rise length ≥ audibility
+  floor, overlap ≤ masking ceiling (+30% rise killed the late pulses).
+  Current audition: `cressand-15` (chain A · chain B ("the shorter one
+  worked") · chain B +15% rise · +15% again).
 - **Clips as gestures**: excerpt bits of longer gestures/textures to serve as
   standalone gestures (the keeper-excerpt practice becomes a derivation
   operator).
