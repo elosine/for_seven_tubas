@@ -22,7 +22,7 @@ grain-type mix) — the varied-repetition operator.
 |---|---|---|---|
 | **GESTURE-1** | A1-5 take → A1-5-fp_cres-3 | `#AD5F2A` | banked; 9 pitch variants (gest1-pitches). **Pitch-set VERDICTS (2026-08-13): kept = #1 oct-displace, #2 fifths-one, #6 Messiaen mode 6 (F#)**; others remain available. **#1 = the piece's OPENING (piece-s01)** |
 | (GESTURE-2) | A2-hp-whole | — | **needs redo: different lengths + envelope types** (composer note) |
-| **CLUST01-A…J** | cluster_samples_01 (10 segments, silence-split) | — | banked in bank/ (raw + cleaned per entity); pointillistic clusters. De-chord rule: 55 ms chain-link groups, keep LOUDEST (tie: earliest). Audition: clust01-cleaned |
+| **CLUST01-A…T** | cluster_samples_01, COMPOSER-corrected segmentation (20 windows, dictated boundaries; 20-31 = five sub-clusters; forced split at 129.5) | — | bank/ holds raw + cleaned per entity. De-chord: 55 ms chain-link, keep LOUDEST (tie: earliest). Audition: clust01-cleaned · 10-track + META shapes: clust01-10track (rotation-preference distribution — avoid immediately-previous part) |
 | … | more swell takes to record | — | composer note-to-self: capture a few more |
 
 ## THE GESTURE-1 WORKFLOW (the envelope-decision template — repeat for future gestures)
