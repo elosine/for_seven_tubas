@@ -9,17 +9,20 @@ const fs = require('fs');
 // ---- DIALS ----
 const N = 10;
 const GAP0 = 2.2, R = 0.80;   // first peak gap (s), geometric ratio (0.75 too rapid)
-const FALL = 0.1;             // -05: abrupt rexpodec-style cut after the apex
-const RISE = 2.24 / 2 - FALL; // -05: half the -04 duration
-const RISE_SLOPE = 0.15;      // pushed toward linear (-04 was 0.45)
+const FALL = 0.1;             // abrupt rexpodec-style cut (kept from -05)
+const RISE_SLOPE = 0.15;      // near-linear rise
 const FALL_SLOPE = -0.7;      // steep drop
-const DUR = RISE + FALL;
-const POS_APEX = RISE / DUR;
+// -06: OVERLAP IS ITS OWN DIAL — concurrency C(k) = parts sounding at peak k.
+// rise_k = C_k * gapBefore_k, so overlap follows this ramp regardless of how
+// steep or gentle the acceleration curve is set.
+const C0 = 1.0, C1 = 4.0;     // overlap at first peak -> last peak
+const C_CURVE = 1.0;          // 1 = linear ramp; >1 back-loads the pileup
+const RISE_MIN = 0.3;
 const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
 const PITCH = 41;             // one pitch: the first available F (F2)
 const COLOR = '#3B7EA1';      // blue instead of brown
-const OUT = 'cressand-05';
+const OUT = 'cressand-06';
 
 // peak times: accelerating chain
 const peaks = [];
@@ -28,21 +31,28 @@ for (let k = 0; k < N; k++) { peaks.push(t); if (k < N - 1) t += GAP0 * Math.pow
 
 let nid = 1; const objs = [];
 objs.push({ id: 'mk-' + (nid++), type: 'marker', layer: 0, time: 2,
-  label: OUT.toUpperCase() + ' · 10 peaks, accel ' + GAP0 + 's x' + R + ', dur ' + DUR.toFixed(2) + 's, F2', color: COLOR,
+  label: OUT.toUpperCase() + ' · 10 peaks, accel ' + GAP0 + 's x' + R + ', C ' + C0 + '->' + C1 + ', F2', color: COLOR,
   performanceNotes: '', properties: {} });
 
 peaks.forEach((pt, i) => {
-  const start = pt - POS_APEX * DUR;
+  // overlap dial: rise spans C_k gaps back from this apex
+  const u = i / (N - 1);
+  const Ck = C0 + (C1 - C0) * Math.pow(u, C_CURVE);
+  const gapBefore = i > 0 ? peaks[i] - peaks[i - 1] : GAP0;
+  const rise = Math.max(RISE_MIN, Ck * gapBefore);
+  const dur = rise + FALL;
+  const apexPos = rise / dur;
+  const start = pt - rise;
   objs.push({ id: 'wc-' + (nid++), type: 'waveCurve', layer: i % 10,
-    startSeconds: +start.toFixed(3), endSeconds: +(start + DUR).toFixed(3),
+    startSeconds: +start.toFixed(3), endSeconds: +(start + dur).toFixed(3),
     nodes: [
       { pos: 0, y: LV_EDGE, smooth: 0.35 },
-      { pos: POS_APEX, y: LV_APEX, smooth: 0.35 },
+      { pos: +apexPos.toFixed(4), y: LV_APEX, smooth: 0.35 },
       { pos: 1, y: LV_EDGE, smooth: 0.35 },
     ],
     segments: [{ model: 'power', slope: RISE_SLOPE }, { model: 'power', slope: FALL_SLOPE }],
     color: COLOR, fillMode: 'bottom', opacity: 0.5,
-    performanceNotes: 'peak ' + (i + 1) + '/' + N + ' @' + pt.toFixed(2), properties: {},
+    performanceNotes: 'peak ' + (i + 1) + '/' + N + ' C' + Ck.toFixed(1) + ' @' + pt.toFixed(2), properties: {},
     sonifyNote: PITCH, technique: 'ord', recVel: 112 });
 });
 
@@ -55,4 +65,4 @@ fs.writeFileSync('scores/' + OUT + '.json', JSON.stringify({ version: 1, layoutV
 const gaps = peaks.slice(1).map((p, i) => (p - peaks[i]).toFixed(2));
 console.log(OUT + ': peaks at', peaks.map(p => p.toFixed(2)).join(', '));
 console.log('peak gaps:', gaps.join(', '), '| span', (peaks[N - 1] - peaks[0]).toFixed(1) + 's',
-  '| dur', DUR.toFixed(2) + 's (rise ' + RISE.toFixed(2) + ' / fall ' + FALL + ')');
+  '| C ramp', C0, '->', C1, '(curve ' + C_CURVE + '), fall', FALL + 's');
