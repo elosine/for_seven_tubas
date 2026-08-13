@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b14-cuivre</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b15-panelscale</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <span>|</span>
@@ -2370,6 +2370,28 @@ const Composer = {
     closeCuivrePalette() {
         if (this._cuivrePal) { this._cuivrePal.remove(); this._cuivrePal = null; }
         if (this._cuivreEsc) { window.removeEventListener('keydown', this._cuivreEsc); this._cuivreEsc = null; }
+    },
+
+    // Retime a META group shape to [newStart, newEnd], affinely rescaling every
+    // member (notes: onsets AND durations; markers: time). Used by panel edits;
+    // the edge-node drag applies the same rule inline.
+    scaleGroupTo(shape, newStart, newEnd) {
+        if (!(newEnd - newStart >= 0.1)) return;
+        const s0 = shape.startSeconds, e0 = shape.endSeconds;
+        if (e0 - s0 <= 0) return;
+        const ratio = (newEnd - newStart) / (e0 - s0);
+        const map = t => +(newStart + (t - s0) * ratio).toFixed(3);
+        this.objects.forEach(o => {
+            if (o.groupId !== shape.groupId || o === shape) return;
+            if (o.type === 'marker') { o.time = Math.max(0, map(o.time)); this.renderMarker(o); }
+            else if (o.startSeconds != null) {
+                const a = map(o.startSeconds), b = map(o.endSeconds);
+                o.startSeconds = a; o.endSeconds = Math.max(a + 0.02, b);
+                if (o.type === 'waveCurve') this.renderWaveCurve(o);
+            }
+        });
+        shape.startSeconds = newStart; shape.endSeconds = newEnd;
+        this.renderWaveCurve(shape);
     },
 
     convertSelectedToSurge() {
@@ -6789,7 +6811,20 @@ const Composer = {
                 return;
             }
         } else {
-            if (inputType === 'number') obj[field] = parseFloat(value);
+            if (inputType === 'number') {
+                const pv = parseFloat(value);
+                // META group shape retimed via the PANEL scales its members too
+                // (same affine rule as the edge-node drag) — panel edits were
+                // the invisible path in the 2026-08-13 "not resizing" saga
+                if ((field === 'startSeconds' || field === 'endSeconds') &&
+                    obj.type === 'waveCurve' && obj.groupId && obj.layer === META_LAYER && !isNaN(pv)) {
+                    this.scaleGroupTo(obj,
+                        field === 'startSeconds' ? pv : obj.startSeconds,
+                        field === 'endSeconds' ? pv : obj.endSeconds);
+                } else {
+                    obj[field] = pv;
+                }
+            }
             else obj[field] = value;
         }
 
