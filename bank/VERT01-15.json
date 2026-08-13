@@ -1,0 +1,73 @@
+{
+ "entity": "VERT01-15",
+ "source": "scores/vertical_shapes_01.json",
+ "kind": "vertical-chord",
+ "created": "2026-08-13T18:41:41.582Z",
+ "spanSec": 1.94,
+ "pitches": [
+  31,
+  37,
+  43,
+  51,
+  52,
+  58,
+  59
+ ],
+ "velocities": {
+  "31": 48,
+  "37": 41,
+  "43": 46,
+  "51": 42,
+  "52": 51,
+  "58": 32,
+  "59": 42
+ },
+ "notes": [
+  {
+   "on": 0,
+   "off": 1.938,
+   "pitch": 58,
+   "vel": 32
+  },
+  {
+   "on": 0.007,
+   "off": 1.908,
+   "pitch": 51,
+   "vel": 42
+  },
+  {
+   "on": 0.025,
+   "off": 1.928,
+   "pitch": 52,
+   "vel": 51
+  },
+  {
+   "on": 0.032,
+   "off": 1.934,
+   "pitch": 59,
+   "vel": 42
+  },
+  {
+   "on": 0.038,
+   "off": 1.908,
+   "pitch": 37,
+   "vel": 41
+  },
+  {
+   "on": 0.05,
+   "off": 1.93,
+   "pitch": 43,
+   "vel": 46
+  },
+  {
+   "on": 0.091,
+   "off": 1.933,
+   "pitch": 31,
+   "vel": 48
+  }
+ ],
+ "flags": {
+  "exceedsTen": false,
+  "aboveOrdRange": []
+ }
+}
