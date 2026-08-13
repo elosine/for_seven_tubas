@@ -1445,6 +1445,10 @@ const Composer = {
                 if (!this.recArm) this._recActive = {};
                 recBtn.classList.toggle('armed', this.recArm);
                 recBtn.innerHTML = this.recArm ? '&#9210; Recording&#8230;' : '&#9210; Rec';
+                // Rec rolls the transport (DAW convention): arm starts the
+                // scroll from the playhead, disarm stops it
+                if (this.recArm && !this.isPlaying) this.togglePlay();
+                else if (!this.recArm && this.isPlaying) this.togglePlay();
             });
         }
 
