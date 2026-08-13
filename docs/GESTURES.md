@@ -49,6 +49,11 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s05**: + **CLUST01-H1** (carved from clust01-10track 54.06–56.2,
+  inside the H block: 17 notes / 2.05 s ≈ 8/s, 10-track lanes kept) parked at
+  41.83 s — 1.5 s after the blast — movable/stretchable filled shape
+  (`grp-h1-01`); composer will drag into place. Entity banked as
+  bank/CLUST01-H1.json.
 - **piece-s04**: THREE gestures, all with movable META shapes — (1) the opening
   big build finally drawn: **long crescendo wedge** over 2.0–34.65 s, bound to
   the whole opening (`grp-g1-opening`, draggable as one unit); (2) the scr2
