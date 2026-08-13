@@ -13,7 +13,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -44,7 +44,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -75,7 +75,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -106,7 +106,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -137,7 +137,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -168,7 +168,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -199,7 +199,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -230,7 +230,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -261,7 +261,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },
@@ -292,7 +292,7 @@ const INSTRUMENTS = {
     rangeLow: 29,        // composer-dictated (Cresc&Decr KS): display F0; KS zone below at MIDI 24–26
     rangeHigh: 64,       // composer-dictated (Cresc&Decr KS): display E3; other patches assumed same until checked
     techniques: [
-      { key: "ord", label: "Ordinario", channel: 1 },
+      { key: "ord", label: "Ordinario", channel: 1, rangeLow: 30, rangeHigh: 65 },   // measured by composer 2026-08-13: F#1-F4 (sci)
       { key: "bisb", label: "Bisbigliando", channel: 2 },
       { key: "chrom_scale", label: "Chromatic Scale", channel: 3 },
       { key: "cresc_decr_ks", label: "Cresc & Decrescendo KS", channel: 4, ks: { 24: "cresc, cut at end", 25: "cresc with tail (composer's pick)", 26: "decrescendo" } },

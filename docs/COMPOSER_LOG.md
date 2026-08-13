@@ -4,6 +4,16 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — Ordinario range measured (dictated)
+
+"Tuba ordinario goes up to the F4, and only goes down to F#1."
+
+*(→ per-technique range override: ord = MIDI 30–65 (sci F#1–F4), vs the
+KS-derived instrument envelope 29–64. All 10 tubas. Sandbox keyboard follows
+the technique automatically; engine pitch tables for ord-based scores should
+respect 30–65 — note: the quartal pitch field used 29 on ord, one semitone
+below ord's real floor.)*
+
 ## 2026-08-12 — Note to self: play the shapes (dictated)
 
 "One more reminder note to myself: try PLAYING some of the shapes as another
