@@ -49,6 +49,9 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s07** (base: composer's s06f fork): + **GESTURE-2 ×0.75** at
+  **50.0–74.2 s** (`grp-gest2-75-01`, rate-contour shape in GESTURE-2 blue) —
+  the compressed A2 build becomes the piece's sixth gesture.
 - **piece-s06**: + **octaves Bb ord blast** (34/46/58 over 10 lanes) at
   **43.46 s × 2.5 s** (`grp-octbb-ord-01`, flat-bar shape — ord sustains).
   Carries composer placements: H1 dragged to 39.95, blast shortened to 1.24 s.
