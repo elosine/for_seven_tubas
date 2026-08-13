@@ -8,7 +8,9 @@ const fs = require('fs');
 
 // ---- DIALS ----
 const N = 10;
-const GAP0 = 2.2, R = 0.80;   // first peak gap (s), geometric ratio (0.75 too rapid)
+const TIME_SCALE = 0.6;       // -07: whole sequence at 60% time; R (relative accel)
+                              // and the C overlap ramp are scale-invariant
+const GAP0 = 2.2 * TIME_SCALE, R = 0.80;
 const FALL = 0.1;             // abrupt rexpodec-style cut (kept from -05)
 const RISE_SLOPE = 0.15;      // near-linear rise
 const FALL_SLOPE = -0.7;      // steep drop
@@ -22,7 +24,7 @@ const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
 const PITCH = 41;             // one pitch: the first available F (F2)
 const COLOR = '#3B7EA1';      // blue instead of brown
-const OUT = 'cressand-06';
+const OUT = 'cressand-07';
 
 // peak times: accelerating chain
 const peaks = [];
