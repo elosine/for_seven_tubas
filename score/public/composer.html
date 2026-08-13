@@ -1834,6 +1834,7 @@ const Composer = {
             wc.sonifyNote = d1;
             wc.technique = this.recTech;
             wc.sonifyMode = 'plain';
+            wc.recVel = a.vel;
             this.renderWaveCurve(wc);
             this.deselectAll();   // no selection/panel pop while capturing
             this.markDirty();
@@ -7410,7 +7411,10 @@ const Composer = {
                     output.send([0x90 | ch, wc.ksNote, 100]);   // latch the keyswitch
                     output.send([0x80 | ch, wc.ksNote, 0]);
                 }
-                output.send([0xB0 | ch, 7, this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)]);
+                // plain (captured) notes replay exactly as monitored: full CC7,
+                // dynamics from the played velocity — not the level-curve map
+                output.send([0xB0 | ch, 7, wc.sonifyMode === 'plain' ? 127
+                    : this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)]);
             };
             // solo gate: un-soloed parts take the outside path (clean noteOff)
             const inside = this.isPartAudible(wc.layer)
@@ -7440,7 +7444,8 @@ const Composer = {
                     if (ksMode) ksArm();
                     else output.send([0xB0 | ch, 7, cc]);
                 }
-                output.send([0x90 | ch, wc.sonifyNote, 100]);
+                output.send([0x90 | ch, wc.sonifyNote,
+                    (wc.sonifyMode === 'plain' && wc.recVel != null) ? wc.recVel : 100]);
                 delete this._curvePreArm[wc.id];
                 this._activeCurvePlayback[wc.id] = { note: wc.sonifyNote, lastCC: cc, lastSend: performance.now() };
                 return;
