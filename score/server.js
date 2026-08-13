@@ -430,6 +430,9 @@ const server = http.createServer((req, res) => {
         if (!filepath.startsWith(path.normalize(base))) { res.statusCode = 403; return res.end('Forbidden'); }
         if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
             res.setHeader('Content-Type', MIME[path.extname(filepath).toLowerCase()] || 'application/octet-stream');
+            // never let the browser cache app code — a stale composer.html
+            // silently drops new features (the 2026-08-13 resize confusion)
+            res.setHeader('Cache-Control', 'no-store');
             return fs.createReadStream(filepath).pipe(res);
         }
     }
