@@ -21,12 +21,12 @@ const FALL_SLOPE = -0.7;      // steep drop
 // "sounds good on its own". Overlap is EMERGENT: rise/gap grows as the
 // accelerando closes the gaps (1.6 -> ~8 here). Supersedes the C-dial of
 // -06..-08, whose derived rises shrank at the dense end.
-const RISE0 = 1.8, RISE1 = 1.8;   // rise at first -> last peak (s)
+const RISE0 = 2.34, RISE1 = 2.34;  // -10: rises +30% to the left, peaks unmoved
 const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
 const PITCH = 41;             // one pitch: the first available F (F2)
 const COLOR = '#3B7EA1';      // blue instead of brown
-const OUT = 'cressand-09';
+const OUT = 'cressand-10';
 
 // peak times: linear gap ramp
 const peaks = [];
