@@ -27,6 +27,9 @@ studio desktop; Reaper on **WASAPI shared → default Realtek out** (`mode=3`,
   settings are already right, just flip the dropdown. Back in the studio, flip
   back to ASIO. First remote session hit exactly this: meters moving, no sound,
   "[audio device closed]".
+- ⚠ **Reset all MIDI/audio devices also re-opens MIDI inputs** — with the
+  Keystation enabled in Reaper it SEIZES the keyboard from the sandbox
+  (ISSUES.md I3). Keep the Keystation input disabled in Reaper, always.
 - **After reconnecting CRD**, if sound dies: Options → Reset all MIDI/audio
   devices (the WASAPI stream re-opens against the current default device — CRD
   swaps the default when sessions cycle).
