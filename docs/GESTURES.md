@@ -49,6 +49,9 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s06**: + **octaves Bb ord blast** (34/46/58 over 10 lanes) at
+  **43.46 s × 2.5 s** (`grp-octbb-ord-01`, flat-bar shape — ord sustains).
+  Carries composer placements: H1 dragged to 39.95, blast shortened to 1.24 s.
 - **piece-s05**: + **CLUST01-H1** (carved from clust01-10track 54.06–56.2,
   inside the H block: 17 notes / 2.05 s ≈ 8/s, 10-track lanes kept) parked at
   41.83 s — 1.5 s after the blast — movable/stretchable filled shape
