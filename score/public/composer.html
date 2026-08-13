@@ -3680,6 +3680,13 @@ const Composer = {
         const DRAG_THRESHOLD = 4;
         let hasMoved = false;
         let constrainAxis = null;
+        // META group shape: dragging the shape retimes every object that
+        // shares its groupId (the gesture's MIDI moves with the handle)
+        const isGroupShape = !!wc.groupId && wc.layer === META_LAYER;
+        const memberOrig = isGroupShape
+            ? this.objects.filter(o => o !== wc && o.groupId === wc.groupId)
+                .map(o => ({ o, start: o.startSeconds, end: o.endSeconds, time: o.time }))
+            : [];
 
         const onMove = (e) => {
             const dx = e.clientX - startClientX;
@@ -3708,8 +3715,23 @@ const Composer = {
 
             // Grains and containers move horizontally ONLY (whole-shape grab =
             // retime, never a lane change) — SHIFT-v is also ignored for them.
-            if (constrainAxis !== 'h' && !this.isGrain(wc) && !wc.isContainer) {
+            // Group shapes stay on META for the same reason.
+            if (constrainAxis !== 'h' && !this.isGrain(wc) && !wc.isContainer && !isGroupShape) {
                 wc.layer = this.getLaneFromY(e.clientY);
+            }
+
+            if (isGroupShape) {
+                const dt = wc.startSeconds - origStart;
+                for (const m of memberOrig) {
+                    if (m.o.type === 'marker') {
+                        m.o.time = Math.max(0, +(m.time + dt).toFixed(3));
+                        this.renderMarker(m.o);
+                    } else {
+                        m.o.startSeconds = +(m.start + dt).toFixed(3);
+                        m.o.endSeconds = +(m.end + dt).toFixed(3);
+                        this.renderWaveCurve(m.o);
+                    }
+                }
             }
 
             this.renderWaveCurve(wc);

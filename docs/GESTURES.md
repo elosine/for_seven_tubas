@@ -45,6 +45,16 @@ spread-placed 10 notes) · four 7-note chromatic clusters: **low** 30–36,
   fill/sample when set ≠ 10, marker per harmony. 4.3 min.
 - `pairs01` — the ledger as written: B2×BbE-2oct, M×5ths-30, L2× each of the
   four clusters. 0.8 min.
+
+## In the piece
+
+- **piece-s02** (increments piece-s01, never overwrite the piece save):
+  B2 × BbE-2oct inserted at **36.54 s** — the exact pairs01 notes — with a
+  META-layer rate-contour shape bound via **`groupId`**. Dragging a META shape
+  that has a groupId retimes every object sharing it (notes + marker move with
+  the handle, micro-timing and lanes preserved; the shape itself stays on META).
+  Mechanism: `tools/piece_s02.js`; drag logic in composer.html
+  `startWCBodyDrag`. Any future gesture insertion can use the same pattern.
 | **VERT01-01…33** | vertical_shapes_01 (33 played chords, 4–11 notes) | — | bank/ holds pitches+velocities per chord. Audition: vert01-versions (v1 as-played low→bottom-lane · v2 ten-note octave-displaced max-spread). FLAGS: 07 exceeds 10 (11 pitches, awaiting composer redaction/promotion); 8 chords contain notes above ord F4=65 (66–68) |
 | … | more swell takes to record | — | composer note-to-self: capture a few more |
 
