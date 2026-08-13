@@ -7365,6 +7365,7 @@ const Composer = {
                 sent.add(key);
                 out.send([0xB0 | ch, 123, 0]);   // all notes off
                 out.send([0xB0 | ch, 7, 127]);   // channel volume to unity
+                if (tech.cc0 != null) out.send([0xB0 | ch, 0, tech.cc0]);   // sub-patch default (ISSUES I2)
             });
         });
         return sent.size;

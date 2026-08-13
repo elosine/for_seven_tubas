@@ -73,6 +73,9 @@ container.
 
 1. **Check Reaper input monitoring before blaming the instrument.**
 2. **When a working reference exists, diff the files — don't iterate guesses.**
+3. **Quiet tracks → suspect CC7 residue FIRST** (ISSUES.md I1): click CC7 Reset
+   before touching gain staging. Wrong-sounding menu techniques → stale CC0 (I2),
+   same button.
 
 ## §4 Decisions
 
