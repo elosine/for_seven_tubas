@@ -7356,24 +7356,36 @@ const Composer = {
             const m = await (await fetch('/probes/cc7_map.json')).json();
             if (m && m.normalized && m.normalized.length > 2) {
                 this._cc7Map = m.normalized.slice().sort((a, b) => a.x - b.x);
-                console.log('[CC7 map] loaded:', this._cc7Map.length, 'points, span', m.dbSpan, 'dB');
+                this._cc7Points = m.points.slice().sort((a, b) => a.db - b.db);
+                console.log('[CC7 map] loaded:', this._cc7Points.length, 'points, measured span', m.dbSpan,
+                    'dB; musical level span', this.levelSpanDb, 'dB');
             }
         } catch (e) { console.warn('[CC7 map] unavailable - falling back to linear CC'); }
     },
 
+    // LEVEL SPAN DIAL (CC7 fine-tune, 2026-08-13): drawn height 0-10 maps across
+    // levelSpanDb (NOT the full measured 58 dB — a y=5 curve at -29 dB was the
+    // recurring "volume problem"). Target dB = (v-1)*span, inverted through the
+    // MEASURED cc->dB points. v=0 stays true silence. Adjustable per ear
+    // (Composer.levelSpanDb); S1-era ratio tables assumed 58 - shapes read
+    // slightly gentler at narrower spans (recalibrate by ear if it matters).
+    levelSpanDb: 40,
+
     curveValToCC(v) {
         v = Math.max(0, Math.min(1, v));
-        const map = this._cc7Map;
-        if (!map) return Math.round(v * 127);
-        if (v <= map[0].x) return Math.round(map[0].cc * (v / Math.max(1e-6, map[0].x)));
-        for (let i = 1; i < map.length; i++) {
-            if (v <= map[i].x) {
-                const a = map[i - 1], b = map[i];
-                const f = (v - a.x) / Math.max(1e-6, b.x - a.x);
+        if (v <= 0.001) return 0;
+        const pts = this._cc7Points;
+        if (!pts) return Math.round(v * 127);
+        const target = (v - 1) * this.levelSpanDb;   // 0 dB at full height
+        if (target <= pts[0].db) return pts[0].cc;
+        for (let i = 1; i < pts.length; i++) {
+            if (target <= pts[i].db) {
+                const a = pts[i - 1], b = pts[i];
+                const f = (target - a.db) / Math.max(1e-6, b.db - a.db);
                 return Math.round(a.cc + f * (b.cc - a.cc));
             }
         }
-        return map[map.length - 1].cc;
+        return pts[pts.length - 1].cc;
     },
 
     evalWaveCurve(wc, t01) {
