@@ -4,6 +4,29 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — Formal principle; the gesture-bank roadmap (dictated)
+
+"A possible formal approach: use those precise shapes — those precise
+notes/rhythms and envelope shapes — and change the pitch distribution, so they
+can be like phrases: a sense of repetition but also a sense of change. Note to
+self: capture a few more of those swells (two in the bank; redo number two with
+different lengths and envelope types; make a few more). Capture a general
+workflow of how we decided the various envelope changes. Build — so I don't
+forget, we're about to do them — a pointillistic mass with staccatos (like the
+end of these curves); I'll do several repetitions; my guess is a generalizable
+increase in density, a characteristic to the apex (if it's held we can extend
+it); several samples of different lengths. Then chord/vertical shapes — not
+exactly chords, I suppose they are — a bunch of 10-part versions like the pitch
+distributions. Another gesture type: an OVERLAPPING CRESCENDO where each part
+has more and more overlap — a pulse of crescendos but a continuous texture, a
+continuous crescendo of crescendos. Clip bits out of longer gestures/textures
+to serve as their own gestures. Repeated gestures each varied in some way — a
+little shorter, a different mix of grain types. And develop some
+tremolo/ostinato ensemble textures."
+
+*(→ docs/GESTURES.md: the bank, the formal principle, THE GESTURE-1 WORKFLOW
+(envelope-decision template), and the planned gesture types.)*
+
 ## 2026-08-13 — GESTURE-1 kept as entity; pitch-set generation pass (dictated, summary)
 
 A1-5-fp_cres-3 kept as an ENTITY — GESTURE-1, identity color #AD5F2A (taxonomy/

@@ -131,6 +131,13 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 5. **Paper FROM the piece** (process + research), then augment paper/engine with
    additional research if time allows.
 
+- **2g — The GESTURE BANK** — `doing 2026-08-13` — docs/GESTURES.md: formal
+  principle (fixed shape x pitch distribution = repetition-with-change) ·
+  GESTURE-1 banked (#AD5F2A, 9 pitch variants) · GESTURE-1 workflow captured as
+  the envelope-decision template · planned: pointillistic mass, verticals,
+  overlapping-crescendo pulse, clips-as-gestures, varied repetition,
+  tremolo/ostinato. GESTURE-2 (A2) awaiting composer redo.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +
