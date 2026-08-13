@@ -1835,6 +1835,7 @@ const Composer = {
             wc.technique = this.recTech;
             wc.sonifyMode = 'plain';
             this.renderWaveCurve(wc);
+            this.deselectAll();   // no selection/panel pop while capturing
             this.markDirty();
         }
     },
