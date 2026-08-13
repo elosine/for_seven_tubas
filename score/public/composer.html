@@ -1284,6 +1284,7 @@ const Composer = {
     playStartTime: 0,
     playStartOffset: 0,
     sessionName: '7tubas',
+    boundName: '7tubas',   // the file this session legitimately owns (set on load/save)
     isDirty: false,
     autoSaveTimer: null,
 
@@ -1553,14 +1554,26 @@ const Composer = {
         }, true);
 
         const clearBtn = document.getElementById('clearAllBtn');
-        if (clearBtn) clearBtn.addEventListener('click', () => {
+        if (clearBtn) clearBtn.addEventListener('click', async () => {
             if (!confirm('Clear ALL objects from this score?')) return;
+            // clearing forks to a NEW save name so autosave can never wipe the
+            // loaded file (the clust01-cleaned incident, 2026-08-13)
+            const existing = await this.fetchSessionNames();
+            const suggested = this.uniqueSessionName(this.sessionName || 'sketch', existing);
+            let name = prompt('Save name for the new (cleared) score:', suggested);
+            if (name === null) return; // cancel = abort the clear
+            name = name.trim() || suggested;
+            if (existing.has(name)) name = this.uniqueSessionName(name, existing);
+            this.sessionNameInput.value = name;
+            this.sessionName = name;
+            this.boundName = name;
             this.pushUndoState();
             this.objects.forEach(o => { if (o._els && o._els.group) o._els.group.remove(); });
             this.objects = [];
             this.markers = [];
             this.deselectAll();
             this.renderAll();
+            this.saveStatus.textContent = `New score: ${name}`;
             this.markDirty();
         });
         this.propertyPanel = document.getElementById('propertyPanel');
@@ -2076,8 +2089,33 @@ const Composer = {
         }
     },
 
+    // ---- no-overwrite policy ----
+    // Adopting a NEW name (different from the file this session owns) that
+    // already exists on the server auto-suffixes (-2, -3, ...) instead of
+    // overwriting that file. Re-saves of the owned file pass through untouched.
+    async fetchSessionNames() {
+        try {
+            const r = await fetch('/api/composer/list');
+            const j = await r.json();
+            return new Set(j.success ? j.sessions.map(s => s.name) : []);
+        } catch (e) { return new Set(); }
+    },
+    uniqueSessionName(base, existing) {
+        if (!existing.has(base)) return base;
+        let n = 2;
+        while (existing.has(base + '-' + n)) n++;
+        return base + '-' + n;
+    },
+
     async saveSession(makeVersion = false) {
-        const name = this.sessionNameInput.value.trim() || '7tubas';
+        let name = this.sessionNameInput.value.trim() || '7tubas';
+        if (name !== this.boundName) {
+            const existing = await this.fetchSessionNames();
+            if (existing.has(name)) {
+                name = this.uniqueSessionName(name, existing);
+                this.sessionNameInput.value = name;
+            }
+        }
         this.sessionName = name;
         const data = this.collectData();
 
@@ -2092,6 +2130,7 @@ const Composer = {
             const result = await resp.json();
             if (result.success) {
                 this.isDirty = false;
+                this.boundName = name;
                 this.saveStatus.textContent = `Saved: ${name}`;
                 localStorage.setItem('composerLastSession', name);
                 this.refreshSessionList();
@@ -2113,6 +2152,7 @@ const Composer = {
             if (result.success) {
                 this.sessionNameInput.value = name;
                 this.sessionName = name;
+                this.boundName = name;
                 this.restoreData(result.data);
                 this.isDirty = false;
                 this.saveStatus.textContent = `Loaded: ${name}`;

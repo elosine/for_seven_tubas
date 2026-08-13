@@ -25,7 +25,26 @@ grain-type mix) — the varied-repetition operator.
 | **CLUST01-A…T** | cluster_samples_01, COMPOSER-corrected segmentation (20 windows, dictated boundaries; 20-31 = five sub-clusters; forced split at 129.5) | — | bank/ holds raw + cleaned per entity. De-chord: 55 ms chain-link, keep LOUDEST (tie: earliest). Audition: clust01-cleaned · 10-track + META shapes: clust01-10track (rotation-preference distribution — avoid immediately-previous part). **A superseded by A1/A2** (split at the 7.08 s pause, dictation 2026-08-13) |
 | **CLUST01 carves: A1 A2 L2 S1 B2 I1 J2** | composer carve dictation 2026-08-13 (cleaned-score timestamps mapped back to take-time): L2 = L from 109.39→end, S1 = S start→176.3, B2 = B 18.69→end, I1 = I start→69.64, J2 = J 80.3→end | — | banked (parents left in place, except A which the A1/A2 split replaces). **SHORTLIST = [L2, M, S1, B2, I1, J2]** — the working set for harmonization |
 | **sl01-harmonies** (sequence score, not an entity) | shortlist × 18 pitch treatments: VERT01 01/05/09/13/17/23/28 as pitch sets (uniform draw) · oct-displace (50/30/15/5) · fifths stacks rooted 30/33/37 · all 7 Messiaen modes anchored F# (pooled 30–65) | — | scores/sl01-harmonies.json, 2.3 min, every excerpt marker-labeled "cluster x concept", 10-part rotation distribution, 0 thinned. Superseded by sl02's COMPOSER chord shortlist |
-| **sl02-harmonies** (sequence score) | COMPOSER CHORD SHORTLIST (dictation 2026-08-13): VERT01-03/04/06/07 by number + by take-time 48→11, 52.5→12, 74.8→16, 109.68→23, 140.38→28, 163→33 (last chord) · fifths stacks ×2 (roots 30, 37) · octave stacks ×2 (F# 30/42/54, Bb 34/46/58) · **Messiaen deferred — composer adds after listening** | — | scores/sl02-harmonies.json, 1.8 min, 14 excerpts, same cluster rotation [L2, M, S1, B2, I1, J2], labels "cluster x concept", 0 thinned (VERT01-16's out-of-ord 67 filtered) |
+| **sl02-harmonies** (sequence score) | COMPOSER CHORD SHORTLIST (dictation 2026-08-13): VERT01-03/04/06/07 by number + by take-time 48→11, 52.5→12, 74.8→16, 109.68→23, 140.38→28, 163→33 (last chord) · fifths stacks ×2 (roots 30, 37) · octave stacks ×2 (F# 30/42/54, Bb 34/46/58) · Messiaen picks (later dictation): **m7 + m4, anchored F#** | — | scores/sl02-harmonies.json, 1.8 min, 14 excerpts, same cluster rotation [L2, M, S1, B2, I1, J2], labels "cluster x concept", 0 thinned (VERT01-16's out-of-ord 67 filtered) |
+
+## The harmony palette + pairing ledger (dictation 2026-08-13 evening)
+
+**Harmonies** (21): VERT01 03/04/06/07/11/12/16/23/28/33 · 5ths roots 30, 37 ·
+octaves F# (30/42/54), Bb (34/46/58) · **BbE-2oct cluster** (Bb–E chromatic in
+1st + top octave: 34–40 + 58–64, 14 notes) · Messiaen **m7** + **m4** (F#,
+spread-placed 10 notes) · four 7-note chromatic clusters: **low** 30–36,
+**mid** 44–50, **high** 59–65, **spread** (bottom-7 pcs octave-displaced:
+30,36,43,47,56,57,58).
+
+**Pairing shortlist:** B2 × BbE-2oct (on the SHORTER list) · M × 5ths root 30
+(keeper, as is) · L2 × OPEN — auditioning the four chromatic clusters.
+
+**Audition scores:**
+- `harmony-blasts` — all 21 harmonies × three blasts each (staccato 0.4 s /
+  fortepiano 3.5 s natural decay / short ord 0.8 s), 10 lanes low→bottom, even
+  fill/sample when set ≠ 10, marker per harmony. 4.3 min.
+- `pairs01` — the ledger as written: B2×BbE-2oct, M×5ths-30, L2× each of the
+  four clusters. 0.8 min.
 | **VERT01-01…33** | vertical_shapes_01 (33 played chords, 4–11 notes) | — | bank/ holds pitches+velocities per chord. Audition: vert01-versions (v1 as-played low→bottom-lane · v2 ten-note octave-displaced max-spread). FLAGS: 07 exceeds 10 (11 pitches, awaiting composer redaction/promotion); 8 chords contain notes above ord F4=65 (66–68) |
 | … | more swell takes to record | — | composer note-to-self: capture a few more |
 
