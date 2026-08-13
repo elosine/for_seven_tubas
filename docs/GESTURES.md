@@ -49,6 +49,9 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s03**: the B2 × BbE-2oct excerpt REPLACED by **CLUST02-A scr2 ×
+  BbE-2oct** (the denser scrambled burst, 31 notes ≈ 19/s) at the same spot,
+  36.54 s, movable META group shape (`grp-scr2-bbe-01`).
 - **piece-s02** (increments piece-s01, never overwrite the piece save):
   B2 × BbE-2oct inserted at **36.54 s** — the exact pairs01 notes — with a
   META-layer rate-contour shape bound via **`groupId`**. Dragging a META shape
