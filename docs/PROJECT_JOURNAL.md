@@ -65,6 +65,39 @@ in the Load dropdown.
 (levelCurve value) outstanding · piece-s01 assembly follows the first filled
 container.
 
+**Session end (2026-08-13, day 4 — "a very productive day": the piece begins + two texture families):**
+- **PIECE ASSEMBLY LIVE (piece-s01→s07c):** opening + five gestures inserted, every
+  gesture a **movable META group shape** (`groupId`: body-drag = move; edge node /
+  green box / panel = time-scale members). Composer drags verified in the wild.
+  Latest state: GESTURE-2 ×0.75 at 50 s reharmonized m6-on-F (s07c).
+- **Harmony world:** palette + pairing ledger (GESTURES.md) — chord shortlist,
+  BbE-2oct, four 7-note chromatic clusters, m7/m4 picks; pinned pairings B2×BbE ·
+  M×5ths-30 · L2×spread; audition scores sl01/sl02, harmony-blasts, pairs01.
+- **GESTURE-2 BANKED** (A2 take → A1 treatment → composer edits; #4E7A9B) +
+  compression study (gest2-compress: uniform time-scaling, ×0.75/×0.5).
+- **OVERLAPPING-CRESCENDO RESEARCH (cressand-01…17):** rise = the pulse nucleus
+  (first-class dial) · **26.5 dB peak-to-bed margin calibrated from composer
+  verdicts** · margin-SOLVED tapers · min-gap 0.44 pinned, backwards chain
+  construction · compression floor found (chain D ≈ uniform pulse) ·
+  **`cressand-family` = the reference** (7 chains) · `cressand-pitches` (7 pitch
+  strategies incl. 11-pc tone row, Raga Bhairav 12-TET).
+- **OSTINATO ENGINE PORTED from piece #2** (the played timing tables →
+  bank/ostinato_timing_db_2p2p.json; curve-lookup algorithm in tools/ost_variety.js).
+  **`ost01-variety` = 8-formation listening exercise** (quartet/sextet/ten,
+  simultaneous waves at different speeds, accretive 2→10, decretive 10→2).
+- **App safety day:** Clear-All forks to new name · save-name collisions
+  auto-suffix · Cache-Control no-store + visible **buildTag** (b16-boxscale) ·
+  cuivre palette (C key, hover-preview) · ALT-scroll zoom flipped · gest1-pitches
+  RESTORED from git (autosave clobber caught).
+- **Lesson banked (memory):** wire interaction features into ALL mutation paths
+  (body/node/box/panel); off-grid values fingerprint which path the composer uses.
+
+**NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
+formations for the piece. Then: cressand-family / cressand-pitches verdicts ·
+sl02 Messiaen adds after listening · composer may provide more ostinato sample
+tables (interpolation/combination strategy = standing to-do) · piece continues
+from s07c.
+
 **Blockers:** none.
 
 ## §3 Principles

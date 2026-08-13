@@ -137,10 +137,19 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 
 - **2g — The GESTURE BANK** — `doing 2026-08-13` — docs/GESTURES.md: formal
   principle (fixed shape x pitch distribution = repetition-with-change) ·
-  GESTURE-1 banked (#AD5F2A, 9 pitch variants) · GESTURE-1 workflow captured as
-  the envelope-decision template · planned: pointillistic mass, verticals,
-  overlapping-crescendo pulse, clips-as-gestures, varied repetition,
-  tremolo/ostinato. GESTURE-2 (A2) awaiting composer redo.
+  GESTURE-1 banked (#AD5F2A, 9 pitch variants) · **GESTURE-2 BANKED**
+  (A2-fp_cresE, #4E7A9B, compression ×0.75 in the piece) · CLUST01/02 + VERT01
+  entities + harmony palette/pairing ledger · **overlapping-crescendo pulse
+  RESEARCHED** (cressand-01…17 → `cressand-family` reference: rise-nucleus law,
+  26.5 dB margin calibration, margin-solved taper, min-gap 0.44 floor) ·
+  **ostinato engine PORTED from piece #2** (timing tables in bank/, tools/
+  ost_variety.js) — `ost01-variety` = the 8-formation listening exercise,
+  FIRST THING NEXT SESSION. Remaining planned: pointillistic-mass takes,
+  varied repetition as form.
+- **2h — PIECE ASSEMBLY** — `doing 2026-08-13` — piece-s01…s07c: opening
+  (GESTURE-1) + 5 inserted gestures, all with movable/stretchable META group
+  shapes (groupId; drag=move, edge/box/panel=scale); latest: GESTURE-2 ×0.75
+  at 50 s, reharmonized m6 on F# (s07b) then F (s07c).
 
 ## Parking lot
 

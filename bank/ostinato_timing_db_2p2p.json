@@ -1,0 +1,3745 @@
+{
+  "type": "ostinato_timing_db",
+  "version": 1,
+  "created": "2026-03-28T20:50:31.307Z",
+  "updated": "2026-03-28T20:50:31.310Z",
+  "description": "Curve-indexed ostinato timing profiles. Pitch-agnostic — only timing, velocity, and note counts are stored.",
+  "attackGroupThresholdMs": 30,
+  "burstGapThresholdMs": 500,
+  "ingestions": [
+    {
+      "timestamp": "2026-03-28T20:50:31.310Z",
+      "source": "ostanatoSamplePiano",
+      "inputFile": "ostanatoSamplePiano.mid",
+      "burstGapThresholdMs": 500,
+      "attackGroupThresholdMs": 30,
+      "rawNoteEvents": 1542,
+      "pairedNotes": 771,
+      "burstsDetected": 6,
+      "samplesAdded": 6,
+      "sampleIndexRange": [
+        0,
+        5
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "sampleIndex": 0,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 56,
+      "totalDurationMs": 6513.02,
+      "stats": {
+        "gap": {
+          "avgMs": 118.42,
+          "minMs": 32.29,
+          "maxMs": 197.4
+        },
+        "velocity": {
+          "avg": 83,
+          "min": 16,
+          "max": 118
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 124.8,
+            "avgVelocity": 62
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 129.4,
+            "avgVelocity": 78
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 115.9,
+            "avgVelocity": 88
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 102.4,
+            "avgVelocity": 104
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 63.02,
+          "avgVelocity": 51,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            127.08,
+            145.31
+          ]
+        },
+        {
+          "curvePosition": 0.0097,
+          "gapToNextMs": 32.29,
+          "avgVelocity": 16,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            50.52
+          ]
+        },
+        {
+          "curvePosition": 0.0146,
+          "gapToNextMs": 197.4,
+          "avgVelocity": 56,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            91.67,
+            68.75,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.0449,
+          "gapToNextMs": 79.17,
+          "avgVelocity": 63,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            97.4,
+            85.42,
+            103.13
+          ]
+        },
+        {
+          "curvePosition": 0.0571,
+          "gapToNextMs": 182.81,
+          "avgVelocity": 51,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            93.75,
+            80.73,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.0852,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 69,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            121.88,
+            108.33,
+            118.75
+          ]
+        },
+        {
+          "curvePosition": 0.1052,
+          "gapToNextMs": 154.69,
+          "avgVelocity": 60,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            88.02,
+            81.77,
+            83.33
+          ]
+        },
+        {
+          "curvePosition": 0.1289,
+          "gapToNextMs": 131.77,
+          "avgVelocity": 72,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            107.81,
+            95.83,
+            106.25
+          ]
+        },
+        {
+          "curvePosition": 0.1491,
+          "gapToNextMs": 144.27,
+          "avgVelocity": 69,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            85.94,
+            79.69,
+            72.4
+          ]
+        },
+        {
+          "curvePosition": 0.1713,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 74,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            101.04,
+            93.23,
+            104.69
+          ]
+        },
+        {
+          "curvePosition": 0.1898,
+          "gapToNextMs": 152.6,
+          "avgVelocity": 68,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            82.29,
+            69.79,
+            63.54
+          ]
+        },
+        {
+          "curvePosition": 0.2133,
+          "gapToNextMs": 97.92,
+          "avgVelocity": 72,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            105.21,
+            86.98,
+            111.98
+          ]
+        },
+        {
+          "curvePosition": 0.2283,
+          "gapToNextMs": 169.27,
+          "avgVelocity": 69,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            88.54,
+            77.08,
+            72.4
+          ]
+        },
+        {
+          "curvePosition": 0.2543,
+          "gapToNextMs": 90.63,
+          "avgVelocity": 74,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            103.13,
+            114.06,
+            86.98
+          ]
+        },
+        {
+          "curvePosition": 0.2682,
+          "gapToNextMs": 170.31,
+          "avgVelocity": 69,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            111.98,
+            98.44,
+            103.13
+          ]
+        },
+        {
+          "curvePosition": 0.2944,
+          "gapToNextMs": 152.08,
+          "avgVelocity": 81,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            110.42,
+            98.44,
+            122.92
+          ]
+        },
+        {
+          "curvePosition": 0.3177,
+          "gapToNextMs": 109.38,
+          "avgVelocity": 78,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            86.98,
+            88.02,
+            72.4
+          ]
+        },
+        {
+          "curvePosition": 0.3345,
+          "gapToNextMs": 146.35,
+          "avgVelocity": 78,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            98.96,
+            89.06,
+            107.81
+          ]
+        },
+        {
+          "curvePosition": 0.357,
+          "gapToNextMs": 117.71,
+          "avgVelocity": 71,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            83.33,
+            74.48,
+            82.29
+          ]
+        },
+        {
+          "curvePosition": 0.375,
+          "gapToNextMs": 116.67,
+          "avgVelocity": 79,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            89.06,
+            98.96,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.393,
+          "gapToNextMs": 122.92,
+          "avgVelocity": 73,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            78.65,
+            71.35,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.4118,
+          "gapToNextMs": 113.02,
+          "avgVelocity": 79,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            90.63,
+            99.48,
+            82.81
+          ]
+        },
+        {
+          "curvePosition": 0.4292,
+          "gapToNextMs": 126.04,
+          "avgVelocity": 75,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            90.1,
+            81.25,
+            83.85
+          ]
+        },
+        {
+          "curvePosition": 0.4485,
+          "gapToNextMs": 142.71,
+          "avgVelocity": 78,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            98.96,
+            107.29,
+            89.58
+          ]
+        },
+        {
+          "curvePosition": 0.4705,
+          "gapToNextMs": 116.15,
+          "avgVelocity": 80,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            82.81,
+            82.29,
+            70.83
+          ]
+        },
+        {
+          "curvePosition": 0.4883,
+          "gapToNextMs": 135.94,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            90.63,
+            92.19,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.5092,
+          "gapToNextMs": 106.77,
+          "avgVelocity": 81,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            75.52,
+            70.83,
+            66.15
+          ]
+        },
+        {
+          "curvePosition": 0.5255,
+          "gapToNextMs": 135.42,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            89.06,
+            81.25,
+            90.63
+          ]
+        },
+        {
+          "curvePosition": 0.5463,
+          "gapToNextMs": 100.52,
+          "avgVelocity": 79,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            81.25,
+            70.83,
+            72.92
+          ]
+        },
+        {
+          "curvePosition": 0.5618,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            84.38,
+            80.21,
+            85.42
+          ]
+        },
+        {
+          "curvePosition": 0.5818,
+          "gapToNextMs": 105.21,
+          "avgVelocity": 81,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            80.73,
+            71.88,
+            77.6
+          ]
+        },
+        {
+          "curvePosition": 0.5979,
+          "gapToNextMs": 129.17,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            83.85,
+            80.21,
+            80.73
+          ]
+        },
+        {
+          "curvePosition": 0.6178,
+          "gapToNextMs": 99.48,
+          "avgVelocity": 81,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            71.88,
+            65.1,
+            66.15
+          ]
+        },
+        {
+          "curvePosition": 0.633,
+          "gapToNextMs": 135.94,
+          "avgVelocity": 89,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            90.1,
+            85.42,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.6539,
+          "gapToNextMs": 96.87,
+          "avgVelocity": 86,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            76.04,
+            70.31,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.6688,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 90,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            83.33,
+            78.65,
+            77.6
+          ]
+        },
+        {
+          "curvePosition": 0.6888,
+          "gapToNextMs": 104.69,
+          "avgVelocity": 88,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            78.65,
+            83.85,
+            70.31
+          ]
+        },
+        {
+          "curvePosition": 0.7048,
+          "gapToNextMs": 133.85,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            80.73,
+            75.52,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.7254,
+          "gapToNextMs": 95.31,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            70.83,
+            74.48,
+            59.9
+          ]
+        },
+        {
+          "curvePosition": 0.74,
+          "gapToNextMs": 133.33,
+          "avgVelocity": 96,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            78.65,
+            75,
+            77.08
+          ]
+        },
+        {
+          "curvePosition": 0.7605,
+          "gapToNextMs": 97.92,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            76.04,
+            78.13,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.7755,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 96,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            74.48,
+            71.88,
+            70.83
+          ]
+        },
+        {
+          "curvePosition": 0.7955,
+          "gapToNextMs": 95.83,
+          "avgVelocity": 94,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            80.73,
+            71.87,
+            79.69
+          ]
+        },
+        {
+          "curvePosition": 0.8102,
+          "gapToNextMs": 141.67,
+          "avgVelocity": 98,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            77.6,
+            74.48,
+            72.92
+          ]
+        },
+        {
+          "curvePosition": 0.832,
+          "gapToNextMs": 72.92,
+          "avgVelocity": 95,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            66.67,
+            61.46,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.8432,
+          "gapToNextMs": 132.29,
+          "avgVelocity": 102,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            75,
+            71.35,
+            69.27
+          ]
+        },
+        {
+          "curvePosition": 0.8635,
+          "gapToNextMs": 83.85,
+          "avgVelocity": 99,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            68.75,
+            71.35,
+            64.06
+          ]
+        },
+        {
+          "curvePosition": 0.8764,
+          "gapToNextMs": 133.85,
+          "avgVelocity": 107,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            68.75,
+            64.58,
+            62.5
+          ]
+        },
+        {
+          "curvePosition": 0.8969,
+          "gapToNextMs": 87.5,
+          "avgVelocity": 104,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            71.35,
+            70.31,
+            77.08
+          ]
+        },
+        {
+          "curvePosition": 0.9104,
+          "gapToNextMs": 132.29,
+          "avgVelocity": 106,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            65.62,
+            64.06,
+            60.94
+          ]
+        },
+        {
+          "curvePosition": 0.9307,
+          "gapToNextMs": 77.6,
+          "avgVelocity": 100,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            59.9,
+            60.42,
+            64.58
+          ]
+        },
+        {
+          "curvePosition": 0.9426,
+          "gapToNextMs": 130.73,
+          "avgVelocity": 118,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            66.15,
+            63.02,
+            59.9
+          ]
+        },
+        {
+          "curvePosition": 0.9627,
+          "gapToNextMs": 72.92,
+          "avgVelocity": 109,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            65.1,
+            65.63,
+            69.27
+          ]
+        },
+        {
+          "curvePosition": 0.9739,
+          "gapToNextMs": 119.79,
+          "avgVelocity": 102,
+          "noteCount": 4,
+          "noteDurationsMs": [
+            66.67,
+            64.06,
+            58.85,
+            28.65
+          ]
+        },
+        {
+          "curvePosition": 0.9922,
+          "gapToNextMs": 50.52,
+          "avgVelocity": 115,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            62.5,
+            63.02,
+            65.1
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 104,
+          "noteCount": 4,
+          "noteDurationsMs": [
+            64.06,
+            57.29,
+            60.42,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "sampleIndex": 1,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 53,
+      "totalDurationMs": 6550,
+      "stats": {
+        "gap": {
+          "avgMs": 125.96,
+          "minMs": 42.71,
+          "maxMs": 196.35
+        },
+        "velocity": {
+          "avg": 85,
+          "min": 53,
+          "max": 108
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 145.5,
+            "avgVelocity": 63
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 132.1,
+            "avgVelocity": 83
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 123.3,
+            "avgVelocity": 94
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 103,
+            "avgVelocity": 102
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 196.35,
+          "avgVelocity": 60,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            109.38,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.03,
+          "gapToNextMs": 146.87,
+          "avgVelocity": 67,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            111.98
+          ]
+        },
+        {
+          "curvePosition": 0.0524,
+          "gapToNextMs": 42.71,
+          "avgVelocity": 61,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            146.35,
+            108.85
+          ]
+        },
+        {
+          "curvePosition": 0.0589,
+          "gapToNextMs": 129.17,
+          "avgVelocity": 55,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.0786,
+          "gapToNextMs": 167.71,
+          "avgVelocity": 63,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            89.06,
+            77.6,
+            87.5
+          ]
+        },
+        {
+          "curvePosition": 0.1042,
+          "gapToNextMs": 123.96,
+          "avgVelocity": 56,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            133.33,
+            129.69
+          ]
+        },
+        {
+          "curvePosition": 0.1232,
+          "gapToNextMs": 195.31,
+          "avgVelocity": 57,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            114.58,
+            94.27,
+            83.33
+          ]
+        },
+        {
+          "curvePosition": 0.153,
+          "gapToNextMs": 135.42,
+          "avgVelocity": 74,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            116.67,
+            134.38,
+            91.15
+          ]
+        },
+        {
+          "curvePosition": 0.1737,
+          "gapToNextMs": 175.52,
+          "avgVelocity": 53,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            121.35,
+            104.69,
+            96.88
+          ]
+        },
+        {
+          "curvePosition": 0.2005,
+          "gapToNextMs": 166.15,
+          "avgVelocity": 64,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            127.6,
+            139.58,
+            104.69
+          ]
+        },
+        {
+          "curvePosition": 0.2258,
+          "gapToNextMs": 147.92,
+          "avgVelocity": 63,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            108.33,
+            94.27,
+            90.62
+          ]
+        },
+        {
+          "curvePosition": 0.2484,
+          "gapToNextMs": 131.77,
+          "avgVelocity": 77,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            100.52,
+            117.71,
+            87.5
+          ]
+        },
+        {
+          "curvePosition": 0.2685,
+          "gapToNextMs": 132.29,
+          "avgVelocity": 67,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            95.83,
+            79.17,
+            85.94
+          ]
+        },
+        {
+          "curvePosition": 0.2887,
+          "gapToNextMs": 121.87,
+          "avgVelocity": 78,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            97.4,
+            110.42,
+            89.06
+          ]
+        },
+        {
+          "curvePosition": 0.3073,
+          "gapToNextMs": 145.83,
+          "avgVelocity": 76,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            98.44,
+            83.33,
+            89.58
+          ]
+        },
+        {
+          "curvePosition": 0.3296,
+          "gapToNextMs": 138.02,
+          "avgVelocity": 76,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            96.35,
+            119.27,
+            85.94
+          ]
+        },
+        {
+          "curvePosition": 0.3507,
+          "gapToNextMs": 130.73,
+          "avgVelocity": 71,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            93.75,
+            84.37,
+            92.19
+          ]
+        },
+        {
+          "curvePosition": 0.3706,
+          "gapToNextMs": 125.52,
+          "avgVelocity": 79,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            109.9,
+            129.69,
+            99.48
+          ]
+        },
+        {
+          "curvePosition": 0.3898,
+          "gapToNextMs": 150.52,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            117.19,
+            122.92,
+            103.65
+          ]
+        },
+        {
+          "curvePosition": 0.4128,
+          "gapToNextMs": 155.73,
+          "avgVelocity": 85,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            115.62,
+            117.71,
+            138.54
+          ]
+        },
+        {
+          "curvePosition": 0.4365,
+          "gapToNextMs": 127.08,
+          "avgVelocity": 86,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            109.9,
+            100.52,
+            88.54
+          ]
+        },
+        {
+          "curvePosition": 0.4559,
+          "gapToNextMs": 135.94,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            99.48,
+            123.44,
+            100
+          ]
+        },
+        {
+          "curvePosition": 0.4767,
+          "gapToNextMs": 119.79,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            101.56,
+            91.67,
+            83.33
+          ]
+        },
+        {
+          "curvePosition": 0.495,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            96.35,
+            95.83,
+            113.02
+          ]
+        },
+        {
+          "curvePosition": 0.5134,
+          "gapToNextMs": 129.69,
+          "avgVelocity": 88,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            95.83,
+            88.02,
+            98.44
+          ]
+        },
+        {
+          "curvePosition": 0.5332,
+          "gapToNextMs": 116.15,
+          "avgVelocity": 84,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            93.23,
+            90.1,
+            106.77
+          ]
+        },
+        {
+          "curvePosition": 0.551,
+          "gapToNextMs": 129.69,
+          "avgVelocity": 83,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            97.4,
+            86.46,
+            89.06
+          ]
+        },
+        {
+          "curvePosition": 0.5708,
+          "gapToNextMs": 126.56,
+          "avgVelocity": 90,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            100,
+            118.75,
+            97.92
+          ]
+        },
+        {
+          "curvePosition": 0.5901,
+          "gapToNextMs": 127.6,
+          "avgVelocity": 86,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            107.29,
+            97.92,
+            96.35
+          ]
+        },
+        {
+          "curvePosition": 0.6096,
+          "gapToNextMs": 129.69,
+          "avgVelocity": 89,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            105.73,
+            102.08,
+            121.35
+          ]
+        },
+        {
+          "curvePosition": 0.6294,
+          "gapToNextMs": 129.69,
+          "avgVelocity": 99,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            103.65,
+            85.94,
+            92.19
+          ]
+        },
+        {
+          "curvePosition": 0.6492,
+          "gapToNextMs": 130.73,
+          "avgVelocity": 96,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            94.27,
+            92.19,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.6691,
+          "gapToNextMs": 111.98,
+          "avgVelocity": 95,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            85.94,
+            75.52,
+            80.21
+          ]
+        },
+        {
+          "curvePosition": 0.6862,
+          "gapToNextMs": 135.94,
+          "avgVelocity": 93,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            93.23,
+            92.19,
+            101.56
+          ]
+        },
+        {
+          "curvePosition": 0.707,
+          "gapToNextMs": 111.98,
+          "avgVelocity": 89,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            86.46,
+            76.04,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.7241,
+          "gapToNextMs": 117.71,
+          "avgVelocity": 98,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            88.54,
+            87.5,
+            88.54
+          ]
+        },
+        {
+          "curvePosition": 0.742,
+          "gapToNextMs": 128.65,
+          "avgVelocity": 99,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            86.46,
+            100,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.7617,
+          "gapToNextMs": 97.4,
+          "avgVelocity": 100,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.17,
+            79.69,
+            80.73
+          ]
+        },
+        {
+          "curvePosition": 0.7766,
+          "gapToNextMs": 125,
+          "avgVelocity": 99,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.69,
+            93.23,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.7956,
+          "gapToNextMs": 91.67,
+          "avgVelocity": 99,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.69,
+            77.6,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.8096,
+          "gapToNextMs": 120.31,
+          "avgVelocity": 101,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.69,
+            92.19,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.828,
+          "gapToNextMs": 106.25,
+          "avgVelocity": 101,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            83.33,
+            82.29,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.8442,
+          "gapToNextMs": 108.33,
+          "avgVelocity": 103,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            82.81,
+            94.27,
+            79.17
+          ]
+        },
+        {
+          "curvePosition": 0.8608,
+          "gapToNextMs": 102.6,
+          "avgVelocity": 100,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            81.25,
+            79.69,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.8764,
+          "gapToNextMs": 109.9,
+          "avgVelocity": 103,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.69,
+            81.77,
+            88.54
+          ]
+        },
+        {
+          "curvePosition": 0.8932,
+          "gapToNextMs": 101.56,
+          "avgVelocity": 98,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            81.25,
+            81.77,
+            79.69
+          ]
+        },
+        {
+          "curvePosition": 0.9087,
+          "gapToNextMs": 109.9,
+          "avgVelocity": 101,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            85.94,
+            84.38,
+            86.98
+          ]
+        },
+        {
+          "curvePosition": 0.9255,
+          "gapToNextMs": 104.69,
+          "avgVelocity": 101,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            84.38,
+            83.33,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.9415,
+          "gapToNextMs": 100.52,
+          "avgVelocity": 101,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            79.69,
+            81.77,
+            84.9
+          ]
+        },
+        {
+          "curvePosition": 0.9568,
+          "gapToNextMs": 112.5,
+          "avgVelocity": 103,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            84.9,
+            81.77,
+            79.69
+          ]
+        },
+        {
+          "curvePosition": 0.974,
+          "gapToNextMs": 82.29,
+          "avgVelocity": 103,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            74.48,
+            73.44,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.9866,
+          "gapToNextMs": 88.02,
+          "avgVelocity": 103,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            89.58,
+            91.15,
+            80.73
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 108,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            59.38,
+            64.58,
+            51.56
+          ]
+        }
+      ]
+    },
+    {
+      "sampleIndex": 2,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 58,
+      "totalDurationMs": 6402.6,
+      "stats": {
+        "gap": {
+          "avgMs": 112.33,
+          "minMs": 36.46,
+          "maxMs": 171.88
+        },
+        "velocity": {
+          "avg": 83,
+          "min": 31,
+          "max": 115
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 115.7,
+            "avgVelocity": 61
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 121.9,
+            "avgVelocity": 75
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 111.8,
+            "avgVelocity": 89
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 100.7,
+            "avgVelocity": 104
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 80.21,
+          "avgVelocity": 49,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            140.63,
+            141.15
+          ]
+        },
+        {
+          "curvePosition": 0.0125,
+          "gapToNextMs": 36.46,
+          "avgVelocity": 62,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            180.21
+          ]
+        },
+        {
+          "curvePosition": 0.0182,
+          "gapToNextMs": 171.88,
+          "avgVelocity": 31,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            150
+          ]
+        },
+        {
+          "curvePosition": 0.0451,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            110.94,
+            110.42
+          ]
+        },
+        {
+          "curvePosition": 0.0639,
+          "gapToNextMs": 132.81,
+          "avgVelocity": 58,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            105.21,
+            81.77
+          ]
+        },
+        {
+          "curvePosition": 0.0847,
+          "gapToNextMs": 84.38,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            98.44
+          ]
+        },
+        {
+          "curvePosition": 0.0979,
+          "gapToNextMs": 159.9,
+          "avgVelocity": 56,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            106.25,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.1228,
+          "gapToNextMs": 76.56,
+          "avgVelocity": 68,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.87,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.1348,
+          "gapToNextMs": 160.94,
+          "avgVelocity": 57,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            103.65,
+            86.46
+          ]
+        },
+        {
+          "curvePosition": 0.1599,
+          "gapToNextMs": 93.23,
+          "avgVelocity": 69,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            103.65,
+            112.5
+          ]
+        },
+        {
+          "curvePosition": 0.1745,
+          "gapToNextMs": 156.77,
+          "avgVelocity": 59,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            123.96,
+            96.87
+          ]
+        },
+        {
+          "curvePosition": 0.199,
+          "gapToNextMs": 113.02,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.96,
+            102.6
+          ]
+        },
+        {
+          "curvePosition": 0.2166,
+          "gapToNextMs": 122.4,
+          "avgVelocity": 65,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            91.15,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.2357,
+          "gapToNextMs": 110.94,
+          "avgVelocity": 69,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.96,
+            104.69
+          ]
+        },
+        {
+          "curvePosition": 0.2531,
+          "gapToNextMs": 132.29,
+          "avgVelocity": 66,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            97.92,
+            86.46
+          ]
+        },
+        {
+          "curvePosition": 0.2737,
+          "gapToNextMs": 123.96,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            103.65,
+            105.73
+          ]
+        },
+        {
+          "curvePosition": 0.2931,
+          "gapToNextMs": 138.02,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.44,
+            93.23
+          ]
+        },
+        {
+          "curvePosition": 0.3147,
+          "gapToNextMs": 127.08,
+          "avgVelocity": 73,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            97.92,
+            94.27
+          ]
+        },
+        {
+          "curvePosition": 0.3345,
+          "gapToNextMs": 117.19,
+          "avgVelocity": 68,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            76.56
+          ]
+        },
+        {
+          "curvePosition": 0.3528,
+          "gapToNextMs": 132.29,
+          "avgVelocity": 73,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            100,
+            94.79
+          ]
+        },
+        {
+          "curvePosition": 0.3735,
+          "gapToNextMs": 116.67,
+          "avgVelocity": 73,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            77.6
+          ]
+        },
+        {
+          "curvePosition": 0.3917,
+          "gapToNextMs": 117.71,
+          "avgVelocity": 73,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.71,
+            96.35
+          ]
+        },
+        {
+          "curvePosition": 0.4101,
+          "gapToNextMs": 114.06,
+          "avgVelocity": 75,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            83.33,
+            80.21
+          ]
+        },
+        {
+          "curvePosition": 0.4279,
+          "gapToNextMs": 116.67,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            95.83,
+            96.88
+          ]
+        },
+        {
+          "curvePosition": 0.4461,
+          "gapToNextMs": 112.5,
+          "avgVelocity": 81,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.02,
+            88.02
+          ]
+        },
+        {
+          "curvePosition": 0.4637,
+          "gapToNextMs": 129.17,
+          "avgVelocity": 79,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            97.92,
+            93.75
+          ]
+        },
+        {
+          "curvePosition": 0.4839,
+          "gapToNextMs": 107.81,
+          "avgVelocity": 82,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.71,
+            90.63
+          ]
+        },
+        {
+          "curvePosition": 0.5007,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 83,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.06,
+            86.46
+          ]
+        },
+        {
+          "curvePosition": 0.5196,
+          "gapToNextMs": 109.38,
+          "avgVelocity": 86,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.38,
+            92.19
+          ]
+        },
+        {
+          "curvePosition": 0.5366,
+          "gapToNextMs": 129.17,
+          "avgVelocity": 89,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.88,
+            84.38
+          ]
+        },
+        {
+          "curvePosition": 0.5568,
+          "gapToNextMs": 107.81,
+          "avgVelocity": 89,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.02,
+            92.19
+          ]
+        },
+        {
+          "curvePosition": 0.5737,
+          "gapToNextMs": 120.31,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            85.94,
+            71.88
+          ]
+        },
+        {
+          "curvePosition": 0.5925,
+          "gapToNextMs": 103.65,
+          "avgVelocity": 86,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            79.17,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.6086,
+          "gapToNextMs": 111.98,
+          "avgVelocity": 89,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.38,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.6261,
+          "gapToNextMs": 104.69,
+          "avgVelocity": 87,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.65,
+            82.29
+          ]
+        },
+        {
+          "curvePosition": 0.6425,
+          "gapToNextMs": 119.27,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            82.29,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.6611,
+          "gapToNextMs": 97.4,
+          "avgVelocity": 83,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.96,
+            75.52
+          ]
+        },
+        {
+          "curvePosition": 0.6763,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            81.77,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.6952,
+          "gapToNextMs": 102.6,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.13,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.7112,
+          "gapToNextMs": 113.54,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            79.69,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.729,
+          "gapToNextMs": 93.23,
+          "avgVelocity": 95,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            77.6,
+            81.77
+          ]
+        },
+        {
+          "curvePosition": 0.7435,
+          "gapToNextMs": 131.77,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            86.98,
+            80.21
+          ]
+        },
+        {
+          "curvePosition": 0.7641,
+          "gapToNextMs": 80.73,
+          "avgVelocity": 96,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            77.08,
+            80.73
+          ]
+        },
+        {
+          "curvePosition": 0.7767,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 95,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            82.81,
+            70.31
+          ]
+        },
+        {
+          "curvePosition": 0.797,
+          "gapToNextMs": 91.67,
+          "avgVelocity": 97,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            80.21
+          ]
+        },
+        {
+          "curvePosition": 0.8114,
+          "gapToNextMs": 121.35,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.65,
+            70.31
+          ]
+        },
+        {
+          "curvePosition": 0.8303,
+          "gapToNextMs": 98.44,
+          "avgVelocity": 100,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            80.21,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.8457,
+          "gapToNextMs": 117.19,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.56,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.864,
+          "gapToNextMs": 92.71,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            70.31,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.8785,
+          "gapToNextMs": 113.54,
+          "avgVelocity": 103,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.44,
+            64.58
+          ]
+        },
+        {
+          "curvePosition": 0.8962,
+          "gapToNextMs": 91.67,
+          "avgVelocity": 102,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.9105,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 111,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.13,
+            64.58
+          ]
+        },
+        {
+          "curvePosition": 0.9294,
+          "gapToNextMs": 81.25,
+          "avgVelocity": 106,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.04,
+            69.79
+          ]
+        },
+        {
+          "curvePosition": 0.9421,
+          "gapToNextMs": 111.46,
+          "avgVelocity": 111,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75.52,
+            63.02
+          ]
+        },
+        {
+          "curvePosition": 0.9595,
+          "gapToNextMs": 81.77,
+          "avgVelocity": 107,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.58,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.9723,
+          "gapToNextMs": 95.31,
+          "avgVelocity": 112,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            68.75,
+            59.9
+          ]
+        },
+        {
+          "curvePosition": 0.9871,
+          "gapToNextMs": 82.29,
+          "avgVelocity": 115,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            69.79,
+            59.38
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 113,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            63.02,
+            56.25
+          ]
+        }
+      ]
+    },
+    {
+      "sampleIndex": 3,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 61,
+      "totalDurationMs": 6484.38,
+      "stats": {
+        "gap": {
+          "avgMs": 108.07,
+          "minMs": 69.79,
+          "maxMs": 154.69
+        },
+        "velocity": {
+          "avg": 86,
+          "min": 56,
+          "max": 114
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 136.7,
+            "avgVelocity": 65
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 109.6,
+            "avgVelocity": 79
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 97,
+            "avgVelocity": 95
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 89,
+            "avgVelocity": 106
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 147.4,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            122.4,
+            143.23
+          ]
+        },
+        {
+          "curvePosition": 0.0227,
+          "gapToNextMs": 148.96,
+          "avgVelocity": 73,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            131.77
+          ]
+        },
+        {
+          "curvePosition": 0.0457,
+          "gapToNextMs": 148.96,
+          "avgVelocity": 63,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            107.29,
+            110.42
+          ]
+        },
+        {
+          "curvePosition": 0.0687,
+          "gapToNextMs": 131.25,
+          "avgVelocity": 56,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.38,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.0889,
+          "gapToNextMs": 122.92,
+          "avgVelocity": 66,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.88,
+            96.35
+          ]
+        },
+        {
+          "curvePosition": 0.1079,
+          "gapToNextMs": 146.35,
+          "avgVelocity": 63,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            94.27,
+            93.23
+          ]
+        },
+        {
+          "curvePosition": 0.1304,
+          "gapToNextMs": 108.33,
+          "avgVelocity": 69,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.87,
+            109.9
+          ]
+        },
+        {
+          "curvePosition": 0.1471,
+          "gapToNextMs": 154.69,
+          "avgVelocity": 56,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            91.67,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.171,
+          "gapToNextMs": 110.94,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            101.56,
+            106.25
+          ]
+        },
+        {
+          "curvePosition": 0.1881,
+          "gapToNextMs": 151.56,
+          "avgVelocity": 58,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            122.4,
+            104.69
+          ]
+        },
+        {
+          "curvePosition": 0.2115,
+          "gapToNextMs": 154.69,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            110.94
+          ]
+        },
+        {
+          "curvePosition": 0.2353,
+          "gapToNextMs": 115.1,
+          "avgVelocity": 57,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.71,
+            72.4
+          ]
+        },
+        {
+          "curvePosition": 0.2531,
+          "gapToNextMs": 149.48,
+          "avgVelocity": 68,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            93.75,
+            107.81
+          ]
+        },
+        {
+          "curvePosition": 0.2761,
+          "gapToNextMs": 111.98,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            91.15,
+            95.83
+          ]
+        },
+        {
+          "curvePosition": 0.2934,
+          "gapToNextMs": 147.4,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            100,
+            107.81
+          ]
+        },
+        {
+          "curvePosition": 0.3161,
+          "gapToNextMs": 109.9,
+          "avgVelocity": 66,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            83.85,
+            76.56
+          ]
+        },
+        {
+          "curvePosition": 0.3331,
+          "gapToNextMs": 119.79,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.3516,
+          "gapToNextMs": 116.67,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            88.02
+          ]
+        },
+        {
+          "curvePosition": 0.3696,
+          "gapToNextMs": 108.85,
+          "avgVelocity": 75,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.06,
+            96.88
+          ]
+        },
+        {
+          "curvePosition": 0.3863,
+          "gapToNextMs": 124.48,
+          "avgVelocity": 75,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            83.85
+          ]
+        },
+        {
+          "curvePosition": 0.4055,
+          "gapToNextMs": 99.48,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            86.46,
+            93.75
+          ]
+        },
+        {
+          "curvePosition": 0.4209,
+          "gapToNextMs": 122.4,
+          "avgVelocity": 69,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            85.42
+          ]
+        },
+        {
+          "curvePosition": 0.4398,
+          "gapToNextMs": 92.19,
+          "avgVelocity": 81,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.38,
+            86.98
+          ]
+        },
+        {
+          "curvePosition": 0.454,
+          "gapToNextMs": 119.27,
+          "avgVelocity": 73,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.54,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.4724,
+          "gapToNextMs": 117.19,
+          "avgVelocity": 85,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            85.94,
+            91.15
+          ]
+        },
+        {
+          "curvePosition": 0.4904,
+          "gapToNextMs": 95.83,
+          "avgVelocity": 79,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            82.81,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.5052,
+          "gapToNextMs": 118.75,
+          "avgVelocity": 86,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            79.17,
+            82.81
+          ]
+        },
+        {
+          "curvePosition": 0.5235,
+          "gapToNextMs": 88.02,
+          "avgVelocity": 87,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.56,
+            78.13
+          ]
+        },
+        {
+          "curvePosition": 0.5371,
+          "gapToNextMs": 114.06,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            79.69,
+            68.75
+          ]
+        },
+        {
+          "curvePosition": 0.5547,
+          "gapToNextMs": 96.88,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.44,
+            75.52
+          ]
+        },
+        {
+          "curvePosition": 0.5696,
+          "gapToNextMs": 88.54,
+          "avgVelocity": 94,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75,
+            70.83
+          ]
+        },
+        {
+          "curvePosition": 0.5833,
+          "gapToNextMs": 107.81,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.56,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.5999,
+          "gapToNextMs": 90.62,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.04,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.6139,
+          "gapToNextMs": 108.85,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.6307,
+          "gapToNextMs": 93.75,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.96,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.6451,
+          "gapToNextMs": 104.17,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.96,
+            77.08
+          ]
+        },
+        {
+          "curvePosition": 0.6612,
+          "gapToNextMs": 91.15,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            64.58
+          ]
+        },
+        {
+          "curvePosition": 0.6753,
+          "gapToNextMs": 98.96,
+          "avgVelocity": 96,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            68.23,
+            69.79
+          ]
+        },
+        {
+          "curvePosition": 0.6905,
+          "gapToNextMs": 93.75,
+          "avgVelocity": 96,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            69.79,
+            65.62
+          ]
+        },
+        {
+          "curvePosition": 0.705,
+          "gapToNextMs": 96.88,
+          "avgVelocity": 98,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            69.27,
+            71.88
+          ]
+        },
+        {
+          "curvePosition": 0.7199,
+          "gapToNextMs": 93.23,
+          "avgVelocity": 98,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            66.15,
+            61.46
+          ]
+        },
+        {
+          "curvePosition": 0.7343,
+          "gapToNextMs": 98.44,
+          "avgVelocity": 99,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            66.67,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.7495,
+          "gapToNextMs": 102.08,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            65.62,
+            61.98
+          ]
+        },
+        {
+          "curvePosition": 0.7652,
+          "gapToNextMs": 91.15,
+          "avgVelocity": 98,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            63.54,
+            64.58
+          ]
+        },
+        {
+          "curvePosition": 0.7793,
+          "gapToNextMs": 95.83,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            59.9,
+            58.33
+          ]
+        },
+        {
+          "curvePosition": 0.7941,
+          "gapToNextMs": 86.46,
+          "avgVelocity": 99,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.58,
+            67.19
+          ]
+        },
+        {
+          "curvePosition": 0.8074,
+          "gapToNextMs": 108.85,
+          "avgVelocity": 107,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            61.98,
+            57.81
+          ]
+        },
+        {
+          "curvePosition": 0.8242,
+          "gapToNextMs": 69.79,
+          "avgVelocity": 102,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            61.98,
+            61.46
+          ]
+        },
+        {
+          "curvePosition": 0.8349,
+          "gapToNextMs": 99.48,
+          "avgVelocity": 102,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            61.98,
+            58.33
+          ]
+        },
+        {
+          "curvePosition": 0.8503,
+          "gapToNextMs": 83.85,
+          "avgVelocity": 104,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            61.98,
+            62.5
+          ]
+        },
+        {
+          "curvePosition": 0.8632,
+          "gapToNextMs": 97.92,
+          "avgVelocity": 102,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            61.46,
+            51.56
+          ]
+        },
+        {
+          "curvePosition": 0.8783,
+          "gapToNextMs": 92.19,
+          "avgVelocity": 107,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.06,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.8925,
+          "gapToNextMs": 91.67,
+          "avgVelocity": 94,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            57.81,
+            57.29,
+            19.27
+          ]
+        },
+        {
+          "curvePosition": 0.9067,
+          "gapToNextMs": 86.98,
+          "avgVelocity": 114,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.06,
+            64.06
+          ]
+        },
+        {
+          "curvePosition": 0.9201,
+          "gapToNextMs": 103.13,
+          "avgVelocity": 113,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            60.42,
+            60.42
+          ]
+        },
+        {
+          "curvePosition": 0.936,
+          "gapToNextMs": 81.25,
+          "avgVelocity": 106,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            65.1,
+            63.02
+          ]
+        },
+        {
+          "curvePosition": 0.9485,
+          "gapToNextMs": 89.06,
+          "avgVelocity": 102,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            55.73,
+            52.6,
+            26.04
+          ]
+        },
+        {
+          "curvePosition": 0.9622,
+          "gapToNextMs": 79.69,
+          "avgVelocity": 112,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            59.9,
+            58.33
+          ]
+        },
+        {
+          "curvePosition": 0.9745,
+          "gapToNextMs": 92.19,
+          "avgVelocity": 114,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            57.81,
+            58.33,
+            38.02
+          ]
+        },
+        {
+          "curvePosition": 0.9888,
+          "gapToNextMs": 72.92,
+          "avgVelocity": 107,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            60.42,
+            64.06
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 108,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            56.77,
+            58.33,
+            28.13
+          ]
+        }
+      ]
+    },
+    {
+      "sampleIndex": 4,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 52,
+      "totalDurationMs": 6540.63,
+      "stats": {
+        "gap": {
+          "avgMs": 128.25,
+          "minMs": 40.63,
+          "maxMs": 185.42
+        },
+        "velocity": {
+          "avg": 83,
+          "min": 57,
+          "max": 112
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 153.5,
+            "avgVelocity": 64
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 136.5,
+            "avgVelocity": 78
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 120.6,
+            "avgVelocity": 90
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 100.2,
+            "avgVelocity": 100
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 153.65,
+          "avgVelocity": 69,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            166.67
+          ]
+        },
+        {
+          "curvePosition": 0.0235,
+          "gapToNextMs": 185.42,
+          "avgVelocity": 57,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            164.06,
+            107.81
+          ]
+        },
+        {
+          "curvePosition": 0.0518,
+          "gapToNextMs": 163.02,
+          "avgVelocity": 62,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            119.79,
+            115.1
+          ]
+        },
+        {
+          "curvePosition": 0.0768,
+          "gapToNextMs": 168.23,
+          "avgVelocity": 61,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            115.1,
+            110.94
+          ]
+        },
+        {
+          "curvePosition": 0.1025,
+          "gapToNextMs": 145.83,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            133.33,
+            108.33
+          ]
+        },
+        {
+          "curvePosition": 0.1248,
+          "gapToNextMs": 169.27,
+          "avgVelocity": 61,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            94.79,
+            89.06
+          ]
+        },
+        {
+          "curvePosition": 0.1507,
+          "gapToNextMs": 126.04,
+          "avgVelocity": 68,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            110.42,
+            121.35
+          ]
+        },
+        {
+          "curvePosition": 0.1699,
+          "gapToNextMs": 178.65,
+          "avgVelocity": 62,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            98.44
+          ]
+        },
+        {
+          "curvePosition": 0.1972,
+          "gapToNextMs": 103.13,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            97.4,
+            107.29
+          ]
+        },
+        {
+          "curvePosition": 0.213,
+          "gapToNextMs": 173.44,
+          "avgVelocity": 62,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            106.77,
+            101.04
+          ]
+        },
+        {
+          "curvePosition": 0.2395,
+          "gapToNextMs": 123.96,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            115.63
+          ]
+        },
+        {
+          "curvePosition": 0.2585,
+          "gapToNextMs": 146.87,
+          "avgVelocity": 61,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            114.06,
+            103.65
+          ]
+        },
+        {
+          "curvePosition": 0.2809,
+          "gapToNextMs": 158.33,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            107.29,
+            120.31
+          ]
+        },
+        {
+          "curvePosition": 0.3051,
+          "gapToNextMs": 123.96,
+          "avgVelocity": 64,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            100.52,
+            95.31
+          ]
+        },
+        {
+          "curvePosition": 0.3241,
+          "gapToNextMs": 141.15,
+          "avgVelocity": 75,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            101.04,
+            109.38
+          ]
+        },
+        {
+          "curvePosition": 0.3457,
+          "gapToNextMs": 135.94,
+          "avgVelocity": 72,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            106.77,
+            117.71
+          ]
+        },
+        {
+          "curvePosition": 0.3665,
+          "gapToNextMs": 123.44,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            117.71
+          ]
+        },
+        {
+          "curvePosition": 0.3853,
+          "gapToNextMs": 152.6,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            108.33,
+            104.17
+          ]
+        },
+        {
+          "curvePosition": 0.4087,
+          "gapToNextMs": 139.06,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.96,
+            110.42
+          ]
+        },
+        {
+          "curvePosition": 0.4299,
+          "gapToNextMs": 131.25,
+          "avgVelocity": 77,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.44,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.45,
+          "gapToNextMs": 142.71,
+          "avgVelocity": 79,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            101.56,
+            108.33
+          ]
+        },
+        {
+          "curvePosition": 0.4718,
+          "gapToNextMs": 134.38,
+          "avgVelocity": 82,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            92.19
+          ]
+        },
+        {
+          "curvePosition": 0.4924,
+          "gapToNextMs": 130.21,
+          "avgVelocity": 82,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.88,
+            100
+          ]
+        },
+        {
+          "curvePosition": 0.5123,
+          "gapToNextMs": 141.15,
+          "avgVelocity": 82,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            110.42,
+            93.75
+          ]
+        },
+        {
+          "curvePosition": 0.5338,
+          "gapToNextMs": 141.67,
+          "avgVelocity": 86,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            102.08,
+            96.35
+          ]
+        },
+        {
+          "curvePosition": 0.5555,
+          "gapToNextMs": 136.98,
+          "avgVelocity": 84,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            101.04,
+            86.46
+          ]
+        },
+        {
+          "curvePosition": 0.5764,
+          "gapToNextMs": 123.44,
+          "avgVelocity": 85,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            93.75,
+            81.77
+          ]
+        },
+        {
+          "curvePosition": 0.5953,
+          "gapToNextMs": 131.77,
+          "avgVelocity": 92,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.35,
+            76.56
+          ]
+        },
+        {
+          "curvePosition": 0.6155,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            88.54
+          ]
+        },
+        {
+          "curvePosition": 0.6339,
+          "gapToNextMs": 128.65,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.88,
+            85.42
+          ]
+        },
+        {
+          "curvePosition": 0.6536,
+          "gapToNextMs": 129.69,
+          "avgVelocity": 89,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            93.23,
+            89.06
+          ]
+        },
+        {
+          "curvePosition": 0.6734,
+          "gapToNextMs": 114.58,
+          "avgVelocity": 85,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.691,
+          "gapToNextMs": 119.79,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            87.5
+          ]
+        },
+        {
+          "curvePosition": 0.7093,
+          "gapToNextMs": 123.96,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.87,
+            80.21
+          ]
+        },
+        {
+          "curvePosition": 0.7282,
+          "gapToNextMs": 128.13,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            87.5,
+            84.37
+          ]
+        },
+        {
+          "curvePosition": 0.7478,
+          "gapToNextMs": 109.9,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            86.46,
+            69.27
+          ]
+        },
+        {
+          "curvePosition": 0.7646,
+          "gapToNextMs": 115.63,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            83.85
+          ]
+        },
+        {
+          "curvePosition": 0.7823,
+          "gapToNextMs": 121.88,
+          "avgVelocity": 92,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            91.67,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.8009,
+          "gapToNextMs": 100,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.9,
+            79.69
+          ]
+        },
+        {
+          "curvePosition": 0.8162,
+          "gapToNextMs": 128.65,
+          "avgVelocity": 95,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            78.65
+          ]
+        },
+        {
+          "curvePosition": 0.8359,
+          "gapToNextMs": 106.77,
+          "avgVelocity": 96,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            81.25,
+            75.52
+          ]
+        },
+        {
+          "curvePosition": 0.8522,
+          "gapToNextMs": 104.69,
+          "avgVelocity": 92,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            80.21,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.8682,
+          "gapToNextMs": 109.38,
+          "avgVelocity": 95,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            81.77,
+            77.6
+          ]
+        },
+        {
+          "curvePosition": 0.8849,
+          "gapToNextMs": 102.08,
+          "avgVelocity": 100,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.02,
+            69.79
+          ]
+        },
+        {
+          "curvePosition": 0.9005,
+          "gapToNextMs": 116.15,
+          "avgVelocity": 98,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            81.25,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.9183,
+          "gapToNextMs": 88.02,
+          "avgVelocity": 99,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.13,
+            62.5
+          ]
+        },
+        {
+          "curvePosition": 0.9318,
+          "gapToNextMs": 96.88,
+          "avgVelocity": 98,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            78.65,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.9466,
+          "gapToNextMs": 120.31,
+          "avgVelocity": 106,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            92.19,
+            74.48
+          ]
+        },
+        {
+          "curvePosition": 0.965,
+          "gapToNextMs": 84.9,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.9779,
+          "gapToNextMs": 103.65,
+          "avgVelocity": 107,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            59.38
+          ]
+        },
+        {
+          "curvePosition": 0.9938,
+          "gapToNextMs": 40.63,
+          "avgVelocity": 112,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            72.4,
+            63.54
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 105,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            57.81,
+            54.17
+          ]
+        }
+      ]
+    },
+    {
+      "sampleIndex": 5,
+      "source": "ostanatoSamplePiano",
+      "attackCount": 55,
+      "totalDurationMs": 6427.6,
+      "stats": {
+        "gap": {
+          "avgMs": 119.03,
+          "minMs": 86.46,
+          "maxMs": 191.67
+        },
+        "velocity": {
+          "avg": 79,
+          "min": 46,
+          "max": 117
+        },
+        "byQuarter": [
+          {
+            "quarter": 1,
+            "avgGapMs": 139.7,
+            "avgVelocity": 58
+          },
+          {
+            "quarter": 2,
+            "avgGapMs": 123.9,
+            "avgVelocity": 69
+          },
+          {
+            "quarter": 3,
+            "avgGapMs": 114,
+            "avgVelocity": 83
+          },
+          {
+            "quarter": 4,
+            "avgGapMs": 101.3,
+            "avgVelocity": 102
+          }
+        ]
+      },
+      "attacks": [
+        {
+          "curvePosition": 0,
+          "gapToNextMs": 116.15,
+          "avgVelocity": 46,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            141.15,
+            128.13
+          ]
+        },
+        {
+          "curvePosition": 0.0181,
+          "gapToNextMs": 191.67,
+          "avgVelocity": 58,
+          "noteCount": 1,
+          "noteDurationsMs": [
+            177.08
+          ]
+        },
+        {
+          "curvePosition": 0.0479,
+          "gapToNextMs": 148.96,
+          "avgVelocity": 61,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            114.06,
+            112.5
+          ]
+        },
+        {
+          "curvePosition": 0.0711,
+          "gapToNextMs": 127.08,
+          "avgVelocity": 47,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            106.25,
+            73.96
+          ]
+        },
+        {
+          "curvePosition": 0.0908,
+          "gapToNextMs": 147.92,
+          "avgVelocity": 60,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            113.02,
+            98.96
+          ]
+        },
+        {
+          "curvePosition": 0.1138,
+          "gapToNextMs": 142.71,
+          "avgVelocity": 51,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            100,
+            82.29
+          ]
+        },
+        {
+          "curvePosition": 0.1361,
+          "gapToNextMs": 115.1,
+          "avgVelocity": 64,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.96,
+            97.92
+          ]
+        },
+        {
+          "curvePosition": 0.154,
+          "gapToNextMs": 159.38,
+          "avgVelocity": 59,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.88,
+            81.77
+          ]
+        },
+        {
+          "curvePosition": 0.1788,
+          "gapToNextMs": 95.31,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            94.27,
+            92.71
+          ]
+        },
+        {
+          "curvePosition": 0.1936,
+          "gapToNextMs": 156.25,
+          "avgVelocity": 53,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            112.5,
+            105.21
+          ]
+        },
+        {
+          "curvePosition": 0.2179,
+          "gapToNextMs": 150.52,
+          "avgVelocity": 64,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            104.17,
+            113.02
+          ]
+        },
+        {
+          "curvePosition": 0.2413,
+          "gapToNextMs": 113.02,
+          "avgVelocity": 55,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            90.63,
+            81.77
+          ]
+        },
+        {
+          "curvePosition": 0.2589,
+          "gapToNextMs": 152.08,
+          "avgVelocity": 67,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            101.56,
+            114.06
+          ]
+        },
+        {
+          "curvePosition": 0.2826,
+          "gapToNextMs": 125.52,
+          "avgVelocity": 59,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            98.96,
+            91.15
+          ]
+        },
+        {
+          "curvePosition": 0.3021,
+          "gapToNextMs": 133.85,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            99.48,
+            105.73
+          ]
+        },
+        {
+          "curvePosition": 0.3229,
+          "gapToNextMs": 123.44,
+          "avgVelocity": 62,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            87.5,
+            82.81
+          ]
+        },
+        {
+          "curvePosition": 0.3421,
+          "gapToNextMs": 119.79,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            94.27,
+            97.92
+          ]
+        },
+        {
+          "curvePosition": 0.3607,
+          "gapToNextMs": 127.08,
+          "avgVelocity": 65,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            87.5,
+            92.71
+          ]
+        },
+        {
+          "curvePosition": 0.3805,
+          "gapToNextMs": 113.54,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            97.4,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.3982,
+          "gapToNextMs": 131.25,
+          "avgVelocity": 66,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            99.48
+          ]
+        },
+        {
+          "curvePosition": 0.4186,
+          "gapToNextMs": 110.94,
+          "avgVelocity": 70,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            97.4
+          ]
+        },
+        {
+          "curvePosition": 0.4359,
+          "gapToNextMs": 131.77,
+          "avgVelocity": 66,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            85.94,
+            91.15
+          ]
+        },
+        {
+          "curvePosition": 0.4564,
+          "gapToNextMs": 116.67,
+          "avgVelocity": 81,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            89.58,
+            103.13
+          ]
+        },
+        {
+          "curvePosition": 0.4745,
+          "gapToNextMs": 130.73,
+          "avgVelocity": 69,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            96.87,
+            100.52
+          ]
+        },
+        {
+          "curvePosition": 0.4949,
+          "gapToNextMs": 120.83,
+          "avgVelocity": 81,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.9,
+            93.23
+          ]
+        },
+        {
+          "curvePosition": 0.5137,
+          "gapToNextMs": 125.52,
+          "avgVelocity": 71,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.54,
+            95.31
+          ]
+        },
+        {
+          "curvePosition": 0.5332,
+          "gapToNextMs": 115.1,
+          "avgVelocity": 78,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            80.73,
+            90.1
+          ]
+        },
+        {
+          "curvePosition": 0.5511,
+          "gapToNextMs": 116.15,
+          "avgVelocity": 72,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.9,
+            88.54
+          ]
+        },
+        {
+          "curvePosition": 0.5692,
+          "gapToNextMs": 108.33,
+          "avgVelocity": 81,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            84.9,
+            94.27
+          ]
+        },
+        {
+          "curvePosition": 0.586,
+          "gapToNextMs": 125,
+          "avgVelocity": 68,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            95.83,
+            97.4
+          ]
+        },
+        {
+          "curvePosition": 0.6055,
+          "gapToNextMs": 108.33,
+          "avgVelocity": 84,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            82.81,
+            93.23
+          ]
+        },
+        {
+          "curvePosition": 0.6223,
+          "gapToNextMs": 118.75,
+          "avgVelocity": 72,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            94.27,
+            95.31
+          ]
+        },
+        {
+          "curvePosition": 0.6408,
+          "gapToNextMs": 134.9,
+          "avgVelocity": 85,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            82.81,
+            95.31
+          ]
+        },
+        {
+          "curvePosition": 0.6618,
+          "gapToNextMs": 93.23,
+          "avgVelocity": 79,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            80.73,
+            85.42
+          ]
+        },
+        {
+          "curvePosition": 0.6763,
+          "gapToNextMs": 114.06,
+          "avgVelocity": 90,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.96,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.694,
+          "gapToNextMs": 100.52,
+          "avgVelocity": 83,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            88.54,
+            79.69
+          ]
+        },
+        {
+          "curvePosition": 0.7097,
+          "gapToNextMs": 129.17,
+          "avgVelocity": 94,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            77.6,
+            84.38
+          ]
+        },
+        {
+          "curvePosition": 0.7298,
+          "gapToNextMs": 101.04,
+          "avgVelocity": 91,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            74.48,
+            81.25
+          ]
+        },
+        {
+          "curvePosition": 0.7455,
+          "gapToNextMs": 117.19,
+          "avgVelocity": 96,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75,
+            77.6
+          ]
+        },
+        {
+          "curvePosition": 0.7637,
+          "gapToNextMs": 108.33,
+          "avgVelocity": 97,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            71.87,
+            76.04
+          ]
+        },
+        {
+          "curvePosition": 0.7806,
+          "gapToNextMs": 106.25,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            71.35,
+            73.44
+          ]
+        },
+        {
+          "curvePosition": 0.7971,
+          "gapToNextMs": 111.46,
+          "avgVelocity": 88,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            76.56,
+            69.27
+          ]
+        },
+        {
+          "curvePosition": 0.8144,
+          "gapToNextMs": 101.04,
+          "avgVelocity": 103,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            65.63,
+            68.23
+          ]
+        },
+        {
+          "curvePosition": 0.8302,
+          "gapToNextMs": 106.77,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            79.69,
+            71.35
+          ]
+        },
+        {
+          "curvePosition": 0.8468,
+          "gapToNextMs": 97.92,
+          "avgVelocity": 103,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            65.63,
+            71.35
+          ]
+        },
+        {
+          "curvePosition": 0.862,
+          "gapToNextMs": 105.73,
+          "avgVelocity": 93,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75,
+            68.75
+          ]
+        },
+        {
+          "curvePosition": 0.8785,
+          "gapToNextMs": 96.35,
+          "avgVelocity": 91,
+          "noteCount": 3,
+          "noteDurationsMs": [
+            63.54,
+            68.75,
+            23.96
+          ]
+        },
+        {
+          "curvePosition": 0.8934,
+          "gapToNextMs": 105.21,
+          "avgVelocity": 103,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            75,
+            83.33
+          ]
+        },
+        {
+          "curvePosition": 0.9098,
+          "gapToNextMs": 104.17,
+          "avgVelocity": 112,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.58,
+            69.27
+          ]
+        },
+        {
+          "curvePosition": 0.926,
+          "gapToNextMs": 95.83,
+          "avgVelocity": 101,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            83.33,
+            77.08
+          ]
+        },
+        {
+          "curvePosition": 0.9409,
+          "gapToNextMs": 99.48,
+          "avgVelocity": 112,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.58,
+            66.67
+          ]
+        },
+        {
+          "curvePosition": 0.9564,
+          "gapToNextMs": 90.1,
+          "avgVelocity": 103,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            73.96,
+            79.17
+          ]
+        },
+        {
+          "curvePosition": 0.9704,
+          "gapToNextMs": 103.65,
+          "avgVelocity": 114,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            64.58,
+            63.54
+          ]
+        },
+        {
+          "curvePosition": 0.9865,
+          "gapToNextMs": 86.46,
+          "avgVelocity": 105,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            80.21,
+            69.79
+          ]
+        },
+        {
+          "curvePosition": 1,
+          "gapToNextMs": null,
+          "avgVelocity": 117,
+          "noteCount": 2,
+          "noteDurationsMs": [
+            57.81,
+            59.38
+          ]
+        }
+      ]
+    }
+  ],
+  "globalStats": {
+    "totalSamples": 6,
+    "totalAttacks": 335,
+    "gap": {
+      "avgMs": 118.29,
+      "minMs": 32.29,
+      "maxMs": 197.4
+    },
+    "velocity": {
+      "avg": 83,
+      "min": 16,
+      "max": 118
+    }
+  }
+}

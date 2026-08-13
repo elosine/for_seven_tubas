@@ -136,5 +136,14 @@ crossfades wherever possible; probability only where physics has no opinion.
   operator).
 - **Varied repetition**: same gesture repeated, each instance nudged (duration,
   grain-type mix).
-- **Tremolo / ostinato ensemble textures**: to develop (the piece-#2 ostinato
-  lineage arrives in tuba land).
+- **Tremolo / ostinato ensemble textures**: **ARRIVED 2026-08-13** — piece-#2's
+  ostinato engine ported (composer decision: skip fresh experiments, the 2p2p
+  tables "sounded good"). Tables: `bank/ostinato_timing_db_2p2p.json` (6 played
+  samples, curve-position → gap/vel/durations); engine:
+  `tools/ost_variety.js` (curve-lookup + nearby cycling + stretch/smooth/speed,
+  attacks hocket-distributed over a player group under re-artic).
+  **`ost01-variety` = the listening exercise (NEXT SESSION FIRST)**: 8 sections —
+  quartet low-cluster · fast quartet 5ths · sextet m6(F) · full-ten BbE ·
+  TWO WAVES (slow-low 4tet vs fast-high 4tet, offset centers) · TRIPLE WAVES
+  3+3+4 at three speeds · ACCRETIVE 2→10 · DECRETIVE 10→2. Standing to-do:
+  composer sample tables to come + interpolation/combination strategy.
