@@ -1,0 +1,58 @@
+{
+  "name": "A2-hp-t1",
+  "source": "scores/A2-hp-t1.json",
+  "analyzed": "2026-08-13T15:03:01.494Z",
+  "notes": 44,
+  "parts": 1,
+  "spanSec": 30.57,
+  "startSec": 1.66,
+  "modelVersion": 2,
+  "trend": {
+    "curve": 0.5,
+    "rateStart": 0.38,
+    "rateEnd": 6.24,
+    "gapStart": 2.664,
+    "gapEnd": 0.16
+  },
+  "noiseSigmaThirds": [
+    0.119,
+    0.105,
+    0.142
+  ],
+  "clusters": {
+    "events": 44,
+    "sizeHist": {
+      "1": 44
+    },
+    "fracWithClusterThirds": [
+      0,
+      0,
+      0
+    ],
+    "intraSpreadSec": 0.02
+  },
+  "durations": {
+    "min": 0.09,
+    "q1": 0.158,
+    "median": 0.241,
+    "q3": 0.269,
+    "max": 0.356
+  },
+  "levelContourThirds": [
+    0.52,
+    0.68,
+    0.81
+  ],
+  "pitchField": {
+    "30": 10,
+    "31": 10,
+    "32": 9,
+    "33": 8,
+    "34": 7
+  },
+  "feasibility": {
+    "rearticViolations": 13,
+    "ceiling10parts": 11,
+    "peakRate": 6.24
+  }
+}
