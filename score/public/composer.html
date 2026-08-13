@@ -421,6 +421,7 @@
         <option value="container-build">▣ Container: Density Build</option>
     </select>
     <button id="stampBtn">Stamp → META</button>
+    <button id="cc7ResetBtn" title="All-notes-off + CC7=127 on every port/channel">CC7 Reset</button>
     <span style="color:#ccc">|</span>
     <button id="clearAllBtn">Clear All</button>
     <span style="color:#ccc">|</span>
@@ -1402,6 +1403,15 @@ const Composer = {
         window.addEventListener('keydown', (e) => { if (e.key === 'Alt') document.body.classList.add('altdown'); });
         window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
         window.addEventListener('blur', () => document.body.classList.remove('altdown'));
+
+        // ---- CC7 Reset button (composer 2026-08-13: the stuck-quiet cure) ----
+        const cc7Btn = document.getElementById('cc7ResetBtn');
+        if (cc7Btn) cc7Btn.addEventListener('click', async () => {
+            if (!this._zoneMidiInited && this.initZoneMidi) await this.initZoneMidi();
+            const n = this.resetCC7All();
+            cc7Btn.textContent = 'CC7 Reset ✓' + n;
+            setTimeout(() => { cc7Btn.textContent = 'CC7 Reset'; }, 1500);
+        });
 
         // ---- Per-part solo buttons (composer 2026-08-12) ----
         this.soloParts = new Set();
@@ -7331,6 +7341,33 @@ const Composer = {
         }
         this._activeCurvePlayback = {};
         this._curvePreArm = {};
+        // THE CC7 RESIDUE CURE (composer 2026-08-13): swell tails leave CC7 near
+        // zero on every channel they touched; UVI keeps that channel state across
+        // patch changes ("tracks very quiet"). Every STOP now sweeps CC7=127 (+
+        // all-notes-off) across the entire technique map, not just active grains.
+        this.resetCC7All();
+    },
+
+    // Full-rig CC7 reset: every known (port, channel) in the instrument map gets
+    // all-notes-off + CC7=127. Wired to the stop-flush and the CC7 Reset button.
+    resetCC7All() {
+        if (!this._zoneMidiOutputs) return 0;
+        const sent = new Set();
+        TRACKS.forEach(t => {
+            const inst = typeof INSTRUMENTS !== 'undefined' && INSTRUMENTS[t.instKey];
+            if (!inst) return;
+            (inst.techniques || []).forEach(tech => {
+                const portName = (tech.port || inst.port || '').toLowerCase();
+                const out = this._zoneMidiOutputs[portName];
+                const ch = (tech.channel || 1) - 1;
+                const key = portName + ':' + ch;
+                if (!out || sent.has(key)) return;
+                sent.add(key);
+                out.send([0xB0 | ch, 123, 0]);   // all notes off
+                out.send([0xB0 | ch, 7, 127]);   // channel volume to unity
+            });
+        });
+        return sent.size;
     },
 
     // ========== MOTIVE BLOCKS (linked references into the motive library) ==========

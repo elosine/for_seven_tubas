@@ -128,6 +128,9 @@ function initMidi() {
 function sendNote(note, vel, lenMs) {
   if (!state.out) return;
   const ch = chan();
+  // CC7 immunity (2026-08-13): score-playback swell tails leave channel volume
+  // near zero; restore unity before every sandbox note so residue never mutes us.
+  state.out.send([0xB0 | ch, 7, 127]);
   if (tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
   state.out.send([0x90 | ch, note, vel]);
   setTimeout(() => state.out && state.out.send([0x80 | ch, note, 0]), lenMs);
@@ -144,6 +147,7 @@ function onHardwareMidi(e) {
   const [st, d1, d2] = e.data, cmd = st & 0xF0, ch = chan();
   const isOn = cmd === 0x90 && d2 > 0, isOff = cmd === 0x80 || (cmd === 0x90 && d2 === 0);
   if (!isOn && !isOff) return;
+  if (state.out && isOn) state.out.send([0xB0 | ch, 7, 127]);   // CC7 immunity
   if (state.out && isOn && tech().cc0 != null) state.out.send([0xB0 | ch, 0, tech().cc0]);
   if (state.out) state.out.send([(isOn ? 0x90 : 0x80) | ch, d1, isOn ? d2 : 0]);
   if (isOn) { flash(d1); state.note = d1; markCurrent(); }

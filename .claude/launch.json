@@ -6,6 +6,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["score/server.js"],
       "port": 5200
+    },
+    {
+      "name": "sandbox",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["sandbox/serve.js"],
+      "port": 4700
     }
   ]
 }
