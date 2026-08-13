@@ -123,8 +123,14 @@ crossfades wherever possible; probability only where physics has no opinion.
   outward); true-cliff release (note ends AT apex, tongue-stop); percussive
   rise curves 0.6→0.95; unison F2. Balance law: rise length ≥ audibility
   floor, overlap ≤ masking ceiling (+30% rise killed the late pulses).
-  Current audition: `cressand-15` (chain A · chain B ("the shorter one
-  worked") · chain B +15% rise · +15% again).
+  **THE FAMILY (reference): `cressand-family`** — seven margin-solved chains
+  −2…D, longest (first gap 2.24 s) to the compression floor (D ≈ uniform
+  0.44 s), unison F2. Margin CALIBRATED at **26.5 dB** peak-to-bed (composer
+  bracket: 2.07 s rises clear / +15% blurs); solver in `tools/cres_ref.js`.
+  Pitch strategies audition: `cressand-pitches` (same chains: low cluster
+  38–41 · cluster 41–52 · four 5ths on A1 · Messiaen m3(F) · 11-pc tone row
+  spread · Messiaen m7(F) · Raga Bhairav on F, 12-TET approx — true shrutis
+  would need pitch-bend, not yet in the engine).
 - **Clips as gestures**: excerpt bits of longer gestures/textures to serve as
   standalone gestures (the keeper-excerpt practice becomes a derivation
   operator).
