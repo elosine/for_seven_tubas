@@ -4,6 +4,22 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — GESTURE-1 kept as entity; pitch-set generation pass (dictated, summary)
+
+A1-5-fp_cres-3 kept as an ENTITY — GESTURE-1, identity color #AD5F2A (taxonomy/
+nomenclature later; shape-represents-mix idea noted). Not inserted in the piece
+score yet. Nine pitch variants generated (gest1-pitches, markers per segment).
+DISTRIBUTION METHODS (documented per composer instruction, to be systematized):
+1 OCT-DISPLACE: keep 50% / +12 30% / -12 15% / +24 5%, clamp to 30-65 (out = keep).
+2 5THS one: stack 30+7k = {30,37,44,51,58,65}, uniform member per note.
+3 5THS all: 12 transpositions (roots 30-41; composer guessed eleven - it is 12),
+  uniform root then uniform member.
+4-6 MESSIAEN modes 2/3/6 anchored on F# (played-cluster center): uniform over all
+  in-range mode pitches 30-65.
+7 CHROMATIC spread: one random pitch per 3-semitone band across 30-65 (12-pitch
+  set), uniform per note.
+8 UNISON: all 30 (lowest common to ord/fp/stac). 9 OCTAVE Bbs: {34,46,58} uniform.
+
 ## 2026-08-13 — Full technique-range dictation (Reaper octaves; verbatim summary)
 
 Composer dictated ranges for all 21 Tuba1 slots after the channel sweep + pitch
