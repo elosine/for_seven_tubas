@@ -57,6 +57,7 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
   Mechanism: `tools/piece_s02.js`; drag logic in composer.html
   `startWCBodyDrag`. Any future gesture insertion can use the same pattern.
 | **VERT01-01…33** | vertical_shapes_01 (33 played chords, 4–11 notes) | — | bank/ holds pitches+velocities per chord. Audition: vert01-versions (v1 as-played low→bottom-lane · v2 ten-note octave-displaced max-spread). FLAGS: 07 exceeds 10 (11 pitches, awaiting composer redaction/promotion); 8 chords contain notes above ord F4=65 (66–68) |
+| **CLUST02-A** | GESTURE-1 (piece opening) carve **32.17–33.79** — the dense burst the B2 cluster lacked (31 staccato notes / 1.61 s ≈ 19/s) | — | banked; audition `clust02a-versions`: verbatim + 4 SCRAMBLES (gap-sequence + note-order shuffled, lanes redistributed — same density/feel, not a repeat) × pitch structures: G1 set (permuted) / BbE-2oct / cluster spread / cluster low |
 | … | more swell takes to record | — | composer note-to-self: capture a few more |
 
 ## THE GESTURE-1 WORKFLOW (the envelope-decision template — repeat for future gestures)

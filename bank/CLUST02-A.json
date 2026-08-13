@@ -1,0 +1,262 @@
+{
+ "entity": "CLUST02-A",
+ "source": "scores/piece-s01.json (GESTURE-1 oct-displace, piece opening)",
+ "kind": "pointillistic-cluster",
+ "created": "2026-08-13T19:56:24.777Z",
+ "window": [
+  32.17,
+  33.79
+ ],
+ "spanSec": 1.61,
+ "notes": [
+  {
+   "on": 0,
+   "off": 0.109,
+   "pitch": 32,
+   "vel": 104,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 0.093,
+   "off": 0.154,
+   "pitch": 32,
+   "vel": 105,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.249,
+   "off": 0.307,
+   "pitch": 43,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.266,
+   "off": 0.433,
+   "pitch": 30,
+   "vel": 102,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 0.278,
+   "off": 0.347,
+   "pitch": 36,
+   "vel": 110,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 0.28,
+   "off": 0.33,
+   "pitch": 35,
+   "vel": 93,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 0.383,
+   "off": 0.595,
+   "pitch": 57,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 0.404,
+   "off": 0.533,
+   "pitch": 30,
+   "vel": 105,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.439,
+   "off": 0.509,
+   "pitch": 33,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 0.483,
+   "off": 0.725,
+   "pitch": 31,
+   "vel": 77,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 0.545,
+   "off": 0.619,
+   "pitch": 46,
+   "vel": 109,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 0.562,
+   "off": 0.612,
+   "pitch": 33,
+   "vel": 83,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 0.659,
+   "off": 0.723,
+   "pitch": 33,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 0.757,
+   "off": 0.937,
+   "pitch": 34,
+   "vel": 100,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 0.777,
+   "off": 0.844,
+   "pitch": 32,
+   "vel": 114,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.805,
+   "off": 0.954,
+   "pitch": 58,
+   "vel": 105,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 0.819,
+   "off": 0.917,
+   "pitch": 32,
+   "vel": 99,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 0.904,
+   "off": 0.959,
+   "pitch": 42,
+   "vel": 114,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 0.954,
+   "off": 1.017,
+   "pitch": 59,
+   "vel": 117,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 1.008,
+   "off": 1.263,
+   "pitch": 45,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 1.092,
+   "off": 1.144,
+   "pitch": 44,
+   "vel": 114,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 1.105,
+   "off": 1.161,
+   "pitch": 31,
+   "vel": 124,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 1.135,
+   "off": 1.392,
+   "pitch": 33,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 1.18,
+   "off": 1.346,
+   "pitch": 31,
+   "vel": 114,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 1.201,
+   "off": 1.265,
+   "pitch": 44,
+   "vel": 109,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 1.291,
+   "off": 1.356,
+   "pitch": 33,
+   "vel": 123,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 1.292,
+   "off": 1.352,
+   "pitch": 47,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 1.396,
+   "off": 1.488,
+   "pitch": 32,
+   "vel": 105,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 1.405,
+   "off": 1.481,
+   "pitch": 46,
+   "vel": 110,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 1.505,
+   "off": 1.608,
+   "pitch": 44,
+   "vel": 105,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 1.545,
+   "off": 1.61,
+   "pitch": 44,
+   "vel": 122,
+   "technique": "staccato",
+   "layer": 9
+  }
+ ],
+ "provenance": "composer carve 2026-08-13: \"that density and randomness / pointillistic feel\""
+}

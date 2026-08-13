@@ -2154,6 +2154,11 @@ const Composer = {
                 this.sessionName = name;
                 this.boundName = name;
                 this.restoreData(result.data);
+                // scores that carry META shapes open the META window on load
+                // (otherwise the shapes exist but are invisible)
+                if (this.objects.some(o => o.type === 'waveCurve' && o.layer === META_LAYER)) {
+                    this.openMetaWin();
+                }
                 this.isDirty = false;
                 this.saveStatus.textContent = `Loaded: ${name}`;
                 localStorage.setItem('composerLastSession', name);
