@@ -32,7 +32,7 @@ Status: `open` / `monitoring` / `closed`. Check here BEFORE re-diagnosing.*
   now re-asserts each technique's cc0 default. If a menu technique sounds WRONG
   (not quiet — wrong sound), suspect stale CC0 → CC7 Reset button re-asserts.
 
-## I3 — Keystation seized by Reaper — `open` (mechanism identified 2026-08-13)
+## I3 — Keystation not reaching sandbox — `monitoring` (ROOT CAUSE REVISED 2026-08-13)
 
 - **The historical solution (piece #3 SAMPLER_QUIRKS, 2026-08-03):** hardware
   MIDI inputs are single-client; **Reaper auto-enables new MIDI devices by
@@ -55,3 +55,22 @@ Status: `open` / `monitoring` / `closed`. Check here BEFORE re-diagnosing.*
   left as-is.
 - **Standing rule:** REMOTE_AUDITION's Reset-all-devices step is safe ONLY
   with the Keystation input disabled in Reaper.
+
+- **REVISION (2026-08-13, after composer screenshots):** Reaper EXONERATED on the
+  input list — midiins clear bits {0,1,3,15,31} decode EXACTLY to {UMC1820,
+  Keystation, stale loopMIDI Port, MIDIIN2, keystation-mirror}: only the 20
+  loopMIDI instrument ports are enabled; the Keystation was disabled all along
+  (the composer maintained the historical fix; prior AI inference was wrong).
+- **Actual root cause: MIRROR SHADOWING.** The dead `keystation-mirror` port
+  (created for the never-built router) matches the sandbox bind regex
+  /keystation/i — first-match-wins bound the silent mirror instead of the real
+  keyboard, depending on enumeration order. Onset matches the day the mirror
+  port was created.
+- **Fix:** sandbox bind priority — hardware first, mirror only as fallback
+  (future router mode); console log + banner now name the bound input and the
+  candidate list (no more blind binding).
+- **Secondary findings:** "Reaper doesn't see devices" history = ports created
+  while Reaper runs show <not present> until Reset all MIDI devices (ledger
+  quirk confirmed); UMC1820 present at ID 0 = the studio ASIO device — when
+  it's off/disconnected the ASIO driver list is empty (explains the earlier
+  "[audio device closed]" empty-driver state).

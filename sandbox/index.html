@@ -106,16 +106,23 @@ function resolveBindings() {
   if (!midiAccess) return;
   let out = null, inp = null;
   for (const o of midiAccess.outputs.values()) if (o.name === port()) out = o;
-  for (const i of midiAccess.inputs.values()) {
-    if (INPUT_MATCH.test(i.name) && !INPUT_EXCLUDE.test(i.name)) { inp = i; break; }
-  }
+  // Bind priority (ISSUES I3, 2026-08-13): the dead "keystation-mirror" loopMIDI
+  // port matches /keystation/i and can shadow the REAL keyboard depending on
+  // enumeration order. Prefer the hardware; fall back to the mirror only if the
+  // keys are absent (future router mode).
+  const cands = [...midiAccess.inputs.values()]
+    .filter(i => INPUT_MATCH.test(i.name) && !INPUT_EXCLUDE.test(i.name));
+  inp = cands.find(i => !/mirror/i.test(i.name)) || cands[0] || null;
   state.out = out;
   if (state.inp !== inp) {
     if (state.inp) state.inp.onmidimessage = null;
     state.inp = inp;
     if (inp) inp.onmidimessage = onHardwareMidi;
+    console.log('[sandbox] keyboard input bound:', inp ? inp.name : 'NONE',
+      '| candidates:', cands.map(c => c.name).join(', ') || 'none');
   }
-  banner(out ? '' : `MIDI port "${port()}" not found — is loopMIDI running?`);
+  const inMsg = inp ? '' : 'No keyboard bound — Keystation absent, permission denied, or held by another app.';
+  banner(out ? inMsg : `MIDI port "${port()}" not found — is loopMIDI running?`);
 }
 function initMidi() {
   if (!navigator.requestMIDIAccess) { banner('Web MIDI unavailable — use Chrome.'); return; }
