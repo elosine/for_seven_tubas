@@ -58,7 +58,9 @@ const mkStac = (ev, tOff, tag) => {
   });
 };
 const mkSurge = (apexAbs, dur, release, part, pitch, vel, tag) => {
-  const lv = Math.max(1, Math.round((vel / 127) * 100) / 10);
+  // apex loudness: high band (8.5-10 -> about -8.7..0 dB via the CC7 law) so
+  // surges sit level with the full-volume staccatos; velocity tints within it
+  const lv = Math.round((8.5 + 1.5 * (vel / 127)) * 10) / 10;
   const p = Math.round((dur / (dur + release)) * 1000) / 1000;
   objs.push({
     id: 'wc-' + (nid++), type: 'waveCurve', layer: part,
