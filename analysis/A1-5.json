@@ -1,0 +1,49 @@
+{
+  "name": "A1-5",
+  "source": "scores/A1-5.json",
+  "analyzed": "2026-08-13T14:41:02.387Z",
+  "notes": 167,
+  "parts": 5,
+  "spanSec": 30.78,
+  "startSec": 1.54,
+  "trend": {
+    "curve": 0.43,
+    "gapStart": 0.739,
+    "gapEnd": 0.022,
+    "rateStart": 1.35,
+    "rateEnd": 46.24
+  },
+  "noiseSigmaThirds": [
+    0.476,
+    1.154,
+    1.248
+  ],
+  "durations": {
+    "min": 0.05,
+    "q1": 0.076,
+    "median": 0.192,
+    "q3": 0.256,
+    "max": 0.492
+  },
+  "levelContourThirds": [
+    0.63,
+    0.66,
+    0.84
+  ],
+  "pitchField": {
+    "29": 1,
+    "30": 18,
+    "31": 32,
+    "32": 31,
+    "33": 33,
+    "34": 32,
+    "35": 14,
+    "36": 5,
+    "38": 1
+  },
+  "feasibility": {
+    "rearticViolations": 47,
+    "ceiling10parts": 11,
+    "peakRate": 46.24
+  }
+}

@@ -119,6 +119,16 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 5. **Paper FROM the piece** (process + research), then augment paper/engine with
    additional research if time allows.
 
+- **2f — Play-in analysis pipeline (PoC LIVE 2026-08-13)** — `doing` — analyzer
+  tools/analyze_take.js: trend fit (accel model recovered from playing) + noise
+  sigma + durations + level contour + pitch field + feasibility -> meta-object in
+  analysis/ · comparison score <take>-gen.json (ORIG + fitted META shapes + 2
+  seeded siblings, 10-part feasible). First: A1-5 (fit curve 0.43 raw, 1.35->46/s,
+  47 violations; siblings 143/134 notes). **PLACEHOLDERS for the return pass:**
+  robustified windowed fit (cluster-resistant) · richer ops (stretch, density-
+  scale, curve-warp, thin-to-N, excerpt) · sample-set enrichment (more takes +
+  algorithmic siblings, audition-culled).
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

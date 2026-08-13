@@ -87,6 +87,7 @@
         pointer-events: auto;
     }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
+    #metaBtn.on { background: #8a6d3b; color: #fff; }
     #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
     #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
@@ -424,6 +425,7 @@
     </select>
     <button id="stampBtn">Stamp → META</button>
     <button id="cc7ResetBtn" title="All-notes-off + CC7=127 on every port/channel">CC7 Reset</button>
+    <button id="metaBtn" title="Show/hide the META draw window">META</button>
     <span style="color:#ccc">|</span>
     <select id="recLaneSel" title="record target part"></select>
     <select id="recTechSel" title="capture technique"></select>
@@ -1409,6 +1411,15 @@ const Composer = {
         window.addEventListener('keydown', (e) => { if (e.key === 'Alt') document.body.classList.add('altdown'); });
         window.addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('altdown'); });
         window.addEventListener('blur', () => document.body.classList.remove('altdown'));
+
+        // ---- META window toggle (discoverability, composer 2026-08-13) ----
+        const metaBtn = document.getElementById('metaBtn');
+        if (metaBtn) metaBtn.addEventListener('click', () => {
+            const w = this.lanes[META_LAYER];
+            if (w.classList.contains('open')) this.closeMetaWin();
+            else this.openMetaWin();
+            metaBtn.classList.toggle('on', w.classList.contains('open'));
+        });
 
         // ---- CC7 Reset button (composer 2026-08-13: the stuck-quiet cure) ----
         const cc7Btn = document.getElementById('cc7ResetBtn');
