@@ -9,15 +9,17 @@ const fs = require('fs');
 // ---- DIALS ----
 const N = 10;
 const GAP0 = 2.2, R = 0.80;   // first peak gap (s), geometric ratio (0.75 too rapid)
-const FALL = 0.48;            // release after the apex (s) — unchanged from -03
-const RISE = 1.6 * 1.4 - FALL;   // -04: grain 40% longer, ALL added left of the fixed apex
+const FALL = 0.1;             // -05: abrupt rexpodec-style cut after the apex
+const RISE = 2.24 / 2 - FALL; // -05: half the -04 duration
+const RISE_SLOPE = 0.15;      // pushed toward linear (-04 was 0.45)
+const FALL_SLOPE = -0.7;      // steep drop
 const DUR = RISE + FALL;
 const POS_APEX = RISE / DUR;
 const LV_APEX = 10;           // max amplitude, every peak
 const LV_EDGE = 0.3;
 const PITCH = 41;             // one pitch: the first available F (F2)
 const COLOR = '#3B7EA1';      // blue instead of brown
-const OUT = 'cressand-04';
+const OUT = 'cressand-05';
 
 // peak times: accelerating chain
 const peaks = [];
@@ -26,7 +28,7 @@ for (let k = 0; k < N; k++) { peaks.push(t); if (k < N - 1) t += GAP0 * Math.pow
 
 let nid = 1; const objs = [];
 objs.push({ id: 'mk-' + (nid++), type: 'marker', layer: 0, time: 2,
-  label: OUT.toUpperCase() + ' · 10 peaks, accel ' + GAP0 + 's x' + R + ', left-stretched, F2', color: COLOR,
+  label: OUT.toUpperCase() + ' · 10 peaks, accel ' + GAP0 + 's x' + R + ', dur ' + DUR.toFixed(2) + 's, F2', color: COLOR,
   performanceNotes: '', properties: {} });
 
 peaks.forEach((pt, i) => {
@@ -38,7 +40,7 @@ peaks.forEach((pt, i) => {
       { pos: POS_APEX, y: LV_APEX, smooth: 0.35 },
       { pos: 1, y: LV_EDGE, smooth: 0.35 },
     ],
-    segments: [{ model: 'power', slope: 0.45 }, { model: 'power', slope: -0.3 }],
+    segments: [{ model: 'power', slope: RISE_SLOPE }, { model: 'power', slope: FALL_SLOPE }],
     color: COLOR, fillMode: 'bottom', opacity: 0.5,
     performanceNotes: 'peak ' + (i + 1) + '/' + N + ' @' + pt.toFixed(2), properties: {},
     sonifyNote: PITCH, technique: 'ord', recVel: 112 });
