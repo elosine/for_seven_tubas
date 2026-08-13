@@ -16,7 +16,7 @@ grain-type mix) — the varied-repetition operator.
 
 | Entity | Source | Color | State |
 |---|---|---|---|
-| **GESTURE-1** | A1-5 take → A1-5-fp_cres-3 | `#AD5F2A` | banked; 9 pitch variants (gest1-pitches) |
+| **GESTURE-1** | A1-5 take → A1-5-fp_cres-3 | `#AD5F2A` | banked; 9 pitch variants (gest1-pitches). **Pitch-set VERDICTS (2026-08-13): kept = #1 oct-displace, #2 fifths-one, #6 Messiaen mode 6 (F#)**; others remain available. **#1 = the piece's OPENING (piece-s01)** |
 | (GESTURE-2) | A2-hp-whole | — | **needs redo: different lengths + envelope types** (composer note) |
 | … | more swell takes to record | — | composer note-to-self: capture a few more |
 

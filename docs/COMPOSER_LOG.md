@@ -4,6 +4,19 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — Rapid-staccato notation device; pitch-set verdicts; THE PIECE BEGINS (dictated)
+
+"I need to devise a way for performers to play the rapid staccato notes. Initial
+thought: the attacks represented by vertical lines — a bouncing ball on the line
+itself, like a pole, small, coming down on the point — and they can also follow
+the scrolling cursor. Those straddle the actual pitches in regular notation,
+probably BEAMED. Pitch sets: number one (octave displacement), number two (the
+fifths), and number six (Messiaen mode 6 in F#). And let's start the real score:
+octave displacement as the first gesture to begin the piece."
+
+*(→ M4 notation mandate; pitch-set verdicts in GESTURES.md; piece-s01 created —
+GESTURE-1/oct-displace is the opening.)*
+
 ## 2026-08-13 — Formal principle; the gesture-bank roadmap (dictated)
 
 "A possible formal approach: use those precise shapes — those precise

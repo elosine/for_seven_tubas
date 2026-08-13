@@ -74,6 +74,10 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   so ANY part is readable by ANY tuba/euphonium family member.
 - **M3 — Env-release notation devices** (see P3): reliably variable release
   vocabulary; scrolling curves won't serve releases.
+- **M4 — Rapid-staccato notation** *(composer 2026-08-13)*: attacks = vertical
+  lines (beamed), straddling regular-notation pitches; a small BOUNCING BALL
+  riding the line/pole, landing on each attack point; scrolling cursor as the
+  alternative follow. Prototype at notation time.
 
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 
