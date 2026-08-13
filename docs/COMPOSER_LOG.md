@@ -4,6 +4,15 @@
 > get captured here as dated journal notes — lightly cleaned from speech-to-text,
 > content untouched. AI appends automatically.
 
+## 2026-08-13 — Full technique-range dictation (Reaper octaves; verbatim summary)
+
+Composer dictated ranges for all 21 Tuba1 slots after the channel sweep + pitch
+ladder ("those are all correct") — full table + conversion in
+docs/SI2_tuba_ranges.md; applied as per-technique overrides in instruments.js
+(all 10 tubas). Flags: A7 G0 purple key (unknown legend color); A13 all-brown
+(synthetic, recommended zone only); b-slot-1 naming question (dictated
+"staccato", roster says Play & Sing at b1 / Staccato at b4).
+
 ## 2026-08-13 — The reorganization ask: playable A1, envelope strategy, stretch machinery queued (dictated)
 
 "Pause the algorithm enhancing — the two samples I played are pretty good; use
