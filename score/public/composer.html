@@ -3761,6 +3761,16 @@ const Composer = {
         const node = wc.nodes[nodeIdx];
         this.pushUndoState();
         let hasMoved = false;
+        // META group shape: dragging an EDGE node time-scales the members —
+        // shrink the shape's width and the gesture gets proportionally shorter
+        // (durations included). Edge drags are time-only for group shapes
+        // (node y frozen, like container duration edges).
+        const isGroupShape = !!wc.groupId && wc.layer === META_LAYER;
+        const grpOrig = (isGroupShape && (nodeIdx === 0 || nodeIdx === wc.nodes.length - 1)) ? {
+            start: wc.startSeconds, end: wc.endSeconds,
+            members: this.objects.filter(o => o !== wc && o.groupId === wc.groupId)
+                .map(o => ({ o, start: o.startSeconds, end: o.endSeconds, time: o.time })),
+        } : null;
 
         const onMove = (e) => {
             hasMoved = true;
@@ -3785,11 +3795,28 @@ const Composer = {
                 }
             }
 
-            const lane = this.lanes[wc.layer];
-            const laneRect = lane.getBoundingClientRect();
-            const relY = e.clientY - laneRect.top;
-            const yNorm = 1 - Math.max(0, Math.min(1, (relY - dims.top) / dims.height));
-            node.y = Math.round(yNorm * 100) / 10;
+            if (grpOrig) {
+                // affine remap [origStart, origEnd] -> [newStart, newEnd]:
+                // the untouched edge stays anchored, everything else scales
+                const ratio = (wc.endSeconds - wc.startSeconds) / (grpOrig.end - grpOrig.start);
+                const map = t => +(wc.startSeconds + (t - grpOrig.start) * ratio).toFixed(3);
+                for (const m of grpOrig.members) {
+                    if (m.o.type === 'marker') {
+                        m.o.time = Math.max(0, map(m.time));
+                        this.renderMarker(m.o);
+                    } else {
+                        m.o.startSeconds = map(m.start);
+                        m.o.endSeconds = Math.max(m.o.startSeconds + 0.02, map(m.end));
+                        this.renderWaveCurve(m.o);
+                    }
+                }
+            } else {
+                const lane = this.lanes[wc.layer];
+                const laneRect = lane.getBoundingClientRect();
+                const relY = e.clientY - laneRect.top;
+                const yNorm = 1 - Math.max(0, Math.min(1, (relY - dims.top) / dims.height));
+                node.y = Math.round(yNorm * 100) / 10;
+            }
             this.updateWCRendering(wc);
             this.refreshPanelValues();
         };
