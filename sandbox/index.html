@@ -190,11 +190,14 @@ function onHardwareMidi(e) {
   const t = e.timeStamp;
   // time base: overdub rides the playback clock; standalone anchors the first
   // note at the cursor (punch-in)
+  // PRECISION (composer check 2026-08-13): always the MIDI driver timestamp
+  // (e.timeStamp, sub-ms, same clock as performance.now) — never handler time,
+  // never quantized. Grid is visual only.
   const evTime = () => state.playing
-    ? state.cursorPos + (performance.now() - state.playStart)
+    ? state.cursorPos + (t - state.playStart)
     : rec.anchor + (t - rec.t0);
   if (isOn) {
-    if (!state.playing && rec.t0 === null) { rec.t0 = t; rec.anchor = state.cursorPos; }
+    if (!state.playing && rec.t0 === null) { rec.t0 = t; rec.anchor = state.cursorPos; recTick(); }
     ensureTake();
     rec.active[d1] = { on: evTime(), vel: d2 };
   } else if (rec.active[d1]) {
@@ -215,6 +218,7 @@ $('rec').onclick = () => {
     }
     rec.curTake = null; rec.t0 = null;
     renderTakesBar();
+    positionCursor();   // back to the punch point
   }
   $('rec').classList.toggle('armed', rec.armed);
   $('rec').textContent = rec.armed ? '⏺ Recording…' : '⏺ Record';
@@ -254,6 +258,12 @@ function stopPlayback(cutNotes = true) {
   state.playing = false;
   positionCursor();
   updateTransport();
+}
+function recTick() {
+  // recording cursor: rides the anchored clock while recording without playback
+  if (!rec.armed || state.playing || rec.t0 === null) return;
+  positionCursor(rec.anchor + (performance.now() - rec.t0));
+  requestAnimationFrame(recTick);
 }
 function cursorTick() {
   if (!state.playing) return;
