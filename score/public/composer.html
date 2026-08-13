@@ -1733,9 +1733,9 @@ const Composer = {
             }
         });
 
-        // Mouse wheel: Ctrl+scroll = zoom, horizontal scroll = timeline, vertical = nodes only
+        // Mouse wheel: ALT+scroll (or Ctrl) = zoom, horizontal scroll = timeline, vertical = nodes only
         container.addEventListener('wheel', (e) => {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.altKey) {
                 // Zoom: Ctrl + any scroll direction
                 e.preventDefault();
                 const delta = e.deltaX || e.deltaY;
@@ -2980,13 +2980,15 @@ const Composer = {
         p.style.pointerEvents = 'none';
 
         const hp = document.createElementNS(svgNS, 'path');
-        hp.setAttribute('d', lineD);
-        hp.setAttribute('fill', 'none');
+        // hit area: the FILLED region when the curve is filled (click anywhere
+        // inside selects — composer 2026-08-13), the fat stroke for line mode
+        hp.setAttribute('d', (wc.fillMode !== 'line' && filledD) ? filledD : lineD);
+        hp.setAttribute('fill', 'transparent');
         hp.setAttribute('stroke', 'transparent');
         hp.setAttribute('stroke-width', '20');
         hp.setAttribute('class', 'composerObject');
         hp.style.cursor = 'copy';   // dblclick = add node
-        hp.style.pointerEvents = 'stroke';
+        hp.style.pointerEvents = 'all';
         hp.addEventListener('mousedown', (e) => {
             e.stopPropagation(); e.preventDefault();
             if (e.shiftKey) { this.selectObject(wc, { additive: true }); return; }
@@ -3418,7 +3420,7 @@ const Composer = {
             p.setAttribute('stroke', wc.color); p.setAttribute('stroke-width', '1');
             p.setAttribute('opacity', String(wc.opacity ?? 0.8));
         }
-        wc._els.hitPath.setAttribute('d', lineD);
+        wc._els.hitPath.setAttribute('d', (wc.fillMode !== 'line' && filledD) ? filledD : lineD);
         wc._els.highlight.setAttribute('d', lineD);
         this.renderNodeHandles(wc);
     },
@@ -3762,7 +3764,7 @@ const Composer = {
         const panel = this.propertyPanel;
         if (!panel || !this.selectedObject) { this.hidePropertyPanel(); return; }
         // META drawing curves: panel only on request (press P) — composer 2026-08-10
-        if (this.selectedObject.type === 'waveCurve' && this.selectedObject.layer === META_LAYER && !this._panelOverride) {
+        if (this.selectedObject.type === 'waveCurve' && !this._panelOverride) {   // panel on demand only (P key) — composer 2026-08-13
             this.hidePropertyPanel();
             return;
         }
