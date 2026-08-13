@@ -74,3 +74,13 @@ Status: `open` / `monitoring` / `closed`. Check here BEFORE re-diagnosing.*
   quirk confirmed); UMC1820 present at ID 0 = the studio ASIO device — when
   it's off/disconnected the ASIO driver list is empty (explains the earlier
   "[audio device closed]" empty-driver state).
+
+## I4 — UVI Single-mode patch-load overwrites the selected slot — `monitoring`
+
+- Single vs Multi mode is DISPLAY-ONLY for playback (all parts receive on their
+  channels regardless). But **loading a patch while in Single mode replaces the
+  currently selected part** — the likely mechanism behind Staccato overwriting
+  b-slot A1 (Play & Sing) during manual test-switching (restored 2026-08-13).
+- **Rule:** audition in Single mode freely; switch to Multi Mode BEFORE loading
+  any patch so the target slot is visible. After any manual patch work, a
+  50-second `chsweep_probe.ps1` run re-verifies the whole instance.
