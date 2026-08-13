@@ -1928,6 +1928,16 @@ const Composer = {
                 return;
             }
 
+            // G = convert selected captured notes into surge crescendos
+            // (composer 2026-08-13: played onset becomes the APEX; duration =
+            // what fits on the lane, up to 2.5 s; editable afterward via the
+            // grain suite). Works on multi-select; CTRL+Z undoes.
+            if ((e.key === 'g' || e.key === 'G') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
+                this.convertSelectedToSurge();
+                return;
+            }
+
             // P = open property panel for current selection (META curves need this)
             if ((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
                 if (this.selectedObject) {
@@ -2243,6 +2253,39 @@ const Composer = {
             if (clientY >= r.top && clientY <= r.bottom) return i;
         }
         return META_LAYER - 1;
+    },
+
+    // Convert selected plain (captured) notes into surge crescendos: the played
+    // onset becomes the apex, the swell back-fills as far as the lane allows.
+    convertSelectedToSurge() {
+        const targets = (this.selectedObjects.length ? this.selectedObjects
+            : (this.selectedObject ? [this.selectedObject] : []))
+            .filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.sonifyMode === 'plain');
+        if (!targets.length) return;
+        this.pushUndoState();
+        for (const wc of targets) {
+            const apex = wc.startSeconds;
+            const prevEnds = this.objects
+                .filter(o => o !== wc && o.type === 'waveCurve' && o.layer === wc.layer
+                    && o.sonifyNote != null && o.endSeconds <= apex + 1e-6)
+                .map(o => o.endSeconds);
+            const avail = apex - (prevEnds.length ? Math.max(...prevEnds) : 0.1) - 0.08;
+            const dur = Math.max(0.15, Math.min(2.5, avail));
+            const release = 0.05;
+            const lv = Math.max(1, Math.round(((wc.recVel != null ? wc.recVel : 100) / 127) * 100) / 10);
+            const pPos = Math.round((dur / (dur + release)) * 1000) / 1000;
+            wc.startSeconds = Math.max(0, Math.round((apex - dur) * 1000) / 1000);
+            wc.endSeconds = Math.round((apex + release) * 1000) / 1000;
+            wc.nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: pPos, y: lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+            wc.segments = [{ model: 'exponential', slope: 0.35 }, { model: 'power', slope: 0 }];
+            wc.technique = 'ord';
+            wc.envShape = 'surge';
+            delete wc.sonifyMode;   // back to CC7-curve rendering
+            wc.color = '#2E7D32';
+            this.renderWaveCurve(wc);
+        }
+        this.deselectAll();
+        this.markDirty();
     },
 
     // ---- Per-part SOLO (composer 2026-08-12) ----
