@@ -24,6 +24,9 @@ const stepForSpan = s => (s / (N - 1) - GAP_MIN) * 2 / (N - 2);
 const A = gapsFor(0.11);
 const B = gapsFor(stepForSpan(span(A) * 0.7));
 const C = gapsFor(stepForSpan(span(B) * 0.85));
+const D = gapsFor(stepForSpan(span(C) * 0.85));   // -17: 15% shorter again
+const Z = gapsFor(stepForSpan(span(A) * 1.15));   // -17: chain 0, other direction
+const M1 = gapsFor(stepForSpan(span(Z) * 1.15));  // -17: chain -1, longer still
 
 const slopeAt = k => SLOPE0 + (SLOPE1 - SLOPE0) * (k / (N - 1));
 const envDb = (u, slope) => {
@@ -72,10 +75,14 @@ function solve(gaps) {
 }
 
 let nid = 1; const objs = []; let cursor = 8;
-[['chainA', A], ['chainB', B], ['chainC 15% shorter', C]].forEach(([label, gaps]) => {
+[['chain-1 (+15% on ch0)', M1, false], ['chain0 (+15% on A)', Z, false],
+ ['chainA', A, false], ['chainB', B, false],
+ ['chainC', C, true], ['chainD (-15% on C)', D, true]].forEach(([label, gaps, propFirst]) => {
   const { peaks, R, m } = solve(gaps);
+  // C & D: first event only PROPORTIONATELY longer than the second (no free cap)
+  if (propFirst) R[0] = Math.min(CAP, R[1] * gaps[0] / gaps[1]);
   objs.push({ id: 'mk-' + (nid++), type: 'marker', layer: 0, time: +(cursor - 5.5).toFixed(2),
-    label: 'CRESSAND-16 ' + label + ' [' + gaps[0].toFixed(2) + '..' + GAP_MIN + '] taper ' +
+    label: 'CRESSAND-17 ' + label + ' [' + gaps[0].toFixed(2) + '..' + GAP_MIN + '] taper ' +
       R[0].toFixed(1) + '->' + R[N - 1].toFixed(1) + 's',
     color: COLOR, performanceNotes: '', properties: {} });
   peaks.forEach((p, i) => {
@@ -94,8 +101,8 @@ let nid = 1; const objs = []; let cursor = 8;
 });
 
 const tracks = (raw => (raw.data || raw).tracks)(JSON.parse(fs.readFileSync('scores/cluster_samples_01.json', 'utf8')));
-fs.writeFileSync('scores/cressand-16.json', JSON.stringify({ version: 1, layoutVersion: 2,
+fs.writeFileSync('scores/cressand-17.json', JSON.stringify({ version: 1, layoutVersion: 2,
   tracks, assets: {},
   metadata: { created: new Date().toISOString(), modified: new Date().toISOString() },
   objects: objs, markers: [], databases: { chordShapes: [], sets: [], cells: [] }, nextId: nid }));
-console.log('cressand-16: 3 margin-solved sequences,', (cursor / 60).toFixed(1), 'min');
+console.log('cressand-17: 6 margin-solved sequences,', (cursor / 60).toFixed(1), 'min');
