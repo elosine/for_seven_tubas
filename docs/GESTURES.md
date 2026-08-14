@@ -49,6 +49,12 @@ bottom-7 pcs octave-displaced: 30,36,43,47,56,57,58).
 
 ## In the piece
 
+- **piece-s08** (LATEST): the two clusters swapped for the denser CLOUD02
+  entities, every composer-set GAP preserved exactly (1.539 / 0.513 / 0.440 /
+  1.611 / 3.480 s): opening → **CLOUD02-I** (36.19) → VERT01-03 fp blast →
+  **CLOUD02-D** (42.38) → octaves-Bb ord blast → GESTURE-2 ×0.75 (55.94).
+  Downstream shifted +2.58 then +4.59 s; piece ≈ 80 s. Base = s07b→c chain
+  (GESTURE-2 reharmonized m6 on F, composer's 51.35 placement).
 - **piece-s07** (base: composer's s06f fork): + **GESTURE-2 ×0.75** at
   **50.0–74.2 s** (`grp-gest2-75-01`, rate-contour shape in GESTURE-2 blue) —
   the compressed A2 build becomes the piece's sixth gesture.
