@@ -1,0 +1,935 @@
+{
+ "entity": "CLOUD02-F",
+ "source": "scores/clusterClouds02.json",
+ "kind": "pointillistic-cluster",
+ "created": "2026-08-14T00:26:40.250Z",
+ "window": [
+  20.67,
+  23.61
+ ],
+ "spanSec": 2.95,
+ "notes": [
+  {
+   "on": 0,
+   "off": 0.083,
+   "pitch": 34,
+   "vel": 100,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.125,
+   "off": 0.244,
+   "pitch": 33,
+   "vel": 98,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.267,
+   "off": 0.332,
+   "pitch": 31,
+   "vel": 83,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.323,
+   "off": 0.379,
+   "pitch": 44,
+   "vel": 79,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.325,
+   "off": 0.389,
+   "pitch": 43,
+   "vel": 107,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.335,
+   "off": 0.385,
+   "pitch": 40,
+   "vel": 76,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.372,
+   "off": 0.552,
+   "pitch": 35,
+   "vel": 79,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.531,
+   "off": 0.634,
+   "pitch": 36,
+   "vel": 74,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.532,
+   "off": 0.597,
+   "pitch": 38,
+   "vel": 69,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.564,
+   "off": 0.652,
+   "pitch": 35,
+   "vel": 93,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.575,
+   "off": 0.66,
+   "pitch": 33,
+   "vel": 93,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.646,
+   "off": 0.701,
+   "pitch": 39,
+   "vel": 104,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.817,
+   "off": 0.867,
+   "pitch": 42,
+   "vel": 90,
+   "technique": "staccato"
+  },
+  {
+   "on": 0.836,
+   "off": 0.886,
+   "pitch": 45,
+   "vel": 69,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.221,
+   "off": 1.389,
+   "pitch": 33,
+   "vel": 94,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.312,
+   "off": 1.362,
+   "pitch": 37,
+   "vel": 99,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.32,
+   "off": 1.37,
+   "pitch": 36,
+   "vel": 121,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.464,
+   "off": 1.514,
+   "pitch": 38,
+   "vel": 108,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.466,
+   "off": 1.573,
+   "pitch": 31,
+   "vel": 71,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.467,
+   "off": 1.517,
+   "pitch": 39,
+   "vel": 95,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.502,
+   "off": 1.589,
+   "pitch": 36,
+   "vel": 93,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.557,
+   "off": 1.664,
+   "pitch": 38,
+   "vel": 46,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.569,
+   "off": 1.619,
+   "pitch": 37,
+   "vel": 95,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.666,
+   "off": 1.728,
+   "pitch": 39,
+   "vel": 118,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.82,
+   "off": 1.907,
+   "pitch": 39,
+   "vel": 45,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.829,
+   "off": 1.887,
+   "pitch": 30,
+   "vel": 111,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.848,
+   "off": 1.898,
+   "pitch": 28,
+   "vel": 93,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.862,
+   "off": 1.912,
+   "pitch": 38,
+   "vel": 41,
+   "technique": "staccato"
+  },
+  {
+   "on": 1.873,
+   "off": 1.923,
+   "pitch": 42,
+   "vel": 55,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.03,
+   "off": 2.085,
+   "pitch": 41,
+   "vel": 107,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.031,
+   "off": 2.081,
+   "pitch": 40,
+   "vel": 91,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.041,
+   "off": 2.091,
+   "pitch": 45,
+   "vel": 84,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.061,
+   "off": 2.125,
+   "pitch": 27,
+   "vel": 79,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.081,
+   "off": 2.309,
+   "pitch": 38,
+   "vel": 123,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.083,
+   "off": 2.234,
+   "pitch": 36,
+   "vel": 121,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.201,
+   "off": 2.256,
+   "pitch": 37,
+   "vel": 106,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.284,
+   "off": 2.364,
+   "pitch": 36,
+   "vel": 69,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.305,
+   "off": 2.401,
+   "pitch": 34,
+   "vel": 80,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.368,
+   "off": 2.501,
+   "pitch": 31,
+   "vel": 78,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.409,
+   "off": 2.459,
+   "pitch": 42,
+   "vel": 100,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.546,
+   "off": 2.601,
+   "pitch": 43,
+   "vel": 79,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.546,
+   "off": 2.622,
+   "pitch": 41,
+   "vel": 65,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.548,
+   "off": 2.598,
+   "pitch": 51,
+   "vel": 100,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.549,
+   "off": 2.599,
+   "pitch": 47,
+   "vel": 112,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.556,
+   "off": 2.621,
+   "pitch": 46,
+   "vel": 106,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.56,
+   "off": 2.61,
+   "pitch": 44,
+   "vel": 90,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.562,
+   "off": 2.612,
+   "pitch": 48,
+   "vel": 87,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.597,
+   "off": 2.656,
+   "pitch": 39,
+   "vel": 104,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.687,
+   "off": 2.737,
+   "pitch": 45,
+   "vel": 81,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.692,
+   "off": 2.742,
+   "pitch": 47,
+   "vel": 79,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.727,
+   "off": 2.803,
+   "pitch": 43,
+   "vel": 127,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.729,
+   "off": 2.808,
+   "pitch": 41,
+   "vel": 127,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.745,
+   "off": 2.795,
+   "pitch": 44,
+   "vel": 104,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.748,
+   "off": 2.798,
+   "pitch": 34,
+   "vel": 104,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.788,
+   "off": 2.838,
+   "pitch": 45,
+   "vel": 90,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.844,
+   "off": 2.894,
+   "pitch": 43,
+   "vel": 110,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.886,
+   "off": 2.936,
+   "pitch": 48,
+   "vel": 127,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.891,
+   "off": 2.941,
+   "pitch": 45,
+   "vel": 127,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.894,
+   "off": 2.944,
+   "pitch": 53,
+   "vel": 121,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.895,
+   "off": 2.945,
+   "pitch": 49,
+   "vel": 100,
+   "technique": "staccato"
+  },
+  {
+   "on": 2.895,
+   "off": 2.945,
+   "pitch": 50,
+   "vel": 110,
+   "technique": "staccato"
+  }
+ ],
+ "performable": [
+  {
+   "on": 0,
+   "off": 0.083,
+   "pitch": 34,
+   "vel": 100,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 0.125,
+   "off": 0.244,
+   "pitch": 33,
+   "vel": 98,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 0.267,
+   "off": 0.332,
+   "pitch": 31,
+   "vel": 83,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 0.323,
+   "off": 0.379,
+   "pitch": 44,
+   "vel": 79,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 0.325,
+   "off": 0.389,
+   "pitch": 43,
+   "vel": 107,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 0.335,
+   "off": 0.385,
+   "pitch": 40,
+   "vel": 76,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 0.372,
+   "off": 0.552,
+   "pitch": 35,
+   "vel": 79,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 0.531,
+   "off": 0.634,
+   "pitch": 36,
+   "vel": 74,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.532,
+   "off": 0.597,
+   "pitch": 38,
+   "vel": 69,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 0.564,
+   "off": 0.652,
+   "pitch": 35,
+   "vel": 93,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 0.575,
+   "off": 0.66,
+   "pitch": 33,
+   "vel": 93,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 0.646,
+   "off": 0.701,
+   "pitch": 39,
+   "vel": 104,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 0.817,
+   "off": 0.867,
+   "pitch": 42,
+   "vel": 90,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 0.836,
+   "off": 0.886,
+   "pitch": 45,
+   "vel": 69,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 1.221,
+   "off": 1.389,
+   "pitch": 33,
+   "vel": 94,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 1.312,
+   "off": 1.362,
+   "pitch": 37,
+   "vel": 99,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 1.32,
+   "off": 1.37,
+   "pitch": 36,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 1.464,
+   "off": 1.514,
+   "pitch": 38,
+   "vel": 108,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 1.466,
+   "off": 1.573,
+   "pitch": 31,
+   "vel": 71,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 1.467,
+   "off": 1.517,
+   "pitch": 39,
+   "vel": 95,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 1.502,
+   "off": 1.589,
+   "pitch": 36,
+   "vel": 93,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 1.557,
+   "off": 1.664,
+   "pitch": 38,
+   "vel": 46,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 1.569,
+   "off": 1.619,
+   "pitch": 37,
+   "vel": 95,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 1.666,
+   "off": 1.728,
+   "pitch": 39,
+   "vel": 118,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 1.82,
+   "off": 1.907,
+   "pitch": 39,
+   "vel": 45,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 1.829,
+   "off": 1.887,
+   "pitch": 30,
+   "vel": 111,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 1.848,
+   "off": 1.898,
+   "pitch": 40,
+   "vel": 93,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 1.862,
+   "off": 1.912,
+   "pitch": 38,
+   "vel": 41,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 1.873,
+   "off": 1.923,
+   "pitch": 42,
+   "vel": 55,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.03,
+   "off": 2.085,
+   "pitch": 41,
+   "vel": 107,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.031,
+   "off": 2.081,
+   "pitch": 40,
+   "vel": 91,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 2.041,
+   "off": 2.091,
+   "pitch": 45,
+   "vel": 84,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 2.061,
+   "off": 2.125,
+   "pitch": 39,
+   "vel": 79,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 2.081,
+   "off": 2.309,
+   "pitch": 38,
+   "vel": 123,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 2.083,
+   "off": 2.234,
+   "pitch": 36,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 2.201,
+   "off": 2.256,
+   "pitch": 37,
+   "vel": 106,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 2.284,
+   "off": 2.364,
+   "pitch": 36,
+   "vel": 69,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 2.305,
+   "off": 2.401,
+   "pitch": 34,
+   "vel": 80,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.368,
+   "off": 2.501,
+   "pitch": 31,
+   "vel": 78,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 2.409,
+   "off": 2.459,
+   "pitch": 42,
+   "vel": 100,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 2.546,
+   "off": 2.601,
+   "pitch": 43,
+   "vel": 79,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 2.546,
+   "off": 2.622,
+   "pitch": 41,
+   "vel": 65,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 2.548,
+   "off": 2.598,
+   "pitch": 51,
+   "vel": 100,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 2.549,
+   "off": 2.599,
+   "pitch": 47,
+   "vel": 112,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 2.556,
+   "off": 2.621,
+   "pitch": 46,
+   "vel": 106,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 2.56,
+   "off": 2.61,
+   "pitch": 44,
+   "vel": 90,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.562,
+   "off": 2.612,
+   "pitch": 48,
+   "vel": 87,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 2.597,
+   "off": 2.656,
+   "pitch": 39,
+   "vel": 104,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 2.687,
+   "off": 2.737,
+   "pitch": 45,
+   "vel": 81,
+   "technique": "staccato",
+   "layer": 1
+  },
+  {
+   "on": 2.692,
+   "off": 2.742,
+   "pitch": 47,
+   "vel": 79,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 2.727,
+   "off": 2.803,
+   "pitch": 43,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 8
+  },
+  {
+   "on": 2.729,
+   "off": 2.808,
+   "pitch": 41,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.745,
+   "off": 2.795,
+   "pitch": 44,
+   "vel": 104,
+   "technique": "staccato",
+   "layer": 2
+  },
+  {
+   "on": 2.748,
+   "off": 2.798,
+   "pitch": 34,
+   "vel": 104,
+   "technique": "staccato",
+   "layer": 5
+  },
+  {
+   "on": 2.788,
+   "off": 2.838,
+   "pitch": 45,
+   "vel": 90,
+   "technique": "staccato",
+   "layer": 6
+  },
+  {
+   "on": 2.844,
+   "off": 2.894,
+   "pitch": 43,
+   "vel": 110,
+   "technique": "staccato",
+   "layer": 9
+  },
+  {
+   "on": 2.886,
+   "off": 2.936,
+   "pitch": 48,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 4
+  },
+  {
+   "on": 2.891,
+   "off": 2.941,
+   "pitch": 45,
+   "vel": 127,
+   "technique": "staccato",
+   "layer": 7
+  },
+  {
+   "on": 2.894,
+   "off": 2.944,
+   "pitch": 53,
+   "vel": 121,
+   "technique": "staccato",
+   "layer": 0
+  },
+  {
+   "on": 2.895,
+   "off": 2.945,
+   "pitch": 50,
+   "vel": 110,
+   "technique": "staccato",
+   "layer": 3
+  },
+  {
+   "on": 2.895,
+   "off": 2.945,
+   "pitch": 49,
+   "vel": 100,
+   "technique": "staccato",
+   "layer": 5
+  }
+ ],
+ "cleaning": {
+  "rule": "max-retention: octave-fold to 30-65, loudest-first placement, drop only when no lane free (re-artic 0.08)",
+  "folded": 2,
+  "dropped": 0
+ }
+}
