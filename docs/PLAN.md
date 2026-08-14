@@ -151,6 +151,15 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   shapes (groupId; drag=move, edge/box/panel=scale); latest: GESTURE-2 ×0.75
   at 50 s, reharmonized m6 on F# (s07b) then F (s07c).
 
+- **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
+  a section built from **long crescendos in the banked harmonies** (the
+  VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**
+  (`cressand-family`), **blast interjections** (fp/ord verticals), and
+  **potentially tremolo sections** — the four texture families running against
+  each other as counterpoint rather than in sequence. *Why it's live now:* all
+  four ingredients are built and calibrated (harmony palette · margin-solved
+  cressand chains · blast entities · tremolo still to develop).
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

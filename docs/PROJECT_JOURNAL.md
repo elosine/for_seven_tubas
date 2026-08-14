@@ -92,6 +92,11 @@ container.
 - **Lesson banked (memory):** wire interaction features into ALL mutation paths
   (body/node/box/panel); off-grid values fingerprint which path the composer uses.
 
+**COMPOSER NOTE (2026-08-14) — the counterpoint section to try (PLAN 2i):**
+long crescendos in the banked harmonies + the crescendo-acceleration chains
+(cressand-family) + blast interjections + potentially tremolo sections, set
+against each other as counterpoint. All ingredients exist except tremolo.
+
 **NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
 formations for the piece. Then: cressand-family / cressand-pitches verdicts ·
 sl02 Messiaen adds after listening · composer may provide more ostinato sample
