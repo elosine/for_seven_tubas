@@ -182,6 +182,18 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   - **Ostinato ↔ sine coupling:** the sine humps must **follow the human-sampled
     ostinato patterns** — irregular in **TIME only** for now (amplitude stays
     regular; amplitude irregularity held as a maybe for later).
+  - **FIRST TESTS BUILT 2026-08-14** (`trem01-single`, `trem02-phase`, tool
+    `tools/trem_tests.js`). **Speed ceiling — the governing rule from the tuba
+    literature is "you must not trill faster than you can slur"**, so max
+    tremolo rate = max clean legato slur for that interval/register; no
+    published notes-per-second figure exists, so the tables are stepped to
+    ESTIMATES pending the composer's ear: **half step 4.5 Hz (9 alternations/s),
+    fifth 3.0 Hz (6/s)**; Hz = one up-and-down cycle. Also noted in the
+    literature: trills/tremolos sound **muddy in the low range** — relevant at
+    F2. Phase-test finding: with notes on every half-cycle, **180° = onsets
+    ALIGNED but pitches opposite** (a sustained minor 2nd — the composer's
+    sine-wave peak-vs-trough model exactly), while **90° is the interlocked
+    hocket** state.
 - **2k — PERFORMANCE SCORE: group rehearsal mode + entry page** *(composer,
   2026-08-14)*: build a **group rehearsal mode** that is robust and **not
   fragile about which instance is the leader score and which are followers**;
