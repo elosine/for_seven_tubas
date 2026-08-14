@@ -165,6 +165,31 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   - a **pointillistic section with ordinario blasts, spatialized 1 → 10**
     (the cloud/cluster material against blasts that travel the stage line)
 
+- **2j — TREMOLO NOTATION & PHASE SHIFTING** *(composer notes, 2026-08-14 —
+  the missing ingredient for 2i)*:
+  - **Interlocking tremolos among performers**, notated accurately enough to do
+    real **phase shifting**. Proposed device: a **sine-wave figure whose peaks
+    and troughs say which note you're on** (peak = one pitch, trough = the
+    other). Phase-shift the players' sine waves against each other → literal
+    phase shifting in the ensemble.
+  - **Research:** find the **perceptual limit for rapid tremolo frequencies**
+    (slow ones too, but rapid is the question), then devise an **alternating
+    strategy for quick tremolos** — when one player can't articulate that fast,
+    the tremolo interlocks across players (same hocket logic as the ostinato
+    port).
+  - **Irregular tremolos:** the sine figure may still carry them. Animation
+    options to try: a **ball tracing the wave**, the **wave fill**, or both.
+  - **Ostinato ↔ sine coupling:** the sine humps must **follow the human-sampled
+    ostinato patterns** — irregular in **TIME only** for now (amplitude stays
+    regular; amplitude irregularity held as a maybe for later).
+- **2k — PERFORMANCE SCORE: group rehearsal mode + entry page** *(composer,
+  2026-08-14)*: build a **group rehearsal mode** that is robust and **not
+  fragile about which instance is the leader score and which are followers**;
+  and **rework the splash/entry page** so it's far clearer and simpler what
+  you're doing and how to do it. *State:* piece #4 has only the composer app +
+  sandbox so far — the performer app is the piece-#2 `public/index.html`
+  lineage, so this is a port-plus-rework, not an edit in place.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

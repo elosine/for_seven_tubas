@@ -92,10 +92,20 @@ container.
 - **Lesson banked (memory):** wire interaction features into ALL mutation paths
   (body/node/box/panel); off-grid values fingerprint which path the composer uses.
 
-**COMPOSER NOTE (2026-08-14) — the counterpoint section to try (PLAN 2i):**
-long crescendos in the banked harmonies + the crescendo-acceleration chains
-(cressand-family) + blast interjections + potentially tremolo sections, set
-against each other as counterpoint. All ingredients exist except tremolo.
+**COMPOSER NOTES (2026-08-14) — three items banked as PLAN 2i / 2j / 2k:**
+- **2i counterpoint section:** long crescendos in the banked harmonies + the
+  cressand accel chains + blast interjections + tremolo, against each other.
+  Sketch: cres-on-chord → blast, blast → long accel chain with the chord
+  round-robin/interspersed with tremolos · plus a pointillistic section with
+  ordinario blasts **spatialized 1 → 10**.
+- **2j tremolo notation & phase shifting:** sine-wave figure (peak/trough = which
+  note), phase-shifted between players for real ensemble phase shifting;
+  research the rapid-tremolo perceptual limit → alternating/interlocking
+  strategy; irregular tremolos (ball tracing the wave / wave fill / both);
+  **sine humps follow the human-sampled ostinato timing — irregular in TIME
+  only for now.** This is the missing ingredient for 2i.
+- **2k performance score:** robust group rehearsal mode (leader/follower not
+  fragile) + a much clearer, simpler entry page. Port-plus-rework from piece #2.
 
 **NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
 formations for the piece. Then: cressand-family / cressand-pitches verdicts ·
