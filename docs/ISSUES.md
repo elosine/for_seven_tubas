@@ -84,3 +84,17 @@ Status: `open` / `monitoring` / `closed`. Check here BEFORE re-diagnosing.*
 - **Rule:** audition in Single mode freely; switch to Multi Mode BEFORE loading
   any patch so the target slot is visible. After any manual patch work, a
   50-second `chsweep_probe.ps1` run re-verifies the whole instance.
+
+## Solved
+
+- **META overlay selection** *(composer ask 2026-08-14, shipped same day, build
+  `b17-metastack`)* — gesture shapes share one META lane and cover each other.
+  Now: **click again at the same spot cycles down the stack** (narrowest first,
+  so a short shape buried under a long one is pick #1; status line shows
+  "name — 2/3 stacked"); **ALT+click opens a picker** listing everything stacked
+  there (color swatch · label · duration, click to select, ESC/click-away to
+  dismiss); the **selected shape is raised to the front** so its edge/box
+  handles are never buried. All three mutation paths (body drag, box handles,
+  panel fields) then act on the cycled-to shape and time-scale ITS OWN group.
+  Code: `metaStackAt` / `pickFromMetaStack` / `openMetaStackPicker` /
+  `bringMetaToFront` in composer.html.

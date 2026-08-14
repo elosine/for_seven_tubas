@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b16-boxscale</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b17-metastack</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <span>|</span>
@@ -3187,8 +3187,16 @@ const Composer = {
                 this.startGroupDrag(wc, e);
                 return;
             }
-            this.selectObject(wc);
-            this.startWCBodyDrag(wc, e);
+            // META overlay (composer 2026-08-14): gesture shapes may cover each
+            // other. ALT+click = pick from a list of everything stacked here;
+            // plain clicks at the same spot cycle down through the stack.
+            let target = wc;
+            if (wc.layer === META_LAYER) {
+                if (e.altKey) { this.openMetaStackPicker(e); return; }
+                target = this.pickFromMetaStack(e);
+            }
+            this.selectObject(target);
+            this.startWCBodyDrag(target, e);
         });
         hp.addEventListener('dblclick', (e) => {
             e.stopPropagation();
@@ -3639,6 +3647,97 @@ const Composer = {
 
     // ========== SELECTION ==========
 
+    // ========== META STACK: overlaid gestures stay independently selectable ==========
+    // Gesture shapes share one META lane, so they cover each other. Everything
+    // here keeps each one reachable: stack query, click-cycling, an ALT+click
+    // picker, and selected-shape-to-front so its handles are never buried.
+
+    metaStackAt(timeSec) {
+        return this.objects
+            .filter(o => o.type === 'waveCurve' && o.layer === META_LAYER &&
+                timeSec >= o.startSeconds && timeSec <= o.endSeconds)
+            // narrowest first: a short shape buried under a long one is pick #1
+            .sort((a, b) => (a.endSeconds - a.startSeconds) - (b.endSeconds - b.startSeconds) ||
+                a.startSeconds - b.startSeconds);
+    },
+
+    metaShapeLabel(wc) {
+        if (wc.groupId) {
+            const mk = this.objects.find(o => o.type === 'marker' && o.groupId === wc.groupId);
+            if (mk && mk.label) return mk.label;
+        }
+        return String(wc.performanceNotes || 'META shape').split(' (')[0];
+    },
+
+    pickFromMetaStack(e) {
+        const t = this.clientXToTime(e.clientX);
+        const stack = this.metaStackAt(t);
+        if (stack.length <= 1) { this._metaCycle = null; return stack[0] || this.selectedObject; }
+        const ids = stack.map(s => s.id).join(',');
+        const sameSpot = this._metaCycle && this._metaCycle.ids === ids &&
+            Math.abs(this._metaCycle.x - e.clientX) < 10;
+        const idx = sameSpot ? (this._metaCycle.idx + 1) % stack.length : 0;
+        this._metaCycle = { x: e.clientX, idx, ids };
+        const pick = stack[idx];
+        this.saveStatus.textContent = this.metaShapeLabel(pick) +
+            ' — ' + (idx + 1) + '/' + stack.length + ' stacked (click again to cycle · ALT+click = list)';
+        return pick;
+    },
+
+    bringMetaToFront(wc) {
+        const g = wc && wc._els && wc._els.group;
+        if (g && g.parentNode) g.parentNode.appendChild(g);   // last drawn = on top + clickable
+    },
+
+    openMetaStackPicker(e) {
+        this.closeMetaStackPicker();
+        const stack = this.metaStackAt(this.clientXToTime(e.clientX));
+        if (!stack.length) return;
+        const box = document.createElement('div');
+        box.id = 'metaStackPicker';
+        box.style.cssText = 'position:fixed; z-index:9999; background:#222; border:1px solid #5E8C7A;' +
+            'border-radius:6px; padding:6px; box-shadow:0 4px 16px rgba(0,0,0,.5); min-width:190px;' +
+            'left:' + Math.min(e.clientX, window.innerWidth - 240) + 'px; top:' + (e.clientY + 10) + 'px';
+        const head = document.createElement('div');
+        head.textContent = stack.length + ' stacked here';
+        head.style.cssText = 'color:#8fb3a5; font-size:10px; margin:0 0 4px 2px';
+        box.appendChild(head);
+        stack.forEach(s => {
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex; align-items:center; gap:6px; padding:4px 6px;' +
+                'cursor:pointer; border-radius:4px; color:#ddd; font-size:11px';
+            const sw = document.createElement('span');
+            sw.style.cssText = 'width:10px; height:10px; border-radius:2px; flex:none; background:' + (s.color || '#888');
+            const txt = document.createElement('span');
+            txt.textContent = this.metaShapeLabel(s) + '  ' +
+                (s.endSeconds - s.startSeconds).toFixed(1) + 's';
+            row.appendChild(sw); row.appendChild(txt);
+            row.addEventListener('mouseenter', () => { row.style.background = '#33473f'; });
+            row.addEventListener('mouseleave', () => { row.style.background = 'none'; });
+            row.addEventListener('mousedown', (ev) => {
+                ev.stopPropagation(); ev.preventDefault();
+                this.selectObject(s);
+                this.saveStatus.textContent = 'selected ' + this.metaShapeLabel(s);
+                this.closeMetaStackPicker();
+            });
+            box.appendChild(row);
+        });
+        document.body.appendChild(box);
+        this._metaPicker = box;
+        this._metaPickerAway = (ev) => { if (!box.contains(ev.target)) this.closeMetaStackPicker(); };
+        this._metaPickerEsc = (ev) => { if (ev.key === 'Escape') this.closeMetaStackPicker(); };
+        setTimeout(() => {
+            window.addEventListener('mousedown', this._metaPickerAway);
+            window.addEventListener('keydown', this._metaPickerEsc);
+        }, 0);
+    },
+
+    closeMetaStackPicker() {
+        if (this._metaPicker) { this._metaPicker.remove(); this._metaPicker = null; }
+        if (this._metaPickerAway) { window.removeEventListener('mousedown', this._metaPickerAway); this._metaPickerAway = null; }
+        if (this._metaPickerEsc) { window.removeEventListener('keydown', this._metaPickerEsc); this._metaPickerEsc = null; }
+    },
+
     selectObject(obj, opts) {
         const additive = !!(opts && opts.additive);
         if (additive) {
@@ -3674,7 +3773,11 @@ const Composer = {
         this.selectedObjects = [obj];
         this.selectedNodeIdx = -1;
         if (obj._els && obj._els.highlight) obj._els.highlight.style.display = '';
-        if (obj.type === 'waveCurve') this.renderNodeHandles(obj);
+        if (obj.type === 'waveCurve') {
+            // a selected META shape draws on top so its handles are never buried
+            if (obj.layer === META_LAYER) this.bringMetaToFront(obj);
+            this.renderNodeHandles(obj);
+        }
         if (obj.type === 'lineWedge') this.renderLWNodeHandles(obj);
         this.showPropertyPanel();
     },

@@ -159,6 +159,11 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
   each other as counterpoint rather than in sequence. *Why it's live now:* all
   four ingredients are built and calibrated (harmony palette · margin-solved
   cressand chains · blast entities · tremolo still to develop).
+  **Sketch (composer, 2026-08-14):**
+  - crescendo on a chord → **blast, blast** → long cressand accel chain with the
+    chord **round-robin / interspersed with tremolos**
+  - a **pointillistic section with ordinario blasts, spatialized 1 → 10**
+    (the cloud/cluster material against blasts that travel the stage line)
 
 ## Parking lot
 
