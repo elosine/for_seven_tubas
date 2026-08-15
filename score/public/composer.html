@@ -320,14 +320,9 @@
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b21-blastinsert</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b22-tidybar</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
-    <select id="paletteSelect" title="curated material palette — entries reference the same save files"><option value="">-- Palette --</option></select>
-    <select id="workingSelect" title="working palette — this section's in-progress material"><option value="">-- Working --</option></select>
-    <button id="paletteAddBtn" title="add current score to the WORKING palette">+W</button>
-    <button id="paletteAddPBtn" title="add current score to the curated PALETTE">+P</button>
-    <button id="paletteDelBtn" title="remove the current score from both palettes">−</button>
     <span>|</span>
     <span id="timeDisplay">0.00</span>
     <span>|</span>
@@ -2048,30 +2043,9 @@ const Composer = {
         // palette: picking an entry loads the SAME file the Load menu serves.
         // Keep the chosen entry DISPLAYED and blur the select, so SPACE plays
         // instead of re-opening the dropdown (composer fix 2026-08-14).
-        // both palette menus load the SAME files the Load menu serves
-        const wirePalette = (id, tag) => {
-            const sel = document.getElementById(id);
-            if (!sel) return;
-            sel.addEventListener('mousedown', () => { sel.value = ''; });
-            sel.addEventListener('change', async () => {
-                const file = sel.value;
-                if (!file) return;
-                const entry = (this._palette || []).find(e => e.file === file);
-                if (entry && entry.missing) { this.saveStatus.textContent = tag + ': file missing — ' + file; sel.blur(); return; }
-                await this.loadSession(file);
-                this.saveStatus.textContent = 'Loaded: ' + file + (entry ? '  [' + tag + ': ' + entry.name + ']' : '');
-                sel.blur();
-            });
-        };
-        wirePalette('paletteSelect', 'palette');
-        wirePalette('workingSelect', 'working');
-        const addB = document.getElementById('paletteAddBtn');
-        if (addB) addB.addEventListener('click', () => this.paletteAddCurrent('working'));
-        const addP = document.getElementById('paletteAddPBtn');
-        if (addP) addP.addEventListener('click', () => this.paletteAddCurrent('palette'));
-        const delB = document.getElementById('paletteDelBtn');
-        if (delB) delB.addEventListener('click', () => this.paletteRemoveCurrent());
-        this.refreshPalette();
+        // (Palette / Working menus retired 2026-08-14 — the Load menu covers
+        // every score, and blast material now lives in the sandbox + Blasts
+        // strip. Server API and score/palette.json remain, dormant.)
         // ALT-tap suppression: releasing ALT alone focuses Chrome's menu (the
         // three dots), so SPACE right after ALT+wheel zoom opened the browser
         // menu. preventDefault on the bare Alt keyup stops that. CTRL+wheel
@@ -2232,61 +2206,8 @@ const Composer = {
         }
     },
 
-    // ---- PALETTE (composer 2026-08-14) ----
-    // A curated menu of material scores. Entries REFERENCE scores/<file>.json,
-    // they are never copies — so editing a score updates it in the Load menu and
-    // in the palette at once (one source of truth). The underlying file name is
-    // always visible (option title + status line) so provenance is never lost.
-    async refreshPalette() {
-        try {
-            const r = await fetch('/api/composer/palette');
-            const j = await r.json();
-            if (!j.success) return;
-            this._palette = j.entries;
-            const fill = (id, group, placeholder) => {
-                const sel = document.getElementById(id);
-                if (!sel) return;
-                sel.innerHTML = '<option value="">' + placeholder + '</option>';
-                j.entries.filter(e => (e.group || 'palette') === group).forEach(e => {
-                    const opt = document.createElement('option');
-                    opt.value = e.file;
-                    opt.textContent = (e.missing ? '⚠ ' : '') + e.name;
-                    opt.title = 'file: ' + e.file + (e.note ? ' — ' + e.note : '') +
-                        (e.missing ? '  (FILE MISSING)' : '');
-                    sel.appendChild(opt);
-                });
-            };
-            fill('paletteSelect', 'palette', '-- Palette --');
-            fill('workingSelect', 'working', '-- Working --');
-        } catch (err) { console.warn('palette load failed', err); }
-    },
-
-    async paletteAddCurrent(group) {
-        const file = this.sessionName;
-        if (!file) return;
-        const suggested = (this._palette || []).find(e => e.file === file);
-        const name = prompt('Palette name for "' + file + '":', suggested ? suggested.name : file);
-        if (name === null) return;
-        const r = await fetch('/api/composer/palette', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'add', name: name.trim() || file, file, group: group || 'working' }),
-        });
-        const j = await r.json();
-        this.saveStatus.textContent = j.success ? 'palette + ' + (name || file) + ' (' + file + ')' : 'palette add failed';
-        this.refreshPalette();
-    },
-
-    async paletteRemoveCurrent() {
-        const file = this.sessionName;
-        if (!file) return;
-        if (!confirm('Remove "' + file + '" from the palette? (the score file itself is NOT deleted)')) return;
-        await fetch('/api/composer/palette', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'remove', file }),
-        });
-        this.saveStatus.textContent = 'palette − ' + file;
-        this.refreshPalette();
-    },
+    // (Palette methods retired 2026-08-14 — superseded by the Load menu and
+    //  the Blasts strip. score/palette.json + /api/composer/palette remain.)
 
     async refreshSessionList() {
         try {
