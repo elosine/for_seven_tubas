@@ -390,6 +390,17 @@ const server = http.createServer((req, res) => {
                         const { sonority } = body;
                         if (!sonority || !sonority.chord) return R.status(400).json({ success: false, error: 'sonority required' });
                         tax.sonorities = tax.sonorities || {};
+                        // DEDUP: an exact content match returns the existing id
+                        // (so re-starring a sound is idempotent; adding it to a
+                        // new list just adds membership). Different dyn/len/
+                        // artic = genuinely different sonority = new id.
+                        const key = o => JSON.stringify([o.chord, o.voicing, o.pitches,
+                            o.cuivreConverted || [], o.cuivreAdded || [], o.artic || {}, o.ordLen, o.dyn]);
+                        const dupe = Object.entries(tax.sonorities).find(([, o]) => key(o) === key(sonority));
+                        if (dupe) {
+                            console.log(`Taxonomy: sonority duplicate -> ${dupe[0]}`);
+                            return R.json({ success: true, id: dupe[0], duplicate: true });
+                        }
                         let n = 1;
                         while (tax.sonorities['S' + String(n).padStart(3, '0')]) n++;
                         const id = 'S' + String(n).padStart(3, '0');

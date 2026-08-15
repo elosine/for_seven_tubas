@@ -333,7 +333,7 @@ async function saveSonority() {
   const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
   if (!r.success) return;
-  let msg = r.id + ' → library';
+  let msg = r.id + (r.duplicate ? ' (already in library)' : ' → library');
   if (list && list !== '__none' && list !== '__new') {
     const a = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
