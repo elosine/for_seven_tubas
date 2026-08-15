@@ -41,9 +41,30 @@ Section-level to-dos (the whole-form layer):
 
 Container-level to-dos:
 
-- [ ] **Decide what materials to use**
+- [ ] **Decide what materials to use** *(in progress — menu + choices below)*
 - [ ] Explore materials / build the gestures (blasts first — below)
 - [ ] Then: **assemble the chosen gestures** → piece-s09
+
+*Materials menu (everything available):*
+
+- blasts (stac / fp / ord, any harmony; cuivre-modifiable)
+- pointillistic clusters (CLUST01 / CLUST02 / CLOUD02)
+- crescendo-pulse chains (cressand-family, any pitch strategy)
+- single long crescendos on a harmony
+- morphing crescendo (gliss → quarter-tones / legato; to build)
+- tremolos (trem01/02 material; to develop)
+- ostinato formations (ost01-variety; unheard)
+- density-buildup excerpts (scrambles, carves)
+- pitch-and-catch (concept; to build)
+
+*Choices so far:*
+
+- [x] **blasts** — definitely in *(harmony working set: `int2-harmonies` —
+      VERT01 03·04·11·12·13·16·28, each as v1 played + v2 ten-note, wide gaps
+      left for added variants)*
+- [ ] morphing crescendo — intended (see branch below)
+- [ ] subset textures — intended (a couple overlapped, kept pointillistic)
+- [ ] …rest of the menu: undecided
 
 <details open><summary><b>Blasts</b> · <i>◄ NOW — the current drill-in</i></summary>
 

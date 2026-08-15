@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b18-palette</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b19-palettefix</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <select id="paletteSelect" title="curated material palette — entries reference the same save files"><option value="">-- Palette --</option></select>
@@ -2032,22 +2032,34 @@ const Composer = {
             const name = this.loadSelect.value;
             if (name) this.loadSession(name);
         });
-        // palette: picking an entry loads the SAME file the Load menu serves
+        // palette: picking an entry loads the SAME file the Load menu serves.
+        // Keep the chosen entry DISPLAYED and blur the select, so SPACE plays
+        // instead of re-opening the dropdown (composer fix 2026-08-14).
         const pSel = document.getElementById('paletteSelect');
+        // opening the menu clears the shown value so re-choosing the SAME entry
+        // still fires 'change'; after loading, the entry name shows again
+        if (pSel) pSel.addEventListener('mousedown', () => { pSel.value = ''; });
         if (pSel) pSel.addEventListener('change', async () => {
             const file = pSel.value;
             if (!file) return;
             const entry = (this._palette || []).find(e => e.file === file);
-            if (entry && entry.missing) { this.saveStatus.textContent = 'palette: file missing — ' + file; return; }
+            if (entry && entry.missing) { this.saveStatus.textContent = 'palette: file missing — ' + file; pSel.blur(); return; }
             await this.loadSession(file);
             this.saveStatus.textContent = 'Loaded: ' + file + (entry ? '  [palette: ' + entry.name + ']' : '');
-            pSel.value = '';
+            pSel.blur();
         });
         const addB = document.getElementById('paletteAddBtn');
         if (addB) addB.addEventListener('click', () => this.paletteAddCurrent());
         const delB = document.getElementById('paletteDelBtn');
         if (delB) delB.addEventListener('click', () => this.paletteRemoveCurrent());
         this.refreshPalette();
+        // ALT-tap suppression: releasing ALT alone focuses Chrome's menu (the
+        // three dots), so SPACE right after ALT+wheel zoom opened the browser
+        // menu. preventDefault on the bare Alt keyup stops that. CTRL+wheel
+        // remains the fallback zoom if any browser ignores this.
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'Alt') e.preventDefault();
+        });
     },
 
     collectData() {
