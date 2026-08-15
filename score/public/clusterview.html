@@ -623,7 +623,7 @@ $('zoomOut').addEventListener('click', () => {
   drawRoll();
 });
 $('zoomFit').addEventListener('click', () => { pxPerSec = null; viewT0 = 0; drawRoll(); });
-$('clSel').addEventListener('change', function () { this.blur(); setCluster(this.value); play(); });
+$('clSel').addEventListener('change', function () { this.blur(); setCluster(this.value); });
 $('playBtn').addEventListener('click', play);
 $('stopBtn').addEventListener('click', stopAll);
 $('recBtn').addEventListener('click', toggleRec);
@@ -671,10 +671,18 @@ window.addEventListener('resize', drawRoll);
     ids.forEach((n, i) => {
       if (!banks[i] || !banks[i].pitches) return;
       const k = 'VERT01-' + n;
-      TAXCH[k] = [...new Set(banks[i].pitches.map(p => foldInto(p)))].sort((a, b) => a - b);
+      const ps = [...new Set(banks[i].pitches.map(p => foldInto(p)))].sort((a, b) => a - b);
+      TAXCH[k] = ps;
+      // descriptor: count, range, shape (cluster / split / spread)
+      const iv = ps.slice(1).map((p, j) => p - ps[j]);
+      const shape = iv.length === 0 ? ''
+        : Math.max.apply(null, iv) >= 12 ? 'split'
+        : iv.filter(x => x <= 2).length >= iv.length * 0.6 ? 'cluster'
+        : 'spread';
       const o = document.createElement('option');
       o.value = k;
-      o.textContent = 'ch ' + n;
+      o.textContent = 'ch ' + n + ' · ' + ps.length + 'n ' + nm(ps[0]) + '–' + nm(ps[ps.length - 1]) +
+        (shape ? ' · ' + shape : '');
       cs.appendChild(o);
     });
   } catch (e) {}
