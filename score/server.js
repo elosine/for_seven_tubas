@@ -421,6 +421,24 @@ const server = http.createServer((req, res) => {
                         console.log(`Taxonomy: ${id} -> list "${list}" (${tax.customLists[list].length})`);
                         return R.json({ success: true, count: tax.customLists[list].length });
                     }
+                    if (action === 'subset') {
+                        // chord-library SUBSETS: named views of the 33 (the main
+                        // library itself is never edited from here)
+                        const { op, name, chord } = body;
+                        if (!name) return R.status(400).json({ success: false, error: 'subset name required' });
+                        tax.chordSubsets = tax.chordSubsets || {};
+                        if (op === 'create') tax.chordSubsets[name] = tax.chordSubsets[name] || [];
+                        else if (op === 'add') {
+                            tax.chordSubsets[name] = tax.chordSubsets[name] || [];
+                            if (!tax.chordSubsets[name].includes(chord)) tax.chordSubsets[name].push(chord);
+                            tax.chordSubsets[name].sort();
+                        } else if (op === 'remove') {
+                            tax.chordSubsets[name] = (tax.chordSubsets[name] || []).filter(c => c !== chord);
+                        } else return R.status(400).json({ success: false, error: 'unknown op' });
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: subset "${name}" ${op}${chord ? ' ' + chord : ''} (${tax.chordSubsets[name].length})`);
+                        return R.json({ success: true, members: tax.chordSubsets[name] });
+                    }
                     if (action === 'createList') {
                         const { list } = body;
                         if (!list) return R.status(400).json({ success: false, error: 'list name required' });

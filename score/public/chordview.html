@@ -64,6 +64,8 @@
 
 <div class="bar">
   <button id="stripToggle" title="collapse/expand the chord strip">▲ strip</button>
+  <select id="subsetSel" title="which chords the strip shows — the main 33 are never edited from here"></select>
+  <button id="subsetPM" title="add/remove the CURRENT chord in the named subset (the main library is untouched)" style="display:none">±</button>
   <select id="verSel" title="the version menu — the baseline you step off from"></select>
   <button id="resetBtn" class="warn" style="display:none" title="discard edits, return to the baseline version">● edited — reset</button>
   <button id="playBtn" title="play the chord as configured (SPACE)">▶ play</button>
@@ -278,6 +280,63 @@ function buildVerSel() {
   sel.value = work.base;
 }
 
+// ---- chord subsets: named VIEWS of the 33; main library immutable ----
+let activeSubset = '__all';      // the strip filter
+let editSubset = null;           // the ± button's target (last real subset chosen)
+function subsetIds() {
+  if (activeSubset === '__all') return Object.keys(BANKS);
+  return ((TAX.chordSubsets || {})[activeSubset] || []).filter(id => BANKS[id]);
+}
+function buildSubsetSel() {
+  const sel = document.getElementById('subsetSel');
+  const subs = Object.keys(TAX.chordSubsets || {});
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const all = document.createElement('option');
+  all.value = '__all'; all.textContent = 'all 33';
+  sel.appendChild(all);
+  subs.forEach(n => {
+    const o = document.createElement('option');
+    o.value = n; o.textContent = n + ' (' + TAX.chordSubsets[n].length + ')';
+    sel.appendChild(o);
+  });
+  const nw = document.createElement('option');
+  nw.value = '__newsub'; nw.textContent = '+ new subset…';
+  sel.appendChild(nw);
+  const remembered = localStorage.getItem('chordSubset');
+  if (subs.includes(prev) || prev === '__all') sel.value = prev;
+  else if (remembered && (subs.includes(remembered) || remembered === '__all')) sel.value = remembered;
+  else sel.value = '__all';
+  activeSubset = sel.value;
+  if (subs.includes(activeSubset)) editSubset = activeSubset;
+  else if (!subs.includes(editSubset)) editSubset = subs[0] || null;
+  refreshPM();
+}
+function refreshPM() {
+  const b = document.getElementById('subsetPM');
+  if (!editSubset) { b.style.display = 'none'; return; }
+  const members = (TAX.chordSubsets || {})[editSubset] || [];
+  const inSet = members.includes(currentId);
+  b.style.display = '';
+  b.textContent = (inSet ? '− ' : '+ ') + currentId.replace('VERT01-', 'ch') + ' ' + (inSet ? '⊖' : '⊕') + ' ' + editSubset;
+  b.classList.toggle('on', inSet);
+}
+async function togglePM() {
+  if (!editSubset) return;
+  const members = (TAX.chordSubsets || {})[editSubset] || [];
+  const op = members.includes(currentId) ? 'remove' : 'add';
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'subset', op, name: editSubset, chord: currentId }) }).then(x => x.json());
+  if (r.success) {
+    TAX.chordSubsets[editSubset] = r.members;
+    buildSubsetSel();
+    document.getElementById('info').textContent =
+      currentId + (op === 'add' ? ' → "' : ' ⊖ "') + editSubset + '" (' + r.members.length + ')';
+    if (activeSubset !== '__all') { CHORD_IDS = subsetIds(); drawStrip(); }
+    refreshPM();
+  }
+}
+
 // ---- strip ----
 function miniCanvas(id) {
   const c = document.createElement('canvas');
@@ -315,7 +374,7 @@ function drawStrip() {
 }
 function selectChord(id) {
   currentId = id;
-  loadWork(); draw(); drawStrip();
+  loadWork(); draw(); drawStrip(); refreshPM();
 }
 
 // ---- saves ----
@@ -565,6 +624,30 @@ async function boot() {
   $('saveV').addEventListener('click', saveVoicing);
   $('saveSon').addEventListener('click', saveSonority);
   $('listBrowse').addEventListener('click', toggleListPanel);
+  buildSubsetSel();
+  CHORD_IDS = subsetIds();
+  if (!CHORD_IDS.includes(currentId)) currentId = CHORD_IDS[0];
+  $('subsetSel').addEventListener('change', async function () {
+    if (this.value === '__newsub') {
+      const name = prompt('New chord subset name:', 'INT2 working set 2');
+      if (name) {
+        await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'subset', op: 'create', name }) });
+        TAX.chordSubsets = TAX.chordSubsets || {};
+        TAX.chordSubsets[name] = TAX.chordSubsets[name] || [];
+        this.value = name;
+      } else this.value = activeSubset;
+    }
+    activeSubset = this.value;
+    localStorage.setItem('chordSubset', activeSubset);
+    if ((TAX.chordSubsets || {})[activeSubset]) editSubset = activeSubset;
+    buildSubsetSel();
+    CHORD_IDS = subsetIds();
+    if (CHORD_IDS.length && !CHORD_IDS.includes(currentId)) selectChord(CHORD_IDS[0]);
+    else { drawStrip(); refreshPM(); }
+    this.blur();
+  });
+  $('subsetPM').addEventListener('click', togglePM);
   window.addEventListener('mousedown', e => {
     const panel = $('listPanel');
     if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'listBrowse')
