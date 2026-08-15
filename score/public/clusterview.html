@@ -66,7 +66,9 @@
   <button class="chip str" data-f="1">&#215;1</button>
   <button class="chip str" data-f="1.5">&#215;1.5</button>
   <button class="chip str" data-f="2">&#215;2</button>
-  <label>fine <input type="range" id="strSlider" min="0.25" max="4" step="0.05" value="1"><span id="strV" class="hint">1.00&#215;</span></label>
+  <button class="chip str" data-f="4">&#215;4</button>
+  <button class="chip str" data-f="10">&#215;10</button>
+  <label>fine <input type="range" id="strSlider" min="0.25" max="10" step="0.05" value="1"><span id="strV" class="hint">1.00&#215;</span></label>
   <span class="hint">|</span>
   <button class="chip" id="revBtn" title="mirror the attack pattern in time">reverse</button>
   <button class="chip" id="octDn" title="shift down an octave (folds back into range)">oct &#8722;</button>
@@ -150,6 +152,8 @@ let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin
 const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 });
 // view window: pxPerSec = null means fit-whole-cluster; viewT0 = left edge (s)
 let pxPerSec = null, viewT0 = 0;
+// click-placed playback start (roll time), or null = window start
+let playFrom = null;
 
 const $ = id => document.getElementById(id);
 
@@ -158,9 +162,14 @@ function sourceEvents() {
   if (!cur || !BANK.clusters[cur]) return [];
   let ev = BANK.clusters[cur].events.map(e => ({ ...e, srcT: e.t, srcP: e.p }));
   if (sel) {
-    ev = ev.filter(e => e.t >= sel[0] && e.t <= sel[1]);
-    const t0 = ev.length ? Math.min(...ev.map(e => e.t)) : 0;
-    ev = ev.map(e => ({ ...e, t: +(e.t - t0).toFixed(3) }));
+    // normalize to the selection EDGE so leading empty space is heard as silence
+    ev = ev.filter(e => e.t >= sel[0] && e.t <= sel[1])
+           .map(e => ({ ...e, t: +(e.t - sel[0]).toFixed(3) }));
+  }
+  if (playFrom !== null) {
+    const base = sel ? sel[0] : 0;
+    const pf = playFrom - base;
+    if (pf > 0) ev = ev.filter(e => e.t >= pf).map(e => ({ ...e, t: +(e.t - pf).toFixed(3) }));
   }
   return ev;
 }
@@ -239,6 +248,13 @@ function drawRoll() {
     ctx.strokeStyle = '#3FA7B8';
     ctx.strokeRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
   }
+  if (playFrom !== null) {
+    const px = X(playFrom);
+    ctx.strokeStyle = '#ffd479';
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
+    ctx.setLineDash([]);
+  }
   const dot = (x, y, r, color) => { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); };
   const techColor = tech => tech === 'fortepiano' ? '#c9986e' : tech === 'ord' ? '#8ea9c9' : '#ffd479';
   const transformed = trActive();
@@ -294,18 +310,33 @@ function drawRoll() {
     }
     drawRoll();
   }, { passive: false });
-  cv.addEventListener('mousedown', e => { if (!cur) return; dragging = true; startT = timeAt(e); });
+  let moved = false, downSel = null;
+  cv.addEventListener('mousedown', e => {
+    if (!cur) return;
+    dragging = true; moved = false; downSel = sel; startT = timeAt(e);
+  });
   cv.addEventListener('mousemove', e => {
     if (!dragging) return;
     const t = timeAt(e);
-    sel = [Math.min(startT, t), Math.max(startT, t)];
-    drawRoll();
+    if (Math.abs(t - startT) * pps() > 5) moved = true;   // >5px = a drag
+    if (moved) {
+      sel = [Math.min(startT, t), Math.max(startT, t)];
+      drawRoll();
+    }
   });
   window.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
-    if (sel && sel[1] - sel[0] < 0.05) { sel = null; }
+    if (!moved) {
+      // a CLICK: place the playback start there (selection untouched)
+      sel = downSel;
+      playFrom = startT;
+      drawRoll(); updateSelInfo();
+      return;
+    }
+    if (sel && sel[1] - sel[0] < 0.05) sel = null;
     selSnip = null;
+    playFrom = null;                                       // a new selection resets it
     drawRoll(); updateSelInfo();
   });
 })();
@@ -367,7 +398,7 @@ function startCursor(spanS) {
       const S = ev.length ? Math.max(...ev.map(e => e.t)) : 0;
       srcLocal = S - srcLocal;
     }
-    let rollT = (sel ? sel[0] : 0) + srcLocal;
+    let rollT = (playFrom !== null ? playFrom : (sel ? sel[0] : 0)) + srcLocal;
     if (sel) rollT = Math.min(rollT, sel[1]);        // never scroll past the band
     const x = rollX(rollT);
     const cu = $('playCursor');
@@ -493,7 +524,6 @@ function drawSnips() {
       sel = [sn.t0, sn.t1];
       selSnip = id;
       drawRoll(); drawSnips(); updateSelInfo();
-      play();
     });
     row.appendChild(el);
   });
@@ -507,7 +537,7 @@ function buildTonRow() {
   orig.textContent = 'original';
   orig.id = 'tonOrig';
   row.insertBefore(orig, $('chordSel'));
-  orig.addEventListener('click', () => { TR.tonality = null; TR.chord = null; $('chordSel').value = ''; tonHi(); play(); });
+  orig.addEventListener('click', () => { TR.tonality = null; TR.chord = null; $('chordSel').value = ''; tonHi(); drawRoll(); });
   Object.keys(TONALITIES).forEach(k => {
     const b = document.createElement('button');
     b.className = 'chip ton';
@@ -515,13 +545,13 @@ function buildTonRow() {
     b.textContent = k;
     b.title = TONALITIES[k].map(nm).join(' ');
     row.insertBefore(b, $('chordSel'));
-    b.addEventListener('click', () => { TR.tonality = k; TR.chord = null; $('chordSel').value = ''; tonHi(); play(); });
+    b.addEventListener('click', () => { TR.tonality = k; TR.chord = null; $('chordSel').value = ''; tonHi(); drawRoll(); });
   });
   $('chordSel').addEventListener('change', function () {
     this.blur();
     TR.chord = this.value || null;
     if (this.value) TR.tonality = null;
-    tonHi(); play();
+    tonHi(); drawRoll();
   });
 }
 function tonHi() {
@@ -586,7 +616,7 @@ async function store() {
 // ---- wiring ----
 function setCluster(id, clearSel = true) {
   cur = id;
-  pxPerSec = null; viewT0 = 0;
+  pxPerSec = null; viewT0 = 0; playFrom = null;
   $('clSel').value = id;
   if (clearSel) { sel = null; selSnip = null; }
   TR = trDefault();
@@ -635,7 +665,7 @@ $('clSel').addEventListener('change', function () { this.blur(); setCluster(this
 $('playBtn').addEventListener('click', play);
 $('stopBtn').addEventListener('click', stopAll);
 $('recBtn').addEventListener('click', toggleRec);
-$('selClear').addEventListener('click', () => { sel = null; selSnip = null; drawRoll(); updateSelInfo(); });
+$('selClear').addEventListener('click', () => { sel = null; selSnip = null; playFrom = null; drawRoll(); updateSelInfo(); });
 $('snipSave').addEventListener('click', async () => {
   if (!cur || !sel) { $('selInfo').textContent = 'select a span first'; return; }
   const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -647,20 +677,20 @@ document.querySelectorAll('.str').forEach(b => b.addEventListener('click', () =>
   $('strSlider').value = TR.stretch;
   $('strV').textContent = TR.stretch.toFixed(2) + '×';
   document.querySelectorAll('.str').forEach(x => x.classList.toggle('on', x === b));
-  play();
+  drawRoll();
 }));
 $('strSlider').addEventListener('input', function () {
   TR.stretch = +this.value;
   $('strV').textContent = TR.stretch.toFixed(2) + '×';
   document.querySelectorAll('.str').forEach(x => x.classList.remove('on'));
 });
-$('strSlider').addEventListener('change', function () { this.blur(); play(); });
-$('revBtn').addEventListener('click', function () { TR.reverse = !TR.reverse; this.classList.toggle('on', TR.reverse); play(); });
-$('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); play(); });
-$('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); play(); });
+$('strSlider').addEventListener('change', function () { this.blur(); drawRoll(); });
+$('revBtn').addEventListener('click', function () { TR.reverse = !TR.reverse; this.classList.toggle('on', TR.reverse); drawRoll(); });
+$('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); drawRoll(); });
+$('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); drawRoll(); });
 $('thin').addEventListener('input', function () { TR.thin = +this.value; $('thinV').textContent = TR.thin + '%'; });
-$('thin').addEventListener('change', function () { this.blur(); play(); });
-$('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); play(); });
+$('thin').addEventListener('change', function () { this.blur(); drawRoll(); });
+$('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); drawRoll(); });
 $('storeBtn').addEventListener('click', store);
 window.addEventListener('keyup', e => {
   // bare ALT release focuses Chrome's menu and eats the next interaction

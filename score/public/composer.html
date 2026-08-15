@@ -328,7 +328,7 @@
     <button id="loadBtn" style="display:none">Load</button>
     <span style="opacity:.35">&#9474;</span>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b31-clusters</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b32-quiet</span>
     <span style="flex:1 1 auto"></span>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
@@ -348,6 +348,7 @@
       <option value="clusters">Clusters</option>
     </select>
     <select id="blastListSel" title="which custom list to browse"></select>
+    <label style="color:#999; font-size:11px" title="when on, selecting (click or arrows) also plays; when off, double-click to hear"><input type="checkbox" id="blastHear"> hear</label>
     <button id="blastInsert" title="insert the selected sonority at the playhead: parts + META shape">insert @ cursor</button>
   </div>
   <div id="blastMinis" style="white-space:nowrap; overflow-x:auto; margin-top:3px; text-align:left"></div>
@@ -14504,6 +14505,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     sub.style.cssText = 'font-size:7.5px; color:#888; line-height:1.1';
     wrap.appendChild(sub);
     wrap.addEventListener('click', () => selectSon(id));
+    wrap.addEventListener('dblclick', () => selectSon(id, true));
     wrap.addEventListener('mouseenter', () => showInfo(id, son, true));
     wrap.addEventListener('mouseleave', () => {
       if (selectedSon) showInfo(selectedSon, (TAXB.sonorities || {})[selectedSon], false);
@@ -14537,13 +14539,14 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     el.textContent = (hovering && id !== selectedSon ? '\u25b8 ' : '\u25c9 ') + describe(id, son);
     el.style.color = (hovering && id !== selectedSon) ? '#8fb3a5' : '#ffd479';
   }
-  function selectSon(id) {
+  const hearOn = () => document.getElementById('blastHear').checked;
+  function selectSon(id, forceHear) {
     const son = (TAXB.sonorities || {})[id];
     if (!son) return;
     selectedSon = id;
     drawMinis();
     showInfo(id, son, false);
-    auditionSon(son);
+    if (forceHear || hearOn()) auditionSon(son);
     const box = document.getElementById('blastMinis');
     const el = [...box.children].find(c => c.dataset.sid === id);
     if (el) el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
@@ -14589,6 +14592,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     wrap.appendChild(lab);
     if (id === selectedCg) c.style.outline = '2px solid #3FA7B8';
     wrap.addEventListener('click', () => selectCg(id));
+    wrap.addEventListener('dblclick', () => selectCg(id, true));
     wrap.addEventListener('mouseenter', () => showCgInfo(id, cg, true));
     wrap.addEventListener('mouseleave', () => {
       if (selectedCg && CBANK.gestures[selectedCg]) showCgInfo(selectedCg, CBANK.gestures[selectedCg], false);
@@ -14634,13 +14638,13 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
       cgPending.push(setTimeout(() => Composer.auditionNote(port, ch, e.p, e.v, len * 1000), e.t * 1000));
     }
   }
-  function selectCg(id) {
+  function selectCg(id, forceHear) {
     const cg = CBANK && CBANK.gestures[id];
     if (!cg) return;
     selectedCg = id;
     drawMinis();
     showCgInfo(id, cg, false);
-    cgAudition(cg);
+    if (forceHear || hearOn()) cgAudition(cg);
     const box = document.getElementById('blastMinis');
     const el = [...box.children].find(c => c.dataset.sid === id);
     if (el) el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
