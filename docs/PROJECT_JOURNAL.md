@@ -106,6 +106,11 @@ container.
   only for now.** This is the missing ingredient for 2i.
 - **2k performance score:** robust group rehearsal mode (leader/follower not
   fragile) + a much clearer, simpler entry page. Port-plus-rework from piece #2.
+- **2l quarter-tones & spectral chords:** use the `quartertones` patch
+  (tubaNb ch 2, 30–64) and find spectral chords for the palette; determine the
+  patch's mapping first (50-cent-shifted duplicate vs compressed 24-TET map).
+  The two belong together — partials 7/11/13/14 are exactly what 12-TET can't
+  spell.
 
 **NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
 formations for the piece. Then: cressand-family / cressand-pitches verdicts ·

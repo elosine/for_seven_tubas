@@ -194,6 +194,26 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
     ALIGNED but pitches opposite** (a sustained minor 2nd — the composer's
     sine-wave peak-vs-trough model exactly), while **90° is the interlocked
     hocket** state.
+- **2l — QUARTER-TONES & SPECTRAL CHORDS** *(composer, 2026-08-14)*: use the
+  **quarter-tones** available on every tuba (`quartertones` = "Quartertones
+  Ordinario", `tubaNb` **ch 2**, range 30–64) and **find spectral chords** for
+  the harmony palette.
+  - **First thing to determine (a 2-minute A/B):** how the patch maps — is each
+    key the quarter-tone neighbour of the SAME key on `ord` (a 50-cent-shifted
+    duplicate set, so ord + quartertones together = full 24-TET), or a
+    compressed 24-TET keyboard map? Its range (30–64 vs ord's 30–65) suggests
+    the shifted-duplicate reading, but confirm by ear before any chord is voiced.
+  - **Why the two items belong together:** the harmonic partials that make a
+    spectral chord sound *spectral* are exactly the ones 12-TET can't spell —
+    partial 7 (−31¢), **11 (+49¢, the classic half-sharp)**, 13 (−41¢), 14
+    (−31¢). Quarter-tones land all of them within ~25¢ across 10 parts.
+  - Candidate fundamentals: the piece's standing **F** (F2 = 41) and **Bb**
+    anchors — voice partials 1–16 over the ten parts, plus compressed/stretched
+    (Grisey-style distorted-spectrum) variants for the palette.
+  - Feeds: the harmony ledger (2g) and **2i** — a long crescendo on a spectral
+    chord is the Grisey-lineage version of that section's opening move. Also
+    partly covers the shelved raga-intonation note without needing pitch-bend
+    support in the engine.
 - **2k — PERFORMANCE SCORE: group rehearsal mode + entry page** *(composer,
   2026-08-14)*: build a **group rehearsal mode** that is robust and **not
   fragile about which instance is the leader score and which are followers**;
