@@ -280,15 +280,17 @@ function drawRoll() {
   };
   cv.addEventListener('wheel', e => {
     e.preventDefault();
+    // with ALT held, some devices deliver the motion as deltaX — use the dominant axis
+    const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
     if (e.altKey) {
       // zoom anchored at the mouse position
       const r = cv.getBoundingClientRect();
       const anchorT = rollTimeAt(e.clientX - r.left);
-      const f = e.deltaY < 0 ? 1.18 : 1 / 1.18;
+      const f = d < 0 ? 1.18 : 1 / 1.18;
       pxPerSec = Math.max(fitPps() * 0.5, Math.min(Math.max(600, fitPps() * 10), pps() * f));
       viewT0 = anchorT - (e.clientX - r.left - 8) / pxPerSec;
     } else {
-      viewT0 += (e.deltaY || e.deltaX) / pps();
+      viewT0 += d / pps();
     }
     drawRoll();
   }, { passive: false });
@@ -660,6 +662,10 @@ $('thin').addEventListener('input', function () { TR.thin = +this.value; $('thin
 $('thin').addEventListener('change', function () { this.blur(); play(); });
 $('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); play(); });
 $('storeBtn').addEventListener('click', store);
+window.addEventListener('keyup', e => {
+  // bare ALT release focuses Chrome's menu and eats the next interaction
+  if (e.key === 'Alt') e.preventDefault();
+});
 window.addEventListener('keydown', e => {
   if (e.code === 'Space' && !(e.target.matches && e.target.matches('input[type=text]'))) {
     e.preventDefault();
