@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ INT2 ▸ **Blasts** ▸ *choosing the harmonies*
+**NOW ►** Section 1 ▸ INT2 ▸ **Blasts** ▸ *score insertion ("INT2 blasts" list done)*
 
 ---
 
@@ -74,17 +74,20 @@ type and length. Workflow contract: composer listens/asks/chooses — AI files
 everything automatically into `docs/TAXONOMY.md` tiers (voicings per chord ·
 reusable articulation sets · realizations · INT2 keepers).*
 
-- [ ] **Audition `int2-harmonies`, dictate variants, choose keepers**
-      *(◄ currently here — working set VERT01 03·04·11·12·13·16·28, V1+V2 each)*
+- [x] **Audition, craft, choose keepers** — done in the Blast Sandbox;
+      custom list **"INT2 blasts"** is final (composer 2026-08-14)
 - [ ] Choose **which instruments** play each blast
 - [ ] Choose **durations** (how long each blast rings)
 - [ ] Choose **articulation type** per blast (stac / fp / ord / cuivre-modified)
 - [ ] Choose **how many players** per blast (subset blasts — a couple of
       textures overlapped, but keep the section intermittent / pointillistic)
 - [ ] Keepers → the INT2 section palette (app palette menu on request)
-- [ ] **Insertion into the composer score** (later phase): blasts arrive as
-      groups with META shapes; stored `ordLen` is only the default —
-      **duration stays draggable in the score** (existing group scaling)
+- [ ] **Insertion into the composer score** *(◄ currently here)*: sonority
+      strip in the composer app — flip/audition/insert-at-cursor; blasts arrive
+      as 10-part groups with META shapes built at insert time; ord length stays
+      draggable (group scaling). **Reorchestration = AI prompts** on the
+      inserted shape (redistribute among free players; split notes when dense
+      — sophistication added as need arises).
 </details>
 
 <details><summary><b>Morphing crescendo</b> · <i>todo</i></summary>

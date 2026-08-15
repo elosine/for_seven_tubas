@@ -319,7 +319,8 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b20-2palettes</span>
+    <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b21-blastinsert</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
     <select id="paletteSelect" title="curated material palette — entries reference the same save files"><option value="">-- Palette --</option></select>
@@ -332,6 +333,16 @@
     <span>|</span>
     <span id="zoomIndicator">50 px/s</span>
     <button id="zoomReset">Reset</button>
+</div>
+
+<!-- BLASTS: sonority insertion strip (composer 2026-08-14). UI for the
+     hammered loop (flip/audition/insert); reorchestration of inserted shapes
+     is done by AI prompt, per the sandbox design principle. -->
+<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px; white-space:nowrap; overflow-x:auto">
+  <select id="blastListSel" style="vertical-align:top; margin-right:6px"></select>
+  <button id="blastInsert" style="vertical-align:top" title="insert the selected sonority at the playhead: 10 parts + META shape (built at insert time)">insert @ cursor</button>
+  <span id="blastInfo" style="color:#8fb3a5; font-size:11px; margin-left:6px; vertical-align:top"></span>
+  <div id="blastMinis" style="display:inline-block"></div>
 </div>
 
 <!-- Lane Container -->
@@ -14244,5 +14255,150 @@ document.addEventListener('change', (e) => {
 document.addEventListener('DOMContentLoaded', () => Composer.init());
 </script>
 
+<script>
+// ---- BLASTS insertion strip ----
+(function () {
+  const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const nmOf = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+  let TAXB = null, activeList = null, selectedSon = null;
+
+  async function loadTaxB() {
+    TAXB = (await fetch('/api/taxonomy').then(r => r.json())).tax;
+    const sel = document.getElementById('blastListSel');
+    const lists = Object.keys(TAXB.customLists || {});
+    sel.innerHTML = '';
+    lists.forEach(l => {
+      const o = document.createElement('option');
+      o.value = l; o.textContent = l + ' (' + (TAXB.customLists[l] || []).length + ')';
+      sel.appendChild(o);
+    });
+    if (!lists.length) {
+      const o = document.createElement('option');
+      o.value = ''; o.textContent = '(no custom lists yet)';
+      sel.appendChild(o);
+    }
+    activeList = lists.includes(activeList) ? activeList : lists[0] || null;
+    if (activeList) sel.value = activeList;
+    drawMinis();
+  }
+
+  function sonEntries() {
+    if (!TAXB || !activeList) return [];
+    return (TAXB.customLists[activeList] || [])
+      .map(id => [id, (TAXB.sonorities || {})[id]])
+      .filter(([, s]) => s);
+  }
+
+  function miniFor(id, son) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:inline-block; width:26px; margin:0 3px; cursor:pointer; vertical-align:top; text-align:center';
+    const c = document.createElement('canvas');
+    c.width = 26; c.height = 96;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#26262a'; ctx.fillRect(0, 0, 26, 96);
+    const LOK = 30, HIK = 67, rows = HIK - LOK + 1, rh = 96 / rows;
+    const cv = new Set([...(son.cuivreConverted || []), ...(son.cuivreAdded || [])]);
+    son.pitches.forEach(m => {
+      if (m < LOK || m > HIK) return;
+      ctx.fillStyle = cv.has(m) ? '#ff9c54' : '#ffd479';
+      ctx.fillRect(0, (HIK - m) * rh, 26, Math.max(1.4, rh));
+    });
+    wrap.appendChild(c);
+    const lab = document.createElement('div');
+    const arts = [...new Set(Object.values(son.artic || {}))];
+    const short = { ord: 'o', fortepiano: 'fp', staccato: 's' };
+    lab.textContent = id.replace('S0', '') + ' ' + (arts.length === 1 ? (short[arts[0]] || '?') : 'mx');
+    lab.style.cssText = 'font-size:8.5px; color:#888';
+    wrap.appendChild(lab);
+    wrap.addEventListener('click', () => {
+      selectedSon = id;
+      drawMinis();
+      auditionSon(son);
+      document.getElementById('blastInfo').textContent =
+        id + ': ' + son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing + ' \u00b7 ' +
+        son.pitches.length + 'n \u00b7 v' + son.dyn + ' \u00b7 ' + (son.ordLen || 1) + 's';
+    });
+    if (id === selectedSon) c.style.outline = '2px solid #ffd479';
+    return wrap;
+  }
+
+  function drawMinis() {
+    const box = document.getElementById('blastMinis');
+    box.innerHTML = '';
+    sonEntries().forEach(([id, son]) => box.appendChild(miniFor(id, son)));
+  }
+
+  function durFor(son, pitch) {
+    const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
+    const art = (son.artic || {})[pitch] || 'ord';
+    if (cv) return art === 'staccato' ? 0.35 : art === 'fortepiano' ? 0.6 : (son.ordLen || 1);
+    return art === 'staccato' ? 0.35 : art === 'fortepiano' ? 3.0 : (son.ordLen || 1);
+  }
+
+  function auditionSon(son) {
+    const pitches = son.pitches.slice().sort((a, b) => a - b).slice(0, 10);
+    pitches.forEach((pitch, k) => {
+      const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
+      const art = (son.artic || {})[pitch] || 'ord';
+      const port = 'tuba' + (10 - k) + (!cv && art === 'staccato' ? 'b' : '');
+      const ch = cv ? 5 : art === 'fortepiano' ? 11 : art === 'staccato' ? 4 : 1;
+      Composer.auditionNote(port, ch, pitch, son.dyn || 127, durFor(son, pitch) * 1000);
+    });
+  }
+
+  function insertAtCursor() {
+    if (!selectedSon || !TAXB) return;
+    const son = (TAXB.sonorities || {})[selectedSon];
+    if (!son) return;
+    const t = Composer.scrollOffset / Composer.pixelsPerSecond;   // playhead time
+    const group = 'grp-' + selectedSon.toLowerCase() + '-' + Math.floor(t * 10);
+    Composer.pushUndoState();
+    const pitches = son.pitches.slice().sort((a, b) => a - b).slice(0, 10);
+    const maxDur = Math.max.apply(null, pitches.map(p => durFor(son, p)));
+    Composer.objects.push({ id: 'mk-' + (Composer.nextId++), type: 'marker', layer: 0,
+      time: +t.toFixed(3), label: selectedSon + ' ' + son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing,
+      color: '#5E8C7A', groupId: group, performanceNotes: '', properties: {} });
+    const lv = Math.max(1, Math.round(((son.dyn || 127) / 127) * 100) / 10);
+    pitches.forEach((pitch, k) => {
+      const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
+      const art = (son.artic || {})[pitch] || 'ord';
+      const dur = durFor(son, pitch);
+      Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve',
+        layer: 9 - k, groupId: group,
+        startSeconds: +t.toFixed(3), endSeconds: +(t + dur).toFixed(3),
+        nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }],
+        segments: [{ model: 'power', slope: 0 }],
+        color: '#5E8C7A', fillMode: 'bottom', opacity: 0.55,
+        performanceNotes: selectedSon, properties: {},
+        sonifyNote: pitch, technique: cv ? 'cuivre' : art, sonifyMode: 'plain',
+        recVel: son.dyn || 127 });
+    });
+    // META shape built at INSERT TIME (derived, not stored with the sonority)
+    Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 10,
+      groupId: group, startSeconds: +t.toFixed(3), endSeconds: +(t + maxDur).toFixed(3),
+      nodes: [{ pos: 0, y: 8.5, smooth: 0 }, { pos: 1, y: 8.5, smooth: 0 }],
+      segments: [{ model: 'power', slope: 0 }],
+      color: '#5E8C7A', fillMode: 'bottom', opacity: 0.45,
+      performanceNotes: selectedSon + ' (drag = move, box = stretch)', properties: {} });
+    Composer.openMetaWin();
+    Composer.renderAll();
+    Composer.markDirty();
+    document.getElementById('blastInfo').textContent =
+      selectedSon + ' inserted @ ' + t.toFixed(2) + 's (' + pitches.length + ' parts + shape)';
+  }
+
+  document.getElementById('blastsBtn').addEventListener('click', async function () {
+    const strip = document.getElementById('blastStrip');
+    const show = strip.style.display === 'none';
+    strip.style.display = show ? 'block' : 'none';
+    this.classList.toggle('active', show);
+    if (show) await loadTaxB();
+  });
+  document.getElementById('blastListSel').addEventListener('change', function () {
+    activeList = this.value; selectedSon = null; drawMinis(); this.blur();
+  });
+  document.getElementById('blastInsert').addEventListener('click', insertAtCursor);
+})();
+</script>
 </body>
 </html>

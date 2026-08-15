@@ -4,6 +4,19 @@
 > Composer's framing, 2026-08-14. Not a draft — a place to accumulate the
 > argument and its evidence while the piece is being made.
 
+## Title (tentative, composer 2026-08-14)
+
+**Composition by Kobayashi**
+
+Subtitle candidates (stored for later evaluation):
+
+1. *Bespoke tools for sui generis musical materials*
+2. *A hot-dog solution to writing for ten tubas*
+3. *Reframing the material, not the craft*
+4. *Sandboxes, sonic shapes, and deferred notation*
+5. *Standing up instruments for ideas*
+6. *A workflow for hearing your way into a piece*
+
 ## The thesis: a Kobayashi-inspired process
 
 **The reference.** Takeru Kobayashi did not get better at eating hot dogs the

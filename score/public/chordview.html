@@ -76,13 +76,13 @@
   <button id="allStac">stac</button>
   <button id="slotC1" title="click = recall · SHIFT+click = store the current articulation mix">C1</button>
   <button id="slotC2" title="click = recall · SHIFT+click = store the current articulation mix">C2</button>
-  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="2.5"><span id="ordLenV" class="hint">2.5s</span></label>
+  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="1"><span id="ordLenV" class="hint">1.0s</span></label>
   <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127"><span id="dynV" class="hint">127</span></label>
 </div>
 <div class="bar">
   <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
   <button id="saveSon" title="save this exact configuration to the library AND the chosen destination">★ sonority →</button>
-  <button id="stdSet" title="add the STANDARD SET for this chord+voicing: fp · stac · ord(0.8s/127), plus the same three with the chord's cuivre when it's defined">⊞ std set →</button>
+  <button id="stdSet" title="add the STANDARD SET for this chord+voicing: fp · stac · ord(1s/127), plus the same three with the chord's cuivre when it's defined">⊞ std set →</button>
   <button id="chordCv" title="make the current orange marks THE chord's cuivre (applies to every voicing; re-click to redefine)">⌃ set chord cuivre</button>
   <span class="hint" id="chordCvShow"></span>
   <span class="hint">add to:</span>
@@ -525,7 +525,7 @@ async function addStdSet() {
       cuivreConverted: withCv ? cvMarks.filter(p => vp.includes(p)) : [],
       cuivreAdded: withCv ? cvMarks.filter(p => !vp.includes(p)) : [],
       artic: Object.fromEntries(pitches.map(p => [p, art])),
-      ordLen: 0.8, dyn: 127 };
+      ordLen: 1.0, dyn: 127 };
   };
   const jobs = [mk('fortepiano', false), mk('staccato', false), mk('ord', false)];
   if (cv.length) jobs.push(mk('fortepiano', true), mk('staccato', true), mk('ord', true));
