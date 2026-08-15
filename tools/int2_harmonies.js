@@ -20,6 +20,7 @@ const TAX_PATH = 'bank/blast_taxonomy.json';
 const EXTRA = {
   '28': {
     V3: { desc: 'as played, A#1 up an octave (34 -> 46)', pitches: [30, 41, 46, 60, 61, 62] },
+    V4: { desc: 'V3 + D2, C3, C#3 (gap filled; lower cluster mirrors the top)', pitches: [30, 38, 41, 46, 48, 49, 60, 61, 62] },
   },
 };
 

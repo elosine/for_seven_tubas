@@ -245,6 +245,21 @@
             62
           ],
           "hear": "int2-harmonies @ 98.1s"
+        },
+        "V4": {
+          "desc": "V3 + D2, C3, C#3 (gap filled; lower cluster mirrors the top)",
+          "pitches": [
+            30,
+            38,
+            41,
+            46,
+            48,
+            49,
+            60,
+            61,
+            62
+          ],
+          "hear": "int2-harmonies @ 103.6s"
         }
       },
       "realizations": []
