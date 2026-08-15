@@ -467,6 +467,7 @@ const server = http.createServer((req, res) => {
         let base = PUBLIC_DIR, rel = url;
         if (url === '/' || url === '/composer.html') rel = '/composer.html';
         if (url.startsWith('/docs/')) { base = DOCS_DIR; rel = url.slice('/docs'.length); }
+        if (url.startsWith('/bank/')) { base = path.join(__dirname, '..', 'bank'); rel = url.slice('/bank'.length); }
         const filepath = path.normalize(path.join(base, rel));
         if (!filepath.startsWith(path.normalize(base))) { res.statusCode = 403; return res.end('Forbidden'); }
         if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {

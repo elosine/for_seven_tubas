@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chord View — vertical keyboard</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
+         margin: 0; padding: 10px 16px 30px; }
+  .bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 12px;
+         position: sticky; top: 0; background: #1c1c1e; padding: 6px 0 8px; z-index: 5; }
+  select, button { background: #2a2a2e; color: #ddd; border: 1px solid #555; border-radius: 4px;
+         padding: 3px 8px; font-size: 12px; }
+  button { cursor: pointer; }
+  input[type=range] { width: 130px; vertical-align: middle; }
+  .hint { color: #777; }
+  #kb { position: relative; margin-top: 4px; }
+  .row { position: relative; height: var(--kh); }
+  .key { position: absolute; left: 46px; top: 0; height: calc(var(--kh) - 1px); border-radius: 1px; }
+  .white { width: 120px; background: #d8d4cc; }
+  .black { width: 66px; background: #2e2e32; border: 1px solid #4a4a50; box-sizing: border-box; }
+  .cline { position: absolute; left: 46px; width: 120px; top: 0; height: 1px; background: #8a8a92; opacity: .55; }
+  .nm { position: absolute; right: calc(100% - 42px); top: 50%; transform: translateY(-50%);
+        font-size: 11px; color: #ffd479; white-space: nowrap; }
+  .oct { position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+         font-size: 9px; color: #55555c; }
+  .dot { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px;
+         border-radius: 50%; }
+  .band { position: absolute; left: 40px; width: 132px; background: #3B7EA1; opacity: .10; }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
+  .sw { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="bar">
+  <select id="chord"></select>
+  <label><input type="checkbox" id="showV2" checked> ten-note version</label>
+  <label><input type="checkbox" id="showRange" checked> ord range</label>
+  zoom <input type="range" id="zoom" min="2" max="14" step="0.5" value="5">
+  <button id="fit">Fit screen</button>
+  <span class="legend"><span><i class="sw" style="background:#ffd479"></i>as played</span><span><i class="sw" style="background:#5E8C7A"></i>ten-note</span></span>
+  <span class="hint" id="info"></span>
+</div>
+<div id="kb"></div>
+<script>
+const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const BLACK = [1,3,6,8,10];
+const LO_MIDI = 21, HI_MIDI = 108;      // 88 keys, A0..C8
+const ORD = [30, 65];
+const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+let CHORDS = {}, current = null;
+
+function tenNote(uniq) {
+  const have = new Set(uniq.filter(p => p >= ORD[0] && p <= ORD[1]));
+  const srcOf = {};
+  uniq.forEach(p => { for (let d = -36; d <= 36; d += 12) { const q = p + d;
+    if (q >= ORD[0] && q <= ORD[1] && !srcOf[q]) srcOf[q] = p; } });
+  const cands = () => Object.keys(srcOf).map(Number).filter(q => !have.has(q));
+  while (have.size < 10 && cands().length) {
+    let best = null, bs = -1;
+    for (const q of cands()) { const d = Math.min(...[...have].map(h => Math.abs(h - q)));
+      if (d > bs) { bs = d; best = q; } }
+    have.add(best);
+  }
+  return [...have].sort((a, b) => a - b);
+}
+
+function draw() {
+  const kh = +document.getElementById('zoom').value;
+  const wantV2 = document.getElementById('showV2').checked;
+  const wantRange = document.getElementById('showRange').checked;
+  const kb = document.getElementById('kb');
+  kb.style.setProperty('--kh', kh + 'px');
+  const played = new Set(current ? current.pitches : []);
+  const ten = new Set(current && wantV2 ? tenNote(current.pitches) : []);
+  let html = '';
+  if (wantRange) {
+    const top = (HI_MIDI - ORD[1]) * kh, h = (ORD[1] - ORD[0] + 1) * kh;
+    html += '<div class="band" style="top:' + top + 'px;height:' + h + 'px"></div>';
+  }
+  for (let m = HI_MIDI; m >= LO_MIDI; m--) {
+    const pc = m % 12, isB = BLACK.includes(pc);
+    let r = '<div class="row">';
+    r += '<div class="key ' + (isB ? 'black' : 'white') + '"></div>';
+    if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
+    if (played.has(m)) r += '<div class="nm">' + nm(m) + '</div>';
+    if (played.has(m)) r += '<div class="dot" style="left:106px;background:#ffd479"></div>';
+    if (ten.has(m)) r += '<div class="dot" style="left:186px;background:#5E8C7A"></div>';
+    r += '</div>';
+    html += r;
+  }
+  kb.innerHTML = html;
+  const spanSemis = current ? Math.max(...current.pitches) - Math.min(...current.pitches) : 0;
+  document.getElementById('info').textContent = current
+    ? current.entity + ' — ' + current.pitches.length + ' pitches, span ' + spanSemis + ' semitones'
+    : '';
+}
+
+function fit() {
+  const avail = window.innerHeight - 90;
+  const kh = Math.max(2, Math.min(14, Math.floor((avail / 88) * 2) / 2));
+  document.getElementById('zoom').value = kh;
+  draw();
+}
+
+async function boot() {
+  const sel = document.getElementById('chord');
+  const ids = [];
+  for (let i = 1; i <= 33; i++) ids.push('VERT01-' + String(i).padStart(2, '0'));
+  const loaded = await Promise.all(ids.map(id =>
+    fetch('/bank/' + id + '.json').then(r => r.ok ? r.json() : null).catch(() => null)));
+  loaded.forEach((c, i) => { if (c) { CHORDS[ids[i]] = c;
+    const o = document.createElement('option'); o.value = ids[i];
+    o.textContent = ids[i] + '  (' + c.pitches.length + ')'; sel.appendChild(o); } });
+  sel.value = 'VERT01-28';
+  current = CHORDS['VERT01-28'];
+  sel.addEventListener('change', () => { current = CHORDS[sel.value]; draw(); });
+  ['zoom', 'showV2', 'showRange'].forEach(id =>
+    document.getElementById(id).addEventListener('input', draw));
+  document.getElementById('fit').addEventListener('click', fit);
+  window.addEventListener('resize', () => {});
+  fit();
+}
+boot();
+</script>
+</body>
+</html>
