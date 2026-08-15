@@ -317,15 +317,18 @@
 <div id="topBar">
     <label>Session:</label>
     <input type="text" id="sessionName" value="7tubas" />
-    <button id="saveBtn">Save</button>
-    <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b28-striplayout</span>
-    <select id="pieceSelect" title="the piece itself (piece-* saves, newest first)"><option value="">-- Piece --</option></select>
-    <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next</button>
-    <button id="variantBtn" title="save a lettered variant of the current piece save (a, b, c\u2026)">Variant</button>
+    <button id="saveBtn" title="save now + take a restore snapshot">Save</button>
+    <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next &#9656;</button>
+    <button id="variantBtn" title="save a lettered variant (a, b, c) and keep editing where you are">Variant</button>
+    <span style="opacity:.35">&#9474;</span>
+    <span style="color:#888; font-size:11px">open:</span>
+    <select id="pieceSelect" title="the piece itself (piece-* saves, newest first) - opens a PROTECTED working copy"><option value="">-- Piece --</option></select>
     <select id="loadSelect" title="everything else: experiments, sandboxes, takes"><option value="">-- Scores --</option></select>
-    <button id="loadBtn">Load</button>
     <select id="restoreSel" title="restore a snapshot taken at an explicit Save"><option value="">-- Restore --</option></select>
+    <button id="loadBtn" style="display:none">Load</button>
+    <span style="opacity:.35">&#9474;</span>
+    <span id="saveStatus">Ready</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b29-savefix</span>
     <span style="flex:1 1 auto"></span>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
@@ -1628,7 +1631,12 @@ const Composer = {
         // Auto-load last session from localStorage; fresh browsers fall back
         // to the most recently modified score on the server
         const last = localStorage.getItem('composerLastSession');
-        if (last) {
+        if (last && this.isPieceName(last)) {
+            // a canonical piece name must go through openPiece, or autosave
+            // would write straight into the piece file
+            this.sessionNameInput.value = last;
+            this.refreshSessionList().then(() => this.openPiece(last));
+        } else if (last) {
             this.sessionNameInput.value = last;
             this.loadSession(last).then(() => {
                 // resuming a working copy: keep the promote button available
@@ -1637,6 +1645,7 @@ const Composer = {
                     if (b) b.style.display = '';
                     this.saveStatus.textContent = 'resumed ' + this.sessionName;
                 }
+                this.updateSessionBadge();
             });
         } else {
             fetch('/api/composer/list').then(r => r.json()).then(result => {
@@ -2062,6 +2071,10 @@ const Composer = {
             this.blur();
             if (n) await Composer.openPiece(n);
         });
+        this.loadSelect.addEventListener('change', async function () {
+            const n = this.value; this.blur();
+            if (n) { await Composer.loadSession(n); Composer.updateSessionBadge(); }
+        });
         const nextB = document.getElementById('saveNextBtn');
         if (nextB) nextB.addEventListener('click', () => this.saveAsNext());
         const varB = document.getElementById('variantBtn');
@@ -2283,6 +2296,7 @@ const Composer = {
                 await this.loadSession(work);
                 document.getElementById('saveNextBtn').style.display = '';
                 this.saveStatus.textContent = 'resumed ' + work;
+                this.updateSessionBadge();
                 this.refreshRestore();
                 return;
             }
@@ -2294,6 +2308,7 @@ const Composer = {
         this.boundName = work;
         this.saveStatus.textContent = 'working on ' + name + ' \u25b8 ' + work;
         document.getElementById('saveNextBtn').style.display = '';
+        this.updateSessionBadge();
         this.refreshRestore();
     },
 
@@ -2316,6 +2331,7 @@ const Composer = {
         this.isDirty = false;
         this.saveStatus.textContent = 'Saved: ' + target;
         document.getElementById('saveNextBtn').style.display = 'none';
+        this.updateSessionBadge();
         this.refreshSessionList();
     },
 
@@ -2335,6 +2351,27 @@ const Composer = {
         if (!r.success) { this.saveStatus.textContent = 'variant save failed'; return; }
         this.saveStatus.textContent = 'Variant saved: ' + target + ' (still editing ' + this.sessionName + ')';
         this.refreshSessionList();
+    },
+
+    // makes the protection state obvious at a glance
+    updateSessionBadge() {
+        const inp = this.sessionNameInput;
+        if (!inp) return;
+        const n = this.sessionName || '';
+        const btn = document.getElementById('saveNextBtn');
+        if (this.isWorkName(n)) {
+            inp.style.background = '#4a3a12'; inp.style.color = '#ffd479'; inp.style.borderColor = '#B8860B';
+            inp.title = 'working copy - ' + this.pieceBase(n) + ' is protected from autosave';
+            if (btn) btn.style.display = '';
+        } else if (this.isPieceName(n)) {
+            inp.style.background = '#5a2020'; inp.style.color = '#ffb4b4'; inp.style.borderColor = '#a44';
+            inp.title = 'editing the piece file DIRECTLY - autosave writes here. Re-open it from the Piece menu for a protected working copy.';
+            if (btn) btn.style.display = 'none';
+        } else {
+            inp.style.background = ''; inp.style.color = ''; inp.style.borderColor = '';
+            inp.title = '';
+            if (btn) btn.style.display = 'none';
+        }
     },
 
     async refreshRestore() {
