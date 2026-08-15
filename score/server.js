@@ -424,13 +424,21 @@ const server = http.createServer((req, res) => {
                     if (action === 'chordCuivre') {
                         // cuivre is CHORD-LEVEL ARTICULATION (composer 2026-08-14):
                         // one set of cuivre pitches per chord, riding on any voicing
-                        const { chord, pitches } = body;
+                        const { chord, pitches, arrangement } = body;
                         if (!chord) return R.status(400).json({ success: false, error: 'chord required' });
                         tax.harmonies[chord] = tax.harmonies[chord] || { voicings: {}, realizations: [] };
                         tax.harmonies[chord].stdCuivre = (pitches || []).slice().sort((a, b) => a - b);
+                        if (arrangement && arrangement.voicing) {
+                            // a manually-thinned "cuivre version" of one voicing
+                            tax.harmonies[chord].cuivreArr = tax.harmonies[chord].cuivreArr || {};
+                            tax.harmonies[chord].cuivreArr[arrangement.voicing] =
+                                { pitches: arrangement.pitches, cuivre: arrangement.cuivre };
+                        }
                         fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
-                        console.log(`Taxonomy: ${chord} cuivre = [${tax.harmonies[chord].stdCuivre}]`);
-                        return R.json({ success: true, stdCuivre: tax.harmonies[chord].stdCuivre });
+                        console.log(`Taxonomy: ${chord} cuivre = [${tax.harmonies[chord].stdCuivre}]` +
+                            (arrangement ? ` + ${arrangement.voicing} arrangement` : ''));
+                        return R.json({ success: true, stdCuivre: tax.harmonies[chord].stdCuivre,
+                            cuivreArr: tax.harmonies[chord].cuivreArr });
                     }
                     if (action === 'subset') {
                         // chord-library SUBSETS: named views of the 33 (the main
