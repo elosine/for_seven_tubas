@@ -321,7 +321,12 @@ async function saveVoicing() {
   }
 }
 async function saveSonority() {
-  if (work.edited) { document.getElementById('info').textContent = 'save the voicing first (note edits are unsaved)'; return; }
+  // edited notes? chain: file the voicing first (prompts for a description),
+  // then continue into the sonority save — one gesture, no dead-end refusal
+  if (work.edited) {
+    await saveVoicing();
+    if (work.edited) return;   // composer cancelled the voicing prompt
+  }
   const list = document.getElementById('listSel').value;
   const son = { chord: currentId, voicing: work.base,
     pitches: [...work.pitches].sort((a, b) => a - b),
