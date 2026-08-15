@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b27-stripfix</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b28-striplayout</span>
     <select id="pieceSelect" title="the piece itself (piece-* saves, newest first)"><option value="">-- Piece --</option></select>
     <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next</button>
     <button id="variantBtn" title="save a lettered variant of the current piece save (a, b, c\u2026)">Variant</button>
@@ -14397,12 +14397,16 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
       ctx.fillRect(0, (HIK - m) * rh, 26, Math.max(1.4, rh));
     });
     wrap.appendChild(c);
-    const lab = document.createElement('div');
     const arts = [...new Set(Object.values(son.artic || {}))];
     const short = { ord: 'o', fortepiano: 'fp', staccato: 's' };
-    lab.textContent = id.replace('S0', '') + ' ' + (arts.length === 1 ? (short[arts[0]] || '?') : 'mx');
-    lab.style.cssText = 'font-size:8.5px; color:#888';
+    const lab = document.createElement('div');
+    lab.textContent = son.chord.replace('VERT01-', '').replace(/^0/, '');   // chord number
+    lab.style.cssText = 'font-size:9px; color:#bbb; font-weight:600; line-height:1.1';
     wrap.appendChild(lab);
+    const sub = document.createElement('div');
+    sub.textContent = son.voicing.replace('*', '') + ' ' + (arts.length === 1 ? (short[arts[0]] || '?') : 'mx');
+    sub.style.cssText = 'font-size:7.5px; color:#888; line-height:1.1';
+    wrap.appendChild(sub);
     wrap.addEventListener('click', () => selectSon(id));
     wrap.addEventListener('mouseenter', () => showInfo(id, son, true));
     wrap.addEventListener('mouseleave', () => {
@@ -14411,6 +14415,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     if (id === selectedSon) {
       c.style.outline = '2px solid #ffd479';
       lab.style.color = '#ffd479';
+      sub.style.color = '#ffd479';
     }
     return wrap;
   }
@@ -14529,9 +14534,14 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     this.style.background = show ? '#4a3a12' : '';
     this.style.color = show ? '#ffd479' : '';
     if (show) await loadTaxB();
-    // keep the floating time readout clear of the strip
+    // push the score down instead of covering it (the lane container is
+    // absolutely positioned, so nothing reflows on its own)
+    const lanes = document.getElementById('laneContainer');
+    const h = show ? strip.getBoundingClientRect().height : 0;
+    if (lanes) lanes.style.top = (32 + h) + 'px';
     const ft = document.getElementById('floatingTime');
-    if (ft) ft.style.top = show ? (strip.getBoundingClientRect().height + 40) + 'px' : '60px';
+    if (ft) ft.style.top = (show ? h + 40 : 60) + 'px';
+    if (Composer.renderAll) { Composer.generateTicks(); Composer.applyScroll(); Composer.renderAll(); }
   });
   document.getElementById('blastListSel').addEventListener('change', function () {
     activeList = this.value; selectedSon = null; drawMinis(); this.blur();
