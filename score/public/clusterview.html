@@ -81,6 +81,7 @@
   <span class="hint">tonality:</span>
   <!-- chips injected -->
   <select id="chordSel" title="remap onto any of the 33 played chords (V1 pitches)"><option value="">chord&#8230;</option></select>
+  <button class="chip on" id="poolBtn" title="POOLED: the target's pitch classes spread over the whole range (keeps register + contour). LITERAL: exactly the target's notes (keeps voicing; tight targets collapse register)">pooled</button>
 </div>
 
 <div class="bar">
@@ -148,8 +149,8 @@ let cur = null;                     // current cluster id
 let sel = null;                     // [t0, t1] in cluster time, or null
 let selSnip = null;                 // active snippet id (highlight only)
 // non-destructive transform state — always recomputed from the source
-let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 };
-const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 });
+let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true };
+const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true });
 // view window: pxPerSec = null means fit-whole-cluster; viewT0 = left edge (s)
 let pxPerSec = null, viewT0 = 0;
 // click-placed playback start (roll time), or null = window start
@@ -193,15 +194,47 @@ function viewEvents() {
   // 3. stretch: onsets scale; ord durations scale; fixed one-shots keep their length (D9)
   if (TR.stretch !== 1) ev = ev.map(e => ({ ...e, t: +(e.t * TR.stretch).toFixed(3),
     d: e.tech === 'ord' ? +(e.d * TR.stretch).toFixed(3) : e.d }));
-  // 4. tonality: pc-consistent nearest-member map
-  const target = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
-  if (target && target.length) {
+  // 4. tonality remap (composer 2026-08-15: pooled + no-repeat kick)
+  const targetLit = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
+  if (targetLit && targetLit.length) {
+    // POOLED: spread the target's pitch classes over the whole range so tight
+    // targets stop collapsing register; LITERAL: the target's exact notes
+    const target = TR.pool ? pcsPool([...new Set(targetLit.map(q => q % 12))]) : targetLit;
+    const nearestIn = (q, excl) => {
+      let best = null, bd = 1e9;
+      for (const m of target) {
+        if (excl && excl.has(m)) continue;
+        const d = Math.abs(m - q);
+        if (d < bd) { bd = d; best = m; }
+      }
+      return best;
+    };
+    // pc-consistent base map
     const map = {};
-    ev.forEach(e => {
-      if (map[e.p] === undefined)
-        map[e.p] = target.reduce((a, b) => Math.abs(b - e.p) < Math.abs(a - e.p) ? b : a);
+    for (const e of ev) {
+      if (map[e.p] === undefined) map[e.p] = nearestIn(e.p);
       e.p = map[e.p];
-    });
+    }
+    // NO-REPEAT KICK: when DISTINCT source pitches collide on one target note
+    // (consecutively, or simultaneously as an accidental unison), bump the
+    // later one to the next-nearest target member. Repeats that exist in the
+    // source stay repeats - they are the material.
+    let prevP = null, prevSrc = null, curT = null, used = new Set();
+    for (const e of ev) {
+      if (curT === null || Math.abs(e.t - curT) > 0.001) { curT = e.t; used = new Set(); }
+      let q = e.p;
+      const clashPrev = prevP !== null && q === prevP && e.srcP !== prevSrc;
+      const clashSim = used.has(q);
+      if ((clashPrev || clashSim) && target.length > 1) {
+        const excl = new Set(used);
+        if (prevP !== null && e.srcP !== prevSrc) excl.add(prevP);
+        const alt = nearestIn(e.srcP, excl);
+        if (alt !== null) q = alt;
+      }
+      used.add(q);
+      prevP = q; prevSrc = e.srcP;
+      e.p = q;
+    }
   }
   // 5. octave shift, folded back into range
   if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
@@ -451,6 +484,7 @@ function trDesc() {
   if (TR.reverse) bits.push('rev');
   if (TR.oct) bits.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
   if (TR.thin < 100) bits.push('thin' + TR.thin + '%');
+  if ((TR.tonality || TR.chord) && !TR.pool) bits.push('literal');
   return bits.length ? ' — ' + bits.join(' · ') : '';
 }
 
@@ -642,6 +676,8 @@ function setCluster(id, clearSel = true) {
   $('strSlider').value = 1; $('strV').textContent = '1.00×';
   $('thin').value = 100; $('thinV').textContent = '100%';
   $('revBtn').classList.remove('on');
+  const pb = $('poolBtn');
+  if (pb) { pb.classList.add('on'); pb.textContent = 'pooled'; }
   document.querySelectorAll('.str').forEach(b => b.classList.toggle('on', b.dataset.f === '1'));
   if ($('tonOrig')) tonHi();
   drawRoll(); updateSelInfo();
@@ -710,6 +746,12 @@ $('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); 
 $('thin').addEventListener('input', function () { TR.thin = +this.value; $('thinV').textContent = TR.thin + '%'; });
 $('thin').addEventListener('change', function () { this.blur(); drawRoll(); });
 $('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); drawRoll(); });
+$('poolBtn').addEventListener('click', function () {
+  TR.pool = !TR.pool;
+  this.classList.toggle('on', TR.pool);
+  this.textContent = TR.pool ? 'pooled' : 'literal';
+  drawRoll();
+});
 $('storeBtn').addEventListener('click', store);
 window.addEventListener('keyup', e => {
   // bare ALT release focuses Chrome's menu and eats the next interaction
