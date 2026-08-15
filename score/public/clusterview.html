@@ -346,14 +346,25 @@ function drawRoll() {
     }
     drawRoll();
   }, { passive: false });
-  let moved = false;
+  let moved = false, dragMode = 'new';
+  const nearEdge = e => {
+    if (!sel) return null;
+    const x = e.clientX - cv.getBoundingClientRect().left;
+    if (Math.abs(x - rollX(sel[0])) < 7) return 'lo';
+    if (Math.abs(x - rollX(sel[1])) < 7) return 'hi';
+    return null;
+  };
   cv.addEventListener('mousedown', e => {
     if (!cur) return;
     dragging = true; moved = false; startT = timeAt(e);
+    dragMode = nearEdge(e) || 'new';
+    if (dragMode !== 'new') moved = true;   // grabbing an edge IS a drag
   });
   cv.addEventListener('mousemove', e => {
-    if (!dragging) return;
+    if (!dragging) { cv.style.cursor = nearEdge(e) ? 'ew-resize' : 'crosshair'; return; }
     const t = timeAt(e);
+    if (dragMode === 'lo') { sel = [Math.min(t, sel[1] - 0.05), sel[1]]; cursorT = sel[0]; drawRoll(); return; }
+    if (dragMode === 'hi') { sel = [sel[0], Math.max(t, sel[0] + 0.05)]; drawRoll(); return; }
     if (Math.abs(t - startT) * pps() > 5) moved = true;   // >5px = a drag
     if (moved) {
       sel = [Math.min(startT, t), Math.max(startT, t)];
@@ -364,6 +375,7 @@ function drawRoll() {
   window.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
+    if (dragMode !== 'new') { drawRoll(); updateSelInfo(); return; }
     if (!moved || (sel && sel[1] - sel[0] < 0.05)) {
       // a CLICK: cursor here, selection collapsed (the audio-editor rule)
       sel = null;
@@ -420,14 +432,15 @@ function stopCursor() {
   cursorTimer = null; playT0 = null;
   $('playCursor').style.display = 'none';
 }
-function startCursor(spanS) {
+function startCursor(spanS, leadMs) {
   stopCursor();
-  playT0 = performance.now();
+  playT0 = performance.now() + (leadMs || 0);
   playSpanS = spanS;
   const cv = $('roll');
   cursorTimer = setInterval(() => {
     if (playT0 === null) return;
     const played = (performance.now() - playT0) / 1000;
+    if (played < 0) return;                       // still in the lead-in
     if (played > playSpanS + 0.3) return stopCursor();
     // inverse of the time transforms: played -> source (selection-local) time
     let srcLocal = played / TR.stretch;
@@ -458,6 +471,7 @@ function stopAll() {
     if (out) for (const ch of [0, 3, 4, 10]) out.send([0xB0 | ch, 123, 0]);
   }
 }
+const SCHED_LEAD_MS = 150;   // the first note must never race play()'s all-notes-off
 function play() {
   if (!MIDI || !cur) return;
   stopAll();
@@ -472,13 +486,13 @@ function play() {
       out.send([0xB0 | ch, 7, 127]);
       out.send([0x90 | ch, e.p, e.v]);
       pending.push(setTimeout(() => out.send([0x80 | ch, e.p, 0]), holdMs));
-    }, e.t * 1000));
+    }, e.t * 1000 + SCHED_LEAD_MS));
   }
   const spanS = viewSpan(ev);
   const lastAttack = Math.max.apply(null, ev.map(e => e.t));
   playing = true;
-  pending.push(setTimeout(() => { playing = false; }, spanS * 1000 + 300));
-  startCursor(lastAttack + 0.15);
+  pending.push(setTimeout(() => { playing = false; }, spanS * 1000 + SCHED_LEAD_MS + 300));
+  startCursor(lastAttack + 0.15, SCHED_LEAD_MS);
   $('info').textContent = 'playing ' + ev.length + ' notes / ' + spanS.toFixed(1) + 's' + trDesc();
 }
 function trDesc() {
@@ -507,6 +521,9 @@ const thruRoute = () => {
 const thruOpen = {};
 function hookInputs() {
   MIDI.inputs.forEach(inp => {
+    // loopMIDI ports are BIDIRECTIONAL: echoing what arrives on tuba* would
+    // feed our own output back through the thru forever. Keyboards only.
+    if (/^tuba\d+b?$/i.test(inp.name.trim())) return;
     inp.onmidimessage = m => {
       const [st, p, v] = m.data;
       const cmd = st & 0xF0;

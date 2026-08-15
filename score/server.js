@@ -394,15 +394,31 @@ const server = http.createServer((req, res) => {
                         return R.json({ success: true });
                     }
                     if (action === 'saveSnippet') {
-                        const { cluster, t0, t1 } = body;
-                        if (!cb.clusters[cluster]) return R.status(400).json({ success: false, error: 'unknown cluster' });
+                        // a snippet is a full COPY of its window's events (composer
+                        // 2026-08-15): editable in place, source untouched
+                        const { events, span, provenance } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
                         let n = 1;
                         while (cb.snippets['SN' + n]) n++;
                         const id = 'SN' + n;
-                        cb.snippets[id] = { cluster, t0: +(+t0).toFixed(3), t1: +(+t1).toFixed(3),
-                            created: new Date().toISOString() };
+                        cb.snippets[id] = { events, span: +(+span).toFixed(3),
+                            provenance: provenance || {}, created: new Date().toISOString() };
                         write();
+                        console.log(`Clusterbank: ${id} cut (${events.length} notes)`);
                         return R.json({ success: true, id });
+                    }
+                    if (action === 'updateSnippet') {
+                        // in-place edit from the mini piano-roll (also migrates
+                        // old pointer snippets to the copy model)
+                        const sn = cb.snippets[body.id];
+                        if (!sn) return R.status(400).json({ success: false, error: 'unknown snippet' });
+                        if (Array.isArray(body.events) && body.events.length) sn.events = body.events;
+                        if (body.span != null) sn.span = +(+body.span).toFixed(3);
+                        if (body.provenance) sn.provenance = body.provenance;
+                        delete sn.cluster; delete sn.t0; delete sn.t1;   // pointer-era fields
+                        write();
+                        return R.json({ success: true });
                     }
                     if (action === 'deleteSnippet') {
                         delete cb.snippets[body.id];
