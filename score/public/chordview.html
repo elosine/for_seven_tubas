@@ -81,7 +81,8 @@
 </div>
 <div class="bar">
   <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
-  <button id="saveSon" title="save this exact configuration (voicing + articulations + cuivre + sliders) to the big sonority library AND the chosen destination">★ sonority →</button>
+  <button id="saveSon" title="save this exact configuration to the library AND the chosen destination · SHIFT+click = save as a STD VARIANT of this chord+voicing (gets included by ⊞ std set)">★ sonority →</button>
+  <button id="stdSet" title="add the STANDARD SET for this chord+voicing to the destination: ord 0.8s/127 · fp/127 · stac/127 + every std-flagged cuivre variant">⊞ std set →</button>
   <span class="hint">add to:</span>
   <select id="listSel" title="where ★ sends the sonority (besides the big library)"></select>
   <span id="sonMsg" style="color:#ff9c54; font-size:12px"></span>
@@ -417,7 +418,7 @@ async function saveVoicing() {
     document.getElementById('info').textContent = currentId + ' ' + r.voicing + ' filed';
   }
 }
-async function saveSonority() {
+async function saveSonority(asStd) {
   // NEVER touches voicings — a sonority stores its own pitch list, so an
   // unsaved pitch edit is recorded as provenance ("V3*") and nothing prompts.
   // Filing a voicing is exclusively the 'save voicing' button's job.
@@ -432,6 +433,7 @@ async function saveSonority() {
   }
   warn.textContent = '';
   const son = { chord: currentId, voicing: work.base + (pitchEdited() ? '*' : ''),
+    stdFor: asStd === true ? currentId + '/' + work.base : undefined,
     pitches: [...work.pitches].sort((a, b) => a - b),
     cuivreConverted: [...work.cvConv].sort((a, b) => a - b),
     cuivreAdded: [...work.cvAdd].sort((a, b) => a - b),
@@ -441,7 +443,7 @@ async function saveSonority() {
   const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
   if (!r.success) return;
-  let msg = r.id + (r.duplicate ? ' (already in library)' : ' → library');
+  let msg = r.id + (asStd === true ? ' [std variant]' : '') + (r.duplicate ? ' (already in library)' : ' → library');
   if (list && list !== '__none' && list !== '__new') {
     const a = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
@@ -450,6 +452,45 @@ async function saveSonority() {
   document.getElementById('info').textContent = msg;
   await loadTax();
 }
+async function addStdSet() {
+  const list = document.getElementById('listSel').value;
+  const warn = document.getElementById('sonMsg');
+  if (list === '__choose' || list === '__new') {
+    warn.textContent = 'choose a destination first →';
+    const sel = document.getElementById('listSel');
+    sel.classList.add('flash');
+    setTimeout(() => { sel.classList.remove('flash'); warn.textContent = ''; }, 2600);
+    return;
+  }
+  const pitches = [...work.pitches].sort((a, b) => a - b);
+  const vlabel = work.base + (pitchEdited() ? '*' : '');
+  const mk = art => ({ chord: currentId, voicing: vlabel, pitches,
+    cuivreConverted: [], cuivreAdded: [],
+    artic: Object.fromEntries(pitches.map(p => [p, art])),
+    ordLen: 0.8, dyn: 127 });
+  const jobs = [mk('ord'), mk('fortepiano'), mk('staccato')];
+  // + every std-flagged variant crafted for this chord+voicing
+  const key = currentId + '/' + work.base;
+  Object.values(TAX.sonorities || {}).forEach(son => {
+    if (son.stdFor === key) jobs.push(son);
+  });
+  let added = 0, existing = 0;
+  for (const son of jobs) {
+    const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
+    if (!r.success) continue;
+    const a = list === '__none' ? { success: true, count: null }
+      : await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
+    if (r.duplicate) existing++; else added++;
+    if (a.count != null) updateListCount(list, a.count);
+  }
+  await loadTax();
+  document.getElementById('info').textContent =
+    'std set (' + jobs.length + ') → ' + (list === '__none' ? 'library' : '"' + list + '"') +
+    ': ' + added + ' new, ' + existing + ' already known';
+}
+
 function updateListCount(list, count) {
   const el = document.getElementById('listCount');
   if (!list || list === '__choose' || list === '__new') el.textContent = '';
@@ -538,7 +579,7 @@ function toggleListPanel() {
     const row = document.createElement('div');
     row.className = 'lrow';
     const cv = (son.cuivreConverted || []).length + (son.cuivreAdded || []).length;
-    row.innerHTML = '<span class="sid">' + id + '</span><span>' +
+    row.innerHTML = '<span class="sid">' + id + (son.stdFor ? '<span style="color:#8fb3a5"> ⊞</span>' : '') + '</span><span>' +
       son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing + ' · ' + articSummary(son) +
       ' · ' + son.pitches.length + 'n' + (cv ? ' · ⌃' + cv : '') +
       ' · v' + son.dyn + (articSummary(son) !== 'st' ? ' · ' + (son.ordLen || 2.5).toFixed(1) + 's' : '') + '</span>';
@@ -630,7 +671,8 @@ async function boot() {
     });
   });
   $('saveV').addEventListener('click', saveVoicing);
-  $('saveSon').addEventListener('click', saveSonority);
+  $('saveSon').addEventListener('click', e => saveSonority(e.shiftKey));
+  $('stdSet').addEventListener('click', addStdSet);
   $('listBrowse').addEventListener('click', toggleListPanel);
   buildSubsetSel();
   CHORD_IDS = subsetIds();
