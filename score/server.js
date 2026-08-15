@@ -410,6 +410,14 @@ const server = http.createServer((req, res) => {
                         console.log(`Taxonomy: ${id} -> list "${list}" (${tax.customLists[list].length})`);
                         return R.json({ success: true, count: tax.customLists[list].length });
                     }
+                    if (action === 'removeFromList') {
+                        const { list, id } = body;
+                        if (!list || !id) return R.status(400).json({ success: false, error: 'list + id required' });
+                        tax.customLists = tax.customLists || {};
+                        tax.customLists[list] = (tax.customLists[list] || []).filter(x => x !== id);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        return R.json({ success: true, count: tax.customLists[list].length });
+                    }
                     if (action === 'addKeeper') {
                         const { section, entry } = body;
                         if (!section || !entry) return R.status(400).json({ success: false, error: 'section + entry required' });

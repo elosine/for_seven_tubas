@@ -46,6 +46,15 @@
   .cvzone { position: absolute; left: 170px; width: 24px; top: 0; height: calc(var(--kh) - 1px);
             background: #ff9c54; opacity: .10; cursor: pointer; border-radius: 2px; }
   .cvzone:hover { opacity: .42; }
+  #listPanel { position: absolute; z-index: 20; background: #232327; border: 1px solid #5E8C7A;
+               border-radius: 6px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.5);
+               max-height: 320px; overflow-y: auto; min-width: 330px; display: none; }
+  .lrow { display: flex; gap: 8px; align-items: center; padding: 4px 6px; border-radius: 4px;
+          cursor: pointer; font-size: 11.5px; }
+  .lrow:hover { background: #2f3b36; }
+  .lrow .sid { color: #ffd479; width: 36px; flex: none; }
+  .lrow .del { color: #777; margin-left: auto; padding: 0 4px; }
+  .lrow .del:hover { color: #ff9c54; }
 </style>
 </head>
 <body>
@@ -70,7 +79,9 @@
   <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
   <button id="saveSon" title="save this exact configuration (voicing + articulations + cuivre + sliders) to the big sonority library AND the selected list">★ sonority →</button>
   <select id="listSel" title="the custom list new sonorities are added to"></select>
+  <button id="listBrowse" title="see what's in the selected list (library view when 'library only') — click an entry to recall it">☰ list</button>
   <span class="hint" id="listCount"></span>
+  <div id="listPanel"></div>
   <span class="hint">|</span>
   <label>zoom <input type="range" id="zoom" min="4" max="40" step="0.5" value="17.5"><span id="zoomV" class="hint"></span></label>
   <button id="z1" title="click = recall · SHIFT+click = store current zoom">Z1</button>
@@ -370,6 +381,76 @@ async function loadTax() {
   buildListSel();
 }
 
+// ---- list browser + recall ----
+function articSummary(son) {
+  const arts = Object.values(son.artic || {});
+  const u = [...new Set(arts)];
+  const short = { ord: 'ord', fortepiano: 'fp', staccato: 'st' };
+  return u.length === 1 ? short[u[0]] || u[0] : 'mixed';
+}
+function recallSonority(id) {
+  const son = (TAX.sonorities || {})[id];
+  if (!son) return;
+  currentId = son.chord;
+  chosenV[son.chord] = son.voicing;
+  loadWork();
+  work.pitches = new Set(son.pitches);
+  work.cvConv = new Set(son.cuivreConverted || []);
+  work.cvAdd = new Set(son.cuivreAdded || []);
+  work.artic = new Map(Object.entries(son.artic || {}).map(([p, a]) => [+p, a]));
+  [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+  document.getElementById('ordLen').value = son.ordLen || 2.5;
+  document.getElementById('ordLenV').textContent = (son.ordLen || 2.5).toFixed(1) + 's';
+  document.getElementById('dyn').value = son.dyn || 127;
+  document.getElementById('dynV').textContent = son.dyn || 127;
+  draw(); drawStrip();
+  document.getElementById('info').textContent = id + ' recalled — ' + son.chord + ' ' + son.voicing;
+  playBlast();
+}
+function toggleListPanel() {
+  const panel = document.getElementById('listPanel');
+  if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
+  const list = document.getElementById('listSel').value;
+  const sons = TAX.sonorities || {};
+  const ids = (list === '__none' || list === '__new')
+    ? Object.keys(sons)
+    : ((TAX.customLists || {})[list] || []);
+  panel.innerHTML = '<div class="hint" style="padding:2px 6px">' +
+    (list === '__none' || list === '__new' ? 'SONORITY LIBRARY (' + ids.length + ')' : '"' + list + '" (' + ids.length + ')') +
+    ' — click to recall</div>';
+  if (!ids.length) panel.innerHTML += '<div class="hint" style="padding:4px 6px">empty — ★ a sonority to fill it</div>';
+  ids.forEach(id => {
+    const son = sons[id];
+    if (!son) return;
+    const row = document.createElement('div');
+    row.className = 'lrow';
+    const cv = (son.cuivreConverted || []).length + (son.cuivreAdded || []).length;
+    row.innerHTML = '<span class="sid">' + id + '</span><span>' +
+      son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing + ' · ' + articSummary(son) +
+      ' · ' + son.pitches.length + 'n' + (cv ? ' · ⌃' + cv : '') +
+      ' · v' + son.dyn + (articSummary(son) !== 'st' ? ' · ' + (son.ordLen || 2.5).toFixed(1) + 's' : '') + '</span>';
+    row.addEventListener('click', () => { toggleListPanel(); recallSonority(id); });
+    if (list !== '__none' && list !== '__new') {
+      const del = document.createElement('span');
+      del.className = 'del'; del.textContent = '✕'; del.title = 'remove from this list (stays in the library)';
+      del.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'removeFromList', list, id }) }).then(x => x.json());
+        if (r.success) { await loadTax(); updateListCount(list, r.count); toggleListPanel(); toggleListPanel(); }
+      });
+      row.appendChild(del);
+    }
+    panel.appendChild(row);
+  });
+  const btn = document.getElementById('listBrowse');
+  const rect = btn.getBoundingClientRect();
+  panel.style.left = Math.min(rect.left, window.innerWidth - 360) + 'px';
+  panel.style.top = (rect.bottom + 4) + 'px';
+  panel.style.position = 'fixed';
+  panel.style.display = 'block';
+}
+
 // ---- boot ----
 async function boot() {
   const ids = [];
@@ -437,6 +518,12 @@ async function boot() {
   });
   $('saveV').addEventListener('click', saveVoicing);
   $('saveSon').addEventListener('click', saveSonority);
+  $('listBrowse').addEventListener('click', toggleListPanel);
+  window.addEventListener('mousedown', e => {
+    const panel = $('listPanel');
+    if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'listBrowse')
+      panel.style.display = 'none';
+  });
   $('listSel').addEventListener('change', function () {
     if (this.value === '__new') {
       const name = prompt('New list name:', 'INT2 blasts');
