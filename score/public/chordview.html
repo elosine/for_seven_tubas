@@ -46,6 +46,7 @@
   .cvzone { position: absolute; left: 170px; width: 24px; top: 0; height: calc(var(--kh) - 1px);
             background: #ff9c54; opacity: .10; cursor: pointer; border-radius: 2px; }
   .cvzone:hover { opacity: .42; }
+  select.flash { border-color: #ff9c54; box-shadow: 0 0 6px #ff9c54; }
   #listPanel { position: absolute; z-index: 20; background: #232327; border: 1px solid #5E8C7A;
                border-radius: 6px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.5);
                max-height: 320px; overflow-y: auto; min-width: 330px; display: none; }
@@ -77,8 +78,10 @@
 </div>
 <div class="bar">
   <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
-  <button id="saveSon" title="save this exact configuration (voicing + articulations + cuivre + sliders) to the big sonority library AND the selected list">★ sonority →</button>
-  <select id="listSel" title="the custom list new sonorities are added to"></select>
+  <button id="saveSon" title="save this exact configuration (voicing + articulations + cuivre + sliders) to the big sonority library AND the chosen destination">★ sonority →</button>
+  <span class="hint">add to:</span>
+  <select id="listSel" title="where ★ sends the sonority (besides the big library)"></select>
+  <span id="sonMsg" style="color:#ff9c54; font-size:12px"></span>
   <button id="listBrowse" title="see what's in the selected list (library view when 'library only') — click an entry to recall it">☰ list</button>
   <span class="hint" id="listCount"></span>
   <div id="listPanel"></div>
@@ -328,6 +331,15 @@ async function saveSonority() {
     if (work.edited) return;   // composer cancelled the voicing prompt
   }
   const list = document.getElementById('listSel').value;
+  const warn = document.getElementById('sonMsg');
+  if (list === '__choose' || list === '__new') {
+    warn.textContent = 'choose a destination first →';
+    const sel = document.getElementById('listSel');
+    sel.classList.add('flash');
+    setTimeout(() => { sel.classList.remove('flash'); warn.textContent = ''; }, 2600);
+    return;
+  }
+  warn.textContent = '';
   const son = { chord: currentId, voicing: work.base,
     pitches: [...work.pitches].sort((a, b) => a - b),
     cuivreConverted: [...work.cvConv].sort((a, b) => a - b),
@@ -348,14 +360,19 @@ async function saveSonority() {
   await loadTax();
 }
 function updateListCount(list, count) {
-  document.getElementById('listCount').textContent =
-    list && list !== '__none' && list !== '__new' ? '"' + list + '": ' + count : '';
+  const el = document.getElementById('listCount');
+  if (!list || list === '__choose' || list === '__new') el.textContent = '';
+  else if (list === '__none') el.textContent = '→ library only';
+  else el.textContent = '→ "' + list + '": ' + count;
 }
 function buildListSel() {
   const sel = document.getElementById('listSel');
   const lists = Object.keys((TAX.customLists || {}));
   const prev = sel.value;
   sel.innerHTML = '';
+  const ph = document.createElement('option');
+  ph.value = '__choose'; ph.textContent = '— choose —';
+  sel.appendChild(ph);
   const none = document.createElement('option');
   none.value = '__none'; none.textContent = 'library only';
   sel.appendChild(none);
@@ -367,10 +384,10 @@ function buildListSel() {
   const nw = document.createElement('option');
   nw.value = '__new'; nw.textContent = '+ new list…';
   sel.appendChild(nw);
-  const remembered = localStorage.getItem('blastList');
-  if (lists.includes(prev)) sel.value = prev;
-  else if (remembered && lists.includes(remembered)) sel.value = remembered;
-  else if (lists.length) sel.value = lists[0];
+  // sticky WITHIN the session only — a fresh page starts at the placeholder
+  if (lists.includes(prev) || prev === '__none') sel.value = prev;
+  else sel.value = '__choose';
+  updateListCount(sel.value, lists.includes(sel.value) ? TAX.customLists[sel.value].length : 0);
 }
 
 async function loadTax() {
@@ -529,16 +546,16 @@ async function boot() {
     if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'listBrowse')
       panel.style.display = 'none';
   });
-  $('listSel').addEventListener('change', function () {
+  $('listSel').addEventListener('change', async function () {
     if (this.value === '__new') {
       const name = prompt('New list name:', 'INT2 blasts');
       if (name) {
-        TAX.customLists = TAX.customLists || {};
-        TAX.customLists[name] = TAX.customLists[name] || [];
-        buildListSel(); this.value = name;
-      } else this.value = '__none';
+        await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'createList', list: name }) });
+        await loadTax();                    // list now persists server-side
+        this.value = name;
+      } else this.value = '__choose';
     }
-    localStorage.setItem('blastList', this.value);
     updateListCount(this.value, ((TAX.customLists || {})[this.value] || []).length);
     this.blur();
   });

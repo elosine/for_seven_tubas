@@ -260,6 +260,25 @@
             62
           ],
           "hear": "int2-harmonies @ 103.6s"
+        },
+        "V5": {
+          "desc": "V4 \u00b7 cuivre C4,C#4,D4",
+          "pitches": [
+            30,
+            38,
+            41,
+            46,
+            48,
+            49,
+            60,
+            61,
+            62
+          ],
+          "cuivre": [
+            60,
+            61,
+            62
+          ]
         }
       },
       "realizations": []
@@ -285,5 +304,45 @@
   "sectionPalettes": {
     "INT2": []
   },
-  "customLists": {}
+  "customLists": {
+    "INT2 blasts": []
+  },
+  "sonorities": {
+    "S001": {
+      "chord": "VERT01-28",
+      "voicing": "V5",
+      "pitches": [
+        30,
+        38,
+        41,
+        46,
+        48,
+        49,
+        60,
+        61,
+        62
+      ],
+      "cuivreConverted": [
+        60,
+        61,
+        62
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "30": "staccato",
+        "38": "staccato",
+        "41": "staccato",
+        "46": "staccato",
+        "48": "staccato",
+        "49": "staccato",
+        "60": "staccato",
+        "61": "staccato",
+        "62": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 127,
+      "saved": "2026-08-14T00:00:00.000Z",
+      "note": "restored \u2014 composer original (AI test cleanup deleted it)"
+    }
+  }
 }
