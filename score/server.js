@@ -354,6 +354,52 @@ const server = http.createServer((req, res) => {
         try { return R.json({ success: true, sessions: listScores() }); }
         catch (e) { return R.status(500).json({ success: false, error: e.message }); }
     }
+    // TAXONOMY — the blast filing registry (docs/TAXONOMY.md). GET returns it;
+    // POST actions: saveVoicing (assigns the next V number for the chord),
+    // addKeeper (appends a realization snapshot to a section palette).
+    if (url === '/api/taxonomy') {
+        const taxPath = path.join(__dirname, '..', 'bank', 'blast_taxonomy.json');
+        const readTax = () => JSON.parse(fs.readFileSync(taxPath, 'utf8'));
+        if (req.method === 'GET') {
+            try { return R.json({ success: true, tax: readTax() }); }
+            catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                try {
+                    const tax = readTax();
+                    const { action } = body || {};
+                    if (action === 'saveVoicing') {
+                        const { chord, desc, pitches, cuivre } = body;
+                        if (!chord || !Array.isArray(pitches) || !pitches.length)
+                            return R.status(400).json({ success: false, error: 'chord + pitches required' });
+                        tax.harmonies[chord] = tax.harmonies[chord] || { voicings: {}, realizations: [] };
+                        const vs = tax.harmonies[chord].voicings = tax.harmonies[chord].voicings || {};
+                        let n = 1;
+                        while (vs['V' + n]) n++;
+                        vs['V' + n] = { desc: desc || 'saved from sandbox', pitches: pitches.slice().sort((a, b) => a - b) };
+                        if (Array.isArray(cuivre) && cuivre.length) vs['V' + n].cuivre = cuivre.slice().sort((a, b) => a - b);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${chord} V${n} saved`);
+                        return R.json({ success: true, voicing: 'V' + n });
+                    }
+                    if (action === 'addKeeper') {
+                        const { section, entry } = body;
+                        if (!section || !entry) return R.status(400).json({ success: false, error: 'section + entry required' });
+                        tax.sectionPalettes = tax.sectionPalettes || {};
+                        tax.sectionPalettes[section] = tax.sectionPalettes[section] || [];
+                        entry.saved = new Date().toISOString();
+                        tax.sectionPalettes[section].push(entry);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: keeper -> ${section} (${tax.sectionPalettes[section].length})`);
+                        return R.json({ success: true, count: tax.sectionPalettes[section].length });
+                    }
+                    return R.status(400).json({ success: false, error: 'unknown action' });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
     // PALETTE — a curated menu of material scores. Entries are REFERENCES to
     // scores/<file>.json (never copies), so editing a file updates it in both
     // the Load menu and the palette.

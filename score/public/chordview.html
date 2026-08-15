@@ -2,148 +2,98 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Blast Sandbox — chords + playback</title>
+<title>Blast Sandbox</title>
 <style>
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
-         margin: 0; padding: 10px 16px 30px; }
-  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 12px;
-         position: sticky; top: 0; background: #1c1c1e; padding: 6px 0 8px; z-index: 5; }
+         margin: 0; padding: 8px 16px 30px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px;
+         padding: 4px 0; }
   select, button { background: #2a2a2e; color: #ddd; border: 1px solid #555; border-radius: 4px;
          padding: 3px 8px; font-size: 12px; }
   button { cursor: pointer; }
-  input[type=range] { width: 130px; vertical-align: middle; }
+  button.on { background: #4a3a12; border-color: #B8860B; color: #ffd479; }
+  input[type=range] { width: 110px; vertical-align: middle; }
   .hint { color: #777; }
-  #kb { position: relative; margin-top: 4px; }
+  /* ---- the strip ---- */
+  #stripWrap { position: relative; overflow-x: auto; overflow-y: hidden; white-space: nowrap;
+               border: 1px solid #333; border-radius: 6px; padding: 6px 50% 2px; background: #202024;
+               scroll-behavior: smooth; }
+  .mini { display: inline-block; vertical-align: top; width: 26px; margin: 0 3px; cursor: pointer; }
+  .mini canvas { display: block; background: #26262a; border-radius: 3px; }
+  .mini .lab { font-size: 8.5px; color: #888; text-align: center; margin-top: 1px; }
+  .mini.active canvas { outline: 2px solid #ffd479; }
+  .mini.active .lab { color: #ffd479; }
+  #stripCursor { position: absolute; left: 50%; top: 0; bottom: 0; width: 0;
+                 border-left: 1px dashed #B8860B; opacity: .5; pointer-events: none; }
+  /* ---- big keyboard ---- */
+  #kb { position: relative; margin-top: 6px; }
   .row { position: relative; height: var(--kh); }
-  .key { position: absolute; left: 46px; top: 0; height: calc(var(--kh) - 1px); border-radius: 1px; }
+  .key { position: absolute; left: 46px; top: 0; height: calc(var(--kh) - 1px); border-radius: 1px; cursor: pointer; }
   .white { width: 120px; background: #d8d4cc; }
   .black { width: 66px; background: #2e2e32; border: 1px solid #4a4a50; box-sizing: border-box; }
-  .cline { position: absolute; left: 46px; width: 120px; top: 0; height: 1px; background: #8a8a92; opacity: .55; }
+  .key:hover { outline: 1px solid #ffd479; }
+  .cline { position: absolute; left: 46px; width: 120px; top: 0; height: 1px; background: #8a8a92; opacity: .55; pointer-events: none; }
   .nm { position: absolute; right: calc(100% - 42px); top: 50%; transform: translateY(-50%);
         font-size: 11px; color: #ffd479; white-space: nowrap; }
-  .oct { position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-         font-size: 9px; color: #55555c; }
-  .dot { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px;
-         border-radius: 50%; }
-  .band { position: absolute; left: 40px; width: 132px; background: #3B7EA1; opacity: .10; }
-  .legend span { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
-  .sw { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .nm.cv { color: #ff9c54; }
+  .oct { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 9px; color: #55555c; }
+  .dot { position: absolute; left: 106px; top: 50%; transform: translate(-50%, -50%);
+         width: 10px; height: 10px; border-radius: 50%; background: #ffd479; pointer-events: none; }
+  .dot.cv { background: #ff9c54; }
+  .cvzone { position: absolute; left: 170px; width: 26px; top: 0; height: calc(var(--kh) - 1px);
+            background: #ff9c54; opacity: .16; cursor: pointer; border-radius: 2px; }
+  .cvzone:hover { opacity: .45; }
 </style>
 </head>
 <body>
+
+<div id="stripWrap"><div id="stripCursor"></div></div>
+
 <div class="bar">
-  <select id="chord"></select>
-  <span id="vtoggles" class="legend"></span>
-  zoom <input type="range" id="zoom" min="2" max="40" step="0.5" value="12">
-  <button id="fit">Fit screen</button>
-  <span class="hint" id="info"></span>
-  <span style="flex-basis:100%"></span>
-  <b style="font-size:11px;color:#8fb3a5">PLAY</b>
-  <select id="playVoicing" title="which voicing the play buttons use"></select>
+  <select id="verSel" title="the version menu — the main pivot"></select>
   <button id="playFp">fp</button>
   <button id="playStac">stac</button>
   <button id="playOrd">ord</button>
-  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="2.5">
-    <span id="ordLenV" class="hint">2.5s</span></label>
-  <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127">
-    <span id="dynV" class="hint">127</span></label>
-  <span class="hint" id="midiStatus">midi: …</span>
+  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="2.5"><span id="ordLenV" class="hint">2.5s</span></label>
+  <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127"><span id="dynV" class="hint">127</span></label>
+  <button id="cuivreBtn" title="show the cuivre layer (60–67): click the orange zone to add/convert">cuivre layer</button>
+  <label title="stepping the strip auto-plays after a beat"><input type="checkbox" id="autoHear"> auto-hear</label>
+  <span class="hint">|</span>
+  <button id="saveV" title="file the edited notes as a new voicing of this chord">save voicing</button>
+  <button id="keepBtn" title="snapshot voicing+articulation+sliders into the INT2 keeper list">★ keep for INT2</button>
+  <span class="hint" id="keepCount"></span>
 </div>
+<div class="bar">
+  <label>zoom <input type="range" id="zoom" min="4" max="40" step="0.5" value="17.5"><span id="zoomV" class="hint"></span></label>
+  <span class="hint">(remembered on this machine)</span>
+  <span class="hint" id="midiStatus">midi: …</span>
+  <span class="hint" id="info"></span>
+</div>
+
 <div id="kb"></div>
+
 <script>
 const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const BLACK = [1,3,6,8,10];
-const ORD_RANGE = [30, 65];             // ordinario: F#1-F4 (composer-measured)
-let LO_MIDI = ORD_RANGE[0], HI_MIDI = ORD_RANGE[1];   // keyboard = the ord range only
-const ORD = ORD_RANGE;
+const LO = 30, HI = 65;                 // ordinario range = the keyboard
+const CUIVRE = [60, 67];
 const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
-let CHORDS = {}, TAX = null, current = null, currentId = null, shown = {};
-const VCOLORS = ['#ffd479', '#5E8C7A', '#c98a5e', '#8ea9c9', '#b58ec9', '#9cc98e'];
-function voicingsOf(id) {
-  const v = TAX && TAX.harmonies[id] && TAX.harmonies[id].voicings;
-  if (v) return v;
-  const b = CHORDS[id];
-  return { V1: { desc: 'as played', pitches: b.pitches } };
-}
-function buildToggles() {
-  const box = document.getElementById('vtoggles');
-  const vs = voicingsOf(currentId);
-  box.innerHTML = '';
-  Object.keys(vs).forEach((vn, i) => {
-    if (shown[vn] === undefined) shown[vn] = true;
-    const lab = document.createElement('label');
-    lab.style.cssText = 'display:inline-flex;align-items:center;gap:4px;margin-right:10px;cursor:pointer';
-    lab.title = vs[vn].desc || '';
-    const cb = document.createElement('input');
-    cb.type = 'checkbox'; cb.checked = shown[vn];
-    cb.addEventListener('change', () => { shown[vn] = cb.checked; draw(); });
-    const sw = document.createElement('i');
-    sw.className = 'sw'; sw.style.background = VCOLORS[i % VCOLORS.length];
-    lab.appendChild(cb); lab.appendChild(sw);
-    lab.appendChild(document.createTextNode(vn));
-    box.appendChild(lab);
-  });
+
+let TAX = null, CHORD_IDS = [], currentId = null;
+let chosenV = {};                        // chordId -> voicing shown/played
+let work = null;                         // { pitches:Set, cuivre:Set, base, edited }
+let cuivreLayer = false;
+
+const voicingsOf = id => (TAX.harmonies[id] && TAX.harmonies[id].voicings) || {};
+const activeV = id => chosenV[id] || Object.keys(voicingsOf(id)).pop() || null;
+
+function loadWork() {
+  const v = voicingsOf(currentId)[activeV(currentId)];
+  work = { pitches: new Set(v ? v.pitches : []), cuivre: new Set((v && v.cuivre) || []),
+           base: activeV(currentId), edited: false };
 }
 
-function tenNote(uniq) {
-  const have = new Set(uniq.filter(p => p >= ORD[0] && p <= ORD[1]));
-  const srcOf = {};
-  uniq.forEach(p => { for (let d = -36; d <= 36; d += 12) { const q = p + d;
-    if (q >= ORD[0] && q <= ORD[1] && !srcOf[q]) srcOf[q] = p; } });
-  const cands = () => Object.keys(srcOf).map(Number).filter(q => !have.has(q));
-  while (have.size < 10 && cands().length) {
-    let best = null, bs = -1;
-    for (const q of cands()) { const d = Math.min(...[...have].map(h => Math.abs(h - q)));
-      if (d > bs) { bs = d; best = q; } }
-    have.add(best);
-  }
-  return [...have].sort((a, b) => a - b);
-}
-
-function draw() {
-  const kh = +document.getElementById('zoom').value;
-  const kb = document.getElementById('kb');
-  kb.style.setProperty('--kh', kh + 'px');
-  const vs = voicingsOf(currentId);
-  const cols = Object.entries(vs).filter(([vn]) => shown[vn] !== false);
-  const labelled = new Set(cols.flatMap(([, v]) => v.pitches));
-  let html = '';
-  for (let m = HI_MIDI; m >= LO_MIDI; m--) {
-    const pc = m % 12, isB = BLACK.includes(pc);
-    let r = '<div class="row">';
-    r += '<div class="key ' + (isB ? 'black' : 'white') + '"></div>';
-    if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
-    if (labelled.has(m)) r += '<div class="nm">' + nm(m) + '</div>';
-    cols.forEach(([vn, v], ci) => {
-      if (v.pitches.includes(m)) {
-        const all = Object.keys(vs);
-        const color = VCOLORS[all.indexOf(vn) % VCOLORS.length];
-        r += '<div class="dot" style="left:' + (106 + ci * 26) + 'px;background:' + color + '"></div>';
-      }
-    });
-    r += '</div>';
-    html += r;
-  }
-  kb.innerHTML = html;
-  const parts = cols.map(([vn, v]) => {
-    const out = v.pitches.filter(p => p < ORD[0] || p > ORD[1]);
-    return vn + ': ' + v.pitches.length + 'n' + (out.length ? ' ⚠' + out.map(nm).join('/') : '');
-  });
-  document.getElementById('info').textContent = currentId + ' — ' + parts.join(' · ');
-}
-
-function fit() {
-  const avail = window.innerHeight - 90;
-  const keys = HI_MIDI - LO_MIDI + 1;
-  const kh = Math.max(2, Math.min(40, Math.floor((avail / keys) * 2) / 2));
-  document.getElementById('zoom').value = kh;
-  draw();
-}
-
-// ---- PLAYBACK (phase 1 of the blast sandbox) ----
-// Real per-player routing: ascending pitches -> Tuba10..Tuba1 (bottom lane =
-// low pitch, the score convention). Articulation -> port/channel per
-// instruments.js: ord ch1 + fp ch11 on tubaN, staccato ch4 on tubaNb.
+// ---- MIDI (phase-1 engine + cuivre routing) ----
 const ARTIC = {
   fortepiano: { sub: '', ch: 11, hold: () => 3.0 },
   staccato:   { sub: 'b', ch: 4, hold: () => 0.35 },
@@ -163,56 +113,200 @@ async function midiInit() {
     }
     st.textContent = missing.length ? 'midi: missing ' + missing.slice(0, 4).join(',') + (missing.length > 4 ? '…' : '')
                                     : 'midi: 10 tubas ready';
-  } catch (e) { st.textContent = 'midi: unavailable (' + e.message + ')'; }
+  } catch (e) { st.textContent = 'midi: unavailable — allow Web MIDI in Chrome'; }
 }
 function playBlast(articKey) {
-  if (!MIDI) return;
-  const vn = document.getElementById('playVoicing').value;
-  const vs = voicingsOf(currentId);
-  if (!vs[vn]) return;
+  if (!MIDI || !work) return;
   const a = ARTIC[articKey];
   const vel = +document.getElementById('dyn').value;
   const holdMs = a.hold() * 1000;
-  const pitches = vs[vn].pitches.slice().sort((x, y) => x - y).slice(0, 10);
+  const pitches = [...work.pitches].sort((x, y) => x - y).slice(0, 10);
   pitches.forEach((pitch, k) => {
-    const tuba = 10 - k;                      // low pitch -> Tuba10 (bottom lane)
-    const out = OUTS['tuba' + tuba + a.sub];
+    const isCv = work.cuivre.has(pitch);
+    const sub = isCv ? '' : a.sub;
+    const ch = (isCv ? 5 : a.ch) - 1;      // cuivre always a-port ch5
+    const out = OUTS['tuba' + (10 - k) + sub];
     if (!out) return;
-    const ch = a.ch - 1;
-    out.send([0xB0 | ch, 7, 127]);            // CC7 residue guard
+    out.send([0xB0 | ch, 7, 127]);
     out.send([0x90 | ch, pitch, vel]);
     setTimeout(() => out.send([0x80 | ch, pitch, 0]), holdMs);
   });
   document.getElementById('info').textContent =
-    currentId + ' ' + vn + ' · ' + articKey + ' · ' + pitches.length + ' players · vel ' + vel +
-    (articKey === 'ord' ? ' · ' + a.hold().toFixed(1) + 's' : '');
-}
-function buildPlayVoicing() {
-  const sel = document.getElementById('playVoicing');
-  const vs = voicingsOf(currentId);
-  const keep = sel.value;
-  sel.innerHTML = '';
-  Object.keys(vs).forEach(vn => {
-    const o = document.createElement('option'); o.value = vn; o.textContent = vn; sel.appendChild(o);
-  });
-  sel.value = vs[keep] ? keep : Object.keys(vs)[Object.keys(vs).length - 1];
+    currentId + ' ' + (work.edited ? work.base + '*' : work.base) + ' · ' + articKey +
+    ' · ' + pitches.length + ' players · vel ' + vel +
+    (work.cuivre.size ? ' · cuivre ' + [...work.cuivre].map(nm).join(',') : '');
 }
 
+// ---- big keyboard: shows ONE voicing (the version menu is the pivot) ----
+function draw() {
+  const kh = +document.getElementById('zoom').value;
+  document.getElementById('zoomV').textContent = kh.toFixed(1) + 'px/key';
+  localStorage.setItem('blastZoom', kh);
+  const kb = document.getElementById('kb');
+  kb.style.setProperty('--kh', kh + 'px');
+  let html = '';
+  for (let m = HI; m >= LO; m--) {
+    const pc = m % 12, isB = BLACK.includes(pc);
+    const inChord = work.pitches.has(m), isCv = work.cuivre.has(m);
+    let r = '<div class="row">';
+    r += '<div class="key ' + (isB ? 'black' : 'white') + '" data-m="' + m + '"></div>';
+    if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
+    if (inChord) r += '<div class="nm' + (isCv ? ' cv' : '') + '">' + nm(m) + (isCv ? ' ⌃' : '') + '</div>';
+    if (inChord) r += '<div class="dot' + (isCv ? ' cv' : '') + '"></div>';
+    if (cuivreLayer && m >= CUIVRE[0] && m <= CUIVRE[1])
+      r += '<div class="cvzone" data-cv="' + m + '" title="cuivre ' + nm(m) + '"></div>';
+    r += '</div>';
+    html += r;
+  }
+  kb.innerHTML = html;
+  kb.querySelectorAll('.key').forEach(el => el.addEventListener('click', () => {
+    const m = +el.dataset.m;
+    if (work.pitches.has(m)) { work.pitches.delete(m); work.cuivre.delete(m); }
+    else work.pitches.add(m);
+    work.edited = true; draw(); drawStrip();
+  }));
+  kb.querySelectorAll('.cvzone').forEach(el => el.addEventListener('click', () => {
+    const m = +el.dataset.cv;
+    if (work.cuivre.has(m)) work.cuivre.delete(m);             // un-cuivre (note stays)
+    else { work.pitches.add(m); work.cuivre.add(m); }          // add-or-convert to cuivre
+    work.edited = true; draw(); drawStrip();
+  }));
+  buildVerSel();
+}
+
+function buildVerSel() {
+  const sel = document.getElementById('verSel');
+  const vs = voicingsOf(currentId);
+  sel.innerHTML = '';
+  Object.entries(vs).forEach(([vn, v]) => {
+    const o = document.createElement('option');
+    o.value = vn;
+    o.textContent = currentId.replace('VERT01-', 'chord ') + ' · ' + vn + ' — ' + (v.desc || '');
+    sel.appendChild(o);
+  });
+  sel.value = work.base;
+  if (work.edited) {
+    const o = document.createElement('option');
+    o.value = '__edited';
+    o.textContent = currentId.replace('VERT01-', 'chord ') + ' · ' + work.base + '* (edited — save to keep)';
+    sel.appendChild(o); sel.value = '__edited';
+  }
+}
+
+// ---- the strip: every chord as a narrow keyboard, cursor = active ----
+function miniCanvas(id) {
+  const c = document.createElement('canvas');
+  c.width = 26; c.height = 148;
+  const ctx = c.getContext('2d');
+  const v = voicingsOf(id)[activeV(id)];
+  const rows = HI - LO + 1, rh = 148 / rows;
+  for (let m = HI; m >= LO; m--) {
+    const y = (HI - m) * rh;
+    ctx.fillStyle = BLACK.includes(m % 12) ? '#2e2e32' : '#4a4a46';
+    ctx.fillRect(3, y, m % 12 === 0 ? 20 : 14, rh - 0.6);
+    if (v && v.pitches.includes(m)) {
+      ctx.fillStyle = (v.cuivre || []).includes(m) ? '#ff9c54' : '#ffd479';
+      ctx.fillRect(0, y - 0.4, 26, rh + 0.8);
+    }
+  }
+  return c;
+}
+function drawStrip() {
+  const wrap = document.getElementById('stripWrap');
+  [...wrap.querySelectorAll('.mini')].forEach(el => el.remove());
+  CHORD_IDS.forEach(id => {
+    const d = document.createElement('div');
+    d.className = 'mini' + (id === currentId ? ' active' : '');
+    d.appendChild(miniCanvas(id));
+    const lab = document.createElement('div');
+    lab.className = 'lab';
+    lab.textContent = id.replace('VERT01-', '') + ' ' + (activeV(id) || '');
+    d.appendChild(lab);
+    d.addEventListener('click', () => selectChord(id));
+    wrap.appendChild(d);
+  });
+  const act = wrap.querySelector('.mini.active');
+  if (act) act.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+}
+let hearTimer = null;
+function selectChord(id, viaKeys) {
+  currentId = id;
+  loadWork(); draw(); drawStrip();
+  if (document.getElementById('autoHear').checked) {
+    clearTimeout(hearTimer);
+    hearTimer = setTimeout(() => playBlast('ord'), viaKeys ? 260 : 60);
+  }
+}
+
+// ---- saves (the taxonomy files itself) ----
+async function saveVoicing() {
+  if (!work.edited) { document.getElementById('info').textContent = 'nothing edited'; return; }
+  const base = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches;
+  const now = [...work.pitches].sort((a, b) => a - b);
+  const added = now.filter(p => !base.includes(p)).map(nm);
+  const removed = base.filter(p => !now.includes(p)).map(nm);
+  let desc = work.base + (added.length ? ' + ' + added.join(',') : '') + (removed.length ? ' − ' + removed.join(',') : '');
+  if (work.cuivre.size) desc += ' · cuivre ' + [...work.cuivre].map(nm).join(',');
+  desc = prompt('Description for the new voicing:', desc);
+  if (desc === null) return;
+  if (!SERVER_CHORDS.has(currentId) && BANKS[currentId]) {
+    // first save for this chord: file V1 (as played) so numbering matches the view
+    await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveVoicing', chord: currentId,
+        desc: 'as played (' + BANKS[currentId].pitches.length + ' pitches)',
+        pitches: BANKS[currentId].pitches }) });
+    SERVER_CHORDS.add(currentId);
+  }
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now, cuivre: [...work.cuivre] }) }).then(x => x.json());
+  if (r.success) {
+    await loadTax();
+    chosenV[currentId] = r.voicing;
+    loadWork(); draw(); drawStrip();
+    document.getElementById('info').textContent = currentId + ' ' + r.voicing + ' filed';
+  }
+}
+async function addKeeper() {
+  if (work.edited) { document.getElementById('info').textContent = 'save the voicing first, then keep'; return; }
+  const entry = { chord: currentId, voicing: work.base,
+    pitches: [...work.pitches].sort((a, b) => a - b), cuivre: [...work.cuivre],
+    ordLen: +document.getElementById('ordLen').value, dyn: +document.getElementById('dyn').value };
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'addKeeper', section: 'INT2', entry }) }).then(x => x.json());
+  if (r.success) document.getElementById('keepCount').textContent = 'INT2: ' + r.count + ' kept';
+}
+
+let SERVER_CHORDS = new Set(), BANKS = {};
+function mergeBank() {
+  Object.entries(BANKS).forEach(([id, b]) => {
+    TAX.harmonies[id] = TAX.harmonies[id] || { voicings: {}, realizations: [] };
+    if (!TAX.harmonies[id].voicings.V1)
+      TAX.harmonies[id].voicings = Object.assign(
+        { V1: { desc: 'as played (' + b.pitches.length + ' pitches)', pitches: b.pitches } },
+        TAX.harmonies[id].voicings);
+  });
+}
+async function loadTax() {
+  TAX = (await fetch('/api/taxonomy').then(r => r.json())).tax;
+  SERVER_CHORDS = new Set(Object.keys(TAX.harmonies));
+  mergeBank();
+}
+
+// ---- boot ----
 async function boot() {
-  const sel = document.getElementById('chord');
+  // the strip holds ALL 33 chords: bank V1 (as played) merged under any
+  // taxonomy voicings already filed (in-memory until first save)
   const ids = [];
   for (let i = 1; i <= 33; i++) ids.push('VERT01-' + String(i).padStart(2, '0'));
-  const loaded = await Promise.all(ids.map(id =>
+  const banks = await Promise.all(ids.map(id =>
     fetch('/bank/' + id + '.json').then(r => r.ok ? r.json() : null).catch(() => null)));
-  loaded.forEach((c, i) => { if (c) { CHORDS[ids[i]] = c;
-    const o = document.createElement('option'); o.value = ids[i];
-    o.textContent = ids[i] + '  (' + c.pitches.length + ')'; sel.appendChild(o); } });
-  TAX = await fetch('/bank/blast_taxonomy.json').then(r => r.ok ? r.json() : null).catch(() => null);
-  sel.value = 'VERT01-28';
-  currentId = 'VERT01-28'; current = CHORDS[currentId];
-  sel.addEventListener('change', () => {
-    currentId = sel.value; current = CHORDS[currentId]; shown = {}; buildToggles(); buildPlayVoicing(); draw();
-  });
+  banks.forEach((b, i) => { if (b) BANKS[ids[i]] = b; });
+  await loadTax();
+  CHORD_IDS = ids.filter(id => BANKS[id] || TAX.harmonies[id]);
+  currentId = CHORD_IDS.includes('VERT01-28') ? 'VERT01-28' : CHORD_IDS[0];
+  const z = localStorage.getItem('blastZoom');
+  if (z) document.getElementById('zoom').value = z;
+  loadWork();
   document.getElementById('zoom').addEventListener('input', draw);
   document.getElementById('ordLen').addEventListener('input', () =>
     document.getElementById('ordLenV').textContent = (+document.getElementById('ordLen').value).toFixed(1) + 's');
@@ -221,12 +315,25 @@ async function boot() {
   document.getElementById('playFp').addEventListener('click', () => playBlast('fortepiano'));
   document.getElementById('playStac').addEventListener('click', () => playBlast('staccato'));
   document.getElementById('playOrd').addEventListener('click', () => playBlast('ord'));
-  buildToggles();
-  buildPlayVoicing();
-  midiInit();
-  document.getElementById('fit').addEventListener('click', fit);
-  window.addEventListener('resize', () => {});
-  fit();
+  document.getElementById('cuivreBtn').addEventListener('click', function () {
+    cuivreLayer = !cuivreLayer; this.classList.toggle('on', cuivreLayer); draw();
+  });
+  document.getElementById('verSel').addEventListener('change', function () {
+    if (this.value === '__edited') return;
+    chosenV[currentId] = this.value; loadWork(); draw(); drawStrip();
+  });
+  document.getElementById('saveV').addEventListener('click', saveVoicing);
+  document.getElementById('keepBtn').addEventListener('click', addKeeper);
+  window.addEventListener('keydown', e => {
+    if (e.target && e.target.matches && e.target.matches('input,select')) return;
+    const i = CHORD_IDS.indexOf(currentId);
+    if (e.key === 'ArrowRight') { e.preventDefault(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)], true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); selectChord(CHORD_IDS[Math.max(0, i - 1)], true); }
+    if (e.key === ' ') { e.preventDefault(); playBlast('ord'); }
+  });
+  const kc = ((TAX.sectionPalettes && TAX.sectionPalettes.INT2) || []).length;
+  if (kc) document.getElementById('keepCount').textContent = 'INT2: ' + kc + ' kept';
+  draw(); drawStrip(); midiInit();
 }
 boot();
 </script>
