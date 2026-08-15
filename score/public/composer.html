@@ -328,7 +328,7 @@
     <button id="loadBtn" style="display:none">Load</button>
     <span style="opacity:.35">&#9474;</span>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b29-savefix</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b30-measured</span>
     <span style="flex:1 1 auto"></span>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
@@ -1625,6 +1625,9 @@ const Composer = {
         // Motive library (linked blocks reference these files)
         this.loadMotiveLibrary();
 
+        // measured one-shot sample lengths
+        this.loadSampleLengths();
+
         // CC7 calibration map (curve sonification, E0)
         this.loadCC7Map();
 
@@ -2353,6 +2356,34 @@ const Composer = {
         this.refreshSessionList();
     },
 
+    // MEASURED one-shot sample lengths (probe 2026-08-15, bank/sample_lengths.json).
+    // fp / staccato / cuivre are FIXED: the sample ends itself, so the score
+    // duration must equal the sounding length and must never be scaled.
+    sampleLen: null,
+    async loadSampleLengths() {
+        try { this.sampleLen = await fetch('/bank/sample_lengths.json').then(r => r.json()); }
+        catch (e) { this.sampleLen = null; }
+    },
+    FIXED_TECHS: { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 },
+    isFixedLen(o) {
+        return !!(o && o.type === 'waveCurve' && o.layer < META_LAYER &&
+                  this.FIXED_TECHS[o.technique] !== undefined);
+    },
+    techLength(tech, pitch) {
+        const fallback = this.FIXED_TECHS[tech];
+        if (fallback === undefined) return null;                 // ord: variable
+        const tbl = this.sampleLen && this.sampleLen[tech];
+        if (tbl && tbl[pitch] != null) return tbl[pitch];
+        if (tbl) {                                               // nearest measured pitch
+            const keys = Object.keys(tbl).map(Number);
+            if (keys.length) {
+                const near = keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a);
+                return tbl[near];
+            }
+        }
+        return fallback;
+    },
+
     // makes the protection state obvious at a glance
     updateSessionBadge() {
         const inp = this.sessionNameInput;
@@ -2605,7 +2636,9 @@ const Composer = {
             if (o.type === 'marker') { o.time = Math.max(0, map(o.time)); this.renderMarker(o); }
             else if (o.startSeconds != null) {
                 const a = map(o.startSeconds), b = map(o.endSeconds);
-                o.startSeconds = a; o.endSeconds = Math.max(a + 0.02, b);
+                const dur = o.endSeconds - o.startSeconds;
+                o.startSeconds = a;
+                o.endSeconds = this.isFixedLen(o) ? +(a + dur).toFixed(3) : Math.max(a + 0.02, b);
                 if (o.type === 'waveCurve') this.renderWaveCurve(o);
             }
         });
@@ -3787,7 +3820,9 @@ const Composer = {
                         this.renderMarker(m.o);
                     } else {
                         m.o.startSeconds = map(m.start);
-                        m.o.endSeconds = Math.max(m.o.startSeconds + 0.02, map(m.end));
+                        m.o.endSeconds = this.isFixedLen(m.o)
+                            ? +(m.o.startSeconds + (m.end - m.start)).toFixed(3)   // one-shot: length is the sample's
+                            : Math.max(m.o.startSeconds + 0.02, map(m.end));
                         this.renderWaveCurve(m.o);
                     }
                 }
@@ -4241,7 +4276,9 @@ const Composer = {
                         this.renderMarker(m.o);
                     } else {
                         m.o.startSeconds = map(m.start);
-                        m.o.endSeconds = Math.max(m.o.startSeconds + 0.02, map(m.end));
+                        m.o.endSeconds = this.isFixedLen(m.o)
+                            ? +(m.o.startSeconds + (m.end - m.start)).toFixed(3)   // one-shot: length is the sample's
+                            : Math.max(m.o.startSeconds + 0.02, map(m.end));
                         this.renderWaveCurve(m.o);
                     }
                 }
@@ -14518,10 +14555,13 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
   }
 
   function durFor(son, pitch) {
+    // MEASURED lengths (probe 2026-08-15): fp/stac/cuivre are fixed one-shots,
+    // so the block equals the sounding length. Only ord is a real duration.
     const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
     const art = (son.artic || {})[pitch] || 'ord';
-    if (cv) return art === 'staccato' ? 0.35 : art === 'fortepiano' ? 0.6 : (son.ordLen || 1);
-    return art === 'staccato' ? 0.35 : art === 'fortepiano' ? 3.0 : (son.ordLen || 1);
+    const tech = cv ? 'cuivre' : art;
+    const measured = Composer.techLength(tech, pitch);
+    return measured != null ? measured : (son.ordLen || 1);
   }
 
   function auditionSon(son) {

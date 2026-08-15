@@ -170,7 +170,20 @@ function pcColors() {
 }
 
 // ---- MIDI ----
-const HOLDS = { fortepiano: () => 3.0, staccato: () => 0.35, ord: () => +document.getElementById('ordLen').value };
+// MEASURED one-shot lengths (probe 2026-08-15) - see bank/sample_lengths.json
+let SAMPLE_LEN = null;
+const FIXED_FALLBACK = { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 };
+function techLen(tech, pitch) {
+  const tbl = SAMPLE_LEN && SAMPLE_LEN[tech];
+  if (tbl && tbl[pitch] != null) return tbl[pitch];
+  if (tbl) {
+    const keys = Object.keys(tbl).map(Number);
+    if (keys.length) return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
+  }
+  return FIXED_FALLBACK[tech];
+}
+const HOLDS = { fortepiano: p => techLen('fortepiano', p), staccato: p => techLen('staccato', p),
+                ord: () => +document.getElementById('ordLen').value };
 const ROUTE = { fortepiano: { sub: '', ch: 11 }, staccato: { sub: 'b', ch: 4 }, ord: { sub: '', ch: 1 } };
 let MIDI = null, OUTS = {};
 async function midiInit() {
@@ -199,10 +212,7 @@ function playBlast() {
     // cuivre duration follows the note's articulation context (composer
     // 2026-08-14): stac -> match the staccatos; fp -> only the ACCENT portion
     // (0.6 s) so the piano tail of the others stays audible; ord -> ord length
-    const CV_FP_ACCENT = 0.6;
-    const cvHold = art === 'staccato' ? HOLDS.staccato()
-                 : art === 'fortepiano' ? CV_FP_ACCENT : HOLDS.ord();
-    const holdMs = (isCv ? cvHold : HOLDS[art]()) * 1000;
+    const holdMs = (isCv ? techLen('cuivre', pitch) : HOLDS[art](pitch)) * 1000;
     const out = OUTS['tuba' + (10 - k) + r.sub];
     if (!out) return;
     const ch = r.ch - 1;
@@ -581,6 +591,9 @@ function buildListSel() {
 }
 
 async function loadTax() {
+  if (!SAMPLE_LEN) {
+    try { SAMPLE_LEN = await fetch('/bank/sample_lengths.json').then(r => r.json()); } catch (e) {}
+  }
   TAX = (await fetch('/api/taxonomy').then(r => r.json())).tax;
   SERVER_CHORDS = new Set(Object.keys(TAX.harmonies));
   Object.entries(BANKS).forEach(([id, b]) => {

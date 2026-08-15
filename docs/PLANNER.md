@@ -169,7 +169,11 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   maybe extra long grains); INT2 = blasts + harmonically morphing crescendo
   (gliss→quarter-tones or legato, simple→complex timbre) + subset blasts;
   Section 2 after research; pitch-and-catch defined; "density buildup" adopted.
-- **2026-08-14 — noted cursor times: 81.73, 86.57** (piece-s08, during INT2 blast
+- **2026-08-15 — MEASURED one-shot lengths** (probe): fp 1.35-2.22s, cuivre
+  0.99-1.35s, staccato 0.33-0.53s, all FIXED with the multisample sawtooth;
+  wired into insert + playback; fixed-length notes are now immune to group
+  scaling (only ord stretches). bank/sample_lengths.json
+- **2026-08-14 — noted cursor times: 81.73, 86.57 (S010 ch03 V2 re-inserted @ 86.58)** (piece-s08, during INT2 blast
   insertion — composer landmark).
 - **2026-08-14 (SANDBOX DESIGN PRINCIPLE — for the morphing-chords sandbox and
   all future ones):** straddle the UI-vs-AI-prompting line deliberately.
