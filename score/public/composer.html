@@ -319,9 +319,12 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b17-metastack</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b18-palette</span>
     <select id="loadSelect"><option value="">-- Load --</option></select>
     <button id="loadBtn">Load</button>
+    <select id="paletteSelect" title="curated material palette — entries reference the same save files"><option value="">-- Palette --</option></select>
+    <button id="paletteAddBtn" title="add the current score to the palette">+</button>
+    <button id="paletteDelBtn" title="remove the current score from the palette">−</button>
     <span>|</span>
     <span id="timeDisplay">0.00</span>
     <span>|</span>
@@ -2029,6 +2032,22 @@ const Composer = {
             const name = this.loadSelect.value;
             if (name) this.loadSession(name);
         });
+        // palette: picking an entry loads the SAME file the Load menu serves
+        const pSel = document.getElementById('paletteSelect');
+        if (pSel) pSel.addEventListener('change', async () => {
+            const file = pSel.value;
+            if (!file) return;
+            const entry = (this._palette || []).find(e => e.file === file);
+            if (entry && entry.missing) { this.saveStatus.textContent = 'palette: file missing — ' + file; return; }
+            await this.loadSession(file);
+            this.saveStatus.textContent = 'Loaded: ' + file + (entry ? '  [palette: ' + entry.name + ']' : '');
+            pSel.value = '';
+        });
+        const addB = document.getElementById('paletteAddBtn');
+        if (addB) addB.addEventListener('click', () => this.paletteAddCurrent());
+        const delB = document.getElementById('paletteDelBtn');
+        if (delB) delB.addEventListener('click', () => this.paletteRemoveCurrent());
+        this.refreshPalette();
     },
 
     collectData() {
@@ -2180,6 +2199,58 @@ const Composer = {
             this.saveStatus.textContent = 'Load failed';
             console.error('Load error:', err);
         }
+    },
+
+    // ---- PALETTE (composer 2026-08-14) ----
+    // A curated menu of material scores. Entries REFERENCE scores/<file>.json,
+    // they are never copies — so editing a score updates it in the Load menu and
+    // in the palette at once (one source of truth). The underlying file name is
+    // always visible (option title + status line) so provenance is never lost.
+    async refreshPalette() {
+        try {
+            const r = await fetch('/api/composer/palette');
+            const j = await r.json();
+            if (!j.success) return;
+            this._palette = j.entries;
+            const sel = document.getElementById('paletteSelect');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">-- Palette --</option>';
+            j.entries.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.file;
+                opt.textContent = (e.missing ? '⚠ ' : '') + e.name;
+                opt.title = 'file: ' + e.file + (e.note ? ' — ' + e.note : '') +
+                    (e.missing ? '  (FILE MISSING)' : '');
+                sel.appendChild(opt);
+            });
+        } catch (err) { console.warn('palette load failed', err); }
+    },
+
+    async paletteAddCurrent() {
+        const file = this.sessionName;
+        if (!file) return;
+        const suggested = (this._palette || []).find(e => e.file === file);
+        const name = prompt('Palette name for "' + file + '":', suggested ? suggested.name : file);
+        if (name === null) return;
+        const r = await fetch('/api/composer/palette', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'add', name: name.trim() || file, file }),
+        });
+        const j = await r.json();
+        this.saveStatus.textContent = j.success ? 'palette + ' + (name || file) + ' (' + file + ')' : 'palette add failed';
+        this.refreshPalette();
+    },
+
+    async paletteRemoveCurrent() {
+        const file = this.sessionName;
+        if (!file) return;
+        if (!confirm('Remove "' + file + '" from the palette? (the score file itself is NOT deleted)')) return;
+        await fetch('/api/composer/palette', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'remove', file }),
+        });
+        this.saveStatus.textContent = 'palette − ' + file;
+        this.refreshPalette();
     },
 
     async refreshSessionList() {

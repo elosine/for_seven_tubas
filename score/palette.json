@@ -1,0 +1,20 @@
+{
+  "_note": "The PALETTE — a curated menu of material scores (composer 2026-08-14). Entries are REFERENCES to scores/<file>.json, never copies: edit a file and both the main Load menu and the palette serve the new version. 'name' is the palette label, 'file' is the underlying save file (always shown so provenance is never lost).",
+  "entries": [
+    {
+      "name": "3 ARTICULATIONS — blasts",
+      "file": "harmony-blasts",
+      "note": "every harmony as staccato / fortepiano / ordinario blast, 10 lanes low->bottom"
+    },
+    {
+      "name": "33 CHORDS — as played",
+      "file": "vert01-versions",
+      "note": "the 33 played chords: v1 as-played (low->bottom lane) + v2 ten-note octave-displaced"
+    },
+    {
+      "name": "33 CHORDS — raw take",
+      "file": "vertical_shapes_01",
+      "note": "the original take the 33 chords were banked from (VERT01-01..33)"
+    }
+  ]
+}

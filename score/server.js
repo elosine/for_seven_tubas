@@ -354,6 +354,47 @@ const server = http.createServer((req, res) => {
         try { return R.json({ success: true, sessions: listScores() }); }
         catch (e) { return R.status(500).json({ success: false, error: e.message }); }
     }
+    // PALETTE — a curated menu of material scores. Entries are REFERENCES to
+    // scores/<file>.json (never copies), so editing a file updates it in both
+    // the Load menu and the palette.
+    if (url === '/api/composer/palette') {
+        const palettePath = path.join(__dirname, 'palette.json');
+        const read = () => {
+            if (!fs.existsSync(palettePath)) return { entries: [] };
+            return JSON.parse(fs.readFileSync(palettePath, 'utf8'));
+        };
+        if (req.method === 'GET') {
+            try {
+                const p = read();
+                const existing = new Set(listScores().map(s => s.name));
+                // flag entries whose file has gone missing rather than hiding them
+                const entries = (p.entries || []).map(e => ({ ...e, missing: !existing.has(e.file) }));
+                return R.json({ success: true, entries });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                const { action, name, file } = body || {};
+                if (!file) return R.status(400).json({ success: false, error: 'file required' });
+                try {
+                    const p = read();
+                    p.entries = p.entries || [];
+                    if (action === 'remove') {
+                        p.entries = p.entries.filter(e => e.file !== file);
+                    } else {
+                        const i = p.entries.findIndex(e => e.file === file);
+                        const entry = { name: name || file, file };
+                        if (i >= 0) p.entries[i] = { ...p.entries[i], ...entry };
+                        else p.entries.push(entry);
+                    }
+                    fs.writeFileSync(palettePath, JSON.stringify(p, null, 2));
+                    console.log(`Palette ${action === 'remove' ? 'removed' : 'saved'}: ${file}`);
+                    R.json({ success: true, entries: p.entries });
+                } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
     if (req.method === 'GET' && url.startsWith('/api/composer/versions/')) {
         const prefix = `${safe(url.slice('/api/composer/versions/'.length))}_v`;
         try {

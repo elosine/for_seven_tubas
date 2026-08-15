@@ -98,3 +98,15 @@ Status: `open` / `monitoring` / `closed`. Check here BEFORE re-diagnosing.*
   panel fields) then act on the cycled-to shape and time-scale ITS OWN group.
   Code: `metaStackAt` / `pickFromMetaStack` / `openMetaStackPicker` /
   `bringMetaToFront` in composer.html.
+
+- **PALETTE menu** *(composer ask 2026-08-14, build `b18-palette`)* — a curated
+  pull-down of material scores beside the Load menu. **Entries are REFERENCES to
+  `scores/<file>.json`, never copies**, so a file edited once shows up updated in
+  BOTH menus — the palette's change handler calls the same `loadSession()` the
+  Load menu uses, so there is one source of truth and no sync step. Provenance is
+  always visible: the option's tooltip and the status line both name the
+  underlying save file. **+** adds the current score (prompts for a palette name;
+  re-adding the same file renames in place rather than duplicating), **−**
+  removes it from the palette (never deletes the score). A missing file is shown
+  with ⚠ rather than hidden. Config: `score/palette.json`; API:
+  `GET|POST /api/composer/palette`.
