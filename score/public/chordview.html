@@ -122,12 +122,37 @@ function loadWork() {
     cvConv: new Set([...cv].filter(p => pitches.has(p))),
     cvAdd: new Set(),
     artic: new Map([...pitches].map(p => [p, 'ord'])),
-    base: activeV(currentId), edited: false };
-  document.getElementById('resetBtn').style.display = 'none';
+    base: activeV(currentId) };
+  refreshChanged();
 }
-function markEdited() {
-  work.edited = true;
-  document.getElementById('resetBtn').style.display = '';
+// A VOICING is the pitch set, nothing else. Cuivre marks and articulations are
+// SONORITY-level (composer 2026-08-14) — they never count as voicing edits and
+// never trigger a voicing save.
+function basePitches() {
+  const v = voicingsOf(currentId)[work.base];
+  return new Set(v ? v.pitches : []);
+}
+function pitchEdited() {
+  const b = basePitches();
+  if (b.size !== work.pitches.size) return true;
+  for (const p of work.pitches) if (!b.has(p)) return true;
+  return false;
+}
+function anyChanged() {
+  if (pitchEdited()) return true;
+  const v = voicingsOf(currentId)[work.base];
+  const baseCv = new Set(((v && v.cuivre) || []).filter(p => work.pitches.has(p)));
+  const cv = new Set([...work.cvConv, ...work.cvAdd]);
+  if (cv.size !== baseCv.size) return true;
+  for (const p of cv) if (!baseCv.has(p)) return true;
+  for (const a of work.artic.values()) if (a !== 'ord') return true;
+  return false;
+}
+function refreshChanged() {
+  const btn = document.getElementById('resetBtn');
+  const changed = anyChanged();
+  btn.style.display = changed ? '' : 'none';
+  btn.textContent = pitchEdited() ? '● pitches changed — reset' : '● changed — reset';
 }
 function pcColors() {
   const pcs = [...new Set([...work.pitches].map(p => p % 12))].sort((a, b) => a - b);
@@ -179,7 +204,7 @@ function playBlast() {
   });
   const arts = [...new Set(pitches.map(p => work.artic.get(p)))];
   document.getElementById('info').textContent =
-    currentId + ' ' + work.base + (work.edited ? '*' : '') + ' · ' +
+    currentId + ' ' + work.base + (pitchEdited() ? '*' : '') + ' · ' +
     (arts.length === 1 ? arts[0] : 'mixed') + ' · ' + pitches.length + ' players · vel ' + vel;
 }
 
@@ -215,11 +240,12 @@ function draw() {
     html += r;
   }
   kb.innerHTML = html;
+  refreshChanged();
   kb.querySelectorAll('.key').forEach(el => el.addEventListener('click', () => {
     const m = +el.dataset.m;
     if (work.pitches.has(m)) { work.pitches.delete(m); work.cvConv.delete(m); work.cvAdd.delete(m); work.artic.delete(m); }
     else { work.pitches.add(m); work.artic.set(m, 'ord'); }
-    markEdited(); draw(); drawStrip();
+    draw(); drawStrip();
   }));
   kb.querySelectorAll('.dot').forEach(el => el.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -234,7 +260,7 @@ function draw() {
     else if (work.cvAdd.has(m)) { work.cvAdd.delete(m); work.pitches.delete(m); work.artic.delete(m); }
     else if (work.pitches.has(m)) { work.cvConv.add(m); }
     else { work.pitches.add(m); work.cvAdd.add(m); work.artic.set(m, 'ord'); }
-    markEdited(); draw(); drawStrip();
+    draw(); drawStrip();
   }));
   buildVerSel();
 }
@@ -294,14 +320,15 @@ function selectChord(id) {
 
 // ---- saves ----
 async function saveVoicing() {
-  if (!work.edited) { document.getElementById('info').textContent = 'no note edits — baseline unchanged'; return; }
+  if (!pitchEdited()) {
+    document.getElementById('info').textContent = 'no pitch changes — a voicing is the note set only';
+    return;
+  }
   const base = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches;
   const now = [...work.pitches].sort((a, b) => a - b);
-  const cuivre = [...work.cvConv, ...work.cvAdd].sort((a, b) => a - b);
   const added = now.filter(p => !base.includes(p)).map(nm);
   const removed = base.filter(p => !now.includes(p)).map(nm);
   let desc = work.base + (added.length ? ' + ' + added.join(',') : '') + (removed.length ? ' − ' + removed.join(',') : '');
-  if (cuivre.length) desc += ' · cuivre ' + cuivre.map(nm).join(',');
   desc = prompt('Description for the new voicing:', desc);
   if (desc === null) return;
   if (!SERVER_CHORDS.has(currentId) && BANKS[currentId]) {
@@ -311,25 +338,22 @@ async function saveVoicing() {
     SERVER_CHORDS.add(currentId);
   }
   const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now, cuivre }) }).then(x => x.json());
+    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now }) }).then(x => x.json());
   if (r.success) {
-    const keepArtic = work.artic;
+    const keep = { artic: work.artic, cvConv: work.cvConv, cvAdd: work.cvAdd };
     await loadTax();
     chosenV[currentId] = r.voicing;
     loadWork();
-    work.artic = keepArtic;
+    work.artic = keep.artic; work.cvConv = keep.cvConv; work.cvAdd = keep.cvAdd;
     [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
     draw(); drawStrip();
     document.getElementById('info').textContent = currentId + ' ' + r.voicing + ' filed';
   }
 }
 async function saveSonority() {
-  // edited notes? chain: file the voicing first (prompts for a description),
-  // then continue into the sonority save — one gesture, no dead-end refusal
-  if (work.edited) {
-    await saveVoicing();
-    if (work.edited) return;   // composer cancelled the voicing prompt
-  }
+  // NEVER touches voicings — a sonority stores its own pitch list, so an
+  // unsaved pitch edit is recorded as provenance ("V3*") and nothing prompts.
+  // Filing a voicing is exclusively the 'save voicing' button's job.
   const list = document.getElementById('listSel').value;
   const warn = document.getElementById('sonMsg');
   if (list === '__choose' || list === '__new') {
@@ -340,7 +364,7 @@ async function saveSonority() {
     return;
   }
   warn.textContent = '';
-  const son = { chord: currentId, voicing: work.base,
+  const son = { chord: currentId, voicing: work.base + (pitchEdited() ? '*' : ''),
     pitches: [...work.pitches].sort((a, b) => a - b),
     cuivreConverted: [...work.cvConv].sort((a, b) => a - b),
     cuivreAdded: [...work.cvAdd].sort((a, b) => a - b),
