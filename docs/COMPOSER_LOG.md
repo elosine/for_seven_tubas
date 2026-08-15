@@ -847,3 +847,42 @@ routing and instrument rack now."
 
 *(→ Repo seeded from piece #3's stack: 7-track composer on :5200, sandbox on :4700,
 instruments skeleton with ports `Tuba1`…`Tuba7`. Sample library TBD → survey next.)*
+
+## 2026-08-14 — The Kobayashi process, and how to treat AI in the paper (dictated)
+
+"I want to talk about Kobayashi and the hot dog solution. I want to find an
+appropriate and elegant way to discuss AI use. The two main things are, one, to
+show how AI has been useful and allowed me to have a fluidity to follow my
+Kobayashi-inspired process, and second, to make sure there's transparency about
+how AI has been used.
+
+One aspect of the Kobayashi approach is that I was able to stand up very quickly
+custom sandboxes to address bespoke and esoteric musical materials. In general I
+pursued a process of thinking about a musical material almost sui generis, and
+then developing the sandbox to explore and refine and define what that musical
+parameter would be and its adjustable parameters within — and then actually
+creating concrete gestures from the sandbox and placing them in the score in a
+formal arrangement with some variability in the final score.
+
+I don't want to make AI the centerpiece or the headline of the paper. The idea
+is that the Kobayashi-inspired process is that I could think of composing a new
+piece almost as a sui generis process. Not that I'm inventing the art of
+composition, but more that I can think about musical materials in a way that is
+different than traditional ways of thinking about music and materials. I can
+have a bespoke way of looking at it — and even if that includes just the
+traditional ways of thinking about music and materials. And then I can create
+tools that are very flexible, that allow me to hear and quickly adjust
+parameters of these musical materials, and allow me to document my decisions
+about what things end up in the final piece.
+
+And then in the assembly part, I could have a rather fluid and flexible way of
+assembling these materials, stretching their durations, etc. And then also to
+note that from an overall sonic shape and assembled sound, I could then have a
+separate pass where I extract the performance score — or the performance
+mandates. At that pass I could make all the instrumental considerations, like
+range and playability, and convert those sonic shapes into performable
+notation."
+
+*(→ docs/PAPER_NOTES.md opened: the thesis, the six-pass method, the AI-treatment
+stance, and the evidence list. The deferred-notation pass is PLAN §7's three-score
+architecture; the UI-vs-prompting principle is filed in PLANNER raw notes.)*
