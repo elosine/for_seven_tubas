@@ -57,14 +57,15 @@ Container-level to-dos:
 - density-buildup excerpts (scrambles, carves)
 - pitch-and-catch (concept; to build)
 
-*Choices so far:*
+*Choices so far (locked 2026-08-14):*
 
 - [x] **blasts** — definitely in *(harmony working set: `int2-harmonies` —
-      VERT01 03·04·11·12·13·16·28, each as v1 played + v2 ten-note, wide gaps
-      left for added variants)*
-- [ ] morphing crescendo — intended (see branch below)
-- [ ] subset textures — intended (a couple overlapped, kept pointillistic)
-- [ ] …rest of the menu: undecided
+      VERT01 03·04·11·12·13·16·28; 28 has V1–V4 filed)*
+- [x] **morphing chords** — in (the harmonically morphing crescendo branch)
+- [x] **pointillistic clusters** — in
+- **Texture arc for the section:** starts as **spaced articulations** →
+  grows into **overlapping counterpoint** over its course.
+- [ ] …rest of the menu: not used this section
 
 <details open><summary><b>Blasts</b> · <i>◄ NOW — the current drill-in</i></summary>
 
