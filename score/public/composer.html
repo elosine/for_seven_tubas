@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b26-blastinfo</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b27-stripfix</span>
     <select id="pieceSelect" title="the piece itself (piece-* saves, newest first)"><option value="">-- Piece --</option></select>
     <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next</button>
     <button id="variantBtn" title="save a lettered variant of the current piece save (a, b, c\u2026)">Variant</button>
@@ -337,7 +337,7 @@
 <!-- BLASTS: sonority insertion strip (composer 2026-08-14). UI for the
      hammered loop (flip/audition/insert); reorchestration of inserted shapes
      is done by AI prompt, per the sandbox design principle. -->
-<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px">
+<div id="blastStrip" style="display:none; position:fixed; top:32px; left:0; right:0; z-index:65; background:#202024; border-bottom:1px solid #555; box-shadow:0 4px 14px rgba(0,0,0,.5); padding:5px 10px">
   <div style="display:flex; align-items:center; gap:8px">
     <span id="blastInfo" style="color:#ffd479; font-size:12px; font-family:Consolas,monospace; flex:1 1 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">← → to step · click a strip to hear it · then insert at the playhead</span>
     <select id="blastListSel" title="which custom list to browse"></select>
@@ -14525,8 +14525,13 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     const strip = document.getElementById('blastStrip');
     const show = strip.style.display === 'none';
     strip.style.display = show ? 'block' : 'none';
-    this.classList.toggle('active', show);
+    this.classList.toggle('on', show);
+    this.style.background = show ? '#4a3a12' : '';
+    this.style.color = show ? '#ffd479' : '';
     if (show) await loadTaxB();
+    // keep the floating time readout clear of the strip
+    const ft = document.getElementById('floatingTime');
+    if (ft) ft.style.top = show ? (strip.getBoundingClientRect().height + 40) + 'px' : '60px';
   });
   document.getElementById('blastListSel').addEventListener('change', function () {
     activeList = this.value; selectedSon = null; drawMinis(); this.blur();
