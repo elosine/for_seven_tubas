@@ -149,7 +149,13 @@ function playBlast() {
     const isCv = work.cvConv.has(pitch) || work.cvAdd.has(pitch);
     const art = work.artic.get(pitch) || 'ord';
     const r = isCv ? { sub: '', ch: 5 } : ROUTE[art];
-    const holdMs = (isCv ? HOLDS.ord() : HOLDS[art]()) * 1000;
+    // cuivre duration follows the note's articulation context (composer
+    // 2026-08-14): stac -> match the staccatos; fp -> only the ACCENT portion
+    // (0.6 s) so the piano tail of the others stays audible; ord -> ord length
+    const CV_FP_ACCENT = 0.6;
+    const cvHold = art === 'staccato' ? HOLDS.staccato()
+                 : art === 'fortepiano' ? CV_FP_ACCENT : HOLDS.ord();
+    const holdMs = (isCv ? cvHold : HOLDS[art]()) * 1000;
     const out = OUTS['tuba' + (10 - k) + r.sub];
     if (!out) return;
     const ch = r.ch - 1;
