@@ -456,22 +456,41 @@ function trDesc() {
 
 // ---- recording ----
 let recording = false, recEvents = [], recOpen = {}, recT0 = null;
+// live THRU: your keyboard sounds through the chosen rec preset, always —
+// switching the preset switches the patch you hear. Note-offs follow the
+// route their note-on took, so a mid-note preset change can't strand a note.
+const thruRoute = () => {
+  const tech = $('recTech').value;
+  return tech === 'staccato' ? { out: OUTS['tuba1b'], ch: 3 }
+       : tech === 'fortepiano' ? { out: OUTS['tuba1'], ch: 10 }
+       : { out: OUTS['tuba1'], ch: 0 };
+};
+const thruOpen = {};
 function hookInputs() {
   MIDI.inputs.forEach(inp => {
     inp.onmidimessage = m => {
-      if (!recording) return;
       const [st, p, v] = m.data;
       const cmd = st & 0xF0;
       const now = performance.now();
       if (cmd === 0x90 && v > 0) {
-        if (recT0 === null) recT0 = now;
-        recOpen[p] = { t: (now - recT0) / 1000, v };
+        const r = thruRoute();
+        if (r.out) {
+          r.out.send([0xB0 | r.ch, 7, 127]);
+          r.out.send([0x90 | r.ch, p, v]);
+          thruOpen[p] = r;
+        }
+        if (recording) {
+          if (recT0 === null) recT0 = now;
+          recOpen[p] = { t: (now - recT0) / 1000, v, tech: $('recTech').value };
+        }
       } else if (cmd === 0x80 || (cmd === 0x90 && v === 0)) {
+        const r = thruOpen[p];
+        if (r && r.out) { r.out.send([0x80 | r.ch, p, 0]); delete thruOpen[p]; }
         const o = recOpen[p];
-        if (o) {
+        if (o && recording) {
           recEvents.push({ t: +o.t.toFixed(3), p, v: o.v,
             d: +Math.max(0.05, (now - recT0) / 1000 - o.t).toFixed(3),
-            tech: $('recTech').value });
+            tech: o.tech });
           delete recOpen[p];
         }
       }
