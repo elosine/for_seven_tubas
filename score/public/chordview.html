@@ -69,6 +69,7 @@
   <select id="verSel" title="the version menu — the baseline you step off from"></select>
   <button id="resetBtn" class="warn" style="display:none" title="discard edits, return to the baseline version">● edited — reset</button>
   <button id="playBtn" title="play the chord as configured (SPACE)">▶ play</button>
+  <label title="arrow-stepping the strip plays each chord as you land on it"><input type="checkbox" id="autoHear"> auto-hear</label>
   <span class="hint">all:</span>
   <button id="allOrd">ord</button>
   <button id="allFp">fp</button>
@@ -109,6 +110,7 @@ const PC_PALETTE = ['#ffd479','#7ec9a8','#8ea9c9','#c98a8a','#b58ec9','#d4c25e',
                     '#69b7c9','#c9986e','#96c96e','#c96ea8','#8a8ac9','#e0e0e0'];
 
 let TAX = null, CHORD_IDS = [], currentId = null;
+let browseArtic = 'ord';     // the articulation new chords load with (set by the all: buttons)
 let chosenV = {};
 let work = null;   // { pitches:Set, cvConv:Set, cvAdd:Set, artic:Map, base, edited }
 let SERVER_CHORDS = new Set(), BANKS = {};
@@ -123,7 +125,7 @@ function loadWork() {
   work = { pitches,
     cvConv: new Set([...cv].filter(p => pitches.has(p))),
     cvAdd: new Set(),
-    artic: new Map([...pitches].map(p => [p, 'ord'])),
+    artic: new Map([...pitches].map(p => [p, browseArtic])),
     base: activeV(currentId) };
   refreshChanged();
 }
@@ -372,9 +374,15 @@ function drawStrip() {
   const act = wrap.querySelector('.mini.active');
   if (act) act.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
 }
-function selectChord(id) {
+let hearTimer = null;
+function selectChord(id, viaKeys) {
   currentId = id;
   loadWork(); draw(); drawStrip(); refreshPM();
+  const auto = document.getElementById('autoHear');
+  if (auto && auto.checked) {
+    clearTimeout(hearTimer);
+    hearTimer = setTimeout(playBlast, viaKeys ? 220 : 60);   // settle before sounding
+  }
 }
 
 // ---- saves ----
@@ -575,7 +583,7 @@ async function boot() {
   $('ordLen').addEventListener('input', () => $('ordLenV').textContent = (+$('ordLen').value).toFixed(1) + 's');
   $('dyn').addEventListener('input', () => $('dynV').textContent = $('dyn').value);
   $('playBtn').addEventListener('click', playBlast);
-  const setAll = a => { [...work.pitches].forEach(p => work.artic.set(p, a)); draw(); playBlast(); };
+  const setAll = a => { browseArtic = a; [...work.pitches].forEach(p => work.artic.set(p, a)); draw(); playBlast(); };
   $('allOrd').addEventListener('click', () => setAll('ord'));
   $('allFp').addEventListener('click', () => setAll('fortepiano'));
   $('allStac').addEventListener('click', () => setAll('staccato'));
@@ -648,6 +656,11 @@ async function boot() {
     this.blur();
   });
   $('subsetPM').addEventListener('click', togglePM);
+  if (localStorage.getItem('autoHear') === '1') $('autoHear').checked = true;
+  $('autoHear').addEventListener('change', function () {
+    localStorage.setItem('autoHear', this.checked ? '1' : '');
+    this.blur();
+  });
   window.addEventListener('mousedown', e => {
     const panel = $('listPanel');
     if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'listBrowse')
@@ -673,8 +686,8 @@ async function boot() {
     const t = e.target;
     if (t && t.tagName === 'INPUT' && t.type === 'text') return;
     const i = CHORD_IDS.indexOf(currentId);
-    if (e.key === 'ArrowRight') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)]); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.max(0, i - 1)]); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)], true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.max(0, i - 1)], true); }
     if (e.key === ' ') { e.preventDefault(); if (t && t.blur) t.blur(); playBlast(); }
   });
 
