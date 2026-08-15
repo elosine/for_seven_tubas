@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Planner — for seven tubas</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
+         max-width: 880px; margin: 0 auto; padding: 24px 32px 80px; line-height: 1.5; }
+  h1 { font-size: 20px; color: #e8e2d5; border-bottom: 1px solid #444; padding-bottom: 8px; }
+  .toolbar { position: sticky; top: 0; background: #1c1c1e; padding: 8px 0; z-index: 5;
+             display: flex; gap: 10px; align-items: center; }
+  .toolbar button { background: #2a6faa; color: #fff; border: 1px solid #3a7fba; border-radius: 4px;
+             padding: 4px 14px; cursor: pointer; font-size: 12px; }
+  .toolbar .hint { color: #777; font-size: 11px; }
+  details { margin: 6px 0 6px 14px; border-left: 2px solid #3a3a3e; padding-left: 14px; }
+  details[open] { border-left-color: #5E8C7A; }
+  summary { cursor: pointer; padding: 3px 6px; border-radius: 4px; list-style-position: outside; }
+  summary:hover { background: #26262a; }
+  summary b { color: #e8e2d5; }
+  summary i { color: #8fb3a5; font-style: normal; font-size: 12px; }
+  .todo { display: flex; gap: 8px; margin: 3px 0 3px 10px; align-items: baseline; }
+  .todo .box { color: #B8860B; flex: none; }
+  .bullet { margin: 3px 0 3px 10px; color: #bbb; }
+  .now { background: #4a3a12; color: #ffd479 !important; border-radius: 4px; padding: 0 6px;
+         font-weight: 600; font-size: 12px; }
+  .crumb { background: #26323c; border: 1px solid #3B7EA1; border-radius: 6px; padding: 8px 14px;
+           margin: 10px 0 18px; color: #cfe3f0; font-size: 14px; }
+  .crumb b { color: #ffd479; }
+  blockquote { color: #999; border-left: 3px solid #444; margin: 8px 0; padding: 2px 12px; font-size: 12.5px; }
+  hr { border: none; border-top: 1px solid #333; margin: 16px 0; }
+  code { background: #2a2a2e; border-radius: 3px; padding: 0 4px; font-size: 12px; color: #b5cea8; }
+  em { color: #8fb3a5; font-style: normal; }
+  strong { color: #e8e2d5; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button id="refresh">↻ Refresh</button>
+  <button id="openNow">Jump to NOW</button>
+  <span class="hint">source: docs/PLANNER.md — edit there (or dictate), refresh here</span>
+</div>
+<div id="content">loading…</div>
+<script>
+function inline(s) {
+  return s
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/◄ NOW[^<]*/g, m => '<span class="now">' + m + '</span>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '$1');
+}
+function render(md) {
+  const out = [];
+  for (const raw of md.split('\n')) {
+    const line = raw.trimEnd();
+    const t = line.trim();
+    if (/^<\/?details|^<\/?summary|^<details|^<summary/.test(t)) {
+      // pass structural tags through, but run inline() on summary text
+      out.push(t.replace(/>([^<]+)</g, (m, txt) => '>' + inline(txt).replace(/&amp;lt;/g, '&lt;') + '<'));
+    } else if (t.startsWith('# ')) out.push('<h1>' + inline(t.slice(2)) + '</h1>');
+    else if (t.startsWith('> ')) out.push('<blockquote>' + inline(t.slice(2)) + '</blockquote>');
+    else if (t === '---') out.push('<hr>');
+    else if (t.startsWith('**NOW ►**')) out.push('<div class="crumb">NOW ► ' + inline(t.slice(9)) + '</div>');
+    else if (/^- \[ \]/.test(t)) out.push('<div class="todo"><span class="box">☐</span><span>' + inline(t.slice(5)) + '</span></div>');
+    else if (/^- \[x\]/i.test(t)) out.push('<div class="todo"><span class="box">☑</span><span style="text-decoration:line-through;color:#777">' + inline(t.slice(5)) + '</span></div>');
+    else if (t.startsWith('- ')) out.push('<div class="bullet">• ' + inline(t.slice(2)) + '</div>');
+    else if (t === '') out.push('');
+    else out.push('<div class="bullet" style="margin-left:0">' + inline(t) + '</div>');
+  }
+  return out.join('\n');
+}
+async function load() {
+  const r = await fetch('/docs/PLANNER.md');
+  const md = await r.text();
+  document.getElementById('content').innerHTML = render(md);
+  openNowPath();
+}
+function openNowPath() {
+  document.querySelectorAll('.now').forEach(el => {
+    let p = el.parentElement;
+    while (p) { if (p.tagName === 'DETAILS') p.open = true; p = p.parentElement; }
+  });
+}
+document.getElementById('refresh').addEventListener('click', load);
+document.getElementById('openNow').addEventListener('click', () => {
+  openNowPath();
+  const first = document.querySelector('.now');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+load();
+</script>
+</body>
+</html>
