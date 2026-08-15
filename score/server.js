@@ -354,6 +354,105 @@ const server = http.createServer((req, res) => {
         try { return R.json({ success: true, sessions: listScores() }); }
         catch (e) { return R.status(500).json({ success: false, error: e.message }); }
     }
+    // CLUSTER BANK — the cluster sandbox's data (composer 2026-08-15).
+    // GET returns it; POST actions mutate one tier each.
+    if (url === '/api/clusterbank') {
+        const cbPath = path.join(__dirname, '..', 'bank', 'cluster_bank.json');
+        const readCb = () => JSON.parse(fs.readFileSync(cbPath, 'utf8'));
+        if (req.method === 'GET') {
+            try { return R.json({ success: true, bank: readCb() }); }
+            catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                try {
+                    const cb = readCb();
+                    const { action } = body || {};
+                    const write = () => fs.writeFileSync(cbPath, JSON.stringify(cb, null, 1));
+                    if (action === 'saveCluster') {
+                        // a recording from the sandbox: REC-01, REC-02, ...
+                        const { name, events, tech } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
+                        let n = 1;
+                        while (cb.clusters['REC-' + String(n).padStart(2, '0')]) n++;
+                        const id = 'REC-' + String(n).padStart(2, '0');
+                        const span = Math.max(...events.map(e => e.t + e.d));
+                        cb.clusters[id] = { name: name || id, family: 'REC', src: 'sandbox recording',
+                            recTech: tech || 'staccato', span: +span.toFixed(3),
+                            n: events.length, events };
+                        write();
+                        console.log(`Clusterbank: ${id} recorded (${events.length} notes, ${span.toFixed(1)}s)`);
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'deleteCluster') {
+                        // only recordings may be deleted from the app
+                        if (!/^REC-/.test(body.id || '')) return R.status(400).json({ success: false, error: 'only REC-* deletable' });
+                        delete cb.clusters[body.id];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'saveSnippet') {
+                        const { cluster, t0, t1 } = body;
+                        if (!cb.clusters[cluster]) return R.status(400).json({ success: false, error: 'unknown cluster' });
+                        let n = 1;
+                        while (cb.snippets['SN' + n]) n++;
+                        const id = 'SN' + n;
+                        cb.snippets[id] = { cluster, t0: +(+t0).toFixed(3), t1: +(+t1).toFixed(3),
+                            created: new Date().toISOString() };
+                        write();
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'deleteSnippet') {
+                        delete cb.snippets[body.id];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'saveGesture') {
+                        // a baked keeper: CG###, static events + provenance
+                        const { events, span, provenance, list } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
+                        // content dedup (same events -> same id), like sonorities
+                        const key = JSON.stringify(events);
+                        let id = Object.keys(cb.gestures).find(g => JSON.stringify(cb.gestures[g].events) === key);
+                        let existed = true;
+                        if (!id) {
+                            existed = false;
+                            let n = 1;
+                            while (cb.gestures['CG' + String(n).padStart(3, '0')]) n++;
+                            id = 'CG' + String(n).padStart(3, '0');
+                            cb.gestures[id] = { events, span: +(+span).toFixed(3),
+                                provenance: provenance || {}, created: new Date().toISOString() };
+                        }
+                        let added = false;
+                        if (list && list !== '__library__') {
+                            cb.lists[list] = cb.lists[list] || [];
+                            if (!cb.lists[list].includes(id)) { cb.lists[list].push(id); added = true; }
+                        }
+                        write();
+                        console.log(`Clusterbank: ${id} ${existed ? 'matched' : 'saved'}${added ? ' -> ' + list : ''}`);
+                        return R.json({ success: true, id, existed, added });
+                    }
+                    if (action === 'createList') {
+                        const name = String(body.name || '').trim();
+                        if (!name) return R.status(400).json({ success: false, error: 'name required' });
+                        cb.lists[name] = cb.lists[name] || [];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'removeFromList') {
+                        const { list, id } = body;
+                        if (cb.lists[list]) cb.lists[list] = cb.lists[list].filter(x => x !== id);
+                        write();
+                        return R.json({ success: true });
+                    }
+                    return R.status(400).json({ success: false, error: 'unknown action' });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
     // TAXONOMY — the blast filing registry (docs/TAXONOMY.md). GET returns it;
     // POST actions: saveVoicing (assigns the next V number for the chord),
     // addKeeper (appends a realization snapshot to a section palette).

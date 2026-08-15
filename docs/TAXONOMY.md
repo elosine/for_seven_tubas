@@ -59,3 +59,25 @@
   registers, cuivre substitutions, length variants) get numbers as they are
   born.
 - **INT2 keepers:** none yet — auditioning begins now.
+
+## Addendum: the CLUSTER bank (2026-08-15, same philosophy)
+
+`bank/cluster_bank.json`, served by /api/clusterbank, sandbox at
+**/clusterview.html**. Tiers mirror the blast taxonomy:
+
+1. **CLUSTERS** — playable source material: every imported take (CLUST01 incl.
+   carves, CLUST02, CLOUD02 A-L, GESTURE-1/2 as DENSITY) plus sandbox
+   recordings (REC-##, articulation preset recorded with them).
+2. **SNIPPETS** (SN#) — {cluster, t0, t1} POINTERS, the transitional tier:
+   cheap, disposable, deletable from the UI.
+3. **GESTURES** (CG###) — baked keepers: static events + full provenance
+   (source cluster, selection, transforms). Content-deduped like sonorities.
+4. **LISTS** — named selections of CG ids; the composer-score strip reads them
+   (source menu: Blasts | Clusters).
+
+Transforms are NON-DESTRUCTIVE (always recomputed from the source; “original”
+is one click): time-stretch scales ONSETS and ord durations only (fixed
+one-shots keep their sample length — D9), tonality remap is pc-consistent
+nearest-member onto the palette (GESTURES.md harmony palette + all 33 chords),
+octave shifts fold back into 30–65, thin keeps the loudest N%.
+

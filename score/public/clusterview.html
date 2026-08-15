@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cluster Sandbox</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
+         margin: 0; padding: 8px 16px 30px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; font-size: 12px; padding: 3px 0; }
+  select, button, input[type=text] { background: #2a2a2e; color: #ddd; border: 1px solid #555;
+         border-radius: 4px; padding: 3px 8px; font-size: 12px; }
+  button { cursor: pointer; }
+  button.on { background: #4a3a12; border-color: #B8860B; color: #ffd479; }
+  button.rec { background: #5a2020; border-color: #a44; color: #ffb4b4; }
+  button.chip { padding: 2px 7px; font-size: 11px; }
+  button.chip.on { background: #14424a; border-color: #3FA7B8; color: #8fdbe8; }
+  input[type=range] { width: 100px; vertical-align: middle; }
+  .hint { color: #777; }
+  #roll { display: block; width: 100%; height: 340px; background: #202024;
+          border: 1px solid #333; border-radius: 6px; cursor: crosshair; margin-top: 4px; }
+  .chiprow { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; font-size: 11px; padding: 2px 0; }
+  .snip { background: #232327; border: 1px solid #555; border-radius: 4px; padding: 2px 6px;
+          cursor: pointer; }
+  .snip.on { border-color: #3FA7B8; color: #8fdbe8; }
+  .snip .x { color: #777; margin-left: 5px; }
+  .snip .x:hover { color: #ff9c54; }
+  select.flash { border-color: #ff9c54; box-shadow: 0 0 6px #ff9c54; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <select id="clSel" title="the cluster bank: imported takes + your recordings"></select>
+  <button id="playBtn" title="SPACE — play the selection (or the whole cluster)">&#9654; play</button>
+  <button id="stopBtn" title="stop playback">&#9632;</button>
+  <span class="hint">|</span>
+  <select id="recTech" title="the articulation preset you are playing through">
+    <option value="staccato">rec: staccato</option>
+    <option value="fortepiano">rec: fortepiano</option>
+    <option value="ord">rec: ordinario</option>
+  </select>
+  <button id="recBtn" title="record from your MIDI keyboard — first note starts the clock">&#9679; rec</button>
+  <span class="hint">|</span>
+  <span id="selInfo" class="hint">drag on the roll to select</span>
+  <button id="selClear" title="clear the selection">clear sel</button>
+  <button id="snipSave" title="save the selection as a snippet (a pointer — cheap, disposable)">&#10549; snippet</button>
+  <span style="flex:1 1 auto"></span>
+  <span class="hint" id="midiStatus">midi: &#8230;</span>
+</div>
+
+<canvas id="roll" width="1600" height="340"></canvas>
+
+<div class="chiprow" id="snips"></div>
+
+<div class="bar">
+  <span class="hint">time:</span>
+  <button class="chip str" data-f="0.5">&#215;0.5</button>
+  <button class="chip str" data-f="0.75">&#215;0.75</button>
+  <button class="chip str" data-f="1">&#215;1</button>
+  <button class="chip str" data-f="1.5">&#215;1.5</button>
+  <button class="chip str" data-f="2">&#215;2</button>
+  <label>fine <input type="range" id="strSlider" min="0.25" max="4" step="0.05" value="1"><span id="strV" class="hint">1.00&#215;</span></label>
+  <span class="hint">|</span>
+  <button class="chip" id="revBtn" title="mirror the attack pattern in time">reverse</button>
+  <button class="chip" id="octDn" title="shift down an octave (folds back into range)">oct &#8722;</button>
+  <button class="chip" id="octUp" title="shift up an octave (folds back into range)">oct +</button>
+  <label>thin <input type="range" id="thin" min="10" max="100" step="5" value="100"><span id="thinV" class="hint">100%</span></label>
+  <button id="resetBtn" title="back to the untouched original">&#8634; original</button>
+</div>
+
+<div class="bar" id="tonRow">
+  <span class="hint">tonality:</span>
+  <!-- chips injected -->
+  <select id="chordSel" title="remap onto any of the 33 played chords (V1 pitches)"><option value="">chord&#8230;</option></select>
+</div>
+
+<div class="bar">
+  <button id="storeBtn" title="bake the current sound into a keeper gesture (CG###) and add it to the chosen list">&#9733; store &#8594;</button>
+  <span class="hint">add to:</span>
+  <select id="listSel"></select>
+  <span id="storeMsg" style="color:#ff9c54"></span>
+  <span class="hint" id="info"></span>
+</div>
+
+<script>
+const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+const LO = 30, HI = 65;
+
+// ---- tonality palette (the documented harmony palette, GESTURES.md 2026-08-13) ----
+const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+const pcsPool = (pcs) => range(LO, HI).filter(m => pcs.includes(m % 12));
+const onPc = (root, degs) => degs.map(d => (root + d) % 12);
+// deterministic placed 11-pc row (cres_ref recipe, fixed order)
+const ROW = (() => {
+  const pcs = [0, 7, 3, 10, 5, 1, 8, 4, 11, 6, 2];
+  return pcs.map((pc, i) => {
+    const target = LO + (HI - LO) * ((i * 7) % 11) / 10;
+    let best = null;
+    for (let m = LO; m <= HI; m++)
+      if (m % 12 === pc && (best === null || Math.abs(m - target) < Math.abs(best - target))) best = m;
+    return best;
+  }).sort((a, b) => a - b);
+})();
+const TONALITIES = {
+  'cl low':  range(30, 36),
+  'cl mid':  range(44, 50),
+  'cl high': range(59, 65),
+  'cl spread': [30, 36, 43, 47, 56, 57, 58],
+  'BbE 2oct': [...range(34, 40), ...range(58, 64)],
+  '5ths 30': [30, 37, 44, 51, 58, 65],
+  '5ths 37': [37, 44, 51, 58, 65],
+  'oct F#': [30, 42, 54],
+  'oct Bb': [34, 46, 58],
+  'm7 (F#)': pcsPool(onPc(6, [0, 1, 2, 3, 5, 6, 7, 8, 10, 11])),
+  'm4 (F#)': pcsPool(onPc(6, [0, 1, 2, 5, 6, 7, 8, 11])),
+  'm6 (F#)': pcsPool(onPc(6, [0, 2, 4, 5, 6, 8, 10, 11])),
+  'm3 (F)':  pcsPool(onPc(5, [0, 2, 3, 4, 6, 7, 8, 10, 11])),
+  'Bhairav (F)': pcsPool(onPc(5, [0, 1, 4, 5, 7, 8, 11])),
+  'row (placed)': ROW,
+};
+
+// ---- measured one-shot lengths (probe 2026-08-15) ----
+let SAMPLE_LEN = null;
+const FIXED_FALLBACK = { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 };
+function techLen(tech, pitch) {
+  const tbl = SAMPLE_LEN && SAMPLE_LEN[tech];
+  if (tbl && tbl[pitch] != null) return tbl[pitch];
+  if (tbl) {
+    const keys = Object.keys(tbl).map(Number);
+    if (keys.length) return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
+  }
+  return FIXED_FALLBACK[tech];   // undefined for ord = variable
+}
+
+// ---- state ----
+let BANK = null, TAXCH = {};        // cluster bank; chord id -> V1 pitches
+let cur = null;                     // current cluster id
+let sel = null;                     // [t0, t1] in cluster time, or null
+let selSnip = null;                 // active snippet id (highlight only)
+// non-destructive transform state — always recomputed from the source
+let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 };
+const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 });
+
+const $ = id => document.getElementById(id);
+
+// ---- the transform pipeline ----
+function sourceEvents() {
+  if (!cur || !BANK.clusters[cur]) return [];
+  let ev = BANK.clusters[cur].events;
+  if (sel) {
+    ev = ev.filter(e => e.t >= sel[0] && e.t <= sel[1]);
+    const t0 = ev.length ? Math.min(...ev.map(e => e.t)) : 0;
+    ev = ev.map(e => ({ ...e, t: +(e.t - t0).toFixed(3) }));
+  }
+  return ev;
+}
+function foldInto(p) {
+  while (p < LO) p += 12;
+  while (p > HI) p -= 12;
+  return p;
+}
+function viewEvents() {
+  let ev = sourceEvents().map(e => ({ ...e }));
+  if (!ev.length) return ev;
+  // 1. thin: keep the loudest N%
+  if (TR.thin < 100) {
+    const keep = Math.max(1, Math.round(ev.length * TR.thin / 100));
+    const kept = new Set(ev.slice().sort((a, b) => b.v - a.v).slice(0, keep));
+    ev = ev.filter(e => kept.has(e));
+  }
+  const span = Math.max(...ev.map(e => e.t));
+  // 2. reverse: mirror the attack pattern
+  if (TR.reverse) { ev = ev.map(e => ({ ...e, t: +(span - e.t).toFixed(3) })).sort((a, b) => a.t - b.t); }
+  // 3. stretch: onsets scale; ord durations scale; fixed one-shots keep their length (D9)
+  if (TR.stretch !== 1) ev = ev.map(e => ({ ...e, t: +(e.t * TR.stretch).toFixed(3),
+    d: e.tech === 'ord' ? +(e.d * TR.stretch).toFixed(3) : e.d }));
+  // 4. tonality: pc-consistent nearest-member map
+  const target = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
+  if (target && target.length) {
+    const map = {};
+    ev.forEach(e => {
+      if (map[e.p] === undefined)
+        map[e.p] = target.reduce((a, b) => Math.abs(b - e.p) < Math.abs(a - e.p) ? b : a);
+      e.p = map[e.p];
+    });
+  }
+  // 5. octave shift, folded back into range
+  if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
+  return ev;
+}
+const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d)))) : 0;
+
+// ---- piano roll ----
+function drawRoll() {
+  const cv = $('roll'), ctx = cv.getContext('2d');
+  cv.width = cv.clientWidth * devicePixelRatio;
+  cv.height = cv.clientHeight * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const W = cv.clientWidth, H = cv.clientHeight;
+  ctx.clearRect(0, 0, W, H);
+  if (!cur) return;
+  const cl = BANK.clusters[cur];
+  const full = cl.events, span = Math.max(cl.span, 0.5);
+  const X = t => 8 + (W - 16) * t / span;
+  const Y = p => H - 14 - (H - 28) * (p - LO) / (HI - LO + 4);
+  // second ruler
+  ctx.fillStyle = '#3a3a40'; ctx.font = '9px Consolas';
+  for (let s = 0; s <= span; s++) {
+    ctx.fillRect(X(s), 0, 1, H);
+    if (s % (span > 30 ? 5 : 1) === 0) ctx.fillText(s + 's', X(s) + 2, 10);
+  }
+  // selection band
+  if (sel) {
+    ctx.fillStyle = 'rgba(63,167,184,0.14)';
+    ctx.fillRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
+    ctx.strokeStyle = '#3FA7B8';
+    ctx.strokeRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
+  }
+  // events: dim outside selection; velocity = size
+  for (const e of full) {
+    const inSel = !sel || (e.t >= sel[0] && e.t <= sel[1]);
+    const r = 1.2 + 2.6 * e.v / 127;
+    ctx.fillStyle = inSel ? (e.tech === 'fortepiano' ? '#c9986e' : e.tech === 'ord' ? '#8ea9c9' : '#ffd479')
+                          : 'rgba(150,150,150,0.25)';
+    ctx.beginPath();
+    ctx.arc(X(e.t), Y(e.p), r, 0, 7);
+    ctx.fill();
+  }
+  $('info').textContent = cur + ': ' + cl.n + ' notes / ' + cl.span.toFixed(1) + 's' +
+    (sel ? ' — sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's (' + sourceEvents().length + 'n)' : '');
+}
+
+// selection drag (horizontal only)
+(() => {
+  const cv = $('roll');
+  let dragging = false, startT = 0;
+  const timeAt = e => {
+    const r = cv.getBoundingClientRect();
+    const span = cur ? Math.max(BANK.clusters[cur].span, 0.5) : 1;
+    return Math.max(0, Math.min(span, (e.clientX - r.left - 8) / (r.width - 16) * span));
+  };
+  cv.addEventListener('mousedown', e => { if (!cur) return; dragging = true; startT = timeAt(e); });
+  cv.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const t = timeAt(e);
+    sel = [Math.min(startT, t), Math.max(startT, t)];
+    drawRoll();
+  });
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    if (sel && sel[1] - sel[0] < 0.05) { sel = null; }
+    selSnip = null;
+    drawRoll(); updateSelInfo();
+  });
+})();
+function updateSelInfo() {
+  $('selInfo').textContent = sel
+    ? 'sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's · ' + sourceEvents().length + ' notes'
+    : 'drag on the roll to select';
+}
+
+// ---- playback ----
+let MIDI = null, OUTS = {}, pending = [];
+async function midiInit() {
+  const st = $('midiStatus');
+  try {
+    MIDI = await navigator.requestMIDIAccess();
+    OUTS = {};
+    MIDI.outputs.forEach(o => { OUTS[o.name.toLowerCase()] = o; });
+    const missing = [];
+    for (let i = 1; i <= 10; i++) {
+      if (!OUTS['tuba' + i]) missing.push('tuba' + i);
+      if (!OUTS['tuba' + i + 'b']) missing.push('tuba' + i + 'b');
+    }
+    st.textContent = missing.length ? 'midi: missing ' + missing.slice(0, 3).join(',') + '…' : 'midi: 10 tubas ready';
+    hookInputs();
+  } catch (e) { st.textContent = 'midi: unavailable'; }
+}
+// round-robin with cooldown: pick the least-recently-used free player
+function assignPlayers(ev) {
+  const busyUntil = Array(10).fill(-1);
+  return ev.map(e => {
+    const end = e.t + (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d));
+    let k = -1, oldest = Infinity;
+    for (let i = 0; i < 10; i++)
+      if (busyUntil[i] + 0.04 <= e.t && busyUntil[i] < oldest) { oldest = busyUntil[i]; k = i; }
+    if (k < 0) { k = busyUntil.indexOf(Math.min(...busyUntil)); }   // steal the earliest-free
+    busyUntil[k] = end;
+    return { ...e, player: k };
+  });
+}
+function stopAll() {
+  pending.forEach(clearTimeout);
+  pending = [];
+  for (let i = 1; i <= 10; i++) for (const sub of ['', 'b']) {
+    const out = OUTS['tuba' + i + sub];
+    if (out) for (const ch of [0, 3, 4, 10]) out.send([0xB0 | ch, 123, 0]);
+  }
+}
+function play() {
+  if (!MIDI || !cur) return;
+  stopAll();
+  const ev = assignPlayers(viewEvents());
+  for (const e of ev) {
+    const sub = e.tech === 'staccato' ? 'b' : '';
+    const ch = (e.tech === 'fortepiano' ? 11 : e.tech === 'staccato' ? 4 : e.tech === 'cuivre' ? 5 : 1) - 1;
+    const out = OUTS['tuba' + (e.player + 1) + sub];
+    if (!out) continue;
+    const holdMs = (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d)) * 1000;
+    pending.push(setTimeout(() => {
+      out.send([0xB0 | ch, 7, 127]);
+      out.send([0x90 | ch, e.p, e.v]);
+      pending.push(setTimeout(() => out.send([0x80 | ch, e.p, 0]), holdMs));
+    }, e.t * 1000));
+  }
+  $('info').textContent = 'playing ' + ev.length + ' notes / ' + viewSpan(ev).toFixed(1) + 's' + trDesc();
+}
+function trDesc() {
+  const bits = [];
+  if (TR.stretch !== 1) bits.push('×' + TR.stretch);
+  if (TR.tonality) bits.push(TR.tonality);
+  if (TR.chord) bits.push('ch' + TR.chord.replace('VERT01-', ''));
+  if (TR.reverse) bits.push('rev');
+  if (TR.oct) bits.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
+  if (TR.thin < 100) bits.push('thin' + TR.thin + '%');
+  return bits.length ? ' — ' + bits.join(' · ') : '';
+}
+
+// ---- recording ----
+let recording = false, recEvents = [], recOpen = {}, recT0 = null;
+function hookInputs() {
+  MIDI.inputs.forEach(inp => {
+    inp.onmidimessage = m => {
+      if (!recording) return;
+      const [st, p, v] = m.data;
+      const cmd = st & 0xF0;
+      const now = performance.now();
+      if (cmd === 0x90 && v > 0) {
+        if (recT0 === null) recT0 = now;
+        recOpen[p] = { t: (now - recT0) / 1000, v };
+      } else if (cmd === 0x80 || (cmd === 0x90 && v === 0)) {
+        const o = recOpen[p];
+        if (o) {
+          recEvents.push({ t: +o.t.toFixed(3), p, v: o.v,
+            d: +Math.max(0.05, (now - recT0) / 1000 - o.t).toFixed(3),
+            tech: $('recTech').value });
+          delete recOpen[p];
+        }
+      }
+    };
+  });
+}
+async function toggleRec() {
+  const b = $('recBtn');
+  if (!recording) {
+    recording = true; recEvents = []; recOpen = {}; recT0 = null;
+    b.classList.add('rec');
+    b.textContent = '■ stop (0 notes)';
+    const tick = setInterval(() => {
+      if (!recording) return clearInterval(tick);
+      b.textContent = '■ stop (' + recEvents.length + ' notes)';
+    }, 500);
+  } else {
+    recording = false;
+    b.classList.remove('rec');
+    b.textContent = '● rec';
+    if (!recEvents.length) { $('info').textContent = 'nothing recorded'; return; }
+    const name = prompt('Name this cluster (blank = auto):') || '';
+    const r = await fetch('/api/clusterbank', { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveCluster', name, events: recEvents, tech: $('recTech').value }) })
+      .then(x => x.json());
+    if (r.success) { await loadBank(); setCluster(r.id); $('info').textContent = r.id + ' saved (' + recEvents.length + ' notes)'; }
+  }
+}
+
+// ---- snippets ----
+function drawSnips() {
+  const row = $('snips');
+  row.innerHTML = '<span class="hint">snippets:</span>';
+  const ids = Object.keys(BANK.snippets);
+  if (!ids.length) { row.innerHTML += ' <span class="hint">(none — select a span and ↵ snippet)</span>'; return; }
+  ids.forEach(id => {
+    const sn = BANK.snippets[id];
+    const el = document.createElement('span');
+    el.className = 'snip' + (id === selSnip ? ' on' : '');
+    el.innerHTML = id + ' · ' + sn.cluster + ' ' + sn.t0.toFixed(1) + '–' + sn.t1.toFixed(1) + 's<span class="x" data-x="' + id + '">×</span>';
+    el.addEventListener('click', async e => {
+      if (e.target.dataset.x) {
+        await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'deleteSnippet', id: e.target.dataset.x }) });
+        await loadBank(); drawSnips();
+        return;
+      }
+      setCluster(sn.cluster, false);
+      sel = [sn.t0, sn.t1];
+      selSnip = id;
+      drawRoll(); drawSnips(); updateSelInfo();
+      play();
+    });
+    row.appendChild(el);
+  });
+}
+
+// ---- tonality chips ----
+function buildTonRow() {
+  const row = $('tonRow');
+  const orig = document.createElement('button');
+  orig.className = 'chip on';
+  orig.textContent = 'original';
+  orig.id = 'tonOrig';
+  row.insertBefore(orig, $('chordSel'));
+  orig.addEventListener('click', () => { TR.tonality = null; TR.chord = null; $('chordSel').value = ''; tonHi(); play(); });
+  Object.keys(TONALITIES).forEach(k => {
+    const b = document.createElement('button');
+    b.className = 'chip ton';
+    b.dataset.t = k;
+    b.textContent = k;
+    b.title = TONALITIES[k].map(nm).join(' ');
+    row.insertBefore(b, $('chordSel'));
+    b.addEventListener('click', () => { TR.tonality = k; TR.chord = null; $('chordSel').value = ''; tonHi(); play(); });
+  });
+  $('chordSel').addEventListener('change', function () {
+    this.blur();
+    TR.chord = this.value || null;
+    if (this.value) TR.tonality = null;
+    tonHi(); play();
+  });
+}
+function tonHi() {
+  $('tonOrig').classList.toggle('on', !TR.tonality && !TR.chord);
+  document.querySelectorAll('.ton').forEach(b => b.classList.toggle('on', b.dataset.t === TR.tonality));
+}
+
+// ---- store ----
+async function refreshLists() {
+  const s = $('listSel');
+  const keep = s.value;
+  s.innerHTML = '<option value="">— choose —</option><option value="__library__">library only</option>';
+  Object.keys(BANK.lists).forEach(l => {
+    const o = document.createElement('option');
+    o.value = l;
+    o.textContent = l + ' (' + BANK.lists[l].length + ')';
+    s.appendChild(o);
+  });
+  const nw = document.createElement('option');
+  nw.value = '__new__';
+  nw.textContent = 'new list…';
+  s.appendChild(nw);
+  if (keep) s.value = keep;
+}
+$('listSel').addEventListener('change', async function () {
+  this.blur();
+  if (this.value === '__new__') {
+    const name = prompt('New list name:');
+    this.value = '';
+    if (!name) return;
+    await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'createList', name }) });
+    await loadBank(); refreshLists();
+    this.value = name;
+  }
+});
+async function store() {
+  if (!cur) return;
+  const dest = $('listSel').value;
+  if (!dest) {
+    const s = $('listSel');
+    s.classList.add('flash');
+    setTimeout(() => s.classList.remove('flash'), 900);
+    $('storeMsg').textContent = 'choose a destination first';
+    setTimeout(() => { $('storeMsg').textContent = ''; }, 2200);
+    return;
+  }
+  const ev = viewEvents();
+  if (!ev.length) return;
+  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveGesture', events: ev, span: viewSpan(ev),
+      provenance: { cluster: cur, sel, snippet: selSnip, transforms: { ...TR } }, list: dest }) })
+    .then(x => x.json());
+  if (r.success) {
+    $('storeMsg').textContent = r.id + (r.existed ? ' (already in library)' : ' stored') +
+      (r.added ? ' → ' + dest : '');
+    setTimeout(() => { $('storeMsg').textContent = ''; }, 3000);
+    await loadBank(); refreshLists();
+  }
+}
+
+// ---- wiring ----
+function setCluster(id, clearSel = true) {
+  cur = id;
+  $('clSel').value = id;
+  if (clearSel) { sel = null; selSnip = null; }
+  TR = trDefault();
+  $('strSlider').value = 1; $('strV').textContent = '1.00×';
+  $('thin').value = 100; $('thinV').textContent = '100%';
+  $('revBtn').classList.remove('on');
+  document.querySelectorAll('.str').forEach(b => b.classList.toggle('on', b.dataset.f === '1'));
+  if ($('tonOrig')) tonHi();
+  drawRoll(); updateSelInfo();
+}
+async function loadBank() {
+  BANK = (await fetch('/api/clusterbank').then(r => r.json())).bank;
+  const s = $('clSel');
+  const keep = s.value;
+  s.innerHTML = '';
+  const fams = {};
+  Object.entries(BANK.clusters).forEach(([id, c]) => { (fams[c.family] = fams[c.family] || []).push(id); });
+  Object.keys(fams).sort().forEach(f => {
+    const og = document.createElement('optgroup');
+    og.label = f;
+    fams[f].forEach(id => {
+      const o = document.createElement('option');
+      o.value = id;
+      o.textContent = id + ' (' + BANK.clusters[id].n + 'n/' + BANK.clusters[id].span.toFixed(0) + 's)';
+      og.appendChild(o);
+    });
+    s.appendChild(og);
+  });
+  if (keep && BANK.clusters[keep]) s.value = keep;
+}
+
+$('clSel').addEventListener('change', function () { this.blur(); setCluster(this.value); play(); });
+$('playBtn').addEventListener('click', play);
+$('stopBtn').addEventListener('click', stopAll);
+$('recBtn').addEventListener('click', toggleRec);
+$('selClear').addEventListener('click', () => { sel = null; selSnip = null; drawRoll(); updateSelInfo(); });
+$('snipSave').addEventListener('click', async () => {
+  if (!cur || !sel) { $('selInfo').textContent = 'select a span first'; return; }
+  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveSnippet', cluster: cur, t0: sel[0], t1: sel[1] }) }).then(x => x.json());
+  if (r.success) { selSnip = r.id; await loadBank(); drawSnips(); }
+});
+document.querySelectorAll('.str').forEach(b => b.addEventListener('click', () => {
+  TR.stretch = +b.dataset.f;
+  $('strSlider').value = TR.stretch;
+  $('strV').textContent = TR.stretch.toFixed(2) + '×';
+  document.querySelectorAll('.str').forEach(x => x.classList.toggle('on', x === b));
+  play();
+}));
+$('strSlider').addEventListener('input', function () {
+  TR.stretch = +this.value;
+  $('strV').textContent = TR.stretch.toFixed(2) + '×';
+  document.querySelectorAll('.str').forEach(x => x.classList.remove('on'));
+});
+$('strSlider').addEventListener('change', function () { this.blur(); play(); });
+$('revBtn').addEventListener('click', function () { TR.reverse = !TR.reverse; this.classList.toggle('on', TR.reverse); play(); });
+$('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); play(); });
+$('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); play(); });
+$('thin').addEventListener('input', function () { TR.thin = +this.value; $('thinV').textContent = TR.thin + '%'; });
+$('thin').addEventListener('change', function () { this.blur(); play(); });
+$('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); play(); });
+$('storeBtn').addEventListener('click', store);
+window.addEventListener('keydown', e => {
+  if (e.code === 'Space' && !e.target.matches('input[type=text]')) { e.preventDefault(); play(); }
+  if (e.key === 'Escape') stopAll();
+});
+window.addEventListener('resize', drawRoll);
+
+(async () => {
+  try { SAMPLE_LEN = await fetch('/bank/sample_lengths.json').then(r => r.json()); } catch (e) {}
+  try {
+    // all 33 played chords as remap targets (bank files; taxonomy only holds the working set)
+    const ids = Array.from({ length: 33 }, (_, i) => String(i + 1).padStart(2, '0'));
+    const banks = await Promise.all(ids.map(n =>
+      fetch('/bank/VERT01-' + n + '.json').then(r => r.ok ? r.json() : null).catch(() => null)));
+    const cs = $('chordSel');
+    ids.forEach((n, i) => {
+      if (!banks[i] || !banks[i].pitches) return;
+      const k = 'VERT01-' + n;
+      TAXCH[k] = [...new Set(banks[i].pitches.map(p => foldInto(p)))].sort((a, b) => a - b);
+      const o = document.createElement('option');
+      o.value = k;
+      o.textContent = 'ch ' + n;
+      cs.appendChild(o);
+    });
+  } catch (e) {}
+  buildTonRow();
+  await loadBank();
+  await midiInit();
+  refreshLists();
+  drawSnips();
+  const first = Object.keys(BANK.clusters)[0];
+  if (first) setCluster(first);
+})();
+</script>
+</body>
+</html>

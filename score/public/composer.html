@@ -328,7 +328,7 @@
     <button id="loadBtn" style="display:none">Load</button>
     <span style="opacity:.35">&#9474;</span>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b30-measured</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b31-clusters</span>
     <span style="flex:1 1 auto"></span>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
@@ -343,6 +343,10 @@
 <div id="blastStrip" style="display:none; position:fixed; top:32px; left:0; right:0; z-index:65; background:#202024; border-bottom:1px solid #555; box-shadow:0 4px 14px rgba(0,0,0,.5); padding:5px 10px">
   <div style="display:flex; align-items:center; gap:8px">
     <span id="blastInfo" style="color:#ffd479; font-size:12px; font-family:Consolas,monospace; flex:1 1 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">← → to step · click a strip to hear it · then insert at the playhead</span>
+    <select id="blastSrcSel" title="which material family to browse">
+      <option value="blasts">Blasts</option>
+      <option value="clusters">Clusters</option>
+    </select>
     <select id="blastListSel" title="which custom list to browse"></select>
     <button id="blastInsert" title="insert the selected sonority at the playhead: parts + META shape">insert @ cursor</button>
   </div>
@@ -14442,20 +14446,23 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
   const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
   const nmOf = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
   let TAXB = null, activeList = null, selectedSon = null;
+  let CBANK = null, srcMode = 'blasts', selectedCg = null, cgPending = [];
 
   async function loadTaxB() {
     TAXB = (await fetch('/api/taxonomy').then(r => r.json())).tax;
+    try { CBANK = (await fetch('/api/clusterbank').then(r => r.json())).bank; } catch (e) { CBANK = null; }
     const sel = document.getElementById('blastListSel');
-    const lists = Object.keys(TAXB.customLists || {});
+    const src = srcMode === 'clusters' ? ((CBANK && CBANK.lists) || {}) : (TAXB.customLists || {});
+    const lists = Object.keys(src);
     sel.innerHTML = '';
     lists.forEach(l => {
       const o = document.createElement('option');
-      o.value = l; o.textContent = l + ' (' + (TAXB.customLists[l] || []).length + ')';
+      o.value = l; o.textContent = l + ' (' + (src[l] || []).length + ')';
       sel.appendChild(o);
     });
     if (!lists.length) {
       const o = document.createElement('option');
-      o.value = ''; o.textContent = '(no custom lists yet)';
+      o.value = ''; o.textContent = '(no lists yet' + (srcMode === 'clusters' ? ' \u2014 store from the cluster sandbox)' : ')');
       sel.appendChild(o);
     }
     activeList = lists.includes(activeList) ? activeList : lists[0] || null;
@@ -14542,16 +14549,111 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     if (el) el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
   }
   function stepSon(dir) {
+    if (srcMode === 'clusters') {
+      const ids = cgEntries().map(([id]) => id);
+      if (!ids.length) return;
+      const i = ids.indexOf(selectedCg);
+      selectCg(ids[Math.max(0, Math.min(ids.length - 1, (i < 0 ? 0 : i + dir)))]);
+      return;
+    }
     const ids = sonEntries().map(([id]) => id);
     if (!ids.length) return;
     const i = ids.indexOf(selectedSon);
     selectSon(ids[Math.max(0, Math.min(ids.length - 1, (i < 0 ? 0 : i + dir)))]);
   }
 
+  function cgEntries() {
+    if (!CBANK || !activeList) return [];
+    return ((CBANK.lists || {})[activeList] || [])
+      .filter(id => CBANK.gestures[id])
+      .map(id => [id, CBANK.gestures[id]]);
+  }
+  function cgMiniFor(id, cg) {
+    // a tiny piano-roll thumbnail: time x pitch dots
+    const wrap = document.createElement('div');
+    wrap.dataset.sid = id;
+    wrap.style.cssText = 'display:inline-block; width:56px; margin:0 3px; cursor:pointer; vertical-align:top; text-align:center';
+    const c = document.createElement('canvas');
+    c.width = 56; c.height = 44;
+    c.style.cssText = 'background:#26262a; border-radius:3px; display:block';
+    const ctx = c.getContext('2d');
+    const span = Math.max(cg.span, 0.3);
+    ctx.fillStyle = '#8fdbe8';
+    for (const e of cg.events) {
+      ctx.fillRect(2 + 52 * e.t / span, 42 - 40 * (e.p - 30) / 37, 1.6, 1.6);
+    }
+    wrap.appendChild(c);
+    const lab = document.createElement('div');
+    lab.textContent = id;
+    lab.style.cssText = 'font-size:8.5px; color:#8fdbe8; line-height:1.2';
+    wrap.appendChild(lab);
+    if (id === selectedCg) c.style.outline = '2px solid #3FA7B8';
+    wrap.addEventListener('click', () => selectCg(id));
+    wrap.addEventListener('mouseenter', () => showCgInfo(id, cg, true));
+    wrap.addEventListener('mouseleave', () => {
+      if (selectedCg && CBANK.gestures[selectedCg]) showCgInfo(selectedCg, CBANK.gestures[selectedCg], false);
+    });
+    return wrap;
+  }
+  function cgDescribe(id, cg) {
+    const pv = cg.provenance || {};
+    const tr = pv.transforms || {};
+    const bits = [];
+    if (tr.stretch && tr.stretch !== 1) bits.push('\u00d7' + tr.stretch);
+    if (tr.tonality) bits.push(tr.tonality);
+    if (tr.chord) bits.push('ch' + String(tr.chord).replace('VERT01-', ''));
+    if (tr.reverse) bits.push('rev');
+    if (tr.oct) bits.push('oct' + (tr.oct > 0 ? '+' : '') + tr.oct);
+    if (tr.thin && tr.thin < 100) bits.push('thin' + tr.thin + '%');
+    return id + '  \u00b7  from ' + (pv.cluster || '?') + '  \u00b7  ' + cg.events.length +
+      ' notes / ' + cg.span.toFixed(1) + 's' + (bits.length ? '  \u00b7  ' + bits.join(' \u00b7 ') : '');
+  }
+  function showCgInfo(id, cg, hovering) {
+    const el = document.getElementById('blastInfo');
+    el.textContent = (hovering && id !== selectedCg ? '\u25b8 ' : '\u25c9 ') + cgDescribe(id, cg);
+    el.style.color = (hovering && id !== selectedCg) ? '#8fb3a5' : '#8fdbe8';
+  }
+  function cgStop() { cgPending.forEach(clearTimeout); cgPending = []; }
+  function cgAssign(events) {
+    // round-robin with cooldown: least-recently-used free player, steal if none
+    const busy = Array(10).fill(-1);
+    return events.map(e => {
+      const len = e.tech === 'ord' ? e.d : (Composer.techLength(e.tech, e.p) || e.d);
+      let k = -1, oldest = Infinity;
+      for (let i = 0; i < 10; i++) if (busy[i] + 0.04 <= e.t && busy[i] < oldest) { oldest = busy[i]; k = i; }
+      if (k < 0) k = busy.indexOf(Math.min.apply(null, busy));
+      busy[k] = e.t + len;
+      return { e, k, len };
+    });
+  }
+  function cgAudition(cg) {
+    cgStop();
+    for (const { e, k, len } of cgAssign(cg.events)) {
+      const port = 'tuba' + (k + 1) + (e.tech === 'staccato' ? 'b' : '');
+      const ch = e.tech === 'fortepiano' ? 11 : e.tech === 'staccato' ? 4 : e.tech === 'cuivre' ? 5 : 1;
+      cgPending.push(setTimeout(() => Composer.auditionNote(port, ch, e.p, e.v, len * 1000), e.t * 1000));
+    }
+  }
+  function selectCg(id) {
+    const cg = CBANK && CBANK.gestures[id];
+    if (!cg) return;
+    selectedCg = id;
+    drawMinis();
+    showCgInfo(id, cg, false);
+    cgAudition(cg);
+    const box = document.getElementById('blastMinis');
+    const el = [...box.children].find(c => c.dataset.sid === id);
+    if (el) el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  }
+
   function drawMinis() {
     const box = document.getElementById('blastMinis');
     box.innerHTML = '';
-    sonEntries().forEach(([id, son]) => box.appendChild(miniFor(id, son)));
+    if (srcMode === 'clusters') {
+      cgEntries().forEach(([id, cg]) => box.appendChild(cgMiniFor(id, cg)));
+    } else {
+      sonEntries().forEach(([id, son]) => box.appendChild(miniFor(id, son)));
+    }
   }
 
   function durFor(son, pitch) {
@@ -14575,7 +14677,43 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     });
   }
 
+  function insertClusterAtCursor() {
+    const cg = selectedCg && CBANK && CBANK.gestures[selectedCg];
+    if (!cg) return;
+    const t = Composer.scrollOffset / Composer.pixelsPerSecond;
+    const group = 'grp-' + selectedCg.toLowerCase() + '-' + Math.floor(t * 10);
+    Composer.pushUndoState();
+    Composer.objects.push({ id: 'mk-' + (Composer.nextId++), type: 'marker', layer: 0,
+      time: +t.toFixed(3), label: selectedCg + ' (' + ((cg.provenance || {}).cluster || 'cluster') + ')',
+      color: '#3FA7B8', groupId: group, performanceNotes: '', properties: {} });
+    let span = 0;
+    for (const { e, k, len } of cgAssign(cg.events)) {
+      span = Math.max(span, e.t + len);
+      const lv = Math.max(1, Math.round((e.v / 127) * 100) / 10);
+      Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 9 - k,
+        groupId: group, startSeconds: +(t + e.t).toFixed(3), endSeconds: +(t + e.t + len).toFixed(3),
+        nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }],
+        segments: [{ model: 'power', slope: 0 }],
+        color: '#3FA7B8', fillMode: 'bottom', opacity: 0.55,
+        performanceNotes: selectedCg, properties: {},
+        sonifyNote: e.p, technique: e.tech, sonifyMode: 'plain', recVel: e.v });
+    }
+    Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 10,
+      groupId: group, startSeconds: +t.toFixed(3), endSeconds: +(t + span).toFixed(3),
+      nodes: [{ pos: 0, y: 8.5, smooth: 0 }, { pos: 1, y: 8.5, smooth: 0 }],
+      segments: [{ model: 'power', slope: 0 }],
+      color: '#3FA7B8', fillMode: 'bottom', opacity: 0.6,
+      performanceNotes: selectedCg + ' (drag = move; only ord stretches)', properties: {} });
+    Composer.renderAll();
+    Composer.markDirty();
+    const el = document.getElementById('blastInfo');
+    el.textContent = '\u2713 ' + selectedCg + ' inserted @ ' + t.toFixed(2) + 's \u2014 ' +
+      cg.events.length + ' notes + META shape';
+    el.style.color = '#7ec9a8';
+  }
+
   function insertAtCursor() {
+    if (srcMode === 'clusters') return insertClusterAtCursor();
     if (!selectedSon || !TAXB) return;
     const son = (TAXB.sonorities || {})[selectedSon];
     if (!son) return;
@@ -14636,7 +14774,17 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     if (Composer.renderAll) { Composer.generateTicks(); Composer.applyScroll(); Composer.renderAll(); }
   });
   document.getElementById('blastListSel').addEventListener('change', function () {
-    activeList = this.value; selectedSon = null; drawMinis(); this.blur();
+    activeList = this.value; selectedSon = null; selectedCg = null; drawMinis(); this.blur();
+  });
+  document.getElementById('blastSrcSel').addEventListener('change', function () {
+    this.blur();
+    srcMode = this.value;
+    activeList = null;
+    cgStop();
+    loadTaxB();
+    const el = document.getElementById('blastInfo');
+    el.textContent = '\u2190 \u2192 to step \u00b7 click to hear \u00b7 insert at the playhead';
+    el.style.color = srcMode === 'clusters' ? '#8fdbe8' : '#ffd479';
   });
   document.getElementById('blastInsert').addEventListener('click', insertAtCursor);
   window.addEventListener('keydown', e => {
