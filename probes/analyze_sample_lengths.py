@@ -112,7 +112,8 @@ def main():
     # Report
     names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     sci = lambda m: names[m % 12] + str(m // 12 - 1)
-    lines = ["# SI2 Tuba — sample lengths (probe)", "",
+    out_name = sched.get("outName") or "SI2_tuba_sample_lengths"
+    lines = [f"# SI2 Tuba — sample lengths (probe)", "",
              f"Probe: hold {hold_s:.0f}s · pitches {sched['pitches']} · vel {sched['velocity']}"
              f" · {sched['created'][:10]} · tuba1 pair (applies to all 7 tubas)", "",
              "SUSTAINED = held to note-off (>= hold; loops or long sample). FIXED = sample's own length.",
@@ -122,7 +123,7 @@ def main():
     for r in results:
         lines.append(f"| {r['tech']} | {uvi(r['pitch'])} | {sci(r['pitch'])} ({r['pitch']}) | {r['verdict']} | {r['soundedSec']} |")
     md = "\n".join(lines) + "\n"
-    md_path = os.path.join(REPO, "docs", "SI2_tuba_sample_lengths.md")
+    md_path = os.path.join(REPO, "docs", out_name + ".md")
     open(md_path, "w", encoding="utf-8", newline="\n").write(md)
     json.dump({"schedule": sched_path, "wav": wav_path, "results": results},
               open(os.path.join(REPO, "probes", "last_analysis.json"), "w", encoding="utf-8"), indent=1)
