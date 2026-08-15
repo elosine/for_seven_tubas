@@ -6,18 +6,19 @@
 <style>
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
          margin: 0; padding: 8px 16px 30px; }
-  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px;
-         padding: 4px 0; }
-  select, button { background: #2a2a2e; color: #ddd; border: 1px solid #555; border-radius: 4px;
-         padding: 3px 8px; font-size: 12px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; font-size: 12px; padding: 3px 0; }
+  select, button, input[type=text] { background: #2a2a2e; color: #ddd; border: 1px solid #555;
+         border-radius: 4px; padding: 3px 8px; font-size: 12px; }
   button { cursor: pointer; }
   button.on { background: #4a3a12; border-color: #B8860B; color: #ffd479; }
-  input[type=range] { width: 110px; vertical-align: middle; }
+  button.warn { border-color: #ff9c54; color: #ff9c54; }
+  input[type=range] { width: 105px; vertical-align: middle; }
   .hint { color: #777; }
-  /* ---- the strip ---- */
+  /* ---- strip ---- */
   #stripWrap { position: relative; overflow-x: auto; overflow-y: hidden; white-space: nowrap;
                border: 1px solid #333; border-radius: 6px; padding: 6px 50% 2px; background: #202024;
                scroll-behavior: smooth; }
+  #stripWrap.collapsed { display: none; }
   .mini { display: inline-block; vertical-align: top; width: 26px; margin: 0 3px; cursor: pointer; }
   .mini canvas { display: block; background: #26262a; border-radius: 3px; }
   .mini .lab { font-size: 8.5px; color: #888; text-align: center; margin-top: 1px; }
@@ -25,7 +26,7 @@
   .mini.active .lab { color: #ffd479; }
   #stripCursor { position: absolute; left: 50%; top: 0; bottom: 0; width: 0;
                  border-left: 1px dashed #B8860B; opacity: .5; pointer-events: none; }
-  /* ---- big keyboard ---- */
+  /* ---- keyboard ---- */
   #kb { position: relative; margin-top: 6px; }
   .row { position: relative; height: var(--kh); }
   .key { position: absolute; left: 46px; top: 0; height: calc(var(--kh) - 1px); border-radius: 1px; cursor: pointer; }
@@ -34,15 +35,17 @@
   .key:hover { outline: 1px solid #ffd479; }
   .cline { position: absolute; left: 46px; width: 120px; top: 0; height: 1px; background: #8a8a92; opacity: .55; pointer-events: none; }
   .nm { position: absolute; right: calc(100% - 42px); top: 50%; transform: translateY(-50%);
-        font-size: 11px; color: #ffd479; white-space: nowrap; }
-  .nm.cv { color: #ff9c54; }
+        font-size: 11px; white-space: nowrap; }
   .oct { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 9px; color: #55555c; }
   .dot { position: absolute; left: 106px; top: 50%; transform: translate(-50%, -50%);
-         width: 10px; height: 10px; border-radius: 50%; background: #ffd479; pointer-events: none; }
-  .dot.cv { background: #ff9c54; }
-  .cvzone { position: absolute; left: 170px; width: 26px; top: 0; height: calc(var(--kh) - 1px);
-            background: #ff9c54; opacity: .16; cursor: pointer; border-radius: 2px; }
-  .cvzone:hover { opacity: .45; }
+         width: 11px; height: 11px; cursor: pointer; box-sizing: border-box; }
+  .dot.ord { border-radius: 50%; }
+  .dot.fp { border-radius: 2px; }
+  .dot.st { border-radius: 2px; transform: translate(-50%, -50%) rotate(45deg); width: 9px; height: 9px; }
+  .dot.cvring { box-shadow: 0 0 0 2.5px #ff9c54; }
+  .cvzone { position: absolute; left: 170px; width: 24px; top: 0; height: calc(var(--kh) - 1px);
+            background: #ff9c54; opacity: .10; cursor: pointer; border-radius: 2px; }
+  .cvzone:hover { opacity: .42; }
 </style>
 </head>
 <body>
@@ -50,22 +53,29 @@
 <div id="stripWrap"><div id="stripCursor"></div></div>
 
 <div class="bar">
-  <select id="verSel" title="the version menu — the main pivot"></select>
-  <button id="playFp">fp</button>
-  <button id="playStac">stac</button>
-  <button id="playOrd">ord</button>
+  <button id="stripToggle" title="collapse/expand the chord strip">▲ strip</button>
+  <select id="verSel" title="the version menu — the baseline you step off from"></select>
+  <button id="resetBtn" class="warn" style="display:none" title="discard edits, return to the baseline version">● edited — reset</button>
+  <button id="playBtn" title="play the chord as configured (SPACE)">▶ play</button>
+  <span class="hint">all:</span>
+  <button id="allOrd">ord</button>
+  <button id="allFp">fp</button>
+  <button id="allStac">stac</button>
+  <button id="slotC1" title="click = recall · SHIFT+click = store the current articulation mix">C1</button>
+  <button id="slotC2" title="click = recall · SHIFT+click = store the current articulation mix">C2</button>
   <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="2.5"><span id="ordLenV" class="hint">2.5s</span></label>
   <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127"><span id="dynV" class="hint">127</span></label>
-  <button id="cuivreBtn" title="show the cuivre layer (60–67): click the orange zone to add/convert">cuivre layer</button>
-  <label title="stepping the strip auto-plays after a beat"><input type="checkbox" id="autoHear"> auto-hear</label>
-  <span class="hint">|</span>
-  <button id="saveV" title="file the edited notes as a new voicing of this chord">save voicing</button>
-  <button id="keepBtn" title="snapshot voicing+articulation+sliders into the INT2 keeper list">★ keep for INT2</button>
-  <span class="hint" id="keepCount"></span>
 </div>
 <div class="bar">
+  <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
+  <button id="saveSon" title="save this exact configuration (voicing + articulations + cuivre + sliders) to the big sonority library AND the selected list">★ sonority →</button>
+  <select id="listSel" title="the custom list new sonorities are added to"></select>
+  <span class="hint" id="listCount"></span>
+  <span class="hint">|</span>
   <label>zoom <input type="range" id="zoom" min="4" max="40" step="0.5" value="17.5"><span id="zoomV" class="hint"></span></label>
-  <span class="hint">(remembered on this machine)</span>
+  <button id="z1" title="click = recall · SHIFT+click = store current zoom">Z1</button>
+  <button id="z2" title="click = recall · SHIFT+click = store current zoom">Z2</button>
+  <button id="z3" title="click = recall · SHIFT+click = store current zoom">Z3</button>
   <span class="hint" id="midiStatus">midi: …</span>
   <span class="hint" id="info"></span>
 </div>
@@ -75,30 +85,46 @@
 <script>
 const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const BLACK = [1,3,6,8,10];
-const LO = 30, HI = 65;                 // ordinario range = the keyboard
+const LO = 30, HI = 65;
 const CUIVRE = [60, 67];
 const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+// pitch-class colors, assigned per chord: octave doublings = repeated colors
+const PC_PALETTE = ['#ffd479','#7ec9a8','#8ea9c9','#c98a8a','#b58ec9','#d4c25e',
+                    '#69b7c9','#c9986e','#96c96e','#c96ea8','#8a8ac9','#e0e0e0'];
 
 let TAX = null, CHORD_IDS = [], currentId = null;
-let chosenV = {};                        // chordId -> voicing shown/played
-let work = null;                         // { pitches:Set, cuivre:Set, base, edited }
-let cuivreLayer = false;
+let chosenV = {};
+let work = null;   // { pitches:Set, cvConv:Set, cvAdd:Set, artic:Map, base, edited }
+let SERVER_CHORDS = new Set(), BANKS = {};
 
 const voicingsOf = id => (TAX.harmonies[id] && TAX.harmonies[id].voicings) || {};
 const activeV = id => chosenV[id] || Object.keys(voicingsOf(id)).pop() || null;
 
 function loadWork() {
   const v = voicingsOf(currentId)[activeV(currentId)];
-  work = { pitches: new Set(v ? v.pitches : []), cuivre: new Set((v && v.cuivre) || []),
-           base: activeV(currentId), edited: false };
+  const pitches = new Set(v ? v.pitches : []);
+  const cv = new Set((v && v.cuivre) || []);
+  work = { pitches,
+    cvConv: new Set([...cv].filter(p => pitches.has(p))),
+    cvAdd: new Set(),
+    artic: new Map([...pitches].map(p => [p, 'ord'])),
+    base: activeV(currentId), edited: false };
+  document.getElementById('resetBtn').style.display = 'none';
+}
+function markEdited() {
+  work.edited = true;
+  document.getElementById('resetBtn').style.display = '';
+}
+function pcColors() {
+  const pcs = [...new Set([...work.pitches].map(p => p % 12))].sort((a, b) => a - b);
+  const map = {};
+  pcs.forEach((pc, i) => map[pc] = PC_PALETTE[i % PC_PALETTE.length]);
+  return map;
 }
 
-// ---- MIDI (phase-1 engine + cuivre routing) ----
-const ARTIC = {
-  fortepiano: { sub: '', ch: 11, hold: () => 3.0 },
-  staccato:   { sub: 'b', ch: 4, hold: () => 0.35 },
-  ord:        { sub: '', ch: 1, hold: () => +document.getElementById('ordLen').value },
-};
+// ---- MIDI ----
+const HOLDS = { fortepiano: () => 3.0, staccato: () => 0.35, ord: () => +document.getElementById('ordLen').value };
+const ROUTE = { fortepiano: { sub: '', ch: 11 }, staccato: { sub: 'b', ch: 4 }, ord: { sub: '', ch: 1 } };
 let MIDI = null, OUTS = {};
 async function midiInit() {
   const st = document.getElementById('midiStatus');
@@ -115,61 +141,80 @@ async function midiInit() {
                                     : 'midi: 10 tubas ready';
   } catch (e) { st.textContent = 'midi: unavailable — allow Web MIDI in Chrome'; }
 }
-function playBlast(articKey) {
+function playBlast() {
   if (!MIDI || !work) return;
-  const a = ARTIC[articKey];
   const vel = +document.getElementById('dyn').value;
-  const holdMs = a.hold() * 1000;
   const pitches = [...work.pitches].sort((x, y) => x - y).slice(0, 10);
   pitches.forEach((pitch, k) => {
-    const isCv = work.cuivre.has(pitch);
-    const sub = isCv ? '' : a.sub;
-    const ch = (isCv ? 5 : a.ch) - 1;      // cuivre always a-port ch5
-    const out = OUTS['tuba' + (10 - k) + sub];
+    const isCv = work.cvConv.has(pitch) || work.cvAdd.has(pitch);
+    const art = work.artic.get(pitch) || 'ord';
+    const r = isCv ? { sub: '', ch: 5 } : ROUTE[art];
+    const holdMs = (isCv ? HOLDS.ord() : HOLDS[art]()) * 1000;
+    const out = OUTS['tuba' + (10 - k) + r.sub];
     if (!out) return;
+    const ch = r.ch - 1;
     out.send([0xB0 | ch, 7, 127]);
     out.send([0x90 | ch, pitch, vel]);
     setTimeout(() => out.send([0x80 | ch, pitch, 0]), holdMs);
   });
+  const arts = [...new Set(pitches.map(p => work.artic.get(p)))];
   document.getElementById('info').textContent =
-    currentId + ' ' + (work.edited ? work.base + '*' : work.base) + ' · ' + articKey +
-    ' · ' + pitches.length + ' players · vel ' + vel +
-    (work.cuivre.size ? ' · cuivre ' + [...work.cuivre].map(nm).join(',') : '');
+    currentId + ' ' + work.base + (work.edited ? '*' : '') + ' · ' +
+    (arts.length === 1 ? arts[0] : 'mixed') + ' · ' + pitches.length + ' players · vel ' + vel;
 }
 
-// ---- big keyboard: shows ONE voicing (the version menu is the pivot) ----
+// ---- keyboard ----
 function draw() {
   const kh = +document.getElementById('zoom').value;
   document.getElementById('zoomV').textContent = kh.toFixed(1) + 'px/key';
   localStorage.setItem('blastZoom', kh);
   const kb = document.getElementById('kb');
   kb.style.setProperty('--kh', kh + 'px');
+  const colors = pcColors();
   let html = '';
   for (let m = HI; m >= LO; m--) {
     const pc = m % 12, isB = BLACK.includes(pc);
-    const inChord = work.pitches.has(m), isCv = work.cuivre.has(m);
+    const inChord = work.pitches.has(m);
+    const conv = work.cvConv.has(m), added = work.cvAdd.has(m);
+    const art = work.artic.get(m) || 'ord';
     let r = '<div class="row">';
     r += '<div class="key ' + (isB ? 'black' : 'white') + '" data-m="' + m + '"></div>';
     if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
-    if (inChord) r += '<div class="nm' + (isCv ? ' cv' : '') + '">' + nm(m) + (isCv ? ' ⌃' : '') + '</div>';
-    if (inChord) r += '<div class="dot' + (isCv ? ' cv' : '') + '"></div>';
-    if (cuivreLayer && m >= CUIVRE[0] && m <= CUIVRE[1])
-      r += '<div class="cvzone" data-cv="' + m + '" title="cuivre ' + nm(m) + '"></div>';
+    if (inChord) {
+      const col = added ? '#ff9c54' : colors[pc];
+      const suffix = (conv ? ' ⌃' : added ? ' +⌃' : '') +
+        (art === 'fortepiano' ? ' fp' : art === 'staccato' ? ' st' : '');
+      r += '<div class="nm" style="color:' + col + '">' + nm(m) + suffix + '</div>';
+      const cls = art === 'fortepiano' ? 'fp' : art === 'staccato' ? 'st' : 'ord';
+      r += '<div class="dot ' + cls + (conv ? ' cvring' : '') + '" data-d="' + m +
+           '" style="background:' + col + '" title="click: cycle ord→fp→stac"></div>';
+    }
+    if (m >= CUIVRE[0] && m <= CUIVRE[1])
+      r += '<div class="cvzone" data-cv="' + m + '" title="cuivre ' + nm(m) + ' — click to add/convert/remove"></div>';
     r += '</div>';
     html += r;
   }
   kb.innerHTML = html;
   kb.querySelectorAll('.key').forEach(el => el.addEventListener('click', () => {
     const m = +el.dataset.m;
-    if (work.pitches.has(m)) { work.pitches.delete(m); work.cuivre.delete(m); }
-    else work.pitches.add(m);
-    work.edited = true; draw(); drawStrip();
+    if (work.pitches.has(m)) { work.pitches.delete(m); work.cvConv.delete(m); work.cvAdd.delete(m); work.artic.delete(m); }
+    else { work.pitches.add(m); work.artic.set(m, 'ord'); }
+    markEdited(); draw(); drawStrip();
+  }));
+  kb.querySelectorAll('.dot').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const m = +el.dataset.d;
+    const cyc = { ord: 'fortepiano', fortepiano: 'staccato', staccato: 'ord' };
+    work.artic.set(m, cyc[work.artic.get(m) || 'ord']);
+    draw();   // articulation mix is realization-level, not a voicing edit
   }));
   kb.querySelectorAll('.cvzone').forEach(el => el.addEventListener('click', () => {
     const m = +el.dataset.cv;
-    if (work.cuivre.has(m)) work.cuivre.delete(m);             // un-cuivre (note stays)
-    else { work.pitches.add(m); work.cuivre.add(m); }          // add-or-convert to cuivre
-    work.edited = true; draw(); drawStrip();
+    if (work.cvConv.has(m)) { work.cvConv.delete(m); }
+    else if (work.cvAdd.has(m)) { work.cvAdd.delete(m); work.pitches.delete(m); work.artic.delete(m); }
+    else if (work.pitches.has(m)) { work.cvConv.add(m); }
+    else { work.pitches.add(m); work.cvAdd.add(m); work.artic.set(m, 'ord'); }
+    markEdited(); draw(); drawStrip();
   }));
   buildVerSel();
 }
@@ -185,15 +230,9 @@ function buildVerSel() {
     sel.appendChild(o);
   });
   sel.value = work.base;
-  if (work.edited) {
-    const o = document.createElement('option');
-    o.value = '__edited';
-    o.textContent = currentId.replace('VERT01-', 'chord ') + ' · ' + work.base + '* (edited — save to keep)';
-    sel.appendChild(o); sel.value = '__edited';
-  }
 }
 
-// ---- the strip: every chord as a narrow keyboard, cursor = active ----
+// ---- strip ----
 function miniCanvas(id) {
   const c = document.createElement('canvas');
   c.width = 26; c.height = 148;
@@ -228,56 +267,93 @@ function drawStrip() {
   const act = wrap.querySelector('.mini.active');
   if (act) act.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
 }
-let hearTimer = null;
-function selectChord(id, viaKeys) {
+function selectChord(id) {
   currentId = id;
   loadWork(); draw(); drawStrip();
-  if (document.getElementById('autoHear').checked) {
-    clearTimeout(hearTimer);
-    hearTimer = setTimeout(() => playBlast('ord'), viaKeys ? 260 : 60);
-  }
 }
 
-// ---- saves (the taxonomy files itself) ----
+// ---- saves ----
 async function saveVoicing() {
-  if (!work.edited) { document.getElementById('info').textContent = 'nothing edited'; return; }
+  if (!work.edited) { document.getElementById('info').textContent = 'no note edits — baseline unchanged'; return; }
   const base = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches;
   const now = [...work.pitches].sort((a, b) => a - b);
+  const cuivre = [...work.cvConv, ...work.cvAdd].sort((a, b) => a - b);
   const added = now.filter(p => !base.includes(p)).map(nm);
   const removed = base.filter(p => !now.includes(p)).map(nm);
   let desc = work.base + (added.length ? ' + ' + added.join(',') : '') + (removed.length ? ' − ' + removed.join(',') : '');
-  if (work.cuivre.size) desc += ' · cuivre ' + [...work.cuivre].map(nm).join(',');
+  if (cuivre.length) desc += ' · cuivre ' + cuivre.map(nm).join(',');
   desc = prompt('Description for the new voicing:', desc);
   if (desc === null) return;
   if (!SERVER_CHORDS.has(currentId) && BANKS[currentId]) {
-    // first save for this chord: file V1 (as played) so numbering matches the view
     await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'saveVoicing', chord: currentId,
-        desc: 'as played (' + BANKS[currentId].pitches.length + ' pitches)',
-        pitches: BANKS[currentId].pitches }) });
+        desc: 'as played (' + BANKS[currentId].pitches.length + ' pitches)', pitches: BANKS[currentId].pitches }) });
     SERVER_CHORDS.add(currentId);
   }
   const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now, cuivre: [...work.cuivre] }) }).then(x => x.json());
+    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now, cuivre }) }).then(x => x.json());
   if (r.success) {
+    const keepArtic = work.artic;
     await loadTax();
     chosenV[currentId] = r.voicing;
-    loadWork(); draw(); drawStrip();
+    loadWork();
+    work.artic = keepArtic;
+    [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+    draw(); drawStrip();
     document.getElementById('info').textContent = currentId + ' ' + r.voicing + ' filed';
   }
 }
-async function addKeeper() {
-  if (work.edited) { document.getElementById('info').textContent = 'save the voicing first, then keep'; return; }
-  const entry = { chord: currentId, voicing: work.base,
-    pitches: [...work.pitches].sort((a, b) => a - b), cuivre: [...work.cuivre],
-    ordLen: +document.getElementById('ordLen').value, dyn: +document.getElementById('dyn').value };
+async function saveSonority() {
+  if (work.edited) { document.getElementById('info').textContent = 'save the voicing first (note edits are unsaved)'; return; }
+  const list = document.getElementById('listSel').value;
+  const son = { chord: currentId, voicing: work.base,
+    pitches: [...work.pitches].sort((a, b) => a - b),
+    cuivreConverted: [...work.cvConv].sort((a, b) => a - b),
+    cuivreAdded: [...work.cvAdd].sort((a, b) => a - b),
+    artic: Object.fromEntries([...work.artic]),
+    ordLen: +document.getElementById('ordLen').value,
+    dyn: +document.getElementById('dyn').value };
   const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'addKeeper', section: 'INT2', entry }) }).then(x => x.json());
-  if (r.success) document.getElementById('keepCount').textContent = 'INT2: ' + r.count + ' kept';
+    body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
+  if (!r.success) return;
+  let msg = r.id + ' → library';
+  if (list && list !== '__none' && list !== '__new') {
+    const a = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
+    if (a.success) { msg += ' + "' + list + '" (' + a.count + ')'; updateListCount(list, a.count); }
+  }
+  document.getElementById('info').textContent = msg;
+  await loadTax();
+}
+function updateListCount(list, count) {
+  document.getElementById('listCount').textContent =
+    list && list !== '__none' && list !== '__new' ? '"' + list + '": ' + count : '';
+}
+function buildListSel() {
+  const sel = document.getElementById('listSel');
+  const lists = Object.keys((TAX.customLists || {}));
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const none = document.createElement('option');
+  none.value = '__none'; none.textContent = 'library only';
+  sel.appendChild(none);
+  lists.forEach(l => {
+    const o = document.createElement('option');
+    o.value = l; o.textContent = l + ' (' + TAX.customLists[l].length + ')';
+    sel.appendChild(o);
+  });
+  const nw = document.createElement('option');
+  nw.value = '__new'; nw.textContent = '+ new list…';
+  sel.appendChild(nw);
+  const remembered = localStorage.getItem('blastList');
+  if (lists.includes(prev)) sel.value = prev;
+  else if (remembered && lists.includes(remembered)) sel.value = remembered;
+  else if (lists.length) sel.value = lists[0];
 }
 
-let SERVER_CHORDS = new Set(), BANKS = {};
-function mergeBank() {
+async function loadTax() {
+  TAX = (await fetch('/api/taxonomy').then(r => r.json())).tax;
+  SERVER_CHORDS = new Set(Object.keys(TAX.harmonies));
   Object.entries(BANKS).forEach(([id, b]) => {
     TAX.harmonies[id] = TAX.harmonies[id] || { voicings: {}, realizations: [] };
     if (!TAX.harmonies[id].voicings.V1)
@@ -285,17 +361,11 @@ function mergeBank() {
         { V1: { desc: 'as played (' + b.pitches.length + ' pitches)', pitches: b.pitches } },
         TAX.harmonies[id].voicings);
   });
-}
-async function loadTax() {
-  TAX = (await fetch('/api/taxonomy').then(r => r.json())).tax;
-  SERVER_CHORDS = new Set(Object.keys(TAX.harmonies));
-  mergeBank();
+  buildListSel();
 }
 
 // ---- boot ----
 async function boot() {
-  // the strip holds ALL 33 chords: bank V1 (as played) merged under any
-  // taxonomy voicings already filed (in-memory until first save)
   const ids = [];
   for (let i = 1; i <= 33; i++) ids.push('VERT01-' + String(i).padStart(2, '0'));
   const banks = await Promise.all(ids.map(id =>
@@ -307,32 +377,85 @@ async function boot() {
   const z = localStorage.getItem('blastZoom');
   if (z) document.getElementById('zoom').value = z;
   loadWork();
-  document.getElementById('zoom').addEventListener('input', draw);
-  document.getElementById('ordLen').addEventListener('input', () =>
-    document.getElementById('ordLenV').textContent = (+document.getElementById('ordLen').value).toFixed(1) + 's');
-  document.getElementById('dyn').addEventListener('input', () =>
-    document.getElementById('dynV').textContent = document.getElementById('dyn').value);
-  document.getElementById('playFp').addEventListener('click', () => playBlast('fortepiano'));
-  document.getElementById('playStac').addEventListener('click', () => playBlast('staccato'));
-  document.getElementById('playOrd').addEventListener('click', () => playBlast('ord'));
-  document.getElementById('cuivreBtn').addEventListener('click', function () {
-    cuivreLayer = !cuivreLayer; this.classList.toggle('on', cuivreLayer); draw();
+
+  const $ = id => document.getElementById(id);
+  $('zoom').addEventListener('input', draw);
+  $('ordLen').addEventListener('input', () => $('ordLenV').textContent = (+$('ordLen').value).toFixed(1) + 's');
+  $('dyn').addEventListener('input', () => $('dynV').textContent = $('dyn').value);
+  $('playBtn').addEventListener('click', playBlast);
+  const setAll = a => { [...work.pitches].forEach(p => work.artic.set(p, a)); draw(); playBlast(); };
+  $('allOrd').addEventListener('click', () => setAll('ord'));
+  $('allFp').addEventListener('click', () => setAll('fortepiano'));
+  $('allStac').addEventListener('click', () => setAll('staccato'));
+  [['slotC1', 'articC1'], ['slotC2', 'articC2']].forEach(([bid, key]) => {
+    $(bid).addEventListener('click', e => {
+      if (e.shiftKey) {
+        localStorage.setItem(key + ':' + currentId, JSON.stringify([...work.artic]));
+        $(bid).classList.add('on');
+        $('info').textContent = bid.slice(-2) + ' stored (' + currentId + ')';
+      } else {
+        const raw = localStorage.getItem(key + ':' + currentId);
+        if (!raw) { $('info').textContent = bid.slice(-2) + ' empty — SHIFT+click to store'; return; }
+        work.artic = new Map(JSON.parse(raw).filter(([p]) => work.pitches.has(p)));
+        [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+        draw(); playBlast();
+      }
+    });
   });
-  document.getElementById('verSel').addEventListener('change', function () {
-    if (this.value === '__edited') return;
-    chosenV[currentId] = this.value; loadWork(); draw(); drawStrip();
+  $('resetBtn').addEventListener('click', () => { loadWork(); draw(); drawStrip(); });
+  $('verSel').addEventListener('change', function () {
+    chosenV[currentId] = this.value; loadWork(); draw(); drawStrip(); this.blur();
   });
-  document.getElementById('saveV').addEventListener('click', saveVoicing);
-  document.getElementById('keepBtn').addEventListener('click', addKeeper);
+  $('stripToggle').addEventListener('click', function () {
+    const w = $('stripWrap');
+    w.classList.toggle('collapsed');
+    this.textContent = w.classList.contains('collapsed') ? '▼ strip' : '▲ strip';
+    localStorage.setItem('stripCollapsed', w.classList.contains('collapsed') ? '1' : '');
+  });
+  if (localStorage.getItem('stripCollapsed')) { $('stripWrap').classList.add('collapsed'); $('stripToggle').textContent = '▼ strip'; }
+  ['z1', 'z2', 'z3'].forEach(zid => {
+    const stored = localStorage.getItem('zoomSlot:' + zid);
+    if (stored) { $(zid).title = 'stored: ' + stored + 'px/key'; $(zid).classList.add('on'); }
+    $(zid).addEventListener('click', e => {
+      if (e.shiftKey) {
+        const v = $('zoom').value;
+        localStorage.setItem('zoomSlot:' + zid, v);
+        $(zid).title = 'stored: ' + v + 'px/key';
+        $(zid).classList.add('on');
+        $('info').textContent = zid.toUpperCase() + ' = ' + v + 'px/key';
+      } else {
+        const v = localStorage.getItem('zoomSlot:' + zid);
+        if (v) { $('zoom').value = v; draw(); }
+      }
+    });
+  });
+  $('saveV').addEventListener('click', saveVoicing);
+  $('saveSon').addEventListener('click', saveSonority);
+  $('listSel').addEventListener('change', function () {
+    if (this.value === '__new') {
+      const name = prompt('New list name:', 'INT2 blasts');
+      if (name) {
+        TAX.customLists = TAX.customLists || {};
+        TAX.customLists[name] = TAX.customLists[name] || [];
+        buildListSel(); this.value = name;
+      } else this.value = '__none';
+    }
+    localStorage.setItem('blastList', this.value);
+    updateListCount(this.value, ((TAX.customLists || {})[this.value] || []).length);
+    this.blur();
+  });
+
+  // SPACE plays the chord below, always (selects are blurred on use; only a
+  // text field keeps the space). Arrows step the strip from anywhere.
   window.addEventListener('keydown', e => {
-    if (e.target && e.target.matches && e.target.matches('input,select')) return;
+    const t = e.target;
+    if (t && t.tagName === 'INPUT' && t.type === 'text') return;
     const i = CHORD_IDS.indexOf(currentId);
-    if (e.key === 'ArrowRight') { e.preventDefault(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)], true); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); selectChord(CHORD_IDS[Math.max(0, i - 1)], true); }
-    if (e.key === ' ') { e.preventDefault(); playBlast('ord'); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)]); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.max(0, i - 1)]); }
+    if (e.key === ' ') { e.preventDefault(); if (t && t.blur) t.blur(); playBlast(); }
   });
-  const kc = ((TAX.sectionPalettes && TAX.sectionPalettes.INT2) || []).length;
-  if (kc) document.getElementById('keepCount').textContent = 'INT2: ' + kc + ' kept';
+
   draw(); drawStrip(); midiInit();
 }
 boot();

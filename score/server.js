@@ -384,6 +384,32 @@ const server = http.createServer((req, res) => {
                         console.log(`Taxonomy: ${chord} V${n} saved`);
                         return R.json({ success: true, voicing: 'V' + n });
                     }
+                    if (action === 'saveSonority') {
+                        // layer 3: voicing + per-note articulations + cuivre +
+                        // length/dyn -> the BIG library of blast sonorities
+                        const { sonority } = body;
+                        if (!sonority || !sonority.chord) return R.status(400).json({ success: false, error: 'sonority required' });
+                        tax.sonorities = tax.sonorities || {};
+                        let n = 1;
+                        while (tax.sonorities['S' + String(n).padStart(3, '0')]) n++;
+                        const id = 'S' + String(n).padStart(3, '0');
+                        sonority.saved = new Date().toISOString();
+                        tax.sonorities[id] = sonority;
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: sonority ${id} (${sonority.chord})`);
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'addToList') {
+                        // named custom lists (e.g. "INT2 blasts") of sonority ids
+                        const { list, id } = body;
+                        if (!list || !id) return R.status(400).json({ success: false, error: 'list + id required' });
+                        tax.customLists = tax.customLists || {};
+                        tax.customLists[list] = tax.customLists[list] || [];
+                        if (!tax.customLists[list].includes(id)) tax.customLists[list].push(id);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${id} -> list "${list}" (${tax.customLists[list].length})`);
+                        return R.json({ success: true, count: tax.customLists[list].length });
+                    }
                     if (action === 'addKeeper') {
                         const { section, entry } = body;
                         if (!section || !entry) return R.status(400).json({ success: false, error: 'section + entry required' });
