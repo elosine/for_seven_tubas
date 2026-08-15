@@ -124,6 +124,12 @@ container.
   The two belong together — partials 7/11/13/14 are exactly what 12-TET can't
   spell.
 
+**PROJECT PLANNER CREATED (2026-08-14):** `docs/PLANNER.md` is now the
+composer's working view — Section-1 container map (DB1/INT1/DB2 done, **INT2 =
+NOW**, DB3 = longer DB1 next), materials inventory incl. the new
+**pitch-and-catch** concept (swell → gap → attack), Section-2 research list.
+Check it FIRST for "what now / what next".
+
 **NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
 formations for the piece. Then: cressand-family / cressand-pitches verdicts ·
 sl02 Messiaen adds after listening · composer may provide more ostinato sample
