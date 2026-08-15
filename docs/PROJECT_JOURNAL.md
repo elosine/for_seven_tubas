@@ -106,6 +106,18 @@ container.
   only for now.** This is the missing ingredient for 2i.
 - **2k performance score:** robust group rehearsal mode (leader/follower not
   fragile) + a much clearer, simpler entry page. Port-plus-rework from piece #2.
+- **2m macro-form:** the piece alternates **long swells ⇄ choppy sections**.
+  NEXT SECTION = the choppy one (2i blasts/counterpoint); AFTER it, a **longer
+  version of the first swell** — the stretching method is an open question
+  (uniform scale thins the texture; carrier-stretch-plus-density-fill is the
+  likely reading of "longer, same feel").
+- **§7 THE THREE SCORES (architecture):** **composer score** (this app — the
+  composition, all of it) → **notation score** (worked-out performable notation
+  + the composer graphics incl. META; plays without MIDI; hover/click a part to
+  expand it; **each part is one long STRIP** — pagination/screen size is a VIEW
+  on the strip) → **performance score** (strips worked out to play on screen;
+  parts generation for laptops; all animation machinery, robust + synced).
+  All performance thoughts now gather in §7c: mandates M1–M4, 2k, 2j devices.
 - **2l quarter-tones & spectral chords:** use the `quartertones` patch
   (tubaNb ch 2, 30–64) and find spectral chords for the palette; determine the
   patch's mapping first (50-cent-shifted duplicate vs compressed 24-TET map).

@@ -67,6 +67,9 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
 
 ## 3. Performance score — MANDATES (composer, 2026-08-10; bind all future notation work)
 
+*(These belong to §7c — the third of the three scores. See §7 for the
+composer → notation → performance architecture.)*
+
 - **M1 — On-the-fly part multiplication.** 10 base parts; additional independent
   parts generated as variations of a base part at rehearsal time (e.g., 19 parts
   from the 10 for whoever shows up).
@@ -194,6 +197,29 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
     ALIGNED but pitches opposite** (a sustained minor 2nd — the composer's
     sine-wave peak-vs-trough model exactly), while **90° is the interlocked
     hocket** state.
+- **2m — MACRO-FORM: long swells ⇄ choppy sections** *(composer, 2026-08-14)*:
+  the meta-level alternation of the piece — **long swells interspersed with
+  choppier sections**.
+  - **NEXT SECTION = the choppy one** — the 2i material (blast, blast, the
+    counterpoint).
+  - **After that: a LONGER version of the first swell** — open question the
+    composer flagged: *what does that stretching actually look like, and how do
+    we achieve it?*
+  - **The hazard, stated:** we have uniform time-scaling already
+    (`gest2-compress`, ×0.75/×0.5) and it preserves rhythm ratios exactly — but
+    stretching is not symmetric with compressing. Slowing everything drops the
+    event rate, so a stretched swell **thins out** and can fall under the
+    continuity/fusion thresholds we calibrated (finding 15). "Longer" probably
+    does not mean "slower".
+  - **Three candidate strategies to test:**
+    (a) **uniform time scale** — the honest inverse; longer and sparser, feel changes;
+    (b) **carrier stretch + density fill** — stretch the density *arc* but
+        regenerate events so the local event rate holds → longer shape, same
+        texture. Likely the right reading of "longer version, same feel"; the
+        analyzer's carrier fit (`analyze_take.js`) already supplies the arc;
+    (c) **accordion / perceptually-weighted stretch** — stretch the sparse
+        regions more and the apex less (L4's saturation logic), so the climax
+        keeps its density while the approach lengthens.
 - **2l — QUARTER-TONES & SPECTRAL CHORDS** *(composer, 2026-08-14)*: use the
   **quarter-tones** available on every tuba (`quartertones` = "Quartertones
   Ordinario", `tubaNb` **ch 2**, range 30–64) and **find spectral chords** for
@@ -214,13 +240,49 @@ score is still unbuilt (was piece #3's next slice — build here when needed).
     chord is the Grisey-lineage version of that section's opening move. Also
     partly covers the shelved raga-intonation note without needing pitch-bend
     support in the engine.
-- **2k — PERFORMANCE SCORE: group rehearsal mode + entry page** *(composer,
+- **2k — PERFORMANCE SCORE: group rehearsal mode + entry page** *(belongs to §7c
+  — all performance thoughts gather there)* *(composer,
   2026-08-14)*: build a **group rehearsal mode** that is robust and **not
   fragile about which instance is the leader score and which are followers**;
   and **rework the splash/entry page** so it's far clearer and simpler what
   you're doing and how to do it. *State:* piece #4 has only the composer app +
   sandbox so far — the performer app is the piece-#2 `public/index.html`
   lineage, so this is a port-plus-rework, not an edit in place.
+
+## 7. THE THREE SCORES — architecture (composer, 2026-08-14)
+
+*Three sequential artifacts, each feeding the next. This supersedes any
+assumption that notation and performance live inside the composer app.*
+
+**7a — COMPOSER SCORE** — `doing` (this app, :5200). **The composition itself**
+— everything is contained here. Phase 1; the other two begin when it's done.
+
+**7b — NOTATION SCORE** — `todo` (phase 2). The actual **worked-out,
+performable notation**, and at the same time it **carries the composer score's
+graphics — including the META layer**.
+- **Plays like the composer score, but without the MIDI.**
+- **Hover / click a tuba part → it expands into full notation** — a version of
+  what you'd see in the final performance score.
+- **The strip model (the key data decision):** each part's notated version is a
+  **single long strip** — a continuous tape (Turing-machine-tape metaphor) that
+  scrolls through time, or that you scroll through.
+- **Therefore pagination is a VIEW, not a property of the notation.** You cut the
+  strip any which way: different paper size = a different window on the strip;
+  different screen size = likewise; any segment can be excerpted. One source of
+  truth per part, many renderings.
+
+**7c — PERFORMANCE SCORE** — `todo` (phase 3). Takes those strips and works them
+out to **play on screen in performance**.
+- **Parts generation for the laptop versions.**
+- **All the animation machinery — robust and synced.**
+- **Gathers every performance thought** (composer's instruction, 2026-08-14):
+  - **§3 mandates M1–M4** — on-the-fly part multiplication · family adaptation ·
+    env-release notation devices · rapid-staccato notation (vertical-line
+    attacks + bouncing ball).
+  - **2k** — group rehearsal mode that is robust about which instance is leader
+    vs follower, and a much clearer/simpler entry page.
+  - **2j** — the tremolo sine figure and its animation options (ball tracing the
+    wave / wave fill), since those are performance-facing devices.
 
 ## Parking lot
 
