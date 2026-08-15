@@ -44,11 +44,18 @@
   <span id="selInfo" class="hint">drag on the roll to select</span>
   <button id="selClear" title="clear the selection">clear sel</button>
   <button id="snipSave" title="save the selection as a snippet (a pointer — cheap, disposable)">&#10549; snippet</button>
+  <span class="hint">|</span>
+  <button id="zoomIn" title="zoom in (or ALT+wheel on the roll)">+</button>
+  <button id="zoomOut" title="zoom out">&#8722;</button>
+  <button id="zoomFit" title="fit the whole cluster">fit</button>
   <span style="flex:1 1 auto"></span>
   <span class="hint" id="midiStatus">midi: &#8230;</span>
 </div>
 
-<canvas id="roll" width="1600" height="340"></canvas>
+<div id="rollWrap" style="position:relative">
+  <canvas id="roll" width="1600" height="340"></canvas>
+  <div id="playCursor" style="position:absolute; top:0; bottom:0; width:0; border-left:1.5px solid #ffd479; display:none; pointer-events:none"></div>
+</div>
 
 <div class="chiprow" id="snips"></div>
 
@@ -141,13 +148,15 @@ let selSnip = null;                 // active snippet id (highlight only)
 // non-destructive transform state — always recomputed from the source
 let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 };
 const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100 });
+// view window: pxPerSec = null means fit-whole-cluster; viewT0 = left edge (s)
+let pxPerSec = null, viewT0 = 0;
 
 const $ = id => document.getElementById(id);
 
 // ---- the transform pipeline ----
 function sourceEvents() {
   if (!cur || !BANK.clusters[cur]) return [];
-  let ev = BANK.clusters[cur].events;
+  let ev = BANK.clusters[cur].events.map(e => ({ ...e, srcT: e.t, srcP: e.p }));
   if (sel) {
     ev = ev.filter(e => e.t >= sel[0] && e.t <= sel[1]);
     const t0 = ev.length ? Math.min(...ev.map(e => e.t)) : 0;
@@ -192,6 +201,16 @@ function viewEvents() {
 const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d)))) : 0;
 
 // ---- piano roll ----
+const rollSpan = () => cur ? Math.max(BANK.clusters[cur].span, 0.5) : 1;
+function fitPps() { return ($('roll').clientWidth - 16) / rollSpan(); }
+function pps() { return pxPerSec || fitPps(); }
+function clampView() {
+  const maxT0 = Math.max(0, rollSpan() - ($('roll').clientWidth - 16) / pps());
+  viewT0 = Math.max(0, Math.min(maxT0, viewT0));
+}
+const rollX = t => 8 + (t - viewT0) * pps();
+const rollTimeAt = x => viewT0 + (x - 8) / pps();
+const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100;
 function drawRoll() {
   const cv = $('roll'), ctx = cv.getContext('2d');
   cv.width = cv.clientWidth * devicePixelRatio;
@@ -200,15 +219,18 @@ function drawRoll() {
   const W = cv.clientWidth, H = cv.clientHeight;
   ctx.clearRect(0, 0, W, H);
   if (!cur) return;
+  clampView();
   const cl = BANK.clusters[cur];
-  const full = cl.events, span = Math.max(cl.span, 0.5);
-  const X = t => 8 + (W - 16) * t / span;
+  const X = rollX;
   const Y = p => H - 14 - (H - 28) * (p - LO) / (HI - LO + 4);
   // second ruler
   ctx.fillStyle = '#3a3a40'; ctx.font = '9px Consolas';
-  for (let s = 0; s <= span; s++) {
+  const visSpan = (W - 16) / pps();
+  const step = visSpan > 40 ? 5 : 1;
+  for (let s = Math.floor(viewT0); s <= viewT0 + visSpan + 1; s++) {
+    if (X(s) < 0 || X(s) > W) continue;
     ctx.fillRect(X(s), 0, 1, H);
-    if (s % (span > 30 ? 5 : 1) === 0) ctx.fillText(s + 's', X(s) + 2, 10);
+    if (s % step === 0) ctx.fillText(s + 's', X(s) + 2, 10);
   }
   // selection band
   if (sel) {
@@ -217,18 +239,35 @@ function drawRoll() {
     ctx.strokeStyle = '#3FA7B8';
     ctx.strokeRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
   }
-  // events: dim outside selection; velocity = size
-  for (const e of full) {
+  const dot = (x, y, r, color) => { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); };
+  const techColor = tech => tech === 'fortepiano' ? '#c9986e' : tech === 'ord' ? '#8ea9c9' : '#ffd479';
+  const transformed = trActive();
+  // pass 1: every source event — dim if outside the selection, ghosted if transforms are active
+  for (const e of cl.events) {
     const inSel = !sel || (e.t >= sel[0] && e.t <= sel[1]);
+    const x = X(e.t);
+    if (x < -4 || x > W + 4) continue;
     const r = 1.2 + 2.6 * e.v / 127;
-    ctx.fillStyle = inSel ? (e.tech === 'fortepiano' ? '#c9986e' : e.tech === 'ord' ? '#8ea9c9' : '#ffd479')
-                          : 'rgba(150,150,150,0.25)';
-    ctx.beginPath();
-    ctx.arc(X(e.t), Y(e.p), r, 0, 7);
-    ctx.fill();
+    dot(x, Y(e.p), r, !inSel ? 'rgba(150,150,150,0.25)'
+      : transformed ? 'rgba(150,150,150,0.35)' : techColor(e.tech));
+  }
+  // pass 2: when transforms are active, THE SOUND — bright dots at the source
+  // position but the transformed pitch (what you see = what plays)
+  if (transformed) {
+    for (const e of viewEvents()) {
+      const sx = X(e.srcT);
+      if (sx < -4 || sx > W + 4) continue;
+      const r = 1.4 + 2.6 * e.v / 127;
+      dot(sx, Y(e.p), r, techColor(e.tech));
+      if (e.p !== e.srcP) {   // remap trace: a faint tick at the original pitch
+        ctx.strokeStyle = 'rgba(63,167,184,0.35)';
+        ctx.beginPath(); ctx.moveTo(sx, Y(e.srcP)); ctx.lineTo(sx, Y(e.p)); ctx.stroke();
+      }
+    }
   }
   $('info').textContent = cur + ': ' + cl.n + ' notes / ' + cl.span.toFixed(1) + 's' +
-    (sel ? ' — sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's (' + sourceEvents().length + 'n)' : '');
+    (sel ? ' — sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's (' + sourceEvents().length + 'n)' : '') +
+    (transformed ? trDesc() : '');
 }
 
 // selection drag (horizontal only)
@@ -237,9 +276,22 @@ function drawRoll() {
   let dragging = false, startT = 0;
   const timeAt = e => {
     const r = cv.getBoundingClientRect();
-    const span = cur ? Math.max(BANK.clusters[cur].span, 0.5) : 1;
-    return Math.max(0, Math.min(span, (e.clientX - r.left - 8) / (r.width - 16) * span));
+    return Math.max(0, Math.min(rollSpan(), rollTimeAt(e.clientX - r.left)));
   };
+  cv.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (e.altKey) {
+      // zoom anchored at the mouse position
+      const r = cv.getBoundingClientRect();
+      const anchorT = rollTimeAt(e.clientX - r.left);
+      const f = e.deltaY < 0 ? 1.18 : 1 / 1.18;
+      pxPerSec = Math.max(fitPps() * 0.5, Math.min(Math.max(600, fitPps() * 10), pps() * f));
+      viewT0 = anchorT - (e.clientX - r.left - 8) / pxPerSec;
+    } else {
+      viewT0 += (e.deltaY || e.deltaX) / pps();
+    }
+    drawRoll();
+  }, { passive: false });
   cv.addEventListener('mousedown', e => { if (!cur) return; dragging = true; startT = timeAt(e); });
   cv.addEventListener('mousemove', e => {
     if (!dragging) return;
@@ -291,7 +343,40 @@ function assignPlayers(ev) {
     return { ...e, player: k };
   });
 }
+let cursorTimer = null, playT0 = null, playSpanS = 0;
+function stopCursor() {
+  if (cursorTimer) clearInterval(cursorTimer);
+  cursorTimer = null; playT0 = null;
+  $('playCursor').style.display = 'none';
+}
+function startCursor(spanS) {
+  stopCursor();
+  playT0 = performance.now();
+  playSpanS = spanS;
+  const cv = $('roll');
+  cursorTimer = setInterval(() => {
+    if (playT0 === null) return;
+    const played = (performance.now() - playT0) / 1000;
+    if (played > playSpanS + 0.3) return stopCursor();
+    // inverse of the time transforms: played -> source (selection-local) time
+    let srcLocal = played / TR.stretch;
+    if (TR.reverse) {
+      const ev = sourceEvents();
+      const S = ev.length ? Math.max(...ev.map(e => e.t)) : 0;
+      srcLocal = S - srcLocal;
+    }
+    const rollT = (sel ? sel[0] : 0) + srcLocal;
+    const x = rollX(rollT);
+    const cu = $('playCursor');
+    if (x < 0 || x > cv.clientWidth) { cu.style.display = 'none'; }
+    else {
+      cu.style.display = 'block';
+      cu.style.left = x + 'px';
+    }
+  }, 33);
+}
 function stopAll() {
+  stopCursor();
   pending.forEach(clearTimeout);
   pending = [];
   for (let i = 1; i <= 10; i++) for (const sub of ['', 'b']) {
@@ -315,7 +400,9 @@ function play() {
       pending.push(setTimeout(() => out.send([0x80 | ch, e.p, 0]), holdMs));
     }, e.t * 1000));
   }
-  $('info').textContent = 'playing ' + ev.length + ' notes / ' + viewSpan(ev).toFixed(1) + 's' + trDesc();
+  const spanS = viewSpan(ev);
+  startCursor(spanS);
+  $('info').textContent = 'playing ' + ev.length + ' notes / ' + spanS.toFixed(1) + 's' + trDesc();
 }
 function trDesc() {
   const bits = [];
@@ -491,6 +578,7 @@ async function store() {
 // ---- wiring ----
 function setCluster(id, clearSel = true) {
   cur = id;
+  pxPerSec = null; viewT0 = 0;
   $('clSel').value = id;
   if (clearSel) { sel = null; selSnip = null; }
   TR = trDefault();
@@ -522,6 +610,19 @@ async function loadBank() {
   if (keep && BANK.clusters[keep]) s.value = keep;
 }
 
+$('zoomIn').addEventListener('click', () => {
+  const mid = viewT0 + ($('roll').clientWidth - 16) / pps() / 2;
+  pxPerSec = Math.min(Math.max(600, fitPps() * 10), pps() * 1.5);
+  viewT0 = mid - ($('roll').clientWidth - 16) / pxPerSec / 2;
+  drawRoll();
+});
+$('zoomOut').addEventListener('click', () => {
+  const mid = viewT0 + ($('roll').clientWidth - 16) / pps() / 2;
+  pxPerSec = Math.max(fitPps() * 0.5, pps() / 1.5);
+  viewT0 = mid - ($('roll').clientWidth - 16) / pxPerSec / 2;
+  drawRoll();
+});
+$('zoomFit').addEventListener('click', () => { pxPerSec = null; viewT0 = 0; drawRoll(); });
 $('clSel').addEventListener('change', function () { this.blur(); setCluster(this.value); play(); });
 $('playBtn').addEventListener('click', play);
 $('stopBtn').addEventListener('click', stopAll);
