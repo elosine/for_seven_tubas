@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ INT2 ▸ **Blasts** ▸ *score insertion ("INT2 blasts" list done)*
+**NOW ►** Section 1 ▸ INT2 ▸ **placing material in piece-s09** ▸ *4 blasts in (81.7–88.5 s); next: more blasts / clusters, then the texture arc*
 
 ---
 
@@ -82,7 +82,12 @@ reusable articulation sets · realizations · INT2 keepers).*
 - [ ] Choose **how many players** per blast (subset blasts — a couple of
       textures overlapped, but keep the section intermittent / pointillistic)
 - [ ] Keepers → the INT2 section palette (app palette menu on request)
-- [ ] **Insertion into the composer score** *(◄ currently here)*: sonority
+- [x] **Insertion into the composer score** — Blasts strip built; blasts land
+      at the playhead with measured one-shot lengths (fixed articulations are
+      immune to stretching). **First four placed in piece-s09.**
+- [ ] Continue placing INT2 material (blasts + pointillistic clusters), then
+      shape the texture arc: spaced articulations → overlapping counterpoint
+- [ ] *(superseded detail)* sonority
       strip in the composer app — flip/audition/insert-at-cursor; blasts arrive
       as 10-part groups with META shapes built at insert time; ord length stays
       draggable (group scaling). **Reorchestration = AI prompts** on the

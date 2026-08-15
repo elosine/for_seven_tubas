@@ -10,30 +10,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**Last session:** *2026-08-11 (day 2, Claude Code) — the calibration day*
-- **Independent batch:** Penn State research (**deadline Sept 4, 2026**; 10 parts
-  + M1 fits the call) · 10-part expansion + floating META draw window + grain-edit
-  suite + Roads env catalog (DB 027) · automation eval (AUTOMATION_EVAL.md; UVI
-  deferred-until-bites; tuba 8–10 hardware now UP) · engine framework
-  (ENGINE_FRAMEWORK.md: seeded renders, ladder batteries, span test, validated
-  tweak analyzer).
-- **PASS 2 COMPLETE (live sitting, OC→DH1–DH5):** LAW L4 carved (×2.75 category
-  spacing; both-ends saturation; 4 duration categories) · anti-clump machinery
-  (maxShortRun, short→mid conversion, run-breaking longs) · **RECIPE MAXDENSE-1
-  (DB 035)** · finding 14 (apex-stack loudness) · keeper-excerpt practice.
-- **Grain-type pass OPENED (PLAN 2c):** env-catalog regenerated at tier durs
-  (0.8/2.2/4.5) · dh5a-pitchfields = unison/chromatic/quartal down one timeline,
-  same seed (engine additions: `spec.t0`, `spec.notes`).
-
-**Open at session end (awaiting composer listen):** env-catalog elimination pass
-(8 shapes; per-shape tier calibration suspected) · dh5a-pitchfields verdicts
-(mass identity off-unison? finding-14 × real intervals) · `surge` naming still
-unconfirmed.
-
-**Next up:** grain-type verdicts → envelope-species mix pass (sequence-alternation
-hypothesis applies) · four-pass plan pass 3 (least dense — DH2 gap-distribution
-hypothesis waits there) + pass 4 (gradations) · level-scatter A/B (finding 13) ·
-P3 release-vocabulary session.
+**Day 2 (2026-08-11):** the calibration day — Penn State research (deadline **Sept 4, 2026**); 10-part expansion, floating META window, grain suite, Roads env catalog; LAW L4 + anti-clump machinery + **RECIPE MAXDENSE-1** (DB 035); finding 14; grain-type pass opened.
 
 **Day 1 (2026-08-10, compressed):** stack seeded from piece #3 · SI2 roster,
 dual-port D2 · CC7 law + gain staging calibrated · research arc: laws L1–L3,
@@ -45,96 +22,68 @@ approved provisional.
 COMPOSER_LOG.md (verbatim). Server: `node score/server.js` (:5200). Score archive
 in the Load dropdown.
 
-**Session end (2026-08-12, day 3 — remote workflow + the density arc + containers):**
-- **CRD remote listening LIVE** (REMOTE_AUDITION.md; whole day driven remotely).
-- **Species settled for now:** kept {sine, expodec, surge}; standing mix
-  {.70/.21/.09}, alt species short+mid tiers only; all CC7 (KS-sampled surge
-  shelved as option); env research deferred.
-- **THE DENSITY ARC (dens1–10) → DB 044:** finding 15 (count-regime law, fusion
-  ceiling) · apex-scramble bug fixed (peak-anchored law) · accelerando scheduler
-  (composer-designed) · one-dial curve RE-CENTERED to composer's ear · level
-  carries climax (12b/13 resolved) · RECIPE BUILD-1 (provisional; dens10 unheard).
-- **CONTAINERS begun (DB 045):** v1 Density Build stamp (dur + curvature
-  diamond); cont-build-001 awaiting shaping; NAMING.md adopted
-  (cont-* / piece-s* / archive).
-- Per-part SOLO buttons; engine additions: anchor 'peak', accel{curve, ramped
-  noiseSigma, levelRamp, levelCurve}, envMixRamp points, altTiersMax.
+**Day 3 (2026-08-12):** CRD remote listening live; species settled {sine, expodec, surge} with the standing mix; **THE DENSITY ARC → DB 044** (finding 15 count-regime law, apex-scramble fix/peak-anchored law, accelerando scheduler, one-dial curve re-centered, level-carries-climax, RECIPE BUILD-1); containers begun (DB 045); NAMING.md adopted.
 
-**Open at session end:** composer shapes cont-build-001 → AI fills via BUILD-1
-(dur→span, curvature→accel.curve) — THE NEXT WORKING STEP · dens10 verdict
-(levelCurve value) outstanding · piece-s01 assembly follows the first filled
-container.
+**Session end (2026-08-13, day 4):** piece assembly began (piece-s01->s07c, movable META group shapes via groupId); harmony palette + pairing ledger; GESTURE-2 banked + compression study; the cressand research (rise-as-nucleus, 26.5 dB clarity margin, margin-solved tapers, `cressand-family`); ostinato engine ported from piece #2 (`ost01-variety`); app safety (Clear-All forks, no-store + buildTag, cuivre C-key palette).
 
-**Session end (2026-08-13, day 4 — "a very productive day": the piece begins + two texture families):**
-- **PIECE ASSEMBLY LIVE (piece-s01→s07c):** opening + five gestures inserted, every
-  gesture a **movable META group shape** (`groupId`: body-drag = move; edge node /
-  green box / panel = time-scale members). Composer drags verified in the wild.
-  Latest state: GESTURE-2 ×0.75 at 50 s reharmonized m6-on-F (s07c).
-- **Harmony world:** palette + pairing ledger (GESTURES.md) — chord shortlist,
-  BbE-2oct, four 7-note chromatic clusters, m7/m4 picks; pinned pairings B2×BbE ·
-  M×5ths-30 · L2×spread; audition scores sl01/sl02, harmony-blasts, pairs01.
-- **GESTURE-2 BANKED** (A2 take → A1 treatment → composer edits; #4E7A9B) +
-  compression study (gest2-compress: uniform time-scaling, ×0.75/×0.5).
-- **OVERLAPPING-CRESCENDO RESEARCH (cressand-01…17):** rise = the pulse nucleus
-  (first-class dial) · **26.5 dB peak-to-bed margin calibrated from composer
-  verdicts** · margin-SOLVED tapers · min-gap 0.44 pinned, backwards chain
-  construction · compression floor found (chain D ≈ uniform pulse) ·
-  **`cressand-family` = the reference** (7 chains) · `cressand-pitches` (7 pitch
-  strategies incl. 11-pc tone row, Raga Bhairav 12-TET).
-- **OSTINATO ENGINE PORTED from piece #2** (the played timing tables →
-  bank/ostinato_timing_db_2p2p.json; curve-lookup algorithm in tools/ost_variety.js).
-  **`ost01-variety` = 8-formation listening exercise** (quartet/sextet/ten,
-  simultaneous waves at different speeds, accretive 2→10, decretive 10→2).
-- **App safety day:** Clear-All forks to new name · save-name collisions
-  auto-suffix · Cache-Control no-store + visible **buildTag** (b16-boxscale) ·
-  cuivre palette (C key, hover-preview) · ALT-scroll zoom flipped · gest1-pitches
-  RESTORED from git (autosave clobber caught).
-- **Lesson banked (memory):** wire interaction features into ALL mutation paths
-  (body/node/box/panel); off-grid values fingerprint which path the composer uses.
+**Session end (2026-08-15, day 6 - the blast pipeline, end to end):**
+- **piece-s09 SHIPPED (88.5 s)** - opening build - CLOUD02-I/D - fp + ord blasts -
+  GESTURE-2 x0.75 (m6 on F) - and INT2's first four sonority blasts: S009 ch03 V2
+  (81.75) - S035 ch13 V2 (84.61) - S047 ch28 V3 (85.38) - S010 ch03 V2 (86.58).
+  First piece save promoted through the new working-copy flow.
+- **BLAST SANDBOX** (`/chordview.html`), built end to end: strip of all 33 chords
+  (arrow-step + auto-hear), version menu as the pivot, click-to-edit keyboard,
+  always-on cuivre layer distinguishing added vs converted, per-note articulation
+  (dot-cycling) + C1/C2 mix slots, zoom presets, real per-player Web-MIDI audition.
+- **THE THREE-TIER TAXONOMY IS LIVE** (`docs/TAXONOMY.md`, `bank/blast_taxonomy.json`):
+  chord -> voicings (V-numbers, PITCH SET only) -> sonorities (S-numbers: voicing +
+  per-note articulation + cuivre + length + dyn, content-deduped) -> named custom
+  lists. **48 sonorities; "INT2 blasts" = 47.** Cuivre is CHORD-level articulation,
+  never a voicing change; manual thinning is stored as that voicing's cuivre
+  arrangement. Chord SUBSETS filter the strip without touching the main 33.
+- **INSERTION:** Blasts strip in the composer score (list menu, mini-keyboards
+  labelled by CHORD number, description readout, arrow-stepping, audition) ->
+  insert at the playhead as a 10-part group + META shape built at insert time.
+  Blast shapes are orchid #C452B5 (three greens on the META lane were unreadable).
+- **SAMPLE-LENGTH SURVEY - the day's research result.** Probe + analyzer, 80 notes,
+  0 silent, drift <= 30 ms. **fp, cuivre and staccato are all FIXED one-shots**
+  with the multisample sawtooth the cresc patch showed: fp 1.35-2.22 s, cuivre
+  0.99-1.35 s, staccato 0.33-0.53 s (`docs/SI2_oneshot_lengths.md`,
+  `docs/SI2_staccato_lengths.md`; tables in `bank/sample_lengths.json`).
+  **Consequence, wired into insert + playback + all three group-scaling paths:
+  ORD is the only real duration** - fixed articulations take their true sample
+  length and are IMMUNE to stretching (they translate, never scale). Inserted fp
+  blasts had been drawn at 3.0 s while the sound died at ~1.7 s. (PLAN 2n)
+- **SAVE SYSTEM reworked:** Piece menu (piece-*, natural-sorted) vs Scores menu;
+  **working copies** protect the canonical piece from autosave (the boot path was
+  writing straight into the piece file - fixed); "Save as next" promotes; "Variant"
+  saves lettered siblings; "Restore" surfaces the version snapshots; the session
+  field colour-codes protected vs direct edit.
+- App fixes: group-aware delete (a META shape takes its parts with it) - blast
+  strip layering (was rendering behind the lane container) - strip pushes the
+  score down instead of covering it - ALT-scroll zoom direction - time/zoom
+  readouts retired into the floating bubble (hover = px/s, double-click = reset).
+- **Paper:** `docs/PAPER_NOTES.md` opened - title **"Composition by Kobayashi"**
+  + 6 subtitle candidates, the Kobayashi thesis (bespoke reframing of materials),
+  the six-pass method, deferred notation, and the stance on AI (not the headline:
+  fluidity + transparency). Verbatim dictation in COMPOSER_LOG.
+- **PROJECT PLANNER** (`docs/PLANNER.md` + `/planner.html`): the collapsible
+  sieve - section -> container -> gesture -> decisions, to-dos per tier, NOW
+  breadcrumb. Check it FIRST for "what now / what next".
 
-**COMPOSER NOTES (2026-08-14) — three items banked as PLAN 2i / 2j / 2k:**
-- **2i counterpoint section:** long crescendos in the banked harmonies + the
-  cressand accel chains + blast interjections + tremolo, against each other.
-  Sketch: cres-on-chord → blast, blast → long accel chain with the chord
-  round-robin/interspersed with tremolos · plus a pointillistic section with
-  ordinario blasts **spatialized 1 → 10**.
-- **2j tremolo notation & phase shifting:** sine-wave figure (peak/trough = which
-  note), phase-shifted between players for real ensemble phase shifting;
-  research the rapid-tremolo perceptual limit → alternating/interlocking
-  strategy; irregular tremolos (ball tracing the wave / wave fill / both);
-  **sine humps follow the human-sampled ostinato timing — irregular in TIME
-  only for now.** This is the missing ingredient for 2i.
-- **2k performance score:** robust group rehearsal mode (leader/follower not
-  fragile) + a much clearer, simpler entry page. Port-plus-rework from piece #2.
-- **2m macro-form:** the piece alternates **long swells ⇄ choppy sections**.
-  NEXT SECTION = the choppy one (2i blasts/counterpoint); AFTER it, a **longer
-  version of the first swell** — the stretching method is an open question
-  (uniform scale thins the texture; carrier-stretch-plus-density-fill is the
-  likely reading of "longer, same feel").
-- **§7 THE THREE SCORES (architecture):** **composer score** (this app — the
-  composition, all of it) → **notation score** (worked-out performable notation
-  + the composer graphics incl. META; plays without MIDI; hover/click a part to
-  expand it; **each part is one long STRIP** — pagination/screen size is a VIEW
-  on the strip) → **performance score** (strips worked out to play on screen;
-  parts generation for laptops; all animation machinery, robust + synced).
-  All performance thoughts now gather in §7c: mandates M1–M4, 2k, 2j devices.
-- **2l quarter-tones & spectral chords:** use the `quartertones` patch
-  (tubaNb ch 2, 30–64) and find spectral chords for the palette; determine the
-  patch's mapping first (50-cent-shifted duplicate vs compressed 24-TET map).
-  The two belong together — partials 7/11/13/14 are exactly what 12-TET can't
-  spell.
+**Open at session end (2026-08-15):** INT2 continues in **piece-s09** - four
+blasts placed, the section's texture arc (spaced articulations -> overlapping
+counterpoint) still to be realised; pointillistic clusters chosen but not placed;
+the morphing crescendo not started (its gate is the quarter-tone patch mapping
+test, PLAN 2l). Blast reorchestration is by AI prompt, by design - nothing built.
+`ost01-variety` still unheard; cressand-family / cressand-pitches verdicts still
+outstanding; sl02 Messiaen adds pending a listen.
 
-**PROJECT PLANNER CREATED (2026-08-14):** `docs/PLANNER.md` is now the
-composer's working view — Section-1 container map (DB1/INT1/DB2 done, **INT2 =
-NOW**, DB3 = longer DB1 next), materials inventory incl. the new
-**pitch-and-catch** concept (swell → gap → attack), Section-2 research list.
-Check it FIRST for "what now / what next".
-
-**NEXT SESSION, FIRST THING:** listen to `ost01-variety` → narrow the ostinato
-formations for the piece. Then: cressand-family / cressand-pitches verdicts ·
-sl02 Messiaen adds after listening · composer may provide more ostinato sample
-tables (interpolation/combination strategy = standing to-do) · piece continues
-from s07c.
+**NEXT SESSION, FIRST THING:** open `piece-s09` from the Piece menu (it opens a
+protected working copy) and keep placing INT2 material - more blasts from the
+"INT2 blasts" list plus the pointillistic clusters - then shape the texture arc.
+Queued behind it: listen to `ost01-variety`; cressand verdicts; the quarter-tone
+mapping test that unblocks the morphing crescendo.
 
 **Blockers:** none.
 
@@ -208,6 +157,35 @@ from s07c.
   *(Extends P4's generate→tweak→reverse-analyze loop to the whole piece;
   the containers (2e) are the vehicle.)*
 
+- **D9** *(2026-08-15)* — **ORD is the only real duration; the other articulations
+  are fixed one-shots.** Measured probe over 80 notes: fortepiano (1.35–2.22 s),
+  cuivre (0.99–1.35 s) and staccato (0.33–0.53 s) all end themselves, with the
+  multisample sawtooth (length shrinks as transposition rises within a group, then
+  jumps). Therefore an inserted note of those techniques takes its **true sample
+  length** from `bank/sample_lengths.json`, and is **immune to group scaling** — it
+  translates with the gesture but never stretches. *Why:* blocks were being drawn
+  at 3.0 s while the sound died at ~1.7 s, so the notation was lying about the
+  sound; and proportional scaling was shrinking cuivre for no acoustic reason.
+  *Rejected:* one constant per articulation (the sawtooth is audible at the
+  register extremes), and estimating instead of measuring (a 5-minute probe settled
+  what an afternoon of guessing would not).
+- **D10** *(2026-08-15)* — **The piece file is opened through a WORKING COPY.**
+  Selecting a `piece-*` save diverts the session to `piece-sNN-work`; autosave
+  writes there and the canonical file is never mutated. "Save as next" promotes to
+  the next number; "Variant" saves lettered siblings. *Why:* the composer's actual
+  workflow is "load the latest, work, save as new", but autosave was silently
+  rewriting the file that was loaded — a mistake had no floor beneath it.
+  *Rejected:* disabling autosave (loses work), and snapshot-on-load alone (safety
+  would depend on remembering to act).
+- **D11** *(2026-08-15)* — **The blast taxonomy's three tiers are fixed:** chord →
+  **voicing** (pitch set ONLY) → **sonority** (voicing + per-note articulation +
+  cuivre + length + dyn), with named custom lists as the section-level selection.
+  **Cuivre is chord-level ARTICULATION** (brass colour), never a voicing change,
+  and never records as a pitch-content edit. *Why:* the composer's model — "you
+  hear the brassiness more than anything" — and it keeps voicings comparable
+  across articulations. Manual thinning (to respect the 10-player limit) is stored
+  as that voicing's cuivre *arrangement*, not as a new voicing.
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -223,5 +201,9 @@ from s07c.
 - *(2026-08-12)* **Try PLAYING some of the shapes** — as another way to collect
   data models (performed shapes = ground truth for D6's harvest; ties to D3's
   performer-model question; the Stereo-Mix capture path from the probes could
-  record it).
+  record it).  **DONE 2026-08-13/14** — A1-5, A2-hp-whole,
+  cluster_samples_01, clusterClouds02 and vertical_shapes_01 were all played in
+  and banked; the play-in pipeline (2f) runs on them.
+- *(2026-08-15)* **Composer break taken mid-session** — piece-s09 is the live
+  state; nothing is half-written.
 

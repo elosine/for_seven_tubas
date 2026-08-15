@@ -149,10 +149,21 @@ composer → notation → performance architecture.)*
   ost_variety.js) — `ost01-variety` = the 8-formation listening exercise,
   FIRST THING NEXT SESSION. Remaining planned: pointillistic-mass takes,
   varied repetition as form.
-- **2h — PIECE ASSEMBLY** — `doing 2026-08-13` — piece-s01…s07c: opening
+- **2h — PIECE ASSEMBLY** — `doing 2026-08-15` — **piece-s09 (88.5 s)** — piece-s01…s07c: opening
   (GESTURE-1) + 5 inserted gestures, all with movable/stretchable META group
   shapes (groupId; drag=move, edge/box/panel=scale); latest: GESTURE-2 ×0.75
   at 50 s, reharmonized m6 on F# (s07b) then F (s07c).
+
+- **2n — ONE-SHOT SAMPLE LENGTHS** — `done 2026-08-15` — probe + analyzer over
+  80 notes: **fortepiano, cuivre and staccato are all FIXED one-shots** (the
+  sample ends itself), with the same multisample sawtooth the cresc patch showed.
+  fp 1.35–2.22 s · cuivre 0.99–1.35 s · staccato 0.33–0.53 s. Tables:
+  `bank/sample_lengths.json`; surveys in `docs/SI2_oneshot_lengths.md` +
+  `docs/SI2_staccato_lengths.md`. **Consequence (wired into insert, playback and
+  all three group-scaling paths): ORD is the only real duration** — fixed
+  articulations take their true sample length and never stretch, they only
+  translate. *Why it mattered:* inserted fp blasts were drawn at 3.0 s while the
+  sound died at ~1.7 s — the block was lying by nearly 2×.
 
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
