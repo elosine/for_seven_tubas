@@ -4322,7 +4322,22 @@ const Composer = {
             this.markDirty();
         } else {
             // Multi-delete: remove every selected object (or just the primary if no multi-sel)
-            const targets = this.selectedObjects.length > 0 ? this.selectedObjects.slice() : [this.selectedObject];
+            let targets = this.selectedObjects.length > 0 ? this.selectedObjects.slice() : [this.selectedObject];
+            // deleting a gesture's META shape deletes the whole gesture (composer
+            // 2026-08-14: the shape IS the handle, so its parts must go with it)
+            const groups = new Set(targets.filter(o => o && o.groupId && o.layer === META_LAYER).map(o => o.groupId));
+            if (groups.size) {
+                const members = this.objects.filter(o => groups.has(o.groupId));
+                const notes = members.filter(o => o.type === 'waveCurve' && o.layer < META_LAYER).length;
+                if (notes && !confirm('Delete the whole gesture? (' + notes + ' parts + marker + shape)\n\n' +
+                    'Cancel = delete only the shape, leaving the parts')) {
+                    groups.clear();
+                }
+                if (groups.size) {
+                    const have = new Set(targets);
+                    members.forEach(m => { if (!have.has(m)) targets.push(m); });
+                }
+            }
             this.pushUndoState();
             for (const obj of targets) {
                 if (!obj) continue;

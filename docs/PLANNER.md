@@ -169,7 +169,7 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   maybe extra long grains); INT2 = blasts + harmonically morphing crescendo
   (gliss→quarter-tones or legato, simple→complex timbre) + subset blasts;
   Section 2 after research; pitch-and-catch defined; "density buildup" adopted.
-- **2026-08-14 — noted cursor time: 81.73** (piece-s08, during INT2 blast
+- **2026-08-14 — noted cursor times: 81.73, 86.57** (piece-s08, during INT2 blast
   insertion — composer landmark).
 - **2026-08-14 (SANDBOX DESIGN PRINCIPLE — for the morphing-chords sandbox and
   all future ones):** straddle the UI-vs-AI-prompting line deliberately.

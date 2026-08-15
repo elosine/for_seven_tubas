@@ -1,24 +1,31 @@
-﻿# sample_length_probe.ps1 - SI2 tuba sample-length probe (piece #4).
-# Deterministic schedule: for each of the 21 techniques (tuba1 + tuba1b instances),
-# hold a note far longer than any plausible sample, and let the recording show where
-# the audio actually dies. The schedule is written to last_schedule.json - the
-# analyzer's ground truth (schedule-vs-audio cross-check, piece #3 RR-parade lesson).
+﻿# sample_length_probe.ps1 - measure TRUE sample lengths for the one-shot
+# articulations, the way the 2026-08-10 cresc probe did (hold long, let the
+# sample end itself, read the lengths off the recording).
 #
-# Usage:  powershell -File probes\sample_length_probe.ps1
-# Knobs:  -HoldMs 15000 -GapMs 2500 -Pitches 29,46 -Velocity 100
-# Patches identical across tubas -> probe the tuba1 pair only; results apply to all 7.
+# Sections, each preceded by a 3-note CUE burst so they are findable in the
+# waveform:
+#   1. FORTEPIANO  ch 11, port tuba1, MIDI 30-65 (36 notes), 6.0 s slots
+#   2. CUIVRE      ch  5, port tuba1, MIDI 60-67 ( 8 notes), 6.0 s slots
+#   3. STACCATO    ch  4, port tuba1b, MIDI 30-65 (36 notes), 1.5 s slots
+#
+# Each note is held for (slot - 0.2 s) so our note-off never cuts the sample.
+# Total ~5.5 min. Reaper: record tuba1 + tuba1b, then read each note's decay.
+#
+# Usage:  powershell -ExecutionPolicy Bypass -File probes\sample_length_probe.ps1
+#         (optional: -LeadInMs 5000 to give yourself longer to hit record)
+
 param(
-    [int]$HoldMs = 15000,
-    [int]$GapMs = 2500,
-    [int[]]$Pitches = @(36, 50),
-    [int]$LeadInMs = 3000,
-    [int]$Velocity = 100
+    [int]$Velocity = 110,
+    [int]$LeadInMs = 5000,
+    [double]$FpSlot = 6.0,
+    [double]$CuivreSlot = 6.0,
+    [double]$StacSlot = 1.5
 )
 
 Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
-public class MidiOut {
+public class MidiOutSL {
     [DllImport("winmm.dll")] public static extern uint midiOutGetNumDevs();
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MIDIOUTCAPS {
@@ -28,7 +35,7 @@ public class MidiOut {
         public ushort wChannelMask; public uint dwSupport;
     }
     [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
-    public static extern uint midiOutGetDevCaps(UIntPtr uDeviceID, out MIDIOUTCAPS caps, uint cbCaps);
+    public static extern uint midiOutGetDevCaps(uint uDeviceID, out MIDIOUTCAPS caps, uint cbCaps);
     [DllImport("winmm.dll")] public static extern uint midiOutOpen(out IntPtr handle, uint id, IntPtr cb, IntPtr inst, uint flags);
     [DllImport("winmm.dll")] public static extern uint midiOutShortMsg(IntPtr handle, uint msg);
     [DllImport("winmm.dll")] public static extern uint midiOutClose(IntPtr handle);
@@ -36,89 +43,88 @@ public class MidiOut {
         uint n = midiOutGetNumDevs();
         for (uint i = 0; i < n; i++) {
             MIDIOUTCAPS c;
-            midiOutGetDevCaps((UIntPtr)i, out c, (uint)Marshal.SizeOf(typeof(MIDIOUTCAPS)));
-            if (c.szPname == name) return (int)i;
+            midiOutGetDevCaps(i, out c, (uint)Marshal.SizeOf(typeof(MIDIOUTCAPS)));
+            if (c.szPname == name) { return (int)i; }
         }
         return -1;
     }
 }
 '@
 
-# Technique table - mirrors sandbox/instruments.js tuba1 (slot order = UVI build ground truth)
-$techs = @(
-    @{ tech = 'Ordinario';                   port = 'tuba1';  ch = 1  },
-    @{ tech = 'Bisbigliando';                port = 'tuba1';  ch = 2  },
-    @{ tech = 'Chromatic Scale';             port = 'tuba1';  ch = 3  },
-    @{ tech = 'Cresc & Decrescendo KS';      port = 'tuba1';  ch = 4  },
-    @{ tech = 'Cuivre';                      port = 'tuba1';  ch = 5  },
-    @{ tech = 'FX Menu';                     port = 'tuba1';  ch = 6  },
-    @{ tech = 'Filtered by Voice';           port = 'tuba1';  ch = 7  },
-    @{ tech = 'Finger Modes KS';             port = 'tuba1';  ch = 8  },
-    @{ tech = 'Flatterzunge & Voice Unison'; port = 'tuba1';  ch = 9  },
-    @{ tech = 'Flatterzunge';                port = 'tuba1';  ch = 10 },
-    @{ tech = 'Fortepiano';                  port = 'tuba1';  ch = 11 },
-    @{ tech = 'Glissando Menu';              port = 'tuba1';  ch = 12 },
-    @{ tech = 'High Register Ordinario';     port = 'tuba1';  ch = 13 },
-    @{ tech = 'Mute Ordinario';              port = 'tuba1';  ch = 14 },
-    @{ tech = 'Ord & Flatterzunge KS';       port = 'tuba1';  ch = 15 },
-    @{ tech = 'Pedal Tone';                  port = 'tuba1';  ch = 16 },
-    @{ tech = 'Play & Sing KS';              port = 'tuba1b'; ch = 1  },
-    @{ tech = 'Quartertones Ordinario';      port = 'tuba1b'; ch = 2  },
-    @{ tech = 'Single Tonguing';             port = 'tuba1b'; ch = 3  },
-    @{ tech = 'Staccato';                    port = 'tuba1b'; ch = 4  },
-    @{ tech = 'Trills KS';                   port = 'tuba1b'; ch = 5  }
-)
-
-# Open one handle per unique port
-$handles = @{}
-foreach ($p in ($techs | ForEach-Object { $_.port } | Sort-Object -Unique)) {
-    $idx = [MidiOut]::Find($p)
-    if ($idx -lt 0) { Write-Error "loopMIDI port '$p' not found - is loopMIDI running?"; exit 1 }
+function Open-Port([string]$name) {
+    $id = [MidiOutSL]::Find($name)
+    if ($id -lt 0) { Write-Host "PORT NOT FOUND: $name" -ForegroundColor Red; return [IntPtr]::Zero }
     $h = [IntPtr]::Zero
-    $rc = [MidiOut]::midiOutOpen([ref]$h, [uint32]$idx, [IntPtr]::Zero, [IntPtr]::Zero, 0)
-    if ($rc -ne 0) { Write-Error "midiOutOpen failed for '$p' (rc=$rc)"; exit 1 }
-    $handles[$p] = $h
-    Write-Host "Opened port: $p (device $idx)"
+    [void][MidiOutSL]::midiOutOpen([ref]$h, [uint32]$id, [IntPtr]::Zero, [IntPtr]::Zero, 0)
+    return $h
+}
+function Send([IntPtr]$h, [int]$status, [int]$d1, [int]$d2) {
+    if ($h -eq [IntPtr]::Zero) { return }
+    $msg = [uint32]($status -bor ($d1 -shl 8) -bor ($d2 -shl 16))
+    [void][MidiOutSL]::midiOutShortMsg($h, $msg)
+}
+$names = @('C','C#','D','D#','E','F','F#','G','G#','A','A#','B')
+function NoteName([int]$m) { return $names[$m % 12] + [string]([math]::Floor($m / 12) - 1) }
+
+$hA = Open-Port 'tuba1'
+$hB = Open-Port 'tuba1b'
+if ($hA -eq [IntPtr]::Zero) { Write-Host 'tuba1 missing - aborting.' -ForegroundColor Red; exit 1 }
+
+# CC7 full + all-notes-off so nothing residual colours the measurement
+foreach ($ch in 0..15) {
+    Send $hA (0xB0 -bor $ch) 7 127
+    Send $hA (0xB0 -bor $ch) 123 0
+    if ($hB -ne [IntPtr]::Zero) { Send $hB (0xB0 -bor $ch) 7 127; Send $hB (0xB0 -bor $ch) 123 0 }
 }
 
-# Build the schedule: t=0 at the FIRST noteOn (analyzer aligns to first audio onset)
-$schedule = @()
-$t = 0
-$eventIdx = 0
-foreach ($tq in $techs) {
-    foreach ($pitch in $Pitches) {
-        $schedule += @{ idx = $eventIdx; tech = $tq.tech; port = $tq.port; channel = $tq.ch
-                        pitch = $pitch; velocity = $Velocity; onMs = $t; offMs = $t + $HoldMs }
-        $eventIdx++
-        $t = $t + $HoldMs + $GapMs
+function Cue([IntPtr]$h, [int]$ch) {
+    # 3 short ticks = section boundary marker in the recording
+    for ($i = 0; $i -lt 3; $i++) {
+        Send $h (0x90 -bor $ch) 60 100
+        Start-Sleep -Milliseconds 120
+        Send $h (0x80 -bor $ch) 60 0
+        Start-Sleep -Milliseconds 180
+    }
+    Start-Sleep -Milliseconds 700
+}
+
+function Run-Section([string]$label, [IntPtr]$h, [int]$ch1, [int]$lo, [int]$hi, [double]$slot) {
+    $chz = $ch1 - 1
+    Write-Host ''
+    Write-Host "=== $label  (ch $ch1, MIDI $lo-$hi, $slot s slots) ===" -ForegroundColor Cyan
+    Cue $h $chz
+    $t0 = Get-Date
+    for ($m = $lo; $m -le $hi; $m++) {
+        $elapsed = ((Get-Date) - $t0).TotalSeconds
+        Write-Host ("  {0,-5} MIDI {1,3}   at +{2,7:N2}s" -f (NoteName $m), $m, $elapsed)
+        Send $h (0x90 -bor $chz) $m $Velocity
+        Start-Sleep -Milliseconds ([int](($slot - 0.2) * 1000))
+        Send $h (0x80 -bor $chz) $m 0
+        Start-Sleep -Milliseconds 200
     }
 }
-$meta = @{ created = (Get-Date).ToString('o'); holdMs = $HoldMs; gapMs = $GapMs
-           pitches = $Pitches; velocity = $Velocity; totalSec = [math]::Round($t / 1000.0, 1)
-           events = $schedule }
-$schedPath = Join-Path $PSScriptRoot 'last_schedule.json'
-$meta | ConvertTo-Json -Depth 5 | Out-File -Encoding utf8 $schedPath
-Write-Host ("Schedule: {0} events, {1:n1} min. Written to {2}" -f $schedule.Count, ($t / 60000.0), $schedPath)
 
-# Flatten to timed messages and play with drift-free absolute timing
-$msgs = @()
-foreach ($ev in $schedule) {
-    $on  = 0x90 -bor ($ev.channel - 1) -bor ($ev.pitch -shl 8) -bor ($ev.velocity -shl 16)
-    $off = 0x80 -bor ($ev.channel - 1) -bor ($ev.pitch -shl 8)
-    $msgs += @{ t = $ev.onMs;  port = $ev.port; msg = $on;  label = ("ON  {0}  p{1}" -f $ev.tech, $ev.pitch) }
-    $msgs += @{ t = $ev.offMs; port = $ev.port; msg = $off; label = '' }
-}
-$msgs = $msgs | Sort-Object { $_.t }
-
-Write-Host ("Lead-in {0}s ..." -f ($LeadInMs / 1000.0))
+Write-Host ''
+Write-Host '================ SAMPLE-LENGTH SURVEY ================' -ForegroundColor Yellow
+Write-Host 'Arm + RECORD tuba1 and tuba1b in Reaper now.'
+Write-Host ("Starting in {0} seconds. Each section opens with 3 short ticks." -f ($LeadInMs / 1000))
+Write-Host 'Total run: about 5.5 minutes. Stop recording when it says DONE.'
 Start-Sleep -Milliseconds $LeadInMs
-$sw = [System.Diagnostics.Stopwatch]::StartNew()
-foreach ($m in $msgs) {
-    $wait = $m.t - $sw.ElapsedMilliseconds
-    if ($wait -gt 0) { Start-Sleep -Milliseconds $wait }
-    [MidiOut]::midiOutShortMsg($handles[$m.port], [uint32]$m.msg) | Out-Null
-    if ($m.label) { Write-Host ("{0,8:n1}s  {1}" -f ($sw.ElapsedMilliseconds / 1000.0), $m.label) }
+
+Run-Section 'FORTEPIANO' $hA 11 30 65 $FpSlot
+Run-Section 'CUIVRE'     $hA  5 60 67 $CuivreSlot
+if ($hB -ne [IntPtr]::Zero) {
+    Run-Section 'STACCATO' $hB 4 30 65 $StacSlot
+} else {
+    Write-Host 'tuba1b not found - staccato section skipped.' -ForegroundColor Yellow
 }
-Start-Sleep -Milliseconds 1000
-foreach ($h in $handles.Values) { [MidiOut]::midiOutClose($h) | Out-Null }
-Write-Host 'Done. Stop the Reaper recording, then run: python probes/analyze_sample_lengths.py <path-to-wav>'
+
+foreach ($ch in 0..15) {
+    Send $hA (0xB0 -bor $ch) 123 0
+    if ($hB -ne [IntPtr]::Zero) { Send $hB (0xB0 -bor $ch) 123 0 }
+}
+[void][MidiOutSL]::midiOutClose($hA)
+if ($hB -ne [IntPtr]::Zero) { [void][MidiOutSL]::midiOutClose($hB) }
+Write-Host ''
+Write-Host 'DONE - stop the recording.' -ForegroundColor Green
+Write-Host 'Each section: 3 ticks, then one note per slot at the printed offsets.'
