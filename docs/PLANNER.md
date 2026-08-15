@@ -68,12 +68,19 @@ Container-level to-dos:
 
 <details open><summary><b>Blasts</b> · <i>◄ NOW — the current drill-in</i></summary>
 
-- [ ] **Choose harmonies** *(◄ currently here — choosing)*
+*Strategy (composer): same harmony · redistribute the notes · vary articulation
+type and length. Workflow contract: composer listens/asks/chooses — AI files
+everything automatically into `docs/TAXONOMY.md` tiers (voicings per chord ·
+reusable articulation sets · realizations · INT2 keepers).*
+
+- [ ] **Audition `int2-harmonies`, dictate variants, choose keepers**
+      *(◄ currently here — working set VERT01 03·04·11·12·13·16·28, V1+V2 each)*
 - [ ] Choose **which instruments** play each blast
 - [ ] Choose **durations** (how long each blast rings)
 - [ ] Choose **articulation type** per blast (stac / fp / ord / cuivre-modified)
 - [ ] Choose **how many players** per blast (subset blasts — a couple of
       textures overlapped, but keep the section intermittent / pointillistic)
+- [ ] Keepers → the INT2 section palette (app palette menu on request)
 </details>
 
 <details><summary><b>Morphing crescendo</b> · <i>todo</i></summary>

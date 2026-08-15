@@ -11,6 +11,9 @@ Started as a detour from piece #3 (2026-08-10); #3 resumes later. This piece inh
 
 - **What now / what next (composer's working view):** `docs/PLANNER.md` —
   Section-1 containers, materials, open questions; raw notes append at bottom
+- **Automatic filing contract:** `docs/TAXONOMY.md` — when the composer builds
+  variants and chooses keepers, AI files voicings/articulation-sets/
+  realizations into `bank/blast_taxonomy.json` WITHOUT being asked
 - **Living plan:** `docs/PLAN.md` — stable IDs; rules in its header
 - **Session state, decisions:** `docs/PROJECT_JOURNAL.md` — §2 Resume Here first
 - **Composer's verbatim thinking:** `docs/COMPOSER_LOG.md`

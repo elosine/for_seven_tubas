@@ -1,0 +1,62 @@
+{
+  "_contract": "See docs/TAXONOMY.md. AI files every composer decision here automatically: voicings (per-chord V-numbers, no analysis categories), articulation sets (AS-numbers, harmony-independent, reusable), realizations (chord x voicing x AS + mods, with score location), section keepers. The composer only listens and chooses.",
+  "harmonies": {
+    "VERT01-03": {
+      "voicings": {
+        "V1": { "desc": "as played (5 pitches)", "hear": "int2-harmonies @ 3.0s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 8.1s" }
+      },
+      "realizations": []
+    },
+    "VERT01-04": {
+      "voicings": {
+        "V1": { "desc": "as played (7 pitches)", "hear": "int2-harmonies @ 18.2s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 23.7s" }
+      },
+      "realizations": []
+    },
+    "VERT01-11": {
+      "voicings": {
+        "V1": { "desc": "as played (7 pitches)", "hear": "int2-harmonies @ 34.1s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 38.6s" }
+      },
+      "realizations": []
+    },
+    "VERT01-12": {
+      "voicings": {
+        "V1": { "desc": "as played (5 pitches)", "hear": "int2-harmonies @ 48.1s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 52.7s" }
+      },
+      "realizations": []
+    },
+    "VERT01-13": {
+      "voicings": {
+        "V1": { "desc": "as played (9 pitches)", "hear": "int2-harmonies @ 62.3s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 67.1s" }
+      },
+      "realizations": []
+    },
+    "VERT01-16": {
+      "voicings": {
+        "V1": { "desc": "as played (8 pitches; 67 above ord kept)", "hear": "int2-harmonies @ 77.0s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread (folded in range)", "hear": "int2-harmonies @ 82.5s" }
+      },
+      "realizations": []
+    },
+    "VERT01-28": {
+      "voicings": {
+        "V1": { "desc": "as played (6 pitches)", "hear": "int2-harmonies @ 93.0s" },
+        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 98.5s" }
+      },
+      "realizations": []
+    }
+  },
+  "articulationSets": {
+    "AS01": { "name": "uniform staccato", "recipe": "all players staccato, short (~0.4s)", "born": "harmony-blasts" },
+    "AS02": { "name": "uniform fortepiano", "recipe": "all players fp, ring ~2s (natural decay)", "born": "harmony-blasts" },
+    "AS03": { "name": "uniform ordinario", "recipe": "all players ord, sustained blast", "born": "harmony-blasts" }
+  },
+  "sectionPalettes": {
+    "INT2": []
+  }
+}
