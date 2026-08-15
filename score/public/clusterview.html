@@ -153,26 +153,27 @@ let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin
 const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true });
 // view window: pxPerSec = null means fit-whole-cluster; viewT0 = left edge (s)
 let pxPerSec = null, viewT0 = 0;
-// click-placed playback start (roll time), or null = window start
-let playFrom = null;
+// AUDIO-EDITOR TRANSPORT MODEL (composer 2026-08-15): the cursor and the
+// selection are one concept. Click = place the cursor (collapses selection).
+// Drag = select (cursor rides the selection start). SPACE plays the selection,
+// or cursor-to-end when there is none. HOME = zero. Boundary notes get 30 ms
+// of grace so clicking ON a note plays it.
+let cursorT = 0;
 
 const $ = id => document.getElementById(id);
 
 // ---- the transform pipeline ----
+const EDGE_EPS = 0.03;   // boundary grace: a note AT the window edge plays
+function playWindow() {
+  return sel ? [sel[0], sel[1]] : [cursorT, rollSpan()];
+}
 function sourceEvents() {
   if (!cur || !BANK.clusters[cur]) return [];
-  let ev = BANK.clusters[cur].events.map(e => ({ ...e, srcT: e.t, srcP: e.p }));
-  if (sel) {
-    // normalize to the selection EDGE so leading empty space is heard as silence
-    ev = ev.filter(e => e.t >= sel[0] && e.t <= sel[1])
-           .map(e => ({ ...e, t: +(e.t - sel[0]).toFixed(3) }));
-  }
-  if (playFrom !== null) {
-    const base = sel ? sel[0] : 0;
-    const pf = playFrom - base;
-    if (pf > 0) ev = ev.filter(e => e.t >= pf).map(e => ({ ...e, t: +(e.t - pf).toFixed(3) }));
-  }
-  return ev;
+  const w = playWindow();
+  // normalize to the window EDGE so leading empty space is heard as silence
+  return BANK.clusters[cur].events
+    .filter(e => e.t >= w[0] - EDGE_EPS && e.t <= w[1] + 0.001)
+    .map(e => ({ ...e, srcT: e.t, srcP: e.p, t: +Math.max(0, e.t - w[0]).toFixed(3) }));
 }
 function foldInto(p) {
   while (p < LO) p += 12;
@@ -281,12 +282,14 @@ function drawRoll() {
     ctx.strokeStyle = '#3FA7B8';
     ctx.strokeRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
   }
-  if (playFrom !== null) {
-    const px = X(playFrom);
-    ctx.strokeStyle = '#ffd479';
-    ctx.setLineDash([4, 3]);
-    ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
-    ctx.setLineDash([]);
+  {
+    const px = X(cursorT);
+    if (px >= 0 && px <= W) {
+      ctx.strokeStyle = '#ffd479';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }
   const dot = (x, y, r, color) => { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); };
   const techColor = tech => tech === 'fortepiano' ? '#c9986e' : tech === 'ord' ? '#8ea9c9' : '#ffd479';
@@ -343,10 +346,10 @@ function drawRoll() {
     }
     drawRoll();
   }, { passive: false });
-  let moved = false, downSel = null;
+  let moved = false;
   cv.addEventListener('mousedown', e => {
     if (!cur) return;
-    dragging = true; moved = false; downSel = sel; startT = timeAt(e);
+    dragging = true; moved = false; startT = timeAt(e);
   });
   cv.addEventListener('mousemove', e => {
     if (!dragging) return;
@@ -354,29 +357,31 @@ function drawRoll() {
     if (Math.abs(t - startT) * pps() > 5) moved = true;   // >5px = a drag
     if (moved) {
       sel = [Math.min(startT, t), Math.max(startT, t)];
+      cursorT = sel[0];
       drawRoll();
     }
   });
   window.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
-    if (!moved) {
-      // a CLICK: place the playback start there (selection untouched)
-      sel = downSel;
-      playFrom = startT;
-      drawRoll(); updateSelInfo();
-      return;
+    if (!moved || (sel && sel[1] - sel[0] < 0.05)) {
+      // a CLICK: cursor here, selection collapsed (the audio-editor rule)
+      sel = null;
+      cursorT = startT;
+      selSnip = null;
+    } else if (sel) {
+      cursorT = sel[0];
+      selSnip = null;
     }
-    if (sel && sel[1] - sel[0] < 0.05) sel = null;
-    selSnip = null;
-    playFrom = null;                                       // a new selection resets it
     drawRoll(); updateSelInfo();
   });
 })();
 function updateSelInfo() {
   $('selInfo').textContent = sel
     ? 'sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's · ' + sourceEvents().length + ' notes'
-    : 'drag on the roll to select';
+    : cursorT > 0
+    ? 'cursor @ ' + cursorT.toFixed(2) + 's · SPACE plays to end · HOME = start'
+    : 'click = cursor · drag = select · SPACE = play/stop';
 }
 
 // ---- playback ----
@@ -431,7 +436,7 @@ function startCursor(spanS) {
       const S = ev.length ? Math.max(...ev.map(e => e.t)) : 0;
       srcLocal = S - srcLocal;
     }
-    let rollT = (playFrom !== null ? playFrom : (sel ? sel[0] : 0)) + srcLocal;
+    let rollT = (sel ? sel[0] : cursorT) + srcLocal;
     if (sel) rollT = Math.min(rollT, sel[1]);        // never scroll past the band
     const x = rollX(rollT);
     const cu = $('playCursor');
@@ -575,6 +580,7 @@ function drawSnips() {
       }
       setCluster(sn.cluster, false);
       sel = [sn.t0, sn.t1];
+      cursorT = sn.t0;
       selSnip = id;
       drawRoll(); drawSnips(); updateSelInfo();
     });
@@ -669,7 +675,7 @@ async function store() {
 // ---- wiring ----
 function setCluster(id, clearSel = true) {
   cur = id;
-  pxPerSec = null; viewT0 = 0; playFrom = null;
+  pxPerSec = null; viewT0 = 0; cursorT = 0;
   $('clSel').value = id;
   if (clearSel) { sel = null; selSnip = null; }
   TR = trDefault();
@@ -720,7 +726,7 @@ $('clSel').addEventListener('change', function () { this.blur(); setCluster(this
 $('playBtn').addEventListener('click', play);
 $('stopBtn').addEventListener('click', stopAll);
 $('recBtn').addEventListener('click', toggleRec);
-$('selClear').addEventListener('click', () => { sel = null; selSnip = null; playFrom = null; drawRoll(); updateSelInfo(); });
+$('selClear').addEventListener('click', () => { sel = null; selSnip = null; cursorT = 0; drawRoll(); updateSelInfo(); });
 $('snipSave').addEventListener('click', async () => {
   if (!cur || !sel) { $('selInfo').textContent = 'select a span first'; return; }
   const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -758,6 +764,12 @@ window.addEventListener('keyup', e => {
   if (e.key === 'Alt') e.preventDefault();
 });
 window.addEventListener('keydown', e => {
+  if (e.key === 'Home') {
+    e.preventDefault();
+    sel = null; cursorT = 0; viewT0 = 0;
+    drawRoll(); updateSelInfo();
+    return;
+  }
   if (e.code === 'Space' && !(e.target.matches && e.target.matches('input[type=text]'))) {
     e.preventDefault();
     if (playing) stopAll(); else play();
