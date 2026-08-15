@@ -365,7 +365,8 @@ function startCursor(spanS) {
       const S = ev.length ? Math.max(...ev.map(e => e.t)) : 0;
       srcLocal = S - srcLocal;
     }
-    const rollT = (sel ? sel[0] : 0) + srcLocal;
+    let rollT = (sel ? sel[0] : 0) + srcLocal;
+    if (sel) rollT = Math.min(rollT, sel[1]);        // never scroll past the band
     const x = rollX(rollT);
     const cu = $('playCursor');
     if (x < 0 || x > cv.clientWidth) { cu.style.display = 'none'; }
@@ -375,7 +376,9 @@ function startCursor(spanS) {
     }
   }, 33);
 }
+let playing = false;
 function stopAll() {
+  playing = false;
   stopCursor();
   pending.forEach(clearTimeout);
   pending = [];
@@ -401,7 +404,10 @@ function play() {
     }, e.t * 1000));
   }
   const spanS = viewSpan(ev);
-  startCursor(spanS);
+  const lastAttack = Math.max.apply(null, ev.map(e => e.t));
+  playing = true;
+  pending.push(setTimeout(() => { playing = false; }, spanS * 1000 + 300));
+  startCursor(lastAttack + 0.15);
   $('info').textContent = 'playing ' + ev.length + ' notes / ' + spanS.toFixed(1) + 's' + trDesc();
 }
 function trDesc() {
@@ -655,7 +661,10 @@ $('thin').addEventListener('change', function () { this.blur(); play(); });
 $('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); play(); });
 $('storeBtn').addEventListener('click', store);
 window.addEventListener('keydown', e => {
-  if (e.code === 'Space' && !e.target.matches('input[type=text]')) { e.preventDefault(); play(); }
+  if (e.code === 'Space' && !(e.target.matches && e.target.matches('input[type=text]'))) {
+    e.preventDefault();
+    if (playing) stopAll(); else play();
+  }
   if (e.key === 'Escape') stopAll();
 });
 window.addEventListener('resize', drawRoll);
