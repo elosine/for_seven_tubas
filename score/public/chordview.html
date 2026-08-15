@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Chord View — vertical keyboard</title>
+<title>Blast Sandbox — chords + playback</title>
 <style>
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
          margin: 0; padding: 10px 16px 30px; }
-  .bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 12px;
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 12px;
          position: sticky; top: 0; background: #1c1c1e; padding: 6px 0 8px; z-index: 5; }
   select, button { background: #2a2a2e; color: #ddd; border: 1px solid #555; border-radius: 4px;
          padding: 3px 8px; font-size: 12px; }
@@ -36,8 +36,18 @@
   <span id="vtoggles" class="legend"></span>
   zoom <input type="range" id="zoom" min="2" max="40" step="0.5" value="12">
   <button id="fit">Fit screen</button>
-  <span class="legend"><span><i class="sw" style="background:#ffd479"></i>as played</span><span><i class="sw" style="background:#5E8C7A"></i>ten-note</span></span>
   <span class="hint" id="info"></span>
+  <span style="flex-basis:100%"></span>
+  <b style="font-size:11px;color:#8fb3a5">PLAY</b>
+  <select id="playVoicing" title="which voicing the play buttons use"></select>
+  <button id="playFp">fp</button>
+  <button id="playStac">stac</button>
+  <button id="playOrd">ord</button>
+  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="2.5">
+    <span id="ordLenV" class="hint">2.5s</span></label>
+  <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127">
+    <span id="dynV" class="hint">127</span></label>
+  <span class="hint" id="midiStatus">midi: …</span>
 </div>
 <div id="kb"></div>
 <script>
@@ -130,6 +140,64 @@ function fit() {
   draw();
 }
 
+// ---- PLAYBACK (phase 1 of the blast sandbox) ----
+// Real per-player routing: ascending pitches -> Tuba10..Tuba1 (bottom lane =
+// low pitch, the score convention). Articulation -> port/channel per
+// instruments.js: ord ch1 + fp ch11 on tubaN, staccato ch4 on tubaNb.
+const ARTIC = {
+  fortepiano: { sub: '', ch: 11, hold: () => 3.0 },
+  staccato:   { sub: 'b', ch: 4, hold: () => 0.35 },
+  ord:        { sub: '', ch: 1, hold: () => +document.getElementById('ordLen').value },
+};
+let MIDI = null, OUTS = {};
+async function midiInit() {
+  const st = document.getElementById('midiStatus');
+  try {
+    MIDI = await navigator.requestMIDIAccess();
+    OUTS = {};
+    MIDI.outputs.forEach(o => { OUTS[o.name.toLowerCase()] = o; });
+    const missing = [];
+    for (let i = 1; i <= 10; i++) {
+      if (!OUTS['tuba' + i]) missing.push('tuba' + i);
+      if (!OUTS['tuba' + i + 'b']) missing.push('tuba' + i + 'b');
+    }
+    st.textContent = missing.length ? 'midi: missing ' + missing.slice(0, 4).join(',') + (missing.length > 4 ? '…' : '')
+                                    : 'midi: 10 tubas ready';
+  } catch (e) { st.textContent = 'midi: unavailable (' + e.message + ')'; }
+}
+function playBlast(articKey) {
+  if (!MIDI) return;
+  const vn = document.getElementById('playVoicing').value;
+  const vs = voicingsOf(currentId);
+  if (!vs[vn]) return;
+  const a = ARTIC[articKey];
+  const vel = +document.getElementById('dyn').value;
+  const holdMs = a.hold() * 1000;
+  const pitches = vs[vn].pitches.slice().sort((x, y) => x - y).slice(0, 10);
+  pitches.forEach((pitch, k) => {
+    const tuba = 10 - k;                      // low pitch -> Tuba10 (bottom lane)
+    const out = OUTS['tuba' + tuba + a.sub];
+    if (!out) return;
+    const ch = a.ch - 1;
+    out.send([0xB0 | ch, 7, 127]);            // CC7 residue guard
+    out.send([0x90 | ch, pitch, vel]);
+    setTimeout(() => out.send([0x80 | ch, pitch, 0]), holdMs);
+  });
+  document.getElementById('info').textContent =
+    currentId + ' ' + vn + ' · ' + articKey + ' · ' + pitches.length + ' players · vel ' + vel +
+    (articKey === 'ord' ? ' · ' + a.hold().toFixed(1) + 's' : '');
+}
+function buildPlayVoicing() {
+  const sel = document.getElementById('playVoicing');
+  const vs = voicingsOf(currentId);
+  const keep = sel.value;
+  sel.innerHTML = '';
+  Object.keys(vs).forEach(vn => {
+    const o = document.createElement('option'); o.value = vn; o.textContent = vn; sel.appendChild(o);
+  });
+  sel.value = vs[keep] ? keep : Object.keys(vs)[Object.keys(vs).length - 1];
+}
+
 async function boot() {
   const sel = document.getElementById('chord');
   const ids = [];
@@ -143,10 +211,19 @@ async function boot() {
   sel.value = 'VERT01-28';
   currentId = 'VERT01-28'; current = CHORDS[currentId];
   sel.addEventListener('change', () => {
-    currentId = sel.value; current = CHORDS[currentId]; shown = {}; buildToggles(); draw();
+    currentId = sel.value; current = CHORDS[currentId]; shown = {}; buildToggles(); buildPlayVoicing(); draw();
   });
   document.getElementById('zoom').addEventListener('input', draw);
+  document.getElementById('ordLen').addEventListener('input', () =>
+    document.getElementById('ordLenV').textContent = (+document.getElementById('ordLen').value).toFixed(1) + 's');
+  document.getElementById('dyn').addEventListener('input', () =>
+    document.getElementById('dynV').textContent = document.getElementById('dyn').value);
+  document.getElementById('playFp').addEventListener('click', () => playBlast('fortepiano'));
+  document.getElementById('playStac').addEventListener('click', () => playBlast('staccato'));
+  document.getElementById('playOrd').addEventListener('click', () => playBlast('ord'));
   buildToggles();
+  buildPlayVoicing();
+  midiInit();
   document.getElementById('fit').addEventListener('click', fit);
   window.addEventListener('resize', () => {});
   fit();
