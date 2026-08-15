@@ -319,7 +319,7 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b25-resume</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b26-blastinfo</span>
     <select id="pieceSelect" title="the piece itself (piece-* saves, newest first)"><option value="">-- Piece --</option></select>
     <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next</button>
     <button id="variantBtn" title="save a lettered variant of the current piece save (a, b, c\u2026)">Variant</button>
@@ -337,11 +337,13 @@
 <!-- BLASTS: sonority insertion strip (composer 2026-08-14). UI for the
      hammered loop (flip/audition/insert); reorchestration of inserted shapes
      is done by AI prompt, per the sandbox design principle. -->
-<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px; white-space:nowrap; overflow-x:auto; text-align:right">
-  <select id="blastListSel" style="vertical-align:top; margin-right:6px"></select>
-  <button id="blastInsert" style="vertical-align:top" title="insert the selected sonority at the playhead: 10 parts + META shape (built at insert time)">insert @ cursor</button>
-  <span id="blastInfo" style="color:#8fb3a5; font-size:11px; margin-left:6px; vertical-align:top"></span>
-  <div id="blastMinis" style="display:inline-block"></div>
+<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px">
+  <div style="display:flex; align-items:center; gap:8px">
+    <span id="blastInfo" style="color:#ffd479; font-size:12px; font-family:Consolas,monospace; flex:1 1 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">← → to step · click a strip to hear it · then insert at the playhead</span>
+    <select id="blastListSel" title="which custom list to browse"></select>
+    <button id="blastInsert" title="insert the selected sonority at the playhead: parts + META shape">insert @ cursor</button>
+  </div>
+  <div id="blastMinis" style="white-space:nowrap; overflow-x:auto; margin-top:3px; text-align:left"></div>
 </div>
 
 <!-- Lane Container -->
@@ -14381,6 +14383,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
 
   function miniFor(id, son) {
     const wrap = document.createElement('div');
+    wrap.dataset.sid = id;
     wrap.style.cssText = 'display:inline-block; width:26px; margin:0 3px; cursor:pointer; vertical-align:top; text-align:center';
     const c = document.createElement('canvas');
     c.width = 26; c.height = 96;
@@ -14400,16 +14403,55 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     lab.textContent = id.replace('S0', '') + ' ' + (arts.length === 1 ? (short[arts[0]] || '?') : 'mx');
     lab.style.cssText = 'font-size:8.5px; color:#888';
     wrap.appendChild(lab);
-    wrap.addEventListener('click', () => {
-      selectedSon = id;
-      drawMinis();
-      auditionSon(son);
-      document.getElementById('blastInfo').textContent =
-        id + ': ' + son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing + ' \u00b7 ' +
-        son.pitches.length + 'n \u00b7 v' + son.dyn + ' \u00b7 ' + (son.ordLen || 1) + 's';
+    wrap.addEventListener('click', () => selectSon(id));
+    wrap.addEventListener('mouseenter', () => showInfo(id, son, true));
+    wrap.addEventListener('mouseleave', () => {
+      if (selectedSon) showInfo(selectedSon, (TAXB.sonorities || {})[selectedSon], false);
     });
-    if (id === selectedSon) c.style.outline = '2px solid #ffd479';
+    if (id === selectedSon) {
+      c.style.outline = '2px solid #ffd479';
+      lab.style.color = '#ffd479';
+    }
     return wrap;
+  }
+
+  const NAMES2 = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const pname = m => NAMES2[m % 12] + (Math.floor(m / 12) - 1);
+  function describe(id, son) {
+    const arts = [...new Set(Object.values(son.artic || {}))];
+    const artTxt = arts.length === 1
+      ? ({ ord: 'ordinario', fortepiano: 'fortepiano', staccato: 'staccato' }[arts[0]] || arts[0])
+      : 'mixed (' + arts.map(a => a[0]).join('/') + ')';
+    const cv = [...(son.cuivreConverted || []), ...(son.cuivreAdded || [])];
+    return id + '  \u00b7  ' + son.chord.replace('VERT01-', 'chord ') + ' ' + son.voicing +
+      '  \u00b7  ' + artTxt + '  \u00b7  ' + son.pitches.length + ' parts' +
+      (cv.length ? '  \u00b7  cuivre ' + cv.map(pname).join(' ') : '') +
+      '  \u00b7  dyn ' + son.dyn +
+      (arts.includes('ord') ? '  \u00b7  ' + (son.ordLen || 1) + 's' : '') +
+      '  [' + son.pitches.map(pname).join(' ') + ']';
+  }
+  function showInfo(id, son, hovering) {
+    if (!son) return;
+    const el = document.getElementById('blastInfo');
+    el.textContent = (hovering && id !== selectedSon ? '\u25b8 ' : '\u25c9 ') + describe(id, son);
+    el.style.color = (hovering && id !== selectedSon) ? '#8fb3a5' : '#ffd479';
+  }
+  function selectSon(id) {
+    const son = (TAXB.sonorities || {})[id];
+    if (!son) return;
+    selectedSon = id;
+    drawMinis();
+    showInfo(id, son, false);
+    auditionSon(son);
+    const box = document.getElementById('blastMinis');
+    const el = [...box.children].find(c => c.dataset.sid === id);
+    if (el) el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  }
+  function stepSon(dir) {
+    const ids = sonEntries().map(([id]) => id);
+    if (!ids.length) return;
+    const i = ids.indexOf(selectedSon);
+    selectSon(ids[Math.max(0, Math.min(ids.length - 1, (i < 0 ? 0 : i + dir)))]);
   }
 
   function drawMinis() {
@@ -14473,8 +14515,10 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     Composer.openMetaWin();
     Composer.renderAll();
     Composer.markDirty();
-    document.getElementById('blastInfo').textContent =
-      selectedSon + ' inserted @ ' + t.toFixed(2) + 's (' + pitches.length + ' parts + shape)';
+    const el = document.getElementById('blastInfo');
+    el.textContent = '\u2713 ' + selectedSon + ' inserted @ ' + t.toFixed(2) + 's \u2014 ' +
+      pitches.length + ' parts + META shape';
+    el.style.color = '#7ec9a8';
   }
 
   document.getElementById('blastsBtn').addEventListener('click', async function () {
@@ -14488,6 +14532,13 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     activeList = this.value; selectedSon = null; drawMinis(); this.blur();
   });
   document.getElementById('blastInsert').addEventListener('click', insertAtCursor);
+  window.addEventListener('keydown', e => {
+    if (document.getElementById('blastStrip').style.display !== 'block') return;
+    const t = e.target;
+    if (t && t.matches && t.matches('input, textarea, select')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); stepSon(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); stepSon(-1); }
+  }, true);
 })();
 </script>
 </body>
