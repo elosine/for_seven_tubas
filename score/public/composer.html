@@ -319,21 +319,25 @@
     <input type="text" id="sessionName" value="7tubas" />
     <button id="saveBtn">Save</button>
     <span id="saveStatus">Ready</span>
-    <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b22-tidybar</span>
-    <select id="loadSelect"><option value="">-- Load --</option></select>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b24-savepiece</span>
+    <select id="pieceSelect" title="the piece itself (piece-* saves, newest first)"><option value="">-- Piece --</option></select>
+    <button id="saveNextBtn" title="promote this working copy to the next piece save" style="display:none">Save as next</button>
+    <button id="variantBtn" title="save a lettered variant of the current piece save (a, b, c\u2026)">Variant</button>
+    <select id="loadSelect" title="everything else: experiments, sandboxes, takes"><option value="">-- Scores --</option></select>
     <button id="loadBtn">Load</button>
-    <span>|</span>
-    <span id="timeDisplay">0.00</span>
-    <span>|</span>
-    <span id="zoomIndicator">50 px/s</span>
-    <button id="zoomReset">Reset</button>
+    <select id="restoreSel" title="restore a snapshot taken at an explicit Save"><option value="">-- Restore --</option></select>
+    <span style="flex:1 1 auto"></span>
+    <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
+
+<span id="timeDisplay" style="display:none">0.00</span>
+<span id="zoomIndicator" style="display:none">50 px/s</span>
+<button id="zoomReset" style="display:none">Reset</button>
 
 <!-- BLASTS: sonority insertion strip (composer 2026-08-14). UI for the
      hammered loop (flip/audition/insert); reorchestration of inserted shapes
      is done by AI prompt, per the sandbox design principle. -->
-<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px; white-space:nowrap; overflow-x:auto">
+<div id="blastStrip" style="display:none; background:#202024; border-bottom:1px solid #333; padding:4px 8px; white-space:nowrap; overflow-x:auto; text-align:right">
   <select id="blastListSel" style="vertical-align:top; margin-right:6px"></select>
   <button id="blastInsert" style="vertical-align:top" title="insert the selected sonority at the playhead: 10 parts + META shape (built at insert time)">insert @ cursor</button>
   <span id="blastInfo" style="color:#8fb3a5; font-size:11px; margin-left:6px; vertical-align:top"></span>
@@ -2043,6 +2047,29 @@ const Composer = {
         // palette: picking an entry loads the SAME file the Load menu serves.
         // Keep the chosen entry DISPLAYED and blur the select, so SPACE plays
         // instead of re-opening the dropdown (composer fix 2026-08-14).
+        const pieceSel = document.getElementById('pieceSelect');
+        if (pieceSel) pieceSel.addEventListener('change', async function () {
+            const n = this.value;
+            this.blur();
+            if (n) await Composer.openPiece(n);
+        });
+        const nextB = document.getElementById('saveNextBtn');
+        if (nextB) nextB.addEventListener('click', () => this.saveAsNext());
+        const varB = document.getElementById('variantBtn');
+        if (varB) varB.addEventListener('click', () => this.saveVariant());
+        const restSel = document.getElementById('restoreSel');
+        if (restSel) restSel.addEventListener('change', async function () {
+            const f = this.value; this.blur(); this.value = '';
+            if (!f) return;
+            if (!confirm('Restore this snapshot? Current unsaved state will be replaced.')) return;
+            const r = await fetch('/api/composer/version-load/' + encodeURIComponent(f)).then(x => x.json());
+            if (r.success) {
+                Composer.restoreData(r.data);
+                Composer.saveStatus.textContent = 'restored snapshot ' + f.replace(/^.*_v/, '');
+                Composer.markDirty();
+            }
+        });
+
         // (Palette / Working menus retired 2026-08-14 — the Load menu covers
         // every score, and blast material now lives in the sandbox + Blasts
         // strip. Server API and score/palette.json remain, dormant.)
@@ -2167,6 +2194,7 @@ const Composer = {
                 this.isDirty = false;
                 this.boundName = name;
                 this.saveStatus.textContent = `Saved: ${name}`;
+                if (makeVersion) this.refreshRestore();
                 localStorage.setItem('composerLastSession', name);
                 this.refreshSessionList();
             } else {
@@ -2209,13 +2237,118 @@ const Composer = {
     // (Palette methods retired 2026-08-14 — superseded by the Load menu and
     //  the Blasts strip. score/palette.json + /api/composer/palette remain.)
 
+    // ================= SAVE SYSTEM (composer 2026-08-14) =================
+    // Piece files are protected by a WORKING COPY: opening piece-sNN puts you in
+    // piece-sNN-work, autosave writes there, and the canonical save is never
+    // touched. "Save as next" promotes the work copy to piece-sNN+1.
+    isPieceName(n) { return /^piece-/.test(n) && !/-work$/.test(n); },
+    isWorkName(n) { return /-work$/.test(n); },
+    pieceBase(n) { return String(n).replace(/-work$/, ''); },
+
+    // piece-s07b -> {stem:'piece-s', num:7, letter:'b'}
+    parsePiece(n) {
+        const m = /^piece-s(\d+)([a-z]*)(?:-(\d+))?$/.exec(this.pieceBase(n));
+        return m ? { num: +m[1], letter: m[2] || '' } : null;
+    },
+    nextPieceName(list) {
+        const nums = list.map(n => this.parsePiece(n)).filter(Boolean).map(p => p.num);
+        const next = (nums.length ? Math.max.apply(null, nums) : 0) + 1;
+        return 'piece-s' + String(next).padStart(2, '0');
+    },
+    sortPieces(names) {
+        return names.slice().sort((a, b) => {
+            const pa = this.parsePiece(a), pb = this.parsePiece(b);
+            if (!pa || !pb) return a.localeCompare(b);
+            return (pb.num - pa.num) || pb.letter.localeCompare(pa.letter);
+        });
+    },
+
+    async openPiece(name) {
+        // load the canonical, then divert the session to its working copy
+        await this.loadSession(name);
+        const work = this.pieceBase(name) + '-work';
+        this.sessionNameInput.value = work;
+        this.sessionName = work;
+        this.boundName = work;
+        this.saveStatus.textContent = 'working on ' + name + ' \u25b8 ' + work;
+        document.getElementById('saveNextBtn').style.display = '';
+        this.refreshRestore();
+    },
+
+    async saveAsNext() {
+        const all = (this._allScores || []).map(s => s.name);
+        const target = this.nextPieceName(all);
+        const data = this.collectData();
+        const r = await fetch('/api/composer/save', { method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: target, data, makeVersion: true }) }).then(x => x.json());
+        if (!r.success) { this.saveStatus.textContent = 'save failed'; return; }
+        const work = this.sessionName;
+        if (this.isWorkName(work)) {
+            await fetch('/api/composer/discard', { method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: work }) });
+        }
+        this.sessionNameInput.value = target;
+        this.sessionName = target; this.boundName = target;
+        this.isDirty = false;
+        this.saveStatus.textContent = 'Saved: ' + target;
+        document.getElementById('saveNextBtn').style.display = 'none';
+        this.refreshSessionList();
+    },
+
+    async saveVariant() {
+        const base = this.pieceBase(this.sessionName);
+        const p = this.parsePiece(base);
+        if (!p) { this.saveStatus.textContent = 'variants are for piece saves'; return; }
+        const all = (this._allScores || []).map(s => s.name);
+        const stem = 'piece-s' + String(p.num).padStart(2, '0');
+        let letter = 'a';
+        while (all.includes(stem + letter)) letter = String.fromCharCode(letter.charCodeAt(0) + 1);
+        const target = stem + letter;
+        const data = this.collectData();
+        const r = await fetch('/api/composer/save', { method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: target, data, makeVersion: true }) }).then(x => x.json());
+        if (!r.success) { this.saveStatus.textContent = 'variant save failed'; return; }
+        this.saveStatus.textContent = 'Variant saved: ' + target + ' (still editing ' + this.sessionName + ')';
+        this.refreshSessionList();
+    },
+
+    async refreshRestore() {
+        const sel = document.getElementById('restoreSel');
+        if (!sel) return;
+        try {
+            const r = await fetch('/api/composer/versions/' + encodeURIComponent(this.sessionName)).then(x => x.json());
+            sel.innerHTML = '<option value="">-- Restore --</option>';
+            (r.versions || []).forEach(f => {
+                const o = document.createElement('option');
+                o.value = f;
+                const ts = (f.match(/_v(.+)\.json$/) || [])[1] || f;
+                o.textContent = ts.replace('T', ' ').replace(/-/g, ':').slice(0, 16).replace(':', '-').replace(':', '-');
+                sel.appendChild(o);
+            });
+        } catch (e) {}
+    },
+
     async refreshSessionList() {
         try {
             const resp = await fetch('/api/composer/list');
             const result = await resp.json();
             if (result.success) {
-                this.loadSelect.innerHTML = '<option value="">-- Load --</option>';
-                result.sessions.forEach(s => {
+                this._allScores = result.sessions;
+                const pieceSel = document.getElementById('pieceSelect');
+                const pieces = this.sortPieces(result.sessions.map(s => s.name).filter(n => this.isPieceName(n)));
+                if (pieceSel) {
+                    pieceSel.innerHTML = '<option value="">-- Piece --</option>';
+                    pieces.forEach(n => {
+                        const o = document.createElement('option');
+                        o.value = n; o.textContent = n;
+                        pieceSel.appendChild(o);
+                    });
+                }
+                this.loadSelect.innerHTML = '<option value="">-- Scores --</option>';
+                result.sessions.filter(s => !this.isPieceName(s.name) && !this.isWorkName(s.name)).forEach(s => {
                     const opt = document.createElement('option');
                     opt.value = s.name;
                     opt.textContent = `${s.name} (${new Date(s.modified).toLocaleDateString()})`;
@@ -11446,6 +11579,22 @@ const Composer = {
     setupFloatingTimeDrag() {
         const el = this.floatingTime;
         if (!el) return;
+        // the retired top-bar zoom controls live here now (composer 2026-08-14):
+        // HOVER shows px/s, DOUBLE-CLICK resets the zoom
+        el.addEventListener('mouseenter', () => {
+            el._time = el.textContent;
+            el.textContent = Math.round(this.pixelsPerSecond) + ' px/s';
+            el.style.color = '#2a6faa';
+        });
+        el.addEventListener('mouseleave', () => {
+            if (el._time != null) el.textContent = el._time;
+            el.style.color = '#333';
+        });
+        el.addEventListener('dblclick', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            this.resetZoom();
+            el.textContent = Math.round(this.pixelsPerSecond) + ' px/s';
+        });
         let dragging = false;
         let startY = 0;
         let startTop = 0;

@@ -532,6 +532,26 @@ const server = http.createServer((req, res) => {
             });
         }
     }
+    // load a specific version snapshot (Restore menu)
+    if (req.method === 'GET' && url.startsWith('/api/composer/version-load/')) {
+        const file = safe(url.slice('/api/composer/version-load/'.length).replace(/\.json$/, '')) + '.json';
+        const fp = path.join(VERSIONS_DIR, file);
+        if (!fs.existsSync(fp)) return R.status(404).json({ success: false, error: 'version not found' });
+        try { return R.json({ success: true, data: JSON.parse(fs.readFileSync(fp, 'utf8')) }); }
+        catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // discard a working copy after it has been promoted
+    if (req.method === 'POST' && url === '/api/composer/discard') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const fp = path.join(SCORES_DIR, `${safe(body.name)}.json`);
+            try {
+                if (fs.existsSync(fp)) fs.unlinkSync(fp);
+                console.log(`Discarded working copy: ${body.name}`);
+                R.json({ success: true });
+            } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
     if (req.method === 'GET' && url.startsWith('/api/composer/versions/')) {
         const prefix = `${safe(url.slice('/api/composer/versions/'.length))}_v`;
         try {
