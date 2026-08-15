@@ -20,9 +20,18 @@
 3. **ARTICULATION SETS** — first-class reusable entities (AS01, AS02…): a
    recipe of articulation × register/lane mapping × length, **independent of
    harmony**, so a set built on one chord can be applied to any other.
-4. **REALIZATIONS** — chord × voicing × articulation set (+ per-note mods like
-   cuivre swaps) = a concrete blast. Where it lives (score + marker) is always
-   recorded.
+4. **REALIZATIONS / SONORITIES** — chord × voicing × articulation set (+ per-note
+   mods like cuivre swaps, length, dynamics) = a concrete blast. Where it lives
+   (score + marker) is always recorded. Saved in `sonorities` (S001…), deduped
+   on exact content; membership in named `customLists` is separate.
+   **Duration is a stored DEFAULT, not a fixed property** *(composer note
+   2026-08-14)*: an ord blast carries its `ordLen` from the sandbox, but once
+   inserted into the composer score the composer must be able to **drag the
+   duration**. No new machinery needed — an inserted blast is a `groupId` group
+   with a META shape, and the existing group scaling (edge node / green box /
+   panel Start-End) time-scales members affinely; since a blast's notes are
+   simultaneous, that scaling *is* a duration drag. Same applies to fp/staccato
+   holds if they ever need stretching.
 5. **SECTION PALETTE** — the composer's KEEPERS for the section at hand
    (currently INT2), mirrored into the app's palette menu when asked.
 

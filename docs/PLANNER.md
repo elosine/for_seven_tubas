@@ -82,6 +82,9 @@ reusable articulation sets · realizations · INT2 keepers).*
 - [ ] Choose **how many players** per blast (subset blasts — a couple of
       textures overlapped, but keep the section intermittent / pointillistic)
 - [ ] Keepers → the INT2 section palette (app palette menu on request)
+- [ ] **Insertion into the composer score** (later phase): blasts arrive as
+      groups with META shapes; stored `ordLen` is only the default —
+      **duration stays draggable in the score** (existing group scaling)
 </details>
 
 <details><summary><b>Morphing crescendo</b> · <i>todo</i></summary>

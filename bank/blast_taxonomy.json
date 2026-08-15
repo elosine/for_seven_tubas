@@ -262,7 +262,7 @@
           "hear": "int2-harmonies @ 103.6s"
         },
         "V5": {
-          "desc": "V4 \u00b7 cuivre C4,C#4,D4",
+          "desc": "V4 · cuivre C4,C#4,D4",
           "pitches": [
             30,
             38,
@@ -305,7 +305,10 @@
     "INT2": []
   },
   "customLists": {
-    "INT2 blasts": []
+    "INT2 blasts": [
+      "S001",
+      "S002"
+    ]
   },
   "sonorities": {
     "S001": {
@@ -342,7 +345,42 @@
       "ordLen": 2.5,
       "dyn": 127,
       "saved": "2026-08-14T00:00:00.000Z",
-      "note": "restored \u2014 composer original (AI test cleanup deleted it)"
+      "note": "restored — composer original (AI test cleanup deleted it)"
+    },
+    "S002": {
+      "chord": "VERT01-28",
+      "voicing": "V5",
+      "pitches": [
+        30,
+        38,
+        41,
+        46,
+        48,
+        49,
+        60,
+        61,
+        62
+      ],
+      "cuivreConverted": [
+        60,
+        61,
+        62
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "30": "fortepiano",
+        "38": "fortepiano",
+        "41": "fortepiano",
+        "46": "fortepiano",
+        "48": "fortepiano",
+        "49": "fortepiano",
+        "60": "fortepiano",
+        "61": "fortepiano",
+        "62": "fortepiano"
+      },
+      "ordLen": 2.5,
+      "dyn": 127,
+      "saved": "2026-08-15T16:03:57.145Z"
     }
   }
 }
