@@ -421,6 +421,17 @@ const server = http.createServer((req, res) => {
                         console.log(`Taxonomy: ${id} -> list "${list}" (${tax.customLists[list].length})`);
                         return R.json({ success: true, count: tax.customLists[list].length });
                     }
+                    if (action === 'chordCuivre') {
+                        // cuivre is CHORD-LEVEL ARTICULATION (composer 2026-08-14):
+                        // one set of cuivre pitches per chord, riding on any voicing
+                        const { chord, pitches } = body;
+                        if (!chord) return R.status(400).json({ success: false, error: 'chord required' });
+                        tax.harmonies[chord] = tax.harmonies[chord] || { voicings: {}, realizations: [] };
+                        tax.harmonies[chord].stdCuivre = (pitches || []).slice().sort((a, b) => a - b);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${chord} cuivre = [${tax.harmonies[chord].stdCuivre}]`);
+                        return R.json({ success: true, stdCuivre: tax.harmonies[chord].stdCuivre });
+                    }
                     if (action === 'subset') {
                         // chord-library SUBSETS: named views of the 33 (the main
                         // library itself is never edited from here)

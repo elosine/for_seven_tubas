@@ -31,7 +31,10 @@
           "hear": "int2-harmonies @ 8.1s"
         }
       },
-      "realizations": []
+      "realizations": [],
+      "stdCuivre": [
+        61
+      ]
     },
     "VERT01-04": {
       "voicings": {

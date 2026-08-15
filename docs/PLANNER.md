@@ -166,6 +166,16 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   maybe extra long grains); INT2 = blasts + harmonically morphing crescendo
   (gliss→quarter-tones or legato, simple→complex timbre) + subset blasts;
   Section 2 after research; pitch-and-catch defined; "density buildup" adopted.
+- **2026-08-14 (SANDBOX DESIGN PRINCIPLE — for the morphing-chords sandbox and
+  all future ones):** straddle the UI-vs-AI-prompting line deliberately.
+  **UI objects only where interaction speed compounds** (browse/audition loops:
+  arrow-through-and-listen, click-to-collect — the strip proved this class).
+  **AI prompts for one-off operations** ("give me chords 1, 7, 9, 10; drop 4")
+  where building UI would be a rabbit hole of unused contingencies.
+  **Lean to piece-specific over universal**: build just enough to get what this
+  piece needs; universalize later only if needed. The goal: fluidly throw
+  together custom objects, hear variations, decide, then insert final static
+  objects into the score.
 - **2026-08-14 (sieve dictation):** tier examples captured into the outline
   above — section-layer form decision (3 vs 4 DBs), DB3 decisions (length,
   profile-over-longer-span, add long tones by hand), INT2 drill-in (materials →
