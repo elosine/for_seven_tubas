@@ -375,7 +375,7 @@ const server = http.createServer((req, res) => {
         if (req.method === 'POST') {
             return readBody(req, (err, body) => {
                 if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
-                const { action, name, file } = body || {};
+                const { action, name, file, group } = body || {};
                 if (!file) return R.status(400).json({ success: false, error: 'file required' });
                 try {
                     const p = read();
@@ -384,7 +384,7 @@ const server = http.createServer((req, res) => {
                         p.entries = p.entries.filter(e => e.file !== file);
                     } else {
                         const i = p.entries.findIndex(e => e.file === file);
-                        const entry = { name: name || file, file };
+                        const entry = { name: name || file, file, group: group || 'working' };
                         if (i >= 0) p.entries[i] = { ...p.entries[i], ...entry };
                         else p.entries.push(entry);
                     }

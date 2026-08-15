@@ -3,58 +3,269 @@
   "harmonies": {
     "VERT01-03": {
       "voicings": {
-        "V1": { "desc": "as played (5 pitches)", "hear": "int2-harmonies @ 3.0s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 8.1s" }
+        "V1": {
+          "desc": "as played (5 pitches)",
+          "pitches": [
+            31,
+            54,
+            55,
+            56,
+            57
+          ],
+          "hear": "int2-harmonies @ 3.0s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            30,
+            31,
+            32,
+            33,
+            42,
+            45,
+            54,
+            55,
+            56,
+            57
+          ],
+          "hear": "int2-harmonies @ 8.1s"
+        }
       },
       "realizations": []
     },
     "VERT01-04": {
       "voicings": {
-        "V1": { "desc": "as played (7 pitches)", "hear": "int2-harmonies @ 18.2s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 23.7s" }
+        "V1": {
+          "desc": "as played (7 pitches)",
+          "pitches": [
+            39,
+            45,
+            46,
+            55,
+            57,
+            58,
+            65
+          ],
+          "hear": "int2-harmonies @ 17.2s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            31,
+            34,
+            39,
+            45,
+            46,
+            51,
+            55,
+            57,
+            58,
+            65
+          ],
+          "hear": "int2-harmonies @ 22.7s"
+        }
       },
       "realizations": []
     },
     "VERT01-11": {
       "voicings": {
-        "V1": { "desc": "as played (7 pitches)", "hear": "int2-harmonies @ 34.1s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 38.6s" }
+        "V1": {
+          "desc": "as played (7 pitches)",
+          "pitches": [
+            36,
+            41,
+            44,
+            48,
+            58,
+            59,
+            61
+          ],
+          "hear": "int2-harmonies @ 32.1s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            32,
+            36,
+            41,
+            44,
+            48,
+            53,
+            58,
+            59,
+            61,
+            65
+          ],
+          "hear": "int2-harmonies @ 36.6s"
+        }
       },
       "realizations": []
     },
     "VERT01-12": {
       "voicings": {
-        "V1": { "desc": "as played (5 pitches)", "hear": "int2-harmonies @ 48.1s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 52.7s" }
+        "V1": {
+          "desc": "as played (5 pitches)",
+          "pitches": [
+            31,
+            53,
+            54,
+            55,
+            63
+          ],
+          "hear": "int2-harmonies @ 45.1s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            30,
+            31,
+            39,
+            42,
+            51,
+            53,
+            54,
+            55,
+            63,
+            65
+          ],
+          "hear": "int2-harmonies @ 49.7s"
+        }
       },
       "realizations": []
     },
     "VERT01-13": {
       "voicings": {
-        "V1": { "desc": "as played (9 pitches)", "hear": "int2-harmonies @ 62.3s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 67.1s" }
+        "V1": {
+          "desc": "as played (9 pitches)",
+          "pitches": [
+            33,
+            39,
+            43,
+            45,
+            54,
+            56,
+            57,
+            58,
+            59
+          ],
+          "hear": "int2-harmonies @ 58.3s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            33,
+            39,
+            43,
+            45,
+            54,
+            56,
+            57,
+            58,
+            59,
+            63
+          ],
+          "hear": "int2-harmonies @ 63.1s"
+        }
       },
       "realizations": []
     },
     "VERT01-16": {
       "voicings": {
-        "V1": { "desc": "as played (8 pitches; 67 above ord kept)", "hear": "int2-harmonies @ 77.0s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread (folded in range)", "hear": "int2-harmonies @ 82.5s" }
+        "V1": {
+          "desc": "as played (8 pitches); 67 above ord",
+          "pitches": [
+            38,
+            42,
+            44,
+            45,
+            61,
+            62,
+            63,
+            67
+          ],
+          "hear": "int2-harmonies @ 72.0s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            30,
+            38,
+            42,
+            44,
+            45,
+            49,
+            54,
+            61,
+            62,
+            63
+          ],
+          "hear": "int2-harmonies @ 77.5s"
+        }
       },
       "realizations": []
     },
     "VERT01-28": {
       "voicings": {
-        "V1": { "desc": "as played (6 pitches)", "hear": "int2-harmonies @ 93.0s" },
-        "V2": { "desc": "ten-note octave-displaced max-spread", "hear": "int2-harmonies @ 98.5s" }
+        "V1": {
+          "desc": "as played (6 pitches)",
+          "pitches": [
+            30,
+            34,
+            41,
+            60,
+            61,
+            62
+          ],
+          "hear": "int2-harmonies @ 87.0s"
+        },
+        "V2": {
+          "desc": "ten-note octave-displaced, max-spread",
+          "pitches": [
+            30,
+            34,
+            37,
+            41,
+            46,
+            50,
+            54,
+            60,
+            61,
+            62
+          ],
+          "hear": "int2-harmonies @ 92.5s"
+        },
+        "V3": {
+          "desc": "as played, A#1 up an octave (34 -> 46)",
+          "pitches": [
+            30,
+            41,
+            46,
+            60,
+            61,
+            62
+          ],
+          "hear": "int2-harmonies @ 98.1s"
+        }
       },
       "realizations": []
     }
   },
   "articulationSets": {
-    "AS01": { "name": "uniform staccato", "recipe": "all players staccato, short (~0.4s)", "born": "harmony-blasts" },
-    "AS02": { "name": "uniform fortepiano", "recipe": "all players fp, ring ~2s (natural decay)", "born": "harmony-blasts" },
-    "AS03": { "name": "uniform ordinario", "recipe": "all players ord, sustained blast", "born": "harmony-blasts" }
+    "AS01": {
+      "name": "uniform staccato",
+      "recipe": "all players staccato, short (~0.4s)",
+      "born": "harmony-blasts"
+    },
+    "AS02": {
+      "name": "uniform fortepiano",
+      "recipe": "all players fp, ring ~2s (natural decay)",
+      "born": "harmony-blasts"
+    },
+    "AS03": {
+      "name": "uniform ordinario",
+      "recipe": "all players ord, sustained blast",
+      "born": "harmony-blasts"
+    }
   },
   "sectionPalettes": {
     "INT2": []

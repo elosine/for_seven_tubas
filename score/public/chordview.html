@@ -33,7 +33,7 @@
 <body>
 <div class="bar">
   <select id="chord"></select>
-  <label><input type="checkbox" id="showV2" checked> ten-note version</label>
+  <span id="vtoggles" class="legend"></span>
   zoom <input type="range" id="zoom" min="2" max="40" step="0.5" value="12">
   <button id="fit">Fit screen</button>
   <span class="legend"><span><i class="sw" style="background:#ffd479"></i>as played</span><span><i class="sw" style="background:#5E8C7A"></i>ten-note</span></span>
@@ -47,7 +47,33 @@ const ORD_RANGE = [30, 65];             // ordinario: F#1-F4 (composer-measured)
 let LO_MIDI = ORD_RANGE[0], HI_MIDI = ORD_RANGE[1];   // keyboard = the ord range only
 const ORD = ORD_RANGE;
 const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
-let CHORDS = {}, current = null;
+let CHORDS = {}, TAX = null, current = null, currentId = null, shown = {};
+const VCOLORS = ['#ffd479', '#5E8C7A', '#c98a5e', '#8ea9c9', '#b58ec9', '#9cc98e'];
+function voicingsOf(id) {
+  const v = TAX && TAX.harmonies[id] && TAX.harmonies[id].voicings;
+  if (v) return v;
+  const b = CHORDS[id];
+  return { V1: { desc: 'as played', pitches: b.pitches } };
+}
+function buildToggles() {
+  const box = document.getElementById('vtoggles');
+  const vs = voicingsOf(currentId);
+  box.innerHTML = '';
+  Object.keys(vs).forEach((vn, i) => {
+    if (shown[vn] === undefined) shown[vn] = true;
+    const lab = document.createElement('label');
+    lab.style.cssText = 'display:inline-flex;align-items:center;gap:4px;margin-right:10px;cursor:pointer';
+    lab.title = vs[vn].desc || '';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.checked = shown[vn];
+    cb.addEventListener('change', () => { shown[vn] = cb.checked; draw(); });
+    const sw = document.createElement('i');
+    sw.className = 'sw'; sw.style.background = VCOLORS[i % VCOLORS.length];
+    lab.appendChild(cb); lab.appendChild(sw);
+    lab.appendChild(document.createTextNode(vn));
+    box.appendChild(lab);
+  });
+}
 
 function tenNote(uniq) {
   const have = new Set(uniq.filter(p => p >= ORD[0] && p <= ORD[1]));
@@ -66,30 +92,34 @@ function tenNote(uniq) {
 
 function draw() {
   const kh = +document.getElementById('zoom').value;
-  const wantV2 = document.getElementById('showV2').checked;
   const kb = document.getElementById('kb');
   kb.style.setProperty('--kh', kh + 'px');
-  const played = new Set(current ? current.pitches : []);
-  const ten = new Set(current && wantV2 ? tenNote(current.pitches) : []);
+  const vs = voicingsOf(currentId);
+  const cols = Object.entries(vs).filter(([vn]) => shown[vn] !== false);
+  const labelled = new Set(cols.flatMap(([, v]) => v.pitches));
   let html = '';
   for (let m = HI_MIDI; m >= LO_MIDI; m--) {
     const pc = m % 12, isB = BLACK.includes(pc);
     let r = '<div class="row">';
     r += '<div class="key ' + (isB ? 'black' : 'white') + '"></div>';
     if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
-    if (played.has(m)) r += '<div class="nm">' + nm(m) + '</div>';
-    if (played.has(m)) r += '<div class="dot" style="left:106px;background:#ffd479"></div>';
-    if (ten.has(m)) r += '<div class="dot" style="left:186px;background:#5E8C7A"></div>';
+    if (labelled.has(m)) r += '<div class="nm">' + nm(m) + '</div>';
+    cols.forEach(([vn, v], ci) => {
+      if (v.pitches.includes(m)) {
+        const all = Object.keys(vs);
+        const color = VCOLORS[all.indexOf(vn) % VCOLORS.length];
+        r += '<div class="dot" style="left:' + (106 + ci * 26) + 'px;background:' + color + '"></div>';
+      }
+    });
     r += '</div>';
     html += r;
   }
   kb.innerHTML = html;
-  const spanSemis = current ? Math.max(...current.pitches) - Math.min(...current.pitches) : 0;
-  const outside = current ? current.pitches.filter(p => p < ORD[0] || p > ORD[1]) : [];
-  document.getElementById('info').textContent = current
-    ? current.entity + ' — ' + current.pitches.length + ' pitches, span ' + spanSemis + ' semitones'
-      + (outside.length ? '  ⚠ outside ord: ' + outside.map(nm).join(', ') : '')
-    : '';
+  const parts = cols.map(([vn, v]) => {
+    const out = v.pitches.filter(p => p < ORD[0] || p > ORD[1]);
+    return vn + ': ' + v.pitches.length + 'n' + (out.length ? ' ⚠' + out.map(nm).join('/') : '');
+  });
+  document.getElementById('info').textContent = currentId + ' — ' + parts.join(' · ');
 }
 
 function fit() {
@@ -109,11 +139,14 @@ async function boot() {
   loaded.forEach((c, i) => { if (c) { CHORDS[ids[i]] = c;
     const o = document.createElement('option'); o.value = ids[i];
     o.textContent = ids[i] + '  (' + c.pitches.length + ')'; sel.appendChild(o); } });
+  TAX = await fetch('/bank/blast_taxonomy.json').then(r => r.ok ? r.json() : null).catch(() => null);
   sel.value = 'VERT01-28';
-  current = CHORDS['VERT01-28'];
-  sel.addEventListener('change', () => { current = CHORDS[sel.value]; draw(); });
-  ['zoom', 'showV2'].forEach(id =>
-    document.getElementById(id).addEventListener('input', draw));
+  currentId = 'VERT01-28'; current = CHORDS[currentId];
+  sel.addEventListener('change', () => {
+    currentId = sel.value; current = CHORDS[currentId]; shown = {}; buildToggles(); draw();
+  });
+  document.getElementById('zoom').addEventListener('input', draw);
+  buildToggles();
   document.getElementById('fit').addEventListener('click', fit);
   window.addEventListener('resize', () => {});
   fit();
