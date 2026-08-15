@@ -1,0 +1,371 @@
+﻿{
+    "velocity":  110,
+    "pitches":  "staccato 30-65",
+    "created":  "2026-08-15T15:34:52.1388738-04:00",
+    "events":  [
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  44,
+                       "tech":  "Staccato",
+                       "pitch":  30,
+                       "onMs":  1000,
+                       "offMs":  2200,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  45,
+                       "tech":  "Staccato",
+                       "pitch":  31,
+                       "onMs":  3100,
+                       "offMs":  4300,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  46,
+                       "tech":  "Staccato",
+                       "pitch":  32,
+                       "onMs":  5200,
+                       "offMs":  6400,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  47,
+                       "tech":  "Staccato",
+                       "pitch":  33,
+                       "onMs":  7300,
+                       "offMs":  8500,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  48,
+                       "tech":  "Staccato",
+                       "pitch":  34,
+                       "onMs":  9400,
+                       "offMs":  10600,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  49,
+                       "tech":  "Staccato",
+                       "pitch":  35,
+                       "onMs":  11500,
+                       "offMs":  12700,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  50,
+                       "tech":  "Staccato",
+                       "pitch":  36,
+                       "onMs":  13600,
+                       "offMs":  14800,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  51,
+                       "tech":  "Staccato",
+                       "pitch":  37,
+                       "onMs":  15700,
+                       "offMs":  16900,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  52,
+                       "tech":  "Staccato",
+                       "pitch":  38,
+                       "onMs":  17800,
+                       "offMs":  19000,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  53,
+                       "tech":  "Staccato",
+                       "pitch":  39,
+                       "onMs":  19900,
+                       "offMs":  21100,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  54,
+                       "tech":  "Staccato",
+                       "pitch":  40,
+                       "onMs":  22000,
+                       "offMs":  23200,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  55,
+                       "tech":  "Staccato",
+                       "pitch":  41,
+                       "onMs":  24100,
+                       "offMs":  25300,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  56,
+                       "tech":  "Staccato",
+                       "pitch":  42,
+                       "onMs":  26200,
+                       "offMs":  27400,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  57,
+                       "tech":  "Staccato",
+                       "pitch":  43,
+                       "onMs":  28300,
+                       "offMs":  29500,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  58,
+                       "tech":  "Staccato",
+                       "pitch":  44,
+                       "onMs":  30400,
+                       "offMs":  31600,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  59,
+                       "tech":  "Staccato",
+                       "pitch":  45,
+                       "onMs":  32500,
+                       "offMs":  33700,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  60,
+                       "tech":  "Staccato",
+                       "pitch":  46,
+                       "onMs":  34600,
+                       "offMs":  35800,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  61,
+                       "tech":  "Staccato",
+                       "pitch":  47,
+                       "onMs":  36700,
+                       "offMs":  37900,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  62,
+                       "tech":  "Staccato",
+                       "pitch":  48,
+                       "onMs":  38800,
+                       "offMs":  40000,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  63,
+                       "tech":  "Staccato",
+                       "pitch":  49,
+                       "onMs":  40900,
+                       "offMs":  42100,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  64,
+                       "tech":  "Staccato",
+                       "pitch":  50,
+                       "onMs":  43000,
+                       "offMs":  44200,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  65,
+                       "tech":  "Staccato",
+                       "pitch":  51,
+                       "onMs":  45100,
+                       "offMs":  46300,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  66,
+                       "tech":  "Staccato",
+                       "pitch":  52,
+                       "onMs":  47200,
+                       "offMs":  48400,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  67,
+                       "tech":  "Staccato",
+                       "pitch":  53,
+                       "onMs":  49300,
+                       "offMs":  50500,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  68,
+                       "tech":  "Staccato",
+                       "pitch":  54,
+                       "onMs":  51400,
+                       "offMs":  52600,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  69,
+                       "tech":  "Staccato",
+                       "pitch":  55,
+                       "onMs":  53500,
+                       "offMs":  54700,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  70,
+                       "tech":  "Staccato",
+                       "pitch":  56,
+                       "onMs":  55600,
+                       "offMs":  56800,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  71,
+                       "tech":  "Staccato",
+                       "pitch":  57,
+                       "onMs":  57700,
+                       "offMs":  58900,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  72,
+                       "tech":  "Staccato",
+                       "pitch":  58,
+                       "onMs":  59800,
+                       "offMs":  61000,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  73,
+                       "tech":  "Staccato",
+                       "pitch":  59,
+                       "onMs":  61900,
+                       "offMs":  63100,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  74,
+                       "tech":  "Staccato",
+                       "pitch":  60,
+                       "onMs":  64000,
+                       "offMs":  65200,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  75,
+                       "tech":  "Staccato",
+                       "pitch":  61,
+                       "onMs":  66100,
+                       "offMs":  67300,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  76,
+                       "tech":  "Staccato",
+                       "pitch":  62,
+                       "onMs":  68200,
+                       "offMs":  69400,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  77,
+                       "tech":  "Staccato",
+                       "pitch":  63,
+                       "onMs":  70300,
+                       "offMs":  71500,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  78,
+                       "tech":  "Staccato",
+                       "pitch":  64,
+                       "onMs":  72400,
+                       "offMs":  73600,
+                       "port":  "tuba1b"
+                   },
+                   {
+                       "channel":  4,
+                       "velocity":  110,
+                       "idx":  79,
+                       "tech":  "Staccato",
+                       "pitch":  65,
+                       "onMs":  74500,
+                       "offMs":  75700,
+                       "port":  "tuba1b"
+                   }
+               ],
+    "outName":  "SI2_staccato_lengths",
+    "gapMs":  900,
+    "port":  "tuba1b",
+    "holdMs":  1200
+}
