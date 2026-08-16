@@ -588,7 +588,8 @@ function render(params, opts) {
             if (fe.flagged) flags.push('RANGE');
 
             // technique-switch prep: did the previous segment leave enough room?
-            if (prevTech && prevTech !== fe.technique) {
+            const techChanged = !!(prevTech && prevTech !== fe.technique);
+            if (techChanged) {
                 const need = SWITCH_PREP[fe.technique] || 0;
                 const prev = notes[notes.length - 1];
                 if (prev && seg.start - (prev.tStart + prev.dur) < need - 1e-6) flags.push('SWITCH');
@@ -597,10 +598,21 @@ function render(params, opts) {
 
             // re-entry "sneak in": every segment after the first enters under a
             // short rise, so the seam is hidden by shape as well as by stagger.
+            //
+            // A TECHNIQUE CHANGE GETS A LONGER, DEEPER RAMP (composer, after
+            // hearing M4: "there has to be some sort of ramp into the technique —
+            // if it's singing into the tuba, maybe they do a singing crescendo,
+            // start with the effect and ramp into the full effect"). Stepping
+            // abruptly read as "a collection of different techniques" rather than
+            // one sonority changing colour. A player taking up flutter or sung
+            // tone leans into it; the dynamic entry is the only handle MIDI gives
+            // us for that, so make it long enough to hear as an approach.
             if (seg.idx > 0 && P.carrier.striation !== 'aligned' && level.length > 2) {
                 const target0 = level[0][1];
-                const riseTo = Math.min(0.7, seg.dur * 0.35);
-                level.unshift([0, Math.max(0.4, target0 - 2.5)]);
+                const dip = techChanged ? 4.5 : 2.5;
+                const riseTo = Math.min(techChanged ? 2.2 : 0.7,
+                                        seg.dur * (techChanged ? 0.55 : 0.35));
+                level.unshift([0, Math.max(0.4, target0 - dip)]);
                 level[1] = [round3(riseTo), target0];
             }
 

@@ -272,3 +272,56 @@ prints failures by name in the status line. Verified by deleting
 `Composer.curveValToCC` and watching it report exactly that. A wrong assumption
 about the host now fails loudly at open time instead of as silence three layers
 down at Play time.
+
+### CHECK-IN 1 — the first morphs were heard (2026-08-16)
+
+**The central unknown is answered: a 30 s morph DOES hold together as one
+sonority.** It was the one thing no test could settle — a long chord is a chain
+of overlapping breaths, and it could have read as separate notes. It did not.
+
+**Variant A (M6, balance only — pitches and techniques frozen): KEEPER.**
+Composer: *"A is very nice… there were some very interesting parts that might
+have something to do with close intervals, like approaching unison. So lots of
+nice acoustic beating in there. And potentially at the same time, volume changes.
+It did sound like acoustic beating and swelling, which is nice."*
+
+Two things follow, and the second is the important one:
+
+1. **A change with NO pitch movement registers.** The quiet half of the
+   vocabulary is viable, which was the second question.
+2. **What the composer's ear actually latched onto was BEATING at near-unison,
+   combined with the swells** — not the balance rotation per se. That is a
+   finding about the material, not about the model, and it points the search:
+   narrow intervals + dynamics, rather than wide voicings. Variants C and D now
+   chase it deliberately (below). *Note A's source chord has no close intervals
+   at all (34/38/41/45/48/53/58/62), so the beating heard was between upper
+   partials — worth remembering, because it means beating is available without
+   writing unisons.*
+
+**Variant B (M4, colour morph): useful, not interesting.** Composer: *"it sounds
+exactly like a held sonority with players shifting different techniques within it
+— more like a collection of different techniques… I probably wouldn't want to
+spend too much time trying to work this one out, but my initial instinct is that
+there has to be some sort of ramp INTO the technique. So if it's singing into the
+tuba, maybe they do a singing crescendo — start with the effect and ramp into the
+full effect."*
+
+Acted on: a technique change now enters under a **long, deep dynamic ramp**
+(dip 4.5 of 10, rise up to 2.2 s or 55 % of the segment) instead of the ordinary
+0.7 s seam-hider. The dynamic entry is the only handle MIDI gives us for "lean
+into the effect". Not pursued further, per the composer.
+
+**New variants written from that verdict:**
+- **C — BEATING BLOOM.** Four unisons (F2 A#2 D#3 G#3 doubled) splitting apart by
+  M1 detune to 50 cents, over 40 s, under swells. Measured end-state beating:
+  2.6 / 3.5 / 4.6 / 6.2 Hz — faster in the higher pairs, so the texture opens
+  upward.
+- **D — BEATING CONVERGE.** Whole-tone pairs (A2-B2, D3-E3, A3-B3, D4-E4) closing
+  to exact unison by M3 fan. Beating slows to **0 Hz** — the reverse gesture,
+  interference resolving into fusion.
+
+**Open, minor:** composer had to press Play twice on the first audition. Most
+likely the one-time browser MIDI permission handshake, which only happens on a
+cold page. Discriminating test if it recurs: does it need two presses on EVERY
+play within one page session (real bug), or only the first after a reload
+(permission handshake, not a bug)? Not chased without that evidence.

@@ -1,5 +1,5 @@
 {
-  "_comment": "PLAN 2v conversational control file. The AI writes variants here and bumps `rev`; the Morph panel polls /api/morphparams once a second and regenerates when rev changes. No websocket, no connection state, survives a page reload. Composer speaks -> AI turns the knobs -> composer arrows A/B/C and listens.",
+  "_comment": "PLAN 2v conversational control file. The AI writes variants here and bumps `rev`; the Morph panel polls /api/morphparams once a second and regenerates when rev changes. No websocket, no connection state, survives a page reload.",
   "_vocabulary": {
     "slower / longer": "carrier.span up",
     "more dramatic": "dials.depth up + dials.bias toward +1",
@@ -7,90 +7,55 @@
     "choppier": "carrier.segLen down",
     "another version": "seed only",
     "louder swells": "dyn.amount up",
-    "shapes": "dyn.shape = swell | rise | fall | rotate | flat"
+    "shapes": "dyn.shape = swell | rise | fall | rotate | flat",
+    "more beating": "narrow the interval between paired voices (target.cents down toward 0 for M1)"
   },
-  "rev": 2,
-  "active": "A",
+  "_auditionNotes": {
+    "A": "composer 2026-08-16: 'very nice… interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating, and potentially at the same time volume changes. It did sound like acoustic beating and swelling.' -> C and D chase that deliberately.",
+    "B": "composer: 'sounds exactly like a held sonority with players shifting different techniques within it… more like a collection of different techniques. Useful, but not as interesting.' -> technique changes now enter under a long deep ramp instead of stepping."
+  },
+  "rev": 3,
+  "active": "C",
   "autoplay": false,
   "variants": {
     "A": {
-      "label": "balance only, 30 s",
+      "label": "balance only, 30 s (the keeper)",
       "model": "M6",
-      "source": {
-        "kind": "pitches",
-        "midi": [
-          34,
-          38,
-          41,
-          45,
-          48,
-          53,
-          58,
-          62
-        ]
-      },
-      "dials": {
-        "bias": 0,
-        "spread": 0.5,
-        "depth": 1
-      },
-      "carrier": {
-        "span": 30,
-        "segLen": 7,
-        "segVar": 0.35,
-        "striation": "staggered"
-      },
-      "dyn": {
-        "base": 0.55,
-        "shape": "rotate",
-        "amount": 0.4,
-        "turns": 1,
-        "spread": 0.6
-      },
+      "source": { "kind": "pitches", "midi": [34, 38, 41, 45, 48, 53, 58, 62] },
+      "dials": { "bias": 0, "spread": 0.5, "depth": 1 },
+      "carrier": { "span": 30, "segLen": 7, "segVar": 0.35, "striation": "staggered" },
+      "dyn": { "base": 0.55, "shape": "rotate", "amount": 0.4, "turns": 1, "spread": 0.6 },
       "seed": 3
     },
     "B": {
-      "label": "colour morph ord to flutter, 30 s",
+      "label": "colour morph, now ramping INTO each technique",
       "model": "M4",
-      "source": {
-        "kind": "pitches",
-        "midi": [
-          34,
-          38,
-          41,
-          45,
-          48,
-          53,
-          58,
-          62
-        ]
-      },
-      "target": {
-        "path": [
-          "ord",
-          "bisb",
-          "flz"
-        ]
-      },
-      "dials": {
-        "bias": 0,
-        "spread": 0.7,
-        "depth": 1
-      },
-      "carrier": {
-        "span": 30,
-        "segLen": 6,
-        "segVar": 0.35,
-        "striation": "staggered"
-      },
-      "dyn": {
-        "base": 0.55,
-        "shape": "swell",
-        "amount": 0.3,
-        "spread": 0.5
-      },
+      "source": { "kind": "pitches", "midi": [34, 38, 41, 45, 48, 53, 58, 62] },
+      "target": { "path": ["ord", "bisb", "flz"] },
+      "dials": { "bias": 0, "spread": 0.7, "depth": 1 },
+      "carrier": { "span": 30, "segLen": 6, "segVar": 0.35, "striation": "staggered" },
+      "dyn": { "base": 0.55, "shape": "swell", "amount": 0.3, "spread": 0.5 },
       "seed": 5
     },
-    "C": null
+    "C": {
+      "label": "BEATING BLOOM — four unisons splitting apart, 40 s",
+      "model": "M1",
+      "source": { "kind": "pitches", "midi": [41, 41, 46, 46, 51, 51, 56, 56] },
+      "target": { "cents": 25, "direction": "alternate" },
+      "dials": { "bias": 0.3, "spread": 0.35, "depth": 1 },
+      "carrier": { "span": 40, "segLen": 8, "segVar": 0.3, "striation": "staggered" },
+      "dyn": { "base": 0.5, "shape": "swell", "amount": 0.42, "spread": 0.55 },
+      "seed": 11
+    },
+    "D": {
+      "label": "BEATING CONVERGE — whole-tone pairs closing to unison, 40 s",
+      "model": "M3",
+      "source": { "kind": "pitches", "midi": [45, 47, 50, 52, 57, 59, 62, 64] },
+      "target": { "midi": [46, 46, 51, 51, 58, 58, 63, 63] },
+      "dials": { "bias": 0.4, "spread": 0.3, "depth": 1 },
+      "carrier": { "span": 40, "segLen": 8, "segVar": 0.3, "striation": "staggered" },
+      "dyn": { "base": 0.5, "shape": "swell", "amount": 0.4, "spread": 0.5 },
+      "seed": 7
+    }
   }
 }
