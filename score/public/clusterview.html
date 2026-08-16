@@ -74,6 +74,9 @@
   <span class="hint">&#183; click note = select &#183; drag = move (pitch/time) &#183; right edge = length (ord)
     &#183; dbl-click note = articulation &#183; dbl-click empty = add &#183; DEL = delete
     &#183; &#8593;/&#8595; = velocity</span>
+  <span id="selNoteInfo" style="color:#ffd479; font-family:Consolas,monospace"></span>
+  <input type="text" id="noteVel" class="numbox" style="display:none"
+         title="velocity of the selected note(s), 1-127 - ENTER to apply">
   <button id="backBtn" class="chip">&#9666; back to sources</button>
 </div>
 
@@ -176,7 +179,9 @@ let BANK = null, TAXCH = {};
 // the loaded ENTITY: a cluster (immutable source) or a snippet (editable copy)
 let entity = { kind: 'cluster', id: null };
 let sel = null, cursorT = 0;               // ONE transport concept
-let selNotes = new Set();                  // selected note indices (snippet mode)
+// selected NOTE OBJECTS (not indices - the array re-sorts after a time drag,
+// which would invalidate indices; references stay valid)
+let selNotes = new Set();
 const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true, vel: 100 });
 // the stretch slider is LOGARITHMIC: x0.5 and x2 sit symmetrically about x1,
 // and the musically-sensitive low end gets the resolution it needs
@@ -370,8 +375,18 @@ function drawRoll() {
     bar(e.t, e.p, soundLen(e),
       transformed || !inWin ? '#999' : techColor(e.tech),
       transformed ? 0.25 : inWin ? (0.35 + 0.55 * e.v / 127) : 0.15,
-      !transformed && selNotes.has(i));
+      !transformed && selNotes.has(e));
   });
+  // velocity readout on selected notes (few enough to stay legible)
+  if (!transformed && selNotes.size && selNotes.size <= 12) {
+    ctx.font = '9px Consolas';
+    ctx.fillStyle = '#ffd479';
+    for (const n of selNotes) {
+      const x = rollX(n.t) + Math.max(2.5, soundLen(n) * pps()) + 3;
+      const y = rollY(n.p) + 3;
+      if (x > KEYS_W && x < W - 18) ctx.fillText(String(n.v), x, y);
+    }
+  }
   // the SOUND when transforms are active (drawn at source time, transformed pitch)
   if (transformed) {
     for (const e of viewEvents()) {
@@ -388,6 +403,19 @@ function drawRoll() {
   $('info').textContent = entity.id + ': ' + baseEvents().length + ' notes / ' + baseSpan().toFixed(1) + 's' + trDesc() +
     (isSnip() && transformed ? '  (reset transforms to edit notes)' : '');
 }
+function updateNoteSel() {
+  const el = $('selNoteInfo'), box = $('noteVel');
+  if (!el) return;
+  if (!selNotes.size) { el.textContent = ''; box.style.display = 'none'; return; }
+  const vs = [...selNotes].map(n => n.v);
+  const lo = Math.min(...vs), hi = Math.max(...vs);
+  const one = selNotes.size === 1 ? [...selNotes][0] : null;
+  el.textContent = one
+    ? '· ' + nm(one.p) + ' ' + one.tech + ' ' + one.d.toFixed(2) + 's  vel'
+    : '· ' + selNotes.size + ' notes  vel';
+  box.style.display = '';
+  box.value = lo === hi ? String(lo) : lo + '–' + hi;
+}
 function updateSelInfo() {
   $('selInfo').textContent = sel
     ? 'sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's · ' + sourceEvents().length + 'n'
@@ -399,7 +427,7 @@ function updateSelInfo() {
 // ================= mouse: transport + note editing =================
 (() => {
   const cv = $('roll');
-  let mode = null, startT = 0, dragNote = -1, grabOff = 0, dragHappened = false;
+  let mode = null, startT = 0, dragNote = null, grabOff = 0, dragHappened = false;
   const timeAt = e => {
     const r = cv.getBoundingClientRect();
     return Math.max(0, Math.min(baseSpan(), rollTimeAt(e.clientX - r.left)));
@@ -441,14 +469,14 @@ function updateSelInfo() {
     const ni = hitNote(e);
     if (ni >= 0) {
       const n = baseEvents()[ni];
-      if (e.shiftKey) { selNotes.add(ni); }
-      else if (!selNotes.has(ni)) selNotes = new Set([ni]);
-      dragNote = ni;
+      if (e.shiftKey) selNotes.add(n);
+      else if (!selNotes.has(n)) selNotes = new Set([n]);
+      dragNote = n;
       grabOff = timeAt(e) - n.t;
       const edgeX = rollX(n.t) + Math.max(2.5, soundLen(n) * pps());
       const x = e.clientX - cv.getBoundingClientRect().left;
       mode = (n.tech === 'ord' && Math.abs(x - edgeX) < 6) ? 'dur' : 'note';
-      drawRoll();
+      drawRoll(); updateNoteSel();
       return;
     }
     mode = nearSelEdge(e) || 'new';
@@ -462,22 +490,19 @@ function updateSelInfo() {
     }
     dragHappened = true;
     const t = timeAt(e);
-    if (mode === 'note' && dragNote >= 0) {
-      const ref = baseEvents()[dragNote];
+    if (mode === 'note' && dragNote) {
       const targetP = Math.max(LO, Math.min(TOP, pitchAt(e.clientY - cv.getBoundingClientRect().top)));
-      const dp = targetP - ref.p;
-      const dt = +(Math.max(0, t - grabOff) - ref.t).toFixed(3);
-      for (const i of selNotes) {
-        const m = baseEvents()[i];
+      const dp = targetP - dragNote.p;
+      const dt = +(Math.max(0, t - grabOff) - dragNote.t).toFixed(3);
+      for (const m of selNotes) {
         m.p = Math.max(LO, Math.min(TOP, m.p + dp));
         m.t = +Math.max(0, m.t + dt).toFixed(3);
       }
       drawRoll(); persist();
       return;
     }
-    if (mode === 'dur' && dragNote >= 0) {
-      const n = baseEvents()[dragNote];
-      n.d = +Math.max(0.1, t - n.t).toFixed(3);
+    if (mode === 'dur' && dragNote) {
+      dragNote.d = +Math.max(0.1, t - dragNote.t).toFixed(3);
       drawRoll(); persist();
       return;
     }
@@ -493,10 +518,11 @@ function updateSelInfo() {
   window.addEventListener('mouseup', () => {
     if (!mode) return;
     const m = mode;
-    mode = null; dragNote = -1;
+    mode = null; dragNote = null;
     if (m === 'note' || m === 'dur' || m === 'lo' || m === 'hi') {
-      if (isSnip()) { const o = baseObj(); o.events.sort((a, b) => a.t - b.t); selNotes.clear(); }
-      drawRoll(); updateSelInfo();
+      // sorting is safe now: selNotes holds references, not indices
+      if (isSnip()) baseObj().events.sort((a, b) => a.t - b.t);
+      drawRoll(); updateSelInfo(); updateNoteSel();
       return;
     }
     // 'new' gesture: CLICK = cursor + collapse; DRAG = keep selection
@@ -507,7 +533,7 @@ function updateSelInfo() {
     } else if (sel) {
       cursorT = sel[0];
     }
-    drawRoll(); updateSelInfo();
+    drawRoll(); updateSelInfo(); updateNoteSel();
   });
 
   // double-click: on a note = cycle articulation; on empty = add a note
@@ -525,10 +551,11 @@ function updateSelInfo() {
     const r = cv.getBoundingClientRect();
     const p = pitchAt(e.clientY - r.top);
     if (p < LO || p > TOP) return;
-    o.events.push({ t: +timeAt(e).toFixed(3), p, v: 100, d: 0.5, tech: $('recTech').value });
+    const fresh = { t: +timeAt(e).toFixed(3), p, v: 100, d: 0.5, tech: $('recTech').value };
+    o.events.push(fresh);
     o.events.sort((a, b) => a.t - b.t);
-    selNotes.clear();
-    drawRoll(); persist();
+    selNotes = new Set([fresh]);
+    drawRoll(); updateNoteSel(); persist();
   });
 
   // wheel: pan / ALT-zoom (dominant axis - ALT shunts to deltaX on some devices)
@@ -550,9 +577,9 @@ function updateSelInfo() {
   window._deleteSelectedNotes = () => {
     if (!canEdit() || !selNotes.size) return;
     const o = baseObj();
-    o.events = o.events.filter((_, i) => !selNotes.has(i));
+    o.events = o.events.filter(e => !selNotes.has(e));
     selNotes.clear();
-    drawRoll(); persist();
+    drawRoll(); updateNoteSel(); persist();
   };
 })();
 
@@ -737,7 +764,7 @@ function openCluster(id) {
   $('clSel').value = id;
   $('editBar').style.display = 'none';
   resetViewState();
-  drawRoll(); updateSelInfo(); drawSnips();
+  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips();
 }
 function openSnippet(id) {
   const sn = BANK.snippets[id];
@@ -750,7 +777,7 @@ function openSnippet(id) {
     ? '· from ' + pv.from + (pv.t0 != null ? ' ' + (+pv.t0).toFixed(1) + '–' + (+pv.t1).toFixed(1) + 's' : '')
     : '';
   resetViewState();
-  drawRoll(); updateSelInfo(); drawSnips();
+  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips();
 }
 async function cutSnippet() {
   if (!entity.id) return;
@@ -980,6 +1007,14 @@ function numBox(el, apply) {
 }
 numBox($('strV'), v => syncStretch(v === null ? TR.stretch : v, true));
 numBox($('velV'), v => syncVel(v === null ? TR.vel : v, true));
+numBox($('noteVel'), v => {
+  if (v !== null && selNotes.size) {
+    const q = Math.max(1, Math.min(127, Math.round(v)));
+    for (const n of selNotes) n.v = q;
+    if (window._persistSnippet) window._persistSnippet();
+  }
+  drawRoll(); updateNoteSel();
+});
 $('revBtn').addEventListener('click', function () { TR.reverse = !TR.reverse; this.classList.toggle('on', TR.reverse); drawRoll(); });
 $('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); drawRoll(); });
 $('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); drawRoll(); });
@@ -1006,7 +1041,7 @@ window.addEventListener('keydown', e => {
     if (playing) stopAll(); else play();
     return;
   }
-  if (e.key === 'Escape') { stopAll(); selNotes.clear(); drawRoll(); return; }
+  if (e.key === 'Escape') { stopAll(); selNotes.clear(); drawRoll(); updateNoteSel(); return; }
   if (e.key === 'Delete' || e.key === 'Backspace') {
     e.preventDefault();
     window._deleteSelectedNotes();
@@ -1016,9 +1051,8 @@ window.addEventListener('keydown', e => {
   if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && canEdit() && selNotes.size) {
     e.preventDefault();
     const d = (e.key === 'ArrowUp' ? 6 : -6) * (e.shiftKey ? 3 : 1);
-    const o = baseObj();
-    for (const i of selNotes) o.events[i].v = Math.max(1, Math.min(127, o.events[i].v + d));
-    drawRoll();
+    for (const n of selNotes) n.v = Math.max(1, Math.min(127, n.v + d));
+    drawRoll(); updateNoteSel();
     if (window._persistSnippet) window._persistSnippet();
   }
 });
