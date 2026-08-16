@@ -22,9 +22,19 @@ necessary.
 **Starting a work chunk (a sandbox, a section, a research question):**
 
 1. `/clear` (or a new chat). Do not continue yesterday's session.
-2. The new session orients from **docs, not chat history**:
-   `docs/PLANNER.md` (the **NOW ►** line) → `PROJECT_JOURNAL.md` §2 → the
-   specific doc for the task. That is what they are for.
+2. **Run `/session-start`.** It is not automatic: after a clear the session has
+   only `CLAUDE.md` (which merely *points* at the docs). `/session-start` reads
+   `PROJECT_JOURNAL.md` §2, the planner's **NOW ►** line and §6 Human Notes,
+   plays back where things stand, and proposes an agenda.
+3. The new session orients from **docs, not chat history** —
+   `docs/PLANNER.md` → `PROJECT_JOURNAL.md` §2 → the specific doc for the task.
+   That is what they are for.
+
+**The full cycle:** `/session-end` → `/clear` → `/session-start` → work.
+
+*Skip `/session-start` for genuine one-offs* (a typo, a quick question) — the
+orientation costs tokens and an exchange, and is worth it for a sandbox build or
+a new container, not a two-minute errand.
 
 **During the chunk:**
 
