@@ -225,7 +225,7 @@ let pxPerSec = null, viewT0 = 0;
 // Load it, edit it, it saves itself back. Duplicate for a variant. Delete to
 // remove. Clusters are read-only sources you cut new items from.
 const isItem = () => entity.kind === 'item';
-const canEdit = () => isItem() && !layoutTransformed();
+const canEdit = () => isItem();
 
 function baseObj() {
   if (!BANK || !entity.id) return null;
@@ -424,11 +424,11 @@ function drawRoll() {
     const shownV = Math.max(1, Math.min(127, e.v * velScale));
     bar(e.t, e.p, soundLen(e),
       transformed || !inWin ? '#999' : techColor(e.tech),
-      transformed ? 0.25 : inWin ? (0.35 + 0.55 * shownV / 127) : 0.15,
-      !transformed && selNotes.has(e));
+      transformed ? 0.3 : inWin ? (0.35 + 0.55 * shownV / 127) : 0.15,
+      selNotes.has(e));
   });
   // velocity readout on selected notes (few enough to stay legible)
-  if (!transformed && selNotes.size && selNotes.size <= 12) {
+  if (selNotes.size && selNotes.size <= 12) {
     ctx.font = '9px Consolas';
     ctx.fillStyle = '#ffd479';
     for (const n of selNotes) {
@@ -451,8 +451,10 @@ function drawRoll() {
     }
   }
   $('info').textContent = entity.id + ': ' + baseEvents().length + ' notes / ' + baseSpan().toFixed(1) + 's' + trDesc() +
-    (isItem() && transformed ? '   — note editing paused by: ' + blockingTransforms().join(', ') +
-      ' (↺ original re-enables it)' : '');
+    (isItem() && transformed
+      ? '   — grey = the stored notes you are editing, coloured = the '
+        + blockingTransforms().join('+') + ' preview'
+      : '');
 }
 function updateNoteSel() {
   const el = $('selNoteInfo'), box = $('noteVel');
