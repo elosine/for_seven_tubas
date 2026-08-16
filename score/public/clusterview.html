@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Cluster Sandbox</title>
+<!-- v2 REBUILD (composer 2026-08-15). Architecture lessons from v1:
+     1. ONE transport model (audio-editor standard): cursor+selection are one
+        concept; click=cursor, drag=select, SPACE=play/stop, HOME=zero.
+     2. MIDI thru NEVER listens to loopMIDI (tuba*) ports - feedback-proof.
+     3. Playback schedules with a lead so note 1 never races all-notes-off.
+     4. Snippets are EDITABLE COPIES (mini piano-roll); sources are immutable.
+     5. No auto-play anywhere; transforms are a non-destructive VIEW. -->
 <style>
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
          margin: 0; padding: 8px 16px 30px; }
@@ -16,45 +23,56 @@
   button.chip.on { background: #14424a; border-color: #3FA7B8; color: #8fdbe8; }
   input[type=range] { width: 100px; vertical-align: middle; }
   .hint { color: #777; }
-  #roll { display: block; width: 100%; height: 340px; background: #202024;
-          border: 1px solid #333; border-radius: 6px; cursor: crosshair; margin-top: 4px; }
+  #roll { display: block; width: 100%; height: 380px; background: #202024;
+          border: 1px solid #333; border-radius: 6px; cursor: crosshair; }
+  #rollWrap { position: relative; margin-top: 4px; }
+  #playCursor { position: absolute; top: 0; bottom: 0; width: 0;
+                border-left: 1.5px solid #ffd479; display: none; pointer-events: none; }
   .chiprow { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; font-size: 11px; padding: 2px 0; }
-  .snip { background: #232327; border: 1px solid #555; border-radius: 4px; padding: 2px 6px;
-          cursor: pointer; }
+  .snip { background: #232327; border: 1px solid #555; border-radius: 4px; padding: 2px 6px; cursor: pointer; }
   .snip.on { border-color: #3FA7B8; color: #8fdbe8; }
   .snip .x { color: #777; margin-left: 5px; }
   .snip .x:hover { color: #ff9c54; }
   select.flash { border-color: #ff9c54; box-shadow: 0 0 6px #ff9c54; }
+  #editBar { background: #17272b; border: 1px solid #2c4a52; border-radius: 5px; padding: 3px 8px; }
 </style>
 </head>
 <body>
 
 <div class="bar">
   <select id="clSel" title="the cluster bank: imported takes + your recordings"></select>
-  <button id="playBtn" title="SPACE — play the selection (or the whole cluster)">&#9654; play</button>
-  <button id="stopBtn" title="stop playback">&#9632;</button>
+  <button id="playBtn" title="SPACE - play/stop the selection (or cursor to end)">&#9654; play</button>
+  <button id="stopBtn" title="stop (ESC)">&#9632;</button>
   <span class="hint">|</span>
-  <select id="recTech" title="the articulation preset you are playing through">
+  <select id="recTech" title="the articulation you play through (live thru; recordings are labelled with it)">
     <option value="staccato">rec: staccato</option>
     <option value="fortepiano">rec: fortepiano</option>
     <option value="ord">rec: ordinario</option>
   </select>
-  <button id="recBtn" title="record from your MIDI keyboard — first note starts the clock">&#9679; rec</button>
+  <button id="recBtn" title="record from your MIDI keyboard - first note starts the clock">&#9679; rec</button>
   <span class="hint">|</span>
-  <span id="selInfo" class="hint">drag on the roll to select</span>
-  <button id="selClear" title="clear the selection">clear sel</button>
-  <button id="snipSave" title="save the selection as a snippet (a pointer — cheap, disposable)">&#10549; snippet</button>
+  <span id="selInfo" class="hint"></span>
+  <button id="selClear" title="clear selection + cursor to 0 (HOME)">clear</button>
+  <button id="snipSave" title="cut the selection (or the whole thing) into an editable snippet COPY">&#9986; snippet</button>
   <span class="hint">|</span>
-  <button id="zoomIn" title="zoom in (or ALT+wheel on the roll)">+</button>
+  <button id="zoomIn" title="zoom in (ALT+wheel on the roll)">+</button>
   <button id="zoomOut" title="zoom out">&#8722;</button>
-  <button id="zoomFit" title="fit the whole cluster">fit</button>
+  <button id="zoomFit" title="fit">fit</button>
   <span style="flex:1 1 auto"></span>
   <span class="hint" id="midiStatus">midi: &#8230;</span>
 </div>
 
-<div id="rollWrap" style="position:relative">
-  <canvas id="roll" width="1600" height="340"></canvas>
-  <div id="playCursor" style="position:absolute; top:0; bottom:0; width:0; border-left:1.5px solid #ffd479; display:none; pointer-events:none"></div>
+<div class="bar" id="editBar" style="display:none">
+  <b id="editTitle" style="color:#8fdbe8"></b>
+  <span class="hint" id="editProv"></span>
+  <span class="hint">&#183; click note = select &#183; drag = move (pitch/time) &#183; right edge = length (ord)
+    &#183; dbl-click note = articulation &#183; dbl-click empty = add &#183; DEL = delete</span>
+  <button id="backBtn" class="chip">&#9666; back to sources</button>
+</div>
+
+<div id="rollWrap">
+  <canvas id="roll" width="1600" height="380"></canvas>
+  <div id="playCursor"></div>
 </div>
 
 <div class="chiprow" id="snips"></div>
@@ -63,7 +81,7 @@
   <span class="hint">time:</span>
   <button class="chip str" data-f="0.5">&#215;0.5</button>
   <button class="chip str" data-f="0.75">&#215;0.75</button>
-  <button class="chip str" data-f="1">&#215;1</button>
+  <button class="chip str on" data-f="1">&#215;1</button>
   <button class="chip str" data-f="1.5">&#215;1.5</button>
   <button class="chip str" data-f="2">&#215;2</button>
   <button class="chip str" data-f="4">&#215;4</button>
@@ -71,21 +89,20 @@
   <label>fine <input type="range" id="strSlider" min="0.25" max="10" step="0.05" value="1"><span id="strV" class="hint">1.00&#215;</span></label>
   <span class="hint">|</span>
   <button class="chip" id="revBtn" title="mirror the attack pattern in time">reverse</button>
-  <button class="chip" id="octDn" title="shift down an octave (folds back into range)">oct &#8722;</button>
-  <button class="chip" id="octUp" title="shift up an octave (folds back into range)">oct +</button>
+  <button class="chip" id="octDn" title="down an octave (folds back into range)">oct &#8722;</button>
+  <button class="chip" id="octUp" title="up an octave (folds back into range)">oct +</button>
   <label>thin <input type="range" id="thin" min="10" max="100" step="5" value="100"><span id="thinV" class="hint">100%</span></label>
-  <button id="resetBtn" title="back to the untouched original">&#8634; original</button>
+  <button id="resetBtn" title="drop all transforms (the entity itself is untouched)">&#8634; original</button>
 </div>
 
 <div class="bar" id="tonRow">
   <span class="hint">tonality:</span>
-  <!-- chips injected -->
-  <select id="chordSel" title="remap onto any of the 33 played chords (V1 pitches)"><option value="">chord&#8230;</option></select>
-  <button class="chip on" id="poolBtn" title="POOLED: the target's pitch classes spread over the whole range (keeps register + contour). LITERAL: exactly the target's notes (keeps voicing; tight targets collapse register)">pooled</button>
+  <select id="chordSel" title="remap onto any of the 33 played chords"><option value="">chord&#8230;</option></select>
+  <button class="chip on" id="poolBtn" title="POOLED: the target's pitch classes over the whole range (keeps register/contour). LITERAL: exactly the target's notes">pooled</button>
 </div>
 
 <div class="bar">
-  <button id="storeBtn" title="bake the current sound into a keeper gesture (CG###) and add it to the chosen list">&#9733; store &#8594;</button>
+  <button id="storeBtn" title="bake what you HEAR (entity + transforms) into a keeper gesture CG###">&#9733; store &#8594;</button>
   <span class="hint">add to:</span>
   <select id="listSel"></select>
   <span id="storeMsg" style="color:#ff9c54"></span>
@@ -93,15 +110,16 @@
 </div>
 
 <script>
+'use strict';
 const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
-const LO = 30, HI = 65;
+const LO = 30, HI = 65, TOP = 67;          // ord range; cuivre extends to 67
+const $ = id => document.getElementById(id);
 
-// ---- tonality palette (the documented harmony palette, GESTURES.md 2026-08-13) ----
+// ================= tonality palette =================
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
-const pcsPool = (pcs) => range(LO, HI).filter(m => pcs.includes(m % 12));
+const pcsPool = pcs => range(LO, HI).filter(m => pcs.includes(m % 12));
 const onPc = (root, degs) => degs.map(d => (root + d) % 12);
-// deterministic placed 11-pc row (cres_ref recipe, fixed order)
 const ROW = (() => {
   const pcs = [0, 7, 3, 10, 5, 1, 8, 4, 11, 6, 2];
   return pcs.map((pc, i) => {
@@ -113,24 +131,20 @@ const ROW = (() => {
   }).sort((a, b) => a - b);
 })();
 const TONALITIES = {
-  'cl low':  range(30, 36),
-  'cl mid':  range(44, 50),
-  'cl high': range(59, 65),
+  'cl low': range(30, 36), 'cl mid': range(44, 50), 'cl high': range(59, 65),
   'cl spread': [30, 36, 43, 47, 56, 57, 58],
   'BbE 2oct': [...range(34, 40), ...range(58, 64)],
-  '5ths 30': [30, 37, 44, 51, 58, 65],
-  '5ths 37': [37, 44, 51, 58, 65],
-  'oct F#': [30, 42, 54],
-  'oct Bb': [34, 46, 58],
+  '5ths 30': [30, 37, 44, 51, 58, 65], '5ths 37': [37, 44, 51, 58, 65],
+  'oct F#': [30, 42, 54], 'oct Bb': [34, 46, 58],
   'm7 (F#)': pcsPool(onPc(6, [0, 1, 2, 3, 5, 6, 7, 8, 10, 11])),
   'm4 (F#)': pcsPool(onPc(6, [0, 1, 2, 5, 6, 7, 8, 11])),
   'm6 (F#)': pcsPool(onPc(6, [0, 2, 4, 5, 6, 8, 10, 11])),
-  'm3 (F)':  pcsPool(onPc(5, [0, 2, 3, 4, 6, 7, 8, 10, 11])),
+  'm3 (F)': pcsPool(onPc(5, [0, 2, 3, 4, 6, 7, 8, 10, 11])),
   'Bhairav (F)': pcsPool(onPc(5, [0, 1, 4, 5, 7, 8, 11])),
   'row (placed)': ROW,
 };
 
-// ---- measured one-shot lengths (probe 2026-08-15) ----
+// ================= measured one-shot lengths (probe 2026-08-15) =================
 let SAMPLE_LEN = null;
 const FIXED_FALLBACK = { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 };
 function techLen(tech, pitch) {
@@ -140,66 +154,57 @@ function techLen(tech, pitch) {
     const keys = Object.keys(tbl).map(Number);
     if (keys.length) return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
   }
-  return FIXED_FALLBACK[tech];   // undefined for ord = variable
+  return FIXED_FALLBACK[tech];               // undefined for ord = variable
 }
+const soundLen = e => e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d);
 
-// ---- state ----
-let BANK = null, TAXCH = {};        // cluster bank; chord id -> V1 pitches
-let cur = null;                     // current cluster id
-let sel = null;                     // [t0, t1] in cluster time, or null
-let selSnip = null;                 // active snippet id (highlight only)
-// non-destructive transform state — always recomputed from the source
-let TR = { stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true };
+// ================= state =================
+let BANK = null, TAXCH = {};
+// the loaded ENTITY: a cluster (immutable source) or a snippet (editable copy)
+let entity = { kind: 'cluster', id: null };
+let sel = null, cursorT = 0;               // ONE transport concept
+let selNotes = new Set();                  // selected note indices (snippet mode)
 const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true });
-// view window: pxPerSec = null means fit-whole-cluster; viewT0 = left edge (s)
+let TR = trDefault();
+const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100;
 let pxPerSec = null, viewT0 = 0;
-// AUDIO-EDITOR TRANSPORT MODEL (composer 2026-08-15): the cursor and the
-// selection are one concept. Click = place the cursor (collapses selection).
-// Drag = select (cursor rides the selection start). SPACE plays the selection,
-// or cursor-to-end when there is none. HOME = zero. Boundary notes get 30 ms
-// of grace so clicking ON a note plays it.
-let cursorT = 0;
+const isSnip = () => entity.kind === 'snippet';
+const canEdit = () => isSnip() && !trActive();
 
-const $ = id => document.getElementById(id);
-
-// ---- the transform pipeline ----
-const EDGE_EPS = 0.03;   // boundary grace: a note AT the window edge plays
-function playWindow() {
-  return sel ? [sel[0], sel[1]] : [cursorT, rollSpan()];
+function baseObj() {
+  if (!BANK || !entity.id) return null;
+  return isSnip() ? BANK.snippets[entity.id] : BANK.clusters[entity.id];
 }
+function baseEvents() { const o = baseObj(); return (o && o.events) || []; }
+function baseSpan() {
+  const ev = baseEvents();
+  return ev.length ? Math.max(0.5, ...ev.map(e => e.t + soundLen(e))) : 0.5;
+}
+
+// ================= transport window + transforms (non-destructive view) =================
+const EDGE_EPS = 0.03;                     // a note AT the window edge plays
+function playWindow() { return sel ? [sel[0], sel[1]] : [cursorT, baseSpan()]; }
 function sourceEvents() {
-  if (!cur || !BANK.clusters[cur]) return [];
   const w = playWindow();
-  // normalize to the window EDGE so leading empty space is heard as silence
-  return BANK.clusters[cur].events
+  return baseEvents()
     .filter(e => e.t >= w[0] - EDGE_EPS && e.t <= w[1] + 0.001)
     .map(e => ({ ...e, srcT: e.t, srcP: e.p, t: +Math.max(0, e.t - w[0]).toFixed(3) }));
 }
-function foldInto(p) {
-  while (p < LO) p += 12;
-  while (p > HI) p -= 12;
-  return p;
-}
+function foldInto(p) { while (p < LO) p += 12; while (p > HI) p -= 12; return p; }
 function viewEvents() {
-  let ev = sourceEvents().map(e => ({ ...e }));
+  let ev = sourceEvents();
   if (!ev.length) return ev;
-  // 1. thin: keep the loudest N%
   if (TR.thin < 100) {
     const keep = Math.max(1, Math.round(ev.length * TR.thin / 100));
     const kept = new Set(ev.slice().sort((a, b) => b.v - a.v).slice(0, keep));
     ev = ev.filter(e => kept.has(e));
   }
   const span = Math.max(...ev.map(e => e.t));
-  // 2. reverse: mirror the attack pattern
-  if (TR.reverse) { ev = ev.map(e => ({ ...e, t: +(span - e.t).toFixed(3) })).sort((a, b) => a.t - b.t); }
-  // 3. stretch: onsets scale; ord durations scale; fixed one-shots keep their length (D9)
+  if (TR.reverse) ev = ev.map(e => ({ ...e, t: +(span - e.t).toFixed(3) })).sort((a, b) => a.t - b.t);
   if (TR.stretch !== 1) ev = ev.map(e => ({ ...e, t: +(e.t * TR.stretch).toFixed(3),
     d: e.tech === 'ord' ? +(e.d * TR.stretch).toFixed(3) : e.d }));
-  // 4. tonality remap (composer 2026-08-15: pooled + no-repeat kick)
   const targetLit = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
   if (targetLit && targetLit.length) {
-    // POOLED: spread the target's pitch classes over the whole range so tight
-    // targets stop collapsing register; LITERAL: the target's exact notes
     const target = TR.pool ? pcsPool([...new Set(targetLit.map(q => q % 12))]) : targetLit;
     const nearestIn = (q, excl) => {
       let best = null, bd = 1e9;
@@ -210,23 +215,19 @@ function viewEvents() {
       }
       return best;
     };
-    // pc-consistent base map
     const map = {};
     for (const e of ev) {
       if (map[e.p] === undefined) map[e.p] = nearestIn(e.p);
       e.p = map[e.p];
     }
-    // NO-REPEAT KICK: when DISTINCT source pitches collide on one target note
-    // (consecutively, or simultaneously as an accidental unison), bump the
-    // later one to the next-nearest target member. Repeats that exist in the
-    // source stay repeats - they are the material.
+    // no-repeat kick: DISTINCT sources colliding on one target get bumped;
+    // repeats present in the source stay repeats
     let prevP = null, prevSrc = null, curT = null, used = new Set();
     for (const e of ev) {
       if (curT === null || Math.abs(e.t - curT) > 0.001) { curT = e.t; used = new Set(); }
       let q = e.p;
       const clashPrev = prevP !== null && q === prevP && e.srcP !== prevSrc;
-      const clashSim = used.has(q);
-      if ((clashPrev || clashSim) && target.length > 1) {
+      if ((clashPrev || used.has(q)) && target.length > 1) {
         const excl = new Set(used);
         if (prevP !== null && e.srcP !== prevSrc) excl.add(prevP);
         const alt = nearestIn(e.srcP, excl);
@@ -237,23 +238,39 @@ function viewEvents() {
       e.p = q;
     }
   }
-  // 5. octave shift, folded back into range
   if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
   return ev;
 }
-const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d)))) : 0;
+const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + soundLen(e))) : 0;
+function trDesc() {
+  const b = [];
+  if (TR.stretch !== 1) b.push('×' + TR.stretch);
+  if (TR.tonality) b.push(TR.tonality);
+  if (TR.chord) b.push('ch' + TR.chord.replace('VERT01-', ''));
+  if (TR.reverse) b.push('rev');
+  if (TR.oct) b.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
+  if (TR.thin < 100) b.push('thin' + TR.thin + '%');
+  if ((TR.tonality || TR.chord) && !TR.pool) b.push('literal');
+  return b.length ? ' — ' + b.join(' · ') : '';
+}
 
-// ---- piano roll ----
-const rollSpan = () => cur ? Math.max(BANK.clusters[cur].span, 0.5) : 1;
-function fitPps() { return ($('roll').clientWidth - 16) / rollSpan(); }
+// ================= roll geometry =================
+const KEYS_W = 54;                          // left piano gutter
+function fitPps() { return ($('roll').clientWidth - KEYS_W - 12) / baseSpan(); }
 function pps() { return pxPerSec || fitPps(); }
 function clampView() {
-  const maxT0 = Math.max(0, rollSpan() - ($('roll').clientWidth - 16) / pps());
+  const maxT0 = Math.max(0, baseSpan() - ($('roll').clientWidth - KEYS_W - 12) / pps());
   viewT0 = Math.max(0, Math.min(maxT0, viewT0));
 }
-const rollX = t => 8 + (t - viewT0) * pps();
-const rollTimeAt = x => viewT0 + (x - 8) / pps();
-const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100;
+const rollX = t => KEYS_W + 6 + (t - viewT0) * pps();
+const rollTimeAt = x => viewT0 + (x - KEYS_W - 6) / pps();
+const rowH = () => ($('roll').clientHeight - 24) / (TOP - LO + 1);
+const rollY = p => $('roll').clientHeight - 12 - (p - LO + 0.5) * rowH();
+const pitchAt = y => Math.round(LO - 0.5 + ($('roll').clientHeight - 12 - y) / rowH());
+const techColor = t => t === 'fortepiano' ? '#c9986e' : t === 'ord' ? '#8ea9c9'
+                     : t === 'cuivre' ? '#ff9c54' : '#ffd479';
+
+// ================= drawing =================
 function drawRoll() {
   const cv = $('roll'), ctx = cv.getContext('2d');
   cv.width = cv.clientWidth * devicePixelRatio;
@@ -261,143 +278,266 @@ function drawRoll() {
   ctx.scale(devicePixelRatio, devicePixelRatio);
   const W = cv.clientWidth, H = cv.clientHeight;
   ctx.clearRect(0, 0, W, H);
-  if (!cur) return;
+  if (!entity.id) return;
   clampView();
-  const cl = BANK.clusters[cur];
-  const X = rollX;
-  const Y = p => H - 14 - (H - 28) * (p - LO) / (HI - LO + 4);
+  const rh = rowH();
+  // piano gutter + row shading
+  for (let p = LO; p <= TOP; p++) {
+    const y = rollY(p) - rh / 2;
+    const black = [1, 3, 6, 8, 10].includes(p % 12);
+    ctx.fillStyle = black ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.055)';
+    ctx.fillRect(KEYS_W, y, W - KEYS_W, rh);
+    ctx.fillStyle = black ? '#2e2e32' : '#d8d4cc';
+    ctx.fillRect(0, y + 0.5, KEYS_W - 8, rh - 1);
+    if (p % 12 === 0) {
+      ctx.fillStyle = '#555';
+      ctx.font = '9px Consolas';
+      ctx.fillText(nm(p), 2, y + rh - 2);
+      ctx.fillStyle = 'rgba(138,138,146,0.4)';
+      ctx.fillRect(KEYS_W, y + rh, W - KEYS_W, 1);
+    }
+    if (p === HI) {                         // ord ceiling
+      ctx.fillStyle = 'rgba(255,156,84,0.35)';
+      ctx.fillRect(KEYS_W, y, W - KEYS_W, 1);
+    }
+  }
   // second ruler
-  ctx.fillStyle = '#3a3a40'; ctx.font = '9px Consolas';
-  const visSpan = (W - 16) / pps();
+  ctx.font = '9px Consolas';
+  const visSpan = (W - KEYS_W - 12) / pps();
   const step = visSpan > 40 ? 5 : 1;
-  for (let s = Math.floor(viewT0); s <= viewT0 + visSpan + 1; s++) {
-    if (X(s) < 0 || X(s) > W) continue;
-    ctx.fillRect(X(s), 0, 1, H);
-    if (s % step === 0) ctx.fillText(s + 's', X(s) + 2, 10);
+  for (let s2 = Math.floor(viewT0); s2 <= viewT0 + visSpan + 1; s2++) {
+    const x = rollX(s2);
+    if (x < KEYS_W || x > W) continue;
+    ctx.fillStyle = '#3a3a40';
+    ctx.fillRect(x, 0, 1, H);
+    if (s2 % step === 0) { ctx.fillStyle = '#666'; ctx.fillText(s2 + 's', x + 2, 9); }
   }
   // selection band
   if (sel) {
-    ctx.fillStyle = 'rgba(63,167,184,0.14)';
-    ctx.fillRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
+    ctx.fillStyle = 'rgba(63,167,184,0.13)';
+    ctx.fillRect(rollX(sel[0]), 0, rollX(sel[1]) - rollX(sel[0]), H);
     ctx.strokeStyle = '#3FA7B8';
-    ctx.strokeRect(X(sel[0]), 0, X(sel[1]) - X(sel[0]), H);
+    ctx.strokeRect(rollX(sel[0]), 0, rollX(sel[1]) - rollX(sel[0]), H);
   }
+  // cursor line
   {
-    const px = X(cursorT);
-    if (px >= 0 && px <= W) {
+    const px = rollX(cursorT);
+    if (px >= KEYS_W && px <= W) {
       ctx.strokeStyle = '#ffd479';
       ctx.setLineDash([4, 3]);
       ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
       ctx.setLineDash([]);
     }
   }
-  const dot = (x, y, r, color) => { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); };
-  const techColor = tech => tech === 'fortepiano' ? '#c9986e' : tech === 'ord' ? '#8ea9c9' : '#ffd479';
+  // note BARS
+  const barH = Math.max(3, rh - 2);
+  const bar = (t, p, len, color, alpha, outline) => {
+    const x = rollX(t), y = rollY(p) - barH / 2;
+    const w = Math.max(2.5, len * pps());
+    if (x + w < KEYS_W || x > W) return;
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    const cx = Math.max(x, KEYS_W);
+    ctx.fillRect(cx, y, w - (cx - x), barH);
+    ctx.globalAlpha = 1;
+    if (outline) { ctx.strokeStyle = '#fff'; ctx.strokeRect(x - 0.5, y - 0.5, w + 1, barH + 1); }
+  };
   const transformed = trActive();
-  // pass 1: every source event — dim if outside the selection, ghosted if transforms are active
-  for (const e of cl.events) {
-    const inSel = !sel || (e.t >= sel[0] && e.t <= sel[1]);
-    const x = X(e.t);
-    if (x < -4 || x > W + 4) continue;
-    const r = 1.2 + 2.6 * e.v / 127;
-    dot(x, Y(e.p), r, !inSel ? 'rgba(150,150,150,0.25)'
-      : transformed ? 'rgba(150,150,150,0.35)' : techColor(e.tech));
-  }
-  // pass 2: when transforms are active, THE SOUND — bright dots at the source
-  // position but the transformed pitch (what you see = what plays)
+  const w = playWindow();
+  baseEvents().forEach((e, i) => {
+    const inWin = e.t >= w[0] - EDGE_EPS && e.t <= w[1] + 0.001;
+    bar(e.t, e.p, soundLen(e),
+      transformed || !inWin ? '#999' : techColor(e.tech),
+      transformed ? 0.25 : inWin ? (0.35 + 0.55 * e.v / 127) : 0.15,
+      !transformed && selNotes.has(i));
+  });
+  // the SOUND when transforms are active (drawn at source time, transformed pitch)
   if (transformed) {
     for (const e of viewEvents()) {
-      const sx = X(e.srcT);
-      if (sx < -4 || sx > W + 4) continue;
-      const r = 1.4 + 2.6 * e.v / 127;
-      dot(sx, Y(e.p), r, techColor(e.tech));
-      if (e.p !== e.srcP) {   // remap trace: a faint tick at the original pitch
+      bar(e.srcT, e.p, soundLen(e), techColor(e.tech), 0.4 + 0.55 * e.v / 127, false);
+      if (e.p !== e.srcP) {
         ctx.strokeStyle = 'rgba(63,167,184,0.35)';
-        ctx.beginPath(); ctx.moveTo(sx, Y(e.srcP)); ctx.lineTo(sx, Y(e.p)); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(rollX(e.srcT) + 1, rollY(e.srcP));
+        ctx.lineTo(rollX(e.srcT) + 1, rollY(e.p));
+        ctx.stroke();
       }
     }
   }
-  $('info').textContent = cur + ': ' + cl.n + ' notes / ' + cl.span.toFixed(1) + 's' +
-    (sel ? ' — sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's (' + sourceEvents().length + 'n)' : '') +
-    (transformed ? trDesc() : '');
+  $('info').textContent = entity.id + ': ' + baseEvents().length + ' notes / ' + baseSpan().toFixed(1) + 's' + trDesc() +
+    (isSnip() && transformed ? '  (reset transforms to edit notes)' : '');
+}
+function updateSelInfo() {
+  $('selInfo').textContent = sel
+    ? 'sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's · ' + sourceEvents().length + 'n'
+    : cursorT > 0.001
+    ? 'cursor @ ' + cursorT.toFixed(2) + 's'
+    : 'click = cursor · drag = select';
 }
 
-// selection drag (horizontal only)
+// ================= mouse: transport + note editing =================
 (() => {
   const cv = $('roll');
-  let dragging = false, startT = 0;
+  let mode = null, startT = 0, dragNote = -1, grabOff = 0, dragHappened = false;
   const timeAt = e => {
     const r = cv.getBoundingClientRect();
-    return Math.max(0, Math.min(rollSpan(), rollTimeAt(e.clientX - r.left)));
+    return Math.max(0, Math.min(baseSpan(), rollTimeAt(e.clientX - r.left)));
   };
-  cv.addEventListener('wheel', e => {
-    e.preventDefault();
-    // with ALT held, some devices deliver the motion as deltaX — use the dominant axis
-    const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (e.altKey) {
-      // zoom anchored at the mouse position
-      const r = cv.getBoundingClientRect();
-      const anchorT = rollTimeAt(e.clientX - r.left);
-      const f = d < 0 ? 1.18 : 1 / 1.18;
-      pxPerSec = Math.max(fitPps() * 0.5, Math.min(Math.max(600, fitPps() * 10), pps() * f));
-      viewT0 = anchorT - (e.clientX - r.left - 8) / pxPerSec;
-    } else {
-      viewT0 += d / pps();
+  const hitNote = e => {
+    if (!canEdit()) return -1;
+    const r = cv.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const ev = baseEvents();
+    for (let i = ev.length - 1; i >= 0; i--) {
+      const n = ev[i];
+      const nx = rollX(n.t), nw = Math.max(2.5, soundLen(n) * pps());
+      if (x >= nx - 1 && x <= nx + nw + 1 && Math.abs(y - rollY(n.p)) <= Math.max(4, rowH() / 2)) return i;
     }
-    drawRoll();
-  }, { passive: false });
-  let moved = false, dragMode = 'new';
-  const nearEdge = e => {
+    return -1;
+  };
+  const nearSelEdge = e => {
     if (!sel) return null;
     const x = e.clientX - cv.getBoundingClientRect().left;
     if (Math.abs(x - rollX(sel[0])) < 7) return 'lo';
     if (Math.abs(x - rollX(sel[1])) < 7) return 'hi';
     return null;
   };
+  const persist = () => {
+    clearTimeout(persist._t);
+    persist._t = setTimeout(() => {
+      const o = baseObj();
+      if (!isSnip() || !o) return;
+      fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updateSnippet', id: entity.id,
+          events: o.events, span: baseSpan() }) });
+    }, 700);
+  };
+  window._persistSnippet = persist;
+
   cv.addEventListener('mousedown', e => {
-    if (!cur) return;
-    dragging = true; moved = false; startT = timeAt(e);
-    dragMode = nearEdge(e) || 'new';
-    if (dragMode !== 'new') moved = true;   // grabbing an edge IS a drag
+    if (!entity.id) return;
+    dragHappened = false;
+    const ni = hitNote(e);
+    if (ni >= 0) {
+      const n = baseEvents()[ni];
+      if (e.shiftKey) { selNotes.add(ni); }
+      else if (!selNotes.has(ni)) selNotes = new Set([ni]);
+      dragNote = ni;
+      grabOff = timeAt(e) - n.t;
+      const edgeX = rollX(n.t) + Math.max(2.5, soundLen(n) * pps());
+      const x = e.clientX - cv.getBoundingClientRect().left;
+      mode = (n.tech === 'ord' && Math.abs(x - edgeX) < 6) ? 'dur' : 'note';
+      drawRoll();
+      return;
+    }
+    mode = nearSelEdge(e) || 'new';
+    startT = timeAt(e);
   });
+
   cv.addEventListener('mousemove', e => {
-    if (!dragging) { cv.style.cursor = nearEdge(e) ? 'ew-resize' : 'crosshair'; return; }
+    if (!mode) {
+      cv.style.cursor = hitNote(e) >= 0 ? 'move' : nearSelEdge(e) ? 'ew-resize' : 'crosshair';
+      return;
+    }
+    dragHappened = true;
     const t = timeAt(e);
-    if (dragMode === 'lo') { sel = [Math.min(t, sel[1] - 0.05), sel[1]]; cursorT = sel[0]; drawRoll(); return; }
-    if (dragMode === 'hi') { sel = [sel[0], Math.max(t, sel[0] + 0.05)]; drawRoll(); return; }
-    if (Math.abs(t - startT) * pps() > 5) moved = true;   // >5px = a drag
-    if (moved) {
+    if (mode === 'note' && dragNote >= 0) {
+      const ref = baseEvents()[dragNote];
+      const targetP = Math.max(LO, Math.min(TOP, pitchAt(e.clientY - cv.getBoundingClientRect().top)));
+      const dp = targetP - ref.p;
+      const dt = +(Math.max(0, t - grabOff) - ref.t).toFixed(3);
+      for (const i of selNotes) {
+        const m = baseEvents()[i];
+        m.p = Math.max(LO, Math.min(TOP, m.p + dp));
+        m.t = +Math.max(0, m.t + dt).toFixed(3);
+      }
+      drawRoll(); persist();
+      return;
+    }
+    if (mode === 'dur' && dragNote >= 0) {
+      const n = baseEvents()[dragNote];
+      n.d = +Math.max(0.1, t - n.t).toFixed(3);
+      drawRoll(); persist();
+      return;
+    }
+    if (mode === 'lo') { sel = [Math.min(t, sel[1] - 0.05), sel[1]]; cursorT = sel[0]; drawRoll(); return; }
+    if (mode === 'hi') { sel = [sel[0], Math.max(t, sel[0] + 0.05)]; drawRoll(); return; }
+    if (Math.abs(t - startT) * pps() > 5) {
       sel = [Math.min(startT, t), Math.max(startT, t)];
       cursorT = sel[0];
       drawRoll();
     }
   });
+
   window.addEventListener('mouseup', () => {
-    if (!dragging) return;
-    dragging = false;
-    if (dragMode !== 'new') { drawRoll(); updateSelInfo(); return; }
-    if (!moved || (sel && sel[1] - sel[0] < 0.05)) {
-      // a CLICK: cursor here, selection collapsed (the audio-editor rule)
+    if (!mode) return;
+    const m = mode;
+    mode = null; dragNote = -1;
+    if (m === 'note' || m === 'dur' || m === 'lo' || m === 'hi') {
+      if (isSnip()) { const o = baseObj(); o.events.sort((a, b) => a.t - b.t); selNotes.clear(); }
+      drawRoll(); updateSelInfo();
+      return;
+    }
+    // 'new' gesture: CLICK = cursor + collapse; DRAG = keep selection
+    if (!dragHappened || (sel && sel[1] - sel[0] < 0.05)) {
       sel = null;
       cursorT = startT;
-      selSnip = null;
+      selNotes.clear();
     } else if (sel) {
       cursorT = sel[0];
-      selSnip = null;
     }
     drawRoll(); updateSelInfo();
   });
-})();
-function updateSelInfo() {
-  $('selInfo').textContent = sel
-    ? 'sel ' + sel[0].toFixed(2) + '–' + sel[1].toFixed(2) + 's · ' + sourceEvents().length + ' notes'
-    : cursorT > 0
-    ? 'cursor @ ' + cursorT.toFixed(2) + 's · SPACE plays to end · HOME = start'
-    : 'click = cursor · drag = select · SPACE = play/stop';
-}
 
-// ---- playback ----
-let MIDI = null, OUTS = {}, pending = [];
+  // double-click: on a note = cycle articulation; on empty = add a note
+  cv.addEventListener('dblclick', e => {
+    if (!canEdit()) return;
+    const ni = hitNote(e);
+    const o = baseObj();
+    if (ni >= 0) {
+      const n = o.events[ni];
+      n.tech = n.tech === 'staccato' ? 'fortepiano' : n.tech === 'fortepiano' ? 'ord' : 'staccato';
+      if (n.tech === 'ord' && n.d < 0.3) n.d = 0.5;
+      drawRoll(); persist();
+      return;
+    }
+    const r = cv.getBoundingClientRect();
+    const p = pitchAt(e.clientY - r.top);
+    if (p < LO || p > TOP) return;
+    o.events.push({ t: +timeAt(e).toFixed(3), p, v: 100, d: 0.5, tech: $('recTech').value });
+    o.events.sort((a, b) => a.t - b.t);
+    selNotes.clear();
+    drawRoll(); persist();
+  });
+
+  // wheel: pan / ALT-zoom (dominant axis - ALT shunts to deltaX on some devices)
+  cv.addEventListener('wheel', e => {
+    e.preventDefault();
+    const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    if (e.altKey) {
+      const r = cv.getBoundingClientRect();
+      const anchorT = rollTimeAt(e.clientX - r.left);
+      const f = d < 0 ? 1.18 : 1 / 1.18;
+      pxPerSec = Math.max(fitPps() * 0.5, Math.min(Math.max(600, fitPps() * 10), pps() * f));
+      viewT0 = anchorT - (e.clientX - r.left - KEYS_W - 6) / pxPerSec;
+    } else {
+      viewT0 += d / pps();
+    }
+    drawRoll();
+  }, { passive: false });
+
+  window._deleteSelectedNotes = () => {
+    if (!canEdit() || !selNotes.size) return;
+    const o = baseObj();
+    o.events = o.events.filter((_, i) => !selNotes.has(i));
+    selNotes.clear();
+    drawRoll(); persist();
+  };
+})();
+
+// ================= playback =================
+let MIDI = null, OUTS = {}, pending = [], playing = false;
+const SCHED_LEAD_MS = 150;                 // note 1 must never race all-notes-off
 async function midiInit() {
   const st = $('midiStatus');
   try {
@@ -413,16 +553,15 @@ async function midiInit() {
     hookInputs();
   } catch (e) { st.textContent = 'midi: unavailable'; }
 }
-// round-robin with cooldown: pick the least-recently-used free player
 function assignPlayers(ev) {
-  const busyUntil = Array(10).fill(-1);
+  const busy = Array(10).fill(-1);
   return ev.map(e => {
-    const end = e.t + (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d));
+    const end = e.t + soundLen(e);
     let k = -1, oldest = Infinity;
     for (let i = 0; i < 10; i++)
-      if (busyUntil[i] + 0.04 <= e.t && busyUntil[i] < oldest) { oldest = busyUntil[i]; k = i; }
-    if (k < 0) { k = busyUntil.indexOf(Math.min(...busyUntil)); }   // steal the earliest-free
-    busyUntil[k] = end;
+      if (busy[i] + 0.04 <= e.t && busy[i] < oldest) { oldest = busy[i]; k = i; }
+    if (k < 0) k = busy.indexOf(Math.min(...busy));
+    busy[k] = end;
     return { ...e, player: k };
   });
 }
@@ -440,9 +579,8 @@ function startCursor(spanS, leadMs) {
   cursorTimer = setInterval(() => {
     if (playT0 === null) return;
     const played = (performance.now() - playT0) / 1000;
-    if (played < 0) return;                       // still in the lead-in
+    if (played < 0) return;
     if (played > playSpanS + 0.3) return stopCursor();
-    // inverse of the time transforms: played -> source (selection-local) time
     let srcLocal = played / TR.stretch;
     if (TR.reverse) {
       const ev = sourceEvents();
@@ -450,17 +588,13 @@ function startCursor(spanS, leadMs) {
       srcLocal = S - srcLocal;
     }
     let rollT = (sel ? sel[0] : cursorT) + srcLocal;
-    if (sel) rollT = Math.min(rollT, sel[1]);        // never scroll past the band
+    if (sel) rollT = Math.min(rollT, sel[1]);
     const x = rollX(rollT);
     const cu = $('playCursor');
-    if (x < 0 || x > cv.clientWidth) { cu.style.display = 'none'; }
-    else {
-      cu.style.display = 'block';
-      cu.style.left = x + 'px';
-    }
+    if (x < KEYS_W || x > cv.clientWidth) cu.style.display = 'none';
+    else { cu.style.display = 'block'; cu.style.left = x + 'px'; }
   }, 33);
 }
-let playing = false;
 function stopAll() {
   playing = false;
   stopCursor();
@@ -471,17 +605,17 @@ function stopAll() {
     if (out) for (const ch of [0, 3, 4, 10]) out.send([0xB0 | ch, 123, 0]);
   }
 }
-const SCHED_LEAD_MS = 150;   // the first note must never race play()'s all-notes-off
 function play() {
-  if (!MIDI || !cur) return;
+  if (!MIDI || !entity.id) return;
   stopAll();
   const ev = assignPlayers(viewEvents());
+  if (!ev.length) return;
   for (const e of ev) {
     const sub = e.tech === 'staccato' ? 'b' : '';
     const ch = (e.tech === 'fortepiano' ? 11 : e.tech === 'staccato' ? 4 : e.tech === 'cuivre' ? 5 : 1) - 1;
     const out = OUTS['tuba' + (e.player + 1) + sub];
     if (!out) continue;
-    const holdMs = (e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d)) * 1000;
+    const holdMs = soundLen(e) * 1000;
     pending.push(setTimeout(() => {
       out.send([0xB0 | ch, 7, 127]);
       out.send([0x90 | ch, e.p, e.v]);
@@ -489,29 +623,15 @@ function play() {
     }, e.t * 1000 + SCHED_LEAD_MS));
   }
   const spanS = viewSpan(ev);
-  const lastAttack = Math.max.apply(null, ev.map(e => e.t));
+  const lastAttack = Math.max(...ev.map(e => e.t));
   playing = true;
   pending.push(setTimeout(() => { playing = false; }, spanS * 1000 + SCHED_LEAD_MS + 300));
   startCursor(lastAttack + 0.15, SCHED_LEAD_MS);
   $('info').textContent = 'playing ' + ev.length + ' notes / ' + spanS.toFixed(1) + 's' + trDesc();
 }
-function trDesc() {
-  const bits = [];
-  if (TR.stretch !== 1) bits.push('×' + TR.stretch);
-  if (TR.tonality) bits.push(TR.tonality);
-  if (TR.chord) bits.push('ch' + TR.chord.replace('VERT01-', ''));
-  if (TR.reverse) bits.push('rev');
-  if (TR.oct) bits.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
-  if (TR.thin < 100) bits.push('thin' + TR.thin + '%');
-  if ((TR.tonality || TR.chord) && !TR.pool) bits.push('literal');
-  return bits.length ? ' — ' + bits.join(' · ') : '';
-}
 
-// ---- recording ----
+// ================= recording + live thru =================
 let recording = false, recEvents = [], recOpen = {}, recT0 = null;
-// live THRU: your keyboard sounds through the chosen rec preset, always —
-// switching the preset switches the patch you hear. Note-offs follow the
-// route their note-on took, so a mid-note preset change can't strand a note.
 const thruRoute = () => {
   const tech = $('recTech').value;
   return tech === 'staccato' ? { out: OUTS['tuba1b'], ch: 3 }
@@ -521,8 +641,7 @@ const thruRoute = () => {
 const thruOpen = {};
 function hookInputs() {
   MIDI.inputs.forEach(inp => {
-    // loopMIDI ports are BIDIRECTIONAL: echoing what arrives on tuba* would
-    // feed our own output back through the thru forever. Keyboards only.
+    // loopMIDI ports are BIDIRECTIONAL - echoing tuba* input would loop forever
     if (/^tuba\d+b?$/i.test(inp.name.trim())) return;
     inp.onmidimessage = m => {
       const [st, p, v] = m.data;
@@ -545,8 +664,7 @@ function hookInputs() {
         const o = recOpen[p];
         if (o && recording) {
           recEvents.push({ t: +o.t.toFixed(3), p, v: o.v,
-            d: +Math.max(0.05, (now - recT0) / 1000 - o.t).toFixed(3),
-            tech: o.tech });
+            d: +Math.max(0.05, (now - recT0) / 1000 - o.t).toFixed(3), tech: o.tech });
           delete recOpen[p];
         }
       }
@@ -573,39 +691,88 @@ async function toggleRec() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'saveCluster', name, events: recEvents, tech: $('recTech').value }) })
       .then(x => x.json());
-    if (r.success) { await loadBank(); setCluster(r.id); $('info').textContent = r.id + ' saved (' + recEvents.length + ' notes)'; }
+    if (r.success) { await loadBank(); openCluster(r.id); $('info').textContent = r.id + ' saved (' + recEvents.length + ' notes)'; }
   }
 }
 
-// ---- snippets ----
+// ================= entities: open / snippets =================
+function resetViewState() {
+  sel = null; cursorT = 0; selNotes.clear();
+  pxPerSec = null; viewT0 = 0;
+  TR = trDefault();
+  $('strSlider').value = 1; $('strV').textContent = '1.00×';
+  $('thin').value = 100; $('thinV').textContent = '100%';
+  $('revBtn').classList.remove('on');
+  document.querySelectorAll('.str').forEach(b => b.classList.toggle('on', b.dataset.f === '1'));
+  const pb = $('poolBtn');
+  pb.classList.add('on'); pb.textContent = 'pooled';
+  $('chordSel').value = '';
+  tonHi();
+}
+function openCluster(id) {
+  if (!id || !BANK.clusters[id]) id = Object.keys(BANK.clusters)[0];
+  entity = { kind: 'cluster', id };
+  $('clSel').value = id;
+  $('editBar').style.display = 'none';
+  resetViewState();
+  drawRoll(); updateSelInfo(); drawSnips();
+}
+function openSnippet(id) {
+  const sn = BANK.snippets[id];
+  if (!sn || !sn.events) return;
+  entity = { kind: 'snippet', id };
+  $('editBar').style.display = '';
+  $('editTitle').textContent = 'editing ' + id;
+  const pv = sn.provenance || {};
+  $('editProv').textContent = pv.from
+    ? '· from ' + pv.from + (pv.t0 != null ? ' ' + (+pv.t0).toFixed(1) + '–' + (+pv.t1).toFixed(1) + 's' : '')
+    : '';
+  resetViewState();
+  drawRoll(); updateSelInfo(); drawSnips();
+}
+async function cutSnippet() {
+  if (!entity.id) return;
+  const ev = sourceEvents().map(e => ({ t: e.t, p: e.srcP, v: e.v, d: e.d, tech: e.tech }));
+  if (!ev.length) { $('selInfo').textContent = 'nothing in the window'; return; }
+  const w = playWindow();
+  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveSnippet', events: ev,
+      span: Math.max(...ev.map(e => e.t + soundLen(e))),
+      provenance: { from: entity.id, t0: w[0], t1: w[1] } }) }).then(x => x.json());
+  if (r.success) {
+    await loadBank();
+    openSnippet(r.id);
+  }
+}
 function drawSnips() {
   const row = $('snips');
-  row.innerHTML = '<span class="hint">snippets:</span>';
+  row.innerHTML = '<span class="hint">snippets (editable copies):</span>';
   const ids = Object.keys(BANK.snippets);
-  if (!ids.length) { row.innerHTML += ' <span class="hint">(none — select a span and ↵ snippet)</span>'; return; }
+  if (!ids.length) { row.innerHTML += ' <span class="hint">(none — ✂ snippet cuts one)</span>'; return; }
   ids.forEach(id => {
     const sn = BANK.snippets[id];
+    const pv = sn.provenance || {};
     const el = document.createElement('span');
-    el.className = 'snip' + (id === selSnip ? ' on' : '');
-    el.innerHTML = id + ' · ' + sn.cluster + ' ' + sn.t0.toFixed(1) + '–' + sn.t1.toFixed(1) + 's<span class="x" data-x="' + id + '">×</span>';
+    el.className = 'snip' + (isSnip() && id === entity.id ? ' on' : '');
+    el.innerHTML = id + ' · ' + (pv.from || sn.cluster || '?') +
+      ' · ' + ((sn.events && sn.events.length) || '?') + 'n<span class="x" data-x="' + id + '">×</span>';
     el.addEventListener('click', async e => {
       if (e.target.dataset.x) {
+        const del = e.target.dataset.x;
         await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'deleteSnippet', id: e.target.dataset.x }) });
-        await loadBank(); drawSnips();
+          body: JSON.stringify({ action: 'deleteSnippet', id: del }) });
+        await loadBank();
+        if (isSnip() && entity.id === del) openCluster($('clSel').value);
+        else drawSnips();
         return;
       }
-      setCluster(sn.cluster, false);
-      sel = [sn.t0, sn.t1];
-      cursorT = sn.t0;
-      selSnip = id;
-      drawRoll(); drawSnips(); updateSelInfo();
+      openSnippet(id);
     });
     row.appendChild(el);
   });
 }
 
-// ---- tonality chips ----
+// ================= tonality row =================
 function buildTonRow() {
   const row = $('tonRow');
   const orig = document.createElement('button');
@@ -629,13 +796,20 @@ function buildTonRow() {
     if (this.value) TR.tonality = null;
     tonHi(); drawRoll();
   });
+  $('poolBtn').addEventListener('click', function () {
+    TR.pool = !TR.pool;
+    this.classList.toggle('on', TR.pool);
+    this.textContent = TR.pool ? 'pooled' : 'literal';
+    drawRoll();
+  });
 }
 function tonHi() {
-  $('tonOrig').classList.toggle('on', !TR.tonality && !TR.chord);
+  const o = $('tonOrig');
+  if (o) o.classList.toggle('on', !TR.tonality && !TR.chord);
   document.querySelectorAll('.ton').forEach(b => b.classList.toggle('on', b.dataset.t === TR.tonality));
 }
 
-// ---- store ----
+// ================= store =================
 async function refreshLists() {
   const s = $('listSel');
   const keep = s.value;
@@ -665,7 +839,7 @@ $('listSel').addEventListener('change', async function () {
   }
 });
 async function store() {
-  if (!cur) return;
+  if (!entity.id) return;
   const dest = $('listSel').value;
   if (!dest) {
     const s = $('listSel');
@@ -675,38 +849,37 @@ async function store() {
     setTimeout(() => { $('storeMsg').textContent = ''; }, 2200);
     return;
   }
-  const ev = viewEvents();
+  const evFull = viewEvents();
+  const ev = evFull.map(e => ({ t: e.t, p: e.p, v: e.v, d: e.d, tech: e.tech }));
   if (!ev.length) return;
+  const o = baseObj();
   const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'saveGesture', events: ev, span: viewSpan(ev),
-      provenance: { cluster: cur, sel, snippet: selSnip, transforms: { ...TR } }, list: dest }) })
-    .then(x => x.json());
+    body: JSON.stringify({ action: 'saveGesture', events: ev, span: viewSpan(evFull),
+      provenance: { [entity.kind]: entity.id, source: (o && o.provenance) || undefined,
+        sel: sel || undefined, transforms: { ...TR } }, list: dest }) }).then(x => x.json());
   if (r.success) {
-    $('storeMsg').textContent = r.id + (r.existed ? ' (already in library)' : ' stored') +
-      (r.added ? ' → ' + dest : '');
+    $('storeMsg').textContent = r.id + (r.existed ? ' (already in library)' : ' stored') + (r.added ? ' → ' + dest : '');
     setTimeout(() => { $('storeMsg').textContent = ''; }, 3000);
-    await loadBank(); refreshLists();
+    await loadBank(); refreshLists(); drawSnips();
   }
 }
 
-// ---- wiring ----
-function setCluster(id, clearSel = true) {
-  cur = id;
-  pxPerSec = null; viewT0 = 0; cursorT = 0;
-  $('clSel').value = id;
-  if (clearSel) { sel = null; selSnip = null; }
-  TR = trDefault();
-  $('strSlider').value = 1; $('strV').textContent = '1.00×';
-  $('thin').value = 100; $('thinV').textContent = '100%';
-  $('revBtn').classList.remove('on');
-  const pb = $('poolBtn');
-  if (pb) { pb.classList.add('on'); pb.textContent = 'pooled'; }
-  document.querySelectorAll('.str').forEach(b => b.classList.toggle('on', b.dataset.f === '1'));
-  if ($('tonOrig')) tonHi();
-  drawRoll(); updateSelInfo();
-}
+// ================= wiring =================
 async function loadBank() {
   BANK = (await fetch('/api/clusterbank').then(r => r.json())).bank;
+  // migrate pointer-era snippets to copies
+  for (const [id, sn] of Object.entries(BANK.snippets)) {
+    if (sn.events || !sn.cluster || !BANK.clusters[sn.cluster]) continue;
+    const src = BANK.clusters[sn.cluster].events
+      .filter(e => e.t >= sn.t0 - EDGE_EPS && e.t <= sn.t1 + 0.001)
+      .map(e => ({ ...e, t: +Math.max(0, e.t - sn.t0).toFixed(3) }));
+    sn.events = src;
+    sn.provenance = { from: sn.cluster, t0: sn.t0, t1: sn.t1 };
+    fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'updateSnippet', id, events: src,
+        span: src.length ? Math.max(...src.map(e => e.t + soundLen(e))) : 0.5,
+        provenance: sn.provenance }) });
+  }
   const s = $('clSel');
   const keep = s.value;
   s.innerHTML = '';
@@ -726,30 +899,27 @@ async function loadBank() {
   if (keep && BANK.clusters[keep]) s.value = keep;
 }
 
-$('zoomIn').addEventListener('click', () => {
-  const mid = viewT0 + ($('roll').clientWidth - 16) / pps() / 2;
-  pxPerSec = Math.min(Math.max(600, fitPps() * 10), pps() * 1.5);
-  viewT0 = mid - ($('roll').clientWidth - 16) / pxPerSec / 2;
-  drawRoll();
-});
-$('zoomOut').addEventListener('click', () => {
-  const mid = viewT0 + ($('roll').clientWidth - 16) / pps() / 2;
-  pxPerSec = Math.max(fitPps() * 0.5, pps() / 1.5);
-  viewT0 = mid - ($('roll').clientWidth - 16) / pxPerSec / 2;
-  drawRoll();
-});
-$('zoomFit').addEventListener('click', () => { pxPerSec = null; viewT0 = 0; drawRoll(); });
-$('clSel').addEventListener('change', function () { this.blur(); setCluster(this.value); });
+$('clSel').addEventListener('change', function () { this.blur(); openCluster(this.value); });
+$('backBtn').addEventListener('click', () => openCluster($('clSel').value));
 $('playBtn').addEventListener('click', play);
 $('stopBtn').addEventListener('click', stopAll);
 $('recBtn').addEventListener('click', toggleRec);
-$('selClear').addEventListener('click', () => { sel = null; selSnip = null; cursorT = 0; drawRoll(); updateSelInfo(); });
-$('snipSave').addEventListener('click', async () => {
-  if (!cur || !sel) { $('selInfo').textContent = 'select a span first'; return; }
-  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'saveSnippet', cluster: cur, t0: sel[0], t1: sel[1] }) }).then(x => x.json());
-  if (r.success) { selSnip = r.id; await loadBank(); drawSnips(); }
+$('selClear').addEventListener('click', () => { sel = null; cursorT = 0; selNotes.clear(); drawRoll(); updateSelInfo(); });
+$('snipSave').addEventListener('click', cutSnippet);
+$('storeBtn').addEventListener('click', store);
+$('zoomIn').addEventListener('click', () => {
+  const mid = viewT0 + ($('roll').clientWidth - KEYS_W - 12) / pps() / 2;
+  pxPerSec = Math.min(Math.max(600, fitPps() * 10), pps() * 1.5);
+  viewT0 = mid - ($('roll').clientWidth - KEYS_W - 12) / pxPerSec / 2;
+  drawRoll();
 });
+$('zoomOut').addEventListener('click', () => {
+  const mid = viewT0 + ($('roll').clientWidth - KEYS_W - 12) / pps() / 2;
+  pxPerSec = Math.max(fitPps() * 0.5, pps() / 1.5);
+  viewT0 = mid - ($('roll').clientWidth - KEYS_W - 12) / pxPerSec / 2;
+  drawRoll();
+});
+$('zoomFit').addEventListener('click', () => { pxPerSec = null; viewT0 = 0; drawRoll(); });
 document.querySelectorAll('.str').forEach(b => b.addEventListener('click', () => {
   TR.stretch = +b.dataset.f;
   $('strSlider').value = TR.stretch;
@@ -768,37 +938,38 @@ $('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); d
 $('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); drawRoll(); });
 $('thin').addEventListener('input', function () { TR.thin = +this.value; $('thinV').textContent = TR.thin + '%'; });
 $('thin').addEventListener('change', function () { this.blur(); drawRoll(); });
-$('resetBtn').addEventListener('click', () => { const id = cur; setCluster(id, false); drawRoll(); });
-$('poolBtn').addEventListener('click', function () {
-  TR.pool = !TR.pool;
-  this.classList.toggle('on', TR.pool);
-  this.textContent = TR.pool ? 'pooled' : 'literal';
-  drawRoll();
+$('resetBtn').addEventListener('click', () => {
+  const keep = { ...entity };
+  resetViewState();
+  entity = keep;
+  drawRoll(); updateSelInfo();
 });
-$('storeBtn').addEventListener('click', store);
-window.addEventListener('keyup', e => {
-  // bare ALT release focuses Chrome's menu and eats the next interaction
-  if (e.key === 'Alt') e.preventDefault();
-});
+
+window.addEventListener('keyup', e => { if (e.key === 'Alt') e.preventDefault(); });
 window.addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input[type=text], select')) return;
   if (e.key === 'Home') {
     e.preventDefault();
     sel = null; cursorT = 0; viewT0 = 0;
     drawRoll(); updateSelInfo();
     return;
   }
-  if (e.code === 'Space' && !(e.target.matches && e.target.matches('input[type=text]'))) {
+  if (e.code === 'Space') {
     e.preventDefault();
     if (playing) stopAll(); else play();
+    return;
   }
-  if (e.key === 'Escape') stopAll();
+  if (e.key === 'Escape') { stopAll(); selNotes.clear(); drawRoll(); return; }
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    e.preventDefault();
+    window._deleteSelectedNotes();
+  }
 });
 window.addEventListener('resize', drawRoll);
 
 (async () => {
   try { SAMPLE_LEN = await fetch('/bank/sample_lengths.json').then(r => r.json()); } catch (e) {}
   try {
-    // all 33 played chords as remap targets (bank files; taxonomy only holds the working set)
     const ids = Array.from({ length: 33 }, (_, i) => String(i + 1).padStart(2, '0'));
     const banks = await Promise.all(ids.map(n =>
       fetch('/bank/VERT01-' + n + '.json').then(r => r.ok ? r.json() : null).catch(() => null)));
@@ -808,12 +979,10 @@ window.addEventListener('resize', drawRoll);
       const k = 'VERT01-' + n;
       const ps = [...new Set(banks[i].pitches.map(p => foldInto(p)))].sort((a, b) => a - b);
       TAXCH[k] = ps;
-      // descriptor: count, range, shape (cluster / split / spread)
       const iv = ps.slice(1).map((p, j) => p - ps[j]);
       const shape = iv.length === 0 ? ''
-        : Math.max.apply(null, iv) >= 12 ? 'split'
-        : iv.filter(x => x <= 2).length >= iv.length * 0.6 ? 'cluster'
-        : 'spread';
+        : Math.max(...iv) >= 12 ? 'split'
+        : iv.filter(x => x <= 2).length >= iv.length * 0.6 ? 'cluster' : 'spread';
       const o = document.createElement('option');
       o.value = k;
       o.textContent = 'ch ' + n + ' · ' + ps.length + 'n ' + nm(ps[0]) + '–' + nm(ps[ps.length - 1]) +
@@ -826,8 +995,7 @@ window.addEventListener('resize', drawRoll);
   await midiInit();
   refreshLists();
   drawSnips();
-  const first = Object.keys(BANK.clusters)[0];
-  if (first) setCluster(first);
+  openCluster(Object.keys(BANK.clusters)[0]);
 })();
 </script>
 </body>
