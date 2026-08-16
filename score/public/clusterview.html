@@ -22,6 +22,12 @@
   button.chip { padding: 2px 7px; font-size: 11px; }
   button.chip.on { background: #14424a; border-color: #3FA7B8; color: #8fdbe8; }
   input[type=range] { width: 100px; vertical-align: middle; }
+  input.numbox { width: 54px; padding: 2px 4px; font-size: 11px; font-family: Consolas, monospace;
+                 background: #232327; color: #ffd479; border: 1px solid #444; border-radius: 3px;
+                 text-align: right; }
+  input.numbox:focus { border-color: #B8860B; outline: none; }
+  #strSlider { width: 170px; }
+  #velSlider { width: 120px; }
   .hint { color: #777; }
   #roll { display: block; width: 100%; height: 380px; background: #202024;
           border: 1px solid #333; border-radius: 6px; cursor: crosshair; }
@@ -66,7 +72,8 @@
   <b id="editTitle" style="color:#8fdbe8"></b>
   <span class="hint" id="editProv"></span>
   <span class="hint">&#183; click note = select &#183; drag = move (pitch/time) &#183; right edge = length (ord)
-    &#183; dbl-click note = articulation &#183; dbl-click empty = add &#183; DEL = delete</span>
+    &#183; dbl-click note = articulation &#183; dbl-click empty = add &#183; DEL = delete
+    &#183; &#8593;/&#8595; = velocity</span>
   <button id="backBtn" class="chip">&#9666; back to sources</button>
 </div>
 
@@ -86,12 +93,18 @@
   <button class="chip str" data-f="2">&#215;2</button>
   <button class="chip str" data-f="4">&#215;4</button>
   <button class="chip str" data-f="10">&#215;10</button>
-  <label>fine <input type="range" id="strSlider" min="0.25" max="10" step="0.05" value="1"><span id="strV" class="hint">1.00&#215;</span></label>
+  <label title="logarithmic - x0.5 and x2 sit symmetrically about x1; double-click to type a value">fine
+    <input type="range" id="strSlider" min="0" max="1000" step="1" value="376"></label>
+  <input type="text" id="strV" class="numbox" value="1.00" title="type a stretch factor (0.25-10), ENTER to apply">
   <span class="hint">|</span>
   <button class="chip" id="revBtn" title="mirror the attack pattern in time">reverse</button>
   <button class="chip" id="octDn" title="down an octave (folds back into range)">oct &#8722;</button>
   <button class="chip" id="octUp" title="up an octave (folds back into range)">oct +</button>
   <label>thin <input type="range" id="thin" min="10" max="100" step="5" value="100"><span id="thinV" class="hint">100%</span></label>
+  <span class="hint">|</span>
+  <label title="scale every velocity; double-click to type">vel
+    <input type="range" id="velSlider" min="20" max="200" step="1" value="100"></label>
+  <input type="text" id="velV" class="numbox" value="100%" title="velocity scale in percent (20-200), ENTER to apply">
   <button id="resetBtn" title="drop all transforms (the entity itself is untouched)">&#8634; original</button>
 </div>
 
@@ -164,9 +177,14 @@ let BANK = null, TAXCH = {};
 let entity = { kind: 'cluster', id: null };
 let sel = null, cursorT = 0;               // ONE transport concept
 let selNotes = new Set();                  // selected note indices (snippet mode)
-const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true });
+const trDefault = () => ({ stretch: 1, tonality: null, chord: null, reverse: false, oct: 0, thin: 100, pool: true, vel: 100 });
+// the stretch slider is LOGARITHMIC: x0.5 and x2 sit symmetrically about x1,
+// and the musically-sensitive low end gets the resolution it needs
+const STR_MIN = 0.25, STR_MAX = 10, STR_STEPS = 1000;
+const strToPos = v => Math.round(STR_STEPS * Math.log(v / STR_MIN) / Math.log(STR_MAX / STR_MIN));
+const posToStr = q => +(STR_MIN * Math.pow(STR_MAX / STR_MIN, q / STR_STEPS)).toFixed(3);
 let TR = trDefault();
-const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100;
+const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100 || TR.vel !== 100;
 let pxPerSec = null, viewT0 = 0;
 const isSnip = () => entity.kind === 'snippet';
 const canEdit = () => isSnip() && !trActive();
@@ -239,6 +257,8 @@ function viewEvents() {
     }
   }
   if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
+  if (TR.vel !== 100)
+    ev = ev.map(e => ({ ...e, v: Math.max(1, Math.min(127, Math.round(e.v * TR.vel / 100))) }));
   return ev;
 }
 const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + soundLen(e))) : 0;
@@ -250,6 +270,7 @@ function trDesc() {
   if (TR.reverse) b.push('rev');
   if (TR.oct) b.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
   if (TR.thin < 100) b.push('thin' + TR.thin + '%');
+  if (TR.vel !== 100) b.push('vel ' + TR.vel + '%');
   if ((TR.tonality || TR.chord) && !TR.pool) b.push('literal');
   return b.length ? ' — ' + b.join(' · ') : '';
 }
@@ -700,7 +721,8 @@ function resetViewState() {
   sel = null; cursorT = 0; selNotes.clear();
   pxPerSec = null; viewT0 = 0;
   TR = trDefault();
-  $('strSlider').value = 1; $('strV').textContent = '1.00×';
+  $('strSlider').value = strToPos(1); $('strV').value = '1.00';
+  $('velSlider').value = 100; $('velV').value = '100%';
   $('thin').value = 100; $('thinV').textContent = '100%';
   $('revBtn').classList.remove('on');
   document.querySelectorAll('.str').forEach(b => b.classList.toggle('on', b.dataset.f === '1'));
@@ -920,19 +942,44 @@ $('zoomOut').addEventListener('click', () => {
   drawRoll();
 });
 $('zoomFit').addEventListener('click', () => { pxPerSec = null; viewT0 = 0; drawRoll(); });
-document.querySelectorAll('.str').forEach(b => b.addEventListener('click', () => {
-  TR.stretch = +b.dataset.f;
-  $('strSlider').value = TR.stretch;
-  $('strV').textContent = TR.stretch.toFixed(2) + '×';
-  document.querySelectorAll('.str').forEach(x => x.classList.toggle('on', x === b));
-  drawRoll();
-}));
-$('strSlider').addEventListener('input', function () {
-  TR.stretch = +this.value;
-  $('strV').textContent = TR.stretch.toFixed(2) + '×';
-  document.querySelectorAll('.str').forEach(x => x.classList.remove('on'));
-});
+document.querySelectorAll('.str').forEach(b => b.addEventListener('click', () => syncStretch(+b.dataset.f, true)));
+function syncStretch(v, redraw) {
+  TR.stretch = Math.max(STR_MIN, Math.min(STR_MAX, v));
+  $('strSlider').value = strToPos(TR.stretch);
+  $('strV').value = TR.stretch.toFixed(2);
+  document.querySelectorAll('.str').forEach(x =>
+    x.classList.toggle('on', Math.abs(+x.dataset.f - TR.stretch) < 0.0005));
+  if (redraw) drawRoll();
+}
+function syncVel(v, redraw) {
+  TR.vel = Math.max(20, Math.min(200, Math.round(v)));
+  $('velSlider').value = TR.vel;
+  $('velV').value = TR.vel + '%';
+  if (redraw) drawRoll();
+}
+$('strSlider').addEventListener('input', function () { syncStretch(posToStr(+this.value), false); });
 $('strSlider').addEventListener('change', function () { this.blur(); drawRoll(); });
+$('strSlider').addEventListener('dblclick', () => { $('strV').focus(); $('strV').select(); });
+$('velSlider').addEventListener('input', function () { syncVel(+this.value, false); });
+$('velSlider').addEventListener('change', function () { this.blur(); drawRoll(); });
+$('velSlider').addEventListener('dblclick', () => { $('velV').focus(); $('velV').select(); });
+// type-in boxes: ENTER (or blur) commits
+function numBox(el, apply) {
+  const commit = () => {
+    const v = parseFloat(String(el.value).replace(/[^0-9.\-]/g, ''));
+    if (!isNaN(v)) apply(v, true);
+    else apply(null, true);
+  };
+  el.addEventListener('keydown', e => {
+    e.stopPropagation();
+    if (e.key === 'Enter') { e.preventDefault(); commit(); el.blur(); }
+    if (e.key === 'Escape') { el.blur(); }
+  });
+  el.addEventListener('blur', commit);
+  el.addEventListener('focus', () => el.select());
+}
+numBox($('strV'), v => syncStretch(v === null ? TR.stretch : v, true));
+numBox($('velV'), v => syncVel(v === null ? TR.vel : v, true));
 $('revBtn').addEventListener('click', function () { TR.reverse = !TR.reverse; this.classList.toggle('on', TR.reverse); drawRoll(); });
 $('octUp').addEventListener('click', () => { TR.oct = Math.min(2, TR.oct + 1); drawRoll(); });
 $('octDn').addEventListener('click', () => { TR.oct = Math.max(-2, TR.oct - 1); drawRoll(); });
@@ -963,6 +1010,16 @@ window.addEventListener('keydown', e => {
   if (e.key === 'Delete' || e.key === 'Backspace') {
     e.preventDefault();
     window._deleteSelectedNotes();
+    return;
+  }
+  // per-note velocity on the selected notes (snippet editing)
+  if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && canEdit() && selNotes.size) {
+    e.preventDefault();
+    const d = (e.key === 'ArrowUp' ? 6 : -6) * (e.shiftKey ? 3 : 1);
+    const o = baseObj();
+    for (const i of selNotes) o.events[i].v = Math.max(1, Math.min(127, o.events[i].v + d));
+    drawRoll();
+    if (window._persistSnippet) window._persistSnippet();
   }
 });
 window.addEventListener('resize', drawRoll);
