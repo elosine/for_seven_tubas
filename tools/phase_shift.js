@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // phase_shift.js — Reich-style PHASE SHIFTING between two (or more) tubas.
-// Composer 2026-08-16: "two tubas, middle of the range, ~85 BPM, phase shift to
-// an eighth note apart over 20 s, hold ~10 s, then back over 20 s."
+// Research + recipe hunt: docs/PHASE_SHIFTING.md.
 //
 // THE MODEL. One player keeps a strict pulse; the other plays the SAME grid
 // displaced by a moving offset. The offset is expressed in BEATS (0.5 = an
@@ -13,18 +12,26 @@
 // Both lanes emit the same NUMBER of notes, so they are guaranteed to be back
 // in unison at the end — the drift is exactly the offset ramp and nothing else.
 // A linear ramp = a constant tempo difference, which is what a player actually
-// does (85 BPM against 83.6 BPM here), so nothing about this is un-performable.
+// does, so nothing here is un-performable.
 //
-// Sign: positive offset = lane B is LATE (drags). Negative = it pushes ahead.
+// THE GOVERNING DIAL IS NOT THE SHIFT DURATION — it is DRIFT PER ATTACK
+// (ms of offset gained per beat). That is what the ear tracks, and it is
+// tempo-invariant, so it is the number the recipes are written in.
+// Reference: Reich's Drumming advances one full position in 20-30 s
+// (~12-18 ms/beat at 100 BPM). See docs/PHASE_SHIFTING.md.
 //
-// Durations follow D9 — fortepiano / staccato / cuivre are FIXED one-shots and
-// take their measured length from bank/sample_lengths.json; only ord stretches.
+// NOTE LENGTH (composer 2026-08-16): the written block is a VISUAL, set by
+// --notelen, and no longer the measured one-shot length. A staccato sample is
+// a fixed one-shot (D9/2n) — the probe measured where it ENDS ITSELF, and
+// whether note-off truncates it was never tested. Short blocks let the score
+// read cleanly and run at rapid tempos; if the sound is unchanged, note-off
+// does not truncate and the block is a convenience, not a lie about attack
+// placement. Pass --notelen sample to go back to the measured length.
 //
-//   node tools/phase_shift.js                          # the composer's spec
-//   node tools/phase_shift.js --bpm 100 --target 0.25 --name phase02-16th
-//   node tools/phase_shift.js --tech ord --legato 0.9
+//   node tools/phase_shift.js --bpm 100 --out 60 --back 60 --name phase02-m60
+//   node tools/phase_shift.js --tech ord --notelen sample --legato 0.9
 //
-// Then: node tools/audit_playability.js phase01
+// Then: node tools/audit_playability.js phase0
 
 const fs = require('fs');
 const path = require('path');
@@ -44,21 +51,29 @@ const D = {
     hold: 10,           // s held at the target offset
     back: 20,           // s to drift back
     tech: 'staccato',   // crisp attack = the phase relationship is audible
+    notelen: 0.12,      // s written per note; 'sample' = measured one-shot (D9)
     level: 7.5,         // curve level 0-10; drives recVel under sonifyMode plain
-    legato: 0.9,        // ord only (fixed one-shots ignore it)
+    legato: 0.9,        // ord + --notelen sample only
     lanes: '0,1',       // Tuba 1 + Tuba 2
     t0: 2,              // lead-in before the first attack
+    marks: 1,           // 1 = mark where the offset crosses each listening threshold
 };
 process.argv.slice(2).forEach((a, i, arr) => {
     if (!a.startsWith('--')) return;
     const k = a.slice(2), v = arr[i + 1];
     if (!(k in D)) { console.error('unknown flag --' + k); process.exit(1); }
-    D[k] = (typeof D[k] === 'number') ? Number(v) : v;
+    D[k] = (typeof D[k] === 'number' && v !== 'sample') ? Number(v) : v;
 });
 
 const LANES = String(D.lanes).split(',').map(Number);
 const P = 60 / D.bpm;                       // seconds per beat
 const COLORS = ['#3F7D5A', '#8E4585', '#B08A2E', '#4E7A9B'];
+const MARK_COL = '#7A7A7A';
+
+// The perceptual ladder a single slow shift traverses, in ms of offset.
+// Predicted boundaries — the point of the experiment is to replace them with
+// the composer's ear. docs/PHASE_SHIFTING.md carries the table.
+const THRESHOLDS_MS = [10, 20, 30, 50, 80, 120, 160, 200, 250, 300, 400, 500];
 
 // ---- the offset schedule: one table, one interpolator, one code path ----
 const STAGES = [
@@ -87,7 +102,7 @@ const stageAt = t => {
     return STAGES[STAGES.length - 1].name;
 };
 
-// ---- fixed one-shot lengths (D9) ----
+// ---- note length ----
 const SAMPLE_LEN = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank/sample_lengths.json'), 'utf8'));
 function techLength(tech, pitch) {
     const tbl = SAMPLE_LEN[tech];
@@ -96,7 +111,8 @@ function techLength(tech, pitch) {
     const keys = Object.keys(tbl).map(Number);
     return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
 }
-const FIXED = techLength(D.tech, D.pitch);
+const SAMPLE = techLength(D.tech, D.pitch);                   // what it actually rings
+const WRITTEN = D.notelen === 'sample' ? SAMPLE : Number(D.notelen);   // what we send
 
 // ---- score shell (tracks cloned from a current 10-lane score) ----
 const src = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores/trem02-phase.json'), 'utf8'));
@@ -135,26 +151,40 @@ const onsets = LANES.map((lane, li) => {
     }
     times.forEach((on, k) => {
         const gap = (times[k + 1] != null ? times[k + 1] : on + P) - on;
-        mkNote(lane, on, FIXED != null ? FIXED : Math.max(0.04, gap * D.legato),
+        mkNote(lane, on, WRITTEN != null ? WRITTEN : Math.max(0.04, gap * D.legato),
             COLORS[li % COLORS.length], stageAt(k * P));
     });
     return times;
 });
 
-// ---- markers at every stage boundary ----
-const head = `PHASE · 2 tubas ${pn(D.pitch)} (MIDI ${D.pitch}) ${D.tech} · ${D.bpm} BPM` +
-    ` · target ${D.target} beat = ${(D.target * P * 1000).toFixed(0)} ms`;
+// ---- markers: the stages, then the listening ladder on the way out ----
+const driftPerBeat = (D.target * P * 1000) / (D.out / P);     // ms of offset per beat
+const head = `PHASE · 2 tubas ${pn(D.pitch)} ${D.tech} · ${D.bpm} BPM` +
+    ` · out ${D.out}s to ${(D.target * P * 1000).toFixed(0)} ms` +
+    ` · DRIFT ${driftPerBeat.toFixed(1)} ms/beat`;
 mkMarker(D.t0, head, COLORS[0]);
-{
-    let acc = 0;
+let acc = 0;
+const stageStart = STAGES.map(s => { const a = acc; acc += s.dur; return a; });
+STAGES.forEach((s, i) => {
+    if (i === 0) return;
+    mkMarker(D.t0 + stageStart[i], `${i + 1}. ${s.name} · ${s.from === s.to
+        ? `${(s.from * P * 1000).toFixed(0)} ms` : `${(s.from * P * 1000).toFixed(0)} → ${(s.to * P * 1000).toFixed(0)} ms`}`,
+        COLORS[1]);
+});
+mkMarker(D.t0 + TOTAL, '— end —', COLORS[0]);
+
+const crossings = [];
+if (+D.marks) {
     STAGES.forEach((s, i) => {
-        const at = D.t0 + acc;
-        const lbl = `${i + 1}. ${s.name} · ${s.from === s.to
-            ? `${s.from} beat` : `${s.from} → ${s.to} beat`} over ${s.dur}s`;
-        if (i > 0) mkMarker(at, lbl, COLORS[1]);
-        acc += s.dur;
+        if (s.to <= s.from) return;                            // rising stages only
+        THRESHOLDS_MS.forEach(ms => {
+            const beats = ms / 1000 / P;
+            if (beats <= s.from || beats > s.to) return;
+            const t = stageStart[i] + s.dur * (beats - s.from) / (s.to - s.from);
+            crossings.push({ ms, t });
+            mkMarker(D.t0 + t, `${ms} ms`, MARK_COL);
+        });
     });
-    mkMarker(D.t0 + TOTAL, '— end —', COLORS[0]);
 }
 
 const out = {
@@ -166,27 +196,32 @@ fs.writeFileSync(path.join(ROOT, 'scores/' + D.name + '.json'), JSON.stringify(o
 
 // ---- VERIFY: report what was actually written, not what was intended ----
 const A = onsets[0], B = onsets[1];
-console.log(`\n${D.name}: ${LANES.length} lanes x ${N} notes = ${N * LANES.length} attacks` +
-    `, ${(D.t0 + TOTAL).toFixed(1)}s · beat ${(P * 1000).toFixed(1)} ms` +
-    ` · ${D.tech} length ${FIXED != null ? FIXED + 's (fixed, D9)' : 'legato ' + D.legato}`);
+console.log(`\n${D.name}: ${LANES.length} lanes x ${N} notes, ${(D.t0 + TOTAL).toFixed(1)}s` +
+    ` · beat ${(P * 1000).toFixed(0)} ms · block ${WRITTEN}s written` +
+    (SAMPLE != null ? ` (sample rings ${SAMPLE}s)` : ''));
+console.log(`  DRIFT ${driftPerBeat.toFixed(2)} ms/beat` +
+    ` · ${(D.out / P / D.target).toFixed(0)} attacks to traverse a full beat` +
+    ` · Reich Drumming ≈ 12-18 ms/beat`);
 
 console.log('\n  stage boundaries — offset measured off the written onsets:');
-let acc = 0;
-[...STAGES.map(s => { const a = acc; acc += s.dur; return { t: a, s }; }), { t: TOTAL, s: { name: 'end' } }]
-    .forEach(({ t, s }) => {
-        const k = Math.min(N - 1, Math.round(t / P));
-        const ms = (B[k] - A[k]) * 1000;
-        console.log(`    ${(D.t0 + t).toFixed(1).padStart(6)}s  ${s.name.padEnd(15)}` +
-            `offset ${ms.toFixed(0).padStart(5)} ms = ${(ms / (P * 1000)).toFixed(3)} beat`);
-    });
+[...STAGES.map((s, i) => ({ t: stageStart[i], n: s.name })), { t: TOTAL, n: 'end' }].forEach(({ t, n }) => {
+    const k = Math.min(N - 1, Math.round(t / P));
+    const ms = (B[k] - A[k]) * 1000;
+    console.log(`    ${(D.t0 + t).toFixed(1).padStart(7)}s  ${n.padEnd(15)}${ms.toFixed(0).padStart(5)} ms` +
+        ` = ${(ms / (P * 1000)).toFixed(3)} beat`);
+});
+if (crossings.length) {
+    console.log('\n  listening ladder (offset crosses, on the way out):');
+    console.log('    ' + crossings.map(c => `${c.ms}ms @ ${(D.t0 + c.t).toFixed(1)}s`).join(' · '));
+}
 
 const gaps = l => l.slice(1).map((t, i) => t - l[i]);
 const gA = gaps(A), gB = gaps(B);
-const rng = g => `${Math.min(...g).toFixed(3)}–${Math.max(...g).toFixed(3)}s`;
-console.log(`\n  inter-onset within a lane:  A ${rng(gA)}   B ${rng(gB)}`);
-console.log(`  lane B implied tempo:       ${(60 / Math.max(...gB)).toFixed(1)}–${(60 / Math.min(...gB)).toFixed(1)} BPM` +
-    ` (lane A steady ${D.bpm})`);
-const monotonic = [gA, gB].every(g => g.every(x => x > 0));
-const clears = FIXED == null || Math.min(...gA, ...gB) > FIXED;
-console.log(`  onsets strictly increasing: ${monotonic ? 'yes' : 'NO — BUG'}` +
-    `\n  every note ends before the same player's next attack: ${clears ? 'yes' : 'NO — self-overlap'}`);
+const tightest = Math.min(...gA, ...gB);
+console.log(`\n  tightest attack pair on one player: ${tightest.toFixed(3)}s` +
+    ` · lane B tempo ${(60 / Math.max(...gB)).toFixed(1)}-${(60 / Math.min(...gB)).toFixed(1)} BPM (A steady ${D.bpm})`);
+console.log(`  onsets strictly increasing: ${[gA, gB].every(g => g.every(x => x > 0)) ? 'yes' : 'NO — BUG'}` +
+    `\n  written blocks clear the next attack: ${tightest > WRITTEN ? 'yes' : 'NO — overlap'}` +
+    (SAMPLE != null && tightest <= SAMPLE
+        ? `\n  *** SAMPLE OVERLAP: it rings ${SAMPLE}s into a ${tightest.toFixed(3)}s gap —` +
+          ` the score looks clean but one player is double-sounding ***` : ''));
