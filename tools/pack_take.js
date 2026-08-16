@@ -237,6 +237,30 @@ function audit(lanesArr) {
 }
 const check = audit(lanes);
 
+// ---- patch-range check: a note outside the technique's range simply does not
+// sound, and nothing else in the chain would tell you (never silently discard) --
+const RANGES = (() => {
+  try {
+    const src = fs.readFileSync(path.join(__dirname, '..', 'sandbox', 'instruments.js'), 'utf8');
+    const inst = /tuba1:\s*\{[\s\S]*?\n\s*\}/.exec(src);
+    const out = {};
+    const re = /key:\s*"([^"]+)"[^}]*rangeLow:\s*(\d+),\s*rangeHigh:\s*(\d+)/g;
+    let m; while ((m = re.exec(inst ? inst[0] : src))) out[m[1]] = [+m[2], +m[3]];
+    return out;
+  } catch (e) { return {}; }
+})();
+function rangeCheck(list, label) {
+  const bad = list.filter(x => {
+    const r = RANGES[x.e ? x.e.tech : x.tech];
+    return r && (( x.e ? x.e.p : x.p) < r[0] || (x.e ? x.e.p : x.p) > r[1]);
+  });
+  if (!bad.length) return null;
+  const ps = [...new Set(bad.map(x => (x.e ? x.e.p : x.p)))].sort((a, b) => a - b);
+  return label + ': ' + bad.length + ' note(s) outside the patch range — pitches ' + ps.join(',');
+}
+const rangeIn = rangeCheck(events, 'SOURCE');
+const rangeOut = rangeCheck(placed, 'PACKED');
+
 // ---- write the ten-part score ----
 const out = JSON.parse(JSON.stringify(data));
 let nextId = out.nextId || 1;
@@ -290,4 +314,82 @@ for (let w = 0; w + 2 <= Math.ceil(tEnd - t0) + 2; w += 2) {
 
 const perLane = lanes.map(l => l.length);
 console.log('\n  notes per part: ' + perLane.map((n, i) => 'T' + (i + 1) + '=' + n).join(' '));
+
+console.log('\n  patch range: ' + (rangeIn ? '⚠ ' + rangeIn : 'source clean') +
+  ' | ' + (rangeOut ? '⚠ ' + rangeOut : 'packed clean'));
+
 console.log('\n  wrote ' + outPath + '  (load it from the Scores menu)');
+
+// ---------------------------------------------------------------------------
+// --compare: one score holding the versions back to back, so the cost of the
+// thinning is an ear judgement instead of a number. Sections, GAP seconds apart:
+//   A  as played, one part          (what your hands did)
+//   B  as played, distributed       (all 251 notes over ten players — complete,
+//                                    but unplayable; this is the "before")
+//   C  packed                       (the "after")
+// ---------------------------------------------------------------------------
+if (args.includes('--compare')) {
+  const GAP = parseFloat(flag('gap', '3'));
+  const t0src = events[0].t;
+  const cmp = JSON.parse(JSON.stringify(data));
+  let cid = 1;
+  const objs = [], marks = [];
+  const stamp = (label, at, color) => marks.push({
+    id: 'mk-' + (cid++), type: 'marker', layer: 0, time: +at.toFixed(3),
+    label, color, performanceNotes: '', properties: {},
+  });
+  const emit = (note, lane, at, dur, tag, color) => {
+    const o = JSON.parse(JSON.stringify(note.obj || note.e.obj));
+    o.id = 'wc-' + (cid++); o.layer = lane;
+    o.startSeconds = +at.toFixed(3); o.endSeconds = +(at + dur).toFixed(3);
+    o.color = color; o.performanceNotes = tag;
+    objs.push(o);
+  };
+
+  // A — as played, one part
+  let off = 0;
+  stamp('A · AS PLAYED, one part (' + events.length + ' notes)', off, '#607D8B');
+  events.forEach(e => emit(e, 0, off + (e.t - t0src), e.len, 'A-PLAYED', '#607D8B'));
+  const endA = Math.max(...events.map(e => e.t - t0src + e.len));
+
+  // B — as played, distributed over ten (leap-aware, NOT packed)
+  off = endA + GAP;
+  const bLast = Array(PARTS).fill(null), bBusy = Array(PARTS).fill(-1);
+  let bHard = 0;
+  stamp('B · ALL NOTES over 10 parts — unpacked (' + events.length + ')', off, '#B8663F');
+  events.forEach(e => {
+    let best = null;
+    for (let i = 0; i < PARTS; i++) {
+      const tier = tierOn(bLast[i], e.t, e.t + e.len, e.p);
+      const leap = bLast[i] ? Math.abs(bLast[i].p - e.p) : 0;
+      const sc = (tier === 'free' ? 0 : tier === 'soft' ? 1 : 2) * 1e6 +
+        Math.max(0, bBusy[i]) * 1000 + leap * LEAP_WEIGHT + i;
+      if (!best || sc < best.sc) best = { i, sc, tier };
+    }
+    if (best.tier === 'hard') bHard++;
+    bLast[best.i] = { s: e.t, e: e.t + e.len, p: e.p };
+    bBusy[best.i] = e.t + e.len;
+    emit(e, best.i, off + (e.t - t0src), e.len, 'B-UNPACKED', '#B8663F');
+  });
+  const endB = off + Math.max(...events.map(e => e.t - t0src + e.len));
+
+  // C — packed
+  off = endB + GAP;
+  stamp('C · PACKED, 10 parts, 0 conflicts (' + placed.length + ')', off, '#3FA7B8');
+  placed.forEach(n => emit(n, n.lane, off + (n.at - t0src), n.len, 'C-PACKED', '#3FA7B8'));
+  const endC = off + Math.max(...placed.map(n => n.at - t0src + n.len));
+
+  cmp.objects = objs;
+  cmp.markers = marks;
+  cmp.nextId = cid;
+  const cmpPath = path.join('scores', name + '-AB.json');
+  fs.writeFileSync(cmpPath, JSON.stringify(cmp, null, 1));
+  console.log('\n=== COMPARISON SCORE ===');
+  console.log('  A  0.00s  as played, one part      ' + String(events.length).padStart(4) + ' notes');
+  console.log('  B  ' + (endA + GAP).toFixed(2) + 's  all notes over 10 parts  ' +
+    String(events.length).padStart(4) + ' notes   ' + bHard + ' HARD (this is the "before")');
+  console.log('  C  ' + (endB + GAP).toFixed(2) + 's  packed                   ' +
+    String(placed.length).padStart(4) + ' notes   0 hard');
+  console.log('  total ' + endC.toFixed(1) + 's');
+  console.log('  wrote ' + cmpPath);
+}

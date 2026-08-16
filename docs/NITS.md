@@ -63,3 +63,36 @@
   audition used port `tuba(k+1)` while the insert wrote `layer 9-k` (= Tuba 10-k),
   so what you heard was not the assignment you got. Both now go through
   `Composer.assignCluster` with `layer L = Tuba L+1`. Fixed 2026-08-16.
+
+## HARD occupancy for fixed one-shots uses SAMPLE length, not articulation rate
+*(opened 2026-08-16, DB3 / PLAN 2t)*
+
+**What it is.** `Composer.CONFLICT`'s HARD tier = "the intervals overlap", where a
+staccato note's interval is its full measured sample length (0.33–0.53 s). That
+is what forced 154 hard conflicts on `densBld03-take1` and cost 91 notes at the
+apex.
+
+**Observation for changing it.** `docs/SI2_staccato_lengths.md` measures
+**"Sounded (s)"** — how long the sample rang, decay and room included. A player
+who has tongued a staccato has stopped blowing; the decay is horn and room, not
+the player. **D17 already made this exact correction for SOFT** ("a fixed
+one-shot's length includes decay the player is not articulating through") but
+left HARD on sample occupancy.
+
+**Observation against changing it.** On one instrument two notes cannot sound at
+once, and the score/notation has to represent something. Sample occupancy is the
+conservative reading and it is the only one the mock-up can render truthfully —
+two overlapping notes on one player go out on two UVI channels and both sound
+cleanly, which is the whole reason 2r exists.
+
+**Why deferred.** It does not block: the conclusion is the same either way — DB3's
+apex exceeds ten players even at a 0.11 s floor (44 hard). Only the *amount* of
+thinning moves, from ~91 notes deleted to somewhere around 30–60. Settling it
+needs a real player's articulation rate, which is the same evidence 2j and 2q are
+waiting on. Until then the pipeline is conservative on purpose and
+`docs/DENSITY_PIPELINE.md` says so.
+
+**If it recurs:** the symptom will be the composer hearing the packed version as
+thinner than intended at an apex. The one-line change is `pairTier`'s HARD test
+for techniques in `FIXED_TECHS`; the tables to regenerate are in
+`docs/DENSITY_PIPELINE.md`.

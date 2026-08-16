@@ -72,9 +72,36 @@ is no iterate-and-check loop — one convergent pass.
 | `--pick` | `spread` | which note in a clump dies |
 | `--seed` | `20260816` | only used by `--pick random` |
 | `--out` | `scores/<name>-packed.json` | |
+| `--compare` | off | also write an A/B/C score (below) |
+| `--gap` | `3` | seconds between A/B/C sections |
 
 Output is a **ten-part score you can load and hear immediately** from the
 `-- Scores --` menu. The source take is never modified.
+
+**Patch range is checked and reported, never silently passed.** A note outside a
+technique's range (staccato is 30–65) simply does not sound, and nothing else in
+the chain would tell you. DB3's take had 3 such notes (66, 67); they happened to
+be among the deleted, so the packed score is clean — by luck, which is exactly
+why the check now exists.
+
+#### `--compare` — hearing what the thinning cost
+
+Writes `scores/<name>-AB.json`, one score holding three versions back to back so
+the cost is an ear judgement instead of a number:
+
+| | | |
+|---|---|---|
+| **A** | as played, one part | what your hands did |
+| **B** | every note distributed over ten parts, **unpacked** | complete, but unplayable — the "before" |
+| **C** | packed | the "after" |
+
+B is the one that matters: it is the full gesture with nothing removed, spread
+across the ensemble. A/B tells you what ten players sound like; **B/C tells you
+what the deleted notes were contributing.**
+
+Expect the conflict badge to be loud on this score — sections A and B are
+supposed to be full of conflicts. On DB3: A 238 hard, B 151 hard, **C zero**
+(the app's own engine, partitioned by section).
 
 #### Why the budget is small
 
@@ -192,6 +219,54 @@ They are kept in sync by hand and cross-checked against the running app — see
 the verification note below. Constants come from **D17**: `tongueReset 0.03` ·
 `minAttack 0.11` · `perSemitone 0.0093` · `maxLeapAdd 0.22`, all derived from
 2j's tremolo table, which is itself an attack rate.
+
+---
+
+## How hard is the packed result to play?
+
+**On DB3's packed version, the demand per player is low.** Peak 2.0–2.5
+attacks/s; the tightest consecutive attack pair anywhere in the score is
+**0.43 s** (2.3 attacks/s); median gap 0.61 s.
+
+That is **2–4× more relaxed than the model's own estimated limit** (D17's
+`minAttack` 0.11 s = 9.1 attacks/s at a half step). The margin matters more than
+the number: the soft thresholds are estimates pending a player's ear, but we are
+so far clear of them that the estimate would have to be wrong by more than 2×
+before anything here became marginal.
+
+**The remaining question is leaps, not speed.** DB3's packed version has 21 leaps
+of an octave or more, 15 of them inside 0.6 s — widest 29 semitones in 0.80 s
+(T10) and 27 semitones in 0.49 s (T8). The conflict model prices a leap only as
+*added time needed* (`0.0093 s/semitone`, capped at 0.22 s); it does **not** model
+whether a two-octave staccato jump is reliably *accurate*. That is a modelling
+gap, not a bug, and it is the one thing here worth putting to an actual player.
+
+### The ceiling is the SAMPLE, not the player — and by how much
+
+Worth understanding before trusting any thinning amount. The 0.33–0.53 s figure
+comes from `docs/SI2_staccato_lengths.md`, whose column is literally **"Sounded
+(s)"** — how long the sample rang, decay and room included. A player who has
+tongued a staccato has stopped blowing; they are free to attack again as fast as
+they can tongue. **D17 already made exactly this correction for SOFT** ("a fixed
+one-shot's length includes decay the player is not articulating through"), but
+HARD still treats the full sample length as occupancy.
+
+So the pipeline is **conservative by construction**. If a fixed one-shot occupied
+the player only attack-to-attack, DB3's take would score:
+
+| assumed tonguing floor | = attacks/s | HARD |
+|---|---|---|
+| 0.11 s (D17's own optimistic figure) | 9.1 | 44 |
+| 0.13 s | 7.7 | 66 |
+| 0.15 s | 6.7 | 84 |
+| 0.22 s | 4.5 | 124 |
+| **current model (sample occupancy)** | ~2.2 | **154** |
+
+**The conclusion survives either way — the apex genuinely exceeds ten players
+even at the most permissive floor.** What changes is how much gets deleted:
+somewhere between roughly 30 and 91 notes rather than definitely 91. Do not
+present the packed density as "the maximum a real ensemble can play"; it is the
+maximum *this mock-up* can render truthfully.
 
 ---
 
