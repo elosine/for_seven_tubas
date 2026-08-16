@@ -105,6 +105,20 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
    before touching gain staging. Wrong-sounding menu techniques → stale CC0 (I2),
    same button.
 
+*(Added here, piece #4:)*
+
+4. **Markers/labels belong in `objects`, never in the `markers` array.**
+   `composer.html` loads `data.markers` into `Composer.markers` and saves it
+   back, but `renderAll()` only iterates `this.objects` — so a label written to
+   `markers` round-trips through save/load intact and is **never drawn**. The
+   failure is silent in both directions: the file looks right, the tool report
+   looks right, and only a human staring at the timeline notices. Five scores
+   shipped this way (2026-08-16, all the DB3 arc + tonality files) and the
+   composer found it, not a test. **Generalisation: any output whose only
+   consumer is the composer's eye needs one check in the running app that the
+   thing is actually on screen** — `AI_METHODOLOGY` rule 4 covers this, and this
+   is what skipping it looks like.
+
 ## §4 Decisions
 
 - **D1** *(2026-08-10)* — **Inherit piece #3's stack and protocols unchanged.** Score

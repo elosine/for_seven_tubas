@@ -156,10 +156,30 @@ composer → notation → performance architecture.)*
   clusters. **s14 (2026-08-16) = DB3 placed** — source
   `scores/densBld03-take1-fp.json` (packed + fp arc, ORIGINAL tonality), group
   `grp-db3-01` at **114.101 → 136.327 s**, gap 3.48 s after INT2 (the INT1→DB2
-  gap, the piece's only INT→DB precedent). Placement script `tools/piece_s14.js`
-  per DENSITY_PIPELINE §6. Verified in the app: badge `⚠ 42 soft`, **identical to
-  s13** — DB3 contributed zero conflicts. **Still open:** the tonality choice
-  (2u list) and the apex decision; both are re-runs of the script, not edits.
+  gap, the piece's only INT→DB precedent). **Source = the composer's hand-grained
+  copy** (`densBld03-arc-v2b` section E: fp arc + 5 surge long tones at
+  121.7–130.3 s), banked as `bank/DB3.json` and placed with
+  `tools/place_gesture.js` (DENSITY_PIPELINE §6). Verified in the app: badge
+  `⚠ 42 soft`, **identical to s13** — DB3 contributed zero conflicts.
+  **Still open:** the tonality choice (2u list) and the apex decision; both are
+  re-runs of the placement command, not edits.
+
+- **2w — GESTURE BANK + RECALL (the second insertion path)** — `shipped
+  2026-08-16` *(composer: "capture the 2b version somewhere as a gesture/object
+  so it can be recalled… I want it as an insertion option, just done
+  differently")*. The Insertion strip cannot carry orchestrated material (D23) —
+  so `tools/bank_gesture.js` captures a finished gesture into `bank/<ENTITY>.json`
+  (the format `bank/GESTURE-2.json` already used, made reproducible) and
+  `tools/place_gesture.js` recalls it into any score by name, with `--list`,
+  `--after <gap>` / `--at <time>`, `--dry`, auto-numbered `grp-<entity>-NN`,
+  marker and density-contour META shape. Generalises the per-piece one-off
+  scripts; **verified by reproducing `piece_s14.js`'s output exactly** on
+  layer/time/pitch/technique/envShape/colour, after which that script was
+  deleted (one code path). Banked so far: **DB3**, GESTURE-2. Also fixed the
+  bug the composer caught — see Principle 4: labels written to the `markers`
+  array never render; `tonality_variants.js`, `build_versions.js` and
+  `pack_take.js` now write them into `objects`, and the five affected scores
+  were repaired in place (`densBld03-arc-v2b` patched, never regenerated).
 
 - **2n — ONE-SHOT SAMPLE LENGTHS** — `done 2026-08-15` — probe + analyzer over
   80 notes: **fortepiano, cuivre and staccato are all FIXED one-shots** (the

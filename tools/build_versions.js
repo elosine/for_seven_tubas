@@ -111,8 +111,11 @@ specs.forEach((spec, si) => {
   off += end + GAP;
 });
 
-base.objects = objs;
-base.markers = marks;
+// Markers go in `objects` — composer.html's renderAll() only iterates that
+// array, so a label in `data.markers` round-trips through save/load and is
+// never drawn (fixed 2026-08-16; see tonality_variants.js for the full note).
+base.objects = objs.concat(marks);
+base.markers = [];
 base.nextId = id;
 base.metadata = Object.assign({}, base.metadata, { modified: new Date().toISOString() });
 fs.writeFileSync(OUT, JSON.stringify(base, null, 1));

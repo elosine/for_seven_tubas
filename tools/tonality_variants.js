@@ -246,7 +246,13 @@ for (const v of VARIANTS) {
   off += end + GAP;
 }
 
-out.objects = objs; out.markers = marks; out.nextId = id;
+// MARKERS MUST LIVE IN `objects`, NOT IN `markers` (fixed 2026-08-16).
+// composer.html loads `data.markers` into Composer.markers and saves it back,
+// but renderAll() only ever iterates `this.objects` — so a label written to the
+// `markers` array survives a save/load round trip and is NEVER DRAWN. Every
+// section label this tool produced before today was invisible; the composer
+// scrolled a 224 s file with nothing on screen saying which harmony was playing.
+out.objects = objs.concat(marks); out.markers = []; out.nextId = id;
 fs.writeFileSync(OUT, JSON.stringify(out, null, 1));
 
 console.log('=== TONALITY VARIANTS — ' + path.basename(SRC) + ' ===');

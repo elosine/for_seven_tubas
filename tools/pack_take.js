@@ -379,8 +379,11 @@ if (args.includes('--compare')) {
   placed.forEach(n => emit(n, n.lane, off + (n.at - t0src), n.len, 'C-PACKED', '#3FA7B8'));
   const endC = off + Math.max(...placed.map(n => n.at - t0src + n.len));
 
-  cmp.objects = objs;
-  cmp.markers = marks;
+  // Markers go in `objects` — composer.html's renderAll() only iterates that
+  // array, so a label in `data.markers` round-trips through save/load and is
+  // never drawn (fixed 2026-08-16; see tonality_variants.js for the full note).
+  cmp.objects = objs.concat(marks);
+  cmp.markers = [];
   cmp.nextId = cid;
   const cmpPath = path.join('scores', name + '-AB.json');
   fs.writeFileSync(cmpPath, JSON.stringify(cmp, null, 1));

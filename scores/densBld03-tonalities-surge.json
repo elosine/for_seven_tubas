@@ -50863,9 +50863,7 @@
    "sonifyMode": "plain",
    "recVel": 112,
    "groupId": "ton-8"
-  }
- ],
- "markers": [
+  },
   {
    "id": "mk-1",
    "type": "marker",
@@ -51407,6 +51405,7 @@
    "properties": {}
   }
  ],
+ "markers": [],
  "databases": {
   "chordShapes": [],
   "sets": [],

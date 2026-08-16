@@ -280,6 +280,16 @@ to the named best free player · drop either side · nudge · auto.
 | `tools/build_versions.js` | lay several versions end to end in one save file |
 | `tools/extract_section.js` | pull one section (esp. the composer's edited one) back out of a version-arc score |
 | `tools/tonality_variants.js` | the same gesture in N harmonies, end to end, labelled |
+| `tools/bank_gesture.js` | capture a finished gesture into `bank/<ENTITY>.json` so it can be recalled |
+| `tools/place_gesture.js` | recall a banked gesture into a score (`--list` / `--after` / `--at` / `--dry`) |
+
+> **Any tool that writes a listening score must put its labels in `objects`, not
+> in the `markers` array.** `composer.html` loads `data.markers` into
+> `Composer.markers` and saves it back, but `renderAll()` only iterates
+> `this.objects` — so a marker written to `markers` survives every round trip and
+> is **never drawn**. Five scores shipped that way (all the DB3 arc and tonality
+> files) before the composer said *"I don't see the labels"*. Fixed in
+> `tonality_variants.js`, `build_versions.js` and `pack_take.js` on 2026-08-16.
 | `tools/audit_playability.js --parts <name>` | part-by-part playability profile |
 | `tools/audit_playability.js` | corpus audit over all `scores/*.json` |
 | `score/public/composer.html` → `assignCluster` | the assignment authority (leap-aware) |
@@ -314,17 +324,36 @@ silently flattens every surge back into a block. Lane re-derivation would be fin
 (arguably right — it should route around whatever is already in the piece); losing
 the composer's envelope work is not.
 
-### The way in: a placement script
+### The way in: BANK IT, THEN PLACE IT
 
-This is how DB1 and DB2 got in, and it is still correct. GESTURE-2 lives as a full
-object array in `bank/GESTURE-2.json` and was placed by `tools/piece_s08.js` —
-copy that file's shape.
+Two commands. This is the insertion path for orchestrated material — *"an
+insertion option, just done differently"* (composer, 2026-08-16). It replaces the
+per-piece one-off scripts (`tools/piece_s08.js` was the hand-written original;
+`piece_s14.js` existed briefly and was deleted once this reproduced it exactly).
 
-**Why a script rather than UI:** you insert a density build *once*. Per the
-sandbox design principle (PLANNER, 2026-08-14) UI is for loops you hammer;
-one-offs are prompts. If several builds ever need placing and re-placing, that is
-when a third strip source ("Gestures", carrying whole orchestrated objects) earns
-its build — not before.
+```bash
+node tools/bank_gesture.js scores/densBld03-arc-v2b.json --section E --entity DB3 \
+     --kind density-build --color '#8E6BA8' --label DB3 --note "<provenance>"
+
+node tools/place_gesture.js DB3 --into scores/piece-s13.json --after 3.48 --out scores/piece-s14.json
+```
+
+- **`bank_gesture.js`** writes `bank/<ENTITY>.json` in the same format as the
+  hand-made `bank/GESTURE-2.json` — `{entity, source, kind, color, created,
+  spanSec, parts, objects, provenance}`. Notes are copied wholesale; times are
+  rebased to 0 and `groupId` is dropped (assigned at placement).
+- **`place_gesture.js`** offsets the notes, assigns the next free
+  `grp-<entity>-NN`, and adds the marker plus a density-contour META shape on
+  layer 10 so the whole thing drags and scales as a unit. `--after N` places N
+  seconds after the score's last note; `--at T` pins the first note to T.
+  `--list` shows what is banked; `--dry` reports without writing.
+- Then **always** `node tools/audit_playability.js <name>` — the build arrives
+  conflict-free *in isolation*, so anything new comes from what it landed on.
+
+**Why not the strip:** you insert a density build *once*, and per the sandbox
+design principle (PLANNER, 2026-08-14) UI is for loops you hammer, prompts for
+one-offs. Recall-by-name from the bank gives the reuse a strip source would have
+given, without the format that loses the envelopes.
 
 **The artefacts, in order** (DB3 as the example):
 
