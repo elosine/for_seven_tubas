@@ -68,7 +68,20 @@ in the Load dropdown.
 - Still queued: `ost01-variety` unheard - cressand-family / cressand-pitches
   verdicts - quarter-tone mapping test (gate for the morphing crescendo, PLAN 2l).
 
-**Day 8 (2026-08-16, in progress) - COLLISION AVOIDANCE (PLAN 2r):**
+**Session end (2026-08-16, day 8 - COLLISION AVOIDANCE + the METHODOLOGY doc,
+Claude Code):**
+- **`docs/AI_METHODOLOGY.md` written and pointed at from CLAUDE.md** - the
+  composer's standing instruction, and it OUTRANKS the inherited working-preference
+  docs. Five rules: fix what blocks the piece and flag the rest to NITS · don't make
+  the composer decide minutiae · prefer one robust build over a fragile one (code
+  volume is not the constraint, broken code is) · **a confidence claim must be
+  verified in the running app because the composer plans around it** · no clear
+  evidence means no diagnosis. See D18.
+- **PLAN 2r shipped** - playability/collision avoidance end to end (see below).
+- **PLAN 2s** - back-audit of all 164 scores: nothing needs redoing.
+- **`docs/NITS.md` opened** as the deferral ledger, per rule 1.
+
+**Day 8 detail - COLLISION AVOIDANCE (PLAN 2r):**
 - **Working rule set by the composer:** fix what blocks the work or what will
   break; record the rest in `docs/NITS.md` rather than spending decision time on
   it. Code volume is NOT the constraint - troubleshooting is. Bring a competent,
@@ -116,11 +129,28 @@ in the Load dropdown.
   when material enters the score. Anything drawn or dragged afterwards is caught by
   the live wash.
 
+**Open at session end (2026-08-16, day 8):**
+- **META shape overhang on `grp-s018-1056`** (piece-s12): shape 105.63-113.43,
+  parts stop at 110.62. Cause NOT established - AI's guess (individual note edits)
+  is contradicted by the composer's observation that the parts DO follow shape
+  changes while the overhang is preserved, which is what affine mapping does.
+  **Deferred by the composer**; full write-up + the one-step diagnostic in NITS.
+  No auto-fit was added on purpose (it would undo the legitimate D9 case of
+  stretching an all-fixed gesture).
+- **Velocity vs CC7 still unresolved as a system question (2q)** - but it does NOT
+  touch the insert path: inserted notes use `sonifyMode:'plain'`, which pins CC7
+  at 127 and sends the recorded velocity, matching D12.
+- **42 soft flags in piece-s11/s12** - real but not urgent: the cloud material
+  (CLOUD02-D/I, STAC) asks one player for 6.8-7.7 attacks/s between 20-60 s.
+  32 of the 42 are fixable by moving a note to a fully free player. For the
+  notation pass.
+- Still queued: `ost01-variety` unheard · cressand-family verdicts · quarter-tone
+  mapping test (gate for the morphing crescendo, PLAN 2l).
+
 **NEXT SESSION, FIRST THING:** `/clear` then `/session-start` (see
-SESSION_HYGIENE). Then either (a) settle the velocity-vs-CC7 question with the
-one-pitch listening test above, or (b) go straight to placing INT2 material in
-`piece-s09` - blasts plus the cluster items now insertable from the strip, and
-now conflict-checked.
+SESSION_HYGIENE). **Read `docs/AI_METHODOLOGY.md` before proposing anything.**
+Then continue the counterpoint section - blasts over clusters in `piece-s12`,
+now conflict-checked at insert with a resolver for adjustments.
 
 **Day 6 (2026-08-15):** the blast pipeline end to end - piece-s09 shipped (88.5 s,
 INT2's first four sonority blasts); Blast Sandbox + the three-tier taxonomy (48
@@ -289,6 +319,19 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   Result: dens builds 78/86 → **0**; piece-s11 167 → **42**, all of them real.
   *Still estimates pending the composer's ear, same status as 2j itself.*
 
+- **D18** *(2026-08-16)* — **`docs/AI_METHODOLOGY.md` is the governing working
+  instruction, and it outranks the inherited preference docs.** Fix what blocks
+  the piece, flag the rest to `docs/NITS.md` · never put minutiae to the composer
+  (surface a decision only when it changes the musical result AND only they can
+  answer it) · prefer one large robust build over a small fragile one, because
+  **code volume is not the constraint — broken code and composer attention are** ·
+  **a confidence claim must be verified in the running app, because the composer
+  plans around it** · no clear evidence means no diagnosis, flag it instead.
+  *Why:* the previous session lost hours to small bugs, and this one lost composer
+  time to a four-option design menu about things that did not matter. *Rejected:*
+  time estimates of any kind — they have been wrong in both directions, so
+  confidence and residual risk are reported instead.
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -298,6 +341,13 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
 - 2026-08-11 — 10-part expansion + UI batch + Roads catalog + engine framework.
 - 2026-08-11 — **Pass 2 complete**: L4 carved, MAXDENSE-1 recipe adopted (DB 035),
   finding 14; five live calibration cycles (OC, DH1–DH5).
+- 2026-08-16 — **PLAN 2r playability/collision avoidance shipped**: occupancy
+  model, HARD/SOFT tiers, conflict-aware insertion for blasts and clusters, live
+  lane wash, and the resolver (move to another player / drop / nudge / auto).
+- 2026-08-16 — **PLAN 2s back-audit**: all 164 scores checked; every piece file and
+  density build clean of hard conflicts. `tools/audit_playability.js`.
+- 2026-08-16 — **`docs/AI_METHODOLOGY.md`** adopted as the governing working
+  instruction (D18).
 
 ## §6 Human Notes
 
@@ -315,5 +365,13 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   hygiene, not spend — see `docs/SESSION_HYGIENE.md`.
 - *(2026-08-16)* **One listening test owed** (PLAN 2q): does SI2 tuba respond to
   note velocity, to CC7, or both? Everything downstream of dynamics depends on
-  the answer.
+  the answer. **Narrowed 2026-08-16:** it does NOT block insertion — inserted
+  blast/cluster notes already play at the recorded velocity with CC7 pinned full
+  (`sonifyMode:'plain'`), matching D12. It still matters for the drawn crescendo
+  material, which follows CC7.
+- *(2026-08-16)* **Methodology set by the composer** → `docs/AI_METHODOLOGY.md`
+  (D18). The composer will append their own prompt text to that file.
+- *(2026-08-16)* **Deferred by the composer, not to be raised again unprompted:**
+  the META shape overhang (NITS) and the amber soft flags in the piece — both
+  wait until they actually get in the way.
 

@@ -10,6 +10,28 @@
 
 ## Open
 
+- **META shape overhangs its parts on `grp-s018-1056` — CAUSE NOT ESTABLISHED.**
+  In `piece-s12` / `piece-s12-work`: shape 105.63–113.43, parts 105.63–110.62
+  (8 notes, ord 4.99 s + cuivre 1.25/1.12 s) — **2.81 s of shape with no sound
+  under it.** The only mismatched group out of 19; `piece-s09/s10/s11` have none.
+  - *Checked:* all three group-scaling paths (property panel `scaleGroupTo`,
+    edge-node drag, box resize) map non-fixed members affinely and preserve fixed
+    one-shot lengths. None of them can open a gap on their own.
+  - *AI's guess (UNCONFIRMED, composer disagrees):* the ord notes were shortened
+    individually afterwards, which does not shrink the shape.
+  - *Composer's observation, which fits better:* they were only ever changing the
+    META shape — and when they change it now, **the parts do follow, but the
+    overhang is preserved.** That is what affine mapping does: an existing gap
+    scales with everything else and never closes. So the question is not why the
+    parts stopped following, it is **where the gap originally came from.**
+  - *Deferred 2026-08-16 by the composer* — "leave it until it becomes a problem
+    again." No auto-fit was added, deliberately: stretching an all-fixed gesture
+    (staccato/fp/cuivre) is *supposed* to make the shape wider than the parts,
+    because those samples only translate and never stretch (D9). An automatic
+    "fit shape to parts" would silently undo that.
+  - *If it recurs:* capture the gesture BEFORE and AFTER a single shape change and
+    diff the member times — that pins the origin in one step.
+
 - **Cuivre is fixed-length in the score but variable-length in the sandbox.**
   `Composer.FIXED_TECHS` lists cuivre at 1.17 s, so `isFixedLen()` makes it immune to
   group scaling; the cluster strip's `CG_VARIABLE` treats it as a drawn duration at

@@ -7,6 +7,16 @@ Composition #4 in the custom-composition-system lineage
 Started as a detour from piece #3 (2026-08-10); #3 resumes later. This piece inherits
 #3's score/sandbox stack wholesale (see docs/PROJECT_JOURNAL.md D1).
 
+## READ FIRST — how to work here
+
+**`docs/AI_METHODOLOGY.md`** is the composer's standing instruction on scoping,
+decisions, and confidence. It governs everything below and outranks the inherited
+working-preference docs where they conflict. In short: fix what blocks the piece
+and flag the rest to `docs/NITS.md` · don't make the composer decide minutiae ·
+prefer one robust build over a fragile one (code volume is not the constraint) ·
+**a confidence claim must be verified in the running app, because the composer
+plans around it** · no clear evidence means no diagnosis.
+
 ## Orient from docs, not from scanning
 
 - **What now / what next (composer's working view):** `docs/PLANNER.md` —
