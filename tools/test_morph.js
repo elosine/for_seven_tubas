@@ -137,7 +137,16 @@ eq('stagger order is a permutation', order.slice().sort((a, b) => a - b).join(',
 // depth 0.5 travels half as far
 const d1 = M.render(Object.assign({}, base, { model: 'M5', target: { steps: 4 }, dials: { bias: 0, spread: 0, depth: 1 } }));
 const dHalf = M.render(Object.assign({}, base, { model: 'M5', target: { steps: 4 }, dials: { bias: 0, spread: 0, depth: 0.5 } }));
-const travel = r => Math.max.apply(null, r.notes.map(n => Math.abs(n.bend[n.bend.length - 1][1])));
+// Total travel must be measured as ABSOLUTE pitch against the voice's starting
+// pitch. A note's `bend` is relative to its own played key, and a wide move is
+// now split across several re-keyed notes, so the last bend value of one note is
+// only that note's share of the journey.
+const travel = r => {
+    const start = {};
+    r.notes.forEach(n => { if (start[n.voice] == null) start[n.voice] = n.cents; });
+    return Math.max.apply(null, r.notes.map(n =>
+        Math.abs((n.cents + n.bend[n.bend.length - 1][1]) - start[n.voice])));
+};
 ok('depth 0.5 travels about half as far as depth 1',
     Math.abs(travel(dHalf) / Math.max(1e-6, travel(d1)) - 0.5) < 0.25,
     (travel(dHalf) / travel(d1)).toFixed(2));
@@ -277,7 +286,8 @@ const rangeR = M.render(Object.assign({}, base, {
 ok('a whole render of infeasible technique still produces notes', rangeR.notes.length > 0);
 ok('and flags RANGE rather than dropping them', (rangeR.summary.flags.RANGE || 0) > 0);
 
-// a bend wider than the patch allows must be flagged GLISS, not silently clipped
+// SEGMENTED RE-KEY (plan §8): a fan wider than the patch's +/-2 semitones is
+// SPLIT into consecutive re-keyed notes rather than clipped or refused.
 const wide = M.render({
     model: 'M3', seed: 1,
     source: { kind: 'pitches', midi: [40, 44] },
@@ -285,8 +295,27 @@ const wide = M.render({
     dials: { bias: 0, spread: 0, depth: 1 },
     carrier: { span: 20, segLen: 18, segVar: 0, striation: 'aligned' },
 });
-ok('a 12-semitone fan exceeds the patch and says so', (wide.summary.flags.GLISS || 0) > 0);
 ok('bendReach is the measured range', Math.abs(M.bendReach() - 199) < 1);
+ok('a 12-semitone fan is re-keyed, not refused', (wide.summary.flags.REKEY || 0) > 0);
+eq('and therefore never left unplayable as GLISS', wide.summary.flags.GLISS || 0, 0);
+ok('every note stays inside the patch bend range',
+    wide.notes.every(n => n.bend.every(p => Math.abs(p[1]) <= M.bendReach() + 0.5)),
+    'max ' + Math.max.apply(null, wide.notes.map(n =>
+        Math.max.apply(null, n.bend.map(p => Math.abs(p[1]))))).toFixed(1));
+// the split pieces must be CONTIGUOUS — a gap would be an audible break, not a
+// fingering change under a slur
+const wv0 = wide.notes.filter(n => n.voice === 0).sort((a, b) => a.tStart - b.tStart);
+ok('a re-keyed voice produced more than one note', wv0.length > 1, String(wv0.length));
+let contiguous = true;
+for (let i = 1; i < wv0.length; i++) {
+    const gap = wv0[i].tStart - (wv0[i - 1].tStart + wv0[i - 1].dur);
+    if (gap > 0.02 && gap < 0.3) contiguous = false;   // 0 = slurred, >0.3 = a real breath
+}
+ok('re-key splits are contiguous (slurred), not gapped', contiguous);
+// and the whole journey still arrives: 40 -> 52 is 12 semitones
+const arrive = (wv0[wv0.length - 1].cents + wv0[wv0.length - 1].bend[wv0[wv0.length - 1].bend.length - 1][1]);
+ok('the fan still reaches its target after re-keying',
+    Math.abs(arrive - 5200) < 60, 'arrived at ' + (arrive / 100).toFixed(2) + ' vs 52.00');
 
 // unknown params are reported
 const warn = M.render(Object.assign({}, base, { sped: 3, wobble: 1 }));

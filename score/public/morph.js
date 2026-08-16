@@ -617,7 +617,18 @@ function render(params, opts) {
             const flags = seg.flags.slice();
 
             // ---- envelopes, NOTE-RELATIVE ----
-            const STEPS = 12;
+            // Resolution is ADAPTIVE. A re-key split can only land on a
+            // breakpoint, so with a fixed 12 steps a 1200-cent fan moves ~92
+            // cents per step and a split can overshoot the bend range by most of
+            // that. Sample finely enough that a step is ~25 cents of pitch
+            // change; a still chord costs the same 12 steps as before.
+            let probeLo = s0.cents, probeHi = s0.cents;
+            for (let k = 0; k <= 8; k++) {
+                const c = stateAt(vi, Math.min(span, seg.start + (seg.dur * k) / 8)).cents;
+                if (c < probeLo) probeLo = c;
+                if (c > probeHi) probeHi = c;
+            }
+            const STEPS = Math.max(12, Math.min(96, Math.ceil((probeHi - probeLo) / 25)));
             const bend = [];
             const level = [];
             let lo = s0.cents, hi = s0.cents;
@@ -635,12 +646,41 @@ function render(params, opts) {
             // WAY — centring uses both halves, so a note that travels 300 cents
             // fits where an onset-anchored key would have needed 300 in one
             // direction and failed.
+            //
+            // SEGMENTED RE-KEY (plan §8). Beyond +/-2 semitones one note cannot
+            // reach, so the note is SPLIT: bend to the edge, re-key, continue.
+            // The splits are computed here and emitted as consecutive notes with
+            // no gap, so the player slurs across a fingering change — which is
+            // what a wide tuba glissando actually is. Anything that still cannot
+            // be expressed is flagged, never silently clipped.
+            const reachMax = bendReach();
+            const spans = [];
+            {
+                let s = 0, sLo = bend[0][1], sHi = bend[0][1];
+                for (let k = 1; k < bend.length; k++) {
+                    const c = bend[k][1];
+                    const nLo = Math.min(sLo, c), nHi = Math.max(sHi, c);
+                    // Widest span a single key can cover, EXACTLY: the key is the
+                    // centre rounded to a semitone, and that rounding can shift
+                    // the centre by up to 50 cents, so the half-width available
+                    // is (reach - 50), not reach. Guessing a fudge factor here
+                    // left notes 0.5 cents over the edge.
+                    if ((nHi - nLo) > 2 * (reachMax - 50) && k > s + 1) {
+                        spans.push([s, k - 1]);
+                        // the new span STARTS at the split point and must include
+                        // the sample that triggered the split — omitting it let a
+                        // span silently exceed the range by one step
+                        s = k - 1;
+                        sLo = Math.min(bend[s][1], c);
+                        sHi = Math.max(bend[s][1], c);
+                    } else { sLo = nLo; sHi = nHi; }
+                }
+                spans.push([s, bend.length - 1]);
+            }
+            if (spans.length > 1) flags.push('REKEY');
             const playedMidi = Math.round(((lo + hi) / 2) / 100);
             const reach = Math.max(Math.abs(lo - playedMidi * 100), Math.abs(hi - playedMidi * 100));
-            // Beyond that, the note must be re-keyed under the seam (plan §8's
-            // segmented strategy, scheduled for Phase 3 with M3). Flagged, never
-            // silently clipped.
-            if (reach > bendReach() + 1e-6) flags.push('GLISS');
+            if (spans.length === 1 && reach > reachMax + 1e-6) flags.push('GLISS');
 
             const fe = feasibleTechnique(s0.technique, playedMidi);
             if (fe.flagged) flags.push('RANGE');
@@ -674,17 +714,44 @@ function render(params, opts) {
                 level[1] = [round3(riseTo), target0];
             }
 
-            notes.push({
-                voice: vi,
-                tStart: round3(seg.start),
-                dur: round3(seg.dur),
-                cents: Math.round(s0.cents * 10) / 10,
-                midi: playedMidi,
-                technique: fe.technique,
-                durClass: (TECHNIQUES[fe.technique] || TECHNIQUES.ord).durClass,
-                level: level,
-                bend: bend,
-                flags: flags,
+            // Emit one note per span. A single span is the ordinary case and
+            // reproduces the previous behaviour exactly.
+            spans.forEach((sp, si) => {
+                const i0 = sp[0], i1 = sp[1];
+                const t0 = bend[i0][0], t1 = bend[i1][0];
+                const subDur = Math.max(0.02, t1 - t0);
+                // absolute cents across this span -> its own centred key
+                let aLo = Infinity, aHi = -Infinity;
+                for (let k = i0; k <= i1; k++) {
+                    const c = s0.cents + bend[k][1];
+                    if (c < aLo) aLo = c;
+                    if (c > aHi) aHi = c;
+                }
+                const key = spans.length === 1 ? playedMidi : Math.round(((aLo + aHi) / 2) / 100);
+                const subBend = [];
+                for (let k = i0; k <= i1; k++) {
+                    subBend.push([round3(bend[k][0] - t0),
+                                  Math.round(((s0.cents + bend[k][1]) - key * 100) * 10) / 10]);
+                }
+                // level slice, re-based; the first span keeps the re-entry ramp
+                const subLevel = level
+                    .filter(pt => pt[0] >= t0 - 1e-6 && pt[0] <= t1 + 1e-6)
+                    .map(pt => [round3(Math.max(0, pt[0] - t0)), pt[1]]);
+                if (!subLevel.length || subLevel[0][0] > 0) {
+                    subLevel.unshift([0, subLevel.length ? subLevel[0][1] : 5]);
+                }
+                notes.push({
+                    voice: vi,
+                    tStart: round3(seg.start + t0),
+                    dur: round3(subDur),
+                    cents: Math.round((s0.cents + bend[i0][1]) * 10) / 10,
+                    midi: key,
+                    technique: fe.technique,
+                    durClass: (TECHNIQUES[fe.technique] || TECHNIQUES.ord).durClass,
+                    level: subLevel,
+                    bend: subBend,
+                    flags: si === 0 ? flags : flags.filter(f => f !== 'BREATH'),
+                });
             });
         });
     }
