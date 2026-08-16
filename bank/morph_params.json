@@ -1,0 +1,96 @@
+{
+  "_comment": "PLAN 2v conversational control file. The AI writes variants here and bumps `rev`; the Morph panel polls /api/morphparams once a second and regenerates when rev changes. No websocket, no connection state, survives a page reload. Composer speaks -> AI turns the knobs -> composer arrows A/B/C and listens.",
+  "_vocabulary": {
+    "slower / longer": "carrier.span up",
+    "more dramatic": "dials.depth up + dials.bias toward +1",
+    "smoother": "dials.spread up, carrier.segLen up",
+    "choppier": "carrier.segLen down",
+    "another version": "seed only",
+    "louder swells": "dyn.amount up",
+    "shapes": "dyn.shape = swell | rise | fall | rotate | flat"
+  },
+  "rev": 2,
+  "active": "A",
+  "autoplay": false,
+  "variants": {
+    "A": {
+      "label": "balance only, 30 s",
+      "model": "M6",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          34,
+          38,
+          41,
+          45,
+          48,
+          53,
+          58,
+          62
+        ]
+      },
+      "dials": {
+        "bias": 0,
+        "spread": 0.5,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 30,
+        "segLen": 7,
+        "segVar": 0.35,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.55,
+        "shape": "rotate",
+        "amount": 0.4,
+        "turns": 1,
+        "spread": 0.6
+      },
+      "seed": 3
+    },
+    "B": {
+      "label": "colour morph ord to flutter, 30 s",
+      "model": "M4",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          34,
+          38,
+          41,
+          45,
+          48,
+          53,
+          58,
+          62
+        ]
+      },
+      "target": {
+        "path": [
+          "ord",
+          "bisb",
+          "flz"
+        ]
+      },
+      "dials": {
+        "bias": 0,
+        "spread": 0.7,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 30,
+        "segLen": 6,
+        "segVar": 0.35,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.55,
+        "shape": "swell",
+        "amount": 0.3,
+        "spread": 0.5
+      },
+      "seed": 5
+    },
+    "C": null
+  }
+}

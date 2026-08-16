@@ -350,9 +350,13 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
     let t = 0;
     let idx = 0;
 
-    // Offset the FIRST segment so voices do not all re-attack together.
+    // Stagger the FIRST entry so voices do not all attack together. This offset
+    // must be POSITIVE: an earlier version shifted backwards and then clamped
+    // negatives to zero, which silently collapsed every voice onto t=0 and made
+    // the whole striation model a no-op — visible only as a wall of SEAM flags
+    // in the panel.
     const phase0 = striationPhase(pattern, vi, nVoices, 0, seedRng);
-    t = -phase0 * segLen * 0.5;
+    t = phase0 * segLen * 0.5;
 
     while (t < span && segs.length < 512) {
         const jitter = 1 + (seedRng() * 2 - 1) * segVar;

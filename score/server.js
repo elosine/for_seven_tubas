@@ -354,6 +354,20 @@ const server = http.createServer((req, res) => {
         try { return R.json({ success: true, sessions: listScores() }); }
         catch (e) { return R.status(500).json({ success: false, error: e.message }); }
     }
+    // MORPH PARAMS (PLAN 2v) — the conversational control file. The AI writes
+    // bank/morph_params.json and bumps `rev`; the panel polls this once a second
+    // and regenerates when rev changes. no-store because the whole point is that
+    // an edit on disk is visible within the second.
+    if (req.method === 'GET' && url === '/api/morphparams') {
+        try {
+            const mp = path.join(__dirname, '..', 'bank', 'morph_params.json');
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(mp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+
     // CLUSTER BANK — the cluster sandbox's data (composer 2026-08-15).
     // GET returns it; POST actions mutate one tier each.
     if (url === '/api/clusterbank') {

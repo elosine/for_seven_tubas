@@ -90,6 +90,27 @@ Object.keys(byVoice).forEach(v => {
 });
 eq('no gap below the snatch-breath floor', tooTight, 0);
 
+// STAGGER IS THE WHOLE POINT of a non-aligned striation: if every voice enters
+// at the same instant the seam is naked. A previous version offset the first
+// entry backwards and clamped negatives to zero, collapsing all voices onto 0.
+const firstOnsets = {};
+car.notes.forEach(n => {
+    if (firstOnsets[n.voice] == null || n.tStart < firstOnsets[n.voice]) firstOnsets[n.voice] = n.tStart;
+});
+const entries = Object.keys(firstOnsets).map(k => firstOnsets[k]);
+ok('staggered striation gives voices distinct entry times',
+    new Set(entries.map(v => Math.round(v * 20))).size >= 4, JSON.stringify(entries));
+eq('and raises no SEAM flags', car.summary.soft.SEAM || 0, 0);
+// aligned is the deliberate opposite and must still collapse to one instant
+const alignedR = M.render(Object.assign({}, base, {
+    carrier: { span: 30, segLen: 8, segVar: 0, striation: 'aligned' } }));
+const alignedFirst = {};
+alignedR.notes.forEach(n => {
+    if (alignedFirst[n.voice] == null || n.tStart < alignedFirst[n.voice]) alignedFirst[n.voice] = n.tStart;
+});
+eq('aligned striation enters together on purpose',
+    new Set(Object.keys(alignedFirst).map(k => alignedFirst[k])).size, 1);
+
 // a long segLen must be SPLIT and flagged, never silently truncated
 const longSeg = M.render(Object.assign({}, base, {
     carrier: { span: 60, segLen: 40, segVar: 0, striation: 'staggered' },
