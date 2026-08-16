@@ -325,6 +325,44 @@ const PRESETS = {
         }),
     }),
 
+    // E4 · ORD BEATING — the reunification. E3 overturned E1's conclusion: it is
+    // the STACCATO PATCH that carries the articulation, not the density and not
+    // the ensemble. In ord, ten overlapping voices smear into a wash — and the
+    // composer heard that wash "swelling and pulsing".
+    //
+    // That swelling IS the beating. With sustained overlapping tones, coincident
+    // onsets reinforce in AMPLITUDE instead of stacking as rhythm. So the original
+    // acoustic-beating model — smooth, sinusoidal, accelerable — was never wrong;
+    // it just does not survive a hard attack. It lives in the ord family.
+    //
+    // phase10's pulsing was STOCHASTIC (jitter, no tempo spread). Here jitter is
+    // OFF and the tempo spread is the dial, so the swell should be periodic and
+    // its rate calculable: lap = 60 / (ΔBPM × 5 players).
+    ordbeat: () => {
+        const VOICE = (lanes, bpm, extra) => ({ lanes, pitch: PITCH, tech: 'ord',
+            bpm, notelen: 0.5, ...extra });
+        const pair = lap => {
+            const d = 12 / lap;                          // 60 / (5 players × lap)
+            return { label: `LAP ${lap}s · ΔBPM ${r2(d)} · 5+5 ord @ 108 / ${r2(108 + d)}` +
+                    ` · swell every ${lap}s`,
+                tag: 'lap' + lap, dur: 16, model: 'beat', lap, dBpm: r2(d), markLaps: true,
+                voices: [VOICE(LANES_A, 108), VOICE(LANES_B, 108 + d)] };
+        };
+        return {
+            name: 'phase11-ordbeat', notelen: 0.5, gap: 2.5, midi: true,
+            sections: [
+                { label: 'CONTROL · 10 ord, no tempo difference, no jitter — a FLAT bed',
+                  tag: 'flat', dur: 12, model: 'beat',
+                  voices: [VOICE([0,1,2,3,4,5,6,7,8,9], 108)] },
+                pair(8), pair(4), pair(2),
+                { label: 'ACCEL · ΔBPM 0 → 6 · swell period ∞ → 2s — the beating accelerando',
+                  tag: 'accel', dur: 26, model: 'beat', markLaps: true,
+                  voices: [VOICE(LANES_A, 108),
+                           VOICE(LANES_B, 108, { bpmEnd: 114, rampFrom: 4 })] },
+            ],
+        };
+    },
+
     // E3 · ARTICULATION — the "extra blade". Composer's conclusion from E1:
     // "with the staccato patch it's really impossible to avoid articulation in
     // the texture… everything's gonna sound articulated, and it's just a question

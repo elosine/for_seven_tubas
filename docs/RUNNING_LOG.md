@@ -687,3 +687,48 @@ be believed.
 
 Analyzer extended with a probe-4 section so the gate is reproducible rather than
 a one-off calculation; `probes/last_bend_analysis.json` carries the constants.
+
+### E3 VERDICTS — it is the STACCATO PATCH, and that reverses E1 (composer, 2026-08-16)
+- 2 · ord 0.50 s *"continuous tone swelling and pulsing"*; in hindsight *"more of
+  a wash, more washy"*.
+- 3 · ord 0.25 s *"still not articulated, similar to 2."*
+- 4 · MIX *"ords dominate, mask staccato."*
+- 5 · fortepiano *"a bit strange. The piano part of the envelope is buried, so you
+  hear just the attacks — and since they're of a particular sort and overlapping,
+  it lends a sort of weird texture."*
+- 6 · flatterzunge *"closer to number three, but with more roughness."*
+- **VERDICT: *"everything here sounds not articulated except for the first one. So
+  it's really the staccato patch that lends the articulation. Everything else is
+  smeared or blurry."*** **This REVERSES E1's conclusion.** Articulation is not a
+  property of the density or of the ensemble — it is a property of **that patch**.
+
+### THE REUNIFICATION — two families, and the original model was right after all
+- **ARTICULATED family (staccato).** The random↔patterned axis we mapped:
+  articulated smear → rain → gallop → groove. Phase relationships read as RHYTHM.
+- **SMEARED family (ord, flz, and fp-under-density).** Ten overlapping voices
+  blur into a wash. Phase relationships read as **AMPLITUDE / TEXTURE modulation**
+  — the composer heard cell 2 *"swelling and pulsing"*.
+- **So the composer's original acoustic-beating model was never wrong; it just
+  does not survive a hard attack.** It lives in the ord family. The smooth,
+  accelerable, sinusoidal flutter that staccato refused to produce is exactly what
+  a smeared texture should do.
+- **Two findings worth keeping on their own:** ord **MASKS** staccato at equal
+  dynamic (so "attacks on a bed" needs dynamic or registral separation, not just
+  layering); and **fortepiano under overlap loses its piano tail** and reads as
+  attack-only — a usable colour, discovered rather than designed.
+
+### E4 built — `phase11-ordbeat` (the beating dial, in the smeared family)
+- All ord, ten players, **jitter OFF** so the modulation is periodic rather than
+  stochastic (phase10 cell 2's pulsing was stochastic — jitter, no tempo spread).
+  Cells: flat control · lap 8 s · lap 4 s · lap 2 s · accel ΔBPM 0→6 over 22 s.
+- **MEASURED BEFORE LISTENING, and it changes the prediction:** over the lap-4
+  cell the number of notes SOUNDING stays at **8–10 — essentially constant**, so
+  there is **no loudness swell of the sustained tone**. What cycles cleanly on the
+  4 s lap is **attack coincidence** (onsets within 20 ms of another):
+  `0 0 0 2 4 5 2 0 0 0 2 4 4 2`.
+  **So the beating here is carried by transient clustering, not amplitude.**
+  Residual risk stated up front: with ord's soft attack that may be too subtle.
+  **If it is, the fallback is real pitch-based acoustic beating (E6)**, which
+  modulates actual amplitude rather than attack density.
+- Audit 0 hard / 0 soft; loads in the app, 1575 notes, ten lanes, five section
+  markers plus lap markers. **Unheard.**
