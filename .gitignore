@@ -11,6 +11,10 @@ reaper/AutoSaves/
 
 # Composer score — canonical scores/*.json ARE committed; safety-net versions are not
 scores/versions/
+# ...and neither are the D10 working copies: autosave rewrites piece-sNN-work
+# every 5 seconds, so tracking them would be pure churn. The canonical file is
+# what gets committed, via "Save as next".
+scores/*-work.json
 
 # OS noise
 Thumbs.db
