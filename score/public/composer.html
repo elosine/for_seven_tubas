@@ -4840,14 +4840,16 @@ const Composer = {
             if (groups.size) {
                 const members = this.objects.filter(o => groups.has(o.groupId));
                 const notes = members.filter(o => o.type === 'waveCurve' && o.layer < META_LAYER).length;
-                if (notes && !confirm('Delete the whole gesture? (' + notes + ' parts + marker + shape)\n\n' +
-                    'Cancel = delete only the shape, leaving the parts')) {
-                    groups.clear();
+                // Cancel means ABORT (composer 2026-08-16). It used to mean
+                // "delete the shape only", which left the notes orphaned with no
+                // handle — a third outcome nobody asked for, from a button that
+                // reads like "never mind".
+                if (notes && !confirm('Delete this whole gesture?\n\n' +
+                    notes + ' parts + marker + shape.\n\nCancel = nothing happens.')) {
+                    return;
                 }
-                if (groups.size) {
-                    const have = new Set(targets);
-                    members.forEach(m => { if (!have.has(m)) targets.push(m); });
-                }
+                const have = new Set(targets);
+                members.forEach(m => { if (!have.has(m)) targets.push(m); });
             }
             this.pushUndoState();
             for (const obj of targets) {
