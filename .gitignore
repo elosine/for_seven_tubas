@@ -21,3 +21,6 @@ Thumbs.db
 .DS_Store
 research/audio/*.wav
 research/audio/*.flac
+
+probes/_selftest_render.wav
+probes/last_bend_analysis.json
