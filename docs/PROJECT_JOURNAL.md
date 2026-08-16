@@ -10,6 +10,47 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**SESSION END (2026-08-16, day 11 — PLANNING session for 2z + 2y, Claude Code):**
+- **Both follow-on plans are DRAFTED, DISCUSSED (two design rounds with the
+  composer) and APPROVED:** **2z GESTURE SHAPING**
+  (`docs/plans/GESTURE_SHAPING.md`, v2) and **2y MODEL ↔ ACTUAL**
+  (`docs/plans/MODEL_AND_ACTUAL_PLAN.md`). **Build order: 2z first, then 2y —
+  NEVER as two concurrent agents** (shared files; the rule is in both plan
+  headers). Both are handoff-hardened for a weaker implementing model
+  (environment facts, worked examples, per-gate acceptance checklists,
+  precision/determinism rules).
+- **2z design outcomes** (composer's day-11 session, all in the plan): full
+  ADSR (attack `peak` + `decay`) · multilayer attack — edge technique
+  (body-rejected techniques welcome as noise sources), per-voice TRANSIENT
+  (hit-then-tone; D9 physics stated), NOISE layer on spare players, MOTION
+  (converge/gliss, zero-at-inner-edge by construction) · release = a SUBSET,
+  not a mirror (dropout is cluster-safe so beating thins by whole pairs) ·
+  striated entry demoted from default (`together` when a shape block exists;
+  no-shape stays byte-identical = gate G0) · ADSR is NOT a seventh model
+  (orthogonality morph ⊥ carrier ⊥ shape) · shape reuse = lightweight presets
+  in 2y, no taxonomy · recipe vocabulary built from NARRATED sessions, seeds
+  minimal.
+- **PLAN-ID collision fixed:** two day-10 sessions both appended "2x".
+  GESTURE SHAPING is now **2z**; the texture sandbox keeps **2x**.
+- **Found in passing:** `lanes`/`voices` read by `normaliseParams` but missing
+  from `KNOWN_KEYS` (spurious warning) — fix scheduled in 2z gate G0.
+- A second agent was active in the repo this session (separate plan);
+  explicit-path staging observed throughout.
+
+**Next up:** **implement 2z** — the whole prompt is *"Implement
+docs/plans/GESTURE_SHAPING.md (PLAN 2z)"*; the plan is self-contained
+(gates G0–G5; G5 is the composer listening check-in, which also re-hears
+variant B). Then 2y the same way (MA0–MA4; MA4 is the composer
+naming/blessing session).
+
+**Open at session end (day 11):** nothing new in-flight. The day-10 opens
+below still stand — notably `phase13-beatfield` unheard and the D29 scope
+call, **both gating only the texture sandbox (2x)**, not 2z/2y.
+
+**Blockers:** none.
+
+---
+
 **SESSION END (2026-08-16, day 10 — PLAN 2j PHASE SHIFTING, Claude Code — a
 SECOND, concurrent session; the 2v entry below ran at the same time):**
 - **The phase-shifting research arc is COMPLETE** — 13 experiments
@@ -528,6 +569,13 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   dial boundaries. **Measured: spectral targets within 0.4 ¢, fan waypoints
   within 1.0 ¢ including seams.** Five of six models produced material the
   composer called interesting or better; three are keepers.
+
+- 2026-08-16 — **PLANS 2z + 2y drafted and APPROVED** (day 11): GESTURE
+  SHAPING v2 (`docs/plans/GESTURE_SHAPING.md` — gesture-level ADSR, multilayer
+  attack, release-as-subset, motion) and MODEL ↔ ACTUAL
+  (`docs/plans/MODEL_AND_ACTUAL_PLAN.md` — model store, one-dial recipes,
+  actuals with provenance + placements, shape presets). Order: 2z then 2y,
+  never concurrent. 2x ID collision resolved (gesture shaping → 2z).
 
 - 2026-08-16 — **PLAN 2j PHASE-SHIFTING RESEARCH ARC complete** (D27–D29):
   13 experiments `phase01`…`phase13`; the two-family model; the dials
