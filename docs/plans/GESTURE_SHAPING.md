@@ -1,7 +1,7 @@
 # GESTURE SHAPING (PLAN 2z) — implementation plan (v2)
 
-> **Status: DRAFT v2, 2026-08-16 — revised after the composer design session
-> (day 11); awaiting final composer sign-off.** Written to be implemented cold
+> **Status: APPROVED by the composer 2026-08-16 (v2). Ready to implement —
+> build this BEFORE PLAN 2y, never concurrently.** Written to be implemented cold
 > by a separate session, **possibly a less capable model** — hence §11's
 > environment facts, the worked example in §12, and the per-gate acceptance
 > checklists. Read `docs/AI_METHODOLOGY.md` first — it governs everything here

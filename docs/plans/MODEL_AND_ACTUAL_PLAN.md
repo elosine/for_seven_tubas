@@ -1,7 +1,7 @@
 # MODEL ↔ ACTUAL (PLAN 2y) — implementation plan
 
-> **Status: DRAFT 2026-08-16, awaiting composer review.** Written to be
-> implemented cold. Read `docs/AI_METHODOLOGY.md` first, then the concept file
+> **Status: APPROVED by the composer 2026-08-16. Ready to implement — AFTER
+> PLAN 2z, never concurrently with it.** Written to be implemented cold. Read `docs/AI_METHODOLOGY.md` first, then the concept file
 > `docs/plans/MODEL_AND_ACTUAL.md` (the composer's own framing — this plan
 > implements it, it does not restate it), then `docs/RUNNING_LOG.md` COLD START.
 >
