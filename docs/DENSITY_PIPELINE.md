@@ -278,6 +278,8 @@ to the named best free player · drop either side · nudge · auto.
 | `tools/pack_take.js` | pack a played take to the ceiling; writes a ten-part score |
 | `tools/artic_pass.js` | fortepiano → staccato crossfade over a packed score |
 | `tools/build_versions.js` | lay several versions end to end in one save file |
+| `tools/extract_section.js` | pull one section (esp. the composer's edited one) back out of a version-arc score |
+| `tools/tonality_variants.js` | the same gesture in N harmonies, end to end, labelled |
 | `tools/audit_playability.js --parts <name>` | part-by-part playability profile |
 | `tools/audit_playability.js` | corpus audit over all `scores/*.json` |
 | `score/public/composer.html` → `assignCluster` | the assignment authority (leap-aware) |
@@ -331,9 +333,29 @@ its build — not before.
 | `scores/densBld03-take1.json` | the raw played take, one part |
 | `scores/densBld03-take1-unpacked.json` | all notes over ten, unpacked — reference only |
 | `scores/densBld03-take1-packed.json` | thinned to the ceiling, 0 conflicts |
-| `scores/densBld03-take1-fp.json` | + the articulation arc — **the insert source** |
+| `scores/densBld03-take1-fp.json` | + the articulation arc |
 | `scores/densBld03-arc-v2.json` | all five stages end to end, for listening |
-| `scores/densBld03-tonalities.json` | the same build in nine harmonies, for choosing |
+| `scores/densBld03-arc-v2b.json` | **the composer's edited copy** — same five stages, section E hand-grained |
+| `scores/densBld03-take1-surge.json` | section E extracted standalone — **the live insert source** |
+| `scores/densBld03-tonalities.json` | nine harmonies off the *fp* version (superseded) |
+| `scores/densBld03-tonalities-surge.json` | nine harmonies off the *surge* version — the one to choose from |
+
+> **The composer's edited section is the live version, not the tool output that
+> seeded it.** `build_versions.js` writes several stages into one file, tagging
+> each note with its section in `performanceNotes`; the composer then edits one
+> of them by hand (grain envelopes, `G`). Everything downstream must run on
+> *that* section, so pull it back out first:
+>
+> ```bash
+> node tools/extract_section.js scores/densBld03-arc-v2b.json --section E --out scores/densBld03-take1-surge.json
+> ```
+>
+> It copies notes wholesale (`envShape`, `nodes`, `segments`, technique,
+> `sonifyNote`, `recVel`, colour) and rebases to t=0. Verify the env count in its
+> report before using the result — that number is the whole point of the step.
+> *(DB3, 2026-08-16: section E = the fp version + 5 surge conversions and nothing
+> else; the diff is worth running, because a hand-edited section can also contain
+> moves and deletions.)*
 
 **What the script must do:**
 

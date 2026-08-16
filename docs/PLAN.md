@@ -312,7 +312,14 @@ composer → notation → performance architecture.)*
     would never hear that it is unplayable.
   - **Interim, and it works:** `tools/tonality_variants.js` lays N harmonies of a
     gesture end to end with the conflict count in each marker label. Same loop,
-    no UI. `scores/densBld03-tonalities.json` is the DB3 run.
+    no UI. **Labels are `markers`, not objects** — the full name + pitch count +
+    range + conflict count at each section start, the short name repeated every
+    5 s so one is always on screen mid-section, and an `— end —` marker.
+    **`scores/densBld03-tonalities-surge.json` is the DB3 run** (2026-08-16,
+    built off the composer's hand-grained section E via
+    `tools/extract_section.js`; the earlier `densBld03-tonalities.json` used the
+    AI fp version and is superseded). Conflict counts are identical either way —
+    the 5 surge conversions add none.
 
 - **2v — MORPHING CHORDS** — `planned 2026-08-16, not built` — the INT2
   "morphing crescendo" branch, generalized: start a sonority, change it over

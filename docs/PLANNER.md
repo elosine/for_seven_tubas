@@ -115,9 +115,12 @@ A smooth shift in **harmonic timbre as well as volume**; first one probably
       (`densBld03-take1-fp.json`, 160 notes, HARD 0 / soft 0)
 - [x] **Placed** — `tools/piece_s14.js`, group `grp-db3-01`, gap 3.48 s after
       INT2; zero new conflicts (badge unchanged at 42 soft, all pre-existing)
-- [ ] **Decide the harmony** — currently ORIGINAL; `densBld03-tonalities`
-      (9 harmonies, 224 s) is unheard. Only ORIGINAL and **Messiaen m3 on F**
-      are flag-free. Changing it = re-run the script, not an edit.
+- [ ] **Decide the harmony** — currently ORIGINAL. Audition
+      **`densBld03-tonalities-surge`** (9 harmonies, 224 s, labelled — built off
+      the hand-grained section E, so the 5 surge long-tones are in every
+      version). Only **ORIGINAL** and **Messiaen m3 on F** are flag-free;
+      m7/C#, m5/F# and BbE 2-oct carry hard conflicts (said so in their marker
+      labels). Changing it = re-run the script, not an edit.
 - [ ] **The apex decision** — zero hard conflicts cost 91 notes, all at 20–23 s
       of the build. Alternatives: more players (M1) or converting the apex to
       sustained material. See DENSITY_PIPELINE "What is still the composer's
