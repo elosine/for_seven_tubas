@@ -306,7 +306,10 @@ const PANEL = {
             label: (p.label || this.result.meta.model), color: '#7E57C2',
         });
         // marker + META group shape, exactly like every other grouped gesture, so
-        // it drags and scales as one unit
+        // it drags and scales as one unit. The META shape was MISSING in the
+        // first version — the group inserted and sounded correctly but had no
+        // shape on layer 10, so there was nothing to grab and group-scaling had
+        // no handle. Caught by the Phase 4 gate, not by inspection.
         const span = this.result.meta.span;
         C.objects.push({
             id: 'mk-morph-' + seq, type: 'marker', layer: 0, time: +at.toFixed(3),
@@ -314,6 +317,29 @@ const PANEL = {
             color: '#7E57C2', groupId: gid, performanceNotes: '', properties: {},
         });
         objs.forEach(o => C.objects.push(o));
+
+        // contour follows the morph's own dynamic shape: sample the mean level
+        // across the voices so the drawn shape is what the ensemble actually does
+        const W = 10, prof = [];
+        for (let w = 0; w < W; w++) {
+            const a = (span * w) / W, b = (span * (w + 1)) / W;
+            const live = this.result.notes.filter(n => n.tStart < b && n.tStart + n.dur > a);
+            prof.push(live.length
+                ? live.reduce((s, n) => s + n.level[n.level.length - 1][1], 0) / live.length
+                : 0.6);
+        }
+        const nds = prof.map((y, i) => ({ pos: Math.round(((i + 0.5) / W) * 1000) / 1000,
+            y: Math.max(0.4, Math.min(10, Math.round(y * 10) / 10)), smooth: 0.35 }));
+        nds.unshift({ pos: 0, y: nds[0].y, smooth: 0.35 });
+        nds.push({ pos: 1, y: nds[nds.length - 1].y, smooth: 0.35 });
+        C.objects.push({
+            id: 'wc-morphmeta-' + seq, type: 'waveCurve', layer: 10, groupId: gid,
+            startSeconds: +at.toFixed(3), endSeconds: +(at + span).toFixed(3),
+            nodes: nds, segments: nds.slice(1).map(() => ({ model: 'bezier', slope: 0 })),
+            color: '#7E57C2', fillMode: 'bottom', opacity: 0.45,
+            performanceNotes: 'MORPH ' + this.result.meta.model +
+                ' contour (drag = move, edge/box = stretch)', properties: {},
+        });
         C.nextId = (C.nextId || 1) + objs.length + 4;
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();

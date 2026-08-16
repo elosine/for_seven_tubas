@@ -818,3 +818,50 @@ the composer's to scope.
 every experiment gets **one plain-language sentence of what it is and what would
 count as a result**, in the chat guide AND in the score's first marker — not
 parameter names like ΔBPM.
+
+### PHASE 4 GATES — VERIFIED IN THE RUNNING APP. PLAN 2v COMPLETE.
+
+All four checks run against `piece-s17` in a scratch session (never a piece file):
+
+| gate | result |
+|---|---|
+| **Insert over existing material** | 33 notes + marker + META shape land at the playhead. Dropped deliberately ON TOP of DB3 at 120 s it produced **117 hard conflicts**, correctly surfaced by 2r's wash — insert never refuses, it marks (D16). Placed clear at 150 s: badge unchanged at 42 soft, i.e. **zero new conflicts of its own**. |
+| **Drag the group** | +12 s moves every note, the marker and the META shape together; `morphBend` and the level nodes are **byte-identical** afterwards — note-relative envelopes travel, as designed (§13.7). |
+| **Group-scale ×0.75** | span 30 → 22.5 s, all 33 sustain notes scaled by exactly 0.75, bend envelopes intact, no new conflicts. |
+| **Save and reload** | 33 notes, META and marker all survive; every `morphBend` present and **exactly matching pre-save**. |
+
+**D9 tested separately and holds.** The first scale test used an all-`ord` render,
+so the fixed-length rule was never exercised — worth noting, because a gate that
+does not touch the thing it claims to prove is worthless. Re-ran with an M4 render
+containing staccato and fortepiano and squeezed it ×0.5: **16 ord notes scaled to
+exactly 0.5; all 42 fixed one-shots unchanged** (staccato 0.42 s, fortepiano
+1.77 s). Only ORD is a real duration, inside a morph as everywhere else.
+
+**Bug the gate caught: the panel's insert was not creating a META group shape.**
+The group inserted and sounded correctly but had nothing on layer 10, so there was
+no handle to grab and group-scaling had nothing to act on. Now built, with the
+contour sampled from the morph's own mean level across voices, so the drawn shape
+is what the ensemble actually does rather than a generic arch.
+
+---
+
+## PLAN 2v — COMPLETE (2026-08-16)
+
+Every phase built, heard and measured:
+
+- **Phase 0** probes — bend works, ±1.99 st, no artifacts; residue trap real and
+  quantified; quartertones patch is *not* a uniform quarter tone.
+- **Phase 1** pure engine + 101 unit tests + emit layer + panel; dynamics made a
+  layer on every model at the composer's call.
+- **Phase 2** M1/M2/M5 — spectral targets land **within 0.4 cents**.
+- **Phase 3** M3 + the segmented re-key — fan waypoints within **1.0 cent**
+  including both seams, and the composer reports **no audible seam**.
+- **Phase 4** insert / drag / scale / save-reload all verified above.
+
+**Five of six models produced material the composer called interesting or better;
+three are keepers usable in the piece.** Composer: *"as far as creating
+interesting musical materials, we are already there."*
+
+**Carried forward, not built:** the gesture-shaping architecture (attack / body /
+release, parts filled in afterwards) and the MODEL↔ACTUAL storage system — both
+have their own docs in `docs/plans/` and are the composer's to scope.
