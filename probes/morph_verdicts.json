@@ -15,5 +15,13 @@
     "usableWidthCents": 200,
     "caveat": "Tested at one pitch (A#2, MIDI 46) with 2-second ramps. Faster ramps and the extremes of the range are unprobed; if a wide fan ever sounds wrong, re-run probe 3 at that pitch and rate before assuming the engine is at fault.",
     "consequence": "M3 (fan) can use the full +/-200 cents per note before needing the segmented re-key strategy. M1 detune bloom (+/-50) and M2 spectral targets (worst case -49 cents for partial 11) sit well inside the clean zone."
+  },
+  "reKeySeam": {
+    "verdict": "No audible seam.",
+    "composerWords": "no seam",
+    "date": "2026-08-16",
+    "tested": "one continuous re-keyed glissando leg, 0 to 190 cents over 3 s, on ord",
+    "consequence": "The segmented re-key is transparent, so a fan may be as wide as the music wants \u2014 the +/-2 semitone patch limit is no longer a musical constraint, only an implementation detail. No dynamic dip is needed to hide the fingering change.",
+    "caveat": "One leg, one register, one rate. A very fast or very low re-key is unprobed."
   }
 }
