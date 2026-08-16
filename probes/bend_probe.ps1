@@ -27,7 +27,8 @@ param(
     [int]$LeadInMs = 5000,
     [int]$Velocity = 100,
     [int]$Pitch = 46,              # A#2 — mid-range, strong fundamental, well inside every patch
-    [switch]$DryRun                # build + write the schedule, send nothing
+    [switch]$DryRun,               # build + write the schedule, send nothing
+    [switch]$ListPorts             # enumerate MIDI outputs and exit — sends nothing
 )
 
 $PortA = 'tuba1'      # ord = channel 1
@@ -72,6 +73,30 @@ public class MidiOutBend {
 
 $names = @('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
 function NoteName([int]$m) { return $names[$m % 12] + [string]([math]::Floor($m / 12) - 1) }
+
+# Port names are case-sensitive and the repo docs disagree about the case
+# (CLAUDE.md says Tuba1, PLAN 0b and sandbox/instruments.js say tuba1). The
+# sample-length probe used lowercase and worked, so lowercase is the truth —
+# but check rather than find out mid-take.
+if ($ListPorts) {
+    $n = [MidiOutBend]::midiOutGetNumDevs()
+    Write-Host ''
+    Write-Host "MIDI OUTPUT DEVICES ($n found)" -ForegroundColor Yellow
+    for ($i = 0; $i -lt $n; $i++) {
+        $c = New-Object MidiOutBend+MIDIOUTCAPS
+        [void][MidiOutBend]::midiOutGetDevCaps([uint32]$i, [ref]$c,
+            [uint32][System.Runtime.InteropServices.Marshal]::SizeOf($c))
+        Write-Host ("  [{0,2}]  {1}" -f $i, $c.szPname)
+    }
+    Write-Host ''
+    foreach ($p in $PortA, $PortB) {
+        $id = [MidiOutBend]::Find($p)
+        if ($id -ge 0) { Write-Host ("  OK       '{0}' -> device {1}" -f $p, $id) -ForegroundColor Green }
+        else { Write-Host ("  MISSING  '{0}' (case-sensitive)" -f $p) -ForegroundColor Red }
+    }
+    Write-Host ''
+    exit 0
+}
 
 # cents -> 14-bit bend value, at an ASSUMED range. Probe 1 exists to replace the
 # assumption with a measurement; see the analyzer's derived range.

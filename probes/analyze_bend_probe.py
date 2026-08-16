@@ -33,7 +33,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 WIN_MS = 20             # RMS envelope window
 HOP_MS = 10
-FLOOR_MARGIN_DB = 12    # "sounding" threshold above the measured noise floor
+FLOOR_MARGIN_DB = 12    # "sounding" gate above the measured noise floor
+PEAK_MARGIN_DB = 35     # ...and never further than this below the loudest frame
 ONSET_TOL_S = 1.0       # allowed drift between scheduled and detected onset
 SEARCH_ST = 6.0         # f0 search half-width, semitones around nominal
 F0_HOP_MS = 10
@@ -164,16 +165,50 @@ def main():
     x = x.mean(axis=1)
     t_env, env_db = envelope(x, sr)
 
-    floor_db = np.percentile(env_db, 10)
-    thresh = floor_db + FLOOR_MARGIN_DB
+    # THRESHOLD. floor+margin alone is wrong on a DAW track: between notes Reaper
+    # writes digital silence, so the 10th percentile is -120 dB and floor+12 puts
+    # the gate at -108 dB, which counts reverb tails and dither as note onsets.
+    # Anchoring to the PEAK as well keeps the gate on the signal. (Measured on
+    # 03-REC-260816_1007: floor -120.0, peak -6.4; the floor-only gate produced a
+    # 1.00 s apparent onset drift and a bogus quartertone offset.)
+    floor_db = float(np.percentile(env_db, 10))
+    peak_db = float(env_db.max())
+    thresh = max(floor_db + FLOOR_MARGIN_DB, peak_db - PEAK_MARGIN_DB)
     above = env_db > thresh
     if not above.any():
         sys.exit("No audio above threshold — wrong file, or the take is silent?")
-    first_idx = int(np.argmax(above))
-    t0 = t_env[first_idx] - slots[0]["onMs"] / 1000.0
-    print(f"file: {os.path.basename(wav_path)}  sr={sr}  len={len(x)/sr:.1f}s")
-    print(f"noise floor {floor_db:.1f} dB, threshold {thresh:.1f} dB, "
-          f"first onset {t_env[first_idx]:.2f}s -> schedule t=0 at {t0:.2f}s")
+
+    # ALIGNMENT by cross-correlating the ONSET TRAIN with the schedule, not by
+    # trusting the first threshold crossing. One spurious blip before the first
+    # note would otherwise shift every label in the report by that much.
+    onsets = np.where(above[1:] & ~above[:-1])[0] + 1
+    det = []
+    for i in onsets:
+        if not det or t_env[i] - det[-1] > 0.25:
+            det.append(float(t_env[i]))
+    exp = [s["onMs"] / 1000.0 for s in slots]
+    grid = 0.01
+    span = len(x) / sr
+    cand = np.arange(0.0, max(grid, span - max(exp) + 2.0), grid)
+    det_arr = np.array(det)
+    best_off, best_score = 0.0, -1
+    for off in cand:
+        want = np.array(exp) + off
+        idx = np.searchsorted(det_arr, want)
+        idx = np.clip(idx, 1, len(det_arr) - 1)
+        near = np.minimum(np.abs(det_arr[idx] - want), np.abs(det_arr[idx - 1] - want))
+        score = int((near < 0.12).sum())
+        if score > best_score:
+            best_score, best_off = score, float(off)
+    t0 = best_off
+    print(f"file: {os.path.basename(wav_path)}  sr={sr}  len={span:.1f}s")
+    print(f"floor {floor_db:.1f} dB, peak {peak_db:.1f} dB, gate {thresh:.1f} dB, "
+          f"{len(det)} onsets detected for {len(slots)} slots")
+    print(f"alignment: schedule t=0 at {t0:.2f}s in the file "
+          f"({best_score}/{len(slots)} slot onsets matched within 120 ms)")
+    if best_score < 0.8 * len(slots):
+        print("WARNING: fewer than 80% of slots matched — alignment suspect, do not "
+              "trust the labels below without checking against the sender log.")
 
     results = []
     drifts = []
@@ -262,6 +297,11 @@ def main():
     if max_drift > 0.6:
         print("WARNING: large onset drift — alignment suspect. Check the sender log "
               "before believing any label below.")
+
+    # Composer's listening verdicts, if any have been recorded. Kept in a sidecar
+    # so regenerating this report cannot destroy a human judgement.
+    vpath = os.path.join(REPO, "probes", "morph_verdicts.json")
+    verdicts = json.load(open(vpath, encoding="utf-8")) if os.path.exists(vpath) else {}
 
     by = lambda p: [r for r in results if r.get("probe") == p]
     lines = ["# MORPH FINDINGS — PLAN 2v", "",
@@ -360,14 +400,30 @@ def main():
         if pairs:
             offs = [p["offsetCents"] for p in pairs]
             med = float(np.median(offs))
+            spread = max(offs) - min(offs)
             consts["QT_OFFSET_CENTS"] = round(med, 1)
-            shifted = 25 <= abs(med) <= 75 and (max(offs) - min(offs)) < 40
-            lines.append(f"**Median offset {med:+.1f} ¢**, spread {max(offs)-min(offs):.1f} ¢. ")
-            lines.append("Consistent with the **shifted-duplicate** reading — ord + quartertones "
-                         "together give full 24-TET.\n" if shifted else
-                         "**NOT a clean 50-cent duplicate** — the offset varies by key, so the patch "
-                         "is a remapped keyboard. Voice any quarter-tone chord against this table, "
-                         "not against an assumed +50 ¢.\n")
+            consts["QT_OFFSET_SPREAD_CENTS"] = round(spread, 1)
+            consts["QT_OFFSET_BY_PITCH"] = {str(p["pitch"]): p["offsetCents"] for p in pairs}
+            # A quarter tone is 50 cents; the ear resolves ~5-10 cents on a
+            # sustained brass tone. So "the same note a quarter tone higher" is
+            # only a usable model if the spread is small enough to ignore —
+            # 15 cents, not 40. A loose bound here would wave through a patch
+            # that has to be voiced from a per-key table.
+            shifted = 25 <= abs(med) <= 75 and spread <= 15
+            lines.append(f"**Median offset {med:+.1f} ¢**, spread {spread:.1f} ¢ "
+                         f"({min(offs):+.1f} to {max(offs):+.1f}).\n")
+            if shifted:
+                lines.append("Consistent with the **shifted-duplicate** reading — ord + "
+                             "quartertones together give full 24-TET, and a quarter-tone "
+                             "pitch can be written as `(key, quartertones patch)`.\n")
+            else:
+                lines.append(f"**NOT a uniform quarter-tone shift.** The offset tracks pitch "
+                             f"({', '.join(f'{p['note']} {p['offsetCents']:+.0f}¢' for p in pairs)}), "
+                             f"so the patch is not simply the same key 50 ¢ higher. Two "
+                             f"consequences: quarter-tone chords must be voiced against this "
+                             f"per-key table rather than an assumed +50 ¢, and — since bend "
+                             f"works — **pitch bend is the better mechanism for M1/M2 anyway**, "
+                             f"with the patch kept only as a colour.\n")
 
     if by("3"):
         lines += ["## Probe 3 — bent-sample quality", ""]
@@ -376,13 +432,23 @@ def main():
               ["step", "what", "verdict", "from ¢", "to ¢", "nominal target ¢",
                "deviation from linear (RMS ¢)"])
         lines.append("`deviation from linear` is how raggedly the ramp tracked. The **audible** "
-                     "verdict (resampling artifacts) is the composer's, not the analyzer's — "
-                     "record it here.\n")
-        lines.append("| ramp | audible verdict (composer) |", )
+                     "verdict (resampling artifacts) is the composer's, not the analyzer's, and "
+                     "lives in `probes/morph_verdicts.json` — this file is regenerated wholesale, "
+                     "so a verdict typed in here would be destroyed by the next run.\n")
+        lines.append("| ramp | audible verdict (composer) |")
         lines.append("|---|---|")
         for r in by("3"):
-            lines.append(f"| {r['label']} | |")
+            lines.append(f"| {r['label']} | {verdicts.get('ramps', {}).get(r['step'], '')} |")
         lines.append("")
+        gv = verdicts.get("glissViability")
+        if gv:
+            lines += ["### Gliss viability", "",
+                      f"**{gv.get('verdict','')}** — composer, "
+                      f"\"{gv.get('composerWords','')}\" ({verdicts.get('date','')})", "",
+                      f"- Usable width: **{gv.get('usableWidthCents','?')} cents** "
+                      f"(the patch's full bend range; RPN 0 is ignored so it cannot be widened)",
+                      f"- {gv.get('consequence','')}",
+                      f"- *Caveat:* {gv.get('caveat','')}", ""]
 
     lines += ["## Constants derived", "", "```json",
               json.dumps(consts, indent=2), "```", "",

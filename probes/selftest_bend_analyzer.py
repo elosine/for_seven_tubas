@@ -178,8 +178,13 @@ def main():
         # For a ramp the "settled" window deliberately spans the ramp, so its
         # median is an intermediate value by design — the analyzer reports
         # rampFrom/rampTo for those, and those are what get checked.
+        # 0.4a sweeps mid-note on purpose, so its "settled" window straddles the
+        # sweep and its median is meaningfully halfway — same situation as a ramp.
+        # tailCents is what proves the sweep arrived.
         is_ramp = tr["step"].startswith("3-")
+        sweeps = tr["step"] == "0.4a"
         fields = ("rampFromCents", "rampToCents", "tailCents") if is_ramp \
+            else ("onsetCents", "tailCents") if sweeps \
             else ("onsetCents", "settledCents", "tailCents")
         inj_for = {"rampFromCents": tr["onsetCents"], "rampToCents": tr["settledCents"]}
         for field in fields:

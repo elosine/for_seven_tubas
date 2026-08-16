@@ -1,0 +1,19 @@
+{
+  "_comment": "Composer's LISTENING verdicts. The analyzer measures; only the composer can say whether a bent sample sounds like a tuba. Kept in its own file because analyze_bend_probe.py regenerates docs/MORPH_FINDINGS.md wholesale, and a hand-typed verdict in that file would be silently destroyed by the next run.",
+  "recording": "reaper/Media/03-REC-260816_1007.wav",
+  "date": "2026-08-16",
+  "ramps": {
+    "3-50": "natural",
+    "3--50": "natural",
+    "3-100": "natural",
+    "3--100": "natural",
+    "3-200": "natural"
+  },
+  "glissViability": {
+    "verdict": "No artifact limit found anywhere inside the patch's +/-2 semitone bend range.",
+    "composerWords": "They all sound fine and natural.",
+    "usableWidthCents": 200,
+    "caveat": "Tested at one pitch (A#2, MIDI 46) with 2-second ramps. Faster ramps and the extremes of the range are unprobed; if a wide fan ever sounds wrong, re-run probe 3 at that pitch and rate before assuming the engine is at fault.",
+    "consequence": "M3 (fan) can use the full +/-200 cents per note before needing the segmented re-key strategy. M1 detune bloom (+/-50) and M2 spectral targets (worst case -49 cents for partial 11) sit well inside the clean zone."
+  }
+}
