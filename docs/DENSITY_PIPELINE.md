@@ -227,17 +227,38 @@ music already had one.
 
 ### 4c. Grains by hand — staccato → long tone
 
-Select a note, and in the property panel set **Grain env** to `surge` (or any of
-the eight Roads shapes). The note is **converted to ORD and its `plain` sonify
-mode dropped**, because an envelope is a statement that the note has a shape and
-only ORD can have one — fp/staccato/cuivre are fixed one-shots that end
-themselves (D9), and `plain` pins the level flat. Without the conversion the
-score would draw a crescendo over a note that still goes *tuk*.
+**Three keys do this work. The panel is on demand, not on selection** (composer's
+own call, 2026-08-13 — it used to pop up while placing and dragging).
 
-The conversion is reported in the status bar, is undoable in one step, and leaves
-the note **variable-length** — drag the right edge to make it a real long tone.
-The envelope swap itself is "as-if-generated": peak time and level carry over, so
-the moment stays put and the shape changes around it.
+| key | what it does | scope |
+|---|---|---|
+| **G** | selected notes → **surge crescendos**, peak-anchored | whole selection |
+| **C** | selected notes → **cuivre**, via the pitch palette | whole selection |
+| **P** | open the property panel for the selected note | one note |
+
+**G is the primary path.** The played onset becomes the **apex**, and the swell
+back-fills as far as that player's lane allows (capped at 2.5 s). So the same
+keystroke gives long swells where the texture is sparse and short ones at the
+apex — density shapes the result, no dial. Notes turn green (`#2E7D32`), become
+`ord` + `envShape: surge`, drop `sonifyMode: 'plain'`, and one CTRL+Z undoes the
+whole batch.
+
+*If a note has no room to swell backwards, the swell happens inside its own
+footprint instead* — same start, same end, peak at the release. The status bar
+says how many were treated that way. (Before 2026-08-16 a 0.15 s minimum beat the
+availability check and forced an overlap, always at the apex, which is exactly
+where these conversions get made. Converting all 160 notes of a packed build now
+adds zero conflicts.)
+
+**P** is for fine work on one note: `Technique`, `Grain env` (all eight Roads
+shapes), start/end, colour, track. Applying a **Grain env** here also converts the
+note to ORD and drops `plain` — an envelope is a statement that the note has a
+shape, and only ORD can carry one, since fp/staccato/cuivre are fixed one-shots
+that end themselves (D9) and `plain` pins the level flat. Without the conversion
+the score would draw a crescendo over a note that still goes *tuk*. The swap is
+"as-if-generated": peak time and level carry over, so the moment stays put and the
+shape changes around it. The note is then **variable-length** — drag the right
+edge for a real long tone, drag the body to move it.
 
 ### 5. Per-part surgery
 

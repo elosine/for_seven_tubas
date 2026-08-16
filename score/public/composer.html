@@ -328,7 +328,7 @@
     <button id="loadBtn" style="display:none">Load</button>
     <span style="opacity:.35">&#9474;</span>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b34-grain</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b35-surge</span>
     <span style="flex:1 1 auto"></span>
     <button id="conflictBadge" title="playability: notes double-booked on one player (red) or too close to re-attack (amber). Click to resolve." style="display:none; background:#4a1414; color:#ff8080; font-family:Consolas,monospace">&#9888; 0</button>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
@@ -3228,6 +3228,7 @@ const Composer = {
             .filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.sonifyMode === 'plain');
         if (!targets.length) return;
         this.pushUndoState();
+        let inPlace = 0;
         for (const wc of targets) {
             const apex = wc.startSeconds;
             const prevEnds = this.objects
@@ -3235,13 +3236,27 @@ const Composer = {
                     && o.sonifyNote != null && o.endSeconds <= apex + 1e-6)
                 .map(o => o.endSeconds);
             const avail = apex - (prevEnds.length ? Math.max(...prevEnds) : 0.1) - 0.08;
-            const dur = Math.max(0.15, Math.min(2.5, avail));
             const release = 0.05;
             const lv = Math.max(1, Math.round(((wc.recVel != null ? wc.recVel : 100) / 127) * 100) / 10);
-            const pPos = Math.round((dur / (dur + release)) * 1000) / 1000;
-            wc.startSeconds = Math.max(0, Math.round((apex - dur) * 1000) / 1000);
-            wc.endSeconds = Math.round((apex + release) * 1000) / 1000;
-            wc.nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: pPos, y: lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+            const dur = Math.min(2.5, avail);
+            if (dur < 0.15) {
+                // NO ROOM TO SWELL BACKWARDS. The old code took Math.max(0.15, …)
+                // here, so the floor beat the availability check and forced a
+                // 0.15 s back-fill into an occupied lane — a hard conflict, and
+                // always at the apex, which is exactly where these conversions
+                // get made. Instead the swell happens INSIDE the note's own
+                // footprint: same start, same end, peak at the release point.
+                // Zero new conflicts by construction; still a real surge.
+                const own = wc.endSeconds - wc.startSeconds;
+                const p2 = Math.max(0.05, Math.round(((own - release) / own) * 1000) / 1000);
+                wc.nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: p2, y: lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+                inPlace++;
+            } else {
+                const pPos = Math.round((dur / (dur + release)) * 1000) / 1000;
+                wc.startSeconds = Math.max(0, Math.round((apex - dur) * 1000) / 1000);
+                wc.endSeconds = Math.round((apex + release) * 1000) / 1000;
+                wc.nodes = [{ pos: 0, y: 0, smooth: 0.25 }, { pos: pPos, y: lv, smooth: 0.25 }, { pos: 1, y: 0, smooth: 0.25 }];
+            }
             wc.segments = [{ model: 'exponential', slope: 0.35 }, { model: 'power', slope: 0 }];
             wc.technique = 'ord';
             wc.envShape = 'surge';
@@ -3251,6 +3266,8 @@ const Composer = {
         }
         this.deselectAll();
         this.markDirty();
+        this.saveStatus.textContent = 'surge → ' + targets.length + ' note(s)' +
+            (inPlace ? '  ·  ' + inPlace + ' had no room to swell back, shaped in place' : '');
     },
 
     // ---- Per-part SOLO (composer 2026-08-12) ----
