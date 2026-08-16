@@ -546,3 +546,48 @@ restore point. Git is the net either way, since `scores/*.json` are committed.
   and one branch, so a push carries both agents' work, which is harmless as long
   as every commit is complete (rule 4). This replaces "never push without asking"
   for this project; `CLAUDE.md` should be updated to match at session end.
+
+### FINDINGS MATRIX — morph-listen-01 heard (2026-08-16)
+
+Composer's summary: *"all of these and the originals are very rich. As far as
+creating interesting musical materials, we are already there. It's more of a
+spoiled-by-riches situation now, and I just have to make choices."*
+
+**Q1 SPAN — a morph holds at every span tested. No density floor needed.**
+- 10 s and 30 s similar in kind; **30 s "much more dramatic"** — so span is not
+  just duration, it changes the weight of the gesture.
+- **60 s: "as expected, a more drawn-out version of the morph. Re-articulations
+  aren't prioritised to the ear — under the surface."** This was the open risk
+  (would a minute thin out into separate events?) and the answer is **no**. The
+  breath model needs no rework.
+
+**Q2 VOICES — the pair-preserving reduction works, with a named cost.**
+Four voices: *"still interesting… less detailed and less subtle, and it's really
+the BEATING that carries it. Still has a nice morph shape. Just lacks some of the
+detail of the reference — maybe like an 8-bit versus 16-bit comparison."*
+So reduction is lossy in **detail**, not in identity. 8-bit/16-bit is the right
+frame: use full voicing where the morph is the subject, reduced where it is a
+layer.
+
+**Q3 CONCURRENT — does NOT read as two entities, and that is fine.**
+*"Doesn't sound like two entities, but very interesting still and quite complex,
+both in terms of the overall sound and in the detail of the morphing — the change
+is quite interesting and complex as well."*
+**Reframes the feature:** concurrency is a way to build ONE richer sonority, not
+a way to run two audible voices. No registral-separation work is needed for the
+current use; if two *distinguishable* morphs are ever wanted, that is a separate
+problem (register, timing offset, contrasting technique).
+
+**Q4 PULSE — re-articulation is a musical parameter, and it contributes to the
+perception of CHANGE, not only of rhythm.**
+- seg 3 s: *"does preserve some of that pulsing effect. When more parts are in,
+  or there's more volume, it's more like a PULSE; in the beginning when it's more
+  sparse it's more like RE-ARTICULATION."* — the same mechanism reads as two
+  different things depending on density. Worth carrying.
+- seg 15 s: *"perhaps it loses some of the detail. So maybe the re-articulation
+  helps with the change as well."* — **re-articulation is one of the carriers of
+  the morph's audibility**, not merely a breathing necessity. Long segments are
+  not automatically "smoother"; they are less informative.
+
+**Consequence for defaults:** keep segLen in the 3–8 s band as the working range;
+15 s is available but costs detail. No engine change required.
