@@ -2404,6 +2404,34 @@ const Composer = {
         if (!best || rank(best.tier) >= here) return null;
         return best;
     },
+    // ---- "which gesture is this note from?" ----
+    groupShapeOf(o) {
+        return (o && o.groupId)
+            ? (this.objects.find(x => x.groupId === o.groupId && x.layer === META_LAYER) || null)
+            : null;
+    },
+    groupLabelOf(o) {
+        if (!o) return null;
+        if (o.groupId) {
+            const mk = this.objects.find(x => x.type === 'marker' && x.groupId === o.groupId);
+            if (mk && mk.label) return mk.label;
+            const sh = this.groupShapeOf(o);
+            if (sh) return String(sh.performanceNotes || '').split(' (')[0];
+        }
+        const pn = String(o.performanceNotes || '').split(' (')[0].trim();
+        return pn || null;
+    },
+    // scroll to an object and select it, so the composer can SEE which one it is
+    revealObject(o) {
+        if (!o) return;
+        const t = (o.startSeconds != null ? o.startSeconds : o.time) || 0;
+        if (o.layer === META_LAYER && this.openMetaWin) this.openMetaWin();
+        this.scrollOffset = Math.max(0, t * this.pixelsPerSecond - 120);
+        this.applyScroll();
+        this.renderAll();
+        this.selectObject(o);
+        this.refreshConflicts();
+    },
     moveNoteToLane(note, layer) {
         if (note.layer === layer) return;
         this.pushUndoState();
@@ -2502,7 +2530,7 @@ const Composer = {
         if (!box) {
             box = document.createElement('div');
             box.id = 'conflictResolver';
-            box.style.cssText = 'position:fixed; right:12px; bottom:12px; width:430px; max-height:52vh; ' +
+            box.style.cssText = 'position:fixed; right:12px; bottom:12px; width:490px; max-height:52vh; ' +
                 'background:#1b1b1f; border:1px solid #444; border-radius:6px; z-index:9000; ' +
                 'font-family:Consolas,monospace; font-size:11.5px; color:#ddd; display:flex; flex-direction:column; ' +
                 'box-shadow:0 6px 24px rgba(0,0,0,0.55)';
@@ -2585,9 +2613,31 @@ const Composer = {
             const side = (o) => {
                 const r = document.createElement('div');
                 r.style.cssText = 'display:flex; align-items:center; gap:5px; margin-top:3px';
+                const gLabel = this.groupLabelOf(o);
+                const shape = this.groupShapeOf(o);
+                // ◇ selects the gesture's META shape, so you can SEE which block
+                // this note came from (and then drag or delete it as one thing)
+                if (shape) {
+                    r.appendChild(mk('◇', 'select this note\'s gesture shape: ' + (gLabel || 'gesture') +
+                        ' @ ' + shape.startSeconds.toFixed(2) + 's', () => {
+                        this.revealObject(shape);
+                        this.resolverNote('selected gesture ' + (gLabel || '') + ' @ ' + shape.startSeconds.toFixed(2) + 's');
+                    }, '#c9a8e0'));
+                }
                 const lbl = document.createElement('span');
-                lbl.textContent = this.noteLabel(o);
-                lbl.style.cssText = 'flex:1 1 auto; color:#bbb; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
+                const NM = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+                const p = o.sonifyNote;
+                const nm = p == null ? '?' : NM[((p % 12) + 12) % 12] + (Math.floor(p / 12) - 1);
+                lbl.textContent = (gLabel ? gLabel + ' · ' : '') + nm + (o.technique ? ' ' + o.technique : '');
+                lbl.title = 'click to select this note in the score' +
+                    (gLabel ? '\ngesture: ' + gLabel + (shape ? ' @ ' + shape.startSeconds.toFixed(2) + 's' : '') : '') +
+                    '\nplayer: ' + (TRACKS[o.layer] ? TRACKS[o.layer].label : 'layer ' + o.layer);
+                lbl.style.cssText = 'flex:1 1 auto; color:#bbb; overflow:hidden; text-overflow:ellipsis; ' +
+                    'white-space:nowrap; cursor:pointer; text-decoration:underline dotted #555';
+                lbl.addEventListener('click', () => {
+                    this.revealObject(o);
+                    this.resolverNote('selected ' + this.noteLabel(o) + ' on ' + (TRACKS[o.layer] ? TRACKS[o.layer].label : 'layer ' + o.layer));
+                });
                 r.appendChild(lbl);
                 const alt = this.bestLaneFor(o);
                 if (alt) {
