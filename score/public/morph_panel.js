@@ -116,10 +116,41 @@ const PANEL = {
         document.addEventListener('mouseup', () => { on = false; });
     },
 
+    // PREFLIGHT — every assumption this panel makes about the host app, checked
+    // at OPEN time and reported loudly.
+    //
+    // This exists because of how the first audition failed. `Composer` is a
+    // lexical `const`, so `window.Composer` was undefined; every MIDI route
+    // silently resolved to null and the panel reported a MIDI problem that did
+    // not exist. A wrong assumption about the host must fail HERE, by name, not
+    // as silence three layers down at Play time.
+    preflight() {
+        const C = HOST();
+        const bad = [];
+        if (!C) bad.push('Composer not reachable (lexical global — use HOST())');
+        else {
+            if (typeof C.trackInstrument !== 'function') bad.push('Composer.trackInstrument missing');
+            else if (!C.trackInstrument(0)) bad.push('Composer.trackInstrument(0) returned nothing');
+            if (typeof C.curveValToCC !== 'function') bad.push('Composer.curveValToCC missing (level→CC7 law)');
+            if (!Array.isArray(C.objects)) bad.push('Composer.objects is not an array');
+            if (typeof C._zoneMidiOutputs !== 'object') bad.push('Composer._zoneMidiOutputs missing');
+        }
+        if (typeof M.render !== 'function') bad.push('morph.js engine missing');
+        if (typeof E.play !== 'function') bad.push('morph_emit.js missing');
+        this._preflight = bad;
+        if (bad.length) console.error('[morph] PREFLIGHT FAILED:', bad);
+        return bad;
+    },
+
     toggle(force) {
         const show = force != null ? force : this.el.style.display === 'none';
         this.el.style.display = show ? '' : 'none';
-        if (show) { this.el.focus(); this.refresh(true); } else { E.panic(); }
+        if (show) {
+            const bad = this.preflight();
+            this.el.focus();
+            if (bad.length) { this.setStatus('PREFLIGHT: ' + bad.join(' · '), true); return; }
+            this.refresh(true);
+        } else { E.panic(); }
     },
 
     // ------------------------------------------------- the conversational loop

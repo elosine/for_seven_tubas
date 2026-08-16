@@ -244,3 +244,31 @@ loses its backslashes — use forward slashes and an absolute path.
   musical unknown is whether a 30 s morph — necessarily a chain of overlapping
   breaths — reads as ONE sonority breathing or as separate notes. No test can
   answer it; that is check-in 1.
+
+### Troubleshooting discipline — composer's correction (2026-08-16)
+
+Two rounds were lost to avoidable dead ends (playing the probe; the first
+audition). Composer: *"lean on evidence rather than guessing… a bunch of obvious
+things that aren't the problem. Like loopMIDI — I've been using it all morning,
+so that shouldn't have even been a consideration."* Rules taken from it:
+
+1. **Never ship a diagnostic that asks the composer to check something the code
+   can check.** The message *"are the MIDI ports open?"* is what put loopMIDI in
+   the frame — the AI invented that dead end. Error text now names one of three
+   distinguishable causes, because they need three different fixes.
+2. **When new code cannot reach a subsystem that is demonstrably working, the
+   wiring is the suspect, not the subsystem.** MIDI had been in use all morning.
+   `typeof Composer` was a one-line check that would have found the real cause
+   (a lexical `const` is not a `window` property) in seconds.
+3. **Prove the boundary before theorising past it.** Same shape as the probe
+   episode, where the schedule was already proven and one single-note send would
+   have settled it immediately.
+
+**Architectural consequence — PREFLIGHT.** Every bug in 2v so far has been at the
+seam where the panel reaches into the app's internals (`trackInstrument`,
+`curveValToCC`, `_zoneMidiOutputs`, `objects`), and that seam had no verification.
+`MorphPanel.preflight()` now checks each assumption when the panel OPENS and
+prints failures by name in the status line. Verified by deleting
+`Composer.curveValToCC` and watching it report exactly that. A wrong assumption
+about the host now fails loudly at open time instead of as silence three layers
+down at Play time.
