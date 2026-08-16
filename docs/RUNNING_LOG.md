@@ -1036,3 +1036,39 @@ rules at the top of this file are back in force.)*
 - **Recommended order: 2z then 2y; never as two concurrent agents** — the two
   plans share morph.js, morph_panel.js, morph_params.json, test_morph.js.
 - Both drafts awaiting the composer's review; nothing built.
+
+### 2z plan v2 — the composer's design session (2026-08-16, day 11)
+
+Decisions taken with the composer, folded into `docs/plans/GESTURE_SHAPING.md`
+(rewritten as v2) and `docs/plans/MODEL_AND_ACTUAL_PLAN.md` (targeted edits):
+
+- **D restored: full ADSR.** `attack.peak` (default 1) + optional `decay`
+  block, peak→1. peak=1 makes decay inert, so ADSR degrades to ASR to
+  no-shape in one code path.
+- **The attack is a MULTILAYERED object** (electronic-music model): gain ADSR
+  · entry scheduling + order · edge technique (the body-rejected techniques —
+  singing, flz — are welcome here as noise sources) · per-voice TRANSIENT
+  (prepended one-shot; physics stated: D9 means hit-THEN-tone ~0.5 s, never
+  hit-AND-tone from one player) · NOISE layer (spare players, simultaneous
+  stack — the true "cuivre whether it's in the chord or not") · MOTION
+  (converge/gliss-in).
+- **The release is a SUBSET, not a mirror:** taper + exits + `dropout`
+  (a fraction of voices exits early-abrupt while the rest taper — "drops out
+  but feels like a taper"; cluster-safe so beating thins by whole pairs) +
+  motion (disperse / to-unison / gliss-out) + technique. No peak/decay/
+  transient/noise.
+- **Striated entry demoted:** when a shape block is present, entry defaults
+  `together`. No-shape behaviour stays byte-identical (G0 unchanged).
+- **ADSR does NOT become a seventh model** (composer's query, answered):
+  morph ⊥ carrier ⊥ shape orthogonality is what lets any shape compose with
+  any model. The quality-of-change ask is served by motion/layers/curves.
+- **Shape reuse = lightweight presets, no taxonomy:** `bank/shape_presets.json`
+  in 2y — named copyable shape blocks, AI-filed from narrated sessions;
+  categories only if practice produces them (D6 harvest).
+- **Vocabulary is built by narration:** recipe seeds cut to minimal; the
+  composer narrates, AI dials, recurring descriptions get filed as recipes.
+- **Plan hardened for a weaker implementing model:** environment-facts
+  section (no node MIDI, .ps1 refusal, HOST(), markers-in-objects, autosave,
+  D30 git rules), per-gate acceptance checklists, a worked-example params
+  blob, and the rule "where plan and code disagree, the code's measured
+  constants win — then update the plan."

@@ -141,16 +141,19 @@ recipe essentially is paired down to one dial, in some ranges."*
 - **Where it runs:** `applyRecipe` + validation live in `morph.js` (pure,
   node-testable, same file the params feed). `KNOWN_KEYS`-style discipline
   throughout.
-- **Initial recipe slates** are seeded from what already exists — the
-  `_vocabulary` block of `bank/morph_params.json` (it is literally a
-  proto-recipe list) bounded by the recipes bank's dials table:
-  *slower/longer* (span 10→60) · *more dramatic* (depth+bias) ·
-  *smoother↔choppier* (segLen 8→3, the sweet band 3–8) · *louder swells*
+- **Initial recipe slates are deliberately MINIMAL** *(composer, day 11:
+  "for the first few attacks, I'll just narrate, and we'll build the
+  vocabulary")*. Seed only what already exists — the `_vocabulary` block of
+  `bank/morph_params.json` (literally a proto-recipe list) bounded by the
+  recipes bank's dials table: *slower/longer* (span 10→60) · *more dramatic*
+  (depth+bias) · *smoother↔choppier* (segLen 8→3) · *louder swells*
   (dyn.amount 0.2→0.5) · per-model specials (*more beating*: target.cents for
-  BLOOM; *further out*: target.steps for SPACING). After 2z: *harder attack* ·
-  *longer tail*. **These are proposals for the composer's ear, not doctrine**
-  — MA4 is where they get blessed, rebounded, or replaced. This is the one
-  genuinely musical surface of the plan, and it is deliberately the last gate.
+  BLOOM). Everything else — especially the shape vocabulary (*harder attack*,
+  *dissolve more*, over `shape.*` paths) — is **harvested from the narrated
+  sessions** (D6's harvest principle): the composer describes qualitatively,
+  the AI dials it in, and when a description recurs it gets filed as a named
+  recipe with the boundaries practice revealed. MA4 blesses what practice
+  produced; nothing speculative ships before it has been asked for twice.
 
 ---
 
@@ -206,6 +209,26 @@ Format = the 2w gesture-bank format (so `place_gesture.js` machinery applies),
   plain gestures — an ACTUAL is specifically *a decided render of a model*.
   Both kinds appear in `--list`; `kind` distinguishes them.
 
+### 5.1 The SHAPE-PRESET library — `bank/shape_presets.json`
+
+The composer's reuse question, answered lightweight *(day 11: a crafted
+attack/shape is probably reusable across models; "if it's too complicated to
+categorize, we'll just leave it")*:
+
+- A shape preset is a **named, copyable `shape` block** (2z's schema) plus
+  label, tags and the verdict that blessed it — e.g. `"brass hit into
+  dissolve"`. Because a shape is just params, applying it to any model is a
+  merge, not a feature: **reuse by construction, no category system.**
+- Filed by the AI from the narrated sessions the moment a shape is kept
+  (TAXONOMY contract, §7); `?` note when unsure. If genuine *categories* of
+  attack ever emerge, they are harvested then (D6) — never designed up front.
+- Surfacing: a shape dropdown next to the model menu (§6); recipes may patch
+  `shape.*` paths like any other. An actual's `resolvedParams` already
+  records the shape it was made with, so provenance needs nothing new.
+- **Explicitly rejected (composer's own instinct):** making the envelope a
+  seventh morph model. Morph ⊥ carrier ⊥ shape orthogonality is what makes
+  any shape compose with any model — see 2z §5.5.
+
 ---
 
 ## 6 · Surfacing — panel, files, CLI
@@ -215,7 +238,9 @@ does not):
 
 - The variant chips A–F become a **model menu** fed from
   `morph_models.json` (falling back to raw `morph_params.json` variants, which
-  stay for scratch work — drafts live there until blessed into models).
+  stay for scratch work — drafts live there until blessed into models), plus a
+  **shape-preset dropdown** (§5.1) that merges a named shape onto the current
+  model's params.
 - Per-recipe **sliders** (bounded by the recipe's dial min/max), a **seed
   stepper** (± buttons — *"another version"*), and the existing
   generate/play/insert row unchanged.
@@ -264,7 +289,9 @@ Standing AI obligations, unprompted, from the moment MA2 lands:
 
 **MA0 — schemas + seed migration**
 - `morph_models.json` seeded from the six recipes; `bank/actuals/` created;
-  `model_bank.js --validate` written FIRST (the validator is the spec).
+  `bank/shape_presets.json` created (migrating any keeper shapes 2z's
+  listening sessions left in `morph_params.json`); `model_bank.js --validate`
+  written FIRST (the validator is the spec).
 - **Gate:** validate passes on the seeded store; `place_gesture --list` shows
   both shelves; zero behaviour change anywhere else.
 
