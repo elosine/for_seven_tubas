@@ -193,6 +193,52 @@ conflict count does not show.
 The corpus-wide audit (no `--parts`) still answers the other question, "is any
 saved score unplayable".
 
+### 4b. Articulation — the fortepiano crossfade
+
+```bash
+node tools/artic_pass.js scores/<name>-packed.json --fp-until 12 --stac-from 18
+```
+
+The shape, in the composer's words: *"the densest area staccato, and then just
+before that a crossfade area where the fortepianos were becoming less frequent
+and turning into mostly staccatos, and then before that it was just
+fortepianos."*
+
+- before `--fp-until`: **all fortepiano** · in the zone: P(staccato) ramps 0→1
+  linearly · after `--stac-from`: **all staccato**
+- defaults are 55 % and 78 % of the take's span if you do not pass them
+
+**What changed since `tools/transform_fp.js` (2026-08-13).** That tool scaled
+fortepiano durations ×3 (≥×2 when squeezed) and used a 25–30 s zone. **The ×3 is
+now wrong**: D9 (measured 2026-08-15) established fortepiano as a **fixed
+one-shot, 1.35–2.22 s**, which ends itself and never scales. So conversion does
+not stretch a note — it replaces a 0.45 s staccato with a note 3–5× longer.
+
+That means the crossfade cannot be purely probabilistic; a coin-flip saying
+"fortepiano" mid-build would double-book the player. **The roll proposes, physics
+disposes:** room on this player? → else a player with room (leap-aware)? → else
+it stays staccato, and the denial is reported. Zero new conflicts by
+construction, and the crossfade **emerges from density** as well as being biased
+by the ramp — the same principle as `make_playable.js`'s surge/staccato threshold.
+
+On DB3 this mattered more than the ramp did: 15 of 36 fortepiano rolls were
+denied, **all between 11.4 s and 16.0 s**. The tool drew the crossfade where the
+music already had one.
+
+### 4c. Grains by hand — staccato → long tone
+
+Select a note, and in the property panel set **Grain env** to `surge` (or any of
+the eight Roads shapes). The note is **converted to ORD and its `plain` sonify
+mode dropped**, because an envelope is a statement that the note has a shape and
+only ORD can have one — fp/staccato/cuivre are fixed one-shots that end
+themselves (D9), and `plain` pins the level flat. Without the conversion the
+score would draw a crescendo over a note that still goes *tuk*.
+
+The conversion is reported in the status bar, is undoable in one step, and leaves
+the note **variable-length** — drag the right edge to make it a real long tone.
+The envelope swap itself is "as-if-generated": peak time and level carry over, so
+the moment stays put and the shape changes around it.
+
 ### 5. Per-part surgery
 
 Whatever survives step 4. Global packing is blunt but musical — it respects the
@@ -209,6 +255,8 @@ to the named best free player · drop either side · nudge · auto.
 | tool | what it does |
 |---|---|
 | `tools/pack_take.js` | pack a played take to the ceiling; writes a ten-part score |
+| `tools/artic_pass.js` | fortepiano → staccato crossfade over a packed score |
+| `tools/build_versions.js` | lay several versions end to end in one save file |
 | `tools/audit_playability.js --parts <name>` | part-by-part playability profile |
 | `tools/audit_playability.js` | corpus audit over all `scores/*.json` |
 | `score/public/composer.html` → `assignCluster` | the assignment authority (leap-aware) |

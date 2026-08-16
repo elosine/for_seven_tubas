@@ -328,7 +328,7 @@
     <button id="loadBtn" style="display:none">Load</button>
     <span style="opacity:.35">&#9474;</span>
     <span id="saveStatus">Ready</span>
-    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b33-leap</span>
+    <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b34-grain</span>
     <span style="flex:1 1 auto"></span>
     <button id="conflictBadge" title="playability: notes double-booked on one player (red) or too close to re-attack (amber). Click to resolve." style="display:none; background:#4a1414; color:#ff8080; font-family:Consolas,monospace">&#9888; 0</button>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
@@ -7645,10 +7645,23 @@ const Composer = {
             obj.nodes = env.nodes;
             obj.segments = env.segments;
             obj.envShape = value;
+            // An envelope is a statement that this note HAS a shape, and only ORD
+            // can have one — fp/staccato/cuivre are fixed one-shots that end
+            // themselves (D9), and sonifyMode 'plain' pins the level flat. Left
+            // alone, the swap would draw a crescendo over a note that still goes
+            // "tuk". So the conversion happens here, and is reported rather than
+            // done silently. This is the staccato-grain -> long-tone path.
+            const converted = this.FIXED_TECHS[obj.technique] !== undefined || obj.sonifyMode === 'plain';
+            if (converted) { obj.technique = 'ord'; delete obj.sonifyMode; }
             this.selectedNodeIdx = -1;
             this.renderWaveCurve(obj);
             this.refreshPanelValues();
             this.markDirty();
+            // after markDirty, which would otherwise overwrite it with "Unsaved changes"
+            if (converted) {
+                this.saveStatus.textContent = value + ' → converted to ORD ' +
+                    '(a fixed one-shot cannot carry a shape — D9); drag the right edge for length';
+            }
             return;
         } else if (field.startsWith('ostinatoParams.') && obj.type === 'zone') {
             if (!obj.ostinatoParams) obj.ostinatoParams = { smooth: 0.7, speed: 1.0, stretch: 1.5 };
