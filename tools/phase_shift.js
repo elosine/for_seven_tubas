@@ -289,6 +289,48 @@ const PRESETS = {
         }),
     }),
 
+    // SCATTER — the composer's categories (smear · rain · stutter · pulse) turn
+    // out to need TWO independent dials, not one:
+    //
+    //   SCATTER = how irregularly the voices sit inside the cycle. 0 = perfectly
+    //             even (the "articulated smear"), 1 = uniformly random (rain).
+    //   SPREAD  = how fast that arrangement CHANGES (tempo difference).
+    //
+    // phase06 coupled them: everything started even and spread drove the scatter
+    // upward over time, which is why the transitions were abrupt and why rain
+    // could not be held. With scatter as its own dial and spread at ZERO, each
+    // texture is STATIC — rain that stays rain for as long as you want.
+    scatter: () => {
+        let s = 20260816;                                   // seeded, reproducible
+        const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
+        const T = 60 / BASE;
+        const cell = (sc, dur, morph) => {
+            const u = Array.from({ length: 10 }, rnd);      // one draw per voice
+            return {
+                label: morph
+                    ? `MORPH · scatter 0 → 1 over ${dur}s · even dissolving into rain`
+                    : `SCATTER ${sc}` + (sc === 0 ? ' · EVEN (articulated smear)' :
+                        sc === 1 ? ' · UNIFORM RANDOM (rain)' : '') + ' · static, no drift',
+                tag: 'sc' + (morph ? 'morph' : sc), dur, model: 'beat',
+                voices: Array.from({ length: 10 }, (_, j) => ({
+                    lanes: [j], pitch: PITCH, tech: 'staccato', bpm: BASE,
+                    delay: ((j / 10 + (morph ? 0 : sc * u[j]) + 1) % 1) * T,
+                    // a morph reaches its scattered target by drifting there:
+                    // phase gain = (bpmEnd-bpm)/2/60 * dur, solved for bpmEnd
+                    ...(morph ? { bpmEnd: BASE + 120 * u[j] / dur } : {}),
+                })),
+            };
+        };
+        return {
+            name: 'phase07-scatter', notelen: 0.12, gap: 2.5, midi: true,
+            // low end sampled finely: 0 -> 0.1 was already a jump from 0.1 ms of
+            // deviation to 21 ms, i.e. straight past whatever is between smear
+            // and rain. Scatter s displaces each voice by up to +/- s/2 of a cycle.
+            sections: [cell(0, 12), cell(0.03, 12), cell(0.08, 12), cell(0.2, 12),
+                cell(1, 14), cell(1, 20, true)],
+        };
+    },
+
     // SMOOTHNESS — the answer to "none of them is a smooth flutter".
     //
     // Two voices can only ever make short-long-short-long: a gallop. So this

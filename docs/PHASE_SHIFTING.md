@@ -301,6 +301,68 @@ audible is downstream of the file.
 
 ---
 
+## 5E · THE COMPOSER'S CATEGORIES — and the two dials they need
+
+**Verdicts on `phase06-smooth` (2026-08-16), verbatim enough to build on:**
+
+| cell | composer |
+|---|---|
+| spread 0 | *"a bit of a smear effect — not quite sustained tone but approaching that. Still can hear all the articulations. Doesn't sound like a gallop, but a little regular, not quite pulsed. **An articulated smear.**"* |
+| spread 0.5 | *"approaching **rain**, but still some discernible patterning within — somewhere between gallop and rain."* |
+| spread 2 | *"starts out rain, then at ~52 s jumps into a **stuttery pattern** with a loop characteristic, some sort of accent. **Rain to gallop relatively abruptly** — the transition wasn't smooth."* |
+| spread 6 | *"resolves pretty quickly into **pulse**. The transition isn't very prominent — rain, then pulse, with some smear in between."* |
+
+Also, and it governs the whole search: *"the gallops aren't disqualifying, they
+just are what they are… the point is to use phase shifting to find interesting
+textures."* **`rain` is a keeper. `articulated smear` is a keeper.**
+
+### The naming, adopted
+
+**smear → rain → stutter → pulse**, in order of increasing irregularity. These
+are the composer's words and they are now the category names.
+
+### Why the transitions were abrupt, and why rain could not be held
+
+`phase06` had **one dial doing two jobs.** Every cell started perfectly even and
+the tempo spread drove the irregularity upward *over time* — so the texture was
+always sliding, could never sit anywhere, and the perceptual snap from rain to
+stutter arrived as a jump. **They are two independent dials:**
+
+| dial | what it is | what it sets |
+|---|---|---|
+| **SCATTER** | how irregularly the voices sit inside the cycle | **which category** — smear · rain · stutter |
+| **SPREAD** | tempo difference between voices | **how fast the category changes** — 0 = static, forever |
+
+With spread at **zero** a texture is *static*: rain that stays rain for as long
+as you want it. That is what makes these usable as material rather than as
+demonstrations.
+
+## 5F · `phase07-scatter` — the categories, held still
+
+Ten voices, one player each, **all at exactly 110 BPM** (so nothing drifts), each
+displaced inside the cycle by a seeded random amount. Measured deviation from
+even, early in the cell → late in the cell:
+
+| cell | scatter | sd early → late | predicted category |
+|---|---|---|---|
+| 1 | 0 | **0.1 → 0.1 ms** | articulated smear (the control) |
+| 2 | 0.03 | **6.4 → 6.4 ms** | smear, just loosened |
+| 3 | 0.08 | **21.5 → 21.3 ms** | ? — the boundary is expected here |
+| 4 | 0.2 | **32.6 → 33.0 ms** | rain |
+| 5 | 1.0 | **46.2 → 46.1 ms** | uniform random — literal rain |
+| 6 | 0 → 1 over 20 s | **4.2 → 43.8 ms** | **the morph**: smear dissolving into rain |
+
+Early ≈ late in every static cell — **the textures genuinely hold.**
+
+**Cell 6 is the primitive the composer asked for weeks ago** — "make the flutter
+more pronounced, less pronounced, in waves". Scatter *is* the pronouncedness dial.
+Ramp it for a dissolve; oscillate it for waves.
+
+**What scatter cannot make: pulse.** Pulse came from voices *converging* on each
+other, which is a spread effect. So pulse is the one category that needs drift.
+
+---
+
 ## 6 · COUNTERPOINT vs SOUND MASS — the second objective
 
 Composer: *"several of these going at the same time in different tempos. My

@@ -443,3 +443,47 @@ from EXPLICIT saves (CTRL+S / Save as next / Variant). Autosave writes none by
 design. `piece-*` files are additionally protected by the `-work` copy; other
 scores are not, so CTRL+S before experimenting is the habit that creates a
 restore point. Git is the net either way, since `scores/*.json` are committed.
+
+### Composer verdicts on `phase06-smooth` + THE CATEGORY VOCABULARY (2026-08-16)
+- **smear → rain → stutter → pulse** — the composer's own words, adopted as the
+  category names. spread 0 = *"an articulated smear… not quite sustained tone but
+  approaching that"* · spread 0.5 = *"approaching rain, still some discernible
+  patterning"* · spread 2 = *"starts rain, then at ~52 s jumps into a stuttery
+  pattern with a loop characteristic… rain to gallop relatively abruptly"* ·
+  spread 6 = *"resolves pretty quickly into pulse; the transition isn't very
+  prominent"*.
+- **Governing instruction:** *"the gallops aren't disqualifying, they just are
+  what they are… the point is to use phase shifting to find interesting
+  textures."* **rain and articulated smear are keepers.**
+- **Diagnosis: phase06 had ONE dial doing TWO jobs.** Every cell started even and
+  the tempo spread drove irregularity upward over time, so nothing could sit
+  still and the rain→stutter snap arrived as a jump. They separate:
+  **SCATTER** (how irregularly voices sit in the cycle) picks the CATEGORY;
+  **SPREAD** (tempo difference) sets how fast the category CHANGES. Spread 0 =
+  static, so a texture holds indefinitely.
+
+### `phase07-scatter` — the categories, held still
+- Ten voices, one player each, **all at exactly 110 BPM**, displaced by a seeded
+  random amount. Scatter 0 / 0.03 / 0.08 / 0.2 / 1.0, then a **morph cell**
+  (scatter 0 → 1 over 20 s). Measured sd of the intervals, early → late:
+  0.1→0.1 · 6.4→6.4 · 21.5→21.3 · 32.6→33.0 · 46.2→46.1 ms — **every static cell
+  holds.** Morph: 4.2 → 43.8.
+- The first ladder had too coarse a low end (0 → 0.1 jumped from 0.1 ms to 21 ms
+  of deviation, straight past the smear/rain boundary); resampled at 0.03/0.08.
+- **The morph cell is the "waves" primitive** the composer asked for earlier:
+  scatter IS the pronouncedness dial. Ramp = dissolve, oscillate = waves.
+- **Scatter cannot make PULSE** — pulse comes from voices converging, which is a
+  spread effect. That is the one category that needs drift.
+- Audit 0 hard / 0 soft; loads in the app, ten lanes ~150 notes each, all six
+  markers rendering. **Unheard.**
+
+### Housekeeping
+- **`phase03-fluttermap` restored** — a UI glitch in the other agent's session
+  inserted 67 `ord` notes in two groups (`grp-morph-01/02`, pitches 34–62) into
+  it. Restored from git to 2231 staccato notes on C3. **The inserted material was
+  preserved first**, in the session scratchpad as
+  `phase03-fluttermap-WITH-morph-insert.json` and `morph-insert-only.json`
+  (the 67 notes alone, 31 s) in case 2v wants them.
+- **Jitter test DEFERRED by the composer** — they want to A/B it at a specific
+  point in a real score rather than as a standalone, and the gallop is explained
+  anyway. `midi/phase04-jitter-*.mid` stay in the repo for when it matters.
