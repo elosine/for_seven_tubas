@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ INT2 ▸ **placing material in piece-s09** ▸ *4 blasts in (81.7–88.5 s); cluster sandbox now feeds the strip too — next: more blasts / cluster items, then the texture arc*
+**NOW ►** Section 1 ▸ **DB3 is in the piece** ▸ *piece-s14 (136.3 s) — DB3 at 114.1–136.3 s, zero new conflicts. Next: listen (DB3 in context + the unheard arc/tonality scores), then the tonality + apex calls*
 
 ---
 
@@ -109,15 +109,21 @@ A smooth shift in **harmonic timbre as well as volume**; first one probably
 
 </details>
 
-<details open><summary><b>DB3 — third density buildup</b> · <i>next</i> — a longer DB1</summary>
+<details open><summary><b>DB3 — third density buildup</b> · <i>◄ IN THE PIECE</i> (piece-s14, 114.1–136.3 s)</summary>
 
-- [ ] **Decide the expanded version's length**
-- [ ] **Decide the harmony**
-- [ ] **How to achieve the same density-buildup profile over the longer span**
-      (PLAN 2m: frame-by-frame-but-longer; smooth; same density feel; the
-      fp/stac random distribution is already solved)
-- [ ] **Add long tones by hand** where the stretch needs filling (the
-      "extra long grains" — draw them in)
+- [x] **Length** — settled by playing it: 22.2 s as recorded/packed
+      (`densBld03-take1-fp.json`, 160 notes, HARD 0 / soft 0)
+- [x] **Placed** — `tools/piece_s14.js`, group `grp-db3-01`, gap 3.48 s after
+      INT2; zero new conflicts (badge unchanged at 42 soft, all pre-existing)
+- [ ] **Decide the harmony** — currently ORIGINAL; `densBld03-tonalities`
+      (9 harmonies, 224 s) is unheard. Only ORIGINAL and **Messiaen m3 on F**
+      are flag-free. Changing it = re-run the script, not an edit.
+- [ ] **The apex decision** — zero hard conflicts cost 91 notes, all at 20–23 s
+      of the build. Alternatives: more players (M1) or converting the apex to
+      sustained material. See DENSITY_PIPELINE "What is still the composer's
+      decision".
+- [ ] **Add long tones by hand** where it needs filling (`G` = surge convert on
+      a selection — the grain pass, still undone)
 </details>
 
 <details><summary><b>INT3 / DB4?</b> · <i>form-dependent</i></summary>

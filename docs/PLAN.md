@@ -149,10 +149,17 @@ composer → notation → performance architecture.)*
   ost_variety.js) — `ost01-variety` = the 8-formation listening exercise,
   FIRST THING NEXT SESSION. Remaining planned: pointillistic-mass takes,
   varied repetition as form.
-- **2h — PIECE ASSEMBLY** — `doing 2026-08-15` — **piece-s09 (88.5 s)** — piece-s01…s07c: opening
+- **2h — PIECE ASSEMBLY** — `doing 2026-08-15` — **piece-s14 (136.3 s)** — piece-s01…s07c: opening
   (GESTURE-1) + 5 inserted gestures, all with movable/stretchable META group
-  shapes (groupId; drag=move, edge/box/panel=scale); latest: GESTURE-2 ×0.75
-  at 50 s, reharmonized m6 on F# (s07b) then F (s07c).
+  shapes (groupId; drag=move, edge/box/panel=scale); GESTURE-2 ×0.75
+  at 50 s, reharmonized m6 on F# (s07b) then F (s07c); s09–s13 = INT2 blasts +
+  clusters. **s14 (2026-08-16) = DB3 placed** — source
+  `scores/densBld03-take1-fp.json` (packed + fp arc, ORIGINAL tonality), group
+  `grp-db3-01` at **114.101 → 136.327 s**, gap 3.48 s after INT2 (the INT1→DB2
+  gap, the piece's only INT→DB precedent). Placement script `tools/piece_s14.js`
+  per DENSITY_PIPELINE §6. Verified in the app: badge `⚠ 42 soft`, **identical to
+  s13** — DB3 contributed zero conflicts. **Still open:** the tonality choice
+  (2u list) and the apex decision; both are re-runs of the script, not edits.
 
 - **2n — ONE-SHOT SAMPLE LENGTHS** — `done 2026-08-15` — probe + analyzer over
   80 notes: **fortepiano, cuivre and staccato are all FIXED one-shots** (the
