@@ -190,9 +190,22 @@ const strToPos = v => Math.round(STR_STEPS * Math.log(v / STR_MIN) / Math.log(ST
 const posToStr = q => +(STR_MIN * Math.pow(STR_MAX / STR_MIN, q / STR_STEPS)).toFixed(3);
 let TR = trDefault();
 const trActive = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100 || TR.vel !== 100;
+// LAYOUT transforms move notes on the roll, so the picture stops matching the
+// data and editing has to pause. Velocity is NOT one of them (composer
+// 2026-08-15: changing the global velocity was silently killing note editing).
+const layoutTransformed = () => TR.stretch !== 1 || TR.tonality || TR.chord || TR.reverse || TR.oct || TR.thin < 100;
+const blockingTransforms = () => {
+  const b = [];
+  if (TR.stretch !== 1) b.push('stretch');
+  if (TR.tonality || TR.chord) b.push('tonality');
+  if (TR.reverse) b.push('reverse');
+  if (TR.oct) b.push('octave');
+  if (TR.thin < 100) b.push('thin');
+  return b;
+};
 let pxPerSec = null, viewT0 = 0;
 const isSnip = () => entity.kind === 'snippet';
-const canEdit = () => isSnip() && !trActive();
+const canEdit = () => isSnip() && !layoutTransformed();
 
 function baseObj() {
   if (!BANK || !entity.id) return null;
@@ -368,13 +381,15 @@ function drawRoll() {
     ctx.globalAlpha = 1;
     if (outline) { ctx.strokeStyle = '#fff'; ctx.strokeRect(x - 0.5, y - 0.5, w + 1, barH + 1); }
   };
-  const transformed = trActive();
+  const transformed = layoutTransformed();
+  const velScale = TR.vel / 100;
   const w = playWindow();
   baseEvents().forEach((e, i) => {
     const inWin = e.t >= w[0] - EDGE_EPS && e.t <= w[1] + 0.001;
+    const shownV = Math.max(1, Math.min(127, e.v * velScale));
     bar(e.t, e.p, soundLen(e),
       transformed || !inWin ? '#999' : techColor(e.tech),
-      transformed ? 0.25 : inWin ? (0.35 + 0.55 * e.v / 127) : 0.15,
+      transformed ? 0.25 : inWin ? (0.35 + 0.55 * shownV / 127) : 0.15,
       !transformed && selNotes.has(e));
   });
   // velocity readout on selected notes (few enough to stay legible)
@@ -401,7 +416,8 @@ function drawRoll() {
     }
   }
   $('info').textContent = entity.id + ': ' + baseEvents().length + ' notes / ' + baseSpan().toFixed(1) + 's' + trDesc() +
-    (isSnip() && transformed ? '  (reset transforms to edit notes)' : '');
+    (isSnip() && transformed ? '   — note editing paused by: ' + blockingTransforms().join(', ') +
+      ' (↺ original re-enables it)' : '');
 }
 function updateNoteSel() {
   const el = $('selNoteInfo'), box = $('noteVel');
@@ -410,9 +426,13 @@ function updateNoteSel() {
   const vs = [...selNotes].map(n => n.v);
   const lo = Math.min(...vs), hi = Math.max(...vs);
   const one = selNotes.size === 1 ? [...selNotes][0] : null;
+  const scaled = v => Math.max(1, Math.min(127, Math.round(v * TR.vel / 100)));
+  const suffix = TR.vel !== 100
+    ? '  vel (sounds ' + (lo === hi ? scaled(lo) : scaled(lo) + '–' + scaled(hi)) + ')'
+    : '  vel';
   el.textContent = one
-    ? '· ' + nm(one.p) + ' ' + one.tech + ' ' + one.d.toFixed(2) + 's  vel'
-    : '· ' + selNotes.size + ' notes  vel';
+    ? '· ' + nm(one.p) + ' ' + one.tech + ' ' + one.d.toFixed(2) + 's' + suffix
+    : '· ' + selNotes.size + ' notes' + suffix;
   box.style.display = '';
   box.value = lo === hi ? String(lo) : lo + '–' + hi;
 }
