@@ -34,7 +34,18 @@ if (!OUT || !specs.length) {
   process.exit(1);
 }
 
-const PALETTE = ['#607D8B', '#B8663F', '#3FA7B8', '#8D6E63', '#7E9B5B', '#9B5B8E'];
+// Sections are identified by their MARKER and by the gap between them. Note
+// colour therefore carries the information the eye actually needs while working:
+// ARTICULATION. (An earlier version painted every note by section, which made a
+// fortepiano pass invisible — 21 fp notes in a section of 160, all one colour.)
+// These are the colours already in use elsewhere for exactly these things.
+const ARTIC_COLOR = {
+  staccato: '#607D8B',    // slate — the captured-TAKE colour
+  fortepiano: '#8D6E63',  // brown — transform_fp.js's FP3x
+  ord: '#2E7D32',         // green — convertSelectedToSurge
+  cuivre: '#FF9C54',      // orange — the blast strip's cuivre
+};
+const MARKER_PALETTE = ['#607D8B', '#B8663F', '#3FA7B8', '#8D6E63', '#7E9B5B', '#9B5B8E'];
 let base = null, objs = [], marks = [], id = 1, off = 0;
 const summary = [];
 
@@ -53,14 +64,15 @@ specs.forEach((spec, si) => {
   if (!notes.length) { console.error('no notes in ' + p); process.exit(1); }
 
   const t0 = Math.min(...notes.map(o => o.startSeconds));
-  const color = PALETTE[si % PALETTE.length];
 
   marks.push({
     id: 'mk-' + (id++), type: 'marker', layer: 0, time: +off.toFixed(3),
-    label: label + '  (' + notes.length + ' notes)', color,
+    label: label + '  (' + notes.length + ' notes)',
+    color: MARKER_PALETTE[si % MARKER_PALETTE.length],
     performanceNotes: path.basename(p), properties: {},
   });
 
+  const techCount = {};
   notes.forEach(o => {
     const c = JSON.parse(JSON.stringify(o));
     c.id = 'wc-' + (id++);
@@ -69,12 +81,13 @@ specs.forEach((spec, si) => {
     c.endSeconds = +(off + o.endSeconds - t0).toFixed(3);
     c.groupId = 'sec-' + si;
     c.performanceNotes = label;
-    if (!o.envShape) c.color = color;   // keep hand-shaped grains visually distinct
+    c.color = ARTIC_COLOR[o.technique] || o.color;
+    techCount[o.technique] = (techCount[o.technique] || 0) + 1;
     objs.push(c);
   });
 
   const end = Math.max(...notes.map(o => o.endSeconds)) - t0;
-  summary.push({ label, p, n: notes.length, at: off, len: end, solo });
+  summary.push({ label, p, n: notes.length, at: off, len: end, solo, techCount });
   off += end + GAP;
 });
 
@@ -87,5 +100,9 @@ fs.writeFileSync(OUT, JSON.stringify(base, null, 1));
 console.log('=== VERSION ARC → ' + OUT + ' ===');
 summary.forEach(s => console.log('  ' + String(s.at.toFixed(2)).padStart(7) + 's  ' +
   s.label.padEnd(34) + String(s.n).padStart(4) + ' notes  ' +
-  s.len.toFixed(1) + 's' + (s.solo ? '  [one part]' : '')));
+  s.len.toFixed(1) + 's' + (s.solo ? '  [one part]' : '') + '   ' +
+  Object.entries(s.techCount).map(([k, v]) => k + ' ' + v).join(', ')));
 console.log('  total ' + (off - GAP).toFixed(1) + 's');
+console.log('\n  colour = ARTICULATION: ' +
+  Object.entries(ARTIC_COLOR).map(([k, v]) => k + ' ' + v).join('  ·  ') +
+  '\n  (sections are identified by their markers and the gaps between them)');
