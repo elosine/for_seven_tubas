@@ -160,6 +160,29 @@ const TONALITIES = {
   'row (placed)': ROW,
 };
 
+// ================= CC7 = LOUDNESS (composer 2026-08-15) =================
+// SI2 responds to CC7, not to note velocity - the composer score sets CC7 from
+// the curve and passes velocity only as data. The sandbox was sending CC7=127
+// for every note, which is why the velocity dial was inaudible. Same calibrated
+// map (probes/cc7_map.json), same 40 dB musical span as Composer.levelSpanDb.
+let CC7_POINTS = null;
+const LEVEL_SPAN_DB = 40;
+function velToCC(v) {
+  const x = Math.max(0, Math.min(1, v / 127));
+  if (x <= 0.001) return 0;
+  if (!CC7_POINTS) return Math.round(x * 127);
+  const target = (x - 1) * LEVEL_SPAN_DB;          // 0 dB at full velocity
+  if (target <= CC7_POINTS[0].db) return CC7_POINTS[0].cc;
+  for (let i = 1; i < CC7_POINTS.length; i++) {
+    if (target <= CC7_POINTS[i].db) {
+      const a = CC7_POINTS[i - 1], b = CC7_POINTS[i];
+      const f = (target - a.db) / Math.max(1e-6, b.db - a.db);
+      return Math.round(a.cc + f * (b.cc - a.cc));
+    }
+  }
+  return CC7_POINTS[CC7_POINTS.length - 1].cc;
+}
+
 // ================= measured one-shot lengths (probe 2026-08-15) =================
 let SAMPLE_LEN = null;
 const FIXED_FALLBACK = { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 };
@@ -684,8 +707,9 @@ function play() {
     const out = OUTS['tuba' + (e.player + 1) + sub];
     if (!out) continue;
     const holdMs = soundLen(e) * 1000;
+    const cc = velToCC(e.v);
     pending.push(setTimeout(() => {
-      out.send([0xB0 | ch, 7, 127]);
+      out.send([0xB0 | ch, 7, cc]);            // CC7 carries the dynamic
       out.send([0x90 | ch, e.p, e.v]);
       pending.push(setTimeout(() => out.send([0x80 | ch, e.p, 0]), holdMs));
     }, e.t * 1000 + SCHED_LEAD_MS));
@@ -718,7 +742,7 @@ function hookInputs() {
       if (cmd === 0x90 && v > 0) {
         const r = thruRoute();
         if (r.out) {
-          r.out.send([0xB0 | r.ch, 7, 127]);
+          r.out.send([0xB0 | r.ch, 7, velToCC(v)]);
           r.out.send([0x90 | r.ch, p, v]);
           thruOpen[p] = r;
         }
@@ -1080,6 +1104,10 @@ window.addEventListener('resize', drawRoll);
 
 (async () => {
   try { SAMPLE_LEN = await fetch('/bank/sample_lengths.json').then(r => r.json()); } catch (e) {}
+  try {
+    const m = await fetch('/probes/cc7_map.json').then(r => r.json());
+    if (m && m.points && m.points.length > 2) CC7_POINTS = m.points.slice().sort((a, b) => a.db - b.db);
+  } catch (e) {}
   try {
     const ids = Array.from({ length: 33 }, (_, i) => String(i + 1).padStart(2, '0'));
     const banks = await Promise.all(ids.map(n =>
