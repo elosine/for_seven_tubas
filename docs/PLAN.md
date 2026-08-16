@@ -402,11 +402,15 @@ composer → notation → performance architecture.)*
   fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
-- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `pre-plan written 2026-08-16, plan
-  not yet commissioned`. The continuation of 2j's research arc as a working
-  surface. **Requirements + evidence:
+- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `plan drafted 2026-08-16 —
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v2 after composer review round 1), under
+  review; build not yet commissioned`. The continuation of 2j's research arc as
+  a working surface. **Requirements + evidence:
   `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** (written to be read cold by a
-  stronger model, every claim tagged HEARD / MEASURED / inferred).
+  stronger model, every claim tagged HEARD / MEASURED / inferred). Plan v2:
+  qualitative/recipe interface (AI holds the dials), Texture panel in the
+  composer score (no separate page), morph_emit reuse, pockets from long
+  renders, stores aligned with 2y's MODEL↔ACTUAL.
   - **Sound-first control surface:** the composer picks a named category
     (**smear · ticks · rain · gallop · groove**) and the numeric dials follow.
     Dials: **density · scatter · jitter · spread · voices · articulation**, with
