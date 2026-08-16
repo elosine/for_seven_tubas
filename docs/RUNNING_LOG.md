@@ -968,3 +968,32 @@ resets to centre at the end. **Unheard.**
   segments are less informative, not smoother.
 - **Two concurrent morphs enrich one sonority** rather than reading as two voices.
 - Voice reduction is lossy in **detail, not identity** — "8-bit vs 16-bit".
+
+### ARC ASSESSMENT + PRE-PLAN (2026-08-16)
+Composer: *"I think I'm fine with this portion of things… I want to draft a plan
+for a sandbox… help me collect the data for the pre-plan."*
+- **`docs/plans/PHASE_SANDBOX_REQUIREMENTS.md` written** — the requirements-and-
+  evidence document to hand to a stronger model, readable cold. Everything is
+  marked **HEARD** (composer's ear) vs **MEASURED** (computed/decoded) vs
+  inferred; nothing else is claimed.
+- **Assessment: mechanism discovery is DONE, combination is not.** Thirteen
+  experiments established the two families, the dials, the ceilings and the laws.
+  What remains — pitch, counterpoint, category morphs, robustness — is exactly
+  what a sandbox exists to explore, and would be slower as one-off scripts.
+  **Recommendation: stop the scripts, build the sandbox.**
+- **Eight holes ranked**; only one changes the architecture: **pitch has never
+  been introduced** (every rhythmic experiment was ten players on one C3), so the
+  sandbox needs a pitch layer from day one. The rest are constants or features.
+- **SCOPE COLLISION FOUND AND FLAGGED — the most important thing in the document.**
+  2v's morph sandbox already owns most of the pitch domain: sustained rendering,
+  **bend**, pitch sets, dynamics contours, the params-file loop, an insert path —
+  and its **M1 "detune bloom" is dial-and-seed driven, i.e. exactly our pitch
+  beating**, while **M3 "fan"** is `phase13`'s fanned detuning. Recommended split:
+  **2v owns everything bend-based including pitch beating; this sandbox owns
+  ATTACK FIELDS** (density · scatter · jitter · spread · voices · articulation).
+  Do not rebuild pitch beating — specify it as a requirement on 2v's M1/M3 (beat
+  rate in Hz as the dial, plus the register law) and layer instead.
+- Ten requirements R1–R10, including two that came straight from the composer's
+  criticisms: **R5 seed auditioning** (a setting is a random variable, not a
+  texture) and **R9 self-describing experiments** (plain-language first marker,
+  not parameter names).
