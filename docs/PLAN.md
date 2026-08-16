@@ -210,6 +210,14 @@ composer → notation → performance architecture.)*
   the cluster yields). **Insert never refuses and never silently drops** — one code
   path, everything lands, conflicts are marked, removal is an explicit click.
   Deferred small items in `docs/NITS.md`.
+  **MOVE TO ANOTHER PLAYER added 2026-08-16 (composer's call — "that belongs in
+  the resolution part"):** every conflict row offers `→ T7` naming the best free
+  player before you click, for **soft rows as well as hard**. Moving is the right
+  primitive — dropping is destructive, moving is not — and it is the *only* thing
+  that fixes a RATE problem (nudging in time cannot help; the line is still as
+  fast). `auto` now moves before it drops, and only drops when no player is free.
+  On piece-s11, **32 of the 42 soft spots are fixable by moving to a fully free
+  player**; the other 10 need a drop or acceptance.
 
 - **2s — BACK-AUDIT of existing material** — `done 2026-08-16` — the composer's
   question: *"is it too late — are there traps in what I already made?"*

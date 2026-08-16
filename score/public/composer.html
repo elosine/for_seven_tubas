@@ -2380,6 +2380,38 @@ const Composer = {
     },
 
     // ---- resolution ----
+    // MOVING beats dropping: the note survives, only the player changes. This is
+    // also the only thing that fixes a RATE problem (one player asked for more
+    // attacks per second than they can tongue) — nudging the gesture in time
+    // cannot help there, because the line is still just as fast.
+    // Returns the best alternative player for this note, or null if none is
+    // better than where it already sits.
+    bestLaneFor(note) {
+        const rank = t => (t === 'free' ? 0 : t === 'soft' ? 1 : 2);
+        const occ = Array.from({ length: META_LAYER }, () => []);
+        for (const o of this.noteEvents()) if (o !== note) occ[o.layer].push(o);
+        occ.forEach(l => l.sort((a, b) => a.startSeconds - b.startSeconds));
+        const here = rank(this.tierAgainst(occ[note.layer], note));
+        let best = null;
+        for (let L = 0; L < META_LAYER; L++) {
+            if (L === note.layer) continue;
+            const tier = this.tierAgainst(occ[L], note);
+            // prefer the cleanest player; tie-break toward a nearby lane so the
+            // stage picture moves as little as possible
+            const score = rank(tier) * 100 + Math.abs(L - note.layer);
+            if (!best || score < best.score) best = { layer: L, tier, score };
+        }
+        if (!best || rank(best.tier) >= here) return null;
+        return best;
+    },
+    moveNoteToLane(note, layer) {
+        if (note.layer === layer) return;
+        this.pushUndoState();
+        note.layer = layer;              // all ten tracks are the same instrument
+        this.renderAll();
+        this.markDirty();
+        this.refreshConflicts();
+    },
     // Insert NEVER refuses and never silently drops. Everything lands, conflicts
     // are marked, and removal happens here as an explicit act.
     dropNote(obj) {
@@ -2435,7 +2467,9 @@ const Composer = {
     // cluster yields. Never automatic — this is a button the composer presses.
     autoResolveHard() {
         const rank = o => (o.srcKind === 'blast' ? 2 : o.srcKind === 'cluster' ? 0 : 1);
-        let dropped = 0;
+        let moved = 0, dropped = 0;
+        this.computeConflicts();
+        if (!(this._conflictPairs || []).some(q => q.tier === 'hard')) return { moved, dropped };
         this.pushUndoState();   // ONE undo step for the whole sweep
         for (let guard = 0; guard < 200; guard++) {
             this.computeConflicts();
@@ -2445,6 +2479,10 @@ const Composer = {
             let victim;
             if (ra !== rb) victim = ra < rb ? p.a : p.b;
             else victim = (parseInt(String(p.b.id).replace(/\D/g, ''), 10) || 0) >= (parseInt(String(p.a.id).replace(/\D/g, ''), 10) || 0) ? p.b : p.a;
+            // hand it to a free player before considering deleting it — a note
+            // that survives on another stand costs the music nothing
+            const alt = this.bestLaneFor(victim);
+            if (alt && alt.tier === 'free') { victim.layer = alt.layer; moved++; continue; }
             const idx = this.objects.indexOf(victim);
             if (idx < 0) break;
             if (victim._els && victim._els.group) victim._els.group.remove();
@@ -2452,9 +2490,9 @@ const Composer = {
             this.objects.splice(idx, 1);
             dropped++;
         }
-        if (dropped) { this.renderAll(); this.markDirty(); }
+        if (moved || dropped) { this.renderAll(); this.markDirty(); }
         this.refreshConflicts();
-        return dropped;
+        return { moved, dropped };
     },
 
     openResolver() {
@@ -2505,9 +2543,12 @@ const Composer = {
             }, '#8fdbe8'));
         }
         if (hard) {
-            head.appendChild(mk('auto', 'blast keeps its voicing, cluster yields — drops the yielding note of every hard pair', () => {
-                const n = this.autoResolveHard();
-                this.resolverNote(n ? 'dropped ' + n + ' note' + (n > 1 ? 's' : '') + ' — CTRL+Z undoes' : 'nothing to drop');
+            head.appendChild(mk('auto', 'clear every hard conflict: the blast keeps its voicing and the cluster yields — moved to a free player where possible, dropped only when no player is free', () => {
+                const r = this.autoResolveHard();
+                const bits = [];
+                if (r.moved) bits.push('moved ' + r.moved + ' to free players');
+                if (r.dropped) bits.push('dropped ' + r.dropped + ' (nowhere free)');
+                this.resolverNote(bits.length ? bits.join(', ') + ' — CTRL+Z undoes' : 'nothing to resolve');
             }, '#ffb0b0'));
         }
         head.appendChild(mk('✕', 'close', () => this.closeResolver()));
@@ -2540,30 +2581,41 @@ const Composer = {
                     : '  — ' + p.attack.toFixed(2) + 's apart (' + (p.attack > 0 ? (1 / p.attack).toFixed(1) : '∞') +
                       ' attacks/s), needs ' + p.need.toFixed(2) + 's');
             row.appendChild(title);
-            const body = document.createElement('div');
-            body.style.cssText = 'display:flex; align-items:center; gap:6px; flex-wrap:wrap';
-            const side = (o, other) => {
-                const b = document.createElement('button');
-                b.textContent = 'drop ' + this.noteLabel(o);
-                b.title = 'remove this note (CTRL+Z undoes)';
-                b.style.cssText = 'font-size:10.5px; padding:2px 6px; cursor:pointer; background:#2a2a2e; color:#ddd; border:1px solid #4a4a4a; border-radius:3px';
-                b.addEventListener('mouseenter', () => { b.style.background = '#5a2020'; });
-                b.addEventListener('mouseleave', () => { b.style.background = '#2a2a2e'; });
-                b.addEventListener('click', () => { this.dropNote(o); this.resolverNote('dropped ' + this.noteLabel(o) + ' — CTRL+Z undoes'); });
-                return b;
+            // one line per note: MOVE first (nothing is lost), drop as the fallback
+            const side = (o) => {
+                const r = document.createElement('div');
+                r.style.cssText = 'display:flex; align-items:center; gap:5px; margin-top:3px';
+                const lbl = document.createElement('span');
+                lbl.textContent = this.noteLabel(o);
+                lbl.style.cssText = 'flex:1 1 auto; color:#bbb; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
+                r.appendChild(lbl);
+                const alt = this.bestLaneFor(o);
+                if (alt) {
+                    const to = TRACKS[alt.layer] ? TRACKS[alt.layer].label.replace('Tuba ', 'T') : 'L' + alt.layer;
+                    r.appendChild(mk('→ ' + to,
+                        'reassign this note to ' + (TRACKS[alt.layer] ? TRACKS[alt.layer].label : 'layer ' + alt.layer) +
+                        ', who is ' + (alt.tier === 'free' ? 'free here' : 'less busy here') + ' — the note survives',
+                        () => {
+                            const from = TRACKS[o.layer] ? TRACKS[o.layer].label : 'layer ' + o.layer;
+                            this.moveNoteToLane(o, alt.layer);
+                            this.resolverNote('moved ' + this.noteLabel(o) + ': ' + from + ' → ' + to + ' — CTRL+Z undoes');
+                        }, alt.tier === 'free' ? '#7ec9a8' : '#ffd479'));
+                }
+                r.appendChild(mk('drop', 'remove this note entirely (CTRL+Z undoes)', () => {
+                    this.dropNote(o);
+                    this.resolverNote('dropped ' + this.noteLabel(o) + ' — CTRL+Z undoes');
+                }, '#e09090'));
+                return r;
             };
-            body.appendChild(side(p.a, p.b));
-            body.appendChild(side(p.b, p.a));
-            const go = document.createElement('button');
-            go.textContent = '→ show';
-            go.title = 'scroll the score to this conflict';
-            go.style.cssText = 'font-size:10.5px; padding:2px 6px; cursor:pointer; background:#2a2a2e; color:#8fdbe8; border:1px solid #4a4a4a; border-radius:3px';
-            go.addEventListener('click', () => {
+            row.appendChild(side(p.a));
+            row.appendChild(side(p.b));
+            const foot = document.createElement('div');
+            foot.style.cssText = 'display:flex; justify-content:flex-end; margin-top:3px';
+            foot.appendChild(mk('→ show', 'scroll the score to this conflict', () => {
                 this.scrollOffset = Math.max(0, p.a.startSeconds * this.pixelsPerSecond);
                 this.applyScroll(); this.renderAll(); this.refreshConflicts();
-            });
-            body.appendChild(go);
-            row.appendChild(body);
+            }, '#8fdbe8'));
+            row.appendChild(foot);
             list.appendChild(row);
         }
         box.appendChild(list);
