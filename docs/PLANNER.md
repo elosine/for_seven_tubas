@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ INT2 ▸ **placing material in piece-s09** ▸ *4 blasts in (81.7–88.5 s); next: more blasts / clusters, then the texture arc*
+**NOW ►** Section 1 ▸ INT2 ▸ **placing material in piece-s09** ▸ *4 blasts in (81.7–88.5 s); cluster sandbox now feeds the strip too — next: more blasts / cluster items, then the texture arc*
 
 ---
 
@@ -174,6 +174,12 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   maybe extra long grains); INT2 = blasts + harmonically morphing crescendo
   (gliss→quarter-tones or legato, simple→complex timbre) + subset blasts;
   Section 2 after research; pitch-and-catch defined; "density buildup" adopted.
+- **2026-08-16 — CLUSTER SANDBOX shipped** (`/clusterview.html`, PLAN 2p):
+  42 played clusters + recording, piano-roll editing, non-destructive transforms
+  (stretch / tonality-remap / reverse / octave / thin / velocity), lists+items
+  preset model, feeding the composer strip's **Clusters** source. **Open:**
+  velocity-vs-CC7 (PLAN 2q) — settle with a listening test before trusting
+  sandbox dynamics downstream.
 - **2026-08-15 — MEASURED one-shot lengths** (probe): fp 1.35-2.22s, cuivre
   0.99-1.35s, staccato 0.33-0.53s, all FIXED with the multisample sawtooth;
   wired into insert + playback; fixed-length notes are now immune to group

@@ -177,6 +177,22 @@ composer → notation → performance architecture.)*
   unchanged (chord-level articulation at measured length) pending the composer's
   call on whether the two should agree.
 
+- **2p — CLUSTER SANDBOX** — `shipped 2026-08-16` — `/clusterview.html`:
+  42 imported played clusters + in-app recording with live thru; piano-roll
+  editor (duration bars, per-note pitch/time/length/articulation/velocity);
+  non-destructive transforms (log stretch 0.25–10×, tonality remap with pooled
+  mode + no-repeat kick, reverse, octave-fold, thin, velocity); lists + items
+  preset model; composer-score strip source menu (Blasts | Clusters).
+  Data: `bank/cluster_bank.json`, API `/api/clusterbank`.
+- **2q — VELOCITY vs CC7 (OPEN, blocking nothing yet)** — `open 2026-08-16` —
+  the cluster sandbox drives dynamics with **note velocity** (D12); the composer
+  score drives them with **CC7** (`PREARM_S = 0.15`). Both cannot be right for
+  the same library. **Test:** one pitch, velocities 30 / 70 / 127, listen for a
+  dynamic difference; then the same pitch at CC7 40 / 80 / 127. Whichever the
+  instrument actually responds to becomes the single rule, and the other side
+  gets converted. *Why it matters:* dynamics chosen in the sandbox must survive
+  into the score and, later, into the notation.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

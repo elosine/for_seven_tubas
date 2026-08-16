@@ -26,64 +26,59 @@ in the Load dropdown.
 
 **Session end (2026-08-13, day 4):** piece assembly began (piece-s01->s07c, movable META group shapes via groupId); harmony palette + pairing ledger; GESTURE-2 banked + compression study; the cressand research (rise-as-nucleus, 26.5 dB clarity margin, margin-solved tapers, `cressand-family`); ostinato engine ported from piece #2 (`ost01-variety`); app safety (Clear-All forks, no-store + buildTag, cuivre C-key palette).
 
-**Session end (2026-08-15, day 6 - the blast pipeline, end to end):**
-- **piece-s09 SHIPPED (88.5 s)** - opening build - CLOUD02-I/D - fp + ord blasts -
-  GESTURE-2 x0.75 (m6 on F) - and INT2's first four sonority blasts: S009 ch03 V2
-  (81.75) - S035 ch13 V2 (84.61) - S047 ch28 V3 (85.38) - S010 ch03 V2 (86.58).
-  First piece save promoted through the new working-copy flow.
-- **BLAST SANDBOX** (`/chordview.html`), built end to end: strip of all 33 chords
-  (arrow-step + auto-hear), version menu as the pivot, click-to-edit keyboard,
-  always-on cuivre layer distinguishing added vs converted, per-note articulation
-  (dot-cycling) + C1/C2 mix slots, zoom presets, real per-player Web-MIDI audition.
-- **THE THREE-TIER TAXONOMY IS LIVE** (`docs/TAXONOMY.md`, `bank/blast_taxonomy.json`):
-  chord -> voicings (V-numbers, PITCH SET only) -> sonorities (S-numbers: voicing +
-  per-note articulation + cuivre + length + dyn, content-deduped) -> named custom
-  lists. **48 sonorities; "INT2 blasts" = 47.** Cuivre is CHORD-level articulation,
-  never a voicing change; manual thinning is stored as that voicing's cuivre
-  arrangement. Chord SUBSETS filter the strip without touching the main 33.
-- **INSERTION:** Blasts strip in the composer score (list menu, mini-keyboards
-  labelled by CHORD number, description readout, arrow-stepping, audition) ->
-  insert at the playhead as a 10-part group + META shape built at insert time.
-  Blast shapes are orchid #C452B5 (three greens on the META lane were unreadable).
-- **SAMPLE-LENGTH SURVEY - the day's research result.** Probe + analyzer, 80 notes,
-  0 silent, drift <= 30 ms. **fp, cuivre and staccato are all FIXED one-shots**
-  with the multisample sawtooth the cresc patch showed: fp 1.35-2.22 s, cuivre
-  0.99-1.35 s, staccato 0.33-0.53 s (`docs/SI2_oneshot_lengths.md`,
-  `docs/SI2_staccato_lengths.md`; tables in `bank/sample_lengths.json`).
-  **Consequence, wired into insert + playback + all three group-scaling paths:
-  ORD is the only real duration** - fixed articulations take their true sample
-  length and are IMMUNE to stretching (they translate, never scale). Inserted fp
-  blasts had been drawn at 3.0 s while the sound died at ~1.7 s. (PLAN 2n)
-- **SAVE SYSTEM reworked:** Piece menu (piece-*, natural-sorted) vs Scores menu;
-  **working copies** protect the canonical piece from autosave (the boot path was
-  writing straight into the piece file - fixed); "Save as next" promotes; "Variant"
-  saves lettered siblings; "Restore" surfaces the version snapshots; the session
-  field colour-codes protected vs direct edit.
-- App fixes: group-aware delete (a META shape takes its parts with it) - blast
-  strip layering (was rendering behind the lane container) - strip pushes the
-  score down instead of covering it - ALT-scroll zoom direction - time/zoom
-  readouts retired into the floating bubble (hover = px/s, double-click = reset).
-- **Paper:** `docs/PAPER_NOTES.md` opened - title **"Composition by Kobayashi"**
-  + 6 subtitle candidates, the Kobayashi thesis (bespoke reframing of materials),
-  the six-pass method, deferred notation, and the stance on AI (not the headline:
-  fluidity + transparency). Verbatim dictation in COMPOSER_LOG.
-- **PROJECT PLANNER** (`docs/PLANNER.md` + `/planner.html`): the collapsible
-  sieve - section -> container -> gesture -> decisions, to-dos per tier, NOW
-  breadcrumb. Check it FIRST for "what now / what next".
+**Session end (2026-08-16, day 7 - the CLUSTER SANDBOX):**
+- **`/clusterview.html` shipped** - the second sandbox, built, rebuilt once, and
+  hardened. **42 played clusters imported** (CLUST01 + carves, CLUST02, CLOUD02
+  A-L, GESTURE-1/2 as DENSITY) plus in-app **recording** with live MIDI thru.
+- **Piano-roll editor:** notes are duration BARS at true sounding length, piano
+  gutter, zoom (+/-/fit, ALT-wheel, wheel-pan), playback cursor, audio-editor
+  transport (click = cursor, drag = select, SPACE = play/stop, HOME = zero).
+  Per-note editing: move pitch/time, drag length, cycle articulation, add,
+  delete, velocity by arrows or type-in.
+- **Non-destructive transforms** (a PREVIEW over the stored notes, never a lock):
+  time-stretch 0.25-10x on a LOG slider, tonality remap (15 palette sets + all 33
+  chords) with **pooled** mode and a **no-repeat kick**, reverse, octave-fold,
+  thin, velocity.
+- **PRESET MODEL (rebuilt on composer feedback):** the snippet/gesture split is
+  gone. **Lists + items** - pick a list, click an item to load, edit it
+  (autosaves back), duplicate for a variant, delete to remove. New items come
+  from the play window or from what you hear. Composer-score strip gained a
+  **source menu (Blasts | Clusters)** reading these lists.
+- **CUIVRE is variable-length** (PLAN 2o): a player can cut one short, so the
+  measured 0.99-1.35 s is a ceiling, not a floor. fp/staccato stay fixed.
+- **LOUDNESS = NOTE VELOCITY** (composer's call): CC7 removed from the per-note
+  path, pinned full once per port. *Note this contradicts the composer score,
+  which drives dynamics from CC7 with a 150 ms pre-arm - see Open below.*
+- **`docs/SESSION_HYGIENE.md`**: measured burn (4,854 turns, 2.42 B tokens of
+  context re-read, ~499 K carried per turn - output is not the cost), the
+  `/session-end -> /clear -> /session-start` cycle, model strategy (design with
+  Fable, implement with Opus **from a written plan**), and seven sandbox lessons.
 
-**Open at session end (2026-08-15):** INT2 continues in **piece-s09** - four
-blasts placed, the section's texture arc (spaced articulations -> overlapping
-counterpoint) still to be realised; pointillistic clusters chosen but not placed;
-the morphing crescendo not started (its gate is the quarter-tone patch mapping
-test, PLAN 2l). Blast reorchestration is by AI prompt, by design - nothing built.
-`ost01-variety` still unheard; cressand-family / cressand-pitches verdicts still
-outstanding; sl02 Messiaen adds pending a listen.
+**Open at session end (2026-08-16):**
+- **Velocity vs CC7 is UNRESOLVED as a system question.** The cluster sandbox now
+  sends note velocity only; the composer score sonifies via CC7 (`PREARM_S=0.15`,
+  "settle CC7 before the attack"). If SI2 turns out to be velocity-insensitive,
+  sandbox dynamics will not survive into the score. **Test before trusting either:**
+  play one pitch at velocity 30/70/127 and listen.
+- **CG001/CG002 were flattened to all-127** by storing at 200 % when boosting
+  still clamped. The bug is fixed (proportional cap); the two items are not
+  recoverable - re-derive from the SN1 material now living as CG005 in `unsorted`.
+- `piece-s09` unchanged today (88.5 s, four INT2 blasts). INT2 assembly resumes
+  there; the texture arc (spaced -> overlapping counterpoint) is still to be built.
+- Still queued: `ost01-variety` unheard - cressand-family / cressand-pitches
+  verdicts - quarter-tone mapping test (gate for the morphing crescendo, PLAN 2l).
 
-**NEXT SESSION, FIRST THING:** open `piece-s09` from the Piece menu (it opens a
-protected working copy) and keep placing INT2 material - more blasts from the
-"INT2 blasts" list plus the pointillistic clusters - then shape the texture arc.
-Queued behind it: listen to `ost01-variety`; cressand verdicts; the quarter-tone
-mapping test that unblocks the morphing crescendo.
+**NEXT SESSION, FIRST THING:** `/clear` then `/session-start` (see
+SESSION_HYGIENE). Then either (a) settle the velocity-vs-CC7 question with the
+one-pitch listening test above, or (b) go straight to placing INT2 material in
+`piece-s09` - blasts plus the cluster items now insertable from the strip.
+
+**Day 6 (2026-08-15):** the blast pipeline end to end - piece-s09 shipped (88.5 s,
+INT2's first four sonority blasts); Blast Sandbox + the three-tier taxonomy (48
+sonorities, "INT2 blasts" = 47); insertion strip; the SAMPLE-LENGTH SURVEY (fp
+1.35-2.22 s, cuivre 0.99-1.35 s, staccato 0.33-0.53 s, all FIXED one-shots) and
+the rule it produced - **only ORD is a real duration**; the save system (Piece vs
+Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opened.
 
 **Blockers:** none.
 
@@ -185,6 +180,32 @@ mapping test that unblocks the morphing crescendo.
   hear the brassiness more than anything" — and it keeps voicings comparable
   across articulations. Manual thinning (to respect the 10-player limit) is stored
   as that voicing's cuivre *arrangement*, not as a new voicing.
+- **D12** *(2026-08-16)* — **In the CLUSTER sandbox, loudness is carried by NOTE
+  VELOCITY; CC7 is pinned full once per port and never touched.** *Why:* the
+  composer's instrument — velocity is what the meter shows and what the keyboard
+  sends, so the number being edited must be the number that sounds. *Rejected:*
+  driving CC7 from velocity through the calibrated map (tried; it is what the
+  composer score does, and it works there because the score pre-arms CC7 150 ms
+  before the attack — but it made the sandbox's own dial an indirection the
+  composer could not reason about). **CONTRADICTION LEFT OPEN:** the composer
+  score still sonifies via CC7. If SI2 proves velocity-insensitive, sandbox
+  dynamics will not carry into the score — settle with a one-pitch listening test
+  (velocity 30 / 70 / 127) before relying on either.
+- **D13** *(2026-08-16)* — **A transform never disables an interaction.**
+  Transforms are a PREVIEW layer drawn over the stored notes, which stay grey,
+  selectable and editable underneath. *Why:* two sessions were lost to "I can't
+  select notes" — first a velocity change gating editing, then a live transform
+  doing it; a modal rule that silently removes an affordance is worse than the
+  confusion it was meant to prevent. *Rejected:* keeping the block but making the
+  warning louder.
+- **D14** *(2026-08-16)* — **One editable concept: LISTS + ITEMS.** An item is a
+  stored gesture living in a list; load it, edit it (it autosaves back),
+  duplicate for a variant, delete to remove — the standard preset model. *Why:*
+  the composer's verdict on the snippet/gesture split was that it "just doesn't
+  make sense"; two tiers with different persistence rules and a save-over /
+  save-as-new pair needed explaining, and anything needing explaining is wrong
+  here. *Rejected:* keeping snippets as a scratch tier (migrated into an
+  `unsorted` list instead, losing nothing).
 
 ## §5 Done
 
@@ -205,5 +226,12 @@ mapping test that unblocks the morphing crescendo.
   cluster_samples_01, clusterClouds02 and vertical_shapes_01 were all played in
   and banked; the play-in pipeline (2f) runs on them.
 - *(2026-08-15)* **Composer break taken mid-session** — piece-s09 is the live
-  state; nothing is half-written.
+  state; nothing is half-written.  **CLOSED 2026-08-16** — piece-s09 untouched
+  since; the day went to the cluster sandbox.
+- *(2026-08-16)* **Budget:** Max 5× plan; extra credits bill near API rates, so
+  topping up buys far less than the subscription per dollar. The lever is session
+  hygiene, not spend — see `docs/SESSION_HYGIENE.md`.
+- *(2026-08-16)* **One listening test owed** (PLAN 2q): does SI2 tuba respond to
+  note velocity, to CC7, or both? Everything downstream of dynamics depends on
+  the answer.
 
