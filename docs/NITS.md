@@ -52,6 +52,23 @@
 - **`piece-s08-work` 404 on page load.** The session bootstrap asks for a working
   copy that no longer exists; harmless, one console error per load.
 
+- **The conflict badge does not recompute when you switch scores from a menu.**
+  Observed 2026-08-16: with `piece-s16-work` open (badge `⚠ 42 soft`), loading
+  `phase01-8th` from the Scores dropdown swapped the whole score — lanes 1–2
+  drawn, 3–10 empty, markers rendered — but the badge still read `⚠ 42 soft`.
+  A page reload on the same score showed the truth, `⚠ 0` (hidden). So the badge
+  survives a load and reports the PREVIOUS score's count.
+  - *Why it matters more than it looks:* it is wrong in both directions. A clean
+    audition score inherits an alarming count, and — the dangerous one — a score
+    with real conflicts loaded after a clean one reads `⚠ 0`. The wash on the
+    lanes is the same computation, so it is presumably stale too.
+  - *Why deferred:* it never lies once you touch anything (the check runs on every
+    mutation, D16 corollary) or reload, and it did not block the phase-shift
+    audition. The fix is to call the conflict recompute at the end of the
+    score-load path in `composer.html`, next to `renderAll()`.
+  - *Not touched* because a second agent was working in `composer.html` at the
+    time.
+
 ## Fixed
 
 - ~~Cluster insert didn't open the floating META window~~ (blast insert did) — fixed
