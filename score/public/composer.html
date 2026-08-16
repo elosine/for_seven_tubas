@@ -2597,22 +2597,50 @@ const Composer = {
             list.innerHTML = '<div style="padding:10px 9px; color:#888">Every player can play every note. ' +
                 'Red = two notes at once on one player. Amber = too close to re-attack or leap.</div>';
         }
-        for (const p of pairs.slice(0, 200)) {
+        // Group by NOTE, not by pair. One long note overlapping three others made
+        // three near-identical rows, which reads as "the same conflict keeps
+        // coming back" — it was three real conflicts sharing one note. Now one
+        // row per note, and acting on it clears every conflict it is part of.
+        const keyOf = (x, y) => [x.id, y.id].sort().join('|');
+        const byNote = new Map();
+        for (const p of pairs) {
+            for (const [me, other] of [[p.a, p.b], [p.b, p.a]]) {
+                if (!byNote.has(me.id)) byNote.set(me.id, { note: me, partners: [] });
+                byNote.get(me.id).partners.push({ other, tier: p.tier, attack: p.attack, need: p.need, layer: p.layer });
+            }
+        }
+        const hardFirst = a => (a.partners.some(x => x.tier === 'hard') ? 0 : 1);
+        const ordered = [...byNote.values()].sort((a, b) =>
+            hardFirst(a) - hardFirst(b) || b.partners.length - a.partners.length ||
+            a.note.startSeconds - b.note.startSeconds);
+        const covered = new Set(), shown = [];
+        for (const r of ordered) {
+            const fresh = r.partners.filter(pt => !covered.has(keyOf(r.note, pt.other)));
+            if (!fresh.length) continue;                       // already handled from the other side
+            fresh.forEach(pt => covered.add(keyOf(r.note, pt.other)));
+            shown.push({ note: r.note, partners: fresh });
+        }
+
+        for (const grp of shown.slice(0, 200)) {
+            const p = { a: grp.note, b: grp.partners[0].other, tier: grp.partners[0].tier,
+                        layer: grp.note.layer, attack: grp.partners[0].attack, need: grp.partners[0].need };
             const row = document.createElement('div');
             row.style.cssText = 'padding:5px 9px; border-bottom:1px solid #2a2a2e';
-            const hardP = p.tier === 'hard';
+            const hardP = grp.partners.some(x => x.tier === 'hard');
             const title = document.createElement('div');
             title.style.cssText = 'color:' + (hardP ? '#ff8080' : '#ffb020') + '; margin-bottom:3px';
             title.textContent = (hardP ? '■ ' : '□ ') + (TRACKS[p.layer] ? TRACKS[p.layer].label : 'layer ' + p.layer) +
                 ' @ ' + p.a.startSeconds.toFixed(2) + 's' +
+                (grp.partners.length > 1 ? '  — clashes with ' + grp.partners.length + ' notes' : '') +
                 (hardP ? '  — overlap'
                     : '  — ' + p.attack.toFixed(2) + 's apart (' + (p.attack > 0 ? (1 / p.attack).toFixed(1) : '∞') +
                       ' attacks/s), needs ' + p.need.toFixed(2) + 's');
             row.appendChild(title);
             // one line per note: MOVE first (nothing is lost), drop as the fallback
-            const side = (o) => {
+            const side = (o, isPartner) => {
                 const r = document.createElement('div');
-                r.style.cssText = 'display:flex; align-items:center; gap:5px; margin-top:3px';
+                r.style.cssText = 'display:flex; align-items:center; gap:5px; margin-top:3px' +
+                    (isPartner ? '; padding-left:14px; opacity:0.82' : '');
                 const gLabel = this.groupLabelOf(o);
                 const shape = this.groupShapeOf(o);
                 // ◇ selects the gesture's META shape, so you can SEE which block
@@ -2657,8 +2685,9 @@ const Composer = {
                 }, '#e09090'));
                 return r;
             };
-            row.appendChild(side(p.a));
-            row.appendChild(side(p.b));
+            // the shared note first: moving or dropping IT clears every clash below
+            row.appendChild(side(grp.note));
+            for (const pt of grp.partners) row.appendChild(side(pt.other, true));
             const foot = document.createElement('div');
             foot.style.cssText = 'display:flex; justify-content:flex-end; margin-top:3px';
             foot.appendChild(mk('→ show', 'scroll the score to this conflict', () => {
