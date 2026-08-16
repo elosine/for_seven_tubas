@@ -17,6 +17,8 @@ Started as a detour from piece #3 (2026-08-10); #3 resumes later. This piece inh
 - **Living plan:** `docs/PLAN.md` — stable IDs; rules in its header
 - **Session state, decisions:** `docs/PROJECT_JOURNAL.md` — §2 Resume Here first
 - **Composer's verbatim thinking:** `docs/COMPOSER_LOG.md`
+- **Session hygiene, cost, model strategy:** `docs/SESSION_HYGIENE.md` — clear
+  between work chunks; the docs are the handoff, not the chat
 - Working preferences & session routines: piece #3's `docs/HOW_WE_WORK.md` and
   `docs/SESSION_PROTOCOL.md` apply unchanged (registered as an additional working dir).
 

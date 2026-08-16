@@ -26752,25 +26752,143 @@
      "t": 6.011,
      "p": 56,
      "v": 127,
-     "d": 0.065,
-     "tech": "staccato"
+     "d": 0.5,
+     "tech": "fortepiano"
     }
    ],
-   "span": 6.441,
+   "span": 7.441,
    "provenance": {
     "from": "REC-02",
     "t0": 0,
     "t1": 6.443
    },
    "created": "2026-08-16T01:11:51.412Z",
-   "modified": "2026-08-16T01:12:24.965Z"
+   "modified": "2026-08-16T01:16:50.377Z"
+  },
+  "CG007": {
+   "events": [
+    {
+     "t": 0,
+     "p": 56,
+     "v": 127,
+     "d": 0.5,
+     "tech": "fortepiano"
+    },
+    {
+     "t": 0.472,
+     "p": 55,
+     "v": 92,
+     "d": 0.094,
+     "tech": "staccato"
+    },
+    {
+     "t": 0.969,
+     "p": 49,
+     "v": 98,
+     "d": 0.428,
+     "tech": "staccato"
+    },
+    {
+     "t": 1.247,
+     "p": 54,
+     "v": 81,
+     "d": 0.15,
+     "tech": "staccato"
+    },
+    {
+     "t": 1.6,
+     "p": 48,
+     "v": 94,
+     "d": 0.107,
+     "tech": "staccato"
+    },
+    {
+     "t": 1.799,
+     "p": 53,
+     "v": 85,
+     "d": 0.079,
+     "tech": "staccato"
+    },
+    {
+     "t": 1.925,
+     "p": 30,
+     "v": 52,
+     "d": 0.096,
+     "tech": "staccato"
+    },
+    {
+     "t": 2.653,
+     "p": 54,
+     "v": 84,
+     "d": 0.095,
+     "tech": "staccato"
+    },
+    {
+     "t": 3.203,
+     "p": 31,
+     "v": 75,
+     "d": 0.37,
+     "tech": "staccato"
+    },
+    {
+     "t": 4.108,
+     "p": 47,
+     "v": 127,
+     "d": 0.224,
+     "tech": "fortepiano"
+    },
+    {
+     "t": 4.371,
+     "p": 43,
+     "v": 52,
+     "d": 0.229,
+     "tech": "staccato"
+    },
+    {
+     "t": 4.605,
+     "p": 46,
+     "v": 81,
+     "d": 0.078,
+     "tech": "staccato"
+    },
+    {
+     "t": 5.421,
+     "p": 39,
+     "v": 96,
+     "d": 0.06,
+     "tech": "staccato"
+    },
+    {
+     "t": 6.011,
+     "p": 30,
+     "v": 101,
+     "d": 0.055,
+     "tech": "staccato"
+    }
+   ],
+   "span": 6.491,
+   "provenance": {
+    "from": "CG002",
+    "transforms": {
+     "stretch": 1,
+     "tonality": null,
+     "chord": null,
+     "reverse": true,
+     "oct": 0,
+     "thin": 100,
+     "pool": true,
+     "vel": 100
+    }
+   },
+   "created": "2026-08-16T01:17:21.876Z"
   }
  },
  "lists": {
   "clusters": [
    "CG003",
    "CG004",
-   "CG001"
+   "CG001",
+   "CG007"
   ],
   "unsorted": [
    "CG005",
