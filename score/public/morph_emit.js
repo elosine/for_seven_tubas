@@ -18,6 +18,13 @@
 (function (root) {
 'use strict';
 
+// `const Composer = {...}` in composer.html is a LEXICAL global: visible to every
+// classic script by bare identifier, but NOT a property of window. Reaching for
+// it as `root.Composer` silently yielded undefined, which made every MIDI route
+// resolve to null and produced a "nothing sounded" that had nothing to do with
+// MIDI. Always go through here.
+function HOST() { return (typeof Composer !== 'undefined') ? Composer : null; }
+
 const M = root.Morph;
 if (!M) { console.warn('[morph_emit] morph.js must load first'); return; }
 
@@ -34,13 +41,13 @@ const EMIT = {
 
     // ---- resolution -------------------------------------------------------
     outputFor(portName) {
-        const C = root.Composer;
+        const C = HOST();
         if (!C || !C._zoneMidiOutputs) return null;
         return C._zoneMidiOutputs[String(portName || '').toLowerCase()] || null;
     },
     // voice -> lane -> instrument -> (port, channel) for a technique
     routeFor(lane, techKey) {
-        const C = root.Composer;
+        const C = HOST();
         const inst = C && C.trackInstrument ? C.trackInstrument(lane) : null;
         if (!inst) return null;
         const tech = (inst.techniques || []).find(t => t.key === techKey)
@@ -115,13 +122,39 @@ const EMIT = {
     // kick it too or every route resolves to null and nothing sounds at all.
     // (That is exactly what happened on the first audition: `_zoneMidiOutputs`
     // was an empty object and `play` scheduled zero notes.)
+    // Requests access HERE rather than delegating to Composer.initZoneMidi,
+    // which swallows its error into a console.warn — so the panel could only
+    // report "unavailable" and leave the composer guessing between a browser
+    // permission, a missing port, and a broken rig. Those need different fixes,
+    // so the real error has to reach the status line.
+    _midiError: null,
     async ensureMidi() {
-        const C = root.Composer;
-        if (!C) return false;
-        if (!C._zoneMidiInited && C.initZoneMidi) {
-            try { await C.initZoneMidi(); } catch (e) { /* reported below */ }
+        const C = HOST();
+        if (!C) { this._midiError = 'the score app has not finished loading'; return false; }
+        if (C._zoneMidiOutputs && Object.keys(C._zoneMidiOutputs).length) return true;
+        if (typeof navigator.requestMIDIAccess !== 'function') {
+            this._midiError = 'this browser has no Web MIDI API';
+            return false;
         }
-        return !!(C._zoneMidiOutputs && Object.keys(C._zoneMidiOutputs).length);
+        try {
+            const access = await navigator.requestMIDIAccess();
+            C._zoneMidiOutputs = C._zoneMidiOutputs || {};
+            access.outputs.forEach(o => { C._zoneMidiOutputs[o.name.toLowerCase()] = o; });
+            C._zoneMidiAccess = access;
+            C._zoneMidiInited = true;
+            if (C.bindHwInput) { try { C.bindHwInput(); } catch (e) {} }
+            const n = Object.keys(C._zoneMidiOutputs).length;
+            this._midiError = n ? null : 'the browser granted MIDI but reports no output ports — is loopMIDI running?';
+            return n > 0;
+        } catch (e) {
+            const name = (e && e.name) || 'Error';
+            this._midiError = name === 'NotAllowedError'
+                ? 'this browser has BLOCKED Web MIDI for localhost:5200. It is a per-browser ' +
+                  'setting, so a window where the score plays fine will work here too — ' +
+                  'open the score in that window, or allow MIDI in this one (padlock icon → MIDI devices).'
+                : name + ': ' + ((e && e.message) || 'MIDI request failed');
+            return false;
+        }
     },
 
     // ---- audition ---------------------------------------------------------
@@ -136,9 +169,7 @@ const EMIT = {
             return { scheduled: 0, skipped: 0, reason: 'nothing rendered' };
         }
         if (!await this.ensureMidi()) {
-            return { scheduled: 0, skipped: 0,
-                     reason: 'MIDI unavailable — the browser grants it only on a real click. ' +
-                             'Click Play again; if it persists, check loopMIDI is running.' };
+            return { scheduled: 0, skipped: 0, reason: this._midiError || 'MIDI unavailable' };
         }
 
         const laneOf = o.laneOf || (v => v);
@@ -152,7 +183,7 @@ const EMIT = {
             const route = this.routeFor(laneOf(n.voice), n.technique);
             if (!route) {
                 skipped++;
-                const C = root.Composer;
+                const C = HOST();
                 const inst = C && C.trackInstrument ? C.trackInstrument(laneOf(n.voice)) : null;
                 missing[(inst && inst.port) || ('lane ' + laneOf(n.voice))] = 1;
                 return;
@@ -225,7 +256,7 @@ const EMIT = {
     // level 0-10 -> CC7 through the score's MEASURED map. Never re-derive it:
     // Composer.curveValToCC is the authority (probes/cc7_map.json, levelSpanDb).
     levelToCC(level0to10) {
-        const C = root.Composer;
+        const C = HOST();
         const v = Math.max(0, Math.min(1, level0to10 / 10));
         if (C && typeof C.curveValToCC === 'function') return C.curveValToCC(v);
         return Math.round(v * 127);

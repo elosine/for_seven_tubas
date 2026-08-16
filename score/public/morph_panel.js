@@ -17,6 +17,13 @@
 (function (root) {
 'use strict';
 
+// `const Composer = {...}` in composer.html is a LEXICAL global: visible to every
+// classic script by bare identifier, but NOT a property of window. Reaching for
+// it as `root.Composer` silently yielded undefined, which made every MIDI route
+// resolve to null and produced a "nothing sounded" that had nothing to do with
+// MIDI. Always go through here.
+function HOST() { return (typeof Composer !== 'undefined') ? Composer : null; }
+
 const M = root.Morph, E = root.MorphEmit;
 if (!M || !E) { console.warn('[morph_panel] needs morph.js + morph_emit.js'); return; }
 
@@ -151,7 +158,7 @@ const PANEL = {
         try {
             this.result = M.render(merged, {
                 maxVoices: 10,
-                sampleLengths: (root.Composer && root.Composer.sampleLen) || null,
+                sampleLengths: (HOST() && HOST().sampleLen) || null,
             });
         } catch (e) {
             this.setStatus('render failed: ' + e.message, true);
@@ -248,7 +255,7 @@ const PANEL = {
     },
 
     insert() {
-        const C = root.Composer;
+        const C = HOST();
         if (!C || !this.result) return;
         const at = (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
         const p = this.current() || {};
