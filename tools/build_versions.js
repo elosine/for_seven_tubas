@@ -87,6 +87,15 @@ specs.forEach((spec, si) => {
   });
 
   const end = Math.max(...notes.map(o => o.endSeconds)) - t0;
+  // closing marker too — with articulation carrying the note colour, a section
+  // boundary is otherwise only a gap, and consecutive all-staccato sections look
+  // identical (composer: "I'm having trouble telling them apart")
+  marks.push({
+    id: 'mk-' + (id++), type: 'marker', layer: 0, time: +(off + end).toFixed(3),
+    label: '— end ' + label.split(' ·')[0] + ' —',
+    color: MARKER_PALETTE[si % MARKER_PALETTE.length],
+    performanceNotes: '', properties: {},
+  });
   summary.push({ label, p, n: notes.length, at: off, len: end, solo, techCount });
   off += end + GAP;
 });

@@ -2,14 +2,30 @@
 // artic_pass.js — FORTEPIANO → STACCATO CROSSFADE over a packed density build.
 // (composer 2026-08-16; the D9-correct successor to tools/transform_fp.js)
 //
-// The shape the composer asked for, in their words: "the densest area staccato,
-// and then just before that a crossfade area where the fortepianos were becoming
-// less frequent and turning into mostly staccatos, and then before that it was
-// just fortepianos."
+// THE SHAPE IS AN ARC, NOT A RAMP — measured off DB1 and DB2, which are the
+// two density builds already in the piece (GESTURE-1 in piece-s09, GESTURE-2 in
+// bank/). Both land at ~21 % fortepiano overall, and both put the fortepianos in
+// the same distinctive place:
 //
-//   before --fp-until    P(staccato) = 0     -> all fortepiano
-//   in the zone          P(staccato) ramps 0 -> 1 linearly
-//   after --stac-from    P(staccato) = 1     -> all staccato
+//        DB1                        DB2
+//    0-12s   14-33 % fp         0-12s    0-25 % fp     a few scattered
+//   12-20s   55-60 % fp        12-20s   57-70 % fp     <- the fp PEAK
+//   20-28s   32-35 % fp        20-28s   21-31 % fp     thinning
+//   28s+      0-8 % fp         28s+         0 % fp     apex, all staccato
+//
+// So fortepiano is not a block that ends; it is a *swell of its own* that peaks
+// just before the density takes off and is gone by the apex. (This is also where
+// the composer's remembered "seventy, thirty" comes from — DB2 hits 70 % fp at
+// 12-16 s. It was never a global ratio, it was the top of this arc.)
+//
+//   at t0            P(fp) = --fp-start   a mix, mostly staccato
+//   at --fp-peak-at  P(fp) = --fp-peak    the fortepiano swell
+//   at --fp-zero     P(fp) = 0            and everything after is staccato
+//
+// Linear between those points. An earlier version ramped P(staccato) 0->1 from
+// an all-fortepiano opening, which put every fortepiano in the sparsest bars
+// where they read as isolated events rather than as a colour in the mix — the
+// composer's report was "it felt like I didn't hear it."
 //
 // WHAT CHANGED SINCE transform_fp.js (2026-08-13). That tool scaled fortepiano
 // durations x3 (>= x2 when squeezed). **That is now wrong**: D9 (2026-08-15,
@@ -84,8 +100,19 @@ if (!notes.length) { console.error('no pitched notes in ' + srcPath); process.ex
 const t0 = Math.min(...notes.map(o => o.startSeconds));
 const tEnd = Math.max(...notes.map(o => o.endSeconds));
 const span = tEnd - t0;
-const FP_UNTIL = parseFloat(flag('fp-until', (t0 + span * 0.55).toFixed(2)));
-const STAC_FROM = parseFloat(flag('stac-from', (t0 + span * 0.78).toFixed(2)));
+// defaults are DB1/DB2's measured arc, expressed as fractions of the span
+const FP_START = parseFloat(flag('fp-start', '0.25'));
+const FP_PEAK = parseFloat(flag('fp-peak', '0.65'));
+const PEAK_AT = parseFloat(flag('fp-peak-at', (t0 + span * 0.45).toFixed(2)));
+const FP_ZERO = parseFloat(flag('fp-zero', (t0 + span * 0.72).toFixed(2)));
+
+// P(fortepiano) at time s — rise to the peak, then fall to nothing
+function pFp(s) {
+  if (s >= FP_ZERO) return 0;
+  if (s <= t0) return FP_START;
+  if (s <= PEAK_AT) return FP_START + (FP_PEAK - FP_START) * ((s - t0) / Math.max(1e-6, PEAK_AT - t0));
+  return FP_PEAK * (1 - (s - PEAK_AT) / Math.max(1e-6, FP_ZERO - PEAK_AT));
+}
 
 // lanes, sorted; we mutate in place and re-check as we go
 const lanes = Array.from({ length: PARTS }, () => []);
@@ -117,9 +144,8 @@ const inOrder = notes.slice().sort((a, b) => a.startSeconds - b.startSeconds);
 
 for (const o of inOrder) {
   const s = o.startSeconds, p = o.sonifyNote;
-  const pStac = s < FP_UNTIL ? 0 : s >= STAC_FROM ? 1 : (s - FP_UNTIL) / (STAC_FROM - FP_UNTIL);
-  const wantStac = rand() < pStac;
-  if (wantStac) { stacN++; continue; }              // already staccato; nothing to do
+  const wantFp = rand() < pFp(s);
+  if (!wantFp) { stacN++; continue; }               // already staccato; nothing to do
 
   const fpLen = oneShot('fortepiano', p);
   // 1. room where it already is?
@@ -178,11 +204,16 @@ const outPath = OUT || path.join('scores', name.replace(/-packed$/, '') + '-fp.j
 fs.writeFileSync(outPath, JSON.stringify(data, null, 1));
 
 console.log('=== ARTICULATION PASS — ' + name + ' ===');
-console.log('  all fortepiano before ' + FP_UNTIL.toFixed(2) + 's  ·  crossfade to ' +
-  STAC_FROM.toFixed(2) + 's  ·  all staccato after   (seed ' + SEED + ')');
+console.log('  P(fp): ' + (FP_START * 100).toFixed(0) + '% at ' + t0.toFixed(1) + 's  →  peak ' +
+  (FP_PEAK * 100).toFixed(0) + '% at ' + PEAK_AT.toFixed(1) + 's  →  0% from ' +
+  FP_ZERO.toFixed(1) + 's   (seed ' + SEED + ')');
+console.log('  arc measured off DB1/DB2, both ~21% fp overall with the peak just\n' +
+  '  before the density takes off — see the header of this tool');
 console.log('  fortepiano is a FIXED one-shot 1.35-2.22 s (D9) — conversion does not stretch,\n' +
   '  it replaces a ~0.45 s staccato with a 3-5x longer note, so the roll only proposes.\n');
-console.log('  fortepiano ' + String(fpN).padStart(4) + '   (' + movedN + ' moved to a player with room)');
+console.log('  fortepiano ' + String(fpN).padStart(4) + '   (' +
+  (100 * fpN / notes.length).toFixed(0) + '% overall; DB1 21%, DB2 22%)' +
+  (movedN ? '  · ' + movedN + ' moved to a player with room' : ''));
 console.log('  staccato   ' + String(stacN).padStart(4) + '   (' + deniedN + ' of these WANTED fp but no player had room)');
 if (deniedAt.length) {
   console.log('             denied between ' + Math.min(...deniedAt).toFixed(1) + 's and ' +

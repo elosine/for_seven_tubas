@@ -99,7 +99,7 @@
    "type": "waveCurve",
    "layer": 1,
    "startSeconds": 2.113,
-   "endSeconds": 3.603,
+   "endSeconds": 2.543,
    "nodes": [
     {
      "pos": 0,
@@ -118,13 +118,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 32,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 62,
    "groupId": "grp-densBld03-take1-packed"
@@ -204,7 +204,7 @@
    "type": "waveCurve",
    "layer": 4,
    "startSeconds": 4.629,
-   "endSeconds": 6.409,
+   "endSeconds": 5.069,
    "nodes": [
     {
      "pos": 0,
@@ -223,13 +223,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 52,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 81,
    "groupId": "grp-densBld03-take1-packed"
@@ -309,7 +309,7 @@
    "type": "waveCurve",
    "layer": 7,
    "startSeconds": 6.626,
-   "endSeconds": 8.136,
+   "endSeconds": 7.076,
    "nodes": [
     {
      "pos": 0,
@@ -328,13 +328,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 55,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 72,
    "groupId": "grp-densBld03-take1-packed"
@@ -344,7 +344,7 @@
    "type": "waveCurve",
    "layer": 8,
    "startSeconds": 7.316,
-   "endSeconds": 9.536,
+   "endSeconds": 7.846,
    "nodes": [
     {
      "pos": 0,
@@ -363,13 +363,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 58,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 82,
    "groupId": "grp-densBld03-take1-packed"
@@ -379,7 +379,7 @@
    "type": "waveCurve",
    "layer": 9,
    "startSeconds": 7.929,
-   "endSeconds": 9.589,
+   "endSeconds": 8.359,
    "nodes": [
     {
      "pos": 0,
@@ -398,13 +398,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 45,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 47,
    "groupId": "grp-densBld03-take1-packed"
@@ -449,7 +449,7 @@
    "type": "waveCurve",
    "layer": 2,
    "startSeconds": 9.032,
-   "endSeconds": 11.022,
+   "endSeconds": 9.522,
    "nodes": [
     {
      "pos": 0,
@@ -468,13 +468,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 50,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 83,
    "groupId": "grp-densBld03-take1-packed"
@@ -554,7 +554,7 @@
    "type": "waveCurve",
    "layer": 4,
    "startSeconds": 10.557,
-   "endSeconds": 12.227,
+   "endSeconds": 10.957,
    "nodes": [
     {
      "pos": 0,
@@ -573,13 +573,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 49,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 80,
    "groupId": "grp-densBld03-take1-packed"
@@ -1079,7 +1079,7 @@
    "type": "waveCurve",
    "layer": 4,
    "startSeconds": 13.455,
-   "endSeconds": 15.135,
+   "endSeconds": 13.865,
    "nodes": [
     {
      "pos": 0,
@@ -1098,13 +1098,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 53,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 94,
    "groupId": "grp-densBld03-take1-packed"
@@ -1219,7 +1219,7 @@
    "type": "waveCurve",
    "layer": 1,
    "startSeconds": 14.284,
-   "endSeconds": 15.944,
+   "endSeconds": 14.714,
    "nodes": [
     {
      "pos": 0,
@@ -1229,41 +1229,6 @@
     {
      "pos": 1,
      "y": 7.3,
-     "smooth": 0.25
-    }
-   ],
-   "segments": [
-    {
-     "model": "power",
-     "slope": 0
-    }
-   ],
-   "color": "#8D6E63",
-   "fillMode": "bottom",
-   "opacity": 0.55,
-   "performanceNotes": "FP",
-   "properties": {},
-   "sonifyNote": 45,
-   "technique": "fortepiano",
-   "sonifyMode": "plain",
-   "recVel": 93,
-   "groupId": "grp-densBld03-take1-packed"
-  },
-  {
-   "id": "wc-2482",
-   "type": "waveCurve",
-   "layer": 0,
-   "startSeconds": 14.487,
-   "endSeconds": 14.937,
-   "nodes": [
-    {
-     "pos": 0,
-     "y": 5.9,
-     "smooth": 0.25
-    },
-    {
-     "pos": 1,
-     "y": 5.9,
      "smooth": 0.25
     }
    ],
@@ -1278,8 +1243,43 @@
    "opacity": 0.55,
    "performanceNotes": "PACKED",
    "properties": {},
-   "sonifyNote": 55,
+   "sonifyNote": 45,
    "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 93,
+   "groupId": "grp-densBld03-take1-packed"
+  },
+  {
+   "id": "wc-2482",
+   "type": "waveCurve",
+   "layer": 0,
+   "startSeconds": 14.487,
+   "endSeconds": 15.997,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#8D6E63",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "FP",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "fortepiano",
    "sonifyMode": "plain",
    "recVel": 75,
    "groupId": "grp-densBld03-take1-packed"
@@ -1639,7 +1639,7 @@
    "type": "waveCurve",
    "layer": 7,
    "startSeconds": 16.195,
-   "endSeconds": 17.785,
+   "endSeconds": 16.565,
    "nodes": [
     {
      "pos": 0,
@@ -1658,13 +1658,13 @@
      "slope": 0
     }
    ],
-   "color": "#8D6E63",
+   "color": "#607D8B",
    "fillMode": "bottom",
    "opacity": 0.55,
-   "performanceNotes": "FP",
+   "performanceNotes": "PACKED",
    "properties": {},
    "sonifyNote": 35,
-   "technique": "fortepiano",
+   "technique": "staccato",
    "sonifyMode": "plain",
    "recVel": 123,
    "groupId": "grp-densBld03-take1-packed"
