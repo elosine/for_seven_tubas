@@ -487,3 +487,62 @@ restore point. Git is the net either way, since `scores/*.json` are committed.
 - **Jitter test DEFERRED by the composer** — they want to A/B it at a specific
   point in a real score rather than as a standalone, and the gallop is explained
   anyway. `midi/phase04-jitter-*.mid` stay in the repo for when it matters.
+
+### Verdicts on `phase07-scatter`, and THE MODEL REVISED (composer, 2026-08-16)
+- scatter 0 *"just at the margin of smear"* · 0.03 *"isn't smear anymore — more
+  **ticks**"* · 0.08 *"relatively uniform, approaching gallop"* · 0.2 *"is
+  gallop — what lends to it is a sense of **accent**"* · 1.0 *"strong gallop"* ·
+  morph *"still patterned, just more dense"*. **"In general the rain is
+  minimized."**
+- **THE COMPOSER DIAGNOSED IT:** *"part of the rain comes out of some sort of
+  randomness… with strict no drift it's almost inevitably going to be patterned,
+  probably the repetition of overlap."* Correct, and it is arithmetic: a FIXED
+  random offset repeats **identically every 0.545 s cycle**, so it is a frozen
+  random rhythm played on a loop 1.8×/s — a figure, with accents. **Scatter never
+  made rain; it made a lopsided loop.** Rain needs **non-repetition**, which is a
+  different property from irregularity and now gets its own dial.
+- **FOUR DIALS:** **density** (attacks/s → tick↔tone) · **scatter** (fixed
+  offsets → repeating figure/gallop) · **jitter** (re-randomised per attack →
+  non-repetition/rain) · **spread** (tempo difference → rate of change).
+- **TWO PHYSICAL CEILINGS.** (1) Ten players ÷ 0.42 s ring = **~23 attacks/s**,
+  and tick→tone fusion wants ~50 ms (20/s), so staccato *just* reaches the
+  boundary and cannot pass it — which is what makes the articulation blade
+  load-bearing. (2) **STAGE WIDTH:** 343 m/s over ~10 m of stage = **~30 ms of
+  propagation spread**, against a 55 ms grid at 18/s. **The ensemble's size alone
+  imposes half a slot of scatter, so dead-even smear cannot exist in a hall.**
+  The mock-up (coincident, sample-accurate) shows textures that are not live-real.
+- **STANDING PERFORMANCE RULE (composer):** *"it's not gonna work to give them
+  very precise cents instructions… graphic indicators of a speed of beating that
+  they estimate — as rapid as possible, to something like a triplet at 60 BPM."*
+  **No texture may depend on a precise beating rate or precise cents.** Adopted
+  as a constraint on the RESEARCH, not only the notation: every keeper gets a
+  **perturbation pass** (re-render with human-scale error, check the category
+  survives). Human error *is* jitter, so the tool already exists.
+  **Prediction with teeth: rain is what the ensemble gives you for free; smear is
+  the fragile one.**
+- **CONCEPTUAL MODEL SHIFTED (composer):** *"I was thinking about strict acoustic
+  beating… with tubas and their attack, the conceptual model needs to be
+  different."* Out: phase shifting as a continuous dial-able beating phenomenon.
+  In: **find interesting categories wherever they sit, then find the morphs**
+  ("rain → gallop over 30 s, very gradually"). Pitch to be imposed as sets,
+  deliberately not over-systematised; it is expected to dissolve the accent.
+
+### E1 + E2 built — the two that follow directly from those verdicts
+- **`phase08-density`** — 8 · 12 · 17 · 23 attacks/s, dead even, nothing else
+  varying. Cell 4 is the hard ceiling (per-player gap 0.435 s vs the 0.42 s ring).
+  Answers where articulation stops being countable, and whether smear is
+  reachable by density alone.
+- **`phase09-jitterrain`** — jitter 0 / ±15 / ±35 ms, then **the A/B: ±60 ms
+  jitter vs scatter 0.2**. Measured to be a fair test: **jitter sd 34.0 ms with
+  cycle-position unevenness 0.22, scatter sd 32.2 ms at 1.34** — same roughness,
+  opposite repetition structure.
+- Both audit 0 hard / 0 soft; both verified loading in the app (721 and 1177
+  notes across ten lanes, markers rendering). **Unheard.**
+- Full experiment plan with questions and takeaways: `docs/PHASE_SHIFTING.md` §10.
+
+### Commit / push policy — settled
+- Each agent commits its own chunk with **explicit paths** (never `git add -A`).
+- **Push is now automatic after each commit**, by either agent — it is one repo
+  and one branch, so a push carries both agents' work, which is harmless as long
+  as every commit is complete (rule 4). This replaces "never push without asking"
+  for this project; `CLAUDE.md` should be updated to match at session end.

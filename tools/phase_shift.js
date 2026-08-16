@@ -144,6 +144,18 @@ function buildScore(spec) {
             return steadyOnsets(rateOf, sec.dur, phase0);
         });
 
+        // PER-ATTACK JITTER — displaces every attack independently, so unlike
+        // `scatter` (a fixed offset, which loops once per cycle and therefore
+        // reads as a rhythmic figure) the pattern NEVER repeats. This is the
+        // hypothesised rain mechanism; it is also the human-timing error model.
+        sec.voices.forEach((v, vi) => {
+            if (!v.jitterMs) return;
+            let s = 7654321 + vi * 977;
+            const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
+            voiceOnsets[vi] = voiceOnsets[vi].map(t => +(t + 2 * rnd() * v.jitterMs / 1000).toFixed(4));
+            voiceOnsets[vi].sort((a, b) => a - b);
+        });
+
         sec.voices.forEach((v, vi) => {
             const times = voiceOnsets[vi];
             const ring = ringLength(v.tech, v.pitch);
@@ -288,6 +300,56 @@ const PRESETS = {
             };
         }),
     }),
+
+    // E1 · DENSITY — the tone↔tick boundary (composer: "one is just at the
+    // margin of smear… the direction would be towards closer intervals").
+    // Dead even, one voice of ten players; only the attack rate changes.
+    // CEILING: per-player gap must clear the 0.42 s staccato ring, so ten
+    // players cap at ~23 attacks/s = 43 ms. Fusion into tone wants ~50 ms or
+    // less — so this ladder JUST crosses the boundary, and cannot go past it
+    // without a shorter sample.
+    density: () => ({
+        name: 'phase08-density', notelen: 0.12, gap: 2.5, midi: true,
+        sections: [8, 12, 17, 23].map(rate => ({
+            label: `DENSITY ${rate}/s · ${r2(1000 / rate)} ms apart · 10 players @ ${r2(rate * 6)} BPM` +
+                (rate >= 20 ? ' · AT THE CEILING' : ''),
+            tag: 'd' + rate, dur: 12, model: 'beat',
+            voices: [{ lanes: [0,1,2,3,4,5,6,7,8,9], pitch: PITCH, tech: 'staccato', bpm: rate * 6 }],
+        })),
+    }),
+
+    // E2 · JITTER vs SCATTER — the rain test. Composer: "I think part of the rain
+    // comes out of some sort of randomness… with strict no drift it's almost
+    // inevitably going to be patterned, probably the repetition of overlap."
+    // Exactly right: a FIXED random offset repeats every cycle, so it is a loop.
+    // Jitter re-randomises every attack, so nothing ever repeats. Same amount of
+    // irregularity, opposite repetition structure — cells 4 and 5 are the A/B.
+    jitterrain: () => {
+        const even = extra => ({ lanes: [0,1,2,3,4,5,6,7,8,9], pitch: PITCH,
+            tech: 'staccato', bpm: BASE, ...extra });
+        let s = 20260817;
+        const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
+        const u = Array.from({ length: 10 }, rnd);
+        return {
+            name: 'phase09-jitterrain', notelen: 0.12, gap: 2.5, midi: true,
+            sections: [
+                { label: 'JITTER 0 ms · dead even (control)', tag: 'j0', dur: 12,
+                  model: 'beat', voices: [even({})] },
+                { label: 'JITTER ±15 ms · never repeats', tag: 'j15', dur: 12,
+                  model: 'beat', voices: [even({ jitterMs: 15 })] },
+                { label: 'JITTER ±35 ms · never repeats', tag: 'j35', dur: 12,
+                  model: 'beat', voices: [even({ jitterMs: 35 })] },
+                { label: 'A/B 1 · JITTER ±60 ms — irregular and NON-REPEATING',
+                  tag: 'jAB', dur: 14, model: 'beat', voices: [even({ jitterMs: 60 })] },
+                { label: 'A/B 2 · SCATTER 0.2 — same irregularity, but it LOOPS every 0.55 s',
+                  tag: 'sAB', dur: 14, model: 'beat',
+                  voices: Array.from({ length: 10 }, (_, j) => ({
+                      lanes: [j], pitch: PITCH, tech: 'staccato', bpm: BASE,
+                      delay: ((j / 10 + 0.2 * u[j] + 1) % 1) * (60 / BASE),
+                  })) },
+            ],
+        };
+    },
 
     // SCATTER — the composer's categories (smear · rain · stutter · pulse) turn
     // out to need TWO independent dials, not one:

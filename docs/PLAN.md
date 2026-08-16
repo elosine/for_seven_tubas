@@ -399,6 +399,17 @@ composer → notation → performance architecture.)*
     ALIGNED but pitches opposite** (a sustained minor 2nd — the composer's
     sine-wave peak-vs-trough model exactly), while **90° is the interlocked
     hocket** state.
+  - **PHASE SHIFTING AS A TEXTURE DEVICE — `doing 2026-08-16`.** Full research
+    doc **`docs/PHASE_SHIFTING.md`**; running notes in `docs/RUNNING_LOG.md`;
+    generator `tools/phase_shift.js` (named presets) + `tools/midi_out.js`.
+    Vocabulary from the composer's ear: **smear · ticks · rain · gallop**. Four
+    dials — **density · scatter · jitter · spread** (§5G). Two physical ceilings:
+    ten tubas on staccato cap at **~23 attacks/s**, and **stage width alone
+    imposes ~30 ms of scatter**, so dead-even smear is unreachable live. Standing
+    performance rule (composer): **no texture may depend on a precise beating
+    rate or precise cents** — graphic/approximate indications only, and every
+    keeper must survive a human-error perturbation pass. Experiment plan +
+    status: PHASE_SHIFTING.md §10.
 - **2m — MACRO-FORM: long swells ⇄ choppy sections** *(composer, 2026-08-14)*:
   the meta-level alternation of the piece — **long swells interspersed with
   choppier sections**.

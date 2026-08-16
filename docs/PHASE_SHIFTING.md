@@ -363,6 +363,98 @@ other, which is a spread effect. So pulse is the one category that needs drift.
 
 ---
 
+## 5G · THE MODEL, REVISED — four dials, two ceilings, one performance rule
+
+**Verdicts on `phase07-scatter` (composer, 2026-08-16):** cell 1 (scatter 0)
+*"just at the margin of smear"* · cell 2 (0.03) *"isn't [smear] anymore — it's
+more **ticks**… a little rain-like but slightly patterned"* · cell 3 (0.08)
+*"relatively uniform, approaching gallop"* · cell 4 (0.2) *"is gallop — what
+lends to the gallop is a sense of **accent**, some sort of natural buildup"* ·
+cell 5 (1.0) *"strong gallop"* · cell 6 (morph) *"still patterned, just more
+dense"*. **"In general the rain is minimized."**
+
+### The diagnosis — and the composer called it
+
+> *"I think part of the rain comes out of some sort of randomness… with strict
+> no drift it's almost inevitably going to be patterned, probably the repetition
+> of overlap."*
+
+**Exactly right, and it is arithmetic again.** A *fixed* random offset per player
+produces a pattern that repeats **identically every cycle** — here every 0.545 s,
+1.8 times a second. A fixed rhythm looped at that rate is a rhythmic figure, and
+its densest moments read as accents. **Scatter did not make rain, it made a
+frozen random loop.** More scatter = a more lopsided loop = more gallop.
+
+**So rain needs NON-REPETITION, not merely irregularity.** Those are different
+properties and they now get different dials.
+
+### The four dials
+
+| dial | what it is | what it produces |
+|---|---|---|
+| **DENSITY** | attacks per second (players × rate) | the grain — **tick ↔ tone** |
+| **SCATTER** | fixed per-player offsets | a **repeating figure** — gallop, accent |
+| **JITTER** | re-randomised every attack | **non-repetition** — the rain candidate |
+| **SPREAD** | tempo differences | how fast the arrangement **changes** |
+
+Scatter and jitter can be set to the *same* irregularity and sound different;
+that is `phase09`'s A/B, and it is measured: jitter sd 34.0 ms with a
+cycle-position unevenness of **0.22**, scatter sd 32.2 ms at **1.34**. Same
+roughness, opposite repetition structure.
+
+### Two ceilings that are physics, not choices
+
+1. **Density ceiling ≈ 23 attacks/s.** Ten players ÷ a 0.42 s staccato ring.
+   Fusion from tick into tone wants ~50 ms between attacks (≈20/s), so ten tubas
+   on staccato **just barely reach the boundary and cannot go past it.** Getting
+   further needs a shorter sample (the untested note-off question, §5) or a
+   different articulation — which is what makes the "extra blade" (§10 E3) load-
+   bearing rather than decorative.
+
+2. **THE STAGE-WIDTH CEILING — the one that matters most.** Sound travels 343 m/s.
+   Ten tubas spread over ~10 m of stage means **~30 ms of propagation spread**
+   between the nearest and furthest player, at the listener. At 18 attacks/s the
+   grid is **55 ms**. So the ensemble's physical size alone imposes roughly
+   **half a slot of scatter, before anyone plays a wrong note.**
+   **Dead-even smear is not reachable in a hall with spread players.** The mock-up
+   — every part coincident and sample-accurate — is showing us a texture that
+   cannot exist live. (Same bias already flagged for counterpoint in §6.)
+
+### The performance rule (composer's standing instruction, 2026-08-16)
+
+> *"It's not gonna work to give them very precise cents instructions… maybe the
+> approach is graphic indicators that indicate a certain speed of beating and
+> they can just estimate — as rapid as possible, to something that sounds like a
+> triplet at 60 BPM. Almost like tempo markings."*
+
+**Adopted as a constraint on the research, not just on the notation: no texture
+may depend on a precise beating rate or a precise interval in cents.** Anything
+that only works when the ensemble is accurate to a few ms is a studio artifact.
+
+**And it hands us a test we can run today.** Human timing error *is* jitter — the
+same operation as the E2 dial. So every keeper texture gets a **perturbation
+pass**: re-render it with human-scale error and check the category survives.
+
+**The prediction, and it has teeth:** if human error behaves like jitter, then
+**rain is what the ensemble gives you for free, and smear is the fragile one.**
+The achievable palette may be centred on rain, with smear reachable only by
+seating the players close together. E2 + the perturbation pass settle this.
+
+### The conceptual model has shifted (composer)
+
+> *"I was thinking about strict beating, acoustic beating, and how there's a very
+> sinusoidal smooth flutter you can accelerate or decelerate. With acoustic
+> instruments in particular — tubas and their attack — the conceptual model needs
+> to be different."*
+
+**Out:** phase shifting as a continuous beating phenomenon to be dialled.
+**In:** *find the interesting sound categories wherever they sit on the
+continuum, then find how to morph between them.* Requests will look like
+**"rain → gallop over 30 seconds, very gradually."** Vocabulary so far —
+**smear · ticks · rain · gallop** — extended as needed.
+
+---
+
 ## 6 · COUNTERPOINT vs SOUND MASS — the second objective
 
 Composer: *"several of these going at the same time in different tempos. My
@@ -439,3 +531,33 @@ not the primary path, because regenerating keeps it parametric.
 **Sources:** [Reich — Piano Phase](https://stevereich.com/composition/piano-phase/) ·
 [Frontiers 2023, phasing performance study](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1207646/full) ·
 [Piano Phase (Wikipedia)](https://en.wikipedia.org/wiki/Piano_Phase)
+
+---
+
+## 10 · THE EXPERIMENT PLAN
+
+Framed the way the composer asked: **what are we trying to find out · what
+concrete takeaway comes out of it · what has to be true for the next one to
+matter.** One variable per experiment; every cell measured before it ships.
+
+### Built and waiting to be heard
+
+| # | score | the question | the concrete takeaway |
+|---|---|---|---|
+| **E1** | `phase08-density` | Where is the **tick↔tone boundary** for ten tubas, and how close to "smear" can density alone get? 4 cells: **8 · 12 · 17 · 23 attacks/s**, dead even, nothing else varying. | A **number**: the attacks/s at which articulation stops being countable. Cell 4 is the hard ceiling, so this also answers *"is smear reachable at all with staccato?"* — if 23/s is still ticks, smear needs a different sample, not a faster tempo. |
+| **E2** | `phase09-jitterrain` | **Does rain come from non-repetition?** Jitter ladder 0 · ±15 · ±35 ms, then the A/B: **±60 ms jitter (never repeats) against scatter 0.2 (same roughness, loops every 0.55 s)**. | Settles which dial owns rain. If the two A/B cells sound different, **repetition is the variable, irregularity is not** — and rain becomes a dial we can hold at any density. It also tells us whether **human timing error will convert every texture into rain**, which decides how much of the palette is actually performable. |
+
+### Ready to build, in the order they unlock things
+
+| # | experiment | the question | the takeaway |
+|---|---|---|---|
+| **E3** | **Articulation blend** — the "extra blade". Same rhythm, varying the mix of staccato / fortepiano / cuivre / ord across the ten. | Does mixing attack types **break the accent pattern** and get past the density ceiling? | Whether smear is reachable by *sound* rather than by *timing* — the ceiling in §5G(1) says timing alone cannot get there. |
+| **E4** | **Category morphs** — rain → gallop over 30 s, and the reverse. | Do the categories connect **continuously**, or is the transition a snap (as it was in `phase06`)? | The morph vocabulary: which pairs can be crossfaded and over what minimum duration. This is the thing the piece actually needs. |
+| **E5** | **Pitch** — impose pitch sets over a keeper texture, deliberately not over-systematised. | Does pitch **dissolve the accent** the composer heard, and does it push mass toward counterpoint (§6)? | Whether pitch is a texture dial or only a colour. |
+| **E6** | **Explicit acoustic beating** blended in — close intervals between sustained tones, alongside the rhythmic version. | Can real beating and rhythmic beating coexist as one device at two timescales? | A unified "beating" family, and the graphic-notation vocabulary for both. |
+| **E7** | **PERTURBATION PASS** — re-render each keeper with human-scale timing error. | Does the category **survive an ensemble that cannot be precise?** | The pass/fail gate on everything above. A texture that fails here does not go in the piece. Run it on every keeper, not as a one-off. |
+
+**Dependency worth stating:** E7 is not last in importance — it is the filter.
+If E2 shows human error turns everything into rain, then E1's smear findings are
+interesting but unusable live, and E3 becomes the only route to smear. Run E1 and
+E2 together and the two answers arrive at once.
