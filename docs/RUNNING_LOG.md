@@ -767,3 +767,54 @@ the engine constants in force, so a recipe is reproducible without the panel.
 named recipe like "more rapid re-articulation" that moves several parameters
 together within these bounds. The boundaries are now recorded; the collapse is
 the composer's to scope.
+
+### E4 RESULT — a clean NEGATIVE, and it closes the timing route (2026-08-16)
+- Composer on `phase11-ordbeat`: ***"Everything sounds continuous. No swells at
+  all."*** Also, fairly: *"I don't really understand the test or how it was
+  constructed."*
+- **The negative result is correct and was predictable from my own measurement**,
+  which said the count of sounding notes never moves off 8–10. I flagged that as a
+  risk and shipped anyway instead of fixing it — that was the wrong call.
+- **THE PRINCIPLE IT ESTABLISHES:** *onset phase only matters while onsets are
+  audible events.* In an ord wash each attack is masked by nine tones already
+  sounding, so displacing attacks in time changes **nothing**. Timing-based
+  beating therefore **cannot work in the smeared family, at any rate or spread**.
+  That is a real boundary, not a tuning problem.
+- Consequence for the two families:
+  - **ARTICULATED (staccato)** — timing phase works, and gives RHYTHM
+    (rain / gallop / groove). It will never give a smooth swell.
+  - **SMEARED (ord, flz)** — timing phase gives nothing. A swell here has to come
+    from **pitch**, not from time.
+
+### E6 built — `phase12-pitchbeat`: real acoustic beating
+- The composer's ORIGINAL description was always this, not the rhythmic analogue:
+  *"acoustic beating when two notes are approaching unison… you can calculate and
+  adjust the rate of deviating from unison."* Two pitches a few cents apart
+  modulate **real amplitude**.
+  `beat rate (Hz) = |f1 − f2|` · `cents = 1200·log₂(1 + beat/f)`.
+- At C3 (130.81 Hz): **0.5 Hz = 6.6c · 1 Hz = 13.2c · 2 Hz = 26.3c · 4 Hz = 52.1c**
+  — all far inside the patch's measured ±199 c bend range (2v Phase 0).
+- Six sections: unison control · 0.5 · 1 · 2 · 4 beats/sec · then a **sweep 0→4
+  over 20 s**. Long ord tones (ord sustains 32 s in the piece, so this is safe).
+- **MIDI ONLY, deliberately** — the composer score has no bend on these objects
+  (2v owns bend), so a score version would play at the wrong pitches and lie.
+  Two tracks, both ord ch1, **must go to two different UVI instances** because
+  bend is per-instance.
+- Uses 2v's measured constants without touching their files: `BEND_PREARM_S 0.05`
+  (bend armed before note-on, else it slides) and an explicit **reset to 0 at the
+  end** (bend residue is confirmed real).
+- **Verified by decoding the file with an independent reader:** the bend bytes
+  come back as **0.500 / 1.000 / 1.999 / 3.999 Hz** beat rates, and the final
+  event is raw 8192 (centred). The math round-trips.
+- **PERFORMABILITY — this is the part that matters.** A player cannot be told
+  "13 cents sharp", but **beating is self-correcting**: they hear the beat and
+  adjust until it is at the asked-for speed. *"Beat about twice a second"* is a
+  real instruction in a way that a cents value never was. **Pitch beating is MORE
+  performable than the timing version, not less** — which inverts the worry in
+  §5G's performance rule.
+
+### Process note taken from the composer's criticism
+*"I don't have any insight into how the tests were constructed."* Fair. From here
+every experiment gets **one plain-language sentence of what it is and what would
+count as a result**, in the chat guide AND in the score's first marker — not
+parameter names like ΔBPM.

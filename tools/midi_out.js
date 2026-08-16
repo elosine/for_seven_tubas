@@ -17,6 +17,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PPQ = 960;                                  // 0.52 ms per tick at 120 BPM
+const BEND_RANGE_CENTS = 199;                     // MEASURED, 2v Phase 0 (1.99 st)
 
 const vlq = n => {                                // variable-length quantity
     const out = [n & 0x7f];
@@ -30,7 +31,8 @@ const chunk = (id, data) => Buffer.concat([Buffer.from(id, 'ascii'), Buffer.from
 function trackChunk(events, name) {
     // events: {tick, kind:'on'|'off', bytes:[]} — note-OFF sorts first at equal
     // ticks so a repeated note releases before it retriggers.
-    events.sort((a, b) => a.tick - b.tick || (a.kind === 'off' ? -1 : 1) - (b.kind === 'off' ? -1 : 1));
+    const rank = k => (k === 'off' ? 0 : k === 'bend' ? 1 : 2);   // off, then bend, then on
+    events.sort((a, b) => a.tick - b.tick || rank(a.kind) - rank(b.kind));
     const data = [];
     if (name) data.push(0x00, 0xff, 0x03, ...vlq(name.length), ...Buffer.from(name, 'ascii'));
     let last = 0;
@@ -57,6 +59,15 @@ function writeMidi(file, { bpm = 120, tracks }) {
             ev.push({ tick: secToTick(n.t), kind: 'on', bytes: [0x90 | ch, n.pitch, n.vel || 95] });
             ev.push({ tick: secToTick(n.t + n.dur), kind: 'off', bytes: [0x80 | ch, n.pitch, 0] });
         }
+        // PITCH BEND — `bends: [{t, cents}]`. The range is the MEASURED one from
+        // 2v Phase 0 (BEND_RANGE_ST 1.99, and RPN 0 is ignored so it cannot be
+        // widened). Residue is confirmed real there too, so whoever builds a
+        // schedule must end it with an explicit return to 0.
+        for (const b of tr.bends || []) {
+            const v = Math.max(0, Math.min(16383,
+                8192 + Math.round(8192 * b.cents / BEND_RANGE_CENTS)));
+            ev.push({ tick: secToTick(b.t), kind: 'bend', bytes: [0xe0 | ch, v & 0x7f, (v >> 7) & 0x7f] });
+        }
         chunks.push(trackChunk(ev, tr.name));
     }
 
@@ -70,4 +81,4 @@ function writeMidi(file, { bpm = 120, tracks }) {
     return { file: abs, tracks: tracks.length, notes, seconds: +end.toFixed(2), ppq: PPQ, bpm };
 }
 
-module.exports = { writeMidi, PPQ };
+module.exports = { writeMidi, PPQ, BEND_RANGE_CENTS };
