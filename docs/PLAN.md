@@ -193,6 +193,24 @@ composer → notation → performance architecture.)*
   gets converted. *Why it matters:* dynamics chosen in the sandbox must survive
   into the score and, later, into the notation.
 
+- **2r — PLAYABILITY / COLLISION AVOIDANCE** — `shipped 2026-08-16` — inserting
+  blasts over clusters (and the converse) used to double-book players silently.
+  **The mock-up cannot reveal this**: technique = MIDI channel (staccato = a
+  separate port), so two overlapping notes on one player hit two UVI channels and
+  both sound cleanly. Built: one shared occupancy model over every waveCurve that
+  occupies a player (drawn crescendo material included, solo state ignored) · a
+  two-tier rule — **HARD** = intervals overlap (physics) vs **SOFT** = too tight to
+  re-tongue or leap (estimates: 0.10 s staccato / 0.25 s after fp+cuivre / +0.012 s
+  per semitone, from 2j's "never trill faster than you can slur") · conflict-aware
+  placement in both inserters (`assignBlast` = distinct player each, keeps the
+  pitch-ordered stage reading; `assignCluster` = legal lane, LRU tie-break) · a
+  live red/amber wash on the lanes, recomputed on **every** mutation so dragging
+  cannot defeat it · a resolver panel (per-conflict drop-either-side, **nudge**
+  the last insert to the nearest clear time, **auto** = blast keeps its voicing and
+  the cluster yields). **Insert never refuses and never silently drops** — one code
+  path, everything lands, conflicts are marked, removal is an explicit click.
+  Deferred small items in `docs/NITS.md`.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

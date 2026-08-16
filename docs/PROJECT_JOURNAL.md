@@ -68,10 +68,39 @@ in the Load dropdown.
 - Still queued: `ost01-variety` unheard - cressand-family / cressand-pitches
   verdicts - quarter-tone mapping test (gate for the morphing crescendo, PLAN 2l).
 
+**Day 8 (2026-08-16, in progress) - COLLISION AVOIDANCE (PLAN 2r):**
+- **Working rule set by the composer:** fix what blocks the work or what will
+  break; record the rest in `docs/NITS.md` rather than spending decision time on
+  it. Code volume is NOT the constraint - troubleshooting is. Bring a competent,
+  robust plan with the small decisions already made.
+- **The finding that justified the build:** the mock-up CANNOT reveal a
+  double-booked player. Technique = MIDI channel (staccato even = a separate
+  port), so two overlapping notes on one player hit two UVI channels and both
+  sound cleanly. Auditioning your way out of this is impossible.
+- **Shipped:** shared occupancy model + HARD/SOFT rule (D17) + conflict-aware
+  placement in both inserters + live lane wash recomputed on every mutation +
+  resolver panel (drop either side / nudge / auto). D15, D16.
+- **Verified end to end in the running app**, not by inspection: 15 logic tests
+  (overlap, gap, leap cost, routing, crowding) and 13 UI tests (insert CG003, drop
+  S005 on top -> 9 hard detected, nudge +1.64 s clears all with both gestures
+  intact, auto drops 9 cluster notes and keeps the blast's 10, single-drop, and
+  one-undo restore for each). Drag-away/drag-back proves the check survives moves.
+- **Two bugs found and fixed by that testing**, both invisible to inspection:
+  the refresh was on `requestAnimationFrame` (suspended when the tab is not
+  painting, so marks went stale) -> now a 0 ms timer; and `autoResolveHard` never
+  pushed an undo state, so CTRL+Z landed somewhere unexpected.
+- **Also fixed** (were in the way): cluster audition and cluster insert disagreed
+  about which player was which (`tuba(k+1)` vs `layer 9-k`); cluster marker label;
+  cluster insert not opening the META window.
+- **`scores/piece-s10.json` / `piece-s11.json`** are the composer's own work from
+  this evening (21:32 / 21:36), untracked and untouched - all testing ran under
+  session name `untitled`, the one name autosave skips.
+
 **NEXT SESSION, FIRST THING:** `/clear` then `/session-start` (see
 SESSION_HYGIENE). Then either (a) settle the velocity-vs-CC7 question with the
 one-pitch listening test above, or (b) go straight to placing INT2 material in
-`piece-s09` - blasts plus the cluster items now insertable from the strip.
+`piece-s09` - blasts plus the cluster items now insertable from the strip, and
+now conflict-checked.
 
 **Day 6 (2026-08-15):** the blast pipeline end to end - piece-s09 shipped (88.5 s,
 INT2's first four sonority blasts); Blast Sandbox + the three-tier taxonomy (48
@@ -206,6 +235,31 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   save-as-new pair needed explaining, and anything needing explaining is wrong
   here. *Rejected:* keeping snippets as a scratch tier (migrated into an
   `unsorted` list instead, losing nothing).
+
+- **D15** *(2026-08-16)* — **A voicing is an IDENTITY; a cluster is a STATISTIC —
+  so the cluster yields.** When an inserted blast and an existing cluster cannot
+  both be played, the blast keeps its full pitch set (D11: the pitch set IS the
+  sonority) and the cluster sheds notes (it is a cloud; losing 1 of 14 does not
+  change what it is — the `thin` transform already does this on purpose). *Why:*
+  the two materials are not symmetric, so a symmetric rule would damage whichever
+  one it touched. *Applied only by the resolver's `auto` button — never
+  automatically.* **Rejected:** dropping by recency (destroys voicings for no
+  musical reason), and refusing the insert (the composer must be able to place
+  what they hear and decide afterwards).
+- **D16** *(2026-08-16)* — **Insert never refuses and never silently drops.**
+  Every note lands, conflicts are marked on the lanes, and removal is a separate
+  explicit act. *Why:* one code path instead of a "does it fit?" branch — the
+  bug surface is what costs hours, not the code volume; and the composer always
+  sees the complete sonority before choosing what dies. **Corollary:** the check
+  runs on EVERY mutation, not at insert time — dragging a gesture would otherwise
+  re-create conflicts that an insert-time-only check could never see.
+- **D17** *(2026-08-16)* — **Playability conflicts are split HARD vs SOFT, and
+  the split is load-bearing.** HARD = the intervals overlap: physics, cannot be
+  wrong, cannot be tuned away. SOFT = a real gap that is too short to re-tongue or
+  to leap: ESTIMATES (0.10 s staccato · 0.25 s after fp/cuivre · +0.012 s per
+  semitone). *Why:* an estimate that turns out wrong can then only mis-tint
+  something amber — it can never block work or force a decision. *Numbers await
+  the composer's ear, same status as 2j's tremolo tables.*
 
 ## §5 Done
 

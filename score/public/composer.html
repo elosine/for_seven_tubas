@@ -330,6 +330,7 @@
     <span id="saveStatus">Ready</span>
     <span id="buildTag" style="color:#7a8; font-size:11px" title="code build loaded in this page">b32-quiet</span>
     <span style="flex:1 1 auto"></span>
+    <button id="conflictBadge" title="playability: notes double-booked on one player (red) or too close to re-attack (amber). Click to resolve." style="display:none; background:#4a1414; color:#ff8080; font-family:Consolas,monospace">&#9888; 0</button>
     <button id="blastsBtn" title="sonority strip: flip through a custom list, audition, insert at the playhead">Blasts</button>
 </div>
 
@@ -2164,6 +2165,401 @@ const Composer = {
         this.renderAll();
     },
 
+    // ========== PLAYABILITY / CONFLICTS (composer 2026-08-16) ==========
+    // One player cannot sound two notes at once. The MOCK-UP CANNOT TELL YOU
+    // THIS: technique = MIDI channel (staccato even = a separate port), so two
+    // overlapping notes on one player hit two UVI channels and both sound
+    // cleanly. Hence a written check instead of an audible one.
+    //
+    // Two tiers, kept strictly apart:
+    //   HARD = the intervals overlap. Physics; cannot be wrong, cannot be tuned.
+    //   SOFT = a real gap, but too short to re-tongue / leap. ESTIMATES — so a
+    //          wrong number can only mis-tint something amber, never block work.
+    CONFLICT: {
+        reattack: { staccato: 0.10, ord: 0.12, cuivre: 0.25, fortepiano: 0.25, _default: 0.12 },
+        perSemitone: 0.012,   // leap cost: "never trill faster than you can slur" (2j)
+        maxLeapAdd: 0.35,
+    },
+    get _conflictWindow() {
+        const r = this.CONFLICT.reattack;
+        return Math.max(r.staccato, r.ord, r.cuivre, r.fortepiano, r._default) + this.CONFLICT.maxLeapAdd;
+    },
+
+    // Every waveCurve that OCCUPIES a player — regardless of technique, sonify
+    // mode or solo state. Drawn crescendo material counts exactly like an
+    // inserted blast; solo is a listening tool, not a score property.
+    noteEvents() {
+        const out = [];
+        for (const o of this.objects) {
+            if (o.type !== 'waveCurve' || o.sonifyNote == null) continue;
+            if (!(o.layer >= 0 && o.layer < META_LAYER)) continue;
+            if (o.startSeconds == null || o.endSeconds == null) continue;
+            out.push(o);
+        }
+        return out;
+    },
+    noteLabel(o) {
+        const NM = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const p = o.sonifyNote;
+        const nm = p == null ? '?' : NM[((p % 12) + 12) % 12] + (Math.floor(p / 12) - 1);
+        const src = String(o.performanceNotes || '').split(' (')[0].trim();
+        return (src ? src + ' ' : '') + nm + (o.technique ? ' ' + o.technique : '');
+    },
+    requiredGap(prev, next) {
+        const r = this.CONFLICT.reattack;
+        const base = r[prev.technique] != null ? r[prev.technique] : r._default;
+        const leap = Math.abs((next.sonifyNote || 0) - (prev.sonifyNote || 0));
+        return base + Math.min(this.CONFLICT.maxLeapAdd, leap * this.CONFLICT.perSemitone);
+    },
+    // a is the earlier-starting note
+    pairTier(a, b) {
+        if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';
+        return (b.startSeconds - a.endSeconds) < this.requiredGap(a, b) - 1e-6 ? 'soft' : 'free';
+    },
+    tierAgainst(list, cand) {
+        let worst = 'free';
+        for (const o of list) {
+            const t = (o.startSeconds <= cand.startSeconds) ? this.pairTier(o, cand) : this.pairTier(cand, o);
+            if (t === 'hard') return 'hard';
+            if (t === 'soft') worst = 'soft';
+        }
+        return worst;
+    },
+    buildOccupancy(excludeGroupId) {
+        const occ = Array.from({ length: META_LAYER }, () => []);
+        for (const o of this.noteEvents()) {
+            if (excludeGroupId && o.groupId === excludeGroupId) continue;
+            occ[o.layer].push(o);
+        }
+        occ.forEach(l => l.sort((a, b) => a.startSeconds - b.startSeconds));
+        return occ;
+    },
+
+    // ---- placement ----
+    // Blast: all notes sound together, so each needs its OWN player. Ideal is
+    // the existing pitch-ordered reading (lowest pitch = layer 9 = Tuba 10);
+    // we keep as close to it as free lanes allow.
+    assignBlast(occ, notes) {
+        const taken = new Set();
+        return notes.map((nt, i) => {
+            const ideal = Math.max(0, (META_LAYER - 1) - i);
+            const cand = { startSeconds: nt.start, endSeconds: nt.start + nt.dur, sonifyNote: nt.pitch, technique: nt.tech };
+            let best = null;
+            for (let L = 0; L < META_LAYER; L++) {
+                if (taken.has(L)) continue;
+                const tier = this.tierAgainst(occ[L], cand);
+                const score = (tier === 'free' ? 0 : tier === 'soft' ? 1 : 2) * 100 + Math.abs(L - ideal);
+                if (!best || score < best.score) best = { L, tier, score };
+            }
+            if (!best) best = { L: ideal, tier: 'hard' };   // >10 notes: fall back, mark it
+            taken.add(best.L);
+            return Object.assign({}, nt, { layer: best.L, tier: best.tier });
+        });
+    },
+    // Cluster: notes are spread in time, so a player can take several. Prefer a
+    // legal lane; tie-break by least-recently-used, which keeps the ten-way
+    // spread the composer already approved.
+    assignCluster(occ, notes) {
+        const busy = Array(META_LAYER).fill(-1);
+        return notes.map(nt => {
+            const cand = { startSeconds: nt.start, endSeconds: nt.start + nt.dur, sonifyNote: nt.pitch, technique: nt.tech };
+            let best = null;
+            for (let L = 0; L < META_LAYER; L++) {
+                const tier = this.tierAgainst(occ[L], cand);
+                const score = (tier === 'free' ? 0 : tier === 'soft' ? 1 : 2) * 1e6 + Math.max(0, busy[L]) * 1000 + L;
+                if (!best || score < best.score) best = { L, tier, score };
+            }
+            occ[best.L].push(cand);
+            occ[best.L].sort((a, b) => a.startSeconds - b.startSeconds);
+            busy[best.L] = cand.endSeconds;
+            return Object.assign({}, nt, { layer: best.L, tier: best.tier });
+        });
+    },
+
+    // ---- detection ----
+    computeConflicts() {
+        const marks = new Map(), pairs = [];
+        const lanes = new Map();
+        for (const o of this.noteEvents()) {
+            if (!lanes.has(o.layer)) lanes.set(o.layer, []);
+            lanes.get(o.layer).push(o);
+        }
+        const mark = (o, tier) => {
+            const cur = marks.get(o.id);
+            if (cur && cur.tier === 'hard') return;      // hard wins
+            marks.set(o.id, { tier, obj: o });
+        };
+        const win = this._conflictWindow;
+        for (const [layer, list] of lanes) {
+            list.sort((a, b) => a.startSeconds - b.startSeconds || a.endSeconds - b.endSeconds);
+            for (let i = 0; i < list.length; i++) {
+                const a = list[i];
+                for (let j = i + 1; j < list.length; j++) {
+                    const b = list[j];
+                    // sorted by start, so once b starts well clear of a's end,
+                    // every later b does too
+                    if (b.startSeconds - a.endSeconds > win) break;
+                    const tier = this.pairTier(a, b);
+                    if (tier === 'free') continue;
+                    mark(a, tier); mark(b, tier);
+                    pairs.push({ a, b, tier, layer, gap: +(b.startSeconds - a.endSeconds).toFixed(3), need: +this.requiredGap(a, b).toFixed(3) });
+                }
+            }
+        }
+        pairs.sort((x, y) => (x.tier === y.tier ? x.a.startSeconds - y.a.startSeconds : (x.tier === 'hard' ? -1 : 1)));
+        this._conflicts = marks;
+        this._conflictPairs = pairs;
+        return { marks, pairs };
+    },
+    // setTimeout, NOT requestAnimationFrame: rAF is throttled or suspended when
+    // the tab is not painting, which left the marks stale and the badge empty.
+    // Timers always fire, and a 0 ms timer still coalesces a burst of edits.
+    scheduleConflictRefresh() {
+        if (this._conflictTimer) return;
+        this._conflictTimer = setTimeout(() => {
+            this._conflictTimer = null;
+            this.refreshConflicts();
+        }, 0);
+    },
+    refreshConflicts() {
+        this.computeConflicts();
+        this.renderConflictMarks();
+        this.updateConflictBadge();
+        if (this._resolverOpen) this.renderResolver();
+    },
+    renderConflictMarks() {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const marks = this._conflicts || new Map();
+        for (const o of this.noteEvents()) {
+            const g = this.elementCache.get(o.id);
+            if (!g) continue;
+            const old = g.querySelector('.conflictMark');
+            if (old) old.remove();
+            const m = marks.get(o.id);
+            if (!m) continue;
+            const dims = this.getLaneDims(o.layer);
+            const hard = m.tier === 'hard';
+            const r = document.createElementNS(svgNS, 'rect');
+            r.setAttribute('class', 'conflictMark');
+            r.setAttribute('x', String(o.startSeconds * this.pixelsPerSecond));
+            r.setAttribute('y', String(dims.top));
+            r.setAttribute('width', String(Math.max(3, (o.endSeconds - o.startSeconds) * this.pixelsPerSecond)));
+            r.setAttribute('height', String(Math.max(4, dims.bottom - dims.top)));
+            r.setAttribute('fill', hard ? 'rgba(255,60,60,0.20)' : 'rgba(255,176,32,0.14)');
+            r.setAttribute('stroke', hard ? '#ff4d4d' : '#ffb020');
+            r.setAttribute('stroke-width', hard ? '1.8' : '1.2');
+            if (!hard) r.setAttribute('stroke-dasharray', '4 3');
+            r.style.pointerEvents = 'none';
+            g.appendChild(r);
+        }
+    },
+    updateConflictBadge() {
+        const el = document.getElementById('conflictBadge');
+        if (!el) return;
+        const pairs = this._conflictPairs || [];
+        const hard = pairs.filter(p => p.tier === 'hard').length;
+        const soft = pairs.length - hard;
+        if (!pairs.length) { el.style.display = 'none'; return; }
+        el.style.display = '';
+        el.textContent = '⚠ ' + (hard ? hard + ' hard' : '') + (hard && soft ? ' · ' : '') + (soft ? soft + ' soft' : '');
+        el.style.background = hard ? '#4a1414' : '#4a3a12';
+        el.style.color = hard ? '#ff8080' : '#ffd479';
+    },
+
+    // ---- resolution ----
+    // Insert NEVER refuses and never silently drops. Everything lands, conflicts
+    // are marked, and removal happens here as an explicit act.
+    dropNote(obj) {
+        this.pushUndoState();
+        const idx = this.objects.indexOf(obj);
+        if (idx < 0) return;
+        if (obj._els && obj._els.group) obj._els.group.remove();
+        this.elementCache.delete(obj.id);
+        this.objects.splice(idx, 1);
+        this.selectedObjects = this.selectedObjects.filter(o => o !== obj);
+        if (this.selectedObject === obj) { this.selectedObject = null; this.hidePropertyPanel && this.hidePropertyPanel(); }
+        this.renderAll();
+        this.markDirty();
+        this.refreshConflicts();
+    },
+    // Slide a whole inserted gesture (marker + notes + META shape) to the
+    // nearest time that clears every HARD conflict with the rest of the score.
+    // A blast is a point event: 100-300 ms usually costs nothing musically and
+    // keeps both objects intact.
+    nudgeGroupClear(groupId) {
+        const all = this.objects.filter(o => o.groupId === groupId);
+        const notes = all.filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.layer < META_LAYER);
+        if (!notes.length) return null;
+        const occ = this.buildOccupancy(groupId);
+        const clearAt = dt => notes.every(n => this.tierAgainst(occ[n.layer], {
+            startSeconds: n.startSeconds + dt, endSeconds: n.endSeconds + dt,
+            sonifyNote: n.sonifyNote, technique: n.technique,
+        }) !== 'hard');
+        let found = null;
+        for (let step = 1; step <= 150 && found == null; step++) {
+            for (const sign of [1, -1]) {
+                const dt = +(sign * step * 0.02).toFixed(3);
+                if (notes.some(n => n.startSeconds + dt < 0)) continue;
+                if (clearAt(dt)) { found = dt; break; }
+            }
+        }
+        if (found == null) return null;
+        this.pushUndoState();
+        for (const o of all) {
+            if (o.type === 'marker') o.time = Math.max(0, +(o.time + found).toFixed(3));
+            else if (o.startSeconds != null) {
+                o.startSeconds = +(o.startSeconds + found).toFixed(3);
+                o.endSeconds = +(o.endSeconds + found).toFixed(3);
+            }
+        }
+        this.renderAll();
+        this.markDirty();
+        this.refreshConflicts();
+        return found;
+    },
+    // A voicing is an IDENTITY (D11: the pitch set IS the object); a cluster is
+    // a STATISTIC (losing 1 of 14 notes does not change what it is). So the
+    // cluster yields. Never automatic — this is a button the composer presses.
+    autoResolveHard() {
+        const rank = o => (o.srcKind === 'blast' ? 2 : o.srcKind === 'cluster' ? 0 : 1);
+        let dropped = 0;
+        this.pushUndoState();   // ONE undo step for the whole sweep
+        for (let guard = 0; guard < 200; guard++) {
+            this.computeConflicts();
+            const p = (this._conflictPairs || []).find(q => q.tier === 'hard');
+            if (!p) break;
+            const ra = rank(p.a), rb = rank(p.b);
+            let victim;
+            if (ra !== rb) victim = ra < rb ? p.a : p.b;
+            else victim = (parseInt(String(p.b.id).replace(/\D/g, ''), 10) || 0) >= (parseInt(String(p.a.id).replace(/\D/g, ''), 10) || 0) ? p.b : p.a;
+            const idx = this.objects.indexOf(victim);
+            if (idx < 0) break;
+            if (victim._els && victim._els.group) victim._els.group.remove();
+            this.elementCache.delete(victim.id);
+            this.objects.splice(idx, 1);
+            dropped++;
+        }
+        if (dropped) { this.renderAll(); this.markDirty(); }
+        this.refreshConflicts();
+        return dropped;
+    },
+
+    openResolver() {
+        this._resolverOpen = true;
+        this._resolverMsg = '';   // a fresh open starts with no stale verdict
+        let box = document.getElementById('conflictResolver');
+        if (!box) {
+            box = document.createElement('div');
+            box.id = 'conflictResolver';
+            box.style.cssText = 'position:fixed; right:12px; bottom:12px; width:430px; max-height:52vh; ' +
+                'background:#1b1b1f; border:1px solid #444; border-radius:6px; z-index:9000; ' +
+                'font-family:Consolas,monospace; font-size:11.5px; color:#ddd; display:flex; flex-direction:column; ' +
+                'box-shadow:0 6px 24px rgba(0,0,0,0.55)';
+            document.body.appendChild(box);
+        }
+        box.style.display = 'flex';
+        this.renderResolver();
+    },
+    closeResolver() {
+        this._resolverOpen = false;
+        const box = document.getElementById('conflictResolver');
+        if (box) box.style.display = 'none';
+    },
+    renderResolver() {
+        const box = document.getElementById('conflictResolver');
+        if (!box) return;
+        const pairs = this._conflictPairs || [];
+        box.innerHTML = '';
+        const head = document.createElement('div');
+        head.style.cssText = 'padding:7px 9px; border-bottom:1px solid #383838; display:flex; align-items:center; gap:8px; flex:0 0 auto';
+        const hard = pairs.filter(p => p.tier === 'hard').length;
+        head.innerHTML = '<b style="color:#fff">Playability</b>' +
+            '<span style="color:' + (hard ? '#ff8080' : '#7ec9a8') + '">' +
+            (pairs.length ? hard + ' hard · ' + (pairs.length - hard) + ' soft' : 'all clear') + '</span>';
+        const spacer = document.createElement('span'); spacer.style.flex = '1 1 auto';
+        head.appendChild(spacer);
+        const mk = (label, title, fn, col) => {
+            const b = document.createElement('button');
+            b.textContent = label; b.title = title;
+            b.style.cssText = 'font-size:10.5px; padding:2px 7px; cursor:pointer; background:#2a2a2e; color:' + (col || '#ccc') + '; border:1px solid #4a4a4a; border-radius:3px';
+            b.addEventListener('click', fn);
+            return b;
+        };
+        if (this.lastInsertGroup) {
+            head.appendChild(mk('nudge', 'slide the last inserted gesture to the nearest time with no hard conflicts', () => {
+                const dt = this.nudgeGroupClear(this.lastInsertGroup);
+                this.resolverNote(dt == null ? 'no clear slot found within ±3 s' : 'moved ' + (dt > 0 ? '+' : '') + dt.toFixed(2) + 's — hard conflicts cleared');
+            }, '#8fdbe8'));
+        }
+        if (hard) {
+            head.appendChild(mk('auto', 'blast keeps its voicing, cluster yields — drops the yielding note of every hard pair', () => {
+                const n = this.autoResolveHard();
+                this.resolverNote(n ? 'dropped ' + n + ' note' + (n > 1 ? 's' : '') + ' — CTRL+Z undoes' : 'nothing to drop');
+            }, '#ffb0b0'));
+        }
+        head.appendChild(mk('✕', 'close', () => this.closeResolver()));
+        box.appendChild(head);
+
+        const note = document.createElement('div');
+        note.id = 'resolverNote';
+        note.style.cssText = 'padding:4px 9px; color:#7ec9a8; font-size:10.5px; flex:0 0 auto';
+        // the panel is rebuilt on every refresh, so the last message has to be
+        // re-applied or it vanishes the instant the deferred refresh lands
+        note.textContent = this._resolverMsg || '';
+        note.style.display = this._resolverMsg ? '' : 'none';
+        box.appendChild(note);
+
+        const list = document.createElement('div');
+        list.style.cssText = 'overflow-y:auto; padding:4px 0; flex:1 1 auto';
+        if (!pairs.length) {
+            list.innerHTML = '<div style="padding:10px 9px; color:#888">Every player can play every note. ' +
+                'Red = two notes at once on one player. Amber = too close to re-attack or leap.</div>';
+        }
+        for (const p of pairs.slice(0, 200)) {
+            const row = document.createElement('div');
+            row.style.cssText = 'padding:5px 9px; border-bottom:1px solid #2a2a2e';
+            const hardP = p.tier === 'hard';
+            const title = document.createElement('div');
+            title.style.cssText = 'color:' + (hardP ? '#ff8080' : '#ffb020') + '; margin-bottom:3px';
+            title.textContent = (hardP ? '■ ' : '□ ') + (TRACKS[p.layer] ? TRACKS[p.layer].label : 'layer ' + p.layer) +
+                ' @ ' + p.a.startSeconds.toFixed(2) + 's' +
+                (hardP ? '  — overlap' : '  — gap ' + p.gap.toFixed(2) + 's, needs ' + p.need.toFixed(2) + 's');
+            row.appendChild(title);
+            const body = document.createElement('div');
+            body.style.cssText = 'display:flex; align-items:center; gap:6px; flex-wrap:wrap';
+            const side = (o, other) => {
+                const b = document.createElement('button');
+                b.textContent = 'drop ' + this.noteLabel(o);
+                b.title = 'remove this note (CTRL+Z undoes)';
+                b.style.cssText = 'font-size:10.5px; padding:2px 6px; cursor:pointer; background:#2a2a2e; color:#ddd; border:1px solid #4a4a4a; border-radius:3px';
+                b.addEventListener('mouseenter', () => { b.style.background = '#5a2020'; });
+                b.addEventListener('mouseleave', () => { b.style.background = '#2a2a2e'; });
+                b.addEventListener('click', () => { this.dropNote(o); this.resolverNote('dropped ' + this.noteLabel(o) + ' — CTRL+Z undoes'); });
+                return b;
+            };
+            body.appendChild(side(p.a, p.b));
+            body.appendChild(side(p.b, p.a));
+            const go = document.createElement('button');
+            go.textContent = '→ show';
+            go.title = 'scroll the score to this conflict';
+            go.style.cssText = 'font-size:10.5px; padding:2px 6px; cursor:pointer; background:#2a2a2e; color:#8fdbe8; border:1px solid #4a4a4a; border-radius:3px';
+            go.addEventListener('click', () => {
+                this.scrollOffset = Math.max(0, p.a.startSeconds * this.pixelsPerSecond);
+                this.applyScroll(); this.renderAll(); this.refreshConflicts();
+            });
+            body.appendChild(go);
+            row.appendChild(body);
+            list.appendChild(row);
+        }
+        box.appendChild(list);
+    },
+    resolverNote(msg) {
+        this._resolverMsg = msg;
+        const n = document.getElementById('resolverNote');
+        if (!n) return;
+        n.textContent = msg; n.style.display = msg ? '' : 'none';
+    },
+
     renderAll() {
         // Clear content groups and element cache
         for (let i = 0; i < this.lanes.length; i++) {
@@ -2179,6 +2575,9 @@ const Composer = {
             else if (obj.type === 'zone') this.renderZone(obj);
             else if (obj.type === 'motive') this.renderMotive(obj);
         }
+        // conflict wash is re-applied after every full render (the element cache
+        // was just rebuilt, so the marks went with it)
+        this.scheduleConflictRefresh();
     },
 
     // ---- no-overwrite policy ----
@@ -2460,6 +2859,9 @@ const Composer = {
             this.isDirty = true;
             this.saveStatus.textContent = 'Unsaved changes';
         }
+        // any mutation can create or clear a conflict — dragging a gesture is
+        // the common one, which is why an insert-time-only check would not hold
+        this.scheduleConflictRefresh();
         // Debounced auto-save (5 seconds after last change)
         clearTimeout(this.autoSaveTimer);
         this.autoSaveTimer = setTimeout(() => {
@@ -14622,24 +15024,28 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
   function cgLen(e) {
     return CG_VARIABLE[e.tech] ? e.d : (Composer.techLength(e.tech, e.p) || e.d);
   }
-  function cgAssign(events) {
-    // round-robin with cooldown: least-recently-used free player, steal if none
-    const busy = Array(10).fill(-1);
-    return events.map(e => {
-      const len = cgLen(e);
-      let k = -1, oldest = Infinity;
-      for (let i = 0; i < 10; i++) if (busy[i] + 0.04 <= e.t && busy[i] < oldest) { oldest = busy[i]; k = i; }
-      if (k < 0) k = busy.indexOf(Math.min.apply(null, busy));
-      busy[k] = e.t + len;
-      return { e, k, len };
-    });
+  // Placement goes through the shared playability engine (Composer.assignCluster).
+  // No occupancy = audition (hear the gesture on its own); occupancy from the
+  // score = insert (route around whatever is already on those players).
+  function cgPlace(events, occ) {
+    const notes = events.slice().sort((a, b) => a.t - b.t)
+      .map(e => ({ e, start: e.t, dur: cgLen(e), pitch: e.p, tech: e.tech }));
+    return Composer.assignCluster(occ || Array.from({ length: 10 }, () => []), notes);
+  }
+  // layer L is Tuba L+1 (TRACKS order) — audition and insert now agree; they
+  // used to disagree, so what you heard was not the assignment you got
+  function cgPortFor(layer, tech) {
+    return 'tuba' + (layer + 1) + (tech === 'staccato' ? 'b' : '');
+  }
+  function cgChanFor(tech) {
+    return tech === 'fortepiano' ? 11 : tech === 'staccato' ? 4 : tech === 'cuivre' ? 5 : 1;
   }
   function cgAudition(cg) {
     cgStop();
-    for (const { e, k, len } of cgAssign(cg.events)) {
-      const port = 'tuba' + (k + 1) + (e.tech === 'staccato' ? 'b' : '');
-      const ch = e.tech === 'fortepiano' ? 11 : e.tech === 'staccato' ? 4 : e.tech === 'cuivre' ? 5 : 1;
-      cgPending.push(setTimeout(() => Composer.auditionNote(port, ch, e.p, e.v, len * 1000), e.t * 1000));
+    for (const n of cgPlace(cg.events)) {
+      cgPending.push(setTimeout(
+        () => Composer.auditionNote(cgPortFor(n.layer, n.tech), cgChanFor(n.tech), n.pitch, n.e.v, n.dur * 1000),
+        n.start * 1000));
     }
   }
   function selectCg(id, forceHear) {
@@ -14692,18 +15098,22 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     const group = 'grp-' + selectedCg.toLowerCase() + '-' + Math.floor(t * 10);
     Composer.pushUndoState();
     Composer.objects.push({ id: 'mk-' + (Composer.nextId++), type: 'marker', layer: 0,
-      time: +t.toFixed(3), label: selectedCg + ' (' + ((cg.provenance || {}).cluster || 'cluster') + ')',
+      time: +t.toFixed(3), label: selectedCg + ' (' + cgOrigin(cg) + ')',
       color: '#3FA7B8', groupId: group, performanceNotes: '', properties: {} });
-    let span = 0;
-    for (const { e, k, len } of cgAssign(cg.events)) {
-      span = Math.max(span, e.t + len);
+    let span = 0, softN = 0, hardN = 0;
+    // absolute-time placement against the score's real occupancy
+    const placed = cgPlace(cg.events.map(e => Object.assign({}, e, { t: e.t + t })), Composer.buildOccupancy());
+    for (const n of placed) {
+      const e = n.e, len = n.dur;
+      span = Math.max(span, n.start - t + len);
+      if (n.tier === 'hard') hardN++; else if (n.tier === 'soft') softN++;
       const lv = Math.max(1, Math.round((e.v / 127) * 100) / 10);
-      Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 9 - k,
-        groupId: group, startSeconds: +(t + e.t).toFixed(3), endSeconds: +(t + e.t + len).toFixed(3),
+      Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: n.layer,
+        groupId: group, startSeconds: +n.start.toFixed(3), endSeconds: +(n.start + len).toFixed(3),
         nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }],
         segments: [{ model: 'power', slope: 0 }],
         color: '#3FA7B8', fillMode: 'bottom', opacity: 0.55,
-        performanceNotes: selectedCg, properties: {},
+        performanceNotes: selectedCg, properties: {}, srcKind: 'cluster',
         sonifyNote: e.p, technique: e.tech, sonifyMode: 'plain', recVel: e.v });
     }
     Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 10,
@@ -14712,12 +15122,30 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
       segments: [{ model: 'power', slope: 0 }],
       color: '#3FA7B8', fillMode: 'bottom', opacity: 0.6,
       performanceNotes: selectedCg + ' (drag = move; only ord stretches)', properties: {} });
+    Composer.lastInsertGroup = group;
+    Composer.openMetaWin();
     Composer.renderAll();
     Composer.markDirty();
+    reportInsert(selectedCg, t, cg.events.length, hardN, softN);
+  }
+
+  function cgOrigin(cg) {
+    const pv = cg.provenance || {};
+    const src = pv.source || {};
+    return pv.cluster || src.from || pv.from || pv.snippet || 'cluster';
+  }
+
+  // Insert never refuses and never silently drops: everything lands, conflicts
+  // are marked on the lanes, and the resolver opens so removal is one click.
+  function reportInsert(name, t, n, hardN, softN) {
+    Composer.refreshConflicts();   // synchronous: the report must match the score
     const el = document.getElementById('blastInfo');
-    el.textContent = '\u2713 ' + selectedCg + ' inserted @ ' + t.toFixed(2) + 's \u2014 ' +
-      cg.events.length + ' notes + META shape';
-    el.style.color = '#7ec9a8';
+    let msg = '\u2713 ' + name + ' inserted @ ' + t.toFixed(2) + 's \u2014 ' + n + ' notes + META shape';
+    if (hardN) msg += '  \u00b7  \u26a0 ' + hardN + ' could not fit a free player';
+    else if (softN) msg += '  \u00b7  ' + softN + ' tight re-attack';
+    el.textContent = msg;
+    el.style.color = hardN ? '#ff8080' : softN ? '#ffd479' : '#7ec9a8';
+    if (hardN || softN) Composer.openResolver();
   }
 
   function insertAtCursor() {
@@ -14734,20 +15162,27 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
       time: +t.toFixed(3), label: selectedSon + ' ' + son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing,
       color: '#5E8C7A', groupId: group, performanceNotes: '', properties: {} });
     const lv = Math.max(1, Math.round(((son.dyn || 127) / 127) * 100) / 10);
-    pitches.forEach((pitch, k) => {
+    // A blast sounds all at once, so every note needs its OWN player. The engine
+    // keeps the pitch-ordered stage reading (lowest = Tuba 10) as far as free
+    // lanes allow, and marks whatever could not fit rather than dropping it.
+    const bNotes = pitches.map(pitch => {
       const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
       const art = (son.artic || {})[pitch] || 'ord';
-      const dur = durFor(son, pitch);
+      return { pitch, tech: cv ? 'cuivre' : art, start: t, dur: durFor(son, pitch) };
+    });
+    let bHard = 0, bSoft = 0;
+    for (const n of Composer.assignBlast(Composer.buildOccupancy(), bNotes)) {
+      if (n.tier === 'hard') bHard++; else if (n.tier === 'soft') bSoft++;
       Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve',
-        layer: 9 - k, groupId: group,
-        startSeconds: +t.toFixed(3), endSeconds: +(t + dur).toFixed(3),
+        layer: n.layer, groupId: group,
+        startSeconds: +t.toFixed(3), endSeconds: +(t + n.dur).toFixed(3),
         nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }],
         segments: [{ model: 'power', slope: 0 }],
         color: '#5E8C7A', fillMode: 'bottom', opacity: 0.55,
-        performanceNotes: selectedSon, properties: {},
-        sonifyNote: pitch, technique: cv ? 'cuivre' : art, sonifyMode: 'plain',
+        performanceNotes: selectedSon, properties: {}, srcKind: 'blast',
+        sonifyNote: n.pitch, technique: n.tech, sonifyMode: 'plain',
         recVel: son.dyn || 127 });
-    });
+    }
     // META shape built at INSERT TIME (derived, not stored with the sonority)
     Composer.objects.push({ id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: 10,
       groupId: group, startSeconds: +t.toFixed(3), endSeconds: +(t + maxDur).toFixed(3),
@@ -14755,13 +15190,11 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
       segments: [{ model: 'power', slope: 0 }],
       color: '#C452B5', fillMode: 'bottom', opacity: 0.6,
       performanceNotes: selectedSon + ' (drag = move, box = stretch)', properties: {} });
+    Composer.lastInsertGroup = group;
     Composer.openMetaWin();
     Composer.renderAll();
     Composer.markDirty();
-    const el = document.getElementById('blastInfo');
-    el.textContent = '\u2713 ' + selectedSon + ' inserted @ ' + t.toFixed(2) + 's \u2014 ' +
-      pitches.length + ' parts + META shape';
-    el.style.color = '#7ec9a8';
+    reportInsert(selectedSon, t, pitches.length, bHard, bSoft);
   }
 
   document.getElementById('blastsBtn').addEventListener('click', async function () {
@@ -14795,6 +15228,10 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     el.style.color = srcMode === 'clusters' ? '#8fdbe8' : '#ffd479';
   });
   document.getElementById('blastInsert').addEventListener('click', insertAtCursor);
+  document.getElementById('conflictBadge').addEventListener('click', function () {
+    this.blur();
+    if (Composer._resolverOpen) Composer.closeResolver(); else Composer.openResolver();
+  });
   window.addEventListener('keydown', e => {
     if (document.getElementById('blastStrip').style.display !== 'block') return;
     const t = e.target;
