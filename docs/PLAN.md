@@ -156,13 +156,15 @@ composer → notation → performance architecture.)*
   clusters. **s14 (2026-08-16) = DB3 placed** — source
   `scores/densBld03-take1-fp.json` (packed + fp arc, ORIGINAL tonality), group
   `grp-db3-01` at **114.101 → 136.327 s**, gap 3.48 s after INT2 (the INT1→DB2
-  gap, the piece's only INT→DB precedent). **Source = the composer's hand-grained
-  copy** (`densBld03-arc-v2b` section E: fp arc + 5 surge long tones at
-  121.7–130.3 s), banked as `bank/DB3.json` and placed with
-  `tools/place_gesture.js` (DENSITY_PIPELINE §6). Verified in the app: badge
-  `⚠ 42 soft`, **identical to s13** — DB3 contributed zero conflicts.
-  **Still open:** the tonality choice (2u list) and the apex decision; both are
-  re-runs of the placement command, not edits.
+  gap). **Source = the composer's hand-grained copy** (`densBld03-arc-v2b`
+  section E: fp arc + 5 surge long tones), banked and placed with
+  `tools/place_gesture.js` (DENSITY_PIPELINE §6).
+  **s15 = composer removed that DB3. s16 = DB3 in MESSIAEN MODE 3 ON F at
+  113.54 → 135.77 s** (`bank/DB3-m3F.json`, group `grp-db3-m3f-01`) — the
+  composer's tonality pick from `densBld03-tonalities-surge`, 26 pitches G1–F4,
+  HARD 0 / soft 0. Verified in the app each time: badge `⚠ 42 soft`, **identical
+  to s13/s15** — DB3 contributes zero conflicts in either tonality.
+  **Still open:** the apex decision.
 
 - **2w — GESTURE BANK + RECALL (the second insertion path)** — `shipped
   2026-08-16` *(composer: "capture the 2b version somewhere as a gesture/object
