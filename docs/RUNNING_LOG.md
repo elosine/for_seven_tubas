@@ -898,3 +898,73 @@ Two questions, plus the ensemble version.
    (3.1 → 12.3 → 23.1 → 33.8 cents), the ensemble-scale version of the sweep.
 All bends decode correctly (8 Hz → 102.76 c, 15 Hz → 187.95 c) and every track
 resets to centre at the end. **Unheard.**
+
+---
+
+## COLD START — for the two plans that come next
+
+> Written at the end of day 10 for a session that has never seen this
+> conversation. The two builds ahead are **GESTURE SHAPING**
+> (`docs/plans/` — attack/body/release, parts filled in afterwards) and
+> **MODEL ↔ ACTUAL** (`docs/plans/MODEL_AND_ACTUAL.md`). Read those two files
+> plus `docs/AI_METHODOLOGY.md` first; this section is what they assume.
+
+### What 2v actually left behind, in one place
+
+| file | what it is |
+|---|---|
+| `score/public/morph.js` | the engine. PURE — no DOM/MIDI/fetch, runs in node. Six models, carrier, dynamics layer, playability checks, score conversion |
+| `tools/test_morph.js` | 101 assertions. **Run this first and after every change** — it encodes the contracts, not just the behaviour |
+| `score/public/morph_emit.js` | all morph MIDI. Registry-driven panic, bend pre-arm, level→CC7 via the app's measured map |
+| `score/public/morph_panel.js` | the panel. Generates, auditions, inserts. **Never edits — that boundary is a design rule** |
+| `bank/morph_params.json` | live control file; panel polls `/api/morphparams` each second on `rev` change |
+| `bank/morph_recipes.json` | the six blessed settings + the dial boundaries learned by ear |
+| `tools/morph_listen.js` · `tools/morph_probe.js` · `tools/bank_recipes.js` | listening score, measurement probe, recipe capture |
+
+`composer.html` was touched in only two places: three script tags, and a
+`morphBend` block inside the sonification poll guarded by `if (wc.morphBend)`.
+
+### Traps that cost time on day 10 — do not rediscover these
+
+1. **`const Composer` is a LEXICAL global, not `window.Composer`.** Reaching for
+   it as `root.Composer` yields `undefined` and every MIDI route silently
+   resolves to null. Use the `HOST()` accessor in the morph files.
+2. **Markers must go in `objects`, never `data.markers`.** `renderAll()` only
+   iterates `objects`; a marker in `markers` survives save/load and is *never
+   drawn*. Five scores shipped invisible before the composer noticed (Principle 4).
+3. **A `.ps1` invoked as a file gets refused by the permission layer; inline
+   PowerShell always runs.** Build a probe schedule with the script (`-DryRun`),
+   then play it from inline code reading `probes/last_bend_schedule.json`.
+4. **Web MIDI needs a user gesture and is per-browser.** The preview pane has it
+   permanently denied; the composer's own browser has it granted.
+5. **Autosave writes every 5 s.** `piece-*` files are shielded by a `-work` copy;
+   nothing else is. Test under session `untitled`, and CTRL+S before experimenting
+   on any non-piece score (that is the only thing that creates a Restore snapshot).
+6. **Two agents share this repo.** Never `git add -A`; stage explicit paths.
+
+### What the next two plans should know about the engine
+
+- **The carrier currently derives entry and exit from breath logic alone.**
+  Gesture shaping proposes an envelope at the *gesture* level instead — designed
+  attack, body, designed release — with parts filled in to realise it. That
+  inverts the present order (parts first, shape emergent). The seam between
+  `buildCarrier` and the render loop is where that would attach.
+- **`reduceSource` drops whole clusters, never fragments**, because half a unison
+  pair does not beat. Any future thinning should follow that rule.
+- **Envelopes are note-relative and must stay so** — it is what makes drag and
+  group-scale safe, verified in Phase 4.
+- **Only ORD is a real duration** (D9). Fixed one-shots take their sample length
+  and are immune to scaling; verified under a ×0.5 squeeze.
+- **`bank/morph_recipes.json` already stores dial BOUNDARIES**, which is the hard
+  half of the MODEL idea. The missing piece is the *one-dial collapse* — a named
+  recipe moving several parameters together inside those bounds.
+
+### The musical findings that should shape the design
+
+- A 30–60 s morph **holds as one sonority**; no density floor is needed.
+- **Beating is the strongest material found**, and it is available *without*
+  writing unisons (variant A's chord has no close intervals).
+- **Re-articulation carries the morph's audibility**, not just its rhythm — long
+  segments are less informative, not smoother.
+- **Two concurrent morphs enrich one sonority** rather than reading as two voices.
+- Voice reduction is lossy in **detail, not identity** — "8-bit vs 16-bit".
