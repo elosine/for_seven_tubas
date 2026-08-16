@@ -655,3 +655,35 @@ ladder** — each technique has its own physics and they cannot be held constant
   flz→ch10`).
 - Audit **0 hard / 0 soft**; all 13 phase scores clean. Loads in the app: 1146
   notes, ten lanes, six markers. **Unheard.**
+
+### PHASE 2 + PHASE 3 GATES — MEASURED AND PASSED (2026-08-16)
+
+Recording `03-REC-260816_1319.wav`, 15/15 slots aligned within 120 ms.
+Probe design note: **monophonic and sequential on purpose.** The analyzer
+estimates one f0 per slot, so an eight-voice chord sounding together cannot be
+measured at all — each voice is sounded ALONE and checked against the pitch the
+engine said it would produce. `tuba1` only; both models are `ord`.
+
+**Phase 2 gate — M2 spectral targets: worst error 0.4 cents over 8 voices**
+(gate was ±10). Every voice landed on its octave-folded partial: B1 −11.2,
+D2 −18.2, F2 −0.1, A2 −28.0, C3 +4.2, F3 +0.2, A#3 +1.8, D4 −18.2. The chain
+from engine intention → cents → 14-bit bend → sampler is accurate to a fraction
+of a cent, which is 25× inside the tolerance the plan asked for.
+
+**Phase 3 gate — wide-fan waypoints: worst error 1.0 cent over 6 points**,
+including both re-key seams (B2 +49.5 and E3 −44.0 — the engine sitting near a
+bend limit immediately before switching key). So the segmented re-key produces
+the pitches it claims, at the seams specifically, which is where it could have
+been wrong.
+
+**Continuous glissando leg:** asked 0 → 190 ¢, arrived at 191.4 ¢, deviation from
+a straight line 3.3 ¢ RMS.
+
+*Significance beyond the gate:* this is the first end-to-end evidence that the
+whole pitch chain is trustworthy — not just that bend works (Phase 0) but that
+the engine's arithmetic, the cents→bend conversion, the centred-key choice and
+the re-key splitting all compose correctly. Microtonal targets in this system can
+be believed.
+
+Analyzer extended with a probe-4 section so the gate is reproducible rather than
+a one-off calculation; `probes/last_bend_analysis.json` carries the constants.

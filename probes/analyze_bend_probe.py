@@ -450,6 +450,46 @@ def main():
                       f"- {gv.get('consequence','')}",
                       f"- *Caveat:* {gv.get('caveat','')}", ""]
 
+    if by("4"):
+        # PLAN 2v Phase 2 + Phase 3 gates. The engine states, per voice, the exact
+        # cents it intends to produce; this checks the instrument actually got
+        # there. Gate is +/-10 cents (the plan's figure for M2).
+        exp = {s["step"]: s.get("expectCents") for s in slots}
+        lines += ["## Probe 4 — morph verification (PLAN 2v Phase 2 + 3 gates)", ""]
+        for tag, title in [("4a", "M2 spectral targets — each voice sounded alone"),
+                           ("4b", "Wide-fan waypoints — re-key seams included")]:
+            rows = [r for r in by("4") if r["step"].startswith(tag)]
+            if not rows:
+                continue
+            lines += ["### " + title, "",
+                      "| slot | key | intended ¢ | measured ¢ | error ¢ |", "|---|---|---|---|---|"]
+            worst, over = 0.0, 0
+            for r in rows:
+                e, m = exp.get(r["step"]), r.get("settledCents")
+                if m is None:
+                    lines.append(f"| {r['step']} | {note_name(r['pitch'])} | {e} | — | — |")
+                    continue
+                err = abs(m - e)
+                worst = max(worst, err)
+                over += 1 if err > 10 else 0
+                lines.append(f"| {r['step']} | {note_name(r['pitch'])} | {e:+.1f} | "
+                             f"{m:+.1f} | {err:.1f}{' **OVER**' if err > 10 else ''} |")
+            lines += ["", f"**Worst error {worst:.1f} ¢ over {len(rows)} points; "
+                          f"{over} outside ±10 ¢.** "
+                          f"{'GATE PASSED.' if over == 0 else 'GATE FAILED.'}", ""]
+            consts["MORPH_" + tag.upper() + "_WORST_CENTS"] = round(worst, 1)
+            consts["MORPH_" + tag.upper() + "_PASSED"] = (over == 0)
+        gl = [r for r in by("4") if r["step"].startswith("4c")]
+        if gl:
+            r = gl[0]
+            lines += ["### Continuous glissando leg", "",
+                      f"- asked **{exp.get(r['step'])} ¢**, arrived at "
+                      f"**{r.get('rampToCents')} ¢** (from {r.get('rampFromCents')} ¢)",
+                      f"- deviation from a straight line: **{r.get('rampRmsDevCents')} ¢ RMS**",
+                      "- the audible verdict on the re-key seam is the composer's, "
+                      "recorded in `probes/morph_verdicts.json`", ""]
+            consts["MORPH_GLISS_ARRIVED_CENTS"] = r.get("rampToCents")
+
     lines += ["## Constants derived", "", "```json",
               json.dumps(consts, indent=2), "```", "",
               "These go into the emit layer as named constants "
