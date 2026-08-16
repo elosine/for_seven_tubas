@@ -1,0 +1,293 @@
+#!/usr/bin/env node
+// pack_take.js — PACK A PLAYED TAKE TO THE PLAYABLE CEILING (composer 2026-08-16).
+//
+// The problem: a density build played by one person at a keyboard demands far
+// more than ten tubas can articulate. densBld03-take1 asks for 54.5 attacks/s at
+// its apex; ten players holding a ~0.45 s staccato one-shot top out at ~22/s.
+//
+// The model (composer's, and it replaced an earlier prune-then-space pair — one
+// convergent operation instead of iterate-and-check). For each note, in time
+// order:
+//   1. a player free right now?          -> place it where it was played
+//   2. no?                               -> nudge later to the earliest opening,
+//                                           within --budget
+//   3. budget exceeded?                  -> accept a tight-but-legal spot (soft)
+//   4. nothing fits?                     -> delete it
+// Deletion is the last resort by construction, so density automatically rides
+// the ceiling and never exceeds it. No thinning amount has to be guessed.
+//
+// Nudging is NOT how density is retained — at true saturation, shifting a note
+// just walks it into the next collision (composer predicted this; measured: a
+// 340 ms larger budget buys 8 notes). What the small budget actually buys is
+// CLEANLINESS: 0 ms leaves 37 soft flags, 60 ms leaves none, for displacements
+// well under the ear's threshold at this density.
+//
+// WHICH note dies (--pick, default 'spread'): within a simultaneity clump,
+// survival is ordered top, bottom, then whichever remaining note is farthest
+// from everything already kept. The extremes go first so the band keeps its
+// registral WIDTH when its thickness has to drop; the max-min fill then stops
+// the middle hollowing out over many consecutive clumps. 'random' (seeded) and
+// 'arrival' (raw MIDI order) are kept as alternates.
+//
+// Assignment mirrors Composer.assignCluster in score/public/composer.html,
+// leap-aware term included — same constants, same tie-breaks. The browser is
+// the authority; this tool is cross-checked against it (same discipline as
+// tools/audit_playability.js).
+//
+//   node tools/pack_take.js scores/densBld03-take1.json
+//   node tools/pack_take.js scores/x.json --budget 0.06 --pick spread --out scores/x-packed.json
+//
+// Writes a TEN-PART score you can load and hear immediately, and prints the
+// before/after report. The source take is never modified.
+
+const fs = require('fs');
+const path = require('path');
+
+// ---- rule constants: keep identical to Composer.CONFLICT ----
+const PARTS = 10;
+const TONGUE_RESET = 0.03;
+const MIN_ATTACK = 0.11;
+const PER_SEMITONE = 0.0093;
+const MAX_LEAP_ADD = 0.22;
+const LEAP_WEIGHT = 120;
+const CLUMP_EPS = 0.05;      // notes this close count as one attack moment
+const VARIABLE_TECHS = { ord: 1, cuivre: 1 };   // drawn duration; everything else is a one-shot
+
+// ---- args ----
+const args = process.argv.slice(2);
+const flag = (name, dflt) => {
+  const i = args.indexOf('--' + name);
+  return i >= 0 && args[i + 1] != null ? args[i + 1] : dflt;
+};
+const srcPath = args.find(a => !a.startsWith('--') && args[args.indexOf(a) - 1] !== undefined
+  ? !String(args[args.indexOf(a) - 1]).startsWith('--') : true) || args[0];
+const BUDGET = parseFloat(flag('budget', '0.06'));
+const PICK = flag('pick', 'spread');
+const SEED = parseInt(flag('seed', '20260816'), 10);
+const OUT = flag('out', null);
+
+if (!srcPath || srcPath.startsWith('--')) {
+  console.error('usage: node tools/pack_take.js <score.json> [--budget 0.06] [--pick spread|random|arrival] [--out path]');
+  process.exit(1);
+}
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const rand = mulberry32(SEED);
+
+// ---- measured one-shot lengths (D9: ORD is the only real duration) ----
+const SL = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'bank', 'sample_lengths.json'), 'utf8'));
+function soundLen(tech, pitch, drawn) {
+  if (VARIABLE_TECHS[tech]) return Math.max(0.05, drawn);
+  const tbl = SL[tech];
+  if (!tbl) return Math.max(0.05, drawn);
+  if (tbl[pitch] != null) return tbl[pitch];
+  const keys = Object.keys(tbl).map(Number);
+  let best = keys[0];
+  keys.forEach(k => { if (Math.abs(k - pitch) < Math.abs(best - pitch)) best = k; });
+  return tbl[best];
+}
+
+// ---- the same tiering the app uses ----
+const requiredAttack = (pa, pb) =>
+  MIN_ATTACK + Math.min(MAX_LEAP_ADD, Math.abs(pb - pa) * PER_SEMITONE);
+function tierOn(last, s, e, p) {
+  if (!last) return 'free';
+  if (s < last.e - 1e-6) return 'hard';
+  if (s - last.e < TONGUE_RESET - 1e-6) return 'soft';
+  return (s - last.s) < requiredAttack(last.p, p) - 1e-6 ? 'soft' : 'free';
+}
+// earliest moment this player could legally attack pitch p
+const freeAt = (last, p) => last
+  ? Math.max(last.e + TONGUE_RESET, last.s + requiredAttack(last.p, p))
+  : -Infinity;
+
+// ---- load ----
+const raw = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
+const data = raw.data || raw;
+const name = path.basename(srcPath, '.json');
+const noteObjs = data.objects
+  .filter(o => o.type === 'waveCurve' && o.sonifyNote != null)
+  .sort((a, b) => a.startSeconds - b.startSeconds);
+if (!noteObjs.length) { console.error('no played notes in ' + srcPath); process.exit(1); }
+
+const events = noteObjs.map(o => ({
+  obj: o,
+  t: o.startSeconds,
+  p: o.sonifyNote,
+  tech: o.technique || 'staccato',
+  len: soundLen(o.technique || 'staccato', o.sonifyNote, o.endSeconds - o.startSeconds),
+}));
+
+// ---- clump into attack moments, then order survival within each clump ----
+function clumps(evs) {
+  const out = []; let cur = [evs[0]];
+  for (let i = 1; i < evs.length; i++) {
+    if (evs[i].t - cur[0].t <= CLUMP_EPS) cur.push(evs[i]);
+    else { out.push(cur); cur = [evs[i]]; }
+  }
+  out.push(cur);
+  return out;
+}
+// spread: top, bottom, then farthest-from-everything-kept (max-min pitch spacing)
+function spreadOrder(clump) {
+  if (clump.length <= 2) return clump.slice().sort((a, b) => b.p - a.p);
+  const pool = clump.slice().sort((a, b) => a.p - b.p);
+  const kept = [pool.pop(), pool.shift()];        // top, bottom
+  while (pool.length) {
+    let bi = 0, bd = -1;
+    pool.forEach((c, i) => {
+      const dmin = Math.min(...kept.map(k => Math.abs(k.p - c.p)));
+      if (dmin > bd) { bd = dmin; bi = i; }
+    });
+    kept.push(pool.splice(bi, 1)[0]);
+  }
+  return kept;
+}
+function orderClump(c) {
+  if (c.length < 2) return c;
+  if (PICK === 'arrival') return c;
+  if (PICK === 'random') return c.map(x => [rand(), x]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+  return spreadOrder(c);
+}
+// rebuild the stream with within-clump survival priority applied, but keep the
+// stream in time order so the packer still walks time forward
+const ordered = [];
+for (const c of clumps(events)) {
+  orderClump(c).forEach((e, rank) => ordered.push(Object.assign({}, e, { rank })));
+}
+ordered.sort((a, b) => (a.t - b.t) || (a.rank - b.rank));
+
+// ---- the pack ----
+const lanes = Array.from({ length: PARTS }, () => []);   // placed notes per player
+const last = Array(PARTS).fill(null);
+const busy = Array(PARTS).fill(-1);
+const placed = [];
+let nudged = 0, deleted = 0, softN = 0, maxDisp = 0, dispSum = 0;
+const deletedAt = [];
+
+for (const e of ordered) {
+  const L = e.len;
+
+  // 1. lanes that are genuinely free at the played time — pick leap-aware
+  let cands = [];
+  for (let i = 0; i < PARTS; i++) {
+    if (tierOn(last[i], e.t, e.t + L, e.p) === 'free') cands.push(i);
+  }
+  let lane = null, at = e.t, tier = 'free';
+
+  if (cands.length) {
+    let best = null;
+    for (const i of cands) {
+      const leap = last[i] ? Math.abs(last[i].p - e.p) : 0;
+      const score = Math.max(0, busy[i]) * 1000 + leap * LEAP_WEIGHT + i;
+      if (!best || score < best.score) best = { i, score };
+    }
+    lane = best.i;
+  } else {
+    // 2. nudge to the earliest opening, within budget
+    let bestT = Infinity, bestL = null;
+    for (let i = 0; i < PARTS; i++) {
+      const f = freeAt(last[i], e.p);
+      const tie = f + (last[i] ? Math.abs(last[i].p - e.p) : 0) * 1e-6;
+      if (tie < bestT) { bestT = tie; bestL = i; }
+    }
+    const target = Math.max(e.t, freeAt(last[bestL], e.p));
+    if (target - e.t <= BUDGET + 1e-9) {
+      lane = bestL; at = target; nudged++;
+      const disp = at - e.t;
+      maxDisp = Math.max(maxDisp, disp); dispSum += disp;
+    } else {
+      // 3. a tight-but-legal spot at the played time beats losing the note
+      let sl = null, sLeap = Infinity;
+      for (let i = 0; i < PARTS; i++) {
+        if (tierOn(last[i], e.t, e.t + L, e.p) !== 'soft') continue;
+        const leap = last[i] ? Math.abs(last[i].p - e.p) : 0;
+        if (leap < sLeap) { sLeap = leap; sl = i; }
+      }
+      if (sl != null) { lane = sl; at = e.t; tier = 'soft'; softN++; }
+      else { deleted++; deletedAt.push(e.t); continue; }   // 4. it cannot fit
+    }
+  }
+
+  last[lane] = { s: at, e: at + L, p: e.p };
+  busy[lane] = at + L;
+  lanes[lane].push({ e, at, len: L, tier });
+  placed.push({ e, at, len: L, lane, tier });
+}
+
+// ---- verify the result against the same rule, from scratch ----
+function audit(lanesArr) {
+  let hard = 0, soft = 0;
+  lanesArr.forEach(l => {
+    const s = l.slice().sort((a, b) => a.at - b.at);
+    for (let i = 1; i < s.length; i++) {
+      const A = { s: s[i - 1].at, e: s[i - 1].at + s[i - 1].len, p: s[i - 1].e.p };
+      const t = tierOn(A, s[i].at, s[i].at + s[i].len, s[i].e.p);
+      if (t === 'hard') hard++; else if (t === 'soft') soft++;
+    }
+  });
+  return { hard, soft };
+}
+const check = audit(lanes);
+
+// ---- write the ten-part score ----
+const out = JSON.parse(JSON.stringify(data));
+let nextId = out.nextId || 1;
+const keepNonNote = out.objects.filter(o => !(o.type === 'waveCurve' && o.sonifyNote != null));
+const group = 'grp-' + name + '-packed';
+out.objects = keepNonNote.concat(placed.map(n => {
+  const o = JSON.parse(JSON.stringify(n.e.obj));
+  o.id = 'wc-' + (nextId++);
+  o.layer = n.lane;
+  o.groupId = group;
+  o.startSeconds = +n.at.toFixed(3);
+  o.endSeconds = +(n.at + n.len).toFixed(3);   // TRUE sounding length (D9)
+  o.performanceNotes = 'PACKED';
+  return o;
+}));
+out.nextId = nextId;
+const outPath = OUT || path.join('scores', name + '-packed.json');
+fs.writeFileSync(outPath, JSON.stringify(out, null, 1));
+
+// ---- report ----
+const rate = (evs, w0, w1) => evs.filter(x => x.t >= w0 && x.t < w1).length / (w1 - w0);
+const t0 = events[0].t, tEnd = Math.max(...events.map(e => e.t));
+const meanLen = events.reduce((s, e) => s + e.len, 0) / events.length;
+
+console.log('=== PACK TO CEILING — ' + name + ' ===');
+console.log('  pick=' + PICK + '  budget=' + (BUDGET * 1000).toFixed(0) + 'ms  players=' + PARTS +
+  (PICK === 'random' ? '  seed=' + SEED : ''));
+console.log('  ceiling = ' + PARTS + ' players / ' + meanLen.toFixed(2) + 's mean one-shot = ' +
+  (PARTS / meanLen).toFixed(1) + ' attacks/s\n');
+console.log('  IN   ' + String(events.length).padStart(4) + ' notes   ' +
+  (tEnd - t0).toFixed(2) + 's');
+console.log('  OUT  ' + String(placed.length).padStart(4) + ' notes   kept ' +
+  (100 * placed.length / events.length).toFixed(0) + '%');
+console.log('       nudged  ' + String(nudged).padStart(4) + '   mean ' +
+  (nudged ? (dispSum / nudged * 1000).toFixed(0) : '0') + 'ms  max ' + (maxDisp * 1000).toFixed(0) + 'ms');
+console.log('       deleted ' + String(deleted).padStart(4) +
+  (deletedAt.length ? '   between ' + Math.min(...deletedAt).toFixed(1) + 's and ' +
+    Math.max(...deletedAt).toFixed(1) + 's' : ''));
+console.log('       soft    ' + String(softN).padStart(4) + '   (accepted rather than delete)');
+console.log('\n  VERIFY (re-derived from the written lanes): HARD=' + check.hard + '  soft=' + check.soft);
+
+console.log('\n  rate profile — played vs packed (attacks/s per 2 s):');
+for (let w = 0; w + 2 <= Math.ceil(tEnd - t0) + 2; w += 2) {
+  const a = rate(events.map(e => ({ t: e.t - t0 })), w, w + 2);
+  const b = rate(placed.map(n => ({ t: n.at - t0 })), w, w + 2);
+  if (!a && !b) continue;
+  console.log('    ' + String(w).padStart(2) + '-' + (w + 2) + 's  played ' +
+    a.toFixed(1).padStart(5) + '  packed ' + b.toFixed(1).padStart(5) + '  ' +
+    '#'.repeat(Math.round(b)));
+}
+
+const perLane = lanes.map(l => l.length);
+console.log('\n  notes per part: ' + perLane.map((n, i) => 'T' + (i + 1) + '=' + n).join(' '));
+console.log('\n  wrote ' + outPath + '  (load it from the Scores menu)');

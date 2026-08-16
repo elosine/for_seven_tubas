@@ -332,6 +332,46 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   time estimates of any kind — they have been wrong in both directions, so
   confidence and residual risk are reported instead.
 
+- **D19** *(2026-08-16)* — **A played take is packed to the PLAYABLE CEILING, not
+  thinned by a guessed amount.** For each note in time order: free player → place
+  it · none → nudge to the earliest opening within a small budget · budget blown
+  → accept a tight-but-legal spot · nothing fits → delete. **Deletion is the last
+  resort by construction**, so density automatically rides the ceiling (10 players
+  ÷ 0.45 s one-shot ≈ 22 attacks/s) and never exceeds it. *Why:* the composer's
+  model — *"nudge first, maintain max density, and then delete"* — and it is one
+  convergent pass instead of an iterate-and-check loop. *Rejected:* the
+  prune-simultaneities-then-space-attacks pair I proposed first; measured on DB3
+  it kept 127 notes and still left 1 hard + 1 soft, against pack-to-ceiling's 160
+  notes and 0/0. **Corollary the measurement settled:** nudging does NOT retain
+  density (60 ms → 400 ms of budget buys 8 notes — at saturation a shifted note
+  walks into the next collision, exactly as the composer predicted). What the
+  small budget buys is **cleanliness: 37 soft flags → 0** for a mean 35 ms move.
+  Playbook: `docs/DENSITY_PIPELINE.md`; PLAN 2t.
+- **D20** *(2026-08-16)* — **Player assignment is LEAP-AWARE; the jump moves
+  between players rather than being asked of one.** `assignCluster`'s tie-break
+  was pitch-blind (tier → least-recently-used → lane index), so a single player
+  could be handed a 26-semitone jump in 0.35 s while another sat in the same
+  register, and no part had a tessitura. The leap term competes with LRU and
+  **can never outrank the tier**, so a wide-open player still beats a
+  close-pitched busy one — it only chooses between equally legal lanes. Measured
+  on DB3's 251-note take: mean leap 7.9 → 3.1 st · octave-plus leaps 58 → 11 ·
+  part span 29 → 23 st · **hard conflicts 154 → 135** (pitch-clustered lanes pack
+  better). *Why it matters beyond tidiness:* it is the only real fix for a soft
+  RATE flag — nudging in time cannot help because the line is still as fast
+  (2r's "move to another player", now applied at assignment so there is nothing
+  left to resolve). *Verified in the running app*, matching the tool exactly.
+- **D21** *(2026-08-16)* — **A simultaneity clump in a played take is an ACCIDENT
+  of hand-slapping, not a chord — so it is spread and thinned by registral
+  spread, not by voice-leading.** Composer: *"in the densest areas, I'm just
+  hitting all my hands on all the keys… some of those attacks are mistaken chords
+  rather than just a flurry of attacks."* Survival order within a clump
+  (`--pick spread`): top, bottom, then farthest-from-everything-kept. *Why:* the
+  extremes preserve the band's registral WIDTH as its thickness drops — what you
+  actually hear in a cluster mass — and the max-min fill stops the middle
+  hollowing out over consecutive clumps. *Rejected as defaults but kept as flags:*
+  seeded `random` and raw-MIDI `arrival`; the composer explicitly declined to
+  audition variants for now.
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -348,6 +388,10 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   density build clean of hard conflicts. `tools/audit_playability.js`.
 - 2026-08-16 — **`docs/AI_METHODOLOGY.md`** adopted as the governing working
   instruction (D18).
+- 2026-08-16 — **PLAN 2t DENSITY PIPELINE shipped** (D19/D20/D21): pack-to-ceiling
+  (`tools/pack_take.js`), leap-aware `assignCluster`, part-by-part report
+  (`audit_playability.js --parts`), playbook `docs/DENSITY_PIPELINE.md`.
+  DB3 take: 251 → 160 notes, **HARD 0 / soft 0**, verified in the app.
 
 ## §6 Human Notes
 

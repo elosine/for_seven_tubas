@@ -234,6 +234,49 @@ composer → notation → performance architecture.)*
   of tuba single-tonguing and is the only playability question the piece actually
   contains. *Nothing to redo; one thing to listen to.*
 
+- **2t — DENSITY PIPELINE: played take → playable ten parts** — `shipped
+  2026-08-16` — the reusable process for every density buildup from DB3 on;
+  full playbook in **`docs/DENSITY_PIPELINE.md`**. Built because DB3's take
+  (251 notes, apex **54.5 attacks/s**) demands far more than ten tubas holding a
+  0.45 s staccato one-shot can give (**ceiling ≈ 22/s**), and the mock-up cannot
+  reveal it (2r).
+  - **PACK TO CEILING (`tools/pack_take.js`)** — the composer's model, and it
+    replaced an earlier prune-then-space pair: one convergent pass, no
+    iterate-and-check. Per note, in time order — free player? place it · no?
+    nudge to the earliest opening within `--budget` · budget blown? accept a
+    tight-but-legal spot · nothing fits? delete. **Deletion is the last resort by
+    construction**, so density rides the ceiling and no thinning amount is ever
+    guessed. Writes a ten-part score you can load and hear.
+  - **The budget is small on purpose.** Nudging does NOT retain density — at
+    saturation a shifted note walks into the next collision (composer predicted
+    it; 60 ms → 400 ms buys 8 notes). What 60 ms buys is **cleanliness: 37 soft
+    flags → 0**, for a mean 35 ms displacement.
+  - **`--pick spread`** decides which note in a clump dies: top, bottom, then
+    farthest-from-everything-kept. Extremes first keeps the band's registral
+    WIDTH as its thickness drops; the max-min fill stops the middle hollowing
+    out. `random` (seeded) and `arrival` built in, unused.
+  - **LEAP-AWARE `assignCluster`** (the app, and the tools mirror it) — the lane
+    tie-break was pitch-blind, handing one player 26-semitone jumps in 0.35 s
+    while another sat in the same register. Leap term competes with LRU and can
+    never outrank the tier. On DB3's take: **mean leap 7.9 → 3.1 st · octave-plus
+    leaps 58 → 11 · part span 29 → 23 st · hard 154 → 135** (pitch-clustered
+    lanes pack better). Also the only real fix for a soft RATE flag — the jump
+    moves BETWEEN players rather than being asked of one.
+  - **`tools/audit_playability.js --parts`** — per part: notes · tessitura ·
+    mean/max leap with timestamps · tightest attack pair · rate · every flag with
+    the interval it had and the interval it needed. The report that says WHO is
+    overloaded, which is what you need before choosing move-vs-delete.
+  - **DB3 result:** 160 of 251 kept · 51 nudged · 91 deleted (all 20.0–23.1 s) ·
+    **HARD 0, soft 0** · everything before 18 s identical to what was played ·
+    apex plateaus at the ceiling instead of spiking. The replaced two-pass
+    approach kept only 127 and still left 1 hard + 1 soft.
+  - **Verified in the running app**, not by inspection: the app's own
+    `assignCluster` returned 135/10/3.13 st/11 against the tool's 135/10/3.1/11 —
+    exact agreement — and the packed score loads with badge `⚠ 0`.
+  - **Still the composer's call:** the apex treatment. Zero hard costs 91 notes,
+    all at the apex. Alternatives are more players (M1) or converting the apex to
+    sustained material so overlap becomes the point rather than a conflict.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**
