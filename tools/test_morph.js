@@ -379,6 +379,44 @@ ok('folded partials keep a microtonal pitch class (the spectral colour)',
     classes.some(c => c % 100 > 15 && c % 100 < 85), JSON.stringify(classes));
 
 // ===========================================================================
+section('concurrent morphs: lanes + structure-preserving voice reduction');
+// ===========================================================================
+// Two or three morphs at once means four or five players each. Reducing by
+// dropping the top note would break BEATING BLOOM completely — half a unison
+// pair does not beat — so reduction drops WHOLE clusters.
+const PAIRS = { kind: 'pitches', midi: [41, 41, 46, 46, 51, 51, 56, 56] };
+[8, 6, 4, 2].forEach(n => {
+    const r = M.render({ model: 'M1', seed: 11, source: PAIRS, voices: n,
+        target: { cents: 25 }, dials: { bias: 0, spread: 0, depth: 1 },
+        carrier: { span: 20, segLen: 8, segVar: 0, striation: 'staggered' } });
+    const firsts = {};
+    r.notes.forEach(x => { if (firsts[x.voice] == null) firsts[x.voice] = x.cents / 100; });
+    const pitches = Object.keys(firsts).map(k => Math.round(firsts[k])).sort((a, b) => a - b);
+    eq('reduce to ' + n + ' gives exactly ' + n + ' voices', r.meta.voices, n);
+    const counts = {};
+    pitches.forEach(p2 => { counts[p2] = (counts[p2] || 0) + 1; });
+    ok('reduce to ' + n + ' keeps whole pairs (no orphans)',
+        Object.keys(counts).every(k => counts[k] === 2), JSON.stringify(pitches));
+});
+
+// lanes: a morph told to occupy players 6-9 must render AND insert there
+const onHigh = M.render({ model: 'M6', seed: 3, lanes: [6, 7, 8, 9],
+    source: { kind: 'pitches', midi: [34, 41, 48, 53, 58, 62] },
+    carrier: { span: 20, segLen: 8, segVar: 0, striation: 'staggered' } });
+eq('lanes sets the voice count', onHigh.meta.voices, 4);
+eq('lanes are carried in meta', JSON.stringify(onHigh.meta.lanes), '[6,7,8,9]');
+const usedLayers = [...new Set(M.toScoreObjects(onHigh, 0, {}).map(o => o.layer))].sort((a, b) => a - b);
+eq('inserted objects land on those lanes', JSON.stringify(usedLayers), '[6,7,8,9]');
+
+const lowM = M.render({ model: 'M1', seed: 11, lanes: [0, 1, 2, 3], source: PAIRS,
+    target: { cents: 25 },
+    carrier: { span: 20, segLen: 8, segVar: 0, striation: 'staggered' } });
+const lowLayers = [...new Set(M.toScoreObjects(lowM, 0, {}).map(o => o.layer))];
+ok('two morphs on separate lanes never share a player',
+    lowLayers.every(l => usedLayers.indexOf(l) < 0),
+    JSON.stringify(lowLayers) + ' vs ' + JSON.stringify(usedLayers));
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {

@@ -371,3 +371,75 @@ play within one page session (real bug), or only the first after a reload
   **clump + hole**, never toward "irregular but even".
 - Audit 0 hard / 0 soft; loads in the app, ten lanes at 132–133 notes each, all
   four markers rendering. **Unheard.**
+
+### CHECK-IN 1 continued — C/D/E/F heard, and a design direction (2026-08-16)
+
+**A, C and D declared KEEPERS — "usable as objects in the actual piece."** That
+is the system doing its job: the composer found material by ear.
+
+- **C (beating bloom)** — *"sounds industrial and resembles many experiments I've
+  done with strings and beating tones… familiar terrain, like some of the
+  acoustic pieces by Alvin Lucier."*
+- **E / F** — *"interesting and similar. One thing to note is it sounds like
+  either one or several tubas are re-articulating at a relatively big dynamic,
+  and those sound like PULSES. They not only pulse the volume, they also pulse
+  the beating, the visceralness."* Worth keeping: the carrier's re-articulations
+  are not just a breathing necessity, they are an audible rhythmic layer that
+  modulates the beating. That is a compositional handle nobody designed — it fell
+  out of the breath model.
+
+**Working mode confirmed (composer):** *"it's too fiddly to understand the range
+of numbers to put in… the actual numbers make a lot of sense, but when we get
+into morphing them, I'm hoping AI can help. I can describe what I want more or
+less of and then AI could dial those in."* So the number fields stay as a
+read-and-nudge display; the primary interface is speech → AI writes params →
+composer listens. No structural change.
+
+### CONCEPTUAL — GESTURE SHAPING, the electronic-music model (composer, later)
+
+Not now; recorded so it is not lost, and it probably deserves its own plan and
+build once 2v settles.
+
+> *"The electronic music model makes a lot of sense, and we kind of explored this
+> with the granular synthesis model. So the META SHAPE IS REALLY THE SOUND
+> ITSELF. These morphs might have some sort of attack that can be designed and
+> built into the gesture, and then some internal change over time, and some kind
+> of release. In other words, we can craft a gesture on its own terms and then
+> just fill in the tuba parts to make that gesture. For example, in C and D
+> there's a striated entry — I'm imagining being able to have an ATTACK instead,
+> and add some cuivre, and then that proceeds into the morph, and then maybe
+> decide some sort of release."*
+
+What this implies architecturally: the carrier currently derives entry and exit
+from breath logic alone. The proposal is that a morph should have an **envelope
+at the gesture level** — designed attack (possibly a different technique, e.g.
+cuivre), a body (the morph proper), and a designed release — with the tuba parts
+filled in to realise it. That inverts the current order: shape first, parts
+second. It is the same relationship the META layer already has to the density
+builds. **Its own plan when 2v is done.**
+
+### Voicing gap CLOSED (2026-08-16)
+
+Composer wanted two or three concurrent morphs, which means four or five players
+each. Two things were needed and both are built:
+
+1. **`lanes`** on a variant names the players it occupies (`[0,1,2,3]` and
+   `[6,7,8,9]`), carried through render → audition → insert so a morph auditions
+   on the same players it will insert onto. Verified: zero lane overlap.
+2. **Structure-preserving reduction.** Dropping the top note would have destroyed
+   BEATING BLOOM outright — half a unison pair does not beat. `reduceSource`
+   groups near-equal pitches into clusters and keeps WHOLE clusters, chosen
+   evenly across the register. Measured: 8 → 6 → 4 → 2 voices all keep intact
+   pairs (F2 F2 · G#3 G#3 at four voices). Same principle as D21's registral
+   spread for density builds — drop structural units, never fragments.
+
+**UI fix:** the transport row was flex, so the Play button growing to "Playing…"
+reflowed it and Stop moved under the pointer — the composer hit *Insert @ cursor*
+twice by accident. Now a fixed 3-column grid with Insert on its own row. A
+transport control must never move while it is being used.
+
+**Restore, for the record:** the `-- Restore --` dropdown only lists snapshots
+from EXPLICIT saves (CTRL+S / Save as next / Variant). Autosave writes none by
+design. `piece-*` files are additionally protected by the `-work` copy; other
+scores are not, so CTRL+S before experimenting is the habit that creates a
+restore point. Git is the net either way, since `scores/*.json` are committed.

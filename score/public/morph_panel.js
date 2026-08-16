@@ -62,11 +62,19 @@ const PANEL = {
             '<div id="morphTabs" style="margin-bottom:8px"></div>',
             '<div id="morphFields" style="margin-bottom:8px"></div>',
             '<div id="morphFlags" style="max-height:132px;overflow:auto;margin-bottom:8px"></div>',
-            '<div style="display:flex;gap:6px;flex-wrap:wrap">',
+            // FIXED COLUMNS, not flex. The Play button's label changes to
+            // "Playing…" while it runs; in a flex row that reflowed everything to
+            // the right, so reaching for Stop landed on "Insert @ cursor" and put
+            // a morph into the score by accident (composer, 2026-08-16). A
+            // transport control must never move under the pointer.
+            '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">',
             '<button id="morphGen">Generate</button>',
-            '<button id="morphPlay">Play</button>',
+            '<button id="morphPlay" style="overflow:hidden;white-space:nowrap">Play</button>',
             '<button id="morphStop">Stop</button>',
-            '<button id="morphIns" title="insert at the playhead as a group">Insert @ cursor</button>',
+            '</div>',
+            '<div style="margin-top:6px">',
+            '<button id="morphIns" style="width:100%"',
+            ' title="insert at the playhead as a group">Insert @ cursor</button>',
             '</div>',
             '<div style="color:#666;margin-top:7px">SPACE play/stop &middot; &larr;/&rarr; variant',
             ' &mdash; only while this panel has focus</div>',

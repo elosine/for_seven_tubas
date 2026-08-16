@@ -172,7 +172,9 @@ const EMIT = {
             return { scheduled: 0, skipped: 0, reason: this._midiError || 'MIDI unavailable' };
         }
 
-        const laneOf = o.laneOf || (v => v);
+        // audition on the same players the insert would use
+        const _lanes = (result.meta && result.meta.lanes) || null;
+        const laneOf = o.laneOf || (v => (_lanes && _lanes[v] != null) ? _lanes[v] : v);
         const vel = o.velocity || 96;
         const prearm = (M.MEASURED.BEND_PREARM_S || 0.05) * 1000;
         const scheduled = [];

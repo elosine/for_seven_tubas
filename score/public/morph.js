@@ -411,6 +411,12 @@ function normaliseParams(v) {
         dyn: dyn,
         seed: p.seed != null ? p.seed : DEFAULTS.seed,
         label: p.label || '',
+        // CONCURRENT MORPHS. `lanes` names the players this morph occupies, e.g.
+        // [0,1,2,3] and [4,5,6,7] for two at once. Voice count follows from it,
+        // and the source chord is reduced to fit by reduceSource. Omit both and
+        // it behaves as before: one voice per source pitch, lanes 0..n-1.
+        lanes: Array.isArray(p.lanes) && p.lanes.length ? p.lanes.slice() : null,
+        voices: p.voices != null ? p.voices : null,
     };
 }
 
@@ -419,6 +425,56 @@ function normaliseParams(v) {
 const KNOWN_KEYS = ['model', 'source', 'target', 'dials', 'carrier', 'dyn', 'seed', 'label'];
 function unknownKeys(v) {
     return Object.keys(v || {}).filter(k => KNOWN_KEYS.indexOf(k) < 0 && k[0] !== '_');
+}
+
+// REDUCE A CHORD TO n VOICES WITHOUT LOSING WHAT MAKES IT WORK.
+//
+// Needed for concurrent morphs: two or three at once means four or five players
+// each, and the naive answer (drop the top, or take every other note) destroys
+// exactly the thing being listened for. In BEATING BLOOM the musical unit is the
+// PAIR — drop half of a pair and that pair stops beating altogether, so a
+// "thinned" version is not a quieter version of the effect, it is a different
+// and worse one.
+//
+// So: group near-equal pitches into clusters (a unison pair is one cluster),
+// then keep WHOLE clusters, chosen evenly across the register so the band keeps
+// its width. Same principle as D21's registral-spread thinning for density
+// builds — drop structural units, never fragments of them.
+function reduceSource(midi, n) {
+    const sorted = midi.slice().sort((a, b) => a - b);
+    if (n >= sorted.length) return sorted;
+    const clusters = [];
+    sorted.forEach(m => {
+        const last = clusters[clusters.length - 1];
+        if (last && m - last[last.length - 1] <= 1) last.push(m);
+        else clusters.push([m]);
+    });
+    // choose which clusters survive, evenly spaced across the register
+    const keep = [];
+    let budget = n;
+    const wanted = Math.max(1, Math.min(clusters.length, Math.round(n / (sorted.length / clusters.length))));
+    const idx = [];
+    for (let i = 0; i < wanted; i++) {
+        idx.push(clusters.length === 1 ? 0
+            : Math.round((i * (clusters.length - 1)) / Math.max(1, wanted - 1)));
+    }
+    [...new Set(idx)].forEach(i => {
+        const c = clusters[i];
+        if (budget >= c.length) { keep.push(...c); budget -= c.length; }
+    });
+    // top up from the widest-spaced remaining pitches if the clusters undershot
+    if (keep.length < n) {
+        const rest = sorted.filter(m => !keep.includes(m));
+        while (keep.length < n && rest.length) {
+            let best = 0, bestD = -1;
+            rest.forEach((m, i) => {
+                const d = keep.length ? Math.min(...keep.map(k => Math.abs(k - m))) : 1e9;
+                if (d > bestD) { bestD = d; best = i; }
+            });
+            keep.push(rest.splice(best, 1)[0]);
+        }
+    }
+    return keep.sort((a, b) => a - b).slice(0, n);
 }
 
 function resolveSource(source, resolveVert) {
@@ -446,8 +502,10 @@ function render(params, opts) {
     const P = normaliseParams(params);
     const o = opts || {};
     const rng = mulberry32(P.seed);
-    const startMidi = resolveSource(P.source, o.resolveVert).slice().sort((a, b) => a - b);
-    const nVoices = Math.min(startMidi.length, o.maxVoices || 10);
+    const rawMidi = resolveSource(P.source, o.resolveVert).slice().sort((a, b) => a - b);
+    const cap = P.lanes ? P.lanes.length : (P.voices || o.maxVoices || 10);
+    const startMidi = reduceSource(rawMidi, Math.min(cap, o.maxVoices || 10));
+    const nVoices = startMidi.length;
     const notes = [];
     const warnings = unknownKeys(params).map(k => 'PARAM: unrecognised key "' + k + '"');
 
@@ -674,6 +732,8 @@ function render(params, opts) {
         notes: notes, summary: summary, warnings: warnings,
         meta: {
             model: P.model, seed: P.seed, span: span, voices: nVoices,
+            lanes: P.lanes || Array.from({ length: nVoices }, (_, i) => i),
+            droppedFrom: rawMidi.length,
             label: P.label, striation: P.carrier.striation,
             bendRangeSt: MEASURED.BEND_RANGE_ST, prearmS: MEASURED.BEND_PREARM_S,
         },
@@ -691,7 +751,10 @@ function toScoreObjects(result, at, opts) {
     const color = o.color || '#7E57C2';
     const groupId = o.groupId || 'grp-morph-01';
     let nid = o.startId || 1;
-    const lane = o.laneOf || (v => v);
+    // Lane mapping follows the render's own `meta.lanes`, so a morph told to
+    // occupy players 5-8 inserts onto those lanes rather than 0-3.
+    const lanes = (result.meta && result.meta.lanes) || null;
+    const lane = o.laneOf || (v => (lanes && lanes[v] != null) ? lanes[v] : v);
     return result.notes.map(n => {
         const dur = Math.max(0.02, n.dur);
         const nodes = n.level.map(pt => ({
