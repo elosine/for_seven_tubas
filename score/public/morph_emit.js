@@ -109,23 +109,54 @@ const EMIT = {
         return started;
     },
 
+    // MIDI IS INITIALISED LAZILY BY THE APP, and `navigator.requestMIDIAccess()`
+    // needs a USER GESTURE — so it can only succeed on the composer's own click.
+    // The app kicks it from the transport and the Rec button; the panel has to
+    // kick it too or every route resolves to null and nothing sounds at all.
+    // (That is exactly what happened on the first audition: `_zoneMidiOutputs`
+    // was an empty object and `play` scheduled zero notes.)
+    async ensureMidi() {
+        const C = root.Composer;
+        if (!C) return false;
+        if (!C._zoneMidiInited && C.initZoneMidi) {
+            try { await C.initZoneMidi(); } catch (e) { /* reported below */ }
+        }
+        return !!(C._zoneMidiOutputs && Object.keys(C._zoneMidiOutputs).length);
+    },
+
     // ---- audition ---------------------------------------------------------
     // Plays a render. Bend envelopes are note-relative, so each note carries its
     // own trajectory and nothing here needs to know about the morph as a whole.
-    play(result, opts) {
+    // Returns {scheduled, skipped, reason} so the panel can say WHY nothing
+    // sounded instead of guessing at the composer.
+    async play(result, opts) {
         const o = opts || {};
         this.panic();
-        if (!result || !result.notes || !result.notes.length) return 0;
+        if (!result || !result.notes || !result.notes.length) {
+            return { scheduled: 0, skipped: 0, reason: 'nothing rendered' };
+        }
+        if (!await this.ensureMidi()) {
+            return { scheduled: 0, skipped: 0,
+                     reason: 'MIDI unavailable — the browser grants it only on a real click. ' +
+                             'Click Play again; if it persists, check loopMIDI is running.' };
+        }
 
         const laneOf = o.laneOf || (v => v);
         const vel = o.velocity || 96;
         const prearm = (M.MEASURED.BEND_PREARM_S || 0.05) * 1000;
         const scheduled = [];
         let skipped = 0;
+        const missing = {};
 
         result.notes.forEach(n => {
             const route = this.routeFor(laneOf(n.voice), n.technique);
-            if (!route) { skipped++; return; }
+            if (!route) {
+                skipped++;
+                const C = root.Composer;
+                const inst = C && C.trackInstrument ? C.trackInstrument(laneOf(n.voice)) : null;
+                missing[(inst && inst.port) || ('lane ' + laneOf(n.voice))] = 1;
+                return;
+            }
             const key = n.midi;
             const resid = n.cents - n.midi * 100;
             const bend = n.bend.map(pt => [pt[0], pt[1] + resid]);
@@ -145,6 +176,11 @@ const EMIT = {
                              lastB: null, lastC: null });
         });
 
+        if (!scheduled.length) {
+            return { scheduled: 0, skipped: skipped,
+                     reason: 'no MIDI port for ' + Object.keys(missing).join(', ') +
+                             ' — is loopMIDI running with those ports open?' };
+        }
         const span = (o.span || result.meta.span) * 1000 + 1200;
         this._plan = scheduled;
         this._t0 = performance.now();
@@ -169,7 +205,7 @@ const EMIT = {
             this._raf = requestAnimationFrame(tick);
         };
         this._raf = requestAnimationFrame(tick);
-        return scheduled.length + (skipped ? -0 : 0);
+        return { scheduled: scheduled.length, skipped: skipped, reason: null };
     },
 
     // linear interpolation over [[dtSec, value], ...]

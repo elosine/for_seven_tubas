@@ -231,12 +231,20 @@ const PANEL = {
     },
 
     // ------------------------------------------------------------- transport
-    play() {
+    async play() {
         if (!this.result) this.generate();
         if (!this.result) return;
-        const n = E.play(this.result, {});
-        this.el.querySelector('#morphPlay').textContent = 'Playing…';
-        if (!n) this.setStatus('nothing sounded — are the MIDI ports open?', true);
+        const btn = this.el.querySelector('#morphPlay');
+        btn.textContent = 'starting…';
+        const r = await E.play(this.result, {});
+        if (!r.scheduled) {
+            btn.textContent = 'Play';
+            this.setStatus(r.reason || 'nothing sounded', true);
+            return;
+        }
+        btn.textContent = 'Playing…';
+        this.setStatus('playing ' + r.scheduled + ' notes' +
+            (r.skipped ? ' (' + r.skipped + ' had no port)' : ''));
     },
 
     insert() {
