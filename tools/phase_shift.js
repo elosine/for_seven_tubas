@@ -121,6 +121,7 @@ function buildScore(spec) {
         label, color: colour, performanceNotes: '', properties: {},
     });
 
+    const clamps = [];
     let cursor = spec.t0 != null ? spec.t0 : 2;
     spec.sections.forEach((sec, si) => {
         const t0 = cursor;
@@ -159,23 +160,34 @@ function buildScore(spec) {
         sec.voices.forEach((v, vi) => {
             const times = voiceOnsets[vi];
             const ring = ringLength(v.tech, v.pitch);
-            const written = spec.notelen === 'sample' ? ring : spec.notelen;
-            times.forEach((t, k) => {
-                const lane = v.lanes[k % v.lanes.length];          // round-robin hocket
-                mkNote(lane, t0 + t, written, COLORS[vi % COLORS.length],
-                    'phase/' + (sec.tag || 's' + si), v.pitch, v.tech, v.level != null ? v.level : 7.5);
-            });
-            // per-PLAYER spacing is what physics cares about, not the composite
+
+            // per-PLAYER spacing is what physics cares about, not the composite —
+            // and it has to be known BEFORE the note length is fixed
             const perPlayer = [];
             for (let L = 0; L < v.lanes.length; L++) {
                 const mine = times.filter((_, k) => k % v.lanes.length === L);
                 for (let i = 1; i < mine.length; i++) perPlayer.push(mine[i] - mine[i - 1]);
             }
+            const tightest = perPlayer.length ? Math.min(...perPlayer) : Infinity;
+
+            const asked = v.notelen != null ? v.notelen
+                : (spec.notelen === 'sample' ? ring : spec.notelen);
+            // A VARIABLE-LENGTH note (ord, flz) that outlasts the player's own next
+            // attack is physically impossible, so clamp it — and say so. Fixed
+            // one-shots (D9) cannot be clamped: the sample rings regardless, which
+            // is a real conflict and stays visible as one.
+            const cap = tightest - 0.05;   // clears audit_playability TONGUE_RESET (0.03 s)
+            const written = (ring == null && asked > cap) ? +cap.toFixed(3) : asked;
+            if (written !== asked) clamps.push(`${sec.tag}/${v.tech}: ${asked}s → ${written}s`);
+
+            times.forEach((t, k) => {
+                const lane = v.lanes[k % v.lanes.length];          // round-robin hocket
+                mkNote(lane, t0 + t, written, COLORS[vi % COLORS.length],
+                    'phase/' + (sec.tag || 's' + si), v.pitch, v.tech, v.level != null ? v.level : 7.5);
+            });
             lines.push({
                 vi, notes: times.length, players: v.lanes.length,
-                composite: times.length / sec.dur,
-                tightest: perPlayer.length ? Math.min(...perPlayer) : Infinity,
-                ring, written,
+                composite: times.length / sec.dur, tightest, ring, written,
             });
         });
 
@@ -227,27 +239,35 @@ function buildScore(spec) {
     if (spec.midi) {
         const { writeMidi } = require('./midi_out');
         // technique -> UVI channel + which instance carries it (sandbox/instruments.js)
-        const CH = { ord: [1, ''], fortepiano: [11, ''], cuivre: [5, ''], staccato: [4, 'b'] };
+        const CH = { ord: [1, ''], fortepiano: [11, ''], cuivre: [5, ''], flz: [10, ''], staccato: [4, 'b'] };
         const notes = objs.filter(o => o.type === 'waveCurve');
-        const [ch, suffix] = CH[notes[0].technique] || [1, ''];
         const mk = n => ({ t: n.startSeconds, pitch: n.sonifyNote,
             dur: +(n.endSeconds - n.startSeconds).toFixed(4), vel: n.recVel });
 
+        // one track per (technique, player) — a mixed-articulation score needs
+        // different channels AND different UVI instances, so it cannot collapse
         const perLane = [];
-        for (let L = 0; L < 10; L++) {
-            const mine = notes.filter(n => n.layer === L);
-            if (mine.length) perLane.push({
-                name: `Tuba${L + 1}${suffix} SI2 · ch${ch} ${notes[0].technique}`,
-                channel: ch, notes: mine.map(mk),
-            });
+        for (const tech of [...new Set(notes.map(n => n.technique))]) {
+            const [c, sfx] = CH[tech] || [1, ''];
+            for (let L = 0; L < 10; L++) {
+                const mine = notes.filter(n => n.layer === L && n.technique === tech);
+                if (mine.length) perLane.push({
+                    name: `Tuba${L + 1}${sfx} SI2 · ch${c} ${tech}`, channel: c, notes: mine.map(mk),
+                });
+            }
         }
+        const routing = [...new Set(notes.map(n => n.technique))]
+            .map(t => `${t} → Tuba<N>${(CH[t] || [1, ''])[1]} ch${(CH[t] || [1])[0]}`).join(' · ');
         const a = writeMidi(`midi/${spec.name}-10track.mid`, { tracks: perLane });
         const b = writeMidi(`midi/${spec.name}-1track.mid`, {
-            tracks: [{ name: `ALL PARTS · ch${ch} ${notes[0].technique}`, channel: ch, notes: notes.map(mk) }],
+            tracks: [...new Set(notes.map(n => n.technique))].map(tech => ({
+                name: `ALL PARTS · ch${(CH[tech] || [1])[0]} ${tech}`, channel: (CH[tech] || [1])[0],
+                notes: notes.filter(n => n.technique === tech).map(mk),
+            })),
         });
         console.log(`\n  MIDI: midi/${spec.name}-10track.mid (${a.tracks} tracks, ${a.notes} notes, ${a.seconds}s)` +
-            `\n        midi/${spec.name}-1track.mid  (1 track, ${b.notes} notes)` +
-            `\n        route to the "Tuba<N>${suffix} SI2" tracks — notes are on channel ${ch}`);
+            `\n        midi/${spec.name}-1track.mid  (${b.tracks} track(s), ${b.notes} notes)` +
+            `\n        routing: ${routing}`);
     }
 
     // ---- report what was WRITTEN, not what was intended ----
@@ -260,13 +280,17 @@ function buildScore(spec) {
         lines.forEach(l => {
             worst = Math.min(worst, l.tightest);
             console.log(`          voice ${l.vi} · ${l.players}p · composite ${l.composite.toFixed(2)}/s` +
-                ` · per-player gap ${l.tightest.toFixed(3)}s vs ${l.ring}s ring` +
-                (l.tightest <= l.ring ? '   *** SAMPLE OVERLAP ***' : ''));
+                ` · per-player gap ${l.tightest.toFixed(3)}s vs ` +
+                (l.ring == null ? `${l.written}s written (variable-length)` : `${l.ring}s ring`) +
+                (l.ring != null && l.tightest <= l.ring ? '   *** SAMPLE OVERLAP ***' : '') +
+                (l.ring == null && l.tightest <= l.written ? '   *** NOTES OVERLAP ON ONE PLAYER ***' : ''));
         });
         if (sec.lap) console.log(`          lap ${sec.lap}s · ΔBPM ${sec.dBpm}` +
             ` · ${(lines[0].composite * sec.lap).toFixed(0)} attacks per lap` +
             ` · interlocked ${(lines.reduce((a, l) => a + l.composite, 0)).toFixed(1)}/s`);
     });
+    if (clamps.length) console.log('  CLAMPED — a variable-length note cannot outlast ' +
+        'the same player next attack:\n    ' + clamps.join('\n    '));
     console.log(`  tightest per-player gap anywhere: ${worst.toFixed(3)}s` +
         (worst > 0.42 ? '  (clear of the staccato ring)' : '  *** at or past the ring ***'));
     return out;
@@ -300,6 +324,41 @@ const PRESETS = {
             };
         }),
     }),
+
+    // E3 · ARTICULATION — the "extra blade". Composer's conclusion from E1:
+    // "with the staccato patch it's really impossible to avoid articulation in
+    // the texture… everything's gonna sound articulated, and it's just a question
+    // of whether it's more random rain-like or more patterned."
+    //
+    // So the smear↔tone axis is CLOSED for staccato, and the only way off it is a
+    // different sound. This is a SURVEY, not a ladder — each technique has its own
+    // physics and they cannot be held constant. Density is held at 18/s except
+    // where a ring time forbids it (fortepiano), and that cell says so.
+    // Rain-like jitter (±35 ms) throughout, since that was the composer's
+    // preferred character from E2.
+    articulation: () => {
+        const v = (lanes, tech, bpm, notelen) =>
+            ({ lanes, pitch: PITCH, tech, bpm, notelen, jitterMs: 35 });
+        const all = [0,1,2,3,4,5,6,7,8,9];
+        const cell = (label, tag, voices, dur = 12) => ({ label, tag, dur, model: 'beat', voices });
+        return {
+            name: 'phase10-articulation', notelen: 0.12, gap: 2.5, midi: true,
+            sections: [
+                cell('1 · STACCATO 18/s — the reference, what we already know',
+                    'stac', [v(all, 'staccato', 108, 0.12)]),
+                cell('2 · ORD 0.50s notes, 18/s — 9 sounding at once, a continuous bed',
+                    'ord50', [v(all, 'ord', 108, 0.50)]),
+                cell('3 · ORD 0.25s notes, 18/s — half-gapped, attacks exposed again',
+                    'ord25', [v(all, 'ord', 108, 0.25)]),
+                cell('4 · MIX · 5 staccato + 5 ord(0.50s), 18/s total — attacks ON a bed',
+                    'mix', [v([0,1,2,3,4], 'staccato', 108, 0.12), v([5,6,7,8,9], 'ord', 108, 0.50)]),
+                cell('5 · FORTEPIANO 5/s — its own ceiling (1.77s ring), sparse swells',
+                    'fp', [v(all, 'fortepiano', 30, 1.77)]),
+                cell('6 · FLATTERZUNGE 0.50s, 18/s — flutter from the INSTRUMENT',
+                    'flz', [v(all, 'flz', 108, 0.50)]),
+            ],
+        };
+    },
 
     // E1 · DENSITY — the tone↔tick boundary (composer: "one is just at the
     // margin of smear… the direction would be towards closer intervals").

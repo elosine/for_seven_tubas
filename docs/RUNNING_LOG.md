@@ -591,3 +591,67 @@ perception of CHANGE, not only of rhythm.**
 
 **Consequence for defaults:** keep segLen in the 3–8 s band as the working range;
 15 s is available but costs detail. No engine change required.
+
+### E1 + E2 VERDICTS — the axis collapses to random↔patterned (composer, 2026-08-16)
+
+**`phase08-density`** (8 / 12 / 17 / 23 attacks/s, dead even):
+- 8/s *"still very separate, an interesting artifact — like James Bond suspense
+  patter underneath. The articulation and the ten tubas very strongly create
+  patterns, beat patterns."*
+- 12/s *"the smear is definitely creeping in, but the pattern is still prominent."*
+- 17/s *"the patterning is more random or rain-like, and it's more of a smear,
+  though not completely homogeneous."*
+- 23/s *"the articulated smear — we've heard something similar before."*
+- **COMPOSER'S CONCLUSION, and it closes a whole axis:** *"with the staccato patch
+  it's really impossible to avoid articulation in the texture. Everything's gonna
+  sound articulated, and it's just a question of whether it's more random rain-like
+  or more patterned."* Scale confirmed: **articulated smear → gallop → strong
+  loops / grooves.**
+
+**`phase09-jitterrain`** (jitter 0 / ±15 / ±35 / ±60, then scatter 0.2):
+- jitter 0 *"even the perfectly even one sounds like it has some bit of jitter.
+  Doesn't sound like a groove."* — **it is dead even to 0.1 ms in the data**, so
+  the perceived unevenness is downstream of the file (sampler round-robin?
+  playback? unresolved — see below).
+- ±15 *"slightly more patterned… something to do with what is perceived as an
+  accent — some accumulation of parts, or maybe one tuba sounds more prominent."*
+- ±35 and ±60 *"pretty scattershot, more rain-like."*
+- **THE A/B: *"the last one doesn't sound particularly patterned. If anything it's
+  subtly more repetitive than the previous one, but not by much."*** So the
+  non-repeating vs looping difference is **real but WEAK at 18/s** — the loop
+  hypothesis is **not confirmed**, only weakly supported.
+
+**Synthesis (AI reading, testable):** repetition is audible only when the ear can
+PARSE the figure. At 8/s the loop is 1.25 s with resolvable events → strong
+patterns; at 18/s the events are 55 ms apart, below the rate at which a figure can
+be tracked → everything reads as texture and the repetition structure stops
+mattering. **Compositional rule if it holds: want a groove, go slow; want a
+texture, go fast. Crossover somewhere near 12–17/s.** Untested — this is the
+obvious next experiment.
+
+**Two confounds now known, and they matter for how we run these:**
+1. **Order effects.** Scatter 0.2 was *"gallop, a sense of accent"* as phase07
+   cell 4, but *"doesn't sound particularly patterned"* as phase09 cell 5 after
+   four jitter cells. Same setting, opposite verdict. A/Bs must be back-to-back.
+2. **Draw variance.** At ten voices, "scatter 0.2" is a RANDOM VARIABLE, not a
+   texture — one draw clumps and accents, another does not (the two used different
+   seeds). **Practice: audition several seeds at one setting**, as with tonality
+   variants; do not treat a single draw as the setting's sound.
+
+### E3 built — `phase10-articulation` (the extra blade)
+Six cells, ten players, rain-like ±35 ms jitter throughout, C3. A **survey, not a
+ladder** — each technique has its own physics and they cannot be held constant.
+1 staccato 18/s (reference) · 2 ord 0.50 s 18/s (≈9 sounding at once, a bed) ·
+3 ord 0.25 s 18/s · 4 MIX 5 staccato + 5 ord · 5 fortepiano **5/s** (forced by its
+1.77 s ring) · 6 **flatterzunge** 0.50 s 18/s — flutter from the instrument.
+- **A real bug caught by a new guard:** 0.50 s ord notes outlast the same player's
+  next attack once jitter widens the spacing — 15 hard conflicts. The generator now
+  **clamps any variable-length note to the player's own next attack** (0.05 s
+  margin, clearing the audit's 0.03 s tongue reset) and prints what it changed:
+  `ord50 0.5→0.443`, `mix 0.5→0.448`, `flz 0.5→0.443`. Fixed one-shots are NOT
+  clamped — the sample rings regardless, so that stays a visible conflict.
+- MIDI export reworked for mixed articulation: one track per (technique, player),
+  correct channel each (`staccato→Tuba<N>b ch4 · ord→ch1 · fortepiano→ch11 ·
+  flz→ch10`).
+- Audit **0 hard / 0 soft**; all 13 phase scores clean. Loads in the app: 1146
+  notes, ten lanes, six markers. **Unheard.**
