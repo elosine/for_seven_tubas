@@ -343,7 +343,49 @@ composer → notation → performance architecture.)*
     AI fp version and is superseded). Conflict counts are identical either way —
     the 5 surge conversions add none.
 
-- **2v — MORPHING CHORDS** — `planned 2026-08-16, not built` — the INT2
+- **2v — MORPHING CHORDS** — **`done 2026-08-16`** — all five phases built, heard
+  and measured. **`Morph` button in the composer score**: generate, audition,
+  insert; it never edits. Six models over one state vector (cents / technique /
+  level), a breath-and-striation carrier, and **dynamics as a layer on every
+  model (D24)**. Engine `score/public/morph.js` is pure and carries **101 unit
+  tests**; emit layer has registry-driven panic; morph notes are ordinary
+  waveCurves + `morphBend` (D25); wide glissandi are re-keyed mid-note (D26).
+  **Measured on the instrument:** bend ±1.99 st linear with no artifacts ·
+  spectral targets land within **0.4 ¢** · fan waypoints within **1.0 ¢**
+  including both re-key seams · composer hears **no seam**. Findings in
+  `docs/MORPH_FINDINGS.md`, settings + dial boundaries in
+  `bank/morph_recipes.json`, the full arc and a COLD-START section in
+  `docs/RUNNING_LOG.md`. **Five of six models produced material the composer
+  called interesting or better; three are keepers usable in the piece.**
+  *Two surprises worth carrying:* the bend-residue trap is real (+49.4 ¢ on the
+  next note), and the **quartertones patch is NOT a uniform quarter tone**
+  (+23 ¢ at F2 → +57 ¢ at C4), which settles PLAN 2l's first question with a
+  different answer than expected — bend is the vehicle, the patch is a colour.
+
+- **2x — GESTURE SHAPING** — `concept 2026-08-16, composer to scope` *(composer:
+  "the meta shape is really the sound itself")*. A morph — or any gesture —
+  should have an envelope at the GESTURE level: a designed **attack** (possibly a
+  different technique, e.g. cuivre), a **body**, and a designed **release**, with
+  the tuba parts filled in to realise it. **This inverts the present order:**
+  today the carrier derives entry and exit from breath logic and the shape is
+  emergent; the proposal is shape first, parts second — the same relation the
+  META layer already has to the density builds. Lineage: the granular-synthesis
+  model. Recorded in `docs/RUNNING_LOG.md`; needs its own plan and build.
+
+- **2y — MODEL ↔ ACTUAL: storage, recall, insert** — `concept 2026-08-16,
+  composer to scope` — **`docs/plans/MODEL_AND_ACTUAL.md`**. The composer's
+  virtual/actual distinction: a **MODEL** is *"a point plus the directions worth
+  travelling from it, and how far"* — a sonority, its elements, a slate of
+  recommended morphs with their **boundaries**, and **recipes** collapsing several
+  parameters into one dial. An **ACTUAL** is one decided, concrete sound object.
+  Two stores plus a process from virtual to actual. **The ACTUAL half largely
+  exists** (2w gesture bank; `extract_section.js` already excerpts by time); the
+  new work is recipes, boundaries and the one-dial collapse.
+  `bank/morph_recipes.json` is the first instance — it already stores the dial
+  boundaries learned by ear.
+
+- **2v-orig — MORPHING CHORDS (original spec, superseded by the entry above)** —
+  the INT2
   "morphing crescendo" branch, generalized: start a sonority, change it over
   time (pitch / technique / dynamics) via six named models (M1 detune bloom ·
   M2 spectral drift · M3 fan · M4 colour morph · M5 spacing migration · M6

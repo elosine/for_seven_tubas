@@ -10,55 +10,63 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**SESSION END (2026-08-16, day 9 — DB3 + the DENSITY PIPELINE, Claude Code):**
-- **DB3 recorded and orchestrated.** The composer played it in on one lane
-  (`scores/densBld03-take1.json` — 251 notes, 21.9 s, all staccato, G1–G4).
-  Its apex demands **54.5 attacks/s**; ten tubas holding a ~0.45 s staccato
-  one-shot can render **~22/s**. The mock-up cannot reveal that (2r), so it had
-  to be computed.
-- **PLAN 2t DENSITY PIPELINE shipped** — the reusable process, playbook in
-  **`docs/DENSITY_PIPELINE.md`** (read that first; it has the worked example,
-  every knob and what it costs, and section 6 on getting a build into the piece).
-  Five tools: `pack_take.js` (pack-to-ceiling), `artic_pass.js` (the fp arc),
-  `build_versions.js` (versions end to end in one file), `tonality_variants.js`,
-  and `audit_playability.js --parts`. Plus **leap-aware `assignCluster`** in the
-  app. Decisions **D19–D23**.
-- **Result:** 160 of 251 notes kept, **0 hard / 0 soft**, everything before 18 s
-  identical to what was played, 91 deleted all between 20.0–23.1 s. Per player:
-  peak 2.0–2.5 attacks/s, tightest pair 0.43 s — 2–4× clear of D17's own
-  estimated limit, so the estimate would have to be wrong by >2× to matter.
-- **Two real bugs found by testing in the running app, not by inspection:**
-  G-convert forced a 0.15 s overlap when a note had no room to swell back (always
-  at an apex); and `build_versions.js` painted notes by section, which made the
-  whole fortepiano pass invisible — the composer caught that one.
-- **Everything is verified live.** The app's `assignCluster` returned
-  135 hard / 10 soft / 3.13 st mean leap against the tool's 135 / 10 / 3.1 —
-  exact agreement. Packed and variant scores load with the badge as predicted.
-- **`docs/PAPER_NOTES.md` gains the DB3 CASE STUDY** — five stages with the
-  measurement that forced each, six findings, and the division of labour
-  (including that the AI's first design was worse than the composer's).
+**SESSION END (2026-08-16, day 10 — PLAN 2v MORPHING CHORDS, Claude Code):**
+- **PLAN 2v IS COMPLETE.** All five phases built, heard and measured. The composer
+  can now make a sonority, change it over time, audition it and insert it —
+  `Morph` button in the composer score. **Five of six models produced material the
+  composer called interesting or better; three are keepers usable in the piece.**
+  Composer: *"as far as creating interesting musical materials, we are already
+  there — it's more of a spoiled-by-riches situation now."*
+- **The instrument question is settled: PITCH BEND WORKS.** ±1.99 st, linear, no
+  artifacts to full range, and the composer hears **no seam** when the engine
+  re-keys mid-glissando. So bend width is an implementation detail, not a musical
+  constraint. Two surprises: the **residue trap is real** (a note after an unreset
+  bend played +49.4 ¢ sharp), and the **quartertones patch is NOT a uniform
+  quarter tone** (+23 ¢ at F2 → +57 ¢ at C4) — which answers PLAN 2l's blocking
+  question with a different answer than expected and makes bend the vehicle.
+- **The pitch chain is trustworthy end to end** — spectral targets land within
+  **0.4 ¢**, fan waypoints within **1.0 ¢** including both re-key seams. That
+  matters beyond morphing: any microtonal or spectral writing can rely on it.
+- **Composer's call: dynamics is a LAYER on every model, not one model of six**
+  (D24). M6 became the volume-ONLY model. Also D25 (morph notes are ordinary
+  waveCurves + `morphBend`) and D26 (bend width is not a musical limit).
+- **Findings that came from listening, not design:** a 30–60 s morph holds as ONE
+  sonority · beating is the strongest material and is available *without* writing
+  unisons · re-articulation carries the morph's **audibility**, so long segments
+  are less informative rather than smoother · two concurrent morphs enrich one
+  sonority rather than reading as two voices · voice reduction is lossy in
+  **detail, not identity** ("8-bit vs 16-bit").
+- **Full arc in `docs/RUNNING_LOG.md`**, including a **COLD START** section at the
+  end written for a session that has never seen the conversation — it lists the
+  six traps that cost time today. Read it before touching this code.
 
-**Open at session end (2026-08-16, day 9) — all of it is "go listen":**
-- **NOTHING HAS BEEN HEARD YET.** Two scores are waiting, both load-and-play:
-  `densBld03-arc-v2` (5 stages: as-played · unpacked · packed · fp mix · your
-  copy — 122.8 s) and `densBld03-tonalities` (9 harmonies — 224 s; ORIGINAL and
-  **Messiaen m3 on F** are the only two with zero flags).
-- **Section E of `densBld03-arc-v2` is the composer's to edit** — grain
-  envelopes. **G** = selection → surge crescendos (peak-anchored, back-filled by
-  lane availability). **C** = cuivre. **P** = property panel (it is on demand,
-  not on selection — that is the 2026-08-13 decision, not a bug).
-- **THE APEX DECISION IS STILL OPEN** and it is the fork: zero conflicts cost 91
-  notes, all at the apex. Alternatives are more players (mandate M1) or
-  converting the apex to sustained material so overlap becomes the point.
-- **DB3 cannot reach DB1/DB2's ~21 % fortepiano** — its sparse region is ~11 s
-  of a 23.5 s build and fp needs 1.35–2.22 s of a free player. Physics ceiling is
-  18 notes (11 %); currently 12. Not a bug, a property of this gesture.
-- **PLAN 2u (tonality sub-menu) is spec'd, not built.** The remap engine already
-  exists in the cluster sandbox — it is a surfacing job.
-- Carried, all still deferred by the composer: META shape overhang (NITS) ·
-  velocity-vs-CC7 (2q — does NOT touch the insert path) · 42 soft flags in
-  piece-s11/s12 · HARD-occupancy-uses-sample-length (NITS, opened today) ·
-  `ost01-variety` unheard · cressand-family verdicts · quarter-tone mapping test.
+**Open at session end (2026-08-16, day 10 — 2v):**
+- **Nothing in 2v is blocked or half-finished.** 101 unit tests green; Phase 4
+  (insert / drag / group-scale / save-reload) verified in the running app.
+- **Two follow-on builds are the composer's to scope, both with their own docs:**
+  **GESTURE SHAPING** (*"the meta shape is really the sound itself"* — designed
+  attack, body, release, with the tuba parts filled in to realise it; inverts the
+  current parts-first order) and **MODEL ↔ ACTUAL**
+  (`docs/plans/MODEL_AND_ACTUAL.md` — a model as "a point plus the directions
+  worth travelling from it and how far"). *Note the ACTUAL half largely exists
+  already (gesture bank); the new work is recipes, boundaries and the one-dial
+  collapse. `bank/morph_recipes.json` is the first instance.*
+- **B (technique migration) has not been re-heard since its fix.** It read as "a
+  collection of different techniques"; technique changes now enter under a long
+  deep dynamic ramp per the composer's instinct, but that change is unverified.
+- **Unprobed, low stakes:** a very fast or very low re-key seam; whether the true
+  bend pre-arm minimum is below 50 ms (all four rungs read identically).
+- Carried from day 9, all still open and all still deferred by the composer: the
+  **DB3 apex decision** · velocity-vs-CC7 (2q) · 42 soft flags in the piece ·
+  META shape overhang (NITS) · `ost01-variety` unheard · cressand-family verdicts.
+
+**Day 9 (2026-08-16):** DB3 recorded and orchestrated; **PLAN 2t DENSITY PIPELINE**
+shipped (pack-to-ceiling, leap-aware `assignCluster`, fp arc, version arcs,
+tonality variants, part-by-part audit — D19–D23, playbook
+`docs/DENSITY_PIPELINE.md`). 251 → 160 notes at **0 hard / 0 soft**. Later placed
+into the piece as **piece-s16** in Messiaen m3 on F; **PLAN 2w** gesture bank +
+recall built (`bank_gesture.js` / `place_gesture.js`), and the labels-never-render
+bug found and fixed (Principle 4).
 
 **Day 8 (2026-08-16):** collision avoidance end to end (PLAN 2r) — occupancy
 model, HARD/SOFT tiers (D17), conflict-aware insert, live wash, resolver with
@@ -348,6 +356,39 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   objects) earns its build when several builds need placing and re-placing —
   not before. Full write-up: `docs/DENSITY_PIPELINE.md` §6.
 
+- **D24** *(2026-08-16)* — **LOUDNESS IS A LAYER ON EVERY MORPH MODEL, not one
+  model of six.** Composer: *"centre volume changes more prominently — we
+  undersold that earlier."* Every render carries a per-voice dynamic contour
+  (`dyn {base, shape, amount, turns, spread}`, shape ∈ swell/rise/fall/rotate/
+  flat), so a pitch morph also swells unless `flat` turns it off. **M6 is
+  therefore the volume-ONLY model** — it holds pitch and technique and defaults
+  the layer to `rotate`. *Why it matters beyond the feature:* morph dynamics now
+  take the identical calibrated path as every hand-drawn crescendo in the piece,
+  so a hairpin inside a morph sounds like a hairpin in the piece. *Rejected:*
+  leaving volume as one selectable model (the composer's whole point was that it
+  is not one option among six but a dimension of all of them).
+- **D25** *(2026-08-16)* — **A morph note is an ORDINARY score `waveCurve` plus
+  one new field, `morphBend`** — not a new object type and not a new `env`
+  structure, which is what the plan's schema specified. Level envelopes already
+  exist in this app as `nodes`/`segments`, and the engine emits level in the
+  score's own 0–10 unit rather than absolute CC7 because the CC7 law is a
+  MEASURED map loaded at runtime (`probes/cc7_map.json`) — emitting the law's
+  INPUT keeps that calibration in exactly one place. *Consequence:* existing code
+  already draws, plays, drags and group-scales morph notes, so "envelopes survive
+  a drag" came free from debugged machinery instead of new code. Verified in
+  Phase 4. *Rejected:* the plan's `env: {bend, cc7}` — it would have forked the
+  CC7 calibration, which the same plan forbids, and it contradicted the engine's
+  own purity rule (a pure engine cannot fetch the map).
+- **D26** *(2026-08-16)* — **The patch's ±2 semitone bend limit is an
+  implementation detail, not a musical constraint.** A wider move is SPLIT into
+  consecutive re-keyed notes (bend to the edge, re-key, continue, contiguous so
+  the player slurs across a fingering change). Measured: fan waypoints land within
+  1.0 ¢ *including both seams*, and the composer reports **no audible seam** on a
+  continuous re-keyed glissando. *So a fan may be as wide as the music wants.*
+  *Caveat kept:* one leg, one register, one rate — a very fast or very low re-key
+  is unprobed. *Rejected:* flagging wide fans as unplayable (correct but useless),
+  and hiding the seam under a dynamic dip (unnecessary — nothing to hide).
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -374,6 +415,19 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   with the measurement that forced each stage; the paper's worked example.
 - 2026-08-16 — **PLAN 2u spec'd** (tonality sub-menu) — not built; the remap
   engine already exists in the cluster sandbox.
+- 2026-08-16 — **PLAN 2w GESTURE BANK + RECALL** — `bank_gesture.js` /
+  `place_gesture.js`: capture a finished orchestrated gesture by name, recall it
+  into any score. The second insertion path, for material the strip cannot carry.
+  DB3 placed into the piece as **piece-s16** (Messiaen mode 3 on F).
+- 2026-08-16 — **PLAN 2v MORPHING CHORDS COMPLETE** (D24–D26). Probes (bend
+  works ±1.99 st, residue trap real, quartertones patch not a uniform quarter
+  tone) · pure engine `score/public/morph.js` with six models, breath/striation
+  carrier, universal dynamics layer, and **101 unit tests** · emit layer with
+  registry-driven panic · the **Morph panel** (generates, auditions, inserts,
+  never edits) · segmented re-key for wide glissandi · recipes banked with their
+  dial boundaries. **Measured: spectral targets within 0.4 ¢, fan waypoints
+  within 1.0 ¢ including seams.** Five of six models produced material the
+  composer called interesting or better; three are keepers.
 
 ## §6 Human Notes
 

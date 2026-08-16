@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ **DB3 is in the piece, in Messiaen m3 on F** ▸ *piece-s16 (135.8 s) — DB3-m3F at 113.54–135.77 s, zero new conflicts. Next: listen in context; the apex call is still open*
+**NOW ►** Section 1 ▸ **morphing chords are BUILT and usable** ▸ *PLAN 2v complete — `Morph` button in the score; A / BEATING BLOOM / BEATING CONVERGE are keepers. Next: the composer scopes GESTURE SHAPING (2x) and MODEL↔ACTUAL (2y), then compose with all of it. Piece is at piece-s17 (135.8 s).*
 
 ---
 
@@ -51,7 +51,7 @@ Container-level to-dos:
 - pointillistic clusters (CLUST01 / CLUST02 / CLOUD02)
 - crescendo-pulse chains (cressand-family, any pitch strategy)
 - single long crescendos on a harmony
-- morphing crescendo (gliss → quarter-tones / legato; to build)
+- **morphing chords (BUILT — PLAN 2v; `Morph` button, recipes banked)**
 - tremolos (trem01/02 material; to develop)
 - ostinato formations (ost01-variety; unheard)
 - density-buildup excerpts (scrambles, carves)
@@ -95,26 +95,31 @@ reusable articulation sets · realizations · INT2 keepers).*
       — sophistication added as need arises).
 </details>
 
-<details><summary><b>Morphing crescendo</b> · <i>todo</i></summary>
+<details><summary><b>Morphing crescendo</b> · <i>BUILT — PLAN 2v</i></summary>
 
-A smooth shift in **harmonic timbre as well as volume**; first one probably
-**simple → complex** timbre over time.
+A smooth shift in **harmonic timbre as well as volume**. Delivered as the
+morphing-chords system: `Morph` button in the composer score.
 
-- [ ] **Quartertones patch mapping test** (PLAN 2l first step — everything
-      quarter-tone hangs on it)
-- [ ] Vehicle: **glissandos to quarter-tones** (`gliss_menu` ch 12, 48–77) vs
-      **legato note changes** — or both
-- [ ] Choose endpoints: which simple harmony → which complex one
+- [x] **Quartertones patch mapping test** — done by measurement. It is **NOT** a
+      uniform quarter tone (+23 ¢ at F2 → +57 ¢ at C4), so quarter-tone chords
+      must be voiced from the per-key table.
+- [x] **Vehicle decided: PITCH BEND**, not the gliss patch and not the
+      quartertones patch. Measured ±1.99 st, linear, no artifacts, and wide
+      moves re-key mid-note with no audible seam (D26).
+- [x] **Volume rides every model** (D24), so "timbre as well as volume" is the
+      default rather than a combination the composer has to build.
+- [ ] Choose endpoints for the actual INT2 gesture — now a compositional choice,
+      not a technical one. Keepers to start from: `bank/morph_recipes.json`.
 </details>
 
 </details>
 
-<details open><summary><b>DB3 — third density buildup</b> · <i>◄ IN THE PIECE</i> (piece-s14, 114.1–136.3 s)</summary>
+<details open><summary><b>DB3 — third density buildup</b> · <i>◄ IN THE PIECE</i> (piece-s16/s17, 113.5–135.8 s)</summary>
 
 - [x] **Length** — settled by playing it: 22.2 s as recorded/packed
       (`densBld03-take1-fp.json`, 160 notes, HARD 0 / soft 0)
-- [x] **Placed** — `tools/piece_s14.js`, group `grp-db3-01`, gap 3.48 s after
-      INT2; zero new conflicts (badge unchanged at 42 soft, all pre-existing)
+- [x] **Placed** — `tools/place_gesture.js` from `bank/DB3-m3F.json`; zero new
+      conflicts (badge unchanged at 42 soft, all pre-existing)
 - [x] **Harmony decided 2026-08-16: MESSIAEN MODE 3 ON F** (the composer's
       pick from `densBld03-tonalities-surge`). 26 distinct pitches G1–F4 over
       the 9 classes F G G# A B C C# D# E; HARD 0 / soft 0, one of only two
