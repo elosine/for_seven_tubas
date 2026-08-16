@@ -63,8 +63,11 @@ const THRESHOLDS_MS = [10, 20, 30, 50, 80, 120, 160, 200, 250, 300, 400, 500];
 
 // BEAT: a voice's composite pulse at `rate(t)` attacks/s, by phase integration
 // (so a ramping tempo is exact rather than stepwise).
-function steadyOnsets(rateOf, dur, DT = 0.0002) {
-    const out = []; let phase = 0, next = 0;
+// `phase0` (0..1) delays the voice by that fraction of its own attack period.
+// Spreading N voices at j/N makes the UNION perfectly even at the start; without
+// it every voice enters together and the composite is a clump plus a hole.
+function steadyOnsets(rateOf, dur, phase0 = 0, DT = 0.0002) {
+    const out = []; let phase = 0, next = phase0;
     for (let t = 0; t < dur; t += DT) {
         phase += rateOf(t) * DT;
         while (phase >= next) { out.push(+t.toFixed(4)); next += 1; }
@@ -134,7 +137,11 @@ function buildScore(spec) {
                 const u = Math.max(0, Math.min(1, (t - hold) / Math.max(1e-9, sec.dur - hold)));
                 return n * (bpm0 + (bpm1 - bpm0) * u) / 60;
             };
-            return steadyOnsets(rateOf, sec.dur);
+            // `delay` is in SECONDS (absolute), converted to this voice's own
+            // period. Absolute is what matters: staggering by a fraction of each
+            // voice's period puts faster voices in the wrong absolute slot.
+            const phase0 = v.delay != null ? v.delay * n * v.bpm / 60 : (v.phase || 0);
+            return steadyOnsets(rateOf, sec.dur, phase0);
         });
 
         sec.voices.forEach((v, vi) => {
@@ -204,6 +211,33 @@ function buildScore(spec) {
     };
     fs.writeFileSync(path.join(ROOT, 'scores/' + spec.name + '.json'), JSON.stringify(out));
 
+    // ---- optional MIDI export, so Reaper can do the timing instead of us ----
+    if (spec.midi) {
+        const { writeMidi } = require('./midi_out');
+        // technique -> UVI channel + which instance carries it (sandbox/instruments.js)
+        const CH = { ord: [1, ''], fortepiano: [11, ''], cuivre: [5, ''], staccato: [4, 'b'] };
+        const notes = objs.filter(o => o.type === 'waveCurve');
+        const [ch, suffix] = CH[notes[0].technique] || [1, ''];
+        const mk = n => ({ t: n.startSeconds, pitch: n.sonifyNote,
+            dur: +(n.endSeconds - n.startSeconds).toFixed(4), vel: n.recVel });
+
+        const perLane = [];
+        for (let L = 0; L < 10; L++) {
+            const mine = notes.filter(n => n.layer === L);
+            if (mine.length) perLane.push({
+                name: `Tuba${L + 1}${suffix} SI2 · ch${ch} ${notes[0].technique}`,
+                channel: ch, notes: mine.map(mk),
+            });
+        }
+        const a = writeMidi(`midi/${spec.name}-10track.mid`, { tracks: perLane });
+        const b = writeMidi(`midi/${spec.name}-1track.mid`, {
+            tracks: [{ name: `ALL PARTS · ch${ch} ${notes[0].technique}`, channel: ch, notes: notes.map(mk) }],
+        });
+        console.log(`\n  MIDI: midi/${spec.name}-10track.mid (${a.tracks} tracks, ${a.notes} notes, ${a.seconds}s)` +
+            `\n        midi/${spec.name}-1track.mid  (1 track, ${b.notes} notes)` +
+            `\n        route to the "Tuba<N>${suffix} SI2" tracks — notes are on channel ${ch}`);
+    }
+
     // ---- report what was WRITTEN, not what was intended ----
     const notes = objs.filter(o => o.type === 'waveCurve').length;
     console.log(`\n=== ${spec.name} — ${notes} attacks, ${(cursor).toFixed(1)}s, ` +
@@ -253,6 +287,55 @@ const PRESETS = {
                 ],
             };
         }),
+    }),
+
+    // SMOOTHNESS — the answer to "none of them is a smooth flutter".
+    //
+    // Two voices can only ever make short-long-short-long: a gallop. So this
+    // uses TEN voices, one player each, entering at evenly staggered times, so
+    // the union starts as one perfectly even stream at ~18 attacks/s.
+    //
+    // The variable is the TEMPO SPREAD across the ten. Spread 0 = a dead-even
+    // roll forever (the control — this is what "smooth" actually sounds like).
+    // Widen it and the ten drift out of their slots, so the stream deviates from
+    // even by more and more, faster and faster. Somewhere on this ladder even
+    // becomes shimmer and shimmer becomes figure.
+    smooth: () => ({
+        name: 'phase06-smooth', notelen: 0.12, gap: 2.5, midi: true,
+        sections: [0, 0.5, 2, 6].map(span => {
+            const lo = BASE - span / 2, stagger = 60 / BASE / 10;
+            return {
+                label: `SPREAD ${span} BPM · 10 voices ${r2(lo)}–${r2(lo + span)}` +
+                    (span ? ` · outer lap ${r2(60 / span)}s` : ' · DEAD EVEN CONTROL'),
+                tag: 'sp' + span, dur: 18, model: 'beat',
+                voices: Array.from({ length: 10 }, (_, j) => ({
+                    lanes: [j], pitch: PITCH, tech: 'staccato',
+                    bpm: lo + span * j / 9,
+                    delay: j * stagger,      // absolute, so the union starts even
+                })),
+            };
+        }),
+    }),
+
+    // THE JITTER TEST — is unevenness in the MATERIAL or in our playback?
+    // Two perfectly even controls, then the real thing. Written as a score AND
+    // as MIDI files, so the same content can be A/B'd app vs Reaper.
+    jitter: () => ({
+        name: 'phase04-jitter', notelen: 0.12, gap: 2, midi: true,
+        sections: [
+            { label: 'CONTROL 1 · PERFECTLY EVEN 18.3/s · 10 tubas, one voice @ 110',
+              tag: 'ctrl18', dur: 10, model: 'beat',
+              voices: [{ lanes: [0,1,2,3,4,5,6,7,8,9], pitch: PITCH, tech: 'staccato', bpm: BASE }] },
+            { label: 'CONTROL 2 · PERFECTLY EVEN 9.2/s · 5 tubas, one voice @ 110',
+              tag: 'ctrl9', dur: 8, model: 'beat',
+              voices: [{ lanes: LANES_A, pitch: PITCH, tech: 'staccato', bpm: BASE }] },
+            { label: 'REAL · two voices, lap 12s (ΔBPM 1) — the galloping one',
+              tag: 'real', dur: 14, model: 'beat', lap: 12, dBpm: 1, markLaps: true,
+              voices: [
+                  { lanes: LANES_A, pitch: PITCH, tech: 'staccato', bpm: BASE },
+                  { lanes: LANES_B, pitch: PITCH, tech: 'staccato', bpm: BASE + deltaBpm(12) },
+              ] },
+        ],
     }),
 
     // THE BEATING ACCELERANDO — one voice slowly detunes, flutter speeds up.

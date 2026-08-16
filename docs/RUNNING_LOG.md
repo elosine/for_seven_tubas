@@ -325,3 +325,49 @@ likely the one-time browser MIDI permission handshake, which only happens on a
 cold page. Discriminating test if it recurs: does it need two presses on EVERY
 play within one page session (real bug), or only the first after a reload
 (permission handshake, not a bug)? Not chased without that evidence.
+
+### FIRST LISTENING on `phase03-fluttermap` (composer, 2026-08-16)
+- Cell 1 *"discernible rhythmic pattern, more like a loop"* · cell 2 *"smoother,
+  but still a gallop — patterned"* · cell 3 *"a different type of gallop"*.
+  **"None are producing a smooth flutter."** Plus two side observations:
+  *"some phasing appears almost like an accent or another line"* (Reich ghost
+  notes) and an occasional *"phasor sound"*. Also **visual latency/jitter** in
+  the app's playhead — unknown whether it reaches the audio.
+- **THE GALLOP IS THE MODEL, measured not asserted.** Composite intervals in
+  cell 1 alternate `0/108 · 1/107 · 2/106 …` then `14/94 · 15/93 …` then
+  `68/41 · 67/42 …`. Two even combs at slightly different spacings can only
+  union into a **two-element alternation** whose ratio sweeps. **Two voices are
+  a gallop by construction** — smoothness needs more voices.
+- **Both side observations are real and worth keeping.** The "accent" is the
+  *resultant pattern*: attacks landing within a few ms read as one louder event,
+  so an accent line emerges that nobody plays — free counterpoint. The "phasor"
+  is **literal flanging**: two copies of the same sample 0–20 ms apart comb-filter
+  each other and the comb sweeps. **So below ~30 ms the phase relationship stops
+  being rhythm and becomes TIMBRE** — a usable zone we had not identified.
+
+### `phase04-jitter` — the app-vs-Reaper test the composer asked for
+- Same content as a score AND as MIDI (`midi/phase04-jitter-{10track,1track}.mid`,
+  **channel 4 = staccato → the `TubaNb SI2` instances**). Two dead-even controls
+  (18.3/s and 9.2/s) then the real galloping cell.
+- New `tools/midi_out.js` (SMF type 1 writer). **Verified by parsing the file
+  back with an independent reader:** 517 note-ons matching the score one-for-one,
+  max onset error **0.30 ms** (under one 0.52 ms tick), controls measuring
+  54.1–54.7 and 108.8–109.4 ms. The reference is clean.
+
+### `phase06-smooth` — spread, not voice count, is the smoothness dial
+- Ten voices of one player each, **entering at evenly staggered absolute times**,
+  union to a perfectly even ~18 attacks/s. Variable = **tempo spread**:
+  **0 (dead-even control) · 0.5 · 2 · 6 BPM**. Deviation from even at entry →
+  +15 s: 0.4→0.4 ms · 0.6→21 ms · 1.9→81 ms · 5.1→50 ms. Each cell starts even
+  and degrades inside its own 18 s, so the crossover is heard within the cell.
+- **A design trap caught by measuring before it cost a listen:** staggering each
+  voice by a fraction of *its own* period puts faster voices in the wrong
+  absolute slot — the texture opened with a clump plus a hole
+  (`30 31 32 33 34 35 36 224`). **The stagger must be in absolute seconds.**
+  An earlier `phase05-voicecount` battery was built, measured, found confounded
+  and deleted rather than shipped.
+- *Behaviour worth knowing:* evenly-spaced tempos spread the voices' phases
+  linearly, so they wrap and re-converge — the texture always fails toward
+  **clump + hole**, never toward "irregular but even".
+- Audit 0 hard / 0 soft; loads in the app, ten lanes at 132–133 notes each, all
+  four markers rendering. **Unheard.**

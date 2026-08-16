@@ -214,6 +214,93 @@ clean. That is the `HARD occupancy uses sample length` question already in
 
 ---
 
+## 5B · FIRST LISTENING — and why two voices always gallop
+
+**Composer, 2026-08-16, on `phase03-fluttermap`:** cell 1 *"has a discernible
+rhythmic pattern, more like a loop"*; cell 2 *"smoother, but still has a gallop —
+not necessarily bad, but patterned"*; cell 3 *"just a different type of gallop"*.
+**"None are producing a smooth flutter."** Also noticed: *"some phasing appears
+almost like an accent or another line"* — akin to Reich's ghost notes — and a
+*"phasor sound"* occasionally.
+
+**The gallop is the model, not a defect.** Measured straight off the generated
+onsets, the composite inter-attack intervals in cell 1:
+
+```
+near unison:   0  108   1  107   2  106   3  105  ...
+quarter lap:  14   94  15   93  16   92  17   91  ...
+later:        68   41  67   42  66   43  65   44  ...
+```
+
+Two even combs of slightly different spacing can only ever union into a
+**two-element alternation** — short, long, short, long — whose ratio sweeps from
+1:∞ (unison) through 1:1 (even, for one instant) and back. **A two-voice texture
+is a gallop by construction.** Smoothness needs more voices (§5C).
+
+**The two side observations are both real, and both worth keeping:**
+
+- **The "accent / another line"** is the *resultant pattern*. When the two
+  attacks land within a few ms they read as one louder, thicker event, so an
+  accent pattern emerges that nobody is playing. This is the same phenomenon
+  Reich's ghost notes exploit. It is free counterpoint — worth composing with
+  rather than removing.
+- **The "phasor" sound is literally flanging.** Two copies of the *same sample*
+  0–20 ms apart comb-filter each other, and the comb sweeps as the offset drifts.
+  **So below ~30 ms the phase relationship stops being rhythm and becomes
+  TIMBRE.** That is a whole usable zone we had not identified: a ten-tuba unison
+  whose colour is controlled by sub-30 ms tempo differences.
+
+## 5C · SMOOTHNESS — `phase06-smooth`
+
+If two voices gallop, use ten. Ten voices of one player each, **entering at
+evenly staggered absolute times**, union to one perfectly even stream at
+~18 attacks/s. The variable is then the **tempo spread** across the ten.
+
+| cell | spread | outer lap | deviation from even (sd) at entry → +15 s |
+|---|---|---|---|
+| 1 | **0 BPM** | — | **0.4 ms → 0.4 ms** — dead even forever. *This is the control: what "smooth" actually is.* |
+| 2 | 0.5 BPM | 120 s | 0.6 ms → 21 ms |
+| 3 | 2 BPM | 30 s | 1.9 ms → 81 ms |
+| 4 | 6 BPM | 10 s | 5.1 ms → 50 ms |
+
+Each cell **starts even and degrades within its own 18 s**, so the transition
+from smooth to figural happens inside the cell — the composer names where it
+crosses rather than comparing across cells from memory.
+
+**A design trap found by measuring, before it wasted a listen:** the first
+version staggered each voice by a fraction of *its own* period. Because the
+periods differ, that puts faster voices in the wrong absolute slot, and the
+texture opened with a clump plus a hole (`30 31 32 33 34 35 36 224`). **The
+stagger has to be in absolute seconds.** Fixed; entry is now even to 0.4 ms.
+
+**What the degradation actually looks like:** evenly-spaced tempos spread the
+voices' phases linearly, so they wrap past each other and re-converge — the
+texture always fails toward *clump + hole*, never toward "irregular but even".
+Whether the clumped state is a flutter or a figure is the ear's call.
+
+## 5D · The JITTER TEST — `phase04-jitter`
+
+The composer asked whether the unevenness is partly our own playback. Same
+content as a score **and** as MIDI files, so the app and Reaper can be A/B'd:
+
+- `midi/phase04-jitter-10track.mid` — one track per player, faithful routing
+- `midi/phase04-jitter-1track.mid` — everything on one track, drag-and-drop
+- **Notes are on channel 4 = Staccato**, which lives on the **`TubaNb SI2`**
+  instances, not the main ones.
+
+Three sections: a dead-even 18.3/s control, a dead-even 9.2/s control, then the
+real galloping cell. **If the controls sound even in Reaper but uneven in the
+app, the app's scheduler is adding jitter.** If they are even in both, the
+gallop is entirely the material.
+
+*Verified, not assumed:* the MIDI file was parsed back with an independent
+reader — 517 note-ons matching the score one-for-one, channel 4, max onset error
+**0.30 ms** (under one tick), and the two control sections measure 54.1–54.7 ms
+and 108.8–109.4 ms between attacks. **The reference is clean**, so anything
+audible is downstream of the file.
+
+---
+
 ## 6 · COUNTERPOINT vs SOUND MASS — the second objective
 
 Composer: *"several of these going at the same time in different tempos. My
