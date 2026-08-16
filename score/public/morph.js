@@ -265,14 +265,14 @@ const MODELS = {
     },
 
     // M2 — SPECTRAL DRIFT. Voices arrive on harmonic partials of a fundamental.
-    // Reverse (spectrum -> inharmonic) is the same code with start/target swapped
-    // by the caller.
+    // Each voice goes to its NEAREST free partial (assigned once, in render), not
+    // to partials[vi]: a spectral drift should sound like the chord focusing into
+    // a spectrum, with every voice moving a short distance. Indexing blindly made
+    // voices leap octaves — measured, it demanded 1681 cents of bend against a
+    // patch that has 199. Reverse (spectrum -> inharmonic) is the same code with
+    // start and target swapped by the caller.
     M2: function (ctx, vi, p) {
-        const t = ctx.target || {};
-        const fund = t.fundamental != null ? t.fundamental : 41;   // F2, the piece's anchor
-        const parts = t.partials && t.partials.length ? t.partials
-                                                      : [2, 3, 4, 5, 6, 7, 8, 9, 11, 13];
-        const target = partialCents(fund, parts[vi % parts.length]);
+        const target = (ctx._m2 && ctx._m2[vi] != null) ? ctx._m2[vi] : ctx.startCents[vi];
         return { cents: ctx.startCents[vi] + (target - ctx.startCents[vi]) * p };
     },
 
@@ -465,6 +465,54 @@ function render(params, opts) {
         startCents: startCents, targetCents: targetCents, nVoices: nVoices,
         target: P.target, dyn: P.dyn, dynBase: P.dyn.base,
     };
+
+    // M2: assign each voice its NEAREST free partial, nearest-first, so no voice
+    // travels further than it must and no two land on the same partial.
+    if (P.model === 'M2') {
+        const t = P.target || {};
+        const fund = t.fundamental != null ? t.fundamental : 41;   // F2, the piece's anchor
+        const parts = (t.partials && t.partials.length) ? t.partials
+                                                        : [2, 3, 4, 5, 6, 7, 8, 9, 11, 13];
+        // OCTAVE-FOLD each partial into the playable register. Partial 11 of F2
+        // is MIDI 82 and partial 13 is 85 — both above the tuba entirely, and
+        // asking a voice at MIDI 58 to reach them demanded 1400 cents of bend
+        // against a patch that has 199. What makes a chord sound spectral is the
+        // partial's PITCH CLASS (7 is -31 c, 11 is +49 c, 13 is -41 c); which
+        // octave it is voiced in is an orchestration choice, and for ten tubas
+        // the answer is "one they can play". So every octave transposition of
+        // every partial inside the ord range is a candidate, and each voice
+        // takes the nearest free one.
+        const ordLo = TECHNIQUES.ord.lo * 100, ordHi = TECHNIQUES.ord.hi * 100;
+        const cand = [];
+        parts.forEach(n => {
+            const bcents = partialCents(fund, n);
+            let c = bcents;
+            while (c - 1200 >= ordLo) c -= 1200;      // drop to the bottom of the range
+            for (; c <= ordHi; c += 1200) if (c >= ordLo) cand.push(c);
+        });
+        if (!cand.length) parts.forEach(n => cand.push(partialCents(fund, n)));
+        const pairs = [];
+        for (let v = 0; v < nVoices; v++) {
+            cand.forEach((c, ci) => pairs.push({ v: v, ci: ci, d: Math.abs(c - startCents[v]) }));
+        }
+        pairs.sort((a, b) => a.d - b.d);
+        const usedV = {}, usedC = {};
+        ctx._m2 = new Array(nVoices);
+        pairs.forEach(pr => {
+            if (usedV[pr.v] || usedC[pr.ci]) return;
+            usedV[pr.v] = usedC[pr.ci] = 1;
+            ctx._m2[pr.v] = cand[pr.ci];
+        });
+        for (let v = 0; v < nVoices; v++) {                 // more voices than partials
+            if (ctx._m2[v] == null) {
+                let best = cand[0];
+                cand.forEach(c => {
+                    if (Math.abs(c - startCents[v]) < Math.abs(best - startCents[v])) best = c;
+                });
+                ctx._m2[v] = best;
+            }
+        }
+    }
     const modelFn = MODELS[P.model] || MODELS.M6;
     const order = staggerOrder(nVoices, P.seed);
     const span = P.carrier.span;
@@ -504,9 +552,35 @@ function render(params, opts) {
         let prevTech = null;
         segs.forEach(seg => {
             const s0 = stateAt(vi, seg.start);
-            const onsetMidi = midiOf(s0.cents);
-            const fe = feasibleTechnique(s0.technique, onsetMidi);
             const flags = seg.flags.slice();
+
+            // ---- envelopes, NOTE-RELATIVE ----
+            const STEPS = 12;
+            const bend = [];
+            const level = [];
+            let lo = s0.cents, hi = s0.cents;
+            for (let k = 0; k <= STEPS; k++) {
+                const dt = (seg.dur * k) / STEPS;
+                const s = stateAt(vi, Math.min(span, seg.start + dt));
+                if (s.cents < lo) lo = s.cents;
+                if (s.cents > hi) hi = s.cents;
+                bend.push([round3(dt), Math.round((s.cents - s0.cents) * 10) / 10]);
+                level.push([round3(dt), Math.round(s.level * 10) / 10]);
+            }
+
+            // THE PLAYED KEY IS CENTRED ON THE EXCURSION, not taken from the
+            // onset. One note has one key, and bend is +/-2 semitones EITHER
+            // WAY — centring uses both halves, so a note that travels 300 cents
+            // fits where an onset-anchored key would have needed 300 in one
+            // direction and failed.
+            const playedMidi = Math.round(((lo + hi) / 2) / 100);
+            const reach = Math.max(Math.abs(lo - playedMidi * 100), Math.abs(hi - playedMidi * 100));
+            // Beyond that, the note must be re-keyed under the seam (plan §8's
+            // segmented strategy, scheduled for Phase 3 with M3). Flagged, never
+            // silently clipped.
+            if (reach > bendReach() + 1e-6) flags.push('GLISS');
+
+            const fe = feasibleTechnique(s0.technique, playedMidi);
             if (fe.flagged) flags.push('RANGE');
 
             // technique-switch prep: did the previous segment leave enough room?
@@ -516,23 +590,6 @@ function render(params, opts) {
                 if (prev && seg.start - (prev.tStart + prev.dur) < need - 1e-6) flags.push('SWITCH');
             }
             prevTech = fe.technique;
-
-            // ---- envelopes, NOTE-RELATIVE ----
-            const STEPS = 12;
-            const bend = [];
-            const level = [];
-            let maxAbsBend = 0;
-            for (let k = 0; k <= STEPS; k++) {
-                const dt = (seg.dur * k) / STEPS;
-                const s = stateAt(vi, Math.min(span, seg.start + dt));
-                const dc = s.cents - s0.cents;
-                if (Math.abs(dc) > maxAbsBend) maxAbsBend = Math.abs(dc);
-                bend.push([round3(dt), Math.round(dc * 10) / 10]);
-                level.push([round3(dt), Math.round(s.level * 10) / 10]);
-            }
-            // A note cannot bend further than the patch allows; beyond that the
-            // emit layer must re-key under the seam (plan §8, segmented strategy).
-            if (maxAbsBend > bendReach() + 1e-6) flags.push('GLISS');
 
             // re-entry "sneak in": every segment after the first enters under a
             // short rise, so the seam is hidden by shape as well as by stagger.
@@ -548,7 +605,7 @@ function render(params, opts) {
                 tStart: round3(seg.start),
                 dur: round3(seg.dur),
                 cents: Math.round(s0.cents * 10) / 10,
-                midi: onsetMidi,
+                midi: playedMidi,
                 technique: fe.technique,
                 durClass: (TECHNIQUES[fe.technique] || TECHNIQUES.ord).durClass,
                 level: level,
@@ -630,6 +687,15 @@ function toScoreObjects(result, at, opts) {
         for (let i = 1; i < nodes.length; i++) {
             if (nodes[i].pos <= nodes[i - 1].pos) nodes[i].pos = Math.min(1, nodes[i - 1].pos + 1e-3);
         }
+        // BEND IS STORED RELATIVE TO THE PLAYED KEY, not to the note's exact
+        // cents. n.cents can sit anywhere between keys (a spectral partial, a
+        // detune), and n.midi is that rounded to a playable key — so the
+        // residual (cents - key*100) is a real, permanent part of the bend. Fold
+        // it in here, once, and playback can send morphBend verbatim. Leaving it
+        // out would play every microtonal target at the nearest semitone and the
+        // error would be invisible in the score.
+        const residual = n.cents - n.midi * 100;
+        const bend = n.bend.map(pt => [pt[0], Math.round((pt[1] + residual) * 10) / 10]);
         return {
             id: 'wc-' + (nid++),
             type: 'waveCurve',
@@ -646,7 +712,7 @@ function toScoreObjects(result, at, opts) {
             properties: {},
             sonifyNote: n.midi,
             technique: n.technique,
-            morphBend: n.bend,          // the one genuinely new field
+            morphBend: bend,            // the one genuinely new field
             morphFlags: n.flags.length ? n.flags.slice() : undefined,
         };
     });

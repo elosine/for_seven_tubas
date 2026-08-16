@@ -314,6 +314,49 @@ ok('each carries a sonifyNote and technique',
     objs.every(o => typeof o.sonifyNote === 'number' && !!o.technique));
 ok('bend rides along as morphBend', objs.every(o => Array.isArray(o.morphBend)));
 
+// morphBend must be relative to the PLAYED KEY, residual folded in — otherwise
+// every microtonal target plays at the nearest semitone and nothing shows it.
+const micro = M.render({
+    model: 'M2', seed: 1,
+    source: { kind: 'pitches', midi: [41, 48, 53, 58] },
+    target: { fundamental: 41, partials: [4, 7, 11, 13] },   // 7 and 11 are the far-from-12TET ones
+    dials: { bias: 0, spread: 0, depth: 1 },
+    carrier: { span: 20, segLen: 18, segVar: 0, striation: 'aligned' },
+});
+const microObjs = M.toScoreObjects(micro, 0, {});
+let residOk = true, sawResidual = false;
+microObjs.forEach((o, i) => {
+    const n = micro.notes[i];
+    const resid = n.cents - n.midi * 100;
+    if (Math.abs(resid) > 1) sawResidual = true;
+    // played pitch at each breakpoint must equal key*100 + morphBend
+    o.morphBend.forEach((pt, k) => {
+        const wantCents = n.cents + n.bend[k][1];
+        const gotCents = o.sonifyNote * 100 + pt[1];
+        if (Math.abs(gotCents - wantCents) > 0.2) residOk = false;
+    });
+});
+ok('a spectral render actually produces off-key targets', sawResidual);
+ok('key*100 + morphBend reproduces the intended cents exactly', residOk);
+// Octave-folding must keep an M2 render inside the patch's bend range. (A wide
+// M3 fan legitimately exceeds it and is flagged GLISS — that is the segmented
+// re-key case, Phase 3. M2 has no such excuse: it should never need to leap.)
+const m2Max = Math.max.apply(null,
+    microObjs.map(o => Math.max.apply(null, o.morphBend.map(p => Math.abs(p[1])))));
+ok('an M2 spectral render stays inside the patch bend range',
+    m2Max <= M.bendReach() + 0.5, 'max ' + m2Max.toFixed(1) + ' c vs reach ' + M.bendReach().toFixed(0));
+ok('and every M2 note lands in the playable ord range',
+    microObjs.every(o => o.sonifyNote >= 30 && o.sonifyNote <= 65),
+    JSON.stringify(microObjs.map(o => o.sonifyNote)));
+eq('so nothing is flagged GLISS', micro.summary.flags.GLISS || 0, 0);
+// the spectral colour survives folding: partial 7 is -31 c, 11 is +49 c
+const classes = microObjs.map(o => {
+    const c = o.sonifyNote * 100 + o.morphBend[o.morphBend.length - 1][1];
+    return Math.round(((c % 1200) + 1200) % 1200);
+});
+ok('folded partials keep a microtonal pitch class (the spectral colour)',
+    classes.some(c => c % 100 > 15 && c % 100 < 85), JSON.stringify(classes));
+
 // ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
