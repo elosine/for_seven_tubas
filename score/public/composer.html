@@ -14618,11 +14618,15 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     el.style.color = (hovering && id !== selectedCg) ? '#8fb3a5' : '#8fdbe8';
   }
   function cgStop() { cgPending.forEach(clearTimeout); cgPending = []; }
+  const CG_VARIABLE = { ord: 1, cuivre: 1 };   // drawn durations, not one-shots
+  function cgLen(e) {
+    return CG_VARIABLE[e.tech] ? e.d : (Composer.techLength(e.tech, e.p) || e.d);
+  }
   function cgAssign(events) {
     // round-robin with cooldown: least-recently-used free player, steal if none
     const busy = Array(10).fill(-1);
     return events.map(e => {
-      const len = e.tech === 'ord' ? e.d : (Composer.techLength(e.tech, e.p) || e.d);
+      const len = cgLen(e);
       let k = -1, oldest = Infinity;
       for (let i = 0; i < 10; i++) if (busy[i] + 0.04 <= e.t && busy[i] < oldest) { oldest = busy[i]; k = i; }
       if (k < 0) k = busy.indexOf(Math.min.apply(null, busy));

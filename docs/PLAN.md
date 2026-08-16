@@ -165,6 +165,18 @@ composer → notation → performance architecture.)*
   translate. *Why it mattered:* inserted fp blasts were drawn at 3.0 s while the
   sound died at ~1.7 s — the block was lying by nearly 2×.
 
+- **2o — CUIVRE IS VARIABLE-LENGTH** — `open 2026-08-15` — composer: *"you can
+  play shorter cuivres."* The survey measured where the cuivre sample ENDS
+  ITSELF (0.99–1.35 s) but never tested whether an early note-off truncates it,
+  so that figure is a **ceiling, not a floor**. Cluster-sandbox cuivre is now
+  variable-length (drawn duration, right-edge draggable, scales with stretch),
+  defaulting to the measured length; fp and staccato stay true fixed one-shots.
+  **Open question for a 60-second probe:** does note-off cut the cuivre sample
+  short, or does it always ring to its full length? If it rings, the notation is
+  right but the mock-up will over-ring short cuivres. Blast-path cuivre is
+  unchanged (chord-level articulation at measured length) pending the composer's
+  call on whether the two should agree.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

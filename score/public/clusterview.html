@@ -54,6 +54,7 @@
     <option value="staccato">rec: staccato</option>
     <option value="fortepiano">rec: fortepiano</option>
     <option value="ord">rec: ordinario</option>
+    <option value="cuivre">rec: cuivre</option>
   </select>
   <button id="recBtn" title="record from your MIDI keyboard - first note starts the clock">&#9679; rec</button>
   <span class="hint">|</span>
@@ -195,7 +196,9 @@ function techLen(tech, pitch) {
   }
   return FIXED_FALLBACK[tech];               // undefined for ord = variable
 }
-const soundLen = e => e.tech === 'ord' ? e.d : (techLen(e.tech, e.p) || e.d);
+const VARIABLE = new Set(['ord', 'cuivre']);
+const soundLen = e => VARIABLE.has(e.tech) ? e.d : (techLen(e.tech, e.p) || e.d);
+const CUIVRE_LO = 60, CUIVRE_HI = 67;      // the patch's sampled cuivre range
 
 // ================= state =================
 let BANK = null, TAXCH = {};
@@ -261,7 +264,7 @@ function viewEvents() {
   const span = Math.max(...ev.map(e => e.t));
   if (TR.reverse) ev = ev.map(e => ({ ...e, t: +(span - e.t).toFixed(3) })).sort((a, b) => a.t - b.t);
   if (TR.stretch !== 1) ev = ev.map(e => ({ ...e, t: +(e.t * TR.stretch).toFixed(3),
-    d: e.tech === 'ord' ? +(e.d * TR.stretch).toFixed(3) : e.d }));
+    d: VARIABLE.has(e.tech) ? +(e.d * TR.stretch).toFixed(3) : e.d }));
   const targetLit = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
   if (targetLit && targetLit.length) {
     const target = TR.pool ? pcsPool([...new Set(targetLit.map(q => q % 12))]) : targetLit;
@@ -453,9 +456,11 @@ function updateNoteSel() {
   const suffix = TR.vel !== 100
     ? '  vel (sounds ' + (lo === hi ? scaled(lo) : scaled(lo) + '–' + scaled(hi)) + ')'
     : '  vel';
-  el.textContent = one
+  const oor = [...selNotes].some(n => n.tech === 'cuivre' && (n.p < CUIVRE_LO || n.p > CUIVRE_HI));
+  el.textContent = (one
     ? '· ' + nm(one.p) + ' ' + one.tech + ' ' + one.d.toFixed(2) + 's' + suffix
-    : '· ' + selNotes.size + ' notes' + suffix;
+    : '· ' + selNotes.size + ' notes' + suffix) +
+    (oor ? '  ⚠ cuivre sampled only ' + nm(CUIVRE_LO) + '–' + nm(CUIVRE_HI) : '');
   box.style.display = '';
   box.value = lo === hi ? String(lo) : lo + '–' + hi;
 }
@@ -518,7 +523,7 @@ function updateSelInfo() {
       grabOff = timeAt(e) - n.t;
       const edgeX = rollX(n.t) + Math.max(2.5, soundLen(n) * pps());
       const x = e.clientX - cv.getBoundingClientRect().left;
-      mode = (n.tech === 'ord' && Math.abs(x - edgeX) < 6) ? 'dur' : 'note';
+      mode = (VARIABLE.has(n.tech) && Math.abs(x - edgeX) < 6) ? 'dur' : 'note';
       drawRoll(); updateNoteSel();
       return;
     }
@@ -586,9 +591,13 @@ function updateSelInfo() {
     const o = baseObj();
     if (ni >= 0) {
       const n = o.events[ni];
-      n.tech = n.tech === 'staccato' ? 'fortepiano' : n.tech === 'fortepiano' ? 'ord' : 'staccato';
+      n.tech = n.tech === 'staccato' ? 'fortepiano'
+             : n.tech === 'fortepiano' ? 'ord'
+             : n.tech === 'ord' ? 'cuivre' : 'staccato';
+      // variable techniques need a sensible duration when converted into
       if (n.tech === 'ord' && n.d < 0.3) n.d = 0.5;
-      drawRoll(); persist();
+      if (n.tech === 'cuivre' && n.d < 0.3) n.d = +(techLen('cuivre', n.p) || 1.17).toFixed(3);
+      drawRoll(); updateNoteSel(); persist();
       return;
     }
     const r = cv.getBoundingClientRect();
@@ -728,6 +737,7 @@ const thruRoute = () => {
   const tech = $('recTech').value;
   return tech === 'staccato' ? { out: OUTS['tuba1b'], ch: 3 }
        : tech === 'fortepiano' ? { out: OUTS['tuba1'], ch: 10 }
+       : tech === 'cuivre' ? { out: OUTS['tuba1'], ch: 4 }
        : { out: OUTS['tuba1'], ch: 0 };
 };
 const thruOpen = {};
