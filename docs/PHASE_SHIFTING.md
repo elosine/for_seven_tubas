@@ -30,8 +30,60 @@ process** — how many discrete frames the ear is given between unison and
 interlock. This is why a bare quarter-note pulse feels faster than Reich at the
 same drift: his patterns are streams of 12 semiquavers, so hundreds of attacks
 sample the journey. One attack per 600 ms gives you very few frames, and each
-one lands as a visible step. **Pulse density is therefore a second dial**, not
-yet tested — see §6.
+one lands as a visible step. **Pulse density is therefore a second dial.**
+
+---
+
+## 1B · The BEATING model — the one that makes a texture
+
+Composer, 2026-08-16: *"a better metaphor is beating tones… you can calculate
+and adjust the rate of deviating from unison to create faster and slower beats…
+you can slide a note towards unison at a certain speed and create reliable
+effects."*
+
+**That is not a metaphor — it is the same arithmetic.** Two pulse trains at
+rates f₁ and f₂ have a phase relationship that cycles at |f₁ − f₂|, exactly as
+two detuned tones beat at their frequency difference. So a phase texture has the
+same two parameters as a beating dyad:
+
+| beating tones | phase texture |
+|---|---|
+| carrier frequency | **attack rate** R — the grain of the texture |
+| beat frequency Δf | **lap rate** 1/T — how often the pair returns to unison |
+| — | **attacks per lap** R·T — the resolution (see §1) |
+
+**The whole formula, in musical units:**
+
+```
+lap time T (seconds) = 60 / (ΔBPM × players per voice)
+ΔBPM = 60 × players per voice / T
+```
+
+Three consequences worth having in the front of the mind:
+
+1. **A sweep is not needed.** Each group just holds a DIFFERENT STEADY TEMPO and
+   the beating happens by itself, forever. No Reich-grade gradual accelerando,
+   no phase discipline — the notation is "you are at 110, you are at 114."
+2. **The flutter accelerates by detuning further.** Ramp one voice's tempo and
+   T shortens continuously. That is the composer's "slide toward unison at a
+   certain speed" — and it is calculable in advance, not found by trial.
+3. **What you actually hear pulsating** is apparent density: at unison the two
+   voices reinforce (rate R, doubled attacks), at interlock they interleave
+   (rate 2R, even attacks). **The texture oscillates between R and 2R at the lap
+   rate.** That alternation is the flutter.
+
+### A VOICE IS A HOCKETED GROUP — this is where density comes from
+
+One tuba cannot articulate fast enough to make a flutter: staccato rings ~0.42 s,
+so ~2.3 attacks/s is the ceiling for one player. **So a voice is N players
+round-robin on one composite pulse.** Composite rate = N × BPM/60 while every
+individual player stays comfortable.
+
+At **5 + 5 across the ten parts, 110 BPM each**: composite **9.2 attacks/s per
+voice, ~18.5/s interlocked** — which lands right on the ~22/s ensemble ceiling
+2t established, from the opposite direction. Per player: 0.545 s between attacks
+against a 0.42 s ring. Verified: `audit_playability --parts` gives every part
+1.66–1.72 attacks/s, **0 hard / 0 soft**.
 
 ---
 
@@ -77,6 +129,25 @@ A 2× ladder — wide enough that any real difference is unmissable.
 
 **Note length: 0.12 s written.** The block is now a visual, not the sounding
 length (§5).
+
+### The BEAT set — `phase03-*` (2026-08-16)
+
+Ten tubas, 5 + 5, all on C3 staccato, base 110 BPM. Only the tempo *difference*
+changes, and that is the whole flutter dial.
+
+| score | what | lap | ΔBPM | attacks/lap | length |
+|---|---|---|---|---|---|
+| `phase03-fluttermap` | six cells, slow → fast beating | 12 · 8 · 6 · 4 · 3 · 2 s | 1 · 1.5 · 2 · 3 · 4 · 6 | 110 · 74 · 55 · 37 · 28 · 18 | 137 s |
+| `phase03-accel` | voice B ramps 110 → 118 BPM | ∞ → 1.5 s | 0 → 8 | — | 82 s |
+
+`phase03-accel` is the **beating-tones demo**: starts in unison, one group
+detunes steadily, the flutter accelerates continuously. Grey `lap N` markers
+sit at every return to unison, so the accelerando is visible as the markers
+bunch up.
+
+**What to listen for, in both:** does the texture read as a *rate of flutter*
+that you can hear changing, or as an arbitrary rhythm? The boundary between
+those two is the finding.
 
 ---
 
@@ -143,28 +214,78 @@ clean. That is the `HARD occupancy uses sample length` question already in
 
 ---
 
-## 6 · Open — the next dials, in order
+## 6 · COUNTERPOINT vs SOUND MASS — the second objective
 
-1. **Pulse density** (§1's corollary). Same drift, but 2, 3 or 4 attacks per beat
-   — i.e. an actual Reich figure rather than a bare pulse. Prediction: more
-   attacks per lap = smoother process at the same drift, and the *pattern*
-   becomes the thing that phases rather than a single flam.
-2. **Rapid fluttering** — the composer's named target. Probably lives at high
-   pulse density with a small target offset, not at a slow pulse. Blocked on
-   §5's note-off question, because at those rates the sample length decides
-   whether it is even renderable.
-3. **Non-linear drift** — Reich's players do not drift linearly; they push and
-   settle. `--ease` is not built yet.
-4. **More than two players** — three at different drift rates, which is where
-   phasing stops being an effect and becomes texture.
+Composer: *"several of these going at the same time in different tempos. My
+previous experiments in the past, they kind of blend into a single texture. I'm
+trying to see if there are tweaks — pitch, articulation — where we can push it
+more into the counterpoint range."*
 
-## 7 · Verdicts (fill in by ear)
+**The blending is not bad luck — the current setup is maximally FUSING on every
+known cue at once.** Auditory streaming splits a texture into separate lines when
+the lines differ; ours are identical in pitch, identical in timbre, identical in
+attack rate, and share one location. Change any of those and they come apart.
 
-| score | verdict | where the categories actually changed | keep? |
+**The segregation levers, strongest first:**
+
+1. **Register separation.** The single most powerful cue. Two streams a wide
+   interval apart segregate almost regardless of anything else, and the faster
+   the rate, the *smaller* the interval needed. Concretely: voice A at C3, voice
+   B at F1 or G4 rather than both on C3.
+2. **Timbre / articulation.** Also very strong, and the composer already reached
+   for it — *"mixing in some different tone type things."* staccato vs fortepiano
+   vs cuivre vs flatterzunge are genuinely different spectra here, not shadings.
+3. **Attack rate that is not a simple ratio.** Two voices at 110 and 114 fuse
+   *because they are nearly the same rate* — that is what makes the beating work.
+   For counterpoint the rates must be far apart AND not simply related (110 vs
+   137 rather than 110 vs 220, which locks into a polyrhythm and re-fuses).
+4. **Loudness.** One voice foregrounded reads as figure against ground.
+5. **Spatial position.** *Real in performance, absent from the mock-up.* Ten
+   tubas spread across a stage separate strongly by direction — and every port
+   here is the same instrument with no panning, so **the mock-up is
+   systematically biased toward mass.** A texture that blends in the render may
+   well come apart in the hall. Do not settle this question on the mock-up alone.
+
+**The tension to be aware of:** beating (§1B) requires two *nearly identical*
+rates, and counterpoint requires *different* ones. So a flutter voice is best
+treated as ONE object, and counterpoint is built between **two flutter pairs** —
+e.g. 5+5 becomes (3+3 at C3) against (2+2 at F1, cuivre, a different lap rate).
+That is the next build, and it wants the flutter verdicts first.
+
+## 7 · Clip → morph — the workflow, which already exists
+
+Composer's conception: *"generate examples with pockets of interesting sounds,
+clip those, and create shapes that will morph."* Nothing new is needed for this:
+
+- **Find** — play a battery, note the time where it gets interesting.
+- **Clip** — `tools/extract_section.js` (already used to lift DB3's section E).
+- **Bank** — `tools/bank_gesture.js` writes it to `bank/<NAME>.json` (2w).
+- **Recall** — `tools/place_gesture.js --at <time>` drops it into any score.
+- **Morph** — the parameters are analytic here, so "make the transition quicker"
+  or "make the flutter come in waves" is a regenerate, not an edit: modulate
+  ΔBPM over time. A *wave* of flutter = ΔBPM oscillating instead of ramping.
+
+So the loop is: **battery → composer names the pocket → regenerate that pocket
+alone with the shape you want.** Clipping the audition render is the fallback,
+not the primary path, because regenerating keeps it parametric.
+
+## 8 · Open — next dials, in order
+
+1. **Flutter verdicts** (§9) — everything below waits on these.
+2. **Wave / non-linear ΔBPM** — flutter that swells and recedes rather than
+   ramping. One parameter change once §1B is confirmed.
+3. **Counterpoint battery** — §6's levers, two flutter pairs.
+4. **Mixed articulation inside a voice** — the composer's "extra blade in the
+   drawer": long tones or fortepiano woven through the staccato flutter.
+5. **Note-off truncation** (§5) — decides the density ceiling for everything.
+
+## 9 · Verdicts (fill in by ear)
+
+| score | verdict | notes | keep? |
 |---|---|---|---|
-| `phase02-s30` | | | |
-| `phase02-m60` | | | |
-| `phase02-l120` | | | |
+| `phase02-s30` / `m60` / `l120` | | which drift reads as "gradual" | |
+| `phase03-fluttermap` | | which lap times read as *flutter* vs rhythm | |
+| `phase03-accel` | | does the acceleration read as one continuous change | |
 
 **Sources:** [Reich — Piano Phase](https://stevereich.com/composition/piano-phase/) ·
 [Frontiers 2023, phasing performance study](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1207646/full) ·

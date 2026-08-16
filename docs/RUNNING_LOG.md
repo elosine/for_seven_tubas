@@ -94,6 +94,57 @@ server on `:5200`. The rules that keep us out of each other's way:
 **Still unheard:** all four phase scores. Everything above about how they sound
 is prediction.
 
+### THE REFRAME — beating, not sweeping (composer, 2026-08-16)
+
+The composer stated the actual objective, and it changes the model:
+
+> *"a better metaphor is beating tones… you can calculate and adjust the rate of
+> deviating from unison to create faster and slower beats… slide a note towards
+> unison at a certain speed and create reliable effects."*
+
+**That is not a metaphor — it is the same arithmetic.** Two pulse trains at rates
+f₁, f₂ have a phase relationship cycling at |f₁ − f₂|, exactly as two detuned
+tones beat. So:
+
+- **`lap time T = 60 / (ΔBPM × players per voice)`** — the whole dial, in musical
+  units. Two groups just hold different steady tempos; the beating is automatic.
+  No accelerando, no Reich-grade phase discipline, trivial to notate.
+- **What pulsates is apparent density:** at unison the voices reinforce (rate R),
+  at interlock they interleave (rate 2R). The texture oscillates between R and 2R
+  at the lap rate. **That alternation IS the flutter.**
+- **Density has to come from PLAYERS, not from faster tonguing.** One tuba tops
+  out near 2.3 attacks/s (0.42 s staccato ring). So a *voice* is now a **hocketed
+  group**: N players round-robin on one composite pulse. 5 + 5 at 110 BPM =
+  9.2 attacks/s per voice, ~18.5/s interlocked — landing on 2t's ~22/s ceiling
+  from below, with every player at a comfortable 1.7/s.
+
+### PHASE03 — the beat set
+- `tools/phase_shift.js` rewritten to carry **both models** (`sweep` = the Reich
+  move for finding categories, `beat` = steady tempo difference for making
+  texture) with named presets. **Regression gate:** the refactor regenerates
+  `phase02-m60` with byte-identical notes and markers, and `phase01-8th` with
+  identical notes — so the earlier scores are provably unaffected.
+- **`phase03-fluttermap`** — six cells, lap 12 / 8 / 6 / 4 / 3 / 2 s
+  (ΔBPM 1 / 1.5 / 2 / 3 / 4 / 6), everything else pinned. 137 s.
+- **`phase03-accel`** — voice B ramps 110 → 118 BPM over 72 s, so the lap goes
+  ∞ → 1.5 s: **the beating-tones demo.** Grey `lap N` markers bunch up visibly.
+- Verified: audit **0 hard / 0 soft**, every part 1.66–1.72 attacks/s, tightest
+  per-player gap 0.52 s vs the 0.42 s ring; loads in the app with all ten lanes
+  drawn and 18 markers rendering.
+
+### Counterpoint — why past experiments blended (analysis, not yet tested)
+Recorded in `docs/PHASE_SHIFTING.md` §6. The short version: the setup is
+maximally **fusing** on every cue at once — same pitch, same timbre, same rate,
+same location. Levers, strongest first: **register separation · articulation ·
+non-simply-related rates · loudness · spatial position.** The last one matters
+methodologically — **the mock-up has no spatialization, so it is systematically
+biased toward mass**, and a texture that blends in the render may separate in the
+hall. Do not settle counterpoint on the mock-up alone.
+
+**The tension to remember:** beating needs two *nearly identical* rates,
+counterpoint needs *different* ones. So a flutter voice is one object, and
+counterpoint is built between two flutter pairs.
+
 ---
 
 ## 2026-08-16 · day 10 (Claude Code, 2nd agent) — PLAN 2v morphing chords
