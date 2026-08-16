@@ -211,6 +211,21 @@ composer → notation → performance architecture.)*
   path, everything lands, conflicts are marked, removal is an explicit click.
   Deferred small items in `docs/NITS.md`.
 
+- **2s — BACK-AUDIT of existing material** — `done 2026-08-16` — the composer's
+  question: *"is it too late — are there traps in what I already made?"*
+  **Answer: no.** `tools/audit_playability.js` over all 164 saved scores —
+  **every `piece-s01…s11` and every `dens1…dens10`: ZERO hard conflicts.** The
+  generators did respect one-note-per-player. Hard conflicts exist only in
+  (a) the raw PLAYED takes (clusterClouds02 3097, cluster_samples_01 2442,
+  vertical_shapes_01 671, clust01-cleaned 71) — one human at a keyboard, source
+  material that gets distributed across players at insert, so expected and fine —
+  and (b) the r1/r2 research renders, which are experiments, not orchestration.
+  **The one real finding:** 42 soft spots in piece-s11, all in the pointillistic
+  cloud material (CLOUD02-D ×18, CLOUD02-I ×13, STAC ×11) between 20–60 s, asking
+  one player for **6.8–7.7 attacks/s** — fastest T1 @ 40.17 s. That is at the edge
+  of tuba single-tonguing and is the only playability question the piece actually
+  contains. *Nothing to redo; one thing to listen to.*
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

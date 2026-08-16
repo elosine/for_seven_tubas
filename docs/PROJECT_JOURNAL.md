@@ -95,6 +95,26 @@ in the Load dropdown.
 - **`scores/piece-s10.json` / `piece-s11.json`** are the composer's own work from
   this evening (21:32 / 21:36), untracked and untouched - all testing ran under
   session name `untitled`, the one name autosave skips.
+- **BACK-AUDIT (PLAN 2s), prompted by the composer:** *"I would have needed this
+  information before creating some of the material - are there traps I have to go
+  back and redo?"* **No.** All 164 saved scores audited; every piece file and every
+  density build has ZERO hard conflicts. Hard conflicts live only in the raw played
+  takes (one human at a keyboard - source material, distributed across players at
+  insert) and the r1/r2 research renders. The audit found ONE real thing: 42 spots
+  in piece-s11, all in the cloud material (CLOUD02-D/I, STAC) between 20-60 s,
+  asking a single player for 6.8-7.7 attacks/s. Tool: `tools/audit_playability.js`.
+- **It also exposed a model error in what had just shipped:** SOFT was measuring
+  the END-to-start gap when the quantity a player feels is ATTACK-TO-ATTACK - a
+  fixed sample's length includes decay nobody is articulating through. Corrected
+  against 2j's tremolo table (which is itself an attack rate); dens builds went
+  78/86 soft -> 0, piece-s11 167 -> 42. **The browser engine and the audit tool
+  were cross-checked on real scores and agree exactly** (piece-s11 0/42,
+  clusterClouds02 3097 hard, both).
+- **Forward answer to "make sure created material is playable":** the check belongs
+  at INSERT, and that is where it now is - the cluster sandbox never assigns
+  players (it is one stream), so assignment and therefore playability is decided
+  when material enters the score. Anything drawn or dragged afterwards is caught by
+  the live wash.
 
 **NEXT SESSION, FIRST THING:** `/clear` then `/session-start` (see
 SESSION_HYGIENE). Then either (a) settle the velocity-vs-CC7 question with the
@@ -253,13 +273,21 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   sees the complete sonority before choosing what dies. **Corollary:** the check
   runs on EVERY mutation, not at insert time — dragging a gesture would otherwise
   re-create conflicts that an insert-time-only check could never see.
-- **D17** *(2026-08-16)* — **Playability conflicts are split HARD vs SOFT, and
-  the split is load-bearing.** HARD = the intervals overlap: physics, cannot be
-  wrong, cannot be tuned away. SOFT = a real gap that is too short to re-tongue or
-  to leap: ESTIMATES (0.10 s staccato · 0.25 s after fp/cuivre · +0.012 s per
-  semitone). *Why:* an estimate that turns out wrong can then only mis-tint
-  something amber — it can never block work or force a decision. *Numbers await
-  the composer's ear, same status as 2j's tremolo tables.*
+- **D17** *(2026-08-16, corrected same day)* — **Playability conflicts are split
+  HARD vs SOFT, and the split is load-bearing.** HARD = the intervals overlap:
+  physics, cannot be wrong, cannot be tuned away. SOFT = the player is being asked
+  to re-attack faster than they can: an ESTIMATE. *Why the split:* an estimate
+  that turns out wrong can then only mis-tint something amber — it can never block
+  work or force a decision.
+  **SOFT is measured ATTACK-TO-ATTACK.** The first version measured the END-to-start
+  gap, which was wrong: a fixed one-shot's length includes decay the player is not
+  articulating through, so it demanded a rest after the sample had already finished.
+  It flagged 167 spots in piece-s11 and 78 in dens8 that are entirely comfortable.
+  Corrected constants come straight from **2j's tremolo table, which IS an attack
+  rate** — half step 4.5 Hz = 0.111 s, fifth 3.0 Hz = 0.167 s — giving
+  `minAttack 0.11 + 0.0093/semitone (cap 0.22)`, plus a 0.03 s tongue reset.
+  Result: dens builds 78/86 → **0**; piece-s11 167 → **42**, all of them real.
+  *Still estimates pending the composer's ear, same status as 2j itself.*
 
 ## §5 Done
 

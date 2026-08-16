@@ -2175,14 +2175,22 @@ const Composer = {
     //   HARD = the intervals overlap. Physics; cannot be wrong, cannot be tuned.
     //   SOFT = a real gap, but too short to re-tongue / leap. ESTIMATES — so a
     //          wrong number can only mis-tint something amber, never block work.
+    // SOFT is measured ATTACK-TO-ATTACK, which is what a player actually feels.
+    // (Measuring the END-to-start gap was wrong: a fixed one-shot's length
+    // includes decay the player is not articulating through, so it demanded a
+    // rest after the sample had already finished. It flagged 167 spots in
+    // piece-s11 and 78 in dens8 that are entirely comfortable.)
+    // Numbers come straight from 2j's tremolo table, which IS an attack rate:
+    // half step 4.5 Hz = 9 alternations/s = 0.111 s; fifth 3.0 Hz = 0.167 s.
+    // Still estimates pending the composer's ear — soft can only tint amber.
     CONFLICT: {
-        reattack: { staccato: 0.10, ord: 0.12, cuivre: 0.25, fortepiano: 0.25, _default: 0.12 },
-        perSemitone: 0.012,   // leap cost: "never trill faster than you can slur" (2j)
-        maxLeapAdd: 0.35,
+        tongueReset: 0.03,     // minimum silence between two notes on one player
+        minAttack: 0.11,       // slur-speed limit at a half step (2j: 4.5 Hz)
+        perSemitone: 0.0093,   // 2j's own slope: (0.167 - 0.111) / 6 semitones
+        maxLeapAdd: 0.22,      // reached at ~2 octaves
     },
     get _conflictWindow() {
-        const r = this.CONFLICT.reattack;
-        return Math.max(r.staccato, r.ord, r.cuivre, r.fortepiano, r._default) + this.CONFLICT.maxLeapAdd;
+        return this.CONFLICT.minAttack + this.CONFLICT.maxLeapAdd;
     },
 
     // Every waveCurve that OCCUPIES a player — regardless of technique, sonify
@@ -2205,16 +2213,16 @@ const Composer = {
         const src = String(o.performanceNotes || '').split(' (')[0].trim();
         return (src ? src + ' ' : '') + nm + (o.technique ? ' ' + o.technique : '');
     },
-    requiredGap(prev, next) {
-        const r = this.CONFLICT.reattack;
-        const base = r[prev.technique] != null ? r[prev.technique] : r._default;
+    // shortest playable interval between two ATTACKS on one player
+    requiredAttack(prev, next) {
         const leap = Math.abs((next.sonifyNote || 0) - (prev.sonifyNote || 0));
-        return base + Math.min(this.CONFLICT.maxLeapAdd, leap * this.CONFLICT.perSemitone);
+        return this.CONFLICT.minAttack + Math.min(this.CONFLICT.maxLeapAdd, leap * this.CONFLICT.perSemitone);
     },
     // a is the earlier-starting note
     pairTier(a, b) {
-        if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';
-        return (b.startSeconds - a.endSeconds) < this.requiredGap(a, b) - 1e-6 ? 'soft' : 'free';
+        if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';                        // physics
+        if (b.startSeconds - a.endSeconds < this.CONFLICT.tongueReset - 1e-6) return 'soft';
+        return (b.startSeconds - a.startSeconds) < this.requiredAttack(a, b) - 1e-6 ? 'soft' : 'free';
     },
     tierAgainst(list, cand) {
         let worst = 'free';
@@ -2302,7 +2310,12 @@ const Composer = {
                     const tier = this.pairTier(a, b);
                     if (tier === 'free') continue;
                     mark(a, tier); mark(b, tier);
-                    pairs.push({ a, b, tier, layer, gap: +(b.startSeconds - a.endSeconds).toFixed(3), need: +this.requiredGap(a, b).toFixed(3) });
+                    pairs.push({
+                        a, b, tier, layer,
+                        gap: +(b.startSeconds - a.endSeconds).toFixed(3),
+                        attack: +(b.startSeconds - a.startSeconds).toFixed(3),
+                        need: +this.requiredAttack(a, b).toFixed(3),
+                    });
                 }
             }
         }
@@ -2523,7 +2536,9 @@ const Composer = {
             title.style.cssText = 'color:' + (hardP ? '#ff8080' : '#ffb020') + '; margin-bottom:3px';
             title.textContent = (hardP ? '■ ' : '□ ') + (TRACKS[p.layer] ? TRACKS[p.layer].label : 'layer ' + p.layer) +
                 ' @ ' + p.a.startSeconds.toFixed(2) + 's' +
-                (hardP ? '  — overlap' : '  — gap ' + p.gap.toFixed(2) + 's, needs ' + p.need.toFixed(2) + 's');
+                (hardP ? '  — overlap'
+                    : '  — ' + p.attack.toFixed(2) + 's apart (' + (p.attack > 0 ? (1 / p.attack).toFixed(1) : '∞') +
+                      ' attacks/s), needs ' + p.need.toFixed(2) + 's');
             row.appendChild(title);
             const body = document.createElement('div');
             body.style.cssText = 'display:flex; align-items:center; gap:6px; flex-wrap:wrap';
