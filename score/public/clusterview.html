@@ -78,6 +78,11 @@
   <span id="selNoteInfo" style="color:#ffd479; font-family:Consolas,monospace"></span>
   <input type="text" id="noteVel" class="numbox" style="display:none"
          title="velocity of the selected note(s), 1-127 - ENTER to apply">
+  <span id="dirtyDot" style="color:#ff9c54; display:none">&#9679; unsaved</span>
+  <button id="saveOverBtn" class="chip" style="display:none"
+          title="overwrite the stored keeper - the composer score's strip reads this">&#10515; save over</button>
+  <button id="saveAsBtn" class="chip" style="display:none"
+          title="keep the original and store this as a NEW gesture">&#10515; save as new</button>
   <button id="backBtn" class="chip">&#9666; back to sources</button>
 </div>
 
@@ -87,6 +92,7 @@
 </div>
 
 <div class="chiprow" id="snips"></div>
+<div class="chiprow" id="gests"></div>
 
 <div class="bar">
   <span class="hint">time:</span>
@@ -231,10 +237,16 @@ const blockingTransforms = () => {
 };
 let pxPerSec = null, viewT0 = 0;
 const isSnip = () => entity.kind === 'snippet';
-const canEdit = () => isSnip() && !layoutTransformed();
+const isGest = () => entity.kind === 'gesture';
+// a recalled gesture is edited as an in-memory DRAFT: the stored keeper is
+// untouched until you press save-over (composer 2026-08-15, same working-copy
+// safety the piece files got). Snippets autosave; gestures never do.
+let gestDraft = null, gestDirty = false;
+const canEdit = () => (isSnip() || isGest()) && !layoutTransformed();
 
 function baseObj() {
   if (!BANK || !entity.id) return null;
+  if (isGest()) return gestDraft;
   return isSnip() ? BANK.snippets[entity.id] : BANK.clusters[entity.id];
 }
 function baseEvents() { const o = baseObj(); return (o && o.events) || []; }
@@ -500,6 +512,7 @@ function updateSelInfo() {
     return null;
   };
   const persist = () => {
+    if (isGest()) { gestDirty = true; markDirty(); return; }   // explicit save only
     clearTimeout(persist._t);
     persist._t = setTimeout(() => {
       const o = baseObj();
@@ -815,24 +828,114 @@ function resetViewState() {
 function openCluster(id) {
   if (!id || !BANK.clusters[id]) id = Object.keys(BANK.clusters)[0];
   entity = { kind: 'cluster', id };
+  gestDraft = null; gestDirty = false;
   $('clSel').value = id;
   $('editBar').style.display = 'none';
+  $('saveOverBtn').style.display = 'none';
+  $('saveAsBtn').style.display = 'none';
+  markDirty();
   resetViewState();
-  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips();
+  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips(); drawGests();
 }
 function openSnippet(id) {
   const sn = BANK.snippets[id];
   if (!sn || !sn.events) return;
   entity = { kind: 'snippet', id };
+  gestDraft = null; gestDirty = false;
   $('editBar').style.display = '';
+  $('saveOverBtn').style.display = 'none';
+  $('saveAsBtn').style.display = 'none';
+  markDirty();
   $('editTitle').textContent = 'editing ' + id;
   const pv = sn.provenance || {};
   $('editProv').textContent = pv.from
     ? '· from ' + pv.from + (pv.t0 != null ? ' ' + (+pv.t0).toFixed(1) + '–' + (+pv.t1).toFixed(1) + 's' : '')
     : '';
   resetViewState();
-  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips();
+  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips(); drawGests();
 }
+function markDirty() {
+  const d = $('dirtyDot');
+  if (d) d.style.display = (isGest() && gestDirty) ? '' : 'none';
+}
+function openGesture(id) {
+  const g = BANK.gestures[id];
+  if (!g) return;
+  gestDraft = JSON.parse(JSON.stringify(g));    // deep copy: the keeper is safe
+  gestDirty = false;
+  entity = { kind: 'gesture', id };
+  $('editBar').style.display = '';
+  $('editTitle').textContent = 'editing ' + id;
+  const pv = g.provenance || {};
+  const src = pv.snippet || pv.cluster || (pv.source && pv.source.from) || '?';
+  $('editProv').textContent = '· stored keeper, from ' + src +
+    ' · in ' + (listsOf(id).join(', ') || 'library only');
+  $('saveOverBtn').style.display = '';
+  $('saveAsBtn').style.display = '';
+  resetViewState();
+  drawRoll(); updateSelInfo(); updateNoteSel(); drawSnips(); drawGests(); drawGests(); markDirty();
+}
+const listsOf = id => Object.keys(BANK.lists).filter(l => BANK.lists[l].includes(id));
+async function saveOverGesture() {
+  if (!isGest() || !gestDraft) return;
+  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'updateGesture', id: entity.id,
+      events: gestDraft.events, span: baseSpan(),
+      provenance: { ...(gestDraft.provenance || {}), editedInSandbox: true } }) }).then(x => x.json());
+  if (r.success) {
+    gestDirty = false; markDirty();
+    $('storeMsg').textContent = entity.id + ' overwritten';
+    setTimeout(() => { $('storeMsg').textContent = ''; }, 2500);
+    await loadBank(); drawGests();
+  }
+}
+async function saveAsNewGesture() {
+  if (!isGest() || !gestDraft) return;
+  const dest = $('listSel').value || '__library__';
+  const ev = viewEvents().map(e => ({ t: e.t, p: e.p, v: e.v, d: e.d, tech: e.tech }));
+  const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveGesture', events: ev, span: viewSpan(viewEvents()),
+      provenance: { ...(gestDraft.provenance || {}), derivedFrom: entity.id, transforms: { ...TR } },
+      list: dest }) }).then(x => x.json());
+  if (r.success) {
+    $('storeMsg').textContent = r.id + (r.existed ? ' (identical to an existing gesture)' : ' stored') +
+      (r.added ? ' \u2192 ' + dest : '');
+    setTimeout(() => { $('storeMsg').textContent = ''; }, 3000);
+    await loadBank(); refreshLists(); drawGests();
+    if (!r.existed) openGesture(r.id);
+  }
+}
+function drawGests() {
+  const row = $('gests');
+  if (!row) return;
+  row.innerHTML = '<span class="hint">stored gestures:</span>';
+  const ids = Object.keys(BANK.gestures);
+  if (!ids.length) { row.innerHTML += ' <span class="hint">(none — \u2605 store bakes one)</span>'; return; }
+  ids.forEach(id => {
+    const g = BANK.gestures[id];
+    const el = document.createElement('span');
+    el.className = 'snip' + (isGest() && id === entity.id ? ' on' : '');
+    const ls = listsOf(id);
+    el.innerHTML = id + ' · ' + g.events.length + 'n/' + g.span.toFixed(1) + 's' +
+      (ls.length ? ' · ' + ls[0] : '') + '<span class="x" data-x="' + id + '">×</span>';
+    el.title = 'click to recall and edit' + (ls.length ? ' · in: ' + ls.join(', ') : '');
+    el.addEventListener('click', async e => {
+      if (e.target.dataset.x) {
+        const del = e.target.dataset.x;
+        if (!confirm('Delete ' + del + '? It will also leave any lists it is in (the composer score reads those).')) return;
+        await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'deleteGesture', id: del }) });
+        await loadBank(); refreshLists();
+        if (isGest() && entity.id === del) openCluster($('clSel').value);
+        else drawGests();
+        return;
+      }
+      openGesture(id);
+    });
+    row.appendChild(el);
+  });
+}
+
 async function cutSnippet() {
   if (!entity.id) return;
   const ev = sourceEvents().map(e => ({ t: e.t, p: e.srcP, v: e.v, d: e.d, tech: e.tech }));
@@ -963,7 +1066,7 @@ async function store() {
   if (r.success) {
     $('storeMsg').textContent = r.id + (r.existed ? ' (already in library)' : ' stored') + (r.added ? ' → ' + dest : '');
     setTimeout(() => { $('storeMsg').textContent = ''; }, 3000);
-    await loadBank(); refreshLists(); drawSnips();
+    await loadBank(); refreshLists(); drawSnips(); drawGests();
   }
 }
 
@@ -1010,6 +1113,8 @@ $('recBtn').addEventListener('click', toggleRec);
 $('selClear').addEventListener('click', () => { sel = null; cursorT = 0; selNotes.clear(); drawRoll(); updateSelInfo(); });
 $('snipSave').addEventListener('click', cutSnippet);
 $('storeBtn').addEventListener('click', store);
+$('saveOverBtn').addEventListener('click', saveOverGesture);
+$('saveAsBtn').addEventListener('click', saveAsNewGesture);
 $('zoomIn').addEventListener('click', () => {
   const mid = viewT0 + ($('roll').clientWidth - KEYS_W - 12) / pps() / 2;
   pxPerSec = Math.min(Math.max(600, fitPps() * 10), pps() * 1.5);
@@ -1144,6 +1249,7 @@ window.addEventListener('resize', drawRoll);
   await midiInit();
   refreshLists();
   drawSnips();
+  drawGests();
   openCluster(Object.keys(BANK.clusters)[0]);
 })();
 </script>

@@ -451,6 +451,28 @@ const server = http.createServer((req, res) => {
                         console.log(`Clusterbank: ${id} ${existed ? 'matched' : 'saved'}${added ? ' -> ' + list : ''}`);
                         return R.json({ success: true, id, existed, added });
                     }
+                    if (action === 'updateGesture') {
+                        // save-over: replace a stored keeper in place (the
+                        // composer score's strip reads these, so this is a
+                        // deliberate, explicit action - never an autosave)
+                        const g = cb.gestures[body.id];
+                        if (!g) return R.status(400).json({ success: false, error: 'unknown gesture' });
+                        if (Array.isArray(body.events) && body.events.length) g.events = body.events;
+                        if (body.span != null) g.span = +(+body.span).toFixed(3);
+                        if (body.provenance) g.provenance = body.provenance;
+                        g.modified = new Date().toISOString();
+                        write();
+                        console.log(`Clusterbank: ${body.id} overwritten (${g.events.length} notes)`);
+                        return R.json({ success: true, id: body.id });
+                    }
+                    if (action === 'deleteGesture') {
+                        delete cb.gestures[body.id];
+                        Object.keys(cb.lists).forEach(l => {
+                            cb.lists[l] = cb.lists[l].filter(x => x !== body.id);
+                        });
+                        write();
+                        return R.json({ success: true });
+                    }
                     if (action === 'createList') {
                         const name = String(body.name || '').trim();
                         if (!name) return R.status(400).json({ success: false, error: 'name required' });
