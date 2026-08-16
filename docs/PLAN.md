@@ -307,6 +307,19 @@ composer → notation → performance architecture.)*
     gesture end to end with the conflict count in each marker label. Same loop,
     no UI. `scores/densBld03-tonalities.json` is the DB3 run.
 
+- **2v — MORPHING CHORDS** — `planned 2026-08-16, not built` — the INT2
+  "morphing crescendo" branch, generalized: start a sonority, change it over
+  time (pitch / technique / dynamics) via six named models (M1 detune bloom ·
+  M2 spectral drift · M3 fan · M4 colour morph · M5 spacing migration · M6
+  balance morph) over a breath/striation carrier, with conversational AI
+  control (params file + panel poll), generation-time playability flags, and a
+  bend-hygiene probe suite first (the stale-bend trap = the CC7-residue class).
+  **Full implementation plan: `docs/plans/MORPHING_CHORDS.md`** — architecture,
+  schemas, MIDI formulas, probes, phase gates, failure-mode ledger; written to
+  be implemented cold by a separate session. Risk floor: even if every probe
+  fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
+  the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**
