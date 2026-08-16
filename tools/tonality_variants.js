@@ -39,6 +39,7 @@ const flag = (n, d) => { const i = args.indexOf('--' + n); return i >= 0 && args
 const SRC = args[0];
 const OUT = flag('out', 'scores/tonality-variants.json');
 const GAP = parseFloat(flag('gap', '3'));
+const TICK = parseFloat(flag('tick', '5'));   // seconds between repeated name labels
 const POOL = !args.includes('--literal');
 if (!SRC || SRC.startsWith('--')) {
   console.error('usage: node tools/tonality_variants.js <score.json> --out <file> [--gap 3] [--literal]');
@@ -72,15 +73,15 @@ const mode = (n, root) => pcsPool(MESSIAEN[n].map(d => (root + d) % 12));
 // transpositions (m6/F is the one already used in DB2, kept for comparison),
 // the original, and an assortment. Roots lean on the piece's F and Bb anchors.
 const VARIANTS = [
-  { label: 'ORIGINAL (no remap)', target: null },
-  { label: 'Messiaen m3 on F', target: mode(3, 5) },
-  { label: 'Messiaen m4 on Bb', target: mode(4, 10) },
-  { label: 'Messiaen m6 on F  (as in DB2)', target: mode(6, 5) },
-  { label: 'Messiaen m7 on C#', target: mode(7, 1) },
-  { label: 'Messiaen m5 on F#', target: mode(5, 6) },
-  { label: 'BbE 2-oct cluster', target: [...range(34, 40), ...range(58, 64)] },
-  { label: 'fifths on F#', target: [30, 37, 44, 51, 58, 65] },
-  { label: 'Bhairav on F', target: pcsPool([0, 1, 4, 5, 7, 8, 11].map(d => (5 + d) % 12)) },
+  { label: 'ORIGINAL (no remap)', short: 'ORIGINAL', target: null },
+  { label: 'Messiaen m3 on F', short: 'm3/F', target: mode(3, 5) },
+  { label: 'Messiaen m4 on Bb', short: 'm4/Bb', target: mode(4, 10) },
+  { label: 'Messiaen m6 on F  (as in DB2)', short: 'm6/F', target: mode(6, 5) },
+  { label: 'Messiaen m7 on C#', short: 'm7/C#', target: mode(7, 1) },
+  { label: 'Messiaen m5 on F#', short: 'm5/F#', target: mode(5, 6) },
+  { label: 'BbE 2-oct cluster', short: 'BbE 2oct', target: [...range(34, 40), ...range(58, 64)] },
+  { label: 'fifths on F#', short: '5ths/F#', target: [30, 37, 44, 51, 58, 65] },
+  { label: 'Bhairav on F', short: 'Bhairav/F', target: pcsPool([0, 1, 4, 5, 7, 8, 11].map(d => (5 + d) % 12)) },
 ];
 
 // ---- load the source gesture ----
@@ -231,8 +232,16 @@ for (const v of VARIANTS) {
     c.color = ARTIC_COLOR[n.tech] || c.color;
     objs.push(c);
   }
+  // A marker is a point, so scrolled into the middle of a 22 s section there is
+  // nothing on screen saying which harmony you are hearing (composer, 2026-08-16).
+  // Repeat the short name across the section so a label is always in view.
+  for (let t = TICK; t < end - 1; t += TICK) {
+    marks.push({ id: 'mk-' + (id++), type: 'marker', layer: 0, time: +(off + t).toFixed(3),
+      label: v.short, color: r.hard ? '#B84A4A' : '#9B5B8E',
+      performanceNotes: '', properties: {} });
+  }
   marks.push({ id: 'mk-' + (id++), type: 'marker', layer: 0, time: +(off + end).toFixed(3),
-    label: '— end ' + v.label + ' —', color: '#9B5B8E', performanceNotes: '', properties: {} });
+    label: '— end ' + v.short + ' —', color: '#9B5B8E', performanceNotes: '', properties: {} });
   rows.push({ v, r, at: off, end });
   off += end + GAP;
 }

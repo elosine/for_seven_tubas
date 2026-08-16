@@ -10,154 +10,88 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**Day 2 (2026-08-11):** the calibration day — Penn State research (deadline **Sept 4, 2026**); 10-part expansion, floating META window, grain suite, Roads env catalog; LAW L4 + anti-clump machinery + **RECIPE MAXDENSE-1** (DB 035); finding 14; grain-type pass opened.
+**SESSION END (2026-08-16, day 9 — DB3 + the DENSITY PIPELINE, Claude Code):**
+- **DB3 recorded and orchestrated.** The composer played it in on one lane
+  (`scores/densBld03-take1.json` — 251 notes, 21.9 s, all staccato, G1–G4).
+  Its apex demands **54.5 attacks/s**; ten tubas holding a ~0.45 s staccato
+  one-shot can render **~22/s**. The mock-up cannot reveal that (2r), so it had
+  to be computed.
+- **PLAN 2t DENSITY PIPELINE shipped** — the reusable process, playbook in
+  **`docs/DENSITY_PIPELINE.md`** (read that first; it has the worked example,
+  every knob and what it costs, and section 6 on getting a build into the piece).
+  Five tools: `pack_take.js` (pack-to-ceiling), `artic_pass.js` (the fp arc),
+  `build_versions.js` (versions end to end in one file), `tonality_variants.js`,
+  and `audit_playability.js --parts`. Plus **leap-aware `assignCluster`** in the
+  app. Decisions **D19–D23**.
+- **Result:** 160 of 251 notes kept, **0 hard / 0 soft**, everything before 18 s
+  identical to what was played, 91 deleted all between 20.0–23.1 s. Per player:
+  peak 2.0–2.5 attacks/s, tightest pair 0.43 s — 2–4× clear of D17's own
+  estimated limit, so the estimate would have to be wrong by >2× to matter.
+- **Two real bugs found by testing in the running app, not by inspection:**
+  G-convert forced a 0.15 s overlap when a note had no room to swell back (always
+  at an apex); and `build_versions.js` painted notes by section, which made the
+  whole fortepiano pass invisible — the composer caught that one.
+- **Everything is verified live.** The app's `assignCluster` returned
+  135 hard / 10 soft / 3.13 st mean leap against the tool's 135 / 10 / 3.1 —
+  exact agreement. Packed and variant scores load with the badge as predicted.
+- **`docs/PAPER_NOTES.md` gains the DB3 CASE STUDY** — five stages with the
+  measurement that forced each, six findings, and the division of labour
+  (including that the AI's first design was worse than the composer's).
 
-**Day 1 (2026-08-10, compressed):** stack seeded from piece #3 · SI2 roster,
-dual-port D2 · CC7 law + gain staging calibrated · research arc: laws L1–L3,
-Xenakis rules X1–X8, the swell-cloud species (peak-cut = attack) · SC4 dense hold
-approved provisional.
+**Open at session end (2026-08-16, day 9) — all of it is "go listen":**
+- **NOTHING HAS BEEN HEARD YET.** Two scores are waiting, both load-and-play:
+  `densBld03-arc-v2` (5 stages: as-played · unpacked · packed · fp mix · your
+  copy — 122.8 s) and `densBld03-tonalities` (9 harmonies — 224 s; ORIGINAL and
+  **Messiaen m3 on F** are the only two with zero flags).
+- **Section E of `densBld03-arc-v2` is the composer's to edit** — grain
+  envelopes. **G** = selection → surge crescendos (peak-anchored, back-filled by
+  lane availability). **C** = cuivre. **P** = property panel (it is on demand,
+  not on selection — that is the 2026-08-13 decision, not a bug).
+- **THE APEX DECISION IS STILL OPEN** and it is the fork: zero conflicts cost 91
+  notes, all at the apex. Alternatives are more players (mandate M1) or
+  converting the apex to sustained material so overlap becomes the point.
+- **DB3 cannot reach DB1/DB2's ~21 % fortepiano** — its sparse region is ~11 s
+  of a 23.5 s build and fp needs 1.35–2.22 s of a free player. Physics ceiling is
+  18 notes (11 %); currently 12. Not a bug, a property of this gesture.
+- **PLAN 2u (tonality sub-menu) is spec'd, not built.** The remap engine already
+  exists in the cluster sandbox — it is a surfacing job.
+- Carried, all still deferred by the composer: META shape overhang (NITS) ·
+  velocity-vs-CC7 (2q — does NOT touch the insert path) · 42 soft flags in
+  piece-s11/s12 · HARD-occupancy-uses-sample-length (NITS, opened today) ·
+  `ost01-variety` unheard · cressand-family verdicts · quarter-tone mapping test.
 
-**Orientation for a cold session:** RESEARCH_INDEX.md (map) → CURVE_DATABASE.md
-(laws L1–L4, entries 001–036, MAXDENSE-1) → ENGINE_FRAMEWORK.md (the method) →
-COMPOSER_LOG.md (verbatim). Server: `node score/server.js` (:5200). Score archive
-in the Load dropdown.
+**Day 8 (2026-08-16):** collision avoidance end to end (PLAN 2r) — occupancy
+model, HARD/SOFT tiers (D17), conflict-aware insert, live wash, resolver with
+move-to-another-player; back-audit of all 164 scores found nothing to redo (2s);
+**`docs/AI_METHODOLOGY.md` adopted as governing (D18)**; `docs/NITS.md` opened.
 
-**Day 3 (2026-08-12):** CRD remote listening live; species settled {sine, expodec, surge} with the standing mix; **THE DENSITY ARC → DB 044** (finding 15 count-regime law, apex-scramble fix/peak-anchored law, accelerando scheduler, one-dial curve re-centered, level-carries-climax, RECIPE BUILD-1); containers begun (DB 045); NAMING.md adopted.
+**Day 7 (2026-08-16):** the CLUSTER SANDBOX (`/clusterview.html`, 2p) — 42
+imported takes + recording, piano-roll editor, non-destructive transforms,
+lists+items (D14), velocity-not-CC7 (D12), `docs/SESSION_HYGIENE.md`.
 
-**Session end (2026-08-13, day 4):** piece assembly began (piece-s01->s07c, movable META group shapes via groupId); harmony palette + pairing ledger; GESTURE-2 banked + compression study; the cressand research (rise-as-nucleus, 26.5 dB clarity margin, margin-solved tapers, `cressand-family`); ostinato engine ported from piece #2 (`ost01-variety`); app safety (Clear-All forks, no-store + buildTag, cuivre C-key palette).
+**Day 6 (2026-08-15):** the blast pipeline — piece-s09 (88.5 s), Blast Sandbox +
+three-tier taxonomy (D11), insertion strip, the SAMPLE-LENGTH SURVEY and the rule
+it produced (**D9: only ORD is a real duration**), the save system (D10).
 
-**Session end (2026-08-16, day 7 - the CLUSTER SANDBOX):**
-- **`/clusterview.html` shipped** - the second sandbox, built, rebuilt once, and
-  hardened. **42 played clusters imported** (CLUST01 + carves, CLUST02, CLOUD02
-  A-L, GESTURE-1/2 as DENSITY) plus in-app **recording** with live MIDI thru.
-- **Piano-roll editor:** notes are duration BARS at true sounding length, piano
-  gutter, zoom (+/-/fit, ALT-wheel, wheel-pan), playback cursor, audio-editor
-  transport (click = cursor, drag = select, SPACE = play/stop, HOME = zero).
-  Per-note editing: move pitch/time, drag length, cycle articulation, add,
-  delete, velocity by arrows or type-in.
-- **Non-destructive transforms** (a PREVIEW over the stored notes, never a lock):
-  time-stretch 0.25-10x on a LOG slider, tonality remap (15 palette sets + all 33
-  chords) with **pooled** mode and a **no-repeat kick**, reverse, octave-fold,
-  thin, velocity.
-- **PRESET MODEL (rebuilt on composer feedback):** the snippet/gesture split is
-  gone. **Lists + items** - pick a list, click an item to load, edit it
-  (autosaves back), duplicate for a variant, delete to remove. New items come
-  from the play window or from what you hear. Composer-score strip gained a
-  **source menu (Blasts | Clusters)** reading these lists.
-- **CUIVRE is variable-length** (PLAN 2o): a player can cut one short, so the
-  measured 0.99-1.35 s is a ceiling, not a floor. fp/staccato stay fixed.
-- **LOUDNESS = NOTE VELOCITY** (composer's call): CC7 removed from the per-note
-  path, pinned full once per port. *Note this contradicts the composer score,
-  which drives dynamics from CC7 with a 150 ms pre-arm - see Open below.*
-- **`docs/SESSION_HYGIENE.md`**: measured burn (4,854 turns, 2.42 B tokens of
-  context re-read, ~499 K carried per turn - output is not the cost), the
-  `/session-end -> /clear -> /session-start` cycle, model strategy (design with
-  Fable, implement with Opus **from a written plan**), and seven sandbox lessons.
+**Days 4–5 (2026-08-13/14):** piece assembly began (piece-s01→s07c, movable META
+group shapes); harmony palette + pairing ledger; GESTURE-2 banked; the cressand
+research; ostinato engine ported; NAMING.md.
 
-**Open at session end (2026-08-16):**
-- **Velocity vs CC7 is UNRESOLVED as a system question.** The cluster sandbox now
-  sends note velocity only; the composer score sonifies via CC7 (`PREARM_S=0.15`,
-  "settle CC7 before the attack"). If SI2 turns out to be velocity-insensitive,
-  sandbox dynamics will not survive into the score. **Test before trusting either:**
-  play one pitch at velocity 30/70/127 and listen.
-- **CG001/CG002 were flattened to all-127** by storing at 200 % when boosting
-  still clamped. The bug is fixed (proportional cap); the two items are not
-  recoverable - re-derive from the SN1 material now living as CG005 in `unsorted`.
-- `piece-s09` unchanged today (88.5 s, four INT2 blasts). INT2 assembly resumes
-  there; the texture arc (spaced -> overlapping counterpoint) is still to be built.
-- Still queued: `ost01-variety` unheard - cressand-family / cressand-pitches
-  verdicts - quarter-tone mapping test (gate for the morphing crescendo, PLAN 2l).
+**Day 3 (2026-08-12):** CRD remote listening; species {sine, expodec, surge};
+**THE DENSITY ARC → DB 044** (finding 15, accelerando scheduler, RECIPE BUILD-1);
+containers begun (DB 045).
 
-**Session end (2026-08-16, day 8 - COLLISION AVOIDANCE + the METHODOLOGY doc,
-Claude Code):**
-- **`docs/AI_METHODOLOGY.md` written and pointed at from CLAUDE.md** - the
-  composer's standing instruction, and it OUTRANKS the inherited working-preference
-  docs. Five rules: fix what blocks the piece and flag the rest to NITS · don't make
-  the composer decide minutiae · prefer one robust build over a fragile one (code
-  volume is not the constraint, broken code is) · **a confidence claim must be
-  verified in the running app because the composer plans around it** · no clear
-  evidence means no diagnosis. See D18.
-- **PLAN 2r shipped** - playability/collision avoidance end to end (see below).
-- **PLAN 2s** - back-audit of all 164 scores: nothing needs redoing.
-- **`docs/NITS.md` opened** as the deferral ledger, per rule 1.
+**Days 1–2 (2026-08-10/11):** stack seeded from piece #3; SI2 roster + dual-port
+(D2); CC7 law and gain staging; research arc laws L1–L3, Xenakis X1–X8, the
+swell-cloud species; **Penn State research — deadline Sept 4, 2026**; 10-part
+expansion, floating META window, grain suite, Roads catalog; **LAW L4 + RECIPE
+MAXDENSE-1** (DB 035).
 
-**Day 8 detail - COLLISION AVOIDANCE (PLAN 2r):**
-- **Working rule set by the composer:** fix what blocks the work or what will
-  break; record the rest in `docs/NITS.md` rather than spending decision time on
-  it. Code volume is NOT the constraint - troubleshooting is. Bring a competent,
-  robust plan with the small decisions already made.
-- **The finding that justified the build:** the mock-up CANNOT reveal a
-  double-booked player. Technique = MIDI channel (staccato even = a separate
-  port), so two overlapping notes on one player hit two UVI channels and both
-  sound cleanly. Auditioning your way out of this is impossible.
-- **Shipped:** shared occupancy model + HARD/SOFT rule (D17) + conflict-aware
-  placement in both inserters + live lane wash recomputed on every mutation +
-  resolver panel (drop either side / nudge / auto). D15, D16.
-- **Verified end to end in the running app**, not by inspection: 15 logic tests
-  (overlap, gap, leap cost, routing, crowding) and 13 UI tests (insert CG003, drop
-  S005 on top -> 9 hard detected, nudge +1.64 s clears all with both gestures
-  intact, auto drops 9 cluster notes and keeps the blast's 10, single-drop, and
-  one-undo restore for each). Drag-away/drag-back proves the check survives moves.
-- **Two bugs found and fixed by that testing**, both invisible to inspection:
-  the refresh was on `requestAnimationFrame` (suspended when the tab is not
-  painting, so marks went stale) -> now a 0 ms timer; and `autoResolveHard` never
-  pushed an undo state, so CTRL+Z landed somewhere unexpected.
-- **Also fixed** (were in the way): cluster audition and cluster insert disagreed
-  about which player was which (`tuba(k+1)` vs `layer 9-k`); cluster marker label;
-  cluster insert not opening the META window.
-- **`scores/piece-s10.json` / `piece-s11.json`** are the composer's own work from
-  this evening (21:32 / 21:36), untracked and untouched - all testing ran under
-  session name `untitled`, the one name autosave skips.
-- **BACK-AUDIT (PLAN 2s), prompted by the composer:** *"I would have needed this
-  information before creating some of the material - are there traps I have to go
-  back and redo?"* **No.** All 164 saved scores audited; every piece file and every
-  density build has ZERO hard conflicts. Hard conflicts live only in the raw played
-  takes (one human at a keyboard - source material, distributed across players at
-  insert) and the r1/r2 research renders. The audit found ONE real thing: 42 spots
-  in piece-s11, all in the cloud material (CLOUD02-D/I, STAC) between 20-60 s,
-  asking a single player for 6.8-7.7 attacks/s. Tool: `tools/audit_playability.js`.
-- **It also exposed a model error in what had just shipped:** SOFT was measuring
-  the END-to-start gap when the quantity a player feels is ATTACK-TO-ATTACK - a
-  fixed sample's length includes decay nobody is articulating through. Corrected
-  against 2j's tremolo table (which is itself an attack rate); dens builds went
-  78/86 soft -> 0, piece-s11 167 -> 42. **The browser engine and the audit tool
-  were cross-checked on real scores and agree exactly** (piece-s11 0/42,
-  clusterClouds02 3097 hard, both).
-- **Forward answer to "make sure created material is playable":** the check belongs
-  at INSERT, and that is where it now is - the cluster sandbox never assigns
-  players (it is one stream), so assignment and therefore playability is decided
-  when material enters the score. Anything drawn or dragged afterwards is caught by
-  the live wash.
-
-**Open at session end (2026-08-16, day 8):**
-- **META shape overhang on `grp-s018-1056`** (piece-s12): shape 105.63-113.43,
-  parts stop at 110.62. Cause NOT established - AI's guess (individual note edits)
-  is contradicted by the composer's observation that the parts DO follow shape
-  changes while the overhang is preserved, which is what affine mapping does.
-  **Deferred by the composer**; full write-up + the one-step diagnostic in NITS.
-  No auto-fit was added on purpose (it would undo the legitimate D9 case of
-  stretching an all-fixed gesture).
-- **Velocity vs CC7 still unresolved as a system question (2q)** - but it does NOT
-  touch the insert path: inserted notes use `sonifyMode:'plain'`, which pins CC7
-  at 127 and sends the recorded velocity, matching D12.
-- **42 soft flags in piece-s11/s12** - real but not urgent: the cloud material
-  (CLOUD02-D/I, STAC) asks one player for 6.8-7.7 attacks/s between 20-60 s.
-  32 of the 42 are fixable by moving a note to a fully free player. For the
-  notation pass.
-- Still queued: `ost01-variety` unheard · cressand-family verdicts · quarter-tone
-  mapping test (gate for the morphing crescendo, PLAN 2l).
-
-**NEXT SESSION, FIRST THING:** `/clear` then `/session-start` (see
-SESSION_HYGIENE). **Read `docs/AI_METHODOLOGY.md` before proposing anything.**
-Then continue the counterpoint section - blasts over clusters in `piece-s12`,
-now conflict-checked at insert with a resolver for adjustments.
-
-**Day 6 (2026-08-15):** the blast pipeline end to end - piece-s09 shipped (88.5 s,
-INT2's first four sonority blasts); Blast Sandbox + the three-tier taxonomy (48
-sonorities, "INT2 blasts" = 47); insertion strip; the SAMPLE-LENGTH SURVEY (fp
-1.35-2.22 s, cuivre 0.99-1.35 s, staccato 0.33-0.53 s, all FIXED one-shots) and
-the rule it produced - **only ORD is a real duration**; the save system (Piece vs
-Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opened.
+**Orientation for a cold session:** `docs/AI_METHODOLOGY.md` (governing — read
+before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
+`docs/DENSITY_PIPELINE.md` if the work is a density build → RESEARCH_INDEX.md /
+CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
+(:5200). Sandboxes: `/clusterview.html`, `/chordview.html`.
 
 **Blockers:** none.
 
@@ -372,6 +306,34 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   seeded `random` and raw-MIDI `arrival`; the composer explicitly declined to
   audition variants for now.
 
+- **D22** *(2026-08-16)* — **Articulation is an ARC, not a ramp.** Fortepiano is a
+  swell of its own that peaks *just before* the density takes off and is gone by
+  the apex. Measured off the two density builds already in the piece: DB1 and DB2
+  both land at **~21 % fp overall**, with 14–33 % / 0–25 % early, a **peak of
+  55–70 % at 12–20 s**, then thinning to 0 at the apex. *(This is also where the
+  composer's remembered "seventy, thirty" comes from — DB2 hits 70 % at 12–16 s.
+  Never a global ratio, the top of this arc.)* *Why:* the first version ramped
+  P(staccato) 0→1 from an all-fortepiano opening, which put every fp in the
+  sparsest bars where it reads as an isolated event rather than a colour in a
+  mix — composer: *"it felt like I didn't hear it."* **The roll only proposes and
+  physics disposes:** fp is a FIXED 1.35–2.22 s one-shot (D9), so conversion
+  replaces a 0.45 s staccato with a note 3–5× longer; room here → room elsewhere
+  (leap-aware) → it stays staccato, reported. Zero new conflicts by construction.
+  *Consequence worth carrying:* **DB3 cannot reach 21 %** — its sparse region is
+  ~11 s of a 23.5 s build, so the physics ceiling is 18 notes (11 %).
+  `tools/artic_pass.js`, superseding the D9-obsolete `tools/transform_fp.js`.
+- **D23** *(2026-08-16)* — **A finished density build enters the piece by
+  PLACEMENT SCRIPT, not through the Insertion strip.** The strip's two sources
+  store a pitch set (blasts) or a `{t,p,v,d,tech}` event stream (clusters);
+  **neither has a field for `layer`, `envShape`, `nodes` or `segments`**, so a
+  round trip flattens every hand-shaped surge back into a block. Copy
+  `tools/piece_s08.js`: offset the notes, copy the objects wholesale, one
+  `groupId` plus its META shape, then re-audit. *Why not build UI:* you insert a
+  density build once, and the sandbox principle is UI for hammered loops, prompts
+  for one-offs. A third strip source ("Gestures", carrying whole orchestrated
+  objects) earns its build when several builds need placing and re-placing —
+  not before. Full write-up: `docs/DENSITY_PIPELINE.md` §6.
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -388,10 +350,16 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
   density build clean of hard conflicts. `tools/audit_playability.js`.
 - 2026-08-16 — **`docs/AI_METHODOLOGY.md`** adopted as the governing working
   instruction (D18).
-- 2026-08-16 — **PLAN 2t DENSITY PIPELINE shipped** (D19/D20/D21): pack-to-ceiling
-  (`tools/pack_take.js`), leap-aware `assignCluster`, part-by-part report
+- 2026-08-16 — **PLAN 2t DENSITY PIPELINE shipped** (D19–D23): pack-to-ceiling
+  (`tools/pack_take.js`), leap-aware `assignCluster`, the fortepiano arc
+  (`tools/artic_pass.js`), version arcs (`tools/build_versions.js`), tonality
+  variants (`tools/tonality_variants.js`), part-by-part report
   (`audit_playability.js --parts`), playbook `docs/DENSITY_PIPELINE.md`.
-  DB3 take: 251 → 160 notes, **HARD 0 / soft 0**, verified in the app.
+  DB3: 251 → 160 notes, **HARD 0 / soft 0**, verified in the app.
+- 2026-08-16 — **`docs/PAPER_NOTES.md` DB3 case study** — one gesture end to end
+  with the measurement that forced each stage; the paper's worked example.
+- 2026-08-16 — **PLAN 2u spec'd** (tonality sub-menu) — not built; the remap
+  engine already exists in the cluster sandbox.
 
 ## §6 Human Notes
 
@@ -418,4 +386,15 @@ Scores menus, working copies, Save-as-next, Variant, Restore); PAPER_NOTES opene
 - *(2026-08-16)* **Deferred by the composer, not to be raised again unprompted:**
   the META shape overhang (NITS) and the amber soft flags in the piece — both
   wait until they actually get in the way.
+- *(2026-08-16, day 9)* **Listening owed on DB3 — the whole session is unheard.**
+  `densBld03-arc-v2` (5 stages, 122.8 s) and `densBld03-tonalities` (9 harmonies,
+  224 s). Then the grain pass in section E, then the apex decision. **This is the
+  first thing next session.**
+- *(2026-08-16, day 9)* **The apex question, restated because it recurs:** the
+  packed build is limited by the SAMPLE's ring time, not by tuba technique — the
+  probe measured "Sounded (s)", decay and room included, and D17 already made
+  that correction for SOFT but not for HARD. The apex exceeds ten players under
+  any assumption (44 hard even at a 0.11 s floor), but the thinning amount is
+  model-dependent, ~30 to 91 notes. In NITS; needs a real player's articulation
+  rate, same evidence 2j and 2q are waiting on.
 

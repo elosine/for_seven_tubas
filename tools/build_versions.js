@@ -26,6 +26,7 @@ const args = process.argv.slice(2);
 const flag = (n, d) => { const i = args.indexOf('--' + n); return i >= 0 && args[i + 1] != null ? args[i + 1] : d; };
 const OUT = flag('out', null);
 const GAP = parseFloat(flag('gap', '3'));
+const TICK = parseFloat(flag('tick', '5'));   // seconds between repeated name labels
 const specs = args.filter((a, i) =>
   !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--')));
 
@@ -87,12 +88,22 @@ specs.forEach((spec, si) => {
   });
 
   const end = Math.max(...notes.map(o => o.endSeconds)) - t0;
-  // closing marker too — with articulation carrying the note colour, a section
-  // boundary is otherwise only a gap, and consecutive all-staccato sections look
-  // identical (composer: "I'm having trouble telling them apart")
+  // A marker is a point, so scrolled into the middle of a 22 s section there is
+  // nothing on screen saying which version you are hearing. Repeat the section's
+  // short name across it, and close it off — with articulation carrying the note
+  // colour, two consecutive all-staccato sections are otherwise separated only by
+  // a gap (composer: "I'm having trouble telling them apart").
+  const short = label.split('·')[0].trim();
+  for (let t = TICK; t < end - 1; t += TICK) {
+    marks.push({
+      id: 'mk-' + (id++), type: 'marker', layer: 0, time: +(off + t).toFixed(3),
+      label: short, color: MARKER_PALETTE[si % MARKER_PALETTE.length],
+      performanceNotes: '', properties: {},
+    });
+  }
   marks.push({
     id: 'mk-' + (id++), type: 'marker', layer: 0, time: +(off + end).toFixed(3),
-    label: '— end ' + label.split(' ·')[0] + ' —',
+    label: '— end ' + short + ' —',
     color: MARKER_PALETTE[si % MARKER_PALETTE.length],
     performanceNotes: '', properties: {},
   });
