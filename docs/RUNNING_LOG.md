@@ -1005,3 +1005,34 @@ for a sandbox… help me collect the data for the pre-plan."*
   criticisms: **R5 seed auditioning** (a setting is a random variable, not a
   texture) and **R9 self-describing experiments** (plain-language first marker,
   not parameter names).
+
+---
+
+## 2026-08-16 · day 11 (Claude Code) — the two follow-on plans DRAFTED
+
+*(A second agent is concurrently planning in this repo — the two-agent working
+rules at the top of this file are back in force.)*
+
+- **PLAN 2z GESTURE SHAPING** (was 2x — ID collision with the texture sandbox,
+  both day-10 sessions appended "2x"; the sandbox keeps 2x) —
+  `docs/plans/GESTURE_SHAPING.md`. Three levers, all inside the pure engine:
+  gesture-level gain g(t) multiplying the D24 dynamics layer · entry/exit
+  scheduling (striated | together | ramp; the current striated entry becomes
+  the default mode, not the only possibility) · edge technique on first/last
+  segments. Attach points verified against morph.js (buildCarrier / stateAt).
+  Hard gate G0: absent `shape` ⇒ byte-identical renders (fixtures from the six
+  blessed recipes). Code-verified facts baked in: cuivre is MIDI 60–67 and
+  feasibleTechnique resolves a low cuivre ask to fortepiano; D9 one-shots take
+  sample length, never attack.len.
+- **PLAN 2y MODEL ↔ ACTUAL** — `docs/plans/MODEL_AND_ACTUAL_PLAN.md`. The four
+  open questions in the concept doc answered (hybrid surface · recipes =
+  endpoints + interpolation, pure data · actuals carry provenance · organised
+  by model + tags + auto-logged placements). Stores: `bank/morph_models.json`
+  (seeded from the frozen morph_recipes.json) + `bank/actuals/ACT-<MODEL>-NN.json`
+  with both `notes` and `objects` and a re-derivation integrity check.
+- **Found in passing:** `lanes`/`voices` are read by normaliseParams but
+  missing from KNOWN_KEYS ⇒ spurious "unrecognised key" warning. Fix scheduled
+  in 2z G0.
+- **Recommended order: 2z then 2y; never as two concurrent agents** — the two
+  plans share morph.js, morph_panel.js, morph_params.json, test_morph.js.
+- Both drafts awaiting the composer's review; nothing built.

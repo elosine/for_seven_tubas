@@ -8,7 +8,7 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ►** Section 1 ▸ **morphing chords are BUILT and usable** ▸ *PLAN 2v complete — `Morph` button in the score; A / BEATING BLOOM / BEATING CONVERGE are keepers. Next: the composer scopes GESTURE SHAPING (2x) and MODEL↔ACTUAL (2y), then compose with all of it. Piece is at piece-s17 (135.8 s).*
+**NOW ►** Section 1 ▸ **morphing chords are BUILT and usable** ▸ *PLAN 2v complete — `Morph` button in the score; A / BEATING BLOOM / BEATING CONVERGE are keepers. Next: the composer scopes GESTURE SHAPING (2z — was 2x, renumbered to clear the texture-sandbox ID collision) and MODEL↔ACTUAL (2y) — both plans DRAFTED 2026-08-16 (docs/plans/GESTURE_SHAPING.md, MODEL_AND_ACTUAL_PLAN.md), awaiting review — then compose with all of it. Piece is at piece-s17 (135.8 s).*
 
 ---
 

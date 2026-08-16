@@ -362,7 +362,10 @@ composer → notation → performance architecture.)*
   (+23 ¢ at F2 → +57 ¢ at C4), which settles PLAN 2l's first question with a
   different answer than expected — bend is the vehicle, the patch is a colour.
 
-- **2x — GESTURE SHAPING** — `concept 2026-08-16, composer to scope` *(composer:
+- **2z — GESTURE SHAPING** — `plan drafted 2026-08-16 — docs/plans/GESTURE_SHAPING.md,
+  awaiting composer review` *(was listed as 2x, colliding with the texture
+  sandbox below — two concurrent day-10 sessions both appended 2x; the sandbox
+  keeps 2x, this is now 2z)* *(composer:
   "the meta shape is really the sound itself")*. A morph — or any gesture —
   should have an envelope at the GESTURE level: a designed **attack** (possibly a
   different technique, e.g. cuivre), a **body**, and a designed **release**, with
@@ -372,8 +375,9 @@ composer → notation → performance architecture.)*
   META layer already has to the density builds. Lineage: the granular-synthesis
   model. Recorded in `docs/RUNNING_LOG.md`; needs its own plan and build.
 
-- **2y — MODEL ↔ ACTUAL: storage, recall, insert** — `concept 2026-08-16,
-  composer to scope` — **`docs/plans/MODEL_AND_ACTUAL.md`**. The composer's
+- **2y — MODEL ↔ ACTUAL: storage, recall, insert** — `plan drafted 2026-08-16 —
+  docs/plans/MODEL_AND_ACTUAL_PLAN.md, awaiting composer review` —
+  concept: **`docs/plans/MODEL_AND_ACTUAL.md`**. The composer's
   virtual/actual distinction: a **MODEL** is *"a point plus the directions worth
   travelling from it, and how far"* — a sonority, its elements, a slate of
   recommended morphs with their **boundaries**, and **recipes** collapsing several

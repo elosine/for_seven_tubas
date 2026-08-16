@@ -1,9 +1,9 @@
 # MODEL → ACTUAL — storage, recall and insert (composer's concept, 2026-08-16)
 
-> **Status: CONCEPT ONLY. Not planned, not built.** Captured verbatim-in-substance
-> the day it was described, so that scoping it later starts from the composer's
-> own framing rather than a reconstruction. The composer will scope and plan this;
-> this file is the raw material, not the plan.
+> **Status: CONCEPT, now planned — the implementation plan is
+> `docs/plans/MODEL_AND_ACTUAL_PLAN.md` (drafted 2026-08-16, awaiting composer
+> review).** This file stays as captured — the composer's own framing, the raw
+> material the plan implements.
 >
 > Sibling of the other deferred item, GESTURE SHAPING (the "meta shape is the
 > sound itself" idea — designed attack / body / release, parts filled in
