@@ -865,3 +865,36 @@ interesting musical materials, we are already there."*
 **Carried forward, not built:** the gesture-shaping architecture (attack / body /
 release, parts filled in afterwards) and the MODEL↔ACTUAL storage system — both
 have their own docs in `docs/plans/` and are the composer's to scope.
+
+### E6 RESULT — PITCH BEATING WORKS. First fully predictive result of the arc.
+Composer on `phase12-pitchbeat` (2026-08-16): 0.5 Hz *"more flanger effect"* ·
+1 Hz *"beats ~1hz"* · 2 and 4 Hz *"the rest the same"* · sweep *"as expected,
+flanger into beats to acceleration."*
+- **Asked 1 Hz, heard ~1 Hz.** The arithmetic is predictive, which is exactly the
+  "reliable effect" the composer wanted from the first message of the arc.
+- **0.5 Hz reads as FLANGER, not as a slow throb — and that is correct acoustics,
+  not a defect.** A complex tone does not beat at one rate: **partial n beats at
+  n × Δf.** At Δf = 0.5 Hz the fundamental crawls while partial 10 shimmers at
+  5 Hz and partial 20 at 10 Hz. So a small detuning is heard as timbral swirl.
+  **Two new categories, continuously connected: FLANGER (Δf below ~1 Hz) →
+  BEATING (Δf ≳ 1 Hz).** The sweep morphs between them on demand.
+- **This is the working morph primitive** the arc has been looking for since the
+  "waves / more pronounced, less pronounced" request: one bend ramp, calculable.
+
+### E7 built — `phase13-beatfield` (119 s, 10 tracks, MIDI only)
+Two questions, plus the ensemble version.
+1. **Where does beating stop?** 8 beats/sec, then 15 (≈ a whole tone, near the
+   ±199 c bend limit). Beating → roughness → two separate pitches is the pitch-
+   domain analogue of the tick↔tone boundary the composer asked about earlier.
+2. **TEN detuned tubas** fanned over 6 / 13 / 40 cents — 45 pairs, 45 beat rates
+   at once. Fastest pair 0.45 / 0.99 / 3.06 Hz.
+3. **THE REGISTER LAW, verified by decoding the file:** the *same* 13.19 cents
+   gives **0.50 Hz at C2, 1.00 Hz at C3, 2.00 Hz at C4** — beat rate doubles per
+   octave for a fixed cents value. **Compositional consequence: detuning a chord
+   by a constant cents amount produces natural stratification — the top shimmers,
+   the bottom crawls.** To get a uniform beat rate across a chord you must use
+   *different* cents per register. Feeds 2l (spectral chords) directly.
+4. **BLOOM** — unison fanning open to 40 cents over 26 s; decoded linear
+   (3.1 → 12.3 → 23.1 → 33.8 cents), the ensemble-scale version of the sweep.
+All bends decode correctly (8 Hz → 102.76 c, 15 Hz → 187.95 c) and every track
+resets to centre at the end. **Unheard.**
