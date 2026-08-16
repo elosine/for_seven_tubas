@@ -398,6 +398,27 @@ composer → notation → performance architecture.)*
   fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
+- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `pre-plan written 2026-08-16, plan
+  not yet commissioned`. The continuation of 2j's research arc as a working
+  surface. **Requirements + evidence:
+  `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** (written to be read cold by a
+  stronger model, every claim tagged HEARD / MEASURED / inferred).
+  - **Sound-first control surface:** the composer picks a named category
+    (**smear · ticks · rain · gallop · groove**) and the numeric dials follow.
+    Dials: **density · scatter · jitter · spread · voices · articulation**, with
+    measured ranges. Engine already exists — `tools/phase_shift.js`.
+  - **R1–R10** include static textures that hold (spread 0), category morphs
+    along a curve, a pitch layer from day one, **seed auditioning** (at ten
+    voices a setting is a random variable, not a texture), a one-click
+    **robustness pass** (human-scale timing error), always-on playability, and
+    export both as score objects (D23 placement) and as MIDI.
+  - **BLOCKED ON THE COMPOSER'S CALL (D29):** the 2j/2v scope split. 2v already
+    owns bend, pitch sets, sustained rendering and dynamics, and its M1 "detune
+    bloom" IS 2j's pitch beating. Recommended: 2v keeps everything bend-based,
+    2x owns attack fields only.
+  - **Biggest known hole:** pitch was never introduced — the whole rain/gallop
+    map was made with ten players on one C3.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**
@@ -441,7 +462,8 @@ composer → notation → performance architecture.)*
     ALIGNED but pitches opposite** (a sustained minor 2nd — the composer's
     sine-wave peak-vs-trough model exactly), while **90° is the interlocked
     hocket** state.
-  - **PHASE SHIFTING AS A TEXTURE DEVICE — `doing 2026-08-16`.** Full research
+  - **PHASE SHIFTING AS A TEXTURE DEVICE — `research arc COMPLETE 2026-08-16`
+    (D27–D29); continues as 2x.** Full research
     doc **`docs/PHASE_SHIFTING.md`**; running notes in `docs/RUNNING_LOG.md`;
     generator `tools/phase_shift.js` (named presets) + `tools/midi_out.js`.
     Vocabulary from the composer's ear: **smear · ticks · rain · gallop**. Four

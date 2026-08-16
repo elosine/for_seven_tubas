@@ -54,4 +54,8 @@ Consult only when a specific named question requires it. Never edit them.
 ## Git
 
 - Commit at the natural wrap of an approved chunk; reference plan IDs in messages.
-- **Never push without asking.**
+- **Push automatically after each commit** *(D30, 2026-08-16 — supersedes the
+  earlier "never push without asking")*. Stage **explicit paths only, never
+  `git add -A`** — a second agent may be working in this same tree, and `-A`
+  would sweep their half-finished work into your commit. A push carries both
+  agents' commits, which is harmless as long as every commit is complete.

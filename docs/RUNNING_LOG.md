@@ -9,6 +9,14 @@
 > Append at the bottom, newest last. Session End still promotes the durable
 > items into `PROJECT_JOURNAL.md` §2/§4 and `PLAN.md`; this file is the net
 > underneath that, and it is safe to read cold.
+>
+> **Two agents appended here concurrently on 2026-08-16** — PLAN **2j** (phase
+> shifting / textures) and PLAN **2v** (morphing chords). Entries are in
+> chronological order, so the two threads interleave. To follow one, read its
+> section titles only: 2j runs `PHASE01 … phase13 … ARC ASSESSMENT`, 2v runs
+> `PLAN 2v … COLD START`. The consolidated 2j write-up is
+> `docs/PHASE_SHIFTING.md`; the 2j hand-off is
+> `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`.
 
 ---
 

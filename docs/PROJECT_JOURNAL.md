@@ -10,6 +10,62 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**SESSION END (2026-08-16, day 10 — PLAN 2j PHASE SHIFTING, Claude Code — a
+SECOND, concurrent session; the 2v entry below ran at the same time):**
+- **The phase-shifting research arc is COMPLETE** — 13 experiments
+  (`phase01`…`phase13`), all in the Scores menu or `midi/`. Full write-up
+  `docs/PHASE_SHIFTING.md`; chronology + the composer's verbatim verdicts in
+  `docs/RUNNING_LOG.md`; generators `tools/phase_shift.js` (named presets) and
+  `tools/pitch_beat.js`; new `tools/midi_out.js` (SMF writer with pitch bend).
+- **THE CENTRAL FINDING — two families, and they do not behave alike (D27).**
+  Composer: *"it's really the staccato patch that lends the articulation —
+  everything else is smeared or blurry."* In the **articulated** family phase
+  reads as RHYTHM (smear → ticks → rain → gallop → groove). In the **smeared**
+  family (ord/flz) **timing-phase does nothing at all** — *"everything sounds
+  continuous, no swells"* — because onsets are masked by tones already sounding.
+  That is a boundary, not a tuning problem.
+- **PITCH BEATING WORKS and is predictive (D28)** — asked 1 beat/sec, heard
+  *"beats ~1hz"*. `beat Hz = |f1−f2|`. Below ~1 Hz it reads as **flanger**
+  (partial *n* beats at *n·Δf*), above as **beating**, and one bend ramp morphs
+  between them — the working "waves" primitive the arc was looking for.
+  **THE REGISTER LAW (measured):** a fixed cents detuning **doubles its beat rate
+  per octave** (13.19 ¢ → 0.50 / 1.00 / 2.00 Hz at C2 / C3 / C4), so detuning a
+  chord uniformly *stratifies* it. Feeds 2l directly.
+- **Ceilings that bind the piece:** ten players ÷ the 0.42 s staccato ring =
+  **~23 attacks/s**; and **stage width alone (~30 ms over 10 m) exceeds half a
+  slot at 18 attacks/s**, so dead-even textures cannot exist in a hall and the
+  mock-up is biased toward evenness and toward mass.
+- **Standing performance rule adopted (composer):** no texture may depend on a
+  precise beating rate or precise cents. Recorded as a constraint on the
+  RESEARCH — every keeper must survive a human-error pass. **Pitch beating
+  inverts the worry: beating is self-correcting by ear** ("beat about twice a
+  second" is a real instruction).
+- **Hand-off written: `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** — evidence +
+  requirements for a stronger model to plan the texture sandbox, every claim
+  tagged HEARD / MEASURED / inferred.
+
+**Open at session end (2026-08-16, day 10 — 2j):**
+- **`phase13-beatfield` is UNHEARD** (~2 min): the upper boundary of beating
+  (8 and 15 beats/sec), the ten-tuba beat field, and the register law by ear.
+  MIDI only — `midi/phase13-beatfield.mid`, track N → `Tuba<N> SI2`, ord ch 1,
+  each on its own UVI instance (bend is per-instance).
+- **THE COMPOSER'S CALL, and it should be made before the sandbox is
+  commissioned: the 2j/2v scope split (D29).** 2v already owns bend, pitch sets,
+  sustained rendering and dynamics — and its **M1 "detune bloom" IS our pitch
+  beating**, M3 "fan" is `phase13`. Recommended: 2v keeps everything bend-based;
+  the new sandbox owns **attack fields** only. Otherwise it gets built twice.
+- **The biggest hole: pitch was never introduced.** Every rhythmic experiment was
+  ten players on a single C3, so the whole rain/gallop map is at unison. Does not
+  block the build, but the sandbox needs a pitch layer from day one.
+- Also untested, all deliberately deferred to the sandbox: counterpoint vs mass ·
+  category morphs (rain → gallop) · the robustness/perturbation pass (never run
+  once) · the repetition/density crossover · dynamics (untouched in this arc).
+- **Two confounds in our own method, to design around:** order effects (the same
+  setting drew opposite verdicts in different battery positions) and draw
+  variance (at ten voices a scatter setting is a *random variable*, not a
+  texture — the phantom "accents" came from single draws).
+- `docs/NITS.md` gained one: the conflict badge does not recompute on score load.
+
 **SESSION END (2026-08-16, day 10 — PLAN 2v MORPHING CHORDS, Claude Code):**
 - **PLAN 2v IS COMPLETE.** All five phases built, heard and measured. The composer
   can now make a sonority, change it over time, audition it and insert it —
@@ -60,40 +116,32 @@ piece #3's `docs/` — registered as an additional working directory.
   **DB3 apex decision** · velocity-vs-CC7 (2q) · 42 soft flags in the piece ·
   META shape overhang (NITS) · `ost01-variety` unheard · cressand-family verdicts.
 
-**Day 9 (2026-08-16):** DB3 recorded and orchestrated; **PLAN 2t DENSITY PIPELINE**
-shipped (pack-to-ceiling, leap-aware `assignCluster`, fp arc, version arcs,
-tonality variants, part-by-part audit — D19–D23, playbook
-`docs/DENSITY_PIPELINE.md`). 251 → 160 notes at **0 hard / 0 soft**. Later placed
-into the piece as **piece-s16** in Messiaen m3 on F; **PLAN 2w** gesture bank +
-recall built (`bank_gesture.js` / `place_gesture.js`), and the labels-never-render
-bug found and fixed (Principle 4).
+**Earlier days, one line each** (detail lives in the docs each names):
 
-**Day 8 (2026-08-16):** collision avoidance end to end (PLAN 2r) — occupancy
-model, HARD/SOFT tiers (D17), conflict-aware insert, live wash, resolver with
-move-to-another-player; back-audit of all 164 scores found nothing to redo (2s);
-**`docs/AI_METHODOLOGY.md` adopted as governing (D18)**; `docs/NITS.md` opened.
-
-**Day 7 (2026-08-16):** the CLUSTER SANDBOX (`/clusterview.html`, 2p) — 42
-imported takes + recording, piano-roll editor, non-destructive transforms,
-lists+items (D14), velocity-not-CC7 (D12), `docs/SESSION_HYGIENE.md`.
-
-**Day 6 (2026-08-15):** the blast pipeline — piece-s09 (88.5 s), Blast Sandbox +
-three-tier taxonomy (D11), insertion strip, the SAMPLE-LENGTH SURVEY and the rule
-it produced (**D9: only ORD is a real duration**), the save system (D10).
-
-**Days 4–5 (2026-08-13/14):** piece assembly began (piece-s01→s07c, movable META
-group shapes); harmony palette + pairing ledger; GESTURE-2 banked; the cressand
-research; ostinato engine ported; NAMING.md.
-
-**Day 3 (2026-08-12):** CRD remote listening; species {sine, expodec, surge};
-**THE DENSITY ARC → DB 044** (finding 15, accelerando scheduler, RECIPE BUILD-1);
-containers begun (DB 045).
-
-**Days 1–2 (2026-08-10/11):** stack seeded from piece #3; SI2 roster + dual-port
-(D2); CC7 law and gain staging; research arc laws L1–L3, Xenakis X1–X8, the
-swell-cloud species; **Penn State research — deadline Sept 4, 2026**; 10-part
-expansion, floating META window, grain suite, Roads catalog; **LAW L4 + RECIPE
-MAXDENSE-1** (DB 035).
+- **Day 9 (08-16):** DB3 orchestrated; **PLAN 2t DENSITY PIPELINE** shipped
+  (D19–D23, `docs/DENSITY_PIPELINE.md`) — 251 → 160 notes at 0 hard / 0 soft,
+  placed as **piece-s16** in Messiaen m3 on F; **2w** gesture bank + recall;
+  labels-never-render bug fixed (Principle 4).
+- **Day 8 (08-16):** collision avoidance end to end (**2r**) — occupancy model,
+  HARD/SOFT tiers (D17), conflict-aware insert, resolver; back-audit of all 164
+  scores clean (**2s**); **`AI_METHODOLOGY.md` adopted as governing (D18)**;
+  `NITS.md` opened.
+- **Day 7 (08-16):** the **CLUSTER SANDBOX** (`/clusterview.html`, **2p**) —
+  42 takes + recording, piano-roll editor, non-destructive transforms, lists +
+  items (D14), velocity-not-CC7 (D12), `SESSION_HYGIENE.md`.
+- **Day 6 (08-15):** the blast pipeline — piece-s09, Blast Sandbox + three-tier
+  taxonomy (D11), insertion strip, the **SAMPLE-LENGTH SURVEY → D9 (only ORD is
+  a real duration)**, the save system (D10).
+- **Days 4–5 (08-13/14):** piece assembly began (s01→s07c, movable META group
+  shapes); harmony palette + pairing ledger; GESTURE-2 banked; cressand research;
+  ostinato engine ported; `NAMING.md`.
+- **Day 3 (08-12):** CRD remote listening; species {sine, expodec, surge};
+  **the density arc → DB 044** (finding 15, accelerando scheduler, RECIPE
+  BUILD-1); containers begun (DB 045).
+- **Days 1–2 (08-10/11):** stack seeded from piece #3; SI2 roster + dual-port
+  (D2); CC7 law and gain staging; laws L1–L3, Xenakis X1–X8, swell-cloud species;
+  **Penn State research — deadline Sept 4 2026**; 10-part expansion, floating META
+  window, grain suite, Roads catalog; **LAW L4 + RECIPE MAXDENSE-1** (DB 035).
 
 **Orientation for a cold session:** `docs/AI_METHODOLOGY.md` (governing — read
 before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
@@ -389,6 +437,58 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   is unprobed. *Rejected:* flagging wide fans as unplayable (correct but useless),
   and hiding the seam under a dynamic dip (unnecessary — nothing to hide).
 
+- **D27** *(2026-08-16, PLAN 2j)* — **ARTICULATION DECIDES WHETHER PHASE IS A
+  DEVICE AT ALL.** Two families, and they do not behave alike. **Articulated
+  (staccato):** phase relationships between attacks read as RHYTHM — the axis is
+  regular↔irregular and the composer's names for it are **smear · ticks · rain ·
+  gallop · groove**. **Smeared (ord, flz, fp-under-overlap):** ten voices blur
+  into a wash and **timing-phase does nothing at any rate or spread**, because
+  each attack is masked by nine tones already sounding — composer: *"everything
+  sounds continuous, no swells at all."* *Why it is a decision and not a note:*
+  it closes a whole search direction. Do not re-litigate timing-based swelling in
+  a sustained texture. *Evidence:* `phase08`–`phase11`; the negative was
+  predicted by measurement (sounding-note count never left 8–10) before it was
+  heard. *Corollaries kept:* **ord masks staccato** at equal dynamic, so "attacks
+  on a bed" needs dynamic or registral separation; and **fortepiano under overlap
+  loses its piano tail**, reading as attack-only — a usable colour, found not
+  designed.
+
+- **D28** *(2026-08-16, PLAN 2j)* — **MODULATION IN A SUSTAINED TEXTURE COMES
+  FROM PITCH, AND IT IS CALCULABLE.** `beat rate (Hz) = |f1 − f2|`;
+  `cents = 1200·log₂(1 + beat/f)`. Verified by ear: asked 1 beat/sec, heard
+  *"beats ~1hz"*. **Below ~1 Hz it reads as FLANGER** — correct acoustics, since
+  partial *n* beats at *n·Δf*, so the fundamental crawls while the upper partials
+  shimmer — **and above ~1 Hz as BEATING**; one bend ramp morphs between them.
+  **THE REGISTER LAW (measured by decoding the MIDI): a fixed cents detuning
+  doubles its beat rate per octave** — 13.19 ¢ gives 0.50 / 1.00 / 2.00 Hz at
+  C2 / C3 / C4. *Consequence:* detuning a chord by a constant amount
+  **stratifies** it (top shimmers, bottom crawls); a uniform beat rate needs
+  different cents per register. *Why it matters beyond this arc:* it is also the
+  **performability answer** — a player cannot hit "+13 ¢", but beating is
+  **self-correcting by ear**, so *"beat about twice a second"* is a real
+  instruction. Pitch beating is MORE performable than the timing version.
+
+- **D29** *(2026-08-16, PLAN 2j — the composer's to confirm)* — **SCOPE SPLIT:
+  2v OWNS EVERYTHING BEND-BASED; THE TEXTURE SANDBOX OWNS ATTACK FIELDS.** 2v
+  already has sustained rendering, bend, pitch sets, dynamics contours, the
+  params-file loop and an insert path — and its **M1 "detune bloom" is exactly
+  the pitch beating above**, while **M3 "fan"** is `phase13`'s fanned detuning.
+  So the new sandbox should own **density · scatter · jitter · spread · voices ·
+  articulation** and *layer with* 2v rather than duplicate it; pitch beating
+  enters as a requirement ON 2v (beat rate in Hz as the dial, plus the register
+  law). *Why:* otherwise the same engine gets built twice, in two places, with
+  two sets of bugs — and the deadline is Sept 4. *Flagged, not enacted: this is
+  the composer's call and should be made before the sandbox plan is commissioned.*
+
+- **D30** *(2026-08-16)* — **PUSH IS AUTOMATIC AFTER EACH COMMIT.** Supersedes
+  "never push without asking" for this project. Each agent stages **explicit
+  paths only** (never `git add -A`, which would sweep the other's half-finished
+  work) and pushes its own commit; a push carries both agents' commits, which is
+  harmless as long as every commit is complete. *Why:* with two agents in one
+  working tree the composer was left tracking who owed a push; the rule removes
+  that bookkeeping without adding risk. *Recorded in `CLAUDE.md` and in
+  `docs/RUNNING_LOG.md`'s working rules.*
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -429,6 +529,14 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   within 1.0 ¢ including seams.** Five of six models produced material the
   composer called interesting or better; three are keepers.
 
+- 2026-08-16 — **PLAN 2j PHASE-SHIFTING RESEARCH ARC complete** (D27–D29):
+  13 experiments `phase01`…`phase13`; the two-family model; the dials
+  (density · scatter · jitter · spread) with measured ranges; the density and
+  stage-width ceilings; **pitch beating verified predictive** and the register
+  law measured. Write-up `docs/PHASE_SHIFTING.md`, hand-off
+  `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`, generators `tools/phase_shift.js`
+  + `tools/pitch_beat.js` + `tools/midi_out.js` (SMF writer with pitch bend).
+
 ## §6 Human Notes
 
 - *(2026-08-12)* **Try PLAYING some of the shapes** — as another way to collect
@@ -466,3 +574,12 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   model-dependent, ~30 to 91 notes. In NITS; needs a real player's articulation
   rate, same evidence 2j and 2q are waiting on.
 
+- *(2026-08-16, day 10 — 2j)* **Two calls owed from you, both cheap, both before
+  the sandbox plan is commissioned.** (1) **Listen to `phase13-beatfield`**
+  (~2 min, MIDI only) — the upper boundary of beating and the register law by
+  ear. (2) **Decide the 2j/2v scope split (D29)** — 2v's M1 "detune bloom" is
+  already our pitch beating, so without a boundary the same engine gets built
+  twice. These are the only two things gating the texture-sandbox plan.
+- *(2026-08-16, day 10 — 2j)* **Push policy changed (D30):** either agent pushes
+  automatically after its own commit, staging explicit paths only. You should no
+  longer have to track who owes a push.
