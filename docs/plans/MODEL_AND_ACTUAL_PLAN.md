@@ -352,7 +352,119 @@ bite before MA4, and both are data edits, not rebuilds.
 
 ---
 
-## 10 · Implementer rules
+## 9.5 · Insertion — inherited, and gated anyway
+
+Both insert paths place **ordinary score objects** (waveCurves + `morphBend`),
+so everything downstream is debugged machinery, not new code:
+
+- **Panel insert** (actuals browser → `insert @ cursor`): places `objects` at
+  the playhead with a fresh auto-numbered `groupId`, a marker **in `objects`**
+  (never `data.markers` — Principle 4) and a META group shape, exactly as the
+  live morph insert does today.
+- **`place_gesture.js`**: the CLI path for scores not currently open; copies
+  objects verbatim with a time offset — `morphBend` and level nodes ride
+  along untouched (verify once in MA2, then trust it).
+- **2r's conflict machinery applies automatically** — the occupancy wash runs
+  on every mutation, so an actual dropped onto existing material marks its
+  conflicts like any insert (never refuses, never silently drops — D16).
+- **Both paths append to `placements`.** That is the only genuinely new
+  insertion code in this plan.
+
+MA2's gate exercises the full round trip (insert → drag → group-scale →
+save → reload) on stored material, so "insertion works" is verified, not
+assumed.
+
+## 9.6 · Precision & determinism rules (read before writing the recipe engine)
+
+1. **Only plain numbers lerp.** Strings, booleans, arrays and objects STEP:
+   they take the value of the highest waypoint at or below the dial position.
+   (Interpolating `target.midi` arrays element-wise invites subtle garbage;
+   stepping is predictable and audible.)
+2. **"Byte-identical" in the gates means DEEP-EQUAL on parsed JSON** —
+   structural equality of the note/object arrays — not literal file bytes.
+   Key order and float formatting may differ between writes; content may not.
+3. **Determinism:** `render(resolvedParams, seed)` is pure and seeded
+   (`mulberry32`); given the same inputs it must reproduce the same notes.
+   Never introduce `Date.now`/`Math.random` into the stores or the engine —
+   timestamps are written by the tool layer at save time only.
+4. **Dot-path patches** resolve against the normalised params structure;
+   creating a path that `normaliseParams` does not know is a load-time
+   validation error, reported with the recipe's name and the offending path.
+
+## 10 · ENVIRONMENT FACTS (for the implementing model — read before coding)
+
+Hard-won earlier in this project; do not rediscover:
+
+1. **No `package.json`, no `node_modules`, no node MIDI binding.** Plain
+   `node` runs the tools (`node tools/test_morph.js`, `node
+   tools/model_bank.js`). Anything that must SOUND goes through the browser
+   panel (Web MIDI — needs a user gesture; permanently denied in preview
+   panes; granted in the composer's own browser). Never write a node script
+   that opens MIDI.
+2. **The server is hand-rolled `http`, not express.** Add `/api/actuals` by
+   copying the existing patterns in `score/server.js`: `/api/composer/save`
+   (POST with body collect) and `/api/clusterbank` (GET+POST on one bank
+   file). Follow their `safe()` path hygiene.
+3. **`const Composer` is a lexical global, not `window.Composer`** — use the
+   `HOST()` accessor pattern already in the morph files.
+4. **Markers belong in `objects`, never `data.markers`** (Principle 4).
+5. **Autosave writes every 5 s.** All app gates run in a scratch session
+   (`untitled`), never a `piece-*` file; CTRL+S first on any non-piece score.
+6. **The panel polls `bank/morph_params.json` via `/api/morphparams` on `rev`
+   change** — reuse that pattern for the model store (bump `rev`, panel
+   refreshes); no websockets, no connection state.
+7. **Git: stage explicit paths only** (never `git add -A` — another agent may
+   share this tree); push after each commit (D30).
+8. **House IDs used above:** D9 (one-shots take their sample length) · D16
+   (never refuse, never silently drop — flag) · D23 (the Insertion strip
+   cannot carry orchestrated material) · D24 (dynamics is a layer) · 2r (the
+   conflict/occupancy machinery) · 2w (the gesture bank tools this extends).
+   Full text: `docs/PROJECT_JOURNAL.md` §4 and `docs/PLAN.md`.
+
+## 11 · Worked example (end to end)
+
+The model entry (in `bank/morph_models.json`):
+
+```json
+"BLOOM": {
+  "name": "BEATING BLOOM", "id": "BLOOM", "status": "stock", "modelType": "M1",
+  "character": "Unison pairs splitting apart; beating grows from zero, opens upward.",
+  "verdict": "keeper — composer 2026-08-16: 'industrial… Lucier terrain'",
+  "baseParams": { "model": "M1",
+    "source": { "kind": "pitches", "midi": [41,41,46,46,51,51,56,56] },
+    "target": { "cents": 25, "direction": "alternate" },
+    "dials": { "bias": 0.3, "spread": 0.35, "depth": 1 },
+    "carrier": { "span": 40, "segLen": 8, "segVar": 0.3, "striation": "staggered" },
+    "dyn": { "base": 0.5, "shape": "swell", "amount": 0.42, "spread": 0.55 },
+    "seed": 11 },
+  "recipes": [
+    { "recipe": "more beating",
+      "description": "pairs split wider — faster beats, opens further",
+      "dial": { "min": 0, "max": 1, "default": 0.5 },
+      "waypoints": [
+        { "at": 0, "patch": { "target.cents": 10 } },
+        { "at": 1, "patch": { "target.cents": 50 } } ] }
+  ],
+  "actuals": [], "seededFrom": "bank/morph_recipes.json slot C"
+}
+```
+
+`applyRecipe(baseParams, "more beating", 0.7)` ⇒ params with
+`target.cents = 10 + 0.7·(50−10) = 38`; everything else untouched. Render
+with seed 11, listen, settle ⇒ `Save as ACTUAL` writes
+`bank/actuals/ACT-BLOOM-01.json` carrying `objects`, `notes`, and
+`provenance { model: "BLOOM", recipeSettings: { "more beating": 0.7 },
+resolvedParams: …, seed: 11 }`, and appends `"ACT-BLOOM-01"` to the model's
+`actuals`. Inserting it later appends
+`{ score, at, when }` to its `placements`.
+
+MA2 sanity list for exactly this example: the file validates ·
+re-render(resolvedParams, 11) deep-equals `notes` ·
+`toScoreObjects(notes)` deep-equals `objects` · insert at 150 s in a scratch
+score adds zero new conflicts of its own · drag +12 s and scale ×0.75
+preserve `morphBend` per note · `--list` shows the actual under BLOOM.
+
+## 12 · Implementer rules
 
 1. `node tools/test_morph.js` before and after every change; the validator
    runs in CI-style at every gate.
