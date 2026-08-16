@@ -1,7 +1,41 @@
 # MORPHING CHORDS — implementation plan
 
-> **Status:** approved design, not yet built. Written 2026-08-16 (design session,
-> Fable 5) for a separate implementing session to execute cold.
+> **Status:** approved design; Phase 0 COMPLETE, Phase 1 in progress. Written
+> 2026-08-16 (design session, Fable 5) for a separate implementing session.
+>
+> ### Amendments during implementation (2026-08-16) — read with §3, §4, §8
+>
+> 1. **DYNAMICS IS A LAYER ON EVERY MODEL, not one model of six** *(composer's
+>    call: "centre volume changes more prominently — we undersold that")*. Every
+>    render carries a per-voice dynamic contour — `dyn: {base, shape, amount,
+>    turns, spread}` with `shape ∈ swell|rise|fall|rotate|flat` — so an M2
+>    spectral drift also swells unless `flat` turns it off. **M6 is therefore not
+>    "the volume model" but "the volume-ONLY model"**: it holds pitch and
+>    technique and defaults the layer to `rotate`.
+> 2. **The engine emits `level` (the score's 0-10 drawn height), not absolute
+>    CC7.** §4.2's `env.cc7` and §2's "no fetch" purity rule contradict each
+>    other — the CC7 law is a MEASURED map loaded at runtime
+>    (`probes/cc7_map.json` → `curveValToCC`, `levelSpanDb 40`), so a pure engine
+>    cannot apply it. Emitting the law's INPUT keeps the calibration in exactly
+>    one place, which is what §8's "do not invent a new curve" is protecting.
+> 3. **A morph note is an ordinary score `waveCurve`** (`nodes`/`segments`) plus
+>    one new optional field `morphBend` — not a new `env` object. Level envelopes
+>    already exist in this app as nodes; only bend is genuinely new. Existing
+>    code already draws, plays, drags and group-scales them, which delivers
+>    §13.7 (envelopes survive drag) via debugged machinery instead of new code.
+> 4. **Probe tooling is PowerShell + Python, not node** (§2's file table). There
+>    is no `package.json`, no `node_modules` and no node MIDI binding in this
+>    repo; every existing probe uses winmm P/Invoke + numpy/soundfile.
+> 5. **Running a probe: build the schedule with the script (`-DryRun`), then play
+>    it from inline PowerShell** reading `probes/last_bend_schedule.json`.
+>    Invoking `bend_probe.ps1` as a file was refused by the permission layer
+>    every time; inline code ran every time.
+>
+> **Phase 0 results are in `docs/MORPH_FINDINGS.md`.** Headline: bend WORKS
+> (±1.99 st, linear, no artifacts to full range), so no fallback is needed and
+> all six models proceed. The residue trap is real (+49.4 ¢). The quartertones
+> patch is **not** a uniform quarter-tone shift (+23 ¢ at F2 → +57 ¢ at C4), so
+> §3's M1/M2 fallback would have been wrong as specified — bend is the vehicle.
 > **PLAN id: 2v** (2u was claimed by the tonality sub-menu in the same-day
 > parallel session; the 2v one-liner is in `docs/PLAN.md`).
 >

@@ -166,6 +166,81 @@ ok('M1 reaches about a quarter tone at full depth',
     Math.abs(maxDrift - 50) < 6, 'max drift ' + maxDrift.toFixed(1) + ' c');
 
 // ===========================================================================
+section('dynamics is a LAYER on every model (composer 2026-08-16, option b)');
+// ===========================================================================
+const levelRange = r => {
+    const v = [];
+    r.notes.forEach(n => n.level.forEach(p => v.push(p[1])));
+    return Math.max.apply(null, v) - Math.min.apply(null, v);
+};
+// the whole point of option (b): pitch models swell too, without asking
+['M1', 'M2', 'M3', 'M4', 'M5'].forEach(mod => {
+    const r = M.render(Object.assign({}, base, {
+        model: mod,
+        target: mod === 'M3' ? { midi: [36, 43, 48, 52, 55, 60] }
+              : mod === 'M2' ? { fundamental: 41, partials: [2, 3, 4, 5, 6, 7] }
+              : mod === 'M4' ? { path: ['ord', 'bisb'] }
+              : mod === 'M5' ? { steps: 2 } : null,
+    }));
+    ok(mod + ' carries a dynamic contour by default', levelRange(r) > 1.0,
+        'level range ' + levelRange(r).toFixed(1));
+});
+// ...and it can be switched off. Measured on the LAST breakpoint of each note,
+// which is the shape's own value: the carrier still prepends a re-entry swell to
+// every segment after the first to hide the breath seam, and that is a carrier
+// feature independent of the dynamic shape.
+const flat = M.render(Object.assign({}, base, { model: 'M2',
+    target: { fundamental: 41, partials: [2, 3, 4, 5, 6, 7] },
+    dyn: { base: 0.6, shape: 'flat' } }));
+const shapeVals = flat.notes.map(n => n.level[n.level.length - 1][1]);
+ok("shape 'flat' contributes no contour of its own",
+    Math.max.apply(null, shapeVals) - Math.min.apply(null, shapeVals) < 0.01,
+    'spread ' + (Math.max.apply(null, shapeVals) - Math.min.apply(null, shapeVals)).toFixed(3));
+ok("and 'flat' still gets the seam-hiding re-entry swell", levelRange(flat) > 1.0,
+    'level range ' + levelRange(flat).toFixed(1));
+
+// M6's identity: dynamics ONLY. Nothing else may move.
+const m6b = M.render(Object.assign({}, base, { model: 'M6' }));
+eq('M6 defaults to the rotate shape', M.normaliseParams({ model: 'M6' }).dyn.shape, 'rotate');
+eq('other models default to swell', M.normaliseParams({ model: 'M2' }).dyn.shape, 'swell');
+const m6Techs = {};
+m6b.notes.forEach(n => { m6Techs[n.technique] = 1; });
+eq('M6 holds technique', Object.keys(m6Techs).length, 1);
+ok('M6 still moves level', levelRange(m6b) > 1.5, levelRange(m6b).toFixed(1));
+
+// shapes behave as named
+const shp = s => M.render(Object.assign({}, base, { model: 'M2',
+    target: { fundamental: 41, partials: [2, 3, 4, 5] },
+    dials: { bias: 0, spread: 0, depth: 1 },
+    dyn: { base: 0.5, shape: s, amount: 0.4, spread: 0 },
+    carrier: { span: 30, segLen: 2, segVar: 0, striation: 'aligned' } }));
+const firstLast = r => {
+    const v0 = r.notes.filter(n => n.voice === 0).sort((a, b) => a.tStart - b.tStart);
+    return [v0[0].level[0][1], v0[v0.length - 1].level[v0[v0.length - 1].level.length - 1][1]];
+};
+const ri = firstLast(shp('rise'));
+ok('rise ends louder than it starts', ri[1] > ri[0] + 1, JSON.stringify(ri));
+const fa = firstLast(shp('fall'));
+ok('fall ends quieter than it starts', fa[1] < fa[0] - 1, JSON.stringify(fa));
+const sw = shp('swell');
+const swV0 = sw.notes.filter(n => n.voice === 0).sort((a, b) => a.tStart - b.tStart);
+const swMid = swV0[Math.floor(swV0.length / 2)].level[0][1];
+ok('swell peaks in the middle', swMid > firstLast(sw)[0] + 1 && swMid > firstLast(sw)[1] + 1,
+    'mid ' + swMid.toFixed(1) + ' vs ends ' + JSON.stringify(firstLast(sw)));
+ok('level never leaves 0.4..10', sw.notes.every(n => n.level.every(p => p[1] >= 0.4 && p[1] <= 10)));
+
+// dyn.spread fans the voices apart in time
+const together = M.render(Object.assign({}, base, { model: 'M6', dyn: { base: 0.6, shape: 'rotate', amount: 0.4, spread: 0 } }));
+const fanned = M.render(Object.assign({}, base, { model: 'M6', dyn: { base: 0.6, shape: 'rotate', amount: 0.4, spread: 1 } }));
+const spreadAt = r => {
+    const early = r.notes.filter(n => n.tStart < 6).map(n => n.level[0][1]);
+    return early.length > 1 ? Math.max.apply(null, early) - Math.min.apply(null, early) : 0;
+};
+ok('dyn.spread 1 makes voices differ more than spread 0',
+    spreadAt(fanned) > spreadAt(together),
+    spreadAt(fanned).toFixed(1) + ' vs ' + spreadAt(together).toFixed(1));
+
+// ===========================================================================
 section('feasibility & flags (never refuse, never silently skip — D16)');
 // ===========================================================================
 const fe1 = M.feasibleTechnique('cuivre', 40);      // cuivre is 60-67 only

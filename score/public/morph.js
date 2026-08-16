@@ -108,11 +108,19 @@ const TECHNIQUES = {
     staccato:         { channel: 4,  portB: true,  lo: 30, hi: 65, durClass: 'fixed' },
 };
 
+// DYNAMICS IS A LAYER ON EVERY MODEL (composer, 2026-08-16, choosing option b:
+// "centre volume changes more prominently"). Loudness is not one model among six
+// — it rides along with all of them, so an M2 spectral drift also swells unless
+// you turn it off with shape 'flat'. M6 is then not "the volume model" but "the
+// model whose ONLY change is volume": it holds pitch and technique and lets this
+// layer do the work, defaulting to the rotating shape.
+const DYN_SHAPES = ['swell', 'rise', 'fall', 'rotate', 'flat'];
+
 const DEFAULTS = {
     model: 'M6',
     dials:   { bias: 0, spread: 0.5, depth: 1 },
     carrier: { span: 30, segLen: 8, segVar: 0.35, striation: 'staggered' },
-    dyn:     { base: 0.6 },
+    dyn:     { base: 0.6, shape: null, amount: 0.35, turns: 1, spread: 0.5 },
     seed: 1,
 };
 
@@ -195,6 +203,35 @@ function staggerOrder(nVoices, seed) {
     return order;
 }
 
+// THE DYNAMICS LAYER. Runs for every model. Returns level in the score's 0-10
+// drawn-height unit, which composer.html converts to CC7 through the MEASURED
+// map — the same path every hand-drawn crescendo in the piece takes, so a
+// hairpin inside a morph sounds like a hairpin in the piece.
+function dynLevel(dyn, vi, nVoices, p) {
+    const shape = dyn.shape || 'swell';
+    if (shape === 'flat') return clamp(dyn.base * 10, 0.4, 10);
+    // Per-voice phase so the ensemble does not breathe in lockstep. `spread` 0
+    // = everyone together (one big swell), 1 = fully fanned out.
+    const phase = nVoices > 1 ? (vi / nVoices) * clamp(dyn.spread, 0, 1) : 0;
+    const turns = dyn.turns != null ? dyn.turns : 1;
+    let w;
+    switch (shape) {
+        case 'rise':   w = (clamp(p - phase * 0.5, 0, 1) - 0.5) * 2; break;
+        case 'fall':   w = (0.5 - clamp(p - phase * 0.5, 0, 1)) * 2; break;
+        case 'rotate': w = Math.sin(2 * Math.PI * (turns * p + phase)); break;
+        case 'swell':
+        default: {
+            // an arch: silence-ward at both ends, peak in the middle, shifted
+            // per voice so the peaks are staggered across the ensemble
+            const q = clamp(p - phase * 0.35, 0, 1);
+            w = Math.sin(Math.PI * q) * 2 - 1;
+            break;
+        }
+    }
+    const amt = dyn.amount != null ? dyn.amount : 0.35;
+    return clamp((dyn.base + amt * w) * 10, 0.4, 10);
+}
+
 function voiceProgress(voiceIdx, nVoices, t, span, dials, order) {
     const u = span > 0 ? clamp(t / span, 0, 1) : 1;
     const k = nVoices > 1 ? order[voiceIdx] / (nVoices - 1) : 0;
@@ -275,16 +312,13 @@ const MODELS = {
         return { cents: ctx.startCents[vi] + away * steps * 100 * p };
     },
 
-    // M6 — BALANCE MORPH. Pitches and techniques hold; per-voice weighting
-    // rotates so voices emerge and recede. Prominence travels through the chord.
-    M6: function (ctx, vi, p) {
-        const base = ctx.dynBase != null ? ctx.dynBase : 0.6;
-        const depth = (ctx.target && ctx.target.amount != null) ? ctx.target.amount : 0.45;
-        const turns = (ctx.target && ctx.target.turns != null) ? ctx.target.turns : 1;
-        const phase = ctx.nVoices > 1 ? vi / ctx.nVoices : 0;
-        const w = Math.sin(2 * Math.PI * (turns * p + phase));
-        return { level: clamp((base + depth * w) * 10, 0.4, 10) };
-    },
+    // M6 — BALANCE MORPH. Pitches and techniques HOLD; the only thing that moves
+    // is internal weighting, so voices emerge and recede and prominence travels
+    // through the chord. It returns nothing because the universal dynamics layer
+    // does the work — M6's identity is that it defaults that layer to 'rotate'
+    // and changes nothing else. (Since 2026-08-16 dynamics ride every model, so
+    // "the volume model" is really "the volume-ONLY model".)
+    M6: function () { return {}; },
 };
 
 // ===========================================================================
@@ -358,13 +392,19 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
 
 function normaliseParams(v) {
     const p = v || {};
+    const model = p.model || DEFAULTS.model;
+    const dyn = Object.assign({}, DEFAULTS.dyn, p.dyn);
+    // An unset shape resolves by model: M6 rotates (that IS M6), everything else
+    // swells. Set it explicitly — including 'flat' — to override.
+    if (!dyn.shape) dyn.shape = (model === 'M6') ? 'rotate' : 'swell';
+    if (DYN_SHAPES.indexOf(dyn.shape) < 0) dyn.shape = 'swell';
     return {
-        model: p.model || DEFAULTS.model,
+        model: model,
         source: p.source || { kind: 'pitches', midi: [34, 41, 46, 50, 53, 58, 62, 65] },
         target: p.target || null,
         dials: Object.assign({}, DEFAULTS.dials, p.dials),
         carrier: Object.assign({}, DEFAULTS.carrier, p.carrier),
-        dyn: Object.assign({}, DEFAULTS.dyn, p.dyn),
+        dyn: dyn,
         seed: p.seed != null ? p.seed : DEFAULTS.seed,
         label: p.label || '',
     };
@@ -423,7 +463,7 @@ function render(params, opts) {
 
     const ctx = {
         startCents: startCents, targetCents: targetCents, nVoices: nVoices,
-        target: P.target, dynBase: P.dyn.base,
+        target: P.target, dyn: P.dyn, dynBase: P.dyn.base,
     };
     const modelFn = MODELS[P.model] || MODELS.M6;
     const order = staggerOrder(nVoices, P.seed);
@@ -435,7 +475,7 @@ function render(params, opts) {
         const base = {
             cents: startCents[vi],
             technique: (P.target && P.target.baseTechnique) || 'ord',
-            level: clamp(P.dyn.base * 10, 0.4, 10),
+            level: dynLevel(P.dyn, vi, nVoices, p),   // the layer — every model
         };
         const moved = modelFn(ctx, vi, p) || {};
         return {
@@ -615,6 +655,7 @@ function toScoreObjects(result, at, opts) {
 return {
     MEASURED: MEASURED, RATE: RATE, TECHNIQUES: TECHNIQUES, DEFAULTS: DEFAULTS,
     BREATH_TABLE: BREATH_TABLE, SWITCH_PREP: SWITCH_PREP, STRIATIONS: STRIATIONS,
+    DYN_SHAPES: DYN_SHAPES, dynLevel: dynLevel,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,
