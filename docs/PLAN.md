@@ -277,6 +277,36 @@ composer → notation → performance architecture.)*
     all at the apex. Alternatives are more players (M1) or converting the apex to
     sustained material so overlap becomes the point rather than a conflict.
 
+- **2u — TONALITY SUB-MENU in the Insertion strip** — `spec'd 2026-08-16, not
+  built` *(composer: "I don't wanna see an icon for every variant, but a sub-menu
+  where I could audition it in different tonalities")*.
+  - **Most of it already exists.** The cluster sandbox has the whole remap engine:
+    **15 named tonality sets** (cl low/mid/high/spread · BbE 2oct · 5ths 30/37 ·
+    oct F#/Bb · m7/m4/m6 (F#) · m3 (F) · Bhairav (F) · row placed) **+ all 33
+    VERT01 chords**, a **pooled/literal** switch (pooled = the target's pitch
+    classes over the whole range, so register and contour survive) and a
+    **no-repeat kick** (distinct sources colliding on one target get bumped;
+    genuine repeats stay repeats). This is a surfacing job, not a build.
+  - **The UI:** one `tonality ▾` next to the list picker, default
+    `— original —`; picking one re-pitches the SELECTED item live (mini redraws,
+    `hear` auditions it, `insert @ cursor` inserts the re-pitched version). A
+    `pooled/literal` chip beside it — it changes the result enough to be visible
+    rather than buried. **Arrows already step items; shift+arrows step
+    tonalities** — that is the hammered browse/audition loop that justifies UI
+    here at all.
+  - **The catch that must be built in from the start:** re-pitching changes
+    playability. A fixed one-shot's length depends on its pitch (staccato
+    0.33–0.53 s, fp 1.35–2.22 s) and the soft rule is leap-dependent, so a remap
+    can create real conflicts. **Measured on DB3 (2026-08-16):** the narrower the
+    pitch set, the worse it gets — Messiaen m3/F (26 pitches) came out clean,
+    while m5/F# (17) produced 9 hard and the BbE 2-oct cluster (20) produced 12.
+    So the audition must show the conflict count *while you are choosing* — a
+    variant with hard conflicts sounds perfectly fine in the mock-up (2r) and you
+    would never hear that it is unplayable.
+  - **Interim, and it works:** `tools/tonality_variants.js` lays N harmonies of a
+    gesture end to end with the conflict count in each marker label. Same loop,
+    no UI. `scores/densBld03-tonalities.json` is the DB3 run.
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

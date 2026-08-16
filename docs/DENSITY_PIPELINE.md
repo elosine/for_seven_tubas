@@ -291,6 +291,73 @@ the verification note below. Constants come from **D17**: `tongueReset 0.03` ·
 
 ---
 
+## 6. Getting the finished build INTO the piece
+
+> Read this before reaching for the Insertion strip. **The strip cannot carry a
+> density build, and the reason is not obvious.**
+
+### Why not the Insertion strip
+
+The strip has two sources and neither fits:
+
+| source | stored as | insert does |
+|---|---|---|
+| **Blasts** | `bank/blast_taxonomy.json` — pitch set + per-note articulation | `assignBlast`: every note its own player |
+| **Clusters** | `bank/cluster_bank.json` — `{t, p, v, d, tech}` event streams | `assignCluster`: distributes across players |
+
+A finished density build is **already orchestrated** — it has lanes, per-note
+articulations, and hand-shaped grain envelopes. The cluster event format has **no
+field for `layer`, `envShape`, `nodes` or `segments`**, so a round trip through it
+silently flattens every surge back into a block. Lane re-derivation would be fine
+(arguably right — it should route around whatever is already in the piece); losing
+the composer's envelope work is not.
+
+### The way in: a placement script
+
+This is how DB1 and DB2 got in, and it is still correct. GESTURE-2 lives as a full
+object array in `bank/GESTURE-2.json` and was placed by `tools/piece_s08.js` —
+copy that file's shape.
+
+**Why a script rather than UI:** you insert a density build *once*. Per the
+sandbox design principle (PLANNER, 2026-08-14) UI is for loops you hammer;
+one-offs are prompts. If several builds ever need placing and re-placing, that is
+when a third strip source ("Gestures", carrying whole orchestrated objects) earns
+its build — not before.
+
+**The artefacts, in order** (DB3 as the example):
+
+| file | what it is |
+|---|---|
+| `scores/densBld03-take1.json` | the raw played take, one part |
+| `scores/densBld03-take1-unpacked.json` | all notes over ten, unpacked — reference only |
+| `scores/densBld03-take1-packed.json` | thinned to the ceiling, 0 conflicts |
+| `scores/densBld03-take1-fp.json` | + the articulation arc — **the insert source** |
+| `scores/densBld03-arc-v2.json` | all five stages end to end, for listening |
+| `scores/densBld03-tonalities.json` | the same build in nine harmonies, for choosing |
+
+**What the script must do:**
+
+1. Read the piece (`scores/piece-sNN.json`) and the build's `-fp.json`.
+2. Offset every note by `AT - t0` where `AT` is the placement time.
+3. **Copy the note objects wholesale** — `layer`, `technique`, `sonifyNote`,
+   `recVel`, `sonifyMode`, `color`, and any `envShape` / `nodes` / `segments`.
+   Only `id`, `groupId`, `startSeconds`, `endSeconds` are rewritten.
+4. Give the whole build one `groupId` (e.g. `grp-db3-01`) so it moves as a unit
+   under the D9 group-scaling rules, and add its **META shape** on layer 10 with
+   the same `groupId` — see `insertClusterAtCursor` in `composer.html` for the
+   shape object, or copy an existing `grp-*` META curve from the piece.
+5. Write `piece-sNN+1.json`, then **check it**:
+   `node tools/audit_playability.js piece-sNN+1` and
+   `node tools/audit_playability.js --parts piece-sNN+1`.
+
+**What will bite:** fixed-articulation notes must keep their true sample lengths
+(D9) — never rescale them to fit a target duration; only `ord` stretches. And the
+build arrives conflict-free *in isolation*, so the only new conflicts can come
+from what it lands on top of. The live wash catches those the moment the file is
+loaded.
+
+---
+
 ## How hard is the packed result to play?
 
 **On DB3's packed version, the demand per player is low.** Peak 2.0–2.5
