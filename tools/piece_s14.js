@@ -1,8 +1,12 @@
 // piece_s14.js — place DB3 (the third density buildup) into the piece.
 // piece-s13 -> piece-s14.
 //
-// Source: scores/densBld03-take1-fp.json — the packed take with the fortepiano
-// arc (PLAN 2t / D19-D22). 160 notes, ten lanes, HARD 0 / soft 0 in isolation.
+// Source: scores/densBld03-take1-surge.json — the packed take with the
+// fortepiano arc (PLAN 2t / D19-D22) AND the composer's hand-grained pass
+// (section E of densBld03-arc-v2b: 5 staccato jabs converted to surge long
+// tones). 160 notes, ten lanes, HARD 0 / soft 0 in isolation.
+// The composer's edited section is the live version — never the tool output
+// that seeded it (DENSITY_PIPELINE.md 6).
 // Per docs/DENSITY_PIPELINE.md §6 this goes in by PLACEMENT SCRIPT, not through
 // the Insertion strip: the strip's cluster format has no field for layer,
 // envShape, nodes or segments, so a round trip would flatten the orchestration.
@@ -15,7 +19,7 @@
 const fs = require('fs');
 
 const SRC = 'scores/piece-s13.json';
-const BUILD = 'scores/densBld03-take1-fp.json';
+const BUILD = 'scores/densBld03-take1-surge.json';
 const OUT = 'scores/piece-s14.json';
 const GROUP = 'grp-db3-01';
 const LABEL = 'DB3 — density buildup 3 (packed, fp arc)';
