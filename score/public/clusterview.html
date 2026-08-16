@@ -265,6 +265,16 @@ function sourceEvents() {
     .map(e => ({ ...e, srcT: e.t, srcP: e.p, t: +Math.max(0, e.t - w[0]).toFixed(3) }));
 }
 function foldInto(p) { while (p < LO) p += 12; while (p > HI) p -= 12; return p; }
+// PROPORTIONAL ceiling: boosting past what the peak allows would clamp every
+// loud note to 127 and flatten the dynamics (and store() would bake that), so
+// cap the factor instead - 127 is a hard maximum, and we say so in the readout.
+function velFactor() {
+  if (TR.vel === 100) return 1;
+  const ev = sourceEvents();
+  if (!ev.length) return 1;
+  const peak = Math.max(...ev.map(e => e.v));
+  return Math.min(TR.vel / 100, 127 / Math.max(1, peak));
+}
 function viewEvents() {
   let ev = sourceEvents();
   if (!ev.length) return ev;
@@ -313,8 +323,9 @@ function viewEvents() {
     }
   }
   if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
-  if (TR.vel !== 100)
-    ev = ev.map(e => ({ ...e, v: Math.max(1, Math.min(127, Math.round(e.v * TR.vel / 100))) }));
+  const eff = velFactor();
+  if (Math.abs(eff - 1) > 0.001)
+    ev = ev.map(e => ({ ...e, v: Math.max(1, Math.min(127, Math.round(e.v * eff))) }));
   return ev;
 }
 const viewSpan = ev => ev.length ? Math.max(...ev.map(e => e.t + soundLen(e))) : 0;
@@ -326,7 +337,11 @@ function trDesc() {
   if (TR.reverse) b.push('rev');
   if (TR.oct) b.push('oct' + (TR.oct > 0 ? '+' : '') + TR.oct);
   if (TR.thin < 100) b.push('thin' + TR.thin + '%');
-  if (TR.vel !== 100) b.push('vel ' + TR.vel + '%');
+  if (TR.vel !== 100) {
+    const eff = velFactor();
+    const capped = TR.vel > 100 && eff < TR.vel / 100 - 0.001;
+    b.push('vel ' + TR.vel + '%' + (capped ? ' → ×' + eff.toFixed(2) + ' (at ceiling)' : ''));
+  }
   if ((TR.tonality || TR.chord) && !TR.pool) b.push('literal');
   return b.length ? ' — ' + b.join(' · ') : '';
 }
@@ -420,7 +435,7 @@ function drawRoll() {
     if (outline) { ctx.strokeStyle = '#fff'; ctx.strokeRect(x - 0.5, y - 0.5, w + 1, barH + 1); }
   };
   const transformed = layoutTransformed();
-  const velScale = TR.vel / 100;
+  const velScale = velFactor();
   const w = playWindow();
   baseEvents().forEach((e, i) => {
     const inWin = e.t >= w[0] - EDGE_EPS && e.t <= w[1] + 0.001;
@@ -464,8 +479,9 @@ function updateNoteSel() {
   const vs = [...selNotes].map(n => n.v);
   const lo = Math.min(...vs), hi = Math.max(...vs);
   const one = selNotes.size === 1 ? [...selNotes][0] : null;
-  const scaled = v => Math.max(1, Math.min(127, Math.round(v * TR.vel / 100)));
-  const suffix = TR.vel !== 100
+  const eff = velFactor();
+  const scaled = v => Math.max(1, Math.min(127, Math.round(v * eff)));
+  const suffix = Math.abs(eff - 1) > 0.001
     ? '  vel (sounds ' + (lo === hi ? scaled(lo) : scaled(lo) + '–' + scaled(hi)) + ')'
     : '  vel';
   const oor = [...selNotes].some(n => n.tech === 'cuivre' && (n.p < CUIVRE_LO || n.p > CUIVRE_HI));
@@ -1058,6 +1074,9 @@ async function store() {
   const evFull = viewEvents();
   const ev = evFull.map(e => ({ t: e.t, p: e.p, v: e.v, d: e.d, tech: e.tech }));
   if (!ev.length) return;
+  const flat = new Set(ev.map(e => e.v)).size === 1 && new Set(sourceEvents().map(e => e.v)).size > 1;
+  if (flat && !confirm('Every note would be stored at the same velocity (' + ev[0].v +
+      '), losing the dynamic shape of the source. Store anyway?')) return;
   const o = baseObj();
   const r = await fetch('/api/clusterbank', { method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'saveGesture', events: ev, span: viewSpan(evFull),

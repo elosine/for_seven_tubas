@@ -26534,9 +26534,11 @@
      "thin": 100,
      "pool": true,
      "vel": 200
-    }
+    },
+    "editedInSandbox": true
    },
-   "created": "2026-08-16T00:32:12.376Z"
+   "created": "2026-08-16T00:32:12.376Z",
+   "modified": "2026-08-16T00:48:49.089Z"
   },
   "CG002": {
    "events": [
