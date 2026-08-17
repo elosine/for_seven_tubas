@@ -565,4 +565,83 @@ attack problem, and is not to be solved here.
 
 ---
 
-*(FR-6 onward: to be added as the composer lists them.)*
+## FR-6 — THE RELEASE: one last unanimous diminuendo, then let them finish ★ PINNED
+
+**Status:** `spec'd, PINNED by the composer 2026-08-17` · **Depends on FR-3**
+
+### Why a release is needed at all — the finding that produced this
+
+The composer noticed the panel's current ending *"sounds like a natural
+release"* and asked why. **There is no release mechanism.** What they are
+hearing is the loudness arch closing.
+
+**The mechanism, precisely:** the arch is slaved to the gliss's progress, and
+progress ends at 1 for every voice. So at the end **every voice is necessarily
+past its peak and descending** — but at very different points along the descent
+(measured on BLOOM's settings: the earliest voice reaches its trough and ends
+near-silent, ~0.8 of 10; the latest is only about two-thirds down and is cut at
+roughly mid-volume, ~5.0 of 10). Nothing waits; the span ends and everyone is
+truncated where they stand.
+
+**So what makes it read as a release is not the levels — it is the UNANIMITY OF
+DIRECTION.** Everyone descending at once reads as an ensemble breathing out,
+even though several are cut off partway.
+
+**And cycling destroys exactly that.** Free-running cycles put voices at random
+phases, so some are crescendoing while others diminuendo. The natural release
+the composer likes is **an accident of the one-way form** and does not survive
+FR-3.
+
+### THE PINNED SPEC
+
+At the end of the gesture:
+
+1. **Cycling stops.**
+2. **Every voice runs down to its trough** — one last diminuendo, unanimous,
+   restoring the property that makes the current ending work.
+3. **Players finish their current breath** rather than being cut. Breaths run
+   5.6–10.4 s, so the ensemble also **thins out by subtraction** over that
+   window.
+
+The two combine: a unanimous descent *and* a thinning texture.
+
+### What this avoids
+
+- **The hard simultaneous chop** — everyone stopping at once at whatever volume
+  they were at. Sounds like an edit, not an ending.
+- **Runt notes** — a player starting a note just before the cut and getting a
+  fraction of a second of sound. An artifact, and awkward to play.
+- **An uncontrolled exposed ending** — with a plain "let them finish" and no
+  fade, drop-out order is random, so the last player standing could be
+  mid-crescendo and the piece would end on a lone rising tone that just stops.
+
+### Vocabulary note worth carrying
+
+A tone that rises and then stops is the **surge** — the crescendo-cut named in
+the Roads catalog work (PLAN 4e), and the piece's core envelope species. A plain
+"let them finish" ending is therefore *a scattering of surges*. That is a
+coherent gesture in its own right and may be worth keeping as an ALTERNATIVE
+release — but it is **not** what is pinned here.
+
+### Open details, NOT decided (flagged, not asked)
+
+- **Does the pitch cycle also stop, or keep sweeping through the run-down?**
+  Loudness stopping is what is pinned; pitch is unspecified. Parking the pitch
+  would freeze the beating rate during the fade; letting it run keeps the
+  beating alive as it dies away. *Probably wants the composer's ear, later.*
+- **How long the run-down takes** — the natural value is half a loudness cycle,
+  which falls out for free. Whether it should be independently settable is
+  unknown.
+
+### Gates
+
+- [ ] At the release, **every voice is descending** — verified by measurement,
+      not by ear.
+- [ ] No note is truncated; every player finishes their breath.
+- [ ] No runt notes at the tail.
+- [ ] **Heard by the composer** against the current panel ending, which is the
+      reference this is trying to reproduce.
+
+---
+
+*(FR-7 onward: to be added as the composer lists them.)*
