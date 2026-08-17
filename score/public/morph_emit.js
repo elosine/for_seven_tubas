@@ -191,8 +191,12 @@ const EMIT = {
                 return;
             }
             const key = n.midi;
-            const resid = n.cents - n.midi * 100;
-            const bend = n.bend.map(pt => [pt[0], pt[1] + resid]);
+            // n.bend is ALREADY relative to the played key (the render loop
+            // subtracts it). Adding the residual here as well played every
+            // off-key note out by its own residual — measured at up to 40.2
+            // cents on an M2 spectral render, found during 2z G4 and fixed in
+            // both places at once. See the note in morph.js toScoreObjects.
+            const bend = n.bend.map(pt => [pt[0], pt[1]]);
             const onMs = n.tStart * 1000;
             const offMs = (n.tStart + n.dur) * 1000;
 

@@ -145,7 +145,7 @@ const travel = r => {
     const start = {};
     r.notes.forEach(n => { if (start[n.voice] == null) start[n.voice] = n.cents; });
     return Math.max.apply(null, r.notes.map(n =>
-        Math.abs((n.cents + n.bend[n.bend.length - 1][1]) - start[n.voice])));
+        Math.abs((n.midi * 100 + n.bend[n.bend.length - 1][1]) - start[n.voice])));
 };
 ok('depth 0.5 travels about half as far as depth 1',
     Math.abs(travel(dHalf) / Math.max(1e-6, travel(d1)) - 0.5) < 0.25,
@@ -313,7 +313,7 @@ for (let i = 1; i < wv0.length; i++) {
 }
 ok('re-key splits are contiguous (slurred), not gapped', contiguous);
 // and the whole journey still arrives: 40 -> 52 is 12 semitones
-const arrive = (wv0[wv0.length - 1].cents + wv0[wv0.length - 1].bend[wv0[wv0.length - 1].bend.length - 1][1]);
+const arrive = (wv0[wv0.length - 1].midi * 100 + wv0[wv0.length - 1].bend[wv0[wv0.length - 1].bend.length - 1][1]);
 ok('the fan still reaches its target after re-keying',
     Math.abs(arrive - 5200) < 60, 'arrived at ' + (arrive / 100).toFixed(2) + ' vs 52.00');
 
@@ -379,9 +379,14 @@ microObjs.forEach((o, i) => {
     const n = micro.notes[i];
     const resid = n.cents - n.midi * 100;
     if (Math.abs(resid) > 1) sawResidual = true;
-    // played pitch at each breakpoint must equal key*100 + morphBend
+    // THE ONE PITCH CONVENTION: sounding cents === key*100 + bend, everywhere.
+    // `n.bend` is already relative to the played key, so morphBend must be a
+    // verbatim copy. This assertion used to compute its own expectation as
+    // n.cents + n.bend — the same double-add the conversion was making — so it
+    // was checking the bug against itself and passed. (Found 2z G4; the error
+    // reached 40.2 cents on this very fixture.)
     o.morphBend.forEach((pt, k) => {
-        const wantCents = n.cents + n.bend[k][1];
+        const wantCents = n.midi * 100 + n.bend[k][1];
         const gotCents = o.sonifyNote * 100 + pt[1];
         if (Math.abs(gotCents - wantCents) > 0.2) residOk = false;
     });
@@ -1032,6 +1037,173 @@ ok('a one-shot that rings past its window is flagged EDGE_RING',
 [edgeAtk, edgeRel, trans, noiseR, cuivreLow].forEach((r, i) => {
     eq('G3 render ' + i + ' double-books no player', r.summary.hard, 0);
 });
+
+// ===========================================================================
+section('G4 motion — dynamic windows, zero at the inner edge (PLAN 2z §5.5)');
+// ===========================================================================
+const motBase = {
+    model: 'M1', seed: 9, source: { kind: 'pitches', midi: [41, 41, 46, 46, 51, 51, 56, 56] },
+    target: { cents: 25, direction: 'alternate' }, dials: { bias: 0, spread: 0, depth: 1 },
+    carrier: { span: 40, segLen: 5, segVar: 0, striation: 'staggered' },
+    dyn: { base: 0.6, shape: 'flat' },
+};
+const A_LEN = 6, R_LEN = 10, R_START = 40 - R_LEN;
+// absolute sounding pitch at every breakpoint: [time, voice, cents].
+// key*100 + bend — the one convention (see the score-conversion section).
+const trace = r => {
+    const out = [];
+    r.notes.forEach(n => n.bend.forEach(pt =>
+        out.push([Math.round((n.tStart + pt[0]) * 1000) / 1000, n.voice,
+                  Math.round((n.midi * 100 + pt[1]) * 10) / 10])));
+    return out;
+};
+const traceKey = tr => { const m = {}; tr.forEach(p => { m[p[0] + '/' + p[1]] = p[2]; }); return m; };
+
+// THE STRUCTURAL GATE. A motion inside a window may not perturb ONE cent of the
+// body. Compare against the same render with motion off: outside the windows,
+// every breakpoint must be identical — not close, identical.
+function assertInnerEdge(label, shape, inWindow) {
+    const withM = M.render(Object.assign({}, motBase, { shape: shape }));
+    const noM = M.render(Object.assign({}, motBase, {
+        shape: JSON.parse(JSON.stringify(shape, (k, v) => (k === 'motion' ? undefined : v))),
+    }));
+    const a = traceKey(trace(withM)), b = traceKey(trace(noM));
+    const keys = Object.keys(b);
+    let outsideDiff = 0, insideDiff = 0, compared = 0;
+    keys.forEach(k => {
+        if (a[k] == null) return;              // schedules diverged here; skip
+        compared++;
+        const t = parseFloat(k.split('/')[0]);
+        // 0.11 c, not 0: bend breakpoints are STORED at 0.1-cent resolution and
+        // a motion can move a straddling segment's centred key by a semitone, so
+        // the two renders round to neighbouring tenths. The invariant is exact
+        // in the arithmetic and exact to the storage grid on the way out — which
+        // is the strongest claim the note schema can carry.
+        if (inWindow(t)) { if (Math.abs(a[k] - b[k]) > 0.05) insideDiff++; }
+        else if (Math.abs(a[k] - b[k]) > 0.11) outsideDiff++;
+    });
+    ok(label + ': the body is untouched — every breakpoint outside the window is identical',
+        compared > 50 && outsideDiff === 0, compared + ' compared, ' + outsideDiff + ' differ');
+    ok(label + ': and the motion actually moves pitch inside its window',
+        insideDiff > 0, String(insideDiff));
+}
+
+assertInnerEdge('converge',
+    { attack: { len: A_LEN, entry: 'together', motion: { type: 'converge', cents: 40, curve: 'expo' } } },
+    t => t < A_LEN - 1e-6);
+assertInnerEdge('gliss-in',
+    { attack: { len: A_LEN, entry: 'together', motion: { type: 'gliss-in', cents: -60, curve: 'linear' } } },
+    t => t < A_LEN - 1e-6);
+assertInnerEdge('disperse',
+    { release: { len: R_LEN, exit: 'together', motion: { type: 'disperse', cents: 30, curve: 'linear' } } },
+    t => t > R_START + 1e-6);
+assertInnerEdge('to-unison',
+    { release: { len: R_LEN, exit: 'together', motion: { type: 'to-unison', curve: 'linear' } } },
+    t => t > R_START + 1e-6);
+assertInnerEdge('gliss-out',
+    { release: { len: R_LEN, exit: 'together', motion: { type: 'gliss-out', cents: 80, curve: 'expo' } } },
+    t => t > R_START + 1e-6);
+
+// converge is SYMMETRIC: the chord's centre of gravity must not move, or the
+// "assembling out of the air" entry would also be a transposition
+const conv = M.render(Object.assign({}, motBase, {
+    shape: { attack: { len: A_LEN, entry: 'together', motion: { type: 'converge', cents: 40, curve: 'linear' } } },
+}));
+const atOnset = conv.notes.filter(n => n.tStart === 0).map(n => n.cents - n.midi * 100 + n.midi * 100);
+const startSum = [41, 41, 46, 46, 51, 51, 56, 56].reduce((a, b) => a + b, 0) * 100;
+ok('converge is symmetric about the chord — the centre of gravity holds',
+    Math.abs(atOnset.reduce((a, b) => a + b, 0) - startSum) < 5,
+    (atOnset.reduce((a, b) => a + b, 0) - startSum).toFixed(1) + ' cents of drift');
+ok('and the voices really do enter scattered',
+    Math.max.apply(null, atOnset) - Math.min.apply(null, atOnset) >
+    (56 - 41) * 100 + 40, JSON.stringify(atOnset.map(c => Math.round(c))));
+
+// to-unison resolves the MODEL's own deviation — the beating dies away
+const toUni = M.render(Object.assign({}, motBase, {
+    shape: { release: { len: R_LEN, exit: 'together', curve: 'linear', to: 0.5,
+                        motion: { type: 'to-unison', curve: 'linear' } } },
+}));
+const endPitch = {};
+toUni.notes.forEach(n => {
+    const t = n.tStart + n.dur;
+    if (endPitch[n.voice] == null || t > endPitch[n.voice].t) {
+        endPitch[n.voice] = { t: t, c: n.midi * 100 + n.bend[n.bend.length - 1][1] };
+    }
+});
+const detuneAtEnd = [0, 2, 4, 6].map(v =>
+    Math.abs(endPitch[v].c - endPitch[v + 1].c));
+ok('to-unison closes the beating pairs back to unison as they fade',
+    detuneAtEnd.every(d => d < 12), JSON.stringify(detuneAtEnd.map(d => Math.round(d))));
+const noUni = M.render(Object.assign({}, motBase, {
+    shape: { release: { len: R_LEN, exit: 'together', curve: 'linear', to: 0.5 } } }));
+const endNo = {};
+noUni.notes.forEach(n => {
+    const t = n.tStart + n.dur;
+    if (endNo[n.voice] == null || t > endNo[n.voice].t) {
+        endNo[n.voice] = { t: t, c: n.midi * 100 + n.bend[n.bend.length - 1][1] };
+    }
+});
+ok('...which the same render without it does NOT do',
+    [0, 2, 4, 6].some(v => Math.abs(endNo[v].c - endNo[v + 1].c) > 30),
+    JSON.stringify([0, 2, 4, 6].map(v => Math.round(Math.abs(endNo[v].c - endNo[v + 1].c)))));
+
+// A wide motion goes through the EXISTING segmented re-key, not a new path.
+// Note what it takes to get there: the motion has to exceed the patch's +/-2
+// semitones WITHIN ONE NOTE. Spread across several breath segments a 300-cent
+// motion never does — each new segment gets its own centred key — so this uses
+// a quiet, low, long-breath voice that holds one 14 s note through the ramp.
+const wideMotion = M.render({
+    model: 'M6', seed: 2, source: { kind: 'pitches', midi: [41, 46] },
+    dials: { bias: 0, spread: 0, depth: 1 }, dyn: { base: 0.3, shape: 'flat' },
+    carrier: { span: 20, segLen: 20, segVar: 0, striation: 'aligned' },
+    shape: { release: { len: 18, exit: 'together', curve: 'linear', to: 0.9,
+                        motion: { type: 'gliss-out', cents: 400, curve: 'linear' } } },
+});
+ok('a 300-cent motion is re-keyed by the existing machinery',
+    (wideMotion.summary.flags.REKEY || 0) > 0, JSON.stringify(wideMotion.summary.flags));
+eq('and is therefore never left unplayable as GLISS', wideMotion.summary.flags.GLISS || 0, 0);
+ok('every note still sits inside the patch bend range',
+    wideMotion.notes.every(n => n.bend.every(pt => Math.abs(pt[1]) <= M.bendReach() + 0.5)),
+    'max ' + Math.max.apply(null, wideMotion.notes.map(n =>
+        Math.max.apply(null, n.bend.map(pt => Math.abs(pt[1]))))).toFixed(1));
+
+// THE PITCH CONVENTION, on 2z's own material. Motion puts nearly every edge
+// note off its played key by design, which is exactly the case that was
+// mis-converted before (up to 40.2 c). Lock it: what the score object plays must
+// equal what the engine intends, at every breakpoint of every note.
+const convObjs = M.toScoreObjects(conv, 0, {});
+let convOk = true, sawOffKey = false;
+conv.notes.forEach((n, i) => {
+    if (Math.abs(n.cents - n.midi * 100) > 1) sawOffKey = true;
+    n.bend.forEach((pt, k) => {
+        if (Math.abs((convObjs[i].sonifyNote * 100 + convObjs[i].morphBend[k][1]) -
+                     (n.midi * 100 + pt[1])) > 1e-9) convOk = false;
+    });
+});
+ok('a motion render really does put notes off their played key', sawOffKey);
+ok('and the score object plays exactly what the engine intends, every breakpoint', convOk);
+
+// motion composes with the rest of the shape without any of it fighting
+const full = M.render(Object.assign({}, motBase, {
+    shape: {
+        attack: { len: 1.5, entry: 'together', curve: 'sudden', from: 0.85, peak: 1.35,
+                  motion: { type: 'converge', cents: 40, curve: 'expo' },
+                  noise: { technique: 'cuivre', voices: 2, midi: [63, 65] } },
+        decay: { len: 3, curve: 'expo' },
+        release: { len: 9, exit: 'staggered', order: 'high-first', curve: 'expo', to: 0,
+                   motion: { type: 'disperse', cents: 30, curve: 'linear' },
+                   dropout: { fraction: 0.4 } },
+    },
+}), { sampleLengths: SL, maxVoices: 10 });
+eq('the worked example renders with no hard conflicts', full.summary.hard, 0);
+eq('with its 8 morph voices', full.meta.voices, 8);
+eq('plus 2 cuivre noise notes on spare lanes', full.meta.shape.noiseVoices, 2);
+ok('whole pairs drop, never halves',
+    [0, 2, 4, 6].every(p => (full.meta.shape.dropped.indexOf(p) >= 0) ===
+                            (full.meta.shape.dropped.indexOf(p + 1) >= 0)),
+    JSON.stringify(full.meta.shape.dropped));
+ok('and every note stays inside the span',
+    full.notes.every(n => n.tStart >= -1e-6 && n.tStart + n.dur <= 40 + 1e-6));
 
 // ===========================================================================
 console.log('\n' + '='.repeat(58));

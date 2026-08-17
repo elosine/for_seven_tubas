@@ -72,7 +72,11 @@ spec.notes.forEach(n => { if (!lastOf[n.voice] || n.tStart > lastOf[n.voice].tSt
 const specTargets = [];
 Object.keys(lastOf).map(Number).sort((a, b) => a - b).forEach(v => {
     const n = lastOf[v];
-    const endCents = n.cents + n.bend[n.bend.length - 1][1];
+    // Sounding pitch is key*100 + bend — `bend` is already key-relative.
+// This line read n.cents + bend, the same double-add that was live in the
+// engine, so this probe's day-10 "0.4 c" result confirmed the MIDI-to-audio
+// chain while agreeing with the engine's error. Fixed 2026-08-16 (2z G4).
+const endCents = n.midi * 100 + n.bend[n.bend.length - 1][1];
     const key = Math.round(endCents / 100);
     const off = Math.round((endCents - key * 100) * 10) / 10;
     specTargets.push({ voice: v, key: key, off: off, endCents: endCents });
@@ -93,7 +97,7 @@ const waypoints = [];
 v0.forEach((n, i) => {
     [0, n.bend.length - 1].forEach((bi, j) => {
         if (i > 0 && j === 0) return;                     // skip duplicate seams
-        const c = n.cents + n.bend[bi][1];
+        const c = n.midi * 100 + n.bend[bi][1];
         const key = Math.round(c / 100);
         const off = Math.round((c - key * 100) * 10) / 10;
         waypoints.push({ key: key, off: off, cents: c });

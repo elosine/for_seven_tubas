@@ -1035,6 +1035,51 @@ function render(params, opts) {
         }
     }
 
+    // MOTION (§5.5) — the morph technology INSIDE the envelope's windows:
+    // spectrum assembling on the way in, beating dissolving on the way out,
+    // glissando tails.
+    //
+    // THE STRUCTURAL INVARIANT: zero at the window's INNER edge. An attack
+    // motion decays to 0 by attack.len; a release motion grows from 0 at
+    // span - release.len. Continuity with the body is therefore guaranteed by
+    // construction — there is no handoff to check, ever, at any setting.
+    //
+    // The deviations ride the existing adaptive bend sampling and the
+    // GLISS/REKEY machinery, so a wide motion gets the segmented re-key the
+    // composer has already heard as seamless (D26). No new pitch code path.
+    function motionDev(vi, t, movedCents) {
+        let dev = 0;
+        if (SH_A && SH_A.motion && aLen > 0 && t < aLen) {
+            const m = SH_A.motion;
+            const w = 1 - curveEase(m.curve, t / aLen);       // 1 at onset -> 0 at the body
+            if (m.type === 'converge') {
+                // M3's fan math run backwards: voices enter scattered around the
+                // chord and focus into it. Symmetric about the centre, so the
+                // chord's centre of gravity never moves.
+                const half = (nVoices - 1) / 2;
+                const away = half > 0 ? (vi - half) / half : 0;    // -1 .. +1
+                dev += w * m.cents * away;
+            } else {                                              // gliss-in
+                dev += w * m.cents;
+            }
+        }
+        if (SH_R && SH_R.motion && rLen > 0 && t >= rStart) {
+            const m = SH_R.motion;
+            const w = curveEase(m.curve, (t - rStart) / rLen);    // 0 at the body -> 1 at span
+            if (m.type === 'disperse') {
+                dev += w * m.cents * (vi % 2 === 0 ? 1 : -1);      // M1's detune opening
+            } else if (m.type === 'to-unison') {
+                // Beating RESOLVING: unwind whatever the model has done, back to
+                // the voice's starting pitch. That is why it needs no cents of
+                // its own — the model's deviation is the amount.
+                dev += w * (startCents[vi] - movedCents);
+            } else {                                              // gliss-out
+                dev += w * m.cents;
+            }
+        }
+        return dev;
+    }
+
     // state of one voice at time t — the MORPH half, independent of the carrier
     function stateAt(vi, t) {
         const p = voiceProgress(vi, nVoices, t, span, P.dials, order);
@@ -1063,8 +1108,9 @@ function render(params, opts) {
             if (moved.technique) sawM4Override = true;
             technique = SH_R.technique;
         }
+        const cents0 = moved.cents != null ? moved.cents : base.cents;
         return {
-            cents: moved.cents != null ? moved.cents : base.cents,
+            cents: cents0 + motionDev(vi, t, cents0),
             technique: technique,
             level: moved.level != null ? moved.level : base.level,
             p: p,
@@ -1424,15 +1470,24 @@ function toScoreObjects(result, at, opts) {
         for (let i = 1; i < nodes.length; i++) {
             if (nodes[i].pos <= nodes[i - 1].pos) nodes[i].pos = Math.min(1, nodes[i - 1].pos + 1e-3);
         }
-        // BEND IS STORED RELATIVE TO THE PLAYED KEY, not to the note's exact
-        // cents. n.cents can sit anywhere between keys (a spectral partial, a
-        // detune), and n.midi is that rounded to a playable key — so the
-        // residual (cents - key*100) is a real, permanent part of the bend. Fold
-        // it in here, once, and playback can send morphBend verbatim. Leaving it
-        // out would play every microtonal target at the nearest semitone and the
-        // error would be invisible in the score.
-        const residual = n.cents - n.midi * 100;
-        const bend = n.bend.map(pt => [pt[0], Math.round((pt[1] + residual) * 10) / 10]);
+        // BEND IS ALREADY RELATIVE TO THE PLAYED KEY. n.cents can sit anywhere
+        // between keys (a spectral partial, a detune, an attack motion) and
+        // n.midi is that rounded to a playable key — but the render loop
+        // already subtracts the key when it builds `bend`
+        // (subBend = (s0.cents + bend) - key*100), so the residual is IN there.
+        //
+        // It used to be added a SECOND time here, which played every off-key
+        // note sharp or flat by exactly its own residual — up to 40.2 cents,
+        // measured on a stock M2 spectral render (2026-08-16, found during 2z
+        // G4). It went unseen because tools/morph_probe.js computed its expected
+        // pitch with the same double-add, so the day-10 "spectral targets within
+        // 0.4 c" measurement verified the MIDI-to-audio chain and could not have
+        // caught the engine-to-MIDI step. morph_emit.js had the identical bug.
+        //
+        // THE INVARIANT, now asserted in test_morph: sounding cents at any
+        // breakpoint === n.midi * 100 + n.bend[k][1], in the engine, in the
+        // score object, and in the emitted MIDI. One convention, three places.
+        const bend = n.bend.map(pt => [pt[0], pt[1]]);
         return {
             id: 'wc-' + (nid++),
             type: 'waveCurve',
