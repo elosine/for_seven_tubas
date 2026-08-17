@@ -1215,6 +1215,172 @@ ok('and every note stays inside the span',
     full.notes.every(n => n.tStart >= -1e-6 && n.tStart + n.dur <= 40 + 1e-6));
 
 // ===========================================================================
+section('MA1 recipes — the one-dial collapse (PLAN 2y §4)');
+// ===========================================================================
+const RCP_NUM = {
+    recipe: 'slower / longer', description: 'span out',
+    dial: { min: 0, max: 1, default: 0.4 },
+    waypoints: [{ at: 0, patch: { 'carrier.span': 10 } },
+                { at: 1, patch: { 'carrier.span': 60 } }],
+};
+const RCP_MULTI = {
+    recipe: 'more dramatic', description: 'two paths at once',
+    dial: { min: 0, max: 1, default: 0.35 },
+    waypoints: [{ at: 0, patch: { 'dials.depth': 0.6, 'dials.bias': 0.0 } },
+                { at: 1, patch: { 'dials.depth': 1.0, 'dials.bias': 0.6 } }],
+};
+const RCP_STEP = {
+    recipe: 'open it up', description: 'a string and an array — these must STEP',
+    dial: { min: 0, max: 1, default: 0 },
+    waypoints: [{ at: 0, patch: { 'carrier.striation': 'staggered', 'target.midi': [40, 44] } },
+                { at: 1, patch: { 'carrier.striation': 'aligned', 'target.midi': [52, 56] } }],
+};
+const RCP_BEND = {   // three waypoints — a dial may bend
+    recipe: 'bent', description: 'intermediate waypoint',
+    dial: { min: 0, max: 1, default: 0 },
+    waypoints: [{ at: 0, patch: { 'dyn.amount': 0.2 } },
+                { at: 0.5, patch: { 'dyn.amount': 0.45 } },
+                { at: 1, patch: { 'dyn.amount': 0.5 } }],
+};
+const RB = { model: 'M1', seed: 11,
+    source: { kind: 'pitches', midi: [41, 41, 46, 46] },
+    target: { cents: 25, direction: 'alternate' },
+    dials: { bias: 0.3, spread: 0.35, depth: 1 },
+    carrier: { span: 40, segLen: 8, segVar: 0.3, striation: 'staggered' },
+    dyn: { base: 0.5, shape: 'swell', amount: 0.42, spread: 0.55 } };
+
+const ar = (r, x, base) => M.applyRecipe(base || RB, r, x);
+eq('a numeric path lerps at the midpoint', ar(RCP_NUM, 0.5).params.carrier.span, 35, 1e-9);
+eq('...and at a quarter', ar(RCP_NUM, 0.25).params.carrier.span, 22.5, 1e-9);
+eq('at the dial minimum it is the first waypoint', ar(RCP_NUM, 0).params.carrier.span, 10);
+eq('at the dial maximum it is the last', ar(RCP_NUM, 1).params.carrier.span, 60);
+eq('below the minimum it CLAMPS, never extrapolates', ar(RCP_NUM, -5).params.carrier.span, 10);
+eq('above the maximum it clamps too', ar(RCP_NUM, 99).params.carrier.span, 60);
+ok('and the clamp is reported', ar(RCP_NUM, 99).warnings.some(w => /clamped/.test(w)),
+    JSON.stringify(ar(RCP_NUM, 99).warnings));
+ok('an untouched path is left exactly alone',
+    ar(RCP_NUM, 0.5).params.dials.depth === RB.dials.depth &&
+    ar(RCP_NUM, 0.5).params.carrier.segLen === RB.carrier.segLen);
+ok('the base params are not mutated', RB.carrier.span === 40);
+
+const multi = ar(RCP_MULTI, 0.5).params;
+eq('a recipe moves several paths together (depth)', multi.dials.depth, 0.8, 1e-9);
+eq('...and bias', multi.dials.bias, 0.3, 1e-9);
+
+// §9.6 rule 1: only plain numbers lerp. Everything else steps, because half of
+// an interpolated pitch array is not a chord.
+const stepLo = ar(RCP_STEP, 0.4).params, stepHi = ar(RCP_STEP, 0.6).params;
+eq('a string STEPS below the next waypoint', stepLo.carrier.striation, 'staggered');
+eq('...and takes the new value once past it', ar(RCP_STEP, 1).params.carrier.striation, 'aligned');
+eq('an array STEPS, never blends element-wise', JSON.stringify(stepLo.target.midi), '[40,44]');
+ok('an array is never averaged into nonsense',
+    JSON.stringify(stepHi.target.midi) === '[40,44]', JSON.stringify(stepHi.target.midi));
+
+eq('a bent dial lerps within its own segment', ar(RCP_BEND, 0.25).params.dyn.amount, 0.325, 1e-9);
+eq('...and within the next one', ar(RCP_BEND, 0.75).params.dyn.amount, 0.475, 1e-9);
+eq('exactly on an intermediate waypoint it is that waypoint',
+    ar(RCP_BEND, 0.5).params.dyn.amount, 0.45, 1e-9);
+
+// a typo'd path is an ERROR, never a dial that quietly does nothing
+const typo = ar({ recipe: 'oops', dial: { min: 0, max: 1 },
+    waypoints: [{ at: 0, patch: { 'carrier.spann': 10 } },
+                { at: 1, patch: { 'carrier.spann': 60 } }] }, 0.5);
+ok('an unknown param path is reported',
+    typo.warnings.some(w => /unknown param path "carrier.spann"/.test(w)),
+    JSON.stringify(typo.warnings));
+ok('and nothing is silently written', typo.params.carrier.spann === undefined);
+
+// recipes can patch a 2z shape block onto a model that has none
+const shapeRcp = {
+    recipe: 'harder attack', dial: { min: 0, max: 1, default: 0 },
+    waypoints: [{ at: 0, patch: { 'shape.attack.len': 4, 'shape.attack.from': 0.5,
+                                  'shape.attack.curve': 'expo' } },
+                { at: 1, patch: { 'shape.attack.len': 1, 'shape.attack.from': 0.1,
+                                  'shape.attack.curve': 'sudden' } }],
+};
+const shaped = ar(shapeRcp, 1).params;
+eq('a recipe can create a shape block that was not there', shaped.shape.attack.len, 1);
+eq('...including its string dials, which step', shaped.shape.attack.curve, 'sudden');
+ok('and the result actually renders', M.render(shaped).notes.length > 0);
+eq('with the shape taking effect', M.render(shaped).meta.shape.attackLen, 1);
+
+// ---- resolveParams: OFF unless set --------------------------------------
+const MODEL = { id: 'T', baseParams: RB, recipes: [RCP_NUM, RCP_MULTI] };
+ok('a model with NO settings returns its base params untouched',
+    JSON.stringify(M.resolveParams(MODEL, {}).params) === JSON.stringify(RB));
+ok('a recipe absent from settings is NOT applied even though it has a default',
+    M.resolveParams(MODEL, { 'more dramatic': 0.5 }).params.carrier.span === 40);
+eq('a recipe present in settings IS applied',
+    M.resolveParams(MODEL, { 'slower / longer': 0.5 }).params.carrier.span, 35, 1e-9);
+const both = M.resolveParams(MODEL, { 'slower / longer': 1, 'more dramatic': 1 }).params;
+ok('two recipes compose', both.carrier.span === 60 && both.dials.depth === 1 && both.dials.bias === 0.6);
+ok('a setting naming no recipe is reported',
+    M.resolveParams(MODEL, { 'nonexistent': 1 }).warnings.some(w => /no recipe named/.test(w)));
+
+// two recipes touching one path: last listed wins, and it says so
+const CLASH = { id: 'T', baseParams: RB, recipes: [RCP_NUM,
+    { recipe: 'also span', dial: { min: 0, max: 1 },
+      waypoints: [{ at: 0, patch: { 'carrier.span': 20 } },
+                  { at: 1, patch: { 'carrier.span': 25 } }] }] };
+const clashR = M.resolveParams(CLASH, { 'slower / longer': 1, 'also span': 1 });
+eq('the later-listed recipe wins a contested path', clashR.params.carrier.span, 25);
+ok('and both recipes are named in the warning',
+    clashR.warnings.some(w => /slower \/ longer/.test(w) && /also span/.test(w)),
+    JSON.stringify(clashR.warnings));
+// order follows the MODEL, not the caller's key order
+const clashR2 = M.resolveParams(CLASH, { 'also span': 1, 'slower / longer': 1 });
+eq('and that order is the model\'s, not the settings object\'s',
+    clashR2.params.carrier.span, 25);
+
+// ---- THE MA1 GATE -------------------------------------------------------
+// Every seeded recipe, at min / default / max, on its own model, must land
+// inside the boundaries that were actually HEARD on day 10. A recipe whose
+// range leaves the measured envelope is a recipe that can produce material
+// nobody has ever listened to.
+const MODELS = require('../bank/morph_models.json');
+const HEARD = {};
+RECIPES.dials.forEach(d => { HEARD[d.dial] = d.working; });
+let gateChecked = 0, gateOut = [];
+Object.keys(MODELS.models).forEach(id => {
+    const m = MODELS.models[id];
+    (m.recipes || []).forEach(r => {
+        [r.dial.min, r.dial.default, r.dial.max].forEach(x => {
+            const res = M.resolveParams(m, { [r.recipe]: x });
+            gateChecked++;
+            res.warnings.forEach(w => gateOut.push(id + '/' + r.recipe + '@' + x + ': ' + w));
+            const P = res.params;
+            if (HEARD.span && (P.carrier.span < HEARD.span[0] - 1e-9 ||
+                               P.carrier.span > HEARD.span[1] + 1e-9)) {
+                gateOut.push(id + '/' + r.recipe + '@' + x + ': span ' + P.carrier.span +
+                    ' outside heard ' + JSON.stringify(HEARD.span));
+            }
+            if (HEARD.segLen && (P.carrier.segLen < HEARD.segLen[0] - 1e-9 ||
+                                 P.carrier.segLen > HEARD.segLen[1] + 1e-9)) {
+                gateOut.push(id + '/' + r.recipe + '@' + x + ': segLen ' + P.carrier.segLen +
+                    ' outside heard ' + JSON.stringify(HEARD.segLen));
+            }
+            ['bias', 'spread', 'depth'].forEach(k => {
+                if (P.dials[k] < -1 - 1e-9 || P.dials[k] > 1 + 1e-9) {
+                    gateOut.push(id + '/' + r.recipe + '@' + x + ': dials.' + k + ' ' + P.dials[k] + ' out of range');
+                }
+            });
+            if (P.dyn.amount < 0 || P.dyn.amount > 1) {
+                gateOut.push(id + '/' + r.recipe + '@' + x + ': dyn.amount ' + P.dyn.amount + ' out of range');
+            }
+            const rr = M.render(P, { maxVoices: 10 });
+            if (rr.summary.hard) gateOut.push(id + '/' + r.recipe + '@' + x +
+                ': ' + rr.summary.hard + ' HARD conflicts');
+            if (!rr.notes.length) gateOut.push(id + '/' + r.recipe + '@' + x + ': renders nothing');
+        });
+    });
+});
+ok('MA1 GATE: every seeded recipe at min/default/max stays inside the heard ' +
+   'boundaries, renders, and adds no hard conflicts',
+    gateOut.length === 0, gateChecked + ' settings checked; ' +
+    gateOut.slice(0, 6).join(' | '));
+ok('and the gate actually exercised every seeded recipe', gateChecked >= 78, String(gateChecked));
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {

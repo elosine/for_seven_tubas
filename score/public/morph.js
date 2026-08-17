@@ -858,6 +858,111 @@ function setParamPath(obj, path, value) {
     o[parts[parts.length - 1]] = value;
 }
 
+// ===========================================================================
+// 6c · RECIPES (PLAN 2y §4) — the one-dial collapse.
+//
+// The composer's spec: "a combination of parameters into a single dial… each
+// recipe essentially is paired down to one dial, in some ranges."
+//
+// A recipe is ENDPOINTS + INTERPOLATION, stored as pure data — diffable,
+// boundable, testable, writable by the AI mid-conversation, and impossible to
+// smuggle code into. A stored *function* would be a second engine to debug.
+//
+// TWO RULES WORTH KNOWING BEFORE READING THE CODE:
+//
+// 1. ONLY PLAIN NUMBERS LERP (§9.6). Strings, arrays and objects STEP to the
+//    value of the highest waypoint at or below the dial. Interpolating a pitch
+//    array or a striation name element-wise invites subtle garbage; stepping is
+//    predictable and audible.
+// 2. A RECIPE NOT PRESENT IN `settings` IS NOT APPLIED. The base params are the
+//    base params. This is what stops merely opening a model — with its sliders
+//    sitting at their defaults — from quietly rewriting material the composer
+//    blessed. "Off" is the default state of every dial, and `recipeSettings` in
+//    an actual's provenance therefore records exactly what was turned.
+// ===========================================================================
+
+const RECIPE_ROUND = 1e6;   // 6 dp: keeps lerped values readable and diffable
+
+function applyRecipe(params, recipe, x) {
+    const out = JSON.parse(JSON.stringify(params || {}));
+    const warnings = [];
+    const name = (recipe && recipe.recipe) || '(unnamed)';
+    const d = (recipe && recipe.dial) || { min: 0, max: 1 };
+    const wps = ((recipe && recipe.waypoints) || []).slice().sort((a, b) => a.at - b.at);
+    if (wps.length < 2) {
+        warnings.push('RECIPE "' + name + '": needs at least 2 waypoints — not applied');
+        return { params: out, warnings: warnings, paths: [] };
+    }
+    const pos = clamp(x, d.min, d.max);
+    if (pos !== x) warnings.push('RECIPE "' + name + '": dial ' + x + ' clamped to ' + pos);
+
+    const paths = {};
+    wps.forEach(w => Object.keys(w.patch || {}).forEach(p => { paths[p] = 1; }));
+    const touched = [];
+
+    Object.keys(paths).forEach(p => {
+        const type = paramPathType(p);
+        if (type === null) {
+            // Never a silent no-op: a dial that does nothing is worse than one
+            // that errors (the engine's unknown-key policy, extended down).
+            warnings.push('RECIPE "' + name + '": unknown param path "' + p + '" — not applied');
+            return;
+        }
+        const decl = wps.filter(w => w.patch &&
+            Object.prototype.hasOwnProperty.call(w.patch, p));
+        if (!decl.length) return;
+        touched.push(p);
+
+        let lo = null, hi = null;
+        decl.forEach(w => { if (w.at <= pos + 1e-12) lo = w; });
+        for (let i = decl.length - 1; i >= 0; i--) if (decl[i].at >= pos - 1e-12) hi = decl[i];
+
+        if (!lo) { setParamPath(out, p, decl[0].patch[p]); return; }   // below the first
+        if (!hi || lo === hi) { setParamPath(out, p, lo.patch[p]); return; }
+
+        const a = lo.patch[p], b = hi.patch[p];
+        if (type === 'number' && typeof a === 'number' && typeof b === 'number') {
+            const t = (hi.at - lo.at) > 0 ? (pos - lo.at) / (hi.at - lo.at) : 0;
+            setParamPath(out, p, Math.round((a + (b - a) * t) * RECIPE_ROUND) / RECIPE_ROUND);
+        } else {
+            setParamPath(out, p, a);        // STEP to the highest at or below
+        }
+    });
+    return { params: out, warnings: warnings, paths: touched };
+}
+
+// Resolve a model's params under a set of dial positions.
+// Recipes apply in the MODEL's listed order — not the settings' key order — so
+// "last wins" is a property of the model, not of how a caller happened to type
+// the object.
+function resolveParams(model, settings) {
+    const s = settings || {};
+    let params = JSON.parse(JSON.stringify((model && model.baseParams) || {}));
+    const warnings = [];
+    const recipes = (model && model.recipes) || [];
+    const known = {};
+    const owner = {};
+    recipes.forEach(r => { known[r.recipe] = 1; });
+
+    recipes.forEach(r => {
+        if (!Object.prototype.hasOwnProperty.call(s, r.recipe)) return;   // OFF unless set
+        const res = applyRecipe(params, r, s[r.recipe]);
+        params = res.params;
+        res.warnings.forEach(w => warnings.push(w));
+        res.paths.forEach(p => {
+            if (owner[p] && owner[p] !== r.recipe) {
+                warnings.push('RECIPE: "' + owner[p] + '" and "' + r.recipe +
+                              '" both move "' + p + '" — "' + r.recipe + '" wins (listed later)');
+            }
+            owner[p] = r.recipe;
+        });
+    });
+    Object.keys(s).forEach(n => {
+        if (!known[n]) warnings.push('RECIPE: this model has no recipe named "' + n + '"');
+    });
+    return { params: params, warnings: warnings };
+}
+
 // REDUCE A CHORD TO n VOICES WITHOUT LOSING WHAT MAKES IT WORK.
 //
 // Needed for concurrent morphs: two or three at once means four or five players
@@ -1604,6 +1709,7 @@ return {
     shapeRank: shapeRank, dropoutVoices: dropoutVoices,
     PARAM_PATHS: PARAM_PATHS, paramPathType: paramPathType,
     getParamPath: getParamPath, setParamPath: setParamPath,
+    applyRecipe: applyRecipe, resolveParams: resolveParams,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,
