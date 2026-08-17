@@ -774,7 +774,17 @@ const PANEL = {
     insert() {
         const C = HOST();
         if (!C || !this.result) return;
-        const at = (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
+        // SAME BUG, SAME LINE, FIXED THE SAME DAY (2026-08-17, day 14; found in
+        // morph_panel, which this was copied from). `Composer.playheadTime` and
+        // `Composer.currentTime` DO NOT EXIST, so this expression always yielded
+        // 0 and every texture insert landed at t=0 regardless of the view. The
+        // app's accessor is `getTimeAtPlayhead()`; `Math.max(0, …)` matches the
+        // score's own convention (composer.html:8948). 2x's insert has never
+        // been exercised in the app, so this was latent here rather than
+        // observed — noted rather than claimed as a reproduced failure.
+        const at = (C && typeof C.getTimeAtPlayhead === 'function' && isFinite(C.getTimeAtPlayhead()))
+            ? Math.max(0, C.getTimeAtPlayhead())
+            : (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
         const p = this.current() || {};
         let seq = 1;
         while (C.objects.some(o => o.groupId === 'grp-tex-' + String(seq).padStart(2, '0'))) seq++;

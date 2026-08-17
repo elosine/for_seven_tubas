@@ -1850,3 +1850,53 @@ present or derivable; findings:
   the performer transform is applied/tested at notation time — "we'\''ll see if
   the performance score curves need to be changed to produce the same sound
   effect." That evaluation belongs to the notation pass now approaching.
+
+### The insert that never moved: `Composer.playheadTime` has never existed *(day 14)*
+
+**Symptom (composer):** placed the morph, nothing appeared; placed again, the
+conflict badge went up. *"So this is piece eighteen. There should be nothing
+after second one forty."*
+
+**Cause, verified in the live app.** All three panels computed the insert time as
+`C.playheadTime != null ? C.playheadTime : (C.currentTime || 0)` — and **neither
+property is ever assigned on `Composer`** (confirmed live: both `undefined`). The
+expression therefore evaluated to **0 on every insert since 2v**. The app'\''s real
+accessor is `getTimeAtPlayhead()` (`scrollOffset / pixelsPerSecond` — the
+playhead is a fixed centre line, so scrolling IS moving it), used correctly by
+the Insertion strip, ALT+X curve split and motive insert.
+
+**Why it read as "nothing happened":** the composer was scrolled to ~142 s
+(work-copy viewport 5144 px ÷ 36.2 pps = 142.07) while both groups landed at
+**0.00–30.00 s**, stacked onto DB1 — hence the badge moving and nothing visible.
+
+**A second, independent error, and it was the AI'\''s:** the composer was told to
+click **"place"**. No such button existed — the ACTUALs card'\''s button read
+`insert @ cursor`, **identical to the scratch panel'\''s button a few pixels
+above**. So the click landed on the scratch path: the inserted groups are
+`grp-morph-01/02`, a 30 s throwaway variant, not the 113.9 s `ACT-BLOOM-02`.
+Only the group id distinguished them. Relabelled to **`place @ cursor`**.
+
+**Fixed:** `playheadAt(C)` helper in `morph_panel.js` (used by both insert
+paths), same fix inline in `texture_panel.js` (latent there — 2x'\''s insert has
+never been run in the app, so it is noted as latent, not as an observed
+failure). `Math.max(0, …)` follows composer.html:8948'\''s own convention.
+
+**Verified in the running app, which is the check that was missing originally:**
+scrolled to 142.0 s → `place @ cursor` → group `grp-act-bloom-02-01`, 108
+objects, **firstStart 142.000**, span 142.0–255.9 s, marker at 142, META shape
+matching, layers 0–7 — and **108/108 objects present in the DOM after
+`renderAll()`** (106 curves + marker + group shape), which is the Principle-4
+check that the thing is actually on screen and not merely in the file. Screenshot
+was unavailable (preview pane not compositing); the DOM measurement stands in for
+it. `test_morph.js` 354/354.
+
+**Restore:** `scores/piece-s18.json` was never touched (D10 working-copy rule
+held); all damage was confined to `piece-s18-work.json`. Recovery is to reopen
+`piece-s18` and answer **Cancel** at the working-copy prompt.
+
+**The generalisation worth keeping:** this is **Principle 4 again, one level up** —
+an insert whose only consumer is the composer'\''s eye needs one check in the
+running app that the object landed WHERE it was asked for, not merely that it was
+created. A unit test on `insertActual` would have asserted the offset arithmetic
+against the same absent property and passed (Principle 5'\''s mirror). What caught
+it was a number the composer could see: 142.

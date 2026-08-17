@@ -24,6 +24,29 @@
 // MIDI. Always go through here.
 function HOST() { return (typeof Composer !== 'undefined') ? Composer : null; }
 
+// WHERE THE PLAYHEAD IS. Both insert paths used to read
+// `C.playheadTime != null ? C.playheadTime : (C.currentTime || 0)` — and
+// **NEITHER PROPERTY HAS EVER EXISTED ON `Composer`**, so the expression fell
+// through to 0 every single time. Every morph insert since 2v landed at t=0
+// regardless of the view, which reads as "the insert did nothing" whenever the
+// composer is looking anywhere else — and silently piled morph notes onto
+// whatever occupies the opening (found 2026-08-17, day 14: two groups stacked
+// on DB1 while the composer watched 142 s, with only the conflict badge moving).
+//
+// The app's real accessor is `getTimeAtPlayhead()` (the playhead is a fixed
+// centre line; scrolling IS moving it), used correctly by the Insertion strip,
+// curve split and motive insert. `Math.max(0, …)` follows the score's own
+// convention at composer.html:8948 — scrollOffset can go negative past t=0.
+// The old expression stays as a last-ditch fallback, but it can only fire on a
+// host that lacks the accessor entirely.
+function playheadAt(C) {
+    if (C && typeof C.getTimeAtPlayhead === 'function') {
+        const t = C.getTimeAtPlayhead();
+        if (isFinite(t)) return Math.max(0, t);
+    }
+    return (C && C.playheadTime != null) ? C.playheadTime : ((C && C.currentTime) || 0);
+}
+
 const M = root.Morph, E = root.MorphEmit;
 if (!M || !E) { console.warn('[morph_panel] needs morph.js + morph_emit.js'); return; }
 
@@ -493,7 +516,15 @@ const PANEL = {
                 bh.textContent = 'hear'; bh.style.fontSize = '10px';
                 bh.addEventListener('click', () => this.hearActual(a.entity));
                 const bi = document.createElement('button');
-                bi.textContent = 'insert @ cursor'; bi.style.fontSize = '10px';
+                // "place", NOT "insert @ cursor" — the scratch panel's Insert
+                // button sits a few pixels above this one and carried the SAME
+                // label, so the two were indistinguishable in use. On day 14 the
+                // composer meant to place ACT-BLOOM-02 and hit the scratch one
+                // twice, putting a 30 s throwaway variant into the piece instead
+                // of the 113.9 s actual. Only the group id (`grp-morph-NN` vs
+                // `grp-act-bloom-02-NN`) revealed which had run.
+                bi.textContent = 'place @ cursor'; bi.style.fontSize = '10px';
+                bi.title = 'place this ACTUAL at the playhead — logs the placement back to it';
                 bi.addEventListener('click', () => this.insertActual(a.entity));
                 row2.appendChild(bh); row2.appendChild(bi);
                 card.appendChild(row2);
@@ -802,7 +833,7 @@ const PANEL = {
         if (!C) return;
         try {
             const a = await fetch('/api/actuals/' + entity, { cache: 'no-store' }).then(x => x.json());
-            const at = (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
+            const at = playheadAt(C);
             const notes = a.objects.filter(o => o.morphBend);
             const t0 = Math.min.apply(null, notes.map(o => o.startSeconds));
             let seq = 1;
@@ -968,7 +999,7 @@ const PANEL = {
     insert() {
         const C = HOST();
         if (!C || !this.result) return;
-        const at = (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
+        const at = playheadAt(C);
         const p = this.current() || {};
         let seq = 1;
         while (C.objects.some(o => o.groupId === 'grp-morph-' + String(seq).padStart(2, '0'))) seq++;
