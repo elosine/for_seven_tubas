@@ -645,3 +645,52 @@ release — but it is **not** what is pinned here.
 ---
 
 *(FR-7 onward: to be added as the composer lists them.)*
+
+## FR-7 — Carry per-note FLAGS into placed score objects *(spec only; build at the notation pass)*
+
+**Composer decision 2026-08-17 (day 14): option (c)** — place from the ACTUALs
+tab now, build this when the notation pass actually starts. Nothing reads flags
+today, so building it now would be speculative.
+
+**The gap.** `Morph.toScoreObjects` drops each note'\''s `flags` array. The placed
+score therefore shows three visually identical joins that mean different things
+in notation:
+
+| flag | meaning | notation consequence |
+|---|---|---|
+| `BREATH` | engine split the segment — player is out of air (register/dynamic BREATH_TABLE) | a real breath mark |
+| *(none)* | carrier segmentation (`segLen` ± `segVar`) | rearticulation, no breath |
+| `SEAM` | two DIFFERENT voices attack within `CROSS_ONSET_MIN` 0.08 s | conductor'\''s score only — nothing in the part |
+
+**Measured 2026-08-17:** the three are indistinguishable by timing — gap means
+0.744 / 0.751 / 0.746 s (n = 86 / 6 / 6). So they cannot be re-derived from the
+placed score; the flag is the only carrier of the distinction.
+
+**Why it is not urgent.** The flags are frozen in the ACTUAL, and the join back
+is verified: placed group ids are slugged from the entity
+(`ACT-BLOOM-02` → `grp-act-bloom-02-01`), and `notes[i] ↔ objects[i]` matched
+**106/106** on ACT-BLOOM-02 (also joinable by `(voice, tStart − offset)`).
+Whole-group drags and scales preserve the join.
+
+**The one case that breaks it — the trigger to build this:** hand-editing
+INDIVIDUAL notes inside a placed morph (add / delete / re-time), which can break
+both the index join and the time join. If the composer starts doing that, FR-7
+moves up immediately.
+
+**Proposed build.** `toScoreObjects` copies `flags` into the object'\''s
+`properties.flags` (an existing empty field, so no schema change); the ACTUALs
+place path carries it verbatim as it already does everything else. Renderers
+ignore unknown properties, so nothing else changes.
+
+**Gates**
+
+- [ ] A placed group'\''s objects carry the same flags as the source ACTUAL'\''s notes,
+      1:1, verified by comparison rather than inspection.
+- [ ] Byte-identity of existing renders preserved (fixtures never regenerated).
+- [ ] `model_bank.js --validate` still VALID. **Checked 2026-08-17 rather than
+      assumed: this is SAFE.** INTEGRITY 1 compares a whitelist —
+      `{layer, startSeconds, endSeconds, sonifyNote, technique, morphBend, nodes}`
+      — so `properties` is invisible to it, and stored actuals will not go stale
+      when `toScoreObjects` starts emitting a new property. INTEGRITY 2 compares
+      `notes`, which this does not touch. *(Re-run it anyway; the point of the
+      gate is evidence, not the prediction.)*
