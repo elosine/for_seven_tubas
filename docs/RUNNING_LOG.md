@@ -1680,3 +1680,35 @@ CC26). 354 assertions, fixtures not regenerated.
 being reused where its assumptions do not hold — first cycling vs release, then
 the swell arch in the release, now the level floor in the attack.*
 
+
+### Day 13 — the fade-in attack, part 2: PLAN 2q answered by accident
+
+After the level floor was fixed and the eight opening voices went to **CC7 = 0**,
+the composer reported: *"still an attack but a little quieter."*
+
+**That is the decisive evidence PLAN 2q has been waiting for since day 7.** If
+CC7 alone governed loudness, CC7 = 0 would be silence. It is not. So the
+**note-on VELOCITY is producing the transient** — exactly what D12 concluded in
+the cluster sandbox (*"velocity is what the meter shows and what the keyboard
+sends"*), and the contradiction D12 left open ("if SI2 proves
+velocity-insensitive, sandbox dynamics will not carry into the score") now
+resolves the other way: **SI2 responds to velocity, and CC7 cannot mute a
+velocity-96 attack — it can only attenuate what follows it.**
+
+*Worth noting how it was settled: not by the one-pitch listening test that has
+been owed since day 7, but by a fade-in that would not fade in. The test is still
+worth running for the calibration, but the qualitative question is answered.*
+
+**Fix:** a note whose opening level is below the engine's 0.4 floor — which after
+the previous fix happens ONLY inside an attack window — takes a proportionally
+softer velocity, floored at 1 (0 means note-off). Measured: the eight opening
+voices went from `CC24/vel96` each, to `CC0/vel96`, to **`CC0/vel1`** each.
+**8 of 41 notes affected**; everything outside the attack window is untouched at
+96, so no existing material changes.
+
+**Still unresolved and NOT claimed:** whether `vel1 + CC0` is inaudible on the
+real instrument, or merely very quiet. Only the composer's ear can say, and this
+is the third iteration on the same symptom — if a transient survives at velocity
+1, the remaining cause is the SAMPLE's own onset, which no MIDI message can
+remove. The honest fallback at that point is to start the fade from a technique
+whose sample has no attack, or to accept it and cut it in the final audio.

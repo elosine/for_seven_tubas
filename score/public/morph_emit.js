@@ -175,7 +175,26 @@ const EMIT = {
         // audition on the same players the insert would use
         const _lanes = (result.meta && result.meta.lanes) || null;
         const laneOf = o.laneOf || (v => (_lanes && _lanes[v] != null) ? _lanes[v] : v);
-        const vel = o.velocity || 96;
+        const velBase = o.velocity || 96;
+        // VELOCITY HAS TO FOLLOW A FADE-IN TOO, and this is real evidence for
+        // the open PLAN 2q question (velocity vs CC7 on SI2).
+        //
+        // The engine was made to open a fade at level 0 -> CC7 0, and the
+        // composer still heard an attack, only quieter. If CC7 alone governed
+        // loudness, CC7 0 would be silence. It is not — so the note-on velocity
+        // is producing the transient, exactly as D12 found in the cluster
+        // sandbox ("velocity is what the meter shows"). CC7 cannot mute a
+        // velocity-96 attack; it can only attenuate what follows it.
+        //
+        // So a note whose opening level is below the engine's 0.4 floor — which
+        // now happens ONLY inside an attack window — takes a proportionally
+        // softer velocity. MIDI velocity 0 means note-off, so the floor is 1.
+        // Everything else is untouched at 96.
+        const velFor = n => {
+            const l0 = (n.level && n.level[0] && n.level[0][1] != null) ? n.level[0][1] : 10;
+            if (l0 >= 0.4) return velBase;
+            return Math.max(1, Math.round(velBase * (l0 / 0.4)));
+        };
         const prearm = (M.MEASURED.BEND_PREARM_S || 0.05) * 1000;
         const scheduled = [];
         let skipped = 0;
@@ -207,7 +226,7 @@ const EMIT = {
             this._timers.push(setTimeout(() => {
                 try { route.out.send([0xB0 | route.ch, 7, this.levelToCC(n.level[0][1])]); } catch (e) {}
             }, Math.max(0, onMs - prearm + 5)));
-            this._timers.push(setTimeout(() => this.noteOn(route, key, vel), onMs));
+            this._timers.push(setTimeout(() => this.noteOn(route, key, velFor(n)), onMs));
             this._timers.push(setTimeout(() => this.noteOff(route, key), offMs));
             scheduled.push({ route: route, bend: bend, level: n.level, onMs: onMs, offMs: offMs,
                              lastB: null, lastC: null });
