@@ -1516,6 +1516,42 @@ ok('the one-way release runs past the body and staggers the stops',
        .filter(Boolean)).size > 3,
    'ends ' + endOf(oneWayRel).toFixed(1) + ' s');
 
+// --- THE RELEASE MUST NEVER GET LOUDER --------------------------------------
+// The composer heard "a short attack at the end of the release". Two causes,
+// both real: the dynamics layer is NOT monotonic in progress (`swell` is an
+// arch, loudest at p=0.5), so driving p to 0 walked back through the peak —
+// measured at 9.20 of 10 inside the release; and every re-entering note carried
+// the "sneak-in" dip-and-rise, which inside a fade is a crescendo on each
+// re-attack. Sampled at 0.25 s across the whole release, for every shape.
+const relLevelAtAbs = (res, v, T) => {
+    const n = res.notes.filter(x => x.voice === v && x.tStart <= T && x.tStart + x.dur >= T)[0];
+    if (!n) return null;
+    const a = n.level, rel = T - n.tStart;
+    if (!Array.isArray(a)) return a;
+    let val = Array.isArray(a[0]) ? a[0][1] : a[0];
+    for (const q of a) {
+        const qt = Array.isArray(q) ? q[0] : 0, qv = Array.isArray(q) ? q[1] : q;
+        if (qt <= rel) val = qv; else break;
+    }
+    return val;
+};
+['swell', 'rise', 'rotate'].forEach(shape => {
+    const rr2 = cyc({ carrier: { span: 40, duration: null, release: 12 }, dyn: { shape: shape } });
+    let rises = 0, samples = 0, worst = 0;
+    for (let v = 0; v < 8; v++) {
+        let prev = null;
+        for (let T = 40; T <= 66; T += 0.25) {
+            const val = relLevelAtAbs(rr2, v, T);
+            if (val == null) { prev = null; continue; }
+            if (prev != null) { samples++; if (val > prev + 1e-9) { rises++; worst = Math.max(worst, val - prev); } }
+            prev = val;
+        }
+    }
+    ok('release with dyn shape "' + shape + '" descends and never surges',
+       rises <= 2 && worst < 0.5,
+       rises + ' rises in ' + samples + ' samples, worst +' + worst.toFixed(2));
+});
+
 // --- let them finish -------------------------------------------------------
 ok('no note is truncated into a runt at the tail',
    cLong.notes.every(n => n.dur > 0.25),

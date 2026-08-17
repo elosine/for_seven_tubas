@@ -423,6 +423,13 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
     // Segments are built across the WHOLE timeline — body plus run-down — not
     // across the gliss length. With no duration set the two are the same number.
     const TIMING = carrierTiming(carrier);
+    // MEASURED AND REJECTED: stopping new segments at `duration` (so nobody
+    // tongues in during the fade) cuts every voice 1–5 s into the release,
+    // because only the unused remainder of the current breath is left. A 12 s
+    // release then ended at 45.4 s with voices still 7.4 cents from unison and
+    // the fade barely half done. Players re-breathing through a long fade is
+    // physically correct anyway — what must not survive is the re-ENTRY RAMP
+    // that made each one sound like an attack (handled below).
     const span = TIMING.total;
     const segLen = Math.max(0.05, carrier.segLen);
     const segVar = clamp(carrier.segVar, 0, 1);
@@ -1379,10 +1386,35 @@ function render(params, opts) {
         // clamped value, so the render is bit-identical — that identity is the
         // G0 gate and it is what lets shaping exist without a second code path.
         const g = shapeGain(P.shape, t, span, voiceRel[vi]);
+        // THE RELEASE MUST FADE, AND DRIVING PROGRESS DOWN IS NOT ENOUGH.
+        //
+        // The dynamics layer is not monotonic in progress. `swell` is an ARCH:
+        // it is quiet at p=1, loudest at p=0.5 and quiet again at p=0 — so
+        // running p from 1 to 0 walks back through the peak, and the "release"
+        // got LOUDER before it faded. Measured on a one-way bloom + 12 s
+        // release: seven notes inside the release window peaked at 9.20 of 10,
+        // which the composer heard as an attack at the end. `rotate` has the
+        // same problem for the same reason; only `rise` happens to be monotonic.
+        //
+        // So the release applies its own fade on top. Pitch still closes to
+        // unison via p (that is the gesture), but the LEVEL is guaranteed to
+        // descend whatever shape the body is using.
+        // Attenuating the arch was not enough on its own: the peak sits early in
+        // the release, where the fade has barely begun, so a swell still surged
+        // to 7.3 of 10 a second after the body ended. So the level's progress is
+        // FROZEN at its body-end value and fades from there — a release is a
+        // fade, not a continuation of the breathing. Pitch keeps following p, so
+        // the bloom still closes to unison; only the level stops breathing.
+        const inRelease = TIMING.release > 0 && t > TIMING.duration;
+        const relFade = inRelease
+            ? Math.max(0, 1 - (t - TIMING.duration) / TIMING.release) : 1;
+        const pDyn = inRelease
+            ? voiceProgress(vi, nVoices, TIMING.duration, travel, P.dials, order, TIMING)
+            : p;
         const base = {
             cents: startCents[vi],
             technique: (P.target && P.target.baseTechnique) || 'ord',
-            level: clamp(dynLevel(P.dyn, vi, nVoices, p) * g, 0.4, 10),
+            level: clamp(dynLevel(P.dyn, vi, nVoices, pDyn) * g * relFade, 0.4, 10),
         };
         const moved = modelFn(ctx, vi, p) || {};
         // EDGE TECHNIQUE. The override lives HERE, in stateAt, so the breath
@@ -1517,7 +1549,16 @@ function render(params, opts) {
             // one sonority changing colour. A player taking up flutter or sung
             // tone leans into it; the dynamic entry is the only handle MIDI gives
             // us for that, so make it long enough to hear as an approach.
-            if (seg.idx > 0 && P.carrier.striation !== 'aligned' && level.length > 2) {
+            // NOT DURING THE RELEASE. The sneak-in exists to hide a seam inside a
+            // sustained body, where a small dip-and-rise reads as one continuous
+            // sound. Inside a fade it does the opposite: the dip floors at 0.4
+            // and the rise back to target is a crescendo on every re-entry —
+            // which is what the composer heard as "a short attack at the end of
+            // the release". A note beginning in the release just starts at its
+            // faded level. (Suppressing the RAMP, not the note: players really do
+            // re-breathe through a long diminuendo.)
+            const inRel = TIMING.release > 0 && seg.start > TIMING.duration;
+            if (seg.idx > 0 && !inRel && P.carrier.striation !== 'aligned' && level.length > 2) {
                 const target0 = level[0][1];
                 const dip = techChanged ? 4.5 : 2.5;
                 const riseTo = Math.min(techChanged ? 2.2 : 0.7,

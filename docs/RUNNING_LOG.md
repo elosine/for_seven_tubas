@@ -1589,3 +1589,59 @@ right twice; the probe was wrong twice.
 length for a release-only render, because the meta block keyed off `cycling`
 instead of `extended`.
 
+
+### Day 13 — "a short attack at the end of the release", and it was TWO real bugs
+
+Composer, on the demo: *"at the end of the release, there's a little bit of a
+short attack. Maybe something to do with the way CC7 is working… if you can point
+to a quick fix then let's do it."* Not CC7. Two independent causes, both found by
+measuring the render rather than by reasoning about the audio chain.
+
+**BUG 1 — THE DYNAMICS LAYER IS NOT MONOTONIC IN PROGRESS, so "run progress down"
+is not the same as "get quieter".** `swell` is an ARCH: quiet at p=1, **loudest
+at p=0.5**, quiet at p=0. The release drives p from its body value to 0 — which
+walks **back through the peak**. Measured on a one-way bloom + 12 s release:
+**seven notes inside the release window peaked at 9.20 of 10.** The release was
+swelling to full volume a second after the body ended. `rotate` has the same
+shape problem; `rise` is monotonic only by luck.
+
+*This is the same class as the earlier release/cycling conflation: a mechanism
+that is correct for the body being reused for the release, where its assumptions
+do not hold.*
+
+**Fix:** during the release the level's progress is **frozen at its body-end
+value** and faded from there — a release is a fade, not a continuation of the
+breathing. Pitch still follows p, so the bloom still closes to unison; only the
+level stops breathing. *Attenuating the arch instead was tried first and was not
+enough (9.20 → 7.30): the peak sits EARLY in the release, where a linear fade has
+barely begun.*
+
+**BUG 2 — the re-entry "sneak-in" is an attack when it happens inside a fade.**
+Every segment after the first enters under a deliberate dip-and-rise (−2.5, or
+−4.5 across a technique change) so that seams hide inside a sustained body.
+Inside a diminuendo it does the opposite: the dip floors at 0.4 and the climb
+back to target is **a crescendo on every re-attack**. Suppressed during the
+release — the note simply starts at its faded level. **The note is kept, only the
+ramp is removed**: players really do re-breathe through a long diminuendo.
+
+**MEASURED AND REJECTED on the way:** stopping new segments at `duration`, so
+nobody tongues in during the fade at all. It reads well and it matches FR-6's own
+wording — but only the unused remainder of the current breath is left, so every
+voice was cut **1–5 s into a 12 s release**, ending at 45.4 s with voices still
+**7.4 cents** from unison and the fade half done. *The spec's "players finish
+their current breath" quietly assumed the breath outlasts the release, and it
+does not.* Recorded because the wording will read as obviously right to the next
+person too.
+
+**Result, sampled every 0.25 s across the whole release, all three shapes:**
+
+| dyn shape | loudest note in the release | level rises during the release |
+|---|---|---|
+| swell | **4.50** (was 9.20) | **0** in 502 samples |
+| rise | 8.20 | 1 of 489, +0.20 |
+| rotate | 7.20 | **0** in 499 samples |
+
+Bloom still closes to unison in every case; legacy stock render unchanged at 39
+notes; **355 assertions, fixtures not regenerated.** Guard added so a release
+that surges fails the suite.
+
