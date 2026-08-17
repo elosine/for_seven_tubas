@@ -306,6 +306,58 @@ function assignLanes(voices, maxLanes) {
     });
 }
 
+// ============================== PITCH LAYER (§8) ==============================
+// The biggest hole in the research: the whole rain/gallop map was made with ten
+// players on ONE C3. This imposes pitch over the generated attacks, deliberately
+// under-systematised — the composer's stated preference is "impose pitch sets and
+// let the chips fall where they may". No voice-leading, no progressions.
+//
+// THE SET IS INJECTED, NOT IMPORTED. `pitch.set` is either a literal MIDI array
+// or a NAME resolved through `opts.tonality` (score/public/tonality.js). Same
+// injection pattern as sampleLengths, so this file keeps zero dependencies and
+// stays loadable anywhere. A name given with no tonality module resolves to
+// null and is REPORTED — never silently rendered at the root pitch, which would
+// look like the set had been applied.
+//
+// PHYSICS FOLLOWS PITCH (the 2u trap): a fixed one-shot's ring length depends on
+// its pitch (staccato 0.33-0.53 s) and the soft rule is leap-dependent, so a
+// remap can create real conflicts that the mock-up plays perfectly cleanly.
+// Every consumer must recompute the badge when the set changes.
+const PITCH_POLICIES = ['unison', 'perVoice', 'draw', 'cycle'];
+
+function resolveSet(pspec, tonality) {
+    if (!pspec) return { set: null, unresolved: null };
+    const s = pspec.set;
+    if (!s) return { set: null, unresolved: null };
+    if (Array.isArray(s)) return { set: s.slice().sort((a, b) => a - b), unresolved: null };
+    if (tonality && typeof tonality.setNamed === 'function') {
+        const got = tonality.setNamed(s, pspec.chords || null);
+        if (got && got.length) {
+            // POOLED spreads the set's pitch CLASSES over the whole range so
+            // register and contour survive; LITERAL uses exactly those notes.
+            const pooled = (pspec.pool !== false && typeof tonality.pcsPool === 'function')
+                ? tonality.pcsPool([...new Set(got.map(q => ((q % 12) + 12) % 12))])
+                : got;
+            return { set: pooled.slice().sort((a, b) => a - b), unresolved: null };
+        }
+    }
+    return { set: null, unresolved: String(s) };
+}
+
+// perVoice: each player holds ONE pitch, register-sorted across the group.
+// Convention copied from Composer.assignBlast, not re-derived — its comment is
+// explicit that the stage reads "lowest = Tuba 10", i.e. ideal lane
+// (META_LAYER-1)-i for ascending pitches. So within a group the LAST player gets
+// the LOWEST pitch. When the set is wider than the group, the players are spread
+// across the whole set rather than taking its bottom n, so the voicing keeps the
+// set's registral width.
+function perVoicePitch(set, j, n) {
+    if (!set || !set.length) return null;
+    const rank = (n - 1) - j;                       // lowest pitch to the highest lane
+    const idx = (n <= 1) ? 0 : Math.round(rank * (set.length - 1) / (n - 1));
+    return set[Math.max(0, Math.min(set.length - 1, idx))];
+}
+
 // PANEL -> RESOLVED for one voice group.
 //
 // A panel voice group is expanded into ONE ONE-PLAYER VOICE PER PLAYER. That is
@@ -316,17 +368,30 @@ function assignLanes(voices, maxLanes) {
 // attack to a different player. Expanding always (scatter 0 included) keeps one
 // code path — at scatter 0 the offsets are exactly j/n of the cycle, i.e. the
 // even interleave the hocketed form produces.
-function expandVoice(v, lanes, groupIndex, rnd) {
+function expandVoice(v, lanes, groupIndex, rnd, opts) {
     const n = lanes.length;
     const T = 60 / (v.bpm || 100);                 // one PLAYER's period
     const sc = v.scatter || 0;
     const u = [];
     for (let j = 0; j < n; j++) u.push(rnd());     // one draw per player, always
+
+    const pspec = (v.pitch && typeof v.pitch === 'object') ? v.pitch : null;
+    const root = pspec ? (pspec.root != null ? pspec.root : 48)
+                       : (typeof v.pitch === 'number' ? v.pitch : 48);
+    const rs = resolveSet(pspec, opts && opts.tonality);
+    const policy = pspec ? (pspec.policy || 'unison') : 'unison';
+
     const out = [];
     for (let j = 0; j < n; j++) {
+        // unison and perVoice are per-voice CONSTANTS, so they resolve here and
+        // ride the existing scalar-pitch path — no per-attack machinery, and the
+        // byte-identity corpus is untouched. Only draw/cycle need per-attack
+        // resolution, and they carry their set through to generate().
+        let pitch = root;
+        if (rs.set && policy === 'perVoice') pitch = perVoicePitch(rs.set, j, n);
         out.push({
             lanes: [lanes[j]],
-            pitch: (v.pitch && v.pitch.root != null) ? v.pitch.root : (v.pitch != null && typeof v.pitch === 'number' ? v.pitch : 48),
+            pitch: pitch,
             tech: v.articulation || v.tech || 'staccato',
             bpm: v.bpm,
             bpmEnd: v.bpmEnd != null ? v.bpmEnd : undefined,
@@ -336,7 +401,11 @@ function expandVoice(v, lanes, groupIndex, rnd) {
             jitterMs: v.jitterMs,
             delay: ((j / n + sc * u[j] + 1) % 1) * T,
             ci: groupIndex,                        // colour follows the GROUP
-            _pitchSpec: v.pitch,                   // carried for the Phase-2 pitch layer
+            pitchSet: (rs.set && (policy === 'draw' || policy === 'cycle')) ? rs.set : null,
+            pitchPolicy: policy,
+            pitchNoRepeat: pspec ? pspec.noRepeat !== false : true,
+            pitchIndex: j,
+            unresolvedSet: rs.unresolved,
         });
     }
     return out;
@@ -406,7 +475,7 @@ function normaliseSpec(spec, opts) {
         const lanes = assignLanes(sec.voices, maxLanes);
         const voices = [];
         sec.voices.forEach((v, gi) => {
-            expandVoice(v, lanes[gi], gi, rnd).forEach(x => voices.push(x));
+            expandVoice(v, lanes[gi], gi, rnd, opts).forEach(x => voices.push(x));
         });
         out.sections.push({
             dur: sec.dur, label: sec.label, tag: sec.tag,
@@ -497,6 +566,10 @@ function generate(spec, opts) {
     });
 
     const clamps = [];
+    // A named pitch set that could not be resolved is REPORTED, never quietly
+    // rendered at the root — a texture silently at the wrong pitch looks exactly
+    // like one at the right pitch until you read the numbers.
+    const unresolvedSets = {};
     let cursor = spec.t0 != null ? spec.t0 : 2;
     spec.sections.forEach((sec, si) => {
         const t0 = cursor;
@@ -567,16 +640,46 @@ function generate(spec, opts) {
             const written = (ring == null && asked > cap) ? +cap.toFixed(3) : asked;
             if (written !== asked) clamps.push(`${sec.tag}/${v.tech}: ${asked}s → ${written}s`);
 
+            // PER-ATTACK PITCH for the draw/cycle policies. unison and perVoice
+            // already resolved to this voice's scalar `pitch` in expandVoice, so
+            // they take the `|| v.pitch` branch and nothing changes for them —
+            // which is what keeps the byte-identity corpus intact.
+            const pset = v.pitchSet;
+            const prnd = pset ? lcg((99991 + vi * 7717 + (spec.seed || 0) * 2654435761) >>> 0) : null;
+            let lastPitch = null;
+            const pitchAt = k => {
+                if (!pset || !pset.length) return v.pitch;
+                if (v.pitchPolicy === 'cycle') return pset[(v.pitchIndex + k) % pset.length];
+                // draw: seeded, with optional no-immediate-repeat on this player
+                let p = pset[Math.floor(prnd() * pset.length) % pset.length];
+                if (v.pitchNoRepeat && pset.length > 1 && p === lastPitch) {
+                    p = pset[(pset.indexOf(p) + 1 + Math.floor(prnd() * (pset.length - 1))) % pset.length];
+                }
+                lastPitch = p;
+                return p;
+            };
+
+            let ringWorst = ring;
             times.forEach((t, k) => {
                 const lane = v.lanes[k % v.lanes.length];          // round-robin hocket
+                const p = pitchAt(k);
+                // the ring follows the ATTACK's own pitch (2u): staccato runs
+                // 0.33-0.53 s across the range, so a set that sits low rings
+                // longer and can be unplayable at a density the same set sitting
+                // high plays cleanly
+                if (pset) {
+                    const r = ringLength(SL, v.tech, p);
+                    if (r != null && (ringWorst == null || r > ringWorst)) ringWorst = r;
+                }
                 mkNote(lane, t0 + t, written, COLORS[(v.ci != null ? v.ci : vi) % COLORS.length],
-                    'phase/' + (sec.tag || 's' + si), v.pitch, v.tech, v.level != null ? v.level : 7.5);
+                    'phase/' + (sec.tag || 's' + si), p, v.tech, v.level != null ? v.level : 7.5);
                 events.push({ t, lane });
             });
             lines.push({
                 vi, notes: times.length, players: v.lanes.length,
-                composite: times.length / sec.dur, tightest, ring, written,
+                composite: times.length / sec.dur, tightest, ring: ringWorst, written,
             });
+            if (v.unresolvedSet) unresolvedSets[v.unresolvedSet] = 1;
         });
 
         // ---- markers ----
@@ -623,6 +726,7 @@ function generate(spec, opts) {
 
     return {
         objects: objs, nextId: nid, report, clamps,
+        unresolvedSets: Object.keys(unresolvedSets),
         end: cursor,
         notes: objs.filter(o => o.type === 'waveCurve').length,
         markers: objs.filter(o => o.type === 'marker').length,
@@ -680,6 +784,37 @@ function ringOverlaps(report) {
     }));
 }
 
+// THE DENSITY CEILING IS PITCH-DEPENDENT (measured, PLAN 2x Phase 2).
+//
+// docs/PHASE_SHIFTING.md states the ceiling as ~23 attacks/s: ten players over
+// the 0.42 s staccato ring. That number is CORRECT and it is also C3-SPECIFIC —
+// every one of the 13 research experiments used ten players on a single C3, and
+// C3 happens to be the 10th SHORTEST of the 36 measured staccato samples. The
+// ring runs 0.33-0.53 s across the range and it is NOT monotonic (2n's
+// multisample sawtooth), so it cannot be reasoned about by register.
+//
+// Introduce any real pitch set and the worst-case ring rises to 0.48-0.53 s,
+// which drops the ceiling to ~19-21/s. A texture calibrated by ear at unison C3
+// is therefore ~18% too dense the moment it is given pitches — and the mock-up
+// plays the difference perfectly cleanly (2r).
+//
+// So the ceiling is COMPUTED from the render's own worst ring rather than
+// hardcoded, and the panel marks density against that.
+function ceilingOf(report, maxLanes) {
+    let worst = null, players = 0;
+    report.forEach(({ lines }) => {
+        let secPlayers = 0;
+        lines.forEach(l => {
+            secPlayers += l.players;
+            if (l.ring != null && (worst == null || l.ring > worst)) worst = l.ring;
+        });
+        players = Math.max(players, secPlayers);
+    });
+    if (worst == null) return null;                   // all variable-length: no ring ceiling
+    return { ring: worst, players: players || maxLanes || D17.META_LAYER,
+             rate: +(((players || maxLanes || D17.META_LAYER)) / worst).toFixed(1) };
+}
+
 // One-call convenience for the panel and the CLI: normalise, generate, audit.
 function render(spec, opts) {
     const resolved = normaliseSpec(spec, opts);
@@ -687,6 +822,7 @@ function render(spec, opts) {
     g.spec = resolved;
     g.summary = playability(g.objects);
     g.rings = ringOverlaps(g.report);
+    g.ceiling = ceilingOf(g.report, opts && opts.maxLanes);
     // spec-level unknown keys are reported against the ORIGINAL, not the resolved
     // form, so a panel typo is named as the composer wrote it
     g.unknown = unknownKeys(spec);
@@ -700,8 +836,9 @@ return {
     ringLength,
     steadyOnsets, sweepOnsets,
     sdOf, circularMean, metricsOf,
-    requiredAttack, pairTier, playability, ringOverlaps,
+    requiredAttack, pairTier, playability, ringOverlaps, ceilingOf,
     SPEC_KEYS, SECTION_KEYS, VOICE_KEYS, unknownKeys,
+    PITCH_POLICIES, resolveSet, perVoicePitch,
     assignLanes, expandVoice, applyHumanize, normaliseSpec,
     toScoreObjects, spanOf,
     generate, render,

@@ -272,6 +272,7 @@ const PANEL = {
             this.result = TX.render(spec, {
                 maxLanes: 10,
                 sampleLengths: (HOST() && HOST().sampleLen) || null,
+                tonality: root.Tonality || null,
                 humanize: this.humanized ? this.humanizeSettings() : null,
             });
         } catch (e) {
@@ -332,14 +333,20 @@ const PANEL = {
         const dens = r.report.reduce((a, s) => a + s.lines.reduce((x, l) => x + l.composite, 0), 0)
                      / Math.max(1, r.report.length);
         const label = p.label || this.autoLabel(spec);
-        const amber = dens > TX.RAILS.density[1];
+        // THE CEILING FOLLOWS THE PITCH SET, it is not the flat 23/s. That figure
+        // is C3-specific — the whole research arc ran on one C3, which is among
+        // the SHORTEST staccato samples — so a texture given real pitches has a
+        // lower ceiling than the one the composer calibrated by ear.
+        const ceil = r.ceiling ? r.ceiling.rate : TX.RAILS.density[1];
+        const amber = dens > ceil;
 
         this.setStatus(
             'v' + this.rev + ' &middot; ' + this.active + (this.humanized ? ' &middot; <b style="color:#8fd6ab">H</b>' : '') +
             ' &middot; "' + label + '"<br>seed <b>' + (spec.seed != null ? spec.seed : '—') + '</b>' +
             (this.seedIsLive(spec) ? '' : ' <span style="color:#777">(inert — nothing stochastic)</span>') +
             ' &middot; ' + (amber ? '<span style="color:#e0b062">' : '') + dens.toFixed(1) + '/s' +
-            (amber ? ' ⚠ past the 23/s ceiling</span>' : '') +
+            (amber ? ' &#9888; past the ' + ceil.toFixed(1) + '/s ceiling for this pitch set</span>'
+                   : '<span style="color:#777"> of ' + ceil.toFixed(1) + '</span>') +
             ' &middot; sd ' + m.sd.toFixed(1) + ' ms &middot; unev ' + m.unevenness.toFixed(2) +
             ' &middot; ' + r.notes + ' notes<br>' +
             (r.summary.hard ? '<b style="color:#e06666">&#9888; ' + r.summary.hard + ' hard</b> / ' : '&#9888; 0 hard / ') +
@@ -438,8 +445,18 @@ const PANEL = {
                     ['staccato', 'ord', 'flz', 'fortepiano', 'cuivre']);
                 row('note length (s)', base + 'notelen', g.notelen != null ? g.notelen : 0.12, 0.02);
                 row('level 0…10', base + 'level', g.level != null ? g.level : 7.5, 0.5);
-                row('pitch (MIDI)', base + 'pitch.root',
-                    (g.pitch && g.pitch.root != null) ? g.pitch.root : 48, 1);
+                // ---- PITCH (§8). The badge and the ceiling recompute on EVERY
+                // change here — that is the 2u lesson as a hard requirement:
+                // re-pitching changes playability, and a variant with conflicts
+                // sounds perfectly fine in the mock-up (2r), so the numbers have
+                // to move WHILE you are choosing, not after you have chosen.
+                const gp = g.pitch || {};
+                sel('pitch policy', base + 'pitch.policy', gp.policy || 'unison', TX.PITCH_POLICIES);
+                row('root (MIDI)', base + 'pitch.root', gp.root != null ? gp.root : 48, 1);
+                const sets = ['— none (root only) —'].concat(root.Tonality ? root.Tonality.names() : []);
+                sel('tonality set', base + 'pitch.set', gp.set || sets[0], sets);
+                sel('pooled / literal', base + 'pitch.pool',
+                    (gp.pool === false ? 'literal' : 'pooled'), ['pooled', 'literal']);
             });
         });
 
@@ -449,6 +466,12 @@ const PANEL = {
         if (r.unknown.length) {
             fl.innerHTML += '<div style="color:#e0b062">unrecognised keys (ignored, not applied): ' +
                 r.unknown.join(', ') + '</div>';
+        }
+        // a named set that did not resolve is LOUD — rendering quietly at the
+        // root pitch would look exactly like the set having been applied
+        if ((r.unresolvedSets || []).length) {
+            fl.innerHTML += '<div style="color:#e06666">&#9888; pitch set not found: ' +
+                r.unresolvedSets.join(', ') + ' — rendered at the root pitch instead.</div>';
         }
         if (r.clamps.length) {
             fl.innerHTML += '<div style="color:#e0b062">clamped: ' + r.clamps.join(' · ') + '</div>';
@@ -510,7 +533,13 @@ const PANEL = {
             const v = parseFloat(i.value);
             if (!isNaN(v)) setPath(i.dataset.path, v);
         });
-        this.el.querySelectorAll('#texFields select').forEach(s => setPath(s.dataset.path, s.value));
+        this.el.querySelectorAll('#texFields select').forEach(s => {
+            // two selects carry non-string meanings; everything else is literal
+            if (/\.pitch\.pool$/.test(s.dataset.path)) setPath(s.dataset.path, s.value === 'pooled');
+            else if (/\.pitch\.set$/.test(s.dataset.path)) {
+                setPath(s.dataset.path, s.value.indexOf('none') >= 0 ? null : s.value);
+            } else setPath(s.dataset.path, s.value);
+        });
         return merged;
     },
 

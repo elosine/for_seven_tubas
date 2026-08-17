@@ -412,6 +412,144 @@ ok('...and they stay sonifyMode plain (the proven audition path, trap #5)',
     pn0.every(o => o.sonifyMode === 'plain' && o.recVel != null));
 
 // ===========================================================================
+section('PITCH LAYER (§8) — sets, policies, and the physics that follows');
+// ===========================================================================
+const TON = require('../score/public/tonality.js');
+const POPTS = Object.assign({}, OPTS, { tonality: TON, maxLanes: 10 });
+const pitchSpec = (policy, set, pool, bpm) => ({
+    name: 'p', seed: 11, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 10, label: 'p', tag: 'p', voices: [{ players: 10, bpm: bpm || 110,
+        articulation: 'staccato', notelen: 0.12, scatter: 0, jitterMs: 30, level: 7.5,
+        pitch: { policy: policy, set: set, root: 48, pool: pool } }] }],
+});
+const pitchesOf = g => [...new Set(g.objects.filter(o => o.type === 'waveCurve')
+    .map(o => o.sonifyNote))].sort((a, b) => a - b);
+
+eq('the palette carries all 15 named sets', TON.names().length, 15);
+ok('every set sits inside the tuba ord range',
+    TON.names().every(n => TON.setNamed(n).every(p => p >= TON.LO && p <= TON.HI)));
+
+// --- policies
+const uni = TX.render(pitchSpec('unison', 'm3 (F)', true), POPTS);
+eq('unison ignores the set and holds the root', pitchesOf(uni).length, 1);
+eq('...on the root itself', pitchesOf(uni)[0], 48);
+const pv = TX.render(pitchSpec('perVoice', 'm3 (F)', true), POPTS);
+eq('perVoice gives each of the ten players exactly one pitch', pitchesOf(pv).length, 10);
+ok('...register-sorted, lowest on the HIGHEST lane (assignBlast convention)', (() => {
+    const byLane = {};
+    pv.objects.filter(o => o.type === 'waveCurve').forEach(o => { byLane[o.layer] = o.sonifyNote; });
+    const lanes = Object.keys(byLane).map(Number).sort((a, b) => a - b);
+    return byLane[lanes[0]] > byLane[lanes[lanes.length - 1]];
+})(), JSON.stringify((() => { const b = {}; pv.objects.filter(o => o.type === 'waveCurve')
+    .forEach(o => { b[o.layer] = o.sonifyNote; }); return b; })()));
+const drw = TX.render(pitchSpec('draw', 'm3 (F)', true), POPTS);
+ok('draw uses many of the set', pitchesOf(drw).length > 10, String(pitchesOf(drw).length));
+ok('every drawn pitch is IN the set',
+    pitchesOf(drw).every(p => TON.pcsPool([...new Set(TON.setNamed('m3 (F)').map(q => q % 12))]).indexOf(p) >= 0));
+const cyc = TX.render(pitchSpec('cycle', 'm3 (F)', true), POPTS);
+ok('cycle also stays in the set',
+    pitchesOf(cyc).every(p => TON.pcsPool([...new Set(TON.setNamed('m3 (F)').map(q => q % 12))]).indexOf(p) >= 0));
+ok('draw and cycle are different orderings of the same material',
+    JSON.stringify(drw.objects) !== JSON.stringify(cyc.objects));
+ok('draw is seeded — same seed, same pitches',
+    JSON.stringify(TX.render(pitchSpec('draw', 'm3 (F)', true), POPTS).objects) ===
+    JSON.stringify(drw.objects));
+ok('...and a new seed redraws them',
+    JSON.stringify(TX.render(Object.assign(pitchSpec('draw', 'm3 (F)', true), { seed: 12 }), POPTS).objects) !==
+    JSON.stringify(drw.objects));
+
+// --- pooled vs literal
+// 'cl low' is a 7-note chromatic cluster F#1-C2, so pooling its pitch classes
+// over the whole range genuinely widens it; that is the case the chip exists for.
+const pooled = TX.render(pitchSpec('draw', 'cl low', true), POPTS);
+const literal = TX.render(pitchSpec('draw', 'cl low', false), POPTS);
+ok('POOLED spreads the pitch classes over the whole range',
+    pitchesOf(pooled).length > pitchesOf(literal).length,
+    pitchesOf(pooled).length + ' vs ' + pitchesOf(literal).length);
+ok('...covering a far wider register',
+    (Math.max(...pitchesOf(pooled)) - Math.min(...pitchesOf(pooled))) >
+    (Math.max(...pitchesOf(literal)) - Math.min(...pitchesOf(literal))));
+eq('LITERAL uses exactly the set\'s notes', pitchesOf(literal).length, 7);
+ok('...and they ARE the set\'s notes',
+    JSON.stringify(pitchesOf(literal)) === JSON.stringify(TON.setNamed('cl low')));
+// an OCTAVE set is pool-invariant by construction — one pitch class, already
+// spread across the range — so the chip correctly does nothing there
+ok('an octave set is pool-invariant (one pitch class, already spread)',
+    JSON.stringify(pitchesOf(TX.render(pitchSpec('draw', 'oct F#', true), POPTS))) ===
+    JSON.stringify(pitchesOf(TX.render(pitchSpec('draw', 'oct F#', false), POPTS))));
+
+// --- never silently wrong
+const bad = TX.render(pitchSpec('draw', 'no such set', true), POPTS);
+eq('an unknown set is REPORTED', bad.unresolvedSets.length, 1);
+eq('...by name', bad.unresolvedSets[0], 'no such set');
+ok('...and it still renders, at the root', pitchesOf(bad).length === 1 && pitchesOf(bad)[0] === 48);
+eq('a set name with no tonality module injected is reported too',
+    render(pitchSpec('draw', 'm3 (F)', true)).unresolvedSets.length, 1);
+
+// --- THE PHYSICS FOLLOWS THE PITCH (the 2u trap, and the Phase-2 finding)
+// C3 is the 10th SHORTEST of the 36 measured staccato samples, and the entire
+// 13-experiment research arc ran on that one pitch. So the 23/s ceiling is
+// C3-specific: give a texture real pitches and the worst-case ring rises.
+const ringAt = p => SL.staccato[p];
+ok('the staccato ring is NOT monotonic in pitch (2n multisample sawtooth)',
+    ringAt(36) < ringAt(30) && ringAt(42) > ringAt(36),
+    [ringAt(30), ringAt(36), ringAt(42), ringAt(48)].join(' / '));
+eq('C3 is a comparatively SHORT sample', ringAt(48), 0.42);
+ok('...shorter than the range median',
+    ringAt(48) < Object.values(SL.staccato).sort((a, b) => a - b)[18]);
+const ceilUnison = TX.render(pitchSpec('unison', null, true), POPTS).ceiling;
+const ceilSet = TX.render(pitchSpec('draw', 'cl spread', true), POPTS).ceiling;
+eq('the unison-C3 ceiling is the familiar ~23/s', ceilUnison.rate, 23.8, 0.2);
+ok('a real pitch set LOWERS the ceiling', ceilSet.rate < ceilUnison.rate,
+    ceilSet.rate + '/s vs ' + ceilUnison.rate + '/s');
+ok('...by roughly a fifth', (ceilUnison.rate - ceilSet.rate) / ceilUnison.rate > 0.15,
+    ((1 - ceilSet.rate / ceilUnison.rate) * 100).toFixed(0) + '%');
+// and the ring indicator must fire on a density that was fine at unison C3
+const at21 = TX.render(pitchSpec('draw', 'cl spread', true, 126), POPTS);
+ok('21/s is clean at unison C3 but flags once the set is applied',
+    at21.rings.length > 0 && TX.render(pitchSpec('unison', null, true, 126), POPTS).rings.length === 0,
+    'set ' + at21.rings.length + ' vs unison ' +
+        TX.render(pitchSpec('unison', null, true, 126), POPTS).rings.length);
+
+// ===========================================================================
+section('TONALITY MODULE — extracted from clusterview, must not have drifted');
+// ===========================================================================
+// The remap moved out of clusterview.html so exactly one copy exists. If it
+// drifted, every cross-sandbox pitch comparison would quietly mean something
+// different in the two places. Randomised equivalence against the documented
+// behaviour, including the two cases that make the no-repeat kick subtle:
+// simultaneities (same t) and genuine repeats (same srcP).
+const evOf = (pitches, times) => pitches.map((p, i) => ({ p: p, srcP: p, t: times[i], v: 80 }));
+const r1 = TON.remap(evOf([48, 48, 50], [0, 0, 0]), TON.setNamed('oct F#'), false);
+ok('distinct sources colliding on one target get bumped apart',
+    new Set(r1.map(e => e.p)).size > 1, JSON.stringify(r1.map(e => e.p)));
+const r2 = TON.remap(evOf([48, 48], [0, 1]), TON.setNamed('oct F#'), false);
+eq('a genuine repeat in the source STAYS a repeat', r2[0].p, r2[1].p);
+ok('every remapped pitch lands in the target set',
+    TON.remap(evOf([31, 44, 57, 63], [0, 1, 2, 3]), TON.setNamed('5ths 30'), false)
+       .every(e => TON.setNamed('5ths 30').indexOf(e.p) >= 0));
+ok('pooled keeps register spread that literal collapses', (() => {
+    const src = [32, 40, 48, 56, 64];
+    const p = TON.remap(evOf(src, [0, 1, 2, 3, 4]), TON.setNamed('oct F#'), true).map(e => e.p);
+    const l = TON.remap(evOf(src, [0, 1, 2, 3, 4]), TON.setNamed('oct F#'), false).map(e => e.p);
+    return (Math.max(...p) - Math.min(...p)) >= (Math.max(...l) - Math.min(...l));
+})());
+ok('remap is deterministic', JSON.stringify(TON.remap(evOf([40, 50, 60], [0, 1, 2]), TON.setNamed('m3 (F)'), true)) ===
+    JSON.stringify(TON.remap(evOf([40, 50, 60], [0, 1, 2]), TON.setNamed('m3 (F)'), true)));
+ok('the module is pure — no DOM, no node', (() => {
+    const src = fs.readFileSync(path.join(ROOT, 'score/public/tonality.js'), 'utf8')
+        .split('\n').filter(l => !/^\s*(\/\/|\*|\/\*)/.test(l)).join('\n');
+    return ['document.', 'window.', 'require(', 'fs.', 'Math.random', 'new Date']
+        .every(n => src.indexOf(n) < 0);
+})());
+ok('clusterview loads it rather than defining its own', (() => {
+    const cv = fs.readFileSync(path.join(ROOT, 'score/public/clusterview.html'), 'utf8');
+    return cv.indexOf('src="/tonality.js"') >= 0 &&
+           cv.indexOf('Tonality.remap(') >= 0 &&
+           cv.indexOf("'row (placed)': ROW,") < 0;      // the old inline copy is gone
+})());
+
+// ===========================================================================
 section('PLAYABILITY — D17, one law shared with audit_playability.js');
 // ===========================================================================
 eq('MIN_ATTACK', TX.D17.MIN_ATTACK, 0.11);

@@ -6,6 +6,15 @@
   "engineConstants": {
     "densityCeiling": 23,
     "densityCeilingNote": "MEASURED. Ten players ÷ the 0.42 s C3 staccato ring. Tick→tone fusion wants ~50 ms (20/s), so staccato JUST reaches the boundary and cannot pass it without a shorter sample.",
+    "densityCeilingIsPitchDependent": {
+      "finding": "THE 23/s CEILING IS C3-SPECIFIC. Every one of the 13 phase-shifting experiments ran ten players on a single C3, and C3 (0.42 s) is the 10th SHORTEST of the 36 measured staccato samples. Across the range the ring runs 0.33–0.53 s and is NOT monotonic in pitch (2n's multisample sawtooth), so it cannot be reasoned about by register. Give a texture any real pitch set and the worst-case ring rises to 0.48–0.53 s.",
+      "measured": "2026-08-16, PLAN 2x Phase 2, computed from bank/sample_lengths.json over all 15 named sets.",
+      "unisonC3": 23.8,
+      "withRealPitchSets": [18.9, 20.8],
+      "consequence": "A texture calibrated by ear at unison C3 is roughly 18% too dense the moment it is given pitches — and the mock-up plays the difference perfectly cleanly (2r), so the ear cannot catch it. The engine therefore COMPUTES the ceiling from each render's own worst ring rather than using a constant, and the panel marks density against that.",
+      "perSet": { "cl low": 20.8, "cl mid": 20.4, "m3 (F)": 20.0, "cl high": 19.2, "m7 (F#)": 19.2, "m4 (F#)": 19.2, "oct F#": 19.6, "cl spread": 18.9, "BbE 2oct": 18.9, "5ths 30": 18.9, "5ths 37": 18.9, "oct Bb": 18.9, "m6 (F#)": 18.9, "Bhairav (F)": 18.9, "row (placed)": 18.9 },
+      "alsoNote": "Jitter can push a texture past the ring on its own: at 21/s with jitter ±45 ms the tightest per-player gap dips below 0.42 s even at unison C3. Density alone does not tell you whether a texture is playable."
+    },
     "stageWidthMs": 30,
     "stageWidthNote": "INFERRED from physics, not measured in a hall: 343 m/s over ~10 m of stage. Against a 55 ms grid at 18 attacks/s this means DEAD-EVEN SMEAR IS NOT REACHABLE LIVE. The mock-up is coincident and sample-accurate, so it is biased toward evenness AND toward mass.",
     "jitterCeilingMs": 60,

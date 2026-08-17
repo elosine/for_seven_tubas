@@ -611,12 +611,49 @@ first data point) · keys dead when the panel lacks focus.
 > exceeds 15 ms — so a suspicious dense texture can be blamed on the material or
 > the playback with evidence.
 
-**Phase 2 — pitch layer.** `tonality.js` extraction (clusterview rewired,
-verified unchanged on a remap A/B), policies, pooled/literal, badge live on
-set change.
+**Phase 2 — pitch layer. — `DONE 2026-08-16`, gate passed.** `tonality.js`
+extraction (clusterview rewired, verified unchanged on a remap A/B), policies,
+pooled/literal, badge live on set change.
 *Gate:* a RAIN keeper re-rendered under three sets back-to-back; one
 deliberately narrow set shows its conflicts **while choosing** (the 2u case
 reproduced); clusterview behaves identically pre/post extraction.
+
+> **PHASE 2 RESULT (2026-08-16). 210 assertions; Phase 0's corpus still 9/9
+> byte-identical with the tonality module injected (the pitch layer is inert for
+> presets by construction).**
+>
+> - **The clusterview extraction is proven, not assumed:** the old inline
+>   implementation was lifted out of the committed file and run against the new
+>   module over **400 randomised cases** (15 sets × pooled/literal × clusters
+>   containing simultaneities and genuine repeats) — **400/400 byte-identical**,
+>   plus **15/15 palette sets identical**. Then confirmed live: clusterview
+>   loads the module, all 15 tonalities render, and a real transform on
+>   `CLOUD02-A` (50 notes) remaps correctly and stays non-destructive.
+> - **Policies:** `unison` · `perVoice` (register-sorted, lowest pitch on the
+>   highest lane — `assignBlast`'s stated convention, copied not re-derived) ·
+>   `draw` (seeded, no-immediate-repeat) · `cycle`. Pooled/literal chip.
+>   An unresolved set name is reported loudly and rendered at the root, never
+>   silently.
+>
+> **THE PHASE-2 FINDING — the density ceiling is pitch-dependent, and the
+> research number is a best case.** MEASURED: **C3 (0.42 s) is the 10th
+> *shortest* of the 36 staccato samples**, and all 13 experiments used it. The
+> ring runs 0.33–0.53 s and is **not monotonic** in pitch (2n's multisample
+> sawtooth), so it cannot be reasoned about by register. Implied ceilings:
+> **unison C3 → 23.8/s; every real pitch set → 18.9–20.8/s.** So a texture
+> calibrated by ear at unison C3 is **~18% too dense the moment it is given
+> pitches**, and the mock-up plays the difference perfectly cleanly (2r).
+> The engine now **computes** the ceiling from each render's own worst ring and
+> the panel marks density against that, rather than against a flat 23. The 2u
+> case reproduces exactly as the gate asked: picking m3 (F) / cl spread / oct Bb
+> at 21/s drops the ceiling to 20.0 / 18.9 / 18.9 and the amber warning fires
+> **while choosing**. *(Also measured: jitter alone can push a texture past the
+> ring — at 21/s with jitter ±45 ms the tightest gap dips under 0.42 s even at
+> unison C3. Density alone does not tell you whether a texture is playable.)*
+>
+> **Still needs the composer:** which pitch set is the keeper, and whether pitch
+> dissolves the accent artefacts (E5's expectation). Both are listening
+> questions; the machinery to ask them is built.
 
 **Phase 3 — morphs + pockets.** Breakpoint curves; from→to model morph in the
 panel; `windowToSpec` + CLI `--window`; long-process presets.

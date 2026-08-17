@@ -129,40 +129,23 @@
   <span class="hint" id="info"></span>
 </div>
 
+<script src="/tonality.js"></script>
 <script>
 'use strict';
-const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
-const LO = 30, HI = 65, TOP = 67;          // ord range; cuivre extends to 67
+// TONALITY PALETTE + REMAP now live in /tonality.js, shared with the texture
+// sandbox's pitch layer (PLAN 2x §3.4). The definitions below are re-exported
+// under their original local names so the rest of this file is unchanged — the
+// point of the extraction was ONE copy, not a rewrite of a shipped surface.
+const NAMES = Tonality.NAMES;
+const nm = Tonality.nm;
+const LO = Tonality.LO, HI = Tonality.HI, TOP = Tonality.TOP;
 const $ = id => document.getElementById(id);
 
-// ================= tonality palette =================
-const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
-const pcsPool = pcs => range(LO, HI).filter(m => pcs.includes(m % 12));
-const onPc = (root, degs) => degs.map(d => (root + d) % 12);
-const ROW = (() => {
-  const pcs = [0, 7, 3, 10, 5, 1, 8, 4, 11, 6, 2];
-  return pcs.map((pc, i) => {
-    const target = LO + (HI - LO) * ((i * 7) % 11) / 10;
-    let best = null;
-    for (let m = LO; m <= HI; m++)
-      if (m % 12 === pc && (best === null || Math.abs(m - target) < Math.abs(best - target))) best = m;
-    return best;
-  }).sort((a, b) => a - b);
-})();
-const TONALITIES = {
-  'cl low': range(30, 36), 'cl mid': range(44, 50), 'cl high': range(59, 65),
-  'cl spread': [30, 36, 43, 47, 56, 57, 58],
-  'BbE 2oct': [...range(34, 40), ...range(58, 64)],
-  '5ths 30': [30, 37, 44, 51, 58, 65], '5ths 37': [37, 44, 51, 58, 65],
-  'oct F#': [30, 42, 54], 'oct Bb': [34, 46, 58],
-  'm7 (F#)': pcsPool(onPc(6, [0, 1, 2, 3, 5, 6, 7, 8, 10, 11])),
-  'm4 (F#)': pcsPool(onPc(6, [0, 1, 2, 5, 6, 7, 8, 11])),
-  'm6 (F#)': pcsPool(onPc(6, [0, 2, 4, 5, 6, 8, 10, 11])),
-  'm3 (F)': pcsPool(onPc(5, [0, 2, 3, 4, 6, 7, 8, 10, 11])),
-  'Bhairav (F)': pcsPool(onPc(5, [0, 1, 4, 5, 7, 8, 11])),
-  'row (placed)': ROW,
-};
+const range = Tonality.range;
+const pcsPool = Tonality.pcsPool;
+const onPc = Tonality.onPc;
+const ROW = Tonality.ROW;
+const TONALITIES = Tonality.TONALITIES;
 
 // ================= LOUDNESS = NOTE VELOCITY (composer 2026-08-15) =================
 // Deliberate: the dynamic is carried by note velocity - the number the meter
@@ -270,40 +253,7 @@ function viewEvents() {
   if (TR.stretch !== 1) ev = ev.map(e => ({ ...e, t: +(e.t * TR.stretch).toFixed(3),
     d: VARIABLE.has(e.tech) ? +(e.d * TR.stretch).toFixed(3) : e.d }));
   const targetLit = TR.chord ? TAXCH[TR.chord] : TR.tonality ? TONALITIES[TR.tonality] : null;
-  if (targetLit && targetLit.length) {
-    const target = TR.pool ? pcsPool([...new Set(targetLit.map(q => q % 12))]) : targetLit;
-    const nearestIn = (q, excl) => {
-      let best = null, bd = 1e9;
-      for (const m of target) {
-        if (excl && excl.has(m)) continue;
-        const d = Math.abs(m - q);
-        if (d < bd) { bd = d; best = m; }
-      }
-      return best;
-    };
-    const map = {};
-    for (const e of ev) {
-      if (map[e.p] === undefined) map[e.p] = nearestIn(e.p);
-      e.p = map[e.p];
-    }
-    // no-repeat kick: DISTINCT sources colliding on one target get bumped;
-    // repeats present in the source stay repeats
-    let prevP = null, prevSrc = null, curT = null, used = new Set();
-    for (const e of ev) {
-      if (curT === null || Math.abs(e.t - curT) > 0.001) { curT = e.t; used = new Set(); }
-      let q = e.p;
-      const clashPrev = prevP !== null && q === prevP && e.srcP !== prevSrc;
-      if ((clashPrev || used.has(q)) && target.length > 1) {
-        const excl = new Set(used);
-        if (prevP !== null && e.srcP !== prevSrc) excl.add(prevP);
-        const alt = nearestIn(e.srcP, excl);
-        if (alt !== null) q = alt;
-      }
-      used.add(q);
-      prevP = q; prevSrc = e.srcP;
-      e.p = q;
-    }
-  }
+  if (targetLit && targetLit.length) Tonality.remap(ev, targetLit, TR.pool);
   if (TR.oct) ev = ev.map(e => ({ ...e, p: foldInto(e.p + 12 * TR.oct) }));
   const eff = velFactor();
   if (Math.abs(eff - 1) > 0.001)
