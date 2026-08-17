@@ -641,18 +641,45 @@ const shapeBase = {
     dyn: { base: 0.6, shape: 'rotate', amount: 0.35, spread: 0.5 },
 };
 const plainR = M.render(shapeBase);
+// Gain and scheduling are separable, and the test has to say which it is
+// measuring. These two renders share a schedule EXACTLY (same entry, same exit)
+// and differ only in from/peak/to, so any difference is the gain and nothing
+// else. Comparing a shaped render against a no-shape one would not isolate it:
+// a shape block also changes the entry (together is its default, day 11), which
+// is G2's business.
+const SCHED = { entry: 'striated', order: 'low-first' };
 const unitR = M.render(Object.assign({}, shapeBase, {
-    shape: { attack: { len: 4, entry: 'striated', from: 1, peak: 1 },
+    shape: { attack: Object.assign({ len: 4, from: 1, peak: 1 }, SCHED),
              release: { len: 10, exit: 'together', to: 1 } },
 }));
-ok('a unit-gain shape leaves every level breakpoint untouched',
-    hash(plainR.notes.map(n => n.level)) === hash(unitR.notes.map(n => n.level)));
-
-// and a real shape does not
 const shapedR = M.render(Object.assign({}, shapeBase, {
-    shape: { attack: { len: 4, curve: 'linear', from: 0.15, peak: 1 },
-             release: { len: 10, curve: 'linear', to: 0 } },
+    shape: { attack: Object.assign({ len: 4, curve: 'linear', from: 0.15, peak: 1 }, SCHED),
+             release: { len: 10, exit: 'together', curve: 'linear', to: 0 } },
 }));
+ok('a unit-gain shape leaves the levels alone while a real one moves them',
+    hash(unitR.notes.map(n => n.level)) !== hash(shapedR.notes.map(n => n.level)));
+// GAIN FEEDS BACK INTO BREATH, and that is correct physics, not a leak: the
+// shaped level is what maxBreath() reads, so a quiet attack buys longer
+// segments exactly as a quiet passage does for a real player. Worth pinning,
+// because it means a shape is not purely a level overlay.
+ok('a quiet attack lengthens the segments under it (breath follows dynamic)',
+    Math.max.apply(null, shapedR.notes.filter(n => n.tStart < 4).map(n => n.dur)) >=
+    Math.max.apply(null, unitR.notes.filter(n => n.tStart < 4).map(n => n.dur)),
+    'shaped ' + Math.max.apply(null, shapedR.notes.filter(n => n.tStart < 4).map(n => n.dur)) +
+    ' vs unit ' + Math.max.apply(null, unitR.notes.filter(n => n.tStart < 4).map(n => n.dur)));
+// the unit shape must also equal the plain render's LEVELS wherever the two
+// schedules coincide — same voice, same onset, same dur
+const plainKey = {};
+plainR.notes.forEach(n => { plainKey[n.voice + '@' + n.tStart + '/' + n.dur] = n.level; });
+let matched = 0, mismatched = 0;
+unitR.notes.forEach(n => {
+    const p = plainKey[n.voice + '@' + n.tStart + '/' + n.dur];
+    if (!p) return;
+    matched++;
+    if (JSON.stringify(p) !== JSON.stringify(n.level)) mismatched++;
+});
+ok('a unit-gain shape reproduces the unshaped levels note for note',
+    matched > 10 && mismatched === 0, matched + ' compared, ' + mismatched + ' differ');
 const levelAt = (r, lo, hi) => {
     const v = [];
     r.notes.forEach(n => n.level.forEach((pt, i) => {
@@ -687,6 +714,160 @@ const hitSettle = M.render(Object.assign({}, shapeBase, {
 const peakLv = levelAt(hitSettle, 1.2, 1.8), bodyLv = levelAt(hitSettle, 12, 25);
 ok('a peak of 1.5 overshoots the body level and settles back',
     peakLv > bodyLv + 1, 'peak ' + peakLv + ' vs body ' + bodyLv);
+
+// ===========================================================================
+section('G2 scheduling — who enters, who leaves, in what order (PLAN 2z §5.2)');
+// ===========================================================================
+const SRC8 = { kind: 'pitches', midi: [34, 38, 41, 45, 48, 53, 58, 62] };
+const schedBase = {
+    model: 'M6', seed: 7, source: SRC8,
+    carrier: { span: 40, segLen: 7, segVar: 0, striation: 'staggered' },
+    dyn: { base: 0.6, shape: 'flat' },
+};
+const firstOnset = r => {
+    const f = {};
+    r.notes.forEach(n => { if (f[n.voice] == null || n.tStart < f[n.voice]) f[n.voice] = n.tStart; });
+    return Object.keys(f).sort((a, b) => a - b).map(k => f[k]);
+};
+const lastEnd = r => {
+    const e = {};
+    r.notes.forEach(n => { const t = n.tStart + n.dur; if (e[n.voice] == null || t > e[n.voice]) e[n.voice] = t; });
+    return Object.keys(e).sort((a, b) => a - b).map(k => e[k]);
+};
+const entryR = mode => M.render(Object.assign({}, schedBase, {
+    shape: { attack: { len: 3, entry: mode, order: 'low-first', from: 0.2 } },
+}));
+
+const blockAtk = entryR('together');
+ok('entry together puts every voice at t = 0',
+    firstOnset(blockAtk).every(t => t === 0), JSON.stringify(firstOnset(blockAtk)));
+// ...and the designed block attack must NOT then be buried under SEAM flags.
+// The exemption is scoped to the attack window and nothing more: a lockstep
+// carrier LATER in the span (segVar 0, so the voices never de-phase) is a real
+// ensemble seam and stays flagged. Both halves of that are asserted, because
+// exempting too much is the same failure as flagging too much.
+eq('a designed block attack raises no SEAM flags inside the attack window',
+    blockAtk.notes.filter(n => n.flags.indexOf('SEAM') >= 0 && n.tStart <= 3).length, 0);
+const jittered = M.render(Object.assign({}, schedBase, {
+    carrier: { span: 40, segLen: 7, segVar: 0.3, striation: 'staggered' },
+    shape: { attack: { len: 3, entry: 'together', from: 0.2 } },
+}));
+ok('and an ordinary jittered carrier under a block attack is essentially clean',
+    (jittered.summary.soft.SEAM || 0) <= 2, String(jittered.summary.soft.SEAM || 0));
+ok('while a zero-jitter carrier still reports its lockstep re-entries',
+    (blockAtk.summary.soft.SEAM || 0) > 0, String(blockAtk.summary.soft.SEAM || 0));
+
+const ramp = entryR('ramp');
+const rampOn = firstOnset(ramp);
+ok('entry ramp spreads entries evenly across the attack window',
+    rampOn[0] === 0 && Math.abs(rampOn[7] - 3) < 1e-6, JSON.stringify(rampOn));
+let evenOk = true;   // entry times are stored at round3, so 3/7 lands at 0.429
+for (let i = 1; i < rampOn.length; i++) {
+    if (Math.abs((rampOn[i] - rampOn[i - 1]) - 3 / 7) > 2e-3) evenOk = false;
+}
+ok('and the spacing really is even', evenOk, JSON.stringify(rampOn));
+
+const rampHigh = M.render(Object.assign({}, schedBase, {
+    shape: { attack: { len: 3, entry: 'ramp', order: 'high-first', from: 0.2 } },
+}));
+const rhOn = firstOnset(rampHigh);
+ok('order high-first sends the top voice in first',
+    rhOn[7] === 0 && Math.abs(rhOn[0] - 3) < 1e-6, JSON.stringify(rhOn));
+const rampSeed = M.render(Object.assign({}, schedBase, {
+    shape: { attack: { len: 3, entry: 'ramp', order: 'seeded', from: 0.2 } },
+}));
+ok('order seeded is a permutation of the same entry times',
+    JSON.stringify(firstOnset(rampSeed).slice().sort((a, b) => a - b)) ===
+    JSON.stringify(rampOn.slice().sort((a, b) => a - b)));
+ok('and it is not the low-first order', JSON.stringify(firstOnset(rampSeed)) !== JSON.stringify(rampOn));
+
+const striated = entryR('striated');
+const stOn = firstOnset(striated);
+ok('entry striated stays inside the attack window',
+    stOn.every(t => t >= 0 && t <= 3 + 1e-6), JSON.stringify(stOn));
+ok('and is irregular, not evenly spaced',
+    new Set(stOn.map(t => Math.round(t * 100))).size > 3, JSON.stringify(stOn));
+
+// EXITS
+const exitTogether = M.render(Object.assign({}, schedBase, {
+    shape: { release: { len: 12, exit: 'together', to: 0 } },
+}));
+ok('exit together lets every voice run to the span',
+    lastEnd(exitTogether).every(t => t > 40 - 8), JSON.stringify(lastEnd(exitTogether)));
+const exitStag = M.render(Object.assign({}, schedBase, {
+    shape: { release: { len: 12, exit: 'staggered', order: 'high-first', to: 0 } },
+}));
+const stagEnds = lastEnd(exitStag);
+ok('exit staggered spreads the endings across the release window',
+    new Set(stagEnds.map(t => Math.round(t))).size >= 4, JSON.stringify(stagEnds));
+ok('and high-first means the top voice stops before the bottom one',
+    stagEnds[7] < stagEnds[0], 'top ' + stagEnds[7] + ' vs bottom ' + stagEnds[0]);
+ok('no voice sounds past the span', exitStag.notes.every(n => n.tStart + n.dur <= 40 + 1e-6));
+
+// DROPOUT — cluster-safe. This is the assertion that protects the beating.
+const PAIRS8 = { kind: 'pitches', midi: [41, 41, 46, 46, 51, 51, 56, 56] };
+const dropR = M.render({
+    model: 'M1', seed: 11, source: PAIRS8, target: { cents: 25, direction: 'alternate' },
+    dials: { bias: 0, spread: 0, depth: 1 },
+    carrier: { span: 40, segLen: 8, segVar: 0, striation: 'staggered' },
+    shape: { release: { len: 12, exit: 'staggered', order: 'high-first', to: 0,
+                        dropout: { fraction: 0.5 } } },
+});
+const dropped = dropR.meta.shape.dropped;
+ok('dropout actually drops voices', dropped.length > 0, JSON.stringify(dropped));
+// the pitch pairs are voices (0,1) (2,3) (4,5) (6,7)
+let pairSafe = true;
+for (let p = 0; p < 8; p += 2) {
+    const a = dropped.indexOf(p) >= 0, b = dropped.indexOf(p + 1) >= 0;
+    if (a !== b) pairSafe = false;
+}
+ok('DROPOUT NEVER SPLITS A NEAR-UNISON PAIR (half a pair does not beat)',
+    pairSafe, 'dropped ' + JSON.stringify(dropped));
+ok('and it never drops more than the fraction asked for',
+    dropped.length <= Math.round(0.5 * 8), String(dropped.length));
+const dEnd = lastEnd(dropR);
+ok('the dropped voices leave in the first half of the release window',
+    dropped.every(v => dEnd[v] <= 40 - 12 + 6 + 1e-6),
+    JSON.stringify(dropped.map(v => dEnd[v])));
+const tapers = [0, 1, 2, 3, 4, 5, 6, 7].filter(v => dropped.indexOf(v) < 0);
+ok('while the rest taper on into the second half',
+    tapers.some(v => dEnd[v] > 40 - 6), JSON.stringify(tapers.map(v => dEnd[v])));
+// THE ABRUPTNESS TEST. A dropped voice is still LOUD right up to its exit and
+// then stops; a tapering voice is already quiet long before it ends. Measure
+// just before each voice's end — the very last breakpoint is the cut itself, so
+// reading that would compare two silences and prove nothing.
+const nearEndLevel = (r, v) => {
+    const ns = r.notes.filter(n => n.voice === v).sort((a, b) => a.tStart - b.tStart);
+    const n = ns[ns.length - 1];
+    return n.level[Math.floor(n.level.length * 0.9)][1];
+};
+const dropLv = Math.min.apply(null, dropped.map(v => nearEndLevel(dropR, v)));
+const taperLv = Math.max.apply(null, tapers.map(v => nearEndLevel(dropR, v)));
+ok('every dropped voice is still loud at its cut, louder than any taper is at its end',
+    dropLv > taperLv, 'quietest drop ' + dropLv + ' vs loudest taper ' + taperLv);
+
+// fraction 0 and 1 are the honest extremes
+eq('dropout fraction 0 drops nobody',
+    M.render(Object.assign({}, schedBase, { shape: { release: { len: 10, dropout: { fraction: 0 } } } }))
+        .meta.shape.dropped.length, 0);
+eq('dropout fraction 1 drops everybody',
+    M.render(Object.assign({}, schedBase, { shape: { release: { len: 10, dropout: { fraction: 1 } } } }))
+        .meta.shape.dropped.length, 8);
+
+// dropoutVoices in isolation: whole clusters, evenly across the register
+const dv = M.dropoutVoices([41, 41, 46, 46, 51, 51, 56, 56], 0.5);
+eq('dropoutVoices drops exactly the fraction when clusters allow', Object.keys(dv).length, 4);
+ok('and always in whole pairs',
+    [0, 2, 4, 6].every(p => !!dv[p] === !!dv[p + 1]), JSON.stringify(Object.keys(dv)));
+const dvSingle = M.dropoutVoices([34, 40, 46, 52, 58], 0.4);
+eq('with no clusters the fraction is exact', Object.keys(dvSingle).length, 2);
+
+// the shape never breaks the invariants the carrier already guaranteed
+[blockAtk, ramp, striated, exitStag, dropR].forEach((r, i) => {
+    ok('shaped render ' + i + ' double-books no player', r.summary.hard === 0);
+    ok('shaped render ' + i + ' keeps every note inside the span',
+        r.notes.every(n => n.tStart >= -1e-6 && n.tStart + n.dur <= r.meta.span + 1e-6));
+});
 
 // ===========================================================================
 console.log('\n' + '='.repeat(58));

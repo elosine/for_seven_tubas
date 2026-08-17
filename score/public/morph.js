@@ -341,7 +341,7 @@ function striationPhase(pattern, vi, nVoices, segIdx, rng) {
 
 // Build one voice's segment list across the span. Never silently truncates: if a
 // model implies a segment longer than the player can hold, it SPLITS and flags.
-function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
+function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
     const span = Math.max(0.01, carrier.span);
     const segLen = Math.max(0.05, carrier.segLen);
     const segVar = clamp(carrier.segVar, 0, 1);
@@ -355,10 +355,19 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
     // negatives to zero, which silently collapsed every voice onto t=0 and made
     // the whole striation model a no-op — visible only as a wall of SEAM flags
     // in the panel.
+    //
+    // PLAN 2z: when a shape is present it supplies this voice's own entry and
+    // exit instead. `sched` absent IS the legacy formula, which is why no-shape
+    // renders need no branch to stay byte-identical.
     const phase0 = striationPhase(pattern, vi, nVoices, 0, seedRng);
-    t = phase0 * segLen * 0.5;
+    t = (sched && sched.startT != null) ? sched.startT : phase0 * segLen * 0.5;
+    const limit = (sched && sched.endT != null) ? Math.min(span, sched.endT) : span;
+    // Times at which a segment MUST end. A player cannot change technique
+    // mid-note, so an edge technique's window boundary is a physical segment
+    // boundary — the same "split, never truncate" rule the breath ceiling uses.
+    const bounds = (sched && sched.boundaries) || null;
 
-    while (t < span && segs.length < 512) {
+    while (t < limit && segs.length < 512) {
         const jitter = 1 + (seedRng() * 2 - 1) * segVar;
         let want = segLen * jitter;
         const start = Math.max(0, t);
@@ -376,7 +385,12 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
             flags.push('BREATH');              // split, never truncate silently
         }
 
-        let dur = Math.min(want, span - start);
+        let dur = Math.min(want, limit - start);
+        // A fixed one-shot is immune: the sample decides its length (D9), so a
+        // window boundary may not cut it short — it rings past and gets flagged.
+        if (bounds && info.fixedLen == null) {
+            bounds.forEach(b => { if (b > start + 0.02 && b - start < dur) dur = b - start; });
+        }
         if (dur <= 0.02) break;
 
         const gapBase = Math.max(BREATH_GAP_MIN, MEASURED.RESET_GAP_S);
@@ -479,6 +493,56 @@ function shapeGain(shape, t, span, rel) {
         }
     }
     return 1;
+}
+
+// Position of a voice in an ordered edge sequence (rank 0 goes first). The
+// voice index IS pitch order — the render sorts the source ascending — so
+// low-first is the identity and high-first is its mirror.
+function shapeRank(mode, vi, nVoices, seededOrder) {
+    if (mode === 'high-first') return nVoices - 1 - vi;
+    if (mode === 'seeded') return seededOrder[vi];
+    return vi;                                   // low-first
+}
+
+// WHICH VOICES DROP OUT — the composer's *"some parts just immediately drop
+// out, but yet it feels like a taper"*.
+//
+// CLUSTER-SAFE BY RULE. Near-unison voices are ONE unit: half a pair does not
+// beat, so splitting a pair does not give a thinner version of the beating, it
+// gives a different and worse sound (the same reason reduceSource drops whole
+// clusters — COLD START). So whole clusters drop, chosen evenly across the
+// register so the surviving band keeps its width (D21's registral spread).
+//
+// The fraction is a DIAL, not a contract: cluster sizes may not divide the ask,
+// and when they do not this UNDER-drops rather than over-drops — thinning more
+// than the composer said is the worse error. The achieved count is reported in
+// meta.shape.dropped.
+function dropoutVoices(startMidi, fraction) {
+    const n = startMidi.length;
+    const drop = {};
+    const want = Math.round(clamp(fraction, 0, 1) * n);
+    if (want <= 0 || n === 0) return drop;
+    if (want >= n) { for (let i = 0; i < n; i++) drop[i] = 1; return drop; }
+
+    const clusters = [];
+    for (let i = 0; i < n; i++) {
+        const last = clusters[clusters.length - 1];
+        if (last && startMidi[i] - startMidi[last[last.length - 1]] <= 1) last.push(i);
+        else clusters.push([i]);
+    }
+    const nC = clusters.length;
+    const wantedC = Math.max(1, Math.round((nC * want) / n));
+    const picks = [];
+    for (let i = 0; i < wantedC; i++) {
+        picks.push(nC === 1 ? 0
+            : Math.round((i * (nC - 1)) / Math.max(1, wantedC - 1)));
+    }
+    let dropped = 0;
+    [...new Set(picks)].forEach(ci => {
+        const c = clusters[ci];
+        if (dropped + c.length <= want) { c.forEach(v => { drop[v] = 1; }); dropped += c.length; }
+    });
+    return drop;
 }
 
 // --- validation helpers. Everything unknown or out of range is REPORTED and
@@ -868,6 +932,80 @@ function render(params, opts) {
     // undefined) means every voice tapers over the shape's own release window.
     const voiceRel = new Array(nVoices);
 
+    // ---- THE SHAPE'S SCHEDULE (PLAN 2z §5.2) ------------------------------
+    // Who enters when, who leaves when, who drops out. `null` throughout when
+    // there is no shape, and buildCarrier then runs its legacy formula.
+    const shapeSched = new Array(nVoices).fill(null);
+    const SH = P.shape;
+    const shapeInfo = { entryTogether: false, attackEnd: 0, dropped: [], noise: 0 };
+    if (SH) {
+        const A = SH.attack, R = SH.release;
+        const aLen = A ? A.len : 0;
+        const rLen = R ? R.len : 0;
+        const rStart = span - rLen;
+        const seededOrder = staggerOrder(nVoices, P.seed + 101);
+        const pattern = STRIATIONS.indexOf(P.carrier.striation) >= 0 ? P.carrier.striation : 'staggered';
+        const denom = Math.max(1, nVoices - 1);
+
+        // ENTRIES. `together` is the default whenever a shape block is present
+        // (composer, day 11 — the striated entry is one option, not the norm),
+        // and it is also what a shape with no attack block gets.
+        shapeInfo.entryTogether = !A || A.entry === 'together';
+        shapeInfo.attackEnd = aLen;
+        for (let vi = 0; vi < nVoices; vi++) {
+            let startT = 0;
+            if (A && aLen > 0) {
+                if (A.entry === 'ramp') {
+                    startT = (shapeRank(A.order, vi, nVoices, seededOrder) / denom) * aLen;
+                } else if (A.entry === 'striated') {
+                    startT = striationPhase(pattern, vi, nVoices, 0, null) * aLen;
+                }
+            }
+            shapeSched[vi] = { startT: round3(startT), endT: null, boundaries: null };
+        }
+
+        // EXITS + DROPOUT.
+        if (R && rLen > 0) {
+            const dropSet = (R.dropout && R.dropout.fraction > 0)
+                ? dropoutVoices(startMidi, R.dropout.fraction) : {};
+            const rankOf = vi => shapeRank(R.order, vi, nVoices, seededOrder);
+            const dropIdx = [], taperIdx = [];
+            for (let vi = 0; vi < nVoices; vi++) (dropSet[vi] ? dropIdx : taperIdx).push(vi);
+            dropIdx.sort((a, b) => rankOf(a) - rankOf(b));
+            taperIdx.sort((a, b) => rankOf(a) - rankOf(b));
+            shapeInfo.dropped = dropIdx.slice();
+
+            // Dropouts leave early and ABRUPTLY, spread over the first half of
+            // the release window with their own `sudden` gain — the abruptness
+            // is the point, and cluster-safety is what keeps the beating honest
+            // as it thins (it thins by whole pairs).
+            dropIdx.forEach((vi, k) => {
+                const endT = rStart + ((k + 1) / dropIdx.length) * rLen * 0.5;
+                shapeSched[vi].endT = round3(endT);
+                voiceRel[vi] = { len: Math.max(0.05, endT - rStart), curve: 'sudden' };
+            });
+            // The rest taper. `together` = everyone reaches the end; `staggered`
+            // spreads the ends across the window. Positions run 1..n rather than
+            // 0..n-1 so that even the first to leave gets some taper — an exit at
+            // exactly the release start is a cut, which is what dropout is for.
+            taperIdx.forEach((vi, k) => {
+                if (R.exit === 'together') { shapeSched[vi].endT = round3(span); return; }
+                const u = (k + 1) / taperIdx.length;
+                shapeSched[vi].endT = round3(rStart + u * rLen);
+            });
+        }
+
+        // Technique-window boundaries: a player cannot change technique
+        // mid-note, so an edge technique forces a segment break at its window's
+        // inner edge. Only added when an edge technique is actually asked for.
+        const bounds = [];
+        if (A && A.technique && aLen > 0) bounds.push(aLen);
+        if (R && R.technique && rLen > 0) bounds.push(rStart);
+        if (bounds.length) {
+            for (let vi = 0; vi < nVoices; vi++) shapeSched[vi].boundaries = bounds;
+        }
+    }
+
     // state of one voice at time t — the MORPH half, independent of the carrier
     function stateAt(vi, t) {
         const p = voiceProgress(vi, nVoices, t, span, P.dials, order);
@@ -903,7 +1041,7 @@ function render(params, opts) {
                 bending: Math.abs(sMid.cents - s.cents) > 5,
                 fixedLen: cls === 'fixed' ? fixedLength(tech, midi, o.sampleLengths) : null,
             };
-        });
+        }, shapeSched[vi]);
 
         let prevTech = null;
         segs.forEach(seg => {
@@ -1052,6 +1190,13 @@ function render(params, opts) {
 
     notes.sort((a, b) => a.tStart - b.tStart || a.voice - b.voice);
 
+    // Onsets that a designed attack is SUPPOSED to align (see the SEAM rule).
+    const seamExempt = new Set();
+    if (SH && shapeInfo.entryTogether) {
+        const aEnd = Math.max(shapeInfo.attackEnd, CROSS_ONSET_MIN);
+        notes.forEach(n => { if (n.tStart <= aEnd + 1e-6) seamExempt.add(n); });
+    }
+
     // ---- checks -----------------------------------------------------------
     const summary = { hard: 0, soft: {}, flags: {} };
     const bump = (bag, k) => { bag[k] = (bag[k] || 0) + 1; };
@@ -1076,29 +1221,51 @@ function render(params, opts) {
         }
     });
 
-    // cross-voice onset rule — the stagger is what hides the seam
+    // cross-voice onset rule — the stagger is what hides the seam.
+    //
+    // A DESIGNED ATTACK IS EXEMPT. Aligned onsets are the whole point of
+    // `entry: together` and of the noise layer, so flagging them would throw ten
+    // SEAM flags on every render of a working design and train the composer to
+    // ignore the badge — worse than having no check at all (§6). The existing
+    // striation === 'aligned' exemption is the same idea, already agreed.
     if (P.carrier.striation !== 'aligned') {
         for (let i = 1; i < notes.length; i++) {
             if (notes[i].voice === notes[i - 1].voice) continue;
+            if (seamExempt.has(notes[i]) || seamExempt.has(notes[i - 1])) continue;
             if (Math.abs(notes[i].tStart - notes[i - 1].tStart) < CROSS_ONSET_MIN) {
                 notes[i].flags.push('SEAM'); bump(summary.soft, 'SEAM');
             }
         }
     }
-    ['BREATH', 'SWITCH', 'RANGE', 'GLISS'].forEach(f => {
+    ['BREATH', 'SWITCH', 'RANGE', 'GLISS', 'EDGE_RING'].forEach(f => {
         if (summary.flags[f]) summary.soft[f] = summary.flags[f];
     });
+    // SHAPE_CLAMP has no note to live on — it is a params-level condition — but
+    // it is a soft flag so that it shows in the badge count, not only in the
+    // warning list where it could scroll away.
+    if (SH && SH._clamped) summary.soft.SHAPE_CLAMP = 1;
 
-    return {
-        notes: notes, summary: summary, warnings: warnings,
-        meta: {
-            model: P.model, seed: P.seed, span: span, voices: nVoices,
-            lanes: P.lanes || Array.from({ length: nVoices }, (_, i) => i),
-            droppedFrom: rawMidi.length,
-            label: P.label, striation: P.carrier.striation,
-            bendRangeSt: MEASURED.BEND_RANGE_ST, prearmS: MEASURED.BEND_PREARM_S,
-        },
+    const meta = {
+        model: P.model, seed: P.seed, span: span, voices: nVoices,
+        lanes: P.lanes || Array.from({ length: nVoices }, (_, i) => i),
+        droppedFrom: rawMidi.length,
+        label: P.label, striation: P.carrier.striation,
+        bendRangeSt: MEASURED.BEND_RANGE_ST, prearmS: MEASURED.BEND_PREARM_S,
     };
+    // Only present when a shape is — meta must stay byte-identical without one.
+    if (SH) {
+        meta.shape = {
+            entry: SH.attack ? SH.attack.entry : 'together',
+            exit: SH.release ? SH.release.exit : null,
+            attackLen: SH.attack ? SH.attack.len : 0,
+            decayLen: SH.decay ? SH.decay.len : 0,
+            releaseLen: SH.release ? SH.release.len : 0,
+            dropped: shapeInfo.dropped.slice(),
+            noiseVoices: shapeInfo.noise,
+        };
+    }
+
+    return { notes: notes, summary: summary, warnings: warnings, meta: meta };
 }
 
 // ===========================================================================
@@ -1166,6 +1333,7 @@ return {
     SHAPE_CURVES: SHAPE_CURVES, ATTACK_MOTIONS: ATTACK_MOTIONS,
     RELEASE_MOTIONS: RELEASE_MOTIONS,
     curveEase: curveEase, normaliseShape: normaliseShape, shapeGain: shapeGain,
+    shapeRank: shapeRank, dropoutVoices: dropoutVoices,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,
