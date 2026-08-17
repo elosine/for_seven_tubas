@@ -1,5 +1,37 @@
 {
   "_comment": "SHAPE PRESET library (PLAN 2y §5.1). A preset is a named, copyable `shape` block (2z's schema) plus the label, tags and verdict that blessed it. Because a shape is just params, applying one to any model is a MERGE, not a feature — reuse by construction, no category system. Filed by the AI from the narrated sessions the moment a shape is kept (docs/TAXONOMY.md contract); `?` note when unsure. If genuine categories of attack ever emerge they are harvested then (D6), never designed up front. Lessons from each build go to docs/SHAPE_LESSONS.md.",
-  "rev": 1,
-  "presets": {}
+  "_howTheAttackJoins": "FR-4. The gain is MULTIPLICATIVE over the body, so when the attack reaches 1 the level IS whatever the body says — nothing to calculate and nothing to match. No overshoot means the ramp simply rises to the body and `decay` is 0; an overshoot means `peak` > 1 and `decay` exists only to bring it back down. `entry: together` overrides the striated entry so everyone starts as one.",
+  "_unheard": "ALL THREE ARE UNHEARD. These are starting points for the D31 bespoke loop, not blessed shapes — the day-12 lesson was that guessed preset NUMBERS are exactly what fails. Narrate a correction and the numbers change.",
+  "rev": 2,
+  "presets": {
+    "fade-in-3s": {
+      "label": "fade in — everyone together, no attack at all",
+      "notes": "The plainest option: a 3 s rise from silence straight to the body's own level, no overshoot, so no decay is needed. UNHEARD.",
+      "tags": ["attack", "gentle", "together"],
+      "shape": {
+        "attack": { "len": 3, "entry": "together", "curve": "expo", "from": 0 }
+      }
+    },
+    "hit-and-settle": {
+      "label": "strong attack — short overshoot, then settle onto the body",
+      "notes": "The classic ADSR read of FR-4: a fast rise that overshoots to 1.5x, then a 2.5 s decay onto the body's level. `decay` exists ONLY to undo the overshoot. UNHEARD.",
+      "tags": ["attack", "strong", "together"],
+      "shape": {
+        "attack": { "len": 0.4, "entry": "together", "curve": "sudden", "from": 0.9, "peak": 1.5 },
+        "decay": { "len": 2.5, "curve": "expo" }
+      }
+    },
+    "brassy-hit": {
+      "label": "strong attack with cuivre on spare players",
+      "notes": "Same as hit-and-settle plus a cuivre noise layer on the two lanes the bloom is not using — the composer's 'add cuivre notes if no one in the chord is playing them'. Cuivre only exists on this sampler from MIDI 60-67, so the notes are D#4/F4 - the bloom's own pitch classes an octave-plus up. Writing them at the bloom's actual pitches silently fell back to fortepiano. Simultaneous with the attack, not before it. UNHEARD, and the playability checker will read the cuivre against the sustained tone as a HARD conflict on that player — a FALSE POSITIVE (FR-4).",
+      "tags": ["attack", "strong", "cuivre", "together"],
+      "shape": {
+        "attack": {
+          "len": 0.5, "entry": "together", "curve": "sudden", "from": 0.9, "peak": 1.45,
+          "noise": { "technique": "cuivre", "voices": 2, "midi": [63, 65], "len": 1.1 }
+        },
+        "decay": { "len": 2.5, "curve": "expo" }
+      }
+    }
+  }
 }

@@ -343,7 +343,14 @@ function buildActual(modelId, opts) {
     const settings = o.recipeSettings || {};
 
     const res = M.resolveParams(model, settings);
-    const resolved = res.params;
+    // SAVE WHAT WAS ACTUALLY HEARD. The panel lets you nudge the raw fields on
+    // top of the recipes (span, duration, release, dyn shape...), and those
+    // nudges were being SILENTLY DROPPED here: the actual got re-derived from
+    // the model plus recipe settings, so a composer who dialled a 300 s cycling
+    // bloom and pressed Save got the stock 40 s one-shot back. `params` is the
+    // exact object the panel rendered. It is stored whole in provenance, so an
+    // actual stays re-derivable — more so than before, not less.
+    const resolved = o.params ? JSON.parse(JSON.stringify(o.params)) : res.params;
     if (o.seed != null) resolved.seed = o.seed;
     if (o.shape) resolved.shape = JSON.parse(JSON.stringify(o.shape));
 

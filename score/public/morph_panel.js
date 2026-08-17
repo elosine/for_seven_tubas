@@ -366,6 +366,8 @@ const PANEL = {
             ? this.readFields(p)
             : JSON.parse(JSON.stringify(p));
         this._fieldStamp = stamp;
+        // exactly what was rendered, so Save as ACTUAL can store what was HEARD
+        this._lastParams = merged;
         try {
             this.result = M.render(merged, {
                 maxVoices: 10,
@@ -758,6 +760,7 @@ const PANEL = {
                     seed: this.result.meta.seed,
                     label: label,
                     tags: (m.tags || []).slice(),
+                    params: this._lastParams,
                     shape: this.activePreset ? undefined : (this.current() || {}).shape,
                     shapePreset: this.activePreset || undefined,
                 }),

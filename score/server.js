@@ -569,6 +569,7 @@ const server = http.createServer((req, res) => {
                         recipeSettings: body.recipeSettings || {},
                         seed: body.seed, label: body.label, tags: body.tags,
                         shape: body.shape, shapePreset: body.shapePreset,
+                        params: body.params,
                     });
                     if (built.error) return R.status(400).json({ success: false, error: built.error });
                     MB.writeActual(built);

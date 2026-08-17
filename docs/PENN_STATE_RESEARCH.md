@@ -10,6 +10,10 @@ Symposium application (tuba/euphonium ensemble category, minimum 6 parts).*
 - Up to two works per composer; 31 categories; selected composers attend in person
   and work with the performers.
 - Call page: https://sites.psu.edu/pennstatecomposition/festival-and-call-for-scores/
+- **MAXIMUM DURATION: 15 MINUTES** *(composer, 2026-08-17, from the call itself —
+  it is not on the pages the AI could reach, so this line is the record).*
+  **This is a real compositional constraint and it binds the morph section:** a
+  single 5-minute cycling morph would be a third of the whole piece.
 
 ## Penn State's ensemble
 
