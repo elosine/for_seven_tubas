@@ -1645,3 +1645,38 @@ Bloom still closes to unison in every case; legacy stock render unchanged at 39
 notes; **355 assertions, fixtures not regenerated.** Guard added so a release
 that surges fails the suite.
 
+
+### Day 13 — "an attack at the beginning of the fade-in": the level floor, measured
+
+Composer: *"same or similar CC7 glitch. There's an attack at the beginning of the
+play… I cannot evaluate the fade in with that at the beginning."*
+
+**Cause, measured in the running app.** Every voice opened at level **0.4** — the
+engine's floor — and the MEASURED CC7 map is very steep at the bottom:
+`level 0 → CC0`, but `level 0.2 → CC23`. So a fade *from silence* actually began
+with **eight tubas tonguing together at CC24**. The composer was right that it was
+an attack, and right that it was CC7-shaped; it was not a glitch but a floor.
+
+**Why the floor exists, and why it is now asymmetric.** 2z decided deliberately
+that a release lands on the 0.4 floor rather than digital silence — the CC7 map's
+bottom, and the same floor every hand-drawn decrescendo in the piece has. There is
+an assertion saying so in as many words: *"Do not 'fix' this."* **That is right for
+a release and wrong for an attack**, which has to begin in actual silence or the
+sample's onset transient is simply audible. So the floor now drops to 0 **only
+inside the attack window**; body and release keep 0.4. *Removing it globally was
+tried first and correctly failed the 2z assertion — the test earned its keep.*
+
+**Second, smaller cause, same symptom.** A note at `tStart 0` scheduled its CC7 at
+`max(0, 0 − 45) = 0` — **the same millisecond as its own note-on**, so it had no
+lead at all; and `stop()` leaves CC7 at **127** on every channel it touched. The
+opening note could therefore speak at full volume for the instant before its level
+landed. Every route's opening CC7 is now sent **synchronously before any timer**.
+
+**Result, measured through the app's own `levelToCC`:** the eight opening voices
+went from **CC24 each** to **CC0 each**. Unshaped renders are unchanged (opening
+CC26). 354 assertions, fixtures not regenerated.
+
+*Pattern worth naming, third time today: a mechanism that is correct for the body
+being reused where its assumptions do not hold — first cycling vs release, then
+the swell arch in the release, now the level floor in the attack.*
+

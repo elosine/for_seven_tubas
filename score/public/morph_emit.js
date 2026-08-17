@@ -218,6 +218,21 @@ const EMIT = {
                      reason: 'no MIDI port for ' + Object.keys(missing).join(', ') +
                              ' — is loopMIDI running with those ports open?' };
         }
+        // ARM CC7 BEFORE THE FIRST NOTE, SYNCHRONOUSLY.
+        //
+        // A note at tStart 0 scheduled its CC7 at max(0, -45) = 0 — the same
+        // millisecond as its note-on, so it had no lead at all. And stop()
+        // leaves CC7 at 127 on every channel it touched, so the opening note
+        // could speak at full volume for the instant before its own level
+        // landed. Sending each route's opening level now, before any timer,
+        // gives real lead and makes a fade-in start from where it should.
+        scheduled.forEach(s2 => {
+            if (s2.onMs > prearm) return;
+            try {
+                s2.route.out.send([0xB0 | s2.route.ch, 7, this.levelToCC(s2.level[0][1])]);
+            } catch (e) {}
+        });
+
         const span = (o.span || result.meta.span) * 1000 + 1200;
         this._plan = scheduled;
         this._t0 = performance.now();

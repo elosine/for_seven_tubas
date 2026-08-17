@@ -1411,10 +1411,29 @@ function render(params, opts) {
         const pDyn = inRelease
             ? voiceProgress(vi, nVoices, TIMING.duration, travel, P.dials, order, TIMING)
             : p;
+        // THE FLOOR IS ASYMMETRIC, AND ON PURPOSE.
+        //
+        // 0.4 is the engine's level floor everywhere — the CC7 map's bottom,
+        // the same floor every hand-drawn decrescendo in the piece has, and
+        // 2z decided a release lands there rather than on digital silence.
+        // That is right for a release: the sample decays on its own.
+            //
+        // It is WRONG for an attack that begins from silence. The measured
+        // CC7 map is very steep at the bottom (level 0 -> CC0, but 0.2 ->
+        // CC23), so a fade-in floored at 0.4 opened every voice at CC24 —
+        // eight tubas tonguing together at an audible level. The composer
+        // heard it as an attack at the start of the fade, and it was one.
+            //
+        // So the floor drops to 0 only INSIDE the attack window. Body and
+        // release keep 0.4; legacy renders never reach this at all, since
+        // with no shape g === 1 and dynLevel already clamps to 0.4.
+        const inAttack = !!(P.shape && P.shape.attack && P.shape.attack.len > 0 &&
+                            t < P.shape.attack.len);
+        const levelFloor = inAttack ? 0 : 0.4;
         const base = {
             cents: startCents[vi],
             technique: (P.target && P.target.baseTechnique) || 'ord',
-            level: clamp(dynLevel(P.dyn, vi, nVoices, pDyn) * g * relFade, 0.4, 10),
+            level: clamp(dynLevel(P.dyn, vi, nVoices, pDyn) * g * relFade, levelFloor, 10),
         };
         const moved = modelFn(ctx, vi, p) || {};
         // EDGE TECHNIQUE. The override lives HERE, in stateAt, so the breath
