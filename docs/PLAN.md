@@ -627,6 +627,71 @@ composer → notation → performance architecture.)*
   sandbox so far — the performer app is the piece-#2 `public/index.html`
   lineage, so this is a port-plus-rework, not an edit in place.
 
+- **2aa — PULSE SEQUENCER STRIP (the trance section's sandbox)** — `todo
+  2026-08-17` *(composer realignment, day 15 evening; supersedes the earlier
+  matrix/console sketches for this section — those are DEFERRED passes, below)*.
+
+  **The need, verbatim concept:** a steady pulse grid (the Ghost-Trance final
+  section, `tranceSB01-2` is the live sketch); the composer clicks any COLUMN
+  (impulse) and assigns it a SONORITY from a menu, then hears the whole grid in
+  real time, looping, until the pattern of harmonic change is right. This is a
+  hammered browse/audition loop → UI is justified (memory: sandbox-UI-vs-AI
+  line). **v1 is audition-only. It writes NOTHING to the score.**
+
+  **Build (all pieces named; a cold model implements from this):**
+  1. **`bank/pulse_palette.json`** — the sonority menu, data not code:
+     `{ _contract, entries: { <id>: { label, pitches:[midi…] } | { ref:'S008' } } }`.
+     Seed it with: `FIFTHS` = [31,36,41,45,49,52,54,56,59,62] (the tranceSB01
+     accretion chord) · `CLUST10` = 10 chromatic notes centred mid-range
+     (bank range is MIDI 30–67 → 44–53, G#2–F3; centre adjustable) · one
+     pitch-class entry per note = ALL octaves of that pc within 30–67 (e.g.
+     `F` = [41,53,65]; the composer said "eleven notes" — **default to all 12,
+     one open question**) · `ref` entries for the 16 staccato + staccato-cuivre
+     bank sonorities: S001 S002 S008 S011 S014 S017 S020 S023 S026 S029 S032
+     S035 S038 S041 S044 S047 (these are the staccato pair, positions +1/+4,
+     of each 6-block in `blast_taxonomy.json` sonorities). `ref` resolves LIVE
+     from the taxonomy at load so renames/edits propagate.
+  2. **Server route** `GET /api/pulsepalette` in `score/server.js`, exactly the
+     `/api/shapepresets` pattern (read file, no cache).
+  3. **`score/public/pulse_seq_panel.js`** — floating panel on the
+     morph_panel.js chassis (draggable, keys scoped to panel focus, SPACE
+     play/stop). One row of numbered cells (default 32 columns, count+BPM+note-
+     len editable; BPM default 130, note 0.25 s). Click cell → sonority picker
+     (the palette list); the cell shows the sonority id and repaints. Every
+     column holds a value; default fill = first palette entry; shift-click =
+     fill from here to end (cheap paint gesture, optional if it drags).
+  4. **Playback = `MorphEmit.play`, NO new scheduler.** Grid → notes:
+     `tStart = i·60/BPM`, `dur = noteLen`, one note per pitch, `lane` = round-
+     robin 0–9 (routing only — orchestration is explicitly NOT this pass),
+     technique `staccato`, level ~9. Loop: on span end re-invoke while loop
+     toggle is on (panic() already clears cleanly; the CC_LEAD_MS shift and
+     cold-entry logic come free).
+  5. **Wire into `composer.html`** with a script tag + a small toggle button
+     (`Pulse` next to Morph/Texture).
+
+  **Extensibility contract (the composer adds sonorities BY ASKING THE AI):**
+  the AI edits `bank/pulse_palette.json` — append an entry, the panel refetches
+  on open (or a ↻ button). Three source shapes, all trivial: *(a)* from the
+  blast palette → add a `ref:'Sxxx'` · *(b)* from a keyboard take → read the
+  TAKE waveCurves out of the current score, their `sonifyNote`s are the pitch
+  set · *(c)* conceived ("all the A#s") → generate within 30–67. File it in
+  TAXONOMY.md's spirit: no asking, just confirm what was added.
+
+  **Done when:** the composer can load the score app, open the panel, assign a
+  cluster to impulse 11 of a unison-F grid, press SPACE, and hear the change in
+  the loop — verified in the running app per AI_METHODOLOGY (a pure
+  grid→notes builder + a small node test is cheap and worth it; the panel glue
+  is verified live).
+
+  **Deferred, in order (do NOT build into v1):** write-to-score button (v2 —
+  emits the waveCurve grid at the playhead like tools/pulse_build.js does) ·
+  per-part shift matrix, eighth early/late/silent (v3) · orchestration/
+  doubling/register pass — lane≠entry-order split, round-robin unison doubling
+  (v4, touches FR-8) · sonority naming pass (composer, whenever).
+
+  **Open questions for the composer:** 11 vs 12 pitch-class entries · cluster
+  centre (default C3) · loop default (default ON).
+
 ## 7. THE THREE SCORES — architecture (composer, 2026-08-14)
 
 *Three sequential artifacts, each feeding the next. This supersedes any

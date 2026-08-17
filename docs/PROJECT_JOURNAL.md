@@ -10,6 +10,59 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**CHECKPOINT (2026-08-17, day 15 evening — THE TRANCE SECTION HAS ITS PLAN:
+2aa PULSE SEQUENCER STRIP. Claude Code / Opus 5 → composer switching models) —
+(mid-session checkpoint).** The composer is clearing chat and changing models
+before implementation; **PLAN 2aa (Pulse sequencer strip) is the complete,
+self-contained build spec — implement from it, not from chat memory.**
+
+- **The evening went to the trance section** (the pulsed Ghost-Trance final
+  section, filed day 14). The composer sketched 7 pitches by keyboard into
+  `scores/tranceSB01.json` (a fifths chain G1 D4 A2 E3 B3 F2 C2); an accretive
+  pulse was generated from it twice — `tools/pulse_build.js` (file-based,
+  committed with this checkpoint) wrote `scores/tranceSB01-2.json` @120 BPM,
+  then a console script rebuilt it in-app @130 BPM with ten pitches (adding
+  F#3 C#3 G#3, continuing the fifths chain) and 2–6-repeat entries.
+- **THE ENSEMBLE IS TEN TUBAS** — composer, explicitly: "10 parts tracks one to
+  ten." Not seven-plus-doubling. (The repo name stays historical.)
+- **Then a REALIGNMENT (read this, it supersedes the sketches):** what the
+  composer wants for this section is a **click-a-column sequencer sandbox** —
+  steady pulse, dozens of columns, click any column → assign a sonority from a
+  menu → hear the grid loop in real time. Audition only; nothing written to
+  the score in v1. Orchestration/doubling, the per-part shift matrix, and
+  score-writing are explicitly LATER passes (they are listed as v2–v4 in 2aa).
+  Option (b) — minimal panel in the composer app — was chosen over console
+  scripts (too slow per change) after explicit discussion.
+- **Everything needed is named in 2aa:** palette file `bank/pulse_palette.json`
+  (FIFTHS · CLUST10 · 12 pitch-class-octave entries · 16 staccato/cuivre bank
+  refs — the S-ids are enumerated), server route, panel on the morph_panel
+  chassis, **playback via `MorphEmit.play` (no new scheduler — this was the
+  risky part and it exists, blip-hardened)**, and the extensibility contract:
+  the composer ADDS sonorities BY ASKING THE AI, which appends to the palette
+  JSON (three source shapes documented in 2aa).
+- **Also this session, before the trance work** (already committed/pushed):
+  Fade ladder verified end-to-end + extracted to `M.buildLadder` + pinned by
+  `tools/test_ladder.js` (54/54) — the checkpoint note that it was "unstarted"
+  was stale, it shipped day 14. **The lazy-MIDI bug is REAL and still open:**
+  the score only initialises Web MIDI on Play / CC7 Reset / REC-arm — on a
+  fresh page the keyboard is dead until one of those runs
+  (`initZoneMidi`, composer.html ~12246). Diagnosed live with the composer;
+  fix (init on load) NOT built; belongs next to ISSUES I3.
+
+**Next concrete step: BUILD 2aa v1** — palette JSON → server route → panel →
+MorphEmit glue → verify live per the Done-when. Then the composer auditions.
+
+**Open at this checkpoint:**
+- **Deliberately uncommitted:** `scores/tranceSB01.json`, `tranceSB01-2.json`,
+  `piece-s21…s24.json`, `reaper/7_tubas_rack.rpp` — composer's live work.
+- **Pending the composer:** 2aa's three open questions (11-vs-12 pitch
+  classes, cluster centre, loop default) · BALANCE 5 s close (unheard) ·
+  Fade-ladder audition (unheard) · sonority naming pass.
+- **For the next AI:** the composer works clicking-and-listening; keep the
+  panel ruthlessly v1. Do not build the deferred passes unprompted.
+
+---
+
 **DAY 15 CONTINUED — THE FADE LADDER WAS ALREADY BUILT; IT IS NOW VERIFIED AND
 TESTED. Claude Code / Opus 5.** 1 commit. `test_morph.js` 354/354 and
 `test_ladder.js` 54/54 (new); `model_bank --validate` VALID.
