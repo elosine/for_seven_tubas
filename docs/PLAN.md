@@ -362,9 +362,11 @@ composer → notation → performance architecture.)*
   (+23 ¢ at F2 → +57 ¢ at C4), which settles PLAN 2l's first question with a
   different answer than expected — bend is the vehicle, the patch is a colour.
 
-- **2z — GESTURE SHAPING** — `plan APPROVED 2026-08-16 (v2, after the design
-  session) — docs/plans/GESTURE_SHAPING.md — ready to implement; build BEFORE 2y,
-  never concurrently with it` *(was listed as 2x, colliding with the texture
+- **2z — GESTURE SHAPING** — `BUILT 2026-08-16 (day 12) — gates G0–G5 all
+  implemented and verified in the running app; the ONLY thing outstanding is
+  G5's listening battery, which is the composer's (variants G–N in the Morph
+  panel). docs/plans/GESTURE_SHAPING.md §15 records where the code corrected
+  the plan. 2y is now unblocked.` *(was listed as 2x, colliding with the texture
   sandbox below — two concurrent day-10 sessions both appended 2x; the sandbox
   keeps 2x, this is now 2z)* *(composer:
   "the meta shape is really the sound itself")*. A morph — or any gesture —

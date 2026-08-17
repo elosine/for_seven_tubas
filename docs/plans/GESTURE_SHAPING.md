@@ -559,3 +559,86 @@ predicts (no SEAM wall, any RANGE/EDGE_RING named).
    only.
 6. Where this plan and the code disagree, **the code's measured constants
    win** — then update this plan, so the next reader inherits the truth.
+
+---
+
+## 15 · BUILT — where the code corrected the plan (2026-08-16)
+
+> Implementer rule 6: where this plan and the code disagreed, the code's measured
+> behaviour won and the truth is recorded here. All gates G0–G5 built; **G5's
+> listening is the only part still owed, and it is the composer's.**
+> 297 assertions green (101 inherited + 196 new).
+
+**Constants the plan left to the implementation**
+
+- **`expo` is EASE-OUT, exponent 1/2.2** (`curveEase`). Reasoning worth keeping:
+  level is the score's 0–10 drawn height, which maps to CC7 across a 40 dB span,
+  so level-space is already roughly dB-space and a *linear* g(t) is already an
+  exponential amplitude envelope. `expo` therefore has to be more front-loaded
+  than linear to mean anything — as a release it is the expodec tail, as an
+  attack the instrumental bloom that arrives then settles.
+- **`sudden` holds the window's START value until the last 10 %, then moves** —
+  exactly as §5.1 specified. As an attack curve that reads as a delayed slam, so
+  it wants a short `attack.len`; the §7 vocabulary already says `len`↓.
+
+**Behaviours the plan did not anticipate**
+
+1. **Gain feeds back into breath.** `g(t)` shapes `level`, and `level` is what
+   `maxBreath()` reads — so a quiet attack lengthens the segments under it,
+   exactly as a quiet passage does for a real player. Correct physics, but it
+   means a shape is not a pure level overlay: it can move segment boundaries.
+   Pinned by assertion.
+2. **An edge technique forces a segment boundary**, because a player cannot
+   change technique mid-note. Implemented as a `boundaries` list in the carrier
+   schedule (the same "split, never truncate" rule the breath ceiling uses), and
+   only when `technique` is actually asked for. **Fixed one-shots are immune**
+   (D9: the sample decides its length; it rings past and is flagged EDGE_RING).
+3. **SWITCH fires on the RELEASE edge only.** The check is on switching *into* a
+   technique that needs preparing, so a `play_sing_ks` release edge flags (the
+   body hands over mid-gesture) and a `play_sing_ks` attack edge cannot — it is
+   the first thing the player does and there is nothing to prepare from. §5.3
+   predicted the flag but not its direction.
+4. **Dropout UNDER-drops rather than over-drops.** Cluster safety binds first, so
+   when cluster sizes do not divide the ask the achieved count is the largest
+   whole-cluster set at or below `fraction` — thinning more than the composer
+   said is the worse error. §12's "~3 of 8" is **2 of 8** (one whole pair) for
+   `fraction: 0.4` on four pairs. Achieved set is reported in
+   `meta.shape.dropped` and in the panel.
+5. **§12's `noise.len: 1.2` is ignored, with a warning.** Cuivre is a fixed
+   one-shot, so D9's sample length wins. `len` only applies to a sustain-class
+   noise technique. The worked example is otherwise reproduced exactly.
+6. **`SHAPE_CLAMP` has no note to live on** — it is a params-level condition. It
+   is emitted as a warning *and* counted in `summary.soft` so it shows in the
+   badge rather than scrolling away in the warning list.
+7. **G1's "byte-identical" gate needed splitting.** A unit-gain shape
+   (`from:1, peak:1, to:1`) reproduces the unshaped **levels** note for note —
+   that is the real invariant and it is asserted. Full-render byte-identity
+   against *no shape* does not hold in general, because a shape block also
+   changes the entry (`together` is its default, day 11). The no-shape identity
+   is what G0's twelve fixtures guard, and they are untouched.
+8. **The SEAM exemption is scoped to the designed attack and no wider.** A
+   lockstep carrier later in the span (`segVar: 0`, voices never de-phase) is a
+   real ensemble seam and stays flagged. Both halves are asserted, because
+   exempting too much is the same failure as flagging too much.
+
+**Two pre-existing bugs found by building this, both fixed**
+
+- **A 40-cent pitch error in the morph output.** `n.bend` is already
+  key-relative; `toScoreObjects` and `morph_emit.js` added the residual again.
+  `tools/morph_probe.js` and the unit test computed their expectations the same
+  way, so the day-10 "0.4 ¢" result verified the MIDI-to-audio chain and could
+  not have caught it. Fixed in all four; the convention is now asserted end to
+  end. **Consequence: 2v material with off-key onsets plays differently from day
+  10 — correctly, but differently.** Full write-up in `docs/NITS.md`.
+- **The panel carried the previous variant's dials across a variant switch**,
+  and it stuck. Variant N auditioned at A's span and A's seed. Every
+  cross-variant comparison in the panel was of the wrong thing, day 10 included.
+  Fields are now stamped `variant@rev`.
+
+**Verified in the running app** (scratch session; the research scores were
+checked byte-identical to HEAD afterwards): insert → drag +25 s → group-scale
+×0.75 → save → reload leaves all 40 note objects identical in pitch, technique,
+times, `morphBend` and level nodes; the two cuivre one-shots keep their sample
+lengths through the scale while the sustains scale (D9); marker and META shape
+are drawn (Principle 4); the Shape group renders 14 rows and 7 selects reading
+from the params file.
