@@ -631,6 +631,34 @@ never settled on the render alone).
 
 ## 16 · FOOTHOLDS — for the implementing model (read before any code)
 
+**Kickoff prompt** (the composer pastes this to start the implementing
+session):
+
+```text
+/session-start docs/plans/TEXTURE_SANDBOX_PLAN.md
+
+Implement PLAN 2x (TEXTURE SANDBOX). The plan is
+docs/plans/TEXTURE_SANDBOX_PLAN.md — follow it exactly, in phase order
+(0 → 4), stopping at each phase gate and verifying in the running app before
+moving on.
+
+Before any code: read docs/AI_METHODOLOGY.md (governing), then the plan's
+§16 FOOTHOLDS, then docs/plans/PHASE_SANDBOX_REQUIREMENTS.md for the
+evidence behind the design.
+
+Rails:
+- D29 is confirmed: attack fields only — no pitch bend anywhere in this build.
+- Another agent works in this same tree (2z/2y): git pull before every work
+  chunk; stage explicit paths only (never git add -A); push after each commit.
+- Test in the app under session name 'untitled'; never mutate piece-* or
+  archive scores.
+- Commit at phase gates referencing 2x. No time estimates — confidence and
+  risk instead. If a gate fails, report it plainly; never loosen a gate.
+- If a reuse target (morph_emit.js, the Morph panel patterns, the tonality
+  remap) proves unliftable, stop and say so — the fallbacks are pre-decided
+  in the plan.
+```
+
 Facts a cold session needs, verified 2026-08-16. If one of these proves wrong,
 stop and re-check rather than improvising around it.
 

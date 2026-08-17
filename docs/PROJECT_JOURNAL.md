@@ -622,12 +622,14 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   model-dependent, ~30 to 91 notes. In NITS; needs a real player's articulation
   rate, same evidence 2j and 2q are waiting on.
 
-- *(2026-08-16, day 10 — 2j)* **Two calls owed from you, both cheap, both before
-  the sandbox plan is commissioned.** (1) **Listen to `phase13-beatfield`**
-  (~2 min, MIDI only) — the upper boundary of beating and the register law by
-  ear. (2) **Decide the 2j/2v scope split (D29)** — 2v's M1 "detune bloom" is
-  already our pitch beating, so without a boundary the same engine gets built
-  twice. These are the only two things gating the texture-sandbox plan.
+- *(2026-08-16, day 10 — 2j; updated day 11)* **Two calls owed** → resolved as:
+  (1) `phase13-beatfield` listen **DEFERRED by the composer (day 11) — not
+  blocking 2x**; hear whenever; the verdicts (upper beating boundary, register
+  law by ear) feed 2v's dial boundaries / MORPH_FINDINGS, so it is not to be
+  raised again unprompted. (2) **D29 (2j/2v scope split): explained day 11,
+  awaiting the composer's one-word confirm** — the 2x plan (v3) assumes the
+  recommended split (2v keeps everything bend-based incl. pitch beating; 2x =
+  attack fields only).
 - *(2026-08-16, day 10 — 2j)* **Push policy changed (D30):** either agent pushes
   automatically after its own commit, staging explicit paths only. You should no
   longer have to track who owes a push.
