@@ -147,6 +147,12 @@
         padding: 4px 10px; font-family: 'Consolas', monospace; font-size: 18px;
         font-weight: bold; color: #333; text-align: center; min-width: 80px;
     }
+    /* seconds stay the primary readout at full size; m:ss rides underneath as a
+       much smaller secondary line (composer 2026-08-17) */
+    #floatingTime .ftMMSS {
+        display: block; font-size: 9px; font-weight: normal; color: #888;
+        line-height: 1.1; margin-top: 1px; letter-spacing: 0.3px;
+    }
 
     /* Bottom bar controls */
     #bottomBar {
@@ -1790,9 +1796,28 @@ const Composer = {
     },
 
     updateTimeDisplay(seconds) {
-        const secStr = Math.max(0, seconds).toFixed(2);
+        const t = Math.max(0, seconds);
+        const secStr = t.toFixed(2);
         this.timeDisplay.textContent = secStr;
-        if (this.floatingTime) this.floatingTime.textContent = secStr;
+        if (!this.floatingTime) return;
+        // Two lines: seconds at full size (unchanged), m:ss much smaller beneath.
+        // The spans are built ONCE and only their text is updated — this runs on
+        // every scroll frame, so rewriting innerHTML here would reparse HTML at
+        // frame rate and throw away the drag target the element carries.
+        if (!this._ftSec) {
+            this.floatingTime.textContent = '';
+            this._ftSec = document.createElement('span');
+            this._ftMMSS = document.createElement('span');
+            this._ftMMSS.className = 'ftMMSS';
+            this.floatingTime.appendChild(this._ftSec);
+            this.floatingTime.appendChild(this._ftMMSS);
+        }
+        this._ftSec.textContent = secStr;
+        // FLOOR, not round: 119.99 s reads 1:59 next to "119.99", where rounding
+        // would show 2:00 beside it and look like a bug.
+        const whole = Math.floor(t);
+        this._ftMMSS.textContent = Math.floor(whole / 60) + ':' +
+            String(whole % 60).padStart(2, '0');
     },
 
     getTimeAtPlayhead() {

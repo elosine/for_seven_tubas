@@ -10,6 +10,87 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**CHECKPOINT (2026-08-17, day 14 — THE BLIP IS GONE; THE MORPH IS READY TO
+PLACE; Claude Code / Opus 5 + Fable 5).** Mid-session checkpoint before a chat
+clear. 5 commits, all pushed. `test_morph.js` 354/354, fixtures untouched;
+`model_bank.js --validate` VALID.
+
+- **THE BLIP IS SOLVED, AND IT WAS TIMING, NOT VALUES.** Composer: *"Blip
+  gone."* Day 13 fixed the CC7 *values* (24 → 0) and velocity; what was never
+  tested was **CC7 moving while sound is present**. The opening CC7 had ~2–5 ms
+  of real lead (the "synchronous" arm fires at play-press, the note-on on the
+  next timer tick), so a sampler smoothing CC7 still had the channel near the
+  stop-restored 127 when the note spoke — and `panic()` restored CC7=127 *in the
+  same instant* as the note-offs, yanking the 0.69 s tail. **The composer's
+  keyboard counter-evidence was the discriminator all along:** a keyboard note
+  involves no CC7 movement near its note-on, so it has no bite. Fix:
+  `CC_LEAD_MS 250` schedule shift with a cold-vs-warm entry test, and the CC7
+  restore delayed `TAIL_MS 2000`, per-channel, cancelled on re-arm. Law recorded
+  in `MORPH_FINDINGS.md`; **D36's velocity inference is consequently unsupported
+  again** (see its addendum) — 2q's listening test is undecided, not settled.
+- **`ACT-BLOOM-02` SAVED AND BANKED** — *"BEATING BLOOM, 108 s 001"*, the first
+  post-save-fix, post-blip-fix actual. 106 notes / 8 voices / 113.9 s, BLOOM seed
+  11, dials slower-longer 0.76 + more dramatic 0.55, preset `fade-in-3s` with
+  attack 9 s, carrier {span 48, duration 90, release 18}. Stale `ACT-BLOOM-01`
+  deleted by the composer and de-referenced.
+- **A BUG THAT HAD BEEN THERE SINCE 2v: EVERY MORPH INSERT LANDED AT t=0.** All
+  three panels read `C.playheadTime` / `C.currentTime`, **neither of which has
+  ever existed on `Composer`** (confirmed undefined live), so the expression fell
+  to 0 always. The composer placed at ~142 s, saw nothing, placed again, and only
+  the conflict badge moved — both groups were sitting on DB1. Fixed to
+  `getTimeAtPlayhead()` in both morph paths and (latent) the texture panel.
+  **Verified in the running app: placed at 142.0 s → `firstStart 142.000`, and
+  108/108 objects present in the DOM after render.**
+- **THE NOTATION DATA WALK IS DONE AND CLEAN** (the composer's ask, done against
+  their graphic-layer dictation). Everything the part scores and the conductor's
+  graphic need is present or derivable — full findings in RUNNING_LOG day 14.
+  **Two things to carry:** place morphs from the **ACTUALs tab** (it logs
+  placements and the group id names the ACTUAL; scratch Insert is anonymous), and
+  **notation reads the ACTUAL + placement offset**, not the score objects alone
+  (per-note BREATH/SEAM flags do not survive into objects — FR-7).
+- **THE COMPOSER'S TWO BIG NOTES, both filed verbatim in COMPOSER_LOG day 14:**
+  (1) **a GRAPHIC LAYER in the full score** — beating acceleration, how many
+  layers of beating, *which players beat against which* — so a conductor can
+  rehearse and shape what the part notation cannot show; part scores get a
+  pitch/crescendo curve, colour for playing/breathing/rearticulating, and spot
+  dynamics. (2) **the FINAL SECTION: a pulsed, Ghost-Trance-like field** —
+  continuous pulse notated *and* coloured, pitch material single pitches → pitch
+  sets → tone rows, with multi-tempo bursts and phase-shifting sections
+  **cross-cut** in.
+- **FR-7 / FR-8 / FR-9 spec'd, none built** (D35). FR-7 flags-into-objects
+  (composer chose: build at the notation pass). **FR-8 part doubling** — measured:
+  all six models use 8 pitches, so 2 of 10 players are idle; **but the 8 are
+  already 4 doubled pitches and that pairing IS the beating mechanism**, so three
+  materially different readings are on the table and the composer picks.
+  **FR-9 phase-shifting at a tempo** — read from the source, the texture engine
+  already has rate(t) by phase integration, per-voice `phase0` and a beat-displaced
+  grid, so the gap is likely the interface, not machinery.
+- **Time readout:** seconds unchanged (18 px, 2 dp) with **m:ss added beneath at
+  9 px**, floored so 119.99 reads 1:59.
+
+**Next up:** **place `ACT-BLOOM-02` into the piece** — that is the live task.
+Then the composer's stated order: audition attack lengths with the **Fade ladder**
+(new panel row: renders N attack lengths back-to-back in ONE play session), then
+3–5 morph objects for the section.
+
+**Open at session end (day 14):**
+- **`piece-s18-work.json` STILL HOLDS TWO JUNK GROUPS** (`grp-morph-01/02`, 36
+  objects each at 0–30 s, on top of DB1) from the t=0 bug. **`piece-s18.json` is
+  untouched and intact (906 objects, nothing missing)** — D10's working-copy rule
+  held. Recovery: open `piece-s18` → **Cancel** at the prompt (*Cancel* = discard,
+  *OK* = resume the junk; the composer misread it once, which is the defect
+  below) → **then CTRL+S immediately**, because choosing "fresh" does not itself
+  overwrite the stale work file, so a reload offers the junk back.
+- **PROPOSED, NOT BUILT, NO GO GIVEN:** (1) make "start fresh" write the clean
+  working copy at once — the actual defect, since the choice does not persist;
+  (2) replace the OK/Cancel `confirm()` with a dialog whose buttons say
+  *Resume edits* / *Discard and start fresh*.
+- The AI told the composer to click a **"place"** button that did not exist (both
+  buttons read `insert @ cursor`), which is what sent the clicks down the scratch
+  path. Relabelled `place @ cursor`.
+
+---
+
 **SESSION END (2026-08-17, day 13 — MORPH CYCLING BUILT; SPEC LEDGER OPENED;
 Claude Code / Opus 5).** 17 commits, all pushed. `node tools/test_morph.js` =
 **354 passed, 0 failed, fixtures NEVER regenerated** — every pre-existing render
@@ -98,114 +179,26 @@ is byte-identical.
 
 ---
 
-**SESSION END (2026-08-16/17, day 12 — PLAN 2x TEXTURE SANDBOX BUILT END TO END,
-Claude Code / Opus 5 — a SECOND, concurrent session; the 2z+2y entry below ran
-at the same time in the same tree):**
-
-- **ALL FIVE PHASES BUILT AND PUSHED** (`356565e` → `039716c`), **317
-  assertions**, Phase 0's nine-score byte-identity corpus intact through every
-  later phase. `Texture` button beside `Morph`; pure engine
-  `score/public/texture_engine.js` loads in node and the browser from one file.
-  Per-phase results, gate evidence and both flagged deviations are recorded in
-  `docs/plans/TEXTURE_SANDBOX_PLAN.md` §13 — **read that, not this, for detail.**
-- **WHAT IS LEFT IS LISTENING (slate in §6). Nothing has been heard by anyone** —
-  Web MIDI is denied in the preview pane, so every claim is a *data* claim. All
-  five models read `UNHEARD` and refuse to be banked as keepers; the gate has no
-  `--force`, and no verdict was fabricated (the flow was exercised under a
-  throwaway name and the artifacts deleted).
-- **THE FINDING THAT REACHES PAST THE SANDBOX (MEASURED): the 23/s density
-  ceiling is C3-SPECIFIC.** All 13 phase-shifting experiments used ten players on
-  one C3 — and C3 (0.42 s) is the **10th shortest** of the 36 measured staccato
-  samples. The ring runs 0.33–0.53 s and is **not monotonic** in pitch (2n's
-  sawtooth), so it cannot be reasoned about by register. Any real pitch set drops
-  the ceiling to **18.9–20.8/s**, so a texture calibrated by ear at unison C3 is
-  **~18 % too dense once it has pitches** — and the mock-up plays the difference
-  perfectly cleanly (2r). The engine now **computes** the ceiling per render.
-  Per-set table in `bank/texture_models.json`. *Also: jitter alone can push a
-  texture past the ring, so density by itself never says whether it is playable.*
-- **Four defects found by RUNNING it, none by reading it:** seed stepping was
-  silently dead (hardcoded jitter PRNG — R5's whole question answered itself, and
-  **150 assertions had not caught it** → **Principle 6**) · the params file's
-  `active` was ignored on a rev bump, so the AI could say "hear B" while the
-  composer sat on A (inherited from 2v's panel; fixed here, filed there) ·
-  `E.onStop` is one slot both panels share, so a plain assignment froze the Morph
-  panel's Play button · **the conflict badge is structurally ring-blind** (D17
-  compares WRITTEN bounds, so 10 players re-attacking every 0.30 s against a
-  0.42 s ring reads `0 hard`) — now its own loud indicator, not a forked law.
-- **Two reuse targets did not lift, both flagged not improvised (§17):**
-  `EMIT.play()` is bend + per-frame-CC7 driven where a texture note is plain
-  velocity with CC7 pinned, so EMIT's routing/registry/`panic()` are reused
-  verbatim and only the ~20-line scheduler is local (the plan's pre-decided
-  fallback, improved); and the actuals store had to go parallel → **D33**.
-
-**Next up (2x):** the §6 listening slate — that is the entire remaining scope.
-The crossover battery's answer then goes back into `bank/texture_models.json` as
-data (it updates TICKS/GROOVE); keepers bank via `tools/texture_bank.js`.
-
-**Open at session end (day 12 — 2x):** `phase01-8th` / `phase02-*` cannot be
-regenerated by the current sweep CLI (per-stage `performanceNotes` a past
-refactor stopped emitting) — **verified pre-existing at HEAD**, not caused by the
-extraction, in NITS, and the committed scores are the heard artefacts so they must
-not be "repaired". The `crossover` process is built and unrun. 2y/2z's files were
-left untouched except the one case under **Principle 7**.
-
----
-
-**SESSION END (2026-08-16, day 12 — 2z BUILT, 2y MA0–MA3 BUILT, Claude Code):**
-*(A second agent worked 2x TEXTURE SANDBOX in this same tree all session.)*
-
-- **PLAN 2z GESTURE SHAPING IS BUILT** — gates G0–G5. Gesture-level ADSR gain
-  multiplying the D24 dynamics layer · entry/exit scheduling · cluster-safe
-  dropout · edge technique / transient / noise layer · motion with zero-at-the-
-  inner-edge by construction · Shape group in the panel. **331 engine
-  assertions** (from 101). App round-trip verified: insert → drag → group-scale
-  ×0.75 → save → reload is byte-identical, and D9 holds through the scale.
-- **THE COMPOSER'S VERDICT ON THE SHAPES (day 12, and it redirects the work):**
-  *"Those aren't really working as auditory models, as sound models, but that's
-  okay… So it's correct as an engine."* The mechanisms are right; the generic
-  preset SETTINGS were guesses. **New working mode → D31: bespoke, one morph at
-  a time, lessons harvested into `docs/SHAPE_LESSONS.md`.** The engine gets
-  revisited later, from accumulated evidence, not now.
-- **TWO PRE-EXISTING 2v BUGS FOUND AND FIXED, both by measurement:**
-  (1) **morph pitch was out by up to 40.2 ¢** on any note whose onset sat off
-  its played key — `n.bend` is already key-relative and both `toScoreObjects`
-  and `morph_emit.js` added the residual again. `morph_probe.js` and the unit
-  test computed their expectations the same way, so day-10's *"within 0.4 ¢"*
-  verified the MIDI→audio chain while agreeing with the error (→ **Principle 5**).
-  (2) **the panel carried the previous variant's dials across a switch**, and it
-  stuck. **Consequence: every day-10 comparison between variants was of the
-  wrong thing, and the pitches were slightly off. The material is still good.**
-- **PLAN 2y MODEL ↔ ACTUAL: MA0–MA3 BUILT.** Model store (6 models, 26 recipes)
-  · validator written first and negative-tested against 8 defects · recipe
-  engine (`applyRecipe`/`resolveParams`) · one shared save path for CLI and
-  panel · `/api/actuals` routes · panel with MODELS / scratch / ACTUALs, recipe
-  sliders, seed stepper, Save as ACTUAL, browser. Full loop verified in the app.
-  **→ D32: a recipe dial is OFF until turned.**
-- **The actuals shelf is deliberately EMPTY.** Three were made while testing and
-  deleted: an ACTUAL is *a render the composer decided*.
-
-**Next up:** **MA4 — the composer's session, and it is the only gate left on
-2y.** (1) Rename the six placeholder model ids (BALANCE / COLOUR / BLOOM /
-CONVERGE / SPACING / SPECTRAL) — cheap now, expensive once actuals reference
-them. (2) Bless or edit the recipe slates and boundaries. (3) Make the first
-real actuals and place them. Composer's stated plan: **start with score
-placement.** Then the bespoke-shaping loop per D31, filing to SHAPE_LESSONS.md.
-
-**Open at session end (day 12):**
-- **The ACTUALs "hear" button is unverified FOR SOUND.** Its data path is
-  checked (the emit layer receives the stored `notes` byte-identical, every note
-  resolves to a lane, envelopes intact) but Web MIDI is denied in the preview
-  pane, so nobody has heard it. First thing to try in the composer's browser.
-- **Re-hear the six seeded models before blessing names at MA4** — they were
-  auditioned through both bugs above. Each model carries this note in its
-  `notes` field.
-- 2z's G5 battery (variants G–N in `morph_params.json`) has served its purpose
-  and can be cleared whenever it is in the way; the verdict is recorded above
-  and in SHAPE_LESSONS.md lesson 0.
-- The other agent's 2x work was mid-flight in `clusterview.html`, `tonality.js`
-  and `scores/piece-s18.json` — **not mine, left untouched.**
-
-**Blockers:** none.
+- **Day 12 (08-16/17), two concurrent sessions in one tree.** **2x TEXTURE
+  SANDBOX built end to end** (317 assertions; `Texture` button; detail in
+  `docs/plans/TEXTURE_SANDBOX_PLAN.md` §13). Its finding that reaches past the
+  sandbox, MEASURED: **the 23/s density ceiling is C3-SPECIFIC** — any real pitch
+  set drops it to 18.9–20.8/s, so a texture calibrated by ear at unison C3 is
+  ~18 % too dense once it has pitches; the engine now computes the ceiling per
+  render. Four defects found by RUNNING it, none by reading (dead seed stepping
+  → **Principle 6**; `active` ignored on rev bump; shared `E.onStop`; the
+  conflict badge is structurally ring-blind). → **D33** (parallel texture actuals
+  store). **2z GESTURE SHAPING built** (331 assertions) and **2y MA0–MA3 built**
+  (model store, validator, recipe engine, ACTUALs panel → **D32**). The
+  composer's verdict on 2z's generic shapes — *"correct as an engine"* but not as
+  sound models — set **D31: bespoke, one morph at a time**. Two pre-existing 2v
+  bugs fixed by measurement: **pitch out by up to 40.2 ¢** on off-key onsets
+  (→ **Principle 5**) and the panel carrying the previous variant's dials across
+  a switch, which made every day-10 cross-variant comparison invalid.
+  **Still open, and all of it is in §6 Human Notes:** the entire 2x listening
+  slate (nothing has been heard by anyone), MA4 (rename the six placeholder model
+  ids before actuals reference them; bless the recipe slates), and re-hearing the
+  six models now that both bugs are fixed.
 
 ---
 

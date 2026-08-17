@@ -1900,3 +1900,17 @@ running app that the object landed WHERE it was asked for, not merely that it wa
 created. A unit test on `insertActual` would have asserted the offset arithmetic
 against the same absent property and passed (Principle 5's mirror). What caught
 it was a number the composer could see: 142.
+
+**Time readout (composer request, day 14):** the floating readout on the cursor
+keeps its seconds line unchanged (18 px, two decimals) and gains **m:ss beneath
+it at 9 px**, grey, no decimals. Floored rather than rounded so 119.99 reads
+1:59 next to `119.99` instead of 2:00. Spans are built once and only their
+text updates — this runs every scroll frame, so rewriting innerHTML there would
+reparse HTML at frame rate and discard the element's drag target. Verified in
+the running app across 0 / 7.35 / 59.99 / 60 / 119.99 / 142.07 / 255.919 /
+605.5 s, with the drag cursor and child count intact.
+
+**CHECKPOINT — chat cleared here (day 14).** All work committed and pushed;
+journal §2 carries a full day-14 entry written for a cold session, and §2's two
+long day-12 blocks were compressed to one entry (their detail lives in the plan
+docs §13 and their open items in §6, verified present before trimming).
