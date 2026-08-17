@@ -1,6 +1,6 @@
 {
   "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
-  "rev": 7,
+  "rev": 8,
   "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
   "models": {
     "BALANCE": {
@@ -177,7 +177,9 @@
           "boundsFrom": "measured 2026-08-17 (day 15): release 3/5/8/12 all land every voice on the 0.4 floor (1% of peak). `carrier.duration` is deliberately NOT patched — pinning it would make the `slower / longer` recipe switch cycling ON below span 30 (span 10 renders 42.9 s instead of 18.7 s)."
         }
       ],
-      "actuals": [],
+      "actuals": [
+        "ACT-BALANCE-01"
+      ],
       "seededFrom": "bank/morph_recipes.json slot A"
     },
     "COLOUR": {

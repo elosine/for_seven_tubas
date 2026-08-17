@@ -10,6 +10,81 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**CHECKPOINT (2026-08-17, day 15 — THREE MORPHS IN THE PIECE (8:16); TWO EAR-BUGS
+FIXED; THE CLEAR CYCLE SPLIT IN TWO. Claude Code / Opus 5) — (mid-session
+checkpoint).** 3 commits, all pushed. `test_morph.js` 354/354, fixtures never
+regenerated; `model_bank --validate` VALID.
+
+- **THE COMPOSER PLACED TWO MORE MORPHS, and the piece is now 8:16.**
+  `piece-s23` (1236 objects, **496.6 s**) carries all three of their own
+  actuals: `ACT-BLOOM-01` "JYBloom001", `ACT-CONVERGE-01` "JYConverge001" and
+  `ACT-BALANCE-01` "jyBalance001" (110 notes). `piece-s24` exists and was not
+  inspected. **That is 55 % of the 15-minute Penn State ceiling** — the length
+  of anything further is now a formal decision, and the final pulsed section and
+  the remaining morphs compete for the same ~6:45.
+- **"THE BALANCE MORPH SEEMS TO END MORE ABRUPTLY THAN THE OTHERS" — true, and
+  it was never a bug in code.** Measured: BALANCE cut at **97 % of its own peak**
+  (mean voice level 7.5/10, all 8 sounding) against **29–59 %** for the other
+  five. Every legacy render chops all voices at the span; only the LEVEL at the
+  chop differs, and that is `dynLevel`'s shape. `swell` is an arch whose ends ARE
+  its trough; `rotate` is a full turn that returns to exactly where it began
+  (p=0 and p=1 give identical levels). BALANCE is the only model on `rotate` —
+  that IS M6's identity. **Control, symmetric:** BALANCE on `swell` → 49 %,
+  BLOOM on `rotate` → 100 %. **Same root as the day-13 release bug, on the path
+  day 13 did not cover** (`relFade` only guards inside a release; a stock model
+  has none). **Fixed in DATA:** `BALANCE.baseParams.carrier.release: 5` + a
+  `close it` recipe (0 → 12 s, OFF until turned). Dial 0 restores the old hard
+  stop exactly. **`carrier.duration` must never be patched by that recipe** —
+  pinning it makes `slower / longer` switch cycling ON below span 30 (span 10
+  → 42.9 s instead of 18.7 s). Full record: `MORPH_FINDINGS.md` "The ending law".
+  *Not heard yet — whether 5 s is the right close is the composer's call.*
+- **THE TIME READOUT REGRESSION, and it was not styling.** The hover-for-px/s
+  handler (2026-08-14) assigns `floatingTime.textContent`, which DELETES the two
+  spans the m:ss line added on 08-17. `el._time` had saved their concatenation
+  (`"142.072:22"`), so mouseleave restored one flat 18 px node — and `_ftSec` /
+  `_ftMMSS` still pointed at detached spans, so **the readout froze until
+  reload**. Day 14 verified eight times but never hovered. Fixed: the px/s
+  overlay is its own `.ftZoom` span, shown by hiding the other two;
+  `updateTimeDisplay` now rebuilds if its spans were detached. Verified in a
+  standalone browser harness (old froze at `158.322:38`; new advanced
+  158.32 → 166.51 with all three spans intact).
+- **THE CLEAR CYCLE IS NOW TWO CYCLES** — composer's question, *"can we have a
+  preclear and a postclear protocol?"* Subject changed → `/session-end` ·
+  `/clear` · `/session-start`. Same task, long chat → **`/checkpoint` · `/clear`
+  · `/resume`** (new, in this repo's `.claude/commands/`; the rationale is
+  `SESSION_HYGIENE.md` § The two boundaries). The commands are canonical for
+  their own steps. **Note the split:** `session-start` / `session-end` still live
+  in piece #2's repo, which is reference-only — the composer may want all four
+  moved to `~/.claude/commands/`, undecided.
+- **`PLANNER.md`'s `NOW ►` was six days and two morphs stale** (still "piece-s17,
+  135.8 s, next: scope 2z and 2y"). Refreshed. `/checkpoint` step 2 now exists
+  specifically to stop that recurring, because `/resume` reads that line.
+
+**Next up — the composer's stated order, unchanged:**
+1. **BUILD THE FADE LADDER.** A new row in the Morph panel that renders N attack
+   lengths **back-to-back in ONE play session**, so a press-edge artifact can hit
+   at most the first rung. This is the concrete next step; nothing is started.
+2. Then the **notation pass** — FR-7, D3's performer transform and the 0–10 →
+   dynamic-mark convention all come due there.
+
+**Open at session end (day 15):**
+- **DELIBERATELY UNCOMMITTED, do not "clean up":** `scores/piece-s21.json`,
+  `s22`, `s23`, `s24` and `reaper/7_tubas_rack.rpp` are the composer's live work,
+  saved from the app while this session ran. `bank/actuals/ACT-BALANCE-01.json`
+  and `ACT-CONVERGE-01.json` WERE committed, only because
+  `bank/morph_models.json` already referenced them and committing the store
+  without them would leave dangling actuals.
+- **Pending the composer:** whether 5 s is the right stock close for BALANCE
+  (unheard) · **FR-8's three readings** of part doubling · whether to move the
+  session commands to `~/.claude/commands/` so all four live together.
+- **Filed but not started:** the pulsed section's *"close 10 note cluster that
+  opens out to spread chords on beat"*, and *"come back to the last morph and try
+  to release on the consonant clear chord"* — the latter is a release-TARGET
+  question; `shape.release.motion` has `to-unison` but no arbitrary-target
+  voicing. Both in COMPOSER_LOG day 15 + PLANNER.
+
+---
+
 **CHECKPOINT (2026-08-17, day 14 — THE BLIP IS GONE; THE MORPH IS READY TO
 PLACE; Claude Code / Opus 5 + Fable 5).** Mid-session checkpoint before a chat
 clear. 5 commits, all pushed. `test_morph.js` 354/354, fixtures untouched;
