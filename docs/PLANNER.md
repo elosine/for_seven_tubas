@@ -269,3 +269,29 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   **The piece now runs to 4:15**, from 2:16. Against the 15-minute ceiling one
   morph is ~14 % of the piece — so the length of the remaining 3–5 is now a
   live formal question, not a hypothetical one.
+
+- **2026-08-17 (day 15) — pulsed section, pitch device (composer):** *"close 10
+  note cluster that opens out to spread chords on beat."* A ten-note cluster —
+  one pitch per player, so all ten are employed — opening outward into spread
+  voicings, **on the beat**, pulse by pulse. Registrally this is M5 SPACING
+  MIGRATION's motion, but quantised to the pulse rather than glissed, so it is a
+  voicing-series question, not a morph. Also worth noting it sidesteps FR-8 for
+  this section: ten distinct pitches means nobody is idle.
+
+- **2026-08-17 (day 15) — how the last morph should end (composer, "if I have
+  time"):** *"come back to the last morph and try to release on the consonant
+  clear chord."* The release lands on a named consonant sonority instead of
+  dissolving. **Partly built:** `shape.release.motion.type = 'to-unison'`
+  already unwinds the model's deviation back to each voice's starting pitch.
+  **Not built:** a release motion that travels to an ARBITRARY target voicing.
+  Same evening's work made the level side of a release reliable regardless of
+  dynamics shape (MORPH_FINDINGS "The ending law"), so this is now a pitch-target
+  question only.
+
+- **2026-08-17 (day 15) — the floating time readout regression, fixed.** The
+  hover-for-px/s handler (2026-08-14) assigned `floatingTime.textContent`, which
+  deleted the two spans the m:ss line added on 08-17 — and `el._time` had saved
+  their concatenation, so leaving the element restored `"142.072:22"` as one flat
+  18 px node and every later update wrote into detached spans (the readout froze
+  until reload). Reproduced and fixed in a standalone browser harness. The px/s
+  overlay is now its own span, shown by hiding the other two.

@@ -931,3 +931,30 @@ to play."*
 
 *(Filed: form → PLANNER final-section entry · the two engineering asks → FR-8
 (part doubling in morphs) and FR-9 (phase-shifting at a given tempo).)*
+
+## 2026-08-17 (day 15) — two notes in passing
+
+**For the pulsed (final) section — the opening-out device:**
+
+*"note for pulsed section: close 10 note cluster that opens out to spread chords
+on beat"*
+
+*(Filed: PLANNER final-section entry, as a pitch-material device for the
+Ghost-Trance-like field. Reads as the registral inverse of M5 SPACING
+MIGRATION — but ON THE BEAT and pulsed, not a continuous gliss, so it is a
+voicing-per-pulse question rather than a morph. Ten notes = all ten players,
+one each, which also answers FR-8's "everyone has something to play" for this
+section without needing doubling.)*
+
+**For the morph section — how the last one should end:**
+
+*"If I have time, come back to the last morph and try to release on the
+consonant clear cord."*
+
+*(Filed: PLANNER. Note this is a RELEASE-TARGET question, and the machinery is
+already there — `shape.release.motion` has a `to-unison` type that unwinds the
+model's deviation back to the voice's starting pitch, which is the same shape of
+operation as landing on a named consonant chord. What does not exist is a
+release motion that travels to an ARBITRARY target voicing. Worth scoping
+before the notation pass; see docs/MORPH_FINDINGS.md "The ending law" for how
+the level side of a release now behaves.)*

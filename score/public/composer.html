@@ -153,6 +153,13 @@
         display: block; font-size: 9px; font-weight: normal; color: #888;
         line-height: 1.1; margin-top: 1px; letter-spacing: 0.3px;
     }
+    /* The hover px/s readout is its OWN span, shown by hiding the other two.
+       It used to be written with `el.textContent = ...`, which deleted both
+       spans above — textContent on the pair reads back as the concatenation
+       ("142.072:22"), so mouseleave restored that as one flat 18 px node and
+       every later update went into detached nodes (composer 2026-08-17: "it's
+       just all in the big font right next to each other"). */
+    #floatingTime .ftZoom { display: none; color: #2a6faa; }
 
     /* Bottom bar controls */
     #bottomBar {
@@ -1800,17 +1807,28 @@ const Composer = {
         const secStr = t.toFixed(2);
         this.timeDisplay.textContent = secStr;
         if (!this.floatingTime) return;
-        // Two lines: seconds at full size (unchanged), m:ss much smaller beneath.
+        // Two lines: seconds at full size (unchanged), m:ss much smaller beneath,
+        // plus the hover px/s span that rides hidden behind them.
         // The spans are built ONCE and only their text is updated — this runs on
         // every scroll frame, so rewriting innerHTML here would reparse HTML at
         // frame rate and throw away the drag target the element carries.
-        if (!this._ftSec) {
+        //
+        // AND IT REBUILDS IF THEY WERE DETACHED. Any code that assigns
+        // `floatingTime.textContent` removes these spans while the references
+        // above stay valid, so every later update would write into orphans and
+        // the readout would freeze until reload — which is exactly what the
+        // hover handler did for three days. The parent check makes that class of
+        // mistake cost one frame instead of the whole feature.
+        if (!this._ftSec || this._ftSec.parentNode !== this.floatingTime) {
             this.floatingTime.textContent = '';
             this._ftSec = document.createElement('span');
             this._ftMMSS = document.createElement('span');
+            this._ftZoom = document.createElement('span');
             this._ftMMSS.className = 'ftMMSS';
+            this._ftZoom.className = 'ftZoom';
             this.floatingTime.appendChild(this._ftSec);
             this.floatingTime.appendChild(this._ftMMSS);
+            this.floatingTime.appendChild(this._ftZoom);
         }
         this._ftSec.textContent = secStr;
         // FLOOR, not round: 119.99 s reads 1:59 next to "119.99", where rounding
@@ -12400,19 +12418,28 @@ const Composer = {
         if (!el) return;
         // the retired top-bar zoom controls live here now (composer 2026-08-14):
         // HOVER shows px/s, DOUBLE-CLICK resets the zoom
-        el.addEventListener('mouseenter', () => {
-            el._time = el.textContent;
-            el.textContent = Math.round(this.pixelsPerSecond) + ' px/s';
-            el.style.color = '#2a6faa';
-        });
-        el.addEventListener('mouseleave', () => {
-            if (el._time != null) el.textContent = el._time;
-            el.style.color = '#333';
-        });
+        //
+        // SHOW AND HIDE SPANS, NEVER ASSIGN textContent HERE. This element has
+        // held two children since the m:ss line landed (2026-08-17), and
+        // `el.textContent = x` deletes them: the saved `el._time` was really the
+        // concatenation of both ("142.072:22"), so mouseleave restored one flat
+        // 18 px node and updateTimeDisplay then wrote into detached spans
+        // forever. Toggling display leaves the real readout live underneath, so
+        // the time keeps updating while you hover and is CURRENT — not a stale
+        // snapshot — the moment you leave.
+        const showZoom = (on) => {
+            this.updateTimeDisplay(this.getTimeAtPlayhead());   // ensure spans exist
+            this._ftZoom.textContent = Math.round(this.pixelsPerSecond) + ' px/s';
+            this._ftZoom.style.display = on ? 'inline' : '';
+            this._ftSec.style.display = on ? 'none' : '';
+            this._ftMMSS.style.display = on ? 'none' : '';
+        };
+        el.addEventListener('mouseenter', () => showZoom(true));
+        el.addEventListener('mouseleave', () => showZoom(false));
         el.addEventListener('dblclick', (e) => {
             e.preventDefault(); e.stopPropagation();
             this.resetZoom();
-            el.textContent = Math.round(this.pixelsPerSecond) + ' px/s';
+            showZoom(true);          // the pointer is still over it
         });
         let dragging = false;
         let startY = 0;
