@@ -9,10 +9,12 @@
 > **PLAN id: 2x** (the same-day 2x collision was resolved by the parallel
 > session: GESTURE SHAPING took 2z, MODEL↔ACTUAL is 2y, so 2x is uniquely this).
 >
-> **Standing assumption (D29, composer to confirm before build):** the scope
-> split is as recommended — **2v owns everything bend-based, including pitch
-> beating; this sandbox owns ATTACK FIELDS only** (density · scatter · jitter ·
-> spread · voices · articulation, plus a pitch layer over the attacks).
+> **D29 — CONFIRMED by the composer 2026-08-16.** The scope split is settled:
+> **2v owns everything bend-based, including pitch beating; this sandbox owns
+> ATTACK FIELDS only** (density · scatter · jitter · spread · voices ·
+> articulation, plus a pitch layer over the attacks). **No pitch bend anywhere
+> in this build** — if a texture seems to want beating, that is 2v's Morph
+> panel, and the two layer freely in the score.
 >
 > **Composer rulings from review round 1 (bind this plan):**
 > 1. **The interface is QUALITATIVE.** The composer speaks the texture

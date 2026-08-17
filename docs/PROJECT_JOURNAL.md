@@ -10,6 +10,64 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**SESSION END (2026-08-16, day 11 — PLANNING session for 2x TEXTURE SANDBOX,
+Claude Code / Fable 5 — a SECOND, concurrent session; the 2z+2y entry below ran
+at the same time):**
+- **PLAN 2x is DRAFTED, REVIEWED and APPROVED — `docs/plans/TEXTURE_SANDBOX_PLAN.md`
+  (v3).** Built from day-10's `PHASE_SANDBOX_REQUIREMENTS.md`; one composer
+  review round reshaped it, then a handoff-hardening pass. **Ready to
+  implement; the kickoff prompt is embedded in the plan's §16.**
+- **D29 IS CONFIRMED by the composer** (see §4): 2v owns everything bend-based
+  including pitch beating; **2x owns ATTACK FIELDS only**. No bend anywhere in
+  the 2x build. This was the one thing gating the plan.
+- **The composer's four design rulings, all now in the plan:**
+  1. **The interface is QUALITATIVE** — the composer speaks the vocabulary
+     (*"more rain-like", "a different gallop", "quicker, more exponential
+     build"*) and **the AI holds the recipes** that turn words into dial moves.
+     One-dial feel, never a wall of knobs. Two-sided contract so it never goes
+     opaque: every AI-written variant label names the dials it moved.
+  2. **No separate page** — a **Texture panel in the composer score** (the
+     Morph-panel pattern), plus ordinary `tex-` score files for long renders.
+     Audition reuses **2v's `morph_emit.js`** (a texture note is its no-bend
+     case); no new scheduler.
+  3. **No editor** — AI manages all editing by regeneration (R10).
+  4. **Both creation modes are first-class:** the quick panel loop AND the
+     long-render-then-**POCKET** workflow (*"render a long phase shift, I
+     listen, I give time clips"*) — pockets are **parametric first**
+     (regenerate the window's dial state as a new MODEL, still tweakable),
+     with literal clipping as the fallback.
+- **Storage follows 2y's MODEL ↔ ACTUAL taxonomy** (the composer's Bergsonian
+  virtual/actual): the five categories (**smear · ticks · rain · gallop ·
+  groove**) ship as the first five MODELS in `bank/texture_models.json`;
+  actuals go to `bank/actuals/` with provenance. Parallel files to 2y's —
+  never shared writes.
+- **The research method's two confounds became FEATURES:** seed stepping
+  (draw variance — at ten voices a setting is a lottery, not a texture) and
+  **PIN / A-B** back-to-back flipping (order effects), plus **H** = the
+  humanize A/B (stage scatter + human jitter), with a **robustness verdict
+  required before any keeper can be banked**.
+- **Handoff-hardened for a weaker model** (the composer's standing
+  instruction): §16 FOOTHOLDS carries the environment facts (no npm / no node
+  MIDI binding), string anchors for every file touched, the `Composer`
+  lexical-global trap, markers-in-`objects`, the lane-assignment rule, the
+  curve schema, a **worked example with expected numbers**, and the
+  literal-pocket determinism subtlety (regenerate the full render and slice —
+  never re-seed a short one). No probe phase exists, so 2v's hardest area is
+  absent by construction.
+- **Phase 0's gate is the regression suite:** regenerate `phase07-scatter`
+  through the extracted engine and get a **byte-identical `objects` array**.
+  The 13 research scores are the safety net for the extraction.
+
+**Next up (2x):** implement with the §16 kickoff prompt, phases 0 → 4.
+**Coordination:** 2z implements first in the same tree — the 2x implementer
+pulls before every chunk and anchors `composer.html` edits by ids/strings.
+
+**Open at session end (day 11 — 2x):** nothing in-flight; the plan is
+self-contained. `phase13-beatfield` is **DEFERRED by the composer** — not
+blocking 2x; its verdicts feed 2v's beating boundaries whenever it is heard.
+
+---
+
 **SESSION END (2026-08-16, day 11 — PLANNING session for 2z + 2y, Claude Code):**
 - **Both follow-on plans are DRAFTED, DISCUSSED (two design rounds with the
   composer) and APPROVED:** **2z GESTURE SHAPING**
@@ -46,6 +104,8 @@ naming/blessing session).
 **Open at session end (day 11):** nothing new in-flight. The day-10 opens
 below still stand — notably `phase13-beatfield` unheard and the D29 scope
 call, **both gating only the texture sandbox (2x)**, not 2z/2y.
+*(Both resolved later the same day in the concurrent 2x session — see the
+entry above: **D29 confirmed**, `phase13` **deferred by the composer**.)*
 
 **Blockers:** none.
 
@@ -509,7 +569,8 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   **self-correcting by ear**, so *"beat about twice a second"* is a real
   instruction. Pitch beating is MORE performable than the timing version.
 
-- **D29** *(2026-08-16, PLAN 2j — the composer's to confirm)* — **SCOPE SPLIT:
+- **D29** *(2026-08-16, PLAN 2j — **CONFIRMED by the composer day 11**)* —
+  **SCOPE SPLIT:
   2v OWNS EVERYTHING BEND-BASED; THE TEXTURE SANDBOX OWNS ATTACK FIELDS.** 2v
   already has sustained rendering, bend, pitch sets, dynamics contours, the
   params-file loop and an insert path — and its **M1 "detune bloom" is exactly
@@ -518,8 +579,16 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   articulation** and *layer with* 2v rather than duplicate it; pitch beating
   enters as a requirement ON 2v (beat rate in Hz as the dial, plus the register
   law). *Why:* otherwise the same engine gets built twice, in two places, with
-  two sets of bugs — and the deadline is Sept 4. *Flagged, not enacted: this is
-  the composer's call and should be made before the sandbox plan is commissioned.*
+  two sets of bugs — and the deadline is Sept 4. **CONFIRMED by the composer
+  2026-08-16 (day 11), so it is now binding on both projects:** the 2x plan
+  builds attack fields with **no bend anywhere**, and pitch beating enters 2v
+  as a requirement on M1/M3 (beat rate in **Hz** as the dial rather than raw
+  cents, plus the register law — a fixed cents detuning doubles its beat rate
+  per octave). *Nothing musical is given up: the two outputs layer freely in
+  the score — attack fields over a beating bed.* *Rejected:* letting the
+  sandbox own beating too (duplicates 2v's debugged bend/emit machinery, and
+  app playback cannot carry bend, so that audition loop would degrade to
+  MIDI-only).
 
 - **D30** *(2026-08-16)* — **PUSH IS AUTOMATIC AFTER EACH COMMIT.** Supersedes
   "never push without asking" for this project. Each agent stages **explicit
@@ -577,6 +646,12 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   actuals with provenance + placements, shape presets). Order: 2z then 2y,
   never concurrent. 2x ID collision resolved (gesture shaping → 2z).
 
+- 2026-08-16 (day 11) — **PLAN 2x TEXTURE SANDBOX plan approved** —
+  `docs/plans/TEXTURE_SANDBOX_PLAN.md` v3, handoff-hardened, kickoff prompt in
+  §16. **D29 confirmed** (attack fields only, no bend). Qualitative/recipe
+  interface · Texture panel in the composer score · no editor · panel loop +
+  long-render pockets · 2y-aligned MODEL/ACTUAL stores · seeds + PIN/A-B +
+  humanize, with a robustness verdict required before banking.
 - 2026-08-16 — **PLAN 2j PHASE-SHIFTING RESEARCH ARC complete** (D27–D29):
   13 experiments `phase01`…`phase13`; the two-family model; the dials
   (density · scatter · jitter · spread) with measured ranges; the density and

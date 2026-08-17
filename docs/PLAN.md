@@ -403,10 +403,17 @@ composer → notation → performance architecture.)*
   fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
-- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `plan drafted 2026-08-16 —
-  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3: composer review round 1 +
-  handoff-hardening), under review; build not yet commissioned — awaiting the
-  composer's D29 confirmation`. The continuation of 2j's research arc as
+- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `plan APPROVED 2026-08-16 —
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3), ready to implement; kickoff prompt
+  in its §16`. **D29 CONFIRMED: attack fields only, no bend in this build.**
+  Composer's design rulings: qualitative/recipe interface (AI holds the dials,
+  one-dial feel) · **Texture panel in the composer score**, no separate page,
+  auditioning through 2v's `morph_emit.js` · no editor (regeneration only) ·
+  both the quick panel loop AND long-render **pockets** (parametric first,
+  clipping as fallback) · stores aligned with 2y's MODEL↔ACTUAL (the five
+  categories ship as the first five MODELS) · seeds + PIN/A-B + humanize as
+  first-class machinery, robustness verdict required before banking a keeper.
+  **Build after 2z/2y are clear of `composer.html`, or pull-before-every-chunk.** The continuation of 2j's research arc as
   a working surface. **Requirements + evidence:
   `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** (written to be read cold by a
   stronger model, every claim tagged HEARD / MEASURED / inferred). Plan v2:
