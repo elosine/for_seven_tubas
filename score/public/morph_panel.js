@@ -60,37 +60,58 @@ const PANEL = {
     build() {
         const d = document.createElement('div');
         d.id = 'morphPanel';
+        // THE PANEL IS A CAPPED FLEX COLUMN WITH ONE SCROLLING MIDDLE.
+        //
+        // It used to be an uncapped block: MODELS mode adds a character note,
+        // five recipe sliders, a seed stepper, a preset picker, seven number
+        // fields and a flags list, so the box simply grew past the bottom of the
+        // screen — taking Generate / Play / Stop and Insert @ cursor with it,
+        // with nothing to scroll (composer, 2026-08-17: "I can't see the bottom
+        // now. There's... you can't scroll").
+        //
+        // Header and buttons are flex-fixed; ONLY the middle scrolls. So the
+        // transport and Insert are on screen at every window size and in every
+        // mode, by construction rather than by fitting. `resize:both` gives a
+        // native grip at the bottom-right for anything this does not cover.
         d.style.cssText = [
             'position:fixed', 'right:16px', 'top:96px', 'width:340px', 'z-index:9000',
             'background:rgba(28,28,32,0.97)', 'border:1px solid #6a5acd', 'border-radius:6px',
             'padding:10px 12px', 'color:#ddd', 'font:11px/1.45 system-ui,sans-serif',
             'box-shadow:0 6px 24px rgba(0,0,0,0.5)', 'display:none',
+            'flex-direction:column', 'max-height:calc(100vh - 120px)',
+            'min-width:300px', 'min-height:200px', 'resize:both', 'overflow:hidden',
         ].join(';');
         d.innerHTML = [
             '<div id="morphDrag" style="cursor:move;font-weight:600;color:#b9a8ff;',
             'margin:-10px -12px 8px;padding:7px 12px;border-bottom:1px solid #444;',
             'background:rgba(106,90,205,0.16)">MORPH',
             '<span id="morphClose" style="float:right;cursor:pointer;color:#888">&#10005;</span></div>',
-            '<div id="morphStatus" style="color:#9a9;margin-bottom:7px">idle</div>',
+            '<div id="morphStatus" style="color:#9a9;margin-bottom:7px;flex:0 0 auto">idle</div>',
+            // the ONLY scrolling region. min-height:0 is load-bearing — without
+            // it a flex child refuses to shrink below its content and the cap
+            // does nothing at all.
+            '<div id="morphScroll" style="flex:1 1 auto;overflow-y:auto;min-height:0;',
+            'margin:0 -4px 8px;padding:0 4px">',
             '<div id="morphTabs" style="margin-bottom:8px"></div>',
             '<div id="morphFields" style="margin-bottom:8px"></div>',
-            '<div id="morphFlags" style="max-height:132px;overflow:auto;margin-bottom:8px"></div>',
+            '<div id="morphFlags" style="margin-bottom:4px"></div>',
+            '</div>',
             // FIXED COLUMNS, not flex. The Play button's label changes to
             // "Playing…" while it runs; in a flex row that reflowed everything to
             // the right, so reaching for Stop landed on "Insert @ cursor" and put
             // a morph into the score by accident (composer, 2026-08-16). A
             // transport control must never move under the pointer.
-            '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">',
+            '<div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">',
             '<button id="morphGen">Generate</button>',
             '<button id="morphPlay" style="overflow:hidden;white-space:nowrap">Play</button>',
             '<button id="morphStop">Stop</button>',
             '</div>',
-            '<div style="margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px">',
+            '<div style="flex:0 0 auto;margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px">',
             '<button id="morphIns" title="insert at the playhead as a group">Insert @ cursor</button>',
             '<button id="morphSaveAct" title="freeze this render as an ACTUAL with its provenance">',
             'Save as ACTUAL</button>',
             '</div>',
-            '<div style="color:#666;margin-top:7px">SPACE play/stop &middot; &larr;/&rarr; variant',
+            '<div style="flex:0 0 auto;color:#666;margin-top:7px">SPACE play/stop &middot; &larr;/&rarr; variant',
             ' &mdash; only while this panel has focus</div>',
         ].join('');
         document.body.appendChild(d);
@@ -162,9 +183,18 @@ const PANEL = {
         if (!box || box.style.display === 'none') return;
         const r = box.getBoundingClientRect();
         if (!r.width && !r.height) return;
-        const MIN_TOP = 36, MARGIN = 4, HEAD = 28;
+        const MIN_TOP = 36, MARGIN = 4;
         const maxLeft = Math.max(MARGIN, window.innerWidth - r.width - MARGIN);
-        const maxTop = Math.max(MIN_TOP, window.innerHeight - HEAD - MARGIN);
+        // KEEP THE WHOLE PANEL ON SCREEN, not just its header. The first version
+        // clamped against a 28px header height, so dragging the panel low left
+        // it "legally" placed with Generate / Play / Insert below the fold —
+        // which is the composer's actual complaint, and close-and-reopen could
+        // not recover it because that position passed the check. Measured at
+        // 1100x460: top 420, bottom 760, all four buttons off screen.
+        // `max-height` caps the panel at 100vh-120, so a fully-on-screen
+        // position always exists; Math.max degrades gracefully if it ever does
+        // not, pinning to the top rather than refusing to move.
+        const maxTop = Math.max(MIN_TOP, window.innerHeight - r.height - MARGIN);
         box.style.left = Math.min(Math.max(r.left, MARGIN), maxLeft) + 'px';
         box.style.top = Math.min(Math.max(r.top, MIN_TOP), maxTop) + 'px';
         box.style.right = 'auto';
@@ -221,7 +251,11 @@ const PANEL = {
 
     toggle(force) {
         const show = force != null ? force : this.el.style.display === 'none';
-        this.el.style.display = show ? '' : 'none';
+        // 'flex', NOT ''. Clearing the inline display would fall back to the
+        // stylesheet default (block) and silently undo the whole flex column —
+        // the cap and the internal scroll would be dead and the buttons would
+        // slide off the bottom again, with nothing in the CSS looking wrong.
+        this.el.style.display = show ? 'flex' : 'none';
         if (show) {
             // Opening is also the RECOVERY path: front + clamp, so "I can't see
             // it" cannot survive clicking the Morph button. Nothing to remember.
@@ -342,6 +376,10 @@ const PANEL = {
             console.error(e); return;
         }
         this.draw(merged);
+        // switching to MODELS or turning recipes on changes the panel's height,
+        // which can push a legally-placed panel off the bottom. Re-clamp after
+        // every redraw; it is a no-op unless something actually went out.
+        this.clampIntoView();
     },
 
     draw(p) {

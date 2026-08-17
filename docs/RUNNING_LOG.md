@@ -1332,3 +1332,59 @@ an empty scratch score for this arc, by the Clear-All path.
 **BLOOM's stock render, measured while setting the view up:** 39 notes, **3 soft
 conflicts, 0 hard**, at the store's base params.
 
+
+### The panel had no height cap and no scroll — fixed structurally, not patched
+
+> *"I can't see the bottom now. There's... you can't scroll… I just wanna be
+> able to use the panel."*
+
+**The cause was structural, which is why it kept producing new symptoms.** The
+panel was an uncapped block. MODELS mode adds a character note, up to five
+recipe sliders, a seed stepper, a preset picker, seven number fields and a flags
+list — so the box grew past the bottom of the screen, taking **Generate / Play /
+Stop / Insert @ cursor / Save as ACTUAL** with it, with nothing to scroll.
+
+**The fix: a capped flex column with exactly one scrolling middle.** Header and
+button rows are `flex:0 0 auto`; only `#morphScroll` scrolls;
+`max-height:calc(100vh - 120px)` and `resize:both` for a native grip. **The
+transport and Insert are on screen in every mode at every window size by
+construction, not by fitting.**
+
+**Two traps inside that fix, both of which would have failed silently:**
+
+1. `toggle()` set `display = ''`, which *clears* the inline property and falls
+   back to the stylesheet default `block` — quietly killing the flex column, the
+   cap and the scroll, with nothing in the CSS looking wrong. Must be `'flex'`.
+2. `min-height:0` on the scrolling child. Without it a flex child refuses to
+   shrink below its content and the cap does nothing at all.
+
+**And the clamp from earlier today was still half-right, caught by measuring
+rather than assuming.** It kept the *header* on screen (28px), so dragging the
+panel low left it "legally" placed with every button below the fold, and
+close-and-reopen could not recover it because that position passed the check.
+Measured at 1100×460: top 420, bottom 760, all five buttons off screen. Now
+clamps the **whole panel**; the `max-height` cap guarantees a fully-on-screen
+position always exists, and `Math.max` degrades to top-pinned rather than
+refusing to move. Also re-clamps after every redraw, since switching to MODELS
+or turning recipes on changes the height.
+
+**Verified at 1100×460 — the hostile case, not the comfortable one:**
+
+| case | buttons on screen |
+|---|---|
+| every BLOOM recipe on | ✅ top 96 / bottom 436, middle scrolls |
+| dragged to the very bottom | ✅ clamped to top 116 / bottom 456 |
+| dragged above the top | ✅ clamped to top 36 |
+| **all six models, every dial at MAX** | ✅ **none off screen** |
+
+`preflight()` returns `[]`; status reads `v5 · BLOOM · "BEATING BLOOM" · 39
+notes · 3 soft`.
+
+**Standing note from the composer, and it governs what gets built next:** *"maybe
+we ditch the UI at some point or some features just done manually with AI… I
+just wanna move forward."* The escape hatch already exists and costs nothing —
+`bank/morph_params.json` is polled once a second, so the AI can write a body
+straight into the scratch slate and the composer only presses **Play**. UI work
+beyond making the existing panel usable is not to be undertaken unless the
+composer asks for it.
+
