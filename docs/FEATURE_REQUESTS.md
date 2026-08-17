@@ -368,11 +368,28 @@ gap — the thing actually heard — is whatever falls out.
 **For FR-3 this is fine, arguably good** (it is what produces the phase variety
 above). **For the deferred "repeat the bloom" idea it is the blocker.**
 
+### Composer's rulings while spec'ing (2026-08-17)
+
+- **The curve (`bias`) MIRRORS.** The sweep back is the mirror of the sweep out —
+  symmetric, no new parameter. *"We'll just have to address that very simply by
+  saying it just does the mirror for now. Eventually that might become a more
+  specific parameter."* → **implement as symmetric; do NOT invent a
+  cycle-asymmetry dial.**
+- **Distance, direction and depth need no change** — pure magnitudes, already
+  orthogonal, unaffected by cycling.
+- **Aimable pair phase is DEFERRED, not forgotten.** Under cycling, stagger
+  becomes cycle phase, and phase is what decides whether a pair pulses or holds
+  steady — but it is assigned by a seeded shuffle, so the most audible new dial
+  is **unaimable**; you can only reroll the seed. Composer: *"let's just defer
+  the rest… I just wanna stick to getting this model right."* Revisit with the
+  pairs-vs-voices work.
+
 ### Gates
 
 - [ ] Legacy params → byte-identical (twelve G0 fixtures, six stock models).
 - [ ] Gliss length and total length independently settable; changing total does
       **not** change the gliss rate.
+- [ ] The return sweep is the **exact mirror** of the outward sweep.
 - [ ] Pitch is continuous at every cycle turnaround — **no discontinuity**,
       measured, not assumed.
 - [ ] Beat rate measurably sweeps and does not park at zero for any pair.
@@ -396,4 +413,156 @@ it makes the other two mostly unnecessary.
 
 ---
 
-*(FR-4 onward: to be added as the composer lists them.)*
+## FR-4 — CLIP AND REJOIN: a bespoke attack in front of the generated body
+
+**Status:** `spec'd` · **Raised:** 2026-08-17 · **Depends on FR-3**
+
+### The concept
+
+Generate the bloom, **clip it at the point where all voices are in**, design the
+attack by hand, and let each player rejoin the body at their own next breath.
+The attack is authored, not parameterised — which is D31 applied structurally,
+and it sidesteps the generic-preset approach the composer already rejected.
+
+### The ADSR here
+
+- **A** — the bespoke attack.
+- **S** — a sustain that extends to the player's **next scheduled breath**.
+- **R** — **none.** There is no release; the body simply takes over.
+- So "S" is not a designed value: it is *whatever gap remains* between the end of
+  the attack and that player's next entry in the generated schedule.
+
+### What the attack is made of (composer's sketch, in performer terms)
+
+Per player, freely different — this is the point of doing it by hand:
+
+- one plays **cuivre**, then sustains
+- one plays a **staccato** attack, then swells into a long tone
+- one plays a **fortepiano**
+- …then all resolve into long tones and rejoin the body
+
+*Framed deliberately as what real performers do. Sample reproduction and any
+hacks needed to imitate it are a **separate second stream**, to be solved after.*
+
+### DECISIONS LOCKED BY THE COMPOSER
+
+- **The attack contains NO glissando and no pitch change.** It happens on the
+  body's initial pitches, whatever they are. *This is the stake in the ground
+  that makes the whole thing tractable.*
+- **The attack's sustain extends to that player's next scheduled sound** — the
+  next breath in the generated schedule. That is where they enter the cycle.
+- **No release section.**
+
+### What the machine must do
+
+1. **Clip the body at the moment all voices are in.**
+2. For each part, **create bespoke notes** covering the attack through to that
+   part's next entry.
+3. The sustain **extends to the end of that truncated first note** of the bloom.
+4. **Report what was left over** — per part: how long the remaining tone is, at
+   what pitch, and roughly what the volume and gliss are doing — **bluntly.**
+   Precision is explicitly not wanted (see below).
+
+### THE FLAG (the only new mechanism requested)
+
+If a long attack, or a long wait to the next breath, produces a tone longer than
+a player can hold, the composer wants **a flag** — just awareness — so a breath
+can be added by hand in the notation.
+
+> *"If I made a long attack or they have a long time to get to the next breath,
+> I'll have to manually put in a breath. But that's the more rare circumstance."*
+
+**Explicitly low priority.** If it is hard programmatically, the composer will
+eye it at notation time. *"It's not a major consideration."*
+
+### EXPLICITLY NOT WANTED
+
+- **No fine gradations.** *"If it was electronic music we'd be going from 197 Hz
+  to 199 Hz over 0.15 seconds… I don't need that reflected in the notation, or to
+  try to achieve that."* The rejoin should be **blunt and universally
+  expedient**, not exact.
+
+### SIMPLIFIED MODEL — the composer's expedient version (2026-08-17, supersedes the above where they differ)
+
+The composer backed out of the clip-and-rejoin complexity to something much
+smaller, and it needs **no new machinery**:
+
+- **Everyone enters TOGETHER**, overriding the striated entry. This is an option
+  the composer wants, not the default.
+- **The attack is A and D only. The S is the morph body itself.** There is no R.
+- **A is the composer's** — onset length, from ~0 ms to any length ("if I want a
+  three second ramp, I could").
+- **D is optional and calculated, not composed.**
+
+**The rule that makes it consistent:** the attack must end at the level the body
+starts on.
+
+- **no overshoot** → the ramp simply rises to that level; **D is zero.** *(The
+  composer's own preference: "just no D, just zero D, and it's a slope attack
+  over one second… and then it just immediately joins the body.")*
+- **overshoot** → the ramp goes above the body's level and **D exists only to
+  bring it back down.**
+
+**The join level is EIGHT numbers, not one** — each player's body starts at a
+different level because the swells are staggered. Hence calculated per player,
+not dialled. In notation this is a hairpin per part, each landing on a slightly
+different dynamic; the composer is content to fudge that.
+
+**This already exists** as 2z's `attack` / `decay` blocks plus
+`attack.entry: 'together'`. **What failed on day 12 was the preset NUMBERS, not
+the mechanism** — and they were auditioned through two bugs since fixed. So the
+work here is the D31 bespoke loop (set two numbers by ear), not a build.
+
+### Performance attacks within the attack window (composer, 2026-08-17)
+
+> *"I want to add as an option for the attack part adding some different types of
+> performance attacks. So the players can also play a cuivre or a fortepiano,
+> etcetera. But it's all part of the same attack timing."*
+
+- Mechanism exists — 2z's `attack.transient` (hit THEN tone) and `attack.noise`
+  (simultaneous, on spare players).
+- **The composer's proposed sample hack is probably unnecessary.** They imagined
+  needing an auxiliary track to fake one player doing attack-then-sustain. But
+  **technique = MIDI channel** (2r), so one player's fortepiano and ordinario
+  already land on two channels of the same UVI instance and sound cleanly
+  together. It is a **timing choice, not a routing problem**: start the ord note
+  under or after the fp one-shot's decay (fp is a fixed 1.35–2.22 s one-shot,
+  D9).
+- **⚠ FLAG THE IMPLEMENTER WILL HIT:** the playability checker will read the
+  overlapping fp and ord on one player as a **HARD conflict** — and it is a
+  **false positive**. A real player performing attack-into-sustain is one
+  continuous action, not two simultaneous notes. Without an exemption for
+  attack-transient pairs on the same player, every shaped attack will light up
+  the badge and the checker will start crying wolf, which is worse than not
+  having it. *This is the mirror of 2r's usual trap: normally the mock-up hides
+  real conflicts; here the checker invents one.*
+
+### Deferred to notation time — and NOT unique to this problem
+
+Because the pitch and loudness cycles are **not coordinated with the breaths**,
+every note in the piece starts at some arbitrary point on both curves — *"start
+this note at C♯ plus 75 cents."* The composer will need a blunt or graphic way to
+notate that **throughout the cycle**, so it is a general notation problem, not an
+attack problem, and is not to be solved here.
+
+---
+
+## FR-5 — Choose the pitch set and the number of pairs from the panel
+
+**Status:** `raised, not yet confirmed` · **Raised:** 2026-08-17
+
+- The source is just a list of MIDI numbers; changing it is trivial, but today it
+  means the AI editing the store rather than the composer choosing in the panel.
+- **Constraint: pitches must stay in PAIRS.** BLOOM's mechanism is duplicated
+  notes splitting apart; breaking the pairing breaks the model. Thinning must
+  remove **whole pairs** — the existing dropout machinery already does this.
+- **Minimum one pair (2 players); room for five pairs (10).** Currently four
+  pairs, F2 · A♯2 · D♯3 · G♯3.
+- *Musical note recorded at the time:* register changes the character, not just
+  the pitch — the same 50 ¢ gap **beats twice as fast an octave up** (D28). And
+  at one or two pairs the beat rates read as **individual pulses** rather than
+  blending into a field.
+
+---
+
+*(FR-6 onward: to be added as the composer lists them.)*
