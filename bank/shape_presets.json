@@ -6,10 +6,10 @@
   "presets": {
     "fade-in-3s": {
       "label": "fade in — everyone together, no attack at all",
-      "notes": "The plainest option: a 3 s rise from silence straight to the body's own level, no overshoot, so no decay is needed. UNHEARD.",
+      "notes": "The plainest option: a rise from silence straight to the body's own level, no overshoot, so no decay is needed. CURVE IS LINEAR ON PURPOSE: level here is the score's 0-10 drawn height, which maps to CC7 across a 40 dB span, so level-space is already roughly dB-space and a linear ramp IS a smooth exponential amplitude fade. `expo` is more front-loaded still and would lunge. Change `attack len` to taste. UNHEARD.",
       "tags": ["attack", "gentle", "together"],
       "shape": {
-        "attack": { "len": 3, "entry": "together", "curve": "expo", "from": 0 }
+        "attack": { "len": 3, "entry": "together", "curve": "linear", "from": 0 }
       }
     },
     "hit-and-settle": {
