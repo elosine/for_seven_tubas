@@ -10,6 +10,62 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**DAY 15 CONTINUED — THE FADE LADDER WAS ALREADY BUILT; IT IS NOW VERIFIED AND
+TESTED. Claude Code / Opus 5.** 1 commit. `test_morph.js` 354/354 and
+`test_ladder.js` 54/54 (new); `model_bank --validate` VALID.
+
+- **The checkpoint's "nothing is started" was wrong, and the error is worth
+  naming because the cycle is supposed to prevent exactly this.** The ladder was
+  built on **day 14**, commit `1457b79`. Day 14 listed it under *"Next up"* and
+  then built it in that same session without amending the line; day 15's
+  checkpoint copied the stale line forward, and `PLANNER.md`'s `NOW ►` inherited
+  it. **`/checkpoint` step 2 refreshes `NOW ►`, but nothing refreshes "Next up"
+  against what the session actually shipped** — so a completed item can survive
+  as the next task indefinitely. Cheap guard: before writing "Next up", check it
+  against `git log` for the session.
+- **What was genuinely missing was verification, and it is now done.** Day 14
+  shipped the ladder as a blip fallback and never claimed an in-app check —
+  which under AI_METHODOLOGY means the composer could not plan around it.
+  - **Assembly math, headless:** rungs are laid at `len + hold + gap`, each
+    clipped to its own window, none overlapping; every rung after the first
+    opens **cold** on every voice by emit's own cold/warm test. The gap (2.5 s)
+    outlives both the 0.69 s ord tail and the 250 ms CC7 lead — *that* is what
+    makes rungs 2..N a clean-attack condition, so it is load-bearing, not
+    cosmetic.
+  - **In the running app, through the real button handler:** the ladder builds
+    59 notes / 51.5 s with rungs at 0 / 7.5 / 16 / 25.5 / 37 s, reaches
+    `E.play`, and fails **only** at MIDI. The no-attack guard and the junk-input
+    guard both refuse cleanly, leaving zero timers and the Play button restored.
+  - **NOT verified: the sound.** This browser blocks Web MIDI for
+    `localhost:5200`, so nothing was ever emitted. **The audition is the
+    composer's, in their MIDI-enabled window** — and that was always the point
+    of the ladder.
+- **A false alarm, recorded so it is not re-run:** the first metric said every
+  rung peaked at 7.37 s, which reads as "the ladder plays five identical rungs".
+  It does not. The *global* peak belongs to the morph's own `dyn` curve and
+  barely moves with the attack; what the attack governs is the **ramp**. Mean
+  opening level at 1 s: **0.71 / 0.40 / 0.27 / 0.16 / 0.11** for 1/2/3/5/8 s.
+  The test now asserts the ramp, never the peak.
+- **The assembly moved into the engine as `M.buildLadder` (pure), behaviour
+  unchanged.** It was in a browser-only IIFE, so a test could only *replicate*
+  it and would drift from it silently. The panel now calls it and
+  `tools/test_ladder.js` pins it — one implementation, and what is tested is
+  what plays. The test reads any banked ACTUAL carrying `resolvedParams` rather
+  than hard-coding `ACT-BLOOM-01`, and SKIPs (not fails) if the composer deletes
+  them all.
+- **Filed to NITS:** the 4 s hold is fixed, so a long rung is cut while still
+  much quieter than a short one was — arguably correct, easy to confuse by ear,
+  one constant to change if it bothers the composer.
+
+**Next up — unchanged, and now genuinely next:**
+1. **THE COMPOSER AUDITIONS THE LADDER** in a window where MIDI is allowed:
+   open the Morph panel, pick a shape preset, press **Fade ladder**. Nothing is
+   blocking this.
+2. Then the **notation pass** — FR-7, D3's performer transform and the 0–10 →
+   dynamic-mark convention all come due there.
+
+---
+
 **CHECKPOINT (2026-08-17, day 15 — THREE MORPHS IN THE PIECE (8:16); TWO EAR-BUGS
 FIXED; THE CLEAR CYCLE SPLIT IN TWO. Claude Code / Opus 5) — (mid-session
 checkpoint).** 3 commits, all pushed. `test_morph.js` 354/354, fixtures never

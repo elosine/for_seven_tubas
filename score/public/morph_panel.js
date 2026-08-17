@@ -932,12 +932,9 @@ const PANEL = {
     // FADE LADDER (day 14) — the fallback the composer asked for: audition the
     // attack at several lengths WITHOUT Reaper, and inside ONE play session so
     // a press-edge artifact (where the blip lives) can hit at most the first
-    // rung. Each rung = the params that were actually heard, with
-    // shape.attack.len overridden; the render is CLIPPED to attack + HOLD_S of
-    // body (the question is the attack, not the whole morph), then GAP_S of
-    // rest. The gap outlives the ord tail (0.69 s measured) and the emit
-    // layer's cold-entry lead does the CC7 settling, so rungs 2..N open in the
-    // clean-attack condition by construction.
+    // rung. The assembly (clip, offset, gap) is `M.buildLadder` — pure, shared
+    // with tools/test_ladder.js, so what is tested is what plays. This method
+    // is the UI around it: read the lengths, play, narrate the rungs.
     async playLadder() {
         if (!this._lastParams) this.generate();
         const base = this._lastParams;
@@ -947,39 +944,26 @@ const PANEL = {
                            '(e.g. fade-in-3s) first', true);
             return;
         }
-        const lens = String(this.el.querySelector('#morphLadderLens').value || '')
-            .split(',').map(s => parseFloat(s)).filter(x => isFinite(x) && x > 0);
-        if (!lens.length) { this.setStatus('ladder: no usable lengths', true); return; }
-        const HOLD_S = 4, GAP_S = 2.5;
-        const notes = [], rungs = [];
-        let t = 0, meta = null;
-        for (const L of lens) {
-            const p = JSON.parse(JSON.stringify(base));
-            p.shape.attack.len = L;
-            let r;
-            try {
-                r = M.render(p, { maxVoices: 10,
-                                  sampleLengths: (HOST() && HOST().sampleLen) || null });
-            } catch (e) {
-                this.setStatus('ladder render failed at ' + L + ' s: ' + e.message, true);
-                return;
-            }
-            if (!meta) meta = r.meta;   // same params but the attack → same lanes
-            const clip = L + HOLD_S;
-            r.notes.forEach(n => {
-                if (n.tStart >= clip) return;
-                notes.push(Object.assign({}, n, {
-                    tStart: t + n.tStart,
-                    dur: Math.min(n.dur, clip - n.tStart),
-                }));
+        const lens = String(this.el.querySelector('#morphLadderLens').value || '').split(',');
+        let L;
+        try {
+            L = M.buildLadder(base, lens, {
+                renderOpts: { maxVoices: 10,
+                              sampleLengths: (HOST() && HOST().sampleLen) || null },
             });
-            rungs.push({ at: t, len: L });
-            t += clip + GAP_S;
+        } catch (e) {
+            if (e.message === 'no usable lengths') {
+                this.setStatus('ladder: no usable lengths', true);
+            } else if (e.rungLen != null) {
+                this.setStatus('ladder render failed at ' + e.rungLen + ' s: ' + e.message, true);
+            } else {
+                this.setStatus('ladder: ' + e.message, true);
+            }
+            return;
         }
         const btn = this.el.querySelector('#morphPlay');
         btn.textContent = 'starting…';
-        const res = await E.play(
-            { notes: notes, meta: Object.assign({}, meta, { span: t }) }, { span: t });
+        const res = await E.play({ notes: L.notes, meta: L.meta }, { span: L.span });
         if (!res.scheduled) {
             btn.textContent = 'Play';
             this.setStatus(res.reason || 'nothing sounded', true);
@@ -988,10 +972,10 @@ const PANEL = {
         btn.textContent = 'Playing…';
         // narrate which rung is sounding; the timers ride E._timers so Stop
         // (and any new play) clears the narration with the sound
-        rungs.forEach((rg, i) => {
+        L.rungs.forEach((rg, i) => {
             E._timers.push(setTimeout(() =>
                 this.setStatus('ladder: <b>' + rg.len + ' s</b> fade (' + (i + 1) + '/' +
-                               rungs.length + ') &middot; ' + HOLD_S + ' s hold'),
+                               L.rungs.length + ') &middot; ' + L.holdS + ' s hold'),
                 rg.at * 1000 + E.CC_LEAD_MS));
         });
     },

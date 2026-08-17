@@ -1809,6 +1809,68 @@ function render(params, opts) {
 }
 
 // ===========================================================================
+// 6b · FADE LADDER — audition one attack at N lengths inside ONE play session.
+//      Pressing Play per length gave every audition its own press-edge, which
+//      is where the blip lived; back-to-back rungs mean an edge artifact can
+//      reach at most the first rung.
+//
+//      Each rung re-renders the SAME params with `shape.attack.len` overridden
+//      and is CLIPPED to attack + hold — the question is the attack, not the
+//      whole morph — then separated by a gap. THE GAP IS LOAD-BEARING: it
+//      outlives both the 0.69 s ord tail and the emit layer's CC7 lead, so
+//      rungs 2..N open cold, in the clean-attack condition, by construction.
+//      Shorten it below either and the ladder stops measuring what it claims.
+//
+//      Lives here, pure, for the same reason toScoreObjects does: the panel
+//      drives it and the test pins it, and one implementation cannot drift
+//      from the other. Extracted from morph_panel.playLadder (day 14) on
+//      day 15, behaviour unchanged.
+// ===========================================================================
+
+const LADDER_HOLD_S = 4;     // body kept after the attack, per rung
+const LADDER_GAP_S = 2.5;    // > ord tail (0.69 s) and > CC7 lead (0.25 s)
+
+function buildLadder(base, lens, opts) {
+    const o = opts || {};
+    const holdS = o.holdS != null ? o.holdS : LADDER_HOLD_S;
+    const gapS = o.gapS != null ? o.gapS : LADDER_GAP_S;
+    const doRender = o.render || (p => render(p, o.renderOpts || {}));
+    if (!base || !base.shape || !base.shape.attack) {
+        throw new Error('no attack block');
+    }
+    const use = (lens || []).map(x => parseFloat(x)).filter(x => isFinite(x) && x > 0);
+    if (!use.length) throw new Error('no usable lengths');
+
+    const notes = [], rungs = [];
+    let t = 0, meta = null;
+    use.forEach(L => {
+        const p = JSON.parse(JSON.stringify(base));
+        p.shape.attack.len = L;
+        let r;
+        try {
+            r = doRender(p);
+        } catch (e) {
+            // the caller reports WHICH rung failed, so carry the length out
+            e.rungLen = L;
+            throw e;
+        }
+        if (!meta) meta = r.meta;   // same params but the attack -> same lanes
+        const clip = L + holdS;
+        r.notes.forEach(n => {
+            if (n.tStart >= clip) return;
+            notes.push(Object.assign({}, n, {
+                tStart: t + n.tStart,
+                dur: Math.min(n.dur, clip - n.tStart),
+            }));
+        });
+        rungs.push({ at: t, len: L, clip: clip });
+        t += clip + gapS;
+    });
+    return { notes: notes, rungs: rungs, span: t, holdS: holdS, gapS: gapS,
+             meta: Object.assign({}, meta || {}, { span: t }) };
+}
+
+// ===========================================================================
 // 7 · SCORE CONVERSION — a morph note becomes an ordinary waveCurve.
 //     Kept here (pure) so both the panel preview and the insert path use one
 //     conversion and cannot drift apart.
@@ -1895,5 +1957,7 @@ return {
     partialCents: partialCents, MODELS: MODELS,
     normaliseParams: normaliseParams, unknownKeys: unknownKeys,
     render: render, toScoreObjects: toScoreObjects,
+    buildLadder: buildLadder,
+    LADDER_HOLD_S: LADDER_HOLD_S, LADDER_GAP_S: LADDER_GAP_S,
 };
 }));

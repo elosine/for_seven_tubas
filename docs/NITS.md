@@ -10,6 +10,19 @@
 
 ## Open
 
+- **The Fade ladder cuts every rung 4 s after its attack, so the rungs are not
+  compared at equal loudness.** `LADDER_HOLD_S` is a constant (4 s), but a
+  morph's own `dyn` curve keeps climbing long past the attack — on
+  `ACT-BLOOM-01` the mean opening level at 1 s runs 0.71 (1 s fade) down to
+  0.11 (8 s fade), and the 8 s rung is therefore cut while still much softer
+  than the 1 s rung was. That is arguably right — you are auditioning the
+  *attack*, not the body — but it means a long rung sounds quieter as well as
+  slower, and the two are easy to confuse by ear. *If it bothers the composer:*
+  scale the hold with the rung (`hold = k · len`), or expose hold/gap next to
+  the lengths input. One constant, no engine work. **Do not shorten `GAP_S`
+  below 0.69 s** — the gap is what makes rungs 2..N open cold (`test_ladder.js`
+  pins this).
+
 - **META shape overhangs its parts on `grp-s018-1056` — CAUSE NOT ESTABLISHED.**
   In `piece-s12` / `piece-s12-work`: shape 105.63–113.43, parts 105.63–110.62
   (8 notes, ord 4.99 s + cuivre 1.25/1.12 s) — **2.81 s of shape with no sound
