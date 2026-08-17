@@ -261,3 +261,11 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   - *Placement:* this is the FINAL section, so it sits after Section 2 in the
     form; against the **15-minute Penn State ceiling** it competes for time with
     the morph section, and neither has a length yet.
+
+- **2026-08-17 (day 14, end) — THE FIRST MORPH IS IN THE PIECE.** `piece-s20`:
+  `grp-act-bloom-01-01`, 108 objects, **141.39 → 255.31 s**, from the composer's
+  own actual **`ACT-BLOOM-01` "JYBloom001"** (span 47.5, attack 8 s, dials
+  0.75/0.55, seed 11, `fade-in-3s`). `piece-s19` is the intermediate step.
+  **The piece now runs to 4:15**, from 2:16. Against the 15-minute ceiling one
+  morph is ~14 % of the piece — so the length of the remaining 3–5 is now a
+  live formal question, not a hypothetical one.

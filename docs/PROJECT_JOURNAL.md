@@ -68,19 +68,34 @@ clear. 5 commits, all pushed. `test_morph.js` 354/354, fixtures untouched;
 - **Time readout:** seconds unchanged (18 px, 2 dp) with **m:ss added beneath at
   9 px**, floored so 119.99 reads 1:59.
 
-**Next up:** **place `ACT-BLOOM-02` into the piece** — that is the live task.
-Then the composer's stated order: audition attack lengths with the **Fade ladder**
-(new panel row: renders N attack lengths back-to-back in ONE play session), then
-3–5 morph objects for the section.
+**THE MORPH IS IN THE PIECE — done by the composer at the end of this session.**
+- **`piece-s20`** carries **`grp-act-bloom-01-01`, 108 objects, 141.39 → 255.31 s**
+  — the full 113.9 s morph. `piece-s19` is the step before it (a 30 s scratch
+  morph at 141.41–171.41 s). `piece-s18` was restored clean first (906 objects,
+  ends 135.77 s).
+- **The composer made their own actual, `ACT-BLOOM-01` "JYBloom001"** — their
+  dial-in, distinct from the AI-saved `-02`: carrier span 47.5, attack len 8,
+  dials 0.75 / 0.55, seed 11, `fade-in-3s`. It reused the id freed by deleting
+  the stale `-01`. **Its self-logged placement (`piece-s18-work` @ 141.386 s) is
+  the t=0 insert bug confirmed fixed in real use**, not just in the AI's test.
+- **The piece now ends at 255.3 s (4:15)** — up from 135.8 s. Against the
+  **15-minute Penn State ceiling**, one morph is ~14 % of the piece; 3–5 of them
+  was the plan, and that arithmetic is now real rather than hypothetical.
+
+**Next up:** the composer's stated order — audition attack lengths with the
+**Fade ladder** (new panel row: renders N attack lengths back-to-back in ONE
+play session, so a press-edge artifact can hit at most the first rung), then the
+remaining morph objects for the section. **Then the notation pass**, where FR-7,
+D3's performer transform and the 0–10 → dynamic-mark convention all come due.
 
 **Open at session end (day 14):**
-- **`piece-s18-work.json` STILL HOLDS TWO JUNK GROUPS** (`grp-morph-01/02`, 36
-  objects each at 0–30 s, on top of DB1) from the t=0 bug. **`piece-s18.json` is
-  untouched and intact (906 objects, nothing missing)** — D10's working-copy rule
-  held. Recovery: open `piece-s18` → **Cancel** at the prompt (*Cancel* = discard,
-  *OK* = resume the junk; the composer misread it once, which is the defect
-  below) → **then CTRL+S immediately**, because choosing "fresh" does not itself
-  overwrite the stale work file, so a reload offers the junk back.
+- **`piece-s18-work.json` may still hold two junk groups** (`grp-morph-01/02`, 36
+  objects each at 0–30 s, on top of DB1) from the t=0 bug — harmless now that
+  `piece-s18/19/20` are all saved and committed, but it will offer them back if
+  that working copy is ever resumed. **`piece-s18.json` itself is clean.**
+  The trap, worth knowing: at the working-copy prompt **Cancel = discard,
+  OK = resume the junk**, and choosing "fresh" does not itself overwrite the
+  stale work file, so a reload offers it again unless CTRL+S follows.
 - **PROPOSED, NOT BUILT, NO GO GIVEN:** (1) make "start fresh" write the clean
   working copy at once — the actual defect, since the choice does not persist;
   (2) replace the OK/Cancel `confirm()` with a dialog whose buttons say
