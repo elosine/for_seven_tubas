@@ -1,7 +1,8 @@
 # TEXTURE SANDBOX (attack fields) — implementation plan
 
-> **Status: DRAFT v2 — revised after composer review round 1 (2026-08-16), not
-> yet commissioned.** Written from `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`
+> **Status: DRAFT v3 — revised after composer review round 1, then
+> handoff-hardened (2026-08-16); not yet commissioned.** Written from
+> `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`
 > (the evidence document — read it first; every claim there is tagged HEARD /
 > MEASURED / inferred and this plan does not re-argue them).
 >
@@ -201,12 +202,29 @@ One spec drives engine, panel, params file and CLI alike:
       scatter: 0,                  // 0–1 fixed per-player cycle offset (seeded)
       jitterMs: 0,                 // ±ms re-randomised per attack
       level: 7.5,
-      pitch: { policy: 'unison', set: null, root: 48 }    // §8
-    }],
-    curves: null                   // §7 — dial breakpoint lists
+      pitch: { policy: 'unison', set: null, root: 48 },   // §8
+      curves: null                 // §7 — per-dial breakpoint lists, see below
+    }]
   }]
 }
 ```
+
+**Lane assignment (pre-decided — do not invent):** voice groups take
+**contiguous lane blocks in listed order** — group 0 gets lanes `0…players-1`,
+group 1 the next block, and so on (lane N = score layer N = Tuba N+1). An
+explicit `lanes: [..]` array on a voice overrides this. This reproduces the
+`LANES_A = [0..4] / LANES_B = [5..9]` convention every existing preset uses.
+
+**Curve schema (pre-decided):** `curves` is an object whose keys are the
+voice's own scalar dial names — `bpm`, `jitterMs`, `scatter`, `level` — each
+mapping to a breakpoint list `[{t, value, shape}]` (`t` in seconds from
+section start; `shape`: `'linear'` default, or `{exp: k}` for the
+"more exponential" bend). When a curve is present it overrides the scalar
+(and `bpmEnd`). One extra key, `techMix`, carries articulation crossfades:
+`[{t, value: {staccato: 1}}, {t: 30, value: {staccato: 0.3, ord: 0.7}}]` —
+at each attack the engine interpolates the mix and draws the technique from
+it (seeded). Unknown curve keys → listed in the status line, ignored, never
+thrown.
 
 Research ranges are **soft rails**: the panel marks a value amber outside the
 measured range (density > 23/s, jitter > 60 ms…) and renders anyway — never
@@ -229,6 +247,46 @@ blocks (D16 spirit).
 Unknown/missing fields: engine fills documented defaults and lists
 unrecognized keys in the panel status line — never throws, never silently
 ignores a typo (the 2v rule).
+
+### 4.3 Worked example (the implementer's reference render)
+
+The AI writes this into `bank/texture_params.json`:
+
+```json
+{
+  "rev": 1,
+  "active": "A",
+  "variants": {
+    "A": {
+      "label": "A: RAIN reference · jitter 45",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-ref", "seed": 11,
+        "sections": [{
+          "dur": 14,
+          "voices": [{
+            "players": 10, "bpm": 110,
+            "articulation": "staccato", "notelen": 0.12,
+            "scatter": 0, "jitterMs": 45, "level": 7.5,
+            "pitch": { "policy": "unison", "root": 48 }
+          }]
+        }]
+      }
+    },
+    "B": null, "C": null
+  }
+}
+```
+
+Expected engine result (orient by these, exact values depend on seed):
+composite rate ≈ 10 × 110/60 ≈ **18.3 attacks/s** · ~256 notes over 14 s ·
+per-player gap ≈ 0.545 s vs the ~0.42 s C3 staccato ring → **0 hard / 0
+soft** · metrics: sd of composite inter-attack intervals ≈ **30–40 ms** with
+cycle-position unevenness **well under 0.5** (jitter never repeats — compare
+scatter 1.0, which gives sd ≈ 46 ms at unevenness ≈ 1.3) · first marker: a
+plain-language sentence naming the texture, the moved dials and the seed.
+Status line reads like: `v1 · A · "RAIN reference · jitter 45" · seed 11 ·
+sd 34 ms · ⚠ 0 hard / 0 soft`.
 
 ---
 
@@ -384,10 +442,13 @@ parts of it."* Prompt-driven (the AI line), two pre-decided routes:
   `windowToSpec(spec, t0, t1)`: resolve every time-varying dial over the
   window and emit a new spec — either **frozen** (constants at the window's
   values → a static texture) or **moving** (a two-point morph across the
-  window). Seed policy is explicit: `literal` (same seed → the exact attacks
-  the composer heard, minus the outside) or `fresh` (same dials, new draws).
-  The result is a **MODEL**, immediately tweakable (*"the 28–35 one, but
-  brighter, quicker"*).
+  window). Seed policy is explicit, and `literal` has one pre-decided
+  subtlety: **regenerate the FULL original spec deterministically and keep
+  only the notes inside the window** (exact by construction) — never re-seed
+  a shorter render, because the jitter streams draw per-attack across the
+  whole timeline and a short render's draws would differ. `fresh` = the
+  window's dial values with new seeds. The result is a **MODEL**, immediately
+  tweakable (*"the 28–35 one, but brighter, quicker"*).
 - **Literal clip (fallback, always available).** `extract_section.js` on the
   render → an **ACTUAL**. Loses adjustability, keeps the exact sound.
 
@@ -584,6 +645,19 @@ stop and re-check rather than improvising around it.
   load-and-mutate `piece-*` or archive scores.
 - Git: explicit paths only (never `git add -A` — a second agent works in this
   tree), commit referencing **2x**, push after commit (D30).
+- **The other agent is implementing 2z (gesture shaping) and 2y (model↔actual)
+  in this same tree, 2z first — both plans approved 2026-08-16.** Before every
+  work chunk: `git pull`, then `git status`, then check whether composer.html
+  gained new panels/buttons since your last look. Their files
+  (`docs/plans/GESTURE_SHAPING.md`, `MODEL_AND_ACTUAL_PLAN.md`,
+  `bank/morph_models.json`, `bank/actuals/` writes from their side) are
+  read-only to you.
+- **Rounding is part of byte-identity.** The engine rounds onset times with
+  `toFixed(4)`, note bounds with `toFixed(4)`, marker times with `toFixed(2)`.
+  Preserve every existing rounding call exactly during extraction — the
+  Phase 0 identity gate depends on them.
+- Lanes: score layer N = lane N = **Tuba N+1**; §4.1's contiguous-block rule
+  reproduces the presets' `LANES_A/LANES_B` convention.
 
 **Files this plan creates:** `score/public/texture_engine.js` ·
 `score/public/texture_panel.js` · `score/public/tonality.js` ·
@@ -616,8 +690,10 @@ engine) · `score/server.js` (one GET route) · `score/public/composer.html`
 - `score/public/clusterview.html`: `TONALITIES` const (15 named sets); the
   remap sits in the transform layer near the `TAXCH` chord lookup — extract
   both set data and the pooled/literal + no-repeat-kick logic.
-- Insert path: mirror the Morph panel's insert (groupId + META shape); the
-  same conventions as `tools/place_gesture.js` (PLAN 2w).
+- Insert path: mirror the Morph panel's insert — find it in
+  `score/public/morph_panel.js` (search for its Insert button wiring and the
+  `groupId` + META-shape construction) and follow the same conventions as
+  `tools/place_gesture.js` (PLAN 2w). Do not write a parallel insert.
 - Playability constants: D17 in `tools/audit_playability.js` — reuse, never
   re-type.
 

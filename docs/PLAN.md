@@ -404,8 +404,9 @@ composer → notation → performance architecture.)*
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
 - **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `plan drafted 2026-08-16 —
-  docs/plans/TEXTURE_SANDBOX_PLAN.md (v2 after composer review round 1), under
-  review; build not yet commissioned`. The continuation of 2j's research arc as
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3: composer review round 1 +
+  handoff-hardening), under review; build not yet commissioned — awaiting the
+  composer's D29 confirmation`. The continuation of 2j's research arc as
   a working surface. **Requirements + evidence:
   `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** (written to be read cold by a
   stronger model, every claim tagged HEARD / MEASURED / inferred). Plan v2:
