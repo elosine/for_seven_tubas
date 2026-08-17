@@ -272,3 +272,21 @@ a CC7 that arrives in the same millisecond as a note-on · whether UVI's amp
 envelope re-triggers on CC7 movement · **and the obvious control the AI did not
 run: compare a generated `.mid` played in Reaper against the same notes played
 live from the keyboard**, which isolates the chain from the engine in one test.
+
+**DAY 14 UPDATE — a fourth mechanism found, timing not values, PENDING THE EAR.**
+On the composer's explicit ask ("one more crack"), the day-14 read found what the
+three fixes had not tested: **CC7 moving while sound is present**, at both ends.
+The opening CC7's *real* lead was ~2–5 ms (the "synchronous" arm fires at
+play-press, the note-on on the very next timer tick) — and the score app's own
+curve playback had already met and killed this exact artifact with
+`PREARM_S = 0.15` (*"kills the entry bite"*). At the end, `panic()` restored
+CC7=127 in the same instant as the note-offs, yanking the ~0.69 s release tail
+up to full — and it fired on every replay press too. **This explains the
+keyboard counter-evidence instead of fighting it:** a keyboard note has no CC7
+movement near its note-on. Fix shipped in `morph_emit.js` (`CC_LEAD_MS 250`
+schedule shift + cold-entry CC7 lead · CC7 restore delayed `TAIL_MS 2000`,
+per-channel, cancelled on re-arm). **Message timing verified in the running app
+with capture stubs; the SOUND claim awaits the composer.** If the blip survives
+250 ms of settle, this story is wrong too — then run the `.mid`-vs-live control
+above. Fallback shipped regardless: the panel's **Fade ladder** plays N attack
+lengths in ONE play session, so a press-edge artifact can hit at most rung 1.

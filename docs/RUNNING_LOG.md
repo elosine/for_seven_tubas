@@ -1746,3 +1746,53 @@ for exactly this (rule 5), and the cost was several rounds of their time during 
 session they had said twice they could not afford. **The finding is the negative
 one only: CC7 = 0 is not silence.** Everything past that is open, and it is
 filed as open.
+
+---
+
+## 2026-08-17 — day 14 (Claude Code / Fable 5)
+
+**THE BLIP: ONE MORE CRACK, ON THE COMPOSER'S EXPLICIT ASK.** The day-14 read
+of the emit layer produced a mechanism day 13 did not test: **CC7 moving while
+sound is present** — the same mechanism at both ends.
+
+- **Start:** the "synchronous" opening-CC7 arm fires at play-press but the
+  note-on lands on the next timer tick, so the real lead was ~2–5 ms. A sampler
+  that smooths CC7 (the standard zipper-noise guard) still has the channel near
+  the stop()-restored 127 when the note speaks. **The score app already met and
+  killed this exact artifact** in its own curve playback: `PREARM_S = 0.15`,
+  comment "settle CC7/KS before the attack (kills the entry bite)".
+- **End:** `panic()` restored CC7=127 in the same instant as the note-offs, so
+  the ~0.69 s UVI release tail was yanked up to full — an end blip by
+  construction, and it also fired on every replay press (play() panics first).
+- **This explains the composer's keyboard counter-evidence instead of fighting
+  it:** a keyboard note involves no CC7 movement near its note-on, so no bite.
+  Day 13's three fixes corrected the VALUES (CC 24→0, velocity); this is the
+  TIMING.
+
+**Built (morph_emit.js):** the whole schedule shifts by `CC_LEAD_MS = 250` (>
+the score's proven 150) · every COLD entry (nothing sounding on that channel
+through the lead window) gets the full 250 ms CC7 lead — covers t=0, staggered
+fade entries, and ladder rungs; warm handoffs (D26 re-key seams, cycling) keep
+the short lead so an early CC7 cannot yank the previous note · `panic()` centres
+bend immediately (measured inaudible) but delays the CC7=127 restore by
+`TAIL_MS = 2000`, per-channel, cancellable — a new play() cancels exactly the
+channels it re-arms.
+
+**Built (morph_panel.js): the FADE LADDER** — the composer's requested fallback,
+browser-only, no Reaper. One press renders the current params at N attack
+lengths (default 1, 2, 3, 5, 8 s), each clipped to attack + 4 s of body, chained
+with 2.5 s gaps into ONE play session — so a press-edge artifact can hit at most
+the first rung, and rungs 2..N open cold with the full CC7 settle by
+construction. Status line narrates which rung is sounding.
+
+**Verified in the running app (:5210, capture-stub MIDI outputs):** opening
+CC7=0 at +4 ms, note-on at +254 ms (250 ms lead, all 7 ports) · bend pre-arm
+50 ms · rung 2 opens cold with 250 ms lead at 7754 ms exactly as computed ·
+panic = note-offs + CC123 immediate, bend centre +0 ms, CC7 restore +2001 ms ·
+replay 100 ms after stop cancels all 7 pending restores, **zero stray CC7=127
+mid-run over 2.6 s** · `test_morph.js` 354/354, fixtures untouched.
+
+**STATUS, said precisely (rule 5): the TIMING is verified; the SOUND is not.**
+Whether 250 ms of settle removes the audible blip is the composer's ear's call.
+If it does not, the mechanism story is wrong and the next stop is the
+generated-`.mid`-vs-live-keyboard control in Reaper, unchanged from day 13.

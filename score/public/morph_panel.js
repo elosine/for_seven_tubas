@@ -111,6 +111,15 @@ const PANEL = {
             '<button id="morphSaveAct" title="freeze this render as an ACTUAL with its provenance">',
             'Save as ACTUAL</button>',
             '</div>',
+            // FADE LADDER (day 14): hear the current attack at several lengths,
+            // back to back, in ONE play session — pressing Play per length gave
+            // every audition a fresh press-edge, which is where the blip lives.
+            '<div style="flex:0 0 auto;margin-top:6px;display:flex;gap:6px;align-items:center">',
+            '<button id="morphLadder" title="hear the current attack at these lengths, back to back">Fade ladder</button>',
+            '<input id="morphLadderLens" value="1, 2, 3, 5, 8" ',
+            'title="fade lengths in seconds, comma-separated" ',
+            'style="flex:1;min-width:0;background:#1a1a22;color:#cca;border:1px solid #333;padding:2px 5px">',
+            '</div>',
             '<div style="flex:0 0 auto;color:#666;margin-top:7px">SPACE play/stop &middot; &larr;/&rarr; variant',
             ' &mdash; only while this panel has focus</div>',
         ].join('');
@@ -123,6 +132,7 @@ const PANEL = {
         d.querySelector('#morphStop').addEventListener('click', () => E.panic());
         d.querySelector('#morphIns').addEventListener('click', () => this.insert());
         d.querySelector('#morphSaveAct').addEventListener('click', () => this.saveActual());
+        d.querySelector('#morphLadder').addEventListener('click', () => this.playLadder());
         this.makeDraggable(d, d.querySelector('#morphDrag'));
         // shrinking the window can strand a panel that was legally placed
         window.addEventListener('resize', () => this.clampIntoView());
@@ -886,6 +896,73 @@ const PANEL = {
         btn.textContent = 'Playing…';
         this.setStatus('playing ' + r.scheduled + ' notes' +
             (r.skipped ? ' (' + r.skipped + ' had no port)' : ''));
+    },
+
+    // FADE LADDER (day 14) — the fallback the composer asked for: audition the
+    // attack at several lengths WITHOUT Reaper, and inside ONE play session so
+    // a press-edge artifact (where the blip lives) can hit at most the first
+    // rung. Each rung = the params that were actually heard, with
+    // shape.attack.len overridden; the render is CLIPPED to attack + HOLD_S of
+    // body (the question is the attack, not the whole morph), then GAP_S of
+    // rest. The gap outlives the ord tail (0.69 s measured) and the emit
+    // layer's cold-entry lead does the CC7 settling, so rungs 2..N open in the
+    // clean-attack condition by construction.
+    async playLadder() {
+        if (!this._lastParams) this.generate();
+        const base = this._lastParams;
+        if (!base) return;
+        if (!base.shape || !base.shape.attack) {
+            this.setStatus('the current render has no attack block — pick a shape preset ' +
+                           '(e.g. fade-in-3s) first', true);
+            return;
+        }
+        const lens = String(this.el.querySelector('#morphLadderLens').value || '')
+            .split(',').map(s => parseFloat(s)).filter(x => isFinite(x) && x > 0);
+        if (!lens.length) { this.setStatus('ladder: no usable lengths', true); return; }
+        const HOLD_S = 4, GAP_S = 2.5;
+        const notes = [], rungs = [];
+        let t = 0, meta = null;
+        for (const L of lens) {
+            const p = JSON.parse(JSON.stringify(base));
+            p.shape.attack.len = L;
+            let r;
+            try {
+                r = M.render(p, { maxVoices: 10,
+                                  sampleLengths: (HOST() && HOST().sampleLen) || null });
+            } catch (e) {
+                this.setStatus('ladder render failed at ' + L + ' s: ' + e.message, true);
+                return;
+            }
+            if (!meta) meta = r.meta;   // same params but the attack → same lanes
+            const clip = L + HOLD_S;
+            r.notes.forEach(n => {
+                if (n.tStart >= clip) return;
+                notes.push(Object.assign({}, n, {
+                    tStart: t + n.tStart,
+                    dur: Math.min(n.dur, clip - n.tStart),
+                }));
+            });
+            rungs.push({ at: t, len: L });
+            t += clip + GAP_S;
+        }
+        const btn = this.el.querySelector('#morphPlay');
+        btn.textContent = 'starting…';
+        const res = await E.play(
+            { notes: notes, meta: Object.assign({}, meta, { span: t }) }, { span: t });
+        if (!res.scheduled) {
+            btn.textContent = 'Play';
+            this.setStatus(res.reason || 'nothing sounded', true);
+            return;
+        }
+        btn.textContent = 'Playing…';
+        // narrate which rung is sounding; the timers ride E._timers so Stop
+        // (and any new play) clears the narration with the sound
+        rungs.forEach((rg, i) => {
+            E._timers.push(setTimeout(() =>
+                this.setStatus('ladder: <b>' + rg.len + ' s</b> fade (' + (i + 1) + '/' +
+                               rungs.length + ') &middot; ' + HOLD_S + ' s hold'),
+                rg.at * 1000 + E.CC_LEAD_MS));
+        });
     },
 
     insert() {
