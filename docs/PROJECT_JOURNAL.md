@@ -606,6 +606,26 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   `bank/texture_actuals/README.md`, a test asserts 2x never writes a 2y path, and
   2y's validator was re-run after every write and stayed `VALID`.
 
+- **D33** *(2026-08-17, day 13 — composer)* — **NOTES ARE WRITTEN AS THE WORK
+  HAPPENS, FOR TWO READERS: the next cold session, and the paper.** Composer:
+  *"I am clearing the chat window often… but also, more specifically, for a
+  paper. So collecting journal and experimental notes — so when we sit down to
+  write the paper, we have the process documented."* This is a **standing
+  instruction, never re-asked**: the AI files at the moment of the verdict or
+  the measurement, not at a wrap, and captures quotable composer verdicts
+  **verbatim before starting the next render**. *Why it is a decision and not a
+  preference:* an unrecorded listening verdict cannot be re-run — the ear that
+  produced it has moved on — so the loss is permanent, not deferred. **Filing
+  contract (one destination each, no double-drafting):** RUNNING_LOG = the raw
+  chronological trail · COMPOSER_LOG = verbatim words · SHAPE_LESSONS = one
+  bespoke shape end to end · PAPER_NOTES = the distilled argument, entered only
+  once a finding supports a claim · MORPH_FINDINGS = measured morph facts ·
+  §4 here = decisions · NITS = real-but-not-now. Written into
+  `docs/AI_METHODOLOGY.md` ("Capture as you go") with a fifth item added to its
+  self-check. *Rejected:* a single combined notes file (the raw trail and the
+  argument have different readers and different lifetimes — merging them makes
+  the trail unciteable and the argument unreadable).
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.

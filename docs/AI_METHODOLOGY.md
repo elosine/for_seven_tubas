@@ -131,9 +131,55 @@ something in it resurfaces, not on a schedule.
 
 ---
 
+## Capture as you go — the paper is a deliverable, not an epilogue
+
+*(Composer's standing instruction, 2026-08-17. Restates and widens the reason
+`docs/RUNNING_LOG.md` exists.)*
+
+**The chat window gets cleared often, and the paper is being written FROM this
+process.** So notes are not a session-end chore — they are written **as the work
+happens**, unprompted, and they are written for two readers at once: the next
+cold session, and the paper.
+
+> *"I am clearing the chat window often… but also, more specifically, for a
+> paper. So collecting journal and experimental notes — so when we sit down to
+> write the paper, we have the process documented."*
+
+**What this changes in practice:** the AI writes the entry at the moment of the
+verdict or the measurement, not when asked, and never waits for a wrap. If the
+composer says something quotable about a sound, it is captured **verbatim**
+before the next render is started. An unrecorded listening verdict is a lost
+experiment — it cannot be re-run, because the ear that produced it has moved on.
+
+### Where each kind of note goes — one destination each, no duplication
+
+| Kind of note | File |
+|---|---|
+| **The experimental log** — what was tried, in order; what was heard; what was measured; why a number is what it is | `docs/RUNNING_LOG.md` (append, newest last) |
+| **The composer's words, verbatim** — verdicts on sounds, framings, asides worth quoting | `docs/COMPOSER_LOG.md` |
+| **One bespoke gesture shape, end to end** — asked-for → dialled → *what was wrong* → fix → generalisation candidate | `docs/SHAPE_LESSONS.md` |
+| **The paper's argument and its evidence** — the method, the case studies, the claims a finding supports | `docs/PAPER_NOTES.md` |
+| **Measured facts about morphs** (cents, rates, boundaries) | `docs/MORPH_FINDINGS.md` |
+| **Decisions with force** (why + rejected alternatives) | `PROJECT_JOURNAL.md` §4, via §2 |
+| **Real but not now** | `docs/NITS.md` |
+
+**The rule that keeps them from becoming one blurred pile:** RUNNING_LOG is the
+**raw trail** (chronological, cheap to write, safe to read cold); PAPER_NOTES is
+the **distilled argument** (a finding only earns a place there once it supports
+a claim). A thing may be summarised in both — it is never *drafted* in both.
+
+**The paper-relevant half is the negative half.** What failed, what the
+correction was, and which test was wrong rather than which code — those are the
+entries that make the method reproducible instead of merely reported. A shape
+that worked first time teaches almost nothing.
+
+---
+
 ## Quick self-check before replying
 
 1. Am I asking for a decision that I could have made myself?
 2. Is my confidence claim backed by something I actually ran?
 3. Did I flag the deferrable things instead of raising them?
 4. Is the answer at the top?
+5. **Did anything just happen that the paper will want — a verdict, a
+   measurement, a correction? Then it is already written down, not queued.**

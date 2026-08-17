@@ -38,7 +38,9 @@ server on `:5200`. The rules that keep us out of each other's way:
    uncommitted where the other agent might sweep it.
 5. **Pushing carries BOTH agents' commits** — it is one repo and one branch.
    Harmless as long as each commit is complete, but it means either agent can
-   do the push, and neither should do it without asking.
+   do the push. ~~and neither should do it without asking~~ — **superseded by
+   D30 (2026-08-16): push automatically after each commit**, staging explicit
+   paths only. Do not ask.
 6. **One server on `:5200`.** Don't start a second — use the one that is
    running. Loading a score in a browser tab makes it that tab's session and
    autosave will write to *that* file, so never open a `piece-*` save just to
@@ -1168,3 +1170,67 @@ deleted: an ACTUAL is a render the composer *decided*.
   reading the cut instead of the level before it, the wrong pitch formula twice.
   Each is recorded in its commit, because "the test was wrong" is the useful
   half of the finding.
+
+---
+
+## DAY 13 (2026-08-17) — MORPH BODIES INTO THE SCORE (PLAN 2v/2y/2z, bespoke per D31)
+
+### The session's frame, set by the composer at the top
+
+> *"I would like to develop and insert some morphs into the score… make a
+> bespoke attack and release and just have AI document those for building the
+> machine. But right now I just want to get the actual sounds into the score
+> and maybe defer the machinery for now. So let's build the body first, and
+> then we could talk about how to make the attack and release."*
+
+**BODY FIRST, ENVELOPE SECOND — and the machinery is deferred, not worked
+around.** This is D31 in practice: the shaping engine is not to be fixed or
+extended; specific gestures get made and placed, and the lessons accumulate.
+
+**Why the split is free rather than a compromise:** in the 2z schema the
+gesture envelope is an OPTIONAL `shape` block on a variant. Absent = a pure
+body. So "defer the attack and release" costs nothing and disables nothing —
+there is no branch to take and no default to switch off. Worth recording for
+the paper: the deferral the composer wanted was already the schema's default,
+which is what a correctly-factored parameter space buys you.
+
+### Standing instruction adopted — D33 (documentation is continuous)
+
+The composer restated, as a standing instruction, that notes are taken **as the
+work happens** — both because the chat window is cleared often and, more
+specifically, **because the paper is being written FROM this process**. Filed as
+**D33** with a filing contract (one destination per kind of note), and written
+into `docs/AI_METHODOLOGY.md` as a new section, "Capture as you go — the paper
+is a deliverable, not an epilogue", plus a fifth item on its self-check list.
+
+**The framing that matters for the paper itself:** the negative half is the
+useful half. What failed, what the correction was, and *which test was wrong
+rather than which code* — those are what make the method reproducible instead of
+merely reported. Already the practice (Principle 5, SHAPE_LESSONS' "what was
+wrong" line, day 12's six self-inflicted assertion failures); now stated as a
+rule so it survives a cold start.
+
+Also fixed while there: this file's working rule 5 still said neither agent
+should push without asking, which **D30 superseded** on day 12. A cold agent
+reading the rules would have asked the composer a question they had already
+answered.
+
+### State at session start (verified, not remembered)
+
+- Tree clean apart from `reaper/7_tubas_rack.rpp` (modified) and
+  `scores/piece-s18.json` (**untracked**); nothing unpushed.
+- **`piece-s18.json` is the newest piece save** (2026-08-16 22:28), written by
+  the 2x texture agent after the day-12 wrap — so the journal's "s16/s17" is
+  behind the disk. Which file is the base for morph placement is the composer's
+  call, raised and pending.
+- Model store `bank/morph_models.json` rev 1: six models, all with placeholder
+  ids (BALANCE · COLOUR · BLOOM · CONVERGE · SPACING · SPECTRAL), `actuals: []`
+  on every one — the shelf is still empty as designed (D32 corollary).
+- **AI decision, not put to the composer** (AI_METHODOLOGY rule 2): the
+  placeholder model ids stay as they are for now. They are descriptive enough to
+  work with, and renaming plus patching any actuals that reference them is a
+  mechanical single-pass job whenever it is wanted. Renaming *before* any actual
+  exists would have been cheapest, but the cost of doing it later is bounded and
+  small, and it is not worth spending composer attention on ahead of the first
+  sound.
+
