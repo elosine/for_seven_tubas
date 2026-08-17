@@ -10,247 +10,97 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**SESSION END (2026-08-16, day 11 — PLANNING session for 2x TEXTURE SANDBOX,
-Claude Code / Fable 5 — a SECOND, concurrent session; the 2z+2y entry below ran
-at the same time):**
-- **PLAN 2x is DRAFTED, REVIEWED and APPROVED — `docs/plans/TEXTURE_SANDBOX_PLAN.md`
-  (v3).** Built from day-10's `PHASE_SANDBOX_REQUIREMENTS.md`; one composer
-  review round reshaped it, then a handoff-hardening pass. **Ready to
-  implement; the kickoff prompt is embedded in the plan's §16.**
-- **D29 IS CONFIRMED by the composer** (see §4): 2v owns everything bend-based
-  including pitch beating; **2x owns ATTACK FIELDS only**. No bend anywhere in
-  the 2x build. This was the one thing gating the plan.
-- **The composer's four design rulings, all now in the plan:**
-  1. **The interface is QUALITATIVE** — the composer speaks the vocabulary
-     (*"more rain-like", "a different gallop", "quicker, more exponential
-     build"*) and **the AI holds the recipes** that turn words into dial moves.
-     One-dial feel, never a wall of knobs. Two-sided contract so it never goes
-     opaque: every AI-written variant label names the dials it moved.
-  2. **No separate page** — a **Texture panel in the composer score** (the
-     Morph-panel pattern), plus ordinary `tex-` score files for long renders.
-     Audition reuses **2v's `morph_emit.js`** (a texture note is its no-bend
-     case); no new scheduler.
-  3. **No editor** — AI manages all editing by regeneration (R10).
-  4. **Both creation modes are first-class:** the quick panel loop AND the
-     long-render-then-**POCKET** workflow (*"render a long phase shift, I
-     listen, I give time clips"*) — pockets are **parametric first**
-     (regenerate the window's dial state as a new MODEL, still tweakable),
-     with literal clipping as the fallback.
-- **Storage follows 2y's MODEL ↔ ACTUAL taxonomy** (the composer's Bergsonian
-  virtual/actual): the five categories (**smear · ticks · rain · gallop ·
-  groove**) ship as the first five MODELS in `bank/texture_models.json`;
-  actuals go to `bank/actuals/` with provenance. Parallel files to 2y's —
-  never shared writes.
-- **The research method's two confounds became FEATURES:** seed stepping
-  (draw variance — at ten voices a setting is a lottery, not a texture) and
-  **PIN / A-B** back-to-back flipping (order effects), plus **H** = the
-  humanize A/B (stage scatter + human jitter), with a **robustness verdict
-  required before any keeper can be banked**.
-- **Handoff-hardened for a weaker model** (the composer's standing
-  instruction): §16 FOOTHOLDS carries the environment facts (no npm / no node
-  MIDI binding), string anchors for every file touched, the `Composer`
-  lexical-global trap, markers-in-`objects`, the lane-assignment rule, the
-  curve schema, a **worked example with expected numbers**, and the
-  literal-pocket determinism subtlety (regenerate the full render and slice —
-  never re-seed a short one). No probe phase exists, so 2v's hardest area is
-  absent by construction.
-- **Phase 0's gate is the regression suite:** regenerate `phase07-scatter`
-  through the extracted engine and get a **byte-identical `objects` array**.
-  The 13 research scores are the safety net for the extraction.
+**SESSION END (2026-08-16, day 12 — 2z BUILT, 2y MA0–MA3 BUILT, Claude Code):**
+*(A second agent worked 2x TEXTURE SANDBOX in this same tree all session.)*
 
-**Next up (2x):** implement with the §16 kickoff prompt, phases 0 → 4.
-**Coordination:** 2z implements first in the same tree — the 2x implementer
-pulls before every chunk and anchors `composer.html` edits by ids/strings.
+- **PLAN 2z GESTURE SHAPING IS BUILT** — gates G0–G5. Gesture-level ADSR gain
+  multiplying the D24 dynamics layer · entry/exit scheduling · cluster-safe
+  dropout · edge technique / transient / noise layer · motion with zero-at-the-
+  inner-edge by construction · Shape group in the panel. **331 engine
+  assertions** (from 101). App round-trip verified: insert → drag → group-scale
+  ×0.75 → save → reload is byte-identical, and D9 holds through the scale.
+- **THE COMPOSER'S VERDICT ON THE SHAPES (day 12, and it redirects the work):**
+  *"Those aren't really working as auditory models, as sound models, but that's
+  okay… So it's correct as an engine."* The mechanisms are right; the generic
+  preset SETTINGS were guesses. **New working mode → D31: bespoke, one morph at
+  a time, lessons harvested into `docs/SHAPE_LESSONS.md`.** The engine gets
+  revisited later, from accumulated evidence, not now.
+- **TWO PRE-EXISTING 2v BUGS FOUND AND FIXED, both by measurement:**
+  (1) **morph pitch was out by up to 40.2 ¢** on any note whose onset sat off
+  its played key — `n.bend` is already key-relative and both `toScoreObjects`
+  and `morph_emit.js` added the residual again. `morph_probe.js` and the unit
+  test computed their expectations the same way, so day-10's *"within 0.4 ¢"*
+  verified the MIDI→audio chain while agreeing with the error (→ **Principle 5**).
+  (2) **the panel carried the previous variant's dials across a switch**, and it
+  stuck. **Consequence: every day-10 comparison between variants was of the
+  wrong thing, and the pitches were slightly off. The material is still good.**
+- **PLAN 2y MODEL ↔ ACTUAL: MA0–MA3 BUILT.** Model store (6 models, 26 recipes)
+  · validator written first and negative-tested against 8 defects · recipe
+  engine (`applyRecipe`/`resolveParams`) · one shared save path for CLI and
+  panel · `/api/actuals` routes · panel with MODELS / scratch / ACTUALs, recipe
+  sliders, seed stepper, Save as ACTUAL, browser. Full loop verified in the app.
+  **→ D32: a recipe dial is OFF until turned.**
+- **The actuals shelf is deliberately EMPTY.** Three were made while testing and
+  deleted: an ACTUAL is *a render the composer decided*.
 
-**Open at session end (day 11 — 2x):** nothing in-flight; the plan is
-self-contained. `phase13-beatfield` is **DEFERRED by the composer** — not
-blocking 2x; its verdicts feed 2v's beating boundaries whenever it is heard.
+**Next up:** **MA4 — the composer's session, and it is the only gate left on
+2y.** (1) Rename the six placeholder model ids (BALANCE / COLOUR / BLOOM /
+CONVERGE / SPACING / SPECTRAL) — cheap now, expensive once actuals reference
+them. (2) Bless or edit the recipe slates and boundaries. (3) Make the first
+real actuals and place them. Composer's stated plan: **start with score
+placement.** Then the bespoke-shaping loop per D31, filing to SHAPE_LESSONS.md.
 
----
-
-**SESSION END (2026-08-16, day 11 — PLANNING session for 2z + 2y, Claude Code):**
-- **Both follow-on plans are DRAFTED, DISCUSSED (two design rounds with the
-  composer) and APPROVED:** **2z GESTURE SHAPING**
-  (`docs/plans/GESTURE_SHAPING.md`, v2) and **2y MODEL ↔ ACTUAL**
-  (`docs/plans/MODEL_AND_ACTUAL_PLAN.md`). **Build order: 2z first, then 2y —
-  NEVER as two concurrent agents** (shared files; the rule is in both plan
-  headers). Both are handoff-hardened for a weaker implementing model
-  (environment facts, worked examples, per-gate acceptance checklists,
-  precision/determinism rules).
-- **2z design outcomes** (composer's day-11 session, all in the plan): full
-  ADSR (attack `peak` + `decay`) · multilayer attack — edge technique
-  (body-rejected techniques welcome as noise sources), per-voice TRANSIENT
-  (hit-then-tone; D9 physics stated), NOISE layer on spare players, MOTION
-  (converge/gliss, zero-at-inner-edge by construction) · release = a SUBSET,
-  not a mirror (dropout is cluster-safe so beating thins by whole pairs) ·
-  striated entry demoted from default (`together` when a shape block exists;
-  no-shape stays byte-identical = gate G0) · ADSR is NOT a seventh model
-  (orthogonality morph ⊥ carrier ⊥ shape) · shape reuse = lightweight presets
-  in 2y, no taxonomy · recipe vocabulary built from NARRATED sessions, seeds
-  minimal.
-- **PLAN-ID collision fixed:** two day-10 sessions both appended "2x".
-  GESTURE SHAPING is now **2z**; the texture sandbox keeps **2x**.
-- **Found in passing:** `lanes`/`voices` read by `normaliseParams` but missing
-  from `KNOWN_KEYS` (spurious warning) — fix scheduled in 2z gate G0.
-- A second agent was active in the repo this session (separate plan);
-  explicit-path staging observed throughout.
-
-**Next up:** **implement 2z** — the whole prompt is *"Implement
-docs/plans/GESTURE_SHAPING.md (PLAN 2z)"*; the plan is self-contained
-(gates G0–G5; G5 is the composer listening check-in, which also re-hears
-variant B). Then 2y the same way (MA0–MA4; MA4 is the composer
-naming/blessing session).
-
-**Open at session end (day 11):** nothing new in-flight. The day-10 opens
-below still stand — notably `phase13-beatfield` unheard and the D29 scope
-call, **both gating only the texture sandbox (2x)**, not 2z/2y.
-*(Both resolved later the same day in the concurrent 2x session — see the
-entry above: **D29 confirmed**, `phase13` **deferred by the composer**.)*
+**Open at session end (day 12):**
+- **The ACTUALs "hear" button is unverified FOR SOUND.** Its data path is
+  checked (the emit layer receives the stored `notes` byte-identical, every note
+  resolves to a lane, envelopes intact) but Web MIDI is denied in the preview
+  pane, so nobody has heard it. First thing to try in the composer's browser.
+- **Re-hear the six seeded models before blessing names at MA4** — they were
+  auditioned through both bugs above. Each model carries this note in its
+  `notes` field.
+- 2z's G5 battery (variants G–N in `morph_params.json`) has served its purpose
+  and can be cleared whenever it is in the way; the verdict is recorded above
+  and in SHAPE_LESSONS.md lesson 0.
+- The other agent's 2x work was mid-flight in `clusterview.html`, `tonality.js`
+  and `scores/piece-s18.json` — **not mine, left untouched.**
 
 **Blockers:** none.
 
 ---
 
-**SESSION END (2026-08-16, day 10 — PLAN 2j PHASE SHIFTING, Claude Code — a
-SECOND, concurrent session; the 2v entry below ran at the same time):**
-- **The phase-shifting research arc is COMPLETE** — 13 experiments
-  (`phase01`…`phase13`), all in the Scores menu or `midi/`. Full write-up
-  `docs/PHASE_SHIFTING.md`; chronology + the composer's verbatim verdicts in
-  `docs/RUNNING_LOG.md`; generators `tools/phase_shift.js` (named presets) and
-  `tools/pitch_beat.js`; new `tools/midi_out.js` (SMF writer with pitch bend).
-- **THE CENTRAL FINDING — two families, and they do not behave alike (D27).**
-  Composer: *"it's really the staccato patch that lends the articulation —
-  everything else is smeared or blurry."* In the **articulated** family phase
-  reads as RHYTHM (smear → ticks → rain → gallop → groove). In the **smeared**
-  family (ord/flz) **timing-phase does nothing at all** — *"everything sounds
-  continuous, no swells"* — because onsets are masked by tones already sounding.
-  That is a boundary, not a tuning problem.
-- **PITCH BEATING WORKS and is predictive (D28)** — asked 1 beat/sec, heard
-  *"beats ~1hz"*. `beat Hz = |f1−f2|`. Below ~1 Hz it reads as **flanger**
-  (partial *n* beats at *n·Δf*), above as **beating**, and one bend ramp morphs
-  between them — the working "waves" primitive the arc was looking for.
-  **THE REGISTER LAW (measured):** a fixed cents detuning **doubles its beat rate
-  per octave** (13.19 ¢ → 0.50 / 1.00 / 2.00 Hz at C2 / C3 / C4), so detuning a
-  chord uniformly *stratifies* it. Feeds 2l directly.
-- **Ceilings that bind the piece:** ten players ÷ the 0.42 s staccato ring =
-  **~23 attacks/s**; and **stage width alone (~30 ms over 10 m) exceeds half a
-  slot at 18 attacks/s**, so dead-even textures cannot exist in a hall and the
-  mock-up is biased toward evenness and toward mass.
-- **Standing performance rule adopted (composer):** no texture may depend on a
-  precise beating rate or precise cents. Recorded as a constraint on the
-  RESEARCH — every keeper must survive a human-error pass. **Pitch beating
-  inverts the worry: beating is self-correcting by ear** ("beat about twice a
-  second" is a real instruction).
-- **Hand-off written: `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`** — evidence +
-  requirements for a stronger model to plan the texture sandbox, every claim
-  tagged HEARD / MEASURED / inferred.
-
-**Open at session end (2026-08-16, day 10 — 2j):**
-- **`phase13-beatfield` is UNHEARD** (~2 min): the upper boundary of beating
-  (8 and 15 beats/sec), the ten-tuba beat field, and the register law by ear.
-  MIDI only — `midi/phase13-beatfield.mid`, track N → `Tuba<N> SI2`, ord ch 1,
-  each on its own UVI instance (bend is per-instance).
-- **THE COMPOSER'S CALL, and it should be made before the sandbox is
-  commissioned: the 2j/2v scope split (D29).** 2v already owns bend, pitch sets,
-  sustained rendering and dynamics — and its **M1 "detune bloom" IS our pitch
-  beating**, M3 "fan" is `phase13`. Recommended: 2v keeps everything bend-based;
-  the new sandbox owns **attack fields** only. Otherwise it gets built twice.
-- **The biggest hole: pitch was never introduced.** Every rhythmic experiment was
-  ten players on a single C3, so the whole rain/gallop map is at unison. Does not
-  block the build, but the sandbox needs a pitch layer from day one.
-- Also untested, all deliberately deferred to the sandbox: counterpoint vs mass ·
-  category morphs (rain → gallop) · the robustness/perturbation pass (never run
-  once) · the repetition/density crossover · dynamics (untouched in this arc).
-- **Two confounds in our own method, to design around:** order effects (the same
-  setting drew opposite verdicts in different battery positions) and draw
-  variance (at ten voices a scatter setting is a *random variable*, not a
-  texture — the phantom "accents" came from single draws).
-- `docs/NITS.md` gained one: the conflict badge does not recompute on score load.
-
-**SESSION END (2026-08-16, day 10 — PLAN 2v MORPHING CHORDS, Claude Code):**
-- **PLAN 2v IS COMPLETE.** All five phases built, heard and measured. The composer
-  can now make a sonority, change it over time, audition it and insert it —
-  `Morph` button in the composer score. **Five of six models produced material the
-  composer called interesting or better; three are keepers usable in the piece.**
-  Composer: *"as far as creating interesting musical materials, we are already
-  there — it's more of a spoiled-by-riches situation now."*
-- **The instrument question is settled: PITCH BEND WORKS.** ±1.99 st, linear, no
-  artifacts to full range, and the composer hears **no seam** when the engine
-  re-keys mid-glissando. So bend width is an implementation detail, not a musical
-  constraint. Two surprises: the **residue trap is real** (a note after an unreset
-  bend played +49.4 ¢ sharp), and the **quartertones patch is NOT a uniform
-  quarter tone** (+23 ¢ at F2 → +57 ¢ at C4) — which answers PLAN 2l's blocking
-  question with a different answer than expected and makes bend the vehicle.
-- **The pitch chain is trustworthy end to end** — spectral targets land within
-  **0.4 ¢**, fan waypoints within **1.0 ¢** including both re-key seams. That
-  matters beyond morphing: any microtonal or spectral writing can rely on it.
-- **Composer's call: dynamics is a LAYER on every model, not one model of six**
-  (D24). M6 became the volume-ONLY model. Also D25 (morph notes are ordinary
-  waveCurves + `morphBend`) and D26 (bend width is not a musical limit).
-- **Findings that came from listening, not design:** a 30–60 s morph holds as ONE
-  sonority · beating is the strongest material and is available *without* writing
-  unisons · re-articulation carries the morph's **audibility**, so long segments
-  are less informative rather than smoother · two concurrent morphs enrich one
-  sonority rather than reading as two voices · voice reduction is lossy in
-  **detail, not identity** ("8-bit vs 16-bit").
-- **Full arc in `docs/RUNNING_LOG.md`**, including a **COLD START** section at the
-  end written for a session that has never seen the conversation — it lists the
-  six traps that cost time today. Read it before touching this code.
-
-**Open at session end (2026-08-16, day 10 — 2v):**
-- **Nothing in 2v is blocked or half-finished.** 101 unit tests green; Phase 4
-  (insert / drag / group-scale / save-reload) verified in the running app.
-- **Two follow-on builds are the composer's to scope, both with their own docs:**
-  **GESTURE SHAPING** (*"the meta shape is really the sound itself"* — designed
-  attack, body, release, with the tuba parts filled in to realise it; inverts the
-  current parts-first order) and **MODEL ↔ ACTUAL**
-  (`docs/plans/MODEL_AND_ACTUAL.md` — a model as "a point plus the directions
-  worth travelling from it and how far"). *Note the ACTUAL half largely exists
-  already (gesture bank); the new work is recipes, boundaries and the one-dial
-  collapse. `bank/morph_recipes.json` is the first instance.*
-- **B (technique migration) has not been re-heard since its fix.** It read as "a
-  collection of different techniques"; technique changes now enter under a long
-  deep dynamic ramp per the composer's instinct, but that change is unverified.
-- **Unprobed, low stakes:** a very fast or very low re-key seam; whether the true
-  bend pre-arm minimum is below 50 ms (all four rungs read identically).
-- Carried from day 9, all still open and all still deferred by the composer: the
-  **DB3 apex decision** · velocity-vs-CC7 (2q) · 42 soft flags in the piece ·
-  META shape overhang (NITS) · `ost01-variety` unheard · cressand-family verdicts.
-
-**Earlier days, one line each** (detail lives in the docs each names):
-
+- **Day 11 (08-16):** planning only — 2z and 2y drafted, design-reviewed with the
+  composer and approved; build order 2z→2y, never concurrent; 2x ID collision
+  resolved. Both plans hardened for a cold implementer.
+- **Day 10 (08-16), two concurrent sessions:** **2v MORPHING CHORDS complete**
+  (D24–D26; six models, 101 tests; bend works ±1.99 st; *"we are already there —
+  spoiled by riches"*) and the **2j PHASE-SHIFTING arc complete** (D27–D29; the
+  two-family model; pitch beating verified predictive; the register law).
 - **Day 9 (08-16):** DB3 orchestrated; **PLAN 2t DENSITY PIPELINE** shipped
-  (D19–D23, `docs/DENSITY_PIPELINE.md`) — 251 → 160 notes at 0 hard / 0 soft,
-  placed as **piece-s16** in Messiaen m3 on F; **2w** gesture bank + recall;
-  labels-never-render bug fixed (Principle 4).
-- **Day 8 (08-16):** collision avoidance end to end (**2r**) — occupancy model,
-  HARD/SOFT tiers (D17), conflict-aware insert, resolver; back-audit of all 164
-  scores clean (**2s**); **`AI_METHODOLOGY.md` adopted as governing (D18)**;
-  `NITS.md` opened.
-- **Day 7 (08-16):** the **CLUSTER SANDBOX** (`/clusterview.html`, **2p**) —
-  42 takes + recording, piano-roll editor, non-destructive transforms, lists +
-  items (D14), velocity-not-CC7 (D12), `SESSION_HYGIENE.md`.
+  (D19–D23) — 251 → 160 notes at 0 hard / 0 soft, placed as **piece-s16**; 2w
+  gesture bank + recall; labels-never-render bug fixed (Principle 4).
+- **Day 8 (08-16):** collision avoidance end to end (**2r**), HARD/SOFT tiers
+  (D17), back-audit of all 164 scores clean (**2s**); `AI_METHODOLOGY.md`
+  adopted as governing (D18); `NITS.md` opened.
+- **Day 7 (08-16):** the CLUSTER SANDBOX (**2p**) — 42 takes, piano-roll editor,
+  lists + items (D14), velocity-not-CC7 (D12), `SESSION_HYGIENE.md`.
 - **Day 6 (08-15):** the blast pipeline — piece-s09, Blast Sandbox + three-tier
-  taxonomy (D11), insertion strip, the **SAMPLE-LENGTH SURVEY → D9 (only ORD is
-  a real duration)**, the save system (D10).
-- **Days 4–5 (08-13/14):** piece assembly began (s01→s07c, movable META group
-  shapes); harmony palette + pairing ledger; GESTURE-2 banked; cressand research;
-  ostinato engine ported; `NAMING.md`.
-- **Day 3 (08-12):** CRD remote listening; species {sine, expodec, surge};
-  **the density arc → DB 044** (finding 15, accelerando scheduler, RECIPE
-  BUILD-1); containers begun (DB 045).
+  taxonomy (D11), the SAMPLE-LENGTH SURVEY → **D9**, the save system (D10).
+- **Days 4–5 (08-13/14):** piece assembly began (s01→s07c); harmony palette;
+  GESTURE-2 banked; cressand research; ostinato engine; `NAMING.md`.
+- **Day 3 (08-12):** CRD remote listening; species {sine, expodec, surge}; the
+  density arc → DB 044; containers begun (DB 045).
 - **Days 1–2 (08-10/11):** stack seeded from piece #3; SI2 roster + dual-port
-  (D2); CC7 law and gain staging; laws L1–L3, Xenakis X1–X8, swell-cloud species;
-  **Penn State research — deadline Sept 4 2026**; 10-part expansion, floating META
-  window, grain suite, Roads catalog; **LAW L4 + RECIPE MAXDENSE-1** (DB 035).
+  (D2); CC7 law and gain staging; laws L1–L3, Xenakis X1–X8; **Penn State
+  research — deadline Sept 4 2026**; LAW L4 + RECIPE MAXDENSE-1 (DB 035).
 
 **Orientation for a cold session:** `docs/AI_METHODOLOGY.md` (governing — read
 before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
-`docs/DENSITY_PIPELINE.md` if the work is a density build → RESEARCH_INDEX.md /
-CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
-(:5200). Sandboxes: `/clusterview.html`, `/chordview.html`.
-
-**Blockers:** none.
+`docs/SHAPE_LESSONS.md` if the work is gesture shaping →
+`docs/DENSITY_PIPELINE.md` if it is a density build. Morph/model work:
+`docs/plans/GESTURE_SHAPING.md` §15 and `docs/plans/MODEL_AND_ACTUAL_PLAN.md`
+§13 record what was actually built vs planned. Server: `node score/server.js`
+(:5200). Checks: `node tools/test_morph.js` · `node tools/model_bank.js
+--validate`.
 
 ## §3 Principles
 
@@ -275,6 +125,21 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
    consumer is the composer's eye needs one check in the running app that the
    thing is actually on screen** — `AI_METHODOLOGY` rule 4 covers this, and this
    is what skipping it looks like.
+
+5. **A check that shares a formula with the thing it checks is a MIRROR, not
+   a test.** A morph note's `bend` is relative to its played key; both
+   `toScoreObjects` and `morph_emit.js` added the residual a second time, so any
+   note whose onset sat off its key sounded out by exactly that residual —
+   **measured at 40.2 cents** on a stock M2 spectral render. It survived a whole
+   day of work because `tools/morph_probe.js` computed its *expected* pitch with
+   the same double-add, and so did the unit test. The day-10 result *"spectral
+   targets land within 0.4 ¢"* was true — about the MIDI→audio chain — and could
+   say nothing about the engine→MIDI step it appeared to bless.
+   **Generalisation: where a convention is expressed in more than one place,
+   assert the two ends AGAINST EACH OTHER, never each against a shared helper.**
+   `test_morph.js` now pins `sounding cents === midi*100 + bend` in the engine,
+   in the score object and in the emitted MIDI. *(2026-08-16, day 12; full
+   write-up in `docs/NITS.md`.)*
 
 ## §4 Decisions
 
@@ -599,6 +464,40 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   that bookkeeping without adding risk. *Recorded in `CLAUDE.md` and in
   `docs/RUNNING_LOG.md`'s working rules.*
 
+- **D31** *(2026-08-16, day 12 — composer)* — **GESTURE SHAPES ARE BUILT
+  BESPOKE, ONE MORPH AT A TIME; the engine is not fixed now.** After hearing
+  2z's generic shape battery: *"Those aren't really working as auditory models,
+  as sound models, but that's okay… So it's correct as an engine."* The
+  mechanisms are individually correct and tested; what failed is the mapping
+  from a mechanism to a sound — the dials are right, the preset SETTINGS were
+  guesses. So: pick a morph, build a shape for it by ear until that gesture
+  sounds right, save it, use it in the score, and **harvest the lesson**
+  (`docs/SHAPE_LESSONS.md`, one section per shape, the "what was wrong" line
+  being the valuable one). When enough lessons accumulate, the engine gets
+  revisited — from evidence, with time, not now. *Why:* the composer needs
+  morphs in the score against a Sept 4 deadline, and a top-down preset is the
+  wrong UNIT — the unit is a specific gesture tuned by ear. *This is D6's
+  reverse-engineering principle applied to shaping.* **Deliberately NOT
+  diagnosed** (AI_METHODOLOGY rule 5): we do not yet know *which* aspect failed
+  — timing, gain range against the D24 layer already swelling underneath, window
+  lengths, or mechanisms that simply do not carry at ensemble scale. The bespoke
+  builds ARE the evidence-gathering.
+
+- **D32** *(2026-08-16, day 12 — PLAN 2y)* — **A RECIPE DIAL IS OFF UNTIL IT IS
+  TURNED.** A recipe absent from `settings` is not applied; `resolveParams`
+  returns the base params untouched, and the panel's sliders carry an explicit
+  on/off. *Why it is load-bearing and not a preference:* 2y's own worked example
+  has *"more dramatic"* defaulting to 0.35 over a base whose `depth` is 1, so a
+  panel that applied defaults on open would have silently rewritten material the
+  composer had blessed **the moment they looked at a model**. It also makes
+  `recipeSettings` in an actual's provenance mean exactly "what was turned",
+  which is what makes an actual re-derivable. *Rejected:* seeding each dial's
+  default to the value that reproduces the base (only works for single-path
+  recipes, and hides the question instead of answering it).
+  **Corollary — an ACTUAL is a render the composer DECIDED**, so the shelf ships
+  empty: seeding it with renders nobody listened to is the same failure the MA1
+  boundary gate exists to prevent.
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -660,6 +559,26 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   `docs/plans/PHASE_SANDBOX_REQUIREMENTS.md`, generators `tools/phase_shift.js`
   + `tools/pitch_beat.js` + `tools/midi_out.js` (SMF writer with pitch bend).
 
+- 2026-08-16 — **PLAN 2z GESTURE SHAPING COMPLETE** (day 12, gates G0–G5).
+  Gesture-level ADSR gain over the D24 layer · entry/exit scheduling with
+  cluster-safe dropout (beating thins by whole pairs) · edge technique,
+  transient (hit-THEN-tone by D9 physics) and noise layer on spare lanes ·
+  motion with **zero at each window's inner edge by construction** · Shape panel
+  group. **331 assertions** (from 101); twelve G0 fixtures keep the blessed
+  material byte-identical. App round-trip verified on shaped material.
+  `docs/plans/GESTURE_SHAPING.md` §15 records where the code corrected the plan.
+- 2026-08-16 — **A MEASURED 40.2-CENT PITCH ERROR IN THE MORPH OUTPUT, FIXED**
+  in all four places that carried the wrong formula (engine conversion, emit
+  layer, probe, unit test). Pre-existing since 2v. See Principle 5.
+- 2026-08-16 — **PLAN 2y MODEL ↔ ACTUAL: MA0–MA3 COMPLETE** (D32). Model store
+  seeded from the frozen day-10 audit record · `tools/model_bank.js` validator
+  written FIRST and negative-tested against eight defects · recipe engine
+  (endpoints + interpolation, only numbers lerp) · one shared save path for the
+  CLI and the panel · `/api/actuals` routes · panel with MODELS / scratch /
+  ACTUALs, bounded recipe sliders, seed stepper, Save as ACTUAL and a browser.
+  Full loop verified in the running app. **MA4 (the composer's naming/blessing
+  session) is the only gate outstanding.**
+
 ## §6 Human Notes
 
 - *(2026-08-12)* **Try PLAYING some of the shapes** — as another way to collect
@@ -707,4 +626,29 @@ CURVE_DATABASE.md for the calibration lineage. Server: `node score/server.js`
   attack fields only).
 - *(2026-08-16, day 10 — 2j)* **Push policy changed (D30):** either agent pushes
   automatically after its own commit, staging explicit paths only. You should no
-  longer have to track who owes a push.
+  longer have to track who owes a push. **Day-12 note on how that actually
+  played out:** the other agent staged `score/server.js` while a 2y edit of mine
+  was in flight, so my `/api/actuals` routes landed inside *their* commit
+  (`4c1958e`). Harmless — the commit is complete and everything works — but
+  explicit-path staging does not protect a file two agents are editing at the
+  same minute. Nothing to fix; worth knowing when reading git blame.
+
+- *(2026-08-16, day 12)* **MA4 is yours, and it is the only gate left on 2y.**
+  (1) Rename the six placeholder model ids — cheap now, expensive once actuals
+  reference them. (2) Bless or edit the recipe slates and their boundaries.
+  (3) Make the first real actuals and place them. `node tools/model_bank.js
+  --list` shows the store; the panel's MODELS tab is the loop.
+- *(2026-08-16, day 12)* **Re-hear the six models before you name them.** They
+  were auditioned on day 10 through two bugs since fixed — pitch out by up to
+  40.2 ¢ on off-key onsets, and the panel feeding one variant's dials to
+  another. The material is good and you liked it; what was unreliable was any
+  **comparison between them**. Each model carries this note in its `notes` field.
+- *(2026-08-16, day 12)* **The ACTUALs "hear" button has never made a sound.**
+  Its data path is verified — the emit layer gets the stored notes
+  byte-identical, every note resolves to a lane, envelopes intact — but Web MIDI
+  is denied in the preview pane, so it needs one press in your own browser.
+- *(2026-08-16, day 12)* **The bespoke-shaping loop starts whenever you want it**
+  (D31): pick a morph, describe the shape in your words, AI writes the `shape`
+  block, you listen, we correct, AI files the lesson to
+  `docs/SHAPE_LESSONS.md`. The "what was wrong" line is the one that matters —
+  a shape that works first time teaches nothing.

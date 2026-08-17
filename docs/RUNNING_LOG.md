@@ -1072,3 +1072,99 @@ Decisions taken with the composer, folded into `docs/plans/GESTURE_SHAPING.md`
   D30 git rules), per-gate acceptance checklists, a worked-example params
   blob, and the rule "where plan and code disagree, the code's measured
   constants win — then update the plan."
+
+---
+
+## 2026-08-16 · day 12 (Claude Code) — 2z BUILT, 2y MA0–MA3 BUILT
+
+*(A second agent built the 2x texture sandbox in this same tree throughout.)*
+
+### PLAN 2z GESTURE SHAPING — gates G0–G5, complete
+
+Built in gate order, each gate's tests written before moving on. **331 engine
+assertions**, up from 101.
+
+- **G0** twelve fixtures (six blessed recipes + variants A–F), hashed on both the
+  note array and `[summary, meta]`. Absent `shape` ⇒ bit-identical, by having no
+  second code path rather than by an `if`. Fixed in passing: `lanes`/`voices`
+  were read by `normaliseParams` but missing from `KNOWN_KEYS`, so every
+  concurrent-morph params file warned about dials that worked.
+- **G1** `shapeGain(shape, t, span, rel)` multiplies the D24 dynamics layer
+  inside `stateAt`. `peak` defaults to 1, which makes the decay window inert —
+  ADSR degrades to ASR to no-shape down one path.
+- **G2** entry (`together` default, `ramp`, `striated`) × order; per-voice exits;
+  **dropout is cluster-safe**, so beating thins by whole pairs; the SEAM
+  exemption is scoped to the designed attack and no wider.
+- **G3** edge technique (the body-rejected ones — singing, flutter, bisb — are
+  welcome here), transient (**hit-THEN-tone**, ~0.5 s, because D9 says the sample
+  decides and one player cannot sound two notes), noise layer on spare lanes.
+- **G4** motion, with the structural invariant that deviation is **zero at each
+  window's inner edge** — continuity with the body is not a checked property, it
+  is unrepresentable otherwise.
+- **G5** Shape panel group; app round-trip (insert → drag → group-scale ×0.75 →
+  save → reload) byte-identical on shaped material.
+
+**Where the code corrected the plan:** `docs/plans/GESTURE_SHAPING.md` §15 — eight
+behaviours, including that **gain feeds back into breath** (a quiet attack
+lengthens the segments under it, which is correct physics but means a shape is
+not a pure level overlay), and that **SWITCH can only fire on a release edge**.
+
+### THE COMPOSER'S VERDICT, and the redirect it caused
+
+> *"Those aren't really working as auditory models, as sound models, but that's
+> okay… So it's correct as an engine."*
+
+Mechanisms right, settings guessed. **D31**: shapes get built bespoke, one morph
+at a time, tuned by ear, kept, and the lesson harvested to
+`docs/SHAPE_LESSONS.md`. The engine gets revisited later from accumulated
+evidence. **What failed is deliberately NOT diagnosed** — the bespoke builds are
+the evidence-gathering (methodology rule 5).
+
+### TWO PRE-EXISTING BUGS, FOUND BY MEASUREMENT
+
+1. **Morph pitch was out by up to 40.2 cents.** `n.bend` is already relative to
+   the played key; `toScoreObjects` and `morph_emit.js` each added the residual
+   again. **It survived because the checks were mirrors** — `morph_probe.js` and
+   the unit test computed their expectations with the same double-add, so day
+   10's *"spectral targets within 0.4 ¢"* verified the MIDI→audio chain while
+   agreeing with the engine's error. → **Principle 5**.
+2. **The panel carried the previous variant's dials across a switch**, and it
+   stuck. Variant N auditioned at A's span and A's seed.
+
+**Standing consequence:** the six blessed settings were heard through both. The
+material is good; any **comparison between them** was of the wrong thing.
+
+### PLAN 2y MODEL ↔ ACTUAL — MA0 through MA3
+
+- **MA0** `bank/morph_models.json` seeded from the frozen day-10 audit record (6
+  models, 26 recipes, minimal slates). **The validator was written FIRST because
+  it is the spec**, then negative-tested against eight deliberate defects — all
+  caught, exit 1. `place_gesture --list` now shows both shelves.
+- **MA1** `applyRecipe` / `resolveParams`. Endpoints + interpolation, pure data.
+  **Only plain numbers lerp**; strings and arrays step. **Gate:** every seeded
+  recipe at min/default/max — 78 settings — stays inside the boundaries actually
+  *heard*, renders, adds no hard conflicts. Negative-tested by widening one
+  recipe to span 200.
+- **MA2** one `buildActual()` shared by `--actualize` and `POST /api/actuals`, so
+  CLI and panel cannot drift. Both arrays stored (`objects` frozen for insert,
+  `notes` for audition). Three integrity corruptions each caught.
+- **MA3** panel: MODELS / scratch / ACTUALs, bounded recipe sliders, seed
+  stepper, Save as ACTUAL, browser. **D32: a dial is OFF until turned** — 2y's
+  own worked example would otherwise have rewritten blessed params on open.
+- **Full loop verified in the app**: choose BLOOM → recipes confirmed OFF →
+  two dials → three seeds → Save as ACTUAL → browser → insert @ cursor (placed
+  **verbatim** from storage) → drag → scale ×0.75 → save → reload,
+  byte-identical, placement logged automatically.
+
+**The actuals shelf ships EMPTY on purpose.** Three were made while testing and
+deleted: an ACTUAL is a render the composer *decided*.
+
+### Working rules that earned their keep today
+
+- Every gate and every validator was **negative-tested**. A check that cannot
+  fail is worth nothing, and today two of them would have passed while wrong.
+- **Six assertion failures across the session were mine, not the code's** — a
+  tolerance tighter than the storage grid, a detail string in a tolerance slot,
+  reading the cut instead of the level before it, the wrong pitch formula twice.
+  Each is recorded in its commit, because "the test was wrong" is the useful
+  half of the finding.
