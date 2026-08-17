@@ -103,6 +103,8 @@ const PANEL = {
         d.querySelector('#morphIns').addEventListener('click', () => this.insert());
         d.querySelector('#morphSaveAct').addEventListener('click', () => this.saveActual());
         this.makeDraggable(d, d.querySelector('#morphDrag'));
+        // shrinking the window can strand a panel that was legally placed
+        window.addEventListener('resize', () => this.clampIntoView());
 
         // Keys are scoped to the panel: composer.html has global handlers and a
         // stray SPACE here must not fight the transport (plan §9).
@@ -128,6 +130,7 @@ const PANEL = {
             if (e.target.id === 'morphClose') return;
             on = true; sx = e.clientX; sy = e.clientY;
             const r = box.getBoundingClientRect(); bx = r.left; by = r.top;
+            this.bringToFront();
             e.preventDefault();
         });
         document.addEventListener('mousemove', e => {
@@ -135,8 +138,51 @@ const PANEL = {
             box.style.left = (bx + e.clientX - sx) + 'px';
             box.style.top = (by + e.clientY - sy) + 'px';
             box.style.right = 'auto';
+            this.clampIntoView();
         });
         document.addEventListener('mouseup', () => { on = false; });
+    },
+
+    // A PANEL YOU CANNOT REACH IS A PANEL YOU CANNOT CLOSE.
+    //
+    // Dragging was unbounded, and the title bar carries BOTH the drag handle and
+    // the ✕ — so pushing it above the viewport stranded the panel permanently:
+    // nothing to grab, nothing to click, and the position is not persisted so
+    // the only recovery was a page reload the composer had no reason to guess at.
+    // (Composer, 2026-08-17: "the morph UI header is trapped in browser header,
+    // that may be why I'm not seeing it.")
+    //
+    // Clamping lives in ONE place and is called from the drag, from the window
+    // resize and from every open — so there is no code path that can strand it.
+    // MIN_TOP clears #topBar (32px, z-index 100): this panel is z-index 9000, so
+    // an unclamped panel does not slide under the top bar, it COVERS it, taking
+    // the Session field and the save controls with it.
+    clampIntoView() {
+        const box = this.el;
+        if (!box || box.style.display === 'none') return;
+        const r = box.getBoundingClientRect();
+        if (!r.width && !r.height) return;
+        const MIN_TOP = 36, MARGIN = 4, HEAD = 28;
+        const maxLeft = Math.max(MARGIN, window.innerWidth - r.width - MARGIN);
+        const maxTop = Math.max(MIN_TOP, window.innerHeight - HEAD - MARGIN);
+        box.style.left = Math.min(Math.max(r.left, MARGIN), maxLeft) + 'px';
+        box.style.top = Math.min(Math.max(r.top, MIN_TOP), maxTop) + 'px';
+        box.style.right = 'auto';
+    },
+
+    // The Texture panel (PLAN 2x) opens at the IDENTICAL fixed spot — right:16px,
+    // top:96px, z-index:9000. With both open the two headers sat exactly on top
+    // of one another and which one you got was DOM insertion order. Raising on
+    // open and on grab makes "the one I just clicked is the one in front" true by
+    // construction, without either panel having to know the other's numbers.
+    bringToFront() {
+        let z = 9000;
+        document.querySelectorAll('div[id$="Panel"]').forEach(p => {
+            if (p === this.el || p.style.display === 'none') return;
+            const pz = parseInt(window.getComputedStyle(p).zIndex, 10);
+            if (!isNaN(pz) && pz >= z) z = pz + 1;
+        });
+        this.el.style.zIndex = String(z);
     },
 
     // PREFLIGHT — every assumption this panel makes about the host app, checked
@@ -177,6 +223,10 @@ const PANEL = {
         const show = force != null ? force : this.el.style.display === 'none';
         this.el.style.display = show ? '' : 'none';
         if (show) {
+            // Opening is also the RECOVERY path: front + clamp, so "I can't see
+            // it" cannot survive clicking the Morph button. Nothing to remember.
+            this.bringToFront();
+            this.clampIntoView();
             const bad = this.preflight();
             this.el.focus();
             if (bad.length) { this.setStatus('PREFLIGHT: ' + bad.join(' · '), true); return; }

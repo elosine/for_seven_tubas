@@ -1234,3 +1234,69 @@ answered.
   small, and it is not worth spending composer attention on ahead of the first
   sound.
 
+
+### Two UI defects found by the composer trying to open the panel — both fixed, both measured
+
+> *"the morph UI header is trapped in browser header, that may be why I'm not
+> seeing it"*
+
+**1 · THE TWO PANELS SHIP AT THE IDENTICAL SPOT.** Measured in the running app:
+`morphPanel` and `texturePanel` both compute to **`top:96px · right:16px ·
+z-index:9000`**. The Texture panel is 360px wide, the Morph panel 340px — so
+with both open the Texture panel **completely covers** the Morph panel, headers
+included, and which one you get is DOM insertion order. Two agents built two
+panels on two days from the same house style, and neither file mentions the
+other. *This is the likeliest cause of what the composer saw.*
+
+**2 · DRAGGING WAS UNBOUNDED, SO A PANEL COULD BE STRANDED PERMANENTLY.**
+`makeDraggable` wrote `style.top`/`style.left` with no clamp. The title bar
+carries **both** the drag handle and the ✕, so pushing it above the viewport
+left nothing to grab and nothing to click. Position is not persisted, so the
+only recovery was a page reload — which the composer had no reason to guess at.
+Reproduced: dragged to `top:-260` → header unreachable.
+
+**The fix, one code path, no branches:** a single `clampIntoView()` called from
+the drag, from `window.resize` and from **every open**; plus `bringToFront()`
+called on open and on grab. Opening the panel is therefore also the recovery
+action — *"I can't see it" cannot survive clicking the Morph button*, and there
+is nothing for the composer to remember. `MIN_TOP = 36` clears `#topBar`, which
+matters because the panel is z-index 9000 against the bar's 100: an unclamped
+panel does not slide *under* the top bar, it **covers** it, taking the Session
+field and the save controls with it.
+
+**Verified in the running app (not by reading):**
+
+| check | before | after |
+|---|---|---|
+| both panels' default spot | `96px/16px/9000` **identical** | Morph raised to **9001** on open |
+| dragged to (−500, −300) | header at `top:-260`, unreachable | clamped to **(4, 36)**, visible |
+| dragged past bottom-right | off-screen | clamped to **(936, 688)** in a 1280×720 viewport |
+| real mousedown→mousemove(−900,−900)→mouseup | stranded | **clamped live to (4, 36)** — cannot be stranded at all |
+| stranded, then click `Morph` | still stranded | **top 36, in front of Texture** |
+
+Page assets all 200; `PANEL.preflight()` returns `[]`.
+
+**3 · A D10 HOLE CLOSED ON THE WAY PAST (not an incident — a hole).** The boot
+fallback for a browser with no `localStorage` called `loadSession(newest)`
+directly, with none of the `isPieceName → openPiece` guard the branch four lines
+above has. If the server's first listed score is ever a canonical `piece-*`
+save, that binds the piece file and the first dirty edit autosaves into it —
+exactly what D10 exists to prevent, with the protection one branch wide instead
+of two. **Stated precisely, because the distinction is the point (rule 4):** I
+inferred this would have bound `piece-s18` and that inference was WRONG — the
+tab had `localStorage` and took the other branch, and `/api/composer/list` does
+not return the newest piece first (it returned `MorphPallette01`). So: a real
+hole, closed; **not** a diagnosed incident, and the code comment says so.
+
+**Unexplained, left alone (rule 5):** one 404 at page load, already out of the
+network buffer by the time I looked. Every script, `probes/cc7_map.json`,
+`bank/sample_lengths.json` and `/api/composer/list` all return 200 and preflight
+is clean, so nothing observable depends on it. Not diagnosed, not guessed at.
+
+**Incidental, and it answers a question the composer asked:** `MorphPallette01`
+already exists (today 08:40, **0 objects**) — the composer had already created
+an empty scratch score for this arc, by the Clear-All path.
+
+**BLOOM's stock render, measured while setting the view up:** 39 notes, **3 soft
+conflicts, 0 hard**, at the store's base params.
+

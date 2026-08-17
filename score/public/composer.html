@@ -1676,7 +1676,24 @@ const Composer = {
                 if (result.success && result.sessions.length) {
                     const newest = result.sessions[0].name;
                     this.sessionNameInput.value = newest;
-                    this.loadSession(newest);
+                    // SAME GUARD AS THE localStorage BRANCH ABOVE. This one was
+                    // missing: on a fresh browser (new profile, cleared storage,
+                    // a preview pane) this fallback calls loadSession directly,
+                    // so if the server's first listed score happens to be a
+                    // canonical `piece-*` save it gets BOUND, and the first
+                    // dirty edit autosaves into the piece file. That is exactly
+                    // what D10 exists to prevent, and the protection was one
+                    // branch wide instead of two.
+                    // (Found 2026-08-17 by reading this path before opening a
+                    // verification tab. NOT observed firing — the tab had
+                    // localStorage and took the branch above, and the list API
+                    // does not in fact return the newest piece first. So this
+                    // is a closed hole, not a diagnosed incident.)
+                    if (this.isPieceName(newest)) {
+                        this.refreshSessionList().then(() => this.openPiece(newest));
+                    } else {
+                        this.loadSession(newest).then(() => this.updateSessionBadge());
+                    }
                 }
             }).catch(() => {});
         }
