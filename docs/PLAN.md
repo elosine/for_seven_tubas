@@ -378,8 +378,11 @@ composer → notation → performance architecture.)*
   META layer already has to the density builds. Lineage: the granular-synthesis
   model. Recorded in `docs/RUNNING_LOG.md`; needs its own plan and build.
 
-- **2y — MODEL ↔ ACTUAL: storage, recall, insert** — `plan APPROVED 2026-08-16 —
-  docs/plans/MODEL_AND_ACTUAL_PLAN.md — ready to implement AFTER 2z` —
+- **2y — MODEL ↔ ACTUAL: storage, recall, insert** — `MA0–MA3 BUILT 2026-08-16
+  (day 12) — model store + validator + recipe engine + actualization + panel, all
+  gates verified in the running app. ONLY MA4 outstanding: the composer names the
+  models, blesses the recipe slates, and makes the first real actuals.
+  docs/plans/MODEL_AND_ACTUAL_PLAN.md §13 records what was built and decided.` —
   concept: **`docs/plans/MODEL_AND_ACTUAL.md`**. The composer's
   virtual/actual distinction: a **MODEL** is *"a point plus the directions worth
   travelling from it, and how far"* — a sonority, its elements, a slate of

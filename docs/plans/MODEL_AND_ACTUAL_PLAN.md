@@ -477,3 +477,75 @@ preserve `morphBend` per note · `--list` shows the actual under BLOOM.
 5. File composer verdicts the moment they are spoken (§7) — that habit IS the
    product.
 6. Stage explicit paths only; push after each commit (D30).
+
+---
+
+## 13 · BUILT — MA0–MA3 complete (2026-08-16, day 12)
+
+> **MA0, MA1, MA2 and MA3 are built and verified in the running app. MA4 — the
+> composer's naming/blessing session and the first real actuals — is the only
+> gate outstanding, and it is theirs.** Implementer rule 4: what follows was run,
+> not read.
+
+**What exists now**
+
+| piece | where |
+|---|---|
+| model store, 6 models, 26 recipes | `bank/morph_models.json` (`rev` polled by the panel) |
+| validator = the spec | `tools/model_bank.js --validate` |
+| recipe engine | `morph.js` `applyRecipe` / `resolveParams` |
+| save path (one, shared) | `buildActual()` — used by `--actualize` AND `POST /api/actuals` |
+| actuals shelf | `bank/actuals/` (empty on purpose — see below) |
+| shape presets | `bank/shape_presets.json` (empty; filled from narration) |
+| panel | MODELS / scratch / ACTUALs, recipe sliders, seed stepper, Save as ACTUAL, browser |
+| routes | `/api/morphmodels` · `/api/shapepresets` · `/api/actuals` · `/api/actuals/<id>` · `POST /api/actualplacement` |
+
+**Decisions taken during the build** (rule 2 — made, not put to the composer)
+
+1. **A DIAL IS OFF UNTIL TURNED.** A recipe absent from `settings` is not
+   applied. This is the load-bearing one: the plan's own §11 example has
+   `"more dramatic"` defaulting to 0.35 over a base whose `depth` is 1, so a
+   panel that applied defaults on open would silently rewrite blessed material
+   the moment the composer looked at it. Sliders therefore carry an explicit
+   on/off, and `recipeSettings` in provenance means exactly "what was turned".
+2. **The store is seeded but the actuals shelf is EMPTY.** Three actuals were
+   made while testing and then deleted. An ACTUAL is *a render the composer
+   decided*; seeding the shelf with renders nobody listened to is the same
+   failure the MA1 gate exists to prevent.
+3. **Lerped values round to 6 dp** — keeps `resolvedParams` readable and
+   diffable without affecting determinism (the stored value is what re-renders).
+4. **`model_bank.js` guards its CLI dispatch on `require.main`** so the server
+   can share `buildActual()` rather than growing a second save path.
+
+**Negative-tested, because a check that cannot fail is worth nothing**
+
+- The **validator** was run against eight deliberate defects (typo'd path, <2
+  waypoints, default outside range, non-ascending waypoints, bad status, id/key
+  mismatch, duplicate path across recipes, unrenderable baseParams) — all eight
+  caught, exit 1.
+- The **MA1 boundary gate** was run against a recipe widened to span 200 — it
+  fails with the offending value named.
+- The **actual integrity checks** were run against three corruptions —
+  objects/notes disagreeing (ERROR: audition would differ from insert),
+  resolvedParams that no longer reproduce the notes (reported DRIFT; the stored
+  objects still stand), and a model that stops listing its actual (ERROR).
+
+**MA2 + MA3 gates, run in the app** (scratch session; research scores checked
+byte-identical to HEAD afterwards): choose BLOOM → recipes confirmed OFF at open
+→ turn two dials (`target.cents` 25→42; `carrier.span` 20 / 55 / 35 across the
+range) → step three seeds, each a genuinely different draw → **Save as ACTUAL**
+→ found in the browser → **insert @ cursor**: 35 notes placed **verbatim** from
+storage, marker in `objects` (Principle 4), META shape present → drag +30 s →
+group-scale ×0.75 → save → reload: **byte-identical throughout** → placement
+logged automatically.
+
+**Carried into MA4 — the composer should know**
+
+- The six seeded models were auditioned on day 10 **through two bugs later found
+  in 2z G4**: morph pitch was out by up to 40.2 ¢ on off-key onsets, and the
+  panel carried the previous variant's dials across a switch. The material is
+  good, but any day-10 *comparison between models* was of the wrong thing.
+  Every model carries this note in its `notes` field. **Re-hear before blessing.**
+- Recipe slates are deliberately minimal and the shape-preset library is empty,
+  per §4's discipline: nothing speculative ships before it has been asked for
+  twice. `docs/SHAPE_LESSONS.md` is where the narration harvest accumulates.
