@@ -10,6 +10,94 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**SESSION END (2026-08-17, day 13 — MORPH CYCLING BUILT; SPEC LEDGER OPENED;
+Claude Code / Opus 5).** 17 commits, all pushed. `node tools/test_morph.js` =
+**354 passed, 0 failed, fixtures NEVER regenerated** — every pre-existing render
+is byte-identical.
+
+- **THE ROOT FINDING, and everything else follows from it:** the morph engine had
+  **exactly one time value**, and the glissandos were stretched to fill it — so
+  "how long the gliss takes" and "how long the gesture lasts" were the same
+  number. Split into `carrier.span` (the ONE-WAY gliss = pace) and
+  `carrier.duration` (the body). **Cycling is on exactly when duration > span**;
+  no separate switch. `voiceProgress` folds with a triangle instead of clamping,
+  so the trajectory runs **out and back** forever instead of arriving and
+  stopping. **Loudness needed no code at all** — it already rides the same
+  progress, so it cycles for free.
+- **`carrier.release`** = a forced run-down. Because loudness rides progress,
+  driving progress to 0 returns pitch to unison *and* level to the floor in one
+  motion: **the bloom closes as it fades.** Measured: final detune 0.00 c and
+  final level 0.8 on every voice, stops staggered. Negative control run (no
+  release → voices end at 7.9–9.2, non-unanimous).
+- **THREE BUGS FOUND BY THE COMPOSER'S EAR, all real, all in the engine.**
+  (1) A release used to switch the *body* into cycling. (2) The dynamics layer is
+  **not monotonic in progress** — `swell` is an arch, loudest at p = 0.5 — so
+  running progress down walked back **through the peak** (measured 9.20 of 10
+  inside the release). (3) The re-entry "sneak-in" dip-and-rise, which hides
+  seams in a body, is a **crescendo on every re-attack** inside a fade.
+  *Pattern, three times in one day: a mechanism correct for the body, reused
+  where its assumptions do not hold.*
+- **TWO PRE-EXISTING PANEL BUGS**, both found by testing rather than reading:
+  `readFields` threw on **every** call in MODELS mode (recipe checkboxes/sliders
+  and the preset picker carry no `dataset.path`), so **nudging any dial there had
+  silently done nothing since MA3**; and `Save as ACTUAL` **dropped every
+  hand-typed field**, re-deriving from the model — so a dialled 300 s bloom saved
+  as the stock 40 s one. Both fixed; the save now stores the exact params
+  rendered.
+- **Panel made usable** — it was an uncapped block, so MODELS mode grew past the
+  screen taking every button with it. Now a height-capped flex column with one
+  scrolling middle, a resize grip, and a clamp that cannot strand it.
+- **SPEC LEDGER OPENED: `docs/FEATURE_REQUESTS.md`** (FR-1…FR-6, composer's
+  words + research + gates), plus `docs/plans/MORPH_CYCLING_PLAN.md` (the build)
+  and **`docs/plans/MORPH_SECTION.md`** (the section's form: morph bed + played
+  impacts; the governing constraint is that the bed and the impacts share ten
+  players, so impacts must borrow **whole pairs**).
+- **PENN STATE: 15 MINUTES MAX** (composer, from the call PDFs now in `docs/`).
+  Recorded in `PENN_STATE_RESEARCH.md`. **This binds the morph section** — one
+  5-minute cycling morph would be a third of the piece.
+
+**Next up, in the composer's order:**
+1. **Hear the attack.** The body (BLOOM + duration + release) is decided; three
+   shape presets exist (`fade-in-3s`, `hit-and-settle`, `brassy-hit`) and are
+   **UNHEARD**. The composer needs to audition fade lengths and check the seam
+   where the attack joins the body — **blocked by the blip, see below.**
+2. **Audit the saved JSON for the notation phase** — walk `ACT-BLOOM-01.json` and
+   a placed score and confirm every field the notation pass will need is present.
+   *(The AI's assessment, unverified: the score JSON and the actual's provenance
+   already hold more than MIDI ever could — bend and level breakpoint curves per
+   note, `groupId`, the META shape. MIDI is a render, not the source of truth.)*
+3. Then: 3–5 of these morph objects for the section.
+
+**Open at session end (day 13):**
+- **THE BLIP IS NOT DIAGNOSED, AND THE AI'S DIAGNOSIS WAS DISPUTED.** The
+  composer hears a short attack at the start of the fade-in and at the release.
+  Three engine causes were found and fixed (level floor → opening CC7 went 24 → 0;
+  CC7 had zero lead at t=0; velocity now scales inside an attack window). **The
+  blip persists, quieter.** The composer's counter-evidence: playing four or
+  eight ordinario notes from a keyboard gives **no attack at all** — which none
+  of the above explains. **Do not re-run the same three fixes.** The next place
+  to look is the generated-MIDI → Reaper → UVI chain, not the engine. Composer's
+  stated position: *"it's fine for now, I'll fix it manually in Reaper for the
+  demo."*
+- **The composer cannot currently hear the attack because of it**, and asked for
+  a way to audition fade lengths **outside the live-MIDI path**. **Recommended
+  and NOT built:** render N attack variants end-to-end into one `.mid` via the
+  existing `tools/midi_out.js` (SMF writer with bend, from 2j) and play it in
+  Reaper — which is where the composer is fixing things anyway. This was the
+  live question when the session ended.
+- **`ACT-BLOOM-01` IS STALE** — saved before the reload that carried the save fix,
+  so it kept the sliders (`slower / longer 0.76`, `more dramatic 0.55`, seed 11,
+  pace 48) but **not** duration, release or the attack. Its label says "108 s"
+  because that *was* the real length. Re-save as `-02` and delete it.
+- `bank/morph_models.json` rev 2 — BLOOM now lists `ACT-BLOOM-01`; that reference
+  must be cleaned up with the file.
+- Two Penn State call PDFs and `scores/MorphPallette01.json` (the composer's empty
+  scratch score) are in the tree.
+
+**Blockers:** none for composing; the blip blocks *auditioning the attack* only.
+
+---
+
 **SESSION END (2026-08-16/17, day 12 — PLAN 2x TEXTURE SANDBOX BUILT END TO END,
 Claude Code / Opus 5 — a SECOND, concurrent session; the 2z+2y entry below ran
 at the same time in the same tree):**
@@ -606,7 +694,7 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   `bank/texture_actuals/README.md`, a test asserts 2x never writes a 2y path, and
   2y's validator was re-run after every write and stayed `VALID`.
 
-- **D33** *(2026-08-17, day 13 — composer)* — **NOTES ARE WRITTEN AS THE WORK
+- **D34** *(2026-08-17, day 13 — composer)* — **NOTES ARE WRITTEN AS THE WORK
   HAPPENS, FOR TWO READERS: the next cold session, and the paper.** Composer:
   *"I am clearing the chat window often… but also, more specifically, for a
   paper. So collecting journal and experimental notes — so when we sit down to
@@ -622,9 +710,37 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   once a finding supports a claim · MORPH_FINDINGS = measured morph facts ·
   §4 here = decisions · NITS = real-but-not-now. Written into
   `docs/AI_METHODOLOGY.md` ("Capture as you go") with a fifth item added to its
-  self-check. *Rejected:* a single combined notes file (the raw trail and the
+  self-check. *(Filed as D33 first; renumbered to D34 at session end — the
+  concurrent 2x session had already taken D33 for the texture actuals store.)* *Rejected:* a single combined notes file (the raw trail and the
   argument have different readers and different lifetimes — merging them makes
   the trail unciteable and the argument unreadable).
+
+- **D35** *(2026-08-17, day 13 — composer)* — **THE AI DOES NOT IMPLEMENT
+  ANYTHING WITHOUT AN EXPLICIT GO.** Composer: *"please check in with me before
+  implementing anything or wait for me to ask you explicitly to implement."*
+  Proposals, specs and measurements: yes, freely. Edits to code: only on a
+  direct instruction. *Why it was needed:* this is a **restoration**, not a new
+  rule — `HOW_WE_WORK.md` already said "conceptual proposal before any code
+  edit", and over one morning it had eroded into fix-it-as-you-see-it, which is
+  how a session about composing became a session about the panel. The companion
+  practice is `docs/FEATURE_REQUESTS.md`: requests are collected and spec'd for a
+  batch pass rather than built as they arise.
+
+- **D36** *(2026-08-17, day 13 — PLAN 2q, PARTIALLY SETTLED, see the caveat)* —
+  **CC7 ALONE DOES NOT GOVERN LOUDNESS ON SI2: NOTE-ON VELOCITY CONTRIBUTES.**
+  Evidence: with the engine made to open a fade at level 0 → **CC7 = 0**, the
+  composer still heard an attack. If CC7 alone governed loudness, CC7 = 0 would
+  be silence. Consistent with **D12**, which chose velocity in the cluster
+  sandbox because *"velocity is what the meter shows"*. Consequence wired in: a
+  note opening below the engine's 0.4 level floor — which happens only inside an
+  attack window — takes a proportionally softer velocity, floored at 1.
+  **⚠ THE CAVEAT IS LOAD-BEARING AND THE COMPOSER DISPUTES THE DIAGNOSIS:** they
+  report that playing four or eight ordinario notes from a keyboard produces **no
+  attack at all**, which the velocity story does not explain. **So the blip is
+  NOT diagnosed** (AI_METHODOLOGY rule 5) — what is established is only the
+  negative, that CC7 = 0 is not silence. The positive cause is open, most likely
+  somewhere in the generated-MIDI → Reaper → UVI chain rather than in the engine.
+  See §6 and `docs/NITS.md`.
 
 ## §5 Done
 
@@ -810,6 +926,27 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   Its data path is verified — the emit layer gets the stored notes
   byte-identical, every note resolves to a lane, envelopes intact — but Web MIDI
   is denied in the preview pane, so it needs one press in your own browser.
+- *(2026-08-17, day 13)* **THE BLIP IS YOURS TO CALL, and it is not diagnosed.**
+  Three real engine causes were found and fixed (opening CC7 went 24 → 0, CC7 now
+  has lead at t=0, velocity scales inside an attack). It persists, quieter. Your
+  counter-evidence — a keyboard-played chord has **no** attack — is not explained
+  by any of them, and my diagnosis was not reliable enough to act on. Full
+  write-up and the next places to look are in `docs/NITS.md`; **the one control
+  nobody has run is a generated `.mid` played in Reaper against the same notes
+  played live**, which separates the chain from the engine in a single test.
+- *(2026-08-17, day 13)* **To hear the attack without the blip:** the
+  recommendation on the table when the session ended was to render several fade
+  lengths **end to end into one `.mid`** (via the existing `tools/midi_out.js`)
+  and audition them in Reaper. Not built — say the word.
+- *(2026-08-17, day 13)* **`ACT-BLOOM-01` is stale.** It was saved a moment before
+  the reload that carried the save fix, so it kept your sliders
+  (`slower / longer 0.76`, `more dramatic 0.55`, seed 11, pace 48) but not the
+  duration, the release or the attack. Re-save as `-02` and delete it; the model
+  file's `actuals` list references it too.
+- *(2026-08-17, day 13)* **Penn State is 15 minutes maximum** — recorded from your
+  reading of the call. With 3–5 morph objects planned, a 5-minute one is a third
+  of the piece; worth deciding their lengths against the whole before building
+  more.
 - *(2026-08-16, day 12)* **The bespoke-shaping loop starts whenever you want it**
   (D31): pick a morph, describe the shape in your words, AI writes the `shape`
   block, you listen, we correct, AI files the lesson to

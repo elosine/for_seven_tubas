@@ -1194,12 +1194,12 @@ there is no branch to take and no default to switch off. Worth recording for
 the paper: the deferral the composer wanted was already the schema's default,
 which is what a correctly-factored parameter space buys you.
 
-### Standing instruction adopted — D33 (documentation is continuous)
+### Standing instruction adopted — D34 (documentation is continuous)
 
 The composer restated, as a standing instruction, that notes are taken **as the
 work happens** — both because the chat window is cleared often and, more
 specifically, **because the paper is being written FROM this process**. Filed as
-**D33** with a filing contract (one destination per kind of note), and written
+**D34** with a filing contract (one destination per kind of note), and written
 into `docs/AI_METHODOLOGY.md` as a new section, "Capture as you go — the paper
 is a deliverable, not an epilogue", plus a fifth item on its self-check list.
 
@@ -1296,7 +1296,7 @@ server does not serve. Not a defect. *Noted because "one recurring 404" left
 vague is the kind of thing that gets blamed for something else later.*
 
 **4 · A DEFECT I INTRODUCED, RECORDED BECAUSE THE NEGATIVE HALF IS THE USEFUL
-HALF (D33).** While fixing the status line I declared `const sel` inside
+HALF (D34).** While fixing the status line I declared `const sel` inside
 `draw()` — which already has a `sel` helper (the select-field builder) about 100
 lines further down. `SyntaxError: Identifier 'sel' has already been declared`
 took out **the whole file**, so `window.MorphPanel` was undefined and the panel
@@ -1391,7 +1391,7 @@ composer asks for it.
 
 ### Day 13, second thread — SPEC MODE, and a conceptual arc worth the paper
 
-**Working rule changed mid-session → D34: the AI does not implement anything
+**Working rule changed mid-session → D35: the AI does not implement anything
 without an explicit go.** Composer: *"please check in with me before implementing
 anything or wait for me to ask you explicitly to implement."* Then: *"talk
 through a number of feature requests and get you to make a document of them…
@@ -1712,3 +1712,37 @@ is the third iteration on the same symptom — if a transient survives at veloci
 1, the remaining cause is the SAMPLE's own onset, which no MIDI message can
 remove. The honest fallback at that point is to start the fade from a technique
 whose sample has no attack, or to accept it and cut it in the final audio.
+
+### Day 13 — SESSION END
+
+**Shipped:** FR-3 (pace split from length; the trajectory cycles) and FR-6 (the
+release closes the bloom), the panel made usable, two pre-existing panel bugs
+fixed, three attack presets, and the spec ledger. **354 assertions, 0 failed,
+fixtures never regenerated.** 17 commits.
+
+**Docs opened today:** `FEATURE_REQUESTS.md` (FR-1…FR-6) ·
+`plans/MORPH_CYCLING_PLAN.md` · `plans/MORPH_SECTION.md` · `RESTART_PROMPT.md`.
+
+**Decisions:** **D34** notes are continuous and serve the paper (renumbered from
+D33 at session end — the concurrent 2x session had already taken D33) · **D35**
+no implementation without an explicit go · **D36** CC7 alone does not govern
+loudness on SI2, *with the caveat that the composer disputes the diagnosis and
+the blip is NOT solved.*
+
+**THE HONEST ACCOUNT OF THE DAY, since that is the half worth keeping.** The
+composer came to compose and spent the session on tooling. Three of the bugs were
+found by their ear, not by the suite — and two of those were mechanisms that were
+correct in the body and wrong when reused in the release or the attack, which is
+now a recognisable shape of error in this engine. Two more had been silently
+broken since day 12 and only surfaced because a new field had to survive a
+redraw: **dial nudging in MODELS mode had never worked, and Save as ACTUAL had
+been discarding everything typed.** Neither had a test, and neither would have
+been found by reading.
+
+**And the one I got wrong:** I diagnosed the blip three times, each time with
+more confidence than the evidence carried, and the composer's simplest control —
+playing the same notes from a keyboard — contradicted the story. The rule exists
+for exactly this (rule 5), and the cost was several rounds of their time during a
+session they had said twice they could not afford. **The finding is the negative
+one only: CC7 = 0 is not silence.** Everything past that is open, and it is
+filed as open.

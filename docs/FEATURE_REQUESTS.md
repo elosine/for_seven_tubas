@@ -5,7 +5,7 @@
 > once**. Nothing here is built. The composer lists and specs first, then one
 > implementation pass.
 >
-> **Working rule set the same day → D34:** the AI does **not** implement
+> **Working rule set the same day → D35:** the AI does **not** implement
 > anything without being asked explicitly. Proposals and specs, yes; edits, only
 > on an explicit go. *(This restores `HOW_WE_WORK.md`'s "conceptual proposal
 > before any code edit", which had been eroding into fix-it-as-you-see-it.)*

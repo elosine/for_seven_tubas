@@ -497,6 +497,29 @@ composer → notation → performance architecture.)*
   - **Biggest known hole:** pitch was never introduced — the whole rain/gallop
     map was made with ten players on one C3.
 
+- **2A — MORPH CYCLING + THE SPEC LEDGER** — `FR-3/FR-6 BUILT 2026-08-17
+  (day 13); FR-1/FR-2 superseded; FR-4/FR-5 spec'd, not built.` The engine had
+  **one time value** doing two jobs, so lengthening a morph necessarily slowed it.
+  Split into `carrier.span` (one-way gliss = pace) and `carrier.duration` (body),
+  with the trajectory folding out-and-back instead of arriving and stopping —
+  cycling is on exactly when `duration > span`. **Loudness needed no code**: it
+  already rides the same progress. `carrier.release` forces a run-down which,
+  because loudness rides progress, **closes the bloom back to unison as it
+  fades**. 354 assertions, fixtures never regenerated.
+  - Requests ledger **`docs/FEATURE_REQUESTS.md`** (FR-1…FR-6, composer's words,
+    research, gates) · build plan `docs/plans/MORPH_CYCLING_PLAN.md` · section
+    form **`docs/plans/MORPH_SECTION.md`**.
+  - **Three engine bugs found by the composer's EAR**, all of one kind — a
+    mechanism correct for the body reused where its assumptions fail: a release
+    switched the body into cycling · the dynamics arch is not monotonic in
+    progress so a release walked back through its peak (9.20 of 10) · the
+    re-entry sneak-in is a crescendo inside a fade.
+  - **Two pre-existing panel bugs:** `readFields` threw on every call in MODELS
+    mode, so **dial nudging there had silently done nothing since MA3**; and
+    `Save as ACTUAL` dropped every hand-typed field.
+  - **Open: the fade-in/release blip is NOT diagnosed** (NITS) and blocks
+    auditioning the attack. **Penn State = 15 minutes max** (PENN_STATE_RESEARCH).
+
 - **2i — THE COUNTERPOINT SECTION** *(composer note, 2026-08-14 — to try)*:
   a section built from **long crescendos in the banked harmonies** (the
   VERT/cluster/mode palette) **combined with the crescendo-acceleration chains**

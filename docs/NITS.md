@@ -233,3 +233,42 @@ after an AI write and the numbers not matching the description. The fix is four
 lines, and the working version is in `texture_panel.js`'s `refresh()` — copy it
 across, including the `pinned = null` reset (a new slate invalidates the old
 A/B reference).
+
+## The fade-in / release BLIP — not diagnosed *(2026-08-17, day 13)*
+
+**What is observed.** A short attack at the start of a shaped fade-in, and at the
+release. The composer: *"still an attack but a little quieter"* after three fixes,
+and *"there are blips on the attack and the release still."*
+
+**What was found and fixed (all real, none of them the whole story):**
+- the engine's **0.4 level floor** meant a fade "from silence" opened every voice
+  at **CC7 = 24** — the measured CC7 map is very steep at the bottom (level 0 →
+  CC0, but 0.2 → CC23). Floor now drops to 0 inside an attack window only.
+- a note at `tStart 0` scheduled its **CC7 in the same millisecond as its
+  note-on**, so it had no lead; and `stop()` leaves CC7 at **127**. Opening CC7 is
+  now sent synchronously before any timer.
+- **note-on velocity** now scales down inside an attack window (floored at 1).
+
+**Measured result: the eight opening voices went `CC24/vel96` → `CC0/vel1`.
+The blip persists.**
+
+**THE COMPOSER'S COUNTER-EVIDENCE, which the AI's diagnosis does not explain:**
+playing four or eight ordinario notes from a keyboard or virtual keyboard gives
+**no attack at all**. If the sample had an onset transient, it would be audible
+there too. **So the velocity/sample-onset story is at best incomplete, and the
+AI's confidence in it was not warranted.**
+
+**Why it is deferred, not solved.** No clear evidence for a cause (rule 5), and
+the composer's read is that it belongs to the chain rather than the engine:
+*"there's just something I'm missing between the AI generated MIDI file and the
+way Reaper handles everything or the way the sample instrument handles
+everything… these are sticky problems that happen all the time."* They will fix
+it manually in Reaper for the demo.
+
+**Where to look next — NOT in the engine.** The three engine causes above are
+already fixed; re-running them will waste a session. Candidates: message ordering
+or coalescing between the browser's Web MIDI and loopMIDI · Reaper's handling of
+a CC7 that arrives in the same millisecond as a note-on · whether UVI's amp
+envelope re-triggers on CC7 movement · **and the obvious control the AI did not
+run: compare a generated `.mid` played in Reaper against the same notes played
+live from the keyboard**, which isolates the chain from the engine in one test.

@@ -215,3 +215,16 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   blasts → harmonies/instruments/durations/articulation/player-count), and the
   up-one-level assembly task per container.
 </details>
+
+- **2026-08-17 (day 13) — MORPH CYCLING BUILT.** One time value became two:
+  `carrier.span` is the one-way gliss (pace), `carrier.duration` is the body, and
+  the trajectory now cycles out-and-back instead of arriving and stopping.
+  `carrier.release` closes the bloom back to unison as it fades. Loudness came
+  free (it rides the same progress). Spec ledger for the remaining requests:
+  **`docs/FEATURE_REQUESTS.md`** (FR-1…FR-6). Section form:
+  **`docs/plans/MORPH_SECTION.md`** — a morph bed with played impacts punched
+  through it; the governing constraint is that bed and impacts share ten players,
+  so impacts borrow WHOLE PAIRS and each one silences a beating rate.
+  **PENN STATE = 15 MINUTES MAX**, so one 5-minute morph is a third of the piece.
+  **Open:** the fade-in/release blip is NOT diagnosed (NITS) and blocks
+  auditioning the attack; the composer will fix it in Reaper for the demo.
