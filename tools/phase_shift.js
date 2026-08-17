@@ -426,22 +426,138 @@ function specFromModel(name, overrides) {
     return spec;
 }
 
+// ==================== LONG PROCESSES (PLAN 2x §10, mode B) ====================
+// The composer's second creation mode: "render me a 4-minute process, I listen,
+// I give you time clips." These are deliberately LONG and self-describing (R9) —
+// markers throughout in plain language so the composer can navigate by eye and
+// name a window, which is the whole input the pocket workflow needs.
+//
+//   node tools/phase_shift.js --process dissolve
+//   node tools/phase_shift.js --process dissolve --window 28 35 --freeze
+const V = (extra) => Object.assign({
+    players: 10, bpm: 110, articulation: 'staccato', notelen: 0.12,
+    level: 7.5, pitch: { policy: 'unison', root: PITCH },
+}, extra || {});
+const bp3 = (a, b, t1, t2) => [{ t: 0, value: a }, { t: t1, value: b }, { t: t2, value: b }];
+
+const PROCESSES = {
+    // SMEAR dissolving into RAIN, then a GROOVE surfacing underneath it.
+    dissolve: () => ({
+        name: 'tex-process-dissolve', seed: 11, t0: 2, gap: 3, notelen: 0.12,
+        sections: [
+            { dur: 60, tag: 'p1', model: 'beat', markEvery: 10,
+              label: 'PART 1 · SMEAR dissolving into RAIN over 60 s — jitter 0 → 50 ms, ' +
+                     'nothing else moves. Listen for where "even" stops being the word.',
+              voices: [V({ curves: { jitterMs: [{ t: 0, value: 0 }, { t: 60, value: 50 }] } })] },
+            { dur: 70, tag: 'p2', model: 'beat', markEvery: 10,
+              label: 'PART 2 · RAIN thinning to a GROOVE — density 18 → 8/s and a fixed ' +
+                     'scatter rising. Listen for the moment a figure becomes parseable.',
+              voices: [V({ jitterMs: 50, curves: {
+                  bpm: bp3(110, 48, 55, 70), jitterMs: bp3(50, 10, 55, 70),
+                  scatter: bp3(0, 0.6, 55, 70) } })] },
+            { dur: 50, tag: 'p3', model: 'beat', markEvery: 10,
+              label: 'PART 3 · the GROOVE accelerating back to SMEAR — the same journey ' +
+                     'reversed and faster. Does it snap at the same place going up?',
+              voices: [V({ bpm: 48, curves: {
+                  bpm: [{ t: 0, value: 48 }, { t: 50, value: 110, shape: { exp: 2 } }],
+                  scatter: [{ t: 0, value: 0.6 }, { t: 50, value: 0 }] } })] },
+        ],
+    }),
+
+    // THE CROSSOVER BATTERY (§5's open question): repetition is strongly audible
+    // at 8/s and barely at 18/s. Somewhere between is where a groove stops being
+    // parseable and becomes texture. Fixed scatter throughout so the FIGURE is
+    // constant and only the speed changes — the answer updates TICKS/GROOVE as
+    // data, not as code.
+    crossover: () => ({
+        name: 'tex-process-crossover', seed: 11, t0: 2, gap: 3, notelen: 0.12,
+        sections: [7, 10, 12, 14, 17, 20].map(rate => ({
+            dur: 16, tag: 'x' + rate, model: 'beat', markEvery: 8,
+            label: `CROSSOVER · ${rate} attacks/s · scatter 0.5 held · the SAME figure at ` +
+                   `every speed. Can you still parse it as a figure, or has it become texture?`,
+            voices: [V({ bpm: rate * 6, scatter: 0.5 })],
+        })),
+    }),
+
+    // ARTICULATION CROSSFADE over a long span — E3's blend as a curve.
+    colour: () => ({
+        name: 'tex-process-colour', seed: 11, t0: 2, gap: 3, notelen: 0.12,
+        sections: [{ dur: 90, tag: 'col', model: 'beat', markEvery: 10,
+            label: 'COLOUR · staccato crossfading into ord over 90 s at a held 18/s. ' +
+                   'The attacks never change rate; only what they are made of. ' +
+                   'Listen for where the field stops reading as attacks and starts as a bed.',
+            voices: [V({ notelen: 0.3, jitterMs: 30, curves: { techMix: [
+                { t: 0, value: { staccato: 1 } },
+                { t: 90, value: { staccato: 0, ord: 1 } }] } })] }],
+    }),
+};
+
 // ============================== CLI ==============================
 // Guarded so tools/test_texture.js can require the PRESETS (the regression
 // corpus) without the CLI firing and writing score files as a side effect.
-module.exports = { PRESETS, buildScore, specFromModel, ENGINE_OPTS };
+module.exports = { PRESETS, PROCESSES, buildScore, specFromModel, ENGINE_OPTS };
 if (require.main !== module) return;
 
 const argv = process.argv.slice(2);
 const flag = k => { const i = argv.indexOf('--' + k); return i < 0 ? null : argv[i + 1]; };
 const has = k => argv.indexOf('--' + k) >= 0;
 
-if (flag('fromModel')) {
+// POCKETS (§10). `--window t0 t1` on any process or model.
+//   default            PARAMETRIC, frozen  — the dial state at the window, held
+//   --moving           PARAMETRIC, moving  — a two-point morph across it
+//   --literal          the exact notes, sliced from the FULL render
+//   --fresh            parametric with new seeds
+// Parametric is primary because it stays adjustable ("the 28-35 one, but
+// brighter"). Literal keeps the exact sound and loses that.
+function pocket(spec, t0, t1) {
+    const literal = has('literal');
+    const name = flag('name') || (spec.name + '-pocket-' + t0 + '-' + t1);
+    if (literal) {
+        // MUST slice the full render. Re-seeding a short spec would give
+        // different draws from the same seed — same dials, different sound.
+        const full = TX.render(spec, ENGINE_OPTS);
+        const objs = TX.windowNotes(full, t0, t1);
+        const src = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores/trem02-phase.json'), 'utf8'));
+        fs.writeFileSync(path.join(ROOT, 'scores/' + name + '.json'), JSON.stringify({
+            version: 1, layoutVersion: 2, tracks: (src.data || src).tracks, assets: {},
+            metadata: { created: new Date().toISOString(), modified: new Date().toISOString() },
+            objects: objs, markers: [], databases: { chordShapes: [], sets: [], cells: [] },
+            nextId: objs.length + 1,
+        }));
+        const notes = objs.filter(o => o.type === 'waveCurve').length;
+        console.log(`\n=== ${name} — LITERAL clip of ${t0}–${t1}s — ${notes} attacks ===`);
+        console.log('  sliced from the full render, so it is exactly what you heard.');
+        console.log('  it is an ACTUAL, not a MODEL: the dials are gone, only the notes remain.');
+        return;
+    }
+    const mode = has('moving') ? 'moving' : 'freeze';
+    const opts = { mode: mode };
+    if (has('fresh')) opts.seed = (spec.seed || 0) + 1000;
+    const p = TX.windowToSpec(spec, t0, t1, opts);
+    p.name = name;
+    if (has('midi')) p.midi = true;
+    console.log(`\n(pocket of ${spec.name} @ ${t0}–${t1}s · ${mode}` +
+        (has('fresh') ? ' · fresh seed' : '') + ' — this is a MODEL, still tweakable)');
+    buildScore(p);
+}
+
+if (flag('process')) {
+    const p = flag('process');
+    if (p === 'list') { console.log('processes:', Object.keys(PROCESSES).join(', ')); process.exit(0); }
+    if (!PROCESSES[p]) { console.error('unknown process', p); process.exit(1); }
+    const spec = PROCESSES[p]();
+    const w = argv.indexOf('--window');
+    if (w >= 0) pocket(spec, Number(argv[w + 1]), Number(argv[w + 2]));
+    else { if (has('midi')) spec.midi = true; buildScore(spec); }
+} else if (flag('fromModel')) {
     const overrides = {};
     if (flag('name')) overrides.name = flag('name');
     if (flag('seed')) overrides.seed = Number(flag('seed'));
     if (has('midi')) overrides.midi = true;
-    buildScore(specFromModel(flag('fromModel'), overrides));
+    const spec = specFromModel(flag('fromModel'), overrides);
+    const w = argv.indexOf('--window');
+    if (w >= 0) pocket(spec, Number(argv[w + 1]), Number(argv[w + 2]));
+    else buildScore(spec);
 } else if (flag('preset')) {
     const p = flag('preset');
     if (p === 'list') { console.log('presets:', Object.keys(PRESETS).join(', ')); process.exit(0); }

@@ -550,6 +550,167 @@ ok('clusterview loads it rather than defining its own', (() => {
 })());
 
 // ===========================================================================
+section('CURVES (§7) — any dial automatable, and the shape dial');
+// ===========================================================================
+eq('linear is the default shape', TX.easeShape(0.5, 'linear'), 0.5);
+eq('curveAt hits its breakpoints exactly',
+    TX.curveAt([{ t: 0, value: 10 }, { t: 4, value: 20 }], 4, 0), 20);
+eq('...and interpolates between them',
+    TX.curveAt([{ t: 0, value: 10 }, { t: 4, value: 20 }], 2, 0), 15);
+eq('before the first breakpoint it holds',
+    TX.curveAt([{ t: 2, value: 10 }, { t: 4, value: 20 }], 0, 0), 10);
+eq('after the last it holds too',
+    TX.curveAt([{ t: 0, value: 10 }, { t: 4, value: 20 }], 99, 0), 20);
+eq('no curve falls back to the scalar', TX.curveAt(null, 3, 7.5), 7.5);
+// the "more exponential build" dial: k>0 holds back then rushes, and +k/-k
+// must be exact mirrors or "more exponential" is a lopsided control
+ok('exp k>0 holds back early', TX.easeShape(0.5, { exp: 2 }) < 0.5);
+ok('exp k<0 rushes early', TX.easeShape(0.5, { exp: -2 }) > 0.5);
+eq('...and they mirror exactly',
+    TX.easeShape(0.5, { exp: 2 }) + TX.easeShape(0.5, { exp: -2 }), 1, 1e-9);
+[0.25, 0.5, 0.75].forEach(u => ok('exp stays inside [0,1] at u=' + u,
+    TX.easeShape(u, { exp: 3 }) > 0 && TX.easeShape(u, { exp: 3 }) < 1));
+eq('every shape pins the endpoints', TX.easeShape(0, { exp: 3 }), 0, 1e-12);
+eq('...both of them', TX.easeShape(1, { exp: 3 }), 1, 1e-12);
+
+// a bpm curve really drives density
+const curved = spec => render(Object.assign({
+    name: 'c', seed: 5, t0: 0, gap: 0, notelen: 0.12 }, spec));
+const ramp = curved({ sections: [{ dur: 20, label: 'c', tag: 'c', voices: [{ players: 10,
+    articulation: 'staccato', notelen: 0.12, level: 7.5, bpm: 60, pitch: { root: 48 },
+    curves: { bpm: [{ t: 0, value: 60 }, { t: 20, value: 120 }] } }] }] });
+const firstHalf = ramp.objects.filter(o => o.type === 'waveCurve' && o.startSeconds < 10).length;
+const secondHalf = ramp.objects.filter(o => o.type === 'waveCurve' && o.startSeconds >= 10).length;
+// steadyOnsets INTEGRATES rate(t), so the counts are predictable in closed form
+// rather than approximate: for a linear a->b ramp over T, the two halves hold
+// (3a+b)/4 and (a+3b)/4 of the mean rate, i.e. a ratio of exactly (a+3b)/(3a+b).
+// Asserting the predicted number is a far stronger check than "it went up".
+const predictedRatio = (60 + 3 * 120) / (3 * 60 + 120);          // = 1.4
+eq('a bpm curve drives density by exact integration, not stepwise',
+    secondHalf / firstHalf, predictedRatio, 0.05);
+eq('...and the total matches the integral of the ramp',
+    firstHalf + secondHalf, 10 * ((60 + 120) / 2) / 60 * 20, 6);
+// level and techMix
+const lvl = curved({ sections: [{ dur: 8, label: 'c', tag: 'c', voices: [{ players: 4, bpm: 60,
+    articulation: 'staccato', notelen: 0.12, level: 2, pitch: { root: 48 },
+    curves: { level: [{ t: 0, value: 2 }, { t: 8, value: 10 }] } }] }] });
+const vels = lvl.objects.filter(o => o.type === 'waveCurve').map(o => o.recVel);
+ok('a level curve drives velocity across the span', vels[vels.length - 1] > vels[0] * 2,
+    vels[0] + ' -> ' + vels[vels.length - 1]);
+const mixed = curved({ sections: [{ dur: 20, label: 'c', tag: 'c', voices: [{ players: 10, bpm: 90,
+    articulation: 'staccato', notelen: 0.12, level: 7.5, pitch: { root: 48 },
+    curves: { techMix: [{ t: 0, value: { staccato: 1 } },
+                        { t: 20, value: { staccato: 0, ord: 1 } }] } }] }] });
+const techEarly = mixed.objects.filter(o => o.type === 'waveCurve' && o.startSeconds < 3)
+    .map(o => o.technique);
+const techLate = mixed.objects.filter(o => o.type === 'waveCurve' && o.startSeconds > 17)
+    .map(o => o.technique);
+// A crossfade is PROBABILISTIC by design — at t=2 of a 20 s fade the mix is
+// still ~90/10, so a stray `ord` early is the mechanism working, not a fault.
+// Assert the proportion, which is what "crossfade" actually means.
+const pct = (arr, t) => arr.filter(x => x === t).length / Math.max(1, arr.length);
+ok('an articulation crossfade is mostly the FIRST technique early',
+    pct(techEarly, 'staccato') > 0.8, (pct(techEarly, 'staccato') * 100).toFixed(0) + '% staccato');
+ok('...and mostly the SECOND late',
+    pct(techLate, 'ord') > 0.8, (pct(techLate, 'ord') * 100).toFixed(0) + '% ord');
+ok('...crossing over in between', (() => {
+    const mid = mixed.objects.filter(o => o.type === 'waveCurve' &&
+        o.startSeconds > 9 && o.startSeconds < 11).map(o => o.technique);
+    return pct(mid, 'ord') > 0.25 && pct(mid, 'ord') < 0.75;
+})());
+ok('...seeded, so the same spec draws the same techniques',
+    JSON.stringify(mixed.objects) === JSON.stringify(curved({ sections: [{ dur: 20, label: 'c',
+        tag: 'c', voices: [{ players: 10, bpm: 90, articulation: 'staccato', notelen: 0.12,
+        level: 7.5, pitch: { root: 48 }, curves: { techMix: [{ t: 0, value: { staccato: 1 } },
+        { t: 20, value: { staccato: 0, ord: 1 } }] } }] }] }).objects));
+
+// ===========================================================================
+section('CATEGORY MORPH — does it really connect the two models?');
+// ===========================================================================
+// The gate: engine metrics at t=0 / t=end must match the STATIC models'. The
+// curve arrives at 24 s and HOLDS to 34 s so the tail is genuinely at the
+// destination rather than still in transit — measuring a moving window against
+// a static model would be comparing the journey to the arrival.
+const MODELS = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank/texture_models.json'), 'utf8')).models;
+const statOf = name => TX.render(MODELS[name].spec, POPTS).report[0].metrics;
+const mRain = statOf('RAIN'), mGroove = statOf('GROOVE');
+const bp = (a, b) => [{ t: 0, value: a }, { t: 24, value: b }, { t: 34, value: b }];
+const morphSpec = {
+    name: 'm', seed: 11, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 34, label: 'RAIN -> GROOVE', tag: 'm', voices: [{ players: 10, bpm: 110,
+        articulation: 'staccato', notelen: 0.12, level: 7.5, pitch: { policy: 'unison', root: 48 },
+        curves: { bpm: bp(110, 48), jitterMs: bp(45, 0), scatter: bp(0, 0.5) } }] }],
+};
+const morphed = TX.render(morphSpec, POPTS);
+const winMetrics = (g, a, b, per) => TX.metricsOf(
+    TX.windowNotes(g, a, b).filter(o => o.type === 'waveCurve')
+        .map(o => ({ t: o.startSeconds, lane: o.layer })), per);
+const mHead = winMetrics(morphed, 0, 8, 60 / 110);
+const mTail = winMetrics(morphed, 26, 34, 60 / 48);
+ok('the morph renders and is playable', morphed.notes > 0 && morphed.summary.hard === 0);
+ok('its head matches static RAIN on cv (within 10%)',
+    Math.abs(mHead.cv - mRain.cv) / mRain.cv < 0.10,
+    mHead.cv + ' vs ' + mRain.cv);
+ok('its plateau matches static GROOVE on cv (within 10%)',
+    Math.abs(mTail.cv - mGroove.cv) / mGroove.cv < 0.10,
+    mTail.cv + ' vs ' + mGroove.cv);
+ok('...and on unevenness, the figure metric',
+    Math.abs(mTail.unevenness - mGroove.unevenness) < 0.15,
+    mTail.unevenness + ' vs ' + mGroove.unevenness);
+ok('the figure genuinely emerges across the morph', mTail.unevenness > mHead.unevenness * 2,
+    mHead.unevenness + ' -> ' + mTail.unevenness);
+// cv exists because sd cannot survive a density change
+ok('cv is density-independent where sd is not', (() => {
+    const slow = curved({ sections: [{ dur: 12, label: 'c', tag: 'c', voices: [{ players: 10,
+        bpm: 55, articulation: 'staccato', notelen: 0.12, level: 7.5, jitterMs: 45,
+        pitch: { root: 48 } }] }] }).report[0].metrics;
+    const fast = curved({ sections: [{ dur: 12, label: 'c', tag: 'c', voices: [{ players: 10,
+        bpm: 110, articulation: 'staccato', notelen: 0.12, level: 7.5, jitterMs: 45,
+        pitch: { root: 48 } }] }] }).report[0].metrics;
+    return Math.abs(slow.sd - fast.sd) > 3 && Math.abs(slow.cv - fast.cv) < Math.abs(slow.sd - fast.sd);
+})());
+
+// ===========================================================================
+section('POCKETS (§10) — parametric first, literal as the exact fallback');
+// ===========================================================================
+const fz = TX.windowToSpec(morphSpec, 10, 18, { mode: 'freeze' });
+const mv = TX.windowToSpec(morphSpec, 10, 18, { mode: 'moving' });
+eq('a pocket is one section', fz.sections.length, 1);
+eq('...of the window\'s length', fz.sections[0].dur, 8);
+ok('FREEZE holds the dial state — no curves survive', fz.sections[0].voices[0].curves == null);
+ok('...at the window\'s own values, not the spec\'s',
+    Math.abs(fz.sections[0].voices[0].bpm - 110) > 1 &&
+    Math.abs(fz.sections[0].voices[0].jitterMs - 45) > 1,
+    'bpm ' + fz.sections[0].voices[0].bpm + ', jitter ' + fz.sections[0].voices[0].jitterMs);
+ok('MOVING keeps a two-point curve per dial that actually moved',
+    mv.sections[0].voices[0].curves && Object.keys(mv.sections[0].voices[0].curves).length >= 2,
+    JSON.stringify(Object.keys(mv.sections[0].voices[0].curves || {})));
+ok('both pockets render', TX.render(fz, POPTS).notes > 0 && TX.render(mv, POPTS).notes > 0);
+ok('a pocket is still a MODEL — a new seed gives a new draw of it',
+    JSON.stringify(TX.render(fz, POPTS).objects) !==
+    JSON.stringify(TX.render(Object.assign(JSON.parse(JSON.stringify(fz)), { seed: 99 }), POPTS).objects));
+
+// THE DETERMINISM SUBTLETY (plan §10). A literal clip must SLICE the full
+// render, never re-seed a short one: the jitter stream draws per attack across
+// the whole timeline, so an attack at t=10 uses a completely different draw in
+// an 8-second render than in a 34-second one.
+const sliced = TX.windowNotes(morphed, 10, 18).filter(o => o.type === 'waveCurve');
+const slicedAgain = TX.windowNotes(TX.render(morphSpec, POPTS), 10, 18)
+    .filter(o => o.type === 'waveCurve');
+ok('a literal clip reproduces the window byte-identically',
+    JSON.stringify(sliced) === JSON.stringify(slicedAgain), sliced.length + ' notes');
+ok('...and it is NOT what re-rendering a short spec gives',
+    JSON.stringify(sliced.map(o => o.startSeconds)) !==
+    JSON.stringify(TX.render(mv, POPTS).objects.filter(o => o.type === 'waveCurve')
+        .map(o => o.startSeconds)),
+    'if these ever match, the trap has been silently reintroduced');
+ok('a literal clip starts at zero',
+    Math.min.apply(null, sliced.map(o => o.startSeconds)) >= 0 &&
+    Math.min.apply(null, sliced.map(o => o.startSeconds)) < 1);
+ok('...and stays inside the window length',
+    Math.max.apply(null, sliced.map(o => o.startSeconds)) <= 8 + 1e-6);
+
+// ===========================================================================
 section('PLAYABILITY — D17, one law shared with audit_playability.js');
 // ===========================================================================
 eq('MIN_ATTACK', TX.D17.MIN_ATTACK, 0.11);
@@ -644,6 +805,33 @@ ok('the engine never returns a `markers` array to fill', mk.markers === markers.
 // sentence, not a parameter dump
 ok('the first marker of a section is its plain-language label',
     markers[0].label === mk.report[0].sec.label, markers[0].label);
+
+// LONG RENDERS need a time-stamp on screen or the composer cannot name a window
+// ("28-35 s is interesting"), which is the entire input to the pocket workflow.
+const longRender = render({
+    name: 'long', seed: 1, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 90, label: 'a long process', tag: 'lp', markEvery: 10,
+        voices: [{ players: 10, bpm: 110, articulation: 'staccato', notelen: 0.12,
+            level: 7.5, pitch: { root: 48 } }] }],
+});
+const lm = longRender.objects.filter(o => o.type === 'marker').sort((a, b) => a.time - b.time);
+ok('a long section carries periodic time markers', lm.length >= 9, String(lm.length));
+ok('...so no gap is longer than the marking interval', (() => {
+    for (let i = 1; i < lm.length; i++) if (lm[i].time - lm[i - 1].time > 10.5) return false;
+    return true;
+})());
+ok('...and they name the elapsed time', /\d+s$/.test(lm[1].label), lm[1].label);
+// THE PASSTHROUGH BUG THIS CAUGHT: normaliseSpec used to rebuild a section
+// field-by-field, so any key not on its list was silently dropped — markEvery
+// was added, did nothing, and looked like a marker bug rather than a plumbing
+// one. The section is now copied wholesale.
+ok('normaliseSpec carries UNLISTED section fields through', (() => {
+    const n = TX.normaliseSpec({ name: 'x', seed: 1, sections: [{ dur: 4, label: 'x', tag: 'x',
+        markEvery: 2, someFutureField: 'kept',
+        voices: [{ players: 2, bpm: 60, articulation: 'staccato', notelen: 0.12,
+            pitch: { root: 48 } }] }] }, { maxLanes: 10 });
+    return n.sections[0].markEvery === 2 && n.sections[0].someFutureField === 'kept';
+})());
 
 // ===========================================================================
 console.log('\n' + '='.repeat(58));

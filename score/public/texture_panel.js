@@ -84,6 +84,17 @@ const PANEL = {
             '<button id="texAB" title="flip playback between pinned and current, back-to-back">A/B</button>',
             '<button id="texHum" title="re-render with stage + human timing error and A/B it against the clean one">Humanize</button>',
             '</div>',
+            // MORPH (§7): a category morph is a dial morph between two models.
+            // The panel exposes only the two-point case; the engine speaks full
+            // breakpoint lists, so batteries and pockets get the general form.
+            '<div style="display:flex;gap:5px;align-items:center;margin-top:6px">',
+            '<span style="color:#9a9">morph</span>',
+            '<select id="texMorphTo" style="flex:1;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px"></select>',
+            '<span style="color:#9a9">over</span>',
+            '<input id="texMorphSec" type="number" value="30" step="5" style="width:48px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px">',
+            '<span style="color:#9a9">s</span>',
+            '<button id="texMorphGo" title="morph the current dials into the chosen model over N seconds">go</button>',
+            '</div>',
             '<div style="margin-top:6px">',
             '<button id="texIns" style="width:100%"',
             ' title="insert at the playhead as a draggable group">Insert @ cursor</button>',
@@ -104,6 +115,7 @@ const PANEL = {
         d.querySelector('#texAB').addEventListener('click', () => this.flip());
         d.querySelector('#texHum').addEventListener('click', () => this.humanize());
         d.querySelector('#texIns').addEventListener('click', () => this.insert());
+        d.querySelector('#texMorphGo').addEventListener('click', () => this.morphTo());
         this.makeDraggable(d, d.querySelector('#texDrag'));
 
         // Keys are scoped to the panel: composer.html has global handlers and a
@@ -387,6 +399,18 @@ const PANEL = {
             });
             mods.appendChild(b);
         });
+        // keep the morph destination list in step with the model store
+        const msel = this.el.querySelector('#texMorphTo');
+        if (msel && msel.options.length !== Object.keys(store).length) {
+            const keep = msel.value;
+            msel.innerHTML = '';
+            Object.keys(store).forEach(n => {
+                const o = document.createElement('option');
+                o.value = n; o.textContent = n.toLowerCase();
+                msel.appendChild(o);
+            });
+            if (keep) msel.value = keep;
+        }
 
         // ---- dials, per voice group
         const f = this.el.querySelector('#texFields');
@@ -641,6 +665,58 @@ const PANEL = {
         btn.textContent = 'Playing…';
         this.setStatus('playing ' + (notes.length - skipped) + ' notes · ' + src.tag +
             (skipped ? ' (' + skipped + ' had no port)' : ''));
+    },
+
+    // MORPH TO A MODEL (§7). A CATEGORY MORPH IS A DIAL MORPH BETWEEN TWO
+    // MODELS — there is no separate morph machinery, which is why "rain becoming
+    // a groove" and "jitter falling while scatter rises" are the same object.
+    // Only the dials that actually DIFFER get a curve, so the resulting spec
+    // reads as a list of what changed (the §6 two-sided contract, in data form).
+    //
+    // Where a pair SNAPS instead of crossfading (phase06 heard rain->stutter
+    // snap), that is a finding to record per pair, not a bug to fix.
+    morphTo() {
+        if (!this.spec) return;
+        const name = this.el.querySelector('#texMorphTo').value;
+        const store = (this.models && this.models.models) || {};
+        const dest = store[name];
+        if (!dest) { this.setStatus('unknown model ' + name, true); return; }
+        const secs = Math.max(1, parseFloat(this.el.querySelector('#texMorphSec').value) || 30);
+
+        const spec = JSON.parse(JSON.stringify(this.spec));
+        const dv = ((dest.spec.sections || [])[0] || {}).voices || [];
+        const moved = [];
+        (spec.sections || []).forEach(sec => {
+            sec.dur = secs;
+            (sec.voices || []).forEach((g, gi) => {
+                const to = dv[Math.min(gi, dv.length - 1)] || {};
+                const cur = {
+                    bpm: g.bpm, jitterMs: g.jitterMs || 0,
+                    scatter: g.scatter || 0, level: g.level != null ? g.level : 7.5,
+                };
+                const tgt = {
+                    bpm: to.bpm != null ? to.bpm : cur.bpm,
+                    jitterMs: to.jitterMs != null ? to.jitterMs : 0,
+                    scatter: to.scatter != null ? to.scatter : 0,
+                    level: to.level != null ? to.level : cur.level,
+                };
+                const curves = {};
+                Object.keys(cur).forEach(k => {
+                    if (Math.abs(cur[k] - tgt[k]) < 1e-9) return;
+                    curves[k] = [{ t: 0, value: cur[k] }, { t: secs, value: tgt[k] }];
+                    if (gi === 0) moved.push(k + ' ' + cur[k] + '→' + tgt[k]);
+                });
+                g.curves = Object.keys(curves).length ? curves : null;
+            });
+        });
+        spec.name = (spec.name || 'texture') + '-to-' + name.toLowerCase();
+        this.spec = spec;
+        this._fieldStamp = null;
+        this.humanized = false;
+        this.renderSpec(spec);
+        this.setStatus(moved.length
+            ? ('morphing into ' + name + ' over ' + secs + ' s — moving: ' + moved.join(' · '))
+            : ('nothing to morph: the current dials already match ' + name), !moved.length);
     },
 
     // PIN / A-B (plan §9) — the fix for ORDER EFFECTS. In the research batteries

@@ -655,13 +655,56 @@ reproduced); clusterview behaves identically pre/post extraction.
 > dissolves the accent artefacts (E5's expectation). Both are listening
 > questions; the machinery to ask them is built.
 
-**Phase 3 — morphs + pockets.** Breakpoint curves; from→to model morph in the
-panel; `windowToSpec` + CLI `--window`; long-process presets.
+**Phase 3 — morphs + pockets. — `DONE 2026-08-16`, gate passed.** Breakpoint
+curves; from→to model morph in the panel; `windowToSpec` + CLI `--window`;
+long-process presets.
 *Gate:* "RAIN → GALLOP over 30 s" renders and plays; engine metrics at t=0 /
 t=end match the static models' metrics (the morph really connects them); a
 pocket extracted from a long render regenerates and, with `literal` seed
 policy, reproduces the window's attacks exactly; one known-snap pair
 reproduces and is recorded as a finding, not patched.
+
+> **PHASE 3 RESULT (2026-08-16). 252 assertions; corpus still 9/9.**
+>
+> - **Curves on `bpm` · `jitterMs` · `scatter` · `level` · `techMix`.** Density
+>   is exact rather than stepwise because `steadyOnsets` already integrates
+>   `rate(t)` — asserted against the closed form: for a linear a→b ramp the two
+>   halves hold `(3a+b)/4` and `(a+3b)/4` of the mean rate, a ratio of exactly
+>   **1.4** for 60→120, which is what the engine produces. `scatter(t)` is the
+>   least-proven line in the plan and is now a direct phase-offset drift rather
+>   than phase07's solve-for-`bpmEnd` tempo detour, so from→to endpoints are
+>   arbitrary. The **exp shape** dial is a true exponential so `+k` and `−k`
+>   mirror exactly (asserted) — "more exponential" is a symmetric control.
+> - **The morph really connects the models.** With the curve arriving at 24 s and
+>   *holding* to 34 s (measuring a moving window against a static model compares
+>   the journey to the arrival), the endpoints land **within 1 %** of the static
+>   models on `cv`, and unevenness matches at **0.814 vs 0.814**.
+> - **New metric `cv`** — sd over the mean interval. `sd` is an absolute spread
+>   in ms, so it roughly doubles when density halves even if character is
+>   unchanged. The research table is all at one density so sd was right there,
+>   but a morph *changes* density and sd cannot survive that comparison. `cv` is
+>   the same irregularity measured in units of the beat.
+> - **Pockets both ways.** `windowToSpec` freeze/moving → a MODEL that is still
+>   tweakable; `windowNotes` → the exact clip. **The determinism trap is
+>   demonstrated, not just avoided:** slicing [10,18] from the full render gives
+>   99 notes, re-rendering the same window as a short spec gives 98 with
+>   different onsets, because the jitter stream draws per attack across the whole
+>   timeline. Both are legitimate — the bug would be silently giving one when
+>   asked for the other.
+> - **Long processes** `dissolve` · `crossover` · `colour`, with periodic time
+>   markers so a window is nameable by eye (largest gap 13 s over 191 s). The
+>   `crossover` battery is the §5 open question — repetition parseable at 8/s,
+>   not at 18/s — set up to be answered by ear and written back as data.
+>
+> **Found while building:** `normaliseSpec` rebuilt each section field-by-field
+> and so silently dropped any key not on its list. `markEvery` was added, did
+> nothing, and looked like a marker bug rather than a plumbing one. Sections are
+> now copied wholesale; a regression test pins it.
+>
+> **Gate item left for the composer:** the known-snap pair. phase06 *heard*
+> rain→stutter snap; the metric trajectory can show a discontinuity but whether
+> it snaps *to the ear* is not something a test can judge. The `dissolve` process
+> is built to ask exactly that question and records it as a finding either way.
 
 **Phase 4 — stores + placement + export.** `texture_models.json` +
 `bank/actuals/` writes with provenance; robustness-verdict-required banking;

@@ -107,11 +107,24 @@ function ringLength(sampleLengths, tech, pitch) {
 // `phase0` (0..1) delays the voice by that fraction of its own attack period.
 // Spreading N voices at j/N makes the UNION perfectly even at the start; without
 // it every voice enters together and the composite is a clump plus a hole.
-function steadyOnsets(rateOf, dur, phase0 = 0, DT = 0.0002) {
+// `offsetOf(t)` (optional) adds a TIME-VARYING phase offset in cycles, which is
+// how scatter(t) works: the player's fixed position inside the cycle drifts to a
+// new one. phase07 cell 6 reached a scattered target by solving for a bpmEnd —
+// a tempo detour that worked but coupled scatter to tempo. This is the same
+// motion expressed directly, so from→to endpoints are arbitrary. Omitting it
+// leaves the loop bit-for-bit as it was, which the corpus depends on.
+function steadyOnsets(rateOf, dur, phase0 = 0, DT = 0.0002, offsetOf = null) {
     const out = []; let phase = 0, next = phase0;
+    if (!offsetOf) {
+        for (let t = 0; t < dur; t += DT) {
+            phase += rateOf(t) * DT;
+            while (phase >= next) { out.push(+t.toFixed(4)); next += 1; }
+        }
+        return out.filter(t => t < dur);
+    }
     for (let t = 0; t < dur; t += DT) {
         phase += rateOf(t) * DT;
-        while (phase >= next) { out.push(+t.toFixed(4)); next += 1; }
+        while (phase >= next + offsetOf(t)) { out.push(+t.toFixed(4)); next += 1; }
     }
     return out.filter(t => t < dur);
 }
@@ -136,6 +149,78 @@ function sweepOnsets(P, stages, dur, shifted) {
     }
     return out;
 }
+
+// ============================== CURVES (§7) ==============================
+// Any dial automatable along a curve, so a texture can MOVE: "rain → gallop over
+// 30 s". Data model is a per-voice breakpoint list `[{t, value, shape}]` with `t`
+// in seconds from the SECTION start. The panel exposes only the two-point case
+// (from-model → to-model over N seconds); the engine speaks the general form, so
+// batteries, pockets and the AI loop get arbitrary shapes for free.
+//
+// `shape` belongs to the breakpoint the segment STARTS from: 'linear' (default)
+// or {exp: k}. k > 0 holds back then rushes — the composer's "quicker, more
+// exponential build"; k < 0 does the reverse. k is a true exponential rather
+// than a power so that k and -k are exact mirrors, which is what makes
+// "more exponential" a symmetric dial rather than a lopsided one.
+function easeShape(u, shape) {
+    if (!shape || shape === 'linear') return u;
+    const k = (typeof shape === 'object' && shape.exp != null) ? shape.exp : 0;
+    if (Math.abs(k) < 1e-9) return u;
+    return (Math.exp(k * u) - 1) / (Math.exp(k) - 1);
+}
+
+function curveAt(bps, t, fallback) {
+    if (!bps || !bps.length) return fallback;
+    if (t <= bps[0].t) return bps[0].value;
+    for (let i = 1; i < bps.length; i++) {
+        if (t <= bps[i].t) {
+            const a = bps[i - 1], b = bps[i];
+            const u = easeShape((t - a.t) / Math.max(1e-9, b.t - a.t), a.shape);
+            return a.value + (b.value - a.value) * u;
+        }
+    }
+    return bps[bps.length - 1].value;
+}
+
+// techMix carries an ARTICULATION CROSSFADE: each breakpoint's value is a weight
+// object, e.g. {staccato: 0.3, ord: 0.7}. The mixture is interpolated per attack
+// and the technique drawn from it (seeded), which is the E3 blend as a curve.
+function mixAt(bps, t) {
+    if (!bps || !bps.length) return null;
+    let a = bps[0], b = bps[0], u = 0;
+    if (t > bps[0].t) {
+        b = bps[bps.length - 1]; a = b;
+        for (let i = 1; i < bps.length; i++) {
+            if (t <= bps[i].t) {
+                a = bps[i - 1]; b = bps[i];
+                u = easeShape((t - a.t) / Math.max(1e-9, b.t - a.t), a.shape);
+                break;
+            }
+        }
+    }
+    const keys = [...new Set(Object.keys(a.value || {}).concat(Object.keys(b.value || {})))];
+    const out = {};
+    keys.forEach(k => {
+        const va = (a.value && a.value[k]) || 0, vb = (b.value && b.value[k]) || 0;
+        out[k] = va + (vb - va) * u;
+    });
+    return out;
+}
+
+function drawFromMix(mix, r) {
+    const keys = Object.keys(mix || {});
+    if (!keys.length) return null;
+    let total = 0;
+    keys.forEach(k => { total += Math.max(0, mix[k]); });
+    if (total <= 0) return keys[0];
+    let x = r * total;
+    for (const k of keys) { x -= Math.max(0, mix[k]); if (x <= 0) return k; }
+    return keys[keys.length - 1];
+}
+
+// A curve object's keys are the voice's own scalar dial names. Anything else is
+// listed and ignored — never thrown, never silently swallowed (§4.1).
+const CURVE_KEYS = ['bpm', 'jitterMs', 'scatter', 'level', 'techMix'];
 
 // ============================== METRICS ==============================
 // The two numbers the research calibrated by ear, computed here so the engine,
@@ -201,9 +286,18 @@ function metricsOf(events, period) {
         cg.push(1 - means[means.length - 1] + means[0]);       // wrap-around gap
         unevenness = sdOf(cg) * means.length;                  // mean gap is 1/n
     }
+    // sd IS DENSITY-DEPENDENT — it is an absolute spread in ms, so halving the
+    // density roughly doubles it even if the texture's character is unchanged.
+    // The research table is all at one density (110 BPM) so sd was the right
+    // number there, but a MORPH changes density, and comparing sd across a
+    // density change is apples to oranges. `cv` is sd over the mean interval:
+    // the same irregularity measured in units of the beat, so it stays
+    // comparable while the texture speeds up or slows down.
+    const meanGap = gaps.length ? gaps.reduce((a, b) => a + b, 0) / gaps.length : 0;
     return {
         n: times.length,
         sd: +sd.toFixed(2),
+        cv: +(meanGap > 0 ? (sd / 1000) / meanGap : 0).toFixed(3),
         unevenness: +unevenness.toFixed(3),
         period: +period.toFixed(4),
         players: means.length,
@@ -267,7 +361,7 @@ function playability(objects) {
 
 const SPEC_KEYS = ['name', 'seed', 'sections', 't0', 'gap', 'notelen', 'midi', 'humanize'];
 const SECTION_KEYS = ['dur', 'label', 'tag', 'voices', 'model', 'bpm', 'stages',
-    'lap', 'dBpm', 'markLaps'];
+    'lap', 'dBpm', 'markLaps', 'markEvery'];
 const VOICE_KEYS = ['players', 'lanes', 'bpm', 'bpmEnd', 'rampFrom', 'articulation',
     'tech', 'notelen', 'scatter', 'jitterMs', 'level', 'pitch', 'delay', 'phase',
     'curves', 'ci'];
@@ -389,6 +483,11 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
         // resolution, and they carry their set through to generate().
         let pitch = root;
         if (rs.set && policy === 'perVoice') pitch = perVoicePitch(rs.set, j, n);
+        // With a scatter CURVE the static delay takes the curve's t=0 value and
+        // the rest of the journey is a drift (see steadyOnsets' offsetOf), so
+        // the texture starts exactly where the curve says and travels from there.
+        const cv = v.curves || null;
+        const sc0 = (cv && cv.scatter) ? curveAt(cv.scatter, 0, sc) : sc;
         out.push({
             lanes: [lanes[j]],
             pitch: pitch,
@@ -399,7 +498,10 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
             notelen: v.notelen,
             level: v.level,
             jitterMs: v.jitterMs,
-            delay: ((j / n + sc * u[j] + 1) % 1) * T,
+            delay: ((j / n + sc0 * u[j] + 1) % 1) * T,
+            curves: cv,
+            scatterU: u[j],                        // this player's draw, for scatter(t)
+            scatter0: sc0,
             ci: groupIndex,                        // colour follows the GROUP
             pitchSet: (rs.set && (policy === 'draw' || policy === 'cycle')) ? rs.set : null,
             pitchPolicy: policy,
@@ -477,12 +579,15 @@ function normaliseSpec(spec, opts) {
         sec.voices.forEach((v, gi) => {
             expandVoice(v, lanes[gi], gi, rnd, opts).forEach(x => voices.push(x));
         });
-        out.sections.push({
-            dur: sec.dur, label: sec.label, tag: sec.tag,
-            model: sec.model || 'beat', bpm: sec.bpm, stages: sec.stages,
-            lap: sec.lap, dBpm: sec.dBpm, markLaps: sec.markLaps,
-            voices,
-        });
+        // CARRY THE WHOLE SECTION, override only what normalising changes.
+        // This was a field-by-field rebuild, which silently DROPPED any section
+        // key not on its list — `markEvery` was added, did nothing, and looked
+        // like a marker bug rather than a plumbing one. Copying the section
+        // wholesale means a new section field works the day it is introduced.
+        out.sections.push(Object.assign({}, sec, {
+            model: sec.model || 'beat',
+            voices: voices,
+        }));
     });
     // humanize LAST, so it perturbs the finished arrangement rather than being
     // folded into the scatter draw — the clean and humanized renders must differ
@@ -518,6 +623,104 @@ function toScoreObjects(result, at, opts) {
             if (opts.color) c.color = opts.color;
         }
         if (opts.groupId) c.groupId = opts.groupId;
+        return c;
+    });
+}
+
+// ============================== POCKETS (§10) ==============================
+// The composer's retained workflow: "create a long phase shift and then snip
+// parts of it." Two routes, and the PARAMETRIC one is primary because it stays
+// adjustable — "the 28-35 one, but brighter, quicker" has to remain a sentence
+// you can say, which a clipped audio-shaped object cannot answer.
+//
+//   windowToSpec  resolve every time-varying dial across [t0,t1] and emit a NEW
+//                 SPEC — `freeze` (constants at the window's values -> a static
+//                 texture) or `moving` (a two-point morph across the window).
+//                 The result is a MODEL, immediately tweakable.
+//   windowNotes   the literal clip. Loses adjustability, keeps the exact sound.
+//
+// THE DETERMINISM SUBTLETY, and it is easy to get wrong: a literal clip must
+// regenerate the FULL original spec and keep only the notes inside the window.
+// It must NEVER re-seed a shorter render — the jitter and pitch streams draw
+// per-attack across the whole timeline, so a short render's draws are different
+// numbers from the same seed. Same dials, same seed, different sound.
+function windowToSpec(spec, t0, t1, opts) {
+    opts = opts || {};
+    const mode = opts.mode || 'freeze';
+    const out = JSON.parse(JSON.stringify(spec));
+    const dur = Math.max(0.001, t1 - t0);
+    out.name = (spec.name || 'texture') + '-pocket';
+    if (opts.seed != null) out.seed = opts.seed;              // 'fresh' = new draws
+
+    // Locate the section the window opens in, and rebase the window onto it.
+    let acc = (spec.t0 != null ? spec.t0 : 2), target = 0, localT0 = t0;
+    const gap = spec.gap != null ? spec.gap : 2;
+    (spec.sections || []).forEach((sec, i) => {
+        if (t0 >= acc && t0 < acc + sec.dur) { target = i; localT0 = t0 - acc; }
+        acc += sec.dur + gap;
+    });
+    const sec = out.sections[target];
+    const localT1 = localT0 + dur;
+
+    sec.dur = dur;
+    sec.label = (sec.label || 'texture') + ' · pocket ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s';
+    (sec.voices || []).forEach(v => {
+        const cv = v.curves || null;
+        const at = (key, fallback) => (cv && cv[key]) ? curveAt(cv[key], localT0, fallback) : fallback;
+        const atEnd = (key, fallback) => (cv && cv[key]) ? curveAt(cv[key], localT1, fallback) : fallback;
+        const bpm0 = at('bpm', v.bpm), bpmEnd = atEnd('bpm', v.bpmEnd != null ? v.bpmEnd : v.bpm);
+        if (mode === 'moving') {
+            v.curves = {};
+            CURVE_KEYS.forEach(k => {
+                if (k === 'techMix') {
+                    if (cv && cv.techMix) v.curves.techMix = [
+                        { t: 0, value: mixAt(cv.techMix, localT0) },
+                        { t: dur, value: mixAt(cv.techMix, localT1) }];
+                    return;
+                }
+                const base = k === 'bpm' ? v.bpm : k === 'jitterMs' ? (v.jitterMs || 0)
+                           : k === 'scatter' ? (v.scatter || 0) : (v.level != null ? v.level : 7.5);
+                const a = at(k, base), b = atEnd(k, base);
+                if (a !== b) v.curves[k] = [{ t: 0, value: a }, { t: dur, value: b }];
+            });
+            if (!Object.keys(v.curves).length) v.curves = null;
+            v.bpm = bpm0; v.bpmEnd = bpmEnd !== bpm0 ? bpmEnd : undefined;
+        } else {
+            // FROZEN: the dial state at the window, held. A moving texture becomes
+            // the static texture it was passing through.
+            v.curves = null;
+            v.bpm = bpm0; v.bpmEnd = undefined; v.rampFrom = undefined;
+            v.jitterMs = at('jitterMs', v.jitterMs || 0);
+            v.scatter = at('scatter', v.scatter || 0);
+            v.level = at('level', v.level != null ? v.level : 7.5);
+            if (cv && cv.techMix) {
+                const mix = mixAt(cv.techMix, localT0);
+                let best = null, bw = -1;
+                Object.keys(mix).forEach(k => { if (mix[k] > bw) { bw = mix[k]; best = k; } });
+                if (best) v.articulation = best;
+            }
+        }
+    });
+    out.sections = [sec];
+    out.t0 = 0; out.gap = 0;
+    return out;
+}
+
+// The literal clip: keep the notes inside [t0,t1] of an ALREADY-RENDERED result
+// and rebase them to zero. Exact by construction, because the render it slices
+// is the full one.
+function windowNotes(result, t0, t1) {
+    const keep = result.objects.filter(o => {
+        const t = o.type === 'marker' ? o.time : o.startSeconds;
+        return t >= t0 - 1e-9 && t < t1 + 1e-9;
+    });
+    return keep.map(o => {
+        const c = JSON.parse(JSON.stringify(o));
+        if (c.type === 'marker') c.time = +(c.time - t0).toFixed(2);
+        else {
+            c.startSeconds = +(c.startSeconds - t0).toFixed(4);
+            c.endSeconds = +(c.endSeconds - t0).toFixed(4);
+        }
         return c;
     });
 }
@@ -583,15 +786,24 @@ function generate(spec, opts) {
             const bpm0 = v.bpm, bpm1 = v.bpmEnd != null ? v.bpmEnd : v.bpm;
             const hold = v.rampFrom || 0;
             const n = v.lanes.length;
-            const rateOf = t => {
-                const u = Math.max(0, Math.min(1, (t - hold) / Math.max(1e-9, sec.dur - hold)));
-                return n * (bpm0 + (bpm1 - bpm0) * u) / 60;
-            };
+            const cv = v.curves || null;
+            // A bpm CURVE overrides the (bpm, bpmEnd) ramp. steadyOnsets already
+            // integrates rate(t), so an arbitrary density curve is exact rather
+            // than stepwise — nothing new is needed to make density(t) work.
+            const rateOf = (cv && cv.bpm)
+                ? (t => n * curveAt(cv.bpm, t, bpm0) / 60)
+                : (t => {
+                    const u = Math.max(0, Math.min(1, (t - hold) / Math.max(1e-9, sec.dur - hold)));
+                    return n * (bpm0 + (bpm1 - bpm0) * u) / 60;
+                });
+            const offsetOf = (cv && cv.scatter)
+                ? (t => (curveAt(cv.scatter, t, v.scatter0 || 0) - (v.scatter0 || 0)) * (v.scatterU || 0))
+                : null;
             // `delay` is in SECONDS (absolute), converted to this voice's own
             // period. Absolute is what matters: staggering by a fraction of each
             // voice's period puts faster voices in the wrong absolute slot.
             const phase0 = v.delay != null ? v.delay * n * v.bpm / 60 : (v.phase || 0);
-            return steadyOnsets(rateOf, sec.dur, phase0);
+            return steadyOnsets(rateOf, sec.dur, phase0, 0.0002, offsetOf);
         });
 
         // PER-ATTACK JITTER — displaces every attack independently, so unlike
@@ -599,6 +811,17 @@ function generate(spec, opts) {
         // reads as a rhythmic figure) the pattern NEVER repeats. This is the
         // rain mechanism; it is also the human-timing error model (plan §9).
         sec.voices.forEach((v, vi) => {
+            const jc = v.curves && v.curves.jitterMs;
+            if (jc) {
+                // jitter(t): the AMPLITUDE is looked up per attack, so the stream
+                // thickens and thins without ever repeating. Trivial by design —
+                // the mechanism was already per-attack.
+                const rnd = lcgC((7654321 + vi * 977 + (spec.seed || 0) * 2654435761) >>> 0);
+                voiceOnsets[vi] = voiceOnsets[vi].map(t =>
+                    +(t + 2 * rnd() * curveAt(jc, t, v.jitterMs || 0) / 1000).toFixed(4));
+                voiceOnsets[vi].sort((a, b) => a - b);
+                return;
+            }
             if (!v.jitterMs) return;
             // THE JITTER STREAM MUST FOLLOW THE SPEC SEED (R5). It originally did
             // not — `7654321 + vi*977` is a hardcoded constant — so on a RAIN
@@ -659,10 +882,24 @@ function generate(spec, opts) {
                 return p;
             };
 
+            // level(t) and articulation(t). A technique drawn from a crossfading
+            // mix keeps its OWN ring length in the playability pass — that is why
+            // the ring is looked up per attack rather than per voice.
+            const cv = v.curves || null;
+            const lvl0 = v.level != null ? v.level : 7.5;
+            const tmix = cv && cv.techMix;
+            const trnd = tmix ? lcg((5150 + vi * 3313 + (spec.seed || 0) * 2654435761) >>> 0) : null;
+
             let ringWorst = ring;
             times.forEach((t, k) => {
                 const lane = v.lanes[k % v.lanes.length];          // round-robin hocket
                 const p = pitchAt(k);
+                const lv = (cv && cv.level) ? curveAt(cv.level, t, lvl0) : lvl0;
+                const tech = tmix ? (drawFromMix(mixAt(tmix, t), trnd()) || v.tech) : v.tech;
+                if (tmix) {
+                    const r = ringLength(SL, tech, p);
+                    if (r != null && (ringWorst == null || r > ringWorst)) ringWorst = r;
+                }
                 // the ring follows the ATTACK's own pitch (2u): staccato runs
                 // 0.33-0.53 s across the range, so a set that sits low rings
                 // longer and can be unplayable at a density the same set sitting
@@ -672,7 +909,7 @@ function generate(spec, opts) {
                     if (r != null && (ringWorst == null || r > ringWorst)) ringWorst = r;
                 }
                 mkNote(lane, t0 + t, written, COLORS[(v.ci != null ? v.ci : vi) % COLORS.length],
-                    'phase/' + (sec.tag || 's' + si), p, v.tech, v.level != null ? v.level : 7.5);
+                    'phase/' + (sec.tag || 's' + si), p, tech, lv);
                 events.push({ t, lane });
             });
             lines.push({
@@ -684,6 +921,15 @@ function generate(spec, opts) {
 
         // ---- markers ----
         mkMarker(t0, sec.label, COLORS[0]);
+        // R9 / mode B: on a LONG render the composer listens and then names time
+        // windows ("28-35 s and 61-70 s are interesting"), which they cannot do
+        // if the only marker is 90 s back. A short repeating time-stamp keeps one
+        // on screen — the same trick tonality_variants.js uses for its sections.
+        if (sec.markEvery) {
+            for (let mt = sec.markEvery; mt < sec.dur - 1e-6; mt += sec.markEvery) {
+                mkMarker(t0 + mt, (sec.tag ? sec.tag + ' ' : '') + Math.round(mt) + 's', MARK_COL);
+            }
+        }
         if (sec.model === 'sweep' && stages) {
             let acc = 0;
             const starts = stages.map(s => { const a = acc; acc += s.dur; return a; });
@@ -840,6 +1086,8 @@ return {
     SPEC_KEYS, SECTION_KEYS, VOICE_KEYS, unknownKeys,
     PITCH_POLICIES, resolveSet, perVoicePitch,
     assignLanes, expandVoice, applyHumanize, normaliseSpec,
+    easeShape, curveAt, mixAt, drawFromMix, CURVE_KEYS,
+    windowToSpec, windowNotes,
     toScoreObjects, spanOf,
     generate, render,
 };
