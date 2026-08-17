@@ -480,6 +480,13 @@
 <script src="/morph.js"></script>
 <script src="/morph_emit.js"></script>
 <script src="/morph_panel.js" defer></script>
+<!-- PLAN 2x attack-field textures. texture_engine.js is the PURE engine (also
+     runs in node under tools/test_texture.js and tools/phase_shift.js);
+     texture_panel.js injects its own button and DOM, and reuses morph_emit.js
+     for routing and the stop sequence, so this file stays a two-line change.
+     Loads AFTER morph_panel so its button anchors to the Morph button. -->
+<script src="/texture_engine.js"></script>
+<script src="/texture_panel.js" defer></script>
 <script>
 // ============================================
 // INSTRUMENT REGISTRY — Loads instrument_map.json, bridges Layer 2 (musical intent) ↔ Layer 3 (MIDI/sampler)

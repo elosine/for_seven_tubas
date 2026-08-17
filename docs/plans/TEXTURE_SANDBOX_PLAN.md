@@ -546,7 +546,8 @@ loosen the gate silently.)*
 >
 > Gate evidence is reproducible with `node tools/test_texture.js`.
 
-**Phase 1 — panel floor.** Panel + EMIT audition + params loop + category
+**Phase 1 — panel floor. — `BUILT 2026-08-16`; gate PART-PASSED, listening
+items open.** Panel + EMIT audition + params loop + category
 buttons (models seeded) + dials + seed stepping + PIN/A-B + humanize + badge +
 auto-composed labels (R9).
 *Gate (running app, session `untitled`):* params file edit → panel shows new
@@ -555,6 +556,60 @@ equals `audit_playability.js` on the same render saved as a score · A/B flips
 back-to-back with no residue (stop, play one ord note — clean pitch/volume) ·
 humanize A/B heard on one SMEAR and one RAIN (the fragile/robust prediction's
 first data point) · keys dead when the panel lacks focus.
+
+> **PHASE 1 RESULT (2026-08-16).** Verified in the running app on a throwaway
+> server (`PORT=5210`) so the composer's own `:5200` was never disturbed. **175
+> assertions green, and Phase 0's byte-identity corpus still holds after every
+> Phase 1 change.**
+>
+> **Gate items verified by machine — 3 of 6:**
+> - **params edit → panel: 888 ms**, measured with a watcher, inside the 1 s bar.
+> - **badge == `audit_playability.js`: 90 hard / 0 soft on both**, on a
+>   checksum-identical render (browser and node agreed bit-for-bit before the
+>   tool was run). One law, two consumers, verified equal.
+> - **keys dead unfocused / live focused**, SPACE swallowed so the app's global
+>   transport never sees it, and number fields not hijacked.
+>
+> **Gate items that need the composer's ears — 3 of 6, OPEN:** SMEAR/RAIN/GALLOP
+> audibly distinct · A/B with no residue · humanize A/B on one SMEAR and one
+> RAIN. These need loopMIDI + Reaper + UVI and a musician; they are the Phase 1
+> listening session, not something an agent can sign off.
+>
+> **Four defects found by running it, none by reading it:**
+> 1. **Seed stepping did nothing** (R5 dead). The jitter PRNG was seeded from a
+>    hardcoded constant, so a RAIN texture rendered bit-identically at every
+>    seed — the panel's central identity-vs-draw question silently answered
+>    itself. Fixed by folding `spec.seed` into the stream in a way that leaves
+>    the preset stream untouched (a missing seed must stay missing, never
+>    default to 1, or the Phase 0 corpus shifts). **150 assertions had not
+>    caught it**; there is now a section that does.
+> 2. **`active` in the params file was ignored on a rev bump** — the AI could
+>    write a new slate saying "hear B" and the composer would sit on A reading
+>    A's dials. Inherited from 2v's panel; fixed here, filed for 2v in NITS.
+> 3. **`E.onStop` is a single slot both panels share** — a plain assignment left
+>    the Morph panel's Play button stuck reading "Playing…" forever. Now chained.
+> 4. **The badge is structurally ring-blind.** D17 compares WRITTEN note bounds,
+>    so ten players re-attacking staccato every 0.30 s against a 0.42 s ring
+>    reads `0 hard` — and the mock-up plays it perfectly cleanly (2r). Added as
+>    a SEPARATE, loud indicator rather than by forking the shared law. The whole
+>    research corpus sits inside its ring; this only bites past the ceiling.
+>
+> **One deviation from the plan, flagged per §17.** `EMIT.play()` was **not
+> liftable**: it pre-arms a pitch bend per note and drives dynamics through a
+> per-frame CC7 envelope, while a texture note is a plain velocity note with CC7
+> pinned (§15.10, trap #5) and D29 forbids bend. The plan's pre-decided fallback
+> is "a copy of clusterview's setTimeout player" (§3.2); what was built is that
+> fallback **improved** — EMIT's `ensureMidi` / `routeFor` / `noteOn` / `noteOff`
+> / `panic()` and its note registry are reused verbatim, so there is still
+> exactly one stop path, and only the ~20-line scheduling loop is local.
+>
+> **§15.13 is now a measurement, not a worry.** The scheduler corrects each
+> delay for the time the scheduling loop itself consumes (without it, notes
+> placed late in a ~900-timer loop fire late by a systematic ramp), and it
+> records actual-vs-intended onset for every note. The panel reports mean and
+> max drift after each play and points at the `--midi` escape hatch when drift
+> exceeds 15 ms — so a suspicious dense texture can be blamed on the material or
+> the playback with evidence.
 
 **Phase 2 — pitch layer.** `tonality.js` extraction (clusterview rewired,
 verified unchanged on a remap A/B), policies, pooled/literal, badge live on

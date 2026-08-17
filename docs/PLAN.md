@@ -406,8 +406,27 @@ composer → notation → performance architecture.)*
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
 - **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `IMPLEMENTING 2026-08-16 —
-  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3). Phase 0 DONE (gate passed), Phases
-  1–4 to go.` **D29 CONFIRMED: attack fields only, no bend in this build.**
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3). Phase 0 DONE · Phase 1 BUILT (machine
+  gate items passed; 3 listening items awaiting the composer). Phases 2–4 to go.`
+  **D29 CONFIRMED: attack fields only, no bend in this build.**
+  - **Phase 1 — panel floor — `built 2026-08-16, listening gate open`.**
+    **`Texture` button** in the composer score next to `Morph` →
+    `score/public/texture_panel.js` (injects its own button and DOM, so
+    `composer.html` is a two-line diff). Five category MODELS
+    (**smear · ticks · rain · gallop · groove**) in `bank/texture_models.json`
+    with their heard descriptions, measured directions and a `_vocabulary`
+    block; the AI loop writes `bank/texture_params.json` and the panel picks it
+    up in **888 ms measured**. Seed stepping · PIN/A-B · Humanize · live
+    conflict badge · Insert at playhead as a draggable group with a META shape.
+    **Badge verified equal to `tools/audit_playability.js`** (90 hard / 0 soft
+    on both, checksum-identical render). **175 assertions**, Phase 0's
+    byte-identity corpus intact. **Four defects found by running it**, incl.
+    seed stepping being silently dead (R5) and the badge being structurally
+    blind to sample-ring overlap — the latter now its own loud indicator, since
+    the mock-up plays those cleanly (2r) and the ear cannot catch them.
+    **Still needs the composer:** SMEAR/RAIN/GALLOP distinct by ear · A/B with
+    no residue · humanize A/B on one SMEAR and one RAIN (the fragile/robust
+    prediction's first real data point).
   - **Phase 0 — engine extraction — `done 2026-08-16`.** The generator moved out
     of `tools/phase_shift.js` into **`score/public/texture_engine.js`** (pure,
     browser + node, the `morph.js` dual-load pattern); the CLI keeps the presets,

@@ -10,7 +10,11 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 5200;
+// 5200 is THE port — every doc, bookmark and launch config says so, and the
+// default is unchanged. The override exists only so a second, throwaway instance
+// can be started for verification while the composer's own server keeps running
+// on 5200 (two agents share this tree). Never use it for real work.
+const PORT = Number(process.env.PORT) || 5200;
 const ROOT = __dirname;                                   // score/
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const DOCS_DIR = path.join(ROOT, '..', 'docs');           // serves /docs/instrument_map.json
@@ -367,6 +371,21 @@ const server = http.createServer((req, res) => {
             return R.status(500).json({ success: false, error: e.message });
         }
     }
+    // TEXTURE PARAMS + MODELS (PLAN 2x) — the same loop for attack fields.
+    // Two files, both read-only to the panel: `texture_params.json` is the live
+    // variant slate the AI rewrites, `texture_models.json` is the category store
+    // the panel's model buttons load their points from. Separate from 2v's files
+    // by design — parallel stores, never a shared write (plan §15.9).
+    if (req.method === 'GET' && (url === '/api/textureparams' || url === '/api/texturemodels')) {
+        try {
+            const name = url === '/api/textureparams' ? 'texture_params.json' : 'texture_models.json';
+            const tp = path.join(__dirname, '..', 'bank', name);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(tp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
 
     // CLUSTER BANK — the cluster sandbox's data (composer 2026-08-15).
     // GET returns it; POST actions mutate one tier each.
@@ -505,6 +524,89 @@ const server = http.createServer((req, res) => {
             });
         }
     }
+    // MODEL <-> ACTUAL (PLAN 2y). Three reads and one write.
+    //
+    // The write goes through tools/model_bank.js — the SAME buildActual() the
+    // CLI uses — so the panel button and `--actualize` cannot drift into two
+    // slightly different save paths. That file guards its own CLI dispatch on
+    // require.main, so requiring it here is inert.
+    if (req.method === 'GET' && (url === '/api/morphmodels' || url === '/api/shapepresets')) {
+        try {
+            const name = url === '/api/morphmodels' ? 'morph_models.json' : 'shape_presets.json';
+            const mp = path.join(__dirname, '..', 'bank', name);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(mp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+    if (url === '/api/actuals') {
+        const MB = require('../tools/model_bank.js');
+        if (req.method === 'GET') {
+            try {
+                const dir = MB.ACTUALS_DIR;
+                const list = !fs.existsSync(dir) ? [] : fs.readdirSync(dir)
+                    .filter(f => /\.json$/i.test(f))
+                    .map(f => {
+                        const a = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+                        // the browse card, without shipping every note array
+                        return { entity: a.entity, label: a.label, tags: a.tags,
+                                 spanSec: a.spanSec, parts: a.parts, register: a.register,
+                                 model: a.provenance && a.provenance.model,
+                                 seed: a.provenance && a.provenance.seed,
+                                 recipeSettings: (a.provenance && a.provenance.recipeSettings) || {},
+                                 placements: (a.placements || []).length,
+                                 notes: (a.notes || []).length };
+                    });
+                return R.json({ success: true, actuals: list });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'bad body' });
+                try {
+                    const built = MB.buildActual(body.model, {
+                        recipeSettings: body.recipeSettings || {},
+                        seed: body.seed, label: body.label, tags: body.tags,
+                        shape: body.shape, shapePreset: body.shapePreset,
+                    });
+                    if (built.error) return R.status(400).json({ success: false, error: built.error });
+                    MB.writeActual(built);
+                    return R.json({ success: true, entity: built.actual.entity,
+                                    rev: built.store.rev, warnings: built.warnings });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    if (req.method === 'GET' && url.startsWith('/api/actuals/')) {
+        try {
+            const MB = require('../tools/model_bank.js');
+            const file = path.basename(url.slice('/api/actuals/'.length)).replace(/\.json$/, '') + '.json';
+            const p = path.join(MB.ACTUALS_DIR, file);
+            if (!fs.existsSync(p)) return R.status(404).json({ success: false, error: 'no such actual' });
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(p, 'utf8'));
+        } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // PLACEMENTS are logged automatically by whoever places (2y §5) — the panel
+    // posts here, place_gesture.js writes the file directly.
+    if (req.method === 'POST' && url === '/api/actualplacement') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'bad body' });
+            try {
+                const MB = require('../tools/model_bank.js');
+                const p = path.join(MB.ACTUALS_DIR, path.basename(body.entity) + '.json');
+                if (!fs.existsSync(p)) return R.status(404).json({ success: false, error: 'no such actual' });
+                const a = JSON.parse(fs.readFileSync(p, 'utf8'));
+                a.placements = a.placements || [];
+                a.placements.push({ score: body.score, at: body.at, group: body.group,
+                                    when: new Date().toISOString().slice(0, 10) });
+                fs.writeFileSync(p, JSON.stringify(a, null, 2) + '\n');
+                return R.json({ success: true, placements: a.placements.length });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+
     // TAXONOMY — the blast filing registry (docs/TAXONOMY.md). GET returns it;
     // POST actions: saveVoicing (assigns the next V number for the chord),
     // addKeeper (appends a realization snapshot to a section palette).

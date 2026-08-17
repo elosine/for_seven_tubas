@@ -222,6 +222,60 @@ ok('presets are seeded, not ambient',
     JSON.stringify(render(PRESETS.scatter()).objects));
 
 // ===========================================================================
+section('SEED IS THE DRAW NUMBER (R5) — the identity-vs-draw question');
+// ===========================================================================
+// At ten voices a jitter/scatter setting is a LOTTERY, not a texture: each
+// render is one draw from it, and the phantom "accents" in the research came
+// from judging single draws. So stepping the seed MUST change the draw — and it
+// must do so for BOTH stochastic dials, which are seeded through different
+// paths (jitter inside generate(), scatter inside normaliseSpec()).
+//
+// THIS SECTION EXISTS BECAUSE IT ONCE SILENTLY FAILED. The jitter stream was
+// seeded from a hardcoded constant, so a RAIN texture rendered bit-identically
+// at every seed and the panel's central question answered itself. 150 other
+// assertions did not catch it; only stepping the dial in the running app did.
+const seededRain = s => ({
+    name: 'r', seed: s, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 14, label: 'r', tag: 'r', voices: [{ players: 10, bpm: 110,
+        articulation: 'staccato', notelen: 0.12, scatter: 0, jitterMs: 45, level: 7.5,
+        pitch: { root: 48 } }] }],
+});
+const seededGroove = s => ({
+    name: 'g', seed: s, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 14, label: 'g', tag: 'g', voices: [{ players: 10, bpm: 48,
+        articulation: 'staccato', notelen: 0.12, scatter: 0.5, jitterMs: 0, level: 7.5,
+        pitch: { root: 48 } }] }],
+});
+[['jitter-driven (RAIN)', seededRain], ['scatter-driven (GROOVE)', seededGroove]].forEach(([what, mk]) => {
+    const draws = [11, 12, 13].map(s => render(mk(s)));
+    const sigs = draws.map(d => JSON.stringify(d.objects));
+    ok(what + ': three seeds give three different draws',
+        new Set(sigs).size === 3,
+        new Set(sigs).size + ' distinct of 3');
+    ok(what + ': each draw is reproducible',
+        JSON.stringify(render(mk(11)).objects) === sigs[0]);
+    ok(what + ': the texture keeps its character across draws',
+        draws.every(d => d.report[0].metrics.sd > 5),
+        draws.map(d => d.report[0].metrics.sd).join(' / '));
+});
+// jitter must not change HOW MANY attacks there are — it displaces, it does not
+// add or remove. (Scatter can lose an attack off the end of a fixed window,
+// which is correct: the window does not move.)
+const rainCounts = [11, 12, 13, 14, 15].map(s => render(seededRain(s)).notes);
+ok('a jitter draw never changes the attack count', new Set(rainCounts).size === 1,
+    rainCounts.join('/'));
+// the inert case, stated rather than assumed: a fully determined texture has
+// exactly one draw, and the panel says so instead of silently doing nothing
+const flatGallop = s => ({
+    name: 'gal', seed: s, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 10, label: 'gal', tag: 'gal', voices: [
+        { players: 5, bpm: 110, articulation: 'staccato', notelen: 0.12, pitch: { root: 48 } },
+        { players: 5, bpm: 112, articulation: 'staccato', notelen: 0.12, pitch: { root: 48 } }] }],
+});
+ok('a texture with no stochastic dial is seed-independent BY CONSTRUCTION',
+    JSON.stringify(render(flatGallop(1)).objects) === JSON.stringify(render(flatGallop(99)).objects));
+
+// ===========================================================================
 section('PANEL DIALECT — normalisation into the resolved form');
 // ===========================================================================
 const twoGroups = {
@@ -285,6 +339,79 @@ ok('every pitch is a legal MIDI note',
     pit.objects.filter(o => o.type === 'waveCurve').every(o => o.sonifyNote >= 0 && o.sonifyNote <= 127));
 
 // ===========================================================================
+section('HUMANIZE — the robustness pass (R6, the performance rule)');
+// ===========================================================================
+// Human timing error is mathematically the SAME operation as the dials already
+// here, so this is composition, not new machinery. It must perturb the finished
+// arrangement and NOTHING else, or the clean-vs-humanized A/B is not an A/B.
+const cleanSpec = () => ({
+    name: 'hum', seed: 3, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 10, label: 'hum', tag: 'hum', voices: [{ players: 10, bpm: 110,
+        articulation: 'staccato', notelen: 0.12, scatter: 0, jitterMs: 0, level: 7.5,
+        pitch: { root: 48 } }] }],
+});
+const clean = render(cleanSpec());
+const human = TX.render(cleanSpec(), Object.assign({}, OPTS, { humanize: {} }));
+eq('humanize changes nothing about HOW MANY attacks there are', human.notes, clean.notes);
+ok('but it does move them', JSON.stringify(human.objects) !== JSON.stringify(clean.objects));
+ok('a dead-even texture stops being dead even', human.report[0].metrics.sd > 10,
+    human.report[0].metrics.sd + ' ms (was ' + clean.report[0].metrics.sd + ')');
+// stage scatter is FIXED per player, so unlike pure jitter it leaves a figure
+ok('stage offset leaves a persistent figure (it is fixed, like scatter)',
+    human.report[0].metrics.unevenness > clean.report[0].metrics.unevenness,
+    clean.report[0].metrics.unevenness + ' -> ' + human.report[0].metrics.unevenness);
+ok('humanize is itself deterministic',
+    JSON.stringify(TX.render(cleanSpec(), Object.assign({}, OPTS, { humanize: {} })).objects) ===
+    JSON.stringify(human.objects));
+eq('the default stage spread is the ~30 ms stage-width ceiling, halved', TX.HUMANIZE.stageMs, 15);
+eq('the default human error is the estimate stated in the plan', TX.HUMANIZE.jitterMs, 25);
+// THE PREDICTION THIS EXISTS TO TEST (docs/PHASE_SHIFTING.md §6): rain is robust,
+// smear is fragile — because human error IS jitter, so it changes rain far less.
+const rainSpec = () => {
+    const s = cleanSpec(); s.sections[0].voices[0].jitterMs = 45; return s;
+};
+const rainClean = render(rainSpec());
+const rainHum = TX.render(rainSpec(), Object.assign({}, OPTS, { humanize: {} }));
+const smearShift = human.report[0].metrics.sd - clean.report[0].metrics.sd;
+const rainShift = rainHum.report[0].metrics.sd - rainClean.report[0].metrics.sd;
+ok('humanize disturbs SMEAR more than RAIN (the fragility prediction, measured)',
+    smearShift > rainShift,
+    'smear +' + smearShift.toFixed(1) + ' ms vs rain +' + rainShift.toFixed(1) + ' ms');
+ok('humanize is spec-level too, not only an option',
+    TX.render(Object.assign(cleanSpec(), { humanize: {} }), OPTS).report[0].metrics.sd > 10);
+eq('and `humanize` is a known key, not a typo', render(Object.assign(cleanSpec(),
+    { humanize: {} })).unknown.length, 0);
+
+// ===========================================================================
+section('INSERT PATH — re-time to the playhead as one draggable group');
+// ===========================================================================
+const ins = render(PRESETS.density());
+const placed = TX.toScoreObjects(ins, 100, { groupId: 'grp-tex-01', startId: 500, color: '#3F7D5A' });
+eq('every object comes through', placed.length, ins.objects.length);
+const pn0 = placed.filter(o => o.type === 'waveCurve');
+eq('the render starts exactly at the playhead', Math.min.apply(null, pn0.map(o => o.startSeconds)), 100);
+ok('every object joins the group', placed.every(o => o.groupId === 'grp-tex-01'));
+ok('ids are rewritten so nothing collides with the score',
+    placed.every(o => /^(wc|mk)-tex-\d+$/.test(o.id)));
+ok('note durations are preserved exactly', pn0.every((o, i) => {
+    const src = ins.objects.filter(x => x.type === 'waveCurve')[i];
+    return Math.abs((o.endSeconds - o.startSeconds) - (src.endSeconds - src.startSeconds)) < 1e-9;
+}));
+ok('markers travel with it (R9 — the render stays self-describing)',
+    placed.some(o => o.type === 'marker'));
+ok('marker times shift by the same amount as the notes',
+    placed.filter(o => o.type === 'marker').every(o => o.time >= 100 - 1e-6));
+eq('the span survives placement', TX.spanOf(ins), +(Math.max.apply(null, pn0.map(o => o.endSeconds)) -
+    Math.min.apply(null, pn0.map(o => o.startSeconds))).toFixed(4));
+ok('placement does not mutate the source render',
+    ins.objects.filter(o => o.type === 'waveCurve')[0].startSeconds !== 100);
+// an inserted texture is ORDINARY notes — that is D29's whole point
+ok('inserted notes are plain score notes, with no bend field anywhere',
+    placed.every(o => o.bend === undefined && o.morphBend === undefined));
+ok('...and they stay sonifyMode plain (the proven audition path, trap #5)',
+    pn0.every(o => o.sonifyMode === 'plain' && o.recVel != null));
+
+// ===========================================================================
 section('PLAYABILITY — D17, one law shared with audit_playability.js');
 // ===========================================================================
 eq('MIN_ATTACK', TX.D17.MIN_ATTACK, 0.11);
@@ -313,6 +440,38 @@ ok('layer 10 (META) is excluded from the occupancy model',
 Object.entries(CORPUS).forEach(([preset, file]) => {
     ok(file + ' has no hard conflicts', render(PRESETS[preset]()).summary.hard === 0,
         String(render(PRESETS[preset]()).summary.hard));
+});
+
+// ---- SAMPLE RING, the conflict D17 structurally cannot see ----
+// D17 compares WRITTEN note bounds. A fixed one-shot rings for its measured
+// length whatever was written (D9), so a staccato re-attacked faster than its
+// ring is a player playing over themselves while the badge reads 0 hard — and
+// the mock-up renders it cleanly (2r), so the ear cannot catch it either.
+const overCeiling = render({
+    name: 'ring', seed: 1, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 6, label: 'ring', tag: 'ring', voices: [{ players: 10, bpm: 200,
+        articulation: 'staccato', notelen: 0.12, level: 7.5, pitch: { root: 48 } }] }],
+});
+eq('33/s staccato reads as ZERO hard under the written-bounds law', overCeiling.summary.hard, 0);
+ok('...but the ring indicator catches it', overCeiling.rings.length > 0,
+    JSON.stringify(overCeiling.rings));
+eq('...and names the real gap', overCeiling.rings[0].tightest, 0.3, 0.01);
+eq('...against the measured ring', overCeiling.rings[0].ring, SL.staccato[48]);
+// aggregated, not one row per expanded per-player voice
+eq('...as ONE row for the whole group, not ten', overCeiling.rings.length, 1);
+eq('...counting all ten players', overCeiling.rings[0].players, 10);
+const underCeiling = render({
+    name: 'ring2', seed: 1, t0: 0, gap: 0, notelen: 0.12,
+    sections: [{ dur: 6, label: 'ring2', tag: 'ring2', voices: [{ players: 10, bpm: 110,
+        articulation: 'staccato', notelen: 0.12, level: 7.5, pitch: { root: 48 } }] }],
+});
+eq('at 18/s the ring is clear and nothing is reported', underCeiling.rings.length, 0);
+ok('variable-length techniques are clamped instead, never ring-flagged',
+    render(oneVoice('ord', 2.0, 60)).rings.length === 0);
+// the whole research corpus sits inside the ring — that is what made it usable
+Object.entries(CORPUS).forEach(([preset, file]) => {
+    ok(file + ' stays inside the sample ring', render(PRESETS[preset]()).rings.length === 0,
+        JSON.stringify(render(PRESETS[preset]()).rings));
 });
 
 // ===========================================================================

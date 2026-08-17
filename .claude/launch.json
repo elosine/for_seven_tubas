@@ -12,6 +12,13 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["sandbox/serve.js"],
       "port": 4700
+    },
+    {
+      "name": "score-verify",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["score/server.js"],
+      "env": { "PORT": "5210" },
+      "port": 5210
     }
   ]
 }

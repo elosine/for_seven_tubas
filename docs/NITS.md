@@ -196,3 +196,40 @@ formed on slightly wrong pitches.
 `midi*100 + bend` along with everything else, but they were written to compare
 *relative* travel, so they would have passed either way. If a future change makes
 either of them load-bearing, they should be re-derived rather than trusted.
+
+---
+
+## The Morph panel ignores `active` when the AI writes a new rev
+*(found 2026-08-16 during PLAN 2x Phase 1; deferred — it is 2v/2z's file)*
+
+**What it is.** `score/public/morph_panel.js`'s `refresh()` only adopts the
+params file's `active` field when the currently-selected variant has become
+invalid:
+
+```js
+if (keys.indexOf(this.active) < 0) this.active = j.active ... : keys[0];
+```
+
+So when the AI writes a new `rev` and sets `"active": "B"` — meaning *"here is
+the new slate, and B is the one I want you to hear"* — the panel stays on
+whatever tab the composer was on. The composer then reads A's label and A's
+dials while the AI's message is about B.
+
+**What was observed.** Reproduced directly in the Texture panel, which copied
+this logic: writing `rev: 2, active: "B"` left the panel on A (latency was fine
+— 888 ms — it was only the tab that did not move). Fixed in
+`texture_panel.js` by adopting `active` **only on a rev change**, so a
+deliberate AI write lands where it says, while an ordinary poll never yanks the
+composer's tab out from under them.
+
+**Why deferred.** Not fixed in `morph_panel.js` because a second agent was
+actively working in that file at the time (2z had just committed G5 and moved
+on to 2y), and a concurrent edit to someone else's in-flight file is exactly
+what the explicit-path staging rule exists to prevent. It is also not blocking:
+the composer can click the tab.
+
+**If it recurs:** the symptom is the composer auditioning the wrong variant
+after an AI write and the numbers not matching the description. The fix is four
+lines, and the working version is in `texture_panel.js`'s `refresh()` — copy it
+across, including the `pinned = null` reset (a new slate invalidates the old
+A/B reference).

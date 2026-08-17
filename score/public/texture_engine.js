@@ -265,7 +265,7 @@ function playability(objects) {
 // and never silently dropped (the 2v rule): a typo shows up in the panel status
 // line instead of quietly doing nothing.
 
-const SPEC_KEYS = ['name', 'seed', 'sections', 't0', 'gap', 'notelen', 'midi'];
+const SPEC_KEYS = ['name', 'seed', 'sections', 't0', 'gap', 'notelen', 'midi', 'humanize'];
 const SECTION_KEYS = ['dur', 'label', 'tag', 'voices', 'model', 'bpm', 'stages',
     'lap', 'dBpm', 'markLaps'];
 const VOICE_KEYS = ['players', 'lanes', 'bpm', 'bpmEnd', 'rampFrom', 'articulation',
@@ -342,10 +342,56 @@ function expandVoice(v, lanes, groupIndex, rnd) {
     return out;
 }
 
+// HUMANIZE (plan §9, R6) — the robustness pass, as a post-pass over the RESOLVED
+// spec so it works on both dialects and on every preset.
+//
+// The standing performance rule (docs/PHASE_SHIFTING.md §6) is that no texture
+// may depend on precise timing, so every keeper has to be auditionable with
+// human-scale error applied. That error is mathematically the SAME OPERATION as
+// the dials already here, which is why this is composition rather than new
+// machinery:
+//
+//   stageMs   a FIXED per-player offset — where the player is standing. ~30 ms
+//             of arrival spread across a 10 m stage (343 m/s), so +/-15 ms.
+//             Fixed, therefore it behaves like scatter: it can create a figure.
+//   jitterMs  a PER-ATTACK error — human timing. Re-drawn every attack, so it
+//             behaves like jitter and never repeats.
+//
+// Both are ESTIMATES (the stage figure is inferred from physics, not measured in
+// a hall; the human figure is a guess). They can mis-tint an A/B — they can never
+// block a render. The prediction they exist to test: rain is robust and smear is
+// fragile, because human error converts smear into rain for free.
+const HUMANIZE = { stageMs: 15, jitterMs: 25 };
+
+function applyHumanize(resolved, h) {
+    if (!h) return resolved;
+    const stageMs = h.stageMs != null ? h.stageMs : HUMANIZE.stageMs;
+    const jitterMs = h.jitterMs != null ? h.jitterMs : HUMANIZE.jitterMs;
+    // Stage offset is per LANE, not per voice: it is where a player physically
+    // stands, so it must be the same in every voice that player appears in.
+    const rnd = lcgC(((h.seed != null ? h.seed : 424242) * 2246822519) >>> 0);
+    const stage = {};
+    for (let L = 0; L < D17.META_LAYER; L++) stage[L] = 2 * rnd() * stageMs / 1000;
+    resolved.sections.forEach(sec => {
+        sec.voices = sec.voices.map(v => {
+            const lane = v.lanes && v.lanes.length ? v.lanes[0] : 0;
+            return Object.assign({}, v, {
+                jitterMs: (v.jitterMs || 0) + jitterMs,
+                delay: (v.delay != null ? v.delay : 0) + stage[lane],
+            });
+        });
+    });
+    return resolved;
+}
+
 function normaliseSpec(spec, opts) {
     opts = opts || {};
     const maxLanes = opts.maxLanes || D17.META_LAYER;
-    const seed = spec.seed != null ? spec.seed : 1;
+    // A MISSING SEED STAYS MISSING — it must not become 1. The presets carry no
+    // seed, and generate() folds `spec.seed || 0` into the jitter stream, so
+    // defaulting here would shift every preset's jitter and break the Phase 0
+    // byte-identity corpus.
+    const seed = spec.seed != null ? spec.seed : null;
     const out = {
         name: spec.name, seed: seed,
         t0: spec.t0, gap: spec.gap, notelen: spec.notelen, midi: spec.midi,
@@ -353,7 +399,7 @@ function normaliseSpec(spec, opts) {
     };
     // One PRNG for the whole spec, consumed in section order then group order, so
     // the same spec always draws the same offsets — determinism is by seed only.
-    const rnd = lcgC(seed >>> 0 ? (seed * 2654435761) >>> 0 : 20260816);
+    const rnd = lcgC(seed != null ? (seed * 2654435761) >>> 0 : 20260816);
     (spec.sections || []).forEach(sec => {
         const panel = (sec.voices || []).some(isPanelVoice);
         if (!panel) { out.sections.push(sec); return; }   // RESOLVED — pass through
@@ -369,7 +415,53 @@ function normaliseSpec(spec, opts) {
             voices,
         });
     });
-    return out;
+    // humanize LAST, so it perturbs the finished arrangement rather than being
+    // folded into the scatter draw — the clean and humanized renders must differ
+    // by exactly the error model and nothing else, or the A/B is not an A/B.
+    return applyHumanize(out, opts.humanize || spec.humanize);
+}
+
+// ---- insert path ----------------------------------------------------------
+// Re-time a render to the playhead and re-id it as one draggable group, using the
+// 2w placement conventions (groupId + marker + META shape are added by the
+// caller). Texture notes are ORDINARY score notes — that is the whole point of
+// D29's no-bend scope — so nothing here is special-cased at playback.
+function toScoreObjects(result, at, opts) {
+    opts = opts || {};
+    const objs = result.objects;
+    if (!objs.length) return [];
+    let first = Infinity;
+    objs.forEach(o => {
+        const t = o.type === 'marker' ? o.time : o.startSeconds;
+        if (t < first) first = t;
+    });
+    const shift = at - first;
+    let id = opts.startId || 1;
+    return objs.map(o => {
+        const c = JSON.parse(JSON.stringify(o));
+        if (c.type === 'marker') {
+            c.id = 'mk-tex-' + (id++);
+            c.time = +(c.time + shift).toFixed(3);
+        } else {
+            c.id = 'wc-tex-' + (id++);
+            c.startSeconds = +(c.startSeconds + shift).toFixed(4);
+            c.endSeconds = +(c.endSeconds + shift).toFixed(4);
+            if (opts.color) c.color = opts.color;
+        }
+        if (opts.groupId) c.groupId = opts.groupId;
+        return c;
+    });
+}
+
+// The span a render occupies, for the META shape and the audition tail.
+function spanOf(result) {
+    let lo = Infinity, hi = -Infinity;
+    result.objects.forEach(o => {
+        if (o.type === 'marker') return;
+        if (o.startSeconds < lo) lo = o.startSeconds;
+        if (o.endSeconds > hi) hi = o.endSeconds;
+    });
+    return (lo === Infinity) ? 0 : +(hi - lo).toFixed(4);
 }
 
 // ============================== GENERATE ==============================
@@ -435,7 +527,19 @@ function generate(spec, opts) {
         // rain mechanism; it is also the human-timing error model (plan §9).
         sec.voices.forEach((v, vi) => {
             if (!v.jitterMs) return;
-            const rnd = lcgC(7654321 + vi * 977);
+            // THE JITTER STREAM MUST FOLLOW THE SPEC SEED (R5). It originally did
+            // not — `7654321 + vi*977` is a hardcoded constant — so on a RAIN
+            // texture (jitter > 0, scatter 0) stepping the seed produced a
+            // bit-identical render and the panel's whole identity-vs-draw
+            // question silently answered itself "same every time". Found in the
+            // running app at the Phase 1 gate, not by reading.
+            //
+            // Adding `spec.seed * PRIME` keeps the legacy stream EXACTLY when no
+            // seed is present (the presets carry none, and `|| 0` leaves the old
+            // constant untouched), so the Phase 0 byte-identity corpus is
+            // unaffected. That is why normaliseSpec must NOT default a missing
+            // seed to 1 — doing so would shift every preset's jitter.
+            const rnd = lcgC((7654321 + vi * 977 + (spec.seed || 0) * 2654435761) >>> 0);
             voiceOnsets[vi] = voiceOnsets[vi].map(t => +(t + 2 * rnd() * v.jitterMs / 1000).toFixed(4));
             voiceOnsets[vi].sort((a, b) => a - b);
         });
@@ -526,12 +630,63 @@ function generate(spec, opts) {
     };
 }
 
+// SAMPLE-RING OVERLAP — the conflict the D17 badge structurally cannot see.
+//
+// D17 (and tools/audit_playability.js, and Composer.CONFLICT) compares WRITTEN
+// note bounds. A fixed one-shot's written length is whatever was drawn, but the
+// SAMPLE rings for its own measured duration regardless (D9 — that is what makes
+// it fixed). So ten players re-attacking staccato every 0.30 s against a 0.42 s
+// ring is physically a player playing over themselves, and the badge says
+// "0 hard", because on paper the 0.12 s notes do not touch.
+//
+// This is exactly the 2r/2u trap in its worst form: the mock-up renders it
+// perfectly cleanly, because technique = MIDI channel and the two attacks go out
+// on two UVI voices. You cannot hear the problem, and at the density ceiling
+// this is the ONLY thing standing between a texture and an unplayable one.
+//
+// Reported SEPARATELY rather than folded into the badge, deliberately: the
+// "one law, two consumers" property of D17 is worth keeping intact and verified
+// (plan §11), so this adds a second, clearly-labelled indicator instead of
+// forking the law. Nothing here is a new constant — the ring comes from
+// bank/sample_lengths.json via the report the engine already produces.
+// AGGREGATED per (section, technique). A panel voice group is expanded into one
+// voice PER PLAYER, so a ten-player field over its ring would otherwise report
+// ten near-identical rows each claiming "1 player" — technically true, unreadable,
+// and it understates the problem by describing it one player at a time. The
+// composer needs one line: how many players, how tight, against which ring.
+function ringOverlaps(report) {
+    const byKey = new Map();
+    report.forEach(({ sec, lines }) => {
+        lines.forEach(l => {
+            if (l.ring == null || !isFinite(l.tightest)) return;   // variable-length: clamped instead
+            if (l.tightest > l.ring) return;
+            const v = sec.voices[l.vi] || {};
+            const key = (sec.tag || '') + '|' + v.tech + '|' + l.ring;
+            const lanes = v.lanes || [];
+            let e = byKey.get(key);
+            if (!e) {
+                e = { tag: sec.tag, tech: v.tech, ring: l.ring,
+                      tightest: l.tightest, lanes: new Set() };
+                byKey.set(key, e);
+            }
+            e.tightest = Math.min(e.tightest, l.tightest);          // report the WORST
+            lanes.forEach(x => e.lanes.add(x));
+        });
+    });
+    return [...byKey.values()].map(e => ({
+        tag: e.tag, tech: e.tech, players: e.lanes.size,
+        tightest: +e.tightest.toFixed(3), ring: e.ring,
+        overBy: +(e.ring - e.tightest).toFixed(3),
+    }));
+}
+
 // One-call convenience for the panel and the CLI: normalise, generate, audit.
 function render(spec, opts) {
     const resolved = normaliseSpec(spec, opts);
     const g = generate(resolved, opts);
     g.spec = resolved;
     g.summary = playability(g.objects);
+    g.rings = ringOverlaps(g.report);
     // spec-level unknown keys are reported against the ORIGINAL, not the resolved
     // form, so a panel typo is named as the composer wrote it
     g.unknown = unknownKeys(spec);
@@ -539,15 +694,16 @@ function render(spec, opts) {
 }
 
 return {
-    COLORS, MARK_COL, THRESHOLDS_MS, D17, RAILS,
+    COLORS, MARK_COL, THRESHOLDS_MS, D17, RAILS, HUMANIZE,
     pn, r2,
     lcg, lcgC,
     ringLength,
     steadyOnsets, sweepOnsets,
     sdOf, circularMean, metricsOf,
-    requiredAttack, pairTier, playability,
+    requiredAttack, pairTier, playability, ringOverlaps,
     SPEC_KEYS, SECTION_KEYS, VOICE_KEYS, unknownKeys,
-    assignLanes, expandVoice, normaliseSpec,
+    assignLanes, expandVoice, applyHumanize, normaliseSpec,
+    toScoreObjects, spanOf,
     generate, render,
 };
 }));

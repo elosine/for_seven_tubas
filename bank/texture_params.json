@@ -1,0 +1,110 @@
+{
+  "_comment": "THE CONVERSATIONAL LOOP — PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN — sound only ever on the composer's SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6's two-sided contract), so the qualitative interface never goes opaque.",
+  "rev": 1,
+  "active": "A",
+  "variants": {
+    "A": {
+      "label": "A: SMEAR reference · 10 players @ 110 BPM, jitter 0, scatter 0",
+      "fromModel": "SMEAR",
+      "spec": {
+        "name": "smear-ref",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "SMEAR · dead even at 18/s — attacks on the edge of fusing into a tone",
+            "tag": "smear",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "B": {
+      "label": "B: RAIN reference · jitter 0→45 ms (the only dial moved from A)",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-ref",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "RAIN · jitter ±45 ms at 18/s — irregular, and nothing ever repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 45,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "C": {
+      "label": "C: GALLOP reference · 5+5 tubas, ΔBPM 2 (lap 6 s) — two groups, not one",
+      "fromModel": "GALLOP",
+      "spec": {
+        "name": "gallop-ref",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "GALLOP · 5+5 tubas at 110 / 112 BPM — lap 6 s, a lopsided two-element figure",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 112,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
