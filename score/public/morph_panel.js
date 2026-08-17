@@ -193,7 +193,20 @@ const PANEL = {
     generate() {
         const p = this.current();
         if (!p) { this.setStatus('no variant', true); return; }
-        const merged = this.readFields(p);
+        // THE FIELDS BELONG TO A VARIANT. Reading them blindly merged the
+        // PREVIOUS variant's dials into the new one — switching from A to N
+        // auditioned N at A's span and A's seed, and it stuck, because draw()
+        // then redrew the fields from the already-wrong merge. Every cross-
+        // variant comparison in the panel was therefore of the wrong thing.
+        // (Found 2026-08-16 while setting up 2z's G5 battery.)
+        //
+        // So: nudges persist while you stay put; changing variant, or the AI
+        // rewriting the params file, resets to what the file actually says.
+        const stamp = this.active + '@' + this.rev;
+        const merged = (this._fieldStamp === stamp)
+            ? this.readFields(p)
+            : JSON.parse(JSON.stringify(p));
+        this._fieldStamp = stamp;
         try {
             this.result = M.render(merged, {
                 maxVoices: 10,
@@ -238,6 +251,33 @@ const PANEL = {
             i.addEventListener('change', () => this.generate());
             w.appendChild(i); f.appendChild(w);
         };
+        const sel = (label, path, val, opts) => {
+            const w = document.createElement('div');
+            w.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:2px 0';
+            w.innerHTML = '<span style="color:#9a9">' + label + '</span>';
+            const s = document.createElement('select');
+            s.dataset.path = path;
+            s.style.cssText = 'width:80px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px';
+            opts.forEach(o => {
+                const op = document.createElement('option');
+                op.value = o; op.textContent = o;
+                if (o === val) op.selected = true;
+                s.appendChild(op);
+            });
+            s.addEventListener('change', () => this.generate());
+            w.appendChild(s); f.appendChild(w);
+        };
+        const head = t => {
+            const h = document.createElement('div');
+            h.style.cssText = 'color:#b9a8ff;margin:7px 0 2px;border-top:1px solid #3a3a44;padding-top:5px';
+            h.textContent = t; f.appendChild(h);
+        };
+        const note = (t, colour) => {
+            const d = document.createElement('div');
+            d.style.cssText = 'color:' + (colour || '#777') + ';margin:1px 0';
+            d.innerHTML = t; f.appendChild(d);
+        };
+
         row('span (s)', 'carrier.span', p.carrier.span, 1);
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
         row('bias  −1…+1', 'dials.bias', p.dials.bias, 0.1);
@@ -245,6 +285,79 @@ const PANEL = {
         row('depth 0…1', 'dials.depth', p.dials.depth, 0.1);
         row('dyn amount', 'dyn.amount', p.dyn.amount, 0.05);
         row('seed', 'seed', p.seed, 1);
+
+        // ------------------------------------------------------------ SHAPE
+        // PLAN 2z. The panel SHOWS and NUDGES a shape; it does not build one
+        // from nothing. That is deliberate: the composer's chosen interface for
+        // this is narration ("for the first few attacks, I'll just narrate, and
+        // we'll build the vocabulary"), the AI writes the block into
+        // morph_params.json, and a from-scratch builder here would be the
+        // sandbox-UI mistake — a big surface for a loop nobody hammers.
+        const sh = p.shape;
+        const num = (v, d) => (v != null ? v : d);
+        if (!sh || (!sh.attack && !sh.decay && !sh.release)) {
+            head('SHAPE');
+            note('none — narrate one ("hit it hard and brassy, let it settle,<br>' +
+                 'then let it fall apart") and its dials appear here.');
+        } else {
+            head('SHAPE · attack');
+            if (!sh.attack) note('no attack block');
+            else {
+                row('len (s)', 'shape.attack.len', num(sh.attack.len, 2), 0.25);
+                sel('entry', 'shape.attack.entry', num(sh.attack.entry, 'together'), M.ENTRY_MODES);
+                sel('order', 'shape.attack.order', num(sh.attack.order, 'low-first'), M.ORDER_MODES);
+                sel('curve', 'shape.attack.curve', num(sh.attack.curve, 'expo'), M.SHAPE_CURVES);
+                row('from 0…1', 'shape.attack.from', num(sh.attack.from, 0.15), 0.05);
+                row('peak ≥1', 'shape.attack.peak', num(sh.attack.peak, 1), 0.05);
+                const layers = [];
+                if (sh.attack.technique) layers.push('edge <b>' + sh.attack.technique + '</b>');
+                if (sh.attack.transient) layers.push('transient <b>' + sh.attack.transient.technique +
+                    '</b> (hit-then-tone)');
+                if (sh.attack.noise) layers.push('noise <b>' + sh.attack.noise.technique + '</b> ×' +
+                    sh.attack.noise.voices + ' (spare lanes, simultaneous)');
+                if (sh.attack.motion) layers.push('motion <b>' + sh.attack.motion.type + '</b> ' +
+                    sh.attack.motion.cents + ' c');
+                if (layers.length) note(layers.join('<br>'), '#9a9');
+            }
+            if (sh.decay) {
+                head('SHAPE · decay (peak → body)');
+                row('len (s)', 'shape.decay.len', num(sh.decay.len, 3), 0.25);
+                sel('curve', 'shape.decay.curve', num(sh.decay.curve, 'expo'), M.SHAPE_CURVES);
+            }
+            head('SHAPE · release');
+            if (!sh.release) note('no release block');
+            else {
+                row('len (s)', 'shape.release.len', num(sh.release.len, 8), 0.5);
+                sel('exit', 'shape.release.exit', num(sh.release.exit, 'staggered'), M.EXIT_MODES);
+                sel('order', 'shape.release.order', num(sh.release.order, 'seeded'), M.ORDER_MODES);
+                sel('curve', 'shape.release.curve', num(sh.release.curve, 'expo'), M.SHAPE_CURVES);
+                row('to 0…1', 'shape.release.to', num(sh.release.to, 0), 0.05);
+                if (sh.release.dropout) {
+                    row('dropout 0…1', 'shape.release.dropout.fraction',
+                        num(sh.release.dropout.fraction, 0.4), 0.1);
+                }
+                const rl = [];
+                if (sh.release.technique) rl.push('edge <b>' + sh.release.technique + '</b>');
+                if (sh.release.motion) rl.push('motion <b>' + sh.release.motion.type + '</b>' +
+                    (sh.release.motion.type === 'to-unison' ? '' : ' ' + sh.release.motion.cents + ' c'));
+                if (rl.length) note(rl.join('<br>'), '#9a9');
+            }
+            // The level floor, said once, where it will be read. `to: 0` is not
+            // digital silence and never was — it is the bottom of the measured
+            // CC7 map, the same floor every hand-drawn decrescendo has.
+            note('“to: 0” lands on the 0.4 level floor — very quiet through the<br>' +
+                 'measured CC7 map, not silence. Same floor as every drawn hairpin.');
+            const ms = r.meta.shape;
+            if (ms) {
+                const bits = [];
+                if (ms.dropped && ms.dropped.length) {
+                    bits.push('dropout: ' + ms.dropped.length + ' voice(s) cut early — T' +
+                        ms.dropped.map(v => v + 1).join(', T') + ' (whole clusters)');
+                }
+                if (ms.noiseVoices) bits.push('noise layer: ' + ms.noiseVoices + ' spare lane(s)');
+                if (bits.length) note(bits.join('<br>'), '#8a8ac0');
+            }
+        }
 
         // flags, in 2r's existing red/amber vocabulary — no new colours
         const fl = this.el.querySelector('#morphFlags');
@@ -266,12 +379,27 @@ const PANEL = {
 
     readFields(p) {
         const merged = JSON.parse(JSON.stringify(p));
-        this.el.querySelectorAll('#morphFields input').forEach(i => {
-            const parts = i.dataset.path.split('.');
+        // Walk to the parent of a dotted path. Shape rows are only drawn for
+        // blocks that already exist, so this never invents one — a nudge on a
+        // dial cannot conjure `shape.attack` out of nothing.
+        const parentOf = (path, create) => {
+            const parts = path.split('.');
             let o = merged;
-            for (let k = 0; k < parts.length - 1; k++) { o[parts[k]] = o[parts[k]] || {}; o = o[parts[k]]; }
+            for (let k = 0; k < parts.length - 1; k++) {
+                if (o[parts[k]] == null) { if (!create) return null; o[parts[k]] = {}; }
+                o = o[parts[k]];
+            }
+            return { obj: o, key: parts[parts.length - 1] };
+        };
+        this.el.querySelectorAll('#morphFields input').forEach(i => {
+            const t = parentOf(i.dataset.path, i.dataset.path.indexOf('shape.') !== 0);
+            if (!t) return;
             const v = parseFloat(i.value);
-            if (!isNaN(v)) o[parts[parts.length - 1]] = v;
+            if (!isNaN(v)) t.obj[t.key] = v;
+        });
+        this.el.querySelectorAll('#morphFields select').forEach(s => {
+            const t = parentOf(s.dataset.path, false);
+            if (t) t.obj[t.key] = s.value;
         });
         return merged;
     },

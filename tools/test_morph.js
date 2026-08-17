@@ -483,13 +483,22 @@ const FIXTURES = [
     ['variant:F', '816b03205391d2d3', '6ee0ba454bae8a10', 40],
 ];
 
+// The fixture set is the BLESSED material — the six recipes and the six
+// variants the composer auditioned on day 10. Variants added later (2z's
+// listening battery, and whatever narration produces next) are working
+// material: they are expected to churn, so they are not pinned. Removing or
+// altering a blessed one still fails, which is the point.
 function fixtureCases() {
     const cases = [];
     Object.keys(RECIPES.recipes).forEach(k => {
         const r = RECIPES.recipes[k];
         cases.push(['recipe:' + r.slot, r.params]);
     });
-    Object.keys(PARAMS.variants).forEach(k => cases.push(['variant:' + k, PARAMS.variants[k]]));
+    Object.keys(PARAMS.variants).forEach(k => {
+        if (['A', 'B', 'C', 'D', 'E', 'F'].indexOf(k) >= 0) {
+            cases.push(['variant:' + k, PARAMS.variants[k]]);
+        }
+    });
     return cases;
 }
 const FIX_OPTS = { maxVoices: 10, sampleLengths: SL };

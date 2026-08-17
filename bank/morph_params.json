@@ -11,13 +11,13 @@
     "more beating": "narrow the interval between paired voices (target.cents down toward 0 for M1)"
   },
   "_auditionNotes": {
-    "A": "composer 2026-08-16: 'very nice\u2026 interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating, and potentially at the same time volume changes. It did sound like acoustic beating and swelling.' -> C and D chase that deliberately.",
-    "B": "composer: 'sounds exactly like a held sonority with players shifting different techniques within it\u2026 more like a collection of different techniques. Useful, but not as interesting.' -> technique changes now enter under a long deep ramp instead of stepping.",
+    "A": "composer 2026-08-16: 'very nice… interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating, and potentially at the same time volume changes. It did sound like acoustic beating and swelling.' -> C and D chase that deliberately.",
+    "B": "composer: 'sounds exactly like a held sonority with players shifting different techniques within it… more like a collection of different techniques. Useful, but not as interesting.' -> technique changes now enter under a long deep ramp instead of stepping.",
     "C": "composer 2026-08-16: 'very interesting'. KEEPER, usable in the piece.",
     "D": "composer 2026-08-16: 'very interesting'. KEEPER, usable in the piece."
   },
-  "rev": 4,
-  "active": "E",
+  "rev": 5,
+  "active": "C",
   "autoplay": false,
   "variants": {
     "A": {
@@ -99,7 +99,7 @@
       "seed": 5
     },
     "C": {
-      "label": "BEATING BLOOM \u2014 four unisons splitting apart, 40 s",
+      "label": "BEATING BLOOM — four unisons splitting apart, 40 s",
       "model": "M1",
       "source": {
         "kind": "pitches",
@@ -138,7 +138,7 @@
       "seed": 11
     },
     "D": {
-      "label": "BEATING CONVERGE \u2014 whole-tone pairs closing to unison, 40 s",
+      "label": "BEATING CONVERGE — whole-tone pairs closing to unison, 40 s",
       "model": "M3",
       "source": {
         "kind": "pitches",
@@ -185,7 +185,7 @@
       "seed": 7
     },
     "E": {
-      "label": "SPACING MIGRATION \u2014 voicing opens outward, 40 s",
+      "label": "SPACING MIGRATION — voicing opens outward, 40 s",
       "model": "M5",
       "source": {
         "kind": "pitches",
@@ -223,7 +223,7 @@
       "seed": 13
     },
     "F": {
-      "label": "SPECTRAL DRIFT \u2014 chord focuses onto the harmonics of F, 40 s",
+      "label": "SPECTRAL DRIFT — chord focuses onto the harmonics of F, 40 s",
       "model": "M2",
       "source": {
         "kind": "pitches",
@@ -271,6 +271,450 @@
         "spread": 0.5
       },
       "seed": 17
+    },
+    "G": {
+      "label": "2z-G · BLOOM + staccato transient (hit THEN tone)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "attack": {
+          "len": 3,
+          "entry": "together",
+          "curve": "expo",
+          "from": 0.4,
+          "transient": {
+            "technique": "staccato"
+          }
+        }
+      }
+    },
+    "H": {
+      "label": "2z-H · BLOOM + cuivre noise layer (hit AND tone, spare players)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "attack": {
+          "len": 3,
+          "entry": "together",
+          "curve": "expo",
+          "from": 0.4,
+          "noise": {
+            "technique": "cuivre",
+            "voices": 2,
+            "midi": [
+              63,
+              65
+            ]
+          }
+        }
+      }
+    },
+    "I": {
+      "label": "2z-I · BLOOM, hit it and settle (peak 1.45 + decay)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "attack": {
+          "len": 1.2,
+          "entry": "together",
+          "curve": "sudden",
+          "from": 0.8,
+          "peak": 1.45
+        },
+        "decay": {
+          "len": 5,
+          "curve": "expo"
+        }
+      }
+    },
+    "J": {
+      "label": "2z-J · BLOOM, release: plain taper (the reference release)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "release": {
+          "len": 12,
+          "exit": "staggered",
+          "order": "high-first",
+          "curve": "expo",
+          "to": 0
+        }
+      }
+    },
+    "K": {
+      "label": "2z-K · BLOOM, release: DROPOUT (thins by whole pairs)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "release": {
+          "len": 12,
+          "exit": "staggered",
+          "order": "high-first",
+          "curve": "expo",
+          "to": 0,
+          "dropout": {
+            "fraction": 0.5
+          }
+        }
+      }
+    },
+    "L": {
+      "label": "2z-L · BLOOM, release: motion DISPERSE (beating opens as it fades)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "release": {
+          "len": 12,
+          "exit": "staggered",
+          "order": "high-first",
+          "curve": "expo",
+          "to": 0,
+          "motion": {
+            "type": "disperse",
+            "cents": 35,
+            "curve": "linear"
+          }
+        }
+      }
+    },
+    "M": {
+      "label": "2z-M · BLOOM, tongue-stop (sudden cut, everyone together)",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "release": {
+          "len": 4,
+          "exit": "together",
+          "curve": "sudden",
+          "to": 0
+        }
+      }
+    },
+    "N": {
+      "label": "2z-N · the worked example: hard + brassy, settles, falls apart",
+      "model": "M1",
+      "source": {
+        "kind": "pitches",
+        "midi": [
+          41,
+          41,
+          46,
+          46,
+          51,
+          51,
+          56,
+          56
+        ]
+      },
+      "target": {
+        "cents": 25,
+        "direction": "alternate"
+      },
+      "dials": {
+        "bias": 0.3,
+        "spread": 0.35,
+        "depth": 1
+      },
+      "carrier": {
+        "span": 40,
+        "segLen": 8,
+        "segVar": 0.3,
+        "striation": "staggered"
+      },
+      "dyn": {
+        "base": 0.5,
+        "shape": "swell",
+        "amount": 0.42,
+        "spread": 0.55
+      },
+      "seed": 11,
+      "shape": {
+        "attack": {
+          "len": 1.5,
+          "entry": "together",
+          "curve": "sudden",
+          "from": 0.85,
+          "peak": 1.35,
+          "noise": {
+            "technique": "cuivre",
+            "voices": 2,
+            "midi": [
+              63,
+              65
+            ],
+            "len": 1.2
+          }
+        },
+        "decay": {
+          "len": 3,
+          "curve": "expo"
+        },
+        "release": {
+          "len": 9,
+          "exit": "staggered",
+          "order": "high-first",
+          "curve": "expo",
+          "to": 0,
+          "motion": {
+            "type": "disperse",
+            "cents": 30,
+            "curve": "linear"
+          },
+          "dropout": {
+            "fraction": 0.4
+          }
+        }
+      }
     }
+  },
+  "_shapeVocabulary": {
+    "_note": "PLAN 2z. Narrate; the AI writes the shape block. This map is a STARTING point and is expected to grow from the sessions themselves (D6 harvest) — recurring descriptions become 2y presets.",
+    "give it a real attack / harder": "attack.from down, curve sudden, len down",
+    "hit it and settle": "attack.peak 1.3-1.6 + a decay block",
+    "stack the attack / double it": "attack.transient (hit-THEN-tone, ~0.5 s) or attack.noise (simultaneous, spare players)",
+    "brassy / noisy start": "attack.noise cuivre (MIDI 60-67, AI folds the pitches) or edge technique flz / play_sing_ks",
+    "assemble out of the air": "attack.entry ramp + motion converge + from 0",
+    "let it fall apart / dissolve": "release.motion disperse + dropout + curve expo",
+    "tongue-stop": "release {exit together, curve sudden}",
+    "thin out but keep the beating": "release.dropout — cluster-safe, so beating thins by whole pairs",
+    "come back to unison as it fades": "release.motion to-unison"
   }
 }
