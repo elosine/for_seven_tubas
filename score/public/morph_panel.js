@@ -395,7 +395,12 @@ const PANEL = {
         const selName = this.mode === 'models' ? this.activeModel
             : this.mode === 'actuals' ? (this.activeActual || 'ACTUALs') : this.active;
         this.setStatus('v' + this.rev + ' &middot; ' + selName + ' &middot; "' +
+            // "Let them finish" makes the real end unpredictable by up to a
+            // breath, and the composer needs the actual number to place the
+            // gesture in the score — so show it rather than the dialled value.
             (p.label || p.model) + '" &middot; ' + r.notes.length + ' notes &middot; ' +
+            (r.meta && r.meta.totalLength
+                ? '<b>' + r.meta.totalLength.toFixed(1) + ' s</b> &middot; ' : '') +
             (s.hard ? '<b style="color:#e06666">' + s.hard + ' hard</b> / ' : '') +
             (soft ? '<span style="color:#e0b062">' + soft + ' soft</span>' : 'clean'), false, true);
 
@@ -619,12 +624,25 @@ const PANEL = {
             head('dials (nudge the resolved params)');
         }
 
-        row('span (s)', 'carrier.span', p.carrier.span, 1);
+        // FR-3. `span` is now explicitly the ONE-WAY gliss — the pace — and
+        // `duration` is how long the body runs. Blank means "not set", which is
+        // the legacy form where the gliss fills the whole gesture: readFields
+        // ignores NaN, so an empty box stays null rather than becoming 0.
+        row('pace: gliss (s)', 'carrier.span', p.carrier.span, 1);
+        row('duration (s)', 'carrier.duration',
+            p.carrier.duration != null ? p.carrier.duration : '', 10);
+        row('release (s)', 'carrier.release',
+            p.carrier.release != null ? p.carrier.release : '', 5);
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
         row('bias  −1…+1', 'dials.bias', p.dials.bias, 0.1);
         row('spread 0…1', 'dials.spread', p.dials.spread, 0.1);
         row('depth 0…1', 'dials.depth', p.dials.depth, 0.1);
         row('dyn amount', 'dyn.amount', p.dyn.amount, 0.05);
+        // Under cycling this is the difference between one peak per cycle
+        // (`rise`, loudness tracking how open the bloom is) and two (`swell`,
+        // whose arch is symmetric in progress so it peaks going out AND back).
+        sel('dyn shape', 'dyn.shape', p.dyn.shape || 'swell',
+            ['swell', 'rise', 'fall', 'rotate', 'flat']);
         row('seed', 'seed', p.seed, 1);
 
         // ------------------------------------------------------------ SHAPE
@@ -827,12 +845,23 @@ const PANEL = {
             return { obj: o, key: parts[parts.length - 1] };
         };
         this.el.querySelectorAll('#morphFields input').forEach(i => {
+            // MODELS mode also puts the recipe CHECKBOXES and SLIDERS in this
+            // container, and those carry no `dataset.path` — reading `.indexOf`
+            // off undefined threw and took the whole render with it. Those
+            // controls own `recipeSettings`, not params, so skip them here.
+            if (!i.dataset.path) return;
             const t = parentOf(i.dataset.path, i.dataset.path.indexOf('shape.') !== 0);
             if (!t) return;
             const v = parseFloat(i.value);
             if (!isNaN(v)) t.obj[t.key] = v;
         });
         this.el.querySelectorAll('#morphFields select').forEach(s => {
+            // Same as above: the SHAPE PRESET picker lives here and owns
+            // `activePreset`, not a params path. Without this guard parentOf
+            // split undefined and threw straight out of generate(), so every
+            // nudge in MODELS mode was silently lost — the fields kept the typed
+            // value while the render went on using the stored params.
+            if (!s.dataset.path) return;
             const t = parentOf(s.dataset.path, false);
             if (t) t.obj[t.key] = s.value;
         });

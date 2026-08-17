@@ -119,7 +119,12 @@ const DYN_SHAPES = ['swell', 'rise', 'fall', 'rotate', 'flat'];
 const DEFAULTS = {
     model: 'M6',
     dials:   { bias: 0, spread: 0.5, depth: 1 },
-    carrier: { span: 30, segLen: 8, segVar: 0.35, striation: 'staggered' },
+    // `span` is the ONE-WAY gliss length — the pace. `duration` is how long the
+    // BODY lasts and `release` how long the run-down takes; both null means the
+    // legacy form, where the gliss is stretched to fill the one and only time
+    // value. See docs/plans/MORPH_CYCLING_PLAN.md.
+    carrier: { span: 30, segLen: 8, segVar: 0.35, striation: 'staggered',
+               duration: null, release: null },
     dyn:     { base: 0.6, shape: null, amount: 0.35, turns: 1, spread: 0.5 },
     seed: 1,
 };
@@ -232,14 +237,74 @@ function dynLevel(dyn, vi, nVoices, p) {
     return clamp((dyn.base + amt * w) * 10, 0.4, 10);
 }
 
-function voiceProgress(voiceIdx, nVoices, t, span, dials, order) {
-    const u = span > 0 ? clamp(t / span, 0, 1) : 1;
+// THE TIMELINE (FR-3). One time value used to do two jobs — "how long the gliss
+// takes" and "how long the gesture lasts" — because the gliss was stretched to
+// fill the span. These split them:
+//
+//   span      the ONE-WAY gliss length. The pace. Meaning unchanged.
+//   duration  how long the BODY runs. Cycling is ON exactly when it exceeds span
+//             — there is no separate switch to get out of sync with.
+//   release   the forced run-down. Forced rather than inherited from the cycle,
+//             because inheriting it would re-couple release length to pace, which
+//             is the very conflation this exists to remove.
+function carrierTiming(carrier) {
+    const span = Math.max(0.01, carrier.span);
+    const duration = carrier.duration != null ? Math.max(span, carrier.duration) : span;
+    const release = carrier.release != null ? Math.max(0, carrier.release) : 0;
+    const cycling = duration > span + 1e-9 || release > 0;
+    return { span: span, duration: duration, release: release,
+             total: duration + release, cycling: cycling };
+}
+
+// 0 -> 1 -> 0 -> 1 …  The trajectory reverses instead of stopping, so the pair
+// glisses out and back with NO pitch discontinuity. A sawtooth would have to
+// jump back to the start pitch mid-note; the composer ruled that out.
+// Symmetric by construction, which is what makes `bias` mirror the return sweep
+// for free — a cycle-asymmetry dial was explicitly declined.
+function foldPhase(x) {
+    if (x <= 0) return 0;
+    const m = x % 2;
+    return m <= 1 ? m : 2 - m;
+}
+
+function voiceProgress(voiceIdx, nVoices, t, span, dials, order, cyc) {
     const k = nVoices > 1 ? order[voiceIdx] / (nVoices - 1) : 0;
     const w = clamp(dials.spread, 0, 1) * 0.8;   // stagger uses at most 80% of the span
     const start = k * w;
     const run = Math.max(1e-6, 1 - w);
-    const p = clamp((u - start) / run, 0, 1);
-    return applyBias(p, dials.bias) * clamp(dials.depth, 0, 1);
+
+    // THE LEGACY PATH IS LITERALLY UNTOUCHED, and that is deliberate. Folding
+    // cannot subsume clamping here: a voice reaches raw phase 1 at u = start+run
+    // <= 1, so for the rest of the span raw exceeds 1 and the fold would send it
+    // back DOWN where today it holds at the top. (Voice 0: raw hits 1.389 by the
+    // end, folding to 0.611 against today's 1.0.) A branch that keeps the old
+    // formula verbatim is the safest way to hold byte-identity, which is the
+    // load-bearing gate for this whole change.
+    if (!cyc || !cyc.cycling) {
+        const u = span > 0 ? clamp(t / span, 0, 1) : 1;
+        const p = clamp((u - start) / run, 0, 1);
+        return applyBias(p, dials.bias) * clamp(dials.depth, 0, 1);
+    }
+
+    const phaseAt = tt => foldPhase((((span > 0 ? tt / span : 1)) - start) / run);
+    let x;
+    if (t <= cyc.duration || cyc.release <= 0) {
+        x = phaseAt(t);
+    } else {
+        // THE RELEASE (FR-6). Every voice travels from wherever it stands to a
+        // trough over the SAME number of seconds, so they descend at different
+        // rates — voices near a trough crawl, voices at a peak move fast. That
+        // raggedness is wanted; a uniform fade sounds mechanical.
+        //
+        // Because loudness rides this same progress, driving it to 0 returns the
+        // pitch to unison AND the level to its floor in one motion: the bloom
+        // CLOSES as it fades. That is free — it is the cycle finishing its
+        // downward half — which is why it was chosen over decoupling the two.
+        const held = phaseAt(cyc.duration);
+        const k2 = clamp((t - cyc.duration) / cyc.release, 0, 1);
+        x = held * (1 - k2);
+    }
+    return applyBias(x, dials.bias) * clamp(dials.depth, 0, 1);
 }
 
 // ===========================================================================
@@ -342,7 +407,10 @@ function striationPhase(pattern, vi, nVoices, segIdx, rng) {
 // Build one voice's segment list across the span. Never silently truncates: if a
 // model implies a segment longer than the player can hold, it SPLITS and flags.
 function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
-    const span = Math.max(0.01, carrier.span);
+    // Segments are built across the WHOLE timeline — body plus run-down — not
+    // across the gliss length. With no duration set the two are the same number.
+    const TIMING = carrierTiming(carrier);
+    const span = TIMING.total;
     const segLen = Math.max(0.05, carrier.segLen);
     const segVar = clamp(carrier.segVar, 0, 1);
     const pattern = STRIATIONS.indexOf(carrier.striation) >= 0 ? carrier.striation : 'staggered';
@@ -385,7 +453,14 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
             flags.push('BREATH');              // split, never truncate silently
         }
 
-        let dur = Math.min(want, limit - start);
+        // LET THEM FINISH (FR-6). Truncating every voice at the end time is a
+        // hard simultaneous chop, and it manufactures runt notes for whoever
+        // started just before it. Under cycling the last segment runs its
+        // natural length instead: progress has reached 0 by then so it is
+        // inaudible, and for a real player it is simply finishing the note.
+        // A shape-driven exit (`sched.endT`) is a deliberate cut and still wins.
+        const hardEnd = !!(sched && sched.endT != null);
+        let dur = (TIMING.cycling && !hardEnd) ? want : Math.min(want, limit - start);
         // A fixed one-shot is immune: the sample decides its length (D9), so a
         // window boundary may not cut it short — it rings past and gets flagged.
         if (bounds && info.fixedLen == null) {
@@ -401,6 +476,11 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
         segs.push({ idx: idx++, start: round3(start), dur: round3(dur), flags: flags });
         t = start + dur + gap;
     }
+    // The 512 cap used to exit SILENTLY, which is the one thing this file says
+    // it never does ("split, never truncate silently"). It only bites past about
+    // 70 minutes at an 8 s breath, so it does not fire on any existing render —
+    // but a long render must say so rather than just stopping.
+    if (segs.length >= 512 && t < limit) segs[segs.length - 1].flags.push('SEGCAP');
     return segs;
 }
 
@@ -742,7 +822,9 @@ function normaliseParams(v) {
     const carrier = Object.assign({}, DEFAULTS.carrier, p.carrier);
     // PLAN 2z. `shape` is the gesture's macro-form (ADSR + its layers). Absent
     // is the ordinary case and costs nothing: null all the way down.
-    const sh = normaliseShape(p.shape, Math.max(0.01, carrier.span));
+    // The gesture ADSR has to fit the whole timeline, not the gliss length —
+    // identical when no duration is set, since total then IS the span.
+    const sh = normaliseShape(p.shape, carrierTiming(carrier).total);
     return {
         model: model,
         source: p.source || { kind: 'pitches', midi: [34, 41, 46, 50, 53, 58, 62, 65] },
@@ -807,6 +889,7 @@ const PARAM_PATHS = {
 
     'carrier.span': 'number', 'carrier.segLen': 'number', 'carrier.segVar': 'number',
     'carrier.striation': 'string',
+    'carrier.duration': 'number', 'carrier.release': 'number',
 
     'dyn.base': 'number', 'dyn.shape': 'string', 'dyn.amount': 'number',
     'dyn.turns': 'number', 'dyn.spread': 'number',
@@ -1114,7 +1197,14 @@ function render(params, opts) {
     }
     const modelFn = MODELS[P.model] || MODELS.M6;
     const order = staggerOrder(nVoices, P.seed);
-    const span = P.carrier.span;
+    // TWO MEANINGS, NOW NAMED. Inside this function `span` already meant "the
+    // whole timeline" in every use except one — release anchoring, the stateAt
+    // lookahead clamps, shape normalisation and the meta all want the total.
+    // `voiceProgress` was the single consumer that meant the gliss length, and
+    // conflating the two is what made lengthening a gesture also slow it down.
+    const TIMING = carrierTiming(P.carrier);
+    const travel = TIMING.span;          // the one-way gliss — pace
+    const span = TIMING.total;           // the timeline, as everything below means
 
     // Per-voice release override, filled by the scheduler below. Empty (all
     // undefined) means every voice tapers over the shape's own release window.
@@ -1270,7 +1360,7 @@ function render(params, opts) {
 
     // state of one voice at time t — the MORPH half, independent of the carrier
     function stateAt(vi, t) {
-        const p = voiceProgress(vi, nVoices, t, span, P.dials, order);
+        const p = voiceProgress(vi, nVoices, t, travel, P.dials, order, TIMING);
         // THE SHAPE MULTIPLIES THE LAYER, it never replaces it (plan §2, D24).
         // With no shape this is `* 1` and the clamp is a no-op on an already
         // clamped value, so the render is bit-identical — that identity is the
@@ -1616,6 +1706,17 @@ function render(params, opts) {
         label: P.label, striation: P.carrier.striation,
         bendRangeSt: MEASURED.BEND_RANGE_ST, prearmS: MEASURED.BEND_PREARM_S,
     };
+    // CYCLING FIELDS ARE CONDITIONAL, for the same reason `shape` is: `meta` is
+    // inside the fixture hash, so adding keys unconditionally would break every
+    // blessed render and make the byte-identity gate report a regression that is
+    // not one. `span` above keeps meaning the gliss length, unchanged.
+    if (TIMING.cycling) {
+        meta.duration = round3(TIMING.duration);
+        meta.release = round3(TIMING.release);
+        // What the composer actually needs to place this in the score: the real
+        // end, which "let them finish" makes unpredictable by up to a breath.
+        meta.totalLength = round3(notes.reduce((a, n) => Math.max(a, n.tStart + n.dur), 0));
+    }
     // Only present when a shape is — meta must stay byte-identical without one.
     if (SH) {
         meta.shape = {

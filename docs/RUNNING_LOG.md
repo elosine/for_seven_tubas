@@ -1472,3 +1472,71 @@ been executed or heard, and the FR-3 gates say so.
 true repeated bloom — as opposed to cycling each player independently. That one
 needs Finding 3 fixed first.
 
+
+### Day 13 — FR-3 + FR-6 BUILT (cycling morphs, and the release)
+
+Plan: `docs/plans/MORPH_CYCLING_PLAN.md`. Composer gave an explicit go after the
+plan; **331 → 347 assertions, 0 failed, fixtures NOT regenerated** (byte-identity
+held on every blessed render, which was the load-bearing gate).
+
+**What shipped.** `carrier.span` now means only the ONE-WAY gliss — the pace —
+and two new optional fields split length from it: `carrier.duration` (body) and
+`carrier.release` (forced run-down). Cycling is on exactly when
+`duration > span`; there is no separate switch to fall out of sync. Panel gets
+`pace: gliss (s)` · `duration (s)` · `release (s)` · a `dyn shape` selector, and
+the status line now shows the **real** total length.
+
+**The core is one function.** `voiceProgress` folds with a triangle instead of
+clamping. Measured: **13 direction reversals** over a 300 s body, largest
+pitch step across a breath **1.30 cents** (the trajectory advancing during the
+gap — continuous, no sawtooth snap).
+
+**Loudness needed no code at all**, exactly as predicted — it already rides the
+same progress, so it cycles for free. Measured over 300 s: `rise` 7 peaks,
+`swell` 14, range 0.8–8.2 (frozen would have been a single value). *The coupling
+that made stretching fail is the thing that makes repeating work.*
+
+**The release works and the bloom closes.** 8/8 voices descending through the
+run-down (peaks ~6–9 → 0.8 floor), **final detune 0.00 cents on every voice** —
+pitch back at unison as it fades. **Negative control run**, because the positive
+result proves nothing without it: with no release the voices end at 7.9–9.2 and
+non-unanimous, i.e. the loud abrupt ending this exists to fix.
+
+**No truncation, no runts** — shortest note 5.6 s, voices stopping at different
+times (they finish their breath). The silent 512-segment cap now raises `SEGCAP`.
+
+#### THREE DEFECTS FOUND BY RUNNING IT, AND THE HONEST HALF IS THAT TWO WERE PRE-EXISTING
+
+1. **Mine: `meta.totalLength` was `NaN`.** I summed `n.t + n.dur`; the field is
+   `tStart`. Caught by the first probe.
+2. **My probe was wrong before the code was** — I read `cents` as an array (it is
+   a **scalar**) and `level`/`bend` as flat arrays (they are **`[time, value]`
+   breakpoints**). That produced a phantom **14-cent pitch jump** and a wall of
+   `NaN` levels, both of which looked exactly like real engine bugs. The correct
+   reading gives 1.3 cents and clean levels. **A measurement you have not
+   validated is not evidence** — this is Principle 5 wearing different clothes,
+   and the structures are now pinned by assertion in `test_morph.js` so the next
+   person cannot repeat it.
+3. **PRE-EXISTING AND SERIOUS: `readFields` threw on every call in MODELS mode**,
+   so **nudging any dial there was silently doing nothing** — the field kept the
+   typed value while the render went on using the stored params. Both loops
+   assumed every control in `#morphFields` carries a `dataset.path`; the recipe
+   checkboxes and sliders and the shape-preset picker do not. The exception
+   escaped `generate()` uncaught. *This has been true since MA3 shipped on day
+   12, and it was found only because a new field had to survive a redraw.*
+
+#### SEAM flags on long renders — measured, NOT a regression
+
+A 5-minute render reports 19 `SEAM` (accidental cross-voice onset alignment)
+where the 40 s reference reports 0. That looked like cycling causing it. It is
+not: across eight seeds the **legacy** 40 s render averages **2.81 SEAM/minute**
+— seed 11 happening to be 0 is luck — against **3.53/minute** for the long form.
+Same order, and `hard` is **0** in every case. The small difference is not
+diagnosed and is not guessed at (rule 5).
+
+#### Still unheard
+
+Everything above is machine-measured. **Nobody has listened to a cycling morph.**
+The predictions in `FEATURE_REQUESTS.md` about the texture — pulsing vs steady
+beating by within-pair phase, "no pair goes silent" — remain paper.
+

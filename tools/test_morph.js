@@ -1381,6 +1381,123 @@ ok('MA1 GATE: every seeded recipe at min/default/max stays inside the heard ' +
 ok('and the gate actually exercised every seeded recipe', gateChecked >= 78, String(gateChecked));
 
 // ===========================================================================
+section('FR-3/FR-6 cycling — pace split from length, and the release');
+
+// Structure helpers. `cents` is a SCALAR per note and `bend`/`level` are
+// BREAKPOINT arrays of [t, value] — reading them as flat number arrays is the
+// mistake that made the first probe report NaN levels and a phantom 14-cent
+// pitch jump, so they are pinned here.
+const bpAt = (a, k) => {
+    if (!Array.isArray(a)) return a;
+    const i = Math.min(a.length - 1, Math.max(0, Math.round(k * (a.length - 1))));
+    return Array.isArray(a[i]) ? a[i][1] : a[i];
+};
+const sounding = (n, k) => n.midi * 100 + bpAt(n.bend, k);
+const peakLvl = n => Array.isArray(n.level)
+    ? Math.max.apply(null, n.level.map(x => (Array.isArray(x) ? x[1] : x))) : n.level;
+const cyByVoice = (res, v) => res.notes.filter(n => n.voice === v)
+    .sort((a, b) => a.tStart - b.tStart);
+const endOf = res => res.notes.reduce((a, n) => Math.max(a, n.tStart + n.dur), 0);
+
+const CYC_BASE = JSON.parse(JSON.stringify(MODELS.models.BLOOM.baseParams));
+const cyc = over => {
+    const p = JSON.parse(JSON.stringify(CYC_BASE));
+    p.carrier = Object.assign({}, p.carrier, over.carrier || {});
+    if (over.dyn) p.dyn = Object.assign({}, p.dyn, over.dyn);
+    return M.render(p, FIX_OPTS);
+};
+
+// --- the split itself ------------------------------------------------------
+const cShort = cyc({ carrier: { span: 30, duration: null, release: null } });
+const cLong = cyc({ carrier: { span: 30, duration: 300, release: 20 } });
+
+ok('duration extends the body without touching the pace',
+   endOf(cLong) > 320 && endOf(cShort) < 31,
+   'short ends ' + endOf(cShort).toFixed(2) + ', long ends ' + endOf(cLong).toFixed(2));
+
+// THE ORTHOGONALITY CLAIM, and it is the whole point of the feature: lengthening
+// the gesture must not alter one note of the opening.
+const onsets = res => res.notes.filter(n => n.tStart < 25)
+    .map(n => n.voice + '@' + n.tStart.toFixed(3)).sort().join(' ');
+ok('lengthening does NOT disturb the opening — onsets in the first 25 s are identical',
+   onsets(cShort) === onsets(cLong) && onsets(cShort).length > 0);
+
+eq('meta reports the body length', cLong.meta.duration, 300);
+eq('meta reports the release length', cLong.meta.release, 20);
+ok('meta reports a real total length (the composer needs it to place the gesture)',
+   cLong.meta.totalLength > 320 && isFinite(cLong.meta.totalLength),
+   String(cLong.meta.totalLength));
+ok('legacy meta carries NO cycling keys — they are inside the fixture hash',
+   cShort.meta.duration === undefined && cShort.meta.release === undefined &&
+   cShort.meta.totalLength === undefined);
+
+// --- the trajectory actually cycles, and does so continuously ---------------
+const cv0 = cyByVoice(cLong, 0);
+const cyTrace = cv0.map(n => sounding(n, 1));
+let reversals = 0;
+for (let i = 1; i < cyTrace.length - 1; i++)
+    if ((cyTrace[i] - cyTrace[i - 1]) * (cyTrace[i + 1] - cyTrace[i]) < 0) reversals++;
+ok('the trajectory reverses and comes back, repeatedly (it does not arrive and stop)',
+   reversals >= 6, reversals + ' direction reversals');
+
+let maxJump = 0;
+for (let i = 1; i < cv0.length; i++)
+    maxJump = Math.max(maxJump, Math.abs(sounding(cv0[i], 0) - sounding(cv0[i - 1], 1)));
+ok('pitch is CONTINUOUS across every breath — no sawtooth snap-back',
+   maxJump < 3, 'largest gap-jump ' + maxJump.toFixed(2) + ' cents');
+
+// --- loudness rides the same progress, so it cycles for free ---------------
+const midLvls = res => cyByVoice(res, 0).map(peakLvl);
+const countPeaks = a => { let p = 0; for (let i = 1; i < a.length - 1; i++)
+    if (a[i] > a[i - 1] && a[i] >= a[i + 1]) p++; return p; };
+const lvRise = midLvls(cyc({ carrier: { span: 30, duration: 300, release: 20 }, dyn: { shape: 'rise' } }));
+const lvSwell = midLvls(cyc({ carrier: { span: 30, duration: 300, release: 20 }, dyn: { shape: 'swell' } }));
+ok('loudness CYCLES rather than freezing — it needed no code of its own',
+   Math.max.apply(null, lvRise) - Math.min.apply(null, lvRise) > 4,
+   'range ' + Math.min.apply(null, lvRise).toFixed(1) + '..' + Math.max.apply(null, lvRise).toFixed(1));
+ok('swell gives roughly twice rise\'s peak count — the arch is symmetric in progress, ' +
+   'so it peaks on the way out AND the way back',
+   countPeaks(lvSwell) > countPeaks(lvRise),
+   'swell ' + countPeaks(lvSwell) + ' vs rise ' + countPeaks(lvRise));
+
+// --- the release (FR-6) ----------------------------------------------------
+let descending = 0, voicesChecked = 0, worstDetune = 0;
+for (let v = 0; v < 8; v++) {
+    const ns = cyByVoice(cLong, v);
+    if (!ns.length) continue;
+    voicesChecked++;
+    const last = ns[ns.length - 1];
+    const preIdx = ns.findIndex(n => n.tStart + n.dur > cLong.meta.duration);
+    const before = preIdx > 0 ? peakLvl(ns[preIdx - 1]) : peakLvl(ns[0]);
+    if (peakLvl(last) <= before + 1e-9) descending++;
+    worstDetune = Math.max(worstDetune, Math.abs(sounding(last, 1) - last.midi * 100));
+}
+eq('EVERY voice is descending through the release — the unanimity of direction ' +
+   'is what makes it read as a release at all', descending, voicesChecked);
+ok('the bloom CLOSES: every voice is back at unison when it stops',
+   worstDetune < 1, 'largest final detune ' + worstDetune.toFixed(2) + ' cents');
+
+// NEGATIVE CONTROL. Without a release the ending must be demonstrably bad —
+// otherwise the test above proves nothing about the release.
+const noRel = cyc({ carrier: { span: 30, duration: 120, release: null } });
+const endLvls = [];
+for (let v = 0; v < 8; v++) { const ns = cyByVoice(noRel, v); if (ns.length) endLvls.push(peakLvl(ns[ns.length - 1])); }
+ok('NEGATIVE CONTROL: with no release the voices end loud and non-unanimous',
+   Math.max.apply(null, endLvls) > 6,
+   'final levels ' + endLvls.map(x => x.toFixed(1)).join(' '));
+
+// --- let them finish -------------------------------------------------------
+ok('no note is truncated into a runt at the tail',
+   cLong.notes.every(n => n.dur > 0.25),
+   'shortest ' + Math.min.apply(null, cLong.notes.map(n => n.dur)).toFixed(3) + ' s');
+ok('voices stop at DIFFERENT times — they finish their breath rather than being chopped together',
+   new Set([...Array(8).keys()].map(v => { const ns = cyByVoice(cLong, v);
+       return ns.length ? (ns[ns.length - 1].tStart + ns[ns.length - 1].dur).toFixed(1) : null; })
+       .filter(Boolean)).size > 3);
+ok('the 512-segment cap does not fire at five minutes',
+   cLong.notes.every(n => (n.flags || []).indexOf('SEGCAP') < 0));
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {
