@@ -1486,6 +1486,36 @@ ok('NEGATIVE CONTROL: with no release the voices end loud and non-unanimous',
    Math.max.apply(null, endLvls) > 6,
    'final levels ' + endLvls.map(x => x.toFixed(1)).join(' '));
 
+// --- a release must NOT turn the body into a cycling one -------------------
+// This was a real defect: `release > 0` used to switch cycling on, so typing a
+// run-down into a ONE-WAY bloom made the body fold back before the release had
+// even begun. Measured at the time on voice 1: end-of-note detune went
+// -1 -9 -16 -25 -25 (arrive and hold) to -1 -9 -16 -23 -13 -3 0.
+const oneWay = cyc({ carrier: { span: 40, duration: null, release: null } });
+const oneWayRel = cyc({ carrier: { span: 40, duration: null, release: 12 } });
+const lastBend = (res, v) => {
+    const ns = cyByVoice(res, v);
+    return ns.length ? bpAt(ns[ns.length - 1].bend, 1) : null;
+};
+ok('a ONE-WAY bloom still arrives fully open — the body ramps and HOLDS',
+   [0, 1, 2, 3].every(v => Math.abs(Math.abs(lastBend(oneWay, v)) - 25) < 0.5),
+   'final detunes ' + [0, 1, 2, 3].map(v => lastBend(oneWay, v).toFixed(1)).join(' '));
+ok('adding a release does NOT make the body fold back early — it only adds a run-down',
+   oneWayRel.meta.duration === undefined || oneWayRel.meta.duration === 40);
+ok('and that release still closes the bloom: every voice ends at unison, at the floor',
+   [0, 1, 2, 3, 4, 5, 6, 7].every(v => {
+       const ns = cyByVoice(oneWayRel, v);
+       if (!ns.length) return true;
+       const L = ns[ns.length - 1];
+       return Math.abs(bpAt(L.bend, 1)) < 1 && bpAt(L.level, 1) < 1.2;
+   }));
+ok('the one-way release runs past the body and staggers the stops',
+   endOf(oneWayRel) > 52 && new Set(
+       [...Array(8).keys()].map(v => { const ns = cyByVoice(oneWayRel, v);
+           return ns.length ? (ns[ns.length - 1].tStart + ns[ns.length - 1].dur).toFixed(1) : null; })
+       .filter(Boolean)).size > 3,
+   'ends ' + endOf(oneWayRel).toFixed(1) + ' s');
+
 // --- let them finish -------------------------------------------------------
 ok('no note is truncated into a runt at the tail',
    cLong.notes.every(n => n.dur > 0.25),

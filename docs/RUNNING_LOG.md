@@ -1540,3 +1540,52 @@ Everything above is machine-measured. **Nobody has listened to a cycling morph.*
 The predictions in `FEATURE_REQUESTS.md` about the texture — pulsing vs steady
 beating by within-pair phase, "no pair goes silent" — remain paper.
 
+
+### Day 13 — the release/cycling conflation, caught by the composer's EAR
+
+The composer, listening to the stock preview: *"the stop of the preview seems
+abrupt… I thought the decay of the natural model was more gradual."*
+
+**It is not a regression** — the fixtures are byte-identical, so the stock render
+is exactly what it always was. **But the composer's ear was right and my earlier
+description was wrong.** On day 13 I said the ending reads as a release because
+"every voice is descending, some cut partway" — inferred from the phase maths,
+never measured. **Measured:** every voice ends **fully open at ±25.0 cents**,
+final levels spread **0.8 → 5.0**, and **all eight are cut at exactly 40.0 s**.
+That is a hard simultaneous chop on an open chord, not a decay. *An inference
+wearing the clothes of a check — AI_METHODOLOGY rule 4, and it took the
+composer's ear to catch it.*
+
+**Then the fix was blocked by a defect of mine.** Typing a release into the
+one-way bloom did not just add a run-down — it switched the whole body into
+cycling, because I had written `cycling = duration > span || release > 0`.
+Measured on voice 1, end-of-note detune: `-1 -9 -16 -25 -25` (arrive and hold)
+became `-1 -9 -16 -23 -13 -3 0` (arrive and immediately turn around). **Adding a
+run-down must not rewrite the gesture it is running down from.**
+
+**Separated:** `cycling` = the body repeats (folds) = `duration > span` alone ·
+`extended` = anything past the legacy one-shot = drives the timeline, the
+let-them-finish rule and the meta. **Now measured on a one-way bloom + 12 s
+release:** final detune **0.0 on every voice**, final level **0.8 (the floor) on
+every voice**, stops staggered **56.4–58.9 s**. Stock is unchanged. 351
+assertions, fixtures still not regenerated.
+
+**Body identity under a release, stated precisely:** sampling both renders at
+absolute times through the body, **15 of 558 samples differ, worst delta 1.0** on
+the 0.4–10 level scale. All of them sit in the final straddling note, whose
+duration legitimately changes when it is allowed to finish instead of being
+chopped — so its envelope is drawn over a longer window. **Not "identical";
+substantially identical with a known, explained edge.** Saying "identical" here
+would have been the same error as before.
+
+**Two measurement mistakes of mine along the way, recorded because they are the
+instructive half:** I read a note's *peak* level when I wanted its *final* level
+(making a descended voice look like it ended at 6.4), and I compared *end-of-note*
+values across two renders whose note lengths differ by design (making a correct
+body look changed). **Both looked exactly like engine bugs.** The engine was
+right twice; the probe was wrong twice.
+
+**Also found by testing rather than by reading:** the status line reported no
+length for a release-only render, because the meta block keyed off `cycling`
+instead of `extended`.
+

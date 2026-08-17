@@ -251,9 +251,16 @@ function carrierTiming(carrier) {
     const span = Math.max(0.01, carrier.span);
     const duration = carrier.duration != null ? Math.max(span, carrier.duration) : span;
     const release = carrier.release != null ? Math.max(0, carrier.release) : 0;
-    const cycling = duration > span + 1e-9 || release > 0;
+    // TWO INDEPENDENT THINGS, and conflating them was a real defect: `release`
+    // used to switch `cycling` on, so typing a release into a ONE-WAY bloom made
+    // the body start folding back before the release had begun. Measured on
+    // voice 1: end-of-note detune went -1 -9 -16 -25 -25 (arrive and hold) to
+    // -1 -9 -16 -23 -13 -3 0 (arrive and immediately turn around). Adding a
+    // run-down must not rewrite the gesture it is running down from.
+    const cycling = duration > span + 1e-9;   // the BODY repeats (folds)
+    const extended = cycling || release > 0;  // anything past the legacy one-shot
     return { span: span, duration: duration, release: release,
-             total: duration + release, cycling: cycling };
+             total: duration + release, cycling: cycling, extended: extended };
 }
 
 // 0 -> 1 -> 0 -> 1 …  The trajectory reverses instead of stopping, so the pair
@@ -280,13 +287,19 @@ function voiceProgress(voiceIdx, nVoices, t, span, dials, order, cyc) {
     // end, folding to 0.611 against today's 1.0.) A branch that keeps the old
     // formula verbatim is the safest way to hold byte-identity, which is the
     // load-bearing gate for this whole change.
-    if (!cyc || !cyc.cycling) {
-        const u = span > 0 ? clamp(t / span, 0, 1) : 1;
-        const p = clamp((u - start) / run, 0, 1);
-        return applyBias(p, dials.bias) * clamp(dials.depth, 0, 1);
+    const legacyAt = tt => {
+        const u = span > 0 ? clamp(tt / span, 0, 1) : 1;
+        return clamp((u - start) / run, 0, 1);
+    };
+    if (!cyc || !cyc.extended) {
+        return applyBias(legacyAt(t), dials.bias) * clamp(dials.depth, 0, 1);
     }
 
-    const phaseAt = tt => foldPhase((((span > 0 ? tt / span : 1)) - start) / run);
+    // THE BODY. Folding only when the body actually repeats; a one-way bloom
+    // keeps the legacy ramp-and-hold and can still be given a release.
+    const phaseAt = cyc.cycling
+        ? tt => foldPhase((((span > 0 ? tt / span : 1)) - start) / run)
+        : legacyAt;
     let x;
     if (t <= cyc.duration || cyc.release <= 0) {
         x = phaseAt(t);
@@ -460,7 +473,7 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
         // inaudible, and for a real player it is simply finishing the note.
         // A shape-driven exit (`sched.endT`) is a deliberate cut and still wins.
         const hardEnd = !!(sched && sched.endT != null);
-        let dur = (TIMING.cycling && !hardEnd) ? want : Math.min(want, limit - start);
+        let dur = (TIMING.extended && !hardEnd) ? want : Math.min(want, limit - start);
         // A fixed one-shot is immune: the sample decides its length (D9), so a
         // window boundary may not cut it short — it rings past and gets flagged.
         if (bounds && info.fixedLen == null) {
@@ -1710,7 +1723,9 @@ function render(params, opts) {
     // inside the fixture hash, so adding keys unconditionally would break every
     // blessed render and make the byte-identity gate report a regression that is
     // not one. `span` above keeps meaning the gliss length, unchanged.
-    if (TIMING.cycling) {
+    // `extended`, not `cycling` — a release-only render is longer than its span
+    // too, and the length is what the composer needs in order to place it.
+    if (TIMING.extended) {
         meta.duration = round3(TIMING.duration);
         meta.release = round3(TIMING.release);
         // What the composer actually needs to place this in the score: the real
