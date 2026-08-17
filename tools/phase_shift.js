@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 // phase_shift.js — phase shifting as a TEXTURE device. Research: docs/PHASE_SHIFTING.md.
 //
+// PLAN 2x Phase 0: the generator moved to score/public/texture_engine.js (pure,
+// browser + node). What is left here is the impure half — reading the sample
+// table and the track template, wrapping objects into a score file, MIDI export,
+// the console report — plus the PRESETS, which are the regression corpus for the
+// extraction and stay put.
+//
 // TWO MODELS, one generator.
 //
 // 1. SWEEP (`--model sweep`) — the Reich move. One player holds a strict pulse,
@@ -36,246 +42,84 @@
 
 const fs = require('fs');
 const path = require('path');
+const TX = require('../score/public/texture_engine.js');
 
 const ROOT = path.join(__dirname, '..');
-const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-const pn = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
-const r2 = x => +x.toFixed(2);
+const pn = TX.pn;
+const r2 = TX.r2;
 
-// ---- measured one-shot lengths (D9) ----
+// ---- measured one-shot lengths (D9) — injected into the pure engine ----
 const SAMPLE_LEN = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank/sample_lengths.json'), 'utf8'));
-function ringLength(tech, pitch) {
-    const tbl = SAMPLE_LEN[tech];
-    if (!tbl) return null;                                    // ord: variable
-    if (tbl[pitch] != null) return tbl[pitch];
-    const keys = Object.keys(tbl).map(Number);
-    return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
-}
-
-const COLORS = ['#3F7D5A', '#8E4585', '#B08A2E', '#4E7A9B'];
-const MARK_COL = '#7A7A7A';
-// The perceptual ladder one sweep traverses, in ms of offset. PREDICTED —
-// the experiment exists to replace these. docs/PHASE_SHIFTING.md §4.
-const THRESHOLDS_MS = [10, 20, 30, 50, 80, 120, 160, 200, 250, 300, 400, 500];
-
-// ============================ ONSET BUILDERS ============================
-// Each returns an array of times in seconds, relative to the section start.
-
-// BEAT: a voice's composite pulse at `rate(t)` attacks/s, by phase integration
-// (so a ramping tempo is exact rather than stepwise).
-// `phase0` (0..1) delays the voice by that fraction of its own attack period.
-// Spreading N voices at j/N makes the UNION perfectly even at the start; without
-// it every voice enters together and the composite is a clump plus a hole.
-function steadyOnsets(rateOf, dur, phase0 = 0, DT = 0.0002) {
-    const out = []; let phase = 0, next = phase0;
-    for (let t = 0; t < dur; t += DT) {
-        phase += rateOf(t) * DT;
-        while (phase >= next) { out.push(+t.toFixed(4)); next += 1; }
-    }
-    return out.filter(t => t < dur);
-}
-
-// SWEEP: the strict grid, optionally displaced by an offset schedule in beats.
-function sweepOnsets(P, stages, dur, shifted) {
-    const offsetBeats = t => {
-        let acc = 0;
-        for (const s of stages) {
-            if (t < acc + s.dur || s === stages[stages.length - 1]) {
-                const u = Math.max(0, Math.min(1, (t - acc) / s.dur));
-                return s.from + (s.to - s.from) * u;
-            }
-            acc += s.dur;
-        }
-        return 0;
-    };
-    const out = [];
-    for (let k = 0; k <= Math.floor(dur / P + 1e-9); k++) {   // closing attack included
-        const grid = k * P;
-        out.push(grid + (shifted ? offsetBeats(grid) * P : 0));
-    }
-    return out;
-}
+const ENGINE_OPTS = { sampleLengths: SAMPLE_LEN };
 
 // ============================== BUILD ==============================
+// Impure wrapper: engine -> score file (+ optional MIDI) + the console report.
 
 function buildScore(spec) {
     const src = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores/trem02-phase.json'), 'utf8'));
     const tracks = (src.data || src).tracks;
-    let nid = 1;
-    const objs = [];
-    const report = [];
 
-    const mkNote = (lane, on, dur, colour, tag, pitch, tech, level) => objs.push({
-        id: 'wc-' + (nid++), type: 'waveCurve', layer: lane,
-        startSeconds: +on.toFixed(4), endSeconds: +(on + dur).toFixed(4),
-        nodes: [{ pos: 0, y: level, smooth: 0.25 }, { pos: 1, y: level, smooth: 0.25 }],
-        segments: [{ model: 'power', slope: 0 }],
-        color: colour, fillMode: 'bottom', opacity: 0.55,
-        performanceNotes: tag, properties: {},
-        sonifyNote: pitch, technique: tech, sonifyMode: 'plain',
-        recVel: Math.max(1, Math.min(127, Math.round(level / 10 * 127))),
-    });
-    // markers live in objects, NEVER in the markers array — Principle 4
-    const mkMarker = (time, label, colour) => objs.push({
-        id: 'mk-' + (nid++), type: 'marker', layer: 0, time: +time.toFixed(2),
-        label, color: colour, performanceNotes: '', properties: {},
-    });
-
-    const clamps = [];
-    let cursor = spec.t0 != null ? spec.t0 : 2;
-    spec.sections.forEach((sec, si) => {
-        const t0 = cursor;
-        const P = 60 / (sec.bpm || 100);
-        const stages = sec.stages || null;
-        const lines = [];
-
-        const voiceOnsets = sec.voices.map((v, vi) => {
-            if (sec.model === 'sweep') return sweepOnsets(P, stages, sec.dur, vi > 0);
-            const bpm0 = v.bpm, bpm1 = v.bpmEnd != null ? v.bpmEnd : v.bpm;
-            const hold = v.rampFrom || 0;
-            const n = v.lanes.length;
-            const rateOf = t => {
-                const u = Math.max(0, Math.min(1, (t - hold) / Math.max(1e-9, sec.dur - hold)));
-                return n * (bpm0 + (bpm1 - bpm0) * u) / 60;
-            };
-            // `delay` is in SECONDS (absolute), converted to this voice's own
-            // period. Absolute is what matters: staggering by a fraction of each
-            // voice's period puts faster voices in the wrong absolute slot.
-            const phase0 = v.delay != null ? v.delay * n * v.bpm / 60 : (v.phase || 0);
-            return steadyOnsets(rateOf, sec.dur, phase0);
-        });
-
-        // PER-ATTACK JITTER — displaces every attack independently, so unlike
-        // `scatter` (a fixed offset, which loops once per cycle and therefore
-        // reads as a rhythmic figure) the pattern NEVER repeats. This is the
-        // hypothesised rain mechanism; it is also the human-timing error model.
-        sec.voices.forEach((v, vi) => {
-            if (!v.jitterMs) return;
-            let s = 7654321 + vi * 977;
-            const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
-            voiceOnsets[vi] = voiceOnsets[vi].map(t => +(t + 2 * rnd() * v.jitterMs / 1000).toFixed(4));
-            voiceOnsets[vi].sort((a, b) => a - b);
-        });
-
-        sec.voices.forEach((v, vi) => {
-            const times = voiceOnsets[vi];
-            const ring = ringLength(v.tech, v.pitch);
-
-            // per-PLAYER spacing is what physics cares about, not the composite —
-            // and it has to be known BEFORE the note length is fixed
-            const perPlayer = [];
-            for (let L = 0; L < v.lanes.length; L++) {
-                const mine = times.filter((_, k) => k % v.lanes.length === L);
-                for (let i = 1; i < mine.length; i++) perPlayer.push(mine[i] - mine[i - 1]);
-            }
-            const tightest = perPlayer.length ? Math.min(...perPlayer) : Infinity;
-
-            const asked = v.notelen != null ? v.notelen
-                : (spec.notelen === 'sample' ? ring : spec.notelen);
-            // A VARIABLE-LENGTH note (ord, flz) that outlasts the player's own next
-            // attack is physically impossible, so clamp it — and say so. Fixed
-            // one-shots (D9) cannot be clamped: the sample rings regardless, which
-            // is a real conflict and stays visible as one.
-            const cap = tightest - 0.05;   // clears audit_playability TONGUE_RESET (0.03 s)
-            const written = (ring == null && asked > cap) ? +cap.toFixed(3) : asked;
-            if (written !== asked) clamps.push(`${sec.tag}/${v.tech}: ${asked}s → ${written}s`);
-
-            times.forEach((t, k) => {
-                const lane = v.lanes[k % v.lanes.length];          // round-robin hocket
-                mkNote(lane, t0 + t, written, COLORS[vi % COLORS.length],
-                    'phase/' + (sec.tag || 's' + si), v.pitch, v.tech, v.level != null ? v.level : 7.5);
-            });
-            lines.push({
-                vi, notes: times.length, players: v.lanes.length,
-                composite: times.length / sec.dur, tightest, ring, written,
-            });
-        });
-
-        // ---- markers ----
-        mkMarker(t0, sec.label, COLORS[0]);
-        if (sec.model === 'sweep' && stages) {
-            let acc = 0;
-            const starts = stages.map(s => { const a = acc; acc += s.dur; return a; });
-            stages.forEach((s, i) => {
-                if (i > 0) mkMarker(t0 + starts[i], `${i + 1}. ${s.name} · ${(s.from * P * 1000).toFixed(0)}` +
-                    (s.from === s.to ? ' ms' : ` → ${(s.to * P * 1000).toFixed(0)} ms`), COLORS[1]);
-                if (s.to <= s.from) return;
-                THRESHOLDS_MS.forEach(ms => {
-                    const beats = ms / 1000 / P;
-                    if (beats <= s.from || beats > s.to) return;
-                    mkMarker(t0 + starts[i] + s.dur * (beats - s.from) / (s.to - s.from), `${ms} ms`, MARK_COL);
-                });
-            });
-            mkMarker(t0 + sec.dur, '— end —', COLORS[0]);
-        } else if (sec.markLaps && sec.voices.length === 2) {
-            // A LAP closes each time voice B has gained one whole composite attack
-            // on voice A — i.e. the pair returns to unison. Found by integrating
-            // the rate DIFFERENCE, so a ramping tempo (the accelerando) is exact.
-            const rateOf = v => {
-                const bpm0 = v.bpm, bpm1 = v.bpmEnd != null ? v.bpmEnd : v.bpm, hold = v.rampFrom || 0;
-                return t => v.lanes.length * (bpm0 + (bpm1 - bpm0) *
-                    Math.max(0, Math.min(1, (t - hold) / Math.max(1e-9, sec.dur - hold)))) / 60;
-            };
-            const rA = rateOf(sec.voices[0]), rB = rateOf(sec.voices[1]);
-            let phi = 0, next = 1, lap = 0;
-            for (let t = 0; t < sec.dur; t += 0.0005) {
-                phi += (rB(t) - rA(t)) * 0.0005;
-                while (phi >= next) { mkMarker(t0 + t, `lap ${++lap}`, MARK_COL); next += 1; }
-            }
-        }
-
-        report.push({ sec, lines, t0 });
-        cursor = t0 + sec.dur + (spec.gap != null ? spec.gap : 2);
-    });
+    const g = TX.render(spec, ENGINE_OPTS);
+    const objs = g.objects;
 
     const out = {
         version: 1, layoutVersion: 2, tracks, assets: {},
         metadata: { created: new Date().toISOString(), modified: new Date().toISOString() },
-        objects: objs, markers: [], databases: { chordShapes: [], sets: [], cells: [] }, nextId: nid,
+        objects: objs, markers: [], databases: { chordShapes: [], sets: [], cells: [] }, nextId: g.nextId,
     };
     fs.writeFileSync(path.join(ROOT, 'scores/' + spec.name + '.json'), JSON.stringify(out));
 
     // ---- optional MIDI export, so Reaper can do the timing instead of us ----
-    if (spec.midi) {
-        const { writeMidi } = require('./midi_out');
-        // technique -> UVI channel + which instance carries it (sandbox/instruments.js)
-        const CH = { ord: [1, ''], fortepiano: [11, ''], cuivre: [5, ''], flz: [10, ''], staccato: [4, 'b'] };
-        const notes = objs.filter(o => o.type === 'waveCurve');
-        const mk = n => ({ t: n.startSeconds, pitch: n.sonifyNote,
-            dur: +(n.endSeconds - n.startSeconds).toFixed(4), vel: n.recVel });
-
-        // one track per (technique, player) — a mixed-articulation score needs
-        // different channels AND different UVI instances, so it cannot collapse
-        const perLane = [];
-        for (const tech of [...new Set(notes.map(n => n.technique))]) {
-            const [c, sfx] = CH[tech] || [1, ''];
-            for (let L = 0; L < 10; L++) {
-                const mine = notes.filter(n => n.layer === L && n.technique === tech);
-                if (mine.length) perLane.push({
-                    name: `Tuba${L + 1}${sfx} SI2 · ch${c} ${tech}`, channel: c, notes: mine.map(mk),
-                });
-            }
-        }
-        const routing = [...new Set(notes.map(n => n.technique))]
-            .map(t => `${t} → Tuba<N>${(CH[t] || [1, ''])[1]} ch${(CH[t] || [1])[0]}`).join(' · ');
-        const a = writeMidi(`midi/${spec.name}-10track.mid`, { tracks: perLane });
-        const b = writeMidi(`midi/${spec.name}-1track.mid`, {
-            tracks: [...new Set(notes.map(n => n.technique))].map(tech => ({
-                name: `ALL PARTS · ch${(CH[tech] || [1])[0]} ${tech}`, channel: (CH[tech] || [1])[0],
-                notes: notes.filter(n => n.technique === tech).map(mk),
-            })),
-        });
-        console.log(`\n  MIDI: midi/${spec.name}-10track.mid (${a.tracks} tracks, ${a.notes} notes, ${a.seconds}s)` +
-            `\n        midi/${spec.name}-1track.mid  (${b.tracks} track(s), ${b.notes} notes)` +
-            `\n        routing: ${routing}`);
-    }
+    if (spec.midi) writeMidiFor(spec.name, objs);
 
     // ---- report what was WRITTEN, not what was intended ----
-    const notes = objs.filter(o => o.type === 'waveCurve').length;
-    console.log(`\n=== ${spec.name} — ${notes} attacks, ${(cursor).toFixed(1)}s, ` +
-        `${objs.length - notes} markers ===`);
+    printReport(spec, g);
+    return out;
+}
+
+// technique -> UVI channel + which instance carries it (sandbox/instruments.js).
+// D2: 21 techniques > 16 channels, so each tuba has two UVI instances and
+// staccato lives on the `b` one.
+const CH = { ord: [1, ''], fortepiano: [11, ''], cuivre: [5, ''], flz: [10, ''], staccato: [4, 'b'] };
+
+function writeMidiFor(name, objs) {
+    const { writeMidi } = require('./midi_out');
+    const notes = objs.filter(o => o.type === 'waveCurve');
+    const mk = n => ({ t: n.startSeconds, pitch: n.sonifyNote,
+        dur: +(n.endSeconds - n.startSeconds).toFixed(4), vel: n.recVel });
+
+    // one track per (technique, player) — a mixed-articulation score needs
+    // different channels AND different UVI instances, so it cannot collapse
+    const perLane = [];
+    for (const tech of [...new Set(notes.map(n => n.technique))]) {
+        const [c, sfx] = CH[tech] || [1, ''];
+        for (let L = 0; L < 10; L++) {
+            const mine = notes.filter(n => n.layer === L && n.technique === tech);
+            if (mine.length) perLane.push({
+                name: `Tuba${L + 1}${sfx} SI2 · ch${c} ${tech}`, channel: c, notes: mine.map(mk),
+            });
+        }
+    }
+    const routing = [...new Set(notes.map(n => n.technique))]
+        .map(t => `${t} → Tuba<N>${(CH[t] || [1, ''])[1]} ch${(CH[t] || [1])[0]}`).join(' · ');
+    const a = writeMidi(`midi/${name}-10track.mid`, { tracks: perLane });
+    const b = writeMidi(`midi/${name}-1track.mid`, {
+        tracks: [...new Set(notes.map(n => n.technique))].map(tech => ({
+            name: `ALL PARTS · ch${(CH[tech] || [1])[0]} ${tech}`, channel: (CH[tech] || [1])[0],
+            notes: notes.filter(n => n.technique === tech).map(mk),
+        })),
+    });
+    console.log(`\n  MIDI: midi/${name}-10track.mid (${a.tracks} tracks, ${a.notes} notes, ${a.seconds}s)` +
+        `\n        midi/${name}-1track.mid  (${b.tracks} track(s), ${b.notes} notes)` +
+        `\n        routing: ${routing}`);
+}
+
+function printReport(spec, g) {
+    console.log(`\n=== ${spec.name} — ${g.notes} attacks, ${g.end.toFixed(1)}s, ` +
+        `${g.markers} markers ===`);
+    if (g.unknown.length) console.log('  UNRECOGNISED KEYS (ignored, not applied): ' + g.unknown.join(', '));
     let worst = Infinity;
-    report.forEach(({ sec, lines, t0 }) => {
+    g.report.forEach(({ sec, lines, t0, metrics }) => {
         console.log(`  ${t0.toFixed(1).padStart(6)}s  ${sec.label}`);
         lines.forEach(l => {
             worst = Math.min(worst, l.tightest);
@@ -285,19 +129,24 @@ function buildScore(spec) {
                 (l.ring != null && l.tightest <= l.ring ? '   *** SAMPLE OVERLAP ***' : '') +
                 (l.ring == null && l.tightest <= l.written ? '   *** NOTES OVERLAP ON ONE PLAYER ***' : ''));
         });
+        console.log(`          metrics · sd ${metrics.sd.toFixed(1)} ms` +
+            ` · unevenness ${metrics.unevenness.toFixed(2)}` +
+            ` · ${metrics.n} attacks over ${metrics.players} players`);
         if (sec.lap) console.log(`          lap ${sec.lap}s · ΔBPM ${sec.dBpm}` +
             ` · ${(lines[0].composite * sec.lap).toFixed(0)} attacks per lap` +
             ` · interlocked ${(lines.reduce((a, l) => a + l.composite, 0)).toFixed(1)}/s`);
     });
-    if (clamps.length) console.log('  CLAMPED — a variable-length note cannot outlast ' +
-        'the same player next attack:\n    ' + clamps.join('\n    '));
+    if (g.clamps.length) console.log('  CLAMPED — a variable-length note cannot outlast ' +
+        'the same player next attack:\n    ' + g.clamps.join('\n    '));
     console.log(`  tightest per-player gap anywhere: ${worst.toFixed(3)}s` +
         (worst > 0.42 ? '  (clear of the staccato ring)' : '  *** at or past the ring ***'));
-    return out;
+    console.log(`  playability: ${g.summary.hard} hard / ${g.summary.soft} soft`);
 }
 
 // ============================== PRESETS ==============================
-// Named specs, so a battery is reproducible and self-documenting.
+// Named specs, so a battery is reproducible and self-documenting. These nine are
+// also the REGRESSION CORPUS for the engine extraction (tools/test_texture.js):
+// each must regenerate its committed score in scores/ byte-for-byte.
 
 const PITCH = 48;                    // C3 sci (Reaper C2), centre of ord 30-65
 const BASE = 110;                    // BPM per player — 0.545 s, clear of the 0.42 s ring
@@ -424,8 +273,7 @@ const PRESETS = {
     jitterrain: () => {
         const even = extra => ({ lanes: [0,1,2,3,4,5,6,7,8,9], pitch: PITCH,
             tech: 'staccato', bpm: BASE, ...extra });
-        let s = 20260817;
-        const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
+        const rnd = TX.lcgC(20260817);
         const u = Array.from({ length: 10 }, rnd);
         return {
             name: 'phase09-jitterrain', notelen: 0.12, gap: 2.5, midi: true,
@@ -460,8 +308,7 @@ const PRESETS = {
     // could not be held. With scatter as its own dial and spread at ZERO, each
     // texture is STATIC — rain that stays rain for as long as you want.
     scatter: () => {
-        let s = 20260816;                                   // seeded, reproducible
-        const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 - 0.5;
+        const rnd = TX.lcgC(20260816);                      // seeded, reproducible
         const T = 60 / BASE;
         const cell = (sc, dur, morph) => {
             const u = Array.from({ length: 10 }, rnd);      // one draw per voice
@@ -554,11 +401,48 @@ const PRESETS = {
     }),
 };
 
+// ============================== MODELS ==============================
+// `--fromModel <NAME>` renders a MODEL from bank/texture_models.json (plan §5:
+// the five categories ARE the first five models). The store is data — the
+// vocabulary is the composer's and has already evolved once mid-research — so
+// this reads it fresh every run and never caches a copy in code.
+function loadModels() {
+    const f = path.join(ROOT, 'bank/texture_models.json');
+    if (!fs.existsSync(f)) return null;
+    return JSON.parse(fs.readFileSync(f, 'utf8'));
+}
+function specFromModel(name, overrides) {
+    const store = loadModels();
+    if (!store) { console.error('bank/texture_models.json does not exist yet (plan 2x Phase 1)'); process.exit(1); }
+    const m = store.models && store.models[name];
+    if (!m) {
+        console.error('unknown model ' + name + ' — have: ' +
+            Object.keys(store.models || {}).join(', '));
+        process.exit(1);
+    }
+    const spec = JSON.parse(JSON.stringify(m.spec));
+    Object.assign(spec, overrides || {});
+    if (!spec.name) spec.name = 'tex-' + name.toLowerCase();
+    return spec;
+}
+
 // ============================== CLI ==============================
+// Guarded so tools/test_texture.js can require the PRESETS (the regression
+// corpus) without the CLI firing and writing score files as a side effect.
+module.exports = { PRESETS, buildScore, specFromModel, ENGINE_OPTS };
+if (require.main !== module) return;
+
 const argv = process.argv.slice(2);
 const flag = k => { const i = argv.indexOf('--' + k); return i < 0 ? null : argv[i + 1]; };
+const has = k => argv.indexOf('--' + k) >= 0;
 
-if (flag('preset')) {
+if (flag('fromModel')) {
+    const overrides = {};
+    if (flag('name')) overrides.name = flag('name');
+    if (flag('seed')) overrides.seed = Number(flag('seed'));
+    if (has('midi')) overrides.midi = true;
+    buildScore(specFromModel(flag('fromModel'), overrides));
+} else if (flag('preset')) {
     const p = flag('preset');
     if (p === 'list') { console.log('presets:', Object.keys(PRESETS).join(', ')); process.exit(0); }
     if (!PRESETS[p]) { console.error('unknown preset', p); process.exit(1); }

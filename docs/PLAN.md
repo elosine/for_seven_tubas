@@ -403,9 +403,21 @@ composer → notation → performance architecture.)*
   fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
-- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `plan APPROVED 2026-08-16 —
-  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3), ready to implement; kickoff prompt
-  in its §16`. **D29 CONFIRMED: attack fields only, no bend in this build.**
+- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `IMPLEMENTING 2026-08-16 —
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3). Phase 0 DONE (gate passed), Phases
+  1–4 to go.` **D29 CONFIRMED: attack fields only, no bend in this build.**
+  - **Phase 0 — engine extraction — `done 2026-08-16`.** The generator moved out
+    of `tools/phase_shift.js` into **`score/public/texture_engine.js`** (pure,
+    browser + node, the `morph.js` dual-load pattern); the CLI keeps the presets,
+    score writing, MIDI and the report. **Gate passed wider than specified:** all
+    **nine** preset scores regenerate **byte-identically** (11,740 objects), and
+    extracted-vs-pre-extraction output is identical across **11 renders on both
+    onset models**. `tools/test_texture.js` = **129 assertions**, verified by
+    mutation testing (8 deliberate breakages, all caught; one uncaught mutation
+    exposed a real gap — velocity was only ever exercised at level 7.5 — now
+    closed). Metric pair added: **sd** (evenness, reproduces the research table
+    to within 0.15 ms) and **unevenness** (does the figure repeat — the
+    scatter-vs-jitter discriminator the vocabulary needs).
   Composer's design rulings: qualitative/recipe interface (AI holds the dials,
   one-dial feel) · **Texture panel in the composer score**, no separate page,
   auditioning through 2v's `morph_emit.js` · no editor (regeneration only) ·

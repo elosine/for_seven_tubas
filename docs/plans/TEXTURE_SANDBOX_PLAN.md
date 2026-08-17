@@ -507,18 +507,44 @@ Two stores, following PLAN 2y's architecture (parallel files, same shapes —
 
 ## 13 · Build phases & gates
 
-**Phase 0 — extraction + tests.** `texture_engine.js` extracted; CLI rewired
-over it; `tools/test_texture.js` green (no server, no audio — the
-`test_morph.js` model): the measured scatter→deviation table · jitter
-never-repeats vs scatter repeats-exactly (the 0.22 vs 1.34 unevenness split) ·
+**Phase 0 — extraction + tests. — `DONE 2026-08-16`, gate passed.**
+`texture_engine.js` extracted; CLI rewired over it; `tools/test_texture.js`
+green (no server, no audio — the `test_morph.js` model): the measured
+scatter→deviation table · jitter never-repeats vs scatter repeats-exactly ·
 clamp logic (variable clamps, fixed never) · seed determinism · density
-arithmetic · pitch policies stay in set and range · markers land in `objects`
-and the `markers` array stays empty.
+arithmetic · pitch (unison control) · markers land in `objects` and the
+`markers` array stays empty.
 *Gate:* regenerate `phase07-scatter` through the new path — `objects` array
 **identical** to the committed score (metadata timestamps excluded). The
 research corpus is the regression suite. *(If exact float identity fails for a
 legitimate reason — e.g. an operation-order change — stop and say so; do not
 loosen the gate silently.)*
+
+> **PHASE 0 RESULT (measured, 2026-08-16).** The gate passed **wider than
+> specified**: all **nine** preset scores regenerate byte-identically (11,740
+> objects), and extracted-vs-HEAD output is identical on **both** onset models
+> across 11 renders. **129 assertions green.** Three corrections to this
+> section, all verified by running:
+>
+> 1. **The unevenness numbers in the sentence above were predictions, not
+>    measurements** (the planning model never ran code). The metric is now
+>    defined precisely — *coefficient of variation of the circular gaps between
+>    players' mean cycle positions* — and the **measured** phase09 A/B split is
+>    **jitter ±60 ms → 0.088 · scatter 0.2 → 0.591** at near-identical sd
+>    (34.0 vs 32.2 ms). The *split* is real and large (6.7×); the absolute
+>    values are not 0.22/1.34. Tests assert the split, not the guessed numbers.
+> 2. **`sd` reproduces the research table almost exactly** — scatter 0 / .03 /
+>    .08 / .2 / 1.0 → **0.09 / 6.40 / 21.36 / 32.92 / 46.28 ms** against the
+>    MEASURED 0.1 / 6.4 / 21.5 / 32.6 / 46.2. The ear-calibrated scale survives
+>    the extraction intact.
+> 3. **`phase01-8th` and `phase02-*` cannot be reproduced by the committed CLI**
+>    — they carry per-stage `performanceNotes` (`phase/unison`) that the current
+>    sweep path stopped emitting (it now writes `phase/s0`). **Verified
+>    pre-existing:** the HEAD code before this extraction produces the same
+>    divergence. Not caused by 2x, not repaired by 2x → `docs/NITS.md`. The nine
+>    beat-model scores are unaffected and are the regression corpus.
+>
+> Gate evidence is reproducible with `node tools/test_texture.js`.
 
 **Phase 1 — panel floor.** Panel + EMIT audition + params loop + category
 buttons (models seeded) + dials + seed stepping + PIN/A-B + humanize + badge +
