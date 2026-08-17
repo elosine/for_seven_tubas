@@ -10,6 +10,22 @@
 
 ## Open
 
+- **The blocked-Web-MIDI message names port 5200 even when you are on another
+  port.** `morph_emit.js` hardcodes *"this browser has BLOCKED Web MIDI for
+  localhost:5200"*; served from the `score-verify` instance on 5210 the message
+  is off by a port number. Cosmetic — the instruction it gives (open the score in
+  a window where MIDI is allowed) is still correct. One template string.
+  *(Found 2026-08-17 verifying PLAN 2aa on 5210.)*
+
+- **The Pulse panel reports lane PRESSURE, not 2r conflicts.** It shows the
+  tightest same-player attack gap, which is enough to see that a 3-note entry at
+  130 BPM asks nothing hard of anyone. It does **not** run the HARD/SOFT
+  occupancy model, so a grid that double-books a player would play perfectly
+  cleanly in the mock-up (2r) and say nothing. Deliberate for v1 — the pulse
+  strip writes nothing to the score, and lane assignment is explicitly
+  orchestration's job (2aa v4, where the badge belongs). *Becomes real the moment
+  v2's write-to-score exists.*
+
 - **The Fade ladder cuts every rung 4 s after its attack, so the rungs are not
   compared at equal loudness.** `LADDER_HOLD_S` is a constant (4 s), but a
   morph's own `dyn` curve keeps climbing long past the attack — on

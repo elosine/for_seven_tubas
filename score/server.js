@@ -530,6 +530,19 @@ const server = http.createServer((req, res) => {
     // CLI uses — so the panel button and `--actualize` cannot drift into two
     // slightly different save paths. That file guards its own CLI dispatch on
     // require.main, so requiring it here is inert.
+    // PULSE PALETTE (PLAN 2aa) — the sonority menu for the pulse sequencer strip.
+    // Dumb file read, same shape as the two below: the panel resolves `ref`
+    // entries against /api/taxonomy itself, so a rename in the taxonomy reaches
+    // the menu with nothing to rebuild here.
+    if (req.method === 'GET' && url === '/api/pulsepalette') {
+        try {
+            const pp = path.join(__dirname, '..', 'bank', 'pulse_palette.json');
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(pp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
     if (req.method === 'GET' && (url === '/api/morphmodels' || url === '/api/shapepresets')) {
         try {
             const name = url === '/api/morphmodels' ? 'morph_models.json' : 'shape_presets.json';

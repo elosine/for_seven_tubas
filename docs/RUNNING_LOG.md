@@ -1967,3 +1967,93 @@ version for anyone reading the narrative:
 BALANCE now ends at **39.9 s** rather than 30. It is *audibly* done at ~34 s; the
 last ~6 s are players finishing their breath at the 0.4 floor. Stop stagger goes
 0 → 5.6 s, which is the ragged descent FR-6 was built to give.
+
+---
+
+## 2026-08-17 — day 16 (Claude Code / Opus 5) — PLAN 2aa v1: the pulse sequencer strip
+
+The trance section's sandbox, built from the day-15 spec cold. Click a column,
+give it a sonority, hear the grid loop. Audition only; nothing written to a score.
+
+### The composer confirmed the menu first, and the confirmation found a trap
+
+Before any code the composer enumerated what they wanted in the menu, by species:
+the **staccato and staccato-cuivre pair of each**, species 3 · 4 · 11 · 12 · 13 ·
+16 · 28 = S008/S011 · S014/S017 · S020/S023 · S026/S029 · S032/S035 · S038/S041 ·
+S044/S047. All fourteen check out against `bank/blast_taxonomy.json`: the
+sonorities sit in **6-blocks of chord × voicing** (fp / staccato / ord plain, then
+fp / staccato / ord with cuivre), so the +1/+4 rule picks exactly the two
+staccatos of each block, and "species N" is the `VERT01-NN` chord.
+
+**Then the trap, and it would have been invisible in the mock-up.** *Five of the
+seven pairs have identical pitch sets* — S020/S023, S026/S029, S032/S035,
+S038/S041, S044/S047 — differing only in which top notes are cuivre. 2aa v1 said
+"technique `staccato`" for every note. Under that rule those five pairs would
+have produced **byte-identical MIDI**: half the menu, silently duplicated, with
+nothing on screen to say so. The palette therefore resolves a `ref` with its
+**per-note articulation**, by the blast inserter's own rule.
+
+*Measured in the running app, at a recording stub on the MIDI ports:*
+
+| column | pitches | routing |
+|---|---|---|
+| S044 | 30 41 46 60 61 62 | all six → `tubaNb` **ch 4** (staccato) |
+| S047 | 30 41 46 60 61 62 | 30 41 46 → ch 4 · **60 61 62 → `tubaN` ch 5 (cuivre)** |
+
+Same pitches, different instrument. That is the whole reason the composer asked
+for both halves of each pair.
+
+### The scheduler: where the spec was wrong, and what it cost to find out
+
+2aa said *"playback = `MorphEmit.play`, NO new scheduler"* — the right instinct
+(that layer is blip-hardened and its `panic()` is the verified stop sequence),
+and it is reused for everything dangerous. But `E.play` **cannot loop
+seamlessly**: it shifts its entire schedule by `CC_LEAD_MS` (250 ms) and panics
+on entry, so re-invoking it once per cycle either opens a **250 ms hole at every
+loop boundary — more than half a beat at 130 BPM** — or, if you re-invoke early
+to close the hole, cuts the last column's ring. The composer is listening *for
+the pattern*; a stumble at the seam corrupts exactly the judgement the panel
+exists to support.
+
+So cycles are scheduled one ahead against a single absolute time base, 400 ms of
+lookahead, nothing ever stopped and restarted. **Measured over 4.5 cycles of a
+4-column grid at 240 BPM (nominal step 250 ms), attack points in ms:**
+
+```
+260  520  760 1010 | 1270 1510 1760 2020 | 2260 2510 2770 3010 | 3260 ...
+gaps: 260 240 250   260   240  250  260    240  250  260  240   250
+```
+
+The bars are the loop seams. **The seam gap is indistinguishable from an ordinary
+one** — 260/240/250 everywhere, which is the 5 ms measurement bucket plus timer
+jitter, not a structural hole. The pattern `F F CLUST10 F` repeats exactly:
+3 · 3 · **10** · 3 notes per attack point, every cycle.
+
+### What a test can judge, and what it cannot
+
+`tools/test_pulse.js` — **103 assertions**, and the gate is the five pitch-
+identical pairs: they must differ in articulation or the test fails. Mutation-
+tested with three deliberate breakages, all caught:
+
+| mutation | what broke |
+|---|---|
+| `techFor` ignores the cuivre lists | 91/128 — every identical pair collapses |
+| fixed one-shots take the grid note-length | the four PLAN 2n assertions |
+| lane cursor resets each column | a 3-note entry hammers lanes 0–2 |
+
+**PLAN 2n is live in the panel, not just in the docs:** a staccato takes its
+measured per-pitch length (0.40–0.49 s across CLUST10) and the note-length field
+cannot stretch it; only a variable technique (ord) obeys the field.
+
+**What the test cannot judge is whether the pattern of harmonic change is right,**
+which is the entire point of the panel. That is the composer's, in a window where
+Web MIDI is allowed.
+
+### Not verified: the sound
+
+This browser still blocks Web MIDI (day 15's finding, verbatim message, now with
+the port number wrong — filed to NITS). The failure path is clean: the button
+returns to `Play`, zero timers, zero sounding notes, and the message names the
+fix. Everything above the MIDI port was verified through the real handlers on the
+`score-verify` instance (5210) with the session forced to `untitled`, so autosave
+could not reach a score.

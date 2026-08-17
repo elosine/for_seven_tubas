@@ -501,6 +501,13 @@
 <script src="/tonality.js"></script>
 <script src="/texture_engine.js"></script>
 <script src="/texture_panel.js" defer></script>
+<!-- PLAN 2aa pulse sequencer strip (the trance section's sandbox). pulse_seq.js
+     is the PURE grid->notes engine (also runs in node under tools/test_pulse.js);
+     pulse_seq_panel.js injects its own button and DOM and reuses morph_emit.js
+     for routing and the stop sequence. AUDITION ONLY — writes nothing to the
+     score. Loads AFTER texture_panel so its button anchors to Texture. -->
+<script src="/pulse_seq.js"></script>
+<script src="/pulse_seq_panel.js" defer></script>
 <script>
 // ============================================
 // INSTRUMENT REGISTRY — Loads instrument_map.json, bridges Layer 2 (musical intent) ↔ Layer 3 (MIDI/sampler)

@@ -1,0 +1,44 @@
+{
+  "_contract": "PLAN 2aa — the sonority menu for the Pulse sequencer strip. DATA, NOT CODE: the composer adds sonorities BY ASKING THE AI, which appends an entry here; the panel refetches on open (or the reload button). Three shapes of entry: (a) `ref` -> a sonority id in bank/blast_taxonomy.json, resolved LIVE at load so renames and edits propagate, carrying its PER-NOTE articulation (a pitch in cuivreConverted or cuivreAdded plays cuivre, otherwise its `artic` entry — the same rule the blast inserter uses, composer.html durFor/auditionSon); (b) a literal `pitches` list with an optional `technique` (default staccato); (c) an empty `pitches` list = a silent column. Order here IS menu order, and the FIRST entry is what an unassigned column plays. v1 is audition-only: nothing here is ever written to a score.",
+  "_version": 1,
+  "entries": {
+    "FIFTHS": {
+      "label": "fifths chain (tranceSB01 accretion chord) · 10 notes",
+      "pitches": [31, 36, 41, 45, 49, 52, 54, 56, 59, 62]
+    },
+    "CLUST10": {
+      "label": "chromatic cluster ×10, centred C3 (G#2–F3)",
+      "pitches": [44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+    },
+
+    "S008": { "ref": "S008", "label": "species 3 · staccato (VERT01-03 V2, 10 notes)" },
+    "S011": { "ref": "S011", "label": "species 3 · staccato + cuivre (adds F#4 G4)" },
+    "S014": { "ref": "S014", "label": "species 4 · staccato (VERT01-04 V1, 7 notes)" },
+    "S017": { "ref": "S017", "label": "species 4 · staccato + cuivre (adds D#4, F4→cuivre)" },
+    "S020": { "ref": "S020", "label": "species 11 · staccato (VERT01-11 V2, 10 notes)" },
+    "S023": { "ref": "S023", "label": "species 11 · staccato + cuivre (C#4 F4→cuivre)" },
+    "S026": { "ref": "S026", "label": "species 12 · staccato (VERT01-12 V2, 10 notes)" },
+    "S029": { "ref": "S029", "label": "species 12 · staccato + cuivre (D#4 F4→cuivre)" },
+    "S032": { "ref": "S032", "label": "species 13 · staccato (VERT01-13 V2, 10 notes)" },
+    "S035": { "ref": "S035", "label": "species 13 · staccato + cuivre (D#4→cuivre)" },
+    "S038": { "ref": "S038", "label": "species 16 · staccato (VERT01-16 V2, 10 notes)" },
+    "S041": { "ref": "S041", "label": "species 16 · staccato + cuivre (C#4 D4 D#4→cuivre)" },
+    "S044": { "ref": "S044", "label": "species 28 · staccato (VERT01-28 V3, 6 notes)" },
+    "S047": { "ref": "S047", "label": "species 28 · staccato + cuivre (C4 C#4 D4→cuivre)" },
+
+    "C":  { "label": "all C  (pitch class, every octave in range)",  "pitches": [36, 48, 60] },
+    "C#": { "label": "all C# (pitch class, every octave in range)",  "pitches": [37, 49, 61] },
+    "D":  { "label": "all D  (pitch class, every octave in range)",  "pitches": [38, 50, 62] },
+    "D#": { "label": "all D# (pitch class, every octave in range)",  "pitches": [39, 51, 63] },
+    "E":  { "label": "all E  (pitch class, every octave in range)",  "pitches": [40, 52, 64] },
+    "F":  { "label": "all F  (pitch class, every octave in range)",  "pitches": [41, 53, 65] },
+    "F#": { "label": "all F# (pitch class, every octave in range)",  "pitches": [30, 42, 54, 66] },
+    "G":  { "label": "all G  (pitch class, every octave in range)",  "pitches": [31, 43, 55, 67] },
+    "G#": { "label": "all G# (pitch class, every octave in range)",  "pitches": [32, 44, 56] },
+    "A":  { "label": "all A  (pitch class, every octave in range)",  "pitches": [33, 45, 57] },
+    "A#": { "label": "all A# (pitch class, every octave in range)",  "pitches": [34, 46, 58] },
+    "B":  { "label": "all B  (pitch class, every octave in range)",  "pitches": [35, 47, 59] },
+
+    "—": { "label": "silence (a column that does not sound)", "pitches": [] }
+  }
+}

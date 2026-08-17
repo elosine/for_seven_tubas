@@ -627,8 +627,10 @@ composer → notation → performance architecture.)*
   sandbox so far — the performer app is the piece-#2 `public/index.html`
   lineage, so this is a port-plus-rework, not an edit in place.
 
-- **2aa — PULSE SEQUENCER STRIP (the trance section's sandbox)** — `todo
-  2026-08-17` *(composer realignment, day 15 evening; supersedes the earlier
+- **2aa — PULSE SEQUENCER STRIP (the trance section's sandbox)** — **`v1 BUILT
+  2026-08-17 (day 16) — verified in the running app except the sound, which is
+  the composer's audition. tools/test_pulse.js 103/103, mutation-tested.`**
+  *(composer realignment, day 15 evening; supersedes the earlier
   matrix/console sketches for this section — those are DEFERRED passes, below)*.
 
   **The need, verbatim concept:** a steady pulse grid (the Ghost-Trance final
@@ -691,6 +693,56 @@ composer → notation → performance architecture.)*
 
   **Open questions for the composer:** 11 vs 12 pitch-class entries · cluster
   centre (default C3) · loop default (default ON).
+  **→ ANSWERED by the composer 2026-08-17: all three defaults taken** (12 pitch
+  classes, cluster centre C3 = 44–53, loop ON).
+
+  ### v1 AS BUILT (2026-08-17, day 16)
+
+  Files: `bank/pulse_palette.json` (29 entries) · `GET /api/pulsepalette` ·
+  `score/public/pulse_seq.js` (PURE engine, node + browser) ·
+  `score/public/pulse_seq_panel.js` (panel, injects its own `Pulse` button) ·
+  `tools/test_pulse.js` (**103 assertions**, mutation-tested: three deliberate
+  breakages — cuivre ignored, one-shot stretched, lane cursor reset — all caught).
+  `composer.html` = a two-script-tag diff.
+
+  **THE FINDING THAT CHANGED THE BUILD, and it is musical.** 2aa v1 said "one
+  technique: staccato". But **five of the composer's seven staccato /
+  staccato-cuivre pairs have IDENTICAL pitch sets** — S020/S023, S026/S029,
+  S032/S035, S038/S041, S044/S047 — and differ ONLY in articulation. Forcing
+  staccato would have made half the menu silent duplicates. So a `ref` resolves
+  with its **per-note articulation**, by the same rule the blast inserter uses
+  (`cuivreConverted ∪ cuivreAdded → cuivre`, else `artic`). **Measured in the app:**
+  S044 emits six notes on ch 4 (`tubaNb`, staccato); S047, same six pitches,
+  emits three on ch 4 and **C4/C#4/D4 on ch 5** (`tubaN`, cuivre).
+
+  **The one deliberate departure from the spec, and why.** 2aa said *"playback =
+  `MorphEmit.play`, NO new scheduler"*. The panel reuses every dangerous part of
+  that layer — `ensureMidi`, `routeFor`, `noteOn/noteOff` and their registry, and
+  `panic()` as the single stop path — but schedules its own timers, as
+  `texture_panel.js` already does for this material class. `E.play` is built for
+  morphs (a pre-armed bend and a per-frame CC7 envelope per note; these are plain
+  velocity notes with CC7 pinned, D12) and, decisively, **it cannot loop
+  seamlessly**: it shifts its whole schedule by `CC_LEAD_MS` and panics on entry,
+  so re-invoking it per cycle puts a **250 ms hole — more than half a beat at 130
+  BPM — at every loop boundary**. Cycles are now laid down 400 ms ahead against
+  one absolute time base. **Measured over 4.5 cycles: attacks every 240–260 ms at
+  a nominal 250 ms, with the seam gap indistinguishable from an ordinary one.**
+
+  Also in v1, beyond the spec: **ORD IS THE ONLY REAL DURATION is honoured** (2n
+  — a staccato takes its measured per-pitch length, 0.40–0.49 s, and the grid's
+  note-length field cannot stretch it) · a **silent entry** (`—`) so a rhythm can
+  have holes · **lane pressure** readout · **playhead** highlight · localStorage
+  persistence · a **broken `ref` is kept and named**, never dropped.
+
+  **Verified in the running app (5210, the `score-verify` instance, session
+  forced to `untitled` so autosave could not touch a score):** the button injects
+  after `Texture` · the palette loads through the real route, **29 entries, 0
+  problems** · the Done-when scenario builds exactly — unison-F grid, CLUST10 at
+  impulse 11, `4.6154 s = 10 × 0.4615`, 103 notes · the loop runs, prunes its
+  fired timers, and **Stop leaves 0 timers, 0 sounding notes and 82 note-ons
+  matched by 82 note-offs**. **NOT verified: the sound.** This browser blocks Web
+  MIDI (day 15's finding, unchanged), so the MIDI was captured at a recording
+  stub. The audition is the composer's.
 
 ## 7. THE THREE SCORES — architecture (composer, 2026-08-14)
 
