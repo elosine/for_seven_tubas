@@ -1388,3 +1388,87 @@ straight into the scratch slate and the composer only presses **Play**. UI work
 beyond making the existing panel usable is not to be undertaken unless the
 composer asks for it.
 
+
+### Day 13, second thread — SPEC MODE, and a conceptual arc worth the paper
+
+**Working rule changed mid-session → D34: the AI does not implement anything
+without an explicit go.** Composer: *"please check in with me before implementing
+anything or wait for me to ask you explicitly to implement."* Then: *"talk
+through a number of feature requests and get you to make a document of them…
+which includes any of the research you've done. And then I'm gonna pass it on to
+another AI to develop all the feature requests."* → `docs/FEATURE_REQUESTS.md`,
+written to be implemented cold. *This is a restoration, not a new rule —
+`HOW_WE_WORK.md` already said "conceptual proposal before any code edit", and it
+had eroded into fix-it-as-you-see-it over the morning.*
+
+**Composer's stated constraint on the whole design:** *"I want to change the code
+process or what's going on right now as little as possible, but achieve this sort
+of segmentation."* And on method: *"I get lost when we jump into the code…
+there were too many layers in already for just one thing"* — so the design
+conversation ran **element by element at a conceptual level**, with the code
+consulted by the AI and never put on screen. That constraint is what produced the
+result below; a code-first discussion would have kept proposing the four-segment
+version.
+
+#### THE ARC (this is the paper-relevant part)
+
+The composer arrived with a **four-segment mental model** — entry · development ·
+steady state · release — and the question "can the code work this way?"
+
+**Finding 1 — the model already exists, at the wrong level.** The engine has TWO
+timelines over one `span`: the 2z gain envelope, which is *already literally*
+attack/decay/body/release, and the morph travel, which runs 0→1 across the whole
+span and **knows nothing about those boundaries**. So the composer's model exists
+at the AMPLITUDE level and does not exist at the PROCESS level.
+
+**Finding 2 — the dials are not orthogonal, and the composer had assumed they
+were.** Their plan was: set pace, then set internal character, then set length.
+Checked: `segLen` and `cents` are orthogonal; `dyn.amount` is half (magnitude
+yes, rate no — swells are driven by progress, so a 5-minute gesture gets **one
+five-minute breath**); `bias` is a **global time-warp wearing an intensity
+label**; and `span` is a master time-scale, not a pace.
+
+**Finding 3 — the pair is not the unit; the voice is.** The engine has no concept
+of a pair. Eight players, staggered individually by a seeded shuffle, and it
+never asks who a player's partner is. So a pair's two halves run on separate
+timetables and the **gap — the only thing actually audible — is whatever falls
+out**. The composer's model assumed the pair was the scheduled unit. *You cannot
+hear one player bend 25 ¢; you hear the beating between two. The thing that makes
+the sound was the one thing nothing was scheduling.*
+
+**Finding 4 — the root cause, one sentence.** *There is exactly one time value.*
+"How long the glissando takes" and "how long the gesture lasts" are the same
+number, because the glissandos are stretched to fill it. Every difficulty above
+is a consequence. **Split that number in two and the four-segment model stops
+being necessary.**
+
+**The composer's resolution (FR-3, PINNED):** rather than a static hold, let each
+player **arrive and then cycle** — triangle sweep back to the start pitch and out
+again, indefinitely. *"Clearly it becomes a different texture, but I think that's
+okay… that'll be interesting."*
+
+**Why this is the elegant answer, and why it was reachable only conceptually:**
+every model is a **pure function of progress**. Make progress oscillate instead
+of clamp, and all six models inherit cycling for free — no model changes, no
+segmentation, no new timeline. **The smallest possible change subsumes the
+largest proposed feature.**
+
+#### A prediction to test by ear, worked out on paper
+
+Once cycling, the two halves of a pair sweep at a phase difference, so the
+**within-pair phase decides the pair's behaviour**: in phase → the gap swings
+0↔50 ¢ and the beating **pulses** (0 → 2.6 Hz → 0); anti-phase → the gap parks at
+25 ¢ and the beating **holds steady** (~1.3 Hz); between → it wanders.
+
+**No pair ever goes silent** — the gap reaches zero only at instants, only in the
+in-phase case. *This is the opposite of the first intuition* (that pairs might
+cancel out and stop beating), and it means the within-pair phase offset is a
+**free new dial: pulsing vs steady beating, per pair.**
+
+*All of the above is READ FROM THE CODE, not run.* Nothing in this thread has
+been executed or heard, and the FR-3 gates say so.
+
+**Explicitly deferred by the composer:** cycling the *pair's gap* as a unit — a
+true repeated bloom — as opposed to cycling each player independently. That one
+needs Finding 3 fixed first.
+
