@@ -1288,10 +1288,42 @@ tab had `localStorage` and took the other branch, and `/api/composer/list` does
 not return the newest piece first (it returned `MorphPallette01`). So: a real
 hole, closed; **not** a diagnosed incident, and the code comment says so.
 
-**Unexplained, left alone (rule 5):** one 404 at page load, already out of the
-network buffer by the time I looked. Every script, `probes/cc7_map.json`,
-`bank/sample_lengths.json` and `/api/composer/list` all return 200 and preflight
-is clean, so nothing observable depends on it. Not diagnosed, not guessed at.
+**The 404 at page load: identified, and it is nothing.** It recurs exactly once
+per load. Every script, `probes/cc7_map.json`, `bank/sample_lengths.json` and
+`/api/composer/list` return 200; the page has **no `<link>` and no `<img>` at
+all**. It is **`/favicon.ico`** — the browser's automatic request, which this
+server does not serve. Not a defect. *Noted because "one recurring 404" left
+vague is the kind of thing that gets blamed for something else later.*
+
+**4 · A DEFECT I INTRODUCED, RECORDED BECAUSE THE NEGATIVE HALF IS THE USEFUL
+HALF (D33).** While fixing the status line I declared `const sel` inside
+`draw()` — which already has a `sel` helper (the select-field builder) about 100
+lines further down. `SyntaxError: Identifier 'sel' has already been declared`
+took out **the whole file**, so `window.MorphPanel` was undefined and the panel
+did not exist at all. Caught in one reload because the verification step is
+"open it in the running app", not "read the diff". Renamed to `selName`.
+*The generalisable bit:* `draw()` is long enough that a `const` at the top and a
+`const` 100 lines down do not look like they are in the same scope, but they
+are. Same class as Principle 5 — the failure is invisible at the point of
+editing and obvious at the point of running.
+
+**The status line itself (the fix that caused the above).** It printed
+`this.active` — the SCRATCH letter — in *every* mode, so working on
+MODELS/BLOOM read `v5 · A · "BEATING BLOOM"`: the letter of a different tab's
+selection sitting next to the right title. The composer asked *"how do I choose
+the body, is it the ABC buttons?"* the same morning, and the status line was
+answering **"A"** while they were on BLOOM. Now names what is actually selected.
+
+**Measured while verifying it — the scratch↔MODELS mapping is exact:**
+
+| selection | status line | render |
+|---|---|---|
+| scratch **C** | `v5 · C · "BEATING BLOOM — four unisons splitting apart, 40 s"` | **39 notes · 3 soft · 0 hard** |
+| MODELS **BLOOM** | `v5 · BLOOM · "BEATING BLOOM"` | **39 notes · 3 soft · 0 hard** |
+| MODELS **CONVERGE** | `v5 · CONVERGE · "BEATING CONVERGE"` | **40 notes · 8 soft · 0 hard** |
+
+Identical renders confirm C and BLOOM are the same body, which is what the
+model store's `seededFrom: slot C` claims but nothing had checked.
 
 **Incidental, and it answers a question the composer asked:** `MorphPallette01`
 already exists (today 08:40, **0 objects**) — the composer had already created

@@ -347,7 +347,16 @@ const PANEL = {
     draw(p) {
         const r = this.result, s = r.summary;
         const soft = Object.keys(s.soft).reduce((a, k) => a + s.soft[k], 0);
-        this.setStatus('v' + this.rev + ' &middot; ' + this.active + ' &middot; "' +
+        // NAME WHAT IS ACTUALLY SELECTED. The status printed `this.active` — the
+        // SCRATCH letter — in every mode, so working on MODELS/BLOOM read
+        // "v5 · A · BEATING BLOOM": the letter of a different tab's selection
+        // sitting next to the right title. The composer asked "how do I choose
+        // the body, is it the ABC buttons?" on the same day, and this line was
+        // answering "A" while they were on BLOOM. (2026-08-17.)
+        // (`sel` is already the field-builder helper further down this function.)
+        const selName = this.mode === 'models' ? this.activeModel
+            : this.mode === 'actuals' ? (this.activeActual || 'ACTUALs') : this.active;
+        this.setStatus('v' + this.rev + ' &middot; ' + selName + ' &middot; "' +
             (p.label || p.model) + '" &middot; ' + r.notes.length + ' notes &middot; ' +
             (s.hard ? '<b style="color:#e06666">' + s.hard + ' hard</b> / ' : '') +
             (soft ? '<span style="color:#e0b062">' + soft + ' soft</span>' : 'clean'), false, true);
