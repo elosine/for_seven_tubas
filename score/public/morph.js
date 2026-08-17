@@ -442,6 +442,45 @@ function curveEase(curve, u) {
     return Math.pow(x, EXPO_EXP);       // expo — the default
 }
 
+// g(t) — THE GESTURE-LEVEL GAIN. Multiplies the D24 dynamics layer; the body
+// (the S of ADSR) is not flat, it is the whole existing morph running at gain 1.
+//
+//   peak ---------.
+//                 |\  decay
+//      1 ---------+-\----------------------.
+//   from --.  att |        BODY            |\  release
+//          |/     |   (dyn layer, swells)  | \
+//      0 --'      |                        |  \--- to
+//         0    a.len  a.len+d.len   span-r.len  span
+//
+// `rel` is the per-voice release override (dropout voices cut early and
+// abruptly — §5.2). Absent shape returns exactly 1, which is what makes the
+// no-shape path bit-identical rather than merely equivalent.
+function shapeGain(shape, t, span, rel) {
+    if (!shape) return 1;
+    const A = shape.attack, D = shape.decay, R = shape.release;
+    const aLen = A ? A.len : 0;
+    const dLen = D ? D.len : 0;
+    const peak = A ? A.peak : 1;
+    if (A && aLen > 0 && t < aLen) {
+        return A.from + (peak - A.from) * curveEase(A.curve, t / aLen);
+    }
+    if (D && dLen > 0 && t < aLen + dLen) {
+        return peak + (1 - peak) * curveEase(D.curve, (t - aLen) / dLen);
+    }
+    if (R && R.len > 0) {
+        const rStart = span - R.len;
+        if (t >= rStart) {
+            // A dropout voice runs its own shorter, harder window; everyone else
+            // tapers over the full release.
+            const rLen = (rel && rel.len > 0) ? rel.len : R.len;
+            const rCurve = (rel && rel.curve) ? rel.curve : R.curve;
+            return 1 + (R.to - 1) * curveEase(rCurve, (t - rStart) / rLen);
+        }
+    }
+    return 1;
+}
+
 // --- validation helpers. Everything unknown or out of range is REPORTED and
 //     replaced by a sane default; nothing is ever silently ignored (D16).
 function reportUnknown(obj, allowed, path, warn) {
@@ -825,13 +864,22 @@ function render(params, opts) {
     const order = staggerOrder(nVoices, P.seed);
     const span = P.carrier.span;
 
+    // Per-voice release override, filled by the scheduler below. Empty (all
+    // undefined) means every voice tapers over the shape's own release window.
+    const voiceRel = new Array(nVoices);
+
     // state of one voice at time t — the MORPH half, independent of the carrier
     function stateAt(vi, t) {
         const p = voiceProgress(vi, nVoices, t, span, P.dials, order);
+        // THE SHAPE MULTIPLIES THE LAYER, it never replaces it (plan §2, D24).
+        // With no shape this is `* 1` and the clamp is a no-op on an already
+        // clamped value, so the render is bit-identical — that identity is the
+        // G0 gate and it is what lets shaping exist without a second code path.
+        const g = shapeGain(P.shape, t, span, voiceRel[vi]);
         const base = {
             cents: startCents[vi],
             technique: (P.target && P.target.baseTechnique) || 'ord',
-            level: dynLevel(P.dyn, vi, nVoices, p),   // the layer — every model
+            level: clamp(dynLevel(P.dyn, vi, nVoices, p) * g, 0.4, 10),
         };
         const moved = modelFn(ctx, vi, p) || {};
         return {
@@ -1117,7 +1165,7 @@ return {
     ENTRY_MODES: ENTRY_MODES, EXIT_MODES: EXIT_MODES, ORDER_MODES: ORDER_MODES,
     SHAPE_CURVES: SHAPE_CURVES, ATTACK_MOTIONS: ATTACK_MOTIONS,
     RELEASE_MOTIONS: RELEASE_MOTIONS,
-    curveEase: curveEase, normaliseShape: normaliseShape,
+    curveEase: curveEase, normaliseShape: normaliseShape, shapeGain: shapeGain,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,

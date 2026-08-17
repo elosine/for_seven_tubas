@@ -597,6 +597,98 @@ ok('and moves in the last tenth', M.curveEase('sudden', 0.95) > 0.4);
 });
 
 // ===========================================================================
+section('G1 gain ADSR — the shape multiplies the dynamics layer (PLAN 2z §2)');
+// ===========================================================================
+const SPAN = 40;
+const gShape = M.normaliseShape({
+    attack:  { len: 4, curve: 'linear', from: 0.2, peak: 1.5 },
+    decay:   { len: 6, curve: 'linear' },
+    release: { len: 10, curve: 'linear', to: 0.1 },
+}, SPAN).shape;
+const g = (t, rel) => M.shapeGain(gShape, t, SPAN, rel);
+
+eq('g(0) is `from`', g(0), 0.2, 1e-9);
+eq('g(attack.len) is `peak`', g(4), 1.5, 1e-9);
+eq('g at the attack midpoint is halfway (linear)', g(2), 0.85, 1e-9);
+eq('g(attack+decay) has settled to the body at 1', g(10), 1, 1e-9);
+eq('g at the decay midpoint is halfway back (linear)', g(7), 1.25, 1e-9);
+eq('the body sits at exactly 1', g(20), 1, 1e-9);
+eq('g at the release start is still 1', g(SPAN - 10), 1, 1e-9);
+eq('g at the release midpoint is halfway to `to` (linear)', g(35), 0.55, 1e-9);
+eq('g(span) is `to`', g(SPAN), 0.1, 1e-9);
+
+// peak defaults to 1, which makes the decay window INERT — that is how ADSR
+// degrades to ASR and then to nothing without a single branch.
+const inert = M.normaliseShape({ attack: { len: 4, from: 1 }, decay: { len: 6 } }, SPAN).shape;
+let inertOk = true;
+for (let t = 0; t <= SPAN; t += 0.25) if (Math.abs(M.shapeGain(inert, t, SPAN) - 1) > 1e-12) inertOk = false;
+ok('peak 1 makes the decay window inert (g === 1 everywhere)', inertOk);
+
+// THE UNIT SHAPE. A shape whose gain is 1 everywhere must be indistinguishable
+// from no shape at all — this is the standing proof that shaping is a multiply,
+// never a rewrite.
+const unit = M.normaliseShape({
+    attack: { len: 4, from: 1, peak: 1 }, release: { len: 10, to: 1 },
+}, SPAN).shape;
+let unitOk = true;
+for (let t = 0; t <= SPAN; t += 0.1) if (M.shapeGain(unit, t, SPAN) !== 1) unitOk = false;
+ok('a unit shape has gain exactly 1 at every instant', unitOk);
+
+const shapeBase = {
+    model: 'M6', seed: 5,
+    source: { kind: 'pitches', midi: [34, 41, 46, 50, 53, 58] },
+    carrier: { span: SPAN, segLen: 8, segVar: 0.3, striation: 'staggered' },
+    dyn: { base: 0.6, shape: 'rotate', amount: 0.35, spread: 0.5 },
+};
+const plainR = M.render(shapeBase);
+const unitR = M.render(Object.assign({}, shapeBase, {
+    shape: { attack: { len: 4, entry: 'striated', from: 1, peak: 1 },
+             release: { len: 10, exit: 'together', to: 1 } },
+}));
+ok('a unit-gain shape leaves every level breakpoint untouched',
+    hash(plainR.notes.map(n => n.level)) === hash(unitR.notes.map(n => n.level)));
+
+// and a real shape does not
+const shapedR = M.render(Object.assign({}, shapeBase, {
+    shape: { attack: { len: 4, curve: 'linear', from: 0.15, peak: 1 },
+             release: { len: 10, curve: 'linear', to: 0 } },
+}));
+const levelAt = (r, lo, hi) => {
+    const v = [];
+    r.notes.forEach(n => n.level.forEach((pt, i) => {
+        const t = n.tStart + pt[0];
+        if (t >= lo && t <= hi) v.push(pt[1]);
+    }));
+    return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+};
+ok('a real attack pulls the opening down below the unshaped render',
+    levelAt(shapedR, 0, 1.5) < levelAt(plainR, 0, 1.5) - 0.5,
+    levelAt(shapedR, 0, 1.5) + ' vs ' + levelAt(plainR, 0, 1.5));
+ok('and a real release pulls the ending down',
+    levelAt(shapedR, SPAN - 2, SPAN) < levelAt(plainR, SPAN - 2, SPAN) - 0.5,
+    levelAt(shapedR, SPAN - 2, SPAN) + ' vs ' + levelAt(plainR, SPAN - 2, SPAN));
+
+// `to: 0` lands on the engine's 0.4 level floor, NOT on digital silence — the
+// same floor every hand-drawn decrescendo in the piece already has (§5.1).
+// Do not "fix" this; it is the CC7 map's bottom, and the panel says so.
+const toZero = shapedR.notes.filter(n => n.tStart + n.dur > SPAN - 0.6);
+ok('the tail reaches the 0.4 floor',
+    toZero.some(n => n.level[n.level.length - 1][1] <= 0.45), JSON.stringify(
+        toZero.map(n => n.level[n.level.length - 1][1])));
+ok('and never goes below it',
+    shapedR.notes.every(n => n.level.every(pt => pt[1] >= 0.4 - 1e-9)));
+
+// peak > 1 really does overshoot the body
+const hitSettle = M.render(Object.assign({}, shapeBase, {
+    shape: { attack: { len: 1.5, curve: 'linear', from: 0.8, peak: 1.5 },
+             decay: { len: 4, curve: 'linear' } },
+    dyn: { base: 0.5, shape: 'flat' },
+}));
+const peakLv = levelAt(hitSettle, 1.2, 1.8), bodyLv = levelAt(hitSettle, 12, 25);
+ok('a peak of 1.5 overshoots the body level and settles back',
+    peakLv > bodyLv + 1, 'peak ' + peakLv + ' vs body ' + bodyLv);
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {
