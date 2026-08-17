@@ -446,6 +446,157 @@ ok('two morphs on separate lanes never share a player',
     JSON.stringify(lowLayers) + ' vs ' + JSON.stringify(usedLayers));
 
 // ===========================================================================
+section('G0 REGRESSION FLOOR — the blessed material must never drift (PLAN 2z)');
+// ===========================================================================
+// The composer auditioned and blessed six recipes. 2z adds a whole shaping
+// layer to the same engine; the ONE thing that must stay true is that material
+// carrying no `shape` block renders bit-for-bit as it did before. These hashes
+// are the contract. If one breaks, the change is not "an improvement" — it is a
+// silent rewrite of approved music, and the fix is the code, not the hash.
+//
+// Regenerate deliberately (never to make a red test green):
+//     node tools/test_morph.js --print-fixtures
+const crypto = require('crypto');
+const SL = require('../bank/sample_lengths.json');
+const RECIPES = require('../bank/morph_recipes.json');
+const PARAMS = require('../bank/morph_params.json');
+const hash = o => crypto.createHash('sha1').update(JSON.stringify(o)).digest('hex').slice(0, 16);
+
+const FIXTURES = [
+    // [name, sha1-16 of notes, sha1-16 of [summary, meta], note count]
+    ['recipe:A', '57b31106a5fd8beb', '7ae5e6a433bcd3b1', 34],
+    ['recipe:B', '12f081f3ee31f405', '291d4f9bb6d294bd', 38],
+    ['recipe:C', 'c398a29b878ff65d', 'd180d091caa54285', 39],
+    ['recipe:D', '08cbea9602c3427a', '30d02b689b448a2c', 40],
+    ['recipe:E', '13d704311b5e5326', 'a248b2f0ffffdfff', 40],
+    ['recipe:F', '816b03205391d2d3', 'af1b0e5244075dc6', 40],
+    ['variant:A', '57b31106a5fd8beb', 'cba3c24e478c9f62', 34],
+    ['variant:B', '12f081f3ee31f405', 'a8d1bf440073cda6', 38],
+    ['variant:C', 'c398a29b878ff65d', 'a33ac059f5e818db', 39],
+    ['variant:D', '08cbea9602c3427a', '5ac1d989263b2437', 40],
+    ['variant:E', '13d704311b5e5326', 'ea5b0b5bc37ca9b9', 40],
+    ['variant:F', '816b03205391d2d3', '6ee0ba454bae8a10', 40],
+];
+
+function fixtureCases() {
+    const cases = [];
+    Object.keys(RECIPES.recipes).forEach(k => {
+        const r = RECIPES.recipes[k];
+        cases.push(['recipe:' + r.slot, r.params]);
+    });
+    Object.keys(PARAMS.variants).forEach(k => cases.push(['variant:' + k, PARAMS.variants[k]]));
+    return cases;
+}
+const FIX_OPTS = { maxVoices: 10, sampleLengths: SL };
+
+if (process.argv.indexOf('--print-fixtures') >= 0) {
+    fixtureCases().forEach(([name, p]) => {
+        const res = M.render(p, FIX_OPTS);
+        console.log("    ['" + name + "', '" + hash(res.notes) + "', '" +
+            hash([res.summary, res.meta]) + "', " + res.notes.length + "],");
+    });
+    process.exit(0);
+}
+
+const fixMap = {};
+FIXTURES.forEach(f => { fixMap[f[0]] = f; });
+eq('fixture table covers every blessed recipe and live variant',
+    fixtureCases().length, FIXTURES.length);
+fixtureCases().forEach(([name, p]) => {
+    const want = fixMap[name];
+    if (!want) { ok('fixture exists for ' + name, false, 'no stored hash'); return; }
+    const res = M.render(p, FIX_OPTS);
+    eq(name + ' renders the same note count', res.notes.length, want[3]);
+    eq(name + ' notes are byte-identical to the blessed render', hash(res.notes), want[1]);
+    eq(name + ' summary+meta are byte-identical', hash([res.summary, res.meta]), want[2]);
+});
+
+// The spurious-warning fix (found while planning 2z): `lanes` and `voices` were
+// READ by normaliseParams but missing from KNOWN_KEYS, so every concurrent-morph
+// params file reported keys that were working perfectly.
+const lanesWarn = M.render({ model: 'M6', seed: 1, lanes: [0, 1, 2], voices: 3,
+    source: { kind: 'pitches', midi: [41, 46, 51] },
+    carrier: { span: 10, segLen: 8, segVar: 0, striation: 'staggered' } });
+ok('lanes/voices no longer warn as unrecognised keys', lanesWarn.warnings.length === 0,
+    JSON.stringify(lanesWarn.warnings));
+ok('shape is a known key', M.render({ model: 'M6', seed: 1, shape: { attack: { len: 1 } },
+    source: { kind: 'pitches', midi: [41, 46] },
+    carrier: { span: 10, segLen: 8, segVar: 0, striation: 'staggered' } })
+    .warnings.every(w => w.indexOf('unrecognised key "shape"') < 0));
+
+// ===========================================================================
+section('G0 shape schema — validated, defaulted, and never silently ignored');
+// ===========================================================================
+const ns = (sh, span) => M.normaliseShape(sh, span == null ? 30 : span);
+
+eq('no shape block is null, with nothing to say', ns(null).shape, null);
+eq('and reports no warnings', ns(null).warnings.length, 0);
+
+const nsDef = ns({ attack: { len: 2 } });
+eq('attack entry defaults to together (striated is demoted, composer day 11)',
+    nsDef.shape.attack.entry, 'together');
+eq('attack curve defaults to expo', nsDef.shape.attack.curve, 'expo');
+eq('attack from defaults to 0.15', nsDef.shape.attack.from, 0.15);
+eq('attack peak defaults to 1, which makes decay inert', nsDef.shape.attack.peak, 1);
+eq('a peak of 1 needs no decay block', nsDef.shape.decay, null);
+
+const nsRel = ns({ release: { len: 8 } });
+eq('release exit defaults to staggered', nsRel.shape.release.exit, 'staggered');
+eq('release order defaults to seeded', nsRel.shape.release.order, 'seeded');
+eq('release to defaults to 0', nsRel.shape.release.to, 0);
+
+const nsPeak = ns({ attack: { len: 1.5, peak: 1.4 } }, 40);
+ok('peak > 1 with no decay block supplies a default decay',
+    nsPeak.shape.decay && nsPeak.shape.decay.len > 0, JSON.stringify(nsPeak.shape.decay));
+ok('and says so out loud', nsPeak.warnings.some(w => /default decay/.test(w)),
+    JSON.stringify(nsPeak.warnings));
+
+const nsLow = ns({ attack: { len: 1, peak: 0.5 } });
+eq('peak below 1 is clamped to 1', nsLow.shape.attack.peak, 1);
+ok('and points at "from" as the low-start dial',
+    nsLow.warnings.some(w => /from/.test(w)), JSON.stringify(nsLow.warnings));
+
+const nsBad = ns({ attack: { len: 1, entry: 'sideways', order: 'sideways', curve: 'wobbly' },
+                   release: { len: 2, exit: 'diagonally' }, wobble: 1 });
+eq('a bad entry mode falls back to together', nsBad.shape.attack.entry, 'together');
+eq('a bad curve falls back to expo', nsBad.shape.attack.curve, 'expo');
+eq('a bad exit mode falls back to staggered', nsBad.shape.release.exit, 'staggered');
+ok('every bad value is reported', nsBad.warnings.length >= 5, JSON.stringify(nsBad.warnings));
+ok('an unknown sub-key is named with its full path',
+    nsBad.warnings.some(w => /shape\.wobble/.test(w)), JSON.stringify(nsBad.warnings));
+
+const nsClamp = ns({ attack: { len: 20 }, decay: { len: 20 }, release: { len: 20 } }, 30);
+eq('A+D+R are scaled to fit the span',
+    Math.round((nsClamp.shape.attack.len + nsClamp.shape.decay.len + nsClamp.shape.release.len) * 10) / 10, 30);
+ok('and the clamp is reported as SHAPE_CLAMP',
+    nsClamp.warnings.some(w => /SHAPE_CLAMP/.test(w)), JSON.stringify(nsClamp.warnings));
+
+const nsTrans = ns({ attack: { len: 1, transient: { technique: 'ord' } } });
+eq('a sustain technique cannot be a transient (D9) — substituted',
+    nsTrans.shape.attack.transient.technique, 'staccato');
+ok('and the substitution is reported',
+    nsTrans.warnings.some(w => /one-shot/.test(w)), JSON.stringify(nsTrans.warnings));
+
+const nsDrop = ns({ release: { len: 5, dropout: { fraction: 1.8 } } });
+eq('dropout fraction is clamped to 0..1', nsDrop.shape.release.dropout.fraction, 1);
+const nsMot = ns({ release: { len: 5, motion: { type: 'disperse', cents: 9000 } } });
+eq('motion cents is sanity-bounded to +/-1200', nsMot.shape.release.motion.cents, 1200);
+eq('an empty shape block is dropped, with a warning',
+    ns({}).shape, null);
+
+// curves: linear is straight, expo is front-loaded, sudden holds then moves
+eq('linear curve is the identity', M.curveEase('linear', 0.5), 0.5, 1e-9);
+ok('expo is front-loaded (more of the move happens early)',
+    M.curveEase('expo', 0.5) > 0.6, String(M.curveEase('expo', 0.5)));
+eq('sudden holds at the start value through most of the window',
+    M.curveEase('sudden', 0.5), 0);
+ok('and moves in the last tenth', M.curveEase('sudden', 0.95) > 0.4);
+['linear', 'expo', 'sudden'].forEach(c => {
+    eq(c + ' starts at 0', M.curveEase(c, 0), 0, 1e-9);
+    eq(c + ' ends at 1', M.curveEase(c, 1), 1, 1e-9);
+});
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {

@@ -391,6 +391,240 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath) {
 }
 
 // ===========================================================================
+// 5b · GESTURE SHAPE (PLAN 2z) — the gesture-level ADSR and its layers.
+//
+// THE ORTHOGONALITY RULE: morph (WHAT changes) _|_ carrier (WHEN voices sound)
+// _|_ shape (the gesture's macro-form). Shaping is NOT a seventh model; every
+// model inherits it and no model knows it exists.
+//
+// ONE CODE PATH, NO FORK. `shape` absent => gain g(t) === 1, no entry/exit
+// bounds, no windows — which is bit-for-bit what the engine did before 2z.
+// That identity is the hard G0 gate: the composer's blessed recipes cannot
+// drift because there is no second path for them to drift down.
+// ===========================================================================
+
+const ENTRY_MODES     = ['together', 'ramp', 'striated'];
+const EXIT_MODES      = ['together', 'staggered'];
+const ORDER_MODES     = ['low-first', 'high-first', 'seeded'];
+const SHAPE_CURVES    = ['linear', 'expo', 'sudden'];
+const ATTACK_MOTIONS  = ['converge', 'gliss-in', 'none'];
+const RELEASE_MOTIONS = ['disperse', 'to-unison', 'gliss-out', 'none'];
+
+const SHAPE_KEYS    = ['attack', 'decay', 'release'];
+const ATTACK_KEYS   = ['len', 'entry', 'order', 'curve', 'from', 'peak',
+                       'technique', 'transient', 'noise', 'motion'];
+const DECAY_KEYS    = ['len', 'curve'];
+const RELEASE_KEYS  = ['len', 'exit', 'order', 'curve', 'to',
+                       'technique', 'motion', 'dropout'];
+const TRANSIENT_KEYS = ['technique'];
+const NOISE_KEYS     = ['technique', 'voices', 'midi', 'len'];
+const MOTION_KEYS    = ['type', 'cents', 'curve'];
+const DROPOUT_KEYS   = ['fraction'];
+
+// THE CURVE. Returns the eased fraction 0..1 of the way through a window.
+//
+//   linear  straight.
+//   expo    EASE-OUT (x^(1/2.2)): the change happens early, then eases into the
+//           target. Note what the unit already is — level is the score's 0-10
+//           drawn height, which composer.html maps to CC7 across a 40 dB span,
+//           so level-space is already roughly dB-space and a LINEAR ramp here is
+//           already an exponential amplitude envelope. `expo` therefore has to
+//           be more front-loaded than linear to mean anything: as a release it
+//           is the expodec tail (drops fast, long quiet approach), as an attack
+//           it is the instrumental bloom that arrives then settles.
+//   sudden  holds at the window's START value until the last 10 %, then moves.
+//           As a release curve that is the tongue-stop / rexpodec cut.
+const EXPO_EXP = 1 / 2.2;
+function curveEase(curve, u) {
+    const x = clamp(u, 0, 1);
+    if (curve === 'linear') return x;
+    if (curve === 'sudden') return x < 0.9 ? 0 : (x - 0.9) / 0.1;
+    return Math.pow(x, EXPO_EXP);       // expo — the default
+}
+
+// --- validation helpers. Everything unknown or out of range is REPORTED and
+//     replaced by a sane default; nothing is ever silently ignored (D16).
+function reportUnknown(obj, allowed, path, warn) {
+    Object.keys(obj || {}).forEach(k => {
+        if (allowed.indexOf(k) < 0 && k[0] !== '_') {
+            warn.push('SHAPE: unrecognised key "' + path + '.' + k + '"');
+        }
+    });
+}
+function pickEnum(v, list, dflt, path, warn) {
+    if (v == null) return dflt;
+    if (list.indexOf(v) >= 0) return v;
+    warn.push('SHAPE: ' + path + ' "' + v + '" is not one of ' + list.join(' | ') +
+              ' — using ' + dflt);
+    return dflt;
+}
+function pickNum(v, dflt, lo, hi, path, warn) {
+    if (v == null) return dflt;
+    const n = Number(v);
+    if (!isFinite(n)) {
+        warn.push('SHAPE: ' + path + ' is not a number — using ' + dflt);
+        return dflt;
+    }
+    const c = clamp(n, lo, hi);
+    if (c !== n) warn.push('SHAPE: ' + path + ' ' + n + ' clamped to ' + c);
+    return c;
+}
+function pickTechnique(v, path, warn) {
+    if (v == null) return null;
+    if (TECHNIQUES[v]) return v;
+    warn.push('SHAPE: ' + path + ' "' + v + '" is not a known technique — ignored');
+    return null;
+}
+function pickMotion(raw, list, path, warn) {
+    if (!raw) return null;
+    reportUnknown(raw, MOTION_KEYS, path, warn);
+    const type = pickEnum(raw.type, list, 'none', path + '.type', warn);
+    if (type === 'none') return null;
+    // to-unison resolves the MODEL's own deviation back to zero, so it has no
+    // amount of its own; saying so beats letting a dial sit there doing nothing.
+    if (type === 'to-unison' && raw.cents != null) {
+        warn.push('SHAPE: ' + path + '.cents is ignored by to-unison — it resolves ' +
+                  "the model's own deviation to zero");
+    }
+    return {
+        type: type,
+        cents: pickNum(raw.cents, 40, -1200, 1200, path + '.cents', warn),
+        curve: pickEnum(raw.curve, SHAPE_CURVES, 'expo', path + '.curve', warn),
+    };
+}
+
+// Normalise + validate a `shape` block against the span. Returns the shape (or
+// null) and every complaint it had on the way.
+function normaliseShape(raw, span) {
+    const warn = [];
+    if (raw == null) return { shape: null, warnings: warn };
+    if (typeof raw !== 'object' || Array.isArray(raw)) {
+        warn.push('SHAPE: "shape" must be an object — ignored');
+        return { shape: null, warnings: warn };
+    }
+    reportUnknown(raw, SHAPE_KEYS, 'shape', warn);
+
+    let attack = null;
+    if (raw.attack) {
+        const a = raw.attack;
+        reportUnknown(a, ATTACK_KEYS, 'shape.attack', warn);
+        if (a.len == null) warn.push('SHAPE: attack.len is required when an attack block is present — using 2');
+        let peak = pickNum(a.peak, 1, 0, 10, 'shape.attack.peak', warn);
+        if (peak < 1) {
+            warn.push('SHAPE: attack.peak ' + peak + ' < 1 clamped to 1 — "from" is the low-start dial');
+            peak = 1;
+        }
+        let transient = null;
+        if (a.transient) {
+            reportUnknown(a.transient, TRANSIENT_KEYS, 'shape.attack.transient', warn);
+            let tt = pickTechnique(a.transient.technique, 'shape.attack.transient.technique', warn) || 'staccato';
+            // A transient is a PREPENDED ONE-SHOT: it must be a technique that
+            // ends itself (D9), because nothing else has a length we know.
+            if ((TECHNIQUES[tt] || {}).durClass !== 'fixed') {
+                warn.push('SHAPE: transient.technique "' + tt + '" is not a one-shot (D9) — using staccato');
+                tt = 'staccato';
+            }
+            transient = { technique: tt };
+        }
+        let noise = null;
+        if (a.noise) {
+            reportUnknown(a.noise, NOISE_KEYS, 'shape.attack.noise', warn);
+            const midi = Array.isArray(a.noise.midi) ? a.noise.midi.slice()
+                : (a.noise.midi === 'chord' || a.noise.midi === 'chord-top') ? a.noise.midi
+                : (a.noise.midi == null ? 'chord-top'
+                    : (warn.push('SHAPE: noise.midi must be an array, "chord" or "chord-top" — using chord-top'),
+                       'chord-top'));
+            noise = {
+                technique: pickTechnique(a.noise.technique, 'shape.attack.noise.technique', warn) || 'cuivre',
+                voices: Math.round(pickNum(a.noise.voices, 1, 1, 10, 'shape.attack.noise.voices', warn)),
+                midi: midi,
+                len: a.noise.len == null ? null : pickNum(a.noise.len, 1, 0.05, 60, 'shape.attack.noise.len', warn),
+            };
+        }
+        attack = {
+            len:   pickNum(a.len, 2, 0, 3600, 'shape.attack.len', warn),
+            entry: pickEnum(a.entry, ENTRY_MODES, 'together', 'shape.attack.entry', warn),
+            order: pickEnum(a.order, ORDER_MODES, 'low-first', 'shape.attack.order', warn),
+            curve: pickEnum(a.curve, SHAPE_CURVES, 'expo', 'shape.attack.curve', warn),
+            from:  pickNum(a.from, 0.15, 0, 1, 'shape.attack.from', warn),
+            peak:  peak,
+            technique: pickTechnique(a.technique, 'shape.attack.technique', warn),
+            transient: transient,
+            noise: noise,
+            motion: pickMotion(a.motion, ATTACK_MOTIONS, 'shape.attack.motion', warn),
+        };
+    }
+
+    let decay = null;
+    if (raw.decay) {
+        reportUnknown(raw.decay, DECAY_KEYS, 'shape.decay', warn);
+        if (raw.decay.len == null) warn.push('SHAPE: decay.len is required when a decay block is present — using 3');
+        decay = {
+            len:   pickNum(raw.decay.len, 3, 0, 3600, 'shape.decay.len', warn),
+            curve: pickEnum(raw.decay.curve, SHAPE_CURVES, 'expo', 'shape.decay.curve', warn),
+        };
+    }
+    // peak > 1 with no decay would leave the gesture parked above the body for
+    // the whole span, which is never what "hit it and settle" means. Supply the
+    // decay AND say so — a default that hides is a bug with a nice manner.
+    if (attack && attack.peak > 1 && !decay) {
+        decay = { len: Math.min(4, span * 0.15), curve: 'expo' };
+        warn.push('SHAPE: attack.peak ' + attack.peak + ' > 1 with no decay block — ' +
+                  'applied a default decay of ' + round3(decay.len) + ' s (expo)');
+    }
+
+    let release = null;
+    if (raw.release) {
+        const r = raw.release;
+        reportUnknown(r, RELEASE_KEYS, 'shape.release', warn);
+        if (r.len == null) warn.push('SHAPE: release.len is required when a release block is present — using 8');
+        let dropout = null;
+        if (r.dropout) {
+            reportUnknown(r.dropout, DROPOUT_KEYS, 'shape.release.dropout', warn);
+            dropout = { fraction: pickNum(r.dropout.fraction, 0.4, 0, 1, 'shape.release.dropout.fraction', warn) };
+        }
+        release = {
+            len:   pickNum(r.len, 8, 0, 3600, 'shape.release.len', warn),
+            exit:  pickEnum(r.exit, EXIT_MODES, 'staggered', 'shape.release.exit', warn),
+            order: pickEnum(r.order, ORDER_MODES, 'seeded', 'shape.release.order', warn),
+            curve: pickEnum(r.curve, SHAPE_CURVES, 'expo', 'shape.release.curve', warn),
+            to:    pickNum(r.to, 0, 0, 1, 'shape.release.to', warn),
+            technique: pickTechnique(r.technique, 'shape.release.technique', warn),
+            motion: pickMotion(r.motion, RELEASE_MOTIONS, 'shape.release.motion', warn),
+            dropout: dropout,
+        };
+    }
+
+    if (!attack && !decay && !release) {
+        warn.push('SHAPE: block is empty — no shaping applied');
+        return { shape: null, warnings: warn };
+    }
+
+    // A + D + R cannot exceed the span. The body may reach zero length — a
+    // gesture that is all edge is a legitimate thing to ask for — but the
+    // windows may not run past the end, so they scale together and say so.
+    const aLen = attack ? attack.len : 0;
+    const dLen = decay ? decay.len : 0;
+    const rLen = release ? release.len : 0;
+    const total = aLen + dLen + rLen;
+    let clamped = null;
+    if (total > span && total > 0) {
+        const k = span / total;
+        if (attack) attack.len = round3(attack.len * k);
+        if (decay) decay.len = round3(decay.len * k);
+        if (release) release.len = round3(release.len * k);
+        clamped = 'SHAPE_CLAMP: attack+decay+release ' + round3(total) + ' s exceeds span ' +
+                  round3(span) + ' s — all three scaled by ' + k.toFixed(3);
+        warn.push(clamped);
+    }
+
+    return {
+        shape: { attack: attack, decay: decay, release: release, _clamped: !!clamped },
+        warnings: warn,
+    };
+}
+
+// ===========================================================================
 // 6 · RENDER — sample the morph over each carrier segment.
 // ===========================================================================
 
@@ -402,13 +636,19 @@ function normaliseParams(v) {
     // swells. Set it explicitly — including 'flat' — to override.
     if (!dyn.shape) dyn.shape = (model === 'M6') ? 'rotate' : 'swell';
     if (DYN_SHAPES.indexOf(dyn.shape) < 0) dyn.shape = 'swell';
+    const carrier = Object.assign({}, DEFAULTS.carrier, p.carrier);
+    // PLAN 2z. `shape` is the gesture's macro-form (ADSR + its layers). Absent
+    // is the ordinary case and costs nothing: null all the way down.
+    const sh = normaliseShape(p.shape, Math.max(0.01, carrier.span));
     return {
         model: model,
         source: p.source || { kind: 'pitches', midi: [34, 41, 46, 50, 53, 58, 62, 65] },
         target: p.target || null,
         dials: Object.assign({}, DEFAULTS.dials, p.dials),
-        carrier: Object.assign({}, DEFAULTS.carrier, p.carrier),
+        carrier: carrier,
         dyn: dyn,
+        shape: sh.shape,
+        _shapeWarnings: sh.warnings,
         seed: p.seed != null ? p.seed : DEFAULTS.seed,
         label: p.label || '',
         // CONCURRENT MORPHS. `lanes` names the players this morph occupies, e.g.
@@ -422,7 +662,12 @@ function normaliseParams(v) {
 
 // Unknown keys are REPORTED, never silently ignored — a typo'd dial that does
 // nothing is worse than one that errors (plan §4.1).
-const KNOWN_KEYS = ['model', 'source', 'target', 'dials', 'carrier', 'dyn', 'seed', 'label'];
+//
+// `lanes` and `voices` were READ by normaliseParams but missing from this list,
+// so every concurrent-morph params file earned a spurious "unrecognised key"
+// warning (found while planning 2z; fixed in its G0). `shape` is 2z's own key.
+const KNOWN_KEYS = ['model', 'source', 'target', 'dials', 'carrier', 'dyn', 'seed', 'label',
+                    'lanes', 'voices', 'shape'];
 function unknownKeys(v) {
     return Object.keys(v || {}).filter(k => KNOWN_KEYS.indexOf(k) < 0 && k[0] !== '_');
 }
@@ -507,7 +752,8 @@ function render(params, opts) {
     const startMidi = reduceSource(rawMidi, Math.min(cap, o.maxVoices || 10));
     const nVoices = startMidi.length;
     const notes = [];
-    const warnings = unknownKeys(params).map(k => 'PARAM: unrecognised key "' + k + '"');
+    const warnings = unknownKeys(params).map(k => 'PARAM: unrecognised key "' + k + '"')
+        .concat(P._shapeWarnings || []);
 
     if (!nVoices) {
         return { notes: [], summary: { hard: 0, soft: {}, flags: {} },
@@ -868,6 +1114,10 @@ return {
     MEASURED: MEASURED, RATE: RATE, TECHNIQUES: TECHNIQUES, DEFAULTS: DEFAULTS,
     BREATH_TABLE: BREATH_TABLE, SWITCH_PREP: SWITCH_PREP, STRIATIONS: STRIATIONS,
     DYN_SHAPES: DYN_SHAPES, dynLevel: dynLevel,
+    ENTRY_MODES: ENTRY_MODES, EXIT_MODES: EXIT_MODES, ORDER_MODES: ORDER_MODES,
+    SHAPE_CURVES: SHAPE_CURVES, ATTACK_MOTIONS: ATTACK_MOTIONS,
+    RELEASE_MOTIONS: RELEASE_MOTIONS,
+    curveEase: curveEase, normaliseShape: normaliseShape,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,
