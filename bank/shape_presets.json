@@ -1,0 +1,5 @@
+{
+  "_comment": "SHAPE PRESET library (PLAN 2y §5.1). A preset is a named, copyable `shape` block (2z's schema) plus the label, tags and verdict that blessed it. Because a shape is just params, applying one to any model is a MERGE, not a feature — reuse by construction, no category system. Filed by the AI from the narrated sessions the moment a shape is kept (docs/TAXONOMY.md contract); `?` note when unsure. If genuine categories of attack ever emerge they are harvested then (D6), never designed up front. Lessons from each build go to docs/SHAPE_LESSONS.md.",
+  "rev": 1,
+  "presets": {}
+}

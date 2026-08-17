@@ -1,0 +1,997 @@
+{
+  "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
+  "rev": 1,
+  "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
+  "models": {
+    "BALANCE": {
+      "name": "balance only, 30 s (the keeper)",
+      "id": "BALANCE",
+      "status": "stock",
+      "modelType": "M6",
+      "character": "Held sonority, nothing moving but internal balance. The beating is between UPPER PARTIALS — the chord itself has no close intervals — so beating is available without writing unisons.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very nice. There were some very interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating in there, and potentially at the same time volume changes. It did sound like acoustic beating and swelling, which is nice.\"",
+      "tags": [
+        "beating",
+        "held",
+        "upper-partials"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M6",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": null,
+        "dials": {
+          "bias": 0,
+          "spread": 0.5,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 30,
+          "segLen": 7,
+          "segVar": 0.35,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.55,
+          "shape": "rotate",
+          "amount": 0.4,
+          "turns": 1,
+          "spread": 0.6
+        },
+        "seed": 3
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot A"
+    },
+    "COLOUR": {
+      "name": "colour morph, now ramping INTO each technique",
+      "id": "COLOUR",
+      "status": "draft",
+      "modelType": "M4",
+      "character": "Technique migration. Reads as a sequence of colours rather than one sonority changing. Since the audition, technique changes ENTER under a long deep dynamic ramp (composer: \"start with the effect and ramp into the full effect\") — that change has not itself been re-heard.",
+      "verdict": "day-10 (useful, least interesting) — composer 2026-08-16: \"It sounds exactly like a held sonority with players shifting different techniques within it. It sounds more like just a collection of different techniques. Useful, but not as interesting.\"",
+      "tags": [
+        "technique-migration",
+        "colour"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M4",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": {
+          "path": [
+            "ord",
+            "bisb",
+            "flz"
+          ]
+        },
+        "dials": {
+          "bias": 0,
+          "spread": 0.7,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 30,
+          "segLen": 6,
+          "segVar": 0.35,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.55,
+          "shape": "swell",
+          "amount": 0.3,
+          "spread": 0.5
+        },
+        "seed": 5
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot B"
+    },
+    "BLOOM": {
+      "name": "BEATING BLOOM",
+      "id": "BLOOM",
+      "status": "stock",
+      "modelType": "M1",
+      "character": "Unison pairs splitting apart. Beating grows from zero; faster in the higher pairs (2.6 / 3.5 / 4.6 / 6.2 Hz at full separation), so the texture opens upward.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting. Sounds industrial and resembles many experiments I have done with strings and beating tones. Familiar terrain, like some of the acoustic pieces by Alvin Lucier.\"",
+      "tags": [
+        "beating",
+        "industrial",
+        "opens-upward"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M1",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            41,
+            41,
+            46,
+            46,
+            51,
+            51,
+            56,
+            56
+          ]
+        },
+        "target": {
+          "cents": 25,
+          "direction": "alternate"
+        },
+        "dials": {
+          "bias": 0.3,
+          "spread": 0.35,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.42,
+          "spread": 0.55
+        },
+        "seed": 11
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "more beating",
+          "description": "pairs split wider — faster beats, opens further. beat Hz = |f1-f2| (D28)",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.cents": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.cents": 50
+              }
+            }
+          ],
+          "boundsFrom": "C was blessed at 25 c; D28 register law says a fixed cents detuning doubles its beat rate per octave"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot C"
+    },
+    "CONVERGE": {
+      "name": "BEATING CONVERGE",
+      "id": "CONVERGE",
+      "status": "stock",
+      "modelType": "M3",
+      "character": "Whole-tone pairs closing to exact unison. The reverse gesture: beating slows to 0 Hz, interference resolving into fusion.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting.\"",
+      "tags": [
+        "beating",
+        "resolving",
+        "fusion"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M3",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            45,
+            47,
+            50,
+            52,
+            57,
+            59,
+            62,
+            64
+          ]
+        },
+        "target": {
+          "midi": [
+            46,
+            46,
+            51,
+            51,
+            58,
+            58,
+            63,
+            63
+          ]
+        },
+        "dials": {
+          "bias": 0.4,
+          "spread": 0.3,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.4,
+          "spread": 0.5
+        },
+        "seed": 7
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot D"
+    },
+    "SPACING": {
+      "name": "SPACING MIGRATION",
+      "id": "SPACING",
+      "status": "stock",
+      "modelType": "M5",
+      "character": "Voicing opens outward, 12 to 20 semitones. The re-articulations read as a rhythmic layer on top of the pitch change.",
+      "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar. It sounds like either one or several tubas are re-articulating at a relatively big dynamic, and those sound like pulses. They not only pulse the volume, they also pulse the beating, the visceralness.\"",
+      "tags": [
+        "pulse",
+        "opening",
+        "visceral"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M5",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            43,
+            45,
+            47,
+            48,
+            50,
+            52,
+            53,
+            55
+          ]
+        },
+        "target": {
+          "steps": 4
+        },
+        "dials": {
+          "bias": 0.2,
+          "spread": 0.5,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.38,
+          "spread": 0.5
+        },
+        "seed": 13
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "opens further",
+          "description": "how many whole degrees the outer voices travel",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.steps": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.steps": 6
+              }
+            }
+          ],
+          "boundsFrom": "E was blessed at 4 steps (12->20 semitones of opening)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot E"
+    },
+    "SPECTRAL": {
+      "name": "SPECTRAL DRIFT",
+      "id": "SPECTRAL",
+      "status": "stock",
+      "modelType": "M2",
+      "character": "Chord focuses onto the harmonics of F. Each voice moves only 0-49 cents and the total span barely changes (28 to 27 st), so it reads as the same chord coming into focus. VERIFIED BY MEASUREMENT: every voice lands within 0.4 cents of its target partial.",
+      "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar.\"",
+      "tags": [
+        "spectral",
+        "focusing",
+        "microtonal"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M2",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": {
+          "fundamental": 41,
+          "partials": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            11,
+            13
+          ]
+        },
+        "dials": {
+          "bias": 0.3,
+          "spread": 0.6,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.35,
+          "spread": 0.5
+        },
+        "seed": 17
+      },
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot F"
+    }
+  }
+}

@@ -775,6 +775,89 @@ function unknownKeys(v) {
     return Object.keys(v || {}).filter(k => KNOWN_KEYS.indexOf(k) < 0 && k[0] !== '_');
 }
 
+// ===========================================================================
+// 6b · PARAM PATHS (PLAN 2y) — the dot-path schema a recipe may patch.
+//
+// A recipe is DATA: endpoints plus interpolation, never code (2y §4). Which
+// means the only thing standing between a typo and a dial that silently does
+// nothing is this table. An unrecognised path is a REPORTED ERROR at load
+// time — the engine's existing unknown-key policy, extended down the tree.
+//
+// The declared TYPE is also the interpolation rule (2y §9.6): only plain
+// numbers lerp. Everything else STEPS to the value of the highest waypoint at
+// or below the dial position, because interpolating a pitch array or a
+// striation name element-wise invites subtle garbage, while stepping is
+// predictable and audible.
+// ===========================================================================
+
+const PARAM_PATHS = {
+    'model': 'string', 'seed': 'number', 'label': 'string',
+    'lanes': 'array', 'voices': 'number',
+
+    'source.kind': 'string', 'source.midi': 'array', 'source.id': 'string',
+
+    // `target` carries a different payload per model; all of them are known, so
+    // enumerate rather than wildcard — a wildcard would pass every typo.
+    'target.cents': 'number', 'target.direction': 'string', 'target.midi': 'array',
+    'target.kind': 'string', 'target.id': 'string', 'target.path': 'array',
+    'target.steps': 'number', 'target.fundamental': 'number', 'target.partials': 'array',
+    'target.stepped': 'string', 'target.baseTechnique': 'string',
+
+    'dials.bias': 'number', 'dials.spread': 'number', 'dials.depth': 'number',
+
+    'carrier.span': 'number', 'carrier.segLen': 'number', 'carrier.segVar': 'number',
+    'carrier.striation': 'string',
+
+    'dyn.base': 'number', 'dyn.shape': 'string', 'dyn.amount': 'number',
+    'dyn.turns': 'number', 'dyn.spread': 'number',
+
+    // the 2z gesture shape — recipes patch these like any other dial
+    'shape.attack.len': 'number', 'shape.attack.entry': 'string',
+    'shape.attack.order': 'string', 'shape.attack.curve': 'string',
+    'shape.attack.from': 'number', 'shape.attack.peak': 'number',
+    'shape.attack.technique': 'string',
+    'shape.attack.transient.technique': 'string',
+    'shape.attack.noise.technique': 'string', 'shape.attack.noise.voices': 'number',
+    'shape.attack.noise.midi': 'array', 'shape.attack.noise.len': 'number',
+    'shape.attack.motion.type': 'string', 'shape.attack.motion.cents': 'number',
+    'shape.attack.motion.curve': 'string',
+    'shape.decay.len': 'number', 'shape.decay.curve': 'string',
+    'shape.release.len': 'number', 'shape.release.exit': 'string',
+    'shape.release.order': 'string', 'shape.release.curve': 'string',
+    'shape.release.to': 'number', 'shape.release.technique': 'string',
+    'shape.release.motion.type': 'string', 'shape.release.motion.cents': 'number',
+    'shape.release.motion.curve': 'string',
+    'shape.release.dropout.fraction': 'number',
+};
+
+// null = not a patchable path. Callers REPORT null; they never guess.
+function paramPathType(path) {
+    return Object.prototype.hasOwnProperty.call(PARAM_PATHS, path) ? PARAM_PATHS[path] : null;
+}
+
+function getParamPath(obj, path) {
+    const parts = path.split('.');
+    let o = obj;
+    for (let i = 0; i < parts.length; i++) {
+        if (o == null || typeof o !== 'object') return undefined;
+        o = o[parts[i]];
+    }
+    return o;
+}
+
+// Creates intermediate objects, which is deliberate: a recipe patching
+// `shape.attack.len` onto a model that has no shape block yet is a legitimate
+// thing to want, and the path was validated before we got here.
+function setParamPath(obj, path, value) {
+    const parts = path.split('.');
+    let o = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+        if (o[parts[i]] == null || typeof o[parts[i]] !== 'object') o[parts[i]] = {};
+        o = o[parts[i]];
+    }
+    o[parts[parts.length - 1]] = value;
+}
+
 // REDUCE A CHORD TO n VOICES WITHOUT LOSING WHAT MAKES IT WORK.
 //
 // Needed for concurrent morphs: two or three at once means four or five players
@@ -1519,6 +1602,8 @@ return {
     RELEASE_MOTIONS: RELEASE_MOTIONS,
     curveEase: curveEase, normaliseShape: normaliseShape, shapeGain: shapeGain,
     shapeRank: shapeRank, dropoutVoices: dropoutVoices,
+    PARAM_PATHS: PARAM_PATHS, paramPathType: paramPathType,
+    getParamPath: getParamPath, setParamPath: setParamPath,
     BREATH_GAP_MIN: BREATH_GAP_MIN, CROSS_ONSET_MIN: CROSS_ONSET_MIN,
     mulberry32: mulberry32,
     bendValue: bendValue, bendBytes: bendBytes, bendReach: bendReach,

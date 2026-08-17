@@ -1,4 +1,21 @@
 #!/usr/bin/env node
+// bank_recipes.js — RETIRED 2026-08-16 by PLAN 2y (MA0). DO NOT RUN.
+//
+// Its output, `bank/morph_recipes.json`, is now FROZEN as the day-10 audit
+// record: the six settings the composer actually auditioned, with the verdicts
+// they actually spoke and the dial boundaries measured by ear. Re-running this
+// would regenerate that record from today's params and quietly rewrite history.
+//
+// The living store is `bank/morph_models.json`, seeded FROM the frozen record
+// and edited in conversation thereafter:
+//
+//     node tools/model_bank.js --list
+//     node tools/model_bank.js --validate
+//
+// Kept on disk (not deleted) because it documents how the audit record was
+// built and which verdict belongs to which slot.
+//
+// ---------------------------------------------------------------------------
 // bank_recipes.js — capture the auditioned morph settings into a keeper library.
 //
 // Generated from bank/morph_params.json (so the parameters cannot drift from

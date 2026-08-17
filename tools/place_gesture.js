@@ -30,21 +30,37 @@ const flag = (n, d) => { const i = args.indexOf('--' + n); return i >= 0 && args
 const has = n => args.includes('--' + n);
 
 // ---- --list ---------------------------------------------------------------
-if (has('list') || !args.length) {
-    const rows = fs.readdirSync(BANK).filter(f => f.endsWith('.json')).map(f => {
+// TWO SHELVES (PLAN 2y §5). Flat bank/ holds hand-played and hand-built
+// gestures (the DB3 lineage); bank/actuals/ holds ACTUALs — decided renders of
+// a model, with provenance. Both are ordinary object arrays and both place
+// through this same tool, so both are listed; `kind` tells them apart.
+const ACTUALS_DIR = path.join(BANK, 'actuals');
+function scanShelf(dir, shelf) {
+    if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir).filter(f => f.endsWith('.json')).map(f => {
         try {
-            const g = JSON.parse(fs.readFileSync(path.join(BANK, f), 'utf8'));
+            const g = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
             if (!g.entity || !Array.isArray(g.objects)) return null;
             const env = g.objects.filter(o => o.envShape).length;
             return { entity: g.entity, kind: g.kind || '', n: g.objects.length, span: g.spanSec,
-                     parts: g.parts || new Set(g.objects.map(o => o.layer)).size, env, src: g.source || '' };
+                     parts: g.parts || new Set(g.objects.map(o => o.layer)).size, env,
+                     src: g.source || (g.provenance ? 'model ' + g.provenance.model : ''),
+                     shelf: shelf };
         } catch (e) { return null; }
     }).filter(Boolean);
-    console.log('=== BANKED GESTURES (bank/*.json with an `objects` array) ===\n');
+}
+if (has('list') || !args.length) {
+    const rows = scanShelf(BANK, 'bank').concat(scanShelf(ACTUALS_DIR, 'actuals'));
+    console.log('=== BANKED GESTURES (bank/*.json and bank/actuals/*.json) ===\n');
     console.log('  entity        kind            notes   span   parts   env   from');
-    rows.forEach(r => console.log('  ' + r.entity.padEnd(13) + String(r.kind).padEnd(16) +
-        String(r.n).padStart(5) + String(r.span).padStart(8) + 's' +
-        String(r.parts).padStart(7) + String(r.env).padStart(6) + '   ' + r.src.slice(0, 52)));
+    ['bank', 'actuals'].forEach(shelf => {
+        const r = rows.filter(x => x.shelf === shelf);
+        if (!r.length) return;
+        console.log('  -- ' + (shelf === 'bank' ? 'hand-built / played' : 'ACTUALs (decided renders of a model)'));
+        r.forEach(x => console.log('  ' + x.entity.padEnd(13) + String(x.kind).padEnd(16) +
+            String(x.n).padStart(5) + String(x.span).padStart(8) + 's' +
+            String(x.parts).padStart(7) + String(x.env).padStart(6) + '   ' + String(x.src).slice(0, 52)));
+    });
     if (!rows.length) console.log('  (none)');
     process.exit(0);
 }
