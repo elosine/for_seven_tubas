@@ -17,6 +17,41 @@ because the whole session's history is resent each time. Output averaged only
 Long single sessions are the expensive pattern; the docs exist so they aren't
 necessary.
 
+## The two boundaries
+
+There are two different reasons to clear, and they want different handling.
+Treating them as one thing is what makes clearing feel expensive.
+
+| | **Chunk boundary** | **Context boundary** |
+|---|---|---|
+| What changed | the **subject** — done with this, on to that | **nothing** — same task, the chat just got long |
+| Before | `/session-end` | `/checkpoint` |
+| After | `/session-start` | `/resume` |
+| Costs | full closure + full orientation | a commit + a §2 entry; two short reads |
+
+**Why they are not the same command.** `/session-start` is built for a new day:
+it plays back *last session*, asks *"what would you like to work on today?"* and
+proposes a 2–3 deliverable agenda. After a mid-task clear all three are wrong —
+you were ten minutes ago, you know the task, and you would have to decline the
+agenda to get back to it. Symmetrically, `/session-end` is **closure**: lessons
+learned, promotion to §4, the §6 review, a tag. Paying that just to empty the
+context is ceremony, and ceremony is what this document exists to remove.
+
+**The rule that keeps the pair honest:** if `/resume` cannot tell you the next
+concrete step from the checkpoint alone, the checkpoint was bad — and the
+recovery is `/session-start`, not re-deriving the plan from the code. Re-deriving
+is the expensive failure this whole cycle exists to prevent.
+
+Procedures live in the commands themselves — `.claude/commands/checkpoint.md`
+and `.claude/commands/resume.md`, which are canonical for their steps so there is
+no second copy to drift.
+
+*(Added 2026-08-17, day 15, composer's question: "can we have a preclear and a
+postclear protocol, or is that essentially the same as session end and session
+start?" Answer: the preclear half already existed as prose — piece #3's
+`SESSION_PROTOCOL.md` § Pre-Compaction Checkpoint — but had no command and was
+named for its trigger rather than its use. The postclear half did not exist.)*
+
 ## The routine
 
 **Starting a work chunk (a sandbox, a section, a research question):**
@@ -31,6 +66,11 @@ necessary.
    That is what they are for.
 
 **The full cycle:** `/session-end` → `/clear` → `/session-start` → work.
+
+**And the cheap inner cycle, when the task has NOT changed:**
+work → `/checkpoint` → `/clear` → `/resume` → work. Use it freely — it is the
+one that makes a long task affordable, because it resets the carried context
+without paying for closure and re-orientation.
 
 *Skip `/session-start` for genuine one-offs* (a typo, a quick question) — the
 orientation costs tokens and an exchange, and is worth it for a sandbox build or
