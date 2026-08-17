@@ -741,6 +741,18 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   negative, that CC7 = 0 is not silence. The positive cause is open, most likely
   somewhere in the generated-MIDI → Reaper → UVI chain rather than in the engine.
   See §6 and `docs/NITS.md`.
+  **ADDENDUM (2026-08-17, day 14 — blip RESOLVED, and it dissolves this
+  decision's evidence.** The blip was CC7 **timing**: the opening CC7 = 0 had
+  only ~2–5 ms of real lead, so a sampler that smooths CC7 still had the channel
+  near the stop()-restored 127 when the note spoke. Fix (250 ms cold-attack
+  lead + CC7 restore delayed 2 s past the tail) → composer: *"Blip gone."*
+  Consequence for D36: "an attack at CC7 = 0" is explained **without** velocity
+  governing loudness — the channel was not actually at 0 yet — so the inference
+  "velocity contributes on SI2" is **unsupported again**, not disproven. D12's
+  cluster-sandbox evidence stands separately; **PLAN 2q's one-pitch listening
+  test (velocity 30/70/127) is still the decider.** The emit layer's velocity
+  scaling inside attack windows stays — harmless either way. See
+  `MORPH_FINDINGS.md` "The CC7 timing law".)*
 
 ## §5 Done
 

@@ -1796,3 +1796,57 @@ mid-run over 2.6 s** · `test_morph.js` 354/354, fixtures untouched.
 Whether 250 ms of settle removes the audible blip is the composer's ear's call.
 If it does not, the mechanism story is wrong and the next stop is the
 generated-`.mid`-vs-live-keyboard control in Reaper, unchanged from day 13.
+
+**THE VERDICT (same day, after the composer'\''s listen): "Blip gone."** The CC7
+timing mechanism is CONFIRMED by ear — filed as "The CC7 timing law" in
+MORPH_FINDINGS.md; NITS entry closed; D36 addendum records that the timing story
+explains day-13'\''s "attack at CC7=0" without the velocity premise, so 2q'\''s
+velocity-vs-CC7 listening test is back to undecided.
+
+**SAVED: `ACT-BLOOM-02` — "BEATING BLOOM, 108 s 001"** (the first post-save-fix,
+post-blip-fix actual). 106 notes / 8 voices / 113.9 s total, register 41–56,
+model BLOOM seed 11, dials slower/longer 0.76 + more dramatic 0.55, preset
+fade-in-3s with attack.len dialled to 9 s, carrier {span 48, duration 90,
+release 18}. Supersedes the stale day-13 `ACT-BLOOM-01` (save-fix bug: it kept
+the dials but not duration/release/attack). **-01 cleanup is pending the
+composer'\''s delete** (AI delete permission was blocked); the model file still
+lists both because `model_bank.js --validate` enforces the file↔list symmetry —
+verified INVALID with the ref removed early, reverted, VALID restored.
+
+**THE NOTATION DATA WALK (composer'\''s ask, with their graphic-layer dictation in
+mind — verbatim in COMPOSER_LOG day 14):** ACT-BLOOM-02 + the placed-group path
+audited field by field against the stated notation needs. Everything needed is
+present or derivable; findings:
+
+- **Pitch+crescendo curve per player:** `morphBend` [t, cents] key-relative on
+  `sonifyNote`/`midi`, `level` breakpoints + drawn `nodes` in the score'\''s
+  calibrated 0–10 unit, `engineConstants.bendRangeSt 1.99` — complete.
+- **Playing / breathing / rearticulation:** every join in the render is a real
+  0.64–0.86 s gap (engine-scheduled breath room, BREATH_GAP_MIN 0.75 est.);
+  note `flags` distinguish **BREATH** (segment split forced by the register- and
+  dynamic-aware BREATH_TABLE — "split, never truncate silently") from unflagged
+  joins (carrier segmentation, segLen 8 ±30%). **SEAM ≠ D26'\''s re-key seam: it
+  is a soft cross-voice onset-clash flag** (two voices attacking < 0.08 s
+  apart) — rehearsal info, not part notation. Measured: gaps are statistically
+  identical across flag kinds (mean 0.744/0.751/0.746 s) — the flags are
+  semantic, not timing.
+- **Beating layer for the full score (the conductor'\''s graphic):** fully
+  derivable — provenance names the pair structure (source pairs on unison keys,
+  target {cents 25, direction alternate}), and beat-rate-vs-time per pair =
+  |Δf| from midi·100 + bend(t) (D28, register law included). Acceleration =
+  its derivative. Which-players-beat-against-which = layer mapping, present.
+- **Provenance chain:** the ACTUAL carries model/seed/recipeSettings/
+  resolvedParams/shapePreset/engineConstants/captured, and `placements[]`
+  self-logs on insert **via the ACTUALs tab'\''s "place"** (`/api/actualplacement`).
+  The scratch-panel Insert button does NOT log or carry provenance
+  (`properties: {}`) — recommendation: **place morphs into the piece from the
+  ACTUALs tab**, so score group ↔ ACTUAL ↔ params stays a closed chain.
+- **Gap, non-blocking:** note `flags` (BREATH/SEAM) do not survive into score
+  objects — notation should read the ACTUAL + placement offset as the source of
+  truth, not the score objects alone (they are the drawn/played view).
+- **Convention to choose at notation time, not a data gap:** the 0–10 level →
+  dynamic-mark mapping for the "dynamic indicators along the way".
+- **D3 RESURFACED (standing duty):** these renders are CURVE-LITERAL; D3 says
+  the performer transform is applied/tested at notation time — "we'\''ll see if
+  the performance score curves need to be changed to produce the same sound
+  effect." That evaluation belongs to the notation pass now approaching.

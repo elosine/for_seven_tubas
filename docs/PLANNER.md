@@ -228,3 +228,17 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   **PENN STATE = 15 MINUTES MAX**, so one 5-minute morph is a third of the piece.
   **Open:** the fade-in/release blip is NOT diagnosed (NITS) and blocks
   auditioning the attack; the composer will fix it in Reaper for the demo.
+
+- **2026-08-17 (day 14) — BLIP GONE (CC7 timing, morph panel fixed); ACT-BLOOM-02
+  saved ("BEATING BLOOM, 108 s 001"); NOTATION DATA WALK CLEAN.** The saved
+  ACTUAL + placement chain hold everything the part scores and the conductor'\''s
+  graphic layer need (pitch+level curves per player, BREATH/SEAM flags, pair
+  structure for the beating graphic, full provenance) — findings in RUNNING_LOG
+  day 14, composer'\''s graphic-layer dictation verbatim in COMPOSER_LOG. **Place
+  morphs from the ACTUALs tab** (it logs placements; scratch Insert doesn'\''t).
+  **New idea (composer, to evaluate at full-score time): a GRAPHIC LAYER in the
+  full score** describing beating increase/acceleration, layers of beating, and
+  which players beat against which — for the conductor to rehearse with. Part
+  scores: pitch/crescendo curve + playing/breathing/rearticulation graphics +
+  spot dynamics. **Open before notation: D3'\''s performer-transform decision, and
+  the 0–10 → dynamic-mark convention.** Next: insert the morph into the score.

@@ -234,7 +234,12 @@ lines, and the working version is in `texture_panel.js`'s `refresh()` — copy i
 across, including the `pinned = null` reset (a new slate invalidates the old
 A/B reference).
 
-## The fade-in / release BLIP — not diagnosed *(2026-08-17, day 13)*
+## The fade-in / release BLIP — RESOLVED day 14 *(opened day 13)*
+
+**RESOLVED 2026-08-17 (day 14): composer verdict "Blip gone."** The day-14
+update at the end of this entry was the real mechanism — CC7 timing, both ends.
+Kept below as the record of how it was found; details in `MORPH_FINDINGS.md`
+("The CC7 timing law") and RUNNING_LOG day 14.
 
 **What is observed.** A short attack at the start of a shaped fade-in, and at the
 release. The composer: *"still an attack but a little quieter"* after three fixes,

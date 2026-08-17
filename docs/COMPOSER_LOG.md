@@ -886,3 +886,35 @@ notation."
 *(→ docs/PAPER_NOTES.md opened: the thesis, the six-pass method, the AI-treatment
 stance, and the evidence list. The deferred-notation pass is PLAN §7's three-score
 architecture; the UI-vs-prompting principle is filed in PLANNER raw notes.)*
+
+---
+
+## 2026-08-17 (day 14) — the blip verdict, and the notation dictation
+
+**On the CC7-timing fix (morph panel, fade-in + release):** *"Blip gone. Thank
+you."* — the first clean fade-in/release the panel has produced. Saved the
+render as **ACT-BLOOM-02, "BEATING BLOOM, 108 s 001"**.
+
+**The notation dictation (composer: "just document it, don't evaluate"):**
+
+*"One thing I'm considering is having a — for the full score, having a graphic
+layer. And then for these sections, having the graphic somehow describe the
+beating increase and the swells, the internal motion. So the scenario is that
+if a conductor is trying to rehearse this piece, they can help guide the
+individual players in the speed of their glissando, or they can say, oh,
+converge on that C sharp a little quicker or make the gap a little smaller,
+that sort of thing, or listen for this beating. But the graphic score will
+reveal things the notation, the note parts score won't — in terms of, like,
+when the beating is accelerating or how many layers of beating there are,
+etcetera — and also what the beating is between: which players, which parts,
+that sort of thing. And then just in general, probably for the other parts so
+far, nothing much more, but the full score should have some of these details in
+it. So I need to evaluate when making the full score how to include as much of
+this information in it for rehearsal and shaping the piece for the conductor."*
+
+**On the part scores:** *"I will be using probably a curve to describe, I
+guess, pitch and crescendo — or correlated. And then I'll probably have just
+some graphic or different colors or something to describe when the players are
+playing and when they breathe or when they rearticulate. And then maybe some,
+for example, dynamic indicators along the way to give them a sense of what
+dynamic they should be at."*
