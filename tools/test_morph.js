@@ -870,6 +870,170 @@ eq('with no clusters the fraction is exact', Object.keys(dvSingle).length, 2);
 });
 
 // ===========================================================================
+section('G3 edge articulation + noise layer (PLAN 2z §5.3, §5.4)');
+// ===========================================================================
+const edgeBase = {
+    model: 'M6', seed: 4, source: { kind: 'pitches', midi: [41, 46, 51, 56] },
+    carrier: { span: 30, segLen: 6, segVar: 0, striation: 'staggered' },
+    dyn: { base: 0.6, shape: 'flat' },
+};
+const techOf = (r, pred) => [...new Set(r.notes.filter(pred).map(n => n.technique))];
+
+// --- window technique: the colour of the first / last sustain segment
+const edgeAtk = M.render(Object.assign({}, edgeBase, {
+    shape: { attack: { len: 5, entry: 'together', technique: 'flz' } },
+}));
+eq('an attack technique colours the segments inside the attack window',
+    JSON.stringify(techOf(edgeAtk, n => n.tStart < 5)), '["flz"]');
+eq('and the body returns to the base technique after it',
+    JSON.stringify(techOf(edgeAtk, n => n.tStart > 6)), '["ord"]');
+// the boundary is a real segment break — a player cannot change technique
+// mid-note, so the window edge must land between notes, never inside one
+ok('no note straddles the attack window boundary',
+    edgeAtk.notes.every(n => n.tStart >= 5 - 1e-6 || n.tStart + n.dur <= 5 + 1e-6),
+    JSON.stringify(edgeAtk.notes.filter(n => n.tStart < 5 && n.tStart + n.dur > 5)
+        .map(n => [n.tStart, n.dur])));
+
+const edgeRel = M.render(Object.assign({}, edgeBase, {
+    shape: { release: { len: 8, exit: 'together', technique: 'bisb', to: 0.2 } },
+}));
+eq('a release technique colours the segments inside the release window',
+    JSON.stringify(techOf(edgeRel, n => n.tStart >= 22 - 1e-6)), '["bisb"]');
+ok('and the body before it is untouched',
+    techOf(edgeRel, n => n.tStart < 22).join() === 'ord');
+
+// the body-rejected techniques are explicitly welcome at the edges
+['play_sing_ks', 'flz', 'bisb'].forEach(t => {
+    const r = M.render(Object.assign({}, edgeBase, { shape: { attack: { len: 4, technique: t } } }));
+    ok('"' + t + '" is available as an edge colour', techOf(r, n => n.tStart < 4).indexOf(t) >= 0,
+        JSON.stringify(techOf(r, n => n.tStart < 4)));
+});
+// Singing into the tuba needs 1.0 s of prep against a 0.75 s breath gap — the
+// one edge technique that can legitimately flag SWITCH. Note the DIRECTION: the
+// check is on switching INTO a technique that needs preparing, so it fires on a
+// release edge (the body hands over to singing mid-gesture) and cannot fire on
+// an attack edge, where the technique is the first thing the player does and
+// there is nothing to prepare from.
+const singRel = M.render(Object.assign({}, edgeBase, {
+    shape: { release: { len: 8, exit: 'together', technique: 'play_sing_ks', to: 0.2 } } }));
+ok('a play_sing_ks release edge flags SWITCH against the breath gap, as predicted',
+    (singRel.summary.flags.SWITCH || 0) > 0, JSON.stringify(singRel.summary.flags));
+const singAtk = M.render(Object.assign({}, edgeBase, {
+    shape: { attack: { len: 4, technique: 'play_sing_ks' } } }));
+eq('while a play_sing_ks attack edge has nothing to prepare from, so does not',
+    singAtk.summary.flags.SWITCH || 0, 0);
+
+// M4 moves technique too. The window wins, and it says so rather than quietly
+// overwriting the model's path.
+const overM4 = M.render(Object.assign({}, edgeBase, {
+    model: 'M4', target: { path: ['ord', 'bisb', 'flz'] },
+    shape: { attack: { len: 5, technique: 'cuivre' } },
+}));
+ok('an edge technique overriding M4 is reported, not silent',
+    overM4.warnings.some(w => /SHAPE_OVER_M4/.test(w)), JSON.stringify(overM4.warnings));
+ok("and M4's path resumes after the window",
+    techOf(overM4, n => n.tStart > 6).length >= 1, JSON.stringify(techOf(overM4, n => n.tStart > 6)));
+
+// --- transient: the prepended one-shot, HIT-THEN-TONE
+const trans = M.render(Object.assign({}, edgeBase, {
+    shape: { attack: { len: 3, entry: 'together', transient: { technique: 'staccato' } } },
+}), { sampleLengths: SL });
+const firstPer = {};
+trans.notes.forEach(n => {
+    if (!firstPer[n.voice] || n.tStart < firstPer[n.voice].tStart) firstPer[n.voice] = n;
+});
+const firstNotes = Object.keys(firstPer).map(k => firstPer[k]);
+ok('every voice gets a transient one-shot first',
+    firstNotes.length === 4 && firstNotes.every(n => n.technique === 'staccato'),
+    JSON.stringify(firstNotes.map(n => n.technique)));
+ok('the transients all land at t = 0 under entry together',
+    firstNotes.every(n => n.tStart === 0), JSON.stringify(firstNotes.map(n => n.tStart)));
+ok('and take their TRUE sample length, not the attack length (D9)',
+    firstNotes.every(n => n.dur > 0.3 && n.dur < 0.6), JSON.stringify(firstNotes.map(n => n.dur)));
+// the sustain follows AFTER the sample plus a tongue reset — one player cannot
+// sound two notes at once, so hit-AND-tone is impossible here by physics
+const v0 = trans.notes.filter(n => n.voice === 0).sort((a, b) => a.tStart - b.tStart);
+ok('the sustain re-attacks after the sample has ended, never during it',
+    v0[1].tStart >= v0[0].tStart + v0[0].dur + M.RATE.tongueReset - 1e-6,
+    'hit ends ' + (v0[0].tStart + v0[0].dur) + ', tone starts ' + v0[1].tStart);
+ok('so hit-then-tone happens at about the half-second scale',
+    v0[1].tStart > 0.3 && v0[1].tStart < 0.7, String(v0[1].tStart));
+eq('the transient spacing clears OVERLAP entirely', trans.summary.hard, 0);
+eq('and raises no RATE flag either', trans.summary.soft.RATE || 0, 0);
+
+// --- cuivre range reality: 60-67 only. Ask below it and the engine degrades to
+//     fortepiano — the brassy accent that IS available down there — and flags it.
+const feLow = M.feasibleTechnique('cuivre', 45);
+eq('cuivre asked at MIDI 45 resolves to fortepiano', feLow.technique, 'fortepiano');
+ok('and is flagged RANGE', feLow.flagged === true);
+const cuivreLow = M.render(Object.assign({}, edgeBase, {
+    source: { kind: 'pitches', midi: [41, 45, 48] },
+    shape: { attack: { len: 3, transient: { technique: 'cuivre' } } },
+}), { sampleLengths: SL });
+ok('a low cuivre transient renders as fortepiano rather than being refused',
+    cuivreLow.notes.some(n => n.technique === 'fortepiano'),
+    JSON.stringify([...new Set(cuivreLow.notes.map(n => n.technique))]));
+ok('and carries the RANGE flag', (cuivreLow.summary.flags.RANGE || 0) > 0);
+
+// --- noise layer: spare players, simultaneous stack
+const noiseR = M.render(Object.assign({}, edgeBase, {
+    shape: { attack: { len: 2, entry: 'together',
+                       noise: { technique: 'cuivre', voices: 2, midi: [63, 65] } } },
+}), { sampleLengths: SL, maxVoices: 10 });
+const noiseNotes = noiseR.notes.filter(n => n.voice >= 4);
+eq('the noise layer renders its voices', noiseNotes.length, 2);
+eq('and reports them in meta', noiseR.meta.shape.noiseVoices, 2);
+ok('noise notes sound SIMULTANEOUSLY with the entering morph voices',
+    noiseNotes.every(n => n.tStart === 0), JSON.stringify(noiseNotes.map(n => n.tStart)));
+eq('at the pitches asked for', JSON.stringify(noiseNotes.map(n => n.midi).sort()), '[63,65]');
+eq('in the technique asked for', JSON.stringify([...new Set(noiseNotes.map(n => n.technique))]), '["cuivre"]');
+// toScoreObjects maps 1:1 with result.notes IN ORDER — and the notes are sorted
+// by time, so the noise notes (t = 0) sort to the FRONT, not the back. Find
+// them by voice index, not by position.
+const noiseObjs = M.toScoreObjects(noiseR, 0, {});
+const noiseLayers = noiseR.notes.map((n, i) => (n.voice >= 4 ? noiseObjs[i].layer : null))
+    .filter(l => l != null);
+ok('the noise layer lands on SPARE lanes, never a morph lane',
+    noiseLayers.length === 2 && noiseLayers.every(l => l >= 4 && l < 10),
+    JSON.stringify(noiseLayers));
+eq('morph voice count is unchanged by the noise layer', noiseR.meta.voices, 4);
+eq('and the designed simultaneity raises no SEAM flags inside the attack window',
+    noiseR.notes.filter(n => n.flags.indexOf('SEAM') >= 0 && n.tStart <= 2).length, 0);
+
+// no spare lanes: renders without it, names the shortfall, steals nothing
+const noRoom = M.render({
+    model: 'M6', seed: 4, lanes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    source: { kind: 'pitches', midi: [34, 38, 41, 45, 48, 51, 53, 56, 58, 62] },
+    carrier: { span: 20, segLen: 6, segVar: 0, striation: 'staggered' },
+    shape: { attack: { len: 2, noise: { technique: 'cuivre', voices: 2, midi: [63, 65] } } },
+}, { sampleLengths: SL, maxVoices: 10 });
+eq('with all ten lanes taken the noise layer renders nothing', noRoom.meta.shape.noiseVoices, 0);
+ok('and names the shortfall out loud',
+    noRoom.warnings.some(w => /NOISE: wanted 2 voices, 0 spare/.test(w)),
+    JSON.stringify(noRoom.warnings));
+eq('the morph itself is untouched', noRoom.meta.voices, 10);
+
+// a fixed one-shot's sample length wins over any `len` asked for (D9), said out loud
+const noiseLen = M.render(Object.assign({}, edgeBase, {
+    shape: { attack: { len: 2, noise: { technique: 'cuivre', voices: 1, midi: [63], len: 5 } } },
+}), { sampleLengths: SL });
+ok('a fixed noise technique ignores "len" and says so',
+    noiseLen.warnings.some(w => /fixed one-shot/.test(w)), JSON.stringify(noiseLen.warnings));
+ok('and takes the sample length instead',
+    noiseLen.notes.filter(n => n.voice >= 4).every(n => n.dur < 2), JSON.stringify(
+        noiseLen.notes.filter(n => n.voice >= 4).map(n => n.dur)));
+// ...and when it outlasts the window it is FLAGGED, never shortened
+ok('a one-shot that rings past its window is flagged EDGE_RING',
+    (M.render(Object.assign({}, edgeBase, {
+        shape: { attack: { len: 0.3, noise: { technique: 'cuivre', voices: 1, midi: [63] } } },
+    }), { sampleLengths: SL }).summary.flags.EDGE_RING || 0) > 0);
+
+// everything above must leave the playability invariants intact
+[edgeAtk, edgeRel, trans, noiseR, cuivreLow].forEach((r, i) => {
+    eq('G3 render ' + i + ' double-books no player', r.summary.hard, 0);
+});
+
+// ===========================================================================
 console.log('\n' + '='.repeat(58));
 console.log('  ' + pass + ' passed, ' + fail + ' failed');
 if (fails.length) {

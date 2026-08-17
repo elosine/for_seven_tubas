@@ -938,11 +938,15 @@ function render(params, opts) {
     const shapeSched = new Array(nVoices).fill(null);
     const SH = P.shape;
     const shapeInfo = { entryTogether: false, attackEnd: 0, dropped: [], noise: 0 };
+    const SH_A = SH ? SH.attack : null;
+    const SH_R = SH ? SH.release : null;
+    const aLen = SH_A ? SH_A.len : 0;
+    const rLen = SH_R ? SH_R.len : 0;
+    const rStart = span - rLen;
+    const transientPlan = new Array(nVoices).fill(null);
+    let sawM4Override = false;
     if (SH) {
-        const A = SH.attack, R = SH.release;
-        const aLen = A ? A.len : 0;
-        const rLen = R ? R.len : 0;
-        const rStart = span - rLen;
+        const A = SH_A, R = SH_R;
         const seededOrder = staggerOrder(nVoices, P.seed + 101);
         const pattern = STRIATIONS.indexOf(P.carrier.striation) >= 0 ? P.carrier.striation : 'staggered';
         const denom = Math.max(1, nVoices - 1);
@@ -1004,6 +1008,31 @@ function render(params, opts) {
         if (bounds.length) {
             for (let vi = 0; vi < nVoices; vi++) shapeSched[vi].boundaries = bounds;
         }
+
+        // TRANSIENT — a prepended one-shot, the doubled/stacked attack.
+        //
+        // THE PHYSICS, so nobody fights it (D9): a one-shot ends itself, and one
+        // player cannot sound two notes at once. So the sustain re-attack lands
+        // at transient start + the SAMPLE's true length + a tongue reset, and a
+        // staccato transient gives HIT-THEN-TONE at about half a second — ten
+        // hits at t=0 with the sustains blooming in behind them, which is what a
+        // real ensemble attack sounds like. It can never give hit-AND-tone from
+        // the same player; simultaneous stacking is the noise layer's job (§5.4),
+        // which uses different players.
+        if (A && A.transient) {
+            for (let vi = 0; vi < nVoices; vi++) {
+                const tMidi = midiOf(startCents[vi]);
+                const fe = feasibleTechnique(A.transient.technique, tMidi);
+                const len = fixedLength(fe.technique, tMidi, o.sampleLengths) ||
+                            FIXED_LEN_DEFAULT[fe.technique] || 0.45;
+                const at = shapeSched[vi].startT;
+                transientPlan[vi] = {
+                    tStart: round3(at), dur: round3(len), midi: tMidi,
+                    technique: fe.technique, flagged: fe.flagged,
+                };
+                shapeSched[vi].startT = round3(at + len + RATE.tongueReset);
+            }
+        }
     }
 
     // state of one voice at time t — the MORPH half, independent of the carrier
@@ -1020,9 +1049,23 @@ function render(params, opts) {
             level: clamp(dynLevel(P.dyn, vi, nVoices, p) * g, 0.4, 10),
         };
         const moved = modelFn(ctx, vi, p) || {};
+        // EDGE TECHNIQUE. The override lives HERE, in stateAt, so the breath
+        // callback, the fixed-length lookup, the SWITCH check and the emitted
+        // note all agree by construction — there is no second place for them to
+        // disagree. The full technique table is available at the edges,
+        // including the ones dismissed for the body (singing into the tuba,
+        // flutter, bisb): the composer wants them as noise sources here.
+        let technique = moved.technique || base.technique;
+        if (SH_A && SH_A.technique && aLen > 0 && t < aLen) {
+            if (moved.technique) sawM4Override = true;
+            technique = SH_A.technique;
+        } else if (SH_R && SH_R.technique && rLen > 0 && t >= rStart) {
+            if (moved.technique) sawM4Override = true;
+            technique = SH_R.technique;
+        }
         return {
             cents: moved.cents != null ? moved.cents : base.cents,
-            technique: moved.technique || base.technique,
+            technique: technique,
             level: moved.level != null ? moved.level : base.level,
             p: p,
         };
@@ -1188,13 +1231,98 @@ function render(params, opts) {
         });
     }
 
+    // ---- the attack's extra layers (§5.3, §5.4) ---------------------------
+    // A flat-level, no-bend one-shot. Both layers are ORDINARY render notes, so
+    // they flow through toScoreObjects, insert, audit and playback like
+    // everything else — no special case anywhere downstream.
+    function edgeNote(voice, tStart, dur, midi, technique, level, flags) {
+        return {
+            voice: voice, tStart: round3(tStart), dur: round3(dur),
+            cents: midi * 100, midi: midi, technique: technique,
+            durClass: (TECHNIQUES[technique] || TECHNIQUES.ord).durClass,
+            level: [[0, Math.round(level * 10) / 10], [round3(dur), Math.round(level * 10) / 10]],
+            bend: [[0, 0], [round3(dur), 0]],
+            flags: flags,
+        };
+    }
+
+    const noiseLanes = [];
+    if (SH) {
+        transientPlan.forEach((tp, vi) => {
+            if (!tp) return;
+            const flags = [];
+            if (tp.flagged) flags.push('RANGE');
+            // A one-shot that rings past the window it was written for: the
+            // sample decides its own length (D9), so this is reported, never
+            // shortened.
+            if (tp.tStart + tp.dur > aLen + 1e-6) flags.push('EDGE_RING');
+            notes.push(edgeNote(vi, tp.tStart, tp.dur, tp.midi, tp.technique,
+                stateAt(vi, tp.tStart).level, flags));
+        });
+
+        // NOISE LAYER — spare players, SIMULTANEOUS with the entering morph
+        // voices. This is the true "add some cuivre whether it's in the chord or
+        // not": it is the only way to stack a hit AND a tone at the same instant,
+        // because it uses different players.
+        const NZ = SH_A && SH_A.noise;
+        if (NZ) {
+            const morphLanes = P.lanes || Array.from({ length: nVoices }, (_, i) => i);
+            const maxLanes = o.maxVoices || 10;
+            const spare = [];
+            for (let l = 0; l < maxLanes; l++) if (morphLanes.indexOf(l) < 0) spare.push(l);
+            const n = Math.min(NZ.voices, spare.length);
+            // NEVER STOLEN FROM THE MORPH, never silent about it (2r's rule).
+            if (n < NZ.voices) {
+                warnings.push('NOISE: wanted ' + NZ.voices + ' voices, ' + spare.length +
+                              ' spare lane(s) — rendered ' + n);
+            }
+            const pitches = Array.isArray(NZ.midi) ? NZ.midi
+                : NZ.midi === 'chord' ? startMidi
+                : startMidi.slice().reverse();               // chord-top
+            const lvl = clamp(dynLevel(P.dyn, 0, nVoices, 0) * shapeGain(SH, 0, span, null), 0.4, 10);
+            let warnedLen = false;
+            for (let k = 0; k < n; k++) {
+                const midi = Math.round(pitches[k % pitches.length]);
+                const fe = feasibleTechnique(NZ.technique, midi);
+                const cls = (TECHNIQUES[fe.technique] || TECHNIQUES.ord).durClass;
+                let dur;
+                if (cls === 'fixed') {
+                    dur = fixedLength(fe.technique, midi, o.sampleLengths) ||
+                          FIXED_LEN_DEFAULT[fe.technique] || 0.45;
+                    if (NZ.len != null && !warnedLen) {
+                        warnedLen = true;
+                        warnings.push('NOISE: "' + fe.technique + '" is a fixed one-shot (D9) — ' +
+                                      'its sample length wins and "len" is ignored');
+                    }
+                } else {
+                    dur = NZ.len != null ? NZ.len : Math.max(0.5, aLen);
+                }
+                const flags = [];
+                if (fe.flagged) flags.push('RANGE');
+                if (dur > Math.max(aLen, 0.001) + 1e-6) flags.push('EDGE_RING');
+                noiseLanes.push(spare[k]);
+                notes.push(edgeNote(nVoices + k, 0, Math.min(dur, span), midi,
+                    fe.technique, lvl, flags));
+            }
+            shapeInfo.noise = n;
+        }
+        if (sawM4Override) {
+            warnings.push('SHAPE_OVER_M4: an edge technique overrides the model inside its ' +
+                          "window — the window wins, and the model's path resumes after it");
+        }
+    }
+
     notes.sort((a, b) => a.tStart - b.tStart || a.voice - b.voice);
 
     // Onsets that a designed attack is SUPPOSED to align (see the SEAM rule).
     const seamExempt = new Set();
-    if (SH && shapeInfo.entryTogether) {
-        const aEnd = Math.max(shapeInfo.attackEnd, CROSS_ONSET_MIN);
-        notes.forEach(n => { if (n.tStart <= aEnd + 1e-6) seamExempt.add(n); });
+    if (SH) {
+        // the noise layer is aligned WITH the attack on purpose, always
+        notes.forEach(n => { if (n.voice >= nVoices) seamExempt.add(n); });
+        if (shapeInfo.entryTogether) {
+            const aEnd = Math.max(shapeInfo.attackEnd, CROSS_ONSET_MIN);
+            notes.forEach(n => { if (n.tStart <= aEnd + 1e-6) seamExempt.add(n); });
+        }
     }
 
     // ---- checks -----------------------------------------------------------
@@ -1247,7 +1375,9 @@ function render(params, opts) {
 
     const meta = {
         model: P.model, seed: P.seed, span: span, voices: nVoices,
-        lanes: P.lanes || Array.from({ length: nVoices }, (_, i) => i),
+        // The noise layer's lanes ride on the end, so toScoreObjects maps its
+        // notes onto real players with no special case.
+        lanes: (P.lanes || Array.from({ length: nVoices }, (_, i) => i)).concat(noiseLanes),
         droppedFrom: rawMidi.length,
         label: P.label, striation: P.carrier.striation,
         bendRangeSt: MEASURED.BEND_RANGE_ST, prearmS: MEASURED.BEND_PREARM_S,
