@@ -30,6 +30,19 @@ if (!M || !E) { console.warn('[morph_panel] needs morph.js + morph_emit.js'); re
 const PANEL = {
     el: null, rev: -1, params: null, active: 'A', result: null, poll: null,
 
+    // PLAN 2y. Three sources of a render, one render path:
+    //   variants — the scratch slate the AI rewrites (morph_params.json)
+    //   models   — the store: a point + the directions worth travelling from it
+    //   actuals  — decided renders, already stored; browsed, heard and placed
+    // `mode` only decides where `current()` gets its params; everything
+    // downstream (generate / play / insert) is the same code it always was.
+    mode: 'variants',
+    models: null, presets: null, actuals: [], modelsRev: -1,
+    activeModel: null, activePreset: '',
+    recipeSettings: {},          // { [modelId]: { [recipeName]: x } } — absent = OFF
+    seedOverride: {},            // { [modelId]: n }
+    activeActual: null,
+
     // ---------------------------------------------------------------- boot
     init() {
         const host = document.getElementById('blastsBtn');
@@ -72,9 +85,10 @@ const PANEL = {
             '<button id="morphPlay" style="overflow:hidden;white-space:nowrap">Play</button>',
             '<button id="morphStop">Stop</button>',
             '</div>',
-            '<div style="margin-top:6px">',
-            '<button id="morphIns" style="width:100%"',
-            ' title="insert at the playhead as a group">Insert @ cursor</button>',
+            '<div style="margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px">',
+            '<button id="morphIns" title="insert at the playhead as a group">Insert @ cursor</button>',
+            '<button id="morphSaveAct" title="freeze this render as an ACTUAL with its provenance">',
+            'Save as ACTUAL</button>',
             '</div>',
             '<div style="color:#666;margin-top:7px">SPACE play/stop &middot; &larr;/&rarr; variant',
             ' &mdash; only while this panel has focus</div>',
@@ -87,6 +101,7 @@ const PANEL = {
         d.querySelector('#morphPlay').addEventListener('click', () => this.play());
         d.querySelector('#morphStop').addEventListener('click', () => E.panic());
         d.querySelector('#morphIns').addEventListener('click', () => this.insert());
+        d.querySelector('#morphSaveAct').addEventListener('click', () => this.saveActual());
         this.makeDraggable(d, d.querySelector('#morphDrag'));
 
         // Keys are scoped to the panel: composer.html has global handlers and a
@@ -145,6 +160,14 @@ const PANEL = {
         }
         if (typeof M.render !== 'function') bad.push('morph.js engine missing');
         if (typeof E.play !== 'function') bad.push('morph_emit.js missing');
+        if (typeof M.resolveParams !== 'function') bad.push('morph.js recipe engine missing (2y MA1)');
+        // 2y: the store's seams, checked at OPEN time and reported by name —
+        // the same reason preflight exists at all (a wrong assumption about the
+        // host must fail here, not as silence three layers down).
+        fetch('/api/actuals', { cache: 'no-store' })
+            .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); })
+            .catch(e => this.setStatus('/api/actuals unreachable — ACTUALs disabled (' +
+                e.message + ')', true));
         this._preflight = bad;
         if (bad.length) console.error('[morph] PREFLIGHT FAILED:', bad);
         return bad;
@@ -169,22 +192,67 @@ const PANEL = {
         this.poll = setInterval(() => { if (this.el.style.display !== 'none') this.refresh(false); }, 1000);
     },
     async refresh(force) {
+        let changed = force;
         try {
             const r = await fetch('/api/morphparams', { cache: 'no-store' });
             const j = await r.json();
-            if (!force && j.rev === this.rev) return;
-            this.rev = j.rev;
-            this.params = j;
-            const keys = this.variantKeys();
-            if (keys.indexOf(this.active) < 0) this.active = j.active && keys.indexOf(j.active) >= 0 ? j.active : keys[0];
-            this.generate();
-        } catch (e) { this.setStatus('params file unavailable — ' + e.message, true); }
+            if (force || j.rev !== this.rev) {
+                this.rev = j.rev;
+                this.params = j;
+                const keys = this.variantKeys();
+                if (keys.indexOf(this.active) < 0) {
+                    this.active = j.active && keys.indexOf(j.active) >= 0 ? j.active : keys[0];
+                }
+                changed = true;
+            }
+        } catch (e) { this.setStatus('params file unavailable — ' + e.message, true); return; }
+
+        // The model store polls on `rev` exactly like the params file — same
+        // pattern, no websockets, survives a reload (2y §10.6).
+        try {
+            const m = await fetch('/api/morphmodels', { cache: 'no-store' }).then(x => x.json());
+            if (force || m.rev !== this.modelsRev) {
+                this.modelsRev = m.rev;
+                this.models = m;
+                if (!this.activeModel || !m.models[this.activeModel]) {
+                    this.activeModel = Object.keys(m.models)[0] || null;
+                }
+                changed = true;
+            }
+        } catch (e) { /* store optional — the variant path must still work */ }
+        try { this.presets = await fetch('/api/shapepresets', { cache: 'no-store' }).then(x => x.json()); }
+        catch (e) { this.presets = null; }
+        try {
+            const a = await fetch('/api/actuals', { cache: 'no-store' }).then(x => x.json());
+            if (a.success) this.actuals = a.actuals;
+        } catch (e) { /* none yet */ }
+
+        if (changed) this.generate();
     },
     variantKeys() {
         const v = (this.params && this.params.variants) || {};
         return Object.keys(v).filter(k => v[k]);
     },
+    modelKeys() { return this.models ? Object.keys(this.models.models) : []; },
+    model() { return (this.models && this.models.models[this.activeModel]) || null; },
+    settingsFor(id) { return (this.recipeSettings[id] = this.recipeSettings[id] || {}); },
+
+    // The params for whatever is currently selected. This is the ONLY place the
+    // three modes differ; every downstream step is shared.
     current() {
+        if (this.mode === 'models') {
+            const m = this.model();
+            if (!m) return null;
+            const res = M.resolveParams(m, this.settingsFor(m.id));
+            this._resolveWarnings = res.warnings;
+            const p = res.params;
+            if (this.seedOverride[m.id] != null) p.seed = this.seedOverride[m.id];
+            const pre = this.presets && this.presets.presets && this.presets.presets[this.activePreset];
+            if (pre) p.shape = JSON.parse(JSON.stringify(pre.shape));
+            p.label = m.name + (Object.keys(this.settingsFor(m.id)).length ? ' ·dialled' : '');
+            return p;
+        }
+        this._resolveWarnings = [];
         const v = (this.params && this.params.variants) || {};
         return v[this.active] || null;
     },
@@ -202,7 +270,14 @@ const PANEL = {
         //
         // So: nudges persist while you stay put; changing variant, or the AI
         // rewriting the params file, resets to what the file actually says.
-        const stamp = this.active + '@' + this.rev;
+        // The stamp must name EVERYTHING that changes what current() returns —
+        // mode, selection, either store's rev, the recipe dials, the seed and
+        // the shape preset. Miss one and the fields go stale against the params
+        // again, which is the bug this stamp exists to prevent.
+        const stamp = JSON.stringify([this.mode, this.active, this.rev, this.activeModel,
+            this.modelsRev, this.activePreset,
+            this.mode === 'models' ? this.settingsFor(this.activeModel) : 0,
+            this.mode === 'models' ? this.seedOverride[this.activeModel] : 0]);
         const merged = (this._fieldStamp === stamp)
             ? this.readFields(p)
             : JSON.parse(JSON.stringify(p));
@@ -229,18 +304,89 @@ const PANEL = {
 
         const tabs = this.el.querySelector('#morphTabs');
         tabs.innerHTML = '';
-        this.variantKeys().forEach(k => {
+        // MODE SWITCH (2y §6). Models are the store; variants stay for scratch
+        // work — drafts live there until they are blessed into models.
+        const modeRow = document.createElement('div');
+        modeRow.style.cssText = 'margin-bottom:5px';
+        [['models', 'MODELS'], ['variants', 'scratch'], ['actuals', 'ACTUALs']].forEach(([m, lab]) => {
             const b = document.createElement('button');
-            b.textContent = k;
-            b.style.cssText = 'margin-right:4px;' + (k === this.active
+            b.textContent = lab + (m === 'actuals' && this.actuals.length ? ' (' + this.actuals.length + ')' : '');
+            b.style.cssText = 'margin-right:4px;font-size:10px;' + (m === this.mode
                 ? 'background:#6a5acd;color:#fff;border-color:#8f7fe0' : '');
-            b.addEventListener('click', () => { this.active = k; this.generate(); });
-            tabs.appendChild(b);
+            b.addEventListener('click', () => { this.mode = m; this.generate(); });
+            modeRow.appendChild(b);
         });
+        tabs.appendChild(modeRow);
+
+        const chips = document.createElement('div');
+        if (this.mode === 'models') {
+            this.modelKeys().forEach(k => {
+                const mm = this.models.models[k];
+                const b = document.createElement('button');
+                b.textContent = k;
+                b.title = mm.name + ' — ' + (mm.character || '');
+                b.style.cssText = 'margin:0 4px 3px 0;font-size:10px;' +
+                    (k === this.activeModel ? 'background:#6a5acd;color:#fff;border-color:#8f7fe0' : '') +
+                    (mm.status === 'draft' ? ';opacity:0.65' : '');
+                b.addEventListener('click', () => { this.activeModel = k; this.generate(); });
+                chips.appendChild(b);
+            });
+        } else if (this.mode === 'variants') {
+            this.variantKeys().forEach(k => {
+                const b = document.createElement('button');
+                b.textContent = k;
+                b.style.cssText = 'margin-right:4px;' + (k === this.active
+                    ? 'background:#6a5acd;color:#fff;border-color:#8f7fe0' : '');
+                b.addEventListener('click', () => { this.active = k; this.generate(); });
+                chips.appendChild(b);
+            });
+        }
+        tabs.appendChild(chips);
 
         // read-and-nudge number fields, no sliders and no curve editors (§9)
         const f = this.el.querySelector('#morphFields');
         f.innerHTML = '';
+
+        // ------------------------------------------------- ACTUALs browser
+        // The full card, always: id · label · model · span · parts · register ·
+        // tags · placement count. Labeling debt ("what was ACT-BLOOM-03 again?")
+        // is what this prevents (2y §9 failure 6).
+        if (this.mode === 'actuals') {
+            const fl0 = this.el.querySelector('#morphFlags');
+            if (fl0) fl0.innerHTML = '';
+            if (!this.actuals.length) {
+                f.innerHTML = '<div style="color:#777">No actuals yet.<br><br>' +
+                    'Pick a MODEL, turn its dials, step the seed until it is the one, ' +
+                    'then <b>Save as ACTUAL</b>. It is filed with the model, the dial ' +
+                    'positions and the seed that made it, and it stays placeable forever.</div>';
+                return;
+            }
+            this.actuals.forEach(a => {
+                const card = document.createElement('div');
+                card.style.cssText = 'border:1px solid #3a3a44;border-radius:4px;padding:5px 6px;margin:0 0 5px';
+                const dials = Object.keys(a.recipeSettings || {});
+                card.innerHTML =
+                    '<div style="color:#b9a8ff;font-weight:600">' + a.entity + '</div>' +
+                    '<div style="color:#ddd">' + (a.label || '') + '</div>' +
+                    '<div style="color:#888;font-size:10px">' + a.model + ' · ' + a.spanSec +
+                    ' s · ' + a.parts + ' parts · MIDI ' + a.register + ' · seed ' + a.seed +
+                    (dials.length ? '<br>dials: ' + dials.map(k => k + '=' + a.recipeSettings[k]).join(', ') : '') +
+                    ((a.tags || []).length ? '<br>tags: ' + a.tags.join(', ') : '') +
+                    '<br>' + a.placements + ' placement(s)</div>';
+                const row2 = document.createElement('div');
+                row2.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px';
+                const bh = document.createElement('button');
+                bh.textContent = 'hear'; bh.style.fontSize = '10px';
+                bh.addEventListener('click', () => this.hearActual(a.entity));
+                const bi = document.createElement('button');
+                bi.textContent = 'insert @ cursor'; bi.style.fontSize = '10px';
+                bi.addEventListener('click', () => this.insertActual(a.entity));
+                row2.appendChild(bh); row2.appendChild(bi);
+                card.appendChild(row2);
+                f.appendChild(card);
+            });
+            return;
+        }
         const row = (label, path, val, step) => {
             const w = document.createElement('div');
             w.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:2px 0';
@@ -277,6 +423,104 @@ const PANEL = {
             d.style.cssText = 'color:' + (colour || '#777') + ';margin:1px 0';
             d.innerHTML = t; f.appendChild(d);
         };
+
+        // ---------------------------------------------- MODEL: recipes + seed
+        if (this.mode === 'models' && this.model()) {
+            const m = this.model();
+            const set = this.settingsFor(m.id);
+            note('<b style="color:#b9a8ff">' + m.name + '</b> · ' + m.status +
+                 '<br>' + (m.character || ''), '#9a9');
+
+            (m.recipes || []).forEach(rc => {
+                const on = Object.prototype.hasOwnProperty.call(set, rc.recipe);
+                const w = document.createElement('div');
+                w.style.cssText = 'margin:4px 0';
+                const head2 = document.createElement('div');
+                head2.style.cssText = 'display:flex;justify-content:space-between;align-items:center';
+                const cb = document.createElement('input');
+                cb.type = 'checkbox'; cb.checked = on;
+                cb.style.cssText = 'margin:0 5px 0 0;vertical-align:middle';
+                // A DIAL IS OFF UNTIL TURNED (2y §4). Opening a model must never
+                // quietly rewrite params the composer blessed, so a recipe is
+                // only applied once it is explicitly engaged.
+                cb.addEventListener('change', () => {
+                    if (cb.checked) set[rc.recipe] = rc.dial.default;
+                    else delete set[rc.recipe];
+                    this.generate();
+                });
+                const lab = document.createElement('span');
+                lab.style.cssText = 'color:' + (on ? '#ddd' : '#777') + ';flex:1';
+                lab.textContent = rc.recipe;
+                lab.title = rc.description || '';
+                const val = document.createElement('span');
+                val.style.cssText = 'color:#8a8ac0;font-size:10px';
+                val.textContent = on ? (+set[rc.recipe]).toFixed(2) : 'off';
+                head2.appendChild(cb); head2.appendChild(lab); head2.appendChild(val);
+                w.appendChild(head2);
+
+                const sl = document.createElement('input');
+                sl.type = 'range';
+                sl.min = rc.dial.min; sl.max = rc.dial.max;
+                sl.step = (rc.dial.max - rc.dial.min) / 100;
+                sl.value = on ? set[rc.recipe] : rc.dial.default;
+                sl.disabled = !on;
+                sl.style.cssText = 'width:100%;margin:1px 0;opacity:' + (on ? 1 : 0.35);
+                sl.addEventListener('input', () => { val.textContent = (+sl.value).toFixed(2); });
+                sl.addEventListener('change', () => {
+                    set[rc.recipe] = parseFloat(sl.value);
+                    if (!cb.checked) cb.checked = true;
+                    this.generate();
+                });
+                w.appendChild(sl);
+                f.appendChild(w);
+            });
+            if (!(m.recipes || []).length) note('no recipes yet — narrate one and it appears here');
+
+            // seed stepper — "another version" is identity, not direction, so it
+            // is never a recipe (2y §4)
+            const sw = document.createElement('div');
+            sw.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:5px 0';
+            sw.innerHTML = '<span style="color:#9a9">seed (another version)</span>';
+            const box = document.createElement('span');
+            const mk = (t, d) => {
+                const b = document.createElement('button');
+                b.textContent = t; b.style.cssText = 'padding:0 6px;margin-left:3px';
+                b.addEventListener('click', () => {
+                    const cur = this.seedOverride[m.id] != null ? this.seedOverride[m.id]
+                        : (m.baseParams.seed || 1);
+                    this.seedOverride[m.id] = Math.max(1, cur + d);
+                    this.generate();
+                });
+                return b;
+            };
+            const cur = document.createElement('span');
+            cur.style.cssText = 'color:#ddd;padding:0 4px';
+            cur.textContent = String(p.seed);
+            box.appendChild(cur); box.appendChild(mk('−', -1)); box.appendChild(mk('+', 1));
+            sw.appendChild(box); f.appendChild(sw);
+
+            // shape presets — a named shape block merges onto ANY model, because
+            // a shape is just params (2y §5.1: reuse by construction)
+            const ps = (this.presets && this.presets.presets) || {};
+            const pw = document.createElement('div');
+            pw.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:3px 0';
+            pw.innerHTML = '<span style="color:#9a9">shape preset</span>';
+            const psel = document.createElement('select');
+            psel.style.cssText = 'width:130px;background:#1b1b20;color:#ddd;border:1px solid #444';
+            [''].concat(Object.keys(ps)).forEach(k => {
+                const o = document.createElement('option');
+                o.value = k; o.textContent = k || '(none)';
+                if (k === this.activePreset) o.selected = true;
+                psel.appendChild(o);
+            });
+            psel.addEventListener('change', () => { this.activePreset = psel.value; this.generate(); });
+            pw.appendChild(psel); f.appendChild(pw);
+            if (!Object.keys(ps).length) {
+                note('no shape presets yet — kept shapes get filed here', '#666');
+            }
+            (this._resolveWarnings || []).forEach(w2 => note(w2, '#e0b062'));
+            head('dials (nudge the resolved params)');
+        }
 
         row('span (s)', 'carrier.span', p.carrier.span, 1);
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
@@ -375,6 +619,100 @@ const PANEL = {
                 (n.voice + 1) + ' &middot; ' + n.tStart.toFixed(1) + ' s &middot; ' +
                 n.flags.join(', ') + '</div>';
         });
+    },
+
+    // ------------------------------------------------------------- ACTUALs
+    // FREEZE A DECIDED RENDER. The write goes to the server, which calls the
+    // SAME buildActual() that tools/model_bank.js --actualize uses, so the
+    // button and the CLI cannot drift into two save paths (2y §6).
+    async saveActual() {
+        if (this.mode !== 'models' || !this.model()) {
+            this.setStatus('Save as ACTUAL needs a MODEL selected (scratch variants are not models)', true);
+            return;
+        }
+        const m = this.model();
+        const label = window.prompt('Label for this actual — one breath, your words:',
+            m.name + ', ' + Math.round(this.result.meta.span) + ' s');
+        if (label == null) return;
+        try {
+            const r = await fetch('/api/actuals', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: m.id,
+                    recipeSettings: this.settingsFor(m.id),
+                    seed: this.result.meta.seed,
+                    label: label,
+                    tags: (m.tags || []).slice(),
+                    shape: this.activePreset ? undefined : (this.current() || {}).shape,
+                    shapePreset: this.activePreset || undefined,
+                }),
+            });
+            const j = await r.json();
+            if (!j.success) { this.setStatus('save failed: ' + j.error, true); return; }
+            this.modelsRev = -1;                       // force a store re-read
+            await this.refresh(true);
+            this.setStatus('filed ' + j.entity + ' — browse it under ACTUALs');
+        } catch (e) { this.setStatus('save failed: ' + e.message, true); }
+    },
+
+    async hearActual(entity) {
+        try {
+            const a = await fetch('/api/actuals/' + entity, { cache: 'no-store' }).then(x => x.json());
+            // audition plays `notes` through the existing emit path — the same
+            // render the stored `objects` came from
+            this.result = { notes: a.notes, summary: { hard: 0, soft: {}, flags: {} },
+                            warnings: [], meta: { model: a.provenance.model, seed: a.provenance.seed,
+                            span: a.spanSec, voices: a.parts,
+                            lanes: [...new Set(a.objects.filter(o => o.morphBend).map(o => o.layer))] } };
+            this.activeActual = a;
+            await this.play();
+        } catch (e) { this.setStatus('could not hear ' + entity + ': ' + e.message, true); }
+    },
+
+    async insertActual(entity) {
+        const C = HOST();
+        if (!C) return;
+        try {
+            const a = await fetch('/api/actuals/' + entity, { cache: 'no-store' }).then(x => x.json());
+            const at = (C.playheadTime != null ? C.playheadTime : (C.currentTime || 0));
+            const notes = a.objects.filter(o => o.morphBend);
+            const t0 = Math.min.apply(null, notes.map(o => o.startSeconds));
+            let seq = 1;
+            const slug = entity.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            while (C.objects.some(o => o.groupId === 'grp-' + slug + '-' + String(seq).padStart(2, '0'))) seq++;
+            const gid = 'grp-' + slug + '-' + String(seq).padStart(2, '0');
+            let nid = (C.nextId || 1) + 1;
+            // objects are placed VERBATIM — a stored actual's identity is frozen;
+            // a later engine change must never re-render what is already placed.
+            const placed = a.objects.map(o => Object.assign(JSON.parse(JSON.stringify(o)), {
+                id: 'wc-' + (nid++), groupId: gid,
+                startSeconds: +(o.startSeconds - t0 + at).toFixed(3),
+                endSeconds: +(o.endSeconds - t0 + at).toFixed(3),
+            }));
+            // marker in OBJECTS, never data.markers (Principle 4)
+            C.objects.push({ id: 'mk-' + slug + '-' + seq, type: 'marker', layer: 0,
+                time: +at.toFixed(3), label: entity + ' — ' + (a.label || ''),
+                color: '#7E57C2', groupId: gid, performanceNotes: '', properties: {} });
+            placed.forEach(o => C.objects.push(o));
+            const nds = [{ pos: 0, y: 5, smooth: 0.35 }, { pos: 1, y: 5, smooth: 0.35 }];
+            C.objects.push({ id: 'wc-' + (nid++), type: 'waveCurve', layer: 10, groupId: gid,
+                startSeconds: +at.toFixed(3), endSeconds: +(at + a.spanSec).toFixed(3),
+                nodes: nds, segments: [{ model: 'bezier', slope: 0 }],
+                color: '#7E57C2', fillMode: 'bottom', opacity: 0.45,
+                performanceNotes: entity + ' (drag = move, edge/box = stretch)', properties: {} });
+            C.nextId = nid + 2;
+            if (C.renderAll) C.renderAll();
+            if (C.markDirty) C.markDirty();
+            if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
+            // PLACEMENTS LOG THEMSELVES — "where have I used this" is the
+            // question a reusable collection gets asked most (2y §5).
+            fetch('/api/actualplacement', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ entity: entity, score: C.sessionName || 'untitled',
+                                       at: +at.toFixed(3), group: gid }),
+            }).then(() => this.refresh(true)).catch(() => {});
+            this.setStatus('placed ' + entity + ' at ' + at.toFixed(2) + ' s as ' + gid);
+        } catch (e) { this.setStatus('insert failed: ' + e.message, true); }
     },
 
     readFields(p) {

@@ -79,10 +79,15 @@ if (!ENTITY || !INTO || (!OUT && !DRY)) {
 }
 if (AFTER == null && AT == null) { console.error('need --after <sec> or --at <sec>'); process.exit(1); }
 
-const gPath = path.join(BANK, ENTITY + '.json');
-if (!fs.existsSync(gPath)) { console.error('no bank entry: bank/' + ENTITY + '.json   (try --list)'); process.exit(1); }
+// Two shelves: flat bank/ for hand-built gestures, bank/actuals/ for ACTUALs.
+const gPath = [path.join(BANK, ENTITY + '.json'), path.join(ACTUALS_DIR, ENTITY + '.json')]
+    .find(p => fs.existsSync(p));
+if (!gPath) {
+    console.error('no bank entry: ' + ENTITY + '.json in bank/ or bank/actuals/   (try --list)');
+    process.exit(1);
+}
 const G = JSON.parse(fs.readFileSync(gPath, 'utf8'));
-if (!Array.isArray(G.objects) || !G.objects.length) { console.error('bank/' + ENTITY + '.json has no objects array'); process.exit(1); }
+if (!Array.isArray(G.objects) || !G.objects.length) { console.error(gPath + ' has no objects array'); process.exit(1); }
 
 const raw = JSON.parse(fs.readFileSync(INTO, 'utf8'));
 const pdata = raw.data || raw;
@@ -158,4 +163,20 @@ fs.writeFileSync(OUT, JSON.stringify({ ...pdata,
     metadata: { ...(pdata.metadata || {}), modified: new Date().toISOString() },
     objects: objs, nextId: nid }));
 console.log('  wrote        ', OUT + '  —  ' + objs.length + ' objects');
+
+// PLACEMENTS ARE LOGGED AUTOMATICALLY (PLAN 2y §5). "Where have I already used
+// this?" is the question a reusable collection gets asked most, and nobody
+// should have to maintain the answer by hand. Only ACTUALs carry the log; a
+// hand-built gesture has no provenance to hang it on.
+if (Array.isArray(G.placements)) {
+    G.placements.push({
+        score: path.basename(OUT, '.json'),
+        at: at,
+        group: GROUP,
+        when: new Date().toISOString().slice(0, 10),
+    });
+    fs.writeFileSync(gPath, JSON.stringify(G, null, 2) + '\n');
+    console.log('  placement    ', 'logged to ' + path.basename(gPath) +
+        '  (' + G.placements.length + ' total)');
+}
 console.log('\n  now check it:  node tools/audit_playability.js ' + path.basename(OUT, '.json'));

@@ -327,6 +327,139 @@ function cmdList() {
     Object.keys(ps).forEach(k => console.log('  ' + k.padEnd(24) + (ps[k].label || '')));
 }
 
+// ---------------------------------------------------------------- actualize
+// THE SAVE PATH (2y §5). Shared by the CLI and, in MA3, the panel's
+// "Save as ACTUAL" button — one implementation, so the two cannot drift.
+//
+// Exported as a function rather than inlined because the panel route calls it
+// through the server; if it lived only in the CLI there would be two of it.
+function buildActual(modelId, opts) {
+    const o = opts || {};
+    const store = readJSON(MODELS_PATH);
+    if (!store || !store.models || !store.models[modelId]) {
+        return { error: 'no such model: ' + modelId };
+    }
+    const model = store.models[modelId];
+    const settings = o.recipeSettings || {};
+
+    const res = M.resolveParams(model, settings);
+    const resolved = res.params;
+    if (o.seed != null) resolved.seed = o.seed;
+    if (o.shape) resolved.shape = JSON.parse(JSON.stringify(o.shape));
+
+    const render = M.render(resolved, RENDER_OPTS);
+    if (!render.notes.length) return { error: 'renders zero notes' };
+
+    // objects are t=0-based; place_gesture and the panel both offset them.
+    const objects = M.toScoreObjects(render, 0, {
+        groupId: 'grp-actual', startId: 1,
+        label: o.label || model.name, color: o.color || '#7E57C2',
+    });
+
+    // INTEGRITY, checked at birth and not merely promised: what will be heard
+    // (notes) and what will be placed (objects) come from the same render, and
+    // the render is reproducible from what we are about to store.
+    const reNotes = M.render(resolved, RENDER_OPTS).notes;
+    if (!deepEq(reNotes, render.notes)) {
+        return { error: 'render is not deterministic for these params — refusing to store' };
+    }
+
+    // next free id
+    let n = 1;
+    while (fs.existsSync(path.join(ACTUALS_DIR, 'ACT-' + modelId + '-' +
+        String(n).padStart(2, '0') + '.json'))) n++;
+    const entity = 'ACT-' + modelId + '-' + String(n).padStart(2, '0');
+
+    const noteObjs = objects.filter(x => x.morphBend);
+    const t0 = Math.min.apply(null, noteObjs.map(x => x.startSeconds));
+    const t1 = Math.max.apply(null, noteObjs.map(x => x.endSeconds));
+    const lanes = [...new Set(noteObjs.map(x => x.layer))];
+    const pitches = noteObjs.map(x => x.sonifyNote);
+
+    const actual = {
+        entity: entity,
+        kind: 'actual',
+        label: o.label || (model.name + ', ' + Math.round(t1 - t0) + ' s'),
+        tags: o.tags || (model.tags || []).slice(),
+        spanSec: +(t1 - t0).toFixed(3),
+        parts: lanes.length,
+        register: Math.min.apply(null, pitches) + '–' + Math.max.apply(null, pitches),
+        objects: objects,
+        notes: render.notes,
+        provenance: {
+            model: modelId,
+            recipeSettings: settings,
+            resolvedParams: resolved,
+            seed: resolved.seed,
+            engineConstants: { bendRangeSt: M.MEASURED.BEND_RANGE_ST, prearmS: M.MEASURED.BEND_PREARM_S },
+            captured: o.captured || new Date().toISOString().slice(0, 10),
+        },
+        placements: [],
+    };
+    if (o.shapePreset) actual.provenance.shapePreset = o.shapePreset;
+
+    return { actual: actual, model: model, store: store, render: render, warnings: res.warnings };
+}
+
+function writeActual(built) {
+    if (!fs.existsSync(ACTUALS_DIR)) fs.mkdirSync(ACTUALS_DIR, { recursive: true });
+    fs.writeFileSync(path.join(ACTUALS_DIR, built.actual.entity + '.json'),
+        JSON.stringify(built.actual, null, 2) + '\n');
+    // the model's actuals[] is maintained ONLY by this path (2y §9 failure 4)
+    if (built.model.actuals.indexOf(built.actual.entity) < 0) {
+        built.model.actuals.push(built.actual.entity);
+    }
+    built.store.rev = (built.store.rev || 0) + 1;
+    fs.writeFileSync(MODELS_PATH, JSON.stringify(built.store, null, 2) + '\n');
+}
+
+function cmdActualize() {
+    const modelId = valOf('actualize');
+    const settings = {};
+    // --set "recipe name=0.7" (repeatable)
+    args.forEach((a, i) => {
+        if (a !== '--set') return;
+        const kv = args[i + 1] || '';
+        const eq = kv.lastIndexOf('=');
+        if (eq < 0) { console.error('--set needs recipe=value, got: ' + kv); process.exit(1); }
+        settings[kv.slice(0, eq)] = parseFloat(kv.slice(eq + 1));
+    });
+    const opts = { recipeSettings: settings };
+    if (valOf('seed') != null) opts.seed = parseInt(valOf('seed'), 10);
+    if (valOf('label') != null) opts.label = valOf('label');
+    if (valOf('tags') != null) opts.tags = valOf('tags').split(',').map(s => s.trim()).filter(Boolean);
+    if (valOf('preset') != null) {
+        const pre = readJSON(PRESETS_PATH);
+        const p = pre && pre.presets && pre.presets[valOf('preset')];
+        if (!p) { console.error('no such shape preset: ' + valOf('preset')); process.exit(1); }
+        opts.shape = p.shape;
+        opts.shapePreset = valOf('preset');
+    }
+
+    const built = buildActual(modelId, opts);
+    if (built.error) { console.error('actualize failed: ' + built.error); process.exit(1); }
+
+    console.log('=== ACTUALIZE ' + modelId + ' ===\n');
+    console.log('  recipes      ', Object.keys(settings).length
+        ? Object.keys(settings).map(k => k + '=' + settings[k]).join(', ') : '(none — base params)');
+    console.log('  seed         ', built.actual.provenance.seed);
+    console.log('  notes        ', built.actual.notes.length + '  ·  span ' +
+        built.actual.spanSec + 's  ·  ' + built.actual.parts + ' parts  ·  ' +
+        built.actual.register);
+    const s = built.render.summary;
+    console.log('  flags        ', (s.hard ? s.hard + ' HARD  ' : '') +
+        (Object.keys(s.soft).length ? JSON.stringify(s.soft) : 'clean'));
+    built.warnings.forEach(w => console.log('  warning      ', w));
+    built.render.warnings.forEach(w => console.log('  warning      ', w));
+    if (has('dry')) { console.log('\n  --dry: nothing written'); return; }
+    writeActual(built);
+    console.log('\n  wrote        bank/actuals/' + built.actual.entity + '.json');
+    console.log('  model rev -> ', built.store.rev);
+    console.log('\n  verify:  node tools/model_bank.js --validate');
+    console.log('  place:   node tools/place_gesture.js ' + built.actual.entity +
+        ' --into scores/<score>.json --after 2 --out scores/<next>.json');
+}
+
 function cmdShow(id) {
     const models = readJSON(MODELS_PATH) || { models: {} };
     const m = models.models[id];
@@ -335,10 +468,24 @@ function cmdShow(id) {
 }
 
 // ---------------------------------------------------------------- dispatch
-if (has('validate')) cmdValidate();
-else if (has('show')) cmdShow(valOf('show'));
-else if (has('list') || !args.length) cmdList();
-else {
-    console.error('usage: node tools/model_bank.js [--list | --show <id> | --validate]');
-    process.exit(1);
+// Only dispatch when RUN, never when required. score/server.js requires this
+// file so the panel's "Save as ACTUAL" button and the CLI share one save path
+// — without this guard, requiring it with no argv would print a model listing
+// into the server's startup.
+if (require.main === module) {
+    if (has('validate')) cmdValidate();
+    else if (has('actualize')) cmdActualize();
+    else if (has('show')) cmdShow(valOf('show'));
+    else if (has('list') || !args.length) cmdList();
+    else {
+        console.error('usage: node tools/model_bank.js [--list | --show <id> | --validate]');
+        console.error('       node tools/model_bank.js --actualize <MODEL> [--set "recipe=0.7"]…');
+        console.error('              [--seed N] [--label "…"] [--tags a,b] [--preset <shape>] [--dry]');
+        process.exit(1);
+    }
 }
+
+module.exports = {
+    buildActual: buildActual, writeActual: writeActual,
+    MODELS_PATH: MODELS_PATH, ACTUALS_DIR: ACTUALS_DIR, PRESETS_PATH: PRESETS_PATH,
+};
