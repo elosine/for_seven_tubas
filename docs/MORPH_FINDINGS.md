@@ -58,10 +58,10 @@ These go into the emit layer as named constants (`score/public/morph.js` / the e
 ## The CC7 timing law (day 14, ear-verified)
 
 A cold attack needs **real CC7 settle time** — ~2–5 ms of lead is not enough;
-**250 ms is clean** (the score app'\''s own curve playback uses 150 ms: "kills the
+**250 ms is clean** (the score app's own curve playback uses 150 ms: "kills the
 entry bite"). Symmetrically, restoring CC7 upward while a release tail rings
 (~0.69 s measured) produces an end blip; **a 2 s delay past the note-offs is
 clean**. Mechanism consistent with sampler-side CC7 smoothing; the discriminator
-was the composer'\''s keyboard control (no CC7 movement → no bite). Composer
+was the composer's keyboard control (no CC7 movement → no bite). Composer
 verdict 2026-08-17: **"Blip gone."** Constants live in `morph_emit.js`
 (`CC_LEAD_MS 250`, `TAIL_MS 2000`).

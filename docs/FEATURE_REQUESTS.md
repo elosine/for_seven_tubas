@@ -644,15 +644,22 @@ release — but it is **not** what is pinned here.
 
 ---
 
-*(FR-7 onward: to be added as the composer lists them.)*
+## FR-7 — Carry per-note FLAGS into placed score objects
 
-## FR-7 — Carry per-note FLAGS into placed score objects *(spec only; build at the notation pass)*
+**Status:** `spec'd, deferred to the notation pass by the composer` · **Area:**
+morph engine (`toScoreObjects`) + ACTUALs place path · **Raised:** 2026-08-17
 
-**Composer decision 2026-08-17 (day 14): option (c)** — place from the ACTUALs
-tab now, build this when the notation pass actually starts. Nothing reads flags
-today, so building it now would be speculative.
+### What the composer asked
 
-**The gap.** `Morph.toScoreObjects` drops each note'\''s `flags` array. The placed
+Not a feature request in their words — it surfaced from the **notation data
+walk** they asked for (day 14). Presented as options (a) do nothing now /
+(b) build it now / (c) both in sequence; **the composer chose (c):** place from
+the ACTUALs tab now, build this when the notation pass actually starts. Nothing
+reads flags today, so building it now would be speculative.
+
+### The gap
+
+`Morph.toScoreObjects` drops each note's `flags` array. The placed
 score therefore shows three visually identical joins that mean different things
 in notation:
 
@@ -660,7 +667,7 @@ in notation:
 |---|---|---|
 | `BREATH` | engine split the segment — player is out of air (register/dynamic BREATH_TABLE) | a real breath mark |
 | *(none)* | carrier segmentation (`segLen` ± `segVar`) | rearticulation, no breath |
-| `SEAM` | two DIFFERENT voices attack within `CROSS_ONSET_MIN` 0.08 s | conductor'\''s score only — nothing in the part |
+| `SEAM` | two DIFFERENT voices attack within `CROSS_ONSET_MIN` 0.08 s | conductor's score only — nothing in the part |
 
 **Measured 2026-08-17:** the three are indistinguishable by timing — gap means
 0.744 / 0.751 / 0.746 s (n = 86 / 6 / 6). So they cannot be re-derived from the
@@ -677,14 +684,14 @@ INDIVIDUAL notes inside a placed morph (add / delete / re-time), which can break
 both the index join and the time join. If the composer starts doing that, FR-7
 moves up immediately.
 
-**Proposed build.** `toScoreObjects` copies `flags` into the object'\''s
+**Proposed build.** `toScoreObjects` copies `flags` into the object's
 `properties.flags` (an existing empty field, so no schema change); the ACTUALs
 place path carries it verbatim as it already does everything else. Renderers
 ignore unknown properties, so nothing else changes.
 
 **Gates**
 
-- [ ] A placed group'\''s objects carry the same flags as the source ACTUAL'\''s notes,
+- [ ] A placed group's objects carry the same flags as the source ACTUAL's notes,
       1:1, verified by comparison rather than inspection.
 - [ ] Byte-identity of existing renders preserved (fixtures never regenerated).
 - [ ] `model_bank.js --validate` still VALID. **Checked 2026-08-17 rather than
@@ -694,3 +701,118 @@ ignore unknown properties, so nothing else changes.
       when `toScoreObjects` starts emitting a new property. INTEGRITY 2 compares
       `notes`, which this does not touch. *(Re-run it anyway; the point of the
       gate is evidence, not the prediction.)*
+
+---
+
+## FR-8 — DOUBLE PARTS IN MORPHS so all ten players have something to play
+
+**Status:** `raised, needs the composer to choose between three readings` ·
+**Area:** morph engine + model store · **Raised:** 2026-08-17 (day 14) ·
+**Interacts with FR-5** (number of pairs) and `docs/plans/MORPH_SECTION.md`
+
+### What the composer asked
+
+> *"find a way to double parts in morphs so that everyone has something to
+> play."*
+
+Said as part of the final-section dictation; full context in COMPOSER_LOG day 14.
+
+### Research already done — MEASURED 2026-08-17
+
+**The measured situation.** All six models specify **8 pitches → 8 voices**, and
+`ACT-BLOOM-02` renders **8 parts of the available 10** — so **two players sit
+silent through a 113.9 s morph.** (`maxVoices` is already 10; the cap is not the
+limit — the source pitch list is.)
+
+**The thing to understand before designing this: the eight are already four
+DOUBLED pitches.** BLOOM's source is `[41,41,46,46,51,51,56,56]` — four pitches,
+each taken by two players, who then detune against each other. **That IS the
+beating mechanism** (D28), and `MORPH_SECTION.md` §"ten players" makes it
+structural: borrowing must take **whole pairs**, because half a pair is *"a lone
+detuned tone with nothing to beat against"*, and **each borrow silences one
+beating rate**. So "doubling" in this engine already means something specific,
+and the request has to be read against it.
+
+**Three readings, materially different — the composer's call:**
+
+- **(a) A FIFTH PAIR** — add a pitch, 10 bed players, every player busy. Cheapest
+  mechanically, but it **changes the harmony**, and per MORPH_SECTION's table it
+  leaves **0 free for impacts**, so the morph section could carry no impact
+  without borrowing. FR-5 (choose the number of pairs) is the same dial.
+- **(b) TRUE DOUBLING — two players on ONE voice line**, same pitch centre and
+  trajectory, **staggered breathing.** This does not change the harmony or the
+  beating design at all. Its real prize is elsewhere: every voice currently
+  breathes in audible **0.64–0.86 s gaps** (measured on ACT-BLOOM-02), and a
+  staggered double makes the line **continuous** — one player sustains while the
+  other breathes. *This is the reading that most literally gives everyone
+  something to play without spending the harmony.*
+- **(c) DOUBLE AT THE OCTAVE / IN THE PARTIAL SERIES** — a colour and register
+  change, not a fix for idle players; listed so it is not confused with (b).
+
+**A property of (b) worth naming, because it interacts with the section plan:**
+a doubled bed is **robust to borrowing** — an impact can take one player off a
+doubled voice and the voice survives (thinner, still beating), where today the
+same borrow kills a whole rate. If both (b) and the impact section happen, they
+are not independent decisions.
+
+**Unknown, not to be guessed:** whether two MIDI players on an identical line
+are audibly different from one louder player in the SAMPLER (real players never
+are — they beat and blend). If (b) is chosen, the render must decide whether the
+double is exactly identical (probably wrong) or minutely varied. **That question
+belongs to the ear, not to me.**
+
+### Gates
+
+- [ ] Composer picks (a) / (b) / (c) — they are not variants of one build.
+- [ ] Every one of the ten players is used, verified by counting rendered voices.
+- [ ] If (b): the doubled voice's breaths are staggered so the line never gaps —
+      verified by measuring gaps per PITCH, not per player.
+- [ ] Beating rates unchanged from the blessed render, unless the choice is (a).
+
+---
+
+## FR-9 — DRIVE THE PHASE-SHIFTING MACHINE AT A GIVEN TEMPO
+
+**Status:** `raised — and largely already built; needs an interface decision` ·
+**Area:** texture engine (`score/public/texture_engine.js`) + panel ·
+**Raised:** 2026-08-17 (day 14) · **Serves:** the pulsed final section
+
+### What the composer asked
+
+> *"I have to figure out how to use the phase shifting machine to develop these
+> sections at the given tempo."*
+
+For the Ghost-Trance-like final section (PLANNER day 14): a continuous pulse
+with multi-tempo bursts and phase-shifting sections cross-cut into it.
+
+### Research already done — read from the source, NOT run
+
+**Finding: the engine already does this, and the interface is the gap.**
+`texture_engine.js` carries, today:
+- **`rate(t)` in attacks/s, integrated by phase**, with the explicit note that
+  *"a ramping tempo is exact rather than stepwise"* — so a given tempo is
+  `bpm / 60`, and an accelerating pulse is already exact rather than quantised.
+- **`phase0` per voice, 0..1, as a fraction of that voice's own attack period** —
+  which is precisely "phase shifting at a tempo".
+- **a strict grid SWEEP mode** with displacement expressed **in beats**.
+- a warning already recorded in the source against solving for a `bpmEnd` to
+  reach a scattered target, *"a tempo detour that worked but coupled scatter to
+  tempo"* — i.e. the trap on this exact path is already documented.
+
+**So the work is probably not new machinery** but: name the tempo as the input
+(bpm, not attacks/s), decide how the multi-tempo cross-cuts are expressed, and
+confirm against D27 — **articulation decides whether phase is a device at all**;
+this section is pulsed and articulated, which is the family where phase reads as
+rhythm (smear · ticks · rain · gallop · groove). **A sustained pulse would not
+work**, and that is settled, not open.
+
+**Stated as a confidence claim, per AI_METHODOLOGY:** this is read from the
+source, **not run**. The engine has the parameters; whether they compose into
+the composer's cross-cut form is unverified.
+
+### Gates
+
+- [ ] A tempo in bpm produces a pulse at that tempo, verified by measuring onsets.
+- [ ] Two tempi can run at once (the cross-cut requires it) — or the reason they
+      cannot is recorded.
+- [ ] Phase-shift sections derive from the same tempo rather than a second clock.

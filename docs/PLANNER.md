@@ -231,14 +231,33 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
 
 - **2026-08-17 (day 14) — BLIP GONE (CC7 timing, morph panel fixed); ACT-BLOOM-02
   saved ("BEATING BLOOM, 108 s 001"); NOTATION DATA WALK CLEAN.** The saved
-  ACTUAL + placement chain hold everything the part scores and the conductor'\''s
+  ACTUAL + placement chain hold everything the part scores and the conductor's
   graphic layer need (pitch+level curves per player, BREATH/SEAM flags, pair
   structure for the beating graphic, full provenance) — findings in RUNNING_LOG
-  day 14, composer'\''s graphic-layer dictation verbatim in COMPOSER_LOG. **Place
-  morphs from the ACTUALs tab** (it logs placements; scratch Insert doesn'\''t).
+  day 14, composer's graphic-layer dictation verbatim in COMPOSER_LOG. **Place
+  morphs from the ACTUALs tab** (it logs placements; scratch Insert doesn't).
   **New idea (composer, to evaluate at full-score time): a GRAPHIC LAYER in the
   full score** describing beating increase/acceleration, layers of beating, and
   which players beat against which — for the conductor to rehearse with. Part
   scores: pitch/crescendo curve + playing/breathing/rearticulation graphics +
-  spot dynamics. **Open before notation: D3'\''s performer-transform decision, and
+  spot dynamics. **Open before notation: D3's performer-transform decision, and
   the 0–10 → dynamic-mark convention.** Next: insert the morph into the score.
+
+- **2026-08-17 (day 14) — FINAL SECTION conceived: a PULSED field, Ghost-Trance-like**
+  (composer, verbatim in COMPOSER_LOG day 14). The elements, as dictated:
+  - **A continuous pulse** as the ground — notated, *and* carried as **colour**
+    in the graphic layer (ties directly to the full-score graphic idea filed the
+    same day: the graphic says what the parts cannot).
+  - **Pitch material ranges over single pitches → pitch sets → tone rows** —
+    i.e. the same pulse read at different harmonic densities. *(A tone row is
+    already in MATERIALS.)*
+  - **Bursts, cross-cut:** multi-tempo sections cut in, and selected
+    **phase-shifting** sections cut in. Cross-cutting is the operative word —
+    interruption, not transition.
+  - **Two open engineering questions, both filed as FRs:** how to drive the
+    **phase-shifting machine (2j/2x) at a GIVEN TEMPO** so it can develop these
+    sections (FR-9), and how to **double parts inside a morph so all ten players
+    have something to play** (FR-8) — ACT-BLOOM-02 uses 8 of 10.
+  - *Placement:* this is the FINAL section, so it sits after Section 2 in the
+    form; against the **15-minute Penn State ceiling** it competes for time with
+    the morph section, and neither has a length yet.

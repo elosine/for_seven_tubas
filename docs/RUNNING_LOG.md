@@ -1797,10 +1797,10 @@ Whether 250 ms of settle removes the audible blip is the composer's ear's call.
 If it does not, the mechanism story is wrong and the next stop is the
 generated-`.mid`-vs-live-keyboard control in Reaper, unchanged from day 13.
 
-**THE VERDICT (same day, after the composer'\''s listen): "Blip gone."** The CC7
+**THE VERDICT (same day, after the composer's listen): "Blip gone."** The CC7
 timing mechanism is CONFIRMED by ear — filed as "The CC7 timing law" in
 MORPH_FINDINGS.md; NITS entry closed; D36 addendum records that the timing story
-explains day-13'\''s "attack at CC7=0" without the velocity premise, so 2q'\''s
+explains day-13's "attack at CC7=0" without the velocity premise, so 2q's
 velocity-vs-CC7 listening test is back to undecided.
 
 **SAVED: `ACT-BLOOM-02` — "BEATING BLOOM, 108 s 001"** (the first post-save-fix,
@@ -1809,35 +1809,35 @@ model BLOOM seed 11, dials slower/longer 0.76 + more dramatic 0.55, preset
 fade-in-3s with attack.len dialled to 9 s, carrier {span 48, duration 90,
 release 18}. Supersedes the stale day-13 `ACT-BLOOM-01` (save-fix bug: it kept
 the dials but not duration/release/attack). **-01 cleanup is pending the
-composer'\''s delete** (AI delete permission was blocked); the model file still
+composer's delete** (AI delete permission was blocked); the model file still
 lists both because `model_bank.js --validate` enforces the file↔list symmetry —
 verified INVALID with the ref removed early, reverted, VALID restored.
 
-**THE NOTATION DATA WALK (composer'\''s ask, with their graphic-layer dictation in
+**THE NOTATION DATA WALK (composer's ask, with their graphic-layer dictation in
 mind — verbatim in COMPOSER_LOG day 14):** ACT-BLOOM-02 + the placed-group path
 audited field by field against the stated notation needs. Everything needed is
 present or derivable; findings:
 
 - **Pitch+crescendo curve per player:** `morphBend` [t, cents] key-relative on
-  `sonifyNote`/`midi`, `level` breakpoints + drawn `nodes` in the score'\''s
+  `sonifyNote`/`midi`, `level` breakpoints + drawn `nodes` in the score's
   calibrated 0–10 unit, `engineConstants.bendRangeSt 1.99` — complete.
 - **Playing / breathing / rearticulation:** every join in the render is a real
   0.64–0.86 s gap (engine-scheduled breath room, BREATH_GAP_MIN 0.75 est.);
   note `flags` distinguish **BREATH** (segment split forced by the register- and
   dynamic-aware BREATH_TABLE — "split, never truncate silently") from unflagged
-  joins (carrier segmentation, segLen 8 ±30%). **SEAM ≠ D26'\''s re-key seam: it
+  joins (carrier segmentation, segLen 8 ±30%). **SEAM ≠ D26's re-key seam: it
   is a soft cross-voice onset-clash flag** (two voices attacking < 0.08 s
   apart) — rehearsal info, not part notation. Measured: gaps are statistically
   identical across flag kinds (mean 0.744/0.751/0.746 s) — the flags are
   semantic, not timing.
-- **Beating layer for the full score (the conductor'\''s graphic):** fully
+- **Beating layer for the full score (the conductor's graphic):** fully
   derivable — provenance names the pair structure (source pairs on unison keys,
   target {cents 25, direction alternate}), and beat-rate-vs-time per pair =
   |Δf| from midi·100 + bend(t) (D28, register law included). Acceleration =
   its derivative. Which-players-beat-against-which = layer mapping, present.
 - **Provenance chain:** the ACTUAL carries model/seed/recipeSettings/
   resolvedParams/shapePreset/engineConstants/captured, and `placements[]`
-  self-logs on insert **via the ACTUALs tab'\''s "place"** (`/api/actualplacement`).
+  self-logs on insert **via the ACTUALs tab's "place"** (`/api/actualplacement`).
   The scratch-panel Insert button does NOT log or carry provenance
   (`properties: {}`) — recommendation: **place morphs into the piece from the
   ACTUALs tab**, so score group ↔ ACTUAL ↔ params stays a closed chain.
@@ -1847,7 +1847,7 @@ present or derivable; findings:
 - **Convention to choose at notation time, not a data gap:** the 0–10 level →
   dynamic-mark mapping for the "dynamic indicators along the way".
 - **D3 RESURFACED (standing duty):** these renders are CURVE-LITERAL; D3 says
-  the performer transform is applied/tested at notation time — "we'\''ll see if
+  the performer transform is applied/tested at notation time — "we'll see if
   the performance score curves need to be changed to produce the same sound
   effect." That evaluation belongs to the notation pass now approaching.
 
@@ -1860,7 +1860,7 @@ after second one forty."*
 **Cause, verified in the live app.** All three panels computed the insert time as
 `C.playheadTime != null ? C.playheadTime : (C.currentTime || 0)` — and **neither
 property is ever assigned on `Composer`** (confirmed live: both `undefined`). The
-expression therefore evaluated to **0 on every insert since 2v**. The app'\''s real
+expression therefore evaluated to **0 on every insert since 2v**. The app's real
 accessor is `getTimeAtPlayhead()` (`scrollOffset / pixelsPerSecond` — the
 playhead is a fixed centre line, so scrolling IS moving it), used correctly by
 the Insertion strip, ALT+X curve split and motive insert.
@@ -1869,17 +1869,17 @@ the Insertion strip, ALT+X curve split and motive insert.
 (work-copy viewport 5144 px ÷ 36.2 pps = 142.07) while both groups landed at
 **0.00–30.00 s**, stacked onto DB1 — hence the badge moving and nothing visible.
 
-**A second, independent error, and it was the AI'\''s:** the composer was told to
-click **"place"**. No such button existed — the ACTUALs card'\''s button read
-`insert @ cursor`, **identical to the scratch panel'\''s button a few pixels
+**A second, independent error, and it was the AI's:** the composer was told to
+click **"place"**. No such button existed — the ACTUALs card's button read
+`insert @ cursor`, **identical to the scratch panel's button a few pixels
 above**. So the click landed on the scratch path: the inserted groups are
 `grp-morph-01/02`, a 30 s throwaway variant, not the 113.9 s `ACT-BLOOM-02`.
 Only the group id distinguished them. Relabelled to **`place @ cursor`**.
 
 **Fixed:** `playheadAt(C)` helper in `morph_panel.js` (used by both insert
-paths), same fix inline in `texture_panel.js` (latent there — 2x'\''s insert has
+paths), same fix inline in `texture_panel.js` (latent there — 2x's insert has
 never been run in the app, so it is noted as latent, not as an observed
-failure). `Math.max(0, …)` follows composer.html:8948'\''s own convention.
+failure). `Math.max(0, …)` follows composer.html:8948's own convention.
 
 **Verified in the running app, which is the check that was missing originally:**
 scrolled to 142.0 s → `place @ cursor` → group `grp-act-bloom-02-01`, 108
@@ -1895,8 +1895,8 @@ held); all damage was confined to `piece-s18-work.json`. Recovery is to reopen
 `piece-s18` and answer **Cancel** at the working-copy prompt.
 
 **The generalisation worth keeping:** this is **Principle 4 again, one level up** —
-an insert whose only consumer is the composer'\''s eye needs one check in the
+an insert whose only consumer is the composer's eye needs one check in the
 running app that the object landed WHERE it was asked for, not merely that it was
 created. A unit test on `insertActual` would have asserted the offset arithmetic
-against the same absent property and passed (Principle 5'\''s mirror). What caught
+against the same absent property and passed (Principle 5's mirror). What caught
 it was a number the composer could see: 142.

@@ -918,3 +918,16 @@ some graphic or different colors or something to describe when the players are
 playing and when they breathe or when they rearticulate. And then maybe some,
 for example, dynamic indicators along the way to give them a sense of what
 dynamic they should be at."*
+
+## 2026-08-17 (day 14) — the FINAL SECTION: a pulsed, Ghost-Trance-like field
+
+*"Final section pulsed like Ghost Trance Music. Pitches might be single pitches
+or pitch sets or tone rows. We can have those notated but also colored
+continuous pulse, and then bursts like cross cutting where multi-tempo sections
+come in and then selected phase shifting sections come in. So I have to figure
+out how to use the phase shifting machine to develop these sections at the given
+tempo. Also find a way to double parts in morphs so that everyone has something
+to play."*
+
+*(Filed: form → PLANNER final-section entry · the two engineering asks → FR-8
+(part doubling in morphs) and FR-9 (phase-shifting at a given tempo).)*
