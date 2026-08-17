@@ -72,338 +72,42 @@ audition** (this browser still blocks Web MIDI; day 15's finding, unchanged).
   until one of those runs (`initZoneMidi`, composer.html ~12246). Diagnosed live,
   fix NOT built. *(The Pulse panel is immune — `MorphEmit.ensureMidi` requests
   access itself.)*
+- **THE APPS, because the composer had to ask for one by memory:** the score
+  server serves all of them — `composer.html` (the composition) ·
+  **`chordview.html` = "Blast Sandbox", which IS the bank of chords** (7
+  harmonies `VERT01-03/04/11/12/13/16/28`, 16 voicings, 48 sonorities, read live
+  from `/api/taxonomy`) · `clusterview.html` (2p) · `planner.html`. The sandbox
+  on `:4700` is a separate server and holds none of that. At session end every
+  port was found DOWN (no `node` process at all); `:5200` was restarted and all
+  four pages plus `/api/pulsepalette` verified 200.
 - **For the next AI:** the composer works clicking-and-listening; keep the panel
   ruthlessly v1. Do not build the deferred passes unprompted.
 
 ---
 
-**Day 15 evening (Claude Code / Opus 5) — the trance section got its plan.** The
-composer sketched a fifths chain by keyboard into `scores/tranceSB01.json`;
-`tools/pulse_build.js` and a console script made accretive pulses from it
-(`tranceSB01-2.json`). Then the realignment that became 2aa: a click-a-column
-sequencer sandbox, panel-in-the-app over console scripts, audition only.
-**THE ENSEMBLE IS TEN TUBAS** — composer, explicitly: *"10 parts tracks one to
-ten."* Not seven-plus-doubling; the repo name stays historical. Also that
-session: the fade ladder verified, extracted to `M.buildLadder`, pinned by
-`tools/test_ladder.js` (54/54).
-
----
-
-**DAY 15 CONTINUED — THE FADE LADDER WAS ALREADY BUILT; IT IS NOW VERIFIED AND
-TESTED. Claude Code / Opus 5.** 1 commit. `test_morph.js` 354/354 and
-`test_ladder.js` 54/54 (new); `model_bank --validate` VALID.
-
-- **The checkpoint's "nothing is started" was wrong, and the error is worth
-  naming because the cycle is supposed to prevent exactly this.** The ladder was
-  built on **day 14**, commit `1457b79`. Day 14 listed it under *"Next up"* and
-  then built it in that same session without amending the line; day 15's
-  checkpoint copied the stale line forward, and `PLANNER.md`'s `NOW ►` inherited
-  it. **`/checkpoint` step 2 refreshes `NOW ►`, but nothing refreshes "Next up"
-  against what the session actually shipped** — so a completed item can survive
-  as the next task indefinitely. Cheap guard: before writing "Next up", check it
-  against `git log` for the session.
-- **What was genuinely missing was verification, and it is now done.** Day 14
-  shipped the ladder as a blip fallback and never claimed an in-app check —
-  which under AI_METHODOLOGY means the composer could not plan around it.
-  - **Assembly math, headless:** rungs are laid at `len + hold + gap`, each
-    clipped to its own window, none overlapping; every rung after the first
-    opens **cold** on every voice by emit's own cold/warm test. The gap (2.5 s)
-    outlives both the 0.69 s ord tail and the 250 ms CC7 lead — *that* is what
-    makes rungs 2..N a clean-attack condition, so it is load-bearing, not
-    cosmetic.
-  - **In the running app, through the real button handler:** the ladder builds
-    59 notes / 51.5 s with rungs at 0 / 7.5 / 16 / 25.5 / 37 s, reaches
-    `E.play`, and fails **only** at MIDI. The no-attack guard and the junk-input
-    guard both refuse cleanly, leaving zero timers and the Play button restored.
-  - **NOT verified: the sound.** This browser blocks Web MIDI for
-    `localhost:5200`, so nothing was ever emitted. **The audition is the
-    composer's, in their MIDI-enabled window** — and that was always the point
-    of the ladder.
-- **A false alarm, recorded so it is not re-run:** the first metric said every
-  rung peaked at 7.37 s, which reads as "the ladder plays five identical rungs".
-  It does not. The *global* peak belongs to the morph's own `dyn` curve and
-  barely moves with the attack; what the attack governs is the **ramp**. Mean
-  opening level at 1 s: **0.71 / 0.40 / 0.27 / 0.16 / 0.11** for 1/2/3/5/8 s.
-  The test now asserts the ramp, never the peak.
-- **The assembly moved into the engine as `M.buildLadder` (pure), behaviour
-  unchanged.** It was in a browser-only IIFE, so a test could only *replicate*
-  it and would drift from it silently. The panel now calls it and
-  `tools/test_ladder.js` pins it — one implementation, and what is tested is
-  what plays. The test reads any banked ACTUAL carrying `resolvedParams` rather
-  than hard-coding `ACT-BLOOM-01`, and SKIPs (not fails) if the composer deletes
-  them all.
-- **Filed to NITS:** the 4 s hold is fixed, so a long rung is cut while still
-  much quieter than a short one was — arguably correct, easy to confuse by ear,
-  one constant to change if it bothers the composer.
-
-**Next up — unchanged, and now genuinely next:**
-1. **THE COMPOSER AUDITIONS THE LADDER** in a window where MIDI is allowed:
-   open the Morph panel, pick a shape preset, press **Fade ladder**. Nothing is
-   blocking this.
-2. Then the **notation pass** — FR-7, D3's performer transform and the 0–10 →
-   dynamic-mark convention all come due there.
-
----
-
-**CHECKPOINT (2026-08-17, day 15 — THREE MORPHS IN THE PIECE (8:16); TWO EAR-BUGS
-FIXED; THE CLEAR CYCLE SPLIT IN TWO. Claude Code / Opus 5) — (mid-session
-checkpoint).** 3 commits, all pushed. `test_morph.js` 354/354, fixtures never
-regenerated; `model_bank --validate` VALID.
-
-- **THE COMPOSER PLACED TWO MORE MORPHS, and the piece is now 8:16.**
-  `piece-s23` (1236 objects, **496.6 s**) carries all three of their own
-  actuals: `ACT-BLOOM-01` "JYBloom001", `ACT-CONVERGE-01` "JYConverge001" and
-  `ACT-BALANCE-01` "jyBalance001" (110 notes). `piece-s24` exists and was not
-  inspected. **That is 55 % of the 15-minute Penn State ceiling** — the length
-  of anything further is now a formal decision, and the final pulsed section and
-  the remaining morphs compete for the same ~6:45.
-- **"THE BALANCE MORPH SEEMS TO END MORE ABRUPTLY THAN THE OTHERS" — true, and
-  it was never a bug in code.** Measured: BALANCE cut at **97 % of its own peak**
-  (mean voice level 7.5/10, all 8 sounding) against **29–59 %** for the other
-  five. Every legacy render chops all voices at the span; only the LEVEL at the
-  chop differs, and that is `dynLevel`'s shape. `swell` is an arch whose ends ARE
-  its trough; `rotate` is a full turn that returns to exactly where it began
-  (p=0 and p=1 give identical levels). BALANCE is the only model on `rotate` —
-  that IS M6's identity. **Control, symmetric:** BALANCE on `swell` → 49 %,
-  BLOOM on `rotate` → 100 %. **Same root as the day-13 release bug, on the path
-  day 13 did not cover** (`relFade` only guards inside a release; a stock model
-  has none). **Fixed in DATA:** `BALANCE.baseParams.carrier.release: 5` + a
-  `close it` recipe (0 → 12 s, OFF until turned). Dial 0 restores the old hard
-  stop exactly. **`carrier.duration` must never be patched by that recipe** —
-  pinning it makes `slower / longer` switch cycling ON below span 30 (span 10
-  → 42.9 s instead of 18.7 s). Full record: `MORPH_FINDINGS.md` "The ending law".
-  *Not heard yet — whether 5 s is the right close is the composer's call.*
-- **THE TIME READOUT REGRESSION, and it was not styling.** The hover-for-px/s
-  handler (2026-08-14) assigns `floatingTime.textContent`, which DELETES the two
-  spans the m:ss line added on 08-17. `el._time` had saved their concatenation
-  (`"142.072:22"`), so mouseleave restored one flat 18 px node — and `_ftSec` /
-  `_ftMMSS` still pointed at detached spans, so **the readout froze until
-  reload**. Day 14 verified eight times but never hovered. Fixed: the px/s
-  overlay is its own `.ftZoom` span, shown by hiding the other two;
-  `updateTimeDisplay` now rebuilds if its spans were detached. Verified in a
-  standalone browser harness (old froze at `158.322:38`; new advanced
-  158.32 → 166.51 with all three spans intact).
-- **THE CLEAR CYCLE IS NOW TWO CYCLES** — composer's question, *"can we have a
-  preclear and a postclear protocol?"* Subject changed → `/session-end` ·
-  `/clear` · `/session-start`. Same task, long chat → **`/checkpoint` · `/clear`
-  · `/resume`** (new, in this repo's `.claude/commands/`; the rationale is
-  `SESSION_HYGIENE.md` § The two boundaries). The commands are canonical for
-  their own steps. **Note the split:** `session-start` / `session-end` still live
-  in piece #2's repo, which is reference-only — the composer may want all four
-  moved to `~/.claude/commands/`, undecided.
-- **`PLANNER.md`'s `NOW ►` was six days and two morphs stale** (still "piece-s17,
-  135.8 s, next: scope 2z and 2y"). Refreshed. `/checkpoint` step 2 now exists
-  specifically to stop that recurring, because `/resume` reads that line.
-
-**Next up — the composer's stated order, unchanged:**
-1. **BUILD THE FADE LADDER.** A new row in the Morph panel that renders N attack
-   lengths **back-to-back in ONE play session**, so a press-edge artifact can hit
-   at most the first rung. This is the concrete next step; nothing is started.
-2. Then the **notation pass** — FR-7, D3's performer transform and the 0–10 →
-   dynamic-mark convention all come due there.
-
-**Open at session end (day 15):**
-- **DELIBERATELY UNCOMMITTED, do not "clean up":** `scores/piece-s21.json`,
-  `s22`, `s23`, `s24` and `reaper/7_tubas_rack.rpp` are the composer's live work,
-  saved from the app while this session ran. `bank/actuals/ACT-BALANCE-01.json`
-  and `ACT-CONVERGE-01.json` WERE committed, only because
-  `bank/morph_models.json` already referenced them and committing the store
-  without them would leave dangling actuals.
-- **Pending the composer:** whether 5 s is the right stock close for BALANCE
-  (unheard) · **FR-8's three readings** of part doubling · whether to move the
-  session commands to `~/.claude/commands/` so all four live together.
-- **Filed but not started:** the pulsed section's *"close 10 note cluster that
-  opens out to spread chords on beat"*, and *"come back to the last morph and try
-  to release on the consonant clear chord"* — the latter is a release-TARGET
-  question; `shape.release.motion` has `to-unison` but no arbitrary-target
-  voicing. Both in COMPOSER_LOG day 15 + PLANNER.
-
----
-
-**CHECKPOINT (2026-08-17, day 14 — THE BLIP IS GONE; THE MORPH IS READY TO
-PLACE; Claude Code / Opus 5 + Fable 5).** Mid-session checkpoint before a chat
-clear. 5 commits, all pushed. `test_morph.js` 354/354, fixtures untouched;
-`model_bank.js --validate` VALID.
-
-- **THE BLIP IS SOLVED, AND IT WAS TIMING, NOT VALUES.** Composer: *"Blip
-  gone."* Day 13 fixed the CC7 *values* (24 → 0) and velocity; what was never
-  tested was **CC7 moving while sound is present**. The opening CC7 had ~2–5 ms
-  of real lead (the "synchronous" arm fires at play-press, the note-on on the
-  next timer tick), so a sampler smoothing CC7 still had the channel near the
-  stop-restored 127 when the note spoke — and `panic()` restored CC7=127 *in the
-  same instant* as the note-offs, yanking the 0.69 s tail. **The composer's
-  keyboard counter-evidence was the discriminator all along:** a keyboard note
-  involves no CC7 movement near its note-on, so it has no bite. Fix:
-  `CC_LEAD_MS 250` schedule shift with a cold-vs-warm entry test, and the CC7
-  restore delayed `TAIL_MS 2000`, per-channel, cancelled on re-arm. Law recorded
-  in `MORPH_FINDINGS.md`; **D36's velocity inference is consequently unsupported
-  again** (see its addendum) — 2q's listening test is undecided, not settled.
-- **`ACT-BLOOM-02` SAVED AND BANKED** — *"BEATING BLOOM, 108 s 001"*, the first
-  post-save-fix, post-blip-fix actual. 106 notes / 8 voices / 113.9 s, BLOOM seed
-  11, dials slower-longer 0.76 + more dramatic 0.55, preset `fade-in-3s` with
-  attack 9 s, carrier {span 48, duration 90, release 18}. Stale `ACT-BLOOM-01`
-  deleted by the composer and de-referenced.
-- **A BUG THAT HAD BEEN THERE SINCE 2v: EVERY MORPH INSERT LANDED AT t=0.** All
-  three panels read `C.playheadTime` / `C.currentTime`, **neither of which has
-  ever existed on `Composer`** (confirmed undefined live), so the expression fell
-  to 0 always. The composer placed at ~142 s, saw nothing, placed again, and only
-  the conflict badge moved — both groups were sitting on DB1. Fixed to
-  `getTimeAtPlayhead()` in both morph paths and (latent) the texture panel.
-  **Verified in the running app: placed at 142.0 s → `firstStart 142.000`, and
-  108/108 objects present in the DOM after render.**
-- **THE NOTATION DATA WALK IS DONE AND CLEAN** (the composer's ask, done against
-  their graphic-layer dictation). Everything the part scores and the conductor's
-  graphic need is present or derivable — full findings in RUNNING_LOG day 14.
-  **Two things to carry:** place morphs from the **ACTUALs tab** (it logs
-  placements and the group id names the ACTUAL; scratch Insert is anonymous), and
-  **notation reads the ACTUAL + placement offset**, not the score objects alone
-  (per-note BREATH/SEAM flags do not survive into objects — FR-7).
-- **THE COMPOSER'S TWO BIG NOTES, both filed verbatim in COMPOSER_LOG day 14:**
-  (1) **a GRAPHIC LAYER in the full score** — beating acceleration, how many
-  layers of beating, *which players beat against which* — so a conductor can
-  rehearse and shape what the part notation cannot show; part scores get a
-  pitch/crescendo curve, colour for playing/breathing/rearticulating, and spot
-  dynamics. (2) **the FINAL SECTION: a pulsed, Ghost-Trance-like field** —
-  continuous pulse notated *and* coloured, pitch material single pitches → pitch
-  sets → tone rows, with multi-tempo bursts and phase-shifting sections
-  **cross-cut** in.
-- **FR-7 / FR-8 / FR-9 spec'd, none built** (D35). FR-7 flags-into-objects
-  (composer chose: build at the notation pass). **FR-8 part doubling** — measured:
-  all six models use 8 pitches, so 2 of 10 players are idle; **but the 8 are
-  already 4 doubled pitches and that pairing IS the beating mechanism**, so three
-  materially different readings are on the table and the composer picks.
-  **FR-9 phase-shifting at a tempo** — read from the source, the texture engine
-  already has rate(t) by phase integration, per-voice `phase0` and a beat-displaced
-  grid, so the gap is likely the interface, not machinery.
-- **Time readout:** seconds unchanged (18 px, 2 dp) with **m:ss added beneath at
-  9 px**, floored so 119.99 reads 1:59.
-
-**THE MORPH IS IN THE PIECE — done by the composer at the end of this session.**
-- **`piece-s20`** carries **`grp-act-bloom-01-01`, 108 objects, 141.39 → 255.31 s**
-  — the full 113.9 s morph. `piece-s19` is the step before it (a 30 s scratch
-  morph at 141.41–171.41 s). `piece-s18` was restored clean first (906 objects,
-  ends 135.77 s).
-- **The composer made their own actual, `ACT-BLOOM-01` "JYBloom001"** — their
-  dial-in, distinct from the AI-saved `-02`: carrier span 47.5, attack len 8,
-  dials 0.75 / 0.55, seed 11, `fade-in-3s`. It reused the id freed by deleting
-  the stale `-01`. **Its self-logged placement (`piece-s18-work` @ 141.386 s) is
-  the t=0 insert bug confirmed fixed in real use**, not just in the AI's test.
-- **The piece now ends at 255.3 s (4:15)** — up from 135.8 s. Against the
-  **15-minute Penn State ceiling**, one morph is ~14 % of the piece; 3–5 of them
-  was the plan, and that arithmetic is now real rather than hypothetical.
-
-**Next up:** the composer's stated order — audition attack lengths with the
-**Fade ladder** (new panel row: renders N attack lengths back-to-back in ONE
-play session, so a press-edge artifact can hit at most the first rung), then the
-remaining morph objects for the section. **Then the notation pass**, where FR-7,
-D3's performer transform and the 0–10 → dynamic-mark convention all come due.
-
-**Open at session end (day 14):**
-- **`piece-s18-work.json` may still hold two junk groups** (`grp-morph-01/02`, 36
-  objects each at 0–30 s, on top of DB1) from the t=0 bug — harmless now that
-  `piece-s18/19/20` are all saved and committed, but it will offer them back if
-  that working copy is ever resumed. **`piece-s18.json` itself is clean.**
-  The trap, worth knowing: at the working-copy prompt **Cancel = discard,
-  OK = resume the junk**, and choosing "fresh" does not itself overwrite the
-  stale work file, so a reload offers it again unless CTRL+S follows.
-- **PROPOSED, NOT BUILT, NO GO GIVEN:** (1) make "start fresh" write the clean
-  working copy at once — the actual defect, since the choice does not persist;
-  (2) replace the OK/Cancel `confirm()` with a dialog whose buttons say
-  *Resume edits* / *Discard and start fresh*.
-- The AI told the composer to click a **"place"** button that did not exist (both
-  buttons read `insert @ cursor`), which is what sent the clicks down the scratch
-  path. Relabelled `place @ cursor`.
-
----
-
-**SESSION END (2026-08-17, day 13 — MORPH CYCLING BUILT; SPEC LEDGER OPENED;
-Claude Code / Opus 5).** 17 commits, all pushed. `node tools/test_morph.js` =
-**354 passed, 0 failed, fixtures NEVER regenerated** — every pre-existing render
-is byte-identical.
-
-- **THE ROOT FINDING, and everything else follows from it:** the morph engine had
-  **exactly one time value**, and the glissandos were stretched to fill it — so
-  "how long the gliss takes" and "how long the gesture lasts" were the same
-  number. Split into `carrier.span` (the ONE-WAY gliss = pace) and
-  `carrier.duration` (the body). **Cycling is on exactly when duration > span**;
-  no separate switch. `voiceProgress` folds with a triangle instead of clamping,
-  so the trajectory runs **out and back** forever instead of arriving and
-  stopping. **Loudness needed no code at all** — it already rides the same
-  progress, so it cycles for free.
-- **`carrier.release`** = a forced run-down. Because loudness rides progress,
-  driving progress to 0 returns pitch to unison *and* level to the floor in one
-  motion: **the bloom closes as it fades.** Measured: final detune 0.00 c and
-  final level 0.8 on every voice, stops staggered. Negative control run (no
-  release → voices end at 7.9–9.2, non-unanimous).
-- **THREE BUGS FOUND BY THE COMPOSER'S EAR, all real, all in the engine.**
-  (1) A release used to switch the *body* into cycling. (2) The dynamics layer is
-  **not monotonic in progress** — `swell` is an arch, loudest at p = 0.5 — so
-  running progress down walked back **through the peak** (measured 9.20 of 10
-  inside the release). (3) The re-entry "sneak-in" dip-and-rise, which hides
-  seams in a body, is a **crescendo on every re-attack** inside a fade.
-  *Pattern, three times in one day: a mechanism correct for the body, reused
-  where its assumptions do not hold.*
-- **TWO PRE-EXISTING PANEL BUGS**, both found by testing rather than reading:
-  `readFields` threw on **every** call in MODELS mode (recipe checkboxes/sliders
-  and the preset picker carry no `dataset.path`), so **nudging any dial there had
-  silently done nothing since MA3**; and `Save as ACTUAL` **dropped every
-  hand-typed field**, re-deriving from the model — so a dialled 300 s bloom saved
-  as the stock 40 s one. Both fixed; the save now stores the exact params
-  rendered.
-- **Panel made usable** — it was an uncapped block, so MODELS mode grew past the
-  screen taking every button with it. Now a height-capped flex column with one
-  scrolling middle, a resize grip, and a clamp that cannot strand it.
-- **SPEC LEDGER OPENED: `docs/FEATURE_REQUESTS.md`** (FR-1…FR-6, composer's
-  words + research + gates), plus `docs/plans/MORPH_CYCLING_PLAN.md` (the build)
-  and **`docs/plans/MORPH_SECTION.md`** (the section's form: morph bed + played
-  impacts; the governing constraint is that the bed and the impacts share ten
-  players, so impacts must borrow **whole pairs**).
-- **PENN STATE: 15 MINUTES MAX** (composer, from the call PDFs now in `docs/`).
-  Recorded in `PENN_STATE_RESEARCH.md`. **This binds the morph section** — one
-  5-minute cycling morph would be a third of the piece.
-
-**Next up, in the composer's order:**
-1. **Hear the attack.** The body (BLOOM + duration + release) is decided; three
-   shape presets exist (`fade-in-3s`, `hit-and-settle`, `brassy-hit`) and are
-   **UNHEARD**. The composer needs to audition fade lengths and check the seam
-   where the attack joins the body — **blocked by the blip, see below.**
-2. **Audit the saved JSON for the notation phase** — walk `ACT-BLOOM-01.json` and
-   a placed score and confirm every field the notation pass will need is present.
-   *(The AI's assessment, unverified: the score JSON and the actual's provenance
-   already hold more than MIDI ever could — bend and level breakpoint curves per
-   note, `groupId`, the META shape. MIDI is a render, not the source of truth.)*
-3. Then: 3–5 of these morph objects for the section.
-
-**Open at session end (day 13):**
-- **THE BLIP IS NOT DIAGNOSED, AND THE AI'S DIAGNOSIS WAS DISPUTED.** The
-  composer hears a short attack at the start of the fade-in and at the release.
-  Three engine causes were found and fixed (level floor → opening CC7 went 24 → 0;
-  CC7 had zero lead at t=0; velocity now scales inside an attack window). **The
-  blip persists, quieter.** The composer's counter-evidence: playing four or
-  eight ordinario notes from a keyboard gives **no attack at all** — which none
-  of the above explains. **Do not re-run the same three fixes.** The next place
-  to look is the generated-MIDI → Reaper → UVI chain, not the engine. Composer's
-  stated position: *"it's fine for now, I'll fix it manually in Reaper for the
-  demo."*
-- **The composer cannot currently hear the attack because of it**, and asked for
-  a way to audition fade lengths **outside the live-MIDI path**. **Recommended
-  and NOT built:** render N attack variants end-to-end into one `.mid` via the
-  existing `tools/midi_out.js` (SMF writer with bend, from 2j) and play it in
-  Reaper — which is where the composer is fixing things anyway. This was the
-  live question when the session ended.
-- **`ACT-BLOOM-01` IS STALE** — saved before the reload that carried the save fix,
-  so it kept the sliders (`slower / longer 0.76`, `more dramatic 0.55`, seed 11,
-  pace 48) but **not** duration, release or the attack. Its label says "108 s"
-  because that *was* the real length. Re-save as `-02` and delete it.
-- `bank/morph_models.json` rev 2 — BLOOM now lists `ACT-BLOOM-01`; that reference
-  must be cleaned up with the file.
-- Two Penn State call PDFs and `scores/MorphPallette01.json` (the composer's empty
-  scratch score) are in the tree.
-
-**Blockers:** none for composing; the blip blocks *auditioning the attack* only.
-
----
-
+- **Day 15 (08-17), three sittings:** two more morphs placed by the composer —
+  `piece-s23`, 1236 objects, **496.6 s (8:16)**, carrying `ACT-BLOOM-01`,
+  `ACT-CONVERGE-01` and `ACT-BALANCE-01` · the **BALANCE abrupt-ending law**
+  found and fixed in DATA (`carrier.release: 5` + a `close it` recipe; BALANCE
+  cut at 97% of its own peak against 29–59% for the other five, because it is
+  the only model on `rotate`) · the time-readout regression fixed (the px/s
+  hover handler was deleting the m:ss spans) · **the clear cycle split in two**
+  (`/checkpoint`+`/resume` beside `/session-end`+`/session-start`;
+  `SESSION_HYGIENE.md`) · the **fade ladder** verified, extracted to
+  `M.buildLadder`, pinned by `test_ladder.js` (54/54) · then the evening's
+  trance work: a keyboard fifths chain (`tranceSB01`), two accretive pulses, and
+  the realignment that became **PLAN 2aa**. **THE ENSEMBLE IS TEN TUBAS** —
+  composer, explicitly: *"10 parts tracks one to ten"*; the repo name stays
+  historical. Full trail: `RUNNING_LOG.md` day 15.
+- **Day 14 (08-17):** **THE BLIP IS GONE** — it was CC7 *timing*, not values
+  (a 250 ms cold-attack lead + the CC7 restore delayed 2 s past the tail);
+  composer: *"Blip gone."* The composer then placed the first morph in the piece.
+- **Day 13 (08-17):** **MORPH CYCLING** (FR-3/FR-6) — `carrier.span` split from
+  `carrier.duration`, so lengthening a morph no longer slows it; **three engine
+  bugs found by the composer's EAR**, all of one kind (a mechanism correct for
+  the body reused where its assumptions fail) plus two dead panel paths; the
+  spec ledger `docs/FEATURE_REQUESTS.md` opened; 354 assertions, fixtures never
+  regenerated.
 - **Day 12 (08-16/17), two concurrent sessions in one tree.** **2x TEXTURE
   SANDBOX built end to end** (317 assertions; `Texture` button; detail in
   `docs/plans/TEXTURE_SANDBOX_PLAN.md` §13). Its finding that reaches past the
@@ -972,6 +676,38 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   scaling inside attack windows stays — harmless either way. See
   `MORPH_FINDINGS.md` "The CC7 timing law".)*
 
+- **D37** *(2026-08-17, day 16 — PLAN 2aa)* — **A RECALLED SONORITY CARRIES ITS
+  ARTICULATION, NOT JUST ITS PITCHES.** Any path that resolves a banked sonority
+  by reference resolves it with the per-note technique rule the blast inserter
+  already uses: a pitch in `cuivreConverted ∪ cuivreAdded` → `cuivre`, otherwise
+  its `artic` entry. *Why:* **five of the composer's seven staccato /
+  staccato-cuivre pairs have IDENTICAL pitch sets** — S020/S023, S026/S029,
+  S032/S035, S038/S041, S044/S047 — so a pitches-only recall makes half of a
+  menu into byte-identical duplicates, and the mock-up plays them without a
+  clue that anything is wrong. *Rejected:* 2aa v1's own instruction ("technique
+  `staccato`", one technique for the whole pass), which is what exposed this.
+  *Measured in the running app:* S044 → six notes on ch 4 (`tubaNb`, staccato);
+  S047, the same six pitches → three on ch 4 and **C4/C#4/D4 on ch 5** (cuivre).
+  Generalises past 2aa: the same trap waits in any future recall path (v2's
+  write-to-score, a notation export) that treats a sonority as a pitch list.
+
+- **D38** *(2026-08-17, day 16 — PLAN 2aa)* — **A LOOPED AUDITION SCHEDULES THE
+  NEXT CYCLE AHEAD; `MorphEmit.play` IS FOR ONE-SHOT RENDERS.** `E.play` shifts
+  its whole schedule by `CC_LEAD_MS` (250 ms) and calls `panic()` on entry, both
+  of which are right for a single morph render and fatal for a loop: re-invoking
+  it per cycle opens a **250 ms hole at every seam — more than half a beat at
+  130 BPM**. *Rejected:* (a) re-invoke at span, the hole; (b) re-invoke at
+  span − 250 ms, which closes the hole but panics over the last column's still
+  ringing one-shot — and whether a note-off truncates a fixed sample is exactly
+  PLAN 2o's open question, so it would have been a fix built on an unknown;
+  (c) batch N cycles per call, which only makes the stumble rarer. *Adopted:*
+  cycles laid down `LOOKAHEAD_MS` (400) ahead against one absolute time base,
+  nothing stopped and restarted — the `texture_panel.js` precedent for this
+  material class. **`panic()` stays the single stop path**: every timer is
+  pushed into `E._timers`, and fired cycles are pruned so the array cannot grow
+  without bound. *Measured over 4.5 cycles at a nominal 250 ms step:
+  240/250/260 ms throughout, the seam indistinguishable from any other step.*
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -1063,6 +799,14 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   ACTUALs, bounded recipe sliders, seed stepper, Save as ACTUAL and a browser.
   Full loop verified in the running app. **MA4 (the composer's naming/blessing
   session) is the only gate outstanding.**
+- 2026-08-17 — **PLAN 2aa v1 PULSE SEQUENCER STRIP shipped** (the trance
+  section's sandbox): `Pulse` panel in the composer score, a 29-entry sonority
+  menu in `bank/pulse_palette.json` resolved live against the taxonomy, a pure
+  grid→notes engine (`pulse_seq.js`, 103 assertions, mutation-tested) and a
+  seamless real-time loop. **Audition only — it writes nothing to the score.**
+  Two rulings came out of building it: **D37** (a recalled sonority carries its
+  articulation) and **D38** (a looped audition schedules ahead). *The sound is
+  unheard — the composer's audition is the open half.*
 
 ## §6 Human Notes
 
