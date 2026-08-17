@@ -1,6 +1,6 @@
 {
   "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
-  "rev": 5,
+  "rev": 7,
   "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
   "models": {
     "BALANCE": {
@@ -15,7 +15,7 @@
         "held",
         "upper-partials"
       ],
-      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1. | 2026-08-17 (day 15), composer's ear: \"the balance morph seems to end more abruptly than the others.\" MEASURED and true — it used to cut at 97% of its own peak (mean voice level 7.5/10, all 8 sounding) against 29-59% for the other five. Cause: this is the only model on dyn.shape `rotate`, and rotate at turns=1 returns to EXACTLY its starting level (p=0 and p=1 are identical), while `swell` is an arch whose ends are its trough. Not an M6 property — swapping the shape swaps the behaviour both ways. Fixed here in data, not in the engine: stock `carrier.release: 5` plus the `close it` recipe. See docs/MORPH_FINDINGS.md.",
       "baseParams": {
         "model": "M6",
         "source": {
@@ -41,7 +41,8 @@
           "span": 30,
           "segLen": 7,
           "segVar": 0.35,
-          "striation": "staggered"
+          "striation": "staggered",
+          "release": 5
         },
         "dyn": {
           "base": 0.55,
@@ -150,6 +151,30 @@
             }
           ],
           "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "close it",
+          "description": "how long the run-down takes. 0 = the HARD STOP this model used to have (rotate ends exactly where it began, so the gesture cuts at ~97% of its own peak); up = a longer close. Stock is 5 s. Only this model needs the dial: it is the only one on `rotate`, and every other model's `swell` lands in its trough at the end by construction.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.42
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.release": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.release": 12
+              }
+            }
+          ],
+          "boundsFrom": "measured 2026-08-17 (day 15): release 3/5/8/12 all land every voice on the 0.4 floor (1% of peak). `carrier.duration` is deliberately NOT patched — pinning it would make the `slower / longer` recipe switch cycling ON below span 30 (span 10 renders 42.9 s instead of 18.7 s)."
         }
       ],
       "actuals": [],
@@ -651,7 +676,9 @@
           "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
         }
       ],
-      "actuals": [],
+      "actuals": [
+        "ACT-CONVERGE-01"
+      ],
       "seededFrom": "bank/morph_recipes.json slot D"
     },
     "SPACING": {

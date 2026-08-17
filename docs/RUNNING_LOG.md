@@ -1914,3 +1914,56 @@ the running app across 0 / 7.35 / 59.99 / 60 / 119.99 / 142.07 / 255.919 /
 journal §2 carries a full day-14 entry written for a cold session, and §2's two
 long day-12 blocks were compressed to one entry (their detail lives in the plan
 docs §13 and their open items in §6, verified present before trimming).
+
+
+## 2026-08-17 — day 15 (Claude Code / Opus 5)
+
+### "The balance morph seems to end more abruptly than the others" — and it did
+
+The composer's ear again, and again it was real. Full technical record and the
+measured tables are in **`docs/MORPH_FINDINGS.md` → "The ending law"**; the short
+version for anyone reading the narrative:
+
+- **Measured, stock params, all six models:** BALANCE cut at **97% of its own
+  peak** (mean voice level 7.5/10, all eight sounding, the last six seconds
+  *rising* into the cut) against **29–59%** for the other five.
+- **Cause, and it is one line of arithmetic.** Every legacy render chops every
+  voice at the span — common to all six. The difference is purely the level at
+  the chop, and that is `dynLevel`'s shape. `swell` is an **arch** whose ends are
+  its trough, so five models land quiet for free. `rotate` is a **full turn**
+  that comes back to exactly where it started (p=0 and p=1 give identical
+  levels). BALANCE is the only model on `rotate` — because that *is* M6's
+  identity.
+- **The control that made it a diagnosis rather than a reading:** swap only
+  `dyn.shape` and the behaviour swaps with it, both directions. BALANCE on
+  `swell` → 49%. BLOOM on `rotate` → 100%.
+- **Same root as the day-13 release bug**, showing up on the path day 13 did not
+  cover. Day 13 fixed non-monotonic dynamics for the *release* (`relFade`); a
+  stock model has no release, so that guard never engages. *That is now twice
+  this mechanism has surfaced, both times found by ear, never by reading.*
+- **Fixed in data, not in the engine:** `BALANCE.baseParams.carrier.release: 5`
+  plus a `close it` recipe (0 → 12 s, default ≈5 s, OFF until turned per D32).
+  Dial 0 restores the old hard stop **exactly** — end 30.0 s at 97% of peak, the
+  pre-change render — so the loud stop stays available rather than being
+  legislated away. An engine-side "always taper" was rejected: it would break
+  byte-identity on all 354 fixtures for something one data field away.
+- **The trap avoided, and it would have been invisible:** the recipe patches
+  `carrier.release` only. Pinning `carrier.duration` alongside it would have made
+  the existing `slower / longer` recipe switch **cycling** on below span 30 —
+  span 10 rendering 42.9 s instead of 18.7 s, a different gesture entirely, with
+  nothing in the UI to say so.
+- **Verified:** `model_bank --validate` VALID (27 recipes) · `test_morph.js`
+  **354 passed, 0 failed, fixtures never regenerated** · the other five models'
+  renders numerically identical before and after · the recipe exercised through
+  the panel's own `resolveParams` path at dials 0 / 0.42 / 1 and against the span
+  recipe at both extremes, no warnings · **the running score server serves rev 7**
+  with the new carrier and the new recipe row.
+- **Not opened in a browser on purpose.** The composer was live in the app with
+  unsaved work, and a second composer session autosaves over the working copy.
+  The API check gives the same evidence without that risk; the panel's recipe row
+  is the existing generic checkbox+slider loop, not a new code path.
+
+**Length cost, flagged rather than buried:** FR-6's "let them finish" means stock
+BALANCE now ends at **39.9 s** rather than 30. It is *audibly* done at ~34 s; the
+last ~6 s are players finishing their breath at the 0.4 floor. Stop stagger goes
+0 → 5.6 s, which is the ragged descent FR-6 was built to give.

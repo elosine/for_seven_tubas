@@ -65,3 +65,77 @@ clean**. Mechanism consistent with sampler-side CC7 smoothing; the discriminator
 was the composer's keyboard control (no CC7 movement → no bite). Composer
 verdict 2026-08-17: **"Blip gone."** Constants live in `morph_emit.js`
 (`CC_LEAD_MS 250`, `TAIL_MS 2000`).
+
+
+## The ending law: a model ends where its dynamics shape leaves it (day 15, measured)
+
+Composer, 2026-08-17: *"the balance morph seems to end more abruptly than the
+others."* True, and measurable. Rendered from each banked model's own stock
+params, ensemble level at the final cut as a fraction of that render's own peak:
+
+| model | dyn.shape | mean voice level at last note-off | level at cut, % of peak |
+|---|---|---|---|
+| BLOOM (M1) | swell | 2.96 | 37% |
+| SPECTRAL (M2) | swell | 3.15 | 59% |
+| CONVERGE (M3) | swell | 2.87 | 35% |
+| COLOUR (M4) | swell | 3.94 | 51% |
+| SPACING (M5) | swell | 2.99 | 29% |
+| **BALANCE (M6)** | **rotate** | **7.53** | **97%** |
+
+**THE LAW.** Every legacy render (no `duration`, no `release`) cuts every voice
+at the span — that part is common to all six. What differs is only the LEVEL at
+the cut, and that is decided entirely by `dynLevel`'s shape:
+
+- `swell` = `sin(πq)·2−1`, an **arch**. Both ends of the progress interval ARE
+  its trough, so p=1 is quiet by construction. Five of six models land quiet for
+  free and nobody ever had to think about it.
+- `rotate` = `sin(2π(turns·p + phase))`, a **full turn**. At integer `turns` it
+  returns to exactly where it began. Pure-math check with no carrier involved:
+  rotate at p=0 and p=1 give *identical* per-voice levels
+  (5.5 7.3 8.7 9.5 9.3 8.3 6.7 4.9). Swell at p=1 gives 1.5–5.9.
+
+**It is not an M6 property.** The control is symmetric: BALANCE forced to
+`swell` ends at 49%; BLOOM forced to `rotate` ends at 100%. It follows the
+shape. BALANCE is simply the only model that *has* `rotate`, because that is
+M6's identity — `morph.js` resolves an unset shape as
+`(model === 'M6') ? 'rotate' : 'swell'`.
+
+**Same root as the day-13 release bug, on the path day 13 did not cover.** Day
+13 established that the dynamics layer is not monotonic in progress and fixed it
+for the **release** — `relFade` forces a descent whatever the shape (rotate was
+in that test table: 0 rises in 499 samples). A stock model has no release, so
+`relFade` never engages and nothing guarantees the descent.
+
+**Two knobs that do NOT fix it, measured, so nobody spends ear time on them:**
+
+- `turns` — integer turns land back at the start (1 → 97%, 2 → 100%). Fractional
+  turns only rotate *which* voices are loud: 0.75 and 1.75 give identical
+  per-voice endings, 1.25 the mirror. No single value quiets all eight, because
+  their phases differ.
+- `dials.depth` — at 0.6 the mean drops to 3.9 but voice 7 still ends at 8.3. It
+  redistributes who is loud rather than quieting anyone.
+
+**THE FIX IS DATA, NOT ENGINE** (day 15). `BALANCE.baseParams.carrier.release: 5`
+plus a `close it` recipe (`carrier.release` 0 → 12 s, default 0.42 ≈ 5 s, OFF
+until turned per D32). Dial 0 restores the old hard stop exactly — verified,
+end 30.0 s at 97% of peak, the pre-change render. Result: **1% of peak, every
+voice on the 0.4 floor.** An engine-side "always taper" was rejected: it would
+break byte-identity on all 354 fixtures for something one data field away.
+
+**`carrier.duration` is deliberately NOT set and the recipe must never patch it.**
+`carrierTiming` reads `duration = max(span, duration ?? span)`, so a pinned
+duration of 30 turns cycling ON whenever the `slower / longer` recipe takes span
+below 30 — span 10 then renders **42.9 s instead of 18.7 s**. Leaving it null
+tracks the span recipe correctly (span 10 → 18.7 s, span 60 → 72.6 s).
+
+**Length cost, worth knowing before placing one:** FR-6's "let them finish" means
+segments run their natural length once a release exists, so stock BALANCE now
+ends at **39.9 s** rather than 30 s. The gesture is *audibly* over at ~34 s; the
+last ~6 s are players finishing their breath at the 0.4 floor. Stop stagger goes
+0 s → 5.6 s, which is the ragged descent FR-6 wanted.
+
+**Standing consequence for auditioning:** in the MODELS tab BALANCE was the only
+model on `rotate`, so back-to-back comparisons were not like-for-like — the same
+class as the note already carried on every model ("any day-10 COMPARISON between
+models was of the wrong thing"). Before comparing model endings by ear, check
+which `dyn.shape` each one is on.
