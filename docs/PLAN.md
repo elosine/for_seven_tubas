@@ -408,10 +408,35 @@ composer → notation → performance architecture.)*
   fails, M4+M5+M6+carrier+loop ship whole. Supersedes the gliss-patch idea in
   the PLANNER's morphing-crescendo drill-in (patch unusable — composer tested).
 
-- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `IMPLEMENTING 2026-08-16 —
-  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3). Phase 0 DONE · Phase 1 BUILT (machine
-  gate items passed; 3 listening items awaiting the composer). Phases 2–4 to go.`
+- **2x — TEXTURE / ATTACK-FIELD SANDBOX** — `ALL PHASES BUILT 2026-08-16 —
+  docs/plans/TEXTURE_SANDBOX_PLAN.md (v3). Phases 0–4 done, every machine-checkable
+  gate item passed. WHAT REMAINS IS LISTENING — see below.`
   **D29 CONFIRMED: attack fields only, no bend in this build.**
+  - **THE LISTENING SLATE (the only thing left, and only the composer can do it):**
+    SMEAR/RAIN/GALLOP distinct by ear · A/B with no residue · **humanize A/B on
+    one SMEAR and one RAIN** (the fragile/robust prediction's first real data
+    point) · which pitch set is the keeper, and whether pitch dissolves the accent
+    artefacts (E5) · does `rain → stutter` still SNAP (phase06 heard it; the
+    `dissolve` process is built to ask) · the **crossover battery** — where a
+    groove stops being parseable and becomes texture (§5's open question, answer
+    goes back as data). **All five models read UNHEARD in the store and cannot be
+    banked as keepers until they have a verdict — that gate has no `--force`.**
+  - **Phases 2–4 — `done 2026-08-16`.** **Pitch layer:** `tonality.js` extracted
+    from clusterview (400/400 randomised equivalence, clusterview rewired in the
+    same commit), policies unison/perVoice/draw/cycle, pooled/literal.
+    **Morphs + pockets:** breakpoint curves on bpm/jitter/scatter/level/techMix,
+    a category morph whose endpoints match the static models within 1%, and
+    parametric + literal pockets. **Stores:** `texture_bank.js` (mutation-tested
+    provenance integrity, mandatory robustness verdict) and `place_texture.js`
+    (2w conventions, drag/scale verified). **317 assertions.**
+  - **THE FINDING THAT REACHES PAST THE SANDBOX (Phase 2, MEASURED):** the 23/s
+    density ceiling is **C3-specific**. All 13 phase-shifting experiments ran ten
+    players on one C3, and C3 (0.42 s) is the **10th shortest** of the 36 measured
+    staccato samples; the ring runs 0.33–0.53 s and is **not monotonic** in pitch.
+    Give a texture any real pitch set and the ceiling falls to **18.9–20.8/s** —
+    so a texture calibrated by ear at unison C3 is **~18% too dense** once it has
+    pitches, and the mock-up plays the difference perfectly cleanly (2r). The
+    engine now computes the ceiling per render instead of using a constant.
   - **Phase 1 — panel floor — `built 2026-08-16, listening gate open`.**
     **`Texture` button** in the composer score next to `Morph` →
     `score/public/texture_panel.js` (injects its own button and DOM, so

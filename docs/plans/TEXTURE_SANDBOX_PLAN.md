@@ -706,13 +706,58 @@ reproduces and is recorded as a finding, not patched.
 > it snaps *to the ear* is not something a test can judge. The `dissolve` process
 > is built to ask exactly that question and records it as a finding either way.
 
-**Phase 4 — stores + placement + export.** `texture_models.json` +
-`bank/actuals/` writes with provenance; robustness-verdict-required banking;
-`place_texture.js`; `--fromModel` MIDI; recipes/`_vocabulary` maturation loop.
+**Phase 4 — stores + placement + export. — `DONE 2026-08-16`, gate passed.**
+`texture_models.json` + actuals writes with provenance;
+robustness-verdict-required banking; `place_texture.js`; `--fromModel` MIDI;
+recipes/`_vocabulary` maturation loop.
 *Gate:* bank a keeper → place into a scratch score → correct
 `groupId`/META/audit → drag the group and replay (survives — they are ordinary
 notes) · an ACT file's provenance re-derives its render exactly (2y's
 integrity idea) · MIDI decodes with the right note count and channels.
+
+> **PHASE 4 RESULT (2026-08-16). 317 assertions; corpus still 9/9.**
+>
+> **`tools/texture_bank.js`** (`--list` · `--validate` · `--bank` · `--actualize`)
+> and **`tools/place_texture.js`** (`--model` regenerates, `--actual` recalls,
+> both with `--dry`, and a placement logged back into the actual).
+>
+> - **The robustness gate is real and has no `--force`.** Banking without a
+>   verdict refuses with exit 1 and explains what to do. `--actualize` refuses on
+>   a model that has none. All five shipped models read **UNHEARD** and say why —
+>   that is the honest state, and `--list` prints it in capitals.
+> - **The provenance integrity check is mutation-tested,** not assumed: corrupting
+>   the recorded seed, corrupting one note's pitch, and injecting a `morphBend`
+>   field were each caught with a named error. A model whose recorded parameters
+>   no longer reproduce its own actual is recording a fiction.
+> - **MIDI verified by an INDEPENDENT decoder** written for the test rather than
+>   by trusting the writer: 257 note-ons in both the 10-track and 1-track files,
+>   note-ons balanced against note-offs, everything on **channel 4** — staccato on
+>   the `b` UVI instance, per D2.
+> - **Drag and group-scale round-trip.** A uniform shift preserves internal
+>   timing exactly and leaves playability unchanged, which is only true because a
+>   texture note is an ordinary note — no note-relative envelope to detach and no
+>   bend to go stale (D29). Group-scaling **translates** fixed one-shots without
+>   stretching them (2n: ORD is the only real duration); measured deviation from
+>   the written 0.12 s is **0.1 ms**, exactly one 4-dp rounding unit.
+>
+> **DEVIATION, flagged per §17 — the actuals store is `bank/texture_actuals/`,
+> not 2y's `bank/actuals/`.** §12/§15.9 expected to share that directory under
+> distinct `ACT-` prefixes. That is not safe as 2y actually built it: their
+> `model_bank.js --validate` walks **every** file in `bank/actuals/` and requires
+> each to name a model in `morph_models.json` **and** to satisfy
+> `Morph.toScoreObjects(notes) === objects`. Both are morph-shaped by design — the
+> integrity check is the point of their store. Filing a texture actual there
+> would turn a shipped, currently-`VALID` tool red over a file it was never
+> written to describe. So the stores are parallel, exactly as §15.9 already
+> requires for the model stores themselves; the schema mirrors 2y's key-for-key
+> where keys mean the same thing, so they can be merged later by whoever decides
+> they should be. `bank/texture_actuals/README.md` records the reasoning, a test
+> asserts 2x never writes a 2y path, and 2y's validator was re-run after every
+> write and stayed `VALID`.
+>
+> *(`notes` is deliberately absent from the texture ACTUAL schema: a morph actual
+> stores it because audition plays envelopes the score objects do not carry, but a
+> texture note IS the score note, so a second array could only drift from it.)*
 
 **Worst-case floor:** Phases 0–1 alone already deliver the qualitative loop on
 static textures with seeds, A/B and humanize — more than the script workflow

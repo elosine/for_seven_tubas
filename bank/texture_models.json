@@ -2,7 +2,6 @@
   "_comment": "TEXTURE MODELS — PLAN 2x §5. A category is not code and not a mere preset: it is a MODEL in the 2y sense (a point, plus the directions worth travelling from it, and how far). Stored as DATA and editable here, because the vocabulary is the composer's and it already evolved once mid-research (smear·rain·stutter·pulse → smear·ticks·rain·gallop·groove). Points come straight from the 13 phase-shifting experiments; every `source` tag says HEARD (composer's ear) or MEASURED (computed from the render). Parallel to 2y's morph_models.json — same shape, separate file, never a shared write.",
   "captured": "2026-08-16",
   "scope": "D29: ATTACK FIELDS ONLY. No pitch bend anywhere in this store — bend-based work (pitch beating, detune bloom, fans) belongs to 2v's morph models. The two layer freely in the score.",
-
   "engineConstants": {
     "densityCeiling": 23,
     "densityCeilingNote": "MEASURED. Ten players ÷ the 0.42 s C3 staccato ring. Tick→tone fusion wants ~50 ms (20/s), so staccato JUST reaches the boundary and cannot pass it without a shorter sample.",
@@ -10,9 +9,28 @@
       "finding": "THE 23/s CEILING IS C3-SPECIFIC. Every one of the 13 phase-shifting experiments ran ten players on a single C3, and C3 (0.42 s) is the 10th SHORTEST of the 36 measured staccato samples. Across the range the ring runs 0.33–0.53 s and is NOT monotonic in pitch (2n's multisample sawtooth), so it cannot be reasoned about by register. Give a texture any real pitch set and the worst-case ring rises to 0.48–0.53 s.",
       "measured": "2026-08-16, PLAN 2x Phase 2, computed from bank/sample_lengths.json over all 15 named sets.",
       "unisonC3": 23.8,
-      "withRealPitchSets": [18.9, 20.8],
+      "withRealPitchSets": [
+        18.9,
+        20.8
+      ],
       "consequence": "A texture calibrated by ear at unison C3 is roughly 18% too dense the moment it is given pitches — and the mock-up plays the difference perfectly cleanly (2r), so the ear cannot catch it. The engine therefore COMPUTES the ceiling from each render's own worst ring rather than using a constant, and the panel marks density against that.",
-      "perSet": { "cl low": 20.8, "cl mid": 20.4, "m3 (F)": 20.0, "cl high": 19.2, "m7 (F#)": 19.2, "m4 (F#)": 19.2, "oct F#": 19.6, "cl spread": 18.9, "BbE 2oct": 18.9, "5ths 30": 18.9, "5ths 37": 18.9, "oct Bb": 18.9, "m6 (F#)": 18.9, "Bhairav (F)": 18.9, "row (placed)": 18.9 },
+      "perSet": {
+        "cl low": 20.8,
+        "cl mid": 20.4,
+        "m3 (F)": 20,
+        "cl high": 19.2,
+        "m7 (F#)": 19.2,
+        "m4 (F#)": 19.2,
+        "oct F#": 19.6,
+        "cl spread": 18.9,
+        "BbE 2oct": 18.9,
+        "5ths 30": 18.9,
+        "5ths 37": 18.9,
+        "oct Bb": 18.9,
+        "m6 (F#)": 18.9,
+        "Bhairav (F)": 18.9,
+        "row (placed)": 18.9
+      },
       "alsoNote": "Jitter can push a texture past the ring on its own: at 21/s with jitter ±45 ms the tightest per-player gap dips below 0.42 s even at unison C3. Density alone does not tell you whether a texture is playable."
     },
     "stageWidthMs": 30,
@@ -20,161 +38,377 @@
     "jitterCeilingMs": 60,
     "ringLengths": "bank/sample_lengths.json — nothing here hardcodes a ring; if the note-off truncation probe (2n/2o) ever changes the table, every consumer follows."
   },
-
   "metrics": {
     "sd": "Standard deviation of composite inter-attack intervals, in ms. The EVENNESS axis. MEASURED calibration from phase07: scatter 0 → 0.1 · 0.03 → 6.4 · 0.08 → 21.5 · 0.2 → 32.6 · 1.0 → 46.2. The extracted engine reproduces this to within 0.15 ms.",
     "unevenness": "Coefficient of variation of the circular gaps between players' MEAN CYCLE POSITIONS. The REPETITION axis — does the irregularity form a figure that comes back every cycle? 0 = evenly spread through the cycle · ~1 = randomly placed · >1 = clumped. This is the only number that separates scatter from jitter; sd cannot.",
     "thePair": "smear = sd low, unevenness low (even, no figure) · rain = sd high, unevenness low (irregular, nothing repeats) · groove = sd high, unevenness high (irregular, and it loops). MEASURED on phase09's A/B pair: jitter ±60 ms → sd 34.0 / unev 0.088; scatter 0.2 → sd 32.2 / unev 0.591."
   },
-
   "models": {
     "SMEAR": {
       "label": "articulated smear",
       "heard": "\"approaching a sustained tone but you can still hear all the articulations\" — dead even at maximum density. The top of the density ladder, where attacks nearly fuse into a tone but never quite do.",
       "source": "phase07 cell 1 · phase08 d23 — HEARD",
       "spec": {
-        "name": "smear", "seed": 11,
-        "sections": [{
-          "dur": 14, "label": "SMEAR · dead even at 18/s — attacks on the edge of fusing into a tone",
-          "tag": "smear",
-          "voices": [{
-            "players": 10, "bpm": 110, "articulation": "staccato", "notelen": 0.12,
-            "scatter": 0, "jitterMs": 0, "level": 7.5,
-            "pitch": { "policy": "unison", "root": 48 }
-          }]
-        }]
+        "name": "smear",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "SMEAR · dead even at 18/s — attacks on the edge of fusing into a tone",
+            "tag": "smear",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
       },
-      "expect": { "density": 18.3, "sd": 0.1, "unevenness": 0 },
+      "expect": {
+        "density": 18.3,
+        "sd": 0.1,
+        "unevenness": 0
+      },
       "directions": [
-        { "dial": "bpm", "range": [108, 138], "reads": "18 → 23 attacks/s. Past 138 the per-player gap falls under the 0.42 s ring and the texture becomes overlapping samples, not attacks." },
-        { "dial": "jitterMs", "range": [0, 20], "reads": "smear → the near side of rain. Above ~20 ms it stops reading as even." }
+        {
+          "dial": "bpm",
+          "range": [
+            108,
+            138
+          ],
+          "reads": "18 → 23 attacks/s. Past 138 the per-player gap falls under the 0.42 s ring and the texture becomes overlapping samples, not attacks."
+        },
+        {
+          "dial": "jitterMs",
+          "range": [
+            0,
+            20
+          ],
+          "reads": "smear → the near side of rain. Above ~20 ms it stops reading as even."
+        }
       ],
-      "robustness": { "survives": null, "note": "UNTESTED. Prediction (docs/PHASE_SHIFTING.md §6): smear is FRAGILE — human error behaves like jitter, so the ensemble converts smear into rain for free. STANDING LABEL for any SMEAR keeper: dead-even is not reachable live (stage-width ceiling)." },
+      "robustness": {
+        "survives": null,
+        "note": "UNTESTED. Prediction (docs/PHASE_SHIFTING.md §6): smear is FRAGILE — human error behaves like jitter, so the ensemble converts smear into rain for free. STANDING LABEL for any SMEAR keeper: dead-even is not reachable live (stage-width ceiling)."
+      },
       "actuals": []
     },
-
     "TICKS": {
       "label": "ticks",
       "heard": "Even, but the attacks separate again — you hear individual events rather than a band. Same evenness as SMEAR, lower density.",
       "source": "phase07 cell 2 region · phase08 d8–d12 — HEARD",
       "spec": {
-        "name": "ticks", "seed": 11,
-        "sections": [{
-          "dur": 14, "label": "TICKS · dead even at 12/s — the attacks separate again",
-          "tag": "ticks",
-          "voices": [{
-            "players": 10, "bpm": 72, "articulation": "staccato", "notelen": 0.12,
-            "scatter": 0, "jitterMs": 0, "level": 7.5,
-            "pitch": { "policy": "unison", "root": 48 }
-          }]
-        }]
+        "name": "ticks",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "TICKS · dead even at 12/s — the attacks separate again",
+            "tag": "ticks",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 72,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
       },
-      "expect": { "density": 12, "sd": 0.1, "unevenness": 0 },
+      "expect": {
+        "density": 12,
+        "sd": 0.1,
+        "unevenness": 0
+      },
       "directions": [
-        { "dial": "bpm", "range": [48, 90], "reads": "8 → 15 attacks/s. The lower end is where GROOVE becomes parseable if scatter is added." }
+        {
+          "dial": "bpm",
+          "range": [
+            48,
+            90
+          ],
+          "reads": "8 → 15 attacks/s. The lower end is where GROOVE becomes parseable if scatter is added."
+        }
       ],
       "openQuestion": "THE REPETITION/DENSITY CROSSOVER, untested: repetition is strongly audible at 8/s and barely audible at 18/s, presumably because the ear can no longer parse a figure. If true, slow = groove and fast = texture, with the crossover near 12–17/s. Answering it is a battery run IN the sandbox, and its answer updates TICKS and GROOVE as DATA, not as code.",
-      "robustness": { "survives": null, "note": "UNTESTED." },
+      "robustness": {
+        "survives": null,
+        "note": "UNTESTED. Expected to be the most robust of the five: at 12/s the per-player gap is 0.83 s, so ±25 ms of human error is ~3% of the interval and should not disturb the evenness the category depends on. Worth hearing anyway — TICKS is the control that tells you whether the humanize model is audible at all."
+      },
       "actuals": []
     },
-
     "RAIN": {
       "label": "rain",
       "heard": "Irregular and NON-REPEATING. The composer's preferred character from E2: \"part of the rain comes out of some sort of randomness… with strict no drift it's almost inevitably going to be patterned.\" Exactly right — jitter re-randomises every attack, so nothing ever comes back.",
       "source": "phase09 / E2 — HEARD",
       "spec": {
-        "name": "rain", "seed": 11,
-        "sections": [{
-          "dur": 14, "label": "RAIN · jitter ±45 ms at 18/s — irregular, and nothing ever repeats",
-          "tag": "rain",
-          "voices": [{
-            "players": 10, "bpm": 110, "articulation": "staccato", "notelen": 0.12,
-            "scatter": 0, "jitterMs": 45, "level": 7.5,
-            "pitch": { "policy": "unison", "root": 48 }
-          }]
-        }]
+        "name": "rain",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "RAIN · jitter ±45 ms at 18/s — irregular, and nothing ever repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 45,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
       },
-      "expect": { "density": 18.3, "sd": 30, "unevenness": 0.1 },
+      "expect": {
+        "density": 18.3,
+        "sd": 30,
+        "unevenness": 0.1
+      },
       "directions": [
-        { "dial": "jitterMs", "range": [35, 60], "reads": "the rain band. Below 35 it tightens toward smear; 60 is the researched ceiling." },
-        { "dial": "scatter", "range": [0, 0.2], "reads": "the \"gallop trying to surface underneath\" direction — a little fixed offset puts a figure UNDER the rain without removing the rain." }
+        {
+          "dial": "jitterMs",
+          "range": [
+            35,
+            60
+          ],
+          "reads": "the rain band. Below 35 it tightens toward smear; 60 is the researched ceiling."
+        },
+        {
+          "dial": "scatter",
+          "range": [
+            0,
+            0.2
+          ],
+          "reads": "the \"gallop trying to surface underneath\" direction — a little fixed offset puts a figure UNDER the rain without removing the rain."
+        }
       ],
-      "robustness": { "survives": null, "note": "UNTESTED. Prediction: rain is ROBUST — human error is the same operation as its own dial, so adding it should change nothing audible. This is the cheap half of the smear/rain fragility prediction and the first thing worth hearing." },
+      "robustness": {
+        "survives": null,
+        "note": "UNTESTED. Prediction: rain is ROBUST — human error is the same operation as its own dial, so adding it should change nothing audible. This is the cheap half of the smear/rain fragility prediction and the first thing worth hearing."
+      },
       "actuals": []
     },
-
     "GALLOP": {
       "label": "gallop",
       "heard": "A lopsided two-element figure. Two voices can only ever make short-long-short-long — that IS the gallop, and it is why ten one-player voices were needed to get anything smooth.",
       "source": "phase03 fluttermap · phase04 · phase07 — HEARD",
       "spec": {
-        "name": "gallop", "seed": 11,
-        "sections": [{
-          "dur": 14, "label": "GALLOP · 5+5 tubas at 110 / 112 BPM — lap 6 s, a lopsided two-element figure",
-          "tag": "gallop",
-          "voices": [
-            {
-              "players": 5, "bpm": 110, "articulation": "staccato", "notelen": 0.12,
-              "scatter": 0, "jitterMs": 0, "level": 7.5,
-              "pitch": { "policy": "unison", "root": 48 }
-            },
-            {
-              "players": 5, "bpm": 112, "articulation": "staccato", "notelen": 0.12,
-              "scatter": 0, "jitterMs": 0, "level": 7.5,
-              "pitch": { "policy": "unison", "root": 48 }
-            }
-          ]
-        }]
+        "name": "gallop",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "GALLOP · 5+5 tubas at 110 / 112 BPM — lap 6 s, a lopsided two-element figure",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 110,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 112,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
       },
-      "expect": { "density": 18.5, "lapSeconds": 6 },
+      "expect": {
+        "density": 18.5,
+        "lapSeconds": 6
+      },
       "directions": [
-        { "dial": "ΔBPM", "range": [1, 6], "reads": "lap 12 s → 2 s. lap = 60 / (ΔBPM × players-per-voice). Faster alternation = \"more fluttery\"." },
-        { "dial": "scatter", "range": [0.2, 1.0], "reads": "the OTHER way to make a gallop — one voice group with fixed per-player offsets instead of two tempos. Different mechanism, related sound; worth A/B-ing." }
+        {
+          "dial": "ΔBPM",
+          "range": [
+            1,
+            6
+          ],
+          "reads": "lap 12 s → 2 s. lap = 60 / (ΔBPM × players-per-voice). Faster alternation = \"more fluttery\"."
+        },
+        {
+          "dial": "scatter",
+          "range": [
+            0.2,
+            1
+          ],
+          "reads": "the OTHER way to make a gallop — one voice group with fixed per-player offsets instead of two tempos. Different mechanism, related sound; worth A/B-ing."
+        }
       ],
-      "robustness": { "survives": null, "note": "UNTESTED. The lap rate is a real rate, and the standing performance rule forbids any texture that DEPENDS on a precise one — so a gallop keeper must be checked for whether the figure survives when the two tempos are only approximately held." },
+      "robustness": {
+        "survives": null,
+        "note": "UNTESTED. The lap rate is a real rate, and the standing performance rule forbids any texture that DEPENDS on a precise one — so a gallop keeper must be checked for whether the figure survives when the two tempos are only approximately held."
+      },
       "actuals": []
     },
-
     "GROOVE": {
       "label": "loop / groove",
       "heard": "A parseable repeating figure with accents. The diagnosis that separated the dials: a FIXED random offset repeats every cycle, so it is a loop — same irregularity as rain, opposite repetition structure.",
       "source": "phase07 diagnosis · phase09 cell 5 — HEARD",
       "spec": {
-        "name": "groove", "seed": 11,
-        "sections": [{
-          "dur": 14, "label": "GROOVE · scatter 0.5 at 8/s — a figure you can parse, looping every 1.25 s",
-          "tag": "groove",
-          "voices": [{
-            "players": 10, "bpm": 48, "articulation": "staccato", "notelen": 0.12,
-            "scatter": 0.5, "jitterMs": 0, "level": 7.5,
-            "pitch": { "policy": "unison", "root": 48 }
-          }]
-        }]
+        "name": "groove",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 14,
+            "label": "GROOVE · scatter 0.5 at 8/s — a figure you can parse, looping every 1.25 s",
+            "tag": "groove",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 48,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0.5,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
       },
-      "expect": { "density": 8, "unevenness": 0.5 },
+      "expect": {
+        "density": 8,
+        "unevenness": 0.5
+      },
       "directions": [
-        { "dial": "scatter", "range": [0.2, 1.0], "reads": "how lopsided the figure is. 0 collapses it back to TICKS." },
-        { "dial": "bpm", "range": [42, 90], "reads": "7 → 15 attacks/s. Raising it is the crossover experiment: at some point the figure stops being parseable and becomes texture." },
-        { "dial": "seed", "range": null, "reads": "A DIFFERENT GROOVE. Same dials, new draw — the figure is the seed. This is what \"a different gallop\" means literally." }
+        {
+          "dial": "scatter",
+          "range": [
+            0.2,
+            1
+          ],
+          "reads": "how lopsided the figure is. 0 collapses it back to TICKS."
+        },
+        {
+          "dial": "bpm",
+          "range": [
+            42,
+            90
+          ],
+          "reads": "7 → 15 attacks/s. Raising it is the crossover experiment: at some point the figure stops being parseable and becomes texture."
+        },
+        {
+          "dial": "seed",
+          "range": null,
+          "reads": "A DIFFERENT GROOVE. Same dials, new draw — the figure is the seed. This is what \"a different gallop\" means literally."
+        }
       ],
-      "robustness": { "survives": null, "note": "UNTESTED. Most at risk of the three: a groove IS its figure, and human error smears exactly the thing that makes it parseable." },
+      "robustness": {
+        "survives": null,
+        "note": "UNTESTED. Most at risk of the three: a groove IS its figure, and human error smears exactly the thing that makes it parseable."
+      },
       "actuals": []
     }
   },
-
   "_vocabulary": {
     "_comment": "PLAN 2x §6. The composer describes the change; the AI turns the knobs. Recipes are ENDPOINTS AND RANGES stored as data, never code (2y's ruling). Two-sided contract: every AI-written variant label must NAME THE DIALS IT MOVED, so the numbers stay learnable and the qualitative layer never goes opaque. This table is a STARTING map — it is expected to grow out of narrated sessions, exactly as 2z's shape vocabulary did.",
-    "rainier / more rain-like": { "jitterMs": [35, 60], "scatter": 0, "spread": 0 },
-    "smearier / smoother": { "jitterMs": 0, "scatter": 0, "density": [18, 23] },
-    "tickier / more separated": { "density": [8, 15], "scatter": 0 },
-    "more gallop": { "scatter": [0.2, 1.0], "or": "two voice groups with ΔBPM giving lap 2–12 s" },
-    "a DIFFERENT gallop": { "seed": "+1", "note": "SAME DIALS, NEW SEED. At ten voices a setting is a lottery, not a texture — the seed is the draw number. This is identity vs draw, and it is the single most useful move in the panel." },
-    "groovier / more of a loop": { "density": "down", "scatter": "up (fixed)" },
-    "more fluttery": { "ΔBPM": "up, within lap 2–12 s" },
-    "denser / greater density": { "density": "up", "note": "amber past 23/s — that is the MEASURED ceiling, not a preference" },
-    "more mechanical": { "jitterMs": "down" },
-    "more human": { "jitterMs": "up", "note": "or press H, which applies the calibrated stage+human error model" },
-    "quicker build": { "morphDuration": "down" },
-    "more exponential build": { "curveShapeExponent": "up", "phase": "3" }
+    "rainier / more rain-like": {
+      "jitterMs": [
+        35,
+        60
+      ],
+      "scatter": 0,
+      "spread": 0
+    },
+    "smearier / smoother": {
+      "jitterMs": 0,
+      "scatter": 0,
+      "density": [
+        18,
+        23
+      ]
+    },
+    "tickier / more separated": {
+      "density": [
+        8,
+        15
+      ],
+      "scatter": 0
+    },
+    "more gallop": {
+      "scatter": [
+        0.2,
+        1
+      ],
+      "or": "two voice groups with ΔBPM giving lap 2–12 s"
+    },
+    "a DIFFERENT gallop": {
+      "seed": "+1",
+      "note": "SAME DIALS, NEW SEED. At ten voices a setting is a lottery, not a texture — the seed is the draw number. This is identity vs draw, and it is the single most useful move in the panel."
+    },
+    "groovier / more of a loop": {
+      "density": "down",
+      "scatter": "up (fixed)"
+    },
+    "more fluttery": {
+      "ΔBPM": "up, within lap 2–12 s"
+    },
+    "denser / greater density": {
+      "density": "up",
+      "note": "amber past 23/s — that is the MEASURED ceiling, not a preference"
+    },
+    "more mechanical": {
+      "jitterMs": "down"
+    },
+    "more human": {
+      "jitterMs": "up",
+      "note": "or press H, which applies the calibrated stage+human error model"
+    },
+    "quicker build": {
+      "morphDuration": "down"
+    },
+    "more exponential build": {
+      "curveShapeExponent": "up",
+      "phase": "3"
+    }
   }
 }

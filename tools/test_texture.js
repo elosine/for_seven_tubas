@@ -774,6 +774,119 @@ Object.entries(CORPUS).forEach(([preset, file]) => {
 });
 
 // ===========================================================================
+section('STORES (§12) — models, actuals, and the robustness gate');
+// ===========================================================================
+const STORE = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank/texture_models.json'), 'utf8'));
+eq('the five categories ship as the first five models', Object.keys(STORE.models).length >= 5, true);
+['SMEAR', 'TICKS', 'RAIN', 'GALLOP', 'GROOVE'].forEach(id => {
+    const m = STORE.models[id];
+    ok(id + ' is in the store', !!m);
+    if (!m) return;
+    ok(id + ' carries the composer\'s heard description', !!m.heard && m.heard.length > 20);
+    ok(id + ' says where it came from', !!m.source && /HEARD|MEASURED|diagnosis/.test(m.source));
+    ok(id + ' has directions worth travelling (the 2y MODEL idea)',
+        Array.isArray(m.directions) && m.directions.length > 0);
+    // THE ROBUSTNESS GATE. `survives: null` is honest — it means not yet heard.
+    // What must never happen is a model reading as checked when nobody checked.
+    ok(id + ' carries a robustness block', !!m.robustness && 'survives' in m.robustness);
+    ok(id + ' states its robustness honestly',
+        m.robustness.survives !== null || (m.robustness.note || '').length > 10);
+    // and the point must render to roughly what the store claims
+    const g = TX.render(m.spec, POPTS);
+    ok(id + '\'s point renders', g.notes > 0);
+    ok(id + ' has no unresolved pitch set', g.unresolvedSets.length === 0);
+    if (m.expect && m.expect.density) {
+        const dens = g.report[0].lines.reduce((a, l) => a + l.composite, 0);
+        eq(id + ' renders at the density it claims', dens, m.expect.density, 1.0);
+    }
+    if (m.expect && m.expect.sd != null) {
+        ok(id + ' renders at roughly the sd it claims',
+            Math.abs(g.report[0].metrics.sd - m.expect.sd) < Math.max(6, m.expect.sd * 0.35),
+            g.report[0].metrics.sd + ' vs claimed ' + m.expect.sd);
+    }
+});
+ok('the vocabulary table ships with the store (§6)',
+    STORE._vocabulary && Object.keys(STORE._vocabulary).length > 8);
+ok('...and "a DIFFERENT gallop" is documented as same-dials-new-seed',
+    JSON.stringify(STORE._vocabulary['a DIFFERENT gallop'] || {}).indexOf('seed') >= 0);
+ok('the pitch-dependent ceiling finding is recorded as data',
+    STORE.engineConstants.densityCeilingIsPitchDependent &&
+    STORE.engineConstants.densityCeilingIsPitchDependent.unisonC3 > 23);
+
+// the validator itself must pass on the shipped store
+const BANK = require('./texture_bank.js');
+eq('texture_bank --validate passes on the shipped stores', BANK.validate(), 0);
+
+// D29 across the whole store: nothing bend-bearing anywhere
+ok('no model spec mentions bend in any form',
+    JSON.stringify(STORE).toLowerCase().indexOf('"bend"') < 0);
+ok('no rendered model produces a bend field',
+    ['SMEAR', 'TICKS', 'RAIN', 'GALLOP', 'GROOVE'].every(id =>
+        TX.render(STORE.models[id].spec, POPTS).objects
+          .every(o => o.bend === undefined && o.morphBend === undefined)));
+
+// the actuals store is parallel to 2y's, never inside it
+ok('texture actuals live in their own directory, not 2y\'s',
+    fs.existsSync(path.join(ROOT, 'bank/texture_actuals')));
+ok('...and the split is explained where someone will find it',
+    fs.readFileSync(path.join(ROOT, 'bank/texture_actuals/README.md'), 'utf8')
+      .indexOf('model_bank.js') > 0);
+// 2x must never WRITE a 2y file. Checked against code with comments stripped —
+// both tools mention 2y's paths in prose, explaining precisely why they stay
+// away from them, and a test that cannot tell an explanation from an action
+// would punish the documentation.
+ok('nothing of 2y\'s is written by 2x\'s tools', (() => {
+    const strip = f => fs.readFileSync(path.join(ROOT, f), 'utf8')
+        .split('\n').filter(l => !/^\s*(\/\/|\*|\/\*)/.test(l)).join('\n');
+    const src = strip('tools/texture_bank.js') + '\n' + strip('tools/place_texture.js');
+    const writesTo2y = /morph_models\.json/.test(src) ||
+                       /['"]bank\/actuals/.test(src) ||
+                       /ACTUALS_DIR\s*=\s*path\.join\([^)]*'bank\/actuals'/.test(src);
+    return !writesTo2y;
+})());
+ok('...and 2x\'s own store paths are the texture ones', (() => {
+    const src = fs.readFileSync(path.join(ROOT, 'tools/texture_bank.js'), 'utf8');
+    return /bank\/texture_actuals/.test(src) && /bank\/texture_models\.json/.test(src);
+})());
+
+// ===========================================================================
+section('PLACEMENT — 2w conventions, and ORD is the only real duration');
+// ===========================================================================
+const toPlace = TX.render(STORE.models.RAIN.spec, POPTS);
+const grp = TX.toScoreObjects(toPlace, 40, { groupId: 'grp-rain-01', startId: 1, color: '#3F7D5A' });
+const gNotes = grp.filter(o => o.type === 'waveCurve');
+ok('a placed group shares one groupId', grp.every(o => o.groupId === 'grp-rain-01'));
+ok('it carries its plain-language marker', grp.some(o => o.type === 'marker'));
+// DRAG: a uniform time shift must preserve internal timing exactly, which is
+// only true because texture notes are ordinary notes — no note-relative
+// envelope to detach, no bend to go stale (D29).
+const shift = 17.3;
+const shape = arr => { const t0 = Math.min.apply(null, arr.map(o => o.startSeconds));
+    return arr.map(o => +(o.startSeconds - t0).toFixed(4)); };
+const dragged = gNotes.map(o => Object.assign({}, o,
+    { startSeconds: +(o.startSeconds + shift).toFixed(4),
+      endSeconds: +(o.endSeconds + shift).toFixed(4) }));
+ok('dragging the group preserves its internal timing exactly',
+    JSON.stringify(shape(gNotes)) === JSON.stringify(shape(dragged)));
+eq('...and its playability', TX.playability(dragged).hard, TX.playability(gNotes).hard);
+// GROUP-SCALE: fixed one-shots TRANSLATE, they never stretch (2n/D9).
+const base = Math.min.apply(null, gNotes.map(o => o.startSeconds));
+const scaled = gNotes.map(o => ({
+    layer: o.layer, sonifyNote: o.sonifyNote, technique: o.technique,
+    startSeconds: +(base + (o.startSeconds - base) * 0.75).toFixed(4),
+    endSeconds: +(base + (o.startSeconds - base) * 0.75 + (o.endSeconds - o.startSeconds)).toFixed(4),
+}));
+ok('group-scaling keeps every fixed one-shot at its written length', (() => {
+    // within ONE 4-dp rounding unit — the two endpoints round independently, so
+    // 1e-6 would be a tighter tolerance than the score format itself carries
+    return scaled.every(o => Math.abs((o.endSeconds - o.startSeconds) - 0.12) <= 1.001e-4);
+})(), 'max dev ' + Math.max.apply(null, scaled.map(o =>
+    Math.abs((o.endSeconds - o.startSeconds) - 0.12))).toExponential(1) + ' s');
+ok('...so scaling moves attacks closer without lengthening notes',
+    Math.max.apply(null, scaled.map(o => o.startSeconds)) <
+    Math.max.apply(null, gNotes.map(o => o.startSeconds)));
+
+// ===========================================================================
 section('PURITY — the engine must load in a browser unchanged');
 // ===========================================================================
 const src = fs.readFileSync(path.join(ROOT, 'score/public/texture_engine.js'), 'utf8');
