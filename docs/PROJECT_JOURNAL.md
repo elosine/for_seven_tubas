@@ -13,6 +13,20 @@ piece #3's `docs/` — registered as an additional working directory.
 **DAY 17 (2026-08-17) — 2ab PANEL SNAPSHOTS IS BUILT; 2ac/2ad PLANNED.
 Claude Code / Fable 5 (planning) + Opus 5 (build).**
 
+**2ac THE MULTITEMPO RIG IS ALSO BUILT.** `MT` button beside `Pulse`: type a
+ratio set (`3:4:5`), pick a separation mode (UNISON / REGISTER / HARMONY),
+SPACE, and the streams loop together. `tools/test_multitempo.js` **90/90** with
+**four mutation tests**. **Measured live: C = 1.2 s at 150 BPM, the three
+streams realign on C, 2C and 3C to within 0.6 ms, and the loop seam is
+indistinguishable from an ordinary step** (399.9 ms across the boundary against
+a 400 ms nominal). Stop leaves 29 note-ons matched by 29 note-offs and 0 timers.
+**The plan's own traps block caught two defects before they were written** —
+lane=stream (buildGrid's cursor would have scattered the streams and still
+sounded plausible) and the private `r4`. **One defect was found only by RUNNING
+it** (Principle 6, the sixth of its kind): the stream view drew 12/12/15 stacked
+ticks where 3/4/5 onsets exist, invisible because they share a pixel. Fixed.
+**NOT verified: the sound — that is the composer's audition.**
+
 **2ab is done and verified in the running app.** `Save` / `Load` on the pulse
 panel → `bank/panel_snapshots.json` through `GET/POST /api/snapshots`.
 `tools/test_snapshots.js` **75/75**, mutation-tested (a by-reference merge is

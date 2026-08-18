@@ -2125,3 +2125,104 @@ procedure exists.
 feature is pure state; the Web MIDI block that gates every audition claim does
 not apply here. All test snapshots were deleted afterwards — the committed file
 is the clean seed.
+
+---
+
+## Day 17 (2026-08-17) — PLAN 2ac built: the multitempo audition rig
+
+*Claude Code / Opus 5, same sitting as 2ab. Built from the plan without
+re-deriving it; the SYMBOLS AND TRAPS block did its job — see below.*
+
+**What was built:** `score/public/multitempo.js` (PURE ratios→notes engine,
+node + browser) · `score/public/multitempo_panel.js` (the `MT` button, anchored
+after `Pulse`) · `tools/test_multitempo.js` · two script tags in `composer.html`.
+2ab wiring: panel id `multitempo`, so Save/Load work on day one.
+
+### The traps block was load-bearing — two of the four would have shipped
+
+The plan's own warnings, written the day before against the source, prevented:
+- **lane = stream index.** `buildGrid` round-robins a cursor per NOTE; copying
+  it would have scattered each stream across players. Asserted directly now
+  (`every stream-1 note is on voice 0`), and mutation-tested.
+- **`r4`/`clamp` are private.** Redefined locally rather than reached for
+  through `PulseSeq.`, which would have thrown on the first call.
+
+### Measured — `tools/test_multitempo.js`, 90 assertions, 0 failed
+
+Reduction (2:4:6 → 1:2:3; 6:9 → 2:3 **and the cycle shortens with it**, not just
+the label) · cycle math at BPM 150, 3:4:5 → **C = 1.2 s**, onsets exactly
+[0, .4, .8] / [0, .3, .6, .9] / [0, .24, .48, .72, .96] · REGISTER wrap
+(F# = 30/42/54/66, a 5th stream reuses 30) · HARMONY chunks (10 pitches over 4
+streams → [3,3,2,2], lowest chunk to stream 1) · **S047's cuivre notes survive
+as cuivre (60/61/62) while S044 keeps the same pitches with different
+techniques** — the 2aa pair-distinguishability rule, carried into this engine ·
+2n honoured (noteLen 2.0 does not stretch a staccato) · every bad input NAMED
+and the stream silent, never a throw.
+
+**Four mutation tests, all discriminating:** skip the reduction · reverse the
+chunk order · compute onsets from the unreduced terms · apply buildGrid's
+round-robin cursor. Each was run against the real assertions and each FAILS
+them, which is the only evidence that the assertions mean anything. The third
+is the instructive one: **the wrong pulse is perfectly regular**, so it sounds
+entirely plausible — a listening test could not have caught it.
+
+**Two test bugs found and fixed, and they were the TEST's fault, not the code's:**
+(1) the `entry.dyn` fixture used a literal palette entry, but `dyn` reaches an
+entry ONLY through a taxonomy ref (`resolvePalette`, pulse_seq.js:84) — the
+fixture asserted an impossible path. (2) A regularity assertion compared floats
+exactly; `k·(C/6)` rounded to 4 places gives gaps of 0.1666 and 0.1667, so it
+was testing IEEE754 rather than the property. Both rewritten.
+
+### Verified in the running app — :5210, session forced to `untitled`
+
+- `MT` injects after `Pulse`; preflight returns clean; the palette loads and the
+  readout reads `3:4:5 · cycle 1.20 s · 3/4/5 attacks · 12 notes`.
+- **TIMING, measured at a recording stub over ~3.5 cycles** (Web MIDI is blocked
+  in this pane — day 15's finding, unchanged):
+
+  | stream | nominal step | measured onsets (ms from first) |
+  |---|---|---|
+  | T1 ×3 | 400 ms | 0, 410, 799.5, 1199.4, 1609.6, 1999.5, 2398.9, 2809.6, 3200.3, 3598.4 |
+  | T2 ×4 | 300 ms | 0.1, 299, 598.5, 899.6, 1199.6, 1500.5, … 3898.5 |
+  | T3 ×5 | 240 ms | 0.1, 238.9, 479, 718.5, 958.5, 1199.6, … 3838.5 |
+
+  Gaps stay inside 389–411 / 299–301 / 239–241 ms against nominals of
+  400/300/240 — ordinary `setTimeout` jitter. **The realignment property holds
+  in the running app:** all three streams land together at 1199.4/1199.6/1199.6,
+  at 2398.9/2399/2399, and at 3598.4/3598.4/3598.4 — i.e. exactly on C, 2C, 3C.
+  **The seam is not a seam:** T1's step ACROSS the cycle boundary is 399.9 ms,
+  indistinguishable from any other step.
+- **Stop is clean, measured one level lower** (only the MIDI port stubbed, so the
+  real noteOn/noteOff and panic run): **29 note-ons matched by 29 note-offs**,
+  0 timers left, `isPlaying()` false, button back to `Play`, **0 pitch bends**,
+  CC7 sent once per lane at 127.
+- REGISTER on C stratifies to **36/48/60**. HARMONY on CLUST10 over 3 streams
+  chunks to 44-47 / 48-50 / 51-53. S047 keeps cuivre on 60/61/62.
+- A bad term (`3:0:5`) is NAMED in red — *stream 2: "0" is not a whole number
+  1-64 — silent* — the reduced form reads `3:?:5`, and the other two streams
+  still play.
+- **2ab round-trip:** a distinctive config (96 BPM · 7:8 · REGISTER F# ·
+  0.4 s · loop OFF) saved, **localStorage wiped, browser reloaded**, loaded
+  back exactly; the reloaded config rebuilds to C = 4.375 s with pitches 30/42,
+  which is 7 × 60/96 and F#'s two lowest octaves.
+- **Regression on the shared `E.onStop` slot** (now four panels): playing and
+  stopping from either panel leaves BOTH Play buttons restored and 0 timers.
+
+### One defect found by RUNNING it, not by reading
+
+`drawStreams` declared its `seen` dedup map INSIDE the per-note loop, so it
+never deduped: in HARMONY a stream attacks a whole chunk at once, and 39 notes
+drew **12/12/15 stacked ticks where 3/4/5 onsets exist**. Invisible on screen —
+the duplicates land on the same pixel — so only a count caught it. Fixed and
+re-verified: **3/4/5 ticks, and exactly 3 bright ones** marking the downbeat
+that 3:4:5 shares. *This is Principle 6 again (a defect found by running, not
+by reading), and the sixth of its kind in this repo.*
+
+### Not verified: the sound
+
+The composer's, as always. Web MIDI is blocked in this pane, so every claim
+above is a DATA claim measured at a stub — the ratios, the realignment and the
+stop path are verified; **whether four tempi together are worth keeping is not,
+and cannot be.** No screenshot: the browser pane was not compositing frames, so
+the visual claims above are DOM reads (tick counts, computed styles), which are
+tighter evidence anyway.

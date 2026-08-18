@@ -508,6 +508,13 @@
      score. Loads AFTER texture_panel so its button anchors to Texture. -->
 <script src="/pulse_seq.js"></script>
 <script src="/pulse_seq_panel.js" defer></script>
+<!-- PLAN 2ac multitempo audition rig. multitempo.js is the PURE ratios->notes
+     engine (also runs in node under tools/test_multitempo.js); the panel is
+     structurally pulse_seq_panel.js with a ratio set in place of the column
+     strip, reusing its measured scheduler and MorphEmit glue. AUDITION ONLY.
+     Loads AFTER pulse_seq_panel so its MT button anchors to Pulse. -->
+<script src="/multitempo.js"></script>
+<script src="/multitempo_panel.js" defer></script>
 <script>
 // ============================================
 // INSTRUMENT REGISTRY — Loads instrument_map.json, bridges Layer 2 (musical intent) ↔ Layer 3 (MIDI/sampler)

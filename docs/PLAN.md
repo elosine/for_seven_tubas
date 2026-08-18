@@ -860,8 +860,9 @@ composer → notation → performance architecture.)*
   `Load` button pair, and `applyState()`. The server needs NO edit for a new
   panel — an unknown panel key is created on first save, by design.
 
-- **2ac — MULTITEMPO AUDITION RIG** — **`approved 2026-08-17 (day 17) — spec'd
-  for handoff, NOT built`** *(the composer's ask, verbatim, in COMPOSER_LOG
+- **2ac — MULTITEMPO AUDITION RIG** — **`BUILT 2026-08-17 (day 17) — verified
+  in the running app except the sound; tools/test_multitempo.js 90/90,
+  four mutation tests`** *(the composer's ask, verbatim, in COMPOSER_LOG
   day 17: "audition several tempos at the same time to hear how they sound
   together… a ratio metric setting, but simplified… and a BPM setting
   concurrently… then AI could dial those tempos in and audition for me."
@@ -1020,6 +1021,44 @@ composer → notation → performance architecture.)*
   entries · per-stream cell patterns · irrational or drifting ratios ·
   write-to-score · orchestration/doubling · any AI-recommendation automation
   beyond the take loop.
+
+  ### v1 AS BUILT (2026-08-17, day 17)
+
+  Files: `score/public/multitempo.js` (PURE engine) ·
+  `score/public/multitempo_panel.js` (`MT` button, anchored after `Pulse`) ·
+  `tools/test_multitempo.js` (**90 assertions**, four mutation tests) ·
+  `composer.html` = a two-script-tag diff. 2ab wiring is live (panel id
+  `multitempo`), so Save/Load worked on day one.
+
+  **THE TRAPS BLOCK ABOVE WAS LOAD-BEARING — two of its four would have
+  shipped.** `lane = stream index` (buildGrid's per-note cursor would have
+  scattered each stream across players, and it would have sounded fine) and
+  `r4`/`clamp` are private (reaching for `PulseSeq.r4` throws on the first
+  call). Both are now asserted, and the lane rule is mutation-tested.
+
+  **Measured in the running app** (:5210, session forced to `untitled`; Web MIDI
+  blocked, so timing was taken at a recording stub as day 16 did): **C = 1.2 s
+  at BPM 150 / 3:4:5**, with T1/T2/T3 steps measured at 389-411 / 299-301 /
+  239-241 ms against nominals of 400/300/240. **The realignment property holds
+  live** — all three streams land together at 1199.4/1199.6/1199.6 ms, again at
+  ~2399 and ~3598, i.e. exactly on C, 2C, 3C — and **the seam is not a seam**
+  (T1's step across the boundary is 399.9 ms). Stop, measured with only the MIDI
+  port stubbed so the real `panic()` ran: **29 note-ons matched by 29
+  note-offs**, 0 timers, 0 pitch bends, CC7 once per lane at 127. REGISTER on C
+  stratifies 36/48/60; HARMONY on CLUST10 chunks 44-47 / 48-50 / 51-53; S047
+  keeps cuivre on 60/61/62 (the 2aa rule survives into this engine). A bad term
+  is NAMED in red with the stream silent and the rest still playing. The 2ab
+  round-trip survives a wiped localStorage plus a reload. Regression on the
+  now-four-way `E.onStop` chain: both panels' buttons restore.
+
+  **One defect found by RUNNING it, not by reading** (Principle 6 again): the
+  stream view's dedup map was declared inside its own loop, so 39 HARMONY notes
+  drew 12/12/15 stacked ticks where 3/4/5 onsets exist — invisible, because they
+  land on the same pixel. Fixed; now 3/4/5 ticks with exactly 3 highlighted as
+  shared. Full trail: `RUNNING_LOG.md` day 17.
+
+  **NOT verified: the sound.** Whether several tempi together are worth keeping
+  is the composer's audition and cannot be measured here.
 
 - **2ad — PHASE-SHIFT TEXTURE SELECTOR (a workflow, not a build)** —
   **`approved 2026-08-17 (day 17) — spec'd for handoff`** *(composer, verbatim,
