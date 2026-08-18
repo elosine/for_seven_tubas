@@ -10,6 +10,74 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**DAY 18 (2026-08-18) — THE WORKING METHOD IS SETTLED: CONSOLE SCRIPTS, NOT
+PANELS. PLAN 2ae BUILT AND VERIFIED. Claude Code / Opus 5.**
+**The composer wrote the trance section by ear all day** — accretions, burst
+patterns, and a per-column redistribution across the ten players — and in doing
+so fixed how we work from here.
+
+- **The method decision (composer, verbatim in COMPOSER_LOG):** "my attempts to
+  build tools like panels have turned out to be very labor intensive and aren't
+  lending the results. So I'm going to stick with AI prompts and console scripts
+  that I can paste in." → **D41.** Scripts are handed over **in chat as fenced
+  code blocks**, never as files.
+- **The trust boundary, stated explicitly and worth honouring:** inserting and
+  mutating MIDI objects is TRUSTED — do not over-verify it. What must be right
+  first time is the **presentation** of any label or overlay. Their words:
+  numbers "hiding something behind it, or they're too big, or they're offset so
+  they don't actually label the proper column", then "an hour of back and forth
+  ... a giant waste of time for something small but something I need."
+- **That warning was immediately vindicated.** The first column-numbering
+  attempt had three defects, all found by MEASURING rather than eyeballing:
+  `#laneMeta` is `display:none` until it has `.open`, so the numbers were
+  invisible; at zoom 22.5 a column is 9 px against an 11.7 px label and **39 of
+  48 pairs overlapped**; and entry labels placed in voice lanes sat on top of 4
+  noteholes. Fixed by placing labels through an explicit collision test — zero
+  overlaps at zoom 15/22.5/50/100/200, verified by reading `getBBox()` of every
+  rendered `<text>`. Rules written up in `tools/console/README.md`.
+- **2ae shipped** — 12 octave unisons in the blast bank (`S049`-`S060`, list
+  `unisons`), the `insert → column` button, `O` = selection→ORD, and a
+  drag-length readout. All four verified in the running app. See PLAN 2ae.
+- **A real bug of mine, caught by the composer:** the audition scripts cleared
+  only their own `properties.gen` tag, and different scripts carried different
+  tags — so pasting an accretion after a burst pattern left every burst note
+  behind and the score silently accumulated. Now they FULL-clear. → D41.
+- **Velocity is uniform at 112 and I flattened it silently.** `tranceSB01-2` had
+  a different velocity per voice (112/123/112/117/123/114/110); when I rebuilt
+  the accretion I dropped that variation without saying so. Composer now knows;
+  restoring it is unclaimed.
+
+**Next up:**
+1. **THE COMPOSER LISTENS** and keeps editing columns — that loop is now
+   supported end to end.
+2. Whatever the ear asks for: **more sonorities into `bank/blast_taxonomy.json`**
+   (a JSON edit, no code, no reload — the composer should ask freely).
+3. Still owed from day 17 and NOT superseded: the pulse-strip, MT-rig and
+   phase-shift auditions. Still queued behind the trance work: the notation
+   pass (FR-7, D3, dynamic marks).
+
+**Open:**
+- **Deliberately uncommitted, do not "clean up":** `scores/tranceSB01*.json`,
+  `tranceSB02a/03a`, `tranceA001*.json`, `aud*.json`, `allUnisons.json`,
+  `burstAudition.json`, `trance01-1.json`, `piece-s21…s24.json`,
+  `reaper/7_tubas_rack.rpp`.
+- **The scratch-score rhythm (D41):** the composer keeps ONE scratch score
+  (`aud`) and every pasted script overwrites it. Keepers are made with CTRL+S,
+  which already versions into `scores/versions/` — so scripts must NOT rename
+  the session, and they carry a `PROTECTED` regex refusing to clear real work.
+- **Unclaimed, named so it is not lost:** per-voice velocity variation ·
+  making the `D`/`I` column keys permanent instead of paste-per-session · a
+  chord menu for column insert beyond the strip · the 10 same-pitch overlaps
+  (measured, judged inaudible, left alone).
+- **Still open from day 15:** the lazy-MIDI bug (keyboard dead on a fresh page
+  until Play / CC7 Reset / REC-arm; `initZoneMidi`, composer.html ~12246).
+- **For the next AI:** read `tools/console/README.md` BEFORE writing any console
+  script for this section. It encodes four rules that each cost a round trip to
+  learn, and `renderMarker`'s hardcoded `font-size:10` / `y=24` / `x+4` is the
+  constraint behind all of them.
+
+---
+
 **DAY 17 (2026-08-17) — THE TWO AUDITION MACHINES ARE BUILT AND THE THIRD NEEDS
 NO CODE. Claude Code / Fable 5 (planning) + Opus 5 (build).**
 **ALL THREE NOW WAIT ON THE SAME THING: THE COMPOSER'S EAR.** Nothing about how
@@ -245,6 +313,28 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
    it. *(2026-08-16, day 12; noted from both sides.)*
 
 ## §4 Decisions
+
+- **D41** *(2026-08-18, day 18)* — **The trance section is written with AI prompts
+  and pasted console scripts; panels are not built for it.** Composer's call after
+  2aa-2ac: "my attempts to build tools like panels have turned out to be very
+  labor intensive and aren't lending the results." Consequences, all binding:
+  (a) scripts are delivered **in chat as fenced code blocks**, not as files —
+  the copy button is the delivery mechanism; (b) **one scratch score** (`aud`),
+  overwritten by every paste, never incremented — CTRL+S already banks a
+  timestamped keeper into `scores/versions/`, so a trail of files buys nothing;
+  (c) scripts **FULL-clear** (`Composer.objects=[]`) and never tag-filter — the
+  tag-scoped version was a real bug, since different scripts carried different
+  tags and material silently accumulated across pastes; (d) scripts carry a
+  `PROTECTED` regex and refuse to clear a real score. *Why:* the composer's
+  constraint is their own time at the keyboard, not code volume. *Rejected:*
+  more panel work; per-take file numbering.
+  **Corollary on effort, stated by the composer and worth obeying:** object
+  insertion/mutation is trusted and should NOT be re-verified; **label and
+  overlay presentation must be measured before delivery**, because every
+  presentation slip costs a fresh script and a paste cycle. The column-numbering
+  work the same day proved the split — the note-building was right first time,
+  the labels were wrong three ways.
+
 
 - **D1** *(2026-08-10)* — **Inherit piece #3's stack and protocols unchanged.** Score
   app + sandbox copied; #3's **D8** (saving: canonical committed score, explicit-save

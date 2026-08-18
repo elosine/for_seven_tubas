@@ -1023,3 +1023,56 @@ evaluation and two proposals were requested, plans only after approval.*
 > variety of things to fine tune them quickly and then to be able to save those
 > settings. So if you're developing the save mechanism, also, you can make that
 > same recommendation for the pulse. Panel."*
+
+## 2026-08-18 (day 18) — THE METHOD DECISION: prompts and console scripts, not panels (dictated)
+
+> *"What I'd like to be able to do… I want to write this last section, but I'm
+> finding it a little bit slow and cumbersome to be able to preview what I want
+> to preview, to listen to it. At the same time, my attempts to build tools like
+> panels have turned out to be very labor intensive and aren't lending the
+> results. So I'm going to stick with AI prompts and console scripts that I can
+> paste in. That's not… still not that great, but it's the most expedient
+> version."*
+
+On where AI effort should and should not go:
+
+> *"I have faith in something like this. Trust that it's simple enough, and you
+> know how to execute it, and you have a history of it. So that's fine. We don't
+> need the extra testing and the double and triple checking to make sure it's
+> reliable. Something like inserting MIDI things and then changing them. I'm
+> totally confident you've done it a bunch of times before. So just make it and
+> send me the console."*
+
+> *"What has happened in the past that I want to mitigate now is this sort of,
+> like, column numbers you've given to me, but they're hiding something behind
+> it, or they're too big, or they're offset so they don't actually label the
+> proper column or something like that. And then I have to return and say, oh,
+> can you make the numbers over to the right a little bit? Or can you make the
+> numbers not white because I can't see them now, that sort of thing. And then
+> there's an hour of back and forth, and it's… ends up being a giant waste of
+> time for something small but something I need."*
+
+> *"So when I ask for things like column numbering, you take just a little bit of
+> time and figure out the most expedient and reliable solution for that. If it
+> turns out we have to do some back and forth, it's not the end of the world, but
+> I just want to avoid it as much as possible now. I want to get to work and
+> already having to request a new console script for every change is… a slower
+> workflow than I'd hope for."*
+
+On delivery format:
+
+> *"And when you give me the console scores, just give it to me in chat so I can
+> copy it directly, like a little code window with a copy button. That's the
+> easiest way."*
+
+On the editing loop he wants (which became PLAN 2ae):
+
+> *"What I want is this. I want to be able to listen to this pulse cycle and then
+> quickly replace columns with something else. And then listen again and maybe
+> undo or replace. And then maybe I want some different sonorities, and so I'll
+> request some things be added to the blast menu and etcetera, etcetera."*
+
+On the paper:
+
+> *"Please mind the notes or comment somewhere about wanting to capture along the
+> way any salient talk for the paper."*

@@ -1060,6 +1060,52 @@ composer → notation → performance architecture.)*
   **NOT verified: the sound.** Whether several tempi together are worth keeping
   is the composer's audition and cannot be measured here.
 
+- **2ae — COLUMN EDITING + THE UNISON BANK** — **`BUILT 2026-08-18 (day 18) —
+  verified in the running app`** — the trance section's editing loop: hear the
+  pulse cycle, replace a column, hear it again.
+  **Why:** the composer settled the working method on day 18 — **AI prompts and
+  pasted console scripts, NOT panels.** Panel-building was tried across 2aa-2ac
+  and judged too labour-intensive for the return. What was still missing was a
+  way to change one column without regenerating the whole score.
+  **Four parts, all shipped:**
+  1. **12 octave unisons in the blast bank** — `S049`-`S060`, custom list
+     `unisons`, one per pitch class, each = every octave of that pc inside the
+     staccato range MIDI 30-65 (3 notes each; F#4=66 is out). They appear in the
+     existing Insertion strip with **zero code change** — `loadTaxB()` already
+     refetches whenever the strip is opened. **Adding more sonorities is a JSON
+     edit, no code, no reload** — this is the composer's repeatable request path.
+  2. **`insert → column` button** (beside `insert @ cursor`) — writes PLAIN
+     staccato hits onto the pulse column nearest the playhead, scattered at
+     RANDOM across whichever players are free there. No groupId, no META shape,
+     no label marker: trance material is a grid of single hits, not a gesture,
+     and **the randomisation IS the orchestration**. The grid is inferred from
+     the score's own modal onset gap (`pulseOf()`), so a tempo change needs no
+     edit here. *Verified:* playhead parked 0.07 s off column 8 snapped to it,
+     3 notes landed on 3 random free players, both occupied lanes avoided.
+  3. **`O` = whole selection → ORD** (`convertSelectedToOrd`). The long-tone
+     path. A fixed one-shot plays its own sample length however the block is
+     drawn, so turning a column into long tones means changing the TECHNIQUE
+     first, then dragging. The property panel already did this but
+     `applyPanelField` works on the PRIMARY selection only — one note at a time.
+     *Verified:* 3 selected notes converted at once, unselected note untouched,
+     ignored while typing in a field.
+  4. **Drag-length readout** — a cursor-following box while resizing, which also
+     names the trap: on a fixed one-shot it reads
+     `(staccato one-shot — sounds 0.45 s; press O for ORD)`. It deliberately
+     does NOT write into `#floatingTime` — assigning that element's
+     `textContent` destroys the spans `updateTimeDisplay()` caches and freezes
+     the clock until reload (a documented three-day bug in that function).
+  **Measured and deliberately NOT fixed:** staccato sounds 0.45 s against a
+  0.4 s pulse. On `tranceA001b`, 55 same-player overlaps are on *different*
+  pitches (harmless, polyphonic) and only 10 are the *same* pitch, where a
+  ~50 ms decay tail is cut under a fresh attack. Nothing is dropped. Lengthening
+  the blocks to 0.45 s would make every column overlap the next visually and
+  start the conflict engine flagging same-player repeats — a real trade, not a
+  free fix. Composer's call: leave it.
+  **Not built (deferred, not forgotten):** a menu of chords for the column
+  insert beyond what the strip already offers; making the console keybindings
+  (`D`/`I` column delete/insert) permanent rather than paste-per-session.
+
 - **2ad — PHASE-SHIFT TEXTURE SELECTOR (a workflow, not a build)** —
   **`READY 2026-08-17 (day 17) — ZERO CODE NEEDED, verified; the sitting is
   set up and waits on the composer's ear`** *(composer, verbatim,

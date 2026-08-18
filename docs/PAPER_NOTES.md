@@ -17,6 +17,64 @@ Subtitle candidates (stored for later evaluation):
 5. *Standing up instruments for ideas*
 6. *A workflow for hearing your way into a piece*
 
+## STANDING INSTRUCTION — capture salient talk as it happens (composer, 2026-08-18)
+
+**The composer wants material for the paper harvested along the way, not
+reconstructed afterwards.** Any AI working this repo should file a note here
+when something said in session bears on the argument — a framing, a reversal, a
+piece of evidence, a phrase worth quoting. Do it at the moment it is said; a
+session ends and the wording is gone. `COMPOSER_LOG.md` keeps the verbatim
+thinking; this file keeps what the *paper* needs and why it matters to the
+argument.
+
+---
+
+## Day 18 (2026-08-18): the tool that worked was not a tool
+
+**The strongest evidence so far, and it complicates the thesis in a useful way.**
+
+Days 12-17 built bespoke machines: a pulse sequencer strip, panel snapshots, a
+multitempo rig, a phase-shift selector. On day 18 the composer stopped using
+them and said why:
+
+> "my attempts to build tools like panels have turned out to be very labor
+> intensive and aren't lending the results. So I'm going to stick with AI
+> prompts and console scripts that I can paste in."
+
+Read against the Kobayashi thesis, this is not a failure of the argument — it
+sharpens it. **The bespoke frame need not be a piece of software.** What the
+composer actually needed was not a panel but a way to say *"give me an accretion
+from the bottom up, 4 to 7 repeats, 150"* and hear it ninety seconds later. The
+frame that beat the received one was **conversational**, not instrumental. The
+"tool" is a working relationship with a system that can build a throwaway
+generator per request, and throw it away.
+
+That gives the paper a sharper claim than "build your own tools": **build the
+smallest thing that gets the material into your ears, and be willing for it to
+be disposable.** A panel is a bet that you will want the same operation many
+times. A console script is a bet that you will not. On this piece, the second
+bet kept winning — and the pattern the composer *did* want permanently (insert a
+sonority into a column) only became visible after a day of disposable versions.
+
+**Second finding, on where verification effort belongs.** The composer drew an
+explicit line: generating and mutating musical objects is trusted and should not
+be re-checked, but the *presentation* of any label must be right first time,
+because each slip costs a fresh script and another paste cycle —
+
+> "then there's an hour of back and forth, and it's... ends up being a giant
+> waste of time for something small but something I need."
+
+The same day proved the split exactly. The note-generation was correct on the
+first attempt; the column numbering was wrong in three independent ways
+(invisible lane, overlapping labels, text over noteheads), none of which the
+generator's own output would have revealed. **For the paper: in a
+human-in-the-loop composing system, the expensive errors are not in the
+algorithm, they are at the interface where the composer reads the result.**
+Effort should be spent proportional to how the human perceives the output, not
+to how complex the computation was.
+
+---
+
 ## The thesis: a Kobayashi-inspired process
 
 **The reference.** Takeru Kobayashi did not get better at eating hot dogs the

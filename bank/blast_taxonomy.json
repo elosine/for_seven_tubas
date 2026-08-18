@@ -401,6 +401,20 @@
       "S046",
       "S047",
       "S048"
+    ],
+    "unisons": [
+      "S049",
+      "S050",
+      "S051",
+      "S052",
+      "S053",
+      "S054",
+      "S055",
+      "S056",
+      "S057",
+      "S058",
+      "S059",
+      "S060"
     ]
   },
   "sonorities": {
@@ -1969,6 +1983,246 @@
       "ordLen": 0.8,
       "dyn": 127,
       "saved": "2026-08-15T17:47:31.794Z"
+    },
+    "S049": {
+      "chord": "UNISON-F#",
+      "voicing": "oct",
+      "pitches": [
+        30,
+        42,
+        54
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "30": "staccato",
+        "42": "staccato",
+        "54": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on F# - every F# in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S050": {
+      "chord": "UNISON-G",
+      "voicing": "oct",
+      "pitches": [
+        31,
+        43,
+        55
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "43": "staccato",
+        "55": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on G - every G in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S051": {
+      "chord": "UNISON-G#",
+      "voicing": "oct",
+      "pitches": [
+        32,
+        44,
+        56
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "32": "staccato",
+        "44": "staccato",
+        "56": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on G# - every G# in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S052": {
+      "chord": "UNISON-A",
+      "voicing": "oct",
+      "pitches": [
+        33,
+        45,
+        57
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "45": "staccato",
+        "57": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on A - every A in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S053": {
+      "chord": "UNISON-A#",
+      "voicing": "oct",
+      "pitches": [
+        34,
+        46,
+        58
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "34": "staccato",
+        "46": "staccato",
+        "58": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on A# - every A# in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S054": {
+      "chord": "UNISON-B",
+      "voicing": "oct",
+      "pitches": [
+        35,
+        47,
+        59
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "35": "staccato",
+        "47": "staccato",
+        "59": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on B - every B in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S055": {
+      "chord": "UNISON-C",
+      "voicing": "oct",
+      "pitches": [
+        36,
+        48,
+        60
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "staccato",
+        "48": "staccato",
+        "60": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on C - every C in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S056": {
+      "chord": "UNISON-C#",
+      "voicing": "oct",
+      "pitches": [
+        37,
+        49,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "37": "staccato",
+        "49": "staccato",
+        "61": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on C# - every C# in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S057": {
+      "chord": "UNISON-D",
+      "voicing": "oct",
+      "pitches": [
+        38,
+        50,
+        62
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "38": "staccato",
+        "50": "staccato",
+        "62": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on D - every D in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S058": {
+      "chord": "UNISON-D#",
+      "voicing": "oct",
+      "pitches": [
+        39,
+        51,
+        63
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "39": "staccato",
+        "51": "staccato",
+        "63": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on D# - every D# in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S059": {
+      "chord": "UNISON-E",
+      "voicing": "oct",
+      "pitches": [
+        40,
+        52,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "40": "staccato",
+        "52": "staccato",
+        "64": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on E - every E in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S060": {
+      "chord": "UNISON-F",
+      "voicing": "oct",
+      "pitches": [
+        41,
+        53,
+        65
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "41": "staccato",
+        "53": "staccato",
+        "65": "staccato"
+      },
+      "ordLen": 2.5,
+      "dyn": 112,
+      "saved": "2026-08-18T00:00:00.000Z",
+      "note": "octave unison on F - every F in the staccato range MIDI 30-65 (trance section)"
     }
   },
   "chordSubsets": {

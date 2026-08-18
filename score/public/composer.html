@@ -364,6 +364,7 @@
     <select id="blastListSel" title="which custom list to browse"></select>
     <label style="color:#999; font-size:11px" title="when on, selecting (click or arrows) also plays; when off, double-click to hear"><input type="checkbox" id="blastHear"> hear</label>
     <button id="blastInsert" title="insert the selected sonority at the playhead: parts + META shape">insert @ cursor</button>
+    <button id="blastInsertCol" title="insert the selected sonority INTO the pulse column nearest the playhead: plain staccato hits, scattered at random across the players that are free in that column. No group, no META shape.">insert &#8594; column</button>
   </div>
   <div id="blastMinis" style="white-space:nowrap; overflow-x:auto; margin-top:3px; text-align:left"></div>
 </div>
@@ -1816,6 +1817,28 @@ const Composer = {
         }
     },
 
+    // Transient readout that follows the cursor while a note is being resized.
+    // NOTE: this deliberately does NOT write into #floatingTime - assigning that
+    // element's textContent destroys the spans updateTimeDisplay() caches and
+    // freezes the clock until reload (see the warning in updateTimeDisplay).
+    showDragDur(ev, seconds, note) {
+        let el = this._dragDurEl;
+        if (!el || !el.parentNode) {
+            el = document.createElement('div');
+            el.id = 'dragDur';
+            el.style.cssText = 'position:fixed; z-index:200; pointer-events:none; padding:2px 6px;'
+                + 'background:#1b1b1f; color:#ffd479; border:1px solid #555; border-radius:3px;'
+                + 'font:11px Consolas,monospace; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,.5)';
+            document.body.appendChild(el);
+            this._dragDurEl = el;
+        }
+        el.textContent = seconds.toFixed(2) + ' s' + (note ? '  ' + note : '');
+        el.style.left = (ev.clientX + 14) + 'px';
+        el.style.top = (ev.clientY - 22) + 'px';
+        el.style.display = 'block';
+    },
+    hideDragDur() { if (this._dragDurEl) this._dragDurEl.style.display = 'none'; },
+
     updateTimeDisplay(seconds) {
         const t = Math.max(0, seconds);
         const secStr = t.toFixed(2);
@@ -2081,6 +2104,13 @@ const Composer = {
             if ((e.key === 'g' || e.key === 'G') && !e.ctrlKey && !e.target.matches('input, textarea, select')) {
                 e.preventDefault();
                 this.convertSelectedToSurge();
+                return;
+            }
+
+            // O = whole selection to ORD (long tones); see convertSelectedToOrd
+            if ((e.key === 'o' || e.key === 'O') && !e.ctrlKey && !e.altKey && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
+                this.convertSelectedToOrd();
                 return;
             }
 
@@ -3311,6 +3341,25 @@ const Composer = {
         this.renderWaveCurve(shape);
     },
 
+    // O = convert every selected note to ORD (the long-tone path).
+    // A fixed one-shot (staccato/fp/cuivre) plays its own sample length no
+    // matter how long the block is drawn, so turning a column into long tones
+    // means changing the TECHNIQUE first and only then dragging the right edge.
+    // The panel does this one note at a time (applyPanelField works on the
+    // primary selection only) - this does the whole selection at once.
+    convertSelectedToOrd() {
+        const targets = (this.selectedObjects.length ? this.selectedObjects
+            : (this.selectedObject ? [this.selectedObject] : []))
+            .filter(o => o.type === 'waveCurve' && o.layer < META_LAYER && o.sonifyNote != null
+                      && o.technique !== 'ord');
+        if (!targets.length) return;
+        this.pushUndoState();
+        for (const wc of targets) { wc.technique = 'ord'; delete wc.sonifyMode; }
+        this.renderAll();
+        this.markDirty();
+        this.saveStatus.textContent = targets.length + ' note(s) → ORD — now drag the right edge for length';
+    },
+
     convertSelectedToSurge() {
         const targets = (this.selectedObjects.length ? this.selectedObjects
             : (this.selectedObject ? [this.selectedObject] : []))
@@ -4511,10 +4560,20 @@ const Composer = {
             }
             this.updateWCRendering(wc);
             this.renderNodeHandles(wc);
+            // length readout while dragging an edge. A fixed one-shot ignores the
+            // drawn length at playback, so say so rather than let the number lie.
+            if (kind === 'left' || kind === 'right' || kind === 'corner') {
+                const fixed = this.isFixedLen(wc);
+                this.showDragDur(ev, wc.endSeconds - wc.startSeconds,
+                    fixed ? '(' + wc.technique + ' one-shot — sounds '
+                            + (this.techLength(wc.technique, wc.sonifyNote) || '?') + ' s; press O for ORD)'
+                          : '');
+            }
         };
         const onUp = () => {
             window.removeEventListener('mousemove', onMove);
             window.removeEventListener('mouseup', onUp);
+            this.hideDragDur();
             this.renderWaveCurve(wc);   // reposition the apex dot
             this.refreshPanelValues();
             this.markDirty();
@@ -15539,6 +15598,74 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     reportInsert(selectedSon, t, pitches.length, bHard, bSoft);
   }
 
+  // ---- COLUMN INSERT (the trance pulse grid) -------------------------------
+  // Unlike insertAtCursor, this writes PLAIN staccato hits onto the pulse
+  // COLUMN nearest the playhead, scattered at random over whichever players are
+  // free in that column. No groupId, no META shape, no label marker: the trance
+  // material is a grid of single hits, not a gesture, and the randomisation IS
+  // the orchestration (composer 2026-08-18).
+  function pulseOf() {
+    // infer the grid from the score itself, so a tempo change needs no edit here
+    const on = Array.from(new Set(Composer.objects
+      .filter(o => o.type === 'waveCurve' && o.layer < 10 && o.sonifyNote != null)
+      .map(o => +o.startSeconds.toFixed(4)))).sort((a, b) => a - b);
+    const tally = {};
+    for (let i = 1; i < on.length; i++) {
+      const g = +(on[i] - on[i - 1]).toFixed(3);
+      if (g > 0.01) tally[g] = (tally[g] || 0) + 1;
+    }
+    const best = Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+    return best ? +best : 0.4;
+  }
+  function insertIntoColumn() {
+    if (srcMode === 'clusters') {
+      const el0 = document.getElementById('blastInfo');
+      el0.textContent = 'column insert is for the Blasts source (clusters are gestures, not single hits)';
+      el0.style.color = '#ffd479';
+      return;
+    }
+    if (!selectedSon || !TAXB) return;
+    const son = (TAXB.sonorities || {})[selectedSon];
+    if (!son) return;
+    const P = pulseOf();
+    const col = Math.max(0, Math.round((Composer.scrollOffset / Composer.pixelsPerSecond) / P));
+    const t = +(col * P).toFixed(4);
+    const pitches = son.pitches.slice().sort((a, b) => a - b);
+    const taken = new Set(Composer.objects.filter(o => o.type === 'waveCurve' && o.layer < 10
+      && Math.abs(o.startSeconds - t) < P / 2).map(o => o.layer));
+    const free = [];
+    for (let l = 0; l < 10; l++) if (!taken.has(l)) free.push(l);
+    for (let i = free.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = free[i]; free[i] = free[j]; free[j] = tmp;
+    }
+    const use = free.slice(0, pitches.length);
+    Composer.pushUndoState();
+    const len = +(P / 2).toFixed(4);
+    use.forEach((lane, i) => {
+      const pitch = pitches[i];
+      const cv = (son.cuivreConverted || []).includes(pitch) || (son.cuivreAdded || []).includes(pitch);
+      Composer.objects.push({
+        id: 'wc-' + (Composer.nextId++), type: 'waveCurve', layer: lane,
+        startSeconds: t, endSeconds: +(t + len).toFixed(4),
+        nodes: [{ pos: 0, y: 8.8, smooth: 0.25 }, { pos: 1, y: 8.8, smooth: 0.25 }],
+        segments: [{ model: 'power', slope: 0 }],
+        color: '#607D8B', fillMode: 'bottom', opacity: 0.55,
+        performanceNotes: son.chord, properties: {},
+        sonifyNote: pitch, technique: cv ? 'cuivre' : ((son.artic || {})[pitch] || 'staccato'),
+        sonifyMode: 'plain', recVel: son.dyn || 112
+      });
+    });
+    Composer.renderAll();
+    Composer.markDirty();
+    const short = pitches.length - use.length;
+    const el = document.getElementById('blastInfo');
+    el.textContent = '✓ ' + son.chord + ' → column ' + (col + 1) + ' (' + t.toFixed(2) + 's) — '
+      + use.length + ' note(s) on T' + use.map(l => l + 1).join(' T')
+      + (short ? '  ·  ⚠ ' + short + ' had no free player' : '');
+    el.style.color = short ? '#ffd479' : '#7ec9a8';
+  }
+
   document.getElementById('blastsBtn').addEventListener('click', async function () {
     const strip = document.getElementById('blastStrip');
     const show = strip.style.display === 'none';
@@ -15570,6 +15697,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     el.style.color = srcMode === 'clusters' ? '#8fdbe8' : '#ffd479';
   });
   document.getElementById('blastInsert').addEventListener('click', insertAtCursor);
+  document.getElementById('blastInsertCol').addEventListener('click', insertIntoColumn);
   document.getElementById('conflictBadge').addEventListener('click', function () {
     this.blur();
     if (Composer._resolverOpen) Composer.closeResolver(); else Composer.openResolver();

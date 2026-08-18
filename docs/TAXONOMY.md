@@ -60,6 +60,24 @@
   born.
 - **INT2 keepers:** none yet — auditioning begins now.
 
+## Addendum: the UNISON bank (2026-08-18, PLAN 2ae)
+
+Filed automatically per this contract, no request needed.
+
+- **`S049`-`S060`, custom list `unisons`** — twelve octave unisons, one per
+  pitch class, each holding **every octave of that pitch class inside the
+  staccato range MIDI 30-65**. Three notes each (e.g. F# = 30 / 42 / 54);
+  F#4 = 66 falls outside the range and is excluded. `chord` is `UNISON-<pc>`,
+  `voicing` is `oct`, articulation uniform staccato, `dyn` 112.
+- **Why they are in the blast bank and not a new store:** the Insertion strip
+  already lists every `customLists` key and refetches on open (`loadTaxB`), so
+  they appear with **zero code change**. This is the cheap path for anything the
+  composer wants to insert — adding a sonority is a JSON edit, no reload.
+- **They are inserted with the `insert → column` button, not `insert @ cursor`.**
+  The latter builds a gesture (groupId, META shape, label marker, `assignBlast`
+  seating by pitch order); the trance section wants plain staccato hits on the
+  pulse grid, scattered at random over the free players. See PLAN 2ae.
+
 ## Addendum: the CLUSTER bank (2026-08-15, same philosophy)
 
 `bank/cluster_bank.json`, served by /api/clusterbank, sandbox at
