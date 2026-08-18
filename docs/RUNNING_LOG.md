@@ -2226,3 +2226,79 @@ stop path are verified; **whether four tempi together are worth keeping is not,
 and cannot be.** No screenshot: the browser pane was not compositing frames, so
 the visual claims above are DOM reads (tick counts, computed styles), which are
 tighter evidence anyway.
+
+---
+
+## Day 17 (2026-08-17) — PLAN 2ad: the phase-shift selector needed NO code
+
+*Claude Code / Opus 5, same sitting as 2ab and 2ac. 2ad was spec'd as "a
+workflow, not a build", with exactly one conditional code item. That condition
+turned out to be false, so nothing was written.*
+
+### The one permitted code item was not needed, and that was CHECKED, not assumed
+
+2ad said: *"if the Texture panel cannot refetch `/api/textureparams` without a
+page reload, add a ↻ button"*. **It can do better than that already.** The panel
+polls `/api/textureparams` every 1000 ms whenever it is open
+(`texture_panel.js` `startPolling`) and, on a `rev` bump, also honours the
+file's `active` field — so an AI write says both *"here is the new slate"* and
+*"this is the one I mean"*.
+
+**Verified in the running app** (:5210, session forced to `untitled`), because
+reading it is not the same as knowing it: with the panel open and untouched, the
+params file was rewritten from the shell to `rev: 2, active: "B"`. The panel
+moved to **rev 2, variant B, no reload and no click**. The file was then restored
+with `git checkout` and the panel returned to rev 1 / A on its own.
+
+**So the entire conversational channel that 2ad depends on is proven working**,
+and 2ad's code scope is closed at zero lines.
+
+### The slate is already loaded — the sitting can start cold
+
+`bank/texture_params.json` already holds exactly the three references the 2x
+listening slate asks for first. All three render, each with a distinct measured
+signature:
+
+| variant | model | measured |
+|---|---|---|
+| A | SMEAR | 18.4/s · **sd 0.1 ms** · unevenness 0.00 · 257 notes |
+| B | RAIN | 18.4/s · **sd 30.7 ms** · unevenness 0.14 · 257 notes |
+| C | GALLOP | 18.6/s · **sd 32.3 ms** · unevenness 0.68 · 260 notes |
+
+**A prediction worth putting on record before it is heard, because the numbers
+suggest the vocabulary might not survive it:** B and C have almost the SAME
+jitter magnitude (30.7 vs 32.3 ms) and very different *unevenness* (0.14 vs
+0.68). If rain and gallop are clearly distinct by ear, unevenness is carrying
+the distinction and the vocabulary holds. If they are not, then "rain" and
+"gallop" are one category with two labels, and the models should be merged.
+Either answer is a result.
+
+### The last step of the sitting was tested so it cannot fail on the composer
+
+`node tools/texture_bank.js --bank RAIN --from B --survives yes --note "…"` was
+run end to end: it re-rendered variant B, wrote the verdict into
+`bank/texture_models.json`, and reported *"banked MODEL RAIN — 257 attacks, sd
+30.74 ms, unevenness 0.139, 0 hard / 0 soft"*. **The probe was then reverted** —
+`--validate` reads `0 of 5` verdicts again, exactly as before, and `git status`
+on `bank/` is clean. No fabricated verdict was left in the bank.
+
+**One operational gotcha found while doing it, and it matters because the
+composer's VERBATIM words are the deliverable:** an em-dash passed to `--note`
+through Windows Git Bash arrives mojibake'd (`—` → `â€"`). It is the shell's
+argv, not the tool — both `heard` and `robustness.note` receive the identical
+mangled string from the same `opts.note`. *(A first reading suggested the two
+fields disagreed; they do not. That was an artefact of printing one with
+`json.dumps` — which escapes non-ASCII — and the other with `str`. Recorded
+because a wrong diagnosis half-reported is worse than none: AI_METHODOLOGY
+rule 5.)* **Practical rule for the sitting: keep `--note` plain ASCII, or paste
+the composer's exact words into COMPOSER_LOG and put a plain-ASCII summary in
+`--note`.**
+
+### What 2ad still needs, and it is the only thing left
+
+**The composer's ear.** 2ad's "Done when" is *one banked keeper carrying the
+composer's verbatim note, plus the SMEAR/RAIN/GALLOP distinctness verdict*.
+Neither can be produced here — Web MIDI is blocked in this pane, and more
+fundamentally a verdict is not a measurement. Everything AROUND the verdict is
+now verified: the panel renders, the channel is live, the CLI writes, the
+revert is clean.

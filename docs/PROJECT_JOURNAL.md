@@ -13,6 +13,17 @@ piece #3's `docs/` — registered as an additional working directory.
 **DAY 17 (2026-08-17) — 2ab PANEL SNAPSHOTS IS BUILT; 2ac/2ad PLANNED.
 Claude Code / Fable 5 (planning) + Opus 5 (build).**
 
+**2ad NEEDED NO CODE — and that was checked, not assumed.** Its one
+conditional item (a ↻ button *"if the Texture panel cannot refetch without a
+reload"*) is unnecessary: the panel already **polls every 1000 ms and honours
+`active` on a rev bump**. Proven live — the params file was rewritten from the
+shell while the panel sat open and it moved to the new variant **with no reload
+and no click**, then returned when the file was restored. The A/B/C slate is
+already SMEAR/RAIN/GALLOP, all three render, and the banking CLI was run end to
+end and reverted (`--validate` reads 0 of 5 verdicts again, `bank/` git-clean —
+**no fabricated verdict was left in the bank**). **2ad now waits only on the
+composer's ear**, which is the one thing that cannot be manufactured here.
+
 **2ac THE MULTITEMPO RIG IS ALSO BUILT.** `MT` button beside `Pulse`: type a
 ratio set (`3:4:5`), pick a separation mode (UNISON / REGISTER / HARMONY),
 SPACE, and the streams loop together. `tools/test_multitempo.js` **90/90** with
@@ -870,6 +881,20 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   unheard — the composer's audition is the open half.*
 
 ## §6 Human Notes
+
+- *(2026-08-17, day 17)* **THE PHASE-SHIFT SITTING IS SET UP AND WAITING — it is
+  the day-12 texture slate, now with the path around it verified.** `Texture`
+  button; A / B / C are already the SMEAR / RAIN / GALLOP references. Play the
+  three and answer one question: **are they distinct by ear?** Then say what you
+  want more or less of — the AI edits the slate and the panel lands on it within
+  a second, no reload (verified). Bank a keeper with
+  `node tools/texture_bank.js --bank <NAME> --from <variant> --survives yes|no
+  --note "<plain ASCII — the shell mangles em-dashes>"`.
+  **The measured prediction to test first:** RAIN and GALLOP have nearly the
+  same jitter (sd 30.7 vs 32.3 ms) but very different unevenness (0.14 vs 0.68).
+  If they sound alike, they are one category with two labels and the models
+  should merge. Either answer is a result. *(This supersedes the day-12 slate
+  note below as the entry point; that note still holds for items 3-5.)*
 
 - *(2026-08-12)* **Try PLAYING some of the shapes** — as another way to collect
   data models (performed shapes = ground truth for D6's harvest; ties to D3's

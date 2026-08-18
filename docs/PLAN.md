@@ -1061,7 +1061,8 @@ composer → notation → performance architecture.)*
   is the composer's audition and cannot be measured here.
 
 - **2ad — PHASE-SHIFT TEXTURE SELECTOR (a workflow, not a build)** —
-  **`approved 2026-08-17 (day 17) — spec'd for handoff`** *(composer, verbatim,
+  **`READY 2026-08-17 (day 17) — ZERO CODE NEEDED, verified; the sitting is
+  set up and waits on the composer's ear`** *(composer, verbatim,
   COMPOSER_LOG day 17: "a way to audition a few different phase shifting
   patterns… AI prompt is the best way… maybe using some of the vocabulary we
   developed in that phase shifting project and then settle on a few textures."
@@ -1111,6 +1112,58 @@ composer → notation → performance architecture.)*
   **Done when:** one sitting has produced at least one banked keeper carrying
   the composer's verbatim note, and the SMEAR/RAIN/GALLOP distinctness verdict
   is recorded in both the bank slots and RUNNING_LOG.
+
+  ### AS VERIFIED (2026-08-17, day 17) — nothing was written
+
+  **The one conditional code item is not needed, and that was CHECKED.** 2ad
+  allowed a ↻ button *"if the Texture panel cannot refetch without a page
+  reload"*. It already does better: `texture_panel.js` **polls
+  `/api/textureparams` every 1000 ms while open** and honours the file's
+  `active` on a `rev` bump. **Proven live** (:5210, `untitled` session): with
+  the panel open and untouched, the params file was rewritten from the shell to
+  `rev: 2, active: "B"` and the panel moved to rev 2 / variant B **with no
+  reload and no click**; `git checkout` restored the file and the panel returned
+  to rev 1 / A by itself. **2ad's code scope is closed at zero lines.**
+
+  **The slate is already loaded** — `bank/texture_params.json` holds exactly the
+  three references the 2x listening slate asks for first, and all three render
+  with distinct measured signatures: **A SMEAR** sd 0.1 ms / unev 0.00 ·
+  **B RAIN** sd 30.7 ms / unev 0.14 · **C GALLOP** sd 32.3 ms / unev 0.68.
+
+  **A prediction on record before it is heard:** B and C have nearly the SAME
+  jitter magnitude (30.7 vs 32.3 ms) and very different unevenness. If rain and
+  gallop are clearly distinct by ear, unevenness carries the distinction and the
+  vocabulary holds; if not, they are one category with two labels and the models
+  should be merged. Either answer is a result.
+
+  **The last step was tested so it cannot fail mid-sitting:**
+  `node tools/texture_bank.js --bank RAIN --from B --survives yes --note "…"`
+  ran end to end and wrote the verdict; **the probe was then reverted** —
+  `--validate` reads `0 of 5` verdicts again and `bank/` is git-clean. No
+  fabricated verdict was left behind.
+
+  **Operational gotcha, and it matters because the composer's verbatim words are
+  the deliverable:** an em-dash passed to `--note` through Windows Git Bash
+  arrives mojibake'd (shell argv, not the tool). **Keep `--note` plain ASCII**,
+  and put the exact words in `COMPOSER_LOG.md`.
+
+  ### THE SITTING — what the composer actually does
+
+  1. `node score/server.js` → composer.html → **`Texture`**.
+  2. Play **A**, then **B**, then **C**. The question is only: *are the three
+     distinct by ear?* (2x slate item 1 — it validates the whole vocabulary the
+     recipes are built on.)
+  3. Say what you want more or less of, in your own words. The AI edits the
+     variants and bumps `rev`; the panel lands on the new one within a second,
+     no reload.
+  4. Bank a keeper:
+     `node tools/texture_bank.js --bank <NAME> --from <variant> --survives yes|no --note "<plain ASCII>"`
+  5. Then slate item 2 — **`H` on SMEAR, then `H` on RAIN** — which is the
+     fragile/robust prediction's first real data point.
+
+  **Done when** is unchanged and only the composer can close it: one banked
+  keeper carrying their verbatim note, and the SMEAR/RAIN/GALLOP verdict
+  recorded in both the bank slot and `RUNNING_LOG.md`.
 
   **Deferred:** FR-9 tempo-exact insertion into the piece · cross-cutting the
   textures into the pulse stream (that is section assembly, PLANNER's tier) ·
