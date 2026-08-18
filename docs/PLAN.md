@@ -786,7 +786,10 @@ composer → notation → performance architecture.)*
      stored by deep copy, never mutated · `name` must be 1–64 chars of
      `[A-Za-z0-9._ -]` (reject otherwise with a message, loudly — never
      silently normalise).
-  3. **Server routes** in `score/server.js` — mirror the `/api/actuals` block
+  3. **Server routes** in `score/server.js` — **helpers confirmed present
+     2026-08-17 (day 17): `readBody(req, cb)` at server.js:86, and
+     `const R = wrapRes(res)` at server.js:336 giving `R.json(obj)` and
+     `R.status(400).json(obj)`.** Mirror the `/api/actuals` block
      (server.js:556): `GET /api/snapshots` returns the whole file with
      `Cache-Control: no-store` (copy the `/api/pulsepalette` handler at
      server.js:537) · `POST /api/snapshots` uses the existing `readBody`
@@ -889,6 +892,36 @@ composer → notation → performance architecture.)*
     holds: a one-shot takes its measured `techLength`, noteLen cannot stretch
     it — reuse the exact duration logic in `pulse_seq.js buildGrid`
     (pulse_seq.js:150-166), do not re-derive it.
+
+  **SYMBOLS AND TRAPS — verified by reading the source 2026-08-17 (day 17,
+  Opus 5). Read this before writing a line; each item is a real stall or a
+  silent defect:**
+  - **`r4` and `clamp` are PRIVATE in pulse_seq.js — NOT exported.**
+    `PulseSeq.r4(...)` does not exist and will throw. Redefine locally, exactly:
+    `const r4 = x => +x.toFixed(4);`. What IS exported (pulse_seq.js:204-208):
+    `LANES` · `DEFAULT_TECH` · `pitchName` · `techFor` · `resolvePalette` ·
+    `buildGrid` · `lanePressure`. Nothing else.
+  - **THE ONE THING YOU MUST NOT COPY FROM `buildGrid`: its lane assignment.**
+    buildGrid round-robins `cursor` across lanes **per NOTE**
+    (pulse_seq.js:155 and :164). **2ac's rule is lane = STREAM index** — set
+    `voice` to the stream index and never advance a cursor. Copying buildGrid
+    wholesale here produces a plausible-sounding but WRONG result that no test
+    catches unless you assert it (the `voice = stream index` assertion in the
+    test list exists for exactly this).
+  - **The duration logic is INLINE, not a callable helper.** Copy these two
+    lines verbatim (pulse_seq.js:153 and :158):
+    `const measured = techLength ? techLength(technique, midi) : null;` and
+    `dur: r4(measured != null ? measured : noteLen),`. `techLength` arrives via
+    `opts` and is `Composer.techLength` — the panel preflight already asserts it
+    exists (pulse_seq_panel.js:196). This IS the 2n law; do not re-derive it.
+  - **Carry `entry.dyn` through.** buildGrid sets
+    `vel: entry.dyn != null ? entry.dyn : velocity` (pulse_seq.js:160) — a
+    palette entry may specify its own dynamic. Dropping it silently flattens
+    those sonorities.
+  - **Technique per note is `entry.tech[midi] || DEFAULT_TECH`**
+    (pulse_seq.js:152); the exported `techFor(son, pitch)` is the same rule at
+    the raw-sonority level. In HARMONY mode use the entry's resolved `tech`;
+    in UNISON/REGISTER force `staccato`.
 
   **Build (all pieces named; implement in this order):**
   1. **`score/public/multitempo.js`** — PURE, same UMD wrapper as
