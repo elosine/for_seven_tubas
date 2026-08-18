@@ -744,6 +744,271 @@ composer → notation → performance architecture.)*
   MIDI (day 15's finding, unchanged), so the MIDI was captured at a recording
   stub. The audition is the composer's.
 
+- **2ab — PANEL SNAPSHOTS (the shared save mechanism)** — **`approved
+  2026-08-17 (day 17) — spec'd for handoff, NOT built`** *(composer's ask,
+  verbatim, in COMPOSER_LOG day 17: "a way to save the panel, at least the data
+  in it so we can create a save file" and "to be able to save those settings…
+  you can make that same recommendation for the pulse Panel". Build order for
+  the day-17 trio: **2ab → 2ac → 2ad** — 2ab is the save/AI-dial channel the
+  other two use.)*
+
+  **What it is:** named snapshots of a panel's full state, saved to one
+  git-tracked bank file through the score server. localStorage stays the live
+  scratch (unchanged); Save gives the current state a name; Load lists and
+  restores. Survives `/clear`, browser changes, machines. **The same file is the
+  AI-dialing channel for 2ac/2ad:** the AI appends a named snapshot, the
+  composer picks it from Load.
+
+  **Design decisions, already made — do not reopen:**
+  - **One file for all panels,** `bank/panel_snapshots.json` — NOT in `scores/`
+    (sandbox state is not score objects; keeping it out protects the D8
+    autosave protocol, which has clobbered a loaded score before).
+  - **`state` is OPAQUE to the server.** It is whatever the panel's own `save()`
+    writes to localStorage, verbatim. The server never validates it — one code
+    path, and a future panel costs zero server work.
+  - Snapshot names from the AI are **append-only in practice**: the AI never
+    overwrites an existing take, it writes a new name. The composer may
+    overwrite/delete freely.
+
+  **Build (all pieces named; implement in this order):**
+  1. **`bank/panel_snapshots.json`** — seed file:
+     `{ "_version": 1, "_contract": "<one paragraph: what this is, state is
+     opaque, AI appends new names only>", "panels": { "pulse": {},
+     "multitempo": {}, "phase": {} } }`. A snapshot entry is
+     `"<name>": { "saved": "<ISO date, server-stamped>", "comment": "<composer's
+     words or ''>", "state": { … } }`.
+  2. **`score/snapshots.js`** — a PURE module (plain `module.exports`, node
+     only) so the merge logic is testable without starting the server:
+     `merge(fileObj, req)` where req = `{ panel, name, comment, state }` saves
+     (server stamps `saved`), req = `{ panel, name, delete: true }` removes.
+     Rules: unknown panel key is CREATED, not rejected · a delete of a missing
+     name returns `{ ok: true, existed: false }` — never throws · `state` is
+     stored by deep copy, never mutated · `name` must be 1–64 chars of
+     `[A-Za-z0-9._ -]` (reject otherwise with a message, loudly — never
+     silently normalise).
+  3. **Server routes** in `score/server.js` — mirror the `/api/actuals` block
+     (server.js:556): `GET /api/snapshots` returns the whole file with
+     `Cache-Control: no-store` (copy the `/api/pulsepalette` handler at
+     server.js:537) · `POST /api/snapshots` uses the existing `readBody`
+     helper, calls `merge`, writes the file with 2-space indent + trailing
+     newline (the house file style), returns `{ success, panels: <count for
+     that panel> }`.
+  4. **Panel glue, pulse panel first** (`score/public/pulse_seq_panel.js`):
+     a `Save` and a `Load` button in the header row. Save → `window.prompt`
+     for name, `window.prompt` for optional comment → POST
+     `{ panel: 'pulse', name, comment, state: { grid: this.grid, loopOn:
+     this.loopOn, brush: this.brush } }` — **exactly the object `save()`
+     already writes** (pulse_seq_panel.js:256). Load → fetch GET, populate a
+     small dropdown (newest `saved` first, label = `name · date · comment`),
+     on pick apply the state **through the existing `restore()` defaults
+     path** — factor restore()'s body into `applyState(s)` and call it from
+     both `restore()` and Load, then `save(); this.drawStrip();`. The dropdown
+     refetches every time Load is opened, so an AI-written snapshot appears
+     without a page reload.
+  5. **`tools/test_snapshots.js`** — node test of the pure module, at minimum:
+     save round-trips state deep-equal · `saved` gets stamped · same-name save
+     replaces · delete removes · delete-of-missing is `{ok:true,existed:false}`
+     · bad name rejected loudly · input `state` object mutated after merge does
+     NOT change the stored copy (the deep-copy assertion) · one mutation test:
+     break the deep copy (assign by reference) and confirm the test catches it.
+
+  **Done when** (AI_METHODOLOGY rule 4 — in the RUNNING app, not by reading):
+  the composer saves a named pulse-grid snapshot, **reloads the browser**,
+  loads it back, and BPM / columns / noteLen / every cell / loop toggle come
+  back exactly; delete removes it from the dropdown; the entry is visible in
+  the file on disk. Use the `score-verify` instance on :5210 with session
+  forced to `untitled` (the day-16 procedure) so autosave cannot touch a score.
+
+  **Deferred:** export/import single snapshots · autosnap · snapshot diffing.
+
+- **2ac — MULTITEMPO AUDITION RIG** — **`approved 2026-08-17 (day 17) — spec'd
+  for handoff, NOT built`** *(the composer's ask, verbatim, in COMPOSER_LOG
+  day 17: "audition several tempos at the same time to hear how they sound
+  together… a ratio metric setting, but simplified… and a BPM setting
+  concurrently… then AI could dial those tempos in and audition for me."
+  Depends on 2ab for the take/AI-dial loop — buildable without it, but build
+  2ab first.)*
+
+  **What it is:** N simultaneous pulse streams (N = the number of ratio terms,
+  2–6), each at its own tempo derived from one BPM and a small-integer ratio
+  set, all staccato one-shots, looping seamlessly. The composer listens for
+  the composite pattern; refinement is conversational — composer comments, AI
+  writes a new take (a 2ab snapshot), composer loads it.
+
+  **The math, exactly (this is the whole engine):**
+  - Ratio set `r1:r2:…:rN`, positive integers 1–64. **First reduce by the GCD
+    of all terms** (2:4:6 → 1:2:3) and display the reduced form.
+  - Stream 1's tempo is the BPM: base beat = `60/BPM` s. Stream i's tempo is
+    `BPM · ri/r1`.
+  - **Common cycle `C = r1 · 60/BPM` seconds.** Stream i attacks at
+    `t = k · C/ri` for `k = 0 … ri−1` — so in one cycle stream i plays exactly
+    `ri` attacks and all streams realign at `t = C`. Loop = repeat the cycle.
+  - Round every onset with the same `r4()` rounding pulse_seq.js uses.
+  - The vocabulary map (display-relevant, and how the AI translates comments):
+    *closer beats* = terms near each other (7:8) · *longer loop / less
+    patterning* = larger reduced terms (15:16) · *sparse→dense arc* = NOT a
+    ratio property — deferred (staggered entries, v2).
+  - Non-integer ratios are OUT OF SCOPE v1 (they never realign; drift belongs
+    to the phase machinery, 2ad/FR-9).
+
+  **Design decisions, already made — do not reopen:**
+  - **NO texture_engine dependency.** *Rejected:* driving this through
+    `texture_engine`'s rate integration (FR-9's sketch) — it is built for
+    attack fields and its concurrent-exact-grid behaviour is unverified.
+    *Chosen:* mirror 2aa exactly — a pure builder + the pulse panel's
+    absolute-time-base lookahead scheduler, which day 16 MEASURED as seamless
+    (240–260 ms attacks at 250 nominal over 4.5 cycles). The implementer
+    copies working, measured code.
+  - **Sonority source = the existing pulse palette** (`GET /api/pulsepalette`,
+    resolved by `PulseSeq.resolvePalette`) so refs carry per-note articulation
+    (the 2aa finding — five staccato/cuivre pairs differ ONLY in
+    articulation). No new bank.
+  - **Lane = stream index** (stream i → lane/voice i). Routing only;
+    orchestration is explicitly NOT this pass (same caveat as 2aa v1).
+  - **Defaults** (cosmetic, cheap to change): BPM 150 (the composer's day-17
+    trance figure) · ratios 3:4:5 · noteLen 0.25 · mode UNISON on C3
+    (MIDI 48) · loop ON.
+
+  **The three modes (a 3-way select; this is the composer's own clarity
+  scaffolding, verbatim in COMPOSER_LOG):**
+  1. **UNISON** — every stream plays one pitch (number input, default 48).
+     Maximum pattern clarity.
+  2. **REGISTER** — one pitch class (select of 12); the pc's octaves within
+     MIDI 30–67 sorted low→high; stream i takes the i-th, wrapping if there
+     are more streams than octaves (pc F# = [30,42,54,66]; 5 streams → the
+     5th gets 30 again).
+  3. **HARMONY** — one palette entry (select over the palette order); its
+     pitches sorted ascending and split into **contiguous chunks low→high**,
+     stream 1 = lowest chunk; each attack of a stream sounds its WHOLE chunk.
+     Chunk sizes near-equal, the extras going to the LOWEST streams
+     (10 pitches / 4 streams → sizes [3,3,2,2]). *Why chunks and not
+     round-robin dealing:* the composer asked to hear "each of the four tempos
+     in some sort of distinct region."
+  - Technique: UNISON/REGISTER = `staccato`; HARMONY = each note's own
+    resolved technique (the 2aa per-note rule). In every mode the 2n law
+    holds: a one-shot takes its measured `techLength`, noteLen cannot stretch
+    it — reuse the exact duration logic in `pulse_seq.js buildGrid`
+    (pulse_seq.js:150-166), do not re-derive it.
+
+  **Build (all pieces named; implement in this order):**
+  1. **`score/public/multitempo.js`** — PURE, same UMD wrapper as
+     pulse_seq.js:30 (works in node and browser).
+     `buildStreams(cfg, pal) → { notes, meta }` with
+     cfg = `{ bpm, ratios, mode, unisonPitch, pc, entryId, noteLen }`;
+     `notes` in EXACTLY pulse_seq's shape
+     (`{ voice, midi, tStart, dur, technique, vel, level, col, entry }`,
+     `col` = the attack index within the stream, `entry` = stream index as
+     `'T1'…'TN'`) so the panel's play path is a straight copy;
+     `meta = { reduced, cycleSec, perStream: [counts], totalNotes,
+     problems: [] }`. A bad cfg (ratio out of range, unknown entryId, unknown
+     pc) goes into `meta.problems` by name and the offending stream still
+     renders silent — **never silently discard, never throw to the panel**
+     (AI_METHODOLOGY rule 3).
+  2. **`score/public/multitempo_panel.js`** — **start from a wholesale COPY of
+     `pulse_seq_panel.js`** and change only the grid section. The preflight
+     block (pulse_seq_panel.js:186-210), the lookahead scheduler, the MIDI
+     glue (`MorphEmit.ensureMidi/routeFor/noteOn/noteOff/panic`), SPACE
+     handling, status line and playhead logic are correct and MEASURED — do
+     not rewrite them. `MT` button injected after `Pulse` (copy the injection
+     pattern). UI rows: BPM · a ratio text input accepting `"3:4:5"` (parse,
+     validate, show the reduced form) · a preset row of buttons that fill the
+     ratio field: `2:3 · 3:4 · 4:5 · 7:8 · 3:4:5 · 15:16` · the mode select
+     with its per-mode input (pitch / pc / palette entry) · noteLen · loop
+     toggle · readout line: `reduced ratios · cycle N.NN s · attacks/cycle
+     per stream · lane pressure` (reuse `PulseSeq.lanePressure`).
+     localStorage key `multitempo.v1`, same save/restore pattern.
+  3. **2ab wiring:** panel id `multitempo`, state =
+     `{ bpm, ratios, mode, unisonPitch, pc, entryId, noteLen, loopOn }`.
+  4. **`tools/test_multitempo.js`** — at minimum: reduction (2:4:6 → 1:2:3;
+     15:16 unchanged) · cycle math (BPM 150, 3:4:5 → C = 1.2 s; onset lists
+     exact per the formula, r4-rounded; per-stream counts 3/4/5) · REGISTER
+     wrap (F#, 5 streams → [30,42,54,66,30]) · HARMONY chunks (10 pitches, 4
+     streams → [3,3,2,2], lowest chunk to stream 1, exact pitch membership) ·
+     HARMONY per-note articulation via a cuivre ref (S047: assert the cuivre
+     notes appear with technique `cuivre`, same fixture idea as
+     test_pulse.js) · UNISON all-48-staccato · voice = stream index ·
+     one-shot duration honoured (noteLen 2.0 does not stretch a staccato) ·
+     problems path (unknown entryId → named in meta.problems, stream silent,
+     no throw) · **three mutation tests** (deliberately break, confirm caught,
+     restore): skip reduction · reverse chunk order · compute onsets from
+     UNreduced terms.
+  5. **The take loop contract** (document in the panel header comment): the
+     AI writes 2ab snapshots named `take-NN-<slug>` with `comment` = the
+     composer's verbatim words; it NEVER overwrites an existing take; each
+     listening verdict is filed to RUNNING_LOG at the moment it is spoken
+     (AI_METHODOLOGY, capture-as-you-go).
+
+  **Done when** (in the RUNNING app, :5210 score-verify procedure): `MT`
+  opens · `3:4:5` at 150 UNISON plays and loops · measured onsets over ≥3
+  cycles match the formula within timer jitter (state the numbers, as day 16
+  did) · the seam is indistinguishable from an ordinary gap · REGISTER on C
+  stratifies the streams · Stop leaves 0 timers, 0 sounding notes, note-ons
+  matched by note-offs · a 2ab take round-trips. If the implementer's browser
+  blocks Web MIDI (day 15/16 finding), verify at a recording stub exactly as
+  day 16 did and SAY SO — **the sound is the composer's audition, always.**
+
+  **Deferred (do NOT build unprompted):** sparse→dense arcs / staggered
+  entries · per-stream cell patterns · irrational or drifting ratios ·
+  write-to-score · orchestration/doubling · any AI-recommendation automation
+  beyond the take loop.
+
+- **2ad — PHASE-SHIFT TEXTURE SELECTOR (a workflow, not a build)** —
+  **`approved 2026-08-17 (day 17) — spec'd for handoff`** *(composer, verbatim,
+  COMPOSER_LOG day 17: "a way to audition a few different phase shifting
+  patterns… AI prompt is the best way… maybe using some of the vocabulary we
+  developed in that phase shifting project and then settle on a few textures."
+  Explicitly NOT perfecting FR-9 — "I don't necessarily want to perfect that
+  one right now.")*
+
+  **What it is:** settle on a few phase-shifting textures for the trance
+  section using machinery that ALREADY EXISTS. **The only code this plan may
+  require is a ↻ refetch button.** Everything else is workflow.
+
+  **The loop:**
+  1. Composer opens the existing **Texture panel** and plays the variants in
+     `bank/texture_params.json` (the panel fetches `/api/texturemodels` +
+     `/api/textureparams` no-store — texture_panel.js:228).
+  2. Composer comments in the established vocabulary — smear · ticks · rain ·
+     gallop · groove, regular↔irregular, displacement in beats
+     (`bank/texture_models.json` `_vocabulary`).
+  3. AI edits the variants in `bank/texture_params.json` (bump `rev`; the
+     active-on-rev-bump path was fixed day 12), composer re-plays.
+  4. A keeper is banked with the EXISTING CLI, unchanged:
+     `node tools/texture_bank.js --bank <NAME> --from <variant> --survives
+     yes|no --note "<composer verbatim>"`. When a duration is known,
+     `--actualize <NAME> --dur <s>` renders it to `bank/texture_actuals/`.
+  5. The section's chosen set = the banked/actualized names, listed in
+     PLANNER's trance container. **No new storage.** (2ab's `phase` panel slot
+     stays empty until a dedicated panel exists, if ever.)
+
+  **The synergy that makes sitting 1 do double duty:** the entire 2x listening
+  slate is still UNHEARD (journal §6, day 12 — all five models read `UNHEARD`
+  and refuse keeper status). Item 1 of that slate — SMEAR vs RAIN vs GALLOP
+  distinctness — IS the vocabulary validation this workflow depends on. Run
+  the slate's order; every verdict lands in the same `--bank` slots and in
+  RUNNING_LOG at the moment it is spoken.
+
+  **Code, only if missing — check in the running app first:** if the Texture
+  panel cannot refetch `/api/textureparams` without a page reload, add a ↻
+  button copying the pulse panel's pattern (pulse_seq_panel.js:103 and :136).
+  Nothing else: **NO new scheduler · NO bpm-exact integration (FR-9 stays
+  deferred with its gates) · NO new panel** unless the loop proves hammered
+  (the standing sandbox-UI-vs-AI line).
+
+  **Constraints binding this work — settled, do not relitigate:** D27
+  (articulation decides whether phase is a device at all; sustained timing-
+  phase does nothing — that search direction is CLOSED) · D29 (no bend
+  anywhere in texture output; pitch beating belongs to 2v).
+
+  **Done when:** one sitting has produced at least one banked keeper carrying
+  the composer's verbatim note, and the SMEAR/RAIN/GALLOP distinctness verdict
+  is recorded in both the bank slots and RUNNING_LOG.
+
+  **Deferred:** FR-9 tempo-exact insertion into the piece · cross-cutting the
+  textures into the pulse stream (that is section assembly, PLANNER's tier) ·
+  a dedicated phase panel.
+
+
 ## 7. THE THREE SCORES — architecture (composer, 2026-08-14)
 
 *Three sequential artifacts, each feeding the next. This supersedes any

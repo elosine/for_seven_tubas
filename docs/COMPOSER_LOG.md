@@ -958,3 +958,68 @@ operation as landing on a named consonant chord. What does not exist is a
 release motion that travels to an ARBITRARY target voicing. Worth scoping
 before the notation pass; see docs/MORPH_FINDINGS.md "The ending law" for how
 the level side of a release now behaves.)*
+
+---
+
+## 2026-08-17 (day 17) — the pulse machine: composer's raw note, unprocessed
+
+*Composer, verbatim. Filed on request, **no action taken and none requested** —
+"I'll plan and implement this one later." Nothing here has been checked against
+the build; it is the composer's note to their future self.*
+
+> *"Please add a note somewhere in a document about the pulse machine. I needed
+> to be much longer, so many more. There's thirty two. Many more of those many
+> more cells, I guess. I wanted to just make sure it is staccato. I think it is,
+> but it might not be. Everything should be staccato. clarify the BPM and notice
+> point two five. I've Never mind. I think that's just VPN one fifty and quarter
+> note. That's fine. I need a way to select multiple cells like shift click and
+> then change the sonority for the whole selection. and control click as well.
+> Actually, it looks like this is implemented. That's fine. You could ignore
+> that. and then a way to save the panel, at least the data in it so we can
+> create a save file. Just a note down. No action needed. I'll plan and
+> implement this one later."*
+
+---
+
+## 2026-08-17 (day 17) — two audition machines asked for: multitempo + phase-shift selector
+
+*Composer, verbatim (spoken; punctuation as transcribed). Pre-planning — an
+evaluation and two proposals were requested, plans only after approval.*
+
+> *"I'd like something similar to the pulse again… I would like to be able to
+> audition several tempos at the same time to hear how they sound together, what
+> kind of patterns, what pattern it sounds like. I'm not sure about which ones to
+> target. So I would like a ratio metric setting, but simplified so I can easily
+> dial in ratios. and a BPM setting concurrently. and then maybe have AI make
+> some recommendations and then be able to set it as well. Or maybe there's no
+> interface at all. I just need a auditioning machine… this is probably how it
+> will go. I'll want to hear some interesting tempos together. And then I might
+> want to make some qualitative comments and then peer another set. So I like to
+> hear more close beats… or less patterning or a longer pattern loop or
+> something like that. or more of a sparse to density loop arc. and then AI
+> could dial those tempos in and audition for me. I would also like some sort of
+> contrasting harmony possibilities… clarifying things will be if I can hear
+> them all in unison, like, maybe all on one pitch. If I can hear, let's say,
+> there's four different tempos being played. If I can hear each of the four
+> tempos in some sort of distinct region, like a different range, or a different
+> harmony… and then maybe have everything played in the same harmony, just
+> different parts of it, and then maybe for that one, I can have a couple
+> choices."*
+
+> *"the second one is similar, but it joins the phase shifting build. I don't
+> necessarily want to perfect that one right now. I think that's for a later
+> time. But… the big picture is that I have this pulse stream going along… that
+> pulse stream will be interrupted by short segments or medium segments of
+> multitempo. So it'll be pulsing along, and then all of a sudden, you'll hear a
+> few seconds of a multitempo pattern, and then it'll go back to pulse. And then
+> you'll have a few seconds or a passage of this phase shifting pattern. So then
+> similar to those two panels, I'd like a way to audition a few different phase
+> shifting patterns. and maybe… AI prompt is the best way I can say more of this
+> or more of that, maybe using some of the vocabulary we developed in that phase
+> shifting project and then settle on a few textures that then I can insert into
+> this pulse. section."*
+
+> *"So I guess what I'm asking for in general is a quick way to audition a
+> variety of things to fine tune them quickly and then to be able to save those
+> settings. So if you're developing the save mechanism, also, you can make that
+> same recommendation for the pulse. Panel."*

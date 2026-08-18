@@ -10,6 +10,34 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**DAY 17 (2026-08-17, in progress) — TWO AUDITION MACHINES PLANNED, NOT BUILT.
+Claude Code / Fable 5.** The composer asked for evaluations, approved both
+proposals, and asked for specs detailed enough to hand to a **less capable
+implementer** — those specs are now PLAN **2ab / 2ac / 2ad**, build order
+2ab→2ac→2ad.
+
+- **2ab — panel snapshots:** the shared save mechanism (one bank file,
+  `bank/panel_snapshots.json`, opaque `state`, GET/POST `/api/snapshots`);
+  also answers the composer's earlier pulse-panel save ask. Doubles as the
+  **AI-dialing channel**: AI writes named takes, composer loads them.
+- **2ac — multitempo audition rig:** N pulse streams from one BPM + a reduced
+  integer ratio set (cycle `C = r1·60/BPM`); UNISON / REGISTER / HARMONY-chunk
+  separation modes; sonorities from the existing pulse palette; **pure builder
+  + a copy of the measured 2aa scheduler — texture_engine explicitly rejected**
+  (its concurrent-grid behaviour is unverified).
+- **2ad — phase-shift texture selector:** a WORKFLOW, not a build — existing
+  Texture panel + `texture_params.json` variants + `texture_bank.js --bank`;
+  the only permitted code is a ↻ refetch button if one is missing. Sitting 1
+  doubles as the owed 2x listening slate (SMEAR/RAIN/GALLOP first). D27/D29
+  restated as binding.
+- Verbatim asks filed in COMPOSER_LOG day 17 — including the separate morning
+  pulse note (longer grid · staccato check · multi-select · save), which was
+  note-only, no action requested.
+- **Nothing was built or run.** Every engine claim in the specs is
+  read-not-run and marked so in the text.
+
+---
+
 **DAY 16 (2026-08-17) — PLAN 2aa v1 IS BUILT: THE PULSE SEQUENCER STRIP.
 Claude Code / Opus 5.** `tools/test_pulse.js` **103/103**, mutation-tested with
 three deliberate breakages (all caught). Verified in the running app on the
