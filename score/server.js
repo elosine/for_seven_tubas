@@ -543,6 +543,41 @@ const server = http.createServer((req, res) => {
             return R.status(500).json({ success: false, error: e.message });
         }
     }
+    // PANEL SNAPSHOTS (PLAN 2ab) — named states for the sandbox panels, one file
+    // for all of them. `state` is OPAQUE here: whatever the panel's own save()
+    // writes, stored verbatim, so a new panel needs no server edit. All the
+    // merge rules (and their whys) live in score/snapshots.js, pinned by
+    // tools/test_snapshots.js.
+    if (url === '/api/snapshots') {
+        const SNAP_FILE = path.join(__dirname, '..', 'bank', 'panel_snapshots.json');
+        const SNAP = require('./snapshots.js');
+        if (req.method === 'GET') {
+            try {
+                if (!fs.existsSync(SNAP_FILE)) {
+                    // Say the file is missing rather than pretending it is empty:
+                    // an empty list and a deleted bank look identical otherwise.
+                    return R.json({ _version: 1, _missing: true, panels: {} });
+                }
+                res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+                return res.end(fs.readFileSync(SNAP_FILE, 'utf8'));
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'bad body' });
+                try {
+                    const file = fs.existsSync(SNAP_FILE)
+                        ? JSON.parse(fs.readFileSync(SNAP_FILE, 'utf8'))
+                        : { _version: 1, panels: {} };
+                    const r = SNAP.merge(file, body);
+                    if (!r.ok) return R.status(400).json({ success: false, error: r.error });
+                    fs.writeFileSync(SNAP_FILE, JSON.stringify(file, null, 2) + '\n');
+                    return R.json({ success: true, action: r.action,
+                                    existed: r.existed, panels: r.count });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
     if (req.method === 'GET' && (url === '/api/morphmodels' || url === '/api/shapepresets')) {
         try {
             const name = url === '/api/morphmodels' ? 'morph_models.json' : 'shape_presets.json';

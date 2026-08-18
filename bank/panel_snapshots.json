@@ -1,0 +1,9 @@
+{
+  "_version": 1,
+  "_contract": "PLAN 2ab — named snapshots of a sandbox PANEL's state, one file for every panel. DATA, NOT CODE. `state` is OPAQUE to the server and to this file's readers: it is byte-for-byte whatever that panel's own save() writes to localStorage, so a panel can change its state shape without touching the server or this contract. localStorage remains the live scratch — a snapshot is a NAMED point the composer chose to keep, and it survives a chat clear, a browser change and a different machine. THIS FILE IS ALSO THE AI-DIALING CHANNEL: the AI appends a named snapshot (takes are named `take-NN-<slug>` with the composer's verbatim words in `comment`) and the composer picks it from the panel's Load list, which refetches every time it is opened. THE AI NEVER OVERWRITES AN EXISTING NAME — it writes a new one; the composer may overwrite and delete freely. NOT stored under scores/ on purpose: sandbox state is not score objects, and the composer score's 5 s autosave has clobbered a loaded score before (D8).",
+  "panels": {
+    "pulse": {},
+    "multitempo": {},
+    "phase": {}
+  }
+}

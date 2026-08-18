@@ -744,8 +744,9 @@ composer → notation → performance architecture.)*
   MIDI (day 15's finding, unchanged), so the MIDI was captured at a recording
   stub. The audition is the composer's.
 
-- **2ab — PANEL SNAPSHOTS (the shared save mechanism)** — **`approved
-  2026-08-17 (day 17) — spec'd for handoff, NOT built`** *(composer's ask,
+- **2ab — PANEL SNAPSHOTS (the shared save mechanism)** — **`BUILT 2026-08-17
+  (day 17) — verified in the running app; tools/test_snapshots.js 75/75,
+  mutation-tested`** *(composer's ask,
   verbatim, in COMPOSER_LOG day 17: "a way to save the panel, at least the data
   in it so we can create a save file" and "to be able to save those settings…
   you can make that same recommendation for the pulse Panel". Build order for
@@ -823,6 +824,41 @@ composer → notation → performance architecture.)*
   forced to `untitled` (the day-16 procedure) so autosave cannot touch a score.
 
   **Deferred:** export/import single snapshots · autosnap · snapshot diffing.
+
+  ### v1 AS BUILT (2026-08-17, day 17)
+
+  Files: `bank/panel_snapshots.json` (seed + contract) · `score/snapshots.js`
+  (PURE merge module) · `GET/POST /api/snapshots` (server.js, beside
+  `/api/pulsepalette`) · `Save`/`Load` on the pulse panel ·
+  `tools/test_snapshots.js` (**75 assertions**, mutation-tested — a
+  by-reference `brokenMerge` is run against the deep-copy assertions to prove
+  they discriminate). `tools/test_pulse.js` re-run: still 103/103.
+
+  **Built to spec, with two additions worth knowing.** (1) `restore()`'s body
+  became **`applyState(s)`, shared by the localStorage path and the snapshot
+  path** — the spec asked for this and it is the load-bearing part: two paths
+  would let a snapshot arrive with defaults only one of them applies. (2)
+  `cells` is **`.slice()`d on adopt**, so a snapshot object still held by an
+  open Load list cannot be rewritten by later cell edits — the same reasoning
+  as the server's deep copy, applied on the browser side.
+
+  **Verified in the running app** (:5210, session forced to `untitled`; the
+  autosave guard was READ first — `composer.html:3119` fires only when
+  `sessionName !== 'untitled'`, and `boundName` still read `tranceSB01-2`,
+  which is why the procedure exists): distinctive grid (12 cols · 177 BPM ·
+  0.33 s · loop OFF · 12 mixed cells · brush S047) saved through the real
+  button → **localStorage WIPED** → browser reloaded → panel came back at
+  defaults → Load restored **every field exactly** (full JSON compare, the
+  on-screen inputs, and 12 cells drawn). Delete removed it from list, server
+  and disk without touching the loaded grid. Bad name → HTTP 400 naming the
+  charset. **The AI-dial channel works:** a snapshot POSTed while the panel was
+  open appeared on the next `Load`, no reload. A snapshot with no `grid` is
+  refused by name, grid untouched. Test snapshots deleted afterwards — the
+  committed file is the clean seed. Full trail: `RUNNING_LOG.md` day 17.
+
+  **For 2ac/2ad, the wiring is three lines:** a `PANEL_ID` const, a `Save`/
+  `Load` button pair, and `applyState()`. The server needs NO edit for a new
+  panel — an unknown panel key is created on first save, by design.
 
 - **2ac — MULTITEMPO AUDITION RIG** — **`approved 2026-08-17 (day 17) — spec'd
   for handoff, NOT built`** *(the composer's ask, verbatim, in COMPOSER_LOG

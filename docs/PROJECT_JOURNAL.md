@@ -10,8 +10,27 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 17 (2026-08-17, in progress) — TWO AUDITION MACHINES PLANNED, NOT BUILT.
-Claude Code / Fable 5.** The composer asked for evaluations, approved both
+**DAY 17 (2026-08-17) — 2ab PANEL SNAPSHOTS IS BUILT; 2ac/2ad PLANNED.
+Claude Code / Fable 5 (planning) + Opus 5 (build).**
+
+**2ab is done and verified in the running app.** `Save` / `Load` on the pulse
+panel → `bank/panel_snapshots.json` through `GET/POST /api/snapshots`.
+`tools/test_snapshots.js` **75/75**, mutation-tested (a by-reference merge is
+run against the deep-copy assertions to prove they discriminate); `test_pulse.js`
+still 103/103. **The gate was done the hard way:** a distinctive grid saved
+through the real button, then **localStorage WIPED and the browser reloaded** —
+so nothing could return from the scratch — and Load brought every field back
+exactly. Delete works; a bad name is a 400 that names the charset; **a snapshot
+the AI writes while the panel is open appears on the next `Load` with no page
+reload**, which is the 2ac/2ad dialing channel proven. localStorage is unchanged
+and remains the live scratch. Nothing sound-related was verified because 2ab
+makes no sound. Trail: `RUNNING_LOG.md` day 17.
+
+**For whoever builds 2ac/2ad:** wiring a new panel is a `PANEL_ID` const, a
+`Save`/`Load` button pair and `applyState()`. **The server needs no edit** — an
+unknown panel key is created on first save, by design.
+
+**The planning half of the day (Fable 5):** The composer asked for evaluations, approved both
 proposals, and asked for specs detailed enough to hand to a **less capable
 implementer** — those specs are now PLAN **2ab / 2ac / 2ad**, build order
 2ab→2ac→2ad.

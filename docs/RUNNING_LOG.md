@@ -2057,3 +2057,71 @@ returns to `Play`, zero timers, zero sounding notes, and the message names the
 fix. Everything above the MIDI port was verified through the real handlers on the
 `score-verify` instance (5210) with the session forced to `untitled`, so autosave
 could not reach a score.
+
+---
+
+## Day 17 (2026-08-17) — PLAN 2ab built: panel snapshots
+
+*Claude Code / Opus 5. Handed off from the day-17 planning session; implemented
+from `docs/PLAN.md` 2ab without re-deriving the spec.*
+
+**What was built:** `bank/panel_snapshots.json` (seed + contract) ·
+`score/snapshots.js` (PURE merge module, node-only) · `GET/POST /api/snapshots`
+in `score/server.js` · `Save` / `Load` buttons on the pulse panel ·
+`tools/test_snapshots.js`. localStorage is unchanged and remains the live
+scratch.
+
+**The refactor the spec asked for, and why it matters:** `restore()`'s body
+became `applyState(s)`, called by BOTH the localStorage path and the snapshot
+Load path. Two paths would have let a snapshot arrive with defaults the scratch
+path applies and the load path does not — the branch is exactly where that bug
+would live. One change beyond the spec: `cells` is `.slice()`d on adopt, so a
+snapshot object still sitting in the open Load list cannot be rewritten by
+subsequent cell edits.
+
+### Measured — `tools/test_snapshots.js`, 75 assertions, 0 failed
+
+| Rule | Result |
+|---|---|
+| state round-trips deep-equal | pass |
+| `saved` stamped by the server, client-supplied date ignored | pass |
+| same-name save replaces, count stays 1 | pass |
+| delete removes; delete-of-missing = `{ok:true, existed:false}`, no throw | pass |
+| unknown panel CREATED not rejected; missing `panels` key repaired | pass |
+| 9 bad names refused loudly, nothing written; 3 boundary names accepted | pass |
+| deep copy — caller mutating its state after merge cannot reach the file | pass |
+
+**The mutation test discriminates:** a deliberately by-reference `brokenMerge`
+was run against the same deep-copy assertions; they FAIL against it and PASS
+against the real module. `tools/test_pulse.js` re-run: still 103/103.
+
+### Verified in the running app — `score-verify` on :5210, session forced to `untitled`
+
+The autosave guard was read before trusting it: `composer.html:3119` fires only
+`if (this.isDirty && this.sessionName !== 'untitled')`, so forcing the session
+name IS the neutralisation, not a superstition. `boundName` still read
+`tranceSB01-2` (the composer's untracked live sketch) — the reason this
+procedure exists.
+
+- Routes by curl: save → `{success, action:'save', existed:false, panels:1}`;
+  the entry appears on disk with a server stamp; `bad/name` → **HTTP 400** with
+  the charset spelled out in the message.
+- **The reload gate, done the hard way:** a distinctive grid (12 cols · 177 BPM ·
+  0.33 s · loop OFF · 12 mixed cells incl. `null` and `—` · brush S047) saved
+  through the REAL `Save` button (only `window.prompt` was stubbed — automation
+  cannot answer a native modal). **localStorage was then WIPED and the browser
+  reloaded**, so nothing could return from the scratch: panel came back at
+  defaults (32/130/0.25/loop on/no cells). Load → picked the row → **every field
+  returned exactly**, `matchesExactly: true` on a full JSON compare, the number
+  inputs on screen read 12/177/0.33/unchecked, and the strip drew 12 cells.
+- Newest-first sort correct. Delete via the row's `×` removed it from the list,
+  from the server, and left the loaded grid untouched.
+- **The AI-dial channel works as designed:** a snapshot POSTed by the AI *while
+  the panel was open* appeared on the very next `Load` — no page reload.
+- A snapshot with no `grid` in it is refused BY NAME in the status line and the
+  current grid is left alone (never silently half-applied).
+
+**Not verified: nothing sound-related, because 2ab makes no sound.** This
+feature is pure state; the Web MIDI block that gates every audition claim does
+not apply here. All test snapshots were deleted afterwards — the committed file
+is the clean seed.

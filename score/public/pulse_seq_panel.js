@@ -44,6 +44,7 @@ if (!PS || !E) { console.warn('[pulse_panel] needs pulse_seq.js + morph_emit.js'
 const PER_ROW = 8;              // 8 cells per row: wide enough for CLUST10 to read
 const LOOKAHEAD_MS = 400;       // schedule cycle k+1 this far before it starts
 const STORE = 'pulseSeq.v1';
+const PANEL_ID = 'pulse';         // this panel's bucket in bank/panel_snapshots.json (2ab)
 
 // stable colour per sonority id — the pattern of harmonic change has to be
 // visible at a glance, not only audible
@@ -101,6 +102,8 @@ const PANEL = {
             ' style="width:52px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px"> s</label>',
             '<label><input id="pulseLoop" type="checkbox"> loop</label>',
             '<button id="pulseReload" title="re-read the palette from bank/pulse_palette.json">&#8635;</button>',
+            '<button id="pulseSave" title="save this grid under a name (bank/panel_snapshots.json)">Save</button>',
+            '<button id="pulseLoad" title="load a saved grid — the list refetches every time">Load</button>',
             '</div>',
             '<div style="display:flex;gap:6px;align-items:center;margin-bottom:6px">',
             '<span style="color:#9a9">brush</span>',
@@ -134,6 +137,9 @@ const PANEL = {
             this.save(); this.drawStrip();
         });
         d.querySelector('#pulseReload').addEventListener('click', () => this.loadPalette(true));
+        d.querySelector('#pulseSave').addEventListener('click', () => this.snapSave());
+        d.querySelector('#pulseLoad').addEventListener('click', ev =>
+            this.openSnapshots(ev.currentTarget));
         d.querySelector('#pulseLoop').addEventListener('change', e => {
             this.loopOn = e.target.checked; this.save();
         });
@@ -258,19 +264,28 @@ const PANEL = {
             }));
         } catch (e) {}
     },
+    // ONE path for "adopt a saved state", used by BOTH localStorage restore and
+    // a 2ab snapshot load. Two paths would mean a snapshot could arrive with
+    // defaults the scratch path applies and this one does not — the branch is
+    // exactly where that bug would live (AI_METHODOLOGY rule 3).
+    applyState(s) {
+        if (!s || !s.grid) return false;
+        this.grid = {
+            bpm: s.grid.bpm || 130,
+            columns: s.grid.columns || 32,
+            noteLen: s.grid.noteLen != null ? s.grid.noteLen : 0.25,
+            // sliced, never adopted by reference: a snapshot object fetched for
+            // the Load list stays in that list, and editing cells afterwards
+            // must not rewrite the copy sitting in it.
+            cells: Array.isArray(s.grid.cells) ? s.grid.cells.slice() : [],
+        };
+        this.loopOn = s.loopOn !== false;
+        this.brush = s.brush || null;
+        return true;
+    },
     restore() {
         try {
-            const s = JSON.parse(localStorage.getItem(STORE) || 'null');
-            if (s && s.grid) {
-                this.grid = {
-                    bpm: s.grid.bpm || 130,
-                    columns: s.grid.columns || 32,
-                    noteLen: s.grid.noteLen != null ? s.grid.noteLen : 0.25,
-                    cells: Array.isArray(s.grid.cells) ? s.grid.cells : [],
-                };
-                this.loopOn = s.loopOn !== false;
-                this.brush = s.brush || null;
-            }
+            this.applyState(JSON.parse(localStorage.getItem(STORE) || 'null'));
         } catch (e) {}
     },
 
@@ -358,6 +373,124 @@ const PANEL = {
     closePicker() {
         if (this.picker) { this.picker.remove(); this.picker = null; }
         if (this._away) { document.removeEventListener('mousedown', this._away); this._away = null; }
+    },
+
+    // ---------------------------------------------------- snapshots (PLAN 2ab)
+    // localStorage stays the live scratch. A snapshot is a NAMED point the
+    // composer chose to keep, in bank/panel_snapshots.json, which survives a
+    // clear, a browser and a machine — and is the channel the AI writes takes
+    // into. The list refetches on every open, so an AI-written take appears
+    // without a page reload.
+    async snapSave() {
+        const name = window.prompt('Save this grid as (letters, digits, . _ - and spaces):', '');
+        if (name == null) return;                     // cancelled — say nothing
+        const comment = window.prompt('A note about it (optional):', '') || '';
+        try {
+            const r = await fetch('/api/snapshots', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    panel: PANEL_ID, name: name, comment: comment,
+                    // EXACTLY what save() writes to localStorage — one payload
+                    // shape, so a snapshot can never carry less than the scratch.
+                    state: { grid: this.grid, loopOn: this.loopOn, brush: this.brush },
+                }),
+            }).then(x => x.json());
+            if (!r.success) { this.setStatus('save failed: ' + (r.error || '?'), true); return; }
+            this.setStatus('saved "' + name + '"' + (r.existed ? ' (replaced)' : '') +
+                           ' · ' + r.panels + ' snapshot' + (r.panels === 1 ? '' : 's'));
+        } catch (e) {
+            this.setStatus('save failed: ' + e.message, true);
+        }
+    },
+
+    async openSnapshots(anchor) {
+        this.closePicker();
+        let entries = {};
+        try {
+            const file = await fetch('/api/snapshots', { cache: 'no-store' }).then(x => x.json());
+            entries = (file && file.panels && file.panels[PANEL_ID]) || {};
+        } catch (e) {
+            this.setStatus('snapshot list failed: ' + e.message, true); return;
+        }
+        const names = Object.keys(entries).sort((a, b) =>
+            String(entries[b].saved || '').localeCompare(String(entries[a].saved || '')));
+
+        const p = document.createElement('div');
+        p.style.cssText = [
+            'position:fixed', 'z-index:9100', 'max-height:280px', 'overflow:auto',
+            'background:#1b1b20', 'border:1px solid #B08A2E', 'border-radius:4px',
+            'padding:4px', 'font:10px/1.4 system-ui,sans-serif', 'color:#ddd',
+            'box-shadow:0 6px 20px rgba(0,0,0,0.6)', 'min-width:300px',
+        ].join(';');
+
+        if (!names.length) {
+            const empty = document.createElement('div');
+            empty.style.cssText = 'padding:3px 5px;color:#888';
+            empty.textContent = 'no saved snapshots yet';
+            p.appendChild(empty);
+        }
+        names.forEach(n => {
+            const e = entries[n] || {};
+            const row = document.createElement('div');
+            row.style.cssText = 'padding:2px 5px;border-radius:2px;white-space:nowrap;' +
+                                'display:flex;gap:8px;align-items:baseline';
+            const when = String(e.saved || '').slice(0, 16).replace('T', ' ');
+            const note = e.comment ? (e.comment.length > 44 ? e.comment.slice(0, 44) + '…' : e.comment) : '';
+            const pick = document.createElement('span');
+            pick.style.cssText = 'cursor:pointer;flex:1;overflow:hidden;text-overflow:ellipsis';
+            pick.innerHTML = '<b style="color:#e0c274"></b><span style="color:#777"></span>' +
+                             '<span style="color:#999"></span>';
+            pick.children[0].textContent = n;
+            pick.children[1].textContent = '  ' + when;
+            pick.children[2].textContent = note ? '  — ' + note : '';
+            pick.addEventListener('mouseenter', () => { row.style.background = '#2c2c34'; });
+            pick.addEventListener('mouseleave', () => { row.style.background = ''; });
+            pick.addEventListener('click', () => {
+                if (!this.applyState(e.state)) {
+                    this.setStatus('"' + n + '" has no grid in it — nothing loaded', true);
+                    return;
+                }
+                this.writeFields();                    // the number inputs, not just the model
+                this.save();                           // the loaded state becomes the scratch
+                this.drawStrip();
+                this.closePicker();
+                this.setStatus('loaded "' + n + '" · ' + this.grid.columns + ' cols · ' +
+                               this.grid.bpm + ' BPM');
+            });
+            const del = document.createElement('span');
+            del.textContent = '×';
+            del.title = 'delete this snapshot';
+            del.style.cssText = 'cursor:pointer;color:#a66;padding:0 3px';
+            del.addEventListener('mouseenter', () => { del.style.color = '#e88'; });
+            del.addEventListener('mouseleave', () => { del.style.color = '#a66'; });
+            del.addEventListener('click', async ev => {
+                ev.stopPropagation();
+                if (!window.confirm('Delete snapshot "' + n + '"?')) return;
+                try {
+                    const r = await fetch('/api/snapshots', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ panel: PANEL_ID, name: n, delete: true }),
+                    }).then(x => x.json());
+                    if (!r.success) { this.setStatus('delete failed: ' + (r.error || '?'), true); return; }
+                    this.setStatus('deleted "' + n + '" · ' + r.panels + ' left');
+                    this.openSnapshots(anchor);        // reopen on fresh data
+                } catch (err) {
+                    this.setStatus('delete failed: ' + err.message, true);
+                }
+            });
+            row.appendChild(pick); row.appendChild(del);
+            p.appendChild(row);
+        });
+
+        document.body.appendChild(p);
+        const r = anchor.getBoundingClientRect();
+        p.style.left = Math.min(r.left, window.innerWidth - p.offsetWidth - 12) + 'px';
+        p.style.top = Math.min(r.bottom + 3, window.innerHeight - p.offsetHeight - 12) + 'px';
+        this.picker = p;
+        this._away = ev => { if (!p.contains(ev.target)) this.closePicker(); };
+        setTimeout(() => document.addEventListener('mousedown', this._away), 0);
     },
 
     built() {
