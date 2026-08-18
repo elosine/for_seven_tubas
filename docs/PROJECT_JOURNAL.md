@@ -10,152 +10,89 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 17 (2026-08-17) — 2ab PANEL SNAPSHOTS IS BUILT; 2ac/2ad PLANNED.
-Claude Code / Fable 5 (planning) + Opus 5 (build).**
+**DAY 17 (2026-08-17) — THE TWO AUDITION MACHINES ARE BUILT AND THE THIRD NEEDS
+NO CODE. Claude Code / Fable 5 (planning) + Opus 5 (build).**
+**ALL THREE NOW WAIT ON THE SAME THING: THE COMPOSER'S EAR.** Nothing about how
+any of them SOUNDS has been verified by anyone — Web MIDI is blocked in the
+verification pane (day 15's finding, unchanged), so every claim below is a data
+claim measured at a recording stub.
 
-**2ad NEEDED NO CODE — and that was checked, not assumed.** Its one
-conditional item (a ↻ button *"if the Texture panel cannot refetch without a
-reload"*) is unnecessary: the panel already **polls every 1000 ms and honours
-`active` on a rev bump**. Proven live — the params file was rewritten from the
-shell while the panel sat open and it moved to the new variant **with no reload
-and no click**, then returned when the file was restored. The A/B/C slate is
-already SMEAR/RAIN/GALLOP, all three render, and the banking CLI was run end to
-end and reverted (`--validate` reads 0 of 5 verdicts again, `bank/` git-clean —
-**no fabricated verdict was left in the bank**). **2ad now waits only on the
-composer's ear**, which is the one thing that cannot be manufactured here.
-
-**2ac THE MULTITEMPO RIG IS ALSO BUILT.** `MT` button beside `Pulse`: type a
-ratio set (`3:4:5`), pick a separation mode (UNISON / REGISTER / HARMONY),
-SPACE, and the streams loop together. `tools/test_multitempo.js` **90/90** with
-**four mutation tests**. **Measured live: C = 1.2 s at 150 BPM, the three
-streams realign on C, 2C and 3C to within 0.6 ms, and the loop seam is
-indistinguishable from an ordinary step** (399.9 ms across the boundary against
-a 400 ms nominal). Stop leaves 29 note-ons matched by 29 note-offs and 0 timers.
-**The plan's own traps block caught two defects before they were written** —
-lane=stream (buildGrid's cursor would have scattered the streams and still
-sounded plausible) and the private `r4`. **One defect was found only by RUNNING
-it** (Principle 6, the sixth of its kind): the stream view drew 12/12/15 stacked
-ticks where 3/4/5 onsets exist, invisible because they share a pixel. Fixed.
-**NOT verified: the sound — that is the composer's audition.**
-
-**2ab is done and verified in the running app.** `Save` / `Load` on the pulse
-panel → `bank/panel_snapshots.json` through `GET/POST /api/snapshots`.
-`tools/test_snapshots.js` **75/75**, mutation-tested (a by-reference merge is
-run against the deep-copy assertions to prove they discriminate); `test_pulse.js`
-still 103/103. **The gate was done the hard way:** a distinctive grid saved
-through the real button, then **localStorage WIPED and the browser reloaded** —
-so nothing could return from the scratch — and Load brought every field back
-exactly. Delete works; a bad name is a 400 that names the charset; **a snapshot
-the AI writes while the panel is open appears on the next `Load` with no page
-reload**, which is the 2ac/2ad dialing channel proven. localStorage is unchanged
-and remains the live scratch. Nothing sound-related was verified because 2ab
-makes no sound. Trail: `RUNNING_LOG.md` day 17.
-
-**For whoever builds 2ac/2ad:** wiring a new panel is a `PANEL_ID` const, a
-`Save`/`Load` button pair and `applyState()`. **The server needs no edit** — an
-unknown panel key is created on first save, by design.
-
-**The planning half of the day (Fable 5):** The composer asked for evaluations, approved both
-proposals, and asked for specs detailed enough to hand to a **less capable
-implementer** — those specs are now PLAN **2ab / 2ac / 2ad**, build order
-2ab→2ac→2ad.
-
-- **2ab — panel snapshots:** the shared save mechanism (one bank file,
-  `bank/panel_snapshots.json`, opaque `state`, GET/POST `/api/snapshots`);
-  also answers the composer's earlier pulse-panel save ask. Doubles as the
-  **AI-dialing channel**: AI writes named takes, composer loads them.
-- **2ac — multitempo audition rig:** N pulse streams from one BPM + a reduced
-  integer ratio set (cycle `C = r1·60/BPM`); UNISON / REGISTER / HARMONY-chunk
-  separation modes; sonorities from the existing pulse palette; **pure builder
-  + a copy of the measured 2aa scheduler — texture_engine explicitly rejected**
-  (its concurrent-grid behaviour is unverified).
-- **2ad — phase-shift texture selector:** a WORKFLOW, not a build — existing
-  Texture panel + `texture_params.json` variants + `texture_bank.js --bank`;
-  the only permitted code is a ↻ refetch button if one is missing. Sitting 1
-  doubles as the owed 2x listening slate (SMEAR/RAIN/GALLOP first). D27/D29
-  restated as binding.
-- Verbatim asks filed in COMPOSER_LOG day 17 — including the separate morning
-  pulse note (longer grid · staccato check · multi-select · save), which was
-  note-only, no action requested.
-- **Nothing was built or run.** Every engine claim in the specs is
-  read-not-run and marked so in the text.
-
----
-
-**DAY 16 (2026-08-17) — PLAN 2aa v1 IS BUILT: THE PULSE SEQUENCER STRIP.
-Claude Code / Opus 5.** `tools/test_pulse.js` **103/103**, mutation-tested with
-three deliberate breakages (all caught). Verified in the running app on the
-`score-verify` instance (5210), session forced to `untitled` so autosave could
-not reach a score. **The sound is NOT verified — that is the composer's
-audition** (this browser still blocks Web MIDI; day 15's finding, unchanged).
-
-- **What exists now:** `Pulse` button next to Morph/Texture in the composer
-  score → a floating strip of numbered columns. Click a column → pick a sonority
-  → SPACE → it loops. **Writes nothing to any score** (v2 owns that).
-  Files: `bank/pulse_palette.json` (29 entries) · `GET /api/pulsepalette` ·
-  `score/public/pulse_seq.js` (PURE, node + browser) ·
-  `score/public/pulse_seq_panel.js` · `tools/test_pulse.js`. `composer.html` is a
-  two-script-tag diff.
-- **THE COMPOSER'S MENU, confirmed against the taxonomy before building** — the
-  staccato and staccato-cuivre pair of species 3 · 4 · 11 · 12 · 13 · 16 · 28 =
-  S008/S011 · S014/S017 · S020/S023 · S026/S029 · S032/S035 · S038/S041 ·
-  S044/S047. (S002 from 2aa's draft list is a duplicate of S047 and was dropped;
-  S001 — species 28 in **V4**, 9 notes — is the one distinct extra, left out
-  pending the composer's word.)
-- **THE FINDING THAT CHANGED THE BUILD:** five of those seven pairs have
-  **identical pitch sets** and differ only in articulation. 2aa v1's "technique
-  staccato" would have made them byte-identical MIDI — half the menu silently
-  duplicated. Refs now resolve with **per-note articulation** by the blast
-  inserter's own rule. Measured in the app: S044 → six notes on ch 4; S047, same
-  pitches → three on ch 4 and **C4/C#4/D4 on ch 5 (cuivre)**.
-- **ONE DELIBERATE DEPARTURE FROM THE SPEC, and it is load-bearing.** 2aa said
-  "playback = `MorphEmit.play`, no new scheduler". Everything dangerous in that
-  layer IS reused (ensureMidi · routeFor · noteOn/noteOff + registry · `panic()`
-  as the one stop path), but `E.play` **cannot loop seamlessly** — it shifts its
-  schedule by `CC_LEAD_MS` and panics on entry, so per-cycle re-invocation puts a
-  **250 ms hole (half a beat at 130 BPM) at every seam**. Cycles are now laid
-  down 400 ms ahead on one absolute time base, as `texture_panel.js` already does
-  for this material class. **Measured over 4.5 cycles: 240/250/260 ms attacks
-  throughout, seam indistinguishable from an ordinary step.**
-- **Also honoured, unasked:** PLAN 2n (a staccato takes its measured per-pitch
-  length; the note-length field cannot stretch a one-shot) · a silent `—` entry
-  so a rhythm can have holes · lane-pressure readout · playhead · localStorage ·
-  a broken `ref` is kept and named, never dropped.
-- **Extensibility contract is live:** ask the AI for a sonority, it appends to
-  `bank/pulse_palette.json`, the panel's ↻ refetches. Refs resolve from the
-  taxonomy at load, so renames propagate.
+- **2ab PANEL SNAPSHOTS — built.** `Save` / `Load` on the pulse panel →
+  `bank/panel_snapshots.json` through `GET/POST /api/snapshots`. 75/75,
+  mutation-tested. **The gate was done the hard way:** state saved through the
+  real button, then **localStorage WIPED and the browser reloaded**, so nothing
+  could return from the scratch — Load brought every field back exactly. → D39.
+- **2ac MULTITEMPO RIG — built.** `MT` button beside `Pulse`: a ratio set
+  (`3:4:5`) over one BPM, three separation modes (UNISON · REGISTER · HARMONY),
+  shared onsets highlighted. 90/90 with four mutation tests. **Measured live:
+  C = 1.2 s at 150 BPM, the three streams realign on C, 2C and 3C to within
+  0.6 ms, and the loop seam is 399.9 ms against a 400 ms nominal —
+  indistinguishable from an ordinary step.** Stop: 29 note-ons matched by 29
+  note-offs, 0 timers, 0 bends. → D40.
+- **2ad PHASE-SHIFT SELECTOR — READY, zero lines written.** Its one conditional
+  code item was checked and proved unnecessary: the Texture panel already polls
+  every 1000 ms and honours `active` on a rev bump. **Proven live** — the params
+  file was rewritten from the shell while the panel sat open and it moved to the
+  new variant with no reload and no click. The banking CLI was run end to end
+  **and reverted**; `--validate` reads 0 of 5 verdicts again and `bank/` is
+  git-clean, so **no fabricated verdict was left in the bank**.
+- **What the plans bought, stated plainly because it is the day's method
+  result:** the day-16 traps block — written against the source the day before —
+  **caught two defects in 2ac before they were written**, including lane=stream,
+  which would have scattered every tempo across players *and still sounded
+  entirely plausible*. **One defect was caught only by RUNNING it** (Principle 6,
+  the sixth of its kind): the MT stream view drew 12/12/15 stacked ticks where
+  3/4/5 onsets exist — invisible, because duplicates land on the same pixel.
+- **Two of my own test bugs, reported as such:** an `entry.dyn` fixture that
+  asserted a path which cannot exist (`dyn` reaches an entry only via a taxonomy
+  ref), and an exact float compare that was testing IEEE754 rather than the
+  property. Both were the TEST's fault, not the code's.
 
 **Next up:**
-1. **THE COMPOSER AUDITIONS THE PULSE STRIP** in a MIDI-enabled window — assign
-   sonorities across the grid and find where the harmony should change. Nothing
-   blocks this.
-2. Then whichever the audition asks for: **v2 write-to-score**, or more
-   sonorities in the palette, or the **v3 shift matrix**.
+1. **THE COMPOSER LISTENS.** Three auditions are queued and none blocks another:
+   the **pulse strip** (from day 16, still unheard) · the **MT rig** (`3:4:5` at
+   150, UNISON first — maximum clarity) · the **phase-shift slate** (`Texture`
+   → A/B/C = SMEAR/RAIN/GALLOP; the question is only whether they are distinct).
+2. Whatever the ear asks for: more sonorities · 2aa v2 write-to-score · new
+   ratio sets dialled by the AI as takes · texture variants edited live.
 3. Still queued behind the trance work: the **notation pass** (FR-7, D3,
    dynamic marks).
 
 **Open:**
 - **Deliberately uncommitted, do not "clean up":** `scores/tranceSB01.json`,
   `tranceSB01-2.json`, `piece-s21…s24.json`, `reaper/7_tubas_rack.rpp`.
-- **Pending the composer:** the pulse audition · S001 in the menu or not ·
-  BALANCE 5 s close (unheard) · Fade-ladder audition (unheard) · sonority naming.
+- **Pending the composer:** all three auditions above · the SMEAR/RAIN/GALLOP
+  distinctness verdict (**the prediction on record: RAIN and GALLOP have nearly
+  the same jitter, sd 30.7 vs 32.3 ms, but very different unevenness, 0.14 vs
+  0.68 — if they sound alike they are one category with two labels**) · S001 in
+  the pulse menu or not · BALANCE 5 s close (unheard) · fade-ladder audition
+  (unheard) · sonority naming.
+- **The composer's own note for the pulse panel** (COMPOSER_LOG day 17, filed
+  verbatim, no action taken by request): wants **many more than 32 cells** ·
+  wants to confirm everything is staccato · the BPM/0.25 labelling was unclear ·
+  multi-select across cells · a save file *(that last one is now 2ab — DONE)*.
 - **Still open from day 15:** the lazy-MIDI bug — the score only initialises Web
   MIDI on Play / CC7 Reset / REC-arm, so on a fresh page the keyboard is dead
   until one of those runs (`initZoneMidi`, composer.html ~12246). Diagnosed live,
-  fix NOT built. *(The Pulse panel is immune — `MorphEmit.ensureMidi` requests
+  fix NOT built. *(Pulse and MT are both immune — `MorphEmit.ensureMidi` asks for
   access itself.)*
-- **THE APPS, because the composer had to ask for one by memory:** the score
-  server serves all of them — `composer.html` (the composition) ·
-  **`chordview.html` = "Blast Sandbox", which IS the bank of chords** (7
-  harmonies `VERT01-03/04/11/12/13/16/28`, 16 voicings, 48 sonorities, read live
-  from `/api/taxonomy`) · `clusterview.html` (2p) · `planner.html`. The sandbox
-  on `:4700` is a separate server and holds none of that. At session end every
-  port was found DOWN (no `node` process at all); `:5200` was restarted and all
-  four pages plus `/api/pulsepalette` verified 200.
-- **For the next AI:** the composer works clicking-and-listening; keep the panel
-  ruthlessly v1. Do not build the deferred passes unprompted.
+- **Operational gotcha:** an em-dash passed to `texture_bank.js --note` through
+  Windows Git Bash arrives mojibake'd (the shell's argv, not the tool). Keep
+  `--note` plain ASCII and put the exact words in `COMPOSER_LOG.md`.
+- **For the next AI:** three panels now share `E.onStop` and one snapshot file.
+  Wiring a fourth panel is a `PANEL_ID` const, a `Save`/`Load` pair and
+  `applyState()` — **the server needs no edit** (D39).
 
 ---
+
+- **Day 16 (08-17):** **PLAN 2aa v1, the PULSE SEQUENCER STRIP** — `Pulse`
+  panel, a 29-entry sonority menu (`bank/pulse_palette.json`) resolved live
+  against the taxonomy, pure `pulse_seq.js` engine (103/103, mutation-tested),
+  seamless looping measured at 240-260 ms. Audition only; writes nothing. The
+  finding that changed the build: **five of the seven staccato/cuivre pairs have
+  identical pitch sets**, so refs resolve with per-note articulation (**D37**);
+  and a looped audition schedules ahead on one time base rather than
+  re-invoking `E.play` (**D38**). *Still unheard.*
 
 - **Day 15 (08-17), three sittings:** two more morphs placed by the composer —
   `piece-s23`, 1236 objects, **496.6 s (8:16)**, carrying `ACT-BLOOM-01`,
@@ -780,6 +717,36 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   without bound. *Measured over 4.5 cycles at a nominal 250 ms step:
   240/250/260 ms throughout, the seam indistinguishable from any other step.*
 
+- **D39** *(2026-08-17, day 17 — PLAN 2ab)* — **A PANEL SNAPSHOT'S `state` IS
+  OPAQUE TO THE SERVER, AND ALL PANELS SHARE ONE FILE.**
+  `bank/panel_snapshots.json` stores, per panel, whatever that panel's own
+  `save()` writes to localStorage — byte for byte, never validated, never
+  interpreted. An unknown panel key is CREATED on first save rather than
+  rejected. *Why it is a decision and not a detail:* it is what made 2ac cost
+  **zero** server lines, and it means a panel can change its state shape without
+  touching the server or the file's contract. *Corollary that is also load-
+  bearing:* the state is **deep-copied** on the way in, because the caller is a
+  live browser object that keeps mutating. *Rejected:* a per-panel schema (a
+  new panel would need a server edit, and every shape change becomes a
+  migration) · storing snapshots under `scores/` (sandbox state is not score
+  objects, and the 5 s autosave has clobbered a loaded score before — D8).
+  *Second corollary, proven in the running app:* the same file is the **AI-dial
+  channel** — a snapshot the AI writes while a panel is open appears on the next
+  `Load` with no page reload.
+
+- **D40** *(2026-08-17, day 17 — PLAN 2ac)* — **IN A MULTITEMPO TEXTURE, LANE =
+  STREAM. AND THE ONLY THING THAT CATCHES THE ALTERNATIVE IS A TEST.**
+  Each tempo stream belongs to one player for the whole cycle; the pulse strip's
+  per-NOTE round-robin cursor (`pulse_seq.js` `buildGrid`) is correct there and
+  wrong here. *Why it earns a decision:* copying the cursor produces a texture
+  that is **completely plausible by ear** — a wrong-but-regular pulse still
+  sounds like a pulse — so neither listening nor reading finds it. It was caught
+  because the plan's own traps block named it the day before and a mutation test
+  was written for it. **Generalisation for the remaining builds: when a rule's
+  violation would still sound musical, it needs an assertion, not an audition.**
+  *(Same family as Principle 5 — a check that shares a formula with the thing it
+  checks is a mirror; here, a check that shares an EAR with it is too.)*
+
 ## §5 Done
 
 - 2026-08-10 — 0a stack seed.
@@ -879,6 +846,25 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   Two rulings came out of building it: **D37** (a recalled sonority carries its
   articulation) and **D38** (a looped audition schedules ahead). *The sound is
   unheard — the composer's audition is the open half.*
+
+- 2026-08-17 — **PLAN 2ab PANEL SNAPSHOTS shipped**: named panel states in
+  `bank/panel_snapshots.json` via `GET/POST /api/snapshots`, a pure merge module
+  (`score/snapshots.js`, 75 assertions, mutation-tested), `Save`/`Load` on the
+  pulse panel. **Verified across a wiped localStorage plus a browser reload**, so
+  the state provably came back from the server file. → **D39**. It is also the
+  AI-dial channel the other two panels use.
+- 2026-08-17 — **PLAN 2ac MULTITEMPO AUDITION RIG shipped**: the `MT` panel —
+  several tempi at once from one BPM and a reduced integer ratio set, with
+  UNISON / REGISTER / HARMONY separation modes and the shared onsets highlighted.
+  Pure engine `multitempo.js` (90 assertions, four mutation tests). **Measured
+  live: C = 1.2 s at 150/3:4:5, the streams realign on C, 2C and 3C, and the loop
+  seam is indistinguishable from an ordinary step.** → **D40**. *The sound is
+  unheard — the composer's audition is the open half.*
+- 2026-08-17 — **PLAN 2ad PHASE-SHIFT SELECTOR readied with ZERO code**: its one
+  conditional item proved unnecessary (the Texture panel already polls every
+  second and honours `active` on a rev bump — verified live), the A/B/C slate is
+  already SMEAR/RAIN/GALLOP, and the banking CLI was run end to end and reverted.
+  **Waits only on the composer's ear.**
 
 ## §6 Human Notes
 
