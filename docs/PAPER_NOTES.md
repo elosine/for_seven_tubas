@@ -472,3 +472,28 @@ Xenakis's Mists. Three printable items:*
   classifier, notation as experimental subject, and the composer's constraint
   ("first-level rationals, not 21:19") acting as the complexity prior that
   makes the classifier's positives mean something.
+
+*Addenda from the clarifying exchange, same day:*
+
+- **The GC is a lineage object, and the record briefly got that wrong.** The
+  AI filed "gravitational conductor" as a day-19 coinage; the composer's
+  correction — *"GCs already in both performance scores… well developed
+  object"* — and a grep confirmed `GCMaker` living in pieces #1 and #2. For
+  the three-piece-convergence paper this is a better fact than the coinage
+  would have been: the device has survived two realizations and is being
+  re-derived from first principles (gravity as predictive display) in the
+  third — the argument for it now exists independently of its history.
+- **Designing to be surprised.** The composer split the experiment slate into
+  prove/disprove and DISCOVER, and supplied the discovery design: an ablation
+  floor — bare dots + cursor vs the full notation apparatus — with the
+  explicitly welcomed outcome *"the discrepancy is negligible."* A composer
+  designing the experiment that could show their notation does no timing work
+  is the reframe-pattern again (AI names a comparison, composer converts it
+  into a mechanism), pointed at their own apparatus this time.
+- **The n = 1 subject names their own confound, quotable:** *"I have bias,
+  not that good a trad notation reader, I'm an improvisor and have been
+  looking at my own animations."* The methodological move that follows —
+  pre-registered asymmetric interpretation (against-the-grain wins count,
+  with-the-grain wins defer to replication) — turns a weakness of
+  composer-as-subject into a usable instrument. Likely a paper section:
+  self-experimentation with stated bias in notation design.

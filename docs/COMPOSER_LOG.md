@@ -1325,3 +1325,39 @@ measurement never tested, so that negative verdict does not cover this; and
 the count/react split, which puts M5's own point 5 (tempo per bar, "the one
 that might do the real work") in doubt. Assessment and proposed experiment
 slate in RUNNING_LOG day 19; quotables to PAPER_NOTES same day.*
+
+## 2026-08-19 (day 19, credit-wait, continued) — the clarifying reply: side-project status, GC already built, discovery experiments, the stated bias (typed)
+
+*Responding to the AI's summary and proposals, the composer clarified five
+things:*
+
+> *"Mists baseline, but maybe not the only one. I am open to paradigm shifts —
+> it's just the one I thought had promise."*
+
+> *"E3: GCs already in both performance scores, str qtr and 2pno 2perc — well
+> developed object."*
+
+*On the AI's sequencing questions (which the composer found unclear — noted;
+the confusion dissolved under their own framing):*
+
+> *"The main but separateish build will eventually be the whole score
+> architecture; this is a concurrent side project that will eventually get
+> folded in."*
+
+*On what kind of experiments — a distinction the AI's slate lacked:*
+
+> *"This is probably experimental design. The ones you recommend + maybe
+> others help us prove/disprove the concepts that work/don't work — but maybe
+> have some experiments that are more designed to try to discover. Like for
+> example maybe we run one with just the scroll bar and black dots or even
+> vert lines, and then we do one with notation and other helpers — and find
+> that the discrepancy is negligible."*
+
+*On being the tap-test subject:*
+
+> *"Yes I can be tap test subj, but just recognize that I have bias — not
+> that good a trad notation reader, I'm an improvisor and have been looking
+> at my own animations etc."*
+
+*Then: "What's next? Draw up plan? Design tests?" — the AI drew up
+`docs/NOTATION_EXPERIMENTS.md` (design only, nothing runs) the same turn.*

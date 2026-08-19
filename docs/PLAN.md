@@ -273,6 +273,22 @@ composer → notation → performance architecture.)*
      for failure**, settle on performance strategies, *"learn or invent some
      new things along the way."*
 
+  ### M5 status note (2026-08-19, later) — side project chartered; GC correction
+
+  - **CORRECTION:** the "gravitational conductor" is not new coinage — it is
+    **`GCMaker`**, the well-developed device in BOTH prior performance apps
+    (piece #1 and #2, `scripts/performance_parts_patches.js` et al.). Port +
+    extend, not build.
+  - The experiments are now DESIGNED (not run) in
+    **`docs/NOTATION_EXPERIMENTS.md`** — a **concurrent side project** to the
+    §7 architecture build (composer's framing: *"main but separateish build…
+    this is a concurrent side project that will eventually get folded in"*);
+    fold-in contract in that doc. Slate: E1 chunker · E0 floor ladder
+    (discovery class, composer-designed) · E2 tap harness (composer as n = 1
+    subject, bias stated and pre-registered) · E3 GC port. Mists baseline is
+    a candidate, not a commitment — composer *"open to paradigm shifts."*
+    Per-experiment green-lights required; A1 remains next on the main track.
+
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 
 - **4a — Penn State research** — `done 2026-08-11` — docs/PENN_STATE_RESEARCH.md.

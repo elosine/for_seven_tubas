@@ -2674,3 +2674,52 @@ do-not-run) · no PLANNER edit (recent notation thinking files via PLAN §3/M5)
 · no schema or prototype work (Phase A1 remains the next step on renewal,
 unchanged). **Paper filings:** the GC mechanism, the count/react reversal, and
 eliminate-with-reasons as method → PAPER_NOTES same day.
+
+## Day 19 (2026-08-19, credit-wait, continued) — clarifications correct the record; NOTATION_EXPERIMENTS.md drawn up
+
+**The composer's reply reshaped four things and answered "what's next" with
+"draw up plan / design tests" — done: `docs/NOTATION_EXPERIMENTS.md`, design
+only, nothing runs.** The corrections, because two of them fix errors in the
+morning's record:
+
+- **CORRECTION — the GC is not a new coinage.** It is **`GCMaker`**, a
+  well-developed window-global in BOTH prior performance apps — verified by
+  grep: `scripts/performance_parts_patches.js` in piece #1 and piece #2 (e.g.
+  `calculateBallPositionForPage`), plus `performance_rehearsal_patches.js`
+  and `public/index.html` in #2. The M5 record's "(composer term, as
+  dictated)" read as if coined day 19; the term and the object predate this
+  piece. **E3 therefore becomes PORT + EXTEND, not build**: new work is only
+  the E1 chunk-data feed, an internal-pulse bounce mode (S3), and a
+  port-time physics check (does bounce height scale with the gap, h ∝ t²? —
+  if not, that is the one upgrade worth making).
+- **The sequencing questions dissolved.** The AI asked "A1 first or E1
+  first?" — wrong frame, and the composer said the questions were unclear.
+  Their framing: the score architecture is *"the main but separateish
+  build"*; the notation experiments are *"a concurrent side project that
+  will eventually get folded in."* Two tracks, no ordering decision needed.
+  A1 stays next on the main track; the side project waits only on
+  per-experiment green-lights.
+- **Baseline ≠ commitment.** Mists is the candidate *"I thought had
+  promise"* — the composer is *"open to paradigm shifts."* The strategy
+  slate is an open list (S6+ reserved).
+- **A missing experiment CLASS, not just missing experiments:** discriminative
+  vs DISCOVERY. The composer's example became **E0, the floor ladder** —
+  same excerpt, one device per rung (dots → vert lines → full Mists page →
+  GC landings → GC internal pulse), tap accuracy per rung; the result is
+  WHERE accuracy jumps. Pre-registered readings include the one the composer
+  named — *"the discrepancy is negligible"* between bare dots and full
+  notation — which would mean the page carries reading value but not timing
+  value, and timing lives in the animation.
+- **The tap-test subject question answered, with a stated bias:** yes, but —
+  *"not that good a trad notation reader, I'm an improvisor and have been
+  looking at my own animations."* Filed in the design as pre-registered
+  interpretation rules: bias favors react/animation conditions, so
+  count-conditions WINNING would be strong (against-the-grain) evidence,
+  animation winning is confounded and defers to a trad-reader replication,
+  and within-animation comparisons (the E0 rungs) are the most valid for
+  this subject. Harness stays reusable for real tubists later.
+
+**State of the side project:** E0–E3 designed with pre-registered kill/
+decision rules in NOTATION_EXPERIMENTS.md · run ledger empty · next actions
+when the composer green-lights and credits allow: E1 (data-only, cheap) →
+E2 harness build → E3 port. Main track unchanged: A1 on renewal.
