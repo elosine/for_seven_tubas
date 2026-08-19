@@ -1611,7 +1611,10 @@ mutation battery green. Trail in RUNNING_LOG day 19 night.
 **A3 DONE 2026-08-19 night** — `notation/ir/trance-bar-01.ir.json` (two
 tempo streams + the 0.136 s seam; VALID vs source; 0.0000 ms re-derivation;
 two schema amendments: span = onset ownership, boundary = next chunk's first
-onset). Next: **A4 — morph window**, then A5 density apex.
+onset). **A4 DONE 2026-08-19 night** — `morph-window-01.ir.json` (8-part bloom
+entry, {parts,span} overlay, naive-spelling + authored-respell pattern;
+validator gained the renames-never-repitches check). Next: **A5 — density
+apex** (last Phase A chunk).
 
 ## Parking lot
 

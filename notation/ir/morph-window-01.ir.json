@@ -1,0 +1,46 @@
+{
+  "irVersion": "0.1",
+  "id": "morph-window-01",
+  "source": { "score": "piece-s23", "window": [141.386, 147.7], "parts": [0, 1, 2, 3, 4, 5, 6, 7] },
+  "provenance": {
+    "createdBy": "hand",
+    "date": "2026-08-19",
+    "tool": null,
+    "notes": "A4: morph window (Phase A). First breath-span of grp-act-bloom-01-01 (JYBloom001): all 8 parts enter together at 141.386 on stacked fourths F2/Bb2/Eb3/Ab3, two players per pitch. One event per part; envelopes (13-node) and morphBend curves stay in S1 by reference. Window is onset-ownership: sounding durations run past 147.7 (to 151.35), and later onsets of the same gesture are NOT carried — partial coverage is legal for hand-worked docs (completeness checking is extractor territory, noted in spec §7). Chunk strategy 'unresolved' is the honest state: morph realization is material-time per amendment 1 (animated curves, possibly a beating indication). NO GC devices on purpose: smooth-ramp entries are the attack-coupled case — device placement awaits the apex-cue decision (A1 §8 row 4). Events carry the naive v0 spelling (sharps); ov-002..ov-007 re-spell flatward as authored overlays — the derived-proposal + authored-decision pattern production will use. ov-001 uses the composer's day-19 hypothetical wording as a gesture-wide instruction exercise; composer revises freely."
+  },
+  "events": [
+    { "id": "ev-wc-2524", "source": { "score": "piece-s23", "objectId": "wc-2524" }, "onset": 141.386, "duration": 7.371, "pitch": { "midi": 41, "spelled": { "step": "F", "alter": 0, "octave": 2 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2525", "source": { "score": "piece-s23", "objectId": "wc-2525" }, "onset": 141.386, "duration": 5.962, "pitch": { "midi": 41, "spelled": { "step": "F", "alter": 0, "octave": 2 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2526", "source": { "score": "piece-s23", "objectId": "wc-2526" }, "onset": 141.386, "duration": 9.057, "pitch": { "midi": 46, "spelled": { "step": "A", "alter": 1, "octave": 2 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2527", "source": { "score": "piece-s23", "objectId": "wc-2527" }, "onset": 141.386, "duration": 5.602, "pitch": { "midi": 46, "spelled": { "step": "A", "alter": 1, "octave": 2 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2528", "source": { "score": "piece-s23", "objectId": "wc-2528" }, "onset": 141.386, "duration": 5.638, "pitch": { "midi": 51, "spelled": { "step": "D", "alter": 1, "octave": 3 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2529", "source": { "score": "piece-s23", "objectId": "wc-2529" }, "onset": 141.386, "duration": 8.216, "pitch": { "midi": 51, "spelled": { "step": "D", "alter": 1, "octave": 3 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2530", "source": { "score": "piece-s23", "objectId": "wc-2530" }, "onset": 141.386, "duration": 9.562, "pitch": { "midi": 56, "spelled": { "step": "G", "alter": 1, "octave": 3 } }, "technique": "ord", "provenance": "derived" },
+    { "id": "ev-wc-2531", "source": { "score": "piece-s23", "objectId": "wc-2531" }, "onset": 141.386, "duration": 9.964, "pitch": { "midi": 56, "spelled": { "step": "G", "alter": 1, "octave": 3 } }, "technique": "ord", "provenance": "derived" }
+  ],
+  "chunks": [
+    { "id": "ch-0-wc-2524", "part": 0, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2524"], "provenance": "derived" },
+    { "id": "ch-1-wc-2525", "part": 1, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2525"], "provenance": "derived" },
+    { "id": "ch-2-wc-2526", "part": 2, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2526"], "provenance": "derived" },
+    { "id": "ch-3-wc-2527", "part": 3, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2527"], "provenance": "derived" },
+    { "id": "ch-4-wc-2528", "part": 4, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2528"], "provenance": "derived" },
+    { "id": "ch-5-wc-2529", "part": 5, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2529"], "provenance": "derived" },
+    { "id": "ch-6-wc-2530", "part": 6, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2530"], "provenance": "derived" },
+    { "id": "ch-7-wc-2531", "part": 7, "span": [141.386, 147.7], "class": "morph-note", "strategy": "unresolved", "events": ["ev-wc-2531"], "provenance": "derived" }
+  ],
+  "overlays": [
+    {
+      "id": "ov-001",
+      "kind": "instruction",
+      "target": { "parts": [0, 1, 2, 3, 4, 5, 6, 7], "span": [141.386, 147.7] },
+      "value": "crescendo in the beating — listen to the beat rate rising, not the volume",
+      "provenance": "authored"
+    },
+    { "id": "ov-002", "kind": "spelling", "target": { "event": "ev-wc-2526" }, "value": { "step": "B", "alter": -1, "octave": 2 }, "provenance": "authored" },
+    { "id": "ov-003", "kind": "spelling", "target": { "event": "ev-wc-2527" }, "value": { "step": "B", "alter": -1, "octave": 2 }, "provenance": "authored" },
+    { "id": "ov-004", "kind": "spelling", "target": { "event": "ev-wc-2528" }, "value": { "step": "E", "alter": -1, "octave": 3 }, "provenance": "authored" },
+    { "id": "ov-005", "kind": "spelling", "target": { "event": "ev-wc-2529" }, "value": { "step": "E", "alter": -1, "octave": 3 }, "provenance": "authored" },
+    { "id": "ov-006", "kind": "spelling", "target": { "event": "ev-wc-2530" }, "value": { "step": "A", "alter": -1, "octave": 3 }, "provenance": "authored" },
+    { "id": "ov-007", "kind": "spelling", "target": { "event": "ev-wc-2531" }, "value": { "step": "A", "alter": -1, "octave": 3 }, "provenance": "authored" }
+  ]
+}

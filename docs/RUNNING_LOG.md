@@ -3109,3 +3109,45 @@ Marker stream "base x15" correctly stayed OUT of the IR (S1 read-through,
 spec §7). Next: **A4 — morph window** (grp-act-bloom-01-01 spans layers
 0-7: first real multi-part exercise), then **A5 — density apex** (fold one
 fullVocab ε variant of the E1 record).
+
+## Day 19 (2026-08-19, night) — A4 RUN: morph window hand-worked; the multi-part case holds
+
+**Composer: "a4 good."** `notation/ir/morph-window-01.ir.json` — the first
+breath-span of `grp-act-bloom-01-01` (JYBloom001, piece-s23): all 8 parts
+enter TOGETHER at 141.386 s on stacked fourths F2/Bb2/Eb3/Ab3, two players
+per pitch; each player's 13-14 node envelope and 13-point morphBend stay in
+S1 by reference. 8 events, 8 per-part chunks sharing one anchor (the §7
+multi-part claim verified on the real gesture), a gesture-wide
+`{parts, span}` instruction (the composer's day-19 "crescendo in the
+beating" hypothetical, flagged as exercise), and the production spelling
+pattern: events carry the naive sharps (A#/D#/G#), six AUTHORED spelling
+overlays re-spell flatward (stacked fourths read flatward) — derived
+proposal, authored decision, exactly amendment 1's shape.
+
+**Verified:** VALID + --against-source · durations = S1 end-start to
+0.000 ms (ORD real duration, D9) · every respell maps to the same midi.
+
+**Findings:**
+1. **The validator could not see a spelling overlay that RE-PITCHES.** The
+   hand-check (respell → same midi) was a check the tool lacked — a
+   spelling overlay could silently rename a note to a different pitch.
+   Added: renames-never-repitches check + value-shape check, both with red
+   mutations on record. (The A2 lesson recurs: every new overlay kind needs
+   its own consistency check.)
+2. **Completeness is unchecked and that is CORRECT for hand-worked docs** —
+   the window contains later onsets the doc does not carry. Spec §7 now
+   says so; a `--complete` mode is queued for the extractor build.
+3. **No GC devices, deliberately:** morph entries are smooth ramps — the
+   attack-coupled case. Device placement for this class awaits the
+   apex-cue decision (A1 §8 row 4). The empty devices array is the honest
+   state, not an omission.
+4. **Breath structure surfaced:** each player's morph line is ~13 notes
+   separated by ~0.7-0.8 s gaps (the carrier's breaths). v0 chunk-per-note
+   works; whether a breath-PHRASE becomes the chunk (grouping several
+   notes) is a material-time realization question, recorded not decided.
+5. Six per-event overlays to respell one chord is verbose — a future
+   span/pitch-class-scoped spelling RULE (P6-style) is the obvious
+   compression; queued as a candidate amendment, not built.
+
+Next: **A5 — density apex** (fold ONE fullVocab ε variant of the E1 record
+for `cloud02-10track`), the last Phase A chunk.

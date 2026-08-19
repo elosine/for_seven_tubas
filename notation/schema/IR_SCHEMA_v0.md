@@ -264,3 +264,10 @@ uses the `{parts, span}` overlay target.
 **Vacuity note:** an empty document, or a chunk with zero events, validates
 clean — `VALID` on a near-empty file certifies little; read the counts in
 the success line.
+
+**Completeness note (A4 finding):** the validator never checks that every
+S1 onset inside `source.window` × `source.parts` has an event — partial
+coverage is legal and normal for hand-worked documents (`morph-window-01`
+carries only the first breath-span of its gesture). A `--complete` mode
+becomes necessary when the EXTRACTOR exists and claims full coverage;
+queued for that build, not before.

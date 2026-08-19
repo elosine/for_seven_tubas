@@ -212,6 +212,16 @@ function integrity(doc, errs) {
       if (!t.chunk && !t.span)
         errs.push(`${o.id}: strategy overlay must target a chunk or a span`);
     }
+    if (o.kind === 'spelling' && t.event && evById.has(t.event)) {
+      const v = o.value, e = evById.get(t.event);
+      if (!v || typeof v !== 'object' || !(v.step in PC) || typeof v.alter !== 'number' || !Number.isInteger(v.octave))
+        errs.push(`${o.id}: spelling overlay value must be a {step, alter, octave} object`);
+      else {
+        const m = PC[v.step] + v.alter + 12 * (v.octave + 1);
+        if (Math.abs(m - e.pitch.midi) > 1e-9)
+          errs.push(`${o.id}: respell ${v.step}${v.alter >= 0 ? '+' + v.alter : v.alter}/${v.octave} = midi ${m}, but ${t.event} sounds midi ${e.pitch.midi} — a spelling overlay renames, never re-pitches`);
+      }
+    }
   }
 }
 

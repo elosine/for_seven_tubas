@@ -75,8 +75,10 @@ BEING WRITTEN. Claude Code / Opus 5.**
    by the composer: only resolve what forks the architecture). **A3 DONE
    2026-08-19 night** (`trance-bar-01.ir.json`: the two-tempo-stream seam,
    VALID vs source, 0.0000 ms re-derivation; span/boundary amendments).
-   Next: **A4 morph window** (all real groupIds span multiple parts), then
-   A5 density apex (fold the E1 fullVocab record, ONE ε variant). Deliberately CAPPED: strata · class
+   **A4 DONE 2026-08-19 night** (`morph-window-01.ir.json`; 5 findings incl.
+   a validator gap — spelling overlays could silently re-pitch — now checked
+   with red mutations). Next: **A5 density apex** (fold the E1 fullVocab
+   record, ONE ε variant) — the last Phase A chunk. Deliberately CAPPED: strata · class
    registry · accommodation bucket · engine passes · coordinate contract ·
    parachute contract. Phase A is cut into commit-sized chunks so a credit
    expiry between them loses nothing: **A1 doc → A2 IR schema v0 → A3/A4/A5
