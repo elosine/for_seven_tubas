@@ -1282,3 +1282,46 @@ finite registry of splice behaviors per object class, not per-instance
 solutions. The composer wants to START BUILDING the notation layer and asked
 for the practical shape: architecture first? base layer? build and revisit?
 Proposal follows in RUNNING_LOG day 19 / PLAN §7.*
+
+## 2026-08-19 (day 19, credit-wait interlude) — Mists baseline, first-level rationals, the gravitational conductor, count vs react (typed)
+
+*Waiting on credit renewal before Phase A begins, the composer used the gap to
+think through notation for the density build-ups, posting a page of Xenakis's
+Mists for piano (the proportional writing at mm. 65–67) as the visual
+reference. Typed, verbatim in the parts that matter:*
+
+> *"I think the baseline will be like Xenakis Mists: proportionate spaced
+> notation, use beams to group notes that sound grouped in the individual
+> parts."*
+
+> *"Another idea… is to do an analysis (let's discuss the parameters of this
+> analysis and if it is feasible) to find groupings that behave in a periodic
+> enough way to be described at a certain tempo and a certain resolution
+> threshold, like 1st level rationals, like 9:2 or 7:3 but not 21:19 or
+> nested tuples."*
+
+> *"But my main insight is: if you group a few notes into something that is
+> beamed and proportionate you have a GC — gravitational conductor. This is
+> just a bouncing ball that lands like an object under gravity, to note
+> precise begin time — and then the scrolling bar cursor that scrolls across
+> the notation, and you can more or less play the notation pretty
+> accurately."*
+
+> *"Maybe the tuplet + tempo is misguided. Players probably either count or
+> react but not both — or I should say, one doesn't necessarily help the
+> other."*
+
+> *"I think the meta point here is more that I have good data — high
+> resolution midi of the note timings, ai analysis — so it would be good to
+> run some analysis and experiments and flesh out different strategies and
+> eliminate ones that don't work with reasons for fail, and try to settle on
+> good performance strategies and learn or invent some new things along the
+> way."*
+
+*AI note: filed as the M5 second amendment in PLAN §3. Three genuinely new
+items over the existing M5 record: the baseline is now named (Mists); the
+chunker vocabulary widens to first-level rationals — which the day-19 apex
+measurement never tested, so that negative verdict does not cover this; and
+the count/react split, which puts M5's own point 5 (tempo per bar, "the one
+that might do the real work") in doubt. Assessment and proposed experiment
+slate in RUNNING_LOG day 19; quotables to PAPER_NOTES same day.*

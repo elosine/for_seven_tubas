@@ -229,6 +229,50 @@ composer → notation → performance architecture.)*
   follow the generator realignment cycle `C` (attractive: `C` is exactly where
   all streams converge, which is arguably where a bar wants to begin).
 
+  ### M5 second amendment (composer, same day, typed) — Mists baseline · first-level rationals · count vs react
+
+  Typed while waiting on credit renewal (verbatim in COMPOSER_LOG day 19;
+  assessment + experiment slate in RUNNING_LOG day 19). Still COLLECTING — the
+  do-not-run-yet stance holds until the composer green-lights the slate.
+
+  1. **The baseline is named: Xenakis, Mists** — proportionately spaced
+     notation, **beams grouping notes that sound grouped** in each part. This
+     sharpens the middle proposal: beaming = PERCEPTUAL grouping, not metric
+     grouping, and exists whether or not any tempo fits. Consequence for the
+     chunker: segmentation and rational fit are separate stages.
+  2. **The chunker vocabulary widens to FIRST-LEVEL RATIONALS** — one-level
+     tuplets against a countable beat (9:2, 7:3 yes; 21:19 no; nesting no).
+     **This re-opens the apex question:** the day-19 measurement searched
+     straight grids only (8ths→32nds, triplet, sextuplet), so its negative
+     verdict does not cover this vocabulary — a p:q tuplet reaches a fine
+     effective grid while the counted referent stays slow. Note also: the
+     first-level restriction is what keeps the analysis meaningful — with an
+     unrestricted vocabulary any onset list "fits" some 21:19, so the
+     restriction is a complexity prior, not a taste preference.
+  3. **The GC — gravitational conductor — moves to the center.** *"If you
+     group a few notes into something that is beamed and proportionate you
+     have a GC… a bouncing ball that lands like an object under gravity, to
+     note precise begin time"* — plus the scrolling cursor → *"you can more
+     or less play the notation pretty accurately."* Mechanism worth
+     recording: the cursor is zero-order (reports where NOW is); a falling
+     ball is PREDICTIVE — arrival is readable from the trajectory before it
+     lands, and bounce height encodes the coming gap (flight time t → height
+     ∝ t²), so the device shows the next duration BEFORE it sounds — which is
+     what a conductor's preparatory beat does. That is the falsifiable reason
+     the ball should beat the cursor for precise attacks.
+  4. **The count/react doubt (possible reversal of point 5 above):** *"maybe
+     the tuplet + tempo is misguided; players probably either count or react
+     but not both — one doesn't necessarily help the other."* Candidate
+     resolution, to test, not decided: where the chunker DOES find a
+     first-level rational, put the periodicity in the ANIMATION, not the
+     glyphs — the GC bounces the chunk's internal pulse while the notation
+     stays proportional — so the counting is externalized and the player only
+     ever reacts.
+  5. **Method, stated as intent:** good data (high-res MIDI onsets) + AI
+     analysis → run experiments, **eliminate strategies with recorded reasons
+     for failure**, settle on performance strategies, *"learn or invent some
+     new things along the way."*
+
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 
 - **4a — Penn State research** — `done 2026-08-11` — docs/PENN_STATE_RESEARCH.md.

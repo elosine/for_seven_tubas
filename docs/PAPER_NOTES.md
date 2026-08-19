@@ -434,3 +434,41 @@ times, and what survived each realization.*
   And the parachute was made structural rather than aspirational: every chunk
   class carries a graphic fallback, so a shippable score exists at every
   moment of the build.
+
+## THE GRAVITATIONAL CONDUCTOR, AND COUNT VS REACT (2026-08-19)
+
+*Same day as the architecture confirmation; the composer, waiting on a credit
+renewal, typed the notation thinking for the density builds against a page of
+Xenakis's Mists. Three printable items:*
+
+- **The device, in the composer's words:** *"if you group a few notes into
+  something that is beamed and proportionate you have a GC — gravitational
+  conductor. This is just a bouncing ball that lands like an object under
+  gravity, to note precise begin time."* With the scrolling cursor, *"you can
+  more or less play the notation pretty accurately."* The AI's contribution
+  was the mechanism: a cursor is zero-order (it reports the present), a
+  falling ball is predictive — arrival is readable from the trajectory, and
+  bounce height encodes the coming gap (flight time t → height ∝ t²) — so the
+  device shows the next duration before it sounds, which is exactly the
+  information a conductor's preparatory beat carries. A physics engine as
+  conductor is not a metaphor here; it is the same information channel.
+- **The count/react split, quotable:** *"players probably either count or
+  react but not both — one doesn't necessarily help the other."* This is the
+  composer doubting their own strongest idea of the same week — M5's
+  tempo-per-bar, "the one that might do the real work" — and the record shows
+  the reversal happening in real time, which the paper should preserve. The
+  candidate synthesis: where the analysis finds a simple rational, the
+  periodicity goes into the ANIMATION (the ball bounces the internal pulse),
+  not the glyphs — the score's metric knowledge is consumed by the device,
+  and the player only ever reacts. If the tap-test (proposed E2, with the
+  composer as the n = 1 subject) bears this out, that is a finding: notation
+  as a division of labour between page and animation.
+- **Elimination-with-reasons as method, stated as intent:** *"run some
+  analysis and experiments and flesh out different strategies and eliminate
+  ones that don't work with reasons for fail… and learn or invent some new
+  things along the way."* The dead strategies are deliverables — each carries
+  its failure reason (the day-19 apex table already did this for straight
+  grids). This closes the loop the M5 reframe opened: measurement as
+  classifier, notation as experimental subject, and the composer's constraint
+  ("first-level rationals, not 21:19") acting as the complexity prior that
+  makes the classifier's positives mean something.

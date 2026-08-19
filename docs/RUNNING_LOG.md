@@ -2596,3 +2596,81 @@ renewal: A1 — draft docs/NOTATION_ARCHITECTURE.md** (capped; strata · class
 registry · accommodation bucket · engine passes · coordinate contract ·
 parachute contract), then review with the composer alongside the two owed
 decisions (0–10 → dynamic marks, D3).
+
+## Day 19 (2026-08-19, credit-wait interlude) — density-build notation: Mists baseline, first-level rationals, the GC, count vs react
+
+**While waiting on credit renewal for Phase A, the composer typed the notation
+thinking for the SECTION-1 density builds** (verbatim in COMPOSER_LOG day 19;
+filed as the M5 second amendment in PLAN §3), posting Mists mm. 65–67 as the
+visual reference. What is new over the existing M5 record, and the assessment:
+
+- **Baseline named: Xenakis Mists** — proportional spacing, beams = what
+  sounds grouped in the individual part. Consequence: SEGMENTATION and
+  RATIONAL FIT are separate chunker stages. Every part needs perceptual groups
+  (for beams, and for GC landing points) whether or not any tempo fits; a
+  metric description only ever applies to the subset that fits. The earlier
+  chunker sketch conflated the two.
+- **The vocabulary is now FIRST-LEVEL RATIONALS** (9:2, 7:3; not 21:19; no
+  nesting). **This re-opens the apex verdict.** The day-19 measurement
+  condemned the apex on straight grids only (8ths→32nds, triplet, sextuplet,
+  beat 0.30–1.00 s). A p:q tuplet reaches a fine effective grid while the
+  counted beat stays slow, e.g. 7:2 against a 60 bpm beat ≈ 171 ms grid — a
+  hypothesis space the measurement never searched. "No countable tempo without
+  32nds" is currently true FOR STRAIGHT GRIDS ONLY; unknown for this
+  vocabulary. Statistical caveat filed with it: a rich enough vocabulary fits
+  anything, so the first-level restriction is the complexity prior that keeps
+  a fit meaningful, and min-run length + pre-registered kill criteria guard
+  the rest.
+- **The GC mechanism, made explicit** (the articulable reason behind the
+  composer's intuition): the scrolling cursor is zero-order — it reports
+  where NOW is and predicts nothing; a ball falling under gravity is
+  PREDICTIVE — the eye extrapolates arrival from the trajectory (what a
+  conductor's preparatory beat provides), and bounce height encodes the
+  coming gap (flight time t → height ∝ t²), so the device displays the next
+  duration BEFORE it sounds. The sensorimotor-sync literature on moving vs.
+  discrete visual cues appears to point the same way — flagged TO VERIFY when
+  E2 is designed, not asserted.
+- **The count/react split** — *"players probably either count or react but
+  not both"* — is a potential reversal of M5's own point 5 (tempo per bar as
+  "the one that might do the real work"), made the same week. Candidate
+  synthesis, filed for testing: found periodicity goes into the ANIMATION
+  (the GC bounces the chunk's internal pulse; the notation stays
+  proportional), so the score's metric knowledge is consumed by the
+  conductor-device, not by the player's counting.
+
+**Proposed experiment slate (E1–E3, proposed in chat; awaiting composer
+green-light AND credits — the M5 do-not-run stance is not lifted
+unilaterally):**
+- **E1 — the chunker, extended** (data-only, cheap): per-onset error over
+  candidate (countable tempo 0.30–1.00 s beat × first-level rational)
+  descriptions; two-stage — gap-based perceptual segmentation first, rational
+  fit second; maximal runs within tolerance; coverage-vs-ε curves
+  (ε = 10–30 ms); min run 6 notes; tempo-churn penalty (the fixed-tempo
+  lesson: one pulse per player per passage). Pre-registered kill criterion:
+  coverage under ~30 % at ε = 20 ms ⇒ metric description is patchwork and
+  notated tuplets (S4) lose by default to periodicity-in-animation (S3).
+  Data: `cloud02-10track` first, then the other Section-1 realisations.
+- **E2 — tap-test harness** (the measurable performance experiment): render
+  the SAME Section-1 strip under each strategy in the app; the composer taps
+  along on a MIDI keyboard (loopMIDI infra exists); compare tap-vs-target
+  error distributions per strategy. n = 1 (composer-as-subject) suffices to
+  eliminate gross losers; the harness is reusable with real players later.
+- **E3 — GC device prototype**: ball physics (one parabola per gap, landing
+  = attack), lookahead (when the ball becomes visible), irregular gaps
+  (variable-height bounces), single group vs. chained groups.
+
+**The strategy slate these discriminate between:** S0 cursor-only proportional
+(control; already doubted — "slippage") · S1 Mists baseline (proportional +
+perceptual beams + cursor) · S2 = S1 + GC landing at group starts · S3 = S2 +
+GC bouncing the internal pulse where a first-level rational fits · S4 mixed
+metric notation (tuplet + tempo glyphs on chunks that fit, proportional
+residue) · S5 full metric at 32nds (already rejected — the gymnastics M5
+exists to avoid). Elimination evidence: E1 coverage licenses or kills S4; E2
+timing error runs S0/S2/S3/S4 head-to-head — the count/react question made
+empirical; composer readability judgment covers what the numbers can't.
+
+**Deliberately NOT done:** nothing run (credits, plus the standing M5
+do-not-run) · no PLANNER edit (recent notation thinking files via PLAN §3/M5)
+· no schema or prototype work (Phase A1 remains the next step on renewal,
+unchanged). **Paper filings:** the GC mechanism, the count/react reversal, and
+eliminate-with-reasons as method → PAPER_NOTES same day.
