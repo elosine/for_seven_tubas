@@ -51,6 +51,15 @@ so fixed how we work from here.
   the accretion I dropped that variation without saying so. Composer now knows;
   restoring it is unclaimed.
 
+- **Selection work, same day:** `A` selects the pulse column at the playhead,
+  `SHIFT+A` extends it across columns, and **multi-resize** now exists — drag
+  one edge of a multi-selection and every selected note takes the same delta.
+  Multi-MOVE already worked (`startGroupDrag`); this is its missing twin. The
+  long-tone path is now `A` -> `O` -> drag. **A marquee was assessed and
+  rejected on purpose:** left-drag on empty lane space already pans, and the
+  lanes are separate positioned divs so a cross-lane box needs per-lane
+  hit-testing. Grid material wants "this column", not a rectangle.
+
 **Next up:**
 1. **THE COMPOSER LISTENS** and keeps editing columns — that loop is now
    supported end to end.

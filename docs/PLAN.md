@@ -1101,6 +1101,26 @@ composer → notation → performance architecture.)*
      `applyPanelField` works on the PRIMARY selection only — one note at a time.
      *Verified:* 3 selected notes converted at once, unselected note untouched,
      ignored while typing in a field.
+  5. **`A` / `SHIFT+A` = select the pulse column at the playhead** — and
+     shift-extend accumulates columns, so scrolling and shift-A-ing builds a
+     column RANGE with no new gesture to learn. The grid comes from
+     `scorePulse()`, inferred from the score's own modal onset gap.
+  6. **Multi-resize** — dragging one edge of a note that is part of a
+     multi-selection applies the SAME delta to every other selected note
+     (uniform, not proportional: the operation is "make this column longer",
+     not "scale it"). This is the resize twin of `startGroupDrag`, which already
+     did multi-MOVE; a META gesture shape keeps its own member-retime path and
+     is excluded. The readout reports `x3 notes` while dragging.
+     **The long-tone workflow is now three moves: `A` -> `O` -> drag one edge.**
+     *Verified:* A selects 3, SHIFT+A extends to 6 across two columns, plain A
+     replaces, empty column reports rather than throwing · a right-edge drag
+     took all three 0.2s -> 1.2s with starts unchanged and unselected notes
+     untouched · solo resize unaffected · ONE undo restored all three, redo
+     re-applied. *(A marquee/rubber-band was assessed and deliberately NOT
+     built: left-drag on empty lane space already pans the score, and the lanes
+     are separate positioned divs so a box spanning them must be hit-tested per
+     lane rather than in one coordinate space. Grid material wants "this
+     column", not "everything in this rectangle".)*
   4. **Drag-length readout** — a cursor-following box while resizing, which also
      names the trap: on a fixed one-shot it reads
      `(staccato one-shot — sounds 0.45 s; press O for ORD)`. It deliberately

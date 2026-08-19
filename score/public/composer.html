@@ -2116,6 +2116,15 @@ const Composer = {
                 return;
             }
 
+            // A = select every note in the pulse column at the playhead.
+            // SHIFT+A adds that column to the selection, so scrolling and
+            // shift-A-ing builds a column RANGE without needing a marquee.
+            if ((e.key === 'a' || e.key === 'A') && !e.ctrlKey && !e.altKey && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
+                this.selectColumnAtPlayhead(e.shiftKey);
+                return;
+            }
+
             // C = convert selected note(s) to CUIVRE via pitch palette (the
             // cuivre range is tiny — 60-67 — so conversion always asks WHICH
             // pitch; hovering a palette key previews it through the track port)
@@ -3349,6 +3358,47 @@ const Composer = {
     // means changing the TECHNIQUE first and only then dragging the right edge.
     // The panel does this one note at a time (applyPanelField works on the
     // primary selection only) - this does the whole selection at once.
+    // The pulse grid is inferred from the score's own onsets, so this needs no
+    // tempo setting and follows the material if the pulse changes.
+    scorePulse() {
+        const on = Array.from(new Set(this.objects
+            .filter(o => o.type === 'waveCurve' && o.layer < META_LAYER && o.sonifyNote != null)
+            .map(o => +o.startSeconds.toFixed(4)))).sort((a, b) => a - b);
+        const tally = {};
+        for (let i = 1; i < on.length; i++) {
+            const g = +(on[i] - on[i - 1]).toFixed(3);
+            if (g > 0.01) tally[g] = (tally[g] || 0) + 1;
+        }
+        const best = Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+        return best ? +best : 0.4;
+    },
+    // A / SHIFT+A. Grid material wants "this column", not a freeform marquee -
+    // and shift-extend gives a column RANGE with no new gesture to learn.
+    selectColumnAtPlayhead(extend) {
+        const P = this.scorePulse();
+        const col = Math.max(0, Math.round((this.scrollOffset / this.pixelsPerSecond) / P));
+        const t = +(col * P).toFixed(4);
+        const hit = this.objects.filter(o => o.type === 'waveCurve' && o.layer < META_LAYER
+            && Math.abs(o.startSeconds - t) < P / 2);
+        if (!hit.length) {
+            this.saveStatus.textContent = 'column ' + (col + 1) + ' is empty';
+            return;
+        }
+        if (extend) {
+            const have = new Set(this.selectedObjects);
+            hit.forEach(o => { if (!have.has(o)) this.selectedObjects.push(o); });
+            this.selectedObject = this.selectedObjects[0];
+        } else {
+            this.selectedObjects = hit.slice();
+            this.selectedObject = hit[0];
+        }
+        this.selectedNodeIdx = -1;
+        this.renderAll();
+        this.showPropertyPanel();
+        this.saveStatus.textContent = (extend ? '+column ' : 'column ') + (col + 1)
+            + ' — ' + this.selectedObjects.length + ' note(s) selected';
+    },
+
     convertSelectedToOrd() {
         const targets = (this.selectedObjects.length ? this.selectedObjects
             : (this.selectedObject ? [this.selectedObject] : []))
@@ -4510,6 +4560,17 @@ const Composer = {
             ? this.objects.filter(o => o !== wc && o.groupId === wc.groupId)
                 .map(o => ({ o, start: o.startSeconds, end: o.endSeconds, time: o.time }))
             : [];
+        // MULTI-RESIZE: if the dragged note is part of a multi-selection, every
+        // other selected note takes the SAME delta (uniform, not proportional -
+        // "make this column longer" is the operation, not "scale it"). Moving a
+        // selection already worked via startGroupDrag; this is its resize twin.
+        // A META group shape keeps its own member-retime path and is left out.
+        const multi = (!isGroupShape && this.selectedObjects.length > 1
+            && this.selectedObjects.includes(wc))
+            ? this.selectedObjects.filter(o => o !== wc && o.type === 'waveCurve'
+                && o.layer < META_LAYER)
+                .map(o => ({ o: o, start: o.startSeconds, end: o.endSeconds }))
+            : [];
         const origYs = wc.nodes.map(n => n.y);
         const maxY = Math.max(...origYs, 0.5);
         const x0 = startEvent.clientX, y0 = startEvent.clientY;
@@ -4561,15 +4622,27 @@ const Composer = {
                 }
             }
             this.updateWCRendering(wc);
+            // carry the same edge move to the rest of the selection
+            if (multi.length && (kind === 'left' || kind === 'right' || kind === 'corner')) {
+                const dS = wc.startSeconds - origStart, dE = wc.endSeconds - origEnd;
+                for (const m of multi) {
+                    const ns = Math.max(0, +(m.start + dS).toFixed(3));
+                    const ne = +(m.end + dE).toFixed(3);
+                    if (ne - ns < 0.02) continue;          // never invert a note
+                    m.o.startSeconds = ns; m.o.endSeconds = ne;
+                    this.renderWaveCurve(m.o);
+                }
+            }
             this.renderNodeHandles(wc);
             // length readout while dragging an edge. A fixed one-shot ignores the
             // drawn length at playback, so say so rather than let the number lie.
             if (kind === 'left' || kind === 'right' || kind === 'corner') {
                 const fixed = this.isFixedLen(wc);
                 this.showDragDur(ev, wc.endSeconds - wc.startSeconds,
-                    fixed ? '(' + wc.technique + ' one-shot — sounds '
+                    (multi.length ? '×' + (multi.length + 1) + ' notes  ' : '')
+                    + (fixed ? '(' + wc.technique + ' one-shot — sounds '
                             + (this.techLength(wc.technique, wc.sonifyNote) || '?') + ' s; press O for ORD)'
-                          : '');
+                          : ''));
             }
         };
         const onUp = () => {
