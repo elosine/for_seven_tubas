@@ -38,6 +38,31 @@ plans around it** · no clear evidence means no diagnosis.
 Do NOT scan or analyze the codebase unprompted. Name the question first, then read only
 what answers it. High bar for subagents / background processes.
 
+## Journal AS THE WORK HAPPENS, not at session end
+
+**`docs/RUNNING_LOG.md` gets an entry while the work is happening.** The composer
+clears chat regularly for cost hygiene, and the chat is not a record. Waiting for
+`/session-end` means a clear can cost the process — which already happened once
+on day 18, when a whole afternoon of decisions had no running-log entry until the
+composer asked for one.
+
+**Write an entry when any of these occur, without being asked:**
+- a decision is made, *with the why and what was rejected*
+- a number turns out to matter (a measurement, a threshold, a formula)
+- something is verified — say what was checked and how
+- something is deliberately NOT done, and why
+- a wrong path is abandoned — **the dead ends are evidence, keep them**
+- the composer says something that reframes the work; put it in their words
+
+**Why the bar is "would this be expensive to rediscover", not "is it important".**
+The composer intends to write papers from this process — not only the one in
+`docs/PAPER_NOTES.md`. What the paper needs is the *sequence*: what was tried,
+what was discovered, how the discovery happened, what it replaced. A tidy summary
+of conclusions is worth much less than the trail.
+
+Also file to `docs/PAPER_NOTES.md` the moment something bears on the argument —
+a framing, a reversal, a quotable phrase. Verbatim where the wording matters.
+
 ## Apps
 
 - **Composer score:** `node score/server.js` → http://localhost:5200/composer.html

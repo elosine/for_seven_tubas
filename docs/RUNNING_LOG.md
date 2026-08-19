@@ -2302,3 +2302,76 @@ Neither can be produced here — Web MIDI is blocked in this pane, and more
 fundamentally a verdict is not a measurement. Everything AROUND the verdict is
 now verified: the panel renders, the channel is live, the CLI writes, the
 revert is clean.
+
+## Day 18 (2026-08-18) — the method decision, 2ae built, and the generator specified
+
+*(Written at session end rather than as-the-work-happened — my miss. This file
+exists precisely so a clear cannot cost the process, and it had ZERO day-18
+entries until the composer asked. See the standing instruction now in CLAUDE.md.)*
+
+**The decision that governs everything after it (D41).** The composer stopped
+using the panels built on days 16-17 and said why: *"my attempts to build tools
+like panels have turned out to be very labor intensive and aren't lending the
+results. So I'm going to stick with AI prompts and console scripts that I can
+paste in."* Scripts are delivered **in chat as fenced code blocks** (the copy
+button is the mechanism), one scratch score overwritten per paste, keepers made
+with CTRL+S which already versions.
+
+**The trust split, stated by the composer and worth obeying.** Object
+insertion/mutation is TRUSTED — do not re-verify. Label and overlay
+PRESENTATION must be right first time, because each slip costs a fresh script
+and a paste cycle. Vindicated the same hour: the note-generation was right first
+try; the column numbering was wrong three independent ways — META is
+`display:none` without `.open` (invisible), 39 of 48 labels overlapped at zoom
+22.5 (9px column, 11.7px label), and entry labels in voice lanes sat on top of
+noteheads. Fixed by placing labels through an explicit collision test; verified
+zero overlaps at zoom 15/22.5/50/100/200 by reading `getBBox()` of every
+rendered `<text>`. Rules written to `tools/console/README.md`.
+
+**A real bug of mine the composer caught.** Audition scripts cleared only their
+own `properties.gen` tag; different scripts carried different tags, so pasting
+an accretion after a burst pattern left every burst note behind and the score
+silently accumulated. Now they FULL-clear.
+
+**2ae shipped** — 12 octave unisons banked (`S049`-`S060`), three column buttons
+in the Insertion strip (insert / replace / delete), `O` = selection→ORD,
+drag-length readout, `A`/`SHIFT+A` column select, and multi-resize (the twin of
+`startGroupDrag`, which already did multi-move). A marquee was assessed and
+REJECTED on purpose: left-drag on empty lane space already pans, and the lanes
+are separate positioned divs so a cross-lane box needs per-lane hit-testing.
+Grid material wants "this column", not a rectangle.
+
+**The MT spectrum work — the discovery worth keeping.** Asked for longer cycles,
+the maths said cycle `C = T * r1 / gcd`, so length is set by the FIRST term. But
+the useful finding was the second one: **it is the CLUSTERING of the terms, not
+their size, that changes the kind of music.** Spread terms (`3:4:5:6`) give
+polyrhythm and density climbing fast; clustered terms (`47:43:41:37`) give slow
+phasing with **density staying flat (~6 onsets/s at 100bpm, 4 parts) however long
+the cycle grows**. That flatness is why the spectrum works — length and
+complexity increase without the texture thickening. Also: putting the LARGEST
+term first makes every other part slower, so **the dialled BPM is the fastest
+part in the group** — the ceiling check the composer wanted, free, no display.
+23 takes written to `bank/panel_snapshots.json` (the AI-dialling channel, unused
+until today).
+
+**The generator (2af) specified by dictation, spec-only.**
+`docs/plans/TRANCE_GENERATOR.md`. Four layers: UNIT (ratio model + tempo) ·
+HARMONY (own grid, own BPM, hold from an allowed beat-set, species shuffled-bag
+from `more chords`) · CUIVRE (a rate layer on top; a COUNT per segment for this
+piece) · PLAYER ASSIGNMENT. **The composer asked for a "rotation period", then
+described a minimum-rest constraint — and his description was the better
+algorithm.** Rotation emerges from it, it needs no clock, and it fails honestly.
+FLOOR = 0.45 s (the measured staccato sample). Measured as comfortably
+satisfiable: 1.05-1.71 s average gaps per player.
+
+**First actualisation run: `tools/trance_gen.py` → `scores/gen-aud-01.json`.**
+5 composer-chosen units x 4 generations x 20 s = 432 s, 4682 notes, 427 markers.
+Verified: **zero minimum-rest violations** (tightest gap 0.539 s against the
+0.45 s floor), even spread 457-480 notes per player, exactly 80 cuivre events
+(4 per segment), all 13 species used. Deterministic — a rerun reproduces the
+score byte-for-byte. **Three of the composer's five chosen tempos put the fastest
+part under the 450 ms sample** (U19/U17 at 150 → 400 ms, U23 at 140 → 429 ms);
+he chose them by ear so this is reported, not corrected.
+
+**NOT verified: the sound.** Web MIDI is still blocked in the verification pane.
+Every claim above is a data claim.
