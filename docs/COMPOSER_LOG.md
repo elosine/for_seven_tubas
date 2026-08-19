@@ -1437,3 +1437,34 @@ architecture. AI assessment filed in RUNNING_LOG same evening.*
 NOTATION_ARCHITECTURE.md amendment 1 (provenance kinds + the
 material-determines-realization principle); "Ghost trance" recorded as
 dictated — the trance section.*
+
+## 2026-08-19 (day 19, evening) — D3 dissolves the same way: blunt shapes, instinctive reaction, decisions at material time (dictated)
+
+*Closing the per-decision walk-through as too detailed for now:* "let's
+resolve some things that are structurally problematic — a decision is
+necessary in order to build the right architecture." *On the performer
+transform:*
+
+> *"For the performers, it's probably much more blunt. And I'll have an
+> intuition by just watching the animation — maybe a little akin to the tap
+> experiments we're doing in the notation. Performers will have an
+> instinctive reaction depending on the shape and how it feels, and we'll
+> just have to make those decisions when we're dealing with the actual
+> specific material."*
+
+> *"There's probably a few blunt shapes that will affect the way they play
+> the crescendo, but not much more. If it's like a twenty percent slope
+> versus a twenty-five percent slope, they probably won't play anything much
+> different — or at least not consistently different between the different
+> players."*
+
+> *"The morphing example: the crescendo will be in there, but they might
+> listen for different things to achieve it, and it might not follow the
+> mathematical curve that the sample playback has to. I might give some
+> instruction like: there should be a crescendo in the beating — but it
+> might not correspond to the same type of crescendo they need to use. They
+> might have to step up the volume quickly or something like that."*
+
+*Directive: a very short bulleted list of all decisions, highlighting the
+architectural ones — those that must be addressed now or send the build in
+different directions.*

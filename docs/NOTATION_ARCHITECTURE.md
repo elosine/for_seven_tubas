@@ -123,8 +123,24 @@ realization is MATERIAL-DEPENDENT, and IR content carries PROVENANCE KINDS.**
   the curve, watching the curve and expressing it."* Marks anchor discrete
   events; the displayed curve is the notation of the continuous channel;
   hairpins are a study-score engraving of the same data, not the primary
-  device. (Sharpens §8 row 2: D3's remaining question is whether the
-  DISPLAYED curve is the raw S1 curve or a transformed one.)
+  device.
+
+**AMENDMENT 2 (2026-08-19, composer-confirmed, same review) — D3's
+performer transform dissolves into the same pattern.** Performers react
+INSTINCTIVELY to a few **blunt shape families**, not to fine geometry (a
+20 % vs 25 % slope is not consistently distinguishable between players);
+morph instructions may redirect what the performer listens for (*"a
+crescendo in the beating"*) without following the playback's mathematical
+curve. Structural consequences, closed now so nothing forks later:
+- the **raw S1 curve stays canonical**; the display pipeline carries an
+  OPTIONAL per-material transform slot — compensation, if ever wanted, is
+  an S2 derivation switched on per class, never a rebuild;
+- **performance semantics attach to the shape FAMILY** (a per-material
+  vocabulary, kin to the tap experiments), not to exact geometry — the
+  exact curve remains in the data and the display, but what it MEANS to a
+  player is decided per material, at material time;
+- per-material verbal instructions (what to listen for) are IR content with
+  `authored` provenance, like any other mark.
 
 ### S4 — Renderers / runtimes
 
@@ -387,7 +403,7 @@ that will eventually get folded in"* (D42). The fold-in, restated from
 | # | Decision | Owner | Blocks |
 |---|---|---|---|
 | 1 | ~~0–10 → dynamic-mark convention~~ **DEFERRED by dissolution (amendment 1):** no global ladder exists; marks are authored-first IR content, per-material rules harvested only when a material demands one | composer authors per material | nothing — slice 1 proceeds hand-marked |
-| 2 | D3 performer-transform: applied to which manifestations, tuned how | composer (owed since day 14) | slice-1 finish |
+| 2 | ~~D3 performer-transform~~ **STRUCTURALLY RESOLVED (amendment 2):** raw curve canonical + optional per-material transform slot; performance semantics attach to blunt shape families, decided per material at material time | composer, at material time | nothing now |
 | 3 | ε tolerance (20 vs 30 ms) and the playable-unit floor (80–120 ms) | composer's ear / E2 | Section-1 strategy mix (D43) |
 | 4 | GC smooth-entry cue at bounce apex vs impact | composer | E3 scope |
 | 5 | Vertical score unit for notation (staff-space vs lane-fraction hybrid) | A2 schema work | A2 |

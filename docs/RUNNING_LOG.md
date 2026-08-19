@@ -2970,3 +2970,19 @@ dynamics). Applied as **NOTATION_ARCHITECTURE.md AMENDMENT 1** (§1 S3:
 material-dependent realization + provenance kinds + survival law; §8 row 1
 deferred-by-dissolution, row 7 demoted). Verbatim in COMPOSER_LOG. Walk-through
 continues at decision 2 (D3 performer transform).
+
+**Decision 2 dissolves like decision 1 (same sitting) → AMENDMENT 2.** The
+composer's D3 position: performers react INSTINCTIVELY to a few BLUNT shape
+families, not to fine geometry (20 % vs 25 % slope is not consistently
+distinguishable between players); morph instructions may redirect what the
+performer listens for ("a crescendo in the beating") without following the
+playback's mathematical curve. Structural residue applied as amendment 2:
+raw S1 curve stays canonical · the display pipeline carries an OPTIONAL
+per-material transform slot (so compensation, if ever wanted, is an S2
+derivation, not a fork) · performance semantics attach to blunt shape
+FAMILIES per material, decided at material time. §8 row 2 restated. The
+walk-through itself was closed by the composer as too detailed for now —
+the standing test is now "does the answer fork the architecture?"; the
+triaged list went to chat and the verdict was ZERO composer decisions block
+Phase A/A2 (two technical picks — vertical unit, file locations — are AI
+calls at A2 with rationale).
