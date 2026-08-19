@@ -16,6 +16,13 @@ scores/versions/
 # what gets committed, via "Save as next".
 scores/*-work.json
 
+# Generator OUTPUT is derivable, so it is not committed: gen-aud-*.json are
+# rendered byte-for-byte by tools/trance_gen*.py from a fixed seed (12 MB of
+# audition material that regenerates in about a second). Everything else in
+# scores/ IS committed -- including the composer's working sketches, because
+# autosave has eaten a score three times and git is the only net under it.
+scores/gen-aud-*.json
+
 # OS noise
 Thumbs.db
 .DS_Store

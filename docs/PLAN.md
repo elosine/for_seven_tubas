@@ -1150,8 +1150,9 @@ composer → notation → performance architecture.)*
   start the conflict engine flagging same-player repeats — a real trade, not a
   free fix. Composer's call: leave it.
   **AS RUN (day 19).** `tools/trance_gen.py` · `_sets.py` · `_series.py` are the
-  three hand-run variants; five audition scores came out (`gen-aud-01…05`, all
-  untracked and REGENERABLE from the tools). Layer 4 gained a second mode,
+  three hand-run variants; five audition scores came out (`gen-aud-01…05`, gitignored
+  BECAUSE they are regenerable byte-for-byte from the tools at a fixed seed;
+  every other score in this work IS committed). Layer 4 gained a second mode,
   `ASSIGN='fixed-tempo'` — six streams over ten players as four pairs plus two
   solos, partners 5 tubas apart, a pair splitting its stream so neither plays
   every beat and the orchestration moves into the PITCHES. Verified: 210
