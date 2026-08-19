@@ -1,26 +1,31 @@
 """TRANCE GENERATOR - hand-run per docs/plans/TRANCE_GENERATOR.md
-5 units x 4 generations x 20s, one audition score."""
+Edit the CONFIG block, run from the repo root, load OUT in the score app."""
 import json, io
 from math import gcd
 from functools import reduce
 
+OUT = 'scores/gen-aud-02.json'
 SEG = 20.0          # seconds per generation
 GAP = 1.6           # silence between generations
-GENS = 4            # generations per unit
+GENS = 3            # generations per unit
 HARM_BPM = 150.0    # layer 2 grid (independent of the unit tempo)
 HOLDS = [1, 2, 3, 4]
-CUIVRE_PER_SEG = 4
+CUIVRE_PER_SEG = 0  # layer 3 OFF for this run - the composer found it distracting.
+                    # Kept in the engine; set a count to switch it back on.
+PPS = 50.0          # assumed zoom when spacing labels (the composer's default)
 FLOOR = 0.45        # layer 4 minimum rest per player
 NOTELEN = 0.2
 PLAYERS = 10
 NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 nm = lambda m: NAMES[m % 12] + str(m // 12 - 1)
 
-UNITS = [('U17', '13:12:11:10:9:8',    150),
-         ('U18', '19:17:16:15:14:13',  130),
-         ('U19', '31:29:27:25:23:21',  150),
-         ('U20', '38:37:36:35:34:33',  120),
-         ('U23', '64:61:59:53:47:43',  140)]
+UNITS = [('A', '6:5:4:3:2:1',        100),
+         ('B', '7:6:5:4:3:2',        100),
+         ('C', '8:7:6:5:4:3',        100),
+         ('D', '11:10:9:8:7:6',      100),
+         ('E', '13:12:11:10:9:8',    100),
+         ('F', '16:15:14:13:12:11',  100),
+         ('G', '19:17:16:15:14:13',  100)]
 
 LIST = 'more chords'          # which custom list the species come from
 
@@ -69,7 +74,7 @@ class Bag:
         return self.pool.pop()
 
 
-objects, log = [], []
+objects, log, placed = [], [], []
 nid = [0]
 def oid(p):
     nid[0] += 1
@@ -152,17 +157,29 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
                 'sonifyNote': pitch, 'technique': tech,
                 'sonifyMode': 'plain', 'recVel': 112})
 
-        # segment header marker + one marker per harmony change
-        objects.append({'id': oid('mk'), 'type': 'marker', 'layer': 10,
-                        'time': round(segStart, 4),
-                        'label': '[%02d]  %s g%d  %s @%d  cyc %.1fs' % (idx, uname, gen + 1, ratios, bpm, C),
-                        'color': '#C62828', 'performanceNotes': '', 'properties': {'gen': 'trance'}})
-        for a, b, sp in plan:
+        # LABELS. renderMarker hardcodes font-size 10, y=24 and x+4, so two
+        # markers near the same time overprint and BOTH become unreadable - which
+        # is what happened in gen-aud-01, where the long header sat on top of the
+        # first few species marks. Fix: every label short, and placed by an
+        # explicit collision test with the index winning its space first.
+        def put(t, text, color):
+            x, w = t * PPS + 4, len(text) * 6.2
+            if not all(x + w + 3 < q[0] or x > q[0] + q[1] + 3 for q in placed):
+                return False
+            placed.append((x, w))
             objects.append({'id': oid('mk'), 'type': 'marker', 'layer': 10,
-                            'time': round(segStart + a, 4), 'label': sp.replace('VERT01-', 'ch'),
-                            'color': '#00695C', 'performanceNotes': '',
-                            'properties': {'gen': 'trance'}})
-        log.append((idx, uname, gen + 1, ratios, bpm, C, len(onsets),
+                            'time': round(t, 4), 'label': text, 'color': color,
+                            'performanceNotes': '', 'properties': {'gen': 'trance'}})
+            return True
+
+        # the first harmony starts at the same instant as the index, so it can
+        # never win a slot of its own - carry it IN the index label instead.
+        put(segStart, '%02d %s' % (idx, plan[0][2].replace('VERT01-', '')), '#C62828')
+        dropped = 0
+        for a, b, sp in plan[1:]:                        # priority 2: the harmony
+            if not put(segStart + a, sp.replace('VERT01-', ''), '#00695C'):
+                dropped += 1
+        log.append((idx, uname, gen + 1, ratios, bpm, C, dropped,
                     [s for _, _, s in plan], fallbacks, segStart))
         t0 += SEG + GAP
 
@@ -172,17 +189,17 @@ score = {'version': 1, 'layoutVersion': 2,
          'assets': {},
          'metadata': {'created': '2026-08-18T20:00:00.000Z', 'modified': '2026-08-18T20:00:00.000Z'},
          'objects': objects}
-json.dump(score, io.open('scores/gen-aud-01.json', 'w'), separators=(',', ':'))
+json.dump(score, io.open(OUT, 'w'), separators=(',', ':'))
 
 print('total %.1f s  ·  %d notes  ·  %d markers' % (t0, len([o for o in objects if o['type'] == 'waveCurve']),
                                                     len([o for o in objects if o['type'] == 'marker'])))
 print()
 print('%-4s %-5s %-3s %-22s %4s %7s %5s  %s' % ('idx', 'unit', 'g', 'ratios', 'bpm', 'cycle', 'at', 'species in order'))
 print('-' * 118)
-for idx, u, g, r, b, C, n, sps, fb, st in log:
+for idx, u, g, r, b, C, dropped, sps, fb, st in log:
     seen = []
     for s in sps:
         if not seen or seen[-1] != s: seen.append(s)
     print('[%02d] %-5s g%-2d %-22s %4d %6.1fs %4.0fs  %s%s' %
           (idx, u, g, r, b, C, st, ' '.join(x.replace('VERT01-', '') for x in seen),
-           '   FALLBACKS %d' % fb if fb else ''))
+           ('  [%d labels hidden]' % dropped) if dropped else ''))

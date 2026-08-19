@@ -371,6 +371,54 @@
     },
     "comment": "6-part spectrum at 100 bpm - cycle 38.4s - longest the panel allows",
     "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-24-6p-04.2s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "7:6:5:4:3:2",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 4.2s - gap fill between 3.6s and 4.8s",
+    "saved": "2026-08-19T00:00:00.000Z"
+   },
+   "take-25-6p-06.6s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "11:10:9:8:7:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 6.6s - gap fill between 4.8s and 7.8s",
+    "saved": "2026-08-19T00:00:00.000Z"
+   },
+   "take-26-6p-09.6s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "16:15:14:13:12:11",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 9.6s - gap fill between 7.8s and 11.4s",
+    "saved": "2026-08-19T00:00:00.000Z"
    }
   },
   "phase": {}
