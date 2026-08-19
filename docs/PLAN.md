@@ -1082,6 +1082,18 @@ composer → notation → performance architecture.)*
      the score's own modal onset gap (`pulseOf()`), so a tempo change needs no
      edit here. *Verified:* playhead parked 0.07 s off column 8 snapped to it,
      3 notes landed on 3 random free players, both occupied lanes avoided.
+  2b. **`replace → column` and `delete column`** *(added same day, on the
+     composer's "both if possible")* — the full replace loop in the strip.
+     `delete column` removes every note in the column and **leaves a hole**:
+     markers are untouched so the numbering keeps counting the grid, and nothing
+     after it shifts. `replace → column` clears first, so the scatter has all
+     ten players. Both report into `#blastInfo` and both undo in ONE step; no
+     confirm dialog, because `#playhead` is a visible full-height line at
+     `left:50%` so the target column is never ambiguous. *Verified:* delete 2→0
+     with the marker surviving and the next column untouched · a second delete
+     on the empty column reports rather than throws · replace swapped 2 notes
+     for the 3-note F# unison across the full ensemble · plain insert still ADDS
+     (no regression) · CTRL+Z restored each in one step.
   3. **`O` = whole selection → ORD** (`convertSelectedToOrd`). The long-tone
      path. A fixed one-shot plays its own sample length however the block is
      drawn, so turning a column into long tones means changing the TECHNIQUE

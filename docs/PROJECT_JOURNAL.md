@@ -36,8 +36,12 @@ so fixed how we work from here.
   overlaps at zoom 15/22.5/50/100/200, verified by reading `getBBox()` of every
   rendered `<text>`. Rules written up in `tools/console/README.md`.
 - **2ae shipped** — 12 octave unisons in the blast bank (`S049`-`S060`, list
-  `unisons`), the `insert → column` button, `O` = selection→ORD, and a
-  drag-length readout. All four verified in the running app. See PLAN 2ae.
+  `unisons`), three column buttons in the Insertion strip
+  (`insert → column` · `replace → column` · `delete column`), `O` =
+  selection→ORD, and a drag-length readout. All verified in the running app.
+  See PLAN 2ae. **The replace loop the composer asked for is now complete in
+  the app itself** — no console script needed for it. Delete leaves a hole by
+  design (markers survive, nothing shifts, later columns keep their numbers).
 - **A real bug of mine, caught by the composer:** the audition scripts cleared
   only their own `properties.gen` tag, and different scripts carried different
   tags — so pasting an accretion after a burst pattern left every burst note
