@@ -2986,3 +2986,91 @@ the standing test is now "does the answer fork the architecture?"; the
 triaged list went to chat and the verdict was ZERO composer decisions block
 Phase A/A2 (two technical picks — vertical unit, file locations — are AI
 calls at A2 with rationale).
+
+## Day 19 (2026-08-19, night) — A2 RUN: IR schema v0 drafted, validator mutation-tested
+
+**Composer confirmed zero architectural decisions were owed and green-lit A2.**
+Deliverables: `notation/schema/IR_SCHEMA_v0.md` (spec) ·
+`ir_v0.schema.json` (machine contract) · `notation/registry/classes.json` +
+`accommodations.json` (seeds, all status:proposed) · `tools/ir_validate.js` ·
+a smoke example built from two REAL `tranceA002f` objects. No extractor code
+— A3–A5 stay hand-worked by design.
+
+**Decisions made in the drafting (AI calls, composer veto open):**
+- **Locations: a `notation/` root** (schema/ · ir/ · registry/). Notation is
+  a stratum, so it mirrors `scores/` (S1) and `analysis/` (S2). *Rejected:*
+  docs/plans (data, not a plan) and bank/ (compositional, not notational).
+- **Deterministic derived ids** — an event extracted from `wc-4386` is
+  ALWAYS `ev-wc-4386`, every regeneration. This is what makes amendment 1's
+  survival law mechanical: overlays re-attach by id and the id cannot drift.
+- **The vertical-unit question EXITS A2** (was §8 row 5): the IR is
+  semantic — no layout units at all; the validator REJECTS layout-unit keys
+  in IR files. The staff-space-vs-lane-fraction choice moves to the
+  coordinate-module build (slice 1), where it is real.
+- **Reference, don't copy, the continuous** — envelopes/bends stay in S1;
+  the IR copies only onset/duration/pitch/technique, and the validator's
+  `--against-source` mode asserts the copies still match the source score
+  (Principle 5's two-ends check). Duration deliberately UNCHECKED against
+  S1: one-shots carry sample-true length, which diverges from the drawn
+  block by design (D9).
+- **Tempo at the finest grain (per chunk)** — per-part or shared tempi are
+  then special cases, so the open musical choice (§8 row 8) forks nothing.
+- **`unresolved` is a legal chunk strategy** and renders as the class
+  fallback — the parachute is in the schema, not just the doc.
+- **E1 fold-in mapping written as a table** (spec §5): every field of the
+  chunker record maps onto the IR chunk.
+
+**Validator mutation-tested before anything depends on it (Principle 6):**
+9 deliberate breakages — bad enum · missing required · dangling ref ·
+nondeterministic id · spelled-vs-midi mismatch (61 ≠ 63) · layout key ·
+orphaned overlay target · span outside window · authored-override without
+contradicts — ALL CAUGHT; the untouched example stays green, and
+`--against-source` verifies the two real objects. The spelled-vs-midi check
+is itself a two-ends assertion (spelling and MIDI pinned against each
+other, not against a shared helper).
+
+**v0 exclusions, explicit (spec §7):** ties/slurs · rests-as-nodes ·
+multi-part chunks · M3 release devices (awaits P3) · 2j tremolo figures ·
+page/system hints. Each enters by amendment when a hand-worked chunk forces
+it — not before.
+
+**Verification: 3-agent adversarial pass launched** (contract compliance vs
+the architecture doc · expressibility vs real score data + the E1 record ·
+validator-hunting with fresh mutations). Findings + fixes below on return.
+
+**A2 verification returned: 22 findings, all applied; battery now 29 cases,
+all green.** The catches worth keeping:
+- **Seven validator checks LIED** (passed docs they should fail): the `in`
+  operator walked the prototype chain, so a key named `toString` bypassed
+  every closed object · duplicate ids silently deduped by Map · a marker as
+  event-source made against-source compare against `undefined` (NaN
+  comparisons pass) · cross-score refs skipped wholesale · {part,span}
+  overlay targets never validated · chunk.class never resolved against the
+  registry · stale orphaned flags accepted. All fixed and each now has a
+  red mutation proving it. **A validator is code; it needs the same
+  adversarial pass as anything else.**
+- **The survival law had a hole at its flagship use case:** chunk ids had
+  no deterministic rule, so a regeneration could renumber chunks and an
+  authored STRATEGY overlay (the composer's per-chunk D43 call) would
+  silently re-bind to the wrong chunk. Now: derived chunk id =
+  `ch-<part>-<earliest member's source id>` — if the chunk moves, its id
+  changes and the overlay orphans LOUDLY.
+- **Two real-data gaps:** `maxErrMs` had no legal slot (added
+  `tempo.maxErrSeconds` + `subdivision`, which also makes p:q exact instead
+  of float-recovered); all 23 real groupIds span multiple parts, so the
+  `{parts, span}` overlay target was added. Markers + gesture labels
+  resolved as S1 READ-THROUGH, not IR carriage (reference-don't-copy).
+- **Provenance split:** structural nodes are derived|authored only;
+  overrides live ONLY in overlays — an "authored-override event" was
+  structurally unable to record its contradiction, so the category was
+  removed rather than patched.
+- **Registry fallback law enforced on itself:** device-gc/device-cursor had
+  "none needed" fallbacks — illegal under the doc's own no-exceptions rule.
+  GC fallback = re-anchor ticks at landing points (a paper score keeps the
+  re-anchor cues); cursor fallback = printed proportional time ruler.
+- **A1 doc amended (dated):** §5 layer-2 (unit choice → coordinate module,
+  slice 1) · §8 row 5 resolved-by-exclusion · row 6 resolved (notation/
+  root + deterministic ids). The vertical-unit "decision" dissolved the
+  same way decisions 1-2 did: the IR needed NO unit, so the fork vanished.
+- **Part-name trap recorded:** E1 "tuba9" = layer 8 — track-id LOOKUP,
+  never numeral parsing.

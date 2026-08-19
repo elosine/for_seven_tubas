@@ -1,0 +1,31 @@
+{
+  "_contract": "The finite bucket of splice behaviors (NOTATION_ARCHITECTURE.md §3). Keyed by strategy name; classes reference these by name. New strategies are decisions with a journal line. Versioned; v0 = the five from the composer's day-19 dictation.",
+  "version": "0.1",
+  "strategies": [
+    {
+      "name": "matisse-cut",
+      "behavior": "clip geometry at the boundary; both sides keep identity; continuous data re-reads from S1 on each side",
+      "source": "composer dictation 2026-08-19 (COMPOSER_LOG day 19)"
+    },
+    {
+      "name": "cursor-jump-continuous-delta",
+      "behavior": "runtime object jumps to new x,y and a new loop at the splice; the TIME delta stays continuous across the visual break",
+      "source": "composer dictation 2026-08-19"
+    },
+    {
+      "name": "stamp-atomic",
+      "behavior": "a glyph group is never cut; the boundary moves or the stamp moves, the stamp does not split",
+      "source": "composer dictation 2026-08-19; piece #2 stamps precedent"
+    },
+    {
+      "name": "bars-prefer-chunk-boundaries",
+      "behavior": "cuts land at chunk starts wherever possible (the M5 chunk is the atom of the strip, PLAN §7 amendment); a cut breaking a beam group is last resort and must be marked in the render",
+      "source": "PLAN §7 amendment; D43 re-anchoring"
+    },
+    {
+      "name": "page-edge-rules",
+      "behavior": "clamp/move decision tree stored as RULES, not baked positions (P6 at layout level); per-class, upgrading piece #2's whole-object-only PL-2",
+      "source": "composer dictation 2026-08-19; piece #2 PL-2 seed"
+    }
+  ]
+}

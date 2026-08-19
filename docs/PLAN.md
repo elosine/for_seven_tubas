@@ -1596,8 +1596,20 @@ decision** (flagged "open before notation" since day 14).
 **A1 DRAFTED 2026-08-19** — `docs/NOTATION_ARCHITECTURE.md` (capped to the six
 contracts; adversarially verified against the day-19 record and the
 predecessor docs, 16 findings fixed pre-commit — trail in RUNNING_LOG day 19
-evening). Awaiting composer review; its §8 lists the nine open decisions.
-Next: **A2 — IR schema v0**.
+evening). Under composer review; amendments 1–2 (2026-08-19, dictated during
+review): material-dependent realization + IR provenance kinds; D3 dissolved
+into blunt shape families + an optional per-material transform slot.
+Decisions 1 (dynamics ladder) and 7 (velocity-vs-CC7) dissolved/demoted.
+
+**A2 DRAFTED 2026-08-19** — IR schema v0: `notation/` root (schema spec +
+JSON Schema + registry seeds + `tools/ir_validate.js`). Deterministic derived
+ids (`ev-<objectId>`, `ch-<part>-<firstEventObjectId>`) mechanize the
+survival law; IR carries NO layout units (vertical-unit choice moved to the
+slice-1 coordinate module); adversarial pass found 22 defects (7 lying
+validator checks incl. a prototype-chain bypass) — all fixed, 29-case
+mutation battery green. Trail in RUNNING_LOG day 19 night.
+Next: **A3 — hand-worked trance bar** (from `tranceA002f`), then A4 morph
+window, A5 density apex.
 
 ## Parking lot
 

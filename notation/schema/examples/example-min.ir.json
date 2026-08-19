@@ -1,0 +1,69 @@
+{
+  "irVersion": "0.1",
+  "id": "example-min",
+  "source": { "score": "tranceA002f", "window": [0, 20], "parts": [4, 5] },
+  "provenance": { "createdBy": "hand", "date": "2026-08-19", "tool": null, "notes": "schema smoke example — NOT an A3 chunk; two real objects from tranceA002f" },
+  "events": [
+    {
+      "id": "ev-wc-4386",
+      "source": { "score": "tranceA002f", "objectId": "wc-4386" },
+      "onset": 0,
+      "duration": 0.42,
+      "pitch": { "midi": 31, "spelled": { "step": "G", "alter": 0, "octave": 1 } },
+      "technique": "staccato",
+      "metric": { "chunk": "ch-4-wc-4386", "grid": [0] },
+      "provenance": "derived"
+    },
+    {
+      "id": "ev-wc-4921",
+      "source": { "score": "tranceA002f", "objectId": "wc-4921" },
+      "onset": 18,
+      "duration": 1.1,
+      "pitch": { "midi": 63, "spelled": { "step": "E", "alter": -1, "octave": 4 } },
+      "technique": "cuivre",
+      "provenance": "derived"
+    }
+  ],
+  "chunks": [
+    {
+      "id": "ch-4-wc-4386",
+      "part": 4,
+      "span": [0, 1],
+      "class": "trance-stream",
+      "strategy": "simple-bar",
+      "tempo": { "anchorSeconds": 0, "unitSeconds": 0.2, "beatSeconds": 0.4, "subdivision": 2, "label": "8ths @ 150" },
+      "events": ["ev-wc-4386"],
+      "devices": [
+        { "id": "dev-1", "kind": "gc", "mode": "landing", "at": 0, "provenance": "derived" }
+      ],
+      "provenance": "derived"
+    },
+    {
+      "id": "ch-5-wc-4921",
+      "part": 5,
+      "span": [17.9, 18.4],
+      "class": "trance-stream",
+      "strategy": "unresolved",
+      "events": ["ev-wc-4921"],
+      "provenance": "derived"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "ov-001",
+      "kind": "dynamic",
+      "target": { "event": "ev-wc-4921" },
+      "value": "p",
+      "provenance": "authored-override",
+      "contradicts": "S1 recVel 127 suggests loud",
+      "orphaned": false
+    },
+    {
+      "id": "ov-002",
+      "kind": "instruction",
+      "target": { "parts": [4, 5], "span": [0, 20] },
+      "value": "example multi-part instruction",
+      "provenance": "authored"
+    }
+  ]
+}

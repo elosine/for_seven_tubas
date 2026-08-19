@@ -330,10 +330,12 @@ surfacing far from causes), adopted on day one as EIGHT laws (P1–P8,
 - **Three-layer stack:** (1) **score time in seconds** — canonical,
   persistent, network-synced; the strip coordinate. (2) **lane-relative
   score units** — persistent, viewport-invariant (lane fraction and a
-  vertical score unit; the exact unit for notation — staff-space vs lane
-  fraction — is fixed in A2 with the schema). (3) **pixels** — recomputed
-  every frame from layers 1+2 × the live viewport, and **stored nowhere: a
-  pixel value in any score or IR file is a bug.**
+  vertical score unit; *amended 2026-08-19, A2:* the staff-space-vs-lane-
+  fraction choice is fixed in the coordinate module at slice 1 — the IR
+  carries NO layout units of any kind, which A2 enforces by validator).
+  (3) **pixels** — recomputed every frame from layers 1+2 × the live
+  viewport, and **stored nowhere: a pixel value in any score or IR file is
+  a bug.**
 - **Composer-first units** (P1): every position spec is written in score
   units; CSS px exists only inside the render pass.
 - **Standard edge anchors on every element** (P2): topMost / bottomMost /
@@ -406,8 +408,8 @@ that will eventually get folded in"* (D42). The fold-in, restated from
 | 2 | ~~D3 performer-transform~~ **STRUCTURALLY RESOLVED (amendment 2):** raw curve canonical + optional per-material transform slot; performance semantics attach to blunt shape families, decided per material at material time | composer, at material time | nothing now |
 | 3 | ε tolerance (20 vs 30 ms) and the playable-unit floor (80–120 ms) | composer's ear / E2 | Section-1 strategy mix (D43) |
 | 4 | GC smooth-entry cue at bounce apex vs impact | composer | E3 scope |
-| 5 | Vertical score unit for notation (staff-space vs lane-fraction hybrid) | A2 schema work | A2 |
-| 6 | Registry + IR file locations and naming | A2 schema work | A2 |
+| 5 | ~~Vertical score unit~~ **RESOLVED BY EXCLUSION (A2, 2026-08-19):** the IR carries no layout units (validator-enforced); the staff-space-vs-lane-fraction choice moves to the coordinate-module build | slice-1 coordinate module | slice 1 |
+| 6 | ~~Registry + IR file locations~~ **RESOLVED (A2, 2026-08-19):** `notation/` root (schema/ · ir/ · registry/); deterministic derived ids (`ev-<objectId>`, `ch-<part>-<firstEventObjectId>`) | — | — |
 | 7 | ~~Velocity vs CC7 (PLAN 2q)~~ **DEMOTED (amendment 1):** neither carrier is notational truth, so notation no longer needs the verdict; 2q stays a mock-up/sandbox consistency question | composer listening test | mock-up fidelity only — not notation |
 | 8 | Tempo scope: per chunk vs per part vs ensemble-shared — D43 prices it (26.2 / 15.9 / 9.1 %); M5's open list also holds: notated vs conducted vs both · GC as person, scroll cue, or click · bar lengths on the realignment cycle `C` | composer / E2 | Section-1 IR |
 | 9 | Release vocabulary + devices (M3) — the PLAN parking-lot P3 design session | composer + AI working session | M3 device classes |

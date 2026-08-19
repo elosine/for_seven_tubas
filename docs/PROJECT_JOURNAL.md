@@ -65,11 +65,17 @@ BEING WRITTEN. Claude Code / Opus 5.**
   index: `aud-7` → `aud-11` / `tranceA002f`.
 
 **Next up — START HERE:**
-0. **A1 — DRAFTED 2026-08-19 evening, awaiting composer review**
-   (`docs/NOTATION_ARCHITECTURE.md`; verified, 16 findings fixed — RUNNING_LOG
-   day 19 evening; review alongside the owed decisions in its §8). Then
-   **A2 — IR schema v0**. *(Original item: the committed next step;
-   composer green-lit Phase A, "b green")*. Deliberately CAPPED: strata · class
+0. **A1 + A2 BOTH DRAFTED 2026-08-19 (evening/night sittings).**
+   A1 = `docs/NOTATION_ARCHITECTURE.md` (16 findings fixed; amendments 1–2
+   from the composer's review dictations: material-dependent realization +
+   provenance kinds; D3 → blunt shape families). A2 = IR schema v0 in
+   `notation/` (22 findings fixed; 29-case mutation battery green;
+   `tools/ir_validate.js`). **Decisions 1/2/5/6/7 dissolved or resolved —
+   ZERO composer decisions block Phase A** (the §8 walk-through was closed
+   by the composer: only resolve what forks the architecture). Next:
+   **A3 — hand-worked trance bar from `tranceA002f`**, then A4 morph
+   window (note: all real groupIds span multiple parts), A5 density apex
+   (fold the E1 fullVocab record, ONE ε variant). Deliberately CAPPED: strata · class
    registry · accommodation bucket · engine passes · coordinate contract ·
    parachute contract. Phase A is cut into commit-sized chunks so a credit
    expiry between them loses nothing: **A1 doc → A2 IR schema v0 → A3/A4/A5

@@ -1,0 +1,102 @@
+{
+  "_contract": "Entry shape per NOTATION_ARCHITECTURE.md §2. Classification exists from pass 1; unknown THROWS with diagnostics, never a silent bucket. New classes are decisions with a journal line. All v0 entries are status:proposed until the composer blesses them against real material.",
+  "_classifyNote": "classify rules are matched IN ORDER against S1/S4 objects; fields refer to score-object keys (type, layer, technique, morphBend, groupId, envShape, nodes). Layer conventions DRIFT between scores (measured 2026-08-19), so rules never rely on layer alone.",
+  "classes": [
+    {
+      "class": "meta-shape",
+      "classify": { "type": "waveCurve", "layer": 10 },
+      "ir": "no per-event IR; renders in graphic-score view + as META overlay (S1 read-through)",
+      "accommodation": "matisse-cut",
+      "fallback": "itself (it IS graphic)",
+      "status": "proposed"
+    },
+    {
+      "class": "marker-label",
+      "classify": { "type": "marker" },
+      "ir": "S1 read-through (renderers read marker.label at marker.time directly; IR carriage only when a notational decision attaches — spec §7)",
+      "accommodation": "stamp-atomic",
+      "fallback": "text at time",
+      "status": "proposed"
+    },
+    {
+      "class": "morph-note",
+      "classify": { "type": "waveCurve", "has": ["morphBend"] },
+      "ir": "sustained event; envelope + bend read from S1 by reference; loudness realized as animated curve, possibly beating indication instead of traditional dynamics (amendment 1 hypothetical)",
+      "accommodation": "matisse-cut",
+      "fallback": "proportional brick + curve",
+      "status": "proposed"
+    },
+    {
+      "class": "trance-stream",
+      "classify": { "type": "waveCurve", "technique": ["staccato", "cuivre"], "context": "fixed-tempo generated section (PLAN 2af); performanceNotes PULSE/VERT tags" },
+      "ir": "events on a per-player fixed grid; chunk strategy simple-bar expected (0.07 ms measured fit); dynamics possibly per attack + hairpins (amendment 1 hypothetical)",
+      "accommodation": "bars-prefer-chunk-boundaries",
+      "fallback": "proportional attack lines",
+      "status": "proposed"
+    },
+    {
+      "class": "density-cloud-note",
+      "classify": { "type": "waveCurve", "technique": ["staccato", "fortepiano", "cuivre"], "context": "Section-1 density material (cloud/densBld lineage scores)" },
+      "ir": "events; mixed per-chunk strategy (D43): simple-bar / tuplet-bar / proportional residue; durations sample-true (D9)",
+      "accommodation": "bars-prefer-chunk-boundaries",
+      "fallback": "proportional attack lines (Mists-style dots)",
+      "status": "proposed"
+    },
+    {
+      "class": "ord-sustained",
+      "classify": { "type": "waveCurve", "technique": ["ord"], "not": ["morphBend"] },
+      "ir": "sustained event; level envelope read from S1 by reference through the optional per-material transform slot (amendment 2)",
+      "accommodation": "matisse-cut",
+      "fallback": "proportional brick + curve",
+      "status": "proposed"
+    },
+    {
+      "class": "fixed-oneshot",
+      "classify": { "type": "waveCurve", "technique": ["fortepiano", "cuivre", "staccato"], "context": "outside generated-stream sections" },
+      "ir": "event with sample-true duration (D9, bank/sample_lengths.json); articulation mark per technique",
+      "accommodation": "stamp-atomic",
+      "fallback": "attack line / brick at true length",
+      "status": "proposed"
+    },
+    {
+      "class": "grouped-gesture",
+      "classify": { "has": ["groupId"], "note": "a grouping over members, not a member class — members classify individually; the group contributes chunk boundaries and a label. ALL 23 real groupIds span multiple parts (measured 2026-08-19)" },
+      "ir": "chunk-boundary hint; label = S1 read-through (groupId + performanceNotes); gesture-wide authored content uses the {parts, span} overlay target",
+      "accommodation": "bars-prefer-chunk-boundaries",
+      "fallback": "members' own fallbacks",
+      "status": "proposed"
+    },
+    {
+      "class": "device-gc",
+      "classify": { "stratum": 4, "kind": "gc" },
+      "ir": "device instance anchored to chunk starts (landing) or internal pulse (E3 modes)",
+      "accommodation": "cursor-jump-continuous-delta",
+      "fallback": "re-anchor tick above the staff at each landing point (renderable from S2/IR chunk anchors) — a paper score keeps the GC's re-anchor cues (D43)",
+      "status": "proposed"
+    },
+    {
+      "class": "device-cursor",
+      "classify": { "stratum": 4, "kind": "scroll-cursor" },
+      "ir": "runtime device; zero-order now-marker",
+      "accommodation": "cursor-jump-continuous-delta",
+      "fallback": "printed proportional time ruler along the strip (the static trace of what the cursor scrolls)",
+      "status": "proposed"
+    },
+    {
+      "class": "device-tremolo-sine",
+      "classify": { "stratum": 4, "kind": "tremolo-sine", "context": "PLAN 2j" },
+      "ir": "sine figure whose peaks/troughs name the alternating pitches; enters when tremolo material is notated",
+      "accommodation": "matisse-cut",
+      "fallback": "tremolo slash + pitch pair",
+      "status": "proposed"
+    },
+    {
+      "class": "device-release",
+      "classify": { "stratum": 4, "kind": "release", "context": "M3 family — scrolling curves won't serve releases" },
+      "ir": "UNDESIGNED — awaits the P3 composer working session (§8 row 9)",
+      "accommodation": "stamp-atomic",
+      "fallback": "release text instruction",
+      "status": "proposed"
+    }
+  ]
+}
