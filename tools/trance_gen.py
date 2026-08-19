@@ -76,12 +76,15 @@ def oid(p):
     return '%s-%d' % (p, nid[0])
 
 t0 = 0.0
+IDX = [0]                # running segment index, what the composer refers to
 for ui, (uname, ratios, bpm) in enumerate(UNITS):
     terms = [int(x) for x in ratios.split(':')]
     T = 60.0 / bpm
     g = reduce(gcd, terms)
     C = T * terms[0] / g
     for gen in range(GENS):
+        IDX[0] += 1
+        idx = IDX[0]
         rnd = mulberry32(1000 * (ui + 1) + gen)
         segStart = t0
 
@@ -144,7 +147,7 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
                 'color': '#8D6E63' if tech == 'cuivre' else '#607D8B',
                 'fillMode': 'bottom', 'opacity': 0.55,
                 'performanceNotes': '%s g%d %s %s' % (uname, gen + 1, sp, nm(pitch)),
-                'properties': {'gen': 'trance', 'unit': uname, 'ratios': ratios,
+                'properties': {'gen': 'trance', 'idx': idx, 'unit': uname, 'ratios': ratios,
                                'bpm': bpm, 'seed': 1000 * (ui + 1) + gen, 'species': sp},
                 'sonifyNote': pitch, 'technique': tech,
                 'sonifyMode': 'plain', 'recVel': 112})
@@ -152,14 +155,14 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
         # segment header marker + one marker per harmony change
         objects.append({'id': oid('mk'), 'type': 'marker', 'layer': 10,
                         'time': round(segStart, 4),
-                        'label': '%s g%d  %s @%d  cyc %.1fs' % (uname, gen + 1, ratios, bpm, C),
+                        'label': '[%02d]  %s g%d  %s @%d  cyc %.1fs' % (idx, uname, gen + 1, ratios, bpm, C),
                         'color': '#C62828', 'performanceNotes': '', 'properties': {'gen': 'trance'}})
         for a, b, sp in plan:
             objects.append({'id': oid('mk'), 'type': 'marker', 'layer': 10,
                             'time': round(segStart + a, 4), 'label': sp.replace('VERT01-', 'ch'),
                             'color': '#00695C', 'performanceNotes': '',
                             'properties': {'gen': 'trance'}})
-        log.append((uname, gen + 1, ratios, bpm, C, len(onsets),
+        log.append((idx, uname, gen + 1, ratios, bpm, C, len(onsets),
                     [s for _, _, s in plan], fallbacks, segStart))
         t0 += SEG + GAP
 
@@ -174,12 +177,12 @@ json.dump(score, io.open('scores/gen-aud-01.json', 'w'), separators=(',', ':'))
 print('total %.1f s  ·  %d notes  ·  %d markers' % (t0, len([o for o in objects if o['type'] == 'waveCurve']),
                                                     len([o for o in objects if o['type'] == 'marker'])))
 print()
-print('%-5s %-3s %-22s %4s %7s %6s %5s  %s' % ('unit', 'g', 'ratios', 'bpm', 'cycle', 'notes', 'at', 'species in order'))
+print('%-4s %-5s %-3s %-22s %4s %7s %5s  %s' % ('idx', 'unit', 'g', 'ratios', 'bpm', 'cycle', 'at', 'species in order'))
 print('-' * 118)
-for u, g, r, b, C, n, sps, fb, st in log:
+for idx, u, g, r, b, C, n, sps, fb, st in log:
     seen = []
     for s in sps:
         if not seen or seen[-1] != s: seen.append(s)
-    print('%-5s g%-2d %-22s %4d %6.1fs %6d %4.0fs  %s%s' %
-          (u, g, r, b, C, n, st, ' '.join(x.replace('VERT01-', '') for x in seen),
+    print('[%02d] %-5s g%-2d %-22s %4d %6.1fs %4.0fs  %s%s' %
+          (idx, u, g, r, b, C, st, ' '.join(x.replace('VERT01-', '') for x in seen),
            '   FALLBACKS %d' % fb if fb else ''))
