@@ -141,6 +141,33 @@ how complex the computation was.
 
 ---
 
+## Deferred notation is turning into a positive method, not a delay
+
+Worth tracking for the paper: the piece has been composed for nineteen days
+without a note of conventional notation, and on day 19 the composer began
+specifying what the notation will have to DO — after the material exists, and
+constrained by it. That is the "deferred notation" subtitle candidate becoming an
+argument rather than a scheduling accident.
+
+The specific move (PLAN M5): rather than choose between full metric notation
+(tuplet gymnastics) and spatial/graphic layout (*"there is slippage there as
+well… I do not think that is good enough either"*), he proposes a hybrid —
+players find and beam their own groupings, a cluster becomes a bar or bars, a
+**"gravitational conductor"** marks each bar start, the scrolling proportionate
+display stays, and **a tempo is set per bar**.
+
+**The point for the paper:** that hybrid is only available because of a
+generative decision made hours earlier for reasons that looked unrelated. Day 19
+`fixed-tempo` player assignment gives every performer ONE steady pulse for a
+whole passage (verified to 0.094 ms against their own grid). Choose that in the
+generator and single-tempo parts with rests become notatable; choose the free
+assignment and no metric notation is possible at all. **The compositional system
+and the notation are not sequential stages — a choice inside the generator
+silently decides what can later be written down.** That is a stronger claim than
+"build your own tools", and it is evidenced here.
+
+---
+
 ## The thesis: a Kobayashi-inspired process
 
 **The reference.** Takeru Kobayashi did not get better at eating hot dogs the

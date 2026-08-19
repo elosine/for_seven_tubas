@@ -1076,3 +1076,32 @@ On the paper:
 
 > *"Please mind the notes or comment somewhere about wanting to capture along the
 > way any salient talk for the paper."*
+
+
+## 2026-08-19 (day 19) — NOTATION: metric precision in the clusters (dictated, filed as PLAN M5)
+
+> *"For the cluster, the individual players are going to find groupings in the
+> notes and then notate them traditionally. So, like, with beams and stems and
+> whatnot. And then each cluster… or it could be, like, a bar, series of bars,
+> and then I will have a gravitational conductor that marks where the bar
+> begins. There will still be the scrolling bar, and that notation will be
+> spatially proportionate. But then we can set — and this is the part I am not a
+> hundred percent sure about — we can set a tempo for each bar. So that might get
+> us close to rhythmic precision in the cluster sections."*
+
+> *"I guess I want to have… figure out some methodology for making them
+> relatively rhythmically accurate. And not have to do too many tuplet gymnastics
+> if avoidable. Or some combination that will give us the most performable
+> version that is still rhythmically accurate."*
+
+On the other pole, and why it is not enough:
+
+> *"I was looking at some score, and he just has an open bar. And it is almost
+> like graphic notation, though. He has beamed and stemmed notes, and he has, you
+> know, flags, eighth notes or sixteenth notes. But they are just kind of laid
+> out spatially. So that is the other end. It could be, like, graphic notation,
+> but there is slippage there as well. If it is just the scroll bar and
+> especially proportionate notation. I do not think that is good enough either."*
+
+> *"Anyways, these are just some general thoughts. When we get to the actual
+> notation, we will figure it out more specifically."*

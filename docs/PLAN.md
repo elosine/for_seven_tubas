@@ -82,6 +82,44 @@ composer → notation → performance architecture.)*
   riding the line/pole, landing on each attack point; scrolling cursor as the
   alternative follow. Prototype at notation time.
 
+- **M5 — METRIC PRECISION IN THE CLUSTER / TRANCE SECTIONS** *(composer,
+  2026-08-19 — THINKING, NOT DECIDED; recorded so the reasoning survives to
+  notation time)*. The problem: make these sections **relatively rhythmically
+  accurate without tuplet gymnastics**, landing on "the most performable version
+  that is still rhythmically accurate."
+
+  **The two poles, both rejected as-is:**
+  - **Full metric notation** → tuplet gymnastics, to be avoided where possible.
+  - **Pure spatial / near-graphic** — the composer was looking at a score with an
+    **open bar**: real beamed and stemmed notes with flags (eighths, sixteenths)
+    simply **laid out spatially**. Rejected because *"there is slippage there as
+    well. If it is just the scroll bar and especially proportionate notation. I
+    do not think that is good enough either."*
+
+  **The proposal in between:**
+  1. **Each player finds the groupings in their own notes and notates them
+     traditionally** — beams, stems, flags.
+  2. **A cluster is a bar, or a series of bars.**
+  3. A **"gravitational conductor"** *(composer term, as dictated)* **marks where
+     each bar begins.**
+  4. The **scrolling bar remains**, and that notation stays **spatially
+     proportionate**.
+  5. **The uncertain part, and the one that might do the real work: a TEMPO PER
+     BAR.** That is what could get metric precision into the cluster sections.
+
+  **Why this is already half-built.** Day 19 `ASSIGN='fixed-tempo'` (PLAN 2af)
+  was taken for exactly this reason — every player holds ONE steady pulse across
+  a passage instead of jumping between tempi, verified to 0.094 ms against that
+  player own grid, so **each part is already notatable as a single tempo with
+  rests**. M5 is the next question up: how the bar, its tempo, and the player own
+  beaming sit on top of that. Related: **M4** (rapid-staccato attacks as beamed
+  vertical lines with a bouncing ball) is the same problem family — a device for
+  reading precise attacks off a scrolling display.
+
+  **Open:** whether a per-bar tempo is notated, conducted, or both · whether the
+  "gravitational conductor" is a person, a cue in the scroll, or a click ·
+  whether bar lengths follow the generator realignment cycle `C`.
+
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 
 - **4a — Penn State research** — `done 2026-08-11` — docs/PENN_STATE_RESEARCH.md.
