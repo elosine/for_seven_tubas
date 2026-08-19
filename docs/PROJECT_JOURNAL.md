@@ -10,162 +10,74 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 18 (2026-08-18) — THE WORKING METHOD IS SETTLED: CONSOLE SCRIPTS, NOT
-PANELS. PLAN 2ae BUILT AND VERIFIED. Claude Code / Opus 5.**
-**The composer wrote the trance section by ear all day** — accretions, burst
-patterns, and a per-column redistribution across the ten players — and in doing
-so fixed how we work from here.
+**DAYS 18-19 (2026-08-18/19) — THE METHOD SETTLED AND THE TRANCE SECTION STARTED
+BEING WRITTEN. Claude Code / Opus 5.**
 
-- **The method decision (composer, verbatim in COMPOSER_LOG):** "my attempts to
-  build tools like panels have turned out to be very labor intensive and aren't
-  lending the results. So I'm going to stick with AI prompts and console scripts
-  that I can paste in." → **D41.** Scripts are handed over **in chat as fenced
-  code blocks**, never as files.
-- **The trust boundary, stated explicitly and worth honouring:** inserting and
-  mutating MIDI objects is TRUSTED — do not over-verify it. What must be right
-  first time is the **presentation** of any label or overlay. Their words:
-  numbers "hiding something behind it, or they're too big, or they're offset so
-  they don't actually label the proper column", then "an hour of back and forth
-  ... a giant waste of time for something small but something I need."
-- **That warning was immediately vindicated.** The first column-numbering
-  attempt had three defects, all found by MEASURING rather than eyeballing:
-  `#laneMeta` is `display:none` until it has `.open`, so the numbers were
-  invisible; at zoom 22.5 a column is 9 px against an 11.7 px label and **39 of
-  48 pairs overlapped**; and entry labels placed in voice lanes sat on top of 4
-  noteholes. Fixed by placing labels through an explicit collision test — zero
-  overlaps at zoom 15/22.5/50/100/200, verified by reading `getBBox()` of every
-  rendered `<text>`. Rules written up in `tools/console/README.md`.
-- **2ae shipped** — 12 octave unisons in the blast bank (`S049`-`S060`, list
-  `unisons`), three column buttons in the Insertion strip
-  (`insert → column` · `replace → column` · `delete column`), `O` =
-  selection→ORD, and a drag-length readout. All verified in the running app.
-  See PLAN 2ae. **The replace loop the composer asked for is now complete in
-  the app itself** — no console script needed for it. Delete leaves a hole by
-  design (markers survive, nothing shifts, later columns keep their numbers).
-- **A real bug of mine, caught by the composer:** the audition scripts cleared
-  only their own `properties.gen` tag, and different scripts carried different
-  tags — so pasting an accretion after a burst pattern left every burst note
-  behind and the score silently accumulated. Now they FULL-clear. → D41.
-- **Velocity is uniform at 112 and I flattened it silently.** `tranceSB01-2` had
-  a different velocity per voice (112/123/112/117/123/114/110); when I rebuilt
-  the accretion I dropped that variation without saying so. Composer now knows;
-  restoring it is unclaimed.
+- **D41 governs everything now:** the section is written with **AI prompts and
+  pasted console scripts, not panels** (the composer stopped using the day-16/17
+  panels and said why). Scripts are handed over **in chat as fenced code blocks**;
+  one scratch score overwritten per paste; scripts FULL-clear and refuse to clear
+  real work. **Read `tools/console/README.md` before writing any console script**
+  — four labelling rules that each cost a round trip.
+- **PLAN 2ae BUILT** — 12 octave unisons banked, three column buttons in the
+  Insertion strip (insert / replace / delete), `O` = selection→ORD, drag-length
+  readout, `A`/`SHIFT+A` column select, multi-resize. A marquee was assessed and
+  **rejected on purpose** (left-drag already pans; lanes are separate divs).
+- **PLAN 2af SPEC'd then RUN** — `docs/plans/TRANCE_GENERATOR.md` is the machine
+  (UNIT · HARMONY · CUIVRE · PLAYER ASSIGNMENT), `tools/trance_gen*.py` are the
+  three hand-run variants, and five audition scores came out of them.
+- **The composer is now assembling the actual section** from `gen-aud-05` by
+  index: `aud-7` → `aud-11` / `tranceA002f`.
 
-- **Selection work, same day:** `A` selects the pulse column at the playhead,
-  `SHIFT+A` extends it across columns, and **multi-resize** now exists — drag
-  one edge of a multi-selection and every selected note takes the same delta.
-  Multi-MOVE already worked (`startGroupDrag`); this is its missing twin. The
-  long-tone path is now `A` -> `O` -> drag. **A marquee was assessed and
-  rejected on purpose:** left-drag on empty lane space already pans, and the
-  lanes are separate positioned divs so a cross-lane box needs per-lane
-  hit-testing. Grid material wants "this column", not a rectangle.
+**Next up — START HERE:**
+1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** The composer named this as the
+   first thing next session. **It needs ZERO code and is already set up:**
+   `Texture` button in the score app; A/B/C are the SMEAR / RAIN / GALLOP
+   references; the panel polls `bank/texture_params.json` every 1000 ms and lands
+   on an AI edit within a second with no reload (**proven live day 17**). The
+   loop is: composer plays → comments in the day-12 vocabulary (smear · ticks ·
+   rain · gallop · groove, regular↔irregular, displacement in beats, see
+   `bank/texture_models.json` `_vocabulary`) → AI edits the variants and bumps
+   `rev` → composer re-plays. Bank a keeper with
+   `node tools/texture_bank.js --bank <NAME> --from <variant> --survives yes|no
+   --note "<plain ASCII — the shell mangles em-dashes>"`.
+   **The measured prediction to test first: RAIN and GALLOP have nearly the same
+   jitter (sd 30.7 vs 32.3 ms) but very different unevenness (0.14 vs 0.68). If
+   they sound alike they are one category with two labels.** Either answer is a
+   result.
+2. Keep assembling the section; ask for more sonorities freely (a JSON edit to
+   `bank/blast_taxonomy.json`, no code, no reload).
+3. Still queued behind the trance work: the notation pass (FR-7, D3, dynamics).
 
-**Next up:**
-1. **THE COMPOSER LISTENS** and keeps editing columns — that loop is now
-   supported end to end.
-2. Whatever the ear asks for: **more sonorities into `bank/blast_taxonomy.json`**
-   (a JSON edit, no code, no reload — the composer should ask freely).
-3. Still owed from day 17 and NOT superseded: the pulse-strip, MT-rig and
-   phase-shift auditions. Still queued behind the trance work: the notation
-   pass (FR-7, D3, dynamic marks).
-
-**Open:**
-- **Deliberately uncommitted, do not "clean up":** `scores/tranceSB01*.json`,
-  `tranceSB02a/03a`, `tranceA001*.json`, `aud*.json`, `allUnisons.json`,
-  `burstAudition.json`, `trance01-1.json`, `piece-s21…s24.json`,
-  `reaper/7_tubas_rack.rpp`.
-- **The scratch-score rhythm (D41):** the composer keeps ONE scratch score
-  (`aud`) and every pasted script overwrites it. Keepers are made with CTRL+S,
-  which already versions into `scores/versions/` — so scripts must NOT rename
-  the session, and they carry a `PROTECTED` regex refusing to clear real work.
-- **Unclaimed, named so it is not lost:** per-voice velocity variation ·
-  making the `D`/`I` column keys permanent instead of paste-per-session · a
-  chord menu for column insert beyond the strip · the 10 same-pitch overlaps
-  (measured, judged inaudible, left alone).
-- **Still open from day 15:** the lazy-MIDI bug (keyboard dead on a fresh page
-  until Play / CC7 Reset / REC-arm; `initZoneMidi`, composer.html ~12246).
-- **For the next AI:** read `tools/console/README.md` BEFORE writing any console
-  script for this section. It encodes four rules that each cost a round trip to
-  learn, and `renderMarker`'s hardcoded `font-size:10` / `y=24` / `x+4` is the
-  constraint behind all of them.
+**Open at session end:**
+- **THE SILENT-NOTE TRAP, still live outside the generator.** Staccato sounds
+  only MIDI 30-65, and **7 of the 13 species in `more chords` carry a 66 or 68**
+  — they render and never speak. `trance_gen*.py` octave-folds at use-time, but
+  **the Insertion strip does not**, and the blast sandbox will let you bank a
+  pitch the technique cannot sound with no warning. A one-line range check at
+  bank time was offered and NOT built.
+- **Unheard, and the notation bet rests on it:** whether a paired stream reads as
+  one line split between two players, or as two players who happen to coincide.
+- 15 identical chords close `aud-11` — far more static than anything else in the
+  section. Flagged to the composer, not acted on.
+- **Deliberately uncommitted, do not "clean up":** every `scores/*.json` from
+  this work — `aud*`, `gen-aud-01…05`, `tranceA001*`, `tranceA002*`,
+  `tranceSB*`, `piece-s21…s24`, plus `reaper/7_tubas_rack.rpp`. The `gen-aud-*`
+  files are large and **regenerable** from `tools/trance_gen*.py`; the `aud*` and
+  `tranceA002*` files are the composer's own work and are not.
+- Still open from day 15: the lazy-MIDI bug (keyboard dead on a fresh page until
+  Play / CC7 Reset / REC-arm; `initZoneMidi`, composer.html ~12246).
+- **Nothing about the SOUND has been verified by anyone** — Web MIDI is blocked
+  in the verification pane, so every claim in these docs is a data claim.
 
 ---
 
-**DAY 17 (2026-08-17) — THE TWO AUDITION MACHINES ARE BUILT AND THE THIRD NEEDS
-NO CODE. Claude Code / Fable 5 (planning) + Opus 5 (build).**
-**ALL THREE NOW WAIT ON THE SAME THING: THE COMPOSER'S EAR.** Nothing about how
-any of them SOUNDS has been verified by anyone — Web MIDI is blocked in the
-verification pane (day 15's finding, unchanged), so every claim below is a data
-claim measured at a recording stub.
-
-- **2ab PANEL SNAPSHOTS — built.** `Save` / `Load` on the pulse panel →
-  `bank/panel_snapshots.json` through `GET/POST /api/snapshots`. 75/75,
-  mutation-tested. **The gate was done the hard way:** state saved through the
-  real button, then **localStorage WIPED and the browser reloaded**, so nothing
-  could return from the scratch — Load brought every field back exactly. → D39.
-- **2ac MULTITEMPO RIG — built.** `MT` button beside `Pulse`: a ratio set
-  (`3:4:5`) over one BPM, three separation modes (UNISON · REGISTER · HARMONY),
-  shared onsets highlighted. 90/90 with four mutation tests. **Measured live:
-  C = 1.2 s at 150 BPM, the three streams realign on C, 2C and 3C to within
-  0.6 ms, and the loop seam is 399.9 ms against a 400 ms nominal —
-  indistinguishable from an ordinary step.** Stop: 29 note-ons matched by 29
-  note-offs, 0 timers, 0 bends. → D40.
-- **2ad PHASE-SHIFT SELECTOR — READY, zero lines written.** Its one conditional
-  code item was checked and proved unnecessary: the Texture panel already polls
-  every 1000 ms and honours `active` on a rev bump. **Proven live** — the params
-  file was rewritten from the shell while the panel sat open and it moved to the
-  new variant with no reload and no click. The banking CLI was run end to end
-  **and reverted**; `--validate` reads 0 of 5 verdicts again and `bank/` is
-  git-clean, so **no fabricated verdict was left in the bank**.
-- **What the plans bought, stated plainly because it is the day's method
-  result:** the day-16 traps block — written against the source the day before —
-  **caught two defects in 2ac before they were written**, including lane=stream,
-  which would have scattered every tempo across players *and still sounded
-  entirely plausible*. **One defect was caught only by RUNNING it** (Principle 6,
-  the sixth of its kind): the MT stream view drew 12/12/15 stacked ticks where
-  3/4/5 onsets exist — invisible, because duplicates land on the same pixel.
-- **Two of my own test bugs, reported as such:** an `entry.dyn` fixture that
-  asserted a path which cannot exist (`dyn` reaches an entry only via a taxonomy
-  ref), and an exact float compare that was testing IEEE754 rather than the
-  property. Both were the TEST's fault, not the code's.
-
-**Next up:**
-1. **THE COMPOSER LISTENS.** Three auditions are queued and none blocks another:
-   the **pulse strip** (from day 16, still unheard) · the **MT rig** (`3:4:5` at
-   150, UNISON first — maximum clarity) · the **phase-shift slate** (`Texture`
-   → A/B/C = SMEAR/RAIN/GALLOP; the question is only whether they are distinct).
-2. Whatever the ear asks for: more sonorities · 2aa v2 write-to-score · new
-   ratio sets dialled by the AI as takes · texture variants edited live.
-3. Still queued behind the trance work: the **notation pass** (FR-7, D3,
-   dynamic marks).
-
-**Open:**
-- **Deliberately uncommitted, do not "clean up":** `scores/tranceSB01.json`,
-  `tranceSB01-2.json`, `piece-s21…s24.json`, `reaper/7_tubas_rack.rpp`.
-- **Pending the composer:** all three auditions above · the SMEAR/RAIN/GALLOP
-  distinctness verdict (**the prediction on record: RAIN and GALLOP have nearly
-  the same jitter, sd 30.7 vs 32.3 ms, but very different unevenness, 0.14 vs
-  0.68 — if they sound alike they are one category with two labels**) · S001 in
-  the pulse menu or not · BALANCE 5 s close (unheard) · fade-ladder audition
-  (unheard) · sonority naming.
-- **The composer's own note for the pulse panel** (COMPOSER_LOG day 17, filed
-  verbatim, no action taken by request): wants **many more than 32 cells** ·
-  wants to confirm everything is staccato · the BPM/0.25 labelling was unclear ·
-  multi-select across cells · a save file *(that last one is now 2ab — DONE)*.
-- **Still open from day 15:** the lazy-MIDI bug — the score only initialises Web
-  MIDI on Play / CC7 Reset / REC-arm, so on a fresh page the keyboard is dead
-  until one of those runs (`initZoneMidi`, composer.html ~12246). Diagnosed live,
-  fix NOT built. *(Pulse and MT are both immune — `MorphEmit.ensureMidi` asks for
-  access itself.)*
-- **Operational gotcha:** an em-dash passed to `texture_bank.js --note` through
-  Windows Git Bash arrives mojibake'd (the shell's argv, not the tool). Keep
-  `--note` plain ASCII and put the exact words in `COMPOSER_LOG.md`.
-- **For the next AI:** three panels now share `E.onStop` and one snapshot file.
-  Wiring a fourth panel is a `PANEL_ID` const, a `Save`/`Load` pair and
-  `applyState()` — **the server needs no edit** (D39).
-
----
-
+- **Day 17 (08-17):** **the two audition machines** — 2ab panel snapshots
+  (`bank/panel_snapshots.json`, also the AI-dialling channel; 75/75,
+  localStorage-wiped gate) and 2ac the MULTITEMPO RIG (`MT` button, ratio sets
+  over one BPM, 3 separation modes, 90/90 — C = 1.2 s at 150 / 3:4:5, streams
+  realign within 0.6 ms). 2ad phase-shift selector proved to need ZERO code.
+  → D39, D40. All three still unheard at the time.
 - **Day 16 (08-17):** **PLAN 2aa v1, the PULSE SEQUENCER STRIP** — `Pulse`
   panel, a 29-entry sonority menu (`bank/pulse_palette.json`) resolved live
   against the taxonomy, pure `pulse_seq.js` engine (103/103, mutation-tested),
@@ -174,7 +86,6 @@ claim measured at a recording stub.
   identical pitch sets**, so refs resolve with per-note articulation (**D37**);
   and a looped audition schedules ahead on one time base rather than
   re-invoking `E.play` (**D38**). *Still unheard.*
-
 - **Day 15 (08-17), three sittings:** two more morphs placed by the composer —
   `piece-s23`, 1236 objects, **496.6 s (8:16)**, carrying `ACT-BLOOM-01`,
   `ACT-CONVERGE-01` and `ACT-BALANCE-01` · the **BALANCE abrupt-ending law**
@@ -218,9 +129,6 @@ claim measured at a recording stub.
   slate (nothing has been heard by anyone), MA4 (rename the six placeholder model
   ids before actuals reference them; bless the recipe slates), and re-hearing the
   six models now that both bugs are fixed.
-
----
-
 - **Day 11 (08-16):** planning only — 2z and 2y drafted, design-reviewed with the
   composer and approved; build order 2z→2y, never concurrent; 2x ID collision
   resolved. Both plans hardened for a cold implementer.
@@ -238,24 +146,8 @@ claim measured at a recording stub.
   lists + items (D14), velocity-not-CC7 (D12), `SESSION_HYGIENE.md`.
 - **Day 6 (08-15):** the blast pipeline — piece-s09, Blast Sandbox + three-tier
   taxonomy (D11), the SAMPLE-LENGTH SURVEY → **D9**, the save system (D10).
-- **Days 4–5 (08-13/14):** piece assembly began (s01→s07c); harmony palette;
-  GESTURE-2 banked; cressand research; ostinato engine; `NAMING.md`.
 - **Day 3 (08-12):** CRD remote listening; species {sine, expodec, surge}; the
   density arc → DB 044; containers begun (DB 045).
-- **Days 1–2 (08-10/11):** stack seeded from piece #3; SI2 roster + dual-port
-  (D2); CC7 law and gain staging; laws L1–L3, Xenakis X1–X8; **Penn State
-  research — deadline Sept 4 2026**; LAW L4 + RECIPE MAXDENSE-1 (DB 035).
-
-**Orientation for a cold session:** `docs/AI_METHODOLOGY.md` (governing — read
-before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
-`docs/SHAPE_LESSONS.md` if the work is gesture shaping →
-`docs/DENSITY_PIPELINE.md` if it is a density build. Morph/model work:
-`docs/plans/GESTURE_SHAPING.md` §15 and `docs/plans/MODEL_AND_ACTUAL_PLAN.md`
-§13 record what was actually built vs planned; texture work:
-`docs/plans/TEXTURE_SANDBOX_PLAN.md` §13. Server: `node score/server.js`
-(:5200). Checks: `node tools/test_morph.js` · `node tools/test_texture.js` ·
-`node tools/model_bank.js --validate` · `node tools/texture_bank.js --validate`.
-**Two agents share this tree — see Principle 7 before committing a shared file.**
 
 ## §3 Principles
 
@@ -970,6 +862,24 @@ before proposing anything) → `docs/PLANNER.md` (what now) → this §2 →
   **Waits only on the composer's ear.**
 
 ## §6 Human Notes
+
+- *(2026-08-19, day 19)* **NEXT SESSION STARTS HERE — the phase-shifting
+  machine.** The composer named it explicitly at session end. It needs no code:
+  `Texture` button, A/B/C are SMEAR / RAIN / GALLOP, the panel polls every second
+  so an AI edit lands with no reload. **Answer one question by ear: are they
+  distinct?** The measured prediction on record — RAIN and GALLOP have nearly the
+  same jitter (sd 30.7 vs 32.3 ms) but very different unevenness (0.14 vs 0.68);
+  if they sound alike they are one category with two labels. Then say what you
+  want more or less of and the AI edits the slate.
+- *(2026-08-19, day 19)* **Two things owed to your ear on the trance section:**
+  whether a PAIRED stream reads as one line split between two players or as two
+  players who coincide (the whole notation scheme rests on this), and whether the
+  15 identical chords closing `aud-11` are too static.
+- *(2026-08-19, day 19)* **A trap worth knowing while you bank chords:** the
+  staccato patch sounds only MIDI 30-65, and seven of your `more chords` species
+  contain a 66 or 68 that renders silently. The generator folds them into range;
+  **the Insertion strip does not.** A range warning at bank time is un-built.
+
 
 - *(2026-08-17, day 17)* **THE PHASE-SHIFT SITTING IS SET UP AND WAITING — it is
   the day-12 texture slate, now with the path around it verified.** `Texture`

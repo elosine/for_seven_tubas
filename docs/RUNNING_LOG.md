@@ -2375,3 +2375,74 @@ he chose them by ear so this is reported, not corrected.
 
 **NOT verified: the sound.** Web MIDI is still blocked in the verification pane.
 Every claim above is a data claim.
+
+## Day 19 (2026-08-19) — the generator run in anger; the trance section starts being built
+
+**The generator stopped being a spec and became the tool.** `tools/trance_gen.py`
+(+ `_sets`, `_series` variants) produced five audition scores, and by the end of
+the session the composer was assembling actual section material from them.
+
+**THE FINDING THAT MATTERS MOST — silent notes.** The composer heard bricks that
+were drawn but never spoke. **The staccato technique sounds only MIDI 30-65;
+seven of the thirteen banked species in `more chords` carry a 66 or a 68**
+(inherited from the played-in VERT01 voicings), so 273 of 3103 notes — 8.8% —
+rendered and were silent. Fixed at use-time by octave-folding into range
+(`66->54`, `68->56`), which is this repo's existing max-retention move.
+**NOT fixed in the bank on purpose:** the bank records what the composer played
+and chose. **The same silence will happen anywhere those species are inserted as
+staccato, including through the Insertion strip.** The blast sandbox will let you
+keep a pitch the technique cannot sound and nothing warns you. An offered
+one-line range check at bank time was not built — worth doing.
+
+**FIXED-TEMPO PER PLAYER (the notation decision).** The composer reasoned that
+this section is far easier to notate and perform if each player holds ONE steady
+pulse instead of jumping between tempi. Layer 4 gained a second mode and both are
+kept: `ASSIGN='fixed-tempo'` puts six streams over ten players as **four pairs
+plus two solos**, partners always 5 tubas apart, a pair splitting its stream's
+onsets so neither plays every beat. **The orchestration moves entirely into the
+pitches**, which are drawn per attack anyway. Verified: 210 player-parts, each
+locked to one stream, worst deviation from that player's own grid **0.094 ms**.
+**The 0.45 s rest floor became structural rather than enforced** — every stream
+period at these tempos is >= 600 ms. *Trade the composer named and accepted:*
+this gives up free reorchestration across the ensemble.
+
+**A measurement caveat on myself:** an earlier check reported 696 off-grid
+onsets. That was my tolerance being tighter than the file's own 4-decimal
+rounding, not a data fault. Reported here because the first number was alarming
+and wrong.
+
+**The label collision came back.** `gen-aud-01` put a long header marker and the
+species marks on the same lane; `renderMarker` hardcodes font-size 10 / y=24 /
+x+4, so they overprinted and both became unreadable — **the exact failure the
+composer warned about on day 18, made again.** Fixed by short labels placed
+through the collision test, with the first harmony carried inside the index
+label because it starts at the same instant and can never win a slot. Verified
+423 markers, zero overlapping pairs.
+
+**The five audition scores (all regenerable, all untracked):**
+- `gen-aud-01` 5 composer-chosen units x 4 gens, species harmony, cuivre on
+- `gen-aud-02` 7 short-cycle units at 100 bpm, cuivre OFF (found distracting)
+- `gen-aud-03` same as -02 but fixed-tempo assignment + the range fix
+- `gen-aud-04` treatment-major: unison / octaves / fifths / Messiaen swept
+- `gen-aud-05` **model-major**, the one being used: one model at a time running
+  a five-snippet series — unison, octaves (same pc), fifths, a Messiaen mode,
+  and a closed cluster GROWING 4n->10n across the models. Pitch classes, fifths
+  transpositions and modes are all shuffled so nothing ascends in order.
+
+**THE ASSEMBLY WORKFLOW, which is how the section is actually being written.**
+The composer plays an audition score, picks a segment by its index, and asks for
+it at a point in the working score. The AI answers with a console script that
+**cuts at a time and appends** — deliberately NOT the full-clear rule, because
+this is real work rather than an audition wipe. Pattern established over
+`aud-7` -> `aud-11` / `tranceA002f`:
+`cut at T · N x base chord on the beat · a segment entering on beat N+1`.
+Times the composer names are usually NOT on the grid (28.92, 34.36, 45.68,
+60.92) — snap to the beat and SAY which beat was chosen. The base chord is
+`[31,45,52,59,65]` = G1 A2 E3 B3 F4 on T1 T3 T5 T7 T9, one voicing held across
+the repeats.
+
+**Unheard / unresolved:** whether a paired stream reads as one line split
+between two players or as two players who happen to coincide — the whole
+notation bet rests on it. And 15 identical chords at the end of `aud-11` is much
+more static than anything else in the section; flagged to the composer, not
+acted on.

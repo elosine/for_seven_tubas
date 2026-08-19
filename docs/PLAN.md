@@ -1060,8 +1060,9 @@ composer → notation → performance architecture.)*
   **NOT verified: the sound.** Whether several tempi together are worth keeping
   is the composer's audition and cannot be measured here.
 
-- **2af — THE TRANCE GENERATOR (spec only, nothing built)** — `SPEC 2026-08-18
-  (day 18)` — **`docs/plans/TRANCE_GENERATOR.md`**. A four-layer recipe machine
+- **2af — THE TRANCE GENERATOR** — `SPEC 2026-08-18 (day 18) · RUN BY HAND
+  2026-08-19 (day 19) — five audition scores out, the section being assembled
+  from them` — **`docs/plans/TRANCE_GENERATOR.md`**. A four-layer recipe machine
   for the final section: **UNIT** (an MT ratio model + a tempo, the atom of the
   rhythm layer) · **HARMONY** (its own grid at its own BPM, hold length drawn
   from an allowed beat-set, species chosen shuffled-bag from `more chords`,
@@ -1148,6 +1149,26 @@ composer → notation → performance architecture.)*
   the blocks to 0.45 s would make every column overlap the next visually and
   start the conflict engine flagging same-player repeats — a real trade, not a
   free fix. Composer's call: leave it.
+  **AS RUN (day 19).** `tools/trance_gen.py` · `_sets.py` · `_series.py` are the
+  three hand-run variants; five audition scores came out (`gen-aud-01…05`, all
+  untracked and REGENERABLE from the tools). Layer 4 gained a second mode,
+  `ASSIGN='fixed-tempo'` — six streams over ten players as four pairs plus two
+  solos, partners 5 tubas apart, a pair splitting its stream so neither plays
+  every beat and the orchestration moves into the PITCHES. Verified: 210
+  player-parts each locked to one stream, worst deviation from that player's own
+  grid 0.094 ms, so **every part is notatable as a single tempo**; the 0.45 s
+  rest floor becomes structural because every stream period is >= 600 ms.
+  **A range bug it exposed, still live elsewhere:** staccato sounds only MIDI
+  30-65 and 7 of the 13 `more chords` species carry a 66 or 68 — 8.8% of notes
+  rendered silently until the generator began octave-folding at use-time. The
+  **Insertion strip does not fold**, and the blast sandbox banks out-of-range
+  pitches without warning.
+  **The assembly workflow this produced** (how the section is actually being
+  written): composer plays an audition score, names a segment by index and a
+  time; the AI answers with a console script that **cuts at that time and
+  appends** — deliberately not the full-clear rule, because this is real work.
+  Times named are usually off-grid; snap to the beat and say which.
+
   **Not built (deferred, not forgotten):** a menu of chords for the column
   insert beyond what the strip already offers; making the console keybindings
   (`D`/`I` column delete/insert) permanent rather than paste-per-session.
