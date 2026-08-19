@@ -65,7 +65,10 @@ BEING WRITTEN. Claude Code / Opus 5.**
   index: `aud-7` → `aud-11` / `tranceA002f`.
 
 **Next up — START HERE:**
-0. **A1 — draft `docs/NOTATION_ARCHITECTURE.md`** *(the committed next step;
+0. **A1 — DRAFTED 2026-08-19 evening, awaiting composer review**
+   (`docs/NOTATION_ARCHITECTURE.md`; verified, 16 findings fixed — RUNNING_LOG
+   day 19 evening; review alongside the owed decisions in its §8). Then
+   **A2 — IR schema v0**. *(Original item: the committed next step;
    composer green-lit Phase A, "b green")*. Deliberately CAPPED: strata · class
    registry · accommodation bucket · engine passes · coordinate contract ·
    parachute contract. Phase A is cut into commit-sized chunks so a credit

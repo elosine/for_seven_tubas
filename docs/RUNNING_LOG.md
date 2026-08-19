@@ -2822,3 +2822,90 @@ segmentation parameters (`SEG_K` 2.0, `SEG_FLOOR` 0.35 s) never swept, and
 they set the 68.8 % ceiling that bounds every number · no E2/E3 build (E2
 needs a composer green-light; E3 is a port) · main track untouched — **A1
 remains the next step on renewal.**
+
+## Day 19 (2026-08-19, evening) — A1 RUN: NOTATION_ARCHITECTURE.md drafted
+
+**The committed next step executed on credit renewal.** `docs/
+NOTATION_ARCHITECTURE.md` drafted to the capped scope (strata · class
+registry · accommodation bucket · engine passes · coordinate contract ·
+parachute contract), from the day-19 record plus a fresh predecessor consult.
+Ultracode was ON for this session — the consult and the doc's verification
+both ran as agent fan-outs rather than inline reads, a deliberate exception
+to the "high bar for subagents" rule for this phase's plan-quality economics
+("flawed plans eat real time").
+
+**Ground truth measured before drafting, and it shaped the doc:**
+- **Storage is uniform: TWO object types** (`waveCurve`, `marker`) across
+  `piece-s23` (1236 objects), `tranceA002f` (827), `cloud02-10track` (1208).
+  Everything the notation layer must distinguish is fields and context
+  (`morphBend`, `groupId`, `layer`, `technique`, `nodes`/`segments`).
+- **Layer conventions DRIFT between scores:** markers at layer 0 in
+  `piece-s23` but layer 10 in `tranceA002f`; META shapes are layer-10
+  waveCurves. Consequence written into the doc: classification is a genuine
+  rules-based pass (and exists from day one — piece #2 retrofitted its
+  classifier LAST, after translators existed with nothing to choose them).
+- **`tranceA002f` confirmed as the latest trance score** (composer:
+  in-development, own score). Composer offered to insert the finished trance
+  material into the main score if needed — **declined as unnecessary for
+  slice 1**: the IR carries source-score provenance, so it reads
+  `tranceA002f` where it lives; merging is a musical/assembly call, not an
+  architecture need.
+
+**The predecessor consult (4 reader agents, findings now on record):**
+- Piece #2's seven-stage pipeline (Classify → Translate → Layout → Size →
+  Render → Emit → Route) shipped an entire piece (431 svgElements, 177/177
+  markers) — adopted as the engine-pass shape.
+- `COORDINATE_SYSTEM_VISION.md` P1–P8 adopted as the coordinate contract
+  (one module; seconds → lane-relative → pixels-never-stored; "mirrors are a
+  smell").
+- **Piece #2 never spliced an object** — its only boundary behavior was
+  whole-object page-edge clamping (PL-2); multi-page split was explicitly
+  out of scope. So the accommodation-strategy bucket is genuinely NEW work,
+  not inheritance — worth knowing before slice 1 budgets effort.
+- Piece #1 stated the precondition for baked SVG itself: valid only for
+  *"a small, fixed menu of pre-composed material."* M1/M2 break exactly that
+  precondition — the render-late argument now carries a citation instead of
+  an assertion.
+- The 357 KB sprawl autopsy (session stamps ~30 %, per-idiom catalogues
+  ~20 %, numbered architecture abandoned at §18 while the log grew) became
+  the doc's §9 anti-sprawl contract: contracts in the doc, catalogues in
+  data files, runs in ledgers.
+
+**Verification:** 3-agent adversarial pass (record fidelity · mandate
+coverage · citation accuracy) run on the draft before commit; findings and
+fixes recorded below when it returns.
+
+**Verification returned: 16 findings across 3 checkers, all applied before
+commit. The catches worth remembering:**
+- **The draft INVENTED a decision** (must-fix): it declared the graphic
+  fallback to be D43's permanent Section-1 residue strategy. The record says
+  otherwise — the residue candidates are Mists proportional notation + GC,
+  tuplets, an M4 device, or a compositional re-think, adjudicated by E0–E3;
+  the fallback is the guarantee BENEATH the strategies. Same failure class as
+  the E1 frame that made first-level rationals "unnecessary": the writing
+  frame quietly closed a question the composer left open.
+- **A composer quote was spliced backwards** — "main but separateish" names
+  the ARCHITECTURE build, not the experiments; the draft had attached it to
+  the experiments doc.
+- **An open question was stated as a default** — "bars are per-chunk,
+  per-part" where D43 only PRICES per-chunk > per-part > shared and M5 still
+  owns the choice. Now §8 row 8, marked OPEN-with-a-price.
+- **M3 was name-checked but homeless** — no release-device class anywhere,
+  and the devices labelled "M3" were all scroll-family, which is exactly what
+  M3 says won't work for releases. Now its own S4 class group + §8 row 9
+  (the P3 design session).
+- Citation hygiene: "atom of the strip" belongs to the PLAN §7 amendment,
+  not D43 (and the independent-convergence point matters to PAPER_NOTES);
+  "mirrors are a smell" is COORDINATE_SYSTEM_VISION §5, and piece #2's final
+  Principle 29 is SHARPER than the draft's version (mirrors miss shared
+  bugs); "two-thirds abandoned" and "paid for twice" were invented
+  quantifications; five internal §-refs pointed one section high.
+- Header now names its three content kinds honestly: composer-CONFIRMED ·
+  predecessor-ADOPTED · AI-PROPOSED (awaiting this draft's review).
+
+**Method note for the paper:** drafting from an in-context record still
+produced six citation errors and one invented decision in a ~370-line doc;
+the adversarial pass (checkers instructed to REFUTE, each against a
+different source set) caught all of them at the source level. This is
+Principle 5's mirror rule applied to prose — the draft could not be checked
+against the same summary that produced it.

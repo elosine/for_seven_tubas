@@ -1593,6 +1593,12 @@ notation starts interleaved with composing. **Phase A agenda items owed by the
 composer: the 0–10 → dynamic-mark convention and D3's performer-transform
 decision** (flagged "open before notation" since day 14).
 
+**A1 DRAFTED 2026-08-19** — `docs/NOTATION_ARCHITECTURE.md` (capped to the six
+contracts; adversarially verified against the day-19 record and the
+predecessor docs, 16 findings fixed pre-commit — trail in RUNNING_LOG day 19
+evening). Awaiting composer review; its §8 lists the nine open decisions.
+Next: **A2 — IR schema v0**.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +
