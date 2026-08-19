@@ -82,8 +82,11 @@ composer → notation → performance architecture.)*
   riding the line/pole, landing on each attack point; scrolling cursor as the
   alternative follow. Prototype at notation time.
 
-- **M5 — METRIC PRECISION IN THE CLUSTER / TRANCE SECTIONS** *(composer,
-  2026-08-19 — THINKING, NOT DECIDED; recorded so the reasoning survives to
+- **M5 — METRIC PRECISION IN THE DENSITY BUILDS (SECTION 1)** *(composer,
+  2026-08-19 — THINKING, NOT DECIDED. **Scope corrected by the composer the same
+  day: this is about the FIRST section, the density builds, where at the apex
+  the parts are busy and NOT necessarily periodic** — not the trance section)*
+  *(originally filed; recorded so the reasoning survives to
   notation time)*. The problem: make these sections **relatively rhythmically
   accurate without tuplet gymnastics**, landing on "the most performable version
   that is still rhythmically accurate."
@@ -134,29 +137,52 @@ composer → notation → performance architecture.)*
   those cluster notes may not break down into clear simple notation at any
   tempo."* **That risk is empirical and now partly measured.**
 
-  **MEASURED 2026-08-19 on `gen-aud-05` segment 35** (the 10-note closed cluster,
-  model G): for material the trance generator produced in `fixed-tempo` mode,
-  **every player rhythm is whole-number multiples of that player own beat, max
-  error 0.07 ms.** Sample parts, as multiples of their own beat:
+  **MEASURED 2026-08-19 — and the two sections turn out to be OPPOSITE cases.**
 
-      T2  beat 400 ms   2 2 2 2 2 2 ...            steady
-      T3  beat 585 ms   1 3 1 2 1 1 1 3 2 1 2      the long-short-short-long shape
-      T4  beat 507 ms   3 4 3 1 3 1 1 1 1 2 1
+  *First measurement, on the wrong material.* `gen-aud-05` segment 35 (trance,
+  `fixed-tempo`): every part is whole-number multiples of that player own beat,
+  **max error 0.07 ms**, e.g. T3 reading `1 3 1 2 1 1 1 3 2 1 2` — the exact
+  long-short-short-long shape, needing no tuplets. **But the trance material is
+  periodic by construction, so this was never in doubt.** It says nothing about
+  section 1.
 
-  So **no tuplets are needed at all** — quarters, eighths and dotted values on a
-  single pulse. The doubt is answered for this material, and answered by a
-  decision already taken: `ASSIGN='fixed-tempo'` is what makes it true.
+  *Second measurement, on the material M5 is actually about.*
+  `cloud02-10track` — the CLEANED, playable density realisation (1184 notes,
+  peak 137 notes in 3 s) — apex window 48.9-54.9 s, beat constrained to a
+  countable **0.30-1.00 s**, worst onset error over all ten parts:
 
-  **But the finding relocates the hard part.** Those beats are **400 / 447 / 507
-  / 585 ms — different per player**. So "a tempo for each bar" cannot be one
-  global tempo; it is either **a tempo per PART**, or the bar is a shared
-  time-window inside which each player counts their own pulse and the
-  conductor/ball marks only its start. **That is now the real M5 question.**
+      grid            best beat   worst error   verdict
+      8ths                303 ms        69 ms   no
+      triplet 8ths        300 ms        44 ms   no
+      16ths               321 ms        33 ms   marginal
+      sextuplet           359 ms        22 ms   marginal
+      32nds               307 ms        16 ms   playable, but this is not "simple"
 
-  **Still untested:** whether older, non-grid cluster material (the 2p cluster
-  sandbox, `clusterClouds02` and kin, whose onsets were never quantised) breaks
-  down the same way. The measurement above says nothing about it, and there the
-  composer doubt may well hold.
+  **THE COMPOSER DOUBT IS CORRECT FOR SECTION 1.** There is no countable tempo at
+  which the density apex falls into simple notation. You reach ~16 ms only at
+  **32nds around 195 bpm**, which is precisely the gymnastics M5 exists to avoid;
+  8ths leave 69 ms of slippage, which is audible.
+
+  *(Method note: an unconstrained beat search "succeeds" at a 20 ms beat with
+  8 ms error. That is a false positive — a 20 ms beat is not a tempo, it is a
+  fine grid, and a 250 ms gap becomes 12 subdivisions. Any future search must
+  constrain the beat to something a player can count.)*
+
+  **What this implies, and it is the same lesson as the trance section.** The
+  trance section is notatable because of a GENERATIVE decision — `fixed-tempo`
+  assignment — not because of a notation trick. The equivalent move for section 1
+  would be to **quantise the density material to a countable grid at composition
+  time** rather than trying to notate un-gridded onsets afterwards. That is a
+  compositional choice with an audible cost (the apex jitter is part of what the
+  density builds sound like), so it is the composer call, not a technical one.
+  The alternatives remain: accept 32nds, accept slippage, or use an M4-style
+  device where rhythm is tracked visually rather than counted.
+
+  **Caveat on the measurement:** one score, one 6 s window at one apex.
+  Indicative, not exhaustive. The raw pre-cleaning scores (`clusterClouds02`,
+  `densBld03-arc-v2`) are far denser still — a single player carrying 150+
+  onsets in 6 s with 1-90 ms gaps — and are not playable as separate attacks at
+  all, so they were not the fair test.
 
   **Open:** whether the tempo is per part or the bar is a shared window · whether
   a per-part tempo is notated, conducted, or both · whether the "gravitational

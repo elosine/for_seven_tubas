@@ -1132,3 +1132,16 @@ beat (max error 0.07 ms), so no tuplets are needed. The catch is that the beats
 differ per player (400/447/507/585 ms), which moves the open question from
 "can it be notated simply" to "is the tempo per part, or is the bar a shared
 window". Recorded in PLAN M5.*
+
+**Scope correction from the composer, same day:**
+
+> *"This is for the first section, the density builds, where at the apex of the
+> density the parts are quite busy and not necessarily periodic."*
+
+*AI note: this makes the earlier measurement the wrong one — it was taken on
+trance material, which is periodic by construction. Re-measured on
+`cloud02-10track` (the cleaned, playable density realisation) at its apex, with
+the beat constrained to a countable 0.30-1.00 s: 8ths leave 69 ms of error,
+16ths 33 ms, and only 32nds at ~195 bpm reach 16 ms. **The composer doubt is
+correct for section 1 — the density apex does not fall into simple notation at
+any countable tempo.** Full table and the implication in PLAN M5.*
