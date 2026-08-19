@@ -75,6 +75,72 @@ to how complex the computation was.
 
 ---
 
+## Day 18, later: the composer specifies a machine by talking (dictated session)
+
+**This is the thesis happening in real time, and it should probably be the
+paper's central worked example.** Over one afternoon the composer moved from
+"the pulse panel isn't really working for me" to a complete four-layer generator
+spec — without writing code, opening an editor, or building a UI. The spec now
+lives at `docs/plans/TRANCE_GENERATOR.md`; what matters for the paper is *how it
+got there*.
+
+**The sequence.** He asked to hear things (accretions, burst patterns). He heard
+them, adjusted in words ("four to seven repeats", "bottom to top", "same but
+with the new base"). Somewhere in that loop the *material* stopped being the
+subject and the *procedure* became the subject — he began describing not a
+passage but the machine that would make passages. The generator was specified in
+the vocabulary the auditioning had produced: "units", "species", "the accordion
+thing", "run through it again like a tone row."
+
+**The claim this supports:** a bespoke compositional frame need not be designed
+in advance and then inhabited. It can be *discovered by auditioning* — the tool
+and the material co-evolve, and the composer ends up holding a formal system he
+did not set out to write. Kobayashi did not theorise the broken sausage; he
+found it by eating.
+
+**Two moments worth quoting in full.**
+
+*On what the machine is for* — the composer distinguishing the artefact from the
+apparatus, which is exactly the distinction the paper is about:
+
+> "I don't necessarily wanna build the UI or whatever the engine, but I wanna
+> have this pretty clearly documented so we can at some point. For this piece,
+> I'm going to just have you generate several things using the machine as long
+> as we understand what the machine is."
+
+The machine exists as a shared understanding before it exists as software, and
+that is sufficient to compose with. **The documentation IS the implementation**
+for as long as an AI is willing to execute it by hand.
+
+*On specifying by describing a problem rather than a mechanism* — he asked for a
+"rotation period" to spread material around the ten players, then described what
+he actually wanted:
+
+> "it's to give... make sure that every player has enough space. that they're
+> not having two rhythms in a row. So I don't know if you can put just a clamp
+> on that. So it gives player one the next note, but if it's less than a minimum
+> amount, then it tries to find another player to give it to."
+
+That is a minimum-rest constraint, not a rotation, and it is both simpler and
+better: rotation emerges from it as a by-product. **The composer's plain-language
+statement of the problem contained a better algorithm than the technical term he
+reached for first.** For the paper: in this way of working, the composer should
+be encouraged to describe the musical requirement and let the system name the
+mechanism, not the other way round.
+
+**A methodological finding worth reporting.** The composer drew an explicit line
+about where verification effort belongs — generating and mutating musical objects
+is trusted and should not be re-checked, but the *presentation* of any label or
+readout must be right first time, because each slip costs a fresh script and
+another paste cycle. The same day proved the split: the note-generation was
+correct on the first attempt, the column numbering was wrong in three
+independent ways. **In a human-in-the-loop composing system the expensive errors
+are not in the algorithm; they are at the interface where the composer reads the
+result.** Effort should scale with how the human perceives the output, not with
+how complex the computation was.
+
+---
+
 ## The thesis: a Kobayashi-inspired process
 
 **The reference.** Takeru Kobayashi did not get better at eating hot dogs the

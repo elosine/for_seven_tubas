@@ -330,6 +330,132 @@
         61,
         62
       ]
+    },
+    "VERT01-01": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        64
+      ]
+    },
+    "VERT01-06": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        60
+      ]
+    },
+    "VERT01-08": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        65,
+        66
+      ]
+    },
+    "VERT01-14": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        64
+      ],
+      "cuivreArr": {
+        "V1": {
+          "pitches": [
+            33,
+            34,
+            42,
+            43,
+            44,
+            64
+          ],
+          "cuivre": [
+            64
+          ]
+        }
+      }
+    },
+    "VERT01-18": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        61
+      ]
+    },
+    "VERT01-19": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        60,
+        61
+      ]
+    },
+    "VERT01-20": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        61,
+        62
+      ]
+    },
+    "VERT01-21": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        66
+      ]
+    },
+    "VERT01-24": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        61
+      ]
+    },
+    "VERT01-26": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        61
+      ]
+    },
+    "VERT01-27": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        63,
+        64
+      ]
+    },
+    "VERT01-30": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        66
+      ]
+    },
+    "VERT01-33": {
+      "voicings": {},
+      "realizations": [],
+      "stdCuivre": [
+        63
+      ],
+      "cuivreArr": {
+        "V1": {
+          "pitches": [
+            34,
+            38,
+            39,
+            51,
+            53,
+            54,
+            63
+          ],
+          "cuivre": [
+            63
+          ]
+        }
+      }
     }
   },
   "articulationSets": {
@@ -415,6 +541,86 @@
       "S058",
       "S059",
       "S060"
+    ],
+    "more chords": [
+      "S061",
+      "S062",
+      "S063",
+      "S064",
+      "S065",
+      "S066",
+      "S067",
+      "S068",
+      "S069",
+      "S070",
+      "S071",
+      "S072",
+      "S073",
+      "S074",
+      "S075",
+      "S076",
+      "S077",
+      "S078",
+      "S079",
+      "S080",
+      "S081",
+      "S082",
+      "S083",
+      "S084",
+      "S085",
+      "S086",
+      "S087",
+      "S088",
+      "S089",
+      "S090",
+      "S091",
+      "S092",
+      "S093",
+      "S094",
+      "S095",
+      "S096",
+      "S097",
+      "S098",
+      "S099",
+      "S100",
+      "S101",
+      "S102",
+      "S103",
+      "S104",
+      "S105",
+      "S106",
+      "S107",
+      "S108",
+      "S109",
+      "S110",
+      "S111",
+      "S112",
+      "S113",
+      "S114",
+      "S115",
+      "S116",
+      "S117",
+      "S118",
+      "S119",
+      "S120",
+      "S121",
+      "S122",
+      "S123",
+      "S124",
+      "S125",
+      "S126",
+      "S127",
+      "S128",
+      "S129",
+      "S130",
+      "S131",
+      "S132",
+      "S133",
+      "S134",
+      "S135",
+      "S136",
+      "S137",
+      "S138"
     ]
   },
   "sonorities": {
@@ -2223,12 +2429,2063 @@
       "dyn": 112,
       "saved": "2026-08-18T00:00:00.000Z",
       "note": "octave unison on F - every F in the staccato range MIDI 30-65 (trance section)"
+    },
+    "S061": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "fortepiano",
+        "44": "fortepiano",
+        "47": "fortepiano",
+        "48": "fortepiano",
+        "53": "fortepiano",
+        "55": "fortepiano",
+        "56": "fortepiano",
+        "64": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.395Z"
+    },
+    "S062": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "staccato",
+        "44": "staccato",
+        "47": "staccato",
+        "48": "staccato",
+        "53": "staccato",
+        "55": "staccato",
+        "56": "staccato",
+        "64": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.402Z"
+    },
+    "S063": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "ord",
+        "44": "ord",
+        "47": "ord",
+        "48": "ord",
+        "53": "ord",
+        "55": "ord",
+        "56": "ord",
+        "64": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.407Z"
+    },
+    "S064": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "fortepiano",
+        "44": "fortepiano",
+        "47": "fortepiano",
+        "48": "fortepiano",
+        "53": "fortepiano",
+        "55": "fortepiano",
+        "56": "fortepiano",
+        "64": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.412Z"
+    },
+    "S065": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "staccato",
+        "44": "staccato",
+        "47": "staccato",
+        "48": "staccato",
+        "53": "staccato",
+        "55": "staccato",
+        "56": "staccato",
+        "64": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.417Z"
+    },
+    "S066": {
+      "chord": "VERT01-01",
+      "voicing": "V1",
+      "pitches": [
+        36,
+        44,
+        47,
+        48,
+        53,
+        55,
+        56,
+        64
+      ],
+      "cuivreConverted": [
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "36": "ord",
+        "44": "ord",
+        "47": "ord",
+        "48": "ord",
+        "53": "ord",
+        "55": "ord",
+        "56": "ord",
+        "64": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:06.423Z"
+    },
+    "S067": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "fortepiano",
+        "46": "fortepiano",
+        "53": "fortepiano",
+        "56": "fortepiano",
+        "60": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.789Z"
+    },
+    "S068": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "staccato",
+        "46": "staccato",
+        "53": "staccato",
+        "56": "staccato",
+        "60": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.795Z"
+    },
+    "S069": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "ord",
+        "46": "ord",
+        "53": "ord",
+        "56": "ord",
+        "60": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.800Z"
+    },
+    "S070": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [
+        60
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "fortepiano",
+        "46": "fortepiano",
+        "53": "fortepiano",
+        "56": "fortepiano",
+        "60": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.805Z"
+    },
+    "S071": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [
+        60
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "staccato",
+        "46": "staccato",
+        "53": "staccato",
+        "56": "staccato",
+        "60": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.810Z"
+    },
+    "S072": {
+      "chord": "VERT01-06",
+      "voicing": "V1",
+      "pitches": [
+        45,
+        46,
+        53,
+        56,
+        60
+      ],
+      "cuivreConverted": [
+        60
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "45": "ord",
+        "46": "ord",
+        "53": "ord",
+        "56": "ord",
+        "60": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:28.816Z"
+    },
+    "S073": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "42": "fortepiano",
+        "43": "fortepiano",
+        "65": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.155Z"
+    },
+    "S074": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "42": "staccato",
+        "43": "staccato",
+        "65": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.161Z"
+    },
+    "S075": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "42": "ord",
+        "43": "ord",
+        "65": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.166Z"
+    },
+    "S076": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [
+        65,
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "42": "fortepiano",
+        "43": "fortepiano",
+        "65": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.171Z"
+    },
+    "S077": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [
+        65,
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "42": "staccato",
+        "43": "staccato",
+        "65": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.176Z"
+    },
+    "S078": {
+      "chord": "VERT01-08",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        42,
+        43,
+        65,
+        66
+      ],
+      "cuivreConverted": [
+        65,
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "42": "ord",
+        "43": "ord",
+        "65": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:29:51.181Z"
+    },
+    "S079": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "34": "fortepiano",
+        "42": "fortepiano",
+        "43": "fortepiano",
+        "44": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.890Z"
+    },
+    "S080": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "34": "staccato",
+        "42": "staccato",
+        "43": "staccato",
+        "44": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.895Z"
+    },
+    "S081": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "34": "ord",
+        "42": "ord",
+        "43": "ord",
+        "44": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.901Z"
+    },
+    "S082": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        64
+      ],
+      "artic": {
+        "33": "fortepiano",
+        "34": "fortepiano",
+        "42": "fortepiano",
+        "43": "fortepiano",
+        "44": "fortepiano",
+        "64": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.907Z"
+    },
+    "S083": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        64
+      ],
+      "artic": {
+        "33": "staccato",
+        "34": "staccato",
+        "42": "staccato",
+        "43": "staccato",
+        "44": "staccato",
+        "64": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.911Z"
+    },
+    "S084": {
+      "chord": "VERT01-14",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        42,
+        43,
+        44,
+        64
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        64
+      ],
+      "artic": {
+        "33": "ord",
+        "34": "ord",
+        "42": "ord",
+        "43": "ord",
+        "44": "ord",
+        "64": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:30:42.917Z"
+    },
+    "S085": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "fortepiano",
+        "48": "fortepiano",
+        "49": "fortepiano",
+        "57": "fortepiano",
+        "59": "fortepiano",
+        "61": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.084Z"
+    },
+    "S086": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "staccato",
+        "48": "staccato",
+        "49": "staccato",
+        "57": "staccato",
+        "59": "staccato",
+        "61": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.091Z"
+    },
+    "S087": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "ord",
+        "48": "ord",
+        "49": "ord",
+        "57": "ord",
+        "59": "ord",
+        "61": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.095Z"
+    },
+    "S088": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "fortepiano",
+        "48": "fortepiano",
+        "49": "fortepiano",
+        "57": "fortepiano",
+        "59": "fortepiano",
+        "61": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.101Z"
+    },
+    "S089": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "staccato",
+        "48": "staccato",
+        "49": "staccato",
+        "57": "staccato",
+        "59": "staccato",
+        "61": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.105Z"
+    },
+    "S090": {
+      "chord": "VERT01-18",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        48,
+        49,
+        57,
+        59,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "ord",
+        "48": "ord",
+        "49": "ord",
+        "57": "ord",
+        "59": "ord",
+        "61": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:04.111Z"
+    },
+    "S091": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "fortepiano",
+        "51": "fortepiano",
+        "55": "fortepiano",
+        "56": "fortepiano",
+        "60": "fortepiano",
+        "61": "fortepiano",
+        "68": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.355Z"
+    },
+    "S092": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "staccato",
+        "51": "staccato",
+        "55": "staccato",
+        "56": "staccato",
+        "60": "staccato",
+        "61": "staccato",
+        "68": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.360Z"
+    },
+    "S093": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "ord",
+        "51": "ord",
+        "55": "ord",
+        "56": "ord",
+        "60": "ord",
+        "61": "ord",
+        "68": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.366Z"
+    },
+    "S094": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [
+        60,
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "fortepiano",
+        "51": "fortepiano",
+        "55": "fortepiano",
+        "56": "fortepiano",
+        "60": "fortepiano",
+        "61": "fortepiano",
+        "68": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.371Z"
+    },
+    "S095": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [
+        60,
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "staccato",
+        "51": "staccato",
+        "55": "staccato",
+        "56": "staccato",
+        "60": "staccato",
+        "61": "staccato",
+        "68": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.376Z"
+    },
+    "S096": {
+      "chord": "VERT01-19",
+      "voicing": "V1",
+      "pitches": [
+        47,
+        51,
+        55,
+        56,
+        60,
+        61,
+        68
+      ],
+      "cuivreConverted": [
+        60,
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "47": "ord",
+        "51": "ord",
+        "55": "ord",
+        "56": "ord",
+        "60": "ord",
+        "61": "ord",
+        "68": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:16.381Z"
+    },
+    "S097": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "fortepiano",
+        "44": "fortepiano",
+        "49": "fortepiano",
+        "52": "fortepiano",
+        "61": "fortepiano",
+        "62": "fortepiano",
+        "68": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.652Z"
+    },
+    "S098": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "staccato",
+        "44": "staccato",
+        "49": "staccato",
+        "52": "staccato",
+        "61": "staccato",
+        "62": "staccato",
+        "68": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.662Z"
+    },
+    "S099": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "ord",
+        "44": "ord",
+        "49": "ord",
+        "52": "ord",
+        "61": "ord",
+        "62": "ord",
+        "68": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.668Z"
+    },
+    "S100": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [
+        61,
+        62
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "fortepiano",
+        "44": "fortepiano",
+        "49": "fortepiano",
+        "52": "fortepiano",
+        "61": "fortepiano",
+        "62": "fortepiano",
+        "68": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.674Z"
+    },
+    "S101": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [
+        61,
+        62
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "staccato",
+        "44": "staccato",
+        "49": "staccato",
+        "52": "staccato",
+        "61": "staccato",
+        "62": "staccato",
+        "68": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.679Z"
+    },
+    "S102": {
+      "chord": "VERT01-20",
+      "voicing": "V1",
+      "pitches": [
+        42,
+        44,
+        49,
+        52,
+        61,
+        62,
+        68
+      ],
+      "cuivreConverted": [
+        61,
+        62
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "42": "ord",
+        "44": "ord",
+        "49": "ord",
+        "52": "ord",
+        "61": "ord",
+        "62": "ord",
+        "68": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:27.685Z"
+    },
+    "S103": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "44": "fortepiano",
+        "54": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.876Z"
+    },
+    "S104": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "44": "staccato",
+        "54": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.883Z"
+    },
+    "S105": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "44": "ord",
+        "54": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.889Z"
+    },
+    "S106": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "44": "fortepiano",
+        "54": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.895Z"
+    },
+    "S107": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "44": "staccato",
+        "54": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.900Z"
+    },
+    "S108": {
+      "chord": "VERT01-21",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        44,
+        54,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "44": "ord",
+        "54": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:31:39.906Z"
+    },
+    "S109": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "37": "fortepiano",
+        "41": "fortepiano",
+        "53": "fortepiano",
+        "61": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.431Z"
+    },
+    "S110": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "37": "staccato",
+        "41": "staccato",
+        "53": "staccato",
+        "61": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.436Z"
+    },
+    "S111": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "37": "ord",
+        "41": "ord",
+        "53": "ord",
+        "61": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.441Z"
+    },
+    "S112": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "37": "fortepiano",
+        "41": "fortepiano",
+        "53": "fortepiano",
+        "61": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.447Z"
+    },
+    "S113": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "37": "staccato",
+        "41": "staccato",
+        "53": "staccato",
+        "61": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.452Z"
+    },
+    "S114": {
+      "chord": "VERT01-24",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        37,
+        41,
+        53,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "37": "ord",
+        "41": "ord",
+        "53": "ord",
+        "61": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:07.457Z"
+    },
+    "S115": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "39": "fortepiano",
+        "45": "fortepiano",
+        "50": "fortepiano",
+        "51": "fortepiano",
+        "61": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.365Z"
+    },
+    "S116": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "39": "staccato",
+        "45": "staccato",
+        "50": "staccato",
+        "51": "staccato",
+        "61": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.371Z"
+    },
+    "S117": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "39": "ord",
+        "45": "ord",
+        "50": "ord",
+        "51": "ord",
+        "61": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.377Z"
+    },
+    "S118": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "fortepiano",
+        "39": "fortepiano",
+        "45": "fortepiano",
+        "50": "fortepiano",
+        "51": "fortepiano",
+        "61": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.383Z"
+    },
+    "S119": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "staccato",
+        "39": "staccato",
+        "45": "staccato",
+        "50": "staccato",
+        "51": "staccato",
+        "61": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.389Z"
+    },
+    "S120": {
+      "chord": "VERT01-26",
+      "voicing": "V1",
+      "pitches": [
+        31,
+        39,
+        45,
+        50,
+        51,
+        61
+      ],
+      "cuivreConverted": [
+        61
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "31": "ord",
+        "39": "ord",
+        "45": "ord",
+        "50": "ord",
+        "51": "ord",
+        "61": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:15.394Z"
+    },
+    "S121": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "34": "fortepiano",
+        "63": "fortepiano",
+        "64": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.372Z"
+    },
+    "S122": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "34": "staccato",
+        "63": "staccato",
+        "64": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.378Z"
+    },
+    "S123": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "34": "ord",
+        "63": "ord",
+        "64": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.384Z"
+    },
+    "S124": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [
+        63,
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "34": "fortepiano",
+        "63": "fortepiano",
+        "64": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.390Z"
+    },
+    "S125": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [
+        63,
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "34": "staccato",
+        "63": "staccato",
+        "64": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.395Z"
+    },
+    "S126": {
+      "chord": "VERT01-27",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        34,
+        63,
+        64,
+        66
+      ],
+      "cuivreConverted": [
+        63,
+        64
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "34": "ord",
+        "63": "ord",
+        "64": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:37.401Z"
+    },
+    "S127": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "39": "fortepiano",
+        "45": "fortepiano",
+        "47": "fortepiano",
+        "55": "fortepiano",
+        "57": "fortepiano",
+        "61": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.656Z"
+    },
+    "S128": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "39": "staccato",
+        "45": "staccato",
+        "47": "staccato",
+        "55": "staccato",
+        "57": "staccato",
+        "61": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.661Z"
+    },
+    "S129": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "39": "ord",
+        "45": "ord",
+        "47": "ord",
+        "55": "ord",
+        "57": "ord",
+        "61": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.667Z"
+    },
+    "S130": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "fortepiano",
+        "39": "fortepiano",
+        "45": "fortepiano",
+        "47": "fortepiano",
+        "55": "fortepiano",
+        "57": "fortepiano",
+        "61": "fortepiano",
+        "66": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.674Z"
+    },
+    "S131": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "staccato",
+        "39": "staccato",
+        "45": "staccato",
+        "47": "staccato",
+        "55": "staccato",
+        "57": "staccato",
+        "61": "staccato",
+        "66": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.680Z"
+    },
+    "S132": {
+      "chord": "VERT01-30",
+      "voicing": "V1",
+      "pitches": [
+        33,
+        39,
+        45,
+        47,
+        55,
+        57,
+        61,
+        66
+      ],
+      "cuivreConverted": [
+        66
+      ],
+      "cuivreAdded": [],
+      "artic": {
+        "33": "ord",
+        "39": "ord",
+        "45": "ord",
+        "47": "ord",
+        "55": "ord",
+        "57": "ord",
+        "61": "ord",
+        "66": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:32:55.686Z"
+    },
+    "S133": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "34": "fortepiano",
+        "38": "fortepiano",
+        "39": "fortepiano",
+        "51": "fortepiano",
+        "53": "fortepiano",
+        "54": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.882Z"
+    },
+    "S134": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "34": "staccato",
+        "38": "staccato",
+        "39": "staccato",
+        "51": "staccato",
+        "53": "staccato",
+        "54": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.890Z"
+    },
+    "S135": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [],
+      "artic": {
+        "34": "ord",
+        "38": "ord",
+        "39": "ord",
+        "51": "ord",
+        "53": "ord",
+        "54": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.896Z"
+    },
+    "S136": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54,
+        63
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        63
+      ],
+      "artic": {
+        "34": "fortepiano",
+        "38": "fortepiano",
+        "39": "fortepiano",
+        "51": "fortepiano",
+        "53": "fortepiano",
+        "54": "fortepiano",
+        "63": "fortepiano"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.902Z"
+    },
+    "S137": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54,
+        63
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        63
+      ],
+      "artic": {
+        "34": "staccato",
+        "38": "staccato",
+        "39": "staccato",
+        "51": "staccato",
+        "53": "staccato",
+        "54": "staccato",
+        "63": "staccato"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.908Z"
+    },
+    "S138": {
+      "chord": "VERT01-33",
+      "voicing": "V1",
+      "pitches": [
+        34,
+        38,
+        39,
+        51,
+        53,
+        54,
+        63
+      ],
+      "cuivreConverted": [],
+      "cuivreAdded": [
+        63
+      ],
+      "artic": {
+        "34": "ord",
+        "38": "ord",
+        "39": "ord",
+        "51": "ord",
+        "53": "ord",
+        "54": "ord",
+        "63": "ord"
+      },
+      "ordLen": 1,
+      "dyn": 127,
+      "saved": "2026-08-19T02:33:25.914Z"
     }
   },
   "chordSubsets": {
     "INT2 working set": [
       "VERT01-03",
-      "VERT01-04",
       "VERT01-11",
       "VERT01-12",
       "VERT01-13",

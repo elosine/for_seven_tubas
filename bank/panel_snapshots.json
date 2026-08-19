@@ -1,9 +1,378 @@
 {
-  "_version": 1,
-  "_contract": "PLAN 2ab — named snapshots of a sandbox PANEL's state, one file for every panel. DATA, NOT CODE. `state` is OPAQUE to the server and to this file's readers: it is byte-for-byte whatever that panel's own save() writes to localStorage, so a panel can change its state shape without touching the server or this contract. localStorage remains the live scratch — a snapshot is a NAMED point the composer chose to keep, and it survives a chat clear, a browser change and a different machine. THIS FILE IS ALSO THE AI-DIALING CHANNEL: the AI appends a named snapshot (takes are named `take-NN-<slug>` with the composer's verbatim words in `comment`) and the composer picks it from the panel's Load list, which refetches every time it is opened. THE AI NEVER OVERWRITES AN EXISTING NAME — it writes a new one; the composer may overwrite and delete freely. NOT stored under scores/ on purpose: sandbox state is not score objects, and the composer score's 5 s autosave has clobbered a loaded score before (D8).",
-  "panels": {
-    "pulse": {},
-    "multitempo": {},
-    "phase": {}
-  }
+ "_version": 1,
+ "_contract": "PLAN 2ab — named snapshots of a sandbox PANEL's state, one file for every panel. DATA, NOT CODE. `state` is OPAQUE to the server and to this file's readers: it is byte-for-byte whatever that panel's own save() writes to localStorage, so a panel can change its state shape without touching the server or this contract. localStorage remains the live scratch — a snapshot is a NAMED point the composer chose to keep, and it survives a chat clear, a browser change and a different machine. THIS FILE IS ALSO THE AI-DIALING CHANNEL: the AI appends a named snapshot (takes are named `take-NN-<slug>` with the composer's verbatim words in `comment`) and the composer picks it from the panel's Load list, which refetches every time it is opened. THE AI NEVER OVERWRITES AN EXISTING NAME — it writes a new one; the composer may overwrite and delete freely. NOT stored under scores/ on purpose: sandbox state is not score objects, and the composer score's 5 s autosave has clobbered a loaded score before (D8).",
+ "panels": {
+  "pulse": {},
+  "multitempo": {
+   "take-01-drift-TIGHT": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 1A - how often does everything snap together? tight: converges every 1.2s",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-02-drift-WIDE": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "13:15:17:19",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 1B - same 4 parts, converges only every 5.2s",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-03-density-THIN": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 2A - 2 parts, 5.8 onsets/s. drift held identical to 2B",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-04-density-THICK": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 2B - 4 parts, 15 onsets/s. same 1.2s cycle as 2A",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-05-pitch-UNISON": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 3A - one pitch: nothing but the rhythm",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-06-pitch-HARMONY": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4:5:6",
+      "mode": "harmony",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": "FIFTHS",
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 3B - same ratios, FIFTHS split low->high across the 4 parts",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-07-speed-CHOKED": {
+    "state": {
+     "cfg": {
+      "bpm": 150,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 4A - 150bpm: fastest part steps 200ms into a 450ms staccato, so it chokes itself",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-08-speed-CLEAR": {
+    "state": {
+     "cfg": {
+      "bpm": 60,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "pair 4B - 60bpm: fastest part steps 500ms, so every note rings out whole",
+    "saved": "2026-08-18T19:00:00.000Z"
+   },
+   "take-09-span-02s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "3:4:5:6",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 1/6 at 100 bpm - cycle 1.8s - gallop - you can hear the figure repeat",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-10-span-05s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "8:7:6:5",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 2/6 at 100 bpm - cycle 4.8s - still a figure, but looser",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-11-span-11s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "19:17:16:15",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 3/6 at 100 bpm - cycle 11.4s - phasing begins - four near-identical tempi sliding",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-12-span-19s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "31:29:27:25",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 4/6 at 100 bpm - cycle 18.6s - you stop tracking the cycle",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-13-span-28s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "47:43:41:37",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 5/6 at 100 bpm - cycle 28.2s - seems not to repeat",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-14-span-38s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "64:61:59:53",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "spectrum 6/6 at 100 bpm - cycle 38.4s - longest the panel allows",
+    "saved": "2026-08-18T19:30:00.000Z"
+   },
+   "take-15-6p-03.6s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "6:5:4:3:2:1",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 3.6s - gallop - six parts, the figure still audible",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-16-6p-04.8s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "8:7:6:5:4:3",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 4.8s - looser, still a figure",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-17-6p-07.8s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "13:12:11:10:9:8",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 7.8s - GAP FILL between 5s and 11s",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-18-6p-11.4s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "19:17:16:15:14:13",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 11.4s - phasing begins",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-19-6p-18.6s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "31:29:27:25:23:21",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 18.6s - you stop tracking the cycle",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-20-6p-22.8s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "38:37:36:35:34:33",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 22.8s - GAP FILL between 19s and 28s",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-21-6p-28.2s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "47:43:41:37:31:29",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 28.2s - seems not to repeat",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-22-6p-33.0s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "55:54:53:52:51:50",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 33.0s - GAP FILL between 28s and 38s",
+    "saved": "2026-08-18T19:45:00.000Z"
+   },
+   "take-23-6p-38.4s": {
+    "state": {
+     "cfg": {
+      "bpm": 100,
+      "ratios": "64:61:59:53:47:43",
+      "mode": "unison",
+      "unisonPitch": 48,
+      "pc": 0,
+      "entryId": null,
+      "noteLen": 0.25
+     },
+     "loopOn": true
+    },
+    "comment": "6-part spectrum at 100 bpm - cycle 38.4s - longest the panel allows",
+    "saved": "2026-08-18T19:45:00.000Z"
+   }
+  },
+  "phase": {}
+ }
 }

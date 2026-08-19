@@ -1060,6 +1060,20 @@ composer → notation → performance architecture.)*
   **NOT verified: the sound.** Whether several tempi together are worth keeping
   is the composer's audition and cannot be measured here.
 
+- **2af — THE TRANCE GENERATOR (spec only, nothing built)** — `SPEC 2026-08-18
+  (day 18)` — **`docs/plans/TRANCE_GENERATOR.md`**. A four-layer recipe machine
+  for the final section: **UNIT** (an MT ratio model + a tempo, the atom of the
+  rhythm layer) · **HARMONY** (its own grid at its own BPM, hold length drawn
+  from an allowed beat-set, species chosen shuffled-bag from `more chords`,
+  staccato only) · **CUIVRE** (a rate layer on top, a COUNT PER SEGMENT for this
+  piece) · **PLAYER ASSIGNMENT** (a 0.45 s minimum-rest constraint, NOT a
+  rotation period — rotation emerges from it). Actualised with a duration and a
+  seed, entering the loop at a random index. **Deliberately not built:** the
+  composer runs it as an AI-dictated workflow for this piece and wants it
+  formalised into a UI later; the doc is what makes that repeatable. Measured
+  facts it rests on are in the doc, including that putting the LARGEST ratio
+  term first makes the dialled BPM the fastest part in the group.
+
 - **2ae — COLUMN EDITING + THE UNISON BANK** — **`BUILT 2026-08-18 (day 18) —
   verified in the running app`** — the trance section's editing loop: hear the
   pulse cycle, replace a column, hear it again.
