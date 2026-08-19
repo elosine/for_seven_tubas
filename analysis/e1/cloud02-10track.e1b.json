@@ -1,0 +1,235 @@
+{
+ "source": "scores/cloud02-10track.json",
+ "generated": "2026-08-19T20:02:01.539Z",
+ "totalNotes": 1184,
+ "ceilingNotes": 814,
+ "config": {
+  "EPS": [
+   0.02,
+   0.03
+  ],
+  "MINRUN": 6,
+  "BEAT_MIN": 0.3,
+  "BEAT_MAX": 1,
+  "BEAT_STEP": 0.005,
+  "PLAYABLE_UNIT": 0.09
+ },
+ "perPart": {
+  "20": [
+   {
+    "id": "tuba1",
+    "beat": 0.3,
+    "claimed": 19,
+    "notes": 117,
+    "straightClaimed": 19,
+    "chunks": 3,
+    "usedPQ": 1,
+    "vocab": "5:2×1 2:1×1 3:1×1"
+   },
+   {
+    "id": "tuba2",
+    "beat": 0.36000000000000004,
+    "claimed": 19,
+    "notes": 120,
+    "straightClaimed": 19,
+    "chunks": 3,
+    "usedPQ": 2,
+    "vocab": "7:2×2 4:1×1"
+   },
+   {
+    "id": "tuba3",
+    "beat": 0.335,
+    "claimed": 21,
+    "notes": 126,
+    "straightClaimed": 15,
+    "chunks": 3,
+    "usedPQ": 3,
+    "vocab": "7:2×2 9:4×1"
+   },
+   {
+    "id": "tuba4",
+    "beat": 0.4550000000000001,
+    "claimed": 13,
+    "notes": 110,
+    "straightClaimed": 12,
+    "chunks": 2,
+    "usedPQ": 1,
+    "vocab": "8:3×1 5:1×1"
+   },
+   {
+    "id": "tuba5",
+    "beat": 0.4550000000000001,
+    "claimed": 28,
+    "notes": 123,
+    "straightClaimed": 28,
+    "chunks": 4,
+    "usedPQ": 0,
+    "vocab": "5:1×2 3:1×1 4:1×1"
+   },
+   {
+    "id": "tuba6",
+    "beat": 0.32,
+    "claimed": 19,
+    "notes": 122,
+    "straightClaimed": 19,
+    "chunks": 3,
+    "usedPQ": 1,
+    "vocab": "2:1×1 3:1×1 5:2×1"
+   },
+   {
+    "id": "tuba7",
+    "beat": 0.6650000000000003,
+    "claimed": 14,
+    "notes": 109,
+    "straightClaimed": 14,
+    "chunks": 2,
+    "usedPQ": 0,
+    "vocab": "4:1×1 6:1×1"
+   },
+   {
+    "id": "tuba8",
+    "beat": 0.36000000000000004,
+    "claimed": 18,
+    "notes": 118,
+    "straightClaimed": 18,
+    "chunks": 3,
+    "usedPQ": 3,
+    "vocab": "9:4×1 7:2×1 7:3×1"
+   },
+   {
+    "id": "tuba9",
+    "beat": 0.32,
+    "claimed": 24,
+    "notes": 123,
+    "straightClaimed": 24,
+    "chunks": 4,
+    "usedPQ": 2,
+    "vocab": "7:2×1 7:3×1 2:1×1 3:1×1"
+   },
+   {
+    "id": "tuba10",
+    "beat": 0.5950000000000002,
+    "claimed": 13,
+    "notes": 116,
+    "straightClaimed": 12,
+    "chunks": 2,
+    "usedPQ": 1,
+    "vocab": "5:1×1 9:2×1"
+   }
+  ],
+  "30": [
+   {
+    "id": "tuba1",
+    "beat": 0.36500000000000005,
+    "claimed": 59,
+    "notes": 117,
+    "straightClaimed": 45,
+    "chunks": 9,
+    "usedPQ": 5,
+    "vocab": "4:1×3 8:3×1 9:4×1 7:3×1 3:1×1 7:2×1 5:2×1"
+   },
+   {
+    "id": "tuba2",
+    "beat": 0.4100000000000001,
+    "claimed": 47,
+    "notes": 120,
+    "straightClaimed": 47,
+    "chunks": 7,
+    "usedPQ": 5,
+    "vocab": "9:2×4 2:1×1 3:1×1 7:2×1"
+   },
+   {
+    "id": "tuba3",
+    "beat": 0.5500000000000002,
+    "claimed": 57,
+    "notes": 126,
+    "straightClaimed": 57,
+    "chunks": 8,
+    "usedPQ": 0,
+    "vocab": "6:1×5 5:1×2 3:1×1"
+   },
+   {
+    "id": "tuba4",
+    "beat": 0.4500000000000001,
+    "claimed": 54,
+    "notes": 110,
+    "straightClaimed": 47,
+    "chunks": 8,
+    "usedPQ": 3,
+    "vocab": "5:1×4 9:2×2 2:1×1 8:3×1"
+   },
+   {
+    "id": "tuba5",
+    "beat": 0.4500000000000001,
+    "claimed": 68,
+    "notes": 123,
+    "straightClaimed": 55,
+    "chunks": 8,
+    "usedPQ": 3,
+    "vocab": "5:1×4 9:2×1 8:3×1 7:2×1 4:1×1"
+   },
+   {
+    "id": "tuba6",
+    "beat": 0.3950000000000001,
+    "claimed": 33,
+    "notes": 122,
+    "straightClaimed": 32,
+    "chunks": 5,
+    "usedPQ": 4,
+    "vocab": "7:3×1 9:4×1 4:1×1 5:2×1 7:2×1"
+   },
+   {
+    "id": "tuba7",
+    "beat": 0.39000000000000007,
+    "claimed": 46,
+    "notes": 109,
+    "straightClaimed": 46,
+    "chunks": 5,
+    "usedPQ": 1,
+    "vocab": "4:1×4 7:2×1"
+   },
+   {
+    "id": "tuba8",
+    "beat": 0.325,
+    "claimed": 53,
+    "notes": 118,
+    "straightClaimed": 46,
+    "chunks": 7,
+    "usedPQ": 6,
+    "vocab": "7:2×4 9:4×2 2:1×1"
+   },
+   {
+    "id": "tuba9",
+    "beat": 0.46000000000000013,
+    "claimed": 64,
+    "notes": 123,
+    "straightClaimed": 57,
+    "chunks": 9,
+    "usedPQ": 2,
+    "vocab": "5:1×6 9:2×2 4:1×1"
+   },
+   {
+    "id": "tuba10",
+    "beat": 0.4050000000000001,
+    "claimed": 48,
+    "notes": 116,
+    "straightClaimed": 42,
+    "chunks": 7,
+    "usedPQ": 5,
+    "vocab": "7:2×2 5:2×1 4:1×1 9:2×1 7:3×1 3:1×1"
+   }
+  ]
+ },
+ "ensemble": {
+  "20": {
+   "beat": 0.36000000000000004,
+   "claimed": 108,
+   "pqUsed": 11
+  },
+  "30": {
+   "beat": 0.4500000000000001,
+   "claimed": 432,
+   "pqUsed": 22
+  }
+ }
+}

@@ -2723,3 +2723,102 @@ morning's record:
 decision rules in NOTATION_EXPERIMENTS.md · run ledger empty · next actions
 when the composer green-lights and credits allow: E1 (data-only, cheap) →
 E2 harness build → E3 port. Main track unchanged: A1 on renewal.
+
+## Day 19 (2026-08-19, credit-wait, continued) — the GC competence profile; the phrase reframe; E1 + E1b RUN
+
+**The composer added the GC competence profile from two pieces of lived use,
+and reframed the problem** (verbatim COMPOSER_LOG day 19). Both filed to
+NOTATION_EXPERIMENTS §1/§4 and PLAN M5:
+
+- **GC strong at:** rhythmically accurate entries · *"when spread thru the
+  ensemble can produce interesting rhythms hard to notate"* (a COMPOSITIONAL
+  affordance, not merely a reading aid — worth remembering when Section 1's
+  material is still being generated) · baton-like, *"can give a pole, a
+  rhythmic marker to play around"* (a reference to phrase against, not only
+  a command to obey).
+- **GC weak at:** phrase level · and **attack-coupled** — *"they can give a
+  rhythmically accurate entry or attack point but tend to be coupled with the
+  actual attack feel of the ball bounce… if you want a player to enter with a
+  slow smooth attack ramp… they will have to resist the stated attack."* The
+  timing channel and the articulation channel are entangled in one gesture.
+- **AI proposal from that weakness (untested, composer decides):** cue soft
+  entries at the parabola's APEX — the zero-velocity float — rather than the
+  impact, and/or drop the squash/rebound rendering for ramped attacks. Keeps
+  trajectory-predictability, changes the articulation connotation.
+- **THE REFRAME, which now binds evaluation:** *"with the density build-ups,
+  listening to individual parts, this is about finding ways to produce PHRASE
+  PERFORMING STRATEGIES within a context of rhythmic complexity."* Accuracy
+  demoted from goal to context. Consequence built into E2: a phrase axis
+  (tap-velocity profiles + composer judgment) alongside onset error, because
+  timing metrics are blind to the thing now named as the goal. Positive form
+  of the hypothesis: **ball carries time, page carries phrase.**
+
+**Also clarified:** the Es were designs only — the composer asked whether they
+were built, and asked for *"a digestible chunk we can do now before passing on
+to the main project."* Chosen chunk: **RUN E1** (data-only, needs no
+construction). Ran it, and it forced a follow-up (E1b). Full results in
+NOTATION_EXPERIMENTS §8; tools `tools/e1_chunker.js`, `tools/e1b_fixed_beat.js`;
+output `analysis/e1/*.json`. Headline numbers on `cloud02-10track`:
+
+    segmentation ceiling                          68.8 % (814/1184 notes)
+    free beat, ANY grid unit        eps 20ms      68.8 %  = the ceiling
+    free beat, playable unit>=90ms  eps 20/30ms   26.2 % / 57.1 %
+    one fixed beat per part         eps 20/30ms   15.9 % / 44.7 %
+    one SHARED ensemble beat        eps 20/30ms    9.1 % / 36.5 %
+
+**Five findings, two of them corrections to my own earlier reasoning:**
+
+1. **The free search reproduces the day-19 false positive in new clothes.**
+   Unconstrained, the fit claims every note segmentation makes available —
+   but at grid units of 33–87 ms (median 37) using 9:1 and 8:1 subdivisions.
+   A countable beat with a high subdivision is just as unreadable as a fast
+   beat. **"Countable beat" is not a sufficient constraint; the GRID UNIT is
+   the binding one.** My own experiment design had inherited this hole from
+   the day-19 method note.
+2. **I WAS WRONG about first-level rationals rescuing the apex.** The morning
+   entry hypothesized "a 7:2 on a 60 bpm beat reaches a ~171 ms grid while the
+   counted referent stays slow — unsearched space." E1 selected **zero** p:q
+   chunks, and the reason is provable: with a beat free in [0.30, 1.00] (a
+   3.33× range) some integer p ≤ 9 always lands the beat in range, so a
+   straight label always exists (1 exception in 1935 sampled units, at the
+   extreme edge). **p:q is redundant in a free-beat frame — the frame makes it
+   unnecessary, the material never gets a say.** The negative is therefore
+   about analysis design, not about the composer's idea.
+3. **So the idea was re-tested where it CAN matter (E1b, fixed beat) — and it
+   works, modestly.** With one beat per part, 9:2, 7:2, 7:3, 8:3, 9:4 and 5:2
+   all get selected, beating a straight-only vocabulary by **+0.7 pts at
+   ε=20 ms, +4.6 pts at ε=30 ms**. But fixing the beat costs ~10–12 pts against
+   the free frame, and a SHARED ensemble beat costs ~7–8 more.
+4. **M5's open question now has a price tag.** Ordering is stable at both
+   tolerances: free beat per chunk > one beat per part > one shared ensemble
+   beat. The cost of ensemble metric agreement is measured, not argued.
+5. **Per-chunk re-anchoring is the GC's structural job.** Every fit anchors
+   error at each chunk's first onset, so error never accumulates — an
+   assumption about performance that the ball discharges by landing. Even
+   E1b's "fixed tempo" assumes it (fixed unit, free phase). **True continuous
+   metric notation is stricter than anything measured here and remains
+   unmeasured** — filed as E1c.
+
+**Sensitivity, and the honest limit.** `PLAYABLE_UNIT` is binding — 80/90/100/
+120 ms floors give 37.3/26.2/19.8/11.5 % at ε=20 ms, a ~3× swing across a
+plausible range. `BEAT_MIN` (0.25 vs 0.30 s) has **no** effect on coverage, a
+corollary of finding 2. **The pre-registered kill rule (<30 % at ε=20 ms)
+FIRES at 26.2 % — but would not fire at an 80 ms floor.** Recorded verdict:
+S4-everywhere stays dead; **S4-as-one-strategy-in-a-mix is what the numbers
+support** — a quarter to a half of the material admits simple bars depending
+on tolerance. E1 cannot settle where the playable line sits; that is a musical
+judgment and it is E2's job.
+
+**Verified, not asserted:** one reported chunk re-derived by hand from raw
+score objects (tuba9 @ 48.910 s, grid `0 1 2 4 5 7 9 10 12 13`) → unit
+135.0 ms, max error 17.0 ms, matching the tool exactly. The check also exposed
+a labelling artifact: that chunk is plain eighths/quarters at ~222 bpm but is
+*labelled* "3:1 at 148 bpm" purely because a 0.27 s beat sits under the 0.30 s
+floor. **Report units, not just labels.**
+
+**Deliberately NOT done:** E1 run on ONE score only (the other Section-1
+realisations remain; the day-19 "indicative, not exhaustive" caveat stands) ·
+segmentation parameters (`SEG_K` 2.0, `SEG_FLOOR` 0.35 s) never swept, and
+they set the 68.8 % ceiling that bounds every number · no E2/E3 build (E2
+needs a composer green-light; E3 is a port) · main track untouched — **A1
+remains the next step on renewal.**

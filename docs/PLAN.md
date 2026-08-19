@@ -288,6 +288,15 @@ composer → notation → performance architecture.)*
     subject, bias stated and pre-registered) · E3 GC port. Mists baseline is
     a candidate, not a commitment — composer *"open to paradigm shifts."*
     Per-experiment green-lights required; A1 remains next on the main track.
+  - **Reframe (composer, same day, binds evaluation):** the goal is *"phrase
+    performing strategies within a context of rhythmic complexity"* — timing
+    accuracy is the context, phrasing is the goal. GC competence profile
+    filed in NOTATION_EXPERIMENTS §4: strong on entries and
+    ensemble-distributed rhythms, weak at phrase level, and **attack-coupled**
+    (the landing connotes a percussive attack; smooth-ramp entries must
+    resist it). Live hypothesis: ball carries time, page carries phrase.
+  - **E1 RUN (2026-08-19, composer's "digestible chunk"):** results in the
+    NOTATION_EXPERIMENTS run ledger and RUNNING_LOG day 19.
 
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 

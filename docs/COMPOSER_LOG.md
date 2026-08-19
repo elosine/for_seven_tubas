@@ -1361,3 +1361,29 @@ the confusion dissolved under their own framing):*
 
 *Then: "What's next? Draw up plan? Design tests?" — the AI drew up
 `docs/NOTATION_EXPERIMENTS.md` (design only, nothing runs) the same turn.*
+
+## 2026-08-19 (day 19, credit-wait, continued) — the GC competence profile, and the reframe: phrase performing strategies (typed)
+
+*"Additional comments/color to no particular point," in the composer's words:*
+
+> *"The GCs are good at producing rhythmic accuracy, and when spread thru the
+> ensemble can produce interesting rhythms hard to notate. At the phrase
+> level they are less competent — and they are tied to their attack. IOW they
+> can give a rhythmically accurate entry or attack point, but tend to be
+> coupled with the actual attack feel of the ball bounce — like if you want a
+> player to enter with a slow smooth attack ramp, you can use a GC to show a
+> time-accurate entry, but they will have to resist the stated attack."*
+
+> *"Also good, as you mentioned — like a conductor's baton, can give a pole,
+> a rhythmic marker to play around."*
+
+*And the reframe of what the density-build notation problem actually is:*
+
+> *"So I think with the density build-ups, listening to individual parts,
+> this is about finding ways to produce phrase performing strategies within a
+> context of rhythmic complexity."*
+
+*The composer also asked for the Es to be clarified — actual experiments, or
+being built now? — and either way, "a digestible chunk we can do now before
+passing on to the main project." AI answer: designs only, nothing built or
+run at that point; the digestible chunk chosen = running E1 (data-only).*

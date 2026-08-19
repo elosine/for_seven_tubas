@@ -24,6 +24,15 @@ promise. The experiments exist to (a) discriminate between named strategies
 and (b) DISCOVER what actually carries timing information to a player —
 including the possibility that much of the apparatus is unnecessary.
 
+**Reframe (composer, day 19, binds the evaluation):** *"listening to
+individual parts, this is about finding ways to produce PHRASE PERFORMING
+STRATEGIES within a context of rhythmic complexity."* Timing accuracy is the
+CONTEXT, not the goal — a strategy that nails onsets but yields no phrase is
+not a solution. Consequence: every experiment carries a phrase axis alongside
+the error metrics (§5 E2), and the GC's known phrase-level weakness (§4)
+makes the page-vs-animation division of labour the live hypothesis: **ball
+carries time, page carries phrase.**
+
 ## 2. Two classes of experiment (composer's distinction, day 19)
 
 - **Discriminative** — prove/disprove a named strategy against another, with
@@ -64,6 +73,25 @@ performance apps (piece #1 `string_quartet_no1-composer`, piece #2
 - a physics check at port time: does the existing object scale bounce height
   to the gap (flight time t → height ∝ t²)? If not, that is the one upgrade
   worth making — height-encodes-duration is the predictive mechanism.
+
+**Competence profile (composer, day 19 — from two pieces of lived use):**
+- *Strong:* rhythmically accurate entries/attack points · spread through the
+  ensemble, GCs *"can produce interesting rhythms hard to notate"* (a
+  COMPOSITIONAL affordance, not just a reading aid) · baton-like — *"can
+  give a pole, a rhythmic marker to play around"* (a reference to phrase
+  against, not only a command to obey).
+- *Weak:* *"at the phrase level they are less competent"* · **attack-coupled**
+  — the ball's landing carries an attack FEEL: it cues a percussive entry
+  even when the part wants a slow smooth ramp, so the player must *"resist
+  the stated attack."* The timing channel and the articulation channel are
+  entangled in the one gesture.
+- *Design candidate from the weakness (AI proposal, untested — composer
+  decides whether it enters E3):* decouple them. Keep the parabola (the
+  predictive mechanism) but cue soft entries at the **apex** — the
+  zero-velocity, floating point of the flight — rather than the impact;
+  and/or vary the landing rendering (no squash/rebound, dissolve-into-note)
+  for ramped attacks. Both preserve trajectory-predictability while changing
+  the articulation connotation.
 
 ## 5. Experiment designs
 
@@ -113,7 +141,10 @@ be optimized for other virtues. If r3 jumps ⇒ the GC is the load-bearing
 device (the composer's main insight confirmed). If r4 adds nothing over r3 ⇒
 the internal-pulse mode (S3's extra machinery) is unnecessary. If nothing
 jumps ⇒ the material itself bounds accuracy — a compositional finding, not a
-notational one.
+notational one. **Under the phrase reframe, "negligible timing discrepancy"
+is not "the page is redundant"** — the page may be carrying the phrase
+channel, which timing metrics cannot see; the phrase axis (E2) reads that
+side of the same runs.
 
 ### E2 — the tap harness (apparatus; serves E0 and head-to-heads)
 
@@ -126,6 +157,13 @@ notational one.
 - **Metrics:** median |error|, IQR, % gross misses (> 80 ms — strawman
   threshold, tune on first data), drift over the excerpt, and
   learning slope across repeats.
+- **Phrase axis (the reframe's requirement):** onset error cannot see
+  phrasing. Two additions: (a) **tap velocity profiles** — a MIDI keyboard
+  reports velocity, so the dynamic shape of a performed group is measurable
+  against the intended phrase shape (exploratory — velocity on a keyboard is
+  a proxy, not tuba articulation); (b) **composer judgment** per condition:
+  "did that feel like performing a phrase or typing?" — recorded alongside
+  the numbers, not beneath them.
 - **Alignment:** nearest-target matching with an insertion/omission count —
   extra and missing taps are data, not noise.
 
@@ -171,4 +209,109 @@ rules:
 *(append one line per run: date · experiment · data/excerpt · conditions ·
 headline result · decision taken)*
 
-- *(no runs yet)*
+- **2026-08-19 · E1 + E1b · `cloud02-10track` (10 parts, 1184 onsets, 3–86 s)
+  · tools `e1_chunker.js`, `e1b_fixed_beat.js` · full results below.**
+
+### E1 results (2026-08-19) — free beat per chunk
+
+**Segmentation ceiling: 814/1184 notes (68.8 %)** live in groups of ≥6 (206
+groups, length min/med/max 1/5/20). No fit can claim more than this — so
+coverage figures must always be read against 68.8 %, not 100 %.
+
+    condition (eps = per-onset tolerance)        eps=20 ms   eps=30 ms
+    free beat, ANY grid unit                       68.8 %      68.8 %   <- = the ceiling
+    free beat, playable unit >= 90 ms              26.2 %      57.1 %
+    one fixed beat per part, playable (E1b)        15.9 %      44.7 %
+    one SHARED ensemble beat, playable (E1b)        9.1 %      36.5 %
+
+**Finding 1 — the free search reproduces the day-19 false positive in new
+clothes.** With the grid unit unconstrained, the fit claims *every note the
+segmentation makes available* (68.8 % = exactly the ceiling), at ε as tight as
+20 ms. But the grid units are 33–87 ms (median **37 ms**) and the vocabulary
+selected is 9:1×42, 8:1×24, 7:1×7 — nonuplets and octuplets per beat. That is
+not simple notation; it is 32nds-and-finer wearing a countable-beat label. **The
+"countable beat" constraint alone is insufficient** — a slow beat plus a high
+subdivision is just as unreadable as a fast beat. The binding second constraint
+is the GRID UNIT, and it must be stated explicitly.
+
+**Finding 2 — the honest coverage is the playable-unit row, and it is
+tolerance-dominated:** 26.2 % at ε=20 ms rising to 57.1 % at ε=30 ms. Chunk
+lengths at ε=20 ms are min/med/max 6/6/11 (mostly minimum-length — thin bars);
+at ε=30 ms 6/8/15. Vocabulary becomes ordinary: 3:1, 4:1, 2:1. Tempi cluster
+fast, 133–200 bpm (median ~165). Apex-window (48.9–54.9 s) playable coverage:
+33.6 % at ε=20 ms, 86.7 % at ε=30 ms.
+
+**Finding 3 — first-level p:q rationals are PROVABLY REDUNDANT when the beat is
+free, and this is why E1 selected zero of them.** With a countable beat free in
+[0.30, 1.00] — a 3.33× range — some integer subdivision p ≤ 9 always lands the
+beat in range, so a straight label always exists (checked numerically: 1
+exception in 1935 sampled grid units, at the extreme edge u ≈ 33 ms). The
+composer's 9:2 / 7:3 vocabulary therefore cannot add coverage in a per-chunk
+free-beat frame. **It is not that the material rejects the idea — the analysis
+frame makes it unnecessary.** Which tells us exactly where it *can* matter:
+when the beat is CONSTRAINED. Hence E1b.
+
+**Finding 4 (E1b) — with the beat fixed, p:q earns its keep, but the gain is
+modest and the cost is large.** Fixing one beat per part makes the composer's
+vocabulary appear everywhere (9:2, 7:2, 7:3, 8:3, 9:4, 5:2 all selected), and
+it beats a straight-only vocabulary by **+0.7 pts at ε=20 ms and +4.6 pts at
+ε=30 ms** (15.9 vs 15.2 %; 44.7 vs 40.0 %). But fixing the beat *costs* about
+10–12 pts against the free-beat frame, and forcing ONE SHARED beat across the
+ensemble costs another 7–8. **The ordering is stable at both tolerances:**
+free beat per chunk > one beat per part > one shared ensemble beat. That is a
+direct answer to M5's open question "is the tempo per part or is the bar a
+shared window": per-part is strictly cheaper than shared, and per-chunk
+cheaper still — the cost of ensemble metric agreement is now a number.
+
+**Finding 5 — per-chunk re-anchoring is what makes any of this work, and it is
+the GC's structural job.** Every fit above anchors error at each chunk's first
+onset, so error never accumulates across chunk boundaries. This is not a
+convenience of the analysis; it is an assumption about performance that the GC
+discharges — the ball landing at each chunk start re-zeroes the error budget.
+**Note that even E1b's "fixed tempo" condition assumes this** (it fixes the
+grid unit but not the phase). True continuous metric notation — fixed unit AND
+fixed phase across a whole part — is stricter than anything measured here and
+remains unmeasured (see E1c below).
+
+**Sensitivity (the honesty check).** Two knobs were swept:
+
+    PLAYABLE_UNIT floor    eps=20 ms   eps=30 ms      <- BINDING
+       80 ms                 37.3 %      64.3 %
+       90 ms                 26.2 %      57.1 %
+      100 ms                 19.8 %      49.9 %
+      120 ms                 11.5 %      36.1 %
+    BEAT_MIN 0.25 vs 0.30 s: NO effect on coverage (labelling only)
+
+The headline number swings ~3× across a plausible range of "what counts as a
+readable subdivision". **E1 therefore cannot settle S4 on its own** — where the
+playable line sits is a musical judgment, and E2 is the instrument that could
+set it empirically. `BEAT_MIN` not mattering is a corollary of Finding 3.
+
+**Verification (per AI_METHODOLOGY — a confidence claim must be checked).** One
+reported chunk was re-derived by hand from the raw score objects: tuba9 @
+48.910 s, 10 notes, grid `0 1 2 4 5 7 9 10 12 13`. Independent least squares
+gives unit **135.0 ms**, max error **17.0 ms** — matching the tool exactly. Its
+raw IOIs (131, 142, 256, 163, 256, 252, 147, 266, 156 ms) are cleanly 1× and 2×
+the unit. **Caveat exposed by the check:** this chunk is musically plain
+eighths-and-quarters at a ~222 bpm pulse, but gets *labelled* "3:1 triplets at
+148 bpm" only because a 0.27 s beat falls under the 0.30 s floor. Labels near
+the beat boundary are artifacts of the window, not facts about the music —
+report units, not just labels.
+
+**Pre-registered kill rule — FIRES, but not robustly.** The rule was: coverage
+< ~30 % at ε=20 ms, min-run 6 ⇒ metric description is patchwork and S4 loses by
+default. Playable coverage is **26.2 %**, so it fires — but at an 80 ms floor
+it would read 37.3 % and would not. **Verdict recorded: S4-everywhere is dead
+(it was already); S4-as-one-strategy-in-a-mix is alive and is what the numbers
+actually support** — roughly a quarter to a half of the material admits simple
+bars depending on tolerance, and the rest needs something else. This is the
+composer's mixed-strategy reframe, now with numbers attached.
+
+**Open / next (not run):**
+- **E1c — continuous metric condition:** fixed unit AND fixed phase across a
+  part (no per-chunk re-anchoring), to price what the GC is actually buying.
+- Run E1 across the other Section-1 realisations — one score is indicative,
+  not exhaustive (the day-19 caveat still stands).
+- Segmentation is the ceiling at 68.8 %; its parameters (`SEG_K` 2.0,
+  `SEG_FLOOR` 0.35 s) were never swept. A different segmentation changes every
+  number above.

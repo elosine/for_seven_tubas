@@ -497,3 +497,62 @@ Xenakis's Mists. Three printable items:*
   with-the-grain wins defer to replication) — turns a weakness of
   composer-as-subject into a usable instrument. Likely a paper section:
   self-experimentation with stated bias in notation design.
+- **The attack-coupling observation (composer, from two pieces of lived GC
+  use), print-ready:** the GC *"can give a rhythmically accurate entry or
+  attack point but tend to be coupled with the actual attack feel of the ball
+  bounce — like if you want a player to enter with a slow smooth attack ramp…
+  they will have to resist the stated attack."* A visual timing cue is not
+  articulation-neutral: the ball's impact CONNOTES a percussive attack, so
+  the timing channel and the articulation channel are entangled in one
+  gesture. This is a general claim about animated notation that the
+  literature on cross-modal correspondence would predict, discovered here
+  from performance practice rather than theory. The proposed decoupling
+  (cue soft entries at the parabola's apex — the zero-velocity float — while
+  keeping trajectory predictability) is a design hypothesis born directly
+  from the observation.
+- **The reframe that names the research question:** *"this is about finding
+  ways to produce phrase performing strategies within a context of rhythmic
+  complexity."* Not "how do players hit onsets" but "how do players perform
+  PHRASES while embedded in rhythmic complexity" — accuracy demoted from
+  goal to context. Paired with the GC's known phrase-level weakness, the
+  division-of-labour hypothesis acquires its positive form: **ball carries
+  time, page carries phrase** — each device covering the other's blind side,
+  and the evaluation design (timing metrics + velocity-profile/judgment
+  phrase axis) now has to see both channels.
+
+### The first run (E1/E1b, 2026-08-19) — three results the paper should carry
+
+- **The false positive has a general form, and it recurs.** Day 19 morning:
+  an unconstrained beat search "succeeded" at a 20 ms beat — rejected, because
+  a 20 ms beat is a fine grid, not a tempo. The fix was to constrain the beat
+  to something countable. E1 then "succeeded" again — claiming *every*
+  segmentable note at ε=20 ms — using countable beats with 9:1 and 8:1
+  subdivisions and grid units of 33–87 ms. **Same failure, one level up: the
+  constraint was placed on the beat when it belonged on the grid unit.** The
+  generalizable lesson for computational notation analysis: a fit's
+  *plausibility* must be constrained at every level of the description, and a
+  metric-fit result with no complexity bound on the SUBDIVISION is not a
+  result. This is a methodological finding worth stating on its own.
+- **A negative that indicts the method, not the idea.** The AI hypothesized
+  that the composer's first-level rationals (9:2, 7:3) would rescue the apex,
+  and predicted "unsearched space." The chunker selected zero of them — but
+  the reason turned out to be provable rather than empirical: with a countable
+  beat free in a 3.33× range, some integer subdivision always lands the beat
+  in range, so a straight label always exists and p:q can never be *needed*.
+  **The frame made the composer's idea unnecessary before the material could
+  be consulted.** Re-run with the beat constrained (one tempo per part — the
+  condition under which the idea is meaningful), 9:2, 7:2, 7:3, 8:3, 9:4 and
+  5:2 were all selected, gaining +0.7 to +4.6 points over a straight-only
+  vocabulary. The paper's point: *a null result is a claim about the
+  experiment before it is a claim about the world*, and the discipline that
+  caught it was asking why a result was exactly zero rather than reporting it.
+- **The price of ensemble metric agreement, measured.** Coverage orders
+  stably: free beat per chunk (26.2 % at ε=20 ms) > one fixed beat per part
+  (15.9 %) > one shared ensemble beat (9.1 %). M5 had asked, as an open
+  question, whether the tempo is per part or the bar is a shared window; the
+  answer now has a cost attached rather than an argument. Related and
+  structural: every fit re-anchors error at each chunk's first onset, so the
+  bouncing ball is not decoration — **the GC's landing is what re-zeroes the
+  error budget**, and without it the whole analysis would have to price
+  accumulating drift. The device and the analysis turn out to presuppose each
+  other, which is the M5-chunk-as-atom convergence appearing a third time.
