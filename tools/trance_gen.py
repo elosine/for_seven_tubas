@@ -32,6 +32,8 @@ UNITS = [('A', '6:5:4:3:2:1',        100),
          ('G', '19:17:16:15:14:13',  100)]
 
 LIST = 'more chords'          # which custom list the species come from
+LO, HI = 30, 65               # staccato technique range (F#1-F4). Outside it a note is SILENT.
+FOLDED = []
 
 
 def load_species():
@@ -48,11 +50,41 @@ def load_species():
             e['cv'], e['cvn'] = s['pitches'], sorted(cv)
         else:
             e['plain'] = s['pitches']
-    return {k: v for k, v in out.items() if 'plain' in v and 'cvn' in v}
+    out = {k: v for k, v in out.items() if 'plain' in v and 'cvn' in v}
+    # RANGE FIX. The staccato technique sounds only MIDI 30-65 (F#1-F4); a pitch
+    # outside it is drawn in the score and simply never speaks. Seven of the
+    # banked species carry a 66 or 68 (they come from the played-in VERT01
+    # voicings, and the blast sandbox will let you keep them), which silently
+    # killed 8.8% of the notes in the first gen-aud-03. Octave-fold into range -
+    # the house move, same as the CLOUD02 max-retention cleaning - so the pitch
+    # class survives instead of the note vanishing. Dedupe after folding.
+    global FOLDED
+    FOLDED = []
+    for name, e in out.items():
+        for key in ('plain', 'cv'):
+            fixed, moved = [], []
+            for m in e[key]:
+                o = m
+                while m > HI: m -= 12
+                while m < LO: m += 12
+                if m != o: moved.append((o, m))
+                if m not in fixed: fixed.append(m)
+            e[key] = sorted(fixed)
+            if key == 'plain' and moved: FOLDED.append((name, moved, len(e[key])))
+        e['cvn'] = sorted({m for m in e['cvn'] if LO <= m <= HI} |
+                          {m for m in (x - 12 for x in e['cvn'] if x > HI) if LO <= m <= HI})
+        if not e['cvn']: e['cvn'] = [e['cv'][-1]]
+    return out
 
 
 SP = load_species()
 SPECIES = sorted(SP)
+if FOLDED:
+    print('octave-folded into the staccato range 30-65:')
+    for name, moved, n in FOLDED:
+        print('   %-12s %s   -> %d pitches' %
+              (name, ' '.join('%d->%d' % m for m in moved), n))
+    print()
 
 
 def mulberry32(a):
