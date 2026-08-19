@@ -1608,8 +1608,10 @@ survival law; IR carries NO layout units (vertical-unit choice moved to the
 slice-1 coordinate module); adversarial pass found 22 defects (7 lying
 validator checks incl. a prototype-chain bypass) — all fixed, 29-case
 mutation battery green. Trail in RUNNING_LOG day 19 night.
-Next: **A3 — hand-worked trance bar** (from `tranceA002f`), then A4 morph
-window, A5 density apex.
+**A3 DONE 2026-08-19 night** — `notation/ir/trance-bar-01.ir.json` (two
+tempo streams + the 0.136 s seam; VALID vs source; 0.0000 ms re-derivation;
+two schema amendments: span = onset ownership, boundary = next chunk's first
+onset). Next: **A4 — morph window**, then A5 density apex.
 
 ## Parking lot
 
