@@ -1,0 +1,81 @@
+{
+  "irVersion": "0.1",
+  "id": "trance-bar-01",
+  "source": { "score": "tranceA002f", "window": [58.4, 66.8], "parts": [4] },
+  "provenance": {
+    "createdBy": "hand",
+    "date": "2026-08-19",
+    "tool": null,
+    "notes": "A3: first hand-worked chunk (Phase A). Tuba5 closing passage: the 'F oct B' figure (own 0.75 s pulse, 80 bpm) joining the ensemble 0.4 s grid ('BASE E3' x15, 150 bpm, marker 'base x15' at 60.8 = S1 read-through, not carried here). The 0.136 s seam between streams is the point: two chunks, two anchors, independent tempo maps. Durations are sample-true staccato lengths from bank/sample_lengths.json (D9). Overlays ov-001/ov-002 exercise the authored channel and the override mechanism per the A2 plan — composer revises freely."
+  },
+  "events": [
+    { "id": "ev-wc-5634", "source": { "score": "tranceA002f", "objectId": "wc-5634" }, "onset": 58.4136, "duration": 0.37, "pitch": { "midi": 35, "spelled": { "step": "B", "alter": 0, "octave": 1 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5634", "grid": [0] }, "provenance": "derived" },
+    { "id": "ev-wc-5644", "source": { "score": "tranceA002f", "objectId": "wc-5644" }, "onset": 59.1636, "duration": 0.45, "pitch": { "midi": 47, "spelled": { "step": "B", "alter": 0, "octave": 2 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5634", "grid": [1] }, "provenance": "derived" },
+    { "id": "ev-wc-5654", "source": { "score": "tranceA002f", "objectId": "wc-5654" }, "onset": 59.9136, "duration": 0.5, "pitch": { "midi": 59, "spelled": { "step": "B", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5634", "grid": [2] }, "provenance": "derived" },
+    { "id": "ev-wc-5664", "source": { "score": "tranceA002f", "objectId": "wc-5664" }, "onset": 60.6636, "duration": 0.37, "pitch": { "midi": 35, "spelled": { "step": "B", "alter": 0, "octave": 1 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5634", "grid": [3] }, "provenance": "derived" },
+    { "id": "ev-wc-5776", "source": { "score": "tranceA002f", "objectId": "wc-5776" }, "onset": 60.8, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [0] }, "provenance": "derived" },
+    { "id": "ev-wc-5781", "source": { "score": "tranceA002f", "objectId": "wc-5781" }, "onset": 61.2, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [1] }, "provenance": "derived" },
+    { "id": "ev-wc-5786", "source": { "score": "tranceA002f", "objectId": "wc-5786" }, "onset": 61.6, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [2] }, "provenance": "derived" },
+    { "id": "ev-wc-5791", "source": { "score": "tranceA002f", "objectId": "wc-5791" }, "onset": 62, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [3] }, "provenance": "derived" },
+    { "id": "ev-wc-5796", "source": { "score": "tranceA002f", "objectId": "wc-5796" }, "onset": 62.4, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [4] }, "provenance": "derived" },
+    { "id": "ev-wc-5801", "source": { "score": "tranceA002f", "objectId": "wc-5801" }, "onset": 62.8, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [5] }, "provenance": "derived" },
+    { "id": "ev-wc-5806", "source": { "score": "tranceA002f", "objectId": "wc-5806" }, "onset": 63.2, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [6] }, "provenance": "derived" },
+    { "id": "ev-wc-5811", "source": { "score": "tranceA002f", "objectId": "wc-5811" }, "onset": 63.6, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [7] }, "provenance": "derived" },
+    { "id": "ev-wc-5816", "source": { "score": "tranceA002f", "objectId": "wc-5816" }, "onset": 64, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [8] }, "provenance": "derived" },
+    { "id": "ev-wc-5821", "source": { "score": "tranceA002f", "objectId": "wc-5821" }, "onset": 64.4, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [9] }, "provenance": "derived" },
+    { "id": "ev-wc-5826", "source": { "score": "tranceA002f", "objectId": "wc-5826" }, "onset": 64.8, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [10] }, "provenance": "derived" },
+    { "id": "ev-wc-5831", "source": { "score": "tranceA002f", "objectId": "wc-5831" }, "onset": 65.2, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [11] }, "provenance": "derived" },
+    { "id": "ev-wc-5836", "source": { "score": "tranceA002f", "objectId": "wc-5836" }, "onset": 65.6, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [12] }, "provenance": "derived" },
+    { "id": "ev-wc-5841", "source": { "score": "tranceA002f", "objectId": "wc-5841" }, "onset": 66, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [13] }, "provenance": "derived" },
+    { "id": "ev-wc-5846", "source": { "score": "tranceA002f", "objectId": "wc-5846" }, "onset": 66.4, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-5776", "grid": [14] }, "provenance": "derived" }
+  ],
+  "chunks": [
+    {
+      "id": "ch-4-wc-5634",
+      "part": 4,
+      "span": [58.4136, 60.8],
+      "class": "trance-stream",
+      "strategy": "simple-bar",
+      "tempo": { "anchorSeconds": 58.4136, "unitSeconds": 0.75, "beatSeconds": 0.75, "subdivision": 1, "maxErrSeconds": 0, "label": "quarters @ 80" },
+      "events": ["ev-wc-5634", "ev-wc-5644", "ev-wc-5654", "ev-wc-5664"],
+      "groups": [
+        { "id": "bg-1", "kind": "beam", "events": ["ev-wc-5634", "ev-wc-5644", "ev-wc-5654", "ev-wc-5664"], "provenance": "derived" }
+      ],
+      "devices": [
+        { "id": "dev-1", "kind": "gc", "mode": "landing", "at": 58.4136, "provenance": "derived" }
+      ],
+      "provenance": "derived"
+    },
+    {
+      "id": "ch-4-wc-5776",
+      "part": 4,
+      "span": [60.8, 66.8],
+      "class": "trance-stream",
+      "strategy": "simple-bar",
+      "tempo": { "anchorSeconds": 60.8, "unitSeconds": 0.4, "beatSeconds": 0.4, "subdivision": 1, "maxErrSeconds": 0, "label": "quarters @ 150" },
+      "events": ["ev-wc-5776", "ev-wc-5781", "ev-wc-5786", "ev-wc-5791", "ev-wc-5796", "ev-wc-5801", "ev-wc-5806", "ev-wc-5811", "ev-wc-5816", "ev-wc-5821", "ev-wc-5826", "ev-wc-5831", "ev-wc-5836", "ev-wc-5841", "ev-wc-5846"],
+      "devices": [
+        { "id": "dev-2", "kind": "gc", "mode": "landing", "at": 60.8, "provenance": "derived" }
+      ],
+      "provenance": "derived"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "ov-001",
+      "kind": "instruction",
+      "target": { "chunk": "ch-4-wc-5634" },
+      "value": "own pulse (80): the rising octave-B figure rides your own beat, independent of the ensemble 150 grid until BASE",
+      "provenance": "authored"
+    },
+    {
+      "id": "ov-002",
+      "kind": "dynamic",
+      "target": { "event": "ev-wc-5846" },
+      "value": "p",
+      "provenance": "authored-override",
+      "contradicts": "S1 recVel 112, uniform across the BASE stream — a closing taper on the final attack is a notational decision the MIDI does not carry (A3 mechanism exercise; composer revises)",
+      "orphaned": false
+    }
+  ]
+}

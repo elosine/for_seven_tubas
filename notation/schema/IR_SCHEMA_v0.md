@@ -178,6 +178,15 @@ swell is also a chunk — one without a tempo).
 and same-part chunk spans are disjoint — the chunk is the atom of the strip,
 so double membership would notate a note twice.
 
+**A3 amendments (2026-08-19, found by hand-working `trance-bar-01`):**
+- **A chunk's span is ONSET OWNERSHIP, not sounding time.** Disjointness
+  applies to onsets only; sounding overlap across a boundary is legal and
+  expected — in the real seam, the octave-figure's last B1 (sample-true
+  0.37 s, D9) is still ringing when the BASE stream starts 0.136 s later.
+- **Boundary convention for adjacent same-part chunks:** the boundary sits
+  at the NEXT chunk's first onset (span half-open `[start, next-start)`),
+  so every instant belongs to exactly one chunk and no gap needs inventing.
+
 **Tempo grain is the finest (per chunk), by design** — per-part or shared
 tempi are then special cases (equal maps across chunks/parts), so the open
 musical choice (§8 row 8) forks nothing here.

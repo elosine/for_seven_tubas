@@ -3074,3 +3074,38 @@ all green.** The catches worth keeping:
   same way decisions 1-2 did: the IR needed NO unit, so the fork vanished.
 - **Part-name trap recorded:** E1 "tuba9" = layer 8 — track-id LOOKUP,
   never numeral parsing.
+
+## Day 19 (2026-08-19, night) — A3 RUN: first hand-worked IR chunk, and the chunk model survives contact
+
+**Composer: "a3 good."** `notation/ir/trance-bar-01.ir.json` hand-authored
+from `tranceA002f` tuba5's closing passage (58.4-66.8 s) — deliberately the
+most architecturally interesting bar in the section: the **"F oct B" figure
+on the player's OWN 0.75 s pulse (80 bpm) joining the ensemble 0.4 s grid
+("BASE E3" x15, 150 bpm), with a 0.136 s seam** where the streams collide.
+19 events, 2 chunks, a derived beam group, GC landings at both anchors, one
+authored instruction, one authored-override dynamic (the A2-mandated
+mechanism exercise, flagged for composer revision).
+
+**Verified twice:** `ir_validate.js --against-source` VALID, and an
+independent re-derivation of both tempo maps against the RAW score onsets —
+worst |predicted − actual| = **0.0000 ms** over all 19 events (generated
+material; the check proves the hand-typed maps, not just the tool).
+
+**The findings (why A3 exists — schema flaws found by hand, cheap):**
+1. **Span = ONSET OWNERSHIP, not sounding time.** The seam breaks the naive
+   reading: B1's sample rings 0.37 s into the BASE stream's span. The
+   disjointness law is right only under onset semantics — now stated in the
+   spec (A3 amendment).
+2. **Adjacent-chunk boundary convention was missing:** boundary = next
+   chunk's first onset, half-open spans. Now stated.
+3. **The seam needed NO new machinery** — two chunks, independent anchors,
+   GC re-anchor at each: the tempo-stream join that motivated the whole M5
+   discussion is expressed by the existing model. The chunk-as-atom claim
+   survives its first real material.
+4. Non-finding worth recording: typing 15 identical BASE events by hand is
+   verbose — that is extractor territory (post-A5), not a schema flaw.
+
+Marker stream "base x15" correctly stayed OUT of the IR (S1 read-through,
+spec §7). Next: **A4 — morph window** (grp-act-bloom-01-01 spans layers
+0-7: first real multi-part exercise), then **A5 — density apex** (fold one
+fullVocab ε variant of the E1 record).
