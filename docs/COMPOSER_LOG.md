@@ -1415,3 +1415,25 @@ defer the convention itself. Verbatim in the parts that matter:*
 
 *Directive: give a take and analyze whether this affects the plan or the
 architecture. AI assessment filed in RUNNING_LOG same evening.*
+
+## 2026-08-19 (day 19, evening) — the realization principle confirmed: material determines interpretation (dictated)
+
+*Confirming the decoupling assessment and adding the governing statement:*
+
+> *"The main sort of goal is to have this robust, rich data layer and then
+> to have it be realized into various types of objects or realizations. So
+> in general, you know, I mentioned it'll be material dependent — but
+> everything else will, for example. So the material will determine how the
+> data layer is interpreted and then realized for that material."*
+
+> *"So practically speaking, the Ghost trance would have potentially a
+> dynamic per attack, might have some hairpins, etcetera, whereas the morphs
+> will have animated curves describing the volume change and might not even
+> use traditional dynamics, but might have some indication that describes
+> the beating or something like that. These are just hypothetical
+> examples."*
+
+*Then: proceed to decision two (D3's performer transform). AI note: filed as
+NOTATION_ARCHITECTURE.md amendment 1 (provenance kinds + the
+material-determines-realization principle); "Ghost trance" recorded as
+dictated — the trance section.*

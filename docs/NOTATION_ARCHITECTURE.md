@@ -1,7 +1,8 @@
 # NOTATION ARCHITECTURE — for seven tubas
 
-> **Status: A1 draft, 2026-08-19 (Phase A, PLAN §7 amendment). Awaiting composer
-> review.** This document is deliberately CAPPED to six contracts: strata ·
+> **Status: A1 draft, 2026-08-19 (Phase A, PLAN §7 amendment). Under composer
+> review — amendment 1 (§1 S3: material-dependent realization, provenance
+> kinds) applied 2026-08-19 during that review.** This document is deliberately CAPPED to six contracts: strata ·
 > class registry · accommodation bucket · engine passes · coordinate contract ·
 > parachute contract. Its content is of three kinds, each marked by its
 > citation: composer-CONFIRMED architecture (PLAN §7 amendment, COMPOSER_LOG
@@ -89,6 +90,41 @@ semantic IR is the only design that satisfies the mandates.
 spelling, grouping, tempo, strategy choice per chunk (D43's mixed strategy) —
 that exist in no stratum below. They live HERE, as first-class data, or they
 get baked into renders and go stale (piece #2's P6 lesson).
+
+**AMENDMENT 1 (2026-08-19, composer-confirmed during A1 review) —
+realization is MATERIAL-DEPENDENT, and IR content carries PROVENANCE KINDS.**
+
+- **The governing statement (composer, verbatim):** *"the material will
+  determine how the data layer is interpreted and then realized for that
+  material."* Interpretation + realization rules attach to the CLASS (§2's
+  `ir` field, §4's per-class translators). The composer's hypotheticals: the
+  trance may realize dynamics as a mark per attack plus hairpins; a morph
+  realizes loudness as an animated curve and may carry a beating indication
+  instead of traditional dynamics at all.
+- **Dynamics (and other notational content) DECOUPLE from the MIDI.** S1's
+  level numbers are a SOUND PROXY, tuned so the sampler behaves — not
+  notational intent. There is no one-to-one, no global level→mark rule, and
+  possibly no algorithm at all for some materials; any that exist are
+  per-material proposals.
+- **Provenance kinds on every IR fact:** `derived` (a per-material rule made
+  it — rule + inputs recorded, regenerable) · `authored` (the composer wrote
+  it — source of truth) · `authored-override` (the composer wrote it AND it
+  contradicts the S1 evidence; the contradiction is recorded, not hidden).
+  Translators PROPOSE; authoring wins.
+- **The survival law:** S1 is live, so regenerating derived content must
+  never eat authored content — authored facts re-attach by stable node
+  identity, with an explicit orphan policy when their anchor disappears.
+  (Lands on A2: stable IDs + the provenance field; A3–A5 each include one
+  deliberate authored override to exercise the mechanism.)
+- **No P6 conflict:** P6 guards against stale DERIVATIONS posing as
+  decisions; an `authored` mark is source data — the provenance label is
+  exactly what keeps the two distinguishable.
+- **Continuous change is carried by CURVES** — *"the performer expressing
+  the curve, watching the curve and expressing it."* Marks anchor discrete
+  events; the displayed curve is the notation of the continuous channel;
+  hairpins are a study-score engraving of the same data, not the primary
+  device. (Sharpens §8 row 2: D3's remaining question is whether the
+  DISPLAYED curve is the raw S1 curve or a transformed one.)
 
 ### S4 — Renderers / runtimes
 
@@ -350,13 +386,13 @@ that will eventually get folded in"* (D42). The fold-in, restated from
 
 | # | Decision | Owner | Blocks |
 |---|---|---|---|
-| 1 | 0–10 levels → dynamic-mark convention (pp…ffff) | composer (owed since day 14) | slice-1 finish |
+| 1 | ~~0–10 → dynamic-mark convention~~ **DEFERRED by dissolution (amendment 1):** no global ladder exists; marks are authored-first IR content, per-material rules harvested only when a material demands one | composer authors per material | nothing — slice 1 proceeds hand-marked |
 | 2 | D3 performer-transform: applied to which manifestations, tuned how | composer (owed since day 14) | slice-1 finish |
 | 3 | ε tolerance (20 vs 30 ms) and the playable-unit floor (80–120 ms) | composer's ear / E2 | Section-1 strategy mix (D43) |
 | 4 | GC smooth-entry cue at bounce apex vs impact | composer | E3 scope |
 | 5 | Vertical score unit for notation (staff-space vs lane-fraction hybrid) | A2 schema work | A2 |
 | 6 | Registry + IR file locations and naming | A2 schema work | A2 |
-| 7 | Velocity vs CC7 (PLAN 2q) — which dynamic carrier the IR treats as truth | composer listening test | dynamic marks (with #1) |
+| 7 | ~~Velocity vs CC7 (PLAN 2q)~~ **DEMOTED (amendment 1):** neither carrier is notational truth, so notation no longer needs the verdict; 2q stays a mock-up/sandbox consistency question | composer listening test | mock-up fidelity only — not notation |
 | 8 | Tempo scope: per chunk vs per part vs ensemble-shared — D43 prices it (26.2 / 15.9 / 9.1 %); M5's open list also holds: notated vs conducted vs both · GC as person, scroll cue, or click · bar lengths on the realignment cycle `C` | composer / E2 | Section-1 IR |
 | 9 | Release vocabulary + devices (M3) — the PLAN parking-lot P3 design session | composer + AI working session | M3 device classes |
 

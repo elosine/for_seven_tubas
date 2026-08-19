@@ -2960,3 +2960,13 @@ by CURVES, watched and expressed by the performer**, not by mark ladders.
 
 **Doc amendment (§1 S3 provenance kinds + §8 rows 1/7) proposed to the
 composer; not applied until they confirm the reading.**
+
+**Confirmation + the realization principle (same sitting).** The composer
+confirmed the reading and added the governing statement — *"the material will
+determine how the data layer is interpreted and then realized for that
+material"* — with hypotheticals (trance: mark per attack + hairpins; morphs:
+animated volume curves, possibly a beating indication instead of traditional
+dynamics). Applied as **NOTATION_ARCHITECTURE.md AMENDMENT 1** (§1 S3:
+material-dependent realization + provenance kinds + survival law; §8 row 1
+deferred-by-dissolution, row 7 demoted). Verbatim in COMPOSER_LOG. Walk-through
+continues at decision 2 (D3 performer transform).
