@@ -1145,3 +1145,24 @@ the beat constrained to a countable 0.30-1.00 s: 8ths leave 69 ms of error,
 16ths 33 ms, and only 32nds at ~195 bpm reach 16 ms. **The composer doubt is
 correct for section 1 — the density apex does not fall into simple notation at
 any countable tempo.** Full table and the implication in PLAN M5.*
+
+**Reframe, same day — chunks, and a mixed strategy:**
+
+> *"These are the types of experiments we can run, which are great when we
+> actually go to sort out the notation. I will just collect some ideas, and then
+> we can run and design some experiments when we actually get there. This is
+> actually the type of thing I am going to want to be doing."*
+
+> *"Don't do it now, but I think the thing to figure out is if we can isolate
+> patterns or chunks that at a proper tempo are relatively simple. I am not
+> saying we don't do any tuplets. But if there are some chunks, then this could
+> be one of the things we use to satisfy those chunks, and then maybe some of
+> the other ones that are more complex, we do something else."*
+
+*AI note: this changes what the measurement is FOR. The table already in PLAN M5
+reports a worst-case error across all parts over a whole window — a single
+pass/fail. Under this reframe the measurement becomes a classifier: find the
+maximal contiguous runs that DO resolve simply, report coverage and chunk
+lengths, and treat the residue as a separate problem. My aggregate number hides
+precisely the structure worth finding. Experiment design sketched in PLAN M5,
+deliberately NOT run.*

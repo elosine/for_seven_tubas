@@ -184,6 +184,45 @@ composer → notation → performance architecture.)*
   onsets in 6 s with 1-90 ms gaps — and are not playable as separate attacks at
   all, so they were not the fair test.
 
+  ### M5 reframe (composer, same day) — the measurement is a CLASSIFIER, not a verdict
+
+  **DO NOT RUN THIS YET.** The composer is collecting ideas; the experiments get
+  designed and run when notation actually begins. Recorded now only so the design
+  is waiting.
+
+  **The reframe.** Do not look for one notation solution that covers the whole
+  section. Look for **chunks** — *"if we can isolate patterns or chunks that at a
+  proper tempo are relatively simple"* — and use the M5 simple-bar device on
+  those. Whatever does not resolve gets something else. **Tuplets are not
+  banned:** *"I am not saying we do not do any tuplets."* The goal is a MIXED
+  strategy, chosen per chunk.
+
+  **This invalidates the shape of my first measurement, not its numbers.** The
+  table above reports the WORST error across all ten parts over one 6 s window,
+  i.e. a single pass/fail for the whole apex. Under the reframe that number is
+  the wrong statistic — **one bad onset condemns a window that may be mostly
+  clean**, and the aggregate hides exactly the structure the composer wants
+  found.
+
+  **The experiment to design later** (sketch only, not built):
+  1. Slide a window over a part and, for each candidate countable beat and grid,
+     record per-ONSET error rather than the max.
+  2. Segment into maximal contiguous runs whose onsets all fall within a chosen
+     tolerance (~15-20 ms) at one beat and grid.
+  3. Report **coverage**: what fraction of the section is claimed by simple
+     chunks, at which tempi, and how long the chunks are. A chunk of 3 notes is
+     useless; 6-12 notes is a bar worth notating.
+  4. Report the residue separately — that is the material needing tuplets, an
+     M4-style visual device, or a compositional re-think.
+  5. Likely knobs: tolerance, minimum chunk length, whether a chunk may change
+     tempo from its neighbour, and whether chunks must align across players or
+     may be per-part.
+
+  **Working-method note:** the composer explicitly wants notation approached this
+  way — *"these are the types of experiments we can run... this is actually the
+  type of thing I am going to want to be doing."* Notation here is an empirical
+  question about the material, not a formatting stage applied to it.
+
   **Open:** whether the tempo is per part or the bar is a shared window · whether
   a per-part tempo is notated, conducted, or both · whether the "gravitational
   conductor" is a person, a cue in the scroll, or a click · whether bar lengths

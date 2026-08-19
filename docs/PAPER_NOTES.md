@@ -168,6 +168,30 @@ silently decides what can later be written down.** That is a stronger claim than
 
 ---
 
+## Notation as an empirical question about the material
+
+A short thread worth following (PLAN M5, 2026-08-19). Faced with whether his
+density-build apex can be notated simply, the composer did not reach for a
+convention or a house style — he treated it as a measurable property of the
+material and asked for experiments: *"these are the types of experiments we can
+run... this is actually the type of thing I am going to want to be doing."*
+
+And when the first measurement returned a flat no, the useful move was not to
+accept the verdict but to **change the statistic**: stop asking "does this
+section notate simply" and start asking "which CHUNKS of it do, and how much
+coverage do they give" — a mixed strategy, tuplets permitted where needed. The
+measurement becomes a classifier rather than a pass/fail.
+
+**For the paper:** this is the same reversal as the rotation-period episode. The
+composer restates the problem and the better method falls out of the restatement.
+It also completes a triangle with the fixed-tempo finding — notatability is a
+property the generator confers, measurable after the fact, and negotiable by
+changing either the material or the notational device. Notation is neither a
+downstream formatting stage nor a fixed constraint; it is a third term in the
+system.
+
+---
+
 ## The thesis: a Kobayashi-inspired process
 
 **The reference.** Takeru Kobayashi did not get better at eating hot dogs the
