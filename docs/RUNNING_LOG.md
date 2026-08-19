@@ -2909,3 +2909,54 @@ the adversarial pass (checkers instructed to REFUTE, each against a
 different source set) caught all of them at the source level. This is
 Principle 5's mirror rule applied to prose — the draft could not be checked
 against the same summary that produced it.
+
+## Day 19 (2026-08-19, evening) — §8 walk-through, decision 1: the composer DISSOLVES the question instead of answering it
+
+The proposed 0–10 → dynamic-mark ladder (A/B/C options) was met with a
+structural dictation (verbatim in COMPOSER_LOG): **the MIDI and the notation
+DECOUPLE on dynamics** (and possibly other parameters). S1's level numbers
+are tuned to make the SAMPLER sound right — velocity/CC7 fights the library,
+so the numbers are a sound-proxy, not notational intent. Consequences as
+dictated: a translation layer that is **highly material-dependent** · some
+marks **strictly manual** ("this note is p, this note is ff") · manual marks
+may **contradict the MIDI evidence**, legally · possibly **no algorithm at
+all**, and any that exist are per-material · **continuous change is carried
+by CURVES, watched and expressed by the performer**, not by mark ladders.
+
+**AI assessment (delivered in chat, recorded here):**
+- **The architecture absorbs this; it does not break.** It is the strongest
+  confirmation yet of "manifestation is COMPILATION": dynamics marks are S3
+  CONTENT, like pitch spelling — authored, not derived at render.
+- **One real amendment needed: PROVENANCE KINDS on IR content.** Every IR
+  fact is `derived` (rule + inputs recorded, regenerable) or `authored`
+  (composer, source of truth) or `authored-override` (composer, AND it
+  contradicts S1 — the contradiction is recorded, not hidden). The overlay
+  SURVIVAL law follows: S1 is live, so regeneration of derived content must
+  never eat authored content — authored facts re-attach by stable identity,
+  with an orphan policy when their anchor note vanishes. This is the biggest
+  effect: it lands on A2 (schema needs stable node IDs + provenance kinds)
+  and on A3–A5 (each hand-worked chunk should include one authored override
+  to exercise the mechanism).
+- **No conflict with P6** (decisions as rules): P6 guards against stale
+  DERIVATIONS posing as decisions. An `authored` mark is source data, not a
+  derivation — the provenance label is exactly what keeps the two
+  distinguishable.
+- **Decision 1 DEFERS cleanly.** No global ladder is adopted. The structural
+  commitment replaces it: marks are authored-first IR content; per-material
+  derivation rules are HARVESTED later, one material at a time, when a
+  material demands one (D6's harvest methodology applied to notation).
+  Slice 1 needs no convention — the composer hand-marks the trance chunk.
+- **Decision 7 (velocity vs CC7) DEMOTES: it no longer blocks notation.**
+  If neither carrier is notational truth, the notation layer does not need
+  the verdict. 2q remains a mock-up/sandbox consistency question only.
+- **The curve point sharpens D3 (decision 2), not just dynamics:** the
+  notation of continuous change IS the displayed curve (performer watches
+  and expresses it — D3's model verbatim). Marks anchor discrete events;
+  curves carry continuous change; hairpins become a study-score engraving of
+  the same data, not the primary device. D3's remaining question is now
+  crisp: is the DISPLAYED curve the raw S1 curve or a transformed one?
+- **Unaffected:** strata count, class registry, accommodation bucket,
+  engine passes, coordinate contract, parachute, render-late.
+
+**Doc amendment (§1 S3 provenance kinds + §8 rows 1/7) proposed to the
+composer; not applied until they confirm the reading.**

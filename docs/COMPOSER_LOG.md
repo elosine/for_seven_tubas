@@ -1387,3 +1387,31 @@ the confusion dissolved under their own framing):*
 being built now? — and either way, "a digestible chunk we can do now before
 passing on to the main project." AI answer: designs only, nothing built or
 run at that point; the digestible chunk chosen = running E1 (data-only).*
+
+## 2026-08-19 (day 19, evening) — dynamics decouple from MIDI: the translation layer, manual authority, curves as the continuous channel (dictated)
+
+*During the A1 §8 decision walk-through, responding to the proposed 0–10 →
+dynamic-mark ladder. The composer's move: check the structural effect, then
+defer the convention itself. Verbatim in the parts that matter:*
+
+> *"Structurally, I think, especially with dynamics and maybe some other
+> things, there's gonna be a decoupling between the MIDI file and the
+> notation… There should probably be some sort of translation layer. These
+> are gonna be highly material dependent. And some may even be just strictly
+> manual. I may just say, this note is p, this note is ff. Some of it may
+> contradict the midi evidence. Often with the way velocity works and even
+> the cc seven, it's hard to get a midi part to sound the way I expect it
+> to, yet the notation will be quite different."*
+
+> *"So the structural effect is that there isn't a one to one
+> correspondence. There isn't a direct linear cc seven or velocity to
+> dynamic marking correspondence. There may not even be a machine
+> correspondence or an algorithm. There may be. But even those, I think,
+> will be highly material dependent."*
+
+> *"And then there's the intermediaries — so most of the continuous change
+> is going to be expressed in things like curves. So this will be the
+> performer expressing the curve, watching the curve and expressing it."*
+
+*Directive: give a take and analyze whether this affects the plan or the
+architecture. AI assessment filed in RUNNING_LOG same evening.*
