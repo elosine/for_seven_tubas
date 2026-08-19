@@ -2446,3 +2446,153 @@ between two players or as two players who happen to coincide — the whole
 notation bet rests on it. And 15 identical chords at the end of `aud-11` is much
 more static than anything else in the section; flagged to the composer, not
 acted on.
+
+## Day 19 (2026-08-19, later) — the notation architecture: readback against three predecessors
+
+**The composer opened the notation-layer phase at the conceptual top** — four
+forms of one composition (composer / study-full / notation / performance), the
+Turing-strip mental model, "one rich data source in time with different
+manifestations but same identity," ticker-tape slicing so pagination is a view.
+Dictation verbatim in COMPOSER_LOG day 19. Directive: readback and assessment
+BEFORE any build, and consult the previous pieces for what the model looked like
+when actually realized.
+
+**What the predecessor consult found (read, not scanned — the architecture docs
+only):**
+
+- **Piece #1 (string quartet)** built the all-in-one WORKSHOP: authoring +
+  performance in one `index.html`, curves sampled at 10 ms into time-indexed
+  arrays, a curve follower on the scrolling cursor, LilyPond-engraved notation
+  FRAGMENTS inserted as SVG, and the **Gravitational Conductor system — the
+  bouncing-ball ictus with kinetic feel — already fully conceived**
+  (`NOTATION_FRAGMENT_WORKFLOW.md`, Feb 2026). M4/M5's "gravitational conductor"
+  is a direct descendant, not a new idea. Lesson the next piece paid for: the
+  monolith had to be SUBTRACTED from (~30 patches + 7 strips) to derive a
+  performance build.
+- **Piece #2 (2p2p)** is where the one-source-many-manifestations model was
+  actually engineered: `THREE_SCORES.md` (workshop=substrate / composer=source /
+  performance=deliverable), a **7-stage per-object conversion pipeline**
+  (classify → translate → layout → size → render → emit → route), **notation
+  models/idioms as data** with a glyph library extracted from LilyPond's
+  Emmentaler font, and **provenance blocks on every converted entry** pointing
+  back at the composer source. Its scars are the instructive part
+  (`COORDINATE_SYSTEM_VISION.md`, locked session 59): two coordinate systems
+  with fragmented ad-hoc translation = recurring positioning bugs; the cure was
+  ONE conversion engine, composer-first units, **decisions stored as RULES not
+  baked data (P6), decisions at the IDIOM level not the instance (P7)**, and
+  snapshot regression. Also sobering: its `NOTATION_SYSTEM_PLAN.md` is 357 KB —
+  this phase sprawls.
+- **Piece #3 / this piece** already hold PLAN §7 (2026-08-14): three scores,
+  strip model, pagination-is-a-view. Today adds the fourth form (study/full) and
+  the identity principle.
+
+**The assessment delivered to the composer (summary — full text in chat, to be
+folded into PLAN §7 when the composer responds):** the strip model is the right
+data topology and is what all three pieces converged toward; it needs four
+amendments. (1) Manifestation is COMPILATION, not reading — there are decisions
+(spelling, grouping, tempo, model choice) that live in no stratum of the current
+data; they need a first-class home or they get baked and go stale (piece #2's
+P6 lesson). (2) The tape is NOT arbitrarily sliceable in the notation
+manifestation — beams/ties/bars are non-local; slicing needs a cut-healing
+contract, and the natural cut points are exactly **M5's
+grouping-that-behaves-together — the M5 chunk is the atom of the strip**, a
+convergence nobody planned. (3) Notation has TWO clocks — absolute seconds (the
+strip coordinate) and musical time per chunk (M5's tempo-per-bar); the mapping
+is itself data that doesn't exist yet. (4) **Mandates M1/M2 (part
+multiplication, family adaptation at rehearsal time) force RENDER-LATE
+semantics** — you cannot transpose an SVG — so the notation layer must exist as
+a semantic intermediate representation (pitches, groupings, tempi), with
+engraving at the end, where piece #2 could afford to bake SVG fragments.
+
+**Deliberately NOT done:** no PLAN edit yet (the composer asked for readback
+first — the model isn't confirmed), no schema drafting, no prototype. The M5
+experiments stay un-run per the day-19 "collector, not verdict" instruction.
+
+## Day 19 (2026-08-19, later still) — the architecture CONFIRMED; accommodation strategies named; the practical path proposed
+
+**The composer confirmed all three decisions from the readback, each with an
+elaboration that improved it** (dictations verbatim in COMPOSER_LOG day 19):
+
+- **(a) Study score = a view, not an artifact — and it is TWO views**: a
+  "study-composers" full score (all parts, the same notation the performers
+  see, click-a-part-to-zoom) and a GRAPHIC SCORE view (the composer-score
+  bricks + a meta-layer overlay of shapes, "like early graphic score
+  representations of electronic pieces"). Plus derived-data visualizations for
+  rehearsal: beating curves and approach/recede balls so a conductor can give
+  instructions about continuous parameters ("you need to get to the C# quicker,
+  the beating needs to be faster here") — breaths, swells, the things
+  traditional notation renders poorly. Architecturally: stratum-2 (derived
+  data) made visible, and the day-14 conductor-graphic idea is now part of the
+  confirmed model, not a maybe.
+- **(b) Render-late confirmed in principle**, with two named additions the
+  concept must not block: the ENGINE ("could generate anything in the data
+  layer as notation… and could also be a place to develop NEW notation") and
+  the META-STRUCTURE (proportionate space grid that turns any sounding datum
+  into a stamp/sprite — "black notehead, fff with accent and 1st partial of a
+  5:2 tuplet with beams"). Placement: engine = the compiler passes PLUS a
+  workshop surface for developing new devices (piece #2's Model Builder
+  precedent); meta-structures = the data-linked layout substrates (time grid,
+  per-part tempo rulers, lanes, page frames) served by ONE coordinate module —
+  piece #2's most expensive lesson adopted on day one.
+- **(c) Unified robust data layer as the base — confirmed.**
+
+**Amendment 2 was restated by the composer into something better than my
+version: ACCOMMODATION STRATEGIES.** Not infinite-resolution slicing and not
+per-instance fixes — a finite BUCKET of splice behaviors that covers most
+splice types, keyed to object class. The two poles from the dictation: a long
+curve splices like a Matisse cutout (clip and paste, trivially); the scrolling
+cursor needs a different mechanism entirely — jump to a new x,y and a new loop
+while staying aware of the continuous time delta across the visual break. The
+composer also rejoined this to amendment 1: page-boundary behavior (clamp/move
+rules so notation doesn't fall off the page edge) is a DECISION TREE stored as
+rules — the P6 principle applied at the layout level. **Confirmed from
+experience: this exact problem ("long curves… keep their integrity in
+different page sizes") was sticky in the previous pieces.**
+
+**The practical-path economics, stated by the composer as policy:** AI time
+estimates are orders of magnitude too long, but flawed plans eat real time in
+troubleshooting and expectation-clarification — so: one solid plan → AI codes
+a lot → a controlled refining phase → **a parachute** if a score must ship
+early. Consequence: no duration estimates in the notation phase, ever;
+phase gates with composer review instead.
+
+**The proposed path (in chat, awaiting the composer's answer):**
+- **Phase A — CONTRACTS**: a deliberately capped NOTATION_ARCHITECTURE.md +
+  notation-IR schema v0 + three IR chunks WORKED BY HAND from real piece data
+  (one trance bar, one morph window, one density-apex window) before any
+  extractor code exists — hand-authoring finds schema flaws cheaper than code.
+- **Phase B — vertical slice 1: the TRANCE section** end to end (extract → IR
+  → stamps → grid → parts → splicing with the first 2-3 accommodation
+  strategies). Chosen because the material is already measured metric
+  (0.07 ms), fixed-tempo per player gives the simplest tempo maps, and it is
+  what the composer is composing RIGHT NOW — notation feedback while composing
+  is the methodology.
+- **Phase C — study score v0** (both views + beating lanes).
+- **Phase D — vertical slice 2: SECTION 1** — the M5 chunker experiments run
+  for real ("when notation actually begins" = then), mixed per-chunk strategy,
+  M4 device prototype.
+- **Phase E — performance runtime** (sync, GC, M1/M2 — much inherited).
+- **The parachute is structural, not a promise:** from slice 1 on, every chunk
+  class has a guaranteed graphic-fallback manifestation, so "produce a score
+  NOW" always renders — decided chunks as notation, the rest proportional.
+
+**Dependency surfaced:** the 0–10 → dynamic-mark convention and the D3
+performer-transform decision (both flagged "open before notation" since day
+14) are needed by slice 1 — queued as Phase A agenda items for the composer.
+
+**Supersession noted:** PLAN §7's "the other two begin when the composer score
+is done" is superseded — notation starts now, interleaved with composing, and
+that is the better order (the trance section gets notation feedback while it
+is still wet).
+
+**APPROVED (composer, same day):** slice 1 = TRANCE ("a. good") · Phase A
+green-lit ("b green"). Constraint added: the composer wants this phase done
+with the most capable model (Fable) but had ~2% of the credit window left,
+renewal in an hour — so Phase A is cut into commit-sized chunks (A1
+architecture doc → A2 IR schema v0 → A3/A4/A5 the three hand-worked IR chunks:
+trance bar, morph window, density apex), each chunk ending committed + pushed
++ logged, so a credit expiry between chunks loses nothing. **Next step on
+renewal: A1 — draft docs/NOTATION_ARCHITECTURE.md** (capped; strata · class
+registry · accommodation bucket · engine passes · coordinate contract ·
+parachute contract), then review with the composer alongside the two owed
+decisions (0–10 → dynamic marks, D3).

@@ -1466,6 +1466,64 @@ out to **play on screen in performance**.
   - **2j** — the tremolo sine figure and its animation options (ball tracing the
     wave / wave fill), since those are performance-facing devices.
 
+### §7 AMENDMENT (2026-08-19) — the four-strata model, CONFIRMED
+
+*Supersedes the 7a/7b/7c phasing above where they conflict; 7a-c survive as
+descriptions of the artifacts. Dictations in COMPOSER_LOG day 19; assessment
+trail in RUNNING_LOG day 19. Predecessor evidence: piece #2's THREE_SCORES.md /
+COORDINATE_SYSTEM_VISION.md, piece #1's NOTATION_FRAGMENT_WORKFLOW.md.*
+
+**The model: one data spine, four strata, N manifestations.**
+1. **Composition data** — the strips: all parts + meta, locked to one timecode
+   in seconds. Exists (the composer app). *"One rich data source in time with
+   different manifestations but same identity."*
+2. **Derived data** — analysis products with provenance (beating structure,
+   M5 chunker output, conflict data). Partial; results become first-class.
+3. **Notation IR** — the notation layer AS DATA, render-late: spelled notes,
+   chunks/bars, per-chunk tempo maps, device references, decisions-as-rules.
+   New. **Forced semantic by M1/M2** (can't transpose an SVG).
+4. **Renderers/runtimes** — the engine (compiler passes + a workshop for
+   developing NEW notation) over data-linked **meta-structures** (proportional
+   time grid, per-part tempo rulers, lanes, page frames; ONE coordinate
+   module — piece #2's P3 lesson) assembling **stamps/sprites** (any sounding
+   datum → glyph group; atomic under splicing).
+
+**The four forms = view/runtime configurations, not four codebases:**
+- **Study score** (decision a, 2026-08-19): TWO VIEWS — a "study-composers"
+  full score (real notation, all parts, click-to-zoom) and a GRAPHIC SCORE
+  view (bricks + meta-layer shape overlay, early-electronic-score style), plus
+  rehearsal visualizations of continuous parameters (beating curves,
+  approach/recede balls, breaths, swells) read from stratum 2.
+- **Notation layer** = stratum 3 + an engraving renderer for proofing.
+- **Performance score** = the runtime (7c above) applying M1/M2 at load time.
+
+**ACCOMMODATION STRATEGIES (composer's term, 2026-08-19)** — the answer to
+splicing the ticker tape: *"not infinite resolution but a bucket of solutions
+that accommodate most splices."* A finite registry of splice behaviors keyed to
+object CLASS: a long curve cuts like a Matisse cutout; the scrolling cursor
+jumps to a new x,y and loop while keeping the continuous time delta; stamps
+are atomic (never cut); bars prefer chunk boundaries (**the M5 chunk is the
+atom of the strip**); page-edge behavior (clamp/move so nothing falls off) is
+a decision tree stored as RULES, not baked positions (piece #2's P6).
+
+**Locked decisions:** (a) study score = views over the shared strata ·
+(b) render-late, with the engine + meta-structures named as what render-late
+must not block · (c) unified robust data layer as the base.
+
+**Working economics (composer, 2026-08-19, binds this phase):** solid plan →
+AI codes a lot → controlled refining phase → **parachute**. No duration
+estimates; phase gates with composer review. The parachute is structural:
+every chunk class carries a graphic-fallback manifestation, so a score can
+ship at any moment (decided chunks as notation, the rest proportional).
+
+**Phasing (proposed, pending composer):** A contracts (capped architecture doc
++ IR schema v0 + three hand-worked IR chunks) → B vertical slice 1 = TRANCE
+section end-to-end → C study score v0 → D slice 2 = SECTION 1 (M5 chunker runs
+for real) → E performance runtime. Phase-2-after-composing is superseded:
+notation starts interleaved with composing. **Phase A agenda items owed by the
+composer: the 0–10 → dynamic-mark convention and D3's performer-transform
+decision** (flagged "open before notation" since day 14).
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

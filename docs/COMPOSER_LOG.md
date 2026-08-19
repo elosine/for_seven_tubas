@@ -1166,3 +1166,119 @@ maximal contiguous runs that DO resolve simply, report coverage and chunk
 lengths, and treat the residue as a separate problem. My aggregate number hides
 precisely the structure worth finding. Experiment design sketched in PLAN M5,
 deliberately NOT run.*
+
+## 2026-08-19 (day 19) — THE NOTATION ARCHITECTURE, conceived from the top (dictated)
+
+*The composer opened the notation-layer work by asking for the architecture to be
+developed conceptually first — "take some time and be thoughtful about it… nail
+down the appropriate infrastructure/architecture" — and dictated the model. The
+forms of the one composition, as listed:*
+
+> *"I have one composition but want various forms: the composer, mostly built,
+> where I've written the piece, graphics with midi and linked composition tools.
+> Full score layer, for lack of a better term: the study/full score, this is new,
+> for a conductor or someone who wants to study the whole piece — might have a
+> graphic component or sometimes might just be a small version of the notation
+> below. Notation layer: the score in actual musical notation, what each player
+> will perform. Performance score: this is the actual thing that performers will
+> use to perform and rehearse."*
+
+*The mental model, verbatim in the parts that matter:*
+
+> *"I think of the 'composition' as really data through time. And each part is
+> like a Turing machine strip. Also the meta score as a Turing strip. They all
+> share a timecode and are locked to it. Then everything sits on the strip,
+> usually as data."*
+
+> *"One rich data source in time with different manifestations but same identity
+> — so to hear MIDI, look at the conductor score, look at one tuba part in
+> notation: all representing the same thing, just a different manifestation
+> of it."*
+
+> *"Then the Turing strip part is a ticker tape and you can slice it up in any
+> chunks — reproduce the conductor score on paper with each page of the score a
+> different size, or a part in the performance score easily cut up into the
+> appropriate widths for 10 different screen resolutions."*
+
+*The composer asked for a readback and assessment before any build — open to a
+different model altogether — then a practical analysis of the architecture. And
+explicitly: keep the running journal, because the whole process should be
+narratable at the end ("describe this whole process at the end in a narrative,
+paper etc"). They also directed the AI to the previous pieces — the string
+quartet and the two-pianos/two-percussion piece — "to see the realizations of
+the model in the past and what needs more here."*
+
+*AI note: the strip conception extends the §7 three-scores dictation of
+2026-08-14 (composer → notation → performance, pagination-as-a-view) in two
+ways: the STUDY/FULL SCORE enters as a fourth form, distinct from the
+performance score for the first time; and "same identity" is now stated as the
+governing property — the manifestations are readings of one data source, not
+exports from each other. Assessment filed in RUNNING_LOG day 19 and PLAN §7.*
+
+## 2026-08-19 (day 19) — ACCOMMODATION STRATEGIES, the study score's two views, the engine and the meta-structure (dictated)
+
+*Responding to the AI's four amendments, the composer confirmed the slicing
+problem from lived experience — "this was sticky in for example long curves and
+how to slice them and keep their integrity in different page sizes" — and noted
+it "rejoins amendment 1 with a decision tree: when notation needs to appear at
+the beginning or end of a page, rules to clamp and move notation so they don't
+fall off the page." Then the restatement that names the concept:*
+
+> *"I would maybe restate and say not infinite resolution but a bucket of
+> solutions that accommodate most splices. Like the curve example: graphic shape
+> easy — Matisse — draw a long curve on a paper, and cut it into a chunk and
+> paste on canvas. But the scrolling cursor: different accommodation mechanism —
+> needs to reach the splice and return to a totally different x and y and
+> restart a different loop, but be aware of the continuous delta over time. So
+> we have accommodation strategies that accommodate most splice types."*
+
+*On (a), the study score — TWO views, plus the derived-data visualizations:*
+
+> *"I imagine a 'study-composers' score and this would be like a real full score
+> — they can see all the parts in the same notation that the performers see, but
+> maybe some features like click a part and zoom in. Also another view would be
+> a graphic score view, probably a view just like the composer score — bricks
+> and then a meta layer overlay, with shapes, like early graphic score
+> representations of electronic pieces."*
+
+> *"Additionally, with some of the things we developed, like the morphing
+> chords, I would like to represent the beating parts — maybe some curves and
+> animated balls that approach and get further, and some general representation
+> of beating speed — so a conductor can rehearse the section and be able to give
+> instruction: you need to get to the C# quicker, the beating needs to be faster
+> here… and same with the other parameters — where the breaths are, where the
+> dynamic swells. These continuous things aren't that well rendered visually in
+> traditional notation."*
+
+*On (b), render-late — confirmed in principle, with the vision stated as an
+engine plus a meta-structure:*
+
+> *"In its perfected state we would have an engine that could generate anything
+> in the data layer as notation, based on things we developed, decisions made —
+> and could also be a place to develop new notation. So engine, metaphor — but
+> also meta-structure as another idea: proportionate space grid, and can turn
+> any sounding thing in data to a stamp/sprite — black notehead, fff with accent
+> and 1st partial of a 5:2 tuplet with beams, etc. The point of what I'm
+> mentioning isn't the specifics but architecture: yes render-late, but don't
+> let that concept block what I mentioned — data-synced generator with easy
+> expansion, data-linked meta-structures, which facilitate the render, maybe
+> others."*
+
+*On (c): "yes, I think — the model should have as its base a unified robust
+data layer."*
+
+*On the practical path — the working economics, verbatim because it should
+govern the whole notation phase:*
+
+> *"Most AI estimates of time are far too long, orders of magnitude. But when
+> the plan is flawed, I have found that the troubleshooting and clarification of
+> expectation eats a lot of time. So I would lean toward getting a solid plan
+> and let AI do lots of coding and a controlled refining/troubleshooting phase —
+> but a parachute, so that if I absolutely need to move on to produce a score,
+> we can."*
+
+*AI note: "accommodation strategies" adopted as the architectural term — a
+finite registry of splice behaviors per object class, not per-instance
+solutions. The composer wants to START BUILDING the notation layer and asked
+for the practical shape: architecture first? base layer? build and revisit?
+Proposal follows in RUNNING_LOG day 19 / PLAN §7.*

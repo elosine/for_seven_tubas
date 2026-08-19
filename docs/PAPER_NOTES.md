@@ -361,3 +361,76 @@ printing:
 - **The first AI proposal was worse than what replaced it** — prune-then-space
   kept 127 notes with 1 hard + 1 soft, against the composer's pack-to-ceiling at
   160 and 0/0. Worth printing precisely because it is not the expected direction.
+
+## THE NOTATION ARCHITECTURE — the strip, the compiler, and a three-piece convergence (2026-08-19)
+
+*This may be a paper of its own: the same composer building the same idea three
+times, and what survived each realization.*
+
+- **The composer's formulation, quotable as dictated:** the composition is
+  *"really data through time"*; each part *"like a Turing machine strip"*, all
+  strips *"share a timecode and are locked to it"*; the forms of the piece are
+  *"one rich data source in time with different manifestations but same
+  identity"*; and the strip is *"a ticker tape and you can slice it up in any
+  chunks"* — so pagination (paper sizes, screen widths) is a property of the
+  VIEW, not of the notation.
+- **The lineage argument.** Piece #1 fused authoring and performance in one
+  artifact and paid for it in piece #2, which had to derive its performance
+  score by subtraction (~30 patches). Piece #2 separated source from
+  manifestation and built a 7-stage per-object compiler with provenance — and
+  its hardest-won lessons were about *decisions*, not rendering: store decisions
+  as rules, not baked output; attach them to the reusable model, not the
+  instance. Piece #4 states the principle the first two were groping toward
+  ("same identity") *before* building. The narrative is a monotone: each piece
+  moves the boundary between data and rendering one layer deeper.
+- **The metaphor pair worth printing.** The Turing strip is the right model of
+  the DATA (time-locked, parallel, sliceable); the compiler is the right model
+  of the PROCESS (manifestation = compilation passes over the strip, with an
+  intermediate representation, caching, and source maps back to the composition
+  = piece #2's provenance blocks). Neither metaphor alone survives contact with
+  engraving.
+- **The convergence nobody planned:** the tape cannot be cut mid-beam or
+  mid-tie — notation is non-local — so arbitrary slicing needs preferred cut
+  points. Those are exactly M5's *"grouping that behaves together"*, arrived at
+  the same week from the opposite direction (performability, not pagination).
+  **The M5 chunk is the atom of the strip.** When one unit answers two
+  independent problems, it is probably the right unit — a design-validity
+  heuristic the paper can state generally.
+- **Mandates as architecture.** M1 (on-the-fly part multiplication) and M2
+  (family adaptation) — written as *performance* wishes on 2026-08-10 — turn
+  out to be the strongest *data* constraint in the system: transposition at
+  rehearsal time is impossible against rendered glyphs, so the notation layer
+  is forced to be semantic data rendered late. An instance of a general claim:
+  in this practice, performance-facing wishes legislate the data model.
+- **"Accommodation strategies" (composer's coinage, 2026-08-19).** The AI's
+  amendment said the tape is not arbitrarily sliceable; the composer restated
+  it into the better design: *"not infinite resolution but a bucket of
+  solutions that accommodate most splices."* The image pair is print-ready: a
+  long curve splices like a **Matisse cutout** — cut the chunk, paste it on
+  the canvas — while the scrolling cursor *"needs to reach the splice and
+  return to a totally different x and y and restart a different loop, but be
+  aware of the continuous delta over time."* A finite registry of splice
+  behaviors per object class, confirmed against lived pain: the same problem
+  ("long curves… keep their integrity in different page sizes") was sticky in
+  the earlier pieces. Pattern for the collaboration paper: **the AI names a
+  limit, the composer converts it into a mechanism** — same move as the M5
+  reframe (verdict → classifier) two days earlier.
+- **The conductor of continuous music.** The study score's purpose, in the
+  composer's framing: traditional notation renders continuous parameters
+  poorly, so the conductor's layer visualizes them — beating curves, balls
+  that approach and recede — precisely so rehearsal language becomes possible:
+  *"you need to get to the C# quicker, the beating needs to be faster here."*
+  A notation is being designed backward from the sentences a conductor needs
+  to be able to say.
+- **The economics of AI collaboration, stated as policy (2026-08-19),
+  verbatim:** *"Most AI estimates of time are far too long, orders of
+  magnitude. But when the plan is flawed, I have found that the
+  troubleshooting and clarification of expectation eats a lot of time. So I
+  would lean toward getting a solid plan and let AI do lots of coding and a
+  controlled refining/troubleshooting phase — but a parachute, so that if I
+  absolutely need to move on to produce a score, we can."* The inversion is
+  the finding: with AI, CODE became cheap and PLAN QUALITY became the
+  expensive resource — the opposite of the traditional economics of software.
+  And the parachute was made structural rather than aspirational: every chunk
+  class carries a graphic fallback, so a shippable score exists at every
+  moment of the build.
