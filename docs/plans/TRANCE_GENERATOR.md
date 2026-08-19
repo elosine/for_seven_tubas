@@ -154,6 +154,36 @@ from unison columns to non-unison chords, but it is not a blank page.
 
 ---
 
+### Two assignment modes, both kept
+
+`ASSIGN = 'min-rest'` is the free scheme above. `ASSIGN = 'fixed-tempo'` is what
+real score material uses, added 2026-08-19 on the composer's reasoning that this
+section will be far easier to **notate and perform** if each player holds one
+steady pulse rather than jumping between tempi.
+
+**Fixed-tempo layout.** Six streams over ten players: **four streams take a PAIR,
+two take a SOLO**. A pair splits its stream's onsets between the two players, so
+neither plays every beat — that is where the variety comes from, and **the
+orchestration then lives entirely in the PITCHES**, which are drawn per attack
+from the species bag anyway, so no player is stuck on one note.
+
+- **Partners are always 5 tubas apart** (T1+T6, T2+T7, …) so a pair is never
+  adjacent in the score.
+- Which of the five natural pairs is split into the two solos, and which stream
+  gets which slot, are both randomised per segment.
+- **The minimum-rest floor becomes automatic.** Every stream's period at these
+  tempos is >= 600 ms, so a player cannot violate the 0.45 s floor even when
+  handed two of their own stream's beats in a row. The constraint stops being
+  enforced and starts being structural.
+- **Verified on `gen-aud-03`:** 210 player-parts, every one locked to a single
+  stream, worst deviation from that player's own steady grid **0.094 ms** —
+  i.e. every part is notatable as one tempo. Tightest gap 0.600 s. 30-33
+  distinct pitches per player.
+
+**Trade named by the composer:** fixed-tempo gives up free reorchestration across
+the ensemble. He accepted it because the pitch layer already supplies the
+variety, and legibility for the players is worth more here.
+
 ## Actualisation
 
 Inputs: **a unit · a harmony grid + hold set · a cuivre count · a duration · a seed.**

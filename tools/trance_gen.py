@@ -4,7 +4,11 @@ import json, io
 from math import gcd
 from functools import reduce
 
-OUT = 'scores/gen-aud-02.json'
+OUT = 'scores/gen-aud-03.json'
+ASSIGN = 'fixed-tempo'   # 'fixed-tempo' = one tempo per player, for real score
+                         # material (easier to notate and play). 'min-rest' =
+                         # the free scheme: any player may take any stream's
+                         # note, subject to FLOOR. Both kept on purpose.
 SEG = 20.0          # seconds per generation
 GAP = 1.6           # silence between generations
 GENS = 3            # generations per unit
@@ -96,15 +100,37 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
         # --- layer 1: onsets, entering the loop at a random index -------------
         offset = rnd() * C
         onsets = []
-        for term in terms:
+        for si, term in enumerate(terms):
             step = T * terms[0] / term
             k = 0
             while True:
                 t = k * step - (offset % step)
                 if t >= SEG: break
-                if t >= 0: onsets.append(t)
+                if t >= 0: onsets.append((t, si))
                 k += 1
         onsets.sort()
+
+        # --- layer 4a: FIXED TEMPO PER PLAYER ---------------------------------
+        # Each stream owns its players for the whole segment, so a part is a
+        # steady pulse at ONE tempo and can be notated and counted. 6 streams
+        # over 10 players: four streams take a PAIR, two take a SOLO. A pair
+        # splits its stream's onsets, so neither plays every beat - that is
+        # where the variety comes from, and the orchestration then lives in the
+        # PITCHES, which are drawn per attack anyway.
+        # Partners are always 5 tubas apart (1+6, 2+7, ...) so a pair is never
+        # adjacent; which pair is split into the two solos, and which stream
+        # gets which, are both random.
+        natural = [(i, i + 5) for i in range(5)]
+        order = natural[:]
+        for i in range(len(order) - 1, 0, -1):
+            j = int(rnd() * (i + 1))
+            order[i], order[j] = order[j], order[i]
+        soloPair = order[0]
+        slots = [list(pr) for pr in order[1:]] + [[soloPair[0]], [soloPair[1]]]
+        for i in range(len(slots) - 1, 0, -1):
+            j = int(rnd() * (i + 1))
+            slots[i], slots[j] = slots[j], slots[i]
+        streamPlayers = {si: slots[si] for si in range(len(terms))}
 
         # --- layer 2: harmony on its own 150bpm grid --------------------------
         beat = 60.0 / HARM_BPM
@@ -130,7 +156,7 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
         # --- layer 4: minimum-rest player assignment --------------------------
         last = [-99.0] * PLAYERS
         fallbacks = 0
-        for i, ot in enumerate(onsets):
+        for i, (ot, si) in enumerate(onsets):
             sp = spAt(ot)
             if sp not in bags: bags[sp] = Bag(SP[sp]['plain'], rnd)
             if i in cuIdx:
@@ -138,10 +164,18 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
                 pitch, tech = cvn[int(rnd() * len(cvn))], 'cuivre'
             else:
                 pitch, tech = bags[sp].draw(), 'staccato'
-            order = sorted(range(PLAYERS), key=lambda L: last[L])
-            pick = next((L for L in order if ot - last[L] >= FLOOR), None)
-            if pick is None:
-                pick = order[0]; fallbacks += 1
+            if ASSIGN == 'fixed-tempo':
+                cand = streamPlayers[si]
+                pick = cand[0] if len(cand) == 1 else cand[int(rnd() * len(cand))]
+                if ot - last[pick] < FLOOR:
+                    alt = [L for L in cand if ot - last[L] >= FLOOR]
+                    if alt: pick = alt[0]
+                    else: fallbacks += 1
+            else:
+                cand = sorted(range(PLAYERS), key=lambda L: last[L])
+                pick = next((L for L in cand if ot - last[L] >= FLOOR), None)
+                if pick is None:
+                    pick = cand[0]; fallbacks += 1
             last[pick] = ot
             objects.append({
                 'id': oid('wc'), 'type': 'waveCurve', 'layer': pick,
@@ -151,9 +185,10 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
                 'segments': [{'model': 'power', 'slope': 0}],
                 'color': '#8D6E63' if tech == 'cuivre' else '#607D8B',
                 'fillMode': 'bottom', 'opacity': 0.55,
-                'performanceNotes': '%s g%d %s %s' % (uname, gen + 1, sp, nm(pitch)),
+                'performanceNotes': '%s g%d s%d %s %s' % (uname, gen + 1, si + 1, sp, nm(pitch)),
                 'properties': {'gen': 'trance', 'idx': idx, 'unit': uname, 'ratios': ratios,
-                               'bpm': bpm, 'seed': 1000 * (ui + 1) + gen, 'species': sp},
+                               'bpm': bpm, 'seed': 1000 * (ui + 1) + gen, 'species': sp,
+                               'stream': si, 'assign': ASSIGN},
                 'sonifyNote': pitch, 'technique': tech,
                 'sonifyMode': 'plain', 'recVel': 112})
 
@@ -179,7 +214,7 @@ for ui, (uname, ratios, bpm) in enumerate(UNITS):
         for a, b, sp in plan[1:]:                        # priority 2: the harmony
             if not put(segStart + a, sp.replace('VERT01-', ''), '#00695C'):
                 dropped += 1
-        log.append((idx, uname, gen + 1, ratios, bpm, C, dropped,
+        log.append((idx, uname, gen + 1, ratios, bpm, C, streamPlayers,
                     [s for _, _, s in plan], fallbacks, segStart))
         t0 += SEG + GAP
 
@@ -194,12 +229,13 @@ json.dump(score, io.open(OUT, 'w'), separators=(',', ':'))
 print('total %.1f s  ·  %d notes  ·  %d markers' % (t0, len([o for o in objects if o['type'] == 'waveCurve']),
                                                     len([o for o in objects if o['type'] == 'marker'])))
 print()
-print('%-4s %-5s %-3s %-22s %4s %7s %5s  %s' % ('idx', 'unit', 'g', 'ratios', 'bpm', 'cycle', 'at', 'species in order'))
+print('%-4s %-3s %-3s %-20s %5s %4s  %s' % ('idx','unit','g','ratios','cycle','at','stream -> players (pairs are 5 tubas apart)'))
 print('-' * 118)
-for idx, u, g, r, b, C, dropped, sps, fb, st in log:
+for idx, u, g, r, b, C, spl, sps, fb, st in log:
     seen = []
     for s in sps:
         if not seen or seen[-1] != s: seen.append(s)
-    print('[%02d] %-5s g%-2d %-22s %4d %6.1fs %4.0fs  %s%s' %
-          (idx, u, g, r, b, C, st, ' '.join(x.replace('VERT01-', '') for x in seen),
-           ('  [%d labels hidden]' % dropped) if dropped else ''))
+    layout = ' '.join('s%d:%s' % (k + 1, '+'.join('T%d' % (q + 1) for q in v))
+                      for k, v in sorted(spl.items()))
+    print('[%02d] %-3s g%-2d %-20s %5.1fs %4.0fs  %s%s' %
+          (idx, u, g, r, C, st, layout, '   FALLBACKS %d' % fb if fb else ''))
