@@ -116,9 +116,53 @@ composer → notation → performance architecture.)*
   vertical lines with a bouncing ball) is the same problem family — a device for
   reading precise attacks off a scrolling display.
 
-  **Open:** whether a per-bar tempo is notated, conducted, or both · whether the
-  "gravitational conductor" is a person, a cue in the scroll, or a click ·
-  whether bar lengths follow the generator realignment cycle `C`.
+  ### M5 amendment (composer, same day) — what the bar actually is
+
+  The unit is **a grouping that behaves together**, not a fixed measure. Take a
+  cluster of five or six notes whose rhythm is, say, *long short short long long
+  long short* — **that group becomes its own bar**, written in ordinary notation
+  (a quarter, two sixteenths, a tied eighth) which is **rhythmically accurate at
+  some tempo**. Mark where that snippet begins with the **gravitational
+  conductor / bouncing ball**, give a general tempo, keep the scrolling bar, and
+  **from the player side it is simply a short phrase played at a tempo** — with
+  the scroll and the ball helping them find that tempo.
+
+  **This merges M4 and M5.** The bouncing ball of M4 is the same device as the
+  gravitational conductor here: it marks where each grouped snippet begins.
+
+  **The composer named the risk himself:** *"it still may not work out because
+  those cluster notes may not break down into clear simple notation at any
+  tempo."* **That risk is empirical and now partly measured.**
+
+  **MEASURED 2026-08-19 on `gen-aud-05` segment 35** (the 10-note closed cluster,
+  model G): for material the trance generator produced in `fixed-tempo` mode,
+  **every player rhythm is whole-number multiples of that player own beat, max
+  error 0.07 ms.** Sample parts, as multiples of their own beat:
+
+      T2  beat 400 ms   2 2 2 2 2 2 ...            steady
+      T3  beat 585 ms   1 3 1 2 1 1 1 3 2 1 2      the long-short-short-long shape
+      T4  beat 507 ms   3 4 3 1 3 1 1 1 1 2 1
+
+  So **no tuplets are needed at all** — quarters, eighths and dotted values on a
+  single pulse. The doubt is answered for this material, and answered by a
+  decision already taken: `ASSIGN='fixed-tempo'` is what makes it true.
+
+  **But the finding relocates the hard part.** Those beats are **400 / 447 / 507
+  / 585 ms — different per player**. So "a tempo for each bar" cannot be one
+  global tempo; it is either **a tempo per PART**, or the bar is a shared
+  time-window inside which each player counts their own pulse and the
+  conductor/ball marks only its start. **That is now the real M5 question.**
+
+  **Still untested:** whether older, non-grid cluster material (the 2p cluster
+  sandbox, `clusterClouds02` and kin, whose onsets were never quantised) breaks
+  down the same way. The measurement above says nothing about it, and there the
+  composer doubt may well hold.
+
+  **Open:** whether the tempo is per part or the bar is a shared window · whether
+  a per-part tempo is notated, conducted, or both · whether the "gravitational
+  conductor" is a person, a cue in the scroll, or a click · whether bar lengths
+  follow the generator realignment cycle `C` (attractive: `C` is exactly where
+  all streams converge, which is arguably where a bar wants to begin).
 
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 

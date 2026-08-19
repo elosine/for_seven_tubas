@@ -1105,3 +1105,30 @@ On the other pole, and why it is not enough:
 
 > *"Anyways, these are just some general thoughts. When we get to the actual
 > notation, we will figure it out more specifically."*
+
+**Amendment, same day — what the bar actually is:**
+
+> *"If you have, say, a cluster of five or six notes, and it is, like, long,
+> short, short, long, long, long, short, or something like that, then that could
+> be like its own bar and written in relatively simple notation — like, whatever,
+> quarter note, two sixteenths, tied eighth or something like that. And it is
+> pretty good rhythmically at a certain tempo. Or we find groupings that behave
+> together, and you can get rhythmic accuracy as long as you are using relatively
+> simple notation at a given tempo."*
+
+> *"And then if we mark where that little snippet begins with a gravitational
+> conductor, a bouncing ball, and then we give a general tempo, and we have a
+> scrolling bar, it is just like they are playing a simple phrase, which they can
+> do at a certain tempo, which they can — with the scroll bar and the
+> gravitational conductor, they can more easily find that tempo."*
+
+> *"But, anyways, we will figure it out. This could be one possibility. It still
+> may not work out because those cluster notes may not break down into clear
+> simple notation at any tempo."*
+
+*AI note: that last risk was measured the same day against `gen-aud-05` segment
+35 — for fixed-tempo generator material every part is whole multiples of its own
+beat (max error 0.07 ms), so no tuplets are needed. The catch is that the beats
+differ per player (400/447/507/585 ms), which moves the open question from
+"can it be notated simply" to "is the tempo per part, or is the bar a shared
+window". Recorded in PLAN M5.*
