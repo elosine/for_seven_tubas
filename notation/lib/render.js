@@ -97,6 +97,11 @@
           if (!inWin(it.t)) continue;
           parts.push('<text x="' + X(it.t, it.dxSs).toFixed(1) + '" y="' + Y(it.ySs).toFixed(1) + '" font-size="' + ((it.size || 1) * ssPx * 1.3).toFixed(1) +
             '" font-family="sans-serif" fill="' + o.muted + '">' + esc(it.text) + '</text>');
+        } else if (it.k === 'attackline') {
+          if (!inWin(it.t)) continue;
+          // M4: a vertical stroke straddling the pitch position
+          parts.push('<rect x="' + (X(it.t, 0) - 0.09 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs + 1.1)).toFixed(2) +
+            '" width="' + (0.18 * ssPx).toFixed(2) + '" height="' + (2.2 * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'tick') {
           if (!inWin(it.t)) continue;
           parts.push('<rect x="' + (X(it.t, 0) - 0.06 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - 0.8 * ssPx).toFixed(2) +

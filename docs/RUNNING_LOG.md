@@ -3552,3 +3552,29 @@ real data · snapshot + prove-red).
 **What the composer will decide by EYE (next chunk renders it):** the ε=20
 vs ε=30 comparison — 44 vs 88 bars over the same material — turning A1 §8
 row 3 from an abstract tolerance question into two pictures.
+
+## Day 20 (2026-08-20, night) — D2 RUN: the ε dial made VISIBLE; M4 prototyped; PHASE D v0 COMPLETE
+
+The page gains an **IR picker** (trance-section-01 · section1 ε=20 ·
+section1 ε=30 — markers read through from whichever score the IR names) and
+the **M4 checkbox**: proportional residue renders as VERTICAL ATTACK LINES
+at pitch (the rapid-staccato device's static half; the bouncing ball is
+Phase E runtime). Verified live: the apex window at ε=30 shows 15 real beam
+groups; M4 swaps residue heads for lines; zero errors.
+
+**Three proofs sent + committed** (`proof-s1-apex-e20/e30/m4.svg`): the
+SAME apex at both tolerances side by side — 44 vs 88 claimed bars over the
+section — plus the M4 alternative. **A1 §8 row 3 (is ε=30 ms musically
+acceptable?) is now a LOOKING question, not an abstract one.** The mixed
+strategy the composer reframed in M5 ("find chunks that are simple at a
+proper tempo; the rest gets something else") is on screen: metric bars with
+tempo labels where the material admits them, Mists-proportional (or M4
+lines) where it does not, per chunk, per part.
+
+**PHASE D v0 COMPLETE:** the M5 chunker runs for real in production
+(corroborating its own experiment within ~3 points) · mixed per-chunk
+strategy renders · M4 static prototype in. Remaining Phase D material-time
+work, recorded: tuplet-bar strategy (needs fixed-beat policies — E1b's
+frame), m>=3 tuplet numerals/double flags, and the composer's ε verdict.
+Next per the roadmap: **Phase E — performance runtime** (sync, GC port =
+E3, M1/M2 at load), largely inherited from pieces #1/#2.

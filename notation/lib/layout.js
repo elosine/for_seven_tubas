@@ -124,6 +124,19 @@
         prevTempoLabel = metric && c.tempo ? c.tempo.label : null;
         for (const d of c.devices || []) if (d.kind === 'gc') items.push({ k: 'tick', t: d.at, ySs: o.tickY });
 
+        // M4 prototype (PLAN §3 M4): proportional chunks may render as
+        // VERTICAL ATTACK LINES at pitch height instead of head+stem —
+        // the rapid-staccato device, statically prototyped (the bouncing
+        // ball is Phase E runtime). Opt-in via opts.m4AttackLines.
+        if (o.m4AttackLines && c.strategy === 'proportional') {
+          for (const e of evs) {
+            const ySs = staffPosBass(spelledOf(e));
+            items.push({ k: 'attackline', t: e.onset, ySs });
+            for (const L of ledgersFor(ySs)) items.push({ k: 'ledger', t: e.onset, dxSs: 0, ySs: L });
+          }
+          continue;
+        }
+
         // ---- note pass: heads, ledgers, accidentals (no stems/dots yet) ----
         const placed = new Map();
         for (const e of evs) {

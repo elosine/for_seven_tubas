@@ -26,6 +26,12 @@
     <option value="tranceA002f">tranceA002f</option>
     <option value="piece-s23">piece-s23</option>
   </select></label>
+  <label id="irWrap">ir <select id="ir">
+    <option value="trance-section-01">trance-section-01</option>
+    <option value="section1-e20">section1 · ε=20ms</option>
+    <option value="section1-e30">section1 · ε=30ms</option>
+  </select></label>
+  <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
   <label>parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
@@ -52,6 +58,17 @@
 (async function () {
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
+  async function loadIr(name) {
+    const r = await fetch('/notation/ir/' + name + '.ir.json');
+    if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
+    state.ir = await r.json();
+    state.pages = null; state.pageIdx = 0;
+    try {
+      const s = await loadScore(state.ir.source.score);
+      state.markers = (s.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
+    } catch (e) { state.markers = []; }
+    state.model = NotationLayout.layoutSection(state.ir, state.glyphs, { m4AttackLines: $('m4').checked });
+  }
   async function loadScore(name) {
     if (state.scores[name]) return state.scores[name];
     const r = await fetch('/api/composer/load/' + name);
@@ -61,25 +78,17 @@
     return state.scores[name];
   }
   try {
-    const [ir, glyphs, score, pageRules] = await Promise.all([
-      fetch('/notation/ir/trance-section-01.ir.json').then(r => { if (!r.ok) throw new Error('IR fetch ' + r.status); return r.json(); }),
+    const [glyphs, pageRules] = await Promise.all([
       fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
-      fetch('/api/composer/load/' + 'tranceA002f').then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
     ]);
-    state.ir = ir; state.glyphs = glyphs; state.pageRules = pageRules;
-    const scoreData = score && (score.data || score);
-    if (scoreData && scoreData.objects) {
-      state.markers = scoreData.objects.filter(o => o.type === 'marker')
-        .map(o => ({ time: o.time, label: o.label }));
-    }
-    // one layout for the whole section; views window into it (P5)
-    state.model = NotationLayout.layoutSection(ir, glyphs);
-    for (const p of ir.source.parts) {
+    state.glyphs = glyphs; state.pageRules = pageRules;
+    for (const p of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
       const opt = document.createElement('option');
       opt.value = p; opt.textContent = 'T' + (p + 1);
       $('parts').appendChild(opt);
     }
+    await loadIr($('ir').value);
     render();
   } catch (e) { $('err').textContent = String(e.stack || e); return; }
 
@@ -87,6 +96,8 @@
     try {
       const graphic = $('view').value === 'graphic';
       $('scoreWrap').style.display = graphic ? '' : 'none';
+      $('irWrap').style.display = graphic ? 'none' : '';
+      $('m4Wrap').style.display = graphic ? 'none' : '';
       if (graphic) return renderGraphicView();
       const paged = $('mode').value === 'pages';
       const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
@@ -158,6 +169,8 @@
     }
   });
   for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
+  $('ir').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
+  $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   $('prev').addEventListener('click', () => {
     if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
     else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));

@@ -1641,8 +1641,13 @@ read-through bricks + META overlay + D28 beating lane, bloom F2 pair
 5.93 Hz hand-checked) · study-score page (view switcher, score picker,
 click-a-part-to-zoom), verified live. Queued for later: animated
 approach/recede balls (Phase E), breath/swell lanes (material time).
-Next: **Phase D — slice 2, SECTION 1** (M5 chunker for real, mixed
-strategy) or fold composer gate feedback first.
+**PHASE D v0 DONE (composer "on to D"):** section1 extraction profile
+(E1 frame in production; coverage corroborates D43 within ~3 pts: 24.0/53.0
+vs 26.2/57.1) · mixed per-chunk strategy renders (44 vs 88 bars at
+ε=20/30) · ε now a VISIBLE dial (IR picker + apex proofs at both) · M4
+attack-line prototype. Composer decision now concrete: A1 §8 row 3 by eye.
+Queued: tuplet-bar (fixed-beat frame), m>=3 numerals. Next: **Phase E —
+performance runtime** (GC port/E3, sync, M1/M2).
 
 ## Parking lot
 

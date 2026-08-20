@@ -95,8 +95,12 @@ BEING WRITTEN. Claude Code / Opus 5.**
    battery, all with prove-red). Phase B review pass applied (30 run-proven findings). **PHASE C v0 DONE
    same night:** the study score — notation view + click-to-zoom · GRAPHIC
    view (any score, S1 read-through) · the D28 BEATING LANE (bloom F2 pair
-   peaks 5.93 Hz, hand-checked). Next: Phase D slice 2 (Section 1, the
-   mixed strategy for real) — after the composer's gate look.
+   peaks 5.93 Hz, hand-checked). **PHASE D v0 DONE same night** (composer "on to D"): section1 profile —
+   E1's frame in production, coverage corroborates D43 (24.0 %/53.0 % vs
+   26.2/57.1) · 64 real beams, stamp-atomic held · mixed strategy renders ·
+   ε visible (apex proofs at 20 vs 30 ms + M4 attack-line mode). **The ε
+   question (§8 row 3) is now answerable by LOOKING at the committed
+   proofs.** Next: Phase E performance runtime (GC port = E3).
 1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** Named by the composer on day 18 as
    the first thing next session; still queued (day 19 went to notation).
    **It needs ZERO code and is already set up:**
