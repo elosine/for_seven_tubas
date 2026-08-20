@@ -3626,3 +3626,19 @@ horizontally and force mid-animation panning). Pagination-is-a-view makes the
 re-cut cheap; zoom is a magnifier, not a second format. Recommendations PP-1
 through PP-6 adopted PROVISIONALLY by the composer; drill-down queue filed in
 the preplan doc §4.
+
+**Second amendment, same sitting — THE DECISION TAXONOMY (three tiers).** The
+composer's clarification of what the preplan is FOR: TIER 1 = look-defining
+decisions (anything that wholesale changes how the notation looks: frame,
+track heights, staff size, time scale, system cutting, fonts, cursor, META
+styling) — closed UP FRONT, so during notation "everything's already coming in
+the way it should look." TIER 2 = notation-content decisions during the
+part-by-part work, judged at final spacing/aspect (the PP-6 zoom invariant is
+what makes zoomed judgments valid). TIER 3 = the fine-tooth-comb polish pass
+at the END — borders, part crowding, ledger-line creep; "save all the little
+details till the end." Mechanism: a notation-specific polish ledger fed during
+tier 2 (micro-defects filed, never discussed mid-notation — D18 applied);
+tier 3 works the ledger. Boundary: this container is composer/jury-facing;
+performer-facing versions (D45's project) will look "dramatically different"
+and do not constrain tier 1. Filed as preplan doc §3; requirements updated
+(close-tier-1-first phase + polish ledger + tier-3 pass).

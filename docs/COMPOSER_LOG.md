@@ -1564,3 +1564,38 @@ great."*
 > don't wanna scroll along while watching it animate. So it could be that we
 > have a zoomed-in version and the actual final version that I'll create the
 > video from."*
+
+*Second amendment, same sitting — the decision taxonomy (dictated; the
+composer asked for a read-back):*
+
+> *"In this plan, eventually, I want to make sure we're taking into account
+> the requirements and have everything there so that during the actual
+> notation and decision-making process about how things should look,
+> everything's already coming in the way it should look."*
+
+> *"Here's the tension. I wanna be able to see things in the spacing and
+> aspect ratio, etcetera, as they'll be in the final video slash paper
+> score. That's the only way I can make the decisions on spacing,
+> performability, etcetera — is if I'm actually looking at what performers,
+> or at least the jury, will actually be looking at. And in this case,
+> essentially, it'll flow into the performance score. So this probably
+> should be a dramatically different version than what actually performers
+> will be looking at in rehearsal and performance. In any case, in order
+> for me to build the notation, decide it, I need to be able to look at it
+> in a zoomed way so I can see it to make these decisions. But it should be
+> the same as in the final — the main sort of components or
+> characteristics."*
+
+> *"During the notation process, I don't wanna get hung up in the small
+> little decisions like, oh, could you make the border one more pixel
+> bigger? Or, oh, part four is too close to part five, or when we have
+> three ledger lines, it creeps up into the next part, etcetera. All these
+> little sort of troubleshooting slash micro details I wanna save to the
+> end. So at the end, when we've notated everything, I do want to do a
+> significant pass and make sure the look is exactly how I want and make
+> those adjustments then. But I want to eliminate as many of the decisions
+> upfront that will completely change the way the notation looks… I wanna
+> save all the little details till the end, which I do wanna go over with a
+> fine-tooth comb and make sure that it looks exactly how I want it to
+> look. But it should basically have everything in place while I'm deciding
+> on the notation."*

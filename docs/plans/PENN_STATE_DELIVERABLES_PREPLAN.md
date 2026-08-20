@@ -1,11 +1,12 @@
 # PENN STATE DELIVERABLES — PREPLAN
 
 > Captured 2026-08-20 (day 20, second sitting) from the composer's session-start
-> dictation; verbatim passages in COMPOSER_LOG same date. **Status: PREPLAN.**
-> Decisions taken here feed the eventual plan; nothing is built now — the
-> composer moves to the phase-shifting sitting next, and this work waits until
-> the piece is finished. **Read this doc first when sitting down to draw the
-> actual plan.**
+> dictation; verbatim passages in COMPOSER_LOG same date, including two
+> same-sitting amendments (PP-6 two windows; the §3 decision taxonomy).
+> **Status: PREPLAN.** Decisions taken here feed the eventual plan; nothing is
+> built now — the composer moves to the phase-shifting sitting next, and this
+> work waits until the piece is finished. **Read this doc first when sitting
+> down to draw the actual plan.**
 
 ## 1. The three deliverables (Penn State, due Sept 4)
 
@@ -30,7 +31,53 @@
 - The video container **eventually becomes the study score** — but parameters
   stay TIGHT until after submission: one fixed format, nothing responsive.
 
-## 3. Scope fence — DEFERRED until piece + paper are submitted
+## 3. THE DECISION TAXONOMY — three tiers (composer, same sitting; governs the plan's phasing)
+
+*The composer's clarification, dictated; verbatim in COMPOSER_LOG. The point:
+"eliminate as many of the decisions upfront that will completely change the way
+the notation looks" so that during notation "everything's already coming in the
+way it should look" — and "save all the little details till the end."*
+
+- **TIER 1 — LOOK-DEFINING decisions → taken UP FRONT (this preplan + the
+  plan's first phase).** Anything that would wholesale change how the notation
+  looks: the frame and windows (PP-1/PP-6), track heights and part count in
+  frame (PP-2), staff size, horizontal time scale (px/s), system cutting and
+  turns (PP-3), print format (PP-4), header, fonts/glyph scale, cursor style,
+  META overlay presence and styling, margins/gutters. **The plan's first phase
+  is "close tier 1"** — each item decided against true-size proofs before
+  part-by-part notation begins.
+- **TIER 2 — NOTATION-CONTENT decisions → taken DURING the part-by-part
+  work.** What the notation IS for each material: strategy per chunk, devices,
+  spelling, beaming — judged inside the locked container, at final spacing and
+  aspect ratio, via the zoom view. **Micro-layout is explicitly out of scope
+  in this tier**: defects get FILED to the polish ledger, not fixed and not
+  discussed, unless one actually blocks reading the material.
+- **TIER 3 — THE POLISH PASS → at the END, fine-tooth comb.** After everything
+  is notated, one significant pass over the micro details — borders,
+  inter-part crowding, ledger-line creep into the next part, collisions,
+  pixel-level spacing — until *"it looks exactly how I want."* An explicit,
+  planned phase, not an afterthought.
+
+**The tension this taxonomy resolves (composer's words):** spacing and
+performability judgments are only valid *"if I'm actually looking at what…
+the jury will actually be looking at"* — but building notation needs a zoomed
+view. **PP-6's invariant is the reconciliation:** the zoom is a uniform
+magnification of the same geometry, so a judgment made zoomed holds at final
+size, and the 1080 video view stays one click away for the true-final check.
+
+**Mechanism — the polish ledger:** during tier 2, every micro-defect (spotted
+by composer or AI) goes to a notation-specific NITS-style ledger with a pointer
+to where it is visible (score, section, timestamp). The tier-3 pass works the
+ledger. **AI working rule (D18 applied to notation): micro-layout issues are
+filed, never surfaced as decisions mid-notation.**
+
+**Boundary note (composer):** this container is composer/jury-facing (video +
+paper) and will *flow into* the performance score later — but the
+performer-facing rehearsal/performance versions are the severed project (D45)
+and will likely look *"dramatically different."* Performer requirements do NOT
+constrain tier-1 decisions here.
+
+## 4. Scope fence — DEFERRED until piece + paper are submitted
 
 - Study/conductor score proper: the real workout, notation↔graphic switching
   polish, "getting the graphic score really working."
@@ -40,7 +87,7 @@
   rehearsal version, iPad practice version, ensemble variants).
 - Different screen sizes · portrait vs landscape · any responsive layout.
 
-## 4. Decision slate
+## 5. Decision slate
 
 *2026-08-20, same sitting: composer adopted the recommendations below
 PROVISIONALLY ("let's go with your recommendations plus any amendments") —
@@ -75,12 +122,13 @@ came from the composer's second dictation (verbatim in COMPOSER_LOG).*
   budgets** (not chosen freely); exact numbers proven by eye on true-size
   renders at plan time. — **ADOPTED (provisional)**
 
-**Drill-down queue (next):** zoom factor(s) — one fixed Z (e.g. 2×) or steps ·
-parts visible in the zoom window · header contents (title/markers/timecode) ·
-system-turn behavior (hard turn vs two-system swap with lookahead) · horizontal
-time scale px/s (per-section or global) · META overlay styling.
+**Drill-down queue (next — these are all TIER 1 items):** zoom factor(s) — one
+fixed Z (e.g. 2×) or steps · parts visible in the zoom window · header contents
+(title/markers/timecode) · system-turn behavior (hard turn vs two-system swap
+with lookahead) · horizontal time scale px/s (per-section or global) · META
+overlay styling.
 
-## 5. Feasibility arithmetic (for the discussion; the plan proves it visually)
+## 6. Feasibility arithmetic (for the discussion; the plan proves it visually)
 
 - **Screen:** 1080 px − ~80 px header (title/markers/timecode) ≈ 1000 px →
   **~100 px per part** ×10. Staff ≈ 40 px tall (10 px per space) leaves
@@ -94,10 +142,15 @@ time scale px/s (per-section or global) · META overlay styling.
 - Exact numbers are a PLAN deliverable, decided against rendered proofs at
   true size (AI_METHODOLOGY: verified in the running app / by eye).
 
-## 6. Requirements the PLAN must cover
+## 7. Requirements the PLAN must cover
 
+- **Close tier 1 first (§3):** the plan's opening phase enumerates every
+  look-defining parameter and decides each against true-size proofs BEFORE
+  part-by-part notation begins.
 - **Video view** in the notation app at exactly 1920×1080: fixed frame, track
   heights per PP-2, motion per PP-3.
+- **Zoom view** per PP-6: uniform magnification, re-cut systems, vertical
+  scroll only; one click between the two windows.
 - **Trial-insertion path:** load any section's IR/render into the video
   container and play it with the animation — the composer-score insert loop,
   ported to notation trials. This is the container the composer previews
@@ -106,6 +159,9 @@ time scale px/s (per-section or global) · META overlay styling.
   a core container parameter next to track height; possibly per-section;
   decided with proofs (the density apex and the trance section need different
   answers or one honest compromise).
+- **The polish ledger + tier-3 pass (§3):** a notation-specific NITS-style
+  ledger fed throughout tier 2; the fine-tooth-comb pass is the plan's LAST
+  phase before deliverable export.
 - **Scoped animation subset:** the scrolling cursor + timeline sync needed FOR
   VIDEO RENDERING ONLY. Explicitly NOT the severed Phase E runtime (D45
   stands) — this is a non-interactive rendering of one fixed view.
