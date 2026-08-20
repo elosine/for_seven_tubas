@@ -3230,3 +3230,44 @@ the one-day amendment cycle. All applied:**
   (amendment 1 owns all material-time realization questions); the one-off
   re-derivation scripts stay unkept (method described, validator half
   re-runnable via the battery).
+
+## Day 19 (2026-08-19, late night) — B0 + B1 RUN: the plan, then the extractor; the section extracts end to end
+
+**Composer: "b go", then "continue."** B0 =
+`docs/plans/NOTATION_SLICE1_PLAN.md` (chunks B1-B6, decisions DB-1..DB-8:
+app on the score server via a `/notation/` mount · vertical unit two-level
+(lane-fraction places systems, ss inside them) · glyphs PORTED from piece
+#2's LP-extracted library · SVG · proportional x in v0 — for fixed-pulse
+streams metric and proportional spacing COINCIDE, so slice 1 gets correct
+bar interiors free).
+
+**B1 BUILT AND GREEN:** `notation/lib/classify.js` + `extract_core.js`
+(pure, dual-load) · `tools/ir_extract.js` · validator `--complete` mode ·
+`tools/ir_extract_golden.js`. **The full trance section extracts:**
+`notation/ir/trance-section-01.ir.json` — 749 events (744 on grids), 56
+chunks (51 trance-stream simple-bar · 5 honest singles), VALID with
+`--against-source --complete`. Battery now 36 cases (30 red + 6 green).
+
+**Two extraction bugs, both caught by the gates, both instructive:**
+1. **The golden test earned its keep on first contact:** the initial run
+   produced 19 singleton chunks — the rebase's approx-GCD had "found" a
+   0.068 s unit at the A3 seam that glued BOTH streams onto one fabricated
+   fine grid. **The E1 false positive reproduced itself in my own code
+   within the hour of writing it.** Fix: the rebase floor is the PLAYABLE
+   unit (0.09 s, D43's line) and a rebase must subdivide the current unit
+   near-integrally. Golden went green.
+2. **The full section broke what the golden window could not see:** VERT01
+   chord accents (0.2 s ords, fp one-shots) sit ON the stream grids INSIDE
+   the pulse fabric — the model had them splitting streams into fragments.
+   The data corrected the model: **grid-aligned accent hits WEAVE INTO the
+   stream** (events keep their own technique + sample-true duration; 59
+   accents wove in: 30 fp, 22 ord, 7 cuivre); only multi-node material
+   (crescendos, morphs) splits. Registry classify note updated.
+
+**Independently audited, not just validated:** re-deriving every grid
+against raw onsets reproduces the reported worst error exactly (12.065 ms,
+one accel-region chunk at unit 0.2, inside TOL 15); the unit census matches
+the section's known pulse structure (0.4 ×22 chunks, 0.75 ×10, the
+multitempo ratio units 1.091/0.667/0.585/0.543/0.507 all present); the 5
+singles are genuinely isolated attacks (4 = the sparse opening canon's
+first entries). Next: **B2 — the coordinate module.**

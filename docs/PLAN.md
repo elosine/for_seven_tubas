@@ -1620,8 +1620,12 @@ onset). **A4 DONE 2026-08-19 night** — `morph-window-01.ir.json` (8-part bloom
 entry, {parts,span} overlay, naive-spelling + authored-respell pattern;
 validator gained the renames-never-repitches check). **A5 DONE 2026-08-19 night** — `density-apex-01.ir.json` (E1 fold;
 fit-is-data vs strategy-is-judgment split; re-derivation matches the record
-exactly). **PHASE A COMPLETE.** Next: Phase B — slice 1 TRANCE end-to-end
-(composer gate).
+exactly). **PHASE A COMPLETE.** **PHASE B GO (composer, same night):** B0 plan
+(`docs/plans/NOTATION_SLICE1_PLAN.md`, DB-1..DB-8) · **B1 DONE** — extractor
++ `--complete` + A3 golden GREEN; `trance-section-01.ir.json` = 749 events /
+56 chunks, fully valid; accent-weave model (VERT hits join their stream's
+grid). Next: **B2 coordinate module** → B3 glyphs → B4 layout → B5 page →
+B6 splicing.
 
 ## Parking lot
 

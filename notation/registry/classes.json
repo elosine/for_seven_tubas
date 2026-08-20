@@ -28,7 +28,7 @@
     },
     {
       "class": "trance-stream",
-      "classify": { "type": "waveCurve", "technique": ["staccato", "cuivre"], "context": "fixed-tempo generated section (PLAN 2af); performanceNotes PULSE/VERT tags" },
+      "classify": { "type": "waveCurve", "technique": ["staccato", "cuivre"], "context": "fixed-tempo generated section (PLAN 2af); performanceNotes PULSE/VERT tags. B1 refinement: grid-aligned fp / short plain-ord / cuivre accent hits WEAVE INTO the stream as events keeping their own technique+duration (the VERT01 chord accents); multi-node material (drawn crescendos, morphs) always SPLITS the stream" },
       "ir": "events on a per-player fixed grid; chunk strategy simple-bar expected (0.07 ms measured fit); dynamics possibly per attack + hairpins (amendment 1 hypothetical)",
       "accommodation": "bars-prefer-chunk-boundaries",
       "fallback": "proportional attack lines",

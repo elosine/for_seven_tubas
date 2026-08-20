@@ -25,13 +25,16 @@ const TRANCE = path.join(ROOT, 'notation', 'ir', 'trance-bar-01.ir.json');
 const APEX = path.join(ROOT, 'notation', 'ir', 'density-apex-01.ir.json');
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'ir-battery-'));
 
+const SECTION = path.join(ROOT, 'notation', 'ir', 'trance-section-01.ir.json');
 const clone = o => JSON.parse(JSON.stringify(o));
 const exampleBase = JSON.parse(fs.readFileSync(EXAMPLE, 'utf8'));
 const morphBase = JSON.parse(fs.readFileSync(MORPH, 'utf8'));
+const sectionBase = JSON.parse(fs.readFileSync(SECTION, 'utf8'));
 
-function run(file, against) {
+function run(file, against, extraFlags) {
   const args = [VALIDATOR, file];
   if (against) args.push('--against-source');
+  for (const f of extraFlags || []) args.push(f);
   const r = spawnSync('node', args, { encoding: 'utf8', cwd: ROOT });
   return { code: r.status, out: (r.stdout || '') + (r.stderr || '') };
 }
@@ -109,6 +112,15 @@ const RED = [
   // A4 additions, on morph-window-01 (overlays[1] is a spelling overlay there):
   { name: 'respell-repitch', base: 'morph', expect: 'renames, never re-pitches', mutate: d => { d.overlays[1].value = { step: 'B', alter: 0, octave: 2 }; } },
   { name: 'respell-badshape', base: 'morph', expect: 'must be a {step, alter, octave} object', mutate: d => { d.overlays[1].value = 'Bb2'; } },
+  // B1 addition: --complete must notice a dropped S1 object (remove one
+  // isolated single — event + its chunk — from the extractor's section doc):
+  {
+    name: 'incomplete-doc', base: 'section', flags: ['--complete'], expect: 'has no event in this document',
+    mutate: d => {
+      d.events = d.events.filter(e => e.id !== 'ev-wc-5017');
+      d.chunks = d.chunks.filter(c => c.id !== 'ch-5-wc-5017');
+    },
+  },
 ];
 
 // --- green cases ---
@@ -118,21 +130,23 @@ const GREEN = [
   { name: 'green:trance-bar-01', file: TRANCE, against: true },
   { name: 'green:morph-window-01', file: MORPH, against: true },
   { name: 'green:density-apex-01', file: APEX, against: true },
+  { name: 'green:trance-section-01 (full)', file: SECTION, against: true, flags: ['--complete'] },
 ];
 
+const BASES = { morph: morphBase, section: sectionBase };
 let failures = 0;
 for (const c of RED) {
-  const d = clone(c.base === 'morph' ? morphBase : exampleBase);
+  const d = clone(BASES[c.base] || exampleBase);
   c.mutate(d);
   const f = path.join(TMP, c.name + '.ir.json');
   fs.writeFileSync(f, JSON.stringify(d));
-  const r = run(f, c.against);
+  const r = run(f, c.against, c.flags);
   const ok = r.code === 1 && r.out.includes(c.expect);
   if (!ok) { failures++; console.error(`FAIL red ${c.name}: exit=${r.code}, expected fragment "${c.expect}" — got:\n${r.out.slice(0, 400)}`); }
   else console.log(`ok  red   ${c.name}`);
 }
 for (const g of GREEN) {
-  const r = run(g.file, g.against);
+  const r = run(g.file, g.against, g.flags);
   const ok = r.code === 0 && r.out.includes('VALID');
   if (!ok) { failures++; console.error(`FAIL ${g.name}: exit=${r.code}\n${r.out.slice(0, 400)}`); }
   else console.log(`ok  ${g.name}`);

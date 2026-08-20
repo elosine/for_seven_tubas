@@ -257,10 +257,27 @@ function againstSource(doc, errs) {
   }
 }
 
+// ---------- --complete: every S1 onset in window×parts has an event ----------
+// Opt-in: only extractor-produced documents claim completeness (spec §7);
+// hand-worked partial docs stay legal without it.
+function completeness(doc, errs) {
+  const f = path.join(ROOT, 'scores', doc.source.score + '.json');
+  if (!fs.existsSync(f)) { errs.push(`--complete: ${f} not found`); return; }
+  const score = JSON.parse(fs.readFileSync(f, 'utf8'));
+  const have = new Set(doc.events.filter(e => e.source).map(e => e.source.objectId));
+  const [w0, w1] = doc.source.window;
+  for (const o of score.objects || []) {
+    if (o.type !== 'waveCurve' || o.layer === 10) continue;
+    if (!doc.source.parts.includes(o.layer)) continue;
+    if (o.startSeconds < w0 || o.startSeconds > w1) continue;
+    if (!have.has(o.id)) errs.push(`--complete: S1 object ${o.id} (layer ${o.layer}, t=${o.startSeconds}) has no event in this document`);
+  }
+}
+
 // ---------- main ----------
 const args = process.argv.slice(2);
 const file = args.find(a => !a.startsWith('--'));
-if (!file) { console.error('usage: node tools/ir_validate.js <file.ir.json> [--against-source]'); process.exit(2); }
+if (!file) { console.error('usage: node tools/ir_validate.js <file.ir.json> [--against-source] [--complete]'); process.exit(2); }
 const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
 const errs = [];
 validate(SCHEMA, doc, '$', errs);
@@ -268,10 +285,11 @@ if (errs.length === 0) { // integrity only meaningful on a well-formed doc
   scanForbidden(doc, '$', errs);
   if (errs.length === 0) integrity(doc, errs);
   if (errs.length === 0 && args.includes('--against-source')) againstSource(doc, errs);
+  if (errs.length === 0 && args.includes('--complete')) completeness(doc, errs);
 }
 if (errs.length) {
   console.error(`INVALID — ${errs.length} finding(s) in ${file}:`);
   for (const e of errs) console.error('  · ' + e);
   process.exit(1);
 }
-console.log(`VALID: ${file} (${doc.events.length} events, ${doc.chunks.length} chunks, ${doc.overlays.length} overlays${args.includes('--against-source') ? '; against-source checked' : ''})`);
+console.log(`VALID: ${file} (${doc.events.length} events, ${doc.chunks.length} chunks, ${doc.overlays.length} overlays${args.includes('--against-source') ? '; against-source checked' : ''}${args.includes('--complete') ? '; completeness checked' : ''})`);
