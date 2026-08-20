@@ -26,6 +26,15 @@ const nextBeat = t => {
 const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3,chord:12:1:4:2+4,phase:4')
     .split(',').map(x => {
         const tok = x.trim(), parts = tok.split(':'), k = parts[0];
+        if (k==='r27') return {k, tok};
+        if (k==='mtdiv') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10,
+            // the composer's 4:3:2 arc for this insert: A# octaves -> B octaves
+            // (transpose +1) -> the C-ROOTED fifths chain (C2 G2 D3 A3 E4)
+            parts: [
+                {frac:4, mode:'verbatim',            label:'A# oct'},
+                {frac:3, mode:'transpose', by:1,     label:'B oct',  detail:'A# oct +1'},
+                {frac:2, mode:'set', set:[36,43,50,57,64], label:'5ths C', detail:'C2 G2 D3 A3 E4'},
+            ]};
         if (k==='mt') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10};
         if (k==='phase') {
             const it = {k, tok, n:+parts[1]};
@@ -217,7 +226,7 @@ PLAN.forEach(item => {
                 n++;
             }
         log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
-                 PC[pc]+' oct '+OCT.map(NAME).join('/')+', '+n+' notes)');
+                 setName+' '+OCT.map(NAME).join('/')+', '+n+' notes)');
         t = end;
     } else if (item.k === 'mt') {
         const secs = item.secs || 10;
@@ -230,6 +239,61 @@ PLAN.forEach(item => {
         t = t0 + secs;
         log.push('multitempo '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+secs+'s, '+
                  g.ratios+' oct '+g.sub+', '+g.notes.length+' notes)');
+    } else if (item.k === 'mtdiv') {
+        // DIVIDED multitempo (composer, day 21): one MT segment whose pitch
+        // world changes across sub-parts in a duration ratio. Rhythm/parts
+        // stay the segment's own; part 2 transposes (A#→B = +1); part 3+
+        // re-draws each attack from a named set (no immediate repeat/player).
+        const secs = item.secs || 10;
+        const g = mtNotes(item.m, secs), t0 = t;
+        const parts = item.parts;                        // [{frac,mode,...}]
+        const total = parts.reduce((a,p)=>a+p.frac,0);
+        let acc = 0;
+        const bounds = parts.map(p => { acc += p.frac; return secs * acc / total; });
+        const lastP = new Array(10).fill(null);
+        parts.forEach((p,pi) => mark(t + (pi ? bounds[pi-1] : 0),
+            'MT '+item.m+' '+p.label, '#c08fd6', p.detail || ''));
+        g.notes.forEach(x => {
+            const rel = x.startSeconds - g.t0;
+            const pi = bounds.findIndex(b => rel < b - 1e-9);
+            const p = parts[pi < 0 ? parts.length-1 : pi];
+            let pitch = x.sonifyNote;
+            if (p.mode === 'transpose') pitch = x.sonifyNote + p.by;
+            else if (p.mode === 'set') {
+                let k;
+                do { k = p.set[(rnd()*p.set.length)|0]; } while (k === lastP[x.layer] && p.set.length > 1);
+                pitch = k; lastP[x.layer] = k;
+            }
+            note(t + rel, x.layer, pitch, +(x.endSeconds - x.startSeconds).toFixed(3),
+                '#c08fd6', 'MT'+item.m+' '+NAME(pitch), 'asm-mt', x.recVel || 112);
+        });
+        t = t0 + secs;
+        log.push('mtdiv '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+
+            parts.map((p,i)=>p.label+' '+((i?bounds[i]-bounds[i-1]:bounds[0])).toFixed(1)+'s').join(' | ')+')');
+    } else if (item.k === 'r27') {
+        // RE-PITCH THE ORIGINAL "27 oct B" SECTION (composer, day 21):
+        // reversed ratio 2:3:4 across its span — B octaves stay | re-draw from
+        // the C#-rooted fifths chain | re-draw from species 30. Rhythm, parts
+        // and dynamics untouched; only sonifyNote moves. Idempotent because
+        // every run re-reads pristine SRC (003b) before transforming.
+        const F5_CS = [37,44,51,58,65];                  // C#2 G#2 D#3 A#3 F4
+        const w = j.objects.filter(o => o.type==='waveCurve' &&
+            (o.performanceNotes||'').indexOf('F oct B') === 0 && !/^asm-/.test((o.properties||{}).gen||''));
+        const a = Math.min(...w.map(x=>x.startSeconds)), b = Math.max(...w.map(x=>x.startSeconds));
+        const span = b - a, b1 = a + span*2/9, b2 = a + span*5/9;
+        const lastP = new Array(10).fill(null);
+        const draw = (set, layer) => { let k;
+            do { k = set[(rnd()*set.length)|0]; } while (k === lastP[layer] && set.length > 1);
+            lastP[layer] = k; return k; };
+        let n2=0, n3=0;
+        w.sort((x,y)=>x.startSeconds-y.startSeconds).forEach(x => {
+            if (x.startSeconds < b1) return;             // part 1: B octaves as written
+            if (x.startSeconds < b2) { x.sonifyNote = draw(F5_CS, x.layer); n2++; }
+            else { x.sonifyNote = draw(SPECIES['30'], x.layer); n3++; }
+        });
+        mark(b1, '27→5ths C#', '#C62828', 'reversed 2:3:4 repitch, part 2');
+        mark(b2, '27→sp30', '#C62828', 'reversed 2:3:4 repitch, part 3');
+        log.push('r27: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  B oct to '+b1.toFixed(1)+' | 5thsC# '+n2+' notes to '+b2.toFixed(1)+' | sp30 '+n3+' notes');
     } else {
         // BLAST-LEVEL addressing (composer, day 21): a chord insert can take a
         // sub-range of a pattern's blasts, and name which of them are cuivre.
