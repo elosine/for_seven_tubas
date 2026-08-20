@@ -4432,3 +4432,16 @@ mid-play changes deal fresh; random draws from the lane distribution so the
 low-thicker weighting survives. 21/21 node assertions (permutation validity
 + variability); readout shows the order; verified in-app, zero console
 errors. Persisted per sequence as pitchOrder.
+
+**2ag follow-up 19 — VERT01 SPECIES in the live pitch menu (composer: 27, 30,
+33, 1, 8 - "just the original notes, the play notes, no octave doublings").**
+Source = bank/VERT01-NN.json `pitches` (the played voicings, literal):
+sp01 [36 44 47 48 53 55 56 64] · sp08 [31 42 43 65 (66)] · sp27 [33 34 63 64
+(66)] · sp30 [33 39 45 47 55 57 61 (66)] · sp33 [34 38 39 51 53 54].
+**THE KNOWN TRAP BIT THREE OF THE FIVE: sp08/27/30 each carry a top 66,
+which is CUIVRE in the blasts and cannot sound in staccato (30-65)** -
+dropped from the sounding presets, said in the dropdown labels themselves.
+Measured ring caps wired into the readout: sp01 127 · sp08 117 · sp27 122 ·
+sp30 130 · sp33 122. Verified in-app: sp08 at the 120-BPM top step correctly
+warns over its 117 cap; sp30 does not (cap 130). 15/15 node assertions
+(sets, window, ascending lane spread). All order modes apply to species too.

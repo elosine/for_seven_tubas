@@ -134,6 +134,14 @@ const PANEL = {
             '<option value="octaves">octaves (root pc)</option>',
             '<option value="fifths">fifths stack</option>',
             '<option value="clusterFA">cluster F&ndash;A, octave spread</option>',
+            // VERT01 species, ORIGINAL played voicings (bank/VERT01-NN.json),
+            // no octave doublings. sp08/27/30's top 66 is CUIVRE in the blasts
+            // and cannot sound in staccato (30-65) - dropped from the preset.
+            '<option value="sp01">species 1 (8 notes)</option>',
+            '<option value="sp08">species 8 (4, top 66 dropped)</option>',
+            '<option value="sp27">species 27 (4, top 66 dropped)</option>',
+            '<option value="sp30">species 30 (7, top 66 dropped)</option>',
+            '<option value="sp33">species 33 (6 notes)</option>',
             '</select>',
             // ORDER — kills the arpeggio-cycling of the ascending lane map.
             // shuffled: one scramble, each player keeps one note (re-pick the
@@ -1102,9 +1110,23 @@ const PANEL = {
     // Everything stays inside the staccato window 30-65; F1 (29) is below the
     // floor, which is why the F-A cluster starts at F#1. Ring caps measured
     // 2026-08-20: unison(C3) 142 · octaves 125 · fifths 122 · clusterFA 117.
+    // VERT01 species — the ORIGINAL played voicings (bank/VERT01-NN.json),
+    // literal, no octave doublings. In-range notes only: sp08 [.. 65,(66)],
+    // sp27 [.. 64,(66)], sp30 [.. 61,(66)] each lose their cuivre-register 66,
+    // which staccato cannot sound (the 30-65 trap).
+    SPECIES: {
+        sp01: [36, 44, 47, 48, 53, 55, 56, 64],
+        sp08: [31, 42, 43, 65],
+        sp27: [33, 34, 63, 64],
+        sp30: [33, 39, 45, 47, 55, 57, 61],
+        sp33: [34, 38, 39, 51, 53, 54],
+    },
+
     lvPitches(mode, players, root) {
         let set;
-        if (mode === 'octaves') {
+        if (this.SPECIES[mode]) {
+            set = this.SPECIES[mode];
+        } else if (mode === 'octaves') {
             const pc = ((root % 12) + 12) % 12;
             set = [];
             for (let k = pc; k <= 65; k += 12) if (k >= 30) set.push(k);
@@ -1294,7 +1316,8 @@ const PANEL = {
         else if (p.jit > 0) s += ' · rain ±' + p.jit + ' ms';
         else s += ' · smear';
         // per-preset per-player caps (measured 2026-08-20; unison = C3)
-        const CAPS = { unison: 142, octaves: 125, fifths: 122, clusterFA: 117 };
+        const CAPS = { unison: 142, octaves: 125, fifths: 122, clusterFA: 117,
+                       sp01: 127, sp08: 117, sp27: 122, sp30: 130, sp33: 122 };
         if (p.pitchMode !== 'unison') s += ' · ' + p.pitchMode;
         if (p.order !== 'ascending' && p.pitchMode !== 'unison') s += ' (' + p.order + ')';
         const cap = CAPS[p.pitchMode] || 142;
