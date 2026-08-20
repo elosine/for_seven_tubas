@@ -1,23 +1,24 @@
 {
   "_comment": "THE CONVERSATIONAL LOOP — PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN — sound only ever on the composer's SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6's two-sided contract), so the qualitative interface never goes opaque.",
-  "rev": 1,
-  "active": "A",
+  "_slate": "rev 2 (2026-08-20, day 21) — THE SPEED LADDER. One character (SMEAR: jitter 0, scatter 0, unison C3), six speeds. ONLY `bpm` moves across A–F; every other dial is identical. This exists because the five stored models CONFOUND character with speed — TICKS is literally SMEAR at 12/s, GROOVE is scatter at 8/s — so 'do the categories sound different' and 'do the speeds sound different' could not be told apart from the model buttons alone. Landing variant is E (18/s), the speed the SMEAR/RAIN/GALLOP references run at, so ← steps DOWN from what the composer just heard. bpm = density x 6 at 10 players. rev 1 (the A/B/C SMEAR/RAIN/GALLOP reference slate) is recoverable from git.",
+  "rev": 2,
+  "active": "E",
   "variants": {
     "A": {
-      "label": "A: SMEAR reference · 10 players @ 110 BPM, jitter 0, scatter 0",
+      "label": "A: 6/s · 10 tubas @ 36 BPM — only bpm moved (36 vs E's 108); jitter 0, scatter 0",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "smear-ref",
+        "name": "speed-06",
         "seed": 11,
         "sections": [
           {
-            "dur": 14,
-            "label": "SMEAR · dead even at 18/s — attacks on the edge of fusing into a tone",
+            "dur": 10,
+            "label": "6 attacks/s — well below TICKS; separate events, plenty of air between them",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
-                "bpm": 110,
+                "bpm": 36,
                 "articulation": "staccato",
                 "notelen": 0.12,
                 "scatter": 0,
@@ -34,24 +35,24 @@
       }
     },
     "B": {
-      "label": "B: RAIN reference · jitter 0→45 ms (the only dial moved from A)",
-      "fromModel": "RAIN",
+      "label": "B: 9/s · 10 tubas @ 54 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "rain-ref",
+        "name": "speed-09",
         "seed": 11,
         "sections": [
           {
-            "dur": 14,
-            "label": "RAIN · jitter ±45 ms at 18/s — irregular, and nothing ever repeats",
-            "tag": "rain",
+            "dur": 10,
+            "label": "9 attacks/s — GROOVE's speed, but with no scatter, so no figure",
+            "tag": "smear",
             "voices": [
               {
                 "players": 10,
-                "bpm": 110,
+                "bpm": 54,
                 "articulation": "staccato",
                 "notelen": 0.12,
                 "scatter": 0,
-                "jitterMs": 45,
+                "jitterMs": 0,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -64,20 +65,20 @@
       }
     },
     "C": {
-      "label": "C: GALLOP reference · 5+5 tubas, ΔBPM 2 (lap 6 s) — two groups, not one",
-      "fromModel": "GALLOP",
+      "label": "C: 12/s · 10 tubas @ 72 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "gallop-ref",
+        "name": "speed-12",
         "seed": 11,
         "sections": [
           {
-            "dur": 14,
-            "label": "GALLOP · 5+5 tubas at 110 / 112 BPM — lap 6 s, a lopsided two-element figure",
-            "tag": "gallop",
+            "dur": 10,
+            "label": "12 attacks/s — this IS the stored TICKS model exactly; the bottom of the crossover band",
+            "tag": "ticks",
             "voices": [
               {
-                "players": 5,
-                "bpm": 110,
+                "players": 10,
+                "bpm": 72,
                 "articulation": "staccato",
                 "notelen": 0.12,
                 "scatter": 0,
@@ -87,10 +88,87 @@
                   "policy": "unison",
                   "root": 48
                 }
-              },
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "D": {
+      "label": "D: 15/s · 10 tubas @ 90 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
+      "spec": {
+        "name": "speed-15",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "15 attacks/s — inside the predicted 12-17/s crossover, where a figure stops being parseable",
+            "tag": "smear",
+            "voices": [
               {
-                "players": 5,
-                "bpm": 112,
+                "players": 10,
+                "bpm": 90,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "E": {
+      "label": "E: 18/s · 10 tubas @ 108 BPM — the reference speed (SMEAR/RAIN/GALLOP all run here)",
+      "fromModel": "SMEAR",
+      "spec": {
+        "name": "speed-18",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "18 attacks/s — the stored SMEAR; attacks on the edge of fusing into a tone",
+            "tag": "smear",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 108,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "F": {
+      "label": "F: 22/s · 10 tubas @ 132 BPM — only bpm moved; near the 23.8/s ring ceiling at C3",
+      "fromModel": "SMEAR",
+      "spec": {
+        "name": "speed-22",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "22 attacks/s — the top of the ladder; each player re-attacks every 0.455 s against a 0.42 s ring",
+            "tag": "smear",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 132,
                 "articulation": "staccato",
                 "notelen": 0.12,
                 "scatter": 0,

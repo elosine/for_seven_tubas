@@ -3684,3 +3684,95 @@ writes the glyph extension contract. Plan question answered: the plan IS
 already drawn (DELIVERABLES_BUILD_PLAN.md, last commit) — with this folded
 in it is complete; composer proceeds to phase shifting / finishing the
 piece, runs the plan before notating.
+
+---
+
+## Day 21 (2026-08-20, third sitting) — 2ad OPENS: the models are auditioned, and the slate turns out to be CONFOUNDED
+
+**Session opened on PLAN 2ad (phase-shift texture selector).** Servers reset on
+the composer's request — `taskkill -F -IM node.exe`, then `score/server.js`
+(:5200) and `sandbox/serve.js` (:4700) restarted detached. All four surfaces
+verified 200: `composer.html`, `clusterview.html`, `notation/app/notation.html`,
+sandbox root. Both texture endpoints verified serving from the shell before
+anything was claimed about them: `/api/textureparams` (rev 1, A/B/C =
+SMEAR/RAIN/GALLOP) and `/api/texturemodels` (five models).
+
+**Composer's first report, verbatim: *"They sound kind of the same."*** — of the
+five stored models (smear · ticks · rain · gallop · groove), auditioned via the
+panel's model buttons. Also asked, and it is the right question: *"Are they
+already dialed in models?"* Yes — all five carry their dials in
+`bank/texture_models.json`, straight from the 13 phase-shifting experiments.
+
+### THE FINDING: the five models confound CHARACTER with SPEED
+
+Not a bug, and not previously written down anywhere as a limitation of the
+audition slate. Reading the stored specs side by side:
+
+    model    density   the dial that defines it
+    SMEAR      18/s    nothing moved — dead even
+    TICKS      12/s    nothing moved — dead even, SLOWER
+    RAIN       18/s    jitter 45 ms
+    GALLOP     18.5/s  two groups, dBPM 2
+    GROOVE      8/s    scatter 0.5
+
+**TICKS is literally SMEAR at 12/s** — same character dials, only bpm differs.
+**GROOVE is scatter at 8/s.** So two axes move at once across the model buttons,
+and "do the categories sound different" cannot be separated from "do the speeds
+sound different" by clicking through them. The composer's "kind of the same" may
+well be about the three that sit at the SAME speed (smear/rain/gallop, all
+~18/s) — which is exactly the 2x slate's first question — but the slate as
+stored could not tell us that.
+
+**Diagnostic given to the composer before drawing any conclusion:** ticks (12/s)
+and groove (8/s) are much slower than the other three. If those two do NOT read
+as obviously slower, the problem is sound, not texture — most likely the
+lazy-MIDI init bug (keyboard dead on a fresh page until Play / CC7 Reset /
+REC-arm), and no verdict should be recorded from that state.
+
+### BUILT: the SPEED LADDER (`bank/texture_params.json` rev 2)
+
+Composer's ask, verbatim: *"and then to hear them at different densities or
+speeds."* Six variants A–F, **one character throughout** (SMEAR: jitter 0,
+scatter 0, unison C3, staccato, notelen 0.12, level 7.5, 10 players, seed 11),
+**only `bpm` moving** — so this isolates the speed axis by itself. `bpm =
+density x 6` at ten players. Landing variant is **E (18/s)**, the speed the
+reference models run at, so the composer steps DOWN with the left arrow from
+what they had just been hearing rather than starting cold at an unfamiliar
+speed. Duration cut 14 s -> 10 s: this is a browse loop stepped with arrows, and
+14 s is long to sit through six times. rev 1 recoverable from git.
+
+**Rendered in node and MEASURED before it was handed over** (not claimed from
+the spec):
+
+    var  density    sd     unev   notes  hard  soft  ceiling  rings
+    A       6.0    0.09    0.00      60     0     0     23.8      0
+    B       9.1    0.10    0.00      91     0     0     23.8      0
+    C      12.0    0.09    0.00     120     0     0     23.8      0
+    D      15.0    0.09    0.00     150     0     0     23.8      0
+    E      18.1    0.08    0.00     181     0     0     23.8      0
+    F      22.1    0.09    0.00     221     0     0     23.8      0
+
+Every rung dead even (sd ~0.09 ms) with no figure (unev 0.00), zero hard, zero
+soft, zero ring warnings, all under the 23.8/s unison-C3 ceiling. **C is the
+stored TICKS model exactly** and **E is the stored SMEAR model exactly** — so
+the ladder contains two of the five models as rungs, which is itself the proof
+that those two differ only in speed. F sits at the top: each player re-attacks
+every 0.455 s against a 0.42 s C3 ring, clear by 35 ms.
+
+Endpoint re-verified after the write: `/api/textureparams` serves rev 2, lands
+on E, keys A–F. The panel polls once a second, so an open panel picks this up
+with no reload and no click (the day-17 proof).
+
+### What this sets up, NOT yet run
+
+The complementary experiment is the obvious next one and is **not** built: the
+same five characters at ONE fixed density, which isolates the character axis the
+way this ladder isolates speed. Between the two, "are rain and gallop distinct"
+becomes answerable without the speed confound riding along. Also still open and
+untouched: the seed question (at ten voices a setting is a lottery, not a
+texture — up/down arrows step the draw), and every robustness verdict (H).
+
+**Still UNHEARD, and the gate has no override:** all five models read `UNHEARD`
+in the store and cannot be banked as keepers until the composer's verdict lands.
+Nothing about the SOUND has been verified this sitting — only data and
+endpoints. That line stays until the composer speaks.
