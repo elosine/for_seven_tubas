@@ -4492,3 +4492,22 @@ first) and touches nothing of the original 749 notes.
   matters: the composer's own existing trance material in the same file
   over-rings on 28% of pairs**, so this is a difference of degree on an
   accepted property of the section, not a new defect class.
+
+**Day 21 — assembly CORRECTED to the ALTERNATION model (composer's actual
+intent; my first build was wrong).** The composer is interleaving two
+streams, each advancing ONE item per insertion - phase steps 1,2,3... and
+chord patterns P9,P10,P11... - not dumping whole sequences. First build had
+put in all 6 phase steps (40.8 s) + all 22 patterns; replaced.
+**Now in `scores/tranceA003b.json`:** phase STEP 1 only at **66.8-72.2 s**
+(87 BPM, offset 0.469, 5.4 s = the composer's performed duration, octaves of
+ROW 7's first pitch G# -> G#1/G#2/G#3, 78 notes), then chord **P9 only** at
+**72.4-76.0 s** (9 beats `12 28 base 3 base base 16 27 base`, 47 notes).
+Original 749 notes untouched; existing material at 62.0-66.4 is base chords
+on every beat (answering the composer's question). Next insertions will be
+phase step 2 and chord P10.
+**Script promoted to `tools/assemble_trance.js`** - re-runnable (strips its
+own `asm-*` objects first), and the assembly order is a literal PLAN array
+at the top: append `{k:'phase',n:2}` / `{k:'chord',n:10}` and re-run.
+**Bug caught by reading the output:** a `ceil(t+epsilon)` beat-snap pushed
+the first insert from 66.8 to 67.2 - an on-grid time must snap to ITSELF,
+not the next beat. Fixed with a round-vs-ceil tolerance test.
