@@ -4393,3 +4393,7 @@ of rev-14 rungs 11-2-7-3-10-4-6** (offsets 0.469/0.2/0.384/0.286/0.2365/
 high-low, i.e. playing WITH the dramatic changes, not against them). The
 `phase` slot stays untouched as the reference - rung numbers 1-12 remain the
 composer's working identifiers. Panel verified on rev 15, landed on try1.
+
+**2ag follow-up 15 — try1 reordered per composer (swap steps 2<->3, 4<->5):
+rung order now 11-7-2-10-3-4-6 (rev 16).** Score path 0.77-0.34-0.00-0.58-
+0.05-0.09-0.29: the front-loaded drama softens toward the tail.
