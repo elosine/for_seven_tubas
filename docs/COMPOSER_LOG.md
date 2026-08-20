@@ -1553,3 +1553,14 @@ great."*
 
 > *"Once we finish the preplanning, I'm gonna move on to the phase shifting.
 > So we won't work on this until I'm done with the piece."*
+
+*Amendment, same sitting — the two-window reframe:*
+
+> *"Practically speaking, I wanted to be able to play in ten eighty p, but
+> previewing it I want to see it zoomed in — but each track at the same
+> dimensions. So I know I talked about one format, but this potentially can
+> be two, or maybe we just work our way around with zoom or scroll bars. I
+> think vertical scroll bars are okay, but not so much horizontal. So I
+> don't wanna scroll along while watching it animate. So it could be that we
+> have a zoomed-in version and the actual final version that I'll create the
+> video from."*

@@ -40,21 +40,45 @@
   rehearsal version, iPad practice version, ensemble variants).
 - Different screen sizes · portrait vs landscape · any responsive layout.
 
-## 4. Decision slate (verdicts recorded as taken; OPEN until then)
+## 4. Decision slate
 
-- **PP-1 — Video frame** — confirm 1920×1080 (16:9), authored at exactly that
-  logical size (SVG stays crisp if recorded at 2×). — **OPEN**
-- **PP-2 — Vertical layout** — all 10 parts always in frame vs a windowed
-  subset; where the META/graphic layer sits (overlay vs own lane vs absent).
-  — **OPEN**
-- **PP-3 — Motion model** — stationary system + sweeping cursor with page/system
-  turns, vs continuous tape scroll past a fixed playhead, vs a two-system
-  hybrid. — **OPEN**
-- **PP-4 — Print page** — size + orientation (Letter landscape / Letter
-  portrait / Tabloid). — **OPEN**
-- **PP-5 — Sizing method** — track heights and staff size DERIVED from the
-  fixed frame budget (not chosen freely), with exact numbers proven visually
-  at plan time. — **OPEN**
+*2026-08-20, same sitting: composer adopted the recommendations below
+PROVISIONALLY ("let's go with your recommendations plus any amendments") —
+drill-down pending; nothing final until then. The two-window amendment (PP-6)
+came from the composer's second dictation (verbatim in COMPOSER_LOG).*
+
+- **PP-1 — Final frame = 1920×1080** (16:9), authored at exactly that logical
+  size; SVG, so a 2× recording costs nothing. — **ADOPTED (provisional)**
+- **PP-6 — ONE GEOMETRY, TWO WINDOWS** *(the composer's amendment)*: the locked
+  1080 **video view** (all parts, the frame the video is made from) + a
+  **zoom view** for working — a uniform magnification of the SAME layout
+  (every track identical dimensions, just bigger). Rules: **vertical scroll
+  allowed, horizontal NEVER scrolls during playback** — so at zoom Z the
+  systems are re-cut to 1/Z of the time span, keeping each zoomed system
+  full-width with the cursor sweeping inside the frame. (Plain magnification
+  without the re-cut would clip the system horizontally and force panning
+  mid-animation — exactly what the composer excluded.) Pagination-is-a-view
+  (§7b) makes the re-cut cheap; the zoom is a magnifier, not a second format —
+  what is approved zoomed is what ships. — **ADOPTED (provisional)**
+- **PP-2 — All 10 parts always in the video frame** (~100 px per part after a
+  ~80 px header); META/graphic layer as a semi-transparent overlay. In the
+  zoom view fewer parts fit → vertical scroll. — **ADOPTED (provisional)**
+- **PP-3 — Motion model: stationary system + sweeping cursor, with system
+  turns** (reuses B6 splicing; cursor = time→x on the proportional grid; turns
+  prefer chunk boundaries). Reinforced by PP-6: it is the only model where
+  "no horizontal motion of the viewport" holds in both windows. — **ADOPTED
+  (provisional)**
+- **PP-4 — Print: Letter landscape** — ~19 mm/part → ~6 mm staves, one 10-part
+  system per page; jury-friendly on screens. Other formats can return
+  post-submission since pagination is a view. — **ADOPTED (provisional)**
+- **PP-5 — Sizing method: track heights + staff size DERIVED from the frame
+  budgets** (not chosen freely); exact numbers proven by eye on true-size
+  renders at plan time. — **ADOPTED (provisional)**
+
+**Drill-down queue (next):** zoom factor(s) — one fixed Z (e.g. 2×) or steps ·
+parts visible in the zoom window · header contents (title/markers/timecode) ·
+system-turn behavior (hard turn vs two-system swap with lookahead) · horizontal
+time scale px/s (per-section or global) · META overlay styling.
 
 ## 5. Feasibility arithmetic (for the discussion; the plan proves it visually)
 

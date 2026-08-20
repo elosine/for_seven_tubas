@@ -3614,3 +3614,15 @@ Scope fence recorded there: study/conductor score workout, rehearsal scenarios,
 the D45 performance project, and all responsive-format work stay
 POST-SUBMISSION. Decision verdicts pending the discussion; they get appended
 here and filed in the doc when taken.
+
+**Amendment, same sitting — PP-6, one geometry / two windows.** The composer:
+play in 1080p, but PREVIEW zoomed in, each track at the same dimensions;
+vertical scroll bars fine, horizontal not — "I don't wanna scroll along while
+watching it animate." Resolved as ONE geometry with TWO window configs: the
+locked 1080 video view + a zoom view = uniform magnification of the same
+layout, with systems re-cut to 1/Z of the time span so the zoomed system stays
+full-width and the cursor sweeps in frame (plain magnification would clip
+horizontally and force mid-animation panning). Pagination-is-a-view makes the
+re-cut cheap; zoom is a magnifier, not a second format. Recommendations PP-1
+through PP-6 adopted PROVISIONALLY by the composer; drill-down queue filed in
+the preplan doc §4.
