@@ -4522,3 +4522,25 @@ the disjoint set with a shuffled pitch->part mapping (seed 60815):
 left as-is so the contrast is audible. Backup taken before the edit (the file
 is untracked). *Note for later: the 34.4s run also shares T1/3/5/7/9 - a third
 distinct voicing there is available on request.*
+
+**Day 21 — PER-BEAT RESHUFFLE adopted as the standing rule for chord sets
+(composer).** *"Let's make the rule the chord reshuffles every beat... the set
+around forty-five, the set around sixty, and then the number nine chords
+around seventy-two. And then moving forward, the same for all of those chord
+sets."* Every chord attack now draws a fresh random set of parts and a fresh
+pitch->part mapping, instead of a whole run sitting on one fixed voicing.
+- Applied in place to the composer's two runs (46.0-48.4 s, 7 chords;
+  60.8-66.4 s, 15 chords) - 22 beats re-voiced, seed 4572, only `layer`
+  changed. Supersedes the single fixed re-voicing done an hour earlier.
+- Wired into **`tools/assemble_trance.js`** (`pickLanes`, seed 90210) so every
+  future chord insertion is reshuffled by construction; P9 re-rendered
+  through it. Chord SIZE varies (base 5, sp27 4, sp16 7), so the draw is
+  n-of-10 per beat.
+- **MEASURED SIDE BENEFIT, not the composer's stated reason but real:** a
+  fixed voicing forces every sounding player to re-attack every 0.4 s, which
+  always over-rings. Reshuffling lets players fall out of the texture on some
+  beats. Over-ring pairs: **46s run 60% · 60.8s run 49% · P9 59%**, against
+  the still-fixed 34.4 s run at **100%**. So the rule improves playability by
+  roughly half, on top of its musical purpose.
+- *Still fixed on T1/3/5/7/9: the 34.4 s run (4 chords) - flagged, not
+  changed, since the composer named only three sets.*

@@ -32,6 +32,18 @@ const ROOTPC = 8;
 const OCT = []; for (let k=ROOTPC+24;k<=65;k+=12) if (k>=30) OCT.push(k);
 const laneP = []; for (let x=0;x<10;x++) laneP.push(OCT[Math.floor(x*OCT.length/10)]);
 
+// PER-BEAT RESHUFFLE (composer, day 21) — the standing rule for every chord
+// set: each beat re-voices the chord onto a fresh random set of parts, rather
+// than the whole run sitting on one fixed five. Also spreads the load: with a
+// fixed voicing every player re-attacks every 0.4 s, which over-rings.
+let RS = 90210 >>> 0;
+const rsRnd = () => (RS = (RS * 1664525 + 1013904223) >>> 0) / 4294967296;
+const pickLanes = n => {
+    const a = [0,1,2,3,4,5,6,7,8,9];
+    for (let i = 9; i > 0; i--) { const k = (rsRnd()*(i+1))|0; const t=a[i]; a[i]=a[k]; a[k]=t; }
+    return a.slice(0, n);
+};
+
 const BASE = [31,45,52,59,65];
 const SPECIES = {};
 for (const n of ['16','03','28','12','18','27'])
@@ -83,7 +95,8 @@ PLAN.forEach(item => {
         mark(t, 'ASM P'+item.n+' ['+p.kind+'] x'+p.draws.length+': '+p.draws.join(' '), '#8a8ac0');
         p.draws.forEach(h => {
             const chord = h==='base' ? BASE : SPECIES[String(h).padStart(2,'0')];
-            chord.forEach((pitch,vi)=> note(t, Math.min(vi,9), pitch, 0.15,
+            const lanes = pickLanes(chord.length);       // fresh voicing every beat
+            chord.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
                 h==='base'?'#3F7D5A':'#8a8ac0', 'P'+item.n+' '+h+' '+NAME(pitch), 'asm-chord', 100));
             t += BEAT;
         });
