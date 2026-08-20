@@ -297,9 +297,9 @@ PLAN.forEach(item => {
             // the F octaves it had before.
             const jit = () => 1 + 0.2*(rnd()-0.5);
             item.arc = [
-                {frac:jit(), set:SPECIES['16'],   label:'sp16', detail:'the CB5 chord, scrambled'},
-                {frac:jit(), set:[40,47,54,61],   label:'5ths E', detail:'E2 B2 F#3 C#4'},
-                {frac:jit(), set:[41,53,65],      label:'F oct'},
+                {frac:3*jit(), set:SPECIES['16'],   label:'sp16', detail:'the CB5 chord, scrambled'},
+                {frac:4*jit(), set:[40,47,54,61],   label:'5ths E', detail:'E2 B2 F#3 C#4'},
+                {frac:5*jit(), set:[41,53,65],      label:'F oct'},
             ];
         }
         if (item.arcSpec === 'ps6') {
@@ -315,11 +315,13 @@ PLAN.forEach(item => {
             // and velocity carries the build — 2q's question, live).
             const jit = () => 1 + 0.2*(rnd()-0.5);
             item.arc = [
-                {frac:3*jit(), set:BASE,            label:'BASE'},
+                {frac:5*jit(), set:BASE,            label:'BASE'},
                 {frac:4*jit(), set:[38,45,52,59],   label:'5ths D', detail:'D2 A2 E3 B3'},
-                {frac:5*jit(), set:[41,53,65],      label:'F oct'},
+                {frac:3*jit(), set:[41,53,65],      label:'F oct'},
             ];
-            item.ramp = { y0: 2.2, y1: 9.5, v0: 35, v1: 122 };   // quieter start, to test
+            // CC7 carries the build (env mode, flat velocity): the velocity ramp
+            // audibly changed TIMBRE, not just loudness - 2q evidence, day 21
+            item.ramp = { y0: 2.2, y1: 9.5, v0: 100, v1: 100, env: true };
         }
         if (item.arcSpec === 'ps4') {
             const tT = (rnd()*8)|0;                       // fifths chain 30+t
@@ -363,7 +365,7 @@ PLAN.forEach(item => {
                     const y = item.ramp.y0 + (item.ramp.y1 - item.ramp.y0) * pr;
                     const v = Math.round(item.ramp.v0 + (item.ramp.v1 - item.ramp.v0) * pr);
                     note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase',
-                         v, null, +y.toFixed(2), +y.toFixed(2));
+                         v, null, +y.toFixed(2), +y.toFixed(2), !!item.ramp.env);
                 } else {
                     note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
                 }

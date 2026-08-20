@@ -4641,3 +4641,14 @@ loud (drawn envelope y 3.5->9.5 for CC7, velocity 60->122 alongside).
 Parser bug caught by the run log: phasearc:6 first matched the PS1 branch
 (generic pattern before the specific) - the printed arc named PS1's sets,
 which is what exposed it. Score now ends 203.0s.
+
+**Day 21 — 2q EVIDENCE (composer's ear, on the PS6 velocity build): "if
+you're using velocity, it's changing the timbre as well, and the swell is
+not that audible."** So on this library velocity = sample-layer/timbre
+selection, CC7 = loudness - which is 2q's answer in the direction the score
+app already assumed (CC7 carries dynamics; velocity is not the dynamic
+carrier). ALSO CONFIRMED: the held-swell fix works ("swell works") - CC7-curve
+mode (no sonifyMode) is the way to make drawn envelopes sound; plain mode
+pins CC7 at 127. tranceA003h updated: PS5 3:4:5 (F oct takes the 5) · swell
+chords doubled (10/6/12/8/16 beats) · PS6 ratios reversed 5:4:3 same harmony
+order, build moved to CC7 (env mode, velocity flat 100). Ends 233.3s.
