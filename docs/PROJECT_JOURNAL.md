@@ -92,8 +92,11 @@ BEING WRITTEN. Claude Code / Opus 5.**
    → splicing end to end; page at `/notation/app/notation.html` (RESTART the
    :5200 server once to pick up the mount); proofs in `notation/app/
    proof-*.svg`; full regression suite green (7 test tools + 36-case
-   battery, all with prove-red). Next: Phase C study score v0, after the
-   composer looks at the pixels.
+   battery, all with prove-red). Phase B review pass applied (30 run-proven findings). **PHASE C v0 DONE
+   same night:** the study score — notation view + click-to-zoom · GRAPHIC
+   view (any score, S1 read-through) · the D28 BEATING LANE (bloom F2 pair
+   peaks 5.93 Hz, hand-checked). Next: Phase D slice 2 (Section 1, the
+   mixed strategy for real) — after the composer's gate look.
 1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** Named by the composer on day 18 as
    the first thing next session; still queued (day 19 went to notation).
    **It needs ZERO code and is already set up:**

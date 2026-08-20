@@ -3480,3 +3480,34 @@ sitting; the regression suite now carries a red case for each. Highlights:
   Minimal fix applied (ledger width now reads the glyph table); full
   rerouting queued.
 **Suite after fixes: 7 test tools + battery, all green, all prove-red.**
+
+## Day 19 (2026-08-19, late night) — C1+C2 RUN: STUDY SCORE v0 — both views + the beating lane
+
+**Composer: "looks good phase c go."** Phase C v0 shipped as two chunks:
+- **C1 — `notation/lib/graphic.js`:** the GRAPHIC SCORE view reads S1
+  DIRECTLY (read-through — ANY score renders, no IR required): per-part
+  brick lanes on a fixed pitch axis · layer-10 META shapes as translucent
+  envelope overlays across the part area · marker labels · and **the first
+  derived-data rehearsal lane: BEATING CURVES** — same-pitch morphBend
+  pairs, beat(t) = |f1−f2| per D28, sampled and drawn with an Hz scale.
+  Hand-checked against an independent computation on the real bloom:
+  **the F2 pair peaks at 5.93 Hz** — the number a conductor would rehearse
+  toward ("the beating needs to be faster here"). Gate:
+  `tools/test_graphic.js` (censuses vs raw counts · D28 law check · clamp
+  edges · render sanity · snapshot + prove-red).
+- **C2 — the page becomes the STUDY SCORE:** view switcher
+  (notation | graphic) · score picker for the graphic view (tranceA002f ·
+  piece-s23) · **click-a-part-to-zoom** in the notation view (click a
+  system → that part alone; click again → back to all — the
+  "study-composers" affordance from the day-19 dictation). Verified LIVE:
+  trance graphic = 139 bricks/0 META/0 beating (correct — no morphs);
+  bloom graphic = 16 bricks, 1 META, 11 beating pairs with the lane
+  rendered; zoom in/out works; zero errors. Proof
+  `notation/app/proof-graphic-bloom.svg` sent + committed.
+
+**Phase C v0 scope line:** static curves shipped; the ANIMATED
+approach/recede balls are runtime devices (Phase E with the GC family);
+breath and swell lanes are further derived-data lanes queued for material
+time — same mechanism, new data sources. All three views are
+CONFIGURATIONS over the strata, as the architecture demands — the graphic
+view needed zero IR.

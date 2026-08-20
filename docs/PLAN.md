@@ -1635,8 +1635,14 @@ by EYE on the seam proof; proofs sent + committed). **First-pixels gate OPEN.** 
 (P6 rules-as-data); three accommodation strategies running (boundary-
 preferring cuts · stamp-atomic beat-snapping, proven end-to-end · (cont.)
 tempo-label reshow); 6 pages over the section, verified live.
-**SLICE 1 COMPLETE (B0-B6).** Phase gate: composer reviews the proofs +
-the page. Next: Phase C study score v0.
+**SLICE 1 COMPLETE (B0-B6)** + the 30-finding review pass applied.
+**PHASE C v0 DONE (composer "looks good phase c go"):** graphic.js (S1
+read-through bricks + META overlay + D28 beating lane, bloom F2 pair
+5.93 Hz hand-checked) · study-score page (view switcher, score picker,
+click-a-part-to-zoom), verified live. Queued for later: animated
+approach/recede balls (Phase E), breath/swell lanes (material time).
+Next: **Phase D — slice 2, SECTION 1** (M5 chunker for real, mixed
+strategy) or fold composer gate feedback first.
 
 ## Parking lot
 

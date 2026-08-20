@@ -18,6 +18,14 @@
 </head>
 <body>
 <div id="bar">
+  <label>view <select id="view">
+    <option value="notation">notation</option>
+    <option value="graphic">graphic</option>
+  </select></label>
+  <label id="scoreWrap" style="display:none">score <select id="score">
+    <option value="tranceA002f">tranceA002f</option>
+    <option value="piece-s23">piece-s23</option>
+  </select></label>
   <label>parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
@@ -39,10 +47,19 @@
 <script src="/notation/lib/layout.js"></script>
 <script src="/notation/lib/render.js"></script>
 <script src="/notation/lib/splice.js"></script>
+<script src="/notation/lib/graphic.js"></script>
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
-  const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0 };
+  const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
+  async function loadScore(name) {
+    if (state.scores[name]) return state.scores[name];
+    const r = await fetch('/api/composer/load/' + name);
+    if (!r.ok) throw new Error('score fetch ' + name + ' ' + r.status);
+    const j = await r.json();
+    state.scores[name] = j.data || j;
+    return state.scores[name];
+  }
   try {
     const [ir, glyphs, score, pageRules] = await Promise.all([
       fetch('/notation/ir/trance-section-01.ir.json').then(r => { if (!r.ok) throw new Error('IR fetch ' + r.status); return r.json(); }),
@@ -66,8 +83,11 @@
     render();
   } catch (e) { $('err').textContent = String(e.stack || e); return; }
 
-  function render() {
+  async function render() {
     try {
+      const graphic = $('view').value === 'graphic';
+      $('scoreWrap').style.display = graphic ? '' : 'none';
+      if (graphic) return renderGraphicView();
       const paged = $('mode').value === 'pages';
       const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
       const w = Math.max(wMin, parseFloat($('w').value) || 16);
@@ -97,12 +117,47 @@
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
       $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd });
+      state.lastView = view;
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
       $('err').textContent = (state.model.warnings || []).join('\n');
     } catch (e) { $('err').textContent = String(e.stack || e); }
   }
-  for (const id of ['parts', 'mode', 't0', 'w']) $(id).addEventListener('change', render);
+
+  async function renderGraphicView() {
+    try {
+      const name = $('score').value;
+      const score = await loadScore(name);
+      const t0 = parseFloat($('t0').value) || 0;
+      const w = Math.max(2, parseFloat($('w').value) || 16);
+      const parts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].filter(p => score.objects.some(o => o.layer === p));
+      const g = NotationGraphic.layoutGraphic(score, { window: [t0, t0 + w], parts });
+      const bandParts = g.beating.length ? parts.concat(['beat']) : parts;
+      const heightPx = bandParts.length * 90 + 30;
+      const widthPx = Math.max(600, $('sheet').clientWidth - 2);
+      const view = NotationCoords.makeView({
+        widthPx, heightPx, window: [t0, t0 + w],
+        systems: NotationCoords.systemsForParts(bandParts, { topPad: 20 / heightPx, botPad: 8 / heightPx, gap: 6 / heightPx }),
+      });
+      $('sheet').innerHTML = NotationGraphic.renderGraphic(g, view, g.beating.length ? { beatBand: view.system('beat') } : {});
+      state.lastView = null;
+      $('meta').textContent = name + ' (graphic) · ' + g.bricks.length + ' bricks · ' + g.meta.length + ' META · ' +
+        g.beating.length + ' beating pairs · ' + t0.toFixed(1) + '–' + (t0 + w).toFixed(1) + ' s';
+      $('err').textContent = '';
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // click-a-part-to-zoom (study-composers view, composer's day-19 dictation)
+  $('sheet').addEventListener('click', ev => {
+    if ($('view').value !== 'notation' || !state.lastView) return;
+    if ($('parts').value !== 'all') { $('parts').value = 'all'; render(); return; }
+    const rect = $('sheet').querySelector('svg').getBoundingClientRect();
+    const y = ev.clientY - rect.top;
+    for (const s of state.lastView.systems) {
+      if (y >= s.yTopPx && y <= s.yBotPx) { $('parts').value = String(s.part); render(); return; }
+    }
+  });
+  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
   $('prev').addEventListener('click', () => {
     if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
     else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));
