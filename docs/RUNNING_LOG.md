@@ -3598,3 +3598,19 @@ corroboration within ~3 pts · run-proven adversarial review).
 
 Housekeeping: composer's :5200 server left RUNNING (detached, has the
 /notation mount); the :5210 verify instance stopped at wrap.
+
+## Day 20 (2026-08-20, second sitting) — Penn State deliverables PREPLAN (capture)
+
+**The composer opened a second sitting to preplan the three Penn State
+deliverables** (recording from the MIDI · screen-following video at 1920×1080 ·
+PDF full score) BEFORE moving on to the phase-shifting sitting. Not a plan yet —
+decisions about the two fixed formats, so that when notation development starts
+(post-piece, part by part, section by section) every trial lands **in the
+container it will ship in** — the composer-score insert loop applied to
+notation, and the container that eventually becomes the study score. Dictation
+verbatim in COMPOSER_LOG; organized capture + decision slate (PP-1…PP-5) + the
+plan's requirement list in **`docs/plans/PENN_STATE_DELIVERABLES_PREPLAN.md`**.
+Scope fence recorded there: study/conductor score workout, rehearsal scenarios,
+the D45 performance project, and all responsive-format work stay
+POST-SUBMISSION. Decision verdicts pending the discussion; they get appended
+here and filed in the doc when taken.

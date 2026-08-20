@@ -1505,3 +1505,51 @@ bloom + beating lane.)*
 
 *Filed as D45. Earlier same night: "I looked at the notation — looks
 great."*
+
+## 2026-08-20 (day 20, second sitting) — the Penn State deliverables preplan (dictated)
+
+*Session-start dictation; organized capture + decision slate in
+`docs/plans/PENN_STATE_DELIVERABLES_PREPLAN.md`.*
+
+> *"For the Penn State piece, I'll want to present a recording which we have
+> from the midi, and then a screen-following video, and then a PDF version of
+> the full score. I'm finishing the piece now, and then I want to go through
+> part by part, section by section, and develop the notation toolbox or
+> mechanism, which we mostly have, but I'll have to figure out how I'm
+> notating the things and then build any machinery that we need to achieve
+> those."*
+
+> *"Once the piece is submitted and the paper is done and submitted, then we
+> can come back and really work out the study slash conductor score, test out
+> the potential group ensemble rehearsal scenarios — some of the things I was
+> talking about, like, make the beating a little faster at marker number
+> five, that sort of thing. So I guess getting the graphic score really
+> working, getting things like switching between notation and graphic score,
+> etcetera… the full performance score, which we didn't do yet, that I really
+> wanna revamp, but it'll be different for the ensemble. So, like, I'll have
+> an individual rehearsal version, a practice version that they can just run
+> on their iPad."*
+
+> *"We need to figure out the vertical height of each part for the on-screen
+> and the print version. So then when I said to make the notation and
+> practice in examples, look at various examples, and make decisions, we'll
+> have a container to put it in. A bit like how we're using the composer
+> score and inserting separate sandbox-type files, and I can see and listen
+> to them in real time. For example, the density build section — want to see
+> notation a certain way. I'll say, let's try this, and we can insert into
+> the video score. I can see it the way it will eventually look and have the
+> animations, the scrolling cursors and whatnot."*
+
+> *"This will essentially be, or become, what eventually will be the study
+> score. But for now, we'll keep the parameters tight, and then at that later
+> stage, I'll address things like different screen size, etcetera, or
+> portrait versus landscape, all that stuff. This one will be the fixed
+> format."*
+
+> *"Whether it be tests or the actual score — final score — I can see it as
+> it will be. And in our plan, we can make sure the architecture is in place.
+> I know we built a lot of that; just double-check if some of it needs to be
+> developed or needs to be modified."*
+
+> *"Once we finish the preplanning, I'm gonna move on to the phase shifting.
+> So we won't work on this until I'm done with the piece."*

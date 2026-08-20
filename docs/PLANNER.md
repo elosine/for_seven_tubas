@@ -316,3 +316,12 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   18 px node and every later update wrote into detached spans (the readout froze
   until reload). Reproduced and fixed in a standalone browser harness. The px/s
   overlay is now its own span, shown by hiding the other two.
+
+- **2026-08-20 (day 20) — Penn State deliverables preplan (composer):** three
+  deliverables (MIDI recording · 1920×1080 screen-following video · PDF full
+  score); the two fixed formats get decided up front so notation trials preview
+  in the shipping container ("insert into the video score… see it the way it
+  will eventually look"); everything responsive / rehearsal / performance-side
+  deferred post-submission (D45). Capture + decision slate:
+  `docs/plans/PENN_STATE_DELIVERABLES_PREPLAN.md`. Phase-shifting sitting is
+  next; this work waits until the piece is done.
