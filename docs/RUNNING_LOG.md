@@ -4397,3 +4397,11 @@ composer's working identifiers. Panel verified on rev 15, landed on try1.
 **2ag follow-up 15 — try1 reordered per composer (swap steps 2<->3, 4<->5):
 rung order now 11-7-2-10-3-4-6 (rev 16).** Score path 0.77-0.34-0.00-0.58-
 0.05-0.09-0.29: the front-loaded drama softens toward the tail.
+
+**2ag follow-up 16 — try1 rev 18: rung 10 dropped (was step 5); tempo ramp
+95 -> 140 in equal 9-BPM increments across 11-7-2-3-4-6. The composer asked
+the max playable tempo for the final step: AT UNISON C3 THE CAP IS
+OFFSET-INDEPENDENT — the rotor moves phases, never per-player rates, so
+every rung caps at 60/0.42 = 142.9 (measured: 140 clean, 143 dirty). Top set
+140 for margin. Also noted: rotor characters survive re-tempo (patterns
+scale with the cycle), unlike rain's absolute jitter.**
