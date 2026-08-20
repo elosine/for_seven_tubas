@@ -1,28 +1,28 @@
 {
-  "_comment": "THE CONVERSATIONAL LOOP — PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN — sound only ever on the composer's SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6's two-sided contract), so the qualitative interface never goes opaque.",
-  "_slate": "rev 2 (2026-08-20, day 21) — THE SPEED LADDER. One character (SMEAR: jitter 0, scatter 0, unison C3), six speeds. ONLY `bpm` moves across A–F; every other dial is identical. This exists because the five stored models CONFOUND character with speed — TICKS is literally SMEAR at 12/s, GROOVE is scatter at 8/s — so 'do the categories sound different' and 'do the speeds sound different' could not be told apart from the model buttons alone. Landing variant is E (18/s), the speed the SMEAR/RAIN/GALLOP references run at, so ← steps DOWN from what the composer just heard. bpm = density x 6 at 10 players. rev 1 (the A/B/C SMEAR/RAIN/GALLOP reference slate) is recoverable from git.",
-  "rev": 2,
-  "active": "E",
+  "_comment": "THE CONVERSATIONAL LOOP - PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN - sound only ever on the composer SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6 two-sided contract), so the qualitative interface never goes opaque.",
+  "_slate": "rev 3 (2026-08-20, day 21) - THE CHARACTER x SPEED GRID. Four characters (Sm smear · Rn rain · Ga gallop · Gr groove) x four speeds (6 · 12 · 18 · 22 attacks/s) = 16 variants. WHY THIS SHAPE: the composer found that the model buttons and the variant tabs are two separate paths - any arrow press calls generate(), which reloads this.spec from the params file and DISCARDS the clicked model (texture_panel.js:129-136 -> :263-280). So a one-character ladder could only ever ladder that one character. Putting the models INTO the variant file makes the arrows the single navigation method and the seam stops mattering; no code change. ORDER IS MODEL-MAJOR: left/right walks one character up its speed ladder, then crosses into the next character. Tabs are clickable, so any cell is one click. TICKS IS DELIBERATELY ABSENT - it is SMEAR at 12/s, i.e. cell Sm12; a separate TICKS entry would duplicate a rung and re-introduce the character/speed confound this grid exists to remove. GALLOP holds dBPM 2 at every speed so its 6 s lap is speed-invariant (lap = 60/(dBPM x players-per-voice), no absolute-BPM term). GROOVE scatter is a PROPORTION of the cycle so its figure scales with speed for free. RAIN jitter is held at 45 ms ABSOLUTE - that is what rain IS as stored, and the resulting ring flags at high speed are real information, not noise. rev 1 (A/B/C references) and rev 2 (the smear-only speed ladder) are recoverable from git.",
+  "rev": 3,
+  "active": "Sm18",
   "variants": {
-    "A": {
-      "label": "A: 6/s · 10 tubas @ 36 BPM — only bpm moved (36 vs E's 108); jitter 0, scatter 0",
+    "Sm6": {
+      "label": "Sm6: SMEAR @ 6/s · 36 BPM · dead even - nothing stochastic, no figure",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "speed-06",
+        "name": "smear-6",
         "seed": 11,
         "sections": [
           {
             "dur": 10,
-            "label": "6 attacks/s — well below TICKS; separate events, plenty of air between them",
+            "label": "smear at 6 attacks/s - dead even - nothing stochastic, no figure",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 36,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "scatter": 0,
                 "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -34,55 +34,25 @@
         ]
       }
     },
-    "B": {
-      "label": "B: 9/s · 10 tubas @ 54 BPM — only bpm moved; jitter 0, scatter 0",
+    "Sm12": {
+      "label": "Sm12: SMEAR @ 12/s · 72 BPM · dead even - nothing stochastic, no figure",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "speed-09",
+        "name": "smear-12",
         "seed": 11,
         "sections": [
           {
             "dur": 10,
-            "label": "9 attacks/s — GROOVE's speed, but with no scatter, so no figure",
+            "label": "smear at 12 attacks/s - dead even - nothing stochastic, no figure",
             "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 54,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "scatter": 0,
-                "jitterMs": 0,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "C": {
-      "label": "C: 12/s · 10 tubas @ 72 BPM — only bpm moved; jitter 0, scatter 0",
-      "fromModel": "SMEAR",
-      "spec": {
-        "name": "speed-12",
-        "seed": 11,
-        "sections": [
-          {
-            "dur": 10,
-            "label": "12 attacks/s — this IS the stored TICKS model exactly; the bottom of the crossover band",
-            "tag": "ticks",
             "voices": [
               {
                 "players": 10,
                 "bpm": 72,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "scatter": 0,
                 "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -94,55 +64,25 @@
         ]
       }
     },
-    "D": {
-      "label": "D: 15/s · 10 tubas @ 90 BPM — only bpm moved; jitter 0, scatter 0",
+    "Sm18": {
+      "label": "Sm18: SMEAR @ 18/s · 108 BPM · dead even - nothing stochastic, no figure",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "speed-15",
+        "name": "smear-18",
         "seed": 11,
         "sections": [
           {
             "dur": 10,
-            "label": "15 attacks/s — inside the predicted 12-17/s crossover, where a figure stops being parseable",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 90,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "scatter": 0,
-                "jitterMs": 0,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "E": {
-      "label": "E: 18/s · 10 tubas @ 108 BPM — the reference speed (SMEAR/RAIN/GALLOP all run here)",
-      "fromModel": "SMEAR",
-      "spec": {
-        "name": "speed-18",
-        "seed": 11,
-        "sections": [
-          {
-            "dur": 10,
-            "label": "18 attacks/s — the stored SMEAR; attacks on the edge of fusing into a tone",
+            "label": "smear at 18 attacks/s - dead even - nothing stochastic, no figure",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 108,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "scatter": 0,
                 "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -154,25 +94,437 @@
         ]
       }
     },
-    "F": {
-      "label": "F: 22/s · 10 tubas @ 132 BPM — only bpm moved; near the 23.8/s ring ceiling at C3",
+    "Sm22": {
+      "label": "Sm22: SMEAR @ 22/s · 132 BPM · dead even - nothing stochastic, no figure",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "speed-22",
+        "name": "smear-22",
         "seed": 11,
         "sections": [
           {
             "dur": 10,
-            "label": "22 attacks/s — the top of the ladder; each player re-attacks every 0.455 s against a 0.42 s ring",
+            "label": "smear at 22 attacks/s - dead even - nothing stochastic, no figure",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 132,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "scatter": 0,
                 "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Rn6": {
+      "label": "Rn6: RAIN @ 6/s · 36 BPM · jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-6",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "rain at 6 attacks/s - jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 36,
+                "scatter": 0,
+                "jitterMs": 45,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Rn12": {
+      "label": "Rn12: RAIN @ 12/s · 72 BPM · jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-12",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "rain at 12 attacks/s - jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 72,
+                "scatter": 0,
+                "jitterMs": 45,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Rn18": {
+      "label": "Rn18: RAIN @ 18/s · 108 BPM · jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-18",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "rain at 18 attacks/s - jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 108,
+                "scatter": 0,
+                "jitterMs": 45,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Rn22": {
+      "label": "Rn22: RAIN @ 22/s · 132 BPM · jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+      "fromModel": "RAIN",
+      "spec": {
+        "name": "rain-22",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "rain at 22 attacks/s - jitter 45 ms - irregular, re-drawn every attack, nothing repeats",
+            "tag": "rain",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 132,
+                "scatter": 0,
+                "jitterMs": 45,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Ga6": {
+      "label": "Ga6: GALLOP @ 6/s · 35/37 BPM · two groups of 5, dBPM 2 - lap 6 s at every speed",
+      "fromModel": "GALLOP",
+      "spec": {
+        "name": "gallop-6",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "gallop at 6 attacks/s - two groups of 5, dBPM 2 - lap 6 s at every speed",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 35,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 37,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Ga12": {
+      "label": "Ga12: GALLOP @ 12/s · 71/73 BPM · two groups of 5, dBPM 2 - lap 6 s at every speed",
+      "fromModel": "GALLOP",
+      "spec": {
+        "name": "gallop-12",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "gallop at 12 attacks/s - two groups of 5, dBPM 2 - lap 6 s at every speed",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 71,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 73,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Ga18": {
+      "label": "Ga18: GALLOP @ 18/s · 107/109 BPM · two groups of 5, dBPM 2 - lap 6 s at every speed",
+      "fromModel": "GALLOP",
+      "spec": {
+        "name": "gallop-18",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "gallop at 18 attacks/s - two groups of 5, dBPM 2 - lap 6 s at every speed",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 107,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 109,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Ga22": {
+      "label": "Ga22: GALLOP @ 22/s · 131/133 BPM · two groups of 5, dBPM 2 - lap 6 s at every speed",
+      "fromModel": "GALLOP",
+      "spec": {
+        "name": "gallop-22",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "gallop at 22 attacks/s - two groups of 5, dBPM 2 - lap 6 s at every speed",
+            "tag": "gallop",
+            "voices": [
+              {
+                "players": 5,
+                "bpm": 131,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              },
+              {
+                "players": 5,
+                "bpm": 133,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Gr6": {
+      "label": "Gr6: GROOVE @ 6/s · 36 BPM · scatter 0.5 - a FIXED offset per player, so the figure loops",
+      "fromModel": "GROOVE",
+      "spec": {
+        "name": "groove-6",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "groove at 6 attacks/s - scatter 0.5 - a FIXED offset per player, so the figure loops",
+            "tag": "groove",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 36,
+                "scatter": 0.5,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Gr12": {
+      "label": "Gr12: GROOVE @ 12/s · 72 BPM · scatter 0.5 - a FIXED offset per player, so the figure loops",
+      "fromModel": "GROOVE",
+      "spec": {
+        "name": "groove-12",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "groove at 12 attacks/s - scatter 0.5 - a FIXED offset per player, so the figure loops",
+            "tag": "groove",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 72,
+                "scatter": 0.5,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Gr18": {
+      "label": "Gr18: GROOVE @ 18/s · 108 BPM · scatter 0.5 - a FIXED offset per player, so the figure loops",
+      "fromModel": "GROOVE",
+      "spec": {
+        "name": "groove-18",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "groove at 18 attacks/s - scatter 0.5 - a FIXED offset per player, so the figure loops",
+            "tag": "groove",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 108,
+                "scatter": 0.5,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Gr22": {
+      "label": "Gr22: GROOVE @ 22/s · 132 BPM · scatter 0.5 - a FIXED offset per player, so the figure loops",
+      "fromModel": "GROOVE",
+      "spec": {
+        "name": "groove-22",
+        "seed": 11,
+        "sections": [
+          {
+            "dur": 10,
+            "label": "groove at 22 attacks/s - scatter 0.5 - a FIXED offset per player, so the figure loops",
+            "tag": "groove",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 132,
+                "scatter": 0.5,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",

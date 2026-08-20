@@ -3776,3 +3776,123 @@ texture — up/down arrows step the draw), and every robustness verdict (H).
 in the store and cannot be banked as keepers until the composer's verdict lands.
 Nothing about the SOUND has been verified this sitting — only data and
 endpoints. That line stays until the composer speaks.
+
+## Day 21 (2026-08-20, third sitting, cont.) — the composer finds a real seam; the CHARACTER × SPEED GRID; and a measured hypothesis for "they sound kind of the same"
+
+### THE SEAM THE COMPOSER FOUND (verbatim: *"the a through f aren't staying in that particular model… they just start doing the spectrum on one model"*)
+
+**Correct, and it is in the code.** The model buttons and the variant tabs are
+**two separate paths into `this.spec`**, and the arrows always win:
+
+- a **model button** sets `this.spec = store[name].spec` and clears
+  `_fieldStamp` (texture_panel.js:394–399);
+- an **arrow press** sets `this.active` and calls `generate()` (:129–136), and
+  `generate()` sees a changed stamp so it does
+  `this.spec = JSON.parse(JSON.stringify(p.spec))` — **the VARIANT's spec from
+  the params file** (:273–279).
+
+So clicking `rain` and then pressing an arrow silently discards rain and reloads
+the ladder's own character. rev 2's ladder was SMEAR-only, so every arrow press
+snapped back to smear — exactly what the composer described. **Not a bug** (the
+stamp logic is the 2v fix that stops variant A's dials leaking into variant B,
+and it is doing its job), but it does mean **a one-character ladder can only
+ever ladder that one character**.
+
+**Fix chosen: no code.** Put the characters INTO the variant file, so the arrows
+become the single navigation method and the seam stops mattering. This keeps
+2ad's zero-code scope intact and avoids touching a stamp mechanism that exists
+to prevent a subtler bug. (The alternative — making model buttons compose with
+the ladder — is semantic surgery on shared state, for a browse loop the file can
+express directly.)
+
+### BUILT: `bank/texture_params.json` rev 3 — 4 characters × 4 speeds
+
+Sm smear · Rn rain · Ga gallop · Gr groove, each at 6 / 12 / 18 / 22 attacks/s.
+**Model-major order** so ←/→ walks one character up its speed ladder then
+crosses into the next; tabs are clickable so any cell is one click. Lands on
+`Sm18`. Held constant everywhere: staccato, notelen 0.12, level 7.5, unison C3,
+seed 11, dur 10 s, 10 players.
+
+**TICKS is deliberately absent** — it IS smear at 12/s, i.e. cell `Sm12`.
+Including it would duplicate a rung and re-introduce the very confound the grid
+removes.
+
+**Three character-preservation decisions, reasoned not guessed:**
+
+- **GALLOP holds ΔBPM 2 at every speed.** lap = 60/(ΔBPM × players-per-voice)
+  has **no absolute-BPM term**, so the 6 s lap is speed-invariant for free.
+  Confirmed by measurement: Ga unevenness 0.63/0.65/0.65/0.66 across all four.
+- **GROOVE's scatter is a PROPORTION of the cycle**, so its figure scales with
+  speed automatically. Confirmed: Gr unevenness 0.81 at all four speeds, flat.
+- **RAIN's jitter is held at 45 ms ABSOLUTE** — that is what rain IS as stored.
+  Consequence measured below, and it is a real finding rather than a wart.
+
+### MEASURED (node, before handover — nothing claimed from the spec)
+
+    cell    dens     sd    unev  notes  hard soft  rings
+    Sm6      6.0     0.1    0.00     60     0    0      0
+    Sm12    12.0     0.1    0.00    120     0    0      0
+    Sm18    18.1     0.1    0.00    181     0    0      0
+    Sm22    22.1     0.1    0.00    221     0    0      0
+    Rn6      6.0    37.7    0.05     60     0    0      0
+    Rn12    12.0    34.9    0.11    120     0    0      0
+    Rn18    18.1    29.9    0.17    181     0    0      0
+    Rn22    22.1    26.9    0.22    221     0    0      1  <-- ring
+    Ga6      6.1    92.8    0.63     61     0    0      0
+    Ga12    12.1    46.2    0.65    121     0    0      0
+    Ga18    18.1    30.7    0.65    181     0    0      0
+    Ga22    22.1    25.1    0.66    221     0    0      0
+    Gr6      6.0   136.9    0.81     60     0    0      0
+    Gr12    12.0    68.2    0.81    120     0    0      0
+    Gr18    18.0    45.4    0.81    180     0    0      0
+    Gr22    22.0    37.1    0.81    220     0    0      0
+
+`Rn22` fires the sample-ring flag: each player re-attacks every **0.380 s**
+against the **0.42 s** C3 staccato ring, over by 40 ms. **This was PREDICTED by
+the store** (`alsoNote`: "at 21/s with jitter ±45 ms the tightest per-player gap
+dips below 0.42 s even at unison C3") and is now confirmed by an independent
+render. The mock-up will play it perfectly cleanly and the hall will not.
+
+### THREE FINDINGS THAT ARE NEW
+
+**1. `sd` IS NOT SPEED-INVARIANT, and the store's framing hides that.**
+`metrics.sd` is described as "the EVENNESS axis", but it is a raw **millisecond**
+figure over inter-attack intervals — so it shrinks as the grid shrinks, for
+identical character. Groove: 136.9 → 68.2 → 45.4 → 37.1 ms across the ladder,
+while its actual character never changed (unevenness pinned at 0.81).
+**Consequence: sd may not be compared across speeds.** `unevenness` — a
+coefficient of variation, dimensionless — is the only one of the pair that is a
+speed-invariant character fingerprint, and the grid demonstrates it three times
+over (Sm flat at 0.00, Ga flat at ~0.65, Gr flat at 0.81).
+
+**2. RAIN IS THE ONE CHARACTER THAT DOES NOT SURVIVE SPEED CHANGE INTACT.**
+Its unevenness climbs 0.05 → 0.11 → 0.17 → 0.22 as it speeds up, because a fixed
+45 ms jitter is a growing fraction of a shrinking cycle. So rain at 6/s is almost
+perfectly spread, and rain at 22/s is measurably clumped — drifting toward
+groove's side of the axis. Gallop and groove, whose character dials are
+proportional, are speed-invariant. **If a rain keeper is ever re-tempoed its
+jitter has to be re-decided; the other three can be re-tempoed freely.**
+
+**3. A MEASURED HYPOTHESIS FOR *"they sound kind of the same"* — and it indicts
+the reference slate, not the ear.** Spread of `sd` across the three irregular
+characters, per speed:
+
+    speed    rain   gallop  groove    spread
+     6/s     37.7     92.8   136.9      99.2
+    12/s     34.9     46.2    68.2      33.3
+    18/s     29.9     30.7    45.4      15.5
+    22/s     26.9     25.1    37.1      12.0
+
+**The characters are ~8× more separated at 6/s than at 22/s** — and the
+reference slate the composer first auditioned (rev 1's A/B/C, and the stored
+SMEAR/RAIN/GALLOP models) put **all three at 18/s**, i.e. at very nearly the
+speed of MINIMUM separation. At 18/s rain and gallop differ by 0.8 ms of sd.
+That is a strong, falsifiable prediction: **the characters should become
+obviously distinct as the composer walks DOWN the speed ladder**, and if they do
+not, the vocabulary really is over-specified and the categories should merge.
+Either answer settles the 2x slate's first question. *(Caveat: sd separation is
+not perceptual separation — this predicts where to listen, it does not
+substitute for listening.)*
+
+**Still UNHEARD.** No sound verified this sitting; data and endpoints only.
+`/api/textureparams` re-verified serving rev 3, 16 cells, landing on `Sm18`.
