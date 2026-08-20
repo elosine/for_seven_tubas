@@ -19,9 +19,15 @@ const nextBeat = t => {
 // The running assembly order. Override with ASM_PLAN="phase:1,chord:9" to
 // regenerate an earlier version — the seeds are consumed in PLAN order, so a
 // prefix plan reproduces that version's material exactly.
-const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3')
+const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3,chord:12:1:4:2+4')
     .split(',').map(x => { const [k,v] = x.trim().split(':');
-        return k==='mt' ? {k, m:v, secs:10} : {k, n:+v}; });
+        if (k==='mt') return {k, m:v, secs:10};
+        const parts = x.trim().split(':');
+        const it = {k, n:+parts[1]};
+        if (parts[2]) it.from = +parts[2];
+        if (parts[3]) it.to = +parts[3];
+        if (parts[4]) it.cuivre = parts[4].split('+').map(Number);
+        return it; });
 // SRC = the file the ORIGINAL trance material comes from; OUT = where the
 // assembled version is written. Each new letter is a new version (003b -> 003c).
 const SRC = process.env.ASM_SRC || 'scores/tranceA003b.json';
@@ -71,6 +77,28 @@ const SPECIES = {};
 for (const n of ['16','03','28','12','18','27'])
     SPECIES[n] = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/VERT01-'+n+'.json'),'utf8'))
         .pitches.filter(k=>k>=30&&k<=65);
+
+// CUIVRE VERSIONS (composer, day 21): same species, the bank's `stdCuivre`
+// notes played CUIVRE instead of staccato — which is how the taxonomy's own
+// sonorities record them (`cuivreConverted`). Cuivre sounds MIDI 60-67, so it
+// also reaches the 66/67 tops that staccato cannot.
+const TAX = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/blast_taxonomy.json'),'utf8'));
+const SL_ALL = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/sample_lengths.json'),'utf8'));
+const cuivreLen = k => (SL_ALL.cuivre && SL_ALL.cuivre[k]) || 1.2;
+const STD_CUIVRE = {};
+for (const n of ['16','03','28','12','18','27'])
+    STD_CUIVRE[n] = ((TAX.harmonies['VERT01-'+n]||{}).stdCuivre || []).filter(k=>k>=60&&k<=67);
+// the base chord has no bank cuivre entry — its top note is the parallel move
+const BASE_CUIVRE = [65];
+
+// split a chord into {stac, cuiv} for a given cuivre flag
+const voice = (h, useCuivre) => {
+    const key = h==='base' ? null : String(h).padStart(2,'0');
+    const all = h==='base' ? BASE : SPECIES[key];
+    if (!useCuivre) return { stac: all, cuiv: [] };
+    const cu = h==='base' ? BASE_CUIVRE : STD_CUIVRE[key];
+    return { stac: all.filter(k=>cu.indexOf(k)<0), cuiv: cu };
+};
 
 const j = JSON.parse(fs.readFileSync(path.join(ROOT,SRC),'utf8'));
 // re-runnable: strip only what this script wrote
@@ -146,16 +174,35 @@ PLAN.forEach(item => {
         log.push('multitempo '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+secs+'s, '+
                  g.ratios+' oct '+g.sub+', '+g.notes.length+' notes)');
     } else {
+        // BLAST-LEVEL addressing (composer, day 21): a chord insert can take a
+        // sub-range of a pattern's blasts, and name which of them are cuivre.
+        // `from`/`to` are 1-based blast numbers within the pattern.
         const p = patOf(item.n), t0 = t;
-        mark(t, 'ASM P'+item.n+' ['+p.kind+'] x'+p.draws.length+': '+p.draws.join(' '), '#8a8ac0');
-        p.draws.forEach(h => {
-            const chord = h==='base' ? BASE : SPECIES[String(h).padStart(2,'0')];
-            const lanes = pickLanes(chord.length);       // fresh voicing every beat
-            chord.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
-                h==='base'?'#3F7D5A':'#8a8ac0', 'P'+item.n+' '+h+' '+NAME(pitch), 'asm-chord', 100));
+        const from = item.from || 1, to = item.to || p.draws.length;
+        const cu = item.cuivre || [];
+        const draws = p.draws.slice(from-1, to);
+        mark(t, 'ASM P'+item.n+' blasts '+from+'-'+to+': '+
+            draws.map((h,i)=>h+(cu.indexOf(from+i)>=0?'(cuiv)':'')).join(' '), '#8a8ac0');
+        draws.forEach((h, i) => {
+            const bn = from + i;                          // this blast's number
+            const v = voice(h, cu.indexOf(bn) >= 0);
+            const lanes = pickLanes(v.stac.length + v.cuiv.length);
+            v.stac.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
+                h==='base'?'#3F7D5A':'#8a8ac0', 'P'+item.n+'b'+bn+' '+h+' '+NAME(pitch), 'asm-chord', 100));
+            v.cuiv.forEach((pitch,ci)=> {
+                const o = { id:'wc-asm-'+(id++), type:'waveCurve', layer:lanes[v.stac.length+ci],
+                    startSeconds:+t.toFixed(4), endSeconds:+(t+cuivreLen(pitch)).toFixed(4),
+                    nodes:[{pos:0,y:8,smooth:0.25},{pos:1,y:8,smooth:0.25}],
+                    segments:[{model:'power',slope:0}], color:'#d68f8f', fillMode:'bottom', opacity:0.55,
+                    performanceNotes:'P'+item.n+'b'+bn+' '+h+' CUIVRE '+NAME(pitch),
+                    properties:{gen:'asm-chord'},
+                    sonifyNote:pitch, technique:'cuivre', sonifyMode:'plain', recVel:110 };
+                j.objects.push(o);
+            });
             t += BEAT;
         });
-        log.push('chord P'+item.n+'    '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+p.draws.length+' beats: '+p.draws.join(' ')+')');
+        log.push('chord P'+item.n+' b'+from+'-'+to+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+
+            draws.map((h,i)=>h+(cu.indexOf(from+i)>=0?'*':'')).join(' ')+'   * = cuivre)');
     }
 });
 mark(t, 'ASM - end -', '#8a8ac0');

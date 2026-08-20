@@ -30655,7 +30655,7 @@
       "type": "marker",
       "layer": 0,
       "time": 72.4,
-      "label": "ASM P9 [L] x9: 12 28 base 3 base base 16 27 base",
+      "label": "ASM P9 blasts 1-9: 12 28 base 3 base base 16 27 base",
       "color": "#8a8ac0",
       "performanceNotes": "",
       "properties": {
@@ -30689,7 +30689,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 12 G1",
+      "performanceNotes": "P9b1 12 G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30725,7 +30725,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 12 F3",
+      "performanceNotes": "P9b1 12 F3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30761,7 +30761,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 12 F#3",
+      "performanceNotes": "P9b1 12 F#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30797,7 +30797,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 12 G3",
+      "performanceNotes": "P9b1 12 G3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30833,7 +30833,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 12 D#4",
+      "performanceNotes": "P9b1 12 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30869,7 +30869,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 F#1",
+      "performanceNotes": "P9b2 28 F#1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30905,7 +30905,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 A#1",
+      "performanceNotes": "P9b2 28 A#1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30941,7 +30941,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 F2",
+      "performanceNotes": "P9b2 28 F2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -30977,7 +30977,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 C4",
+      "performanceNotes": "P9b2 28 C4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31013,7 +31013,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 C#4",
+      "performanceNotes": "P9b2 28 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31049,7 +31049,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 28 D4",
+      "performanceNotes": "P9b2 28 D4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31085,7 +31085,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base G1",
+      "performanceNotes": "P9b3 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31121,7 +31121,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base A2",
+      "performanceNotes": "P9b3 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31157,7 +31157,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base E3",
+      "performanceNotes": "P9b3 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31193,7 +31193,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base B3",
+      "performanceNotes": "P9b3 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31229,7 +31229,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base F4",
+      "performanceNotes": "P9b3 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31265,7 +31265,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 3 G1",
+      "performanceNotes": "P9b4 3 G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31301,7 +31301,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 3 F#3",
+      "performanceNotes": "P9b4 3 F#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31337,7 +31337,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 3 G3",
+      "performanceNotes": "P9b4 3 G3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31373,7 +31373,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 3 G#3",
+      "performanceNotes": "P9b4 3 G#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31409,7 +31409,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 3 A3",
+      "performanceNotes": "P9b4 3 A3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31445,7 +31445,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base G1",
+      "performanceNotes": "P9b5 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31481,7 +31481,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base A2",
+      "performanceNotes": "P9b5 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31517,7 +31517,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base E3",
+      "performanceNotes": "P9b5 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31553,7 +31553,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base B3",
+      "performanceNotes": "P9b5 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31589,7 +31589,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base F4",
+      "performanceNotes": "P9b5 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31625,7 +31625,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base G1",
+      "performanceNotes": "P9b6 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31661,7 +31661,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base A2",
+      "performanceNotes": "P9b6 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31697,7 +31697,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base E3",
+      "performanceNotes": "P9b6 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31733,7 +31733,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base B3",
+      "performanceNotes": "P9b6 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31769,7 +31769,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base F4",
+      "performanceNotes": "P9b6 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31805,7 +31805,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 D2",
+      "performanceNotes": "P9b7 16 D2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31841,7 +31841,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 F#2",
+      "performanceNotes": "P9b7 16 F#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31877,7 +31877,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 G#2",
+      "performanceNotes": "P9b7 16 G#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31913,7 +31913,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 A2",
+      "performanceNotes": "P9b7 16 A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31949,7 +31949,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 C#4",
+      "performanceNotes": "P9b7 16 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -31985,7 +31985,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 D4",
+      "performanceNotes": "P9b7 16 D4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32021,7 +32021,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 16 D#4",
+      "performanceNotes": "P9b7 16 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32057,7 +32057,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 27 A1",
+      "performanceNotes": "P9b8 27 A1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32093,7 +32093,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 27 A#1",
+      "performanceNotes": "P9b8 27 A#1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32129,7 +32129,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 27 D#4",
+      "performanceNotes": "P9b8 27 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32165,7 +32165,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 27 E4",
+      "performanceNotes": "P9b8 27 E4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32201,7 +32201,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base G1",
+      "performanceNotes": "P9b9 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32237,7 +32237,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base A2",
+      "performanceNotes": "P9b9 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32273,7 +32273,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base E3",
+      "performanceNotes": "P9b9 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32309,7 +32309,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base B3",
+      "performanceNotes": "P9b9 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -32345,7 +32345,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P9 base F4",
+      "performanceNotes": "P9b9 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35143,7 +35143,7 @@
       "type": "marker",
       "layer": 0,
       "time": 81.2,
-      "label": "ASM P10 [S] x3: 18 base 16",
+      "label": "ASM P10 blasts 1-3: 18 base 16",
       "color": "#8a8ac0",
       "performanceNotes": "",
       "properties": {
@@ -35177,7 +35177,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 B2",
+      "performanceNotes": "P10b1 18 B2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35213,7 +35213,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 C3",
+      "performanceNotes": "P10b1 18 C3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35249,7 +35249,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 C#3",
+      "performanceNotes": "P10b1 18 C#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35285,7 +35285,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 A3",
+      "performanceNotes": "P10b1 18 A3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35321,7 +35321,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 B3",
+      "performanceNotes": "P10b1 18 B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35357,7 +35357,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 18 C#4",
+      "performanceNotes": "P10b1 18 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35393,7 +35393,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 base G1",
+      "performanceNotes": "P10b2 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35429,7 +35429,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 base A2",
+      "performanceNotes": "P10b2 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35465,7 +35465,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 base E3",
+      "performanceNotes": "P10b2 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35501,7 +35501,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 base B3",
+      "performanceNotes": "P10b2 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35537,7 +35537,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 base F4",
+      "performanceNotes": "P10b2 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35573,7 +35573,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 D2",
+      "performanceNotes": "P10b3 16 D2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35609,7 +35609,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 F#2",
+      "performanceNotes": "P10b3 16 F#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35645,7 +35645,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 G#2",
+      "performanceNotes": "P10b3 16 G#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35681,7 +35681,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 A2",
+      "performanceNotes": "P10b3 16 A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35717,7 +35717,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 C#4",
+      "performanceNotes": "P10b3 16 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35753,7 +35753,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 D4",
+      "performanceNotes": "P10b3 16 D4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -35789,7 +35789,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P10 16 D#4",
+      "performanceNotes": "P10b3 16 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39343,7 +39343,7 @@
       "type": "marker",
       "layer": 0,
       "time": 92.4,
-      "label": "ASM P11 [S] x5: 18 16 18 16 base",
+      "label": "ASM P11 blasts 1-5: 18 16 18 16 base",
       "color": "#8a8ac0",
       "performanceNotes": "",
       "properties": {
@@ -39377,7 +39377,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 B2",
+      "performanceNotes": "P11b1 18 B2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39413,7 +39413,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C3",
+      "performanceNotes": "P11b1 18 C3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39449,7 +39449,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C#3",
+      "performanceNotes": "P11b1 18 C#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39485,7 +39485,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 A3",
+      "performanceNotes": "P11b1 18 A3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39521,7 +39521,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 B3",
+      "performanceNotes": "P11b1 18 B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39557,7 +39557,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C#4",
+      "performanceNotes": "P11b1 18 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39593,7 +39593,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D2",
+      "performanceNotes": "P11b2 16 D2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39629,7 +39629,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 F#2",
+      "performanceNotes": "P11b2 16 F#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39665,7 +39665,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 G#2",
+      "performanceNotes": "P11b2 16 G#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39701,7 +39701,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 A2",
+      "performanceNotes": "P11b2 16 A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39737,7 +39737,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 C#4",
+      "performanceNotes": "P11b2 16 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39773,7 +39773,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D4",
+      "performanceNotes": "P11b2 16 D4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39809,7 +39809,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D#4",
+      "performanceNotes": "P11b2 16 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39845,7 +39845,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 B2",
+      "performanceNotes": "P11b3 18 B2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39881,7 +39881,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C3",
+      "performanceNotes": "P11b3 18 C3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39917,7 +39917,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C#3",
+      "performanceNotes": "P11b3 18 C#3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39953,7 +39953,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 A3",
+      "performanceNotes": "P11b3 18 A3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -39989,7 +39989,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 B3",
+      "performanceNotes": "P11b3 18 B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40025,7 +40025,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 18 C#4",
+      "performanceNotes": "P11b3 18 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40061,7 +40061,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D2",
+      "performanceNotes": "P11b4 16 D2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40097,7 +40097,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 F#2",
+      "performanceNotes": "P11b4 16 F#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40133,7 +40133,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 G#2",
+      "performanceNotes": "P11b4 16 G#2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40169,7 +40169,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 A2",
+      "performanceNotes": "P11b4 16 A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40205,7 +40205,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 C#4",
+      "performanceNotes": "P11b4 16 C#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40241,7 +40241,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D4",
+      "performanceNotes": "P11b4 16 D4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40277,7 +40277,7 @@
       "color": "#8a8ac0",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 16 D#4",
+      "performanceNotes": "P11b4 16 D#4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40313,7 +40313,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 base G1",
+      "performanceNotes": "P11b5 base G1",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40349,7 +40349,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 base A2",
+      "performanceNotes": "P11b5 base A2",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40385,7 +40385,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 base E3",
+      "performanceNotes": "P11b5 base E3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40421,7 +40421,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 base B3",
+      "performanceNotes": "P11b5 base B3",
       "properties": {
         "gen": "asm-chord"
       },
@@ -40457,7 +40457,7 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "P11 base F4",
+      "performanceNotes": "P11b5 base F4",
       "properties": {
         "gen": "asm-chord"
       },
@@ -43651,6 +43651,738 @@
       "type": "marker",
       "layer": 0,
       "time": 99.6,
+      "label": "ASM P12 blasts 1-4: 27 28(cuiv) base base(cuiv)",
+      "color": "#8a8ac0",
+      "performanceNotes": "",
+      "properties": {
+        "gen": "asm-mark"
+      }
+    },
+    {
+      "id": "wc-asm-8558",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 99.6,
+      "endSeconds": 99.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b1 27 A1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 33,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8559",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 99.6,
+      "endSeconds": 99.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b1 27 A#1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 34,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8560",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 99.6,
+      "endSeconds": 99.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b1 27 D#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 63,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8561",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 99.6,
+      "endSeconds": 99.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b1 27 E4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 64,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8562",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 100,
+      "endSeconds": 100.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 F#1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 30,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8563",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 100,
+      "endSeconds": 100.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 A#1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 34,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8564",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 100,
+      "endSeconds": 100.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 F2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 41,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8565",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 100,
+      "endSeconds": 101.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#d68f8f",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 CUIVRE C4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 60,
+      "technique": "cuivre",
+      "sonifyMode": "plain",
+      "recVel": 110
+    },
+    {
+      "id": "wc-asm-8566",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 100,
+      "endSeconds": 101.28,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#d68f8f",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 CUIVRE C#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 61,
+      "technique": "cuivre",
+      "sonifyMode": "plain",
+      "recVel": 110
+    },
+    {
+      "id": "wc-asm-8567",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 100,
+      "endSeconds": 101.14,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#d68f8f",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b2 28 CUIVRE D4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 62,
+      "technique": "cuivre",
+      "sonifyMode": "plain",
+      "recVel": 110
+    },
+    {
+      "id": "wc-asm-8568",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 100.4,
+      "endSeconds": 100.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b3 base G1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8569",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 100.4,
+      "endSeconds": 100.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b3 base A2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 45,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8570",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 100.4,
+      "endSeconds": 100.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b3 base E3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 52,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8571",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 100.4,
+      "endSeconds": 100.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b3 base B3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 59,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8572",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 100.4,
+      "endSeconds": 100.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b3 base F4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 65,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8573",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 100.8,
+      "endSeconds": 100.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b4 base G1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8574",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 100.8,
+      "endSeconds": 100.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b4 base A2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 45,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8575",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 100.8,
+      "endSeconds": 100.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b4 base E3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 52,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8576",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 100.8,
+      "endSeconds": 100.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b4 base B3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 59,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8577",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 100.8,
+      "endSeconds": 101.92,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#d68f8f",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P12b4 base CUIVRE F4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 65,
+      "technique": "cuivre",
+      "sonifyMode": "plain",
+      "recVel": 110
+    },
+    {
+      "id": "mk-asm-8578",
+      "type": "marker",
+      "layer": 0,
+      "time": 101.2,
       "label": "ASM - end -",
       "color": "#8a8ac0",
       "performanceNotes": "",
@@ -43665,7 +44397,7 @@
     "sets": [],
     "cells": []
   },
-  "nextId": 8559,
+  "nextId": 8580,
   "viewport": {
     "pixelsPerSecond": 22.42751268525529,
     "scrollOffset": 1717.6285469288346
