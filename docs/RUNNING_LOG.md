@@ -4203,3 +4203,25 @@ exists for, and the Penn State ensemble call is 12-20. "132 at ten" is
 recoverable as "110 at twelve" at the premiere. Character caveat: fewer
 players also does not rescue live smear (stage/human error unchanged);
 smear-live threshold ~10-12/s composite, estimate, testable with H.
+
+**2ag follow-up 6 — the composer's redistribution insight (clarifying followup
+5): unweld the LINE from the BODY.** Their idea, near-verbatim: with six
+players' worth of material you achieve those tempos, redistribute the
+re-articulations among the empty players, getting per-player re-attacks under
+threshold. CORRECT - it is the 2j interlock rule applied to textures, and
+followup 5 missed it by holding line=player fixed. Two versions, calculated:
+- POOLED (composite survives, line identity dissolves): v lines of 132 round-
+  robined over 10 bodies -> per-body spacing 10/composite. THRESHOLD v=8
+  (spacing 0.568s vs 0.53 worst ring); v=9 set-dependent; v=10 is the 18.9/s
+  wall no redistribution beats. Consistent with the measured 113-clean/120-
+  dirty per-player line (v=8 -> 105.6 eff bpm, v=9 -> 118.8). AVAILABLE NOW
+  at unison: same onset stream as 10 players at bpm 79/92/106/119 = v 6/7/8/9
+  - type it into the live boxes.
+- LITERAL (each pitch truly pulses at 132): a PAIR of players alternating at
+  66 each carries one true-132 line, per-body 0.909s, safe vs every ring ->
+  5 simultaneous true-132 pitch lines with 10 players (3-body lines allow
+  198/line). Expressible today as a multi-group spec with explicit lanes
+  (not via the live boxes); write on request.
+Ring constraint note that makes this valid: the ring is per-BODY (one player
+cannot sound two overlapping notes), not per-pitch - so a pitch hopping
+between bodies re-attacks as fast as the ensemble likes.
