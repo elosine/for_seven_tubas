@@ -10,73 +10,61 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAYS 19-20 (2026-08-19/20) — THE NOTATION ARCHITECTURE, BUILT END TO END
-IN ONE SITTING. Claude Code / Fable 5.** PLAN §7 phases A-D: A1 architecture
-doc (+2 composer amendments: dynamics decouple from MIDI, realization is
-material-dependent, D3 dissolved into blunt shape families — D44) · A2 IR
-schema v0 + validator + runnable 36-case battery · A3/A4/A5 hand-worked IR
-chunks · B1-B6 slice 1 (extract → coords → glyphs → layout → render →
-splicing, the trance section end to end) · C study score (notation view with
-click-to-zoom · GRAPHIC view · the D28 BEATING lane — bloom F2 pair peaks
-5.93 Hz) · D Section-1 MIXED STRATEGY in production (E1's frame; coverage
-corroborates D43 within ~3 pts: 24.0/53.0 % vs 26.2/57.1 % at ε=20/30; M4
-attack-line prototype). Three adversarial review passes (16+22+30 findings,
-all run-proven, all fixed). **App: `/notation/app/notation.html`** on the
-score server (:5200 restarted 2026-08-20 with the mount, detached process).
-Composer: *"the notation looks great"* · *"the parts looks really good."*
-Full trail: RUNNING_LOG days 19-20; contracts: `docs/NOTATION_ARCHITECTURE.md`
-+ `notation/schema/IR_SCHEMA_v0.md`.
+**DAY 21 (2026-08-20, third sitting) — THE TRANCE SECTION FINISHED AND IN
+THE PIECE; THE PHASE ARC COMPLETE. Claude Code / Fable 5.** The composer's
+own ordering item 1 (the phase-shifting machine) ran start to finish and
+flowed straight into item 2 (finish the piece):
+- **PLAN 2ag built in the sitting:** the LIVE RIG (real-time step-walking in
+  the Texture panel: bpm/players/offset boxes, pitch+order dropdowns,
+  stopwatch log, auto-run) — see PLAN 2ag and `docs/PHASE_COMPLEXITY.md`
+  (the whole theory arc: rotor offsets, the two-axis finding, the computed
+  complexity ladder, inverted-U CONFIRMED BY EAR).
+- **The composer PERFORMED the phase sequence** (phaseSeq-01, saved in
+  `bank/texture_params.json` live.saved with its performance) and those
+  timings became the score's phase chunks — play-in at form level.
+- **`tools/assemble_trance.js`** = the assembly instrument: one-line PLAN of
+  tokens (phase/chord/mt/swells/cblocks/gap/r17/r27/phasearc), per-chunk
+  seeds (edits stay local — proven to 0.000 ms), auto-reflow, crossfades,
+  natural-pace end fill. `docs/ASSEMBLY_METHOD.md` = the process record.
+- **`scores/tranceA004-final01.json`** (251.6 s) = the finished section;
+  **inserted into `scores/piece-s25-finished01.json` at 499.83 s as
+  `grp-tranceA4-01`** (draggable group + META shape). **The piece now runs
+  751.4 s = 12.5 min of the 15-min Penn State ceiling. DEADLINE SEPT 4.**
+- **2q RESOLVED by ear:** velocity changes TIMBRE (sample layers); CC7 is
+  loudness. Plain sonifyMode pins CC7 at 127 — drawn swells need CC7-curve
+  mode (no sonifyMode). Both now wired into the assembler.
+- Paper trail: PAPER_NOTES #1–8 filed today; RUNNING_LOG day 21 is the full
+  sequence (~25 entries, wrong turns kept).
 
-**THE SESSION-END REFRAME (D45, composer):** Phase E is NOT next — **the
-performance side becomes ITS OWN PROJECT** ("needs a rethink"; to be talked
-through). This phase's job was architecture/structures — confirmed in place;
-the machinery gets built and refined WHILE BUILDING THE ACTUAL SCORE, with
-requirements harvested as they arise. **When notation resumes: PARTS FIRST**
-— the players' notation — "and this then to be laid out in the study score."
-
-**DAY 20 SECOND SITTING (2026-08-20, Claude Code / Fable 5) — PENN STATE
-DELIVERABLES PREPLANNED, BUILD PLAN DRAWN (ready, NOT started).** Three
-deliverables (MIDI recording · 1920×1080 video · PDF score); decision slate
-PP-1…PP-6 provisionally adopted (two-window container: locked 1080 video
-view + uniform-zoom view, re-cut systems, no horizontal scroll in playback);
-three-tier decision taxonomy (look-defining upfront · content during ·
-polish pass at the end); architecture evaluated — NOT a new build (new:
-transport+cursor, video export via installed ffmpeg, PDF export, engraving
-registry). Docs: `plans/PENN_STATE_DELIVERABLES_PREPLAN.md` +
-`plans/DELIVERABLES_BUILD_PLAN.md` (V0–V5+POL, gates G0–G6) = PLAN 8a.
-**Sequencing: the plan runs AFTER the piece is finished, BEFORE notating.
-Next-up ordering below is UNCHANGED.**
-
-**Next up — START HERE (the composer's own ordering, dictated):**
-1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** ZERO code, set up and waiting:
-   `Texture` button; A/B/C = SMEAR / RAIN / GALLOP; the panel polls
-   `bank/texture_params.json` every second (proven live day 17). First
-   ear-question: are RAIN and GALLOP distinct? (jitter sd 30.7 vs 32.3 ms
-   but unevenness 0.14 vs 0.68 — if they sound alike, one category.) Then
-   build structures with it.
-2. **FINISH THE PIECE — "start from the beginning."** Trance section =
-   `tranceA002f` (15 identical closing chords flagged; paired-stream ear
-   question open) → assembly into the piece. `piece-s23` = 8:16 of the
-   15-minute ceiling. **PENN STATE DEADLINE: SEPT 4.**
-3. If time: **the density-build experiments** (`NOTATION_EXPERIMENTS.md` E0
-   floor ladder · E2 tap harness — E2 is also what settles ε empirically).
-4. Then **the actual notation: parts first**, laid into the study score.
+**Next up:**
+1. **Listen to the piece end to end** (`piece-s25-finished01`, 12.5 min) —
+   the trance section placement (gap at 495.3→499.8), balance, the seams.
+2. **The remaining form question: ~2.5 min of ceiling headroom** — extend,
+   or trim, or leave; the composer's call after the listen.
+3. Then the queue as before: density-build experiments (E0/E2) if time →
+   **notation, PARTS FIRST** (the D45 reframe stands).
 
 **Open at session end:**
-- **Composer EYE, notation (none block):** the ε verdict — LOOK at
-  `notation/app/proof-s1-apex-e20/e30/m4.svg` (44 vs 88 claimed bars) ·
-  registry seeds all `proposed` (12 classes + 5 strategies) · GC
-  apex-vs-impact cue · two in-file placeholders (trance-bar-01's `p`,
-  morph-window-01's instruction wording).
-- **Composer EAR, piece:** paired-stream readability · the 15 closing
-  chords · velocity-vs-CC7 (2q) · the 2x listening slate.
-- **Traps still live:** staccato sounds only MIDI 30-65 and the Insertion
-  strip does NOT range-check (7 `more chords` species carry a 66/68) ·
-  the lazy-MIDI init bug (keyboard dead until Play / CC7 Reset / REC-arm).
-- **Nothing about the SOUND was verified days 19-20** — the notation work
-  makes data + pixel claims only; Web MIDI stays unverifiable in the pane.
+- **Composer EAR:** the whole trance section is assembled but was auditioned
+  in chunks — the end-to-end listen is the open verdict. The "27 oct B"
+  anomaly is DEFERRED in NITS (uniform 80 BPM though chosen as multitempo —
+  matters at notation time, composer likes the sound).
+- **2ad's formal gate:** phaseSeq-01 is saved with its performance but no
+  `texture_bank.js --bank` keeper verdict was recorded; the five texture
+  models remain UNHEARD-in-the-bank formally. Close or waive next sitting.
+- **Traps still live:** staccato 30–65 silent-note trap (species tops go to
+  cuivre or get dropped — the assembler handles it; the Insertion strip
+  still does NOT) · lazy-MIDI init (dead keyboard until Play/CC7 Reset).
+- **Machinery note:** `tranceA003b.json` is the assembler's SRC (pristine
+  original material) — do not overwrite it; every version regenerates from
+  it via ASM_PLAN (h = the final state; the PLAN string is in the git log
+  and in the file's provenance).
 
 ---
+
+- **Days 19-20:** notation architecture A-D built end to end (D44, D45:
+  performance side = its own future project; parts first when notation
+  resumes); Penn State deliverables preplanned (PLAN 8a, runs post-piece).
 
 - **Days 18-19:** trance section written via console scripts (D41); 2ae/2af
   built; E1+E1b run (D43); notation architecture confirmed (four strata).

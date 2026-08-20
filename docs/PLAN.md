@@ -1394,6 +1394,15 @@ composer → notation → performance architecture.)*
   (`D`/`I` column delete/insert) permanent rather than paste-per-session.
 
 - **2ad — PHASE-SHIFT TEXTURE SELECTOR (a workflow, not a build)** —
+  **`SITTING RAN 2026-08-20 (day 21) — the arc completed and fed the piece:`**
+  the models were heard, the vocabulary reframed (offset amount × ratio
+  complexity, then complexity = unevenness — `docs/PHASE_COMPLEXITY.md`),
+  the composer performed phaseSeq-01 on the 2ag live rig, and the performed
+  section became `tranceA004-final01`, now IN `piece-s25-finished01` at
+  499.83 s (piece = 12.5 min). *Formal residue: no `--bank` keeper verdict
+  was recorded (phaseSeq-01 lives in `texture_params.json` live.saved with
+  its performance); the five models stay UNHEARD in the bank's own terms —
+  close or waive next sitting.* Original spec follows:
   **`READY 2026-08-17 (day 17) — ZERO CODE NEEDED, verified; the sitting is
   set up and waits on the composer's ear`** *(composer, verbatim,
   COMPOSER_LOG day 17: "a way to audition a few different phase shifting

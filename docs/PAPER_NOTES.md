@@ -672,3 +672,24 @@ actual score — D6's reverse-engineering stance applied to notation.
    (e) THE SCORE AS PLAN - the continuation is a one-line running order over
    banked material and deterministic machinery; versions are letters,
    families are suffixes, identity lives in the plan.
+
+8. **The finale afternoon (day 21, closing arc) - three more for the paper:**
+   (a) **2q RESOLVED BY EAR MID-COMPOSITION:** the velocity-driven crescendo
+   "sounds funny... it's changing the timbre as well" - velocity selects
+   sample layers, CC7 is loudness. A years-old open calibration question
+   answered not by a designed probe but by a musical judgment during
+   assembly; the fix (CC7-curve mode, flat velocity) shipped in the same
+   hour. Same session also diagnosed WHY drawn swells were silent: plain
+   mode pins CC7 at 127 - the notation looked right and played wrong.
+   (b) **THE NATURAL-PACE ENDING:** asked to "fill out the end," the rule
+   became: give each part its own next attack at its own pace if it lands
+   before the last note, plus the single one that lands just after. The
+   measurement showed the ragged ending was already tight (all ten parts'
+   final attacks within 0.33s) and exactly ONE extra hit fit - on the very
+   part (T5) the composer had named by eye. Endings composed as boundary
+   conditions on per-part processes, not as written gestures.
+   (c) **THE SANITY-CHECK PATTERN:** "the last PS6 sounds fast - is any
+   individual part okay?" Composite 20 attacks/s vs measured per-part
+   0.500s steady intervals, zero ring violations in 829 pairs. The
+   fast-texture illusion dissolves per part; what remains is endurance
+   (84 notes over 40s), a different performer question entirely.
