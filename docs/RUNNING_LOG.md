@@ -4405,3 +4405,19 @@ OFFSET-INDEPENDENT — the rotor moves phases, never per-player rates, so
 every rung caps at 60/0.42 = 142.9 (measured: 140 clean, 143 dirty). Top set
 140 for margin. Also noted: rotor characters survive re-tempo (patterns
 scale with the cycle), unlike rain's absolute jitter.**
+
+**2ag follow-up 17 — SEQUENCE SAVED + PITCH PRESETS IN THE LIVE RIG (rev 20).**
+(a) `phaseSeq-01` frozen into `live.saved[]` - the composer's keeper: rungs
+11-7-2-3-4-6 of the rev-14 computed ladder, tempo ramp 87->120 equal 6.6
+steps, unison C3. The working try1 slot stays editable. (b) New `pitch`
+dropdown in the live section - unison / octaves (root pc) / fifths stack /
+cluster F-A octave-spread [F#1 G1 A1 F2 F#2 G#2 A2 F3 G3 A3] (F1=29 is BELOW
+the staccato sounding floor, so the bottom octave starts at F#1 - said to the
+composer). Lane j = pitches[j], ascending across the stage line; all presets
+inside MIDI 30-65. **Measured per-player ring caps per preset: unison 142 ·
+octaves 125 · fifths 122 · clusterFA 117** (worst ring over the preset's
+notes, from bank/sample_lengths.json). The readout warns per set - verified
+in-app: try1's 120-BPM top step correctly flags over the 117 clusterFA cap
+(the mock-up plays it cleanly; the hall would not). 11/11 node assertions on
+lvPitches (windows, pc sets, spans, ascending); zero console errors; sound
+unverified as always.

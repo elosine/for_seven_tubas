@@ -125,6 +125,16 @@ const PANEL = {
             '<button id="texLvRun" title="auto-advance one step every N seconds (wraps)">Run</button>',
             '<input id="texLvSecs" type="number" step="1" min="1" value="6" style="width:34px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">s',
             '</div>',
+            // PITCH (live). Presets only, all inside the staccato sounding
+            // window MIDI 30-65 (notes outside it are SILENT - the known trap).
+            // Lane j gets pitches[j], ascending across the stage line.
+            '<div style="display:flex;gap:5px;align-items:center;margin-top:4px;color:#9a9">pitch',
+            '<select id="texLvPitch" style="flex:1;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
+            '<option value="unison">unison (root)</option>',
+            '<option value="octaves">octaves (root pc)</option>',
+            '<option value="fifths">fifths stack</option>',
+            '<option value="clusterFA">cluster F&ndash;A, octave spread</option>',
+            '</select></div>',
             '<div id="texLvOut" style="color:#9a9;margin-top:3px">&mdash;</div>',
             // STOPWATCH LOG — every step change while live gets a timestamped
             // line. `0` restarts the clock (the composer plays a while, THEN
@@ -168,6 +178,7 @@ const PANEL = {
         d.querySelector('#texLvGrid').addEventListener('input', () => this.lvReadout());
         d.querySelectorAll('#texLvJit,#texLvDb').forEach(i =>
             i.addEventListener('input', () => this.lvReadout()));
+        d.querySelector('#texLvPitch').addEventListener('change', () => this.lvReadout());
         this.makeDraggable(d, d.querySelector('#texDrag'));
 
         // Keys are scoped to the panel: composer.html has global handlers and a
@@ -956,6 +967,7 @@ const PANEL = {
             ).join('');
         d.querySelector('#texLvJit').value = s.jitterMs || 0;
         d.querySelector('#texLvDb').value = s.dBpm || 0;
+        d.querySelector('#texLvPitch').value = s.pitchMode || 'unison';
         if (this.lv.data.secsPerStep) d.querySelector('#texLvSecs').value = this.lv.data.secsPerStep;
         this.lvHilite();
         this.lvReadout();
@@ -973,6 +985,7 @@ const PANEL = {
         });
         s.jitterMs = parseFloat(d.querySelector('#texLvJit').value) || 0;
         s.dBpm = parseFloat(d.querySelector('#texLvDb').value) || 0;
+        s.pitchMode = (d.querySelector('#texLvPitch') || {}).value || 'unison';
     },
 
     lvSlot(i) {
@@ -1053,7 +1066,32 @@ const PANEL = {
             jit: Math.max(0, num('texLvJit', 0)),
             db: Math.max(0, num('texLvDb', 0)),
             off: Math.max(0, Math.min(0.99, num('texLvOff' + i, 0))),
+            pitchMode: (d.querySelector('#texLvPitch') || {}).value || 'unison',
         };
+    },
+
+    // PITCH PRESETS — lane j gets pitches(mode)[j], ascending across the stage.
+    // Everything stays inside the staccato window 30-65; F1 (29) is below the
+    // floor, which is why the F-A cluster starts at F#1. Ring caps measured
+    // 2026-08-20: unison(C3) 142 · octaves 125 · fifths 122 · clusterFA 117.
+    lvPitches(mode, players, root) {
+        let set;
+        if (mode === 'octaves') {
+            const pc = ((root % 12) + 12) % 12;
+            set = [];
+            for (let k = pc; k <= 65; k += 12) if (k >= 30) set.push(k);
+        } else if (mode === 'fifths') {
+            let k = ((root % 12) + 12) % 12;
+            while (k < 30) k += 12;
+            set = [];
+            for (; k <= 65; k += 7) set.push(k);
+        } else if (mode === 'clusterFA') {
+            set = [30, 31, 33, 41, 42, 44, 45, 53, 55, 57];
+        } else return new Array(players).fill(root);
+        // spread the set over the lanes, ascending, low end thicker
+        const out = [];
+        for (let j = 0; j < players; j++) out.push(set[Math.floor(j * set.length / players)]);
+        return out;
     },
 
     // ROTOR (the phase ladder): player j sits at (j·f mod 1) of the per-player
@@ -1120,16 +1158,18 @@ const PANEL = {
         this.lv.skipped = 0;
         this.lv.playing = true;
         E._playing = true;
-        const fire = (route, at) => {
+        const fire = (route, at, key) => {
             if (!route) { this.lv.skipped++; return; }
-            E._timers.push(setTimeout(() => E.noteOn(route, root, vel),
+            const k = key != null ? key : root;
+            E._timers.push(setTimeout(() => E.noteOn(route, k, vel),
                 Math.max(0, at - performance.now())));
-            E._timers.push(setTimeout(() => E.noteOff(route, root),
+            E._timers.push(setTimeout(() => E.noteOff(route, k),
                 Math.max(0, at + NOTE - performance.now())));
         };
         this.lv.tick = setInterval(() => {
             const now = performance.now();
             const p = this.lvParams();
+            const laneP = this.lvPitches(p.pitchMode, p.players, root);
             if (p.off > 0) {
                 // ROTOR mode — whole cycles are booked as they enter the look
                 // window, so edits land on the NEXT CYCLE (up to 60/bpm late),
@@ -1140,7 +1180,7 @@ const PANEL = {
                 while (st.cyc < now + LOOK) {
                     for (let j = 0; j < p.players; j++) {
                         fire(routes[j], st.cyc + ((j * p.off) % 1) * T +
-                            (p.jit ? (2 * Math.random() - 1) * p.jit : 0));
+                            (p.jit ? (2 * Math.random() - 1) * p.jit : 0), laneP[j]);
                     }
                     st.cyc += T;
                 }
@@ -1156,7 +1196,7 @@ const PANEL = {
                 const iv = 60000 / (g.n * g.bpm);
                 while (st.next[gi] < now + LOOK) {
                     const lane = g.lane0 + (st.rr[gi]++ % g.n);
-                    fire(routes[lane], st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0));
+                    fire(routes[lane], st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0), laneP[lane]);
                     st.next[gi] += iv;
                 }
             }
@@ -1209,7 +1249,13 @@ const PANEL = {
         else if (p.db > 0) s += ' · gallop Δ' + p.db + ', lap ~' + (60 / (p.db * Math.ceil(p.players / 2))).toFixed(1) + ' s';
         else if (p.jit > 0) s += ' · rain ±' + p.jit + ' ms';
         else s += ' · smear';
-        if (rate > 23) s += ' <span style="color:#e0b062">&#9888; past the ~23/s C3 ring ceiling</span>';
+        // per-preset per-player caps (measured 2026-08-20; unison = C3)
+        const CAPS = { unison: 142, octaves: 125, fifths: 122, clusterFA: 117 };
+        if (p.pitchMode !== 'unison') s += ' · ' + p.pitchMode;
+        const cap = CAPS[p.pitchMode] || 142;
+        if (p.bpm > cap) s += ' <span style="color:#e0b062">&#9888; over the ' + cap +
+            ' BPM ring cap for this pitch set</span>';
+        else if (rate > 23) s += ' <span style="color:#e0b062">&#9888; past the ~23/s C3 ring ceiling</span>';
         if (this.lv.playing) s += ' · <b style="color:#8fd6ab">LIVE</b>';
         if (this.lv.skipped) s += ' · <span style="color:#e0b062">' + this.lv.skipped + ' skipped (no port)</span>';
         out.innerHTML = s;
