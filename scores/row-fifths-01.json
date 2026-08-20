@@ -1,0 +1,624 @@
+{
+  "version": 1,
+  "layoutVersion": 2,
+  "tracks": [
+    {
+      "id": "tuba1",
+      "label": "Tuba 1",
+      "instKey": "tuba1"
+    },
+    {
+      "id": "tuba2",
+      "label": "Tuba 2",
+      "instKey": "tuba2"
+    },
+    {
+      "id": "tuba3",
+      "label": "Tuba 3",
+      "instKey": "tuba3"
+    },
+    {
+      "id": "tuba4",
+      "label": "Tuba 4",
+      "instKey": "tuba4"
+    },
+    {
+      "id": "tuba5",
+      "label": "Tuba 5",
+      "instKey": "tuba5"
+    },
+    {
+      "id": "tuba6",
+      "label": "Tuba 6",
+      "instKey": "tuba6"
+    },
+    {
+      "id": "tuba7",
+      "label": "Tuba 7",
+      "instKey": "tuba7"
+    },
+    {
+      "id": "tuba8",
+      "label": "Tuba 8",
+      "instKey": "tuba8"
+    },
+    {
+      "id": "tuba9",
+      "label": "Tuba 9",
+      "instKey": "tuba9"
+    },
+    {
+      "id": "tuba10",
+      "label": "Tuba 10",
+      "instKey": "tuba10"
+    }
+  ],
+  "assets": [],
+  "metadata": {
+    "name": "row-fifths-01",
+    "created": "2026-08-20"
+  },
+  "objects": [
+    {
+      "id": "wc-1",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 1,
+      "endSeconds": 1.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "1. G# (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 32,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-2",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 1.6,
+      "endSeconds": 1.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "2. A# (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 58,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-3",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 2.2,
+      "endSeconds": 2.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "3. B (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 35,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-4",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 2.8,
+      "endSeconds": 2.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "4. F# (fifth (new))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 30,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-5",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 3.4,
+      "endSeconds": 3.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "5. D (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 50,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-6",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 4,
+      "endSeconds": 4.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "6. A (fifth (new))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 57,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-7",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 4.6,
+      "endSeconds": 4.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "7. G (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-8",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 5.2,
+      "endSeconds": 5.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "8. D (fifth (repeat))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 50,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-9",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 5.8,
+      "endSeconds": 5.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "9. F (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 65,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-10",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 6.4,
+      "endSeconds": 6.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "10. C (fifth (new))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 60,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-11",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 7,
+      "endSeconds": 7.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "11. D# (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 51,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-12",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 7.6,
+      "endSeconds": 7.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "12. A# (fifth (repeat))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 34,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-13",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 8.2,
+      "endSeconds": 8.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "13. C# (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-14",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 8.8,
+      "endSeconds": 8.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "14. G# (fifth (repeat))",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 44,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-15",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 9.4,
+      "endSeconds": 9.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "15. E (row)",
+      "properties": {
+        "gen": "row-fifths"
+      },
+      "sonifyNote": 52,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "mk-16",
+      "type": "marker",
+      "layer": 0,
+      "time": 1,
+      "label": "ROW: G#-A#-B then +5th / down-to-remaining · octaves randomized (seed 20260820)",
+      "color": "#3F7D5A",
+      "performanceNotes": "",
+      "properties": {}
+    }
+  ],
+  "markers": [],
+  "databases": {
+    "chordShapes": [],
+    "sets": [],
+    "cells": []
+  },
+  "nextId": 18,
+  "viewport": {
+    "pixelsPerSecond": 22.42751268525529,
+    "scrollOffset": 1157.016206701976
+  }
+}
