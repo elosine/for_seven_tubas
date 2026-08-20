@@ -4249,3 +4249,22 @@ finding locates the interlocking textures exactly there (90 = hocket, 180 =
 aligned-opposite). Flagged as a small live-rig add WHEN the composer wants to
 browse composed-phase structures by ear. Caps unaffected by any constant
 phase.** (Also filed to PAPER_NOTES - the derivative structure is a keeper.)
+
+**Day 21 — THE PHASING REFRAME (composer, near-verbatim; design discussion
+only, nothing built):** *"what I think was missing was that phasing
+consideration, and I might not need to use tempos at all... probably what I
+was looking for is ONSET COMPLEXITY USING PHASING... closer to the original
+Steve Reich music as a gradual process... the most complex will be the
+smallest decollage, or smallest offset... I need a way to audition several
+offsets, to find the thresholds between the jumps... whether there are even
+offsets or different types of offsets."* Also a process note: information
+density flagged; replies now TL;DR + single-topic chunks (memory filed).
+AI analysis offered (talk-only): phase = composed scatter (the gap named
+last exchange); offset taxonomy even/rational/micro-decollage/irrational;
+complexity ordering by fraction denominator (Farey ladder) avoids the
+matrix; physical floor ~30-50 ms (stage+human) under which composed offsets
+are mock-up-only; audition plan = slow-drift sweep (gallop at tiny d, one
+lap = all 2-group offsets, stopwatch marks -> offsets) + a static Farey
+slate in the batch variants (written dialect carries explicit delays, zero
+code); live plan = ONE new per-step number (offset fraction) on the existing
+two-group split. Awaiting the composer's direction.
