@@ -4071,3 +4071,65 @@ by design) - so the browse pattern is "pick the tempo rung, then walk the
 player counts," not the reverse.
 
 **Still UNHEARD** - G included. Nothing banked.
+
+## Day 21 (2026-08-20, third sitting, cont.) — PLAN 2ag: THE LIVE RIG, built and verified
+
+### The arc that led here (three composer turns, all talk-first)
+
+1. **The composer's want, dictated:** *"I hit play and then arrow keys… in real
+   time changes the speed… and I can channel through several variations and
+   back again in a continuous play."* The batch player cannot do this — play()
+   books every note upfront, which is exactly why the loop was stop→arrow→play.
+2. **Scope honesty surfaced before building:** 2ad's rule was "no new scheduler
+   unless the loop proves hammered." The composer's stop/arrow/play friction IS
+   that condition; said out loud, approved.
+3. **Shape agreed:** 5 sequences × 6 (bpm, players) steps · character = two
+   numbers (jitter, ΔBPM) · gallop folded in via Δ (option a) · auto-run
+   included · groove the set-aside. Composer: *"a, and yes include the
+   auto-run and good to build pls."*
+
+### What was built (texture_panel.js LIVE section + params rev 8)
+
+- **Streaming scheduler:** 60 ms tick, 160 ms lookahead, reads the DOM boxes
+  every tick — arrows and edits land on the NEXT attack. Continuous until stop.
+- **Reused, not rebuilt:** ensureMidi · routeFor · noteOn/off · the one panic
+  path (chained through E.onStop, recursion-guarded) · CC7 pin + velocity
+  (D12) · D29 no-bend. The scheduling pattern mirrors play()'s proven
+  timer-correction approach.
+- **Gallop = lvSplit():** Δ>0 splits players into ceil/floor half-groups at
+  bpm∓Δ/2 on disjoint lane ranges. Dormant group-B clock rides just ahead of
+  now so raising Δ mid-stream starts cleanly instead of draining a backlog.
+- **Unseeded by design** — a live instrument is not a render (R5 applies to
+  renders and banking; keepers get persisted to the file and rendered seeded).
+- **Data:** `live` block, rev 8 — S1 smear A–F · S2 rain 45 · S3 gallop Δ2 ·
+  S4 accretion (4→10 players and 72→132 bpm = 4.8→22/s) · S5 scratch.
+
+### Verified (in the running app, plus node)
+
+- **17/17 node assertions** on the exported math: lvSplit structure (10→5+5 at
+  ∓1; 7→4+3; 1 cannot gallop), lane coverage exactly 0–4/5–9, composite rates
+  (10@108=18/s, 4@72=4.8/s), lap = 60/(Δ×perGroup) with no bpm term, defaults.
+- **In-app (Browser pane, composer.html live):** panel renders with the LIVE
+  section · boxes load from the file (rev 8, S1, 36/54/72/90/108/132) · steps
+  walk and WRAP correctly with readout ("step 5/6 · 108 BPM × 10 = 18.0/s") ·
+  gallop readout shows "Δ2, lap ~6.0 s" · S4 boxes differ per step · edits
+  survive slot round-trips · ceiling amber fires at 25/s · Run advances the
+  highlight and parks · **zero console errors**.
+- **THE CONVERSATIONAL LOOP PROVEN ON THE NEW BLOCK, LIVE:** with the panel
+  open, a rev-7 probe was written from the shell (slot→5, bpm 61); the open
+  panel landed on S5 with bpm 61 in the boxes within ~2 s, no reload, no
+  click. Probe then reverted.
+- **Process slip worth recording:** the probe revert used `git checkout`,
+  which restored the COMMITTED state (rev 5, no live block) because rev 6 was
+  never committed — the live block had to be rewritten as rev 8. Lesson: mid-
+  verification file states that must survive a revert need a commit first.
+- **NOT verified: sound.** Deliberately never played from the pane — sound
+  only on the composer's gesture (the no-autoplay rule). The composer's first
+  press of `Live` is the sound test.
+
+### For the composer (reload composer.html once)
+
+Texture panel → LIVE section at the bottom: S1–S5 · six bpm/players columns ·
+jitter and Δbpm boxes · **Live** (stream; ←/→ walk steps, SPACE stops) ·
+**Run** (auto-advance every N s, wraps). If arrows edit a number instead of
+stepping: focus is in a box — click the panel background once.

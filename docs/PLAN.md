@@ -1502,8 +1502,44 @@ composer → notation → performance architecture.)*
   textures into the pulse stream (that is section assembly, PLANNER's tier) ·
   a dedicated phase panel.
 
-
-## 7. THE THREE SCORES — architecture (composer, 2026-08-14)
+- **2ag — THE LIVE RIG (real-time step-walking in the Texture panel)** —
+  **`BUILT + VERIFIED IN THE RUNNING APP 2026-08-20 (day 21); the sound loop
+  is the composer's`** *(composer, dictated: "I hit play and then arrow keys…
+  in real time changes the speed… and I can channel through several variations
+  and back again in a continuous play"; approved shape: 5 sequences × 6
+  (bpm, players) steps, gallop folded in via ΔBPM, auto-run included)*.
+  **This deliberately ends 2ad's zero-code scope** — the composer named the
+  stop/arrow/play loop as hammered, which is exactly the condition 2ad's
+  no-new-scheduler rule anticipated (surfaced and approved before building).
+  - **What it is:** a **streaming scheduler** in `texture_panel.js` (LIVE
+    section) — unlike `play()`'s book-everything-upfront batch, it books only a
+    160 ms lookahead and **reads the boxes every 60 ms tick**, so arrow presses
+    and number edits land on the NEXT attack, no restart. Continuous until
+    stopped. Reuses the proven plumbing wholesale: `ensureMidi`, `routeFor`,
+    `noteOn/off`, the ONE panic path (chained via `E.onStop`), CC7 pinned +
+    velocity dynamics (D12), D29 no-bend.
+  - **The character is two numbers, not a mode:** jitter>0 = rain · Δbpm>0 =
+    gallop (two half-groups at bpm∓Δ/2, lanes split; lap = 60/(Δ×per-group), so
+    TEMPO does not move the flutter but PLAYER COUNT does) · both 0 = smear ·
+    ticks emerges at slow bpm. **Groove is the set-aside** (per-player fixed
+    offsets, addable later). Unseeded BY DESIGN — a live instrument is not a
+    render; keepers get written into the params file and rendered seeded.
+  - **Keys while live:** ←/→ step (wrap) · SPACE stop · `Run` auto-advances
+    every N s (works stopped too — that is how it is verified silently).
+    S1–S5 slot buttons; box edits survive slot round-trips in memory and are
+    ephemeral until the AI persists them into the file.
+  - **Data:** `live` block in `bank/texture_params.json` (rev 8) — S1 smear
+    A–F · S2 rain (jit 45) · S3 gallop (Δ2) · S4 accretion (4→10 players AND
+    72→132 bpm, 4.8→22/s) · S5 scratch. Read on every rev bump: **AI writes
+    land in the open panel's boxes within ~1 s, PROVEN LIVE** (rev-7 probe:
+    slot jump + bpm 61 observed with no reload, then reverted).
+  - **Verified:** 17/17 node assertions on the exported math (`lvSplit` group
+    structure, lane coverage 0–4/5–9, composite rates, lap invariance,
+    defaults shape) · in-app: panel renders, steps walk and wrap, slots
+    switch, accretion boxes differ per step, edits held, ceiling amber fires
+    at 25/s, Run advances and parks, zero console errors. **NOT verified:
+    sound** — deliberately never played from the pane (no-autoplay rule);
+    first sound test is the composer's.
 
 *Three sequential artifacts, each feeding the next. This supersedes any
 assumption that notation and performance live inside the composer app.*

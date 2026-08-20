@@ -34,6 +34,11 @@ const PANEL = {
     el: null, rev: -1, params: null, models: null,
     active: 'A', result: null, spec: null, poll: null,
     pinned: null, abSide: 'cur', humanized: false, timing: null,
+    // LIVE mode (PLAN 2ag): a streaming scheduler the composer drives in real
+    // time. `data` mirrors the params file's `live` block; box edits are
+    // ephemeral until the AI writes them back into the file.
+    lv: { playing: false, tick: null, runT: null, slot: 0, step: 0,
+          data: null, skipped: 0, state: null },
 
     // ---------------------------------------------------------------- boot
     init() {
@@ -95,6 +100,33 @@ const PANEL = {
             '<span style="color:#9a9">s</span>',
             '<button id="texMorphGo" title="morph the current dials into the chosen model over N seconds">go</button>',
             '</div>',
+            // LIVE (PLAN 2ag) — walk six (bpm, players) steps in real time.
+            // The character is TWO NUMBERS, not a mode: jitter>0 = rain,
+            // Δbpm>0 = gallop (two half-groups at bpm∓Δ/2), both 0 = smear
+            // (ticks emerges at slow bpm). Groove stays out — per-player fixed
+            // offsets are a later add. Steps are read from the DOM every tick,
+            // so edits and arrow presses land on the NEXT attack — no restart.
+            '<div style="color:#8fd6ab;border-top:1px solid #3a3a44;margin-top:8px;padding-top:6px;font-weight:600">LIVE',
+            '<span id="texLvSlots" style="float:right;font-weight:400"></span></div>',
+            '<div style="display:grid;grid-template-columns:52px repeat(6,1fr);gap:3px;align-items:center;margin-top:5px">',
+            '<span style="color:#9a9">step</span>',
+            [0, 1, 2, 3, 4, 5].map(i =>
+                '<span id="texLvH' + i + '" style="text-align:center;color:#9a9;border-radius:3px">' + (i + 1) + '</span>').join(''),
+            '<span style="color:#9a9">bpm</span>',
+            [0, 1, 2, 3, 4, 5].map(i =>
+                '<input id="texLvBpm' + i + '" type="number" step="1" style="width:100%;box-sizing:border-box;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">').join(''),
+            '<span style="color:#9a9">players</span>',
+            [0, 1, 2, 3, 4, 5].map(i =>
+                '<input id="texLvPl' + i + '" type="number" step="1" min="1" max="10" style="width:100%;box-sizing:border-box;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">').join(''),
+            '</div>',
+            '<div style="display:flex;gap:5px;align-items:center;margin-top:5px;color:#9a9">',
+            'jitter<input id="texLvJit" type="number" step="5" min="0" value="0" title="ms; 45 = rain" style="width:44px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
+            '&Delta;bpm<input id="texLvDb" type="number" step="1" min="0" value="0" title="2 = gallop: two half-groups at bpm&#8723;&Delta;/2" style="width:40px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
+            '<button id="texLvGo" style="flex:1" title="stream continuously; &larr;/&rarr; walk the steps live">Live</button>',
+            '<button id="texLvRun" title="auto-advance one step every N seconds (wraps)">Run</button>',
+            '<input id="texLvSecs" type="number" step="1" min="1" value="6" style="width:34px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">s',
+            '</div>',
+            '<div id="texLvOut" style="color:#9a9;margin-top:3px">&mdash;</div>',
             '<div style="margin-top:6px">',
             '<button id="texIns" style="width:100%"',
             ' title="insert at the playhead as a draggable group">Insert @ cursor</button>',
@@ -116,6 +148,11 @@ const PANEL = {
         d.querySelector('#texHum').addEventListener('click', () => this.humanize());
         d.querySelector('#texIns').addEventListener('click', () => this.insert());
         d.querySelector('#texMorphGo').addEventListener('click', () => this.morphTo());
+        d.querySelector('#texLvGo').addEventListener('click', () => this.lvPlay());
+        d.querySelector('#texLvRun').addEventListener('click', () => this.lvRun());
+        // the scheduler reads the DOM each tick, so inputs only need the readout
+        d.querySelectorAll('#texLvJit,#texLvDb,[id^=texLvBpm],[id^=texLvPl]').forEach(i =>
+            i.addEventListener('input', () => this.lvReadout()));
         this.makeDraggable(d, d.querySelector('#texDrag'));
 
         // Keys are scoped to the panel: composer.html has global handlers and a
@@ -125,6 +162,14 @@ const PANEL = {
             if (e.target.matches('input,select,textarea')) return;
             const k = e.key;
             const take = () => { e.preventDefault(); e.stopPropagation(); };
+            // LIVE owns the keys while it streams: arrows walk the steps at the
+            // next attack, SPACE stops. (Click the panel background first if
+            // focus is in a number box — there, arrows edit the number.)
+            if (this.lv.playing) {
+                if (k === 'ArrowLeft' || k === 'ArrowRight') { take(); this.lvStep(k === 'ArrowRight' ? 1 : -1); return; }
+                if (k === ' ') { take(); this.lvStop(); return; }
+                if (k === 'ArrowUp' || k === 'ArrowDown') { take(); return; }
+            }
             if (k === ' ') { take(); E.isPlaying() ? E.panic() : this.play(); }
             else if (k === 'ArrowLeft' || k === 'ArrowRight') {
                 take();
@@ -158,6 +203,10 @@ const PANEL = {
             if (prevOnStop) { try { prevOnStop(); } catch (e) {} }
             const b = d.querySelector('#texPlay');
             if (b) b.textContent = 'Play';
+            // ONE stop path: any panic (main Play, Morph, ours) also lands the
+            // live stream. lvStop flips `playing` before its own panic, so this
+            // cannot recurse.
+            if (this.lv.playing) this.lvStop();
         };
     },
 
@@ -247,6 +296,9 @@ const PANEL = {
             if (keys.indexOf(this.active) < 0) this.active = keys[0];
             this.humanized = false;
             this.pinned = null;      // a new slate invalidates the old reference
+            // a rev bump is a deliberate AI write — the live boxes follow it
+            // too (mid-stream edits land on the next attack, same contract)
+            this.lvLoad(j.live);
             this.generate();
         } catch (e) { this.setStatus('params file unavailable — ' + e.message, true); }
     },
@@ -829,6 +881,218 @@ const PANEL = {
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
         this.setStatus('inserted ' + objs.length + ' objects at ' + at.toFixed(2) + ' s as ' + gid);
+    },
+
+    // ------------------------------------------------------------ LIVE (2ag)
+    // A streaming scheduler, deliberately unlike play(): play() books every
+    // note of a fixed render upfront; this books only a 160 ms lookahead and
+    // reads the boxes each tick, so arrows and edits land on the NEXT attack
+    // with no restart. Unseeded by design — a live instrument is not a render;
+    // anything worth keeping gets written into the params file and rendered
+    // seeded. D29 holds (no bend); CC7 pinned, dynamics ride velocity (D12).
+
+    lvDefaults() {
+        const bpms = [36, 54, 72, 90, 108, 132];   // the kept A–F rungs
+        const seq = (name, jit, db) => ({ name, jitterMs: jit, dBpm: db, root: 48,
+            steps: bpms.map(b => ({ bpm: b, players: 10 })) });
+        return { secsPerStep: 6, slot: 1,
+                 seqs: [seq('smear A–F', 0, 0), seq('rain A–F', 45, 0),
+                        seq('gallop A–F', 0, 2), seq('accretion', 0, 0), seq('scratch', 0, 0)] };
+    },
+
+    lvLoad(live) {
+        this.lv.data = live ? JSON.parse(JSON.stringify(live)) : this.lvDefaults();
+        if (!Array.isArray(this.lv.data.seqs) || !this.lv.data.seqs.length) this.lv.data = this.lvDefaults();
+        const want = (this.lv.data.slot || 1) - 1;
+        this.lv.slot = Math.max(0, Math.min(this.lv.data.seqs.length - 1, want));
+        this.lvDraw();
+    },
+
+    lvSeq() { return this.lv.data ? this.lv.data.seqs[this.lv.slot] : null; },
+
+    lvDraw() {
+        const d = this.el, s = this.lvSeq();
+        if (!s) return;
+        const slots = d.querySelector('#texLvSlots');
+        slots.innerHTML = '';
+        this.lv.data.seqs.forEach((q, i) => {
+            const b = document.createElement('button');
+            b.textContent = 'S' + (i + 1);
+            b.title = q.name || '';
+            b.style.cssText = 'margin-left:3px;font-size:10px;padding:0 4px;' +
+                (i === this.lv.slot ? 'background:#3F7D5A;color:#fff;border-color:#6fb98f' : '');
+            b.addEventListener('click', () => this.lvSlot(i));
+            slots.appendChild(b);
+        });
+        for (let i = 0; i < 6; i++) {
+            const st = (s.steps || [])[i] || { bpm: 60, players: 10 };
+            d.querySelector('#texLvBpm' + i).value = st.bpm;
+            d.querySelector('#texLvPl' + i).value = st.players;
+        }
+        d.querySelector('#texLvJit').value = s.jitterMs || 0;
+        d.querySelector('#texLvDb').value = s.dBpm || 0;
+        if (this.lv.data.secsPerStep) d.querySelector('#texLvSecs').value = this.lv.data.secsPerStep;
+        this.lvHilite();
+        this.lvReadout();
+    },
+
+    lvSaveBoxes() {
+        const d = this.el, s = this.lvSeq();
+        if (!s) return;
+        s.steps = [];
+        for (let i = 0; i < 6; i++) s.steps.push({
+            bpm: parseFloat(d.querySelector('#texLvBpm' + i).value) || 60,
+            players: parseFloat(d.querySelector('#texLvPl' + i).value) || 10,
+        });
+        s.jitterMs = parseFloat(d.querySelector('#texLvJit').value) || 0;
+        s.dBpm = parseFloat(d.querySelector('#texLvDb').value) || 0;
+    },
+
+    lvSlot(i) {
+        this.lvSaveBoxes();          // box edits survive a slot round-trip (in memory only)
+        this.lv.slot = i;
+        this.lvDraw();
+    },
+
+    lvHilite() {
+        for (let i = 0; i < 6; i++) {
+            const h = this.el.querySelector('#texLvH' + i);
+            if (h) h.style.cssText = 'text-align:center;border-radius:3px;' +
+                (i === this.lv.step ? 'background:#3F7D5A;color:#fff' : 'color:#9a9');
+        }
+    },
+
+    lvStep(delta) {
+        this.lv.step = (this.lv.step + delta + 6) % 6;
+        this.lvHilite();
+        this.lvReadout();
+    },
+
+    lvParams() {
+        const d = this.el, i = this.lv.step;
+        const num = (id, fb) => { const v = parseFloat(d.querySelector('#' + id).value); return isNaN(v) ? fb : v; };
+        return {
+            bpm: Math.max(1, num('texLvBpm' + i, 60)),
+            players: Math.max(1, Math.min(10, Math.round(num('texLvPl' + i, 10)))),
+            jit: Math.max(0, num('texLvJit', 0)),
+            db: Math.max(0, num('texLvDb', 0)),
+        };
+    },
+
+    // Δ>0 splits the players into two half-groups at bpm∓Δ/2 — the two-stream
+    // structure that IS a gallop. lap = 60/(Δ × players-per-group): tempo does
+    // not move the flutter, player count does.
+    lvSplit(players, bpm, db) {
+        if (!(db > 0) || players < 2) return [{ n: players, bpm: bpm, lane0: 0 }];
+        const nA = Math.ceil(players / 2);
+        return [{ n: nA, bpm: bpm - db / 2, lane0: 0 },
+                { n: players - nA, bpm: bpm + db / 2, lane0: nA }];
+    },
+
+    async lvPlay() {
+        if (this.lv.playing) { this.lvStop(); return; }
+        const bad = this.preflight();
+        if (bad.length) { this.setStatus('PREFLIGHT: ' + bad.join(' · '), true); return; }
+        if (!this.lv.data) this.lvLoad(this.params && this.params.live);
+        E.panic();
+        if (!await E.ensureMidi()) { this.setStatus(E._midiError || 'MIDI unavailable', true); return; }
+
+        const routes = [], missing = {};
+        for (let L = 0; L < 10; L++) {
+            const r = E.routeFor(L, 'staccato');
+            routes.push(r || null);
+            if (!r) {
+                const C = HOST();
+                const inst = C && C.trackInstrument ? C.trackInstrument(L) : null;
+                missing[(inst && inst.port) || ('lane ' + L)] = 1;
+            }
+        }
+        if (!routes.some(Boolean)) {
+            this.setStatus('no MIDI port for ' + Object.keys(missing).join(', ') +
+                ' — is loopMIDI running with those ports open?', true);
+            return;
+        }
+        // CC7 pinned, same contract and same conversion point as play() (D12)
+        routes.forEach(r => { if (r) try { r.out.send([0xB0 | r.ch, 7, 127]); } catch (e) {} });
+
+        const seq = this.lvSeq() || {};
+        const root = seq.root != null ? seq.root : 48;
+        const vel = 95;                       // level 7.5 → velocity
+        const LOOK = 160, NOTE = 120, TICK = 60;
+        const st = { next: [performance.now() + 150, performance.now() + 150], rr: [0, 0] };
+        this.lv.state = st;
+        this.lv.skipped = 0;
+        this.lv.playing = true;
+        E._playing = true;
+        this.lv.tick = setInterval(() => {
+            const now = performance.now();
+            const p = this.lvParams();
+            const groups = this.lvSplit(p.players, p.bpm, p.db);
+            for (let gi = 0; gi < 2; gi++) {
+                const g = groups[gi];
+                // a dormant group's clock rides just ahead of now, so raising Δ
+                // mid-stream starts group B cleanly instead of draining a backlog
+                if (!g) { st.next[gi] = now + LOOK; continue; }
+                const iv = 60000 / (g.n * g.bpm);
+                while (st.next[gi] < now + LOOK) {
+                    const lane = g.lane0 + (st.rr[gi]++ % g.n);
+                    const route = routes[lane];
+                    const at = st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0);
+                    if (route) {
+                        E._timers.push(setTimeout(() => E.noteOn(route, root, vel),
+                            Math.max(0, at - performance.now())));
+                        E._timers.push(setTimeout(() => E.noteOff(route, root),
+                            Math.max(0, at + NOTE - performance.now())));
+                    } else this.lv.skipped++;
+                    st.next[gi] += iv;
+                }
+            }
+        }, TICK);
+        this.el.querySelector('#texLvGo').textContent = 'Stop';
+        this.el.focus();                      // arrows work immediately
+        this.lvReadout();
+    },
+
+    lvStop() {
+        if (this.lv.tick) { clearInterval(this.lv.tick); this.lv.tick = null; }
+        this.lv.playing = false;             // BEFORE panic — the onStop chain checks it
+        if (this.lv.runT) this.lvRun();      // stopping also parks the auto-run
+        E.panic();
+        const b = this.el.querySelector('#texLvGo');
+        if (b) b.textContent = 'Live';
+        this.lvReadout();
+    },
+
+    // auto-run: one step every N seconds, wrapping. Works while stopped too —
+    // it just walks the highlight, which is also how it gets verified silently.
+    lvRun() {
+        const b = this.el.querySelector('#texLvRun');
+        if (this.lv.runT) {
+            clearInterval(this.lv.runT); this.lv.runT = null;
+            if (b) b.textContent = 'Run';
+            return;
+        }
+        const secs = Math.max(1, parseFloat(this.el.querySelector('#texLvSecs').value) || 6);
+        this.lv.runT = setInterval(() => this.lvStep(1), secs * 1000);
+        if (b) b.textContent = '■';
+    },
+
+    lvReadout() {
+        const out = this.el.querySelector('#texLvOut');
+        if (!out || !this.lv.data) return;
+        const p = this.lvParams();
+        const rate = p.players * p.bpm / 60;
+        const seq = this.lvSeq() || {};
+        let s = 'S' + (this.lv.slot + 1) + (seq.name ? ' "' + seq.name + '"' : '') +
+            ' · step ' + (this.lv.step + 1) + '/6 · ' + p.bpm + ' BPM × ' + p.players +
+            ' = <b>' + rate.toFixed(1) + '/s</b>';
+        if (p.db > 0) s += ' · gallop Δ' + p.db + ', lap ~' + (60 / (p.db * Math.ceil(p.players / 2))).toFixed(1) + ' s';
+        else if (p.jit > 0) s += ' · rain ±' + p.jit + ' ms';
+        else s += ' · smear';
+        if (rate > 23) s += ' <span style="color:#e0b062">&#9888; past the ~23/s C3 ring ceiling</span>';
+        if (this.lv.playing) s += ' · <b style="color:#8fd6ab">LIVE</b>';
+        if (this.lv.skipped) s += ' · <span style="color:#e0b062">' + this.lv.skipped + ' skipped (no port)</span>';
+        out.innerHTML = s;
     },
 
     setStatus(msg, bad, html) {
