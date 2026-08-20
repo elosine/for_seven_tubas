@@ -4511,3 +4511,14 @@ at the top: append `{k:'phase',n:2}` / `{k:'chord',n:10}` and re-run.
 **Bug caught by reading the output:** a `ceil(t+epsilon)` beat-snap pushed
 the first insert from 66.8 to 67.2 - an on-grid time must snap to ITSELF,
 not the next beat. Fixed with a round-vs-ceil tolerance test.
+
+**Day 21 — base-chord run re-voiced onto different parts (composer).** Survey
+of `tranceA003b` found 8 base-chord runs; three of them (34.4s x4, 46.0s x7,
+60.8s x15) all sat on the SAME five parts **T1/T3/T5/T7/T9**. The composer
+asked for the 15-chord run at 60.8-66.4 to play on a different five. Moved to
+the disjoint set with a shuffled pitch->part mapping (seed 60815):
+**G1=T2 · A2=T6 · E3=T8 · B3=T4 · F4=T10**. Only the `layer` field changed on
+75 notes; pitches, times, velocities untouched. The 46s run is deliberately
+left as-is so the contrast is audible. Backup taken before the edit (the file
+is untracked). *Note for later: the 34.4s run also shares T1/3/5/7/9 - a third
+distinct voicing there is available on request.*
