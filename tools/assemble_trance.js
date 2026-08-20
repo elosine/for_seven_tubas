@@ -46,6 +46,7 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
                 {frac:3, mode:'transpose', by:1,     label:'B oct',  detail:'A# oct +1'},
                 {frac:2, mode:'set', set:[36,43,50,57,64], label:'5ths C', detail:'C2 G2 D3 A3 E4'},
             ]};
+        if (k==='gap') return {k, tok, beats:+parts[1]};
         if (k==='swells') return {k, tok,
             lens: parts[1] ? parts[1].split('+').map(Number) : [3,3,3,3,3],
             delay: parts[2] ? +parts[2] : 0};
@@ -224,6 +225,11 @@ PLAN.forEach(item => {
     occ[item.tok] = (occ[item.tok] || 0) + 1;
     const rnd = lcg(hashStr(item.tok + '#' + occ[item.tok]));   // this chunk's own dice
     t = nextBeat(t);                          // every insert opens on a beat
+    if (item.k === 'gap') {
+        t += item.beats * BEAT;
+        log.push('gap      +'+item.beats+' beats -> '+t.toFixed(1)+'s');
+        return;
+    }
     if (item.k === 'phase') {
         const s = STEPS[item.n-1];
         const dur = item.dur != null ? item.dur : s.dur;
@@ -319,7 +325,7 @@ PLAN.forEach(item => {
                 {frac:5.2*jit(), set:[38,45,52,59],   label:'5ths D', detail:'D2 A2 E3 B3 (+30%)'},
                 {frac:6*jit(),   set:[41,53,65],      label:'F oct', detail:'doubled'},
             ];
-            item.unison = true;   // composer: one more hit, everyone in unison
+            item.fill = true;     // composer: each part gets its natural extra goes
             // CC7 carries the build (env mode, flat velocity): the velocity ramp
             // audibly changed TIMBRE, not just loudness - 2q evidence, day 21
             item.ramp = { y0: 2.2, y1: 9.5, v0: 100, v1: 100, env: true };
@@ -376,16 +382,39 @@ PLAN.forEach(item => {
         log.push('phasearc '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
                  item.arc.map(p=>p.label).join(' > ')+', '+n+' notes)');
         t = end;
-        if (item.unison && lastPitch != null) {
-            // ONE MORE HIT (composer): as if the last player played once more -
-            // everyone joins in unison on that pitch, one beat long, full level
-            const ut = nextBeat(t);
-            mark(ut, 'UNISON '+NAME(lastPitch), '#C62828', 'all ten, one beat, the last note x10');
-            for (let lane = 0; lane < 10; lane++)
-                note(ut, lane, lastPitch, BEAT, '#C62828', 'UNISON '+NAME(lastPitch),
-                     'asm-phase', 100, null, 9.5, 9.5, true);
-            t = ut + BEAT;
-            log.push('unison   '+ut.toFixed(1)+'s  all ten on '+NAME(lastPitch)+', one beat');
+        if (item.fill) {
+            // FILL OUT THE END (composer, day 21): the arc cut each part off
+            // mid-cycle, so their last attacks land raggedly. Give every part
+            // its NATURAL next attacks (own pace, own phase) as long as they
+            // land at or before the global last onset - plus the single
+            // earliest one that overshoots ('if one lands a little after,
+            // add that one too'). Level = the ramp's top.
+            const s6 = STEPS[item.n-1], T6 = 60/s6.bpm;
+            const startT = end - dur;
+            const finalSet = item.arc[item.arc.length-1].set;
+            const cands = [];
+            for (let lane = 0; lane < 10; lane++) {
+                const phi = ((lane*s6.off)%1)*T6;
+                let k = Math.floor((end - startT - phi)/T6);
+                while (startT + k*T6 + phi < end - 1e-9) k++;   // first UN-emitted
+                for (let q = k; q < k+6; q++) cands.push({lane, at: startT + q*T6 + phi});
+            }
+            cands.sort((a,b)=>a.at-b.at);
+            const within = cands.filter(c=>c.at <= lastAt + 1e-9);
+            const after = cands.filter(c=>c.at > lastAt + 1e-9);
+            const chosen = within.concat(after.slice(0,1));   // + the one just after
+            const filled = {};
+            chosen.forEach(c=>{
+                const pitch = scrambleOct(rnd, finalSet, lastOct[c.lane]);
+                lastOct[c.lane] = pitch;
+                note(c.at, c.lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+'fill '+NAME(pitch),
+                     'asm-phase', 100, null, 9.5, 9.5, !!(item.ramp&&item.ramp.env));
+                filled['T'+(c.lane+1)] = (filled['T'+(c.lane+1)]||0)+1;
+                if (c.at + 0.12 > t) t = c.at + 0.12;
+            });
+            log.push('fill: '+chosen.length+' extra natural hits ('+
+                Object.entries(filled).map(([k,v])=>k+'x'+v).join(' ')+'), last at '+
+                (chosen.length?chosen[chosen.length-1].at.toFixed(2):'-')+'s');
         }
     } else if (item.k === 'swells') {
         // ACCUMULATING SWELLS (composer, day 21): the base chord's notes enter
