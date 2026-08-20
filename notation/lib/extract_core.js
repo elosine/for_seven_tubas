@@ -28,6 +28,12 @@
                        //     than a playable pulse is a fabricated grid, the E1
                        //     false-positive one level down
     BEAT_MIN: 0.3,     // s — countable-beat floor for the subdivision choice
+    // --- 'section1' profile (played material; E1's frame, D43's constraints) ---
+    SEG_K: 2.0,        // split when a gap exceeds SEG_K × the local median IOI…
+    SEG_FLOOR: 0.35,   // …with this absolute floor on the split threshold (s)
+    MINRUN: 6,         // a group below this is residue, not a bar (D43: "a chunk of 3 notes is useless")
+    EPS: 0.02,         // s — per-onset tolerance for a metric fit (THE open ε dial, A1 §8 row 3)
+    UNIT_MAX: 1.0,     // s — no pulse slower than this inside a fitted bar
   };
 
   const PC = { 0: ['C', 0], 1: ['C', 1], 2: ['D', 0], 3: ['D', 1], 4: ['E', 0], 5: ['F', 0], 6: ['F', 1], 7: ['G', 0], 8: ['G', 1], 9: ['A', 0], 10: ['A', 1], 11: ['B', 0] };
@@ -126,8 +132,88 @@
     return { runs, splitters };
   }
 
+  // ---- 'section1' profile: played material (Phase D, slice 2) ----
+  // Segmentation by E1's perceptual-gap rule; per-group least-squares fit
+  // constrained to PLAYABLE units (>= the D43 floor); fit within EPS ->
+  // simple-bar, else the group is proportional RESIDUE (fit-as-data where a
+  // best fit exists but misses tolerance — the A5 pattern). Groups shorter
+  // than MINRUN are residue by definition.
+  function segmentPlayed(items, opt) {
+    const runs = [];
+    const splitters = [];
+    let run = [];
+    const flush = () => { if (run.length) runs.push(run); run = []; };
+    const iois = [];
+    for (const item of items) {
+      if (!STREAM_JOINABLE.has(item.cls)) { flush(); splitters.push(item); continue; }
+      const e = item.ev;
+      if (!run.length) { run.push(e); continue; }
+      const d = e.onset - run[run.length - 1].onset;
+      if (d <= opt.TOL / 2) { splitters.push(item); continue; } // stacked duplicate
+      const recent = iois.slice(-6).sort((a, b) => a - b);
+      const med = recent.length ? recent[Math.floor(recent.length / 2)] : d;
+      const threshold = Math.max(opt.SEG_K * med, opt.SEG_FLOOR);
+      if (d > threshold) { flush(); run.push(e); iois.length = 0; }
+      else { run.push(e); iois.push(d); }
+    }
+    flush();
+    return { runs, splitters };
+  }
+
+  function fitPlayed(evs, opt) {
+    const anchor = evs[0].onset;
+    const rels = evs.map(e => e.onset - anchor);
+    const iois = [];
+    for (let i = 1; i < evs.length; i++) iois.push(evs[i].onset - evs[i - 1].onset);
+    const sorted = iois.slice().sort((a, b) => a - b);
+    const med = sorted[Math.floor(sorted.length / 2)];
+    const cands = new Set();
+    for (const base of [med, sorted[0], sorted[sorted.length - 1]]) {
+      for (let k = 1; k <= 10; k++) {
+        const u = base / k;
+        if (u >= opt.PLAYABLE - 1e-9 && u <= opt.UNIT_MAX + 1e-9) cands.add(+u.toFixed(6));
+      }
+    }
+    let best = null;
+    for (const u0 of cands) {
+      const f = fitUnit(rels, u0, opt.EPS);
+      if (!f || f.u < opt.PLAYABLE - 1e-9 || f.u > opt.UNIT_MAX + 1e-9) continue;
+      if (!best || f.maxErr < best.maxErr - 1e-9 || (Math.abs(f.maxErr - best.maxErr) <= 1e-9 && f.u > best.u)) best = f;
+    }
+    return best; // null => no playable fit within EPS
+  }
+
+  // Claim MAXIMAL fitting sub-runs inside a perceptual group (E1's frame —
+  // one outlier must not condemn the whole segment). Left-to-right: extend
+  // each candidate start as far as a fit survives; claim the longest;
+  // leftovers between claims become proportional residue.
+  function fitSubruns(evs, opt) {
+    const n = evs.length;
+    const claims = [];
+    let i = 0;
+    while (i <= n - opt.MINRUN) {
+      let best = null, fails = 0;
+      for (let j = i + opt.MINRUN - 1; j < n; j++) {
+        const f = fitPlayed(evs.slice(i, j + 1), opt);
+        if (f) { best = { j, f }; fails = 0; }
+        else if (best && ++fails >= 3) break; // adding notes only degrades past here
+      }
+      if (best) { claims.push({ i, j: best.j, fit: best.f }); i = best.j + 1; }
+      else i++;
+    }
+    const leftovers = [];
+    let prev = 0;
+    for (const c of claims) {
+      if (c.i > prev) leftovers.push([prev, c.i]);
+      prev = c.j + 1;
+    }
+    if (prev < n) leftovers.push([prev, n]);
+    return { claims, leftovers };
+  }
+
   function extract(score, params) {
     const opt = Object.assign({}, DEFAULTS, params.options || {});
+    const profile = params.profile || 'trance';
     const { scoreName, window: [w0, w1], parts, id, registry, sampleLengths, date, toolName } = params;
     Classify.assertRegistry(registry);
     const warnings = [];
@@ -169,7 +255,86 @@
       if (!list.length) continue;
       const partChunks = []; // {firstOnset, make(spanEnd) -> chunk}
       const clsOf = new Map(list.map(x => [x.ev.id, x.cls]));
-      const { runs, splitters } = segment(list.map(x => ({ ev: x.ev, cls: x.cls })), opt);
+      const items = list.map(x => ({ ev: x.ev, cls: x.cls }));
+
+      if (profile === 'section1') {
+        // played material: perceptual groups, playable fits, honest residue
+        const seg = segmentPlayed(items, opt);
+        const mkSingle = e => partChunks.push({
+          firstOnset: e.onset,
+          make: end => ({
+            id: 'ch-' + part + '-' + e.source.objectId, part, span: [e.onset, end],
+            class: clsOf.get(e.id), strategy: 'unresolved',
+            events: [e.id], provenance: 'derived',
+          }),
+        });
+        const mkProportional = evsRun => {
+          const srcId = evsRun[0].source.objectId;
+          const anchor = evsRun[0].onset;
+          partChunks.push({
+            firstOnset: anchor,
+            make: end => ({
+              id: 'ch-' + part + '-' + srcId, part, span: [anchor, end], class: 'density-cloud-note',
+              strategy: 'proportional',
+              events: evsRun.map(e => e.id),
+              devices: [{ id: 'dev-' + srcId, kind: 'gc', mode: 'landing', at: anchor, provenance: 'derived' }],
+              provenance: 'derived',
+            }),
+          });
+        };
+        const mkBar = (evsRun, fit) => {
+          const srcId = evsRun[0].source.objectId;
+          const chId = 'ch-' + part + '-' + srcId;
+          const anchor = evsRun[0].onset;
+          const m = Math.max(1, Math.ceil(opt.BEAT_MIN / fit.u - 1e-9));
+          const beat = fit.u * m;
+          evsRun.forEach((e, i) => { e.metric = { chunk: chId, grid: [fit.ns[i]] }; });
+          partChunks.push({
+            firstOnset: anchor,
+            make: end => ({
+              id: chId, part, span: [anchor, end], class: 'density-cloud-note',
+              strategy: 'simple-bar',
+              tempo: {
+                anchorSeconds: anchor, unitSeconds: fit.u, beatSeconds: beat,
+                subdivision: m, maxErrSeconds: fit.maxErr,
+                label: 'unit ' + (fit.u * 1000).toFixed(1) + ' ms · beat ' + beat.toFixed(3) + ' s (' + (60 / beat).toFixed(0) + ' bpm) × ' + m,
+              },
+              events: evsRun.map(e => e.id),
+              groups: [{ id: 'bg-' + srcId, kind: 'beam', events: evsRun.map(e => e.id), provenance: 'derived' }],
+              devices: [{ id: 'dev-' + srcId, kind: 'gc', mode: 'landing', at: anchor, provenance: 'derived' }],
+              provenance: 'derived',
+            }),
+          });
+        };
+        for (const r of seg.runs) {
+          if (r.length === 1) { mkSingle(r[0]); continue; }
+          const { claims, leftovers } = fitSubruns(r, opt);
+          for (const c of claims) mkBar(r.slice(c.i, c.j + 1), c.fit);
+          for (const [a, b] of leftovers) {
+            const piece = r.slice(a, b);
+            if (piece.length === 1) mkSingle(piece[0]);
+            else mkProportional(piece);
+          }
+        }
+        for (const x of seg.splitters) {
+          partChunks.push({
+            firstOnset: x.ev.onset,
+            make: end => ({
+              id: 'ch-' + part + '-' + x.ev.source.objectId, part, span: [x.ev.onset, end],
+              class: x.cls, strategy: 'unresolved',
+              events: [x.ev.id], provenance: 'derived',
+            }),
+          });
+        }
+        partChunks.sort((a, b) => a.firstOnset - b.firstOnset);
+        for (let i = 0; i < partChunks.length; i++) {
+          const end = i + 1 < partChunks.length ? partChunks[i + 1].firstOnset : w1;
+          chunks.push(partChunks[i].make(end));
+        }
+        continue;
+      }
+
+      const { runs, splitters } = segment(items, opt);
       for (const r of runs) {
         if (r.events.length >= 2 && r.unit !== null) {
           const anchor = r.events[0].onset;
@@ -249,5 +414,5 @@
     };
   }
 
-  return { extract, segment, fitUnit, approxGcd, naiveSpell, DEFAULTS };
+  return { extract, segment, segmentPlayed, fitPlayed, fitUnit, approxGcd, naiveSpell, DEFAULTS };
 });

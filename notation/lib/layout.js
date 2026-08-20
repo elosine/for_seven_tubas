@@ -105,7 +105,8 @@
       let prevTempoLabel = null;
       for (const c of chunks) {
         const evs = c.events.map(id => evById.get(id));
-        const isStream = c.class === 'trance-stream' && c.strategy !== 'unresolved';
+        const NOTATED = c.class === 'trance-stream' || c.class === 'density-cloud-note';
+        const isStream = NOTATED && c.strategy !== 'unresolved';
         const metric = isStream && c.strategy === 'simple-bar';
         if (!isStream) {
           for (const e of evs) {

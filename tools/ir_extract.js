@@ -32,10 +32,14 @@ const score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', scoreName + '
 const registry = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'classes.json'), 'utf8'));
 const sampleLengths = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'sample_lengths.json'), 'utf8'));
 
+const profile = arg('profile', 'trance');
+const eps = parseFloat(arg('eps', ''));
+const options = {};
+if (!isNaN(eps)) options.EPS = eps;
 const { doc, warnings } = Extract.extract(score, {
-  scoreName, window: [w0, w1], parts, id, registry, sampleLengths,
+  scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options,
   date: new Date().toISOString().slice(0, 10),
-  toolName: 'tools/ir_extract.js',
+  toolName: 'tools/ir_extract.js (profile ' + profile + (isNaN(eps) ? '' : ', eps ' + eps) + ')',
 });
 
 fs.mkdirSync(path.dirname(path.join(ROOT, out)), { recursive: true });

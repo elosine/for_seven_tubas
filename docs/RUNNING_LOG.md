@@ -3519,3 +3519,36 @@ and on tranceA002f it is honestly plain — no META shapes, no morphs in that
 score); pointed to piece-s23 @ 141 s for the bloom + beating lane. UI note
 recorded: the view switcher may deserve more prominence (tabs, not a
 dropdown) — material-time polish, not now.
+
+## Day 19/20 (2026-08-19/20, night) — D1 RUN: Section 1 extracts — the mixed strategy is REAL, and it corroborates D43
+
+**Composer: "ok good on to D then."** The extractor gains the `section1`
+profile (trance path untouched — golden green): E1's perceptual-gap
+segmentation (SEG_K 2.0 / floor 0.35) · per-group least-squares fits
+constrained to PLAYABLE units (>= 90 ms, D43's floor) · **maximal SUB-RUN
+claiming** — the first cut of this chunk demanded the whole group fit and
+got 3.8 % coverage; one outlier was condemning twenty notes. E1's frame
+claims maximal fitting sub-runs; implemented, coverage went to the real
+number. ε is a CLI dial (`--eps`).
+
+**`cloud02-10track` extracted at BOTH tolerances, both valid
+--against-source --complete:**
+- ε=20 ms: 44 simple bars, **24.0 % of notes on grids**, 182 proportional
+  residue chunks (D43's independent measurement: 26.2 %)
+- ε=30 ms: 88 bars, **53.0 %** (D43: 57.1 %)
+**Two independent implementations of the frame land within ~3 points of
+each other — the E1 experiment and the production extractor corroborate.**
+Independent audit: zero tolerance violations, every fitted unit playable
+(90-224 ms), worst errors exactly at their ε bounds.
+
+**The pipeline's first REAL exercise of its hard cases:** the played fits
+have beat-adjacent pairs, so **64 real beam groups** now exist (the trance
+had zero) — layout beams them, and splice's multi-part stamp-atomic
+scoring holds across every cut (severed = 0 on all pages). Gate:
+`tools/test_extract_played.js` (jittered-unit recovery · outlier isolation
+· gap-split + MINRUN residue · the D43 coverage bands · beams + splice on
+real data · snapshot + prove-red).
+
+**What the composer will decide by EYE (next chunk renders it):** the ε=20
+vs ε=30 comparison — 44 vs 88 bars over the same material — turning A1 §8
+row 3 from an abstract tolerance question into two pictures.
