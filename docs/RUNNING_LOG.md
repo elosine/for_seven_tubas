@@ -3323,3 +3323,34 @@ ANCHORS-COMPOSE assembly proof (notehead → stem root at stemAttachUp →
 flag at stem tip, all by anchor alignment, tip lands exactly 3.5 ss above
 the attach) · committed snapshot + --prove-red. All green; coords + battery
 regressions green. Next: **B4 — layout passes.**
+
+## Day 19 (2026-08-19, late night) — B4 RUN: layout passes; the whole section lays out
+
+**Composer: "b4 go."** `notation/lib/layout.js` — pure, VIEW-INDEPENDENT
+(every item is (t seconds, dxSs, ySs-from-middle); pixels never appear —
+P5). Passes: pitch→bass-staff position (D3 = middle line; unit-tested
+against theory, and the ONE red in the first run was MY test expectation —
+G2 is the bottom LINE, not a space; the code was right) · ledger-line rule ·
+stems by rule (at/above middle → down) with the ported attach anchors ·
+staccato dot OPPOSITE the stem · accidental-on-every-altered-note (atonal,
+no carry) · sub-beat beaming (subdivision ≥ 2: grid-contiguous same-beat
+neighbors beam, uniform direction by majority, horizontal beam line at
+stemLen past the extreme head; loners get 8th flags) · tempo label + GC
+re-anchor tick per chunk (the registry's device fallback, rendered) ·
+fp/cuivre weave-accents tagged as text (v0) · **the PARACHUTE pass as a
+first-class sibling: unresolved chunks render per-event pitch-height
+bricks, zero glyphs.**
+
+**v0 simplifications stated in the module header:** all heads filled +
+stemmed (values beyond sub-beat undistinguished — no open heads, no rests);
+beams only at sub-beat level (quarters don't beam).
+
+**Gate:** `tools/test_layout.js` — staff-math units · REAL-A3-window census
+(19 heads/stems/dots, 4 ledgers = the two B1s, 2 tempo labels, 2 GC ticks,
+0 beams at subdivision 1, stem directions and dot sides checked note by
+note) · synthetic subdivision-2 beaming case (one beam run + two flags,
+beat-boundary split correct) · parachute case (4 bricks, 0 glyphs) ·
+full-section smoke (10 systems, 2000+ items, exactly 5 bricks = the 5
+singles, no warnings) · committed snapshot + --prove-red. Full regression
+green (coords · stamps · golden · battery 36). Next: **B5 — render + the
+page: first pixels.**

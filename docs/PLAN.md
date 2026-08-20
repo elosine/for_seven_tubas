@@ -1627,8 +1627,10 @@ exactly). **PHASE A COMPLETE.** **PHASE B GO (composer, same night):** B0 plan
 grid). **B2 DONE** (coords module, SZ-7 lane-relative ss, snapshot+prove-red) ·
 **B3 DONE** (glyphs ported from piece #2 with provenance; stamps = typed
 boxes with anchors; parity + assembly proof green; rests deliberately
-absent — the IR has no rest nodes). Next: **B4 layout** → B5 page → B6
-splicing.
+absent — the IR has no rest nodes). **B4 DONE** (layout passes: staff math, stems/dots/ledgers/accidentals,
+sub-beat beaming, tempo labels + GC ticks, parachute bricks; A3-window
+census + section smoke + snapshot green). Next: **B5 render + page (first
+pixels)** → B6 splicing.
 
 ## Parking lot
 
