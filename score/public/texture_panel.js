@@ -64,11 +64,17 @@ const PANEL = {
             'background:rgba(28,28,32,0.97)', 'border:1px solid #3F7D5A', 'border-radius:6px',
             'padding:10px 12px', 'color:#ddd', 'font:11px/1.45 system-ui,sans-serif',
             'box-shadow:0 6px 24px rgba(0,0,0,0.5)', 'display:none',
+            // The panel is FIXED, so the page scrollbar can never reach its
+            // bottom — since the LIVE section it can outgrow the viewport, so
+            // it scrolls as a whole (the dials keep their own inner scroll).
+            'max-height:calc(100vh - 112px)', 'overflow-y:auto',
         ].join(';');
         d.innerHTML = [
+            // sticky, so the drag handle stays grabbable while the panel scrolls
             '<div id="texDrag" style="cursor:move;font-weight:600;color:#8fd6ab;',
             'margin:-10px -12px 8px;padding:7px 12px;border-bottom:1px solid #444;',
-            'background:rgba(63,125,90,0.20)">TEXTURE',
+            'position:sticky;top:-10px;z-index:1;',
+            'background:rgb(35,47,44)">TEXTURE',   // the old green tint, opaque (sticky must not show through)
             '<span id="texClose" style="float:right;cursor:pointer;color:#888">&#10005;</span></div>',
             '<div id="texStatus" style="color:#9a9;margin-bottom:7px">idle</div>',
             '<div id="texTabs" style="margin-bottom:6px"></div>',

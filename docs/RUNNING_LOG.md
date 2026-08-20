@@ -4133,3 +4133,14 @@ Texture panel → LIVE section at the bottom: S1–S5 · six bpm/players columns
 jitter and Δbpm boxes · **Live** (stream; ←/→ walk steps, SPACE stops) ·
 **Run** (auto-advance every N s, wraps). If arrows edit a number instead of
 stepping: focus is in a box — click the panel background once.
+
+**2ag follow-up (same sitting) — panel scroll fix, composer-reported.** With
+the LIVE section the fixed-position panel outgrew the viewport; the inner
+dials list scrolled but the panel itself could not, so the bottom (LIVE /
+Insert) was unreachable — a fixed element is outside the page scrollbar's
+reach by construction. Fix: `max-height:calc(100vh - 112px)` +
+`overflow-y:auto` on the panel, drag header made sticky (opaque `rgb(35,47,44)`,
+the old tint solidified so content cannot show through it). Verified in the
+app at a 720 px viewport: panel bottom 704 ≤ 720, content 789 px scrolls in a
+607 px box, Insert reachable after panel scroll, header stays grabbable while
+scrolled, zero console errors.
