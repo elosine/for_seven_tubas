@@ -103230,11 +103230,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103580,11 +103580,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103615,11 +103615,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 A2",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 45,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103650,11 +103650,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103685,11 +103685,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 B3",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 59,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103720,11 +103720,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103755,11 +103755,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 D2",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 38,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103930,11 +103930,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -103965,11 +103965,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 B3",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 59,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104000,11 +104000,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104035,11 +104035,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 A2",
+      "performanceNotes": "PH6 E3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 45,
+      "sonifyNote": 52,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104105,11 +104105,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 B3",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 59,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104140,11 +104140,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104280,11 +104280,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104315,11 +104315,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 E3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 52,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104385,11 +104385,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 B3",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 59,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104455,11 +104455,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104490,11 +104490,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104525,11 +104525,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 D2",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 38,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104595,11 +104595,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 E3",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 52,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104630,11 +104630,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104665,11 +104665,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104735,11 +104735,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 A2",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 45,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104770,11 +104770,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104805,11 +104805,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104840,11 +104840,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104875,11 +104875,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104910,11 +104910,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 E3",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 52,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104945,11 +104945,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 D2",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 38,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -104980,11 +104980,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105050,11 +105050,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105085,11 +105085,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105120,11 +105120,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105155,11 +105155,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105190,11 +105190,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105225,11 +105225,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 E3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 52,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105260,11 +105260,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 A2",
+      "performanceNotes": "PH6 E3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 45,
+      "sonifyNote": 52,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105295,11 +105295,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 E3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 52,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105330,11 +105330,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105400,11 +105400,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105435,11 +105435,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105610,11 +105610,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105645,11 +105645,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105715,11 +105715,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105750,11 +105750,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105785,11 +105785,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 D2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 38,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105820,11 +105820,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105855,11 +105855,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105960,11 +105960,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 A2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 45,
       "technique": "staccato",
       "recVel": 100
     },
@@ -105995,11 +105995,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106065,11 +106065,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106100,11 +106100,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106135,11 +106135,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106170,11 +106170,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106240,11 +106240,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106275,11 +106275,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106310,11 +106310,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 B3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 59,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106345,11 +106345,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106380,11 +106380,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106415,11 +106415,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106450,11 +106450,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106520,11 +106520,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106555,11 +106555,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106590,11 +106590,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106625,11 +106625,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106660,11 +106660,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106695,11 +106695,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106730,11 +106730,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106765,11 +106765,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106800,11 +106800,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106835,11 +106835,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106870,11 +106870,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106905,11 +106905,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106940,11 +106940,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -106975,11 +106975,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107045,11 +107045,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107080,11 +107080,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107115,11 +107115,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107255,11 +107255,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107290,11 +107290,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107325,11 +107325,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107360,11 +107360,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107430,11 +107430,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107570,11 +107570,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107605,11 +107605,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107675,11 +107675,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107710,11 +107710,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107745,11 +107745,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107780,11 +107780,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107815,11 +107815,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107850,11 +107850,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107885,11 +107885,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -107955,11 +107955,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108165,11 +108165,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108200,11 +108200,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108235,11 +108235,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108340,11 +108340,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108375,11 +108375,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108515,11 +108515,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108655,11 +108655,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108690,11 +108690,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108725,11 +108725,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108760,11 +108760,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108865,11 +108865,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108900,11 +108900,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108935,11 +108935,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -108970,11 +108970,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109040,11 +109040,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109075,11 +109075,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109180,11 +109180,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109215,11 +109215,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109250,11 +109250,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109285,11 +109285,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109320,11 +109320,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109355,11 +109355,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109460,11 +109460,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109495,11 +109495,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109530,11 +109530,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109565,11 +109565,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109635,11 +109635,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109670,11 +109670,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109705,11 +109705,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109810,11 +109810,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109880,11 +109880,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109915,11 +109915,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -109985,11 +109985,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110020,11 +110020,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110125,11 +110125,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110160,11 +110160,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110230,11 +110230,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110265,11 +110265,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110370,11 +110370,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110405,11 +110405,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110440,11 +110440,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110510,11 +110510,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110545,11 +110545,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110580,11 +110580,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110615,11 +110615,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110650,11 +110650,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110685,11 +110685,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110790,11 +110790,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110825,11 +110825,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110860,11 +110860,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110930,11 +110930,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -110965,11 +110965,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111000,11 +111000,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111210,11 +111210,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111245,11 +111245,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111280,11 +111280,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111315,11 +111315,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111490,11 +111490,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111525,11 +111525,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111560,11 +111560,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111595,11 +111595,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111630,11 +111630,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111700,11 +111700,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111875,11 +111875,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111945,11 +111945,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -111980,11 +111980,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112015,11 +112015,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112050,11 +112050,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112120,11 +112120,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112155,11 +112155,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112190,11 +112190,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112225,11 +112225,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112260,11 +112260,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112330,11 +112330,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112365,11 +112365,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112470,11 +112470,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112610,11 +112610,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112680,11 +112680,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112715,11 +112715,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112820,11 +112820,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112890,11 +112890,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112925,11 +112925,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -112995,11 +112995,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113065,11 +113065,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113135,11 +113135,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113170,11 +113170,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113240,11 +113240,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113275,11 +113275,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113310,11 +113310,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113345,11 +113345,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113415,11 +113415,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113450,11 +113450,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113520,11 +113520,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113590,11 +113590,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113625,11 +113625,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113660,11 +113660,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113695,11 +113695,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113835,11 +113835,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113870,11 +113870,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113940,11 +113940,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -113975,11 +113975,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114010,11 +114010,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114080,11 +114080,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114150,11 +114150,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114185,11 +114185,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114220,11 +114220,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114290,11 +114290,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114325,11 +114325,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114360,11 +114360,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114395,11 +114395,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114430,11 +114430,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114500,11 +114500,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114535,11 +114535,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114570,11 +114570,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114640,11 +114640,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114675,11 +114675,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114710,11 +114710,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114780,11 +114780,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114815,11 +114815,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114850,11 +114850,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -114990,11 +114990,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115025,11 +115025,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115060,11 +115060,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115095,11 +115095,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115130,11 +115130,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115165,11 +115165,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115200,11 +115200,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115235,11 +115235,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115270,11 +115270,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115305,11 +115305,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115340,11 +115340,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115410,11 +115410,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115445,11 +115445,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115515,11 +115515,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115550,11 +115550,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115585,11 +115585,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F2",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 41,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115620,11 +115620,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115690,11 +115690,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115725,11 +115725,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115830,11 +115830,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F4",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 65,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115865,11 +115865,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F4",
+      "performanceNotes": "PH6 F3",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 53,
       "technique": "staccato",
       "recVel": 100
     },
@@ -115970,11 +115970,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6 F3",
+      "performanceNotes": "PH6 F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 53,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },
@@ -116005,11 +116005,11 @@
       "color": "#3F7D5A",
       "fillMode": "bottom",
       "opacity": 0.55,
-      "performanceNotes": "PH6fill F4",
+      "performanceNotes": "PH6fill F2",
       "properties": {
         "gen": "asm-phase"
       },
-      "sonifyNote": 65,
+      "sonifyNote": 41,
       "technique": "staccato",
       "recVel": 100
     },

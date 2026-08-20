@@ -332,7 +332,7 @@ PLAN.forEach(item => {
             // composer, day 21: crossfaded harmony switches - players cross to
             // the next set ONE AT A TIME across a window that eats into the
             // FOLLOWING part (base keeps its full length)
-            item.xfade = 4;       // seconds per crossfade
+            item.xfade = [4, 5.5];  // per-boundary: base->5ths 4s, 5ths->oct 5.5s
         }
         if (item.arcSpec === 'ps4') {
             const tT = (rnd()*8)|0;                       // fifths chain 30+t
@@ -372,9 +372,10 @@ PLAN.forEach(item => {
         if (item.xfade) {
             sw = [];
             for (let bi = 0; bi < item.arc.length-1; bi++) {
+                const W = Array.isArray(item.xfade) ? item.xfade[bi] : item.xfade;
                 const order = pickLanes(rnd, 10);
                 const times = new Array(10);
-                order.forEach((lane, r) => times[lane] = bounds[bi] + ((r + 0.5)/10) * item.xfade);
+                order.forEach((lane, r) => times[lane] = bounds[bi] + ((r + 0.5)/10) * W);
                 sw.push(times);
             }
         }
