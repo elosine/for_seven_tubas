@@ -4268,3 +4268,33 @@ lap = all 2-group offsets, stopwatch marks -> offsets) + a static Farey
 slate in the batch variants (written dialect carries explicit delays, zero
 code); live plan = ONE new per-step number (offset fraction) on the existing
 two-group split. Awaiting the composer's direction.
+
+**2ag follow-up 8 — THE PHASE LADDER BUILT (composer: "good to go").** Two
+changes to the live rig, both verified in the running app:
+- **Steps are now rows, count follows the file** — a sequence can carry 6 or
+  12+ steps; grid rebuilt per sequence, arrows wrap at the true length,
+  step-count shown in the readout (step N/12).
+- **New per-step number: offset — the ROTOR.** Player j sits at (j x offset)
+  mod 1 of the per-player cycle (60/bpm). offset 0 = legacy even round-robin,
+  byte-for-byte the old path. One number spans the taxonomy: 1/players =
+  even smear · 1/q = q evenly spaced cluster-pulses · q>players rationals =
+  uneven figures · tiny = cascade/decollage · irrational = lumpy never-grid
+  (three-distance theorem: golden gives at most 3 distinct gap sizes,
+  node-verified). Per-player spacing stays 60/bpm at ANY offset, so the BPM
+  cap table is untouched. Scheduling: rotor books whole cycles as they enter
+  the look window, so edits land on the NEXT CYCLE (<= 60/bpm late, vs
+  next-attack in the even path) - documented in-code. dBpm is ignored while
+  offset > 0 (readout says so). Jitter still applies = the blur axis free.
+- **S6 "phase" (rev 10): the first-pass 12-rung ladder**, fixed 108 BPM x 10,
+  simple->complex: 0.1 (even ref) / 0.5 / 1/3 / 0.25 / 0.2 / 0.125 / 0.0625
+  (phrase+rest) / 0.1875 / 0.15 / golden / 0.03 / 0.01 (tightest decollage -
+  mock-up-only precision, the 30-50 ms stage/human floor applies live).
+- **Verified:** 12/12 node assertions on exported rotor math (group counts
+  10/2/3/4/5, 1/16 and golden give 10 distinct, golden <=3 gap sizes, wrap at
+  12) · in-app: panel lands on S6 with 12 rows, readouts correct at rungs 1/
+  2/12 (10 -> 2 -> ~5 onset groups), wrap 12->1, S1 legacy intact (6 rows,
+  smear readout), zero console errors. **Sound unverified as always.**
+- **The workflow agreed (composer's own layout):** part 1 = arrow through S6
+  at own pace, demand finer resolution between any rungs (AI rewrites, boxes
+  follow in ~1 s); part 2 = a dialed 6-step sequence + the stopwatch run;
+  tempo re-enters per step whenever wanted (bpm box sits beside offset).

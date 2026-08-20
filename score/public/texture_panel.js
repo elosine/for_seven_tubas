@@ -114,17 +114,10 @@ const PANEL = {
             // so edits and arrow presses land on the NEXT attack — no restart.
             '<div style="color:#8fd6ab;border-top:1px solid #3a3a44;margin-top:8px;padding-top:6px;font-weight:600">LIVE',
             '<span id="texLvSlots" style="font-weight:400;margin-left:6px"></span></div>',
-            '<div style="display:grid;grid-template-columns:52px repeat(6,1fr);gap:3px;align-items:center;margin-top:5px">',
-            '<span style="color:#9a9">step</span>',
-            [0, 1, 2, 3, 4, 5].map(i =>
-                '<span id="texLvH' + i + '" style="text-align:center;color:#9a9;border-radius:3px">' + (i + 1) + '</span>').join(''),
-            '<span style="color:#9a9">bpm</span>',
-            [0, 1, 2, 3, 4, 5].map(i =>
-                '<input id="texLvBpm' + i + '" type="number" step="1" style="width:100%;box-sizing:border-box;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">').join(''),
-            '<span style="color:#9a9">players</span>',
-            [0, 1, 2, 3, 4, 5].map(i =>
-                '<input id="texLvPl' + i + '" type="number" step="1" min="1" max="10" style="width:100%;box-sizing:border-box;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">').join(''),
-            '</div>',
+            // steps are ROWS (built per-sequence in lvDraw — the count follows
+            // the file, so a first-pass ladder can carry 12+ steps and a dialed
+            // one 6). Columns: # · bpm · players · offset.
+            '<div id="texLvGrid" style="margin-top:5px"></div>',
             '<div style="display:flex;gap:5px;align-items:center;margin-top:5px;color:#9a9">',
             'jitter<input id="texLvJit" type="number" step="5" min="0" value="0" title="ms; 45 = rain" style="width:44px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
             '&Delta;bpm<input id="texLvDb" type="number" step="1" min="0" value="0" title="2 = gallop: two half-groups at bpm&#8723;&Delta;/2" style="width:40px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
@@ -170,8 +163,10 @@ const PANEL = {
         d.querySelector('#texLvRun').addEventListener('click', () => this.lvRun());
         d.querySelector('#texLvZero').addEventListener('click', () => this.lvZero());
         d.querySelector('#texLvCopy').addEventListener('click', () => this.lvCopy());
-        // the scheduler reads the DOM each tick, so inputs only need the readout
-        d.querySelectorAll('#texLvJit,#texLvDb,[id^=texLvBpm],[id^=texLvPl]').forEach(i =>
+        // the scheduler reads the DOM each tick, so inputs only need the readout.
+        // The grid is rebuilt per sequence, so its listener is DELEGATED.
+        d.querySelector('#texLvGrid').addEventListener('input', () => this.lvReadout());
+        d.querySelectorAll('#texLvJit,#texLvDb').forEach(i =>
             i.addEventListener('input', () => this.lvReadout()));
         this.makeDraggable(d, d.querySelector('#texDrag'));
 
@@ -945,11 +940,20 @@ const PANEL = {
             b.addEventListener('click', () => this.lvSlot(i));
             slots.appendChild(b);
         });
-        for (let i = 0; i < 6; i++) {
-            const st = (s.steps || [])[i] || { bpm: 60, players: 10 };
-            d.querySelector('#texLvBpm' + i).value = st.bpm;
-            d.querySelector('#texLvPl' + i).value = st.players;
-        }
+        const steps = s.steps || [];
+        if (this.lv.step >= steps.length) this.lv.step = 0;
+        const grid = d.querySelector('#texLvGrid');
+        const inp = 'style="width:100%;box-sizing:border-box;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px"';
+        grid.style.cssText = 'display:grid;grid-template-columns:24px 1fr 1fr 1fr;gap:3px;align-items:center;margin-top:5px';
+        grid.innerHTML =
+            '<span style="color:#9a9">#</span><span style="color:#9a9">bpm</span>' +
+            '<span style="color:#9a9">players</span><span style="color:#9a9">offset</span>' +
+            steps.map((st, i) =>
+                '<span id="texLvH' + i + '" style="text-align:center;color:#9a9;border-radius:3px">' + (i + 1) + '</span>' +
+                '<input id="texLvBpm' + i + '" type="number" step="1" value="' + (st.bpm != null ? st.bpm : 60) + '" ' + inp + '>' +
+                '<input id="texLvPl' + i + '" type="number" step="1" min="1" max="10" value="' + (st.players != null ? st.players : 10) + '" ' + inp + '>' +
+                '<input id="texLvOff' + i + '" type="number" step="0.01" min="0" max="0.99" value="' + (st.offset || 0) + '" ' + inp + '>'
+            ).join('');
         d.querySelector('#texLvJit').value = s.jitterMs || 0;
         d.querySelector('#texLvDb').value = s.dBpm || 0;
         if (this.lv.data.secsPerStep) d.querySelector('#texLvSecs').value = this.lv.data.secsPerStep;
@@ -960,10 +964,12 @@ const PANEL = {
     lvSaveBoxes() {
         const d = this.el, s = this.lvSeq();
         if (!s) return;
+        const n = (s.steps || []).length;
         s.steps = [];
-        for (let i = 0; i < 6; i++) s.steps.push({
+        for (let i = 0; i < n; i++) s.steps.push({
             bpm: parseFloat(d.querySelector('#texLvBpm' + i).value) || 60,
             players: parseFloat(d.querySelector('#texLvPl' + i).value) || 10,
+            offset: parseFloat(d.querySelector('#texLvOff' + i).value) || 0,
         });
         s.jitterMs = parseFloat(d.querySelector('#texLvJit').value) || 0;
         s.dBpm = parseFloat(d.querySelector('#texLvDb').value) || 0;
@@ -977,15 +983,18 @@ const PANEL = {
     },
 
     lvHilite() {
-        for (let i = 0; i < 6; i++) {
+        if (!this.el) return;
+        for (let i = 0; ; i++) {
             const h = this.el.querySelector('#texLvH' + i);
-            if (h) h.style.cssText = 'text-align:center;border-radius:3px;' +
+            if (!h) break;
+            h.style.cssText = 'text-align:center;border-radius:3px;' +
                 (i === this.lv.step ? 'background:#3F7D5A;color:#fff' : 'color:#9a9');
         }
     },
 
     lvStep(delta) {
-        this.lv.step = (this.lv.step + delta + 6) % 6;
+        const len = ((this.lvSeq() || {}).steps || []).length || 1;
+        this.lv.step = (this.lv.step + delta + len) % len;
         this.lvHilite();
         this.lvReadout();
         if (this.lv.playing) this.lvLog();       // arrows AND auto-run land here
@@ -998,7 +1007,8 @@ const PANEL = {
     lvLogLine(tag) {
         const p = this.lvParams();
         const t = ((performance.now() - this.lv.logT0) / 1000).toFixed(1);
-        const ch = p.db > 0 ? 'gallop d' + p.db : (p.jit > 0 ? 'rain jit' + p.jit : 'smear');
+        const ch = p.off > 0 ? 'offset ' + p.off
+            : p.db > 0 ? 'gallop d' + p.db : (p.jit > 0 ? 'rain jit' + p.jit : 'smear');
         return t.padStart(6) + 's  step ' + (this.lv.step + 1) + '  ' + p.bpm + 'x' + p.players +
             ' = ' + (p.players * p.bpm / 60).toFixed(1) + '/s  ' + ch + (tag ? '  ' + tag : '');
     },
@@ -1032,13 +1042,36 @@ const PANEL = {
 
     lvParams() {
         const d = this.el, i = this.lv.step;
-        const num = (id, fb) => { const v = parseFloat(d.querySelector('#' + id).value); return isNaN(v) ? fb : v; };
+        const num = (id, fb) => {
+            const el = d.querySelector('#' + id);
+            const v = el ? parseFloat(el.value) : NaN;
+            return isNaN(v) ? fb : v;
+        };
         return {
             bpm: Math.max(1, num('texLvBpm' + i, 60)),
             players: Math.max(1, Math.min(10, Math.round(num('texLvPl' + i, 10)))),
             jit: Math.max(0, num('texLvJit', 0)),
             db: Math.max(0, num('texLvDb', 0)),
+            off: Math.max(0, Math.min(0.99, num('texLvOff' + i, 0))),
         };
+    },
+
+    // ROTOR (the phase ladder): player j sits at (j·f mod 1) of the per-player
+    // cycle. One number spans the taxonomy — f=1/players even (smear) · f=1/q
+    // → q evenly spaced cluster-pulses · q>players rationals → uneven figures ·
+    // tiny f → the cascade/decollage · irrational → never-repeating lumpy.
+    // Per-player spacing stays 60/bpm regardless of f, so the BPM cap table is
+    // untouched. offset 0 = OFF (the legacy even round-robin path).
+    lvRotor(players, f) {
+        const out = [];
+        for (let j = 0; j < players; j++) out.push((j * f) % 1);
+        return out;
+    },
+    // orientation only: distinct onset groups per cycle, merged at ~1/48 cycle
+    lvRotorGroups(players, f) {
+        const bins = new Set();
+        this.lvRotor(players, f).forEach(x => bins.add(Math.round(x * 48) % 48));
+        return bins.size;
     },
 
     // Δ>0 splits the players into two half-groups at bpm∓Δ/2 — the two-stream
@@ -1081,14 +1114,39 @@ const PANEL = {
         const root = seq.root != null ? seq.root : 48;
         const vel = 95;                       // level 7.5 → velocity
         const LOOK = 160, NOTE = 120, TICK = 60;
-        const st = { next: [performance.now() + 150, performance.now() + 150], rr: [0, 0] };
+        const st = { next: [performance.now() + 150, performance.now() + 150],
+                     rr: [0, 0], cyc: performance.now() + 150 };
         this.lv.state = st;
         this.lv.skipped = 0;
         this.lv.playing = true;
         E._playing = true;
+        const fire = (route, at) => {
+            if (!route) { this.lv.skipped++; return; }
+            E._timers.push(setTimeout(() => E.noteOn(route, root, vel),
+                Math.max(0, at - performance.now())));
+            E._timers.push(setTimeout(() => E.noteOff(route, root),
+                Math.max(0, at + NOTE - performance.now())));
+        };
         this.lv.tick = setInterval(() => {
             const now = performance.now();
             const p = this.lvParams();
+            if (p.off > 0) {
+                // ROTOR mode — whole cycles are booked as they enter the look
+                // window, so edits land on the NEXT CYCLE (up to 60/bpm late),
+                // not the next attack. Δbpm is ignored while an offset is set.
+                st.next[0] = now + LOOK; st.next[1] = now + LOOK;   // keep the group clocks fresh
+                const T = 60000 / p.bpm;
+                if (st.cyc < now) st.cyc = now + 100;               // stale after a mode switch
+                while (st.cyc < now + LOOK) {
+                    for (let j = 0; j < p.players; j++) {
+                        fire(routes[j], st.cyc + ((j * p.off) % 1) * T +
+                            (p.jit ? (2 * Math.random() - 1) * p.jit : 0));
+                    }
+                    st.cyc += T;
+                }
+                return;
+            }
+            st.cyc = now + LOOK;                                    // keep the rotor clock fresh
             const groups = this.lvSplit(p.players, p.bpm, p.db);
             for (let gi = 0; gi < 2; gi++) {
                 const g = groups[gi];
@@ -1098,14 +1156,7 @@ const PANEL = {
                 const iv = 60000 / (g.n * g.bpm);
                 while (st.next[gi] < now + LOOK) {
                     const lane = g.lane0 + (st.rr[gi]++ % g.n);
-                    const route = routes[lane];
-                    const at = st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0);
-                    if (route) {
-                        E._timers.push(setTimeout(() => E.noteOn(route, root, vel),
-                            Math.max(0, at - performance.now())));
-                        E._timers.push(setTimeout(() => E.noteOff(route, root),
-                            Math.max(0, at + NOTE - performance.now())));
-                    } else this.lv.skipped++;
+                    fire(routes[lane], st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0));
                     st.next[gi] += iv;
                 }
             }
@@ -1142,15 +1193,20 @@ const PANEL = {
     },
 
     lvReadout() {
-        const out = this.el.querySelector('#texLvOut');
+        const out = this.el && this.el.querySelector('#texLvOut');
         if (!out || !this.lv.data) return;
         const p = this.lvParams();
         const rate = p.players * p.bpm / 60;
         const seq = this.lvSeq() || {};
+        const len = ((seq.steps || []).length) || 1;
         let s = 'S' + (this.lv.slot + 1) + (seq.name ? ' "' + seq.name + '"' : '') +
-            ' · step ' + (this.lv.step + 1) + '/6 · ' + p.bpm + ' BPM × ' + p.players +
+            ' · step ' + (this.lv.step + 1) + '/' + len + ' · ' + p.bpm + ' BPM × ' + p.players +
             ' = <b>' + rate.toFixed(1) + '/s</b>';
-        if (p.db > 0) s += ' · gallop Δ' + p.db + ', lap ~' + (60 / (p.db * Math.ceil(p.players / 2))).toFixed(1) + ' s';
+        if (p.off > 0) {
+            s += ' · offset ' + p.off + ' → ≈' + this.lvRotorGroups(p.players, p.off) +
+                ' onset groups/cycle' + (p.db > 0 ? ' <span style="color:#777">(Δ ignored)</span>' : '');
+        }
+        else if (p.db > 0) s += ' · gallop Δ' + p.db + ', lap ~' + (60 / (p.db * Math.ceil(p.players / 2))).toFixed(1) + ' s';
         else if (p.jit > 0) s += ' · rain ±' + p.jit + ' ms';
         else s += ' · smear';
         if (rate > 23) s += ' <span style="color:#e0b062">&#9888; past the ~23/s C3 ring ceiling</span>';
