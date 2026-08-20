@@ -4652,3 +4652,14 @@ mode (no sonifyMode) is the way to make drawn envelopes sound; plain mode
 pins CC7 at 127. tranceA003h updated: PS5 3:4:5 (F oct takes the 5) · swell
 chords doubled (10/6/12/8/16 beats) · PS6 ratios reversed 5:4:3 same harmony
 order, build moved to CC7 (env mode, velocity flat 100). Ends 233.3s.
+
+**Day 21 — THE TRANCE SECTION ENTERS THE PIECE.** `tranceA004-final01`
+(the finished 251.6s trance section, the day's whole assembly arc) inserted
+into `piece-s25-finished01` at the composer's 499.83s - 4.6s after the
+existing material ends at 495.27. All 3325 objects (notes + META markers)
+shifted, re-id'd, and grouped as `grp-tranceA4-01` with a full-span META
+shape (2w convention: drag = move, edge/box = scale) and a TRANCE A4 marker.
+The piece now runs 751.4s = 12.5 minutes of the 15-minute Penn State
+ceiling. Both files backed up to the session scratchpad before the write
+(both untracked - the composer's live files). Verified: no id collisions,
+no time overlap with existing material, group intact.
