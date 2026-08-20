@@ -4466,3 +4466,29 @@ shape without prompting any action: the dwell LENGTHENS as the ladder climbs
 - the composer held the faster, busier steps nearly twice as long as the
 early ones (5.4 -> 10.3 s). Composer: "just hang on to these for now" -
 stored, not rendered.
+
+**Day 21 — FIRST ASSEMBLY of the phase machinery into the piece
+(`scores/tranceA003b.json`, composer-directed).** The file is UNTRACKED
+(composer's live work) so it was BACKED UP to the session scratchpad before
+writing; the assembly is re-runnable (it strips its own `asm-*` objects
+first) and touches nothing of the original 749 notes.
+- **Grid confirmed from the file itself:** 0.4 s onsets = 150 BPM; last
+  existing onset 66.4 (ends 66.6). Next beat after the composer's 66.45 =
+  **66.8**.
+- **PHASE at 66.8-107.6 s (727 notes):** phaseSeq-01 rendered with the
+  composer's OWN PERFORMED step durations (5.4/4.9/5.2/7.1/7.9/10.3),
+  pitched as octaves of ROW 7's first pitch G# -> **32/44/56**, lanes
+  ascending (0-3=G#1, 4-6=G#2, 7-9=G#3). First time a stopwatch performance
+  became score material.
+- **CHORDS at 108.0-162.8 s (625 notes):** patterns P9-P30 from
+  row-fifths-01 (the v5 grouped deal), re-timed onto the 150 grid, one-beat
+  gaps. 108.0 = the next beat AFTER the phase ends at 107.6.
+- **Two ring findings, reported not fixed:** (1) the phase carries **19 ring
+  violations of 727 notes (2.6%), ALL at step seams** - the documented
+  rung-seam class (each step restarts its cycle clock at a fresh phase, so
+  one lane can re-attack ~0.1 s after its previous note). (2) The chord
+  block over-rings on **70% of consecutive pairs** - inherent to pulsing
+  full chords every 0.4 s against 0.41-0.53 s samples. **Context that
+  matters: the composer's own existing trance material in the same file
+  over-rings on 28% of pairs**, so this is a difference of degree on an
+  accepted property of the section, not a new defect class.
