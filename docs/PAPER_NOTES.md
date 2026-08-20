@@ -614,3 +614,16 @@ actual score — D6's reverse-engineering stance applied to notation.
    comparison axis or a trajectory." Both mis-builds produced real findings
    anyway (sd is not speed-invariant; the 18/s references sit near minimum
    character separation) — the wrong shape still measured something true.
+
+4. **The texture dial space is structured as the derivatives of phase**
+   (day 21, from the composer asking "is phase ever a parameter here? we
+   might have missed an essential parameter"): scatter = static phase
+   (position), dBPM = phase velocity (the gallop's lap is a phase wrap),
+   jitter = phase noise. The composer's instinct that phase was missing was
+   half right: the STATISTICAL phase phenomena are fully dialed, but
+   COMPOSED phase (chosen inter-player offsets - 90 = interlocked hocket,
+   180 = aligned-opposite, from the original 2j finding) exists only in the
+   written spec dialect, not on any browsable surface. The taxonomy insight:
+   statistical textures (smear/rain/groove/gallop) vs interlocking
+   structures (hockets, phase-locked pairs) divide exactly along
+   random-vs-composed phase.

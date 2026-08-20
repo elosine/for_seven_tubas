@@ -4225,3 +4225,27 @@ followup 5 missed it by holding line=player fixed. Two versions, calculated:
 Ring constraint note that makes this valid: the ring is per-BODY (one player
 cannot sound two overlapping notes), not per-pitch - so a pitch hopping
 between bodies re-attacks as fast as the ensemble likes.
+
+**2ag follow-up 7 — THE BPM CAP TABLE (composer: "hang on to them and list
+them"), and the phase question.** Rule: per-player bpm < 60/ring(pitch).
+Caps, worst pitch per set: unison C3 143 · cl low 124 · cl mid 122 · m3(F)
+120 · oct F# 117 · cl high/m7(F#)/m4(F#) 115 · cl spread/BbE 2oct/5ths
+30/37/oct Bb/m6(F#)/Bhairav(F)/row 113 · SAFE-FOR-ANYTHING 113 · best single
+pitch (0.33s) 181. Same for all models EXCEPT RAIN: jitter lets adjacent
+per-player attacks close by up to 2x jitter, so cap_rain = 60/(ring+2*jit) -
+at jit 45: ~117 C3, ~96 safe-for-anything (the store's 21/s warning, now as a
+formula). Gallop: faster half-group binds, subtract d/2 (1 BPM at d2).
+Scatter/groove: constant offset, caps unchanged.
+
+**PHASE (composer: "is phase ever a parameter here? we might have missed an
+essential parameter"): not missed - it is the SUBSTRATE. scatter = static
+phase (random draw) · dBPM = phase VELOCITY (gallop = drifting phase, lap =
+wrap) · jitter = phase NOISE. Position/velocity/noise - the dial space is the
+derivatives of phase. Round-robin = phase assignment j/n; the pair-hocket =
+two players at 180. What IS unexposed: COMPOSED phase (chosen offsets - "two
+groups locked at 90", 3 at 120 apart) - engine expresses it via per-voice
+delay/phase in the written dialect, no panel/live dial reaches it. 2j's own
+finding locates the interlocking textures exactly there (90 = hocket, 180 =
+aligned-opposite). Flagged as a small live-rig add WHEN the composer wants to
+browse composed-phase structures by ear. Caps unaffected by any constant
+phase.** (Also filed to PAPER_NOTES - the derivative structure is a keeper.)
