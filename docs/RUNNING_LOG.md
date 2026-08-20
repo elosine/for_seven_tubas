@@ -4544,3 +4544,23 @@ pitch->part mapping, instead of a whole run sitting on one fixed voicing.
   roughly half, on top of its musical purpose.
 - *Still fixed on T1/3/5/7/9: the 34.4 s run (4 chords) - flagged, not
   changed, since the composer named only three sets.*
+
+**Day 21 — 34.4 s base run reshuffled too (composer: "yes do 34.4 too").**
+4 beats re-voiced, seed 3440; over-ring 100% -> 82% (only 11 pairs, so the
+improvement is coarse). All four fixed-voicing base runs are now per-beat
+reshuffled; the rule holds for everything the assembly tool writes.
+
+**Day 21 — composer's question about phase step 1 CONFIRMED BY MEASUREMENT:
+"every part is playing a single tempo, right? just a steady pulse per part."
+YES, exactly.** Measured from the rendered notes: all ten parts pulse at
+**87.0 BPM (0.6897 s between their own attacks)**, dead steady, 7-8 attacks
+each, one pitch per part for the whole segment (T1-4 G#1, T5-7 G#2, T8-10
+G#3). What differs between parts is only their **PHASE**: first onsets run
+66.800 / 66.952 / 66.995 / 67.038 / 67.081 ... spread across the 0.69 s
+cycle by the rotor offset 0.469. This is the phase-shifting model in its
+purest form - one tempo, one pitch per player, difference carried entirely
+by where in the cycle each player sits. **Notation consequence worth
+recording: each part here is a single steady pulse at one tempo, which is
+about as notatable as material gets (contrast the M5 density-apex problem) -
+the difficulty moves entirely to ENTRY TIMING, which is exactly what the GC
+bouncing-ball device is for.**
