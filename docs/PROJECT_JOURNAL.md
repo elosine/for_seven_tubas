@@ -34,6 +34,19 @@ the machinery gets built and refined WHILE BUILDING THE ACTUAL SCORE, with
 requirements harvested as they arise. **When notation resumes: PARTS FIRST**
 — the players' notation — "and this then to be laid out in the study score."
 
+**DAY 20 SECOND SITTING (2026-08-20, Claude Code / Fable 5) — PENN STATE
+DELIVERABLES PREPLANNED, BUILD PLAN DRAWN (ready, NOT started).** Three
+deliverables (MIDI recording · 1920×1080 video · PDF score); decision slate
+PP-1…PP-6 provisionally adopted (two-window container: locked 1080 video
+view + uniform-zoom view, re-cut systems, no horizontal scroll in playback);
+three-tier decision taxonomy (look-defining upfront · content during ·
+polish pass at the end); architecture evaluated — NOT a new build (new:
+transport+cursor, video export via installed ffmpeg, PDF export, engraving
+registry). Docs: `plans/PENN_STATE_DELIVERABLES_PREPLAN.md` +
+`plans/DELIVERABLES_BUILD_PLAN.md` (V0–V5+POL, gates G0–G6) = PLAN 8a.
+**Sequencing: the plan runs AFTER the piece is finished, BEFORE notating.
+Next-up ordering below is UNCHANGED.**
+
 **Next up — START HERE (the composer's own ordering, dictated):**
 1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** ZERO code, set up and waiting:
    `Texture` button; A/B/C = SMEAR / RAIN / GALLOP; the panel polls
