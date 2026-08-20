@@ -1,130 +1,28 @@
 {
-  "_comment": "THE CONVERSATIONAL LOOP - PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. `autoplay` is absent BY DESIGN - sound only ever on the composer SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6 two-sided contract).",
-  "_slate": "rev 4 (2026-08-20, day 21) - THE ACCELERATION LADDERS. EACH VARIANT IS A WHOLE 6-RUNG LADDER that plays as ONE continuous 36 s gesture, not a single texture to compare. Composer: \"at least one of the things I hope to use is this acceleration of speed and density... use the a version and then the b version and then the c version, and I might do that across models.\" So the ladder became the UNIT and the character became the swappable slot. Rungs: 6/9/12/15/18/22 attacks per s (rev 2s rungs, which the composer liked), 6 s each, gap 0. GAP 0 IS LOad-BEARING: the engine defaults spec.gap to 2, which would put 2 s of silence between every rung and destroy the accelerando. Each section emits its own timeline marker (engine :923), so the rungs are LABELLED when inserted. A-D hold one character across all six rungs; E changes character as it climbs; F is the same span as a SMOOTH bpm ramp (bpmEnd) instead of steps, so stepped-vs-continuous is one keypress. To reshape: name the rung and the character - e.g. \"make rung 3 gallop\" or \"rain ladder but stop at 15\". rev 1 (A/B/C refs), rev 2 (smear speed ladder), rev 3 (4x4 character x speed grid) all recoverable from git.",
-  "rev": 4,
-  "active": "A",
+  "_comment": "THE CONVERSATIONAL LOOP — PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN — sound only ever on the composer's SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6's two-sided contract), so the qualitative interface never goes opaque.",
+  "_slate": "rev 2 (2026-08-20, day 21) — THE SPEED LADDER. One character (SMEAR: jitter 0, scatter 0, unison C3), six speeds. ONLY `bpm` moves across A–F; every other dial is identical. This exists because the five stored models CONFOUND character with speed — TICKS is literally SMEAR at 12/s, GROOVE is scatter at 8/s — so 'do the categories sound different' and 'do the speeds sound different' could not be told apart from the model buttons alone. Landing variant is E (18/s), the speed the SMEAR/RAIN/GALLOP references run at, so ← steps DOWN from what the composer just heard. bpm = density x 6 at 10 players. rev 1 (the A/B/C SMEAR/RAIN/GALLOP reference slate) is recoverable from git.",
+  "rev": 2,
+  "active": "E",
   "variants": {
     "A": {
-      "label": "A: SMEAR ladder · 6 rungs 6->22/s, character FIXED (jitter 0, scatter 0); only bpm steps",
+      "label": "A: 6/s · 10 tubas @ 36 BPM — only bpm moved (36 vs E's 108); jitter 0, scatter 0",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-smear",
+        "name": "speed-06",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 6,
-            "label": "1. smear @ 6/s · jitter 0 · scatter 0",
+            "dur": 10,
+            "label": "6 attacks/s — well below TICKS; separate events, plenty of air between them",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 36,
-                "scatter": 0,
-                "jitterMs": 0,
                 "articulation": "staccato",
                 "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "2. smear @ 9/s · jitter 0 · scatter 0",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 54,
                 "scatter": 0,
                 "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "3. smear @ 12/s · jitter 0 · scatter 0",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 72,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "4. smear @ 15/s · jitter 0 · scatter 0",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 90,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "5. smear @ 18/s · jitter 0 · scatter 0",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 108,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "6. smear @ 22/s · jitter 0 · scatter 0",
-            "tag": "smear",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 132,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -137,126 +35,24 @@
       }
     },
     "B": {
-      "label": "B: RAIN ladder · 6 rungs 6->22/s, character FIXED (jitter 45 ms); only bpm steps",
-      "fromModel": "RAIN",
+      "label": "B: 9/s · 10 tubas @ 54 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-rain",
+        "name": "speed-09",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 6,
-            "label": "1. rain @ 6/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 36,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "2. rain @ 9/s · jitter 45 ms",
-            "tag": "rain",
+            "dur": 10,
+            "label": "9 attacks/s — GROOVE's speed, but with no scatter, so no figure",
+            "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 54,
-                "scatter": 0,
-                "jitterMs": 45,
                 "articulation": "staccato",
                 "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "3. rain @ 12/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 72,
                 "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "4. rain @ 15/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 90,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "5. rain @ 18/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 108,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "6. rain @ 22/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 132,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
+                "jitterMs": 0,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -269,204 +65,24 @@
       }
     },
     "C": {
-      "label": "C: GALLOP ladder · 6 rungs 6->22/s, character FIXED (2x5 players, dBPM 2 = 6 s lap); only bpm steps",
-      "fromModel": "GALLOP",
+      "label": "C: 12/s · 10 tubas @ 72 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-gallop",
+        "name": "speed-12",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 6,
-            "label": "1. gallop @ 6/s · 2x5, dBPM 2",
-            "tag": "gallop",
+            "dur": 10,
+            "label": "12 attacks/s — this IS the stored TICKS model exactly; the bottom of the crossover band",
+            "tag": "ticks",
             "voices": [
               {
-                "players": 5,
-                "bpm": 35,
-                "scatter": 0,
-                "jitterMs": 0,
+                "players": 10,
+                "bpm": 72,
                 "articulation": "staccato",
                 "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 37,
                 "scatter": 0,
                 "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "2. gallop @ 9/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 53,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 55,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "3. gallop @ 12/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 71,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 73,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "4. gallop @ 15/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 89,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 91,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "5. gallop @ 18/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 107,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 109,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "6. gallop @ 22/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 131,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 133,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -479,126 +95,24 @@
       }
     },
     "D": {
-      "label": "D: GROOVE ladder · 6 rungs 6->22/s, character FIXED (scatter 0.5); only bpm steps",
-      "fromModel": "GROOVE",
+      "label": "D: 15/s · 10 tubas @ 90 BPM — only bpm moved; jitter 0, scatter 0",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-groove",
+        "name": "speed-15",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 6,
-            "label": "1. groove @ 6/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 36,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "2. groove @ 9/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 54,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "3. groove @ 12/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 72,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "4. groove @ 15/s · scatter 0.5",
-            "tag": "groove",
+            "dur": 10,
+            "label": "15 attacks/s — inside the predicted 12-17/s crossover, where a figure stops being parseable",
+            "tag": "smear",
             "voices": [
               {
                 "players": 10,
                 "bpm": 90,
-                "scatter": 0.5,
-                "jitterMs": 0,
                 "articulation": "staccato",
                 "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "5. groove @ 18/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 108,
-                "scatter": 0.5,
+                "scatter": 0,
                 "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "6. groove @ 22/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 132,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -611,139 +125,24 @@
       }
     },
     "E": {
-      "label": "E: MIXED ladder · BOTH move: figure dissolves into texture as it accelerates - groove groove gallop rain rain smear",
-      "fromModel": "MIXED",
+      "label": "E: 18/s · 10 tubas @ 108 BPM — the reference speed (SMEAR/RAIN/GALLOP all run here)",
+      "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-mixed",
+        "name": "speed-18",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 6,
-            "label": "1. groove @ 6/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 36,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "2. groove @ 9/s · scatter 0.5",
-            "tag": "groove",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 54,
-                "scatter": 0.5,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "3. gallop @ 12/s · 2x5, dBPM 2",
-            "tag": "gallop",
-            "voices": [
-              {
-                "players": 5,
-                "bpm": 71,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              },
-              {
-                "players": 5,
-                "bpm": 73,
-                "scatter": 0,
-                "jitterMs": 0,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "4. rain @ 15/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 90,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "5. rain @ 18/s · jitter 45 ms",
-            "tag": "rain",
-            "voices": [
-              {
-                "players": 10,
-                "bpm": 108,
-                "scatter": 0,
-                "jitterMs": 45,
-                "articulation": "staccato",
-                "notelen": 0.12,
-                "level": 7.5,
-                "pitch": {
-                  "policy": "unison",
-                  "root": 48
-                }
-              }
-            ]
-          },
-          {
-            "dur": 6,
-            "label": "6. smear @ 22/s · jitter 0 · scatter 0",
+            "dur": 10,
+            "label": "18 attacks/s — the stored SMEAR; attacks on the edge of fusing into a tone",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
-                "bpm": 132,
-                "scatter": 0,
-                "jitterMs": 0,
+                "bpm": 108,
                 "articulation": "staccato",
                 "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
@@ -756,27 +155,24 @@
       }
     },
     "F": {
-      "label": "F: SMOOTH accelerando · one 36 s section, bpm ramped 36->132 (6->22/s) continuously; smear character",
+      "label": "F: 22/s · 10 tubas @ 132 BPM — only bpm moved; near the 23.8/s ring ceiling at C3",
       "fromModel": "SMEAR",
       "spec": {
-        "name": "ladder-smooth",
+        "name": "speed-22",
         "seed": 11,
-        "t0": 0,
-        "gap": 0,
         "sections": [
           {
-            "dur": 36,
-            "label": "smooth accel 6->22/s · bpmEnd ramp, no steps",
+            "dur": 10,
+            "label": "22 attacks/s — the top of the ladder; each player re-attacks every 0.455 s against a 0.42 s ring",
             "tag": "smear",
             "voices": [
               {
                 "players": 10,
-                "bpm": 36,
-                "bpmEnd": 132,
-                "scatter": 0,
-                "jitterMs": 0,
+                "bpm": 132,
                 "articulation": "staccato",
                 "notelen": 0.12,
+                "scatter": 0,
+                "jitterMs": 0,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",
