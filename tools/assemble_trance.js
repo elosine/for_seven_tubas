@@ -31,7 +31,7 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
             const it = {k, tok, n:+parts[1]};
             if (parts[2] && parts[2] !== '-') it.dur = +parts[2];
             if (parts[3] && parts[3] !== '-') {
-                if (['fifths','cluFA','sp27','sp30'].indexOf(parts[3]) >= 0) it.set = parts[3];
+                if (['fifths','cluFA','sp27','sp30'].indexOf(parts[3]) >= 0 || /^ga[0-9]+$/.test(parts[3])) it.set = parts[3];
                 else it.pc = PC.indexOf(parts[3]);
             }
             return it;
@@ -69,7 +69,20 @@ const phaseSet = (item, pc) => {
     if (item.set === 'cluFA') return CLU_FA;
     if (item.set === 'sp27') return SPECIES['27'];
     if (item.set === 'sp30') return SPECIES['30'];
+    if (/^ga[0-9]+$/.test(item.set || '')) {
+        const idx = +item.set.slice(2);
+        const w = GA.objects.filter(o=>o.type==='waveCurve' && o.properties && o.properties.idx===idx);
+        const set = [...new Set(w.map(x=>x.sonifyNote))].filter(k=>k>=30&&k<=65).sort((a,b)=>a-b);
+        if (!set.length) throw new Error('ga'+idx+': no pitches found');
+        return set;
+    }
     return octavesOf(pc);
+};
+// label for a ga set = the aud5 marker's own name, condensed ('04 mes6 T2' -> mes6T2)
+const gaLabel = set => {
+    const idx = +set.slice(2);
+    const m = GA.objects.find(o=>o.type==='marker' && new RegExp('^0?'+idx+' ').test(o.label||''));
+    return m ? m.label.replace(/^[0-9]+ /,'').replace(/ /g,'') : set;
 };
 
 // PER-CHUNK SEEDS (composer, day 21 — the facile-permutation fix): every
@@ -188,7 +201,7 @@ PLAN.forEach(item => {
         const end = t + dur;
         const pc = item.pc != null ? item.pc : ROW7[item.n-1]; // insert N -> row 7 pitch N
         const OCT = phaseSet(item, pc);
-        const setName = item.set ? item.set.replace('fifths','5ths') : PC[pc]+' oct';
+        const setName = item.set ? (/^ga/.test(item.set) ? gaLabel(item.set) : item.set.replace('fifths','5ths')) : PC[pc]+' oct';
         mark(t, 'PS'+item.n+' '+setName, '#3F7D5A',
              s.bpm+' BPM · offset '+s.off+' · '+dur+'s · oct '+OCT.map(NAME).join('/'));
         const T = 60/s.bpm;
