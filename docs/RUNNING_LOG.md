@@ -4564,3 +4564,23 @@ recording: each part here is a single steady pulse at one tempo, which is
 about as notatable as material gets (contrast the M5 density-apex problem) -
 the difficulty moves entirely to ENTRY TIMING, which is exactly what the GC
 bouncing-ball device is for.**
+
+**Day 21 — OCTAVE SCRAMBLE in the phase segments (composer), and a CORRECTION
+to the composer's presumption about the multitempo sections.**
+- **Built:** each phase player keeps its single steady tempo (87.0 BPM in
+  step 1) and its single pitch CLASS, but every attack takes a different
+  octave, no immediate repeat (`scrambleOct`, seed 8021, in
+  `tools/assemble_trance.js`). Verified: all 10 parts still 87.0 BPM exactly,
+  pitch class 8 (G#) only, zero immediate repeats, all in 30-65. Rendering
+  rule now stands for every future phase insert.
+- **THE CORRECTION, measured:** the composer presumed *"the multitempo ones
+  are the same - each player plays a single pitch at a steady tempo."*
+  **They do not.** The multitempo sections ALREADY scramble octaves - every
+  player there cycles through all three octaves of the pitch class
+  (T1 G#3,G#1,G#2 · T2 G#2,G#1,G#3 ...). So the behaviour just added to the
+  phase segments is what the multitempo material has been doing all along;
+  the change makes them MORE alike, not less. Also measured while checking:
+  the ~30 s and ~37 s sections genuinely are multi-TEMPO (players at 102.6 /
+  67.1 / 110.5 / 150 / 118.3 BPM etc.), while the **~51 s B section is
+  uniform - all ten players at 80.0 BPM**, so it is a phase/register section
+  rather than a multitempo one despite sitting in the same group.

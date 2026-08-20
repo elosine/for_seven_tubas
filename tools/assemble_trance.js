@@ -30,7 +30,19 @@ const STEPS = [
 // octaves of ROW 7's first pitch (G#, pc 8) inside the staccato window 30-65
 const ROOTPC = 8;
 const OCT = []; for (let k=ROOTPC+24;k<=65;k+=12) if (k>=30) OCT.push(k);
-const laneP = []; for (let x=0;x<10;x++) laneP.push(OCT[Math.floor(x*OCT.length/10)]);
+
+// OCTAVE SCRAMBLE (composer, day 21): in the PHASE segments each player keeps
+// its single steady tempo and single pitch CLASS, but each attack takes a
+// different octave of it — no immediate repeat, so the octave always moves.
+// (The multitempo sections already behave this way; measured 2026-08-20.)
+let OS = 8021 >>> 0;
+const osRnd = () => (OS = (OS * 1664525 + 1013904223) >>> 0) / 4294967296;
+const scrambleOct = prev => {
+    if (OCT.length < 2) return OCT[0];
+    let k;
+    do { k = OCT[(osRnd()*OCT.length)|0]; } while (k === prev);
+    return k;
+};
 
 // PER-BEAT RESHUFFLE (composer, day 21) — the standing rule for every chord
 // set: each beat re-voices the chord onto a fresh random set of parts, rather
@@ -81,11 +93,14 @@ PLAN.forEach(item => {
         mark(t, 'ASM phase step '+item.n+' · '+s.bpm+' BPM · offset '+s.off+' · '+s.dur+'s · oct G# '+OCT.join('/'), '#3F7D5A');
         const T = 60/s.bpm;
         let n = 0;
+        const lastOct = new Array(10).fill(null);      // per-player, for no-repeat
         for (let c = t; c < end - 1e-9; c += T)
             for (let lane=0; lane<10; lane++) {
                 const at = c + ((lane*s.off)%1)*T;
                 if (at >= end - 1e-9) continue;
-                note(at, lane, laneP[lane], 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(laneP[lane]), 'asm-phase', 95);
+                const pitch = scrambleOct(lastOct[lane]);
+                lastOct[lane] = pitch;
+                note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
                 n++;
             }
         log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+s.dur+'s, '+n+' notes)');
