@@ -1503,6 +1503,10 @@ composer → notation → performance architecture.)*
   a dedicated phase panel.
 
 - **2ag — THE LIVE RIG (real-time step-walking in the Texture panel)** —
+  *(Day-21 continuation: the PHASE COMPLEXITY arc — rotor offset parameter,
+  variable step count, the computed complexity ladder, BPM caps,
+  redistribution thresholds. Full process record, wrong turns kept:
+  **`docs/PHASE_COMPLEXITY.md`**.)*
   **`BUILT + VERIFIED IN THE RUNNING APP 2026-08-20 (day 21); the sound loop
   is the composer's`** *(composer, dictated: "I hit play and then arrow keys…
   in real time changes the speed… and I can channel through several variations
