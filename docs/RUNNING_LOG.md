@@ -3896,3 +3896,135 @@ substitute for listening.)*
 
 **Still UNHEARD.** No sound verified this sitting; data and endpoints only.
 `/api/textureparams` re-verified serving rev 3, 16 cells, landing on `Sm18`.
+
+## Day 21 (2026-08-20, third sitting, cont.) — THE LADDER BECOMES THE UNIT; seam collisions found; two earlier metric claims CORRECTED
+
+### THE REFRAME (composer, verbatim)
+
+> *"I was actually hoping to do this per model… whatever model was fixed in
+> there sounded pretty good, and I think I'm gonna use that ladder. But I wanted
+> to hear the other models in that same ladder, and I might swap some out. In
+> other words, at least one of the things I'll use or hope to use is **this
+> acceleration of speed and density**. So use, for example, the a version and
+> then the b version and then the c version, and I might do that across models
+> or have, like, a step-up sequence with different models."*
+
+**This inverts what rev 2/rev 3 assumed.** Both treated a variant as ONE texture
+to be compared against other variants — a comparison slate. The composer is not
+comparing; **the ladder itself is the musical object**, an accelerating build,
+and the character is a *swappable slot inside it*. Also worth recording:
+**rev 2's smear ladder is provisionally KEPT** (*"sounded pretty good… I think
+I'm gonna use that ladder"*) — the first material from 2ad the composer has
+spoken for, though still not banked (no formal verdict, no robustness pass).
+
+The rev-3 grid was therefore the wrong shape, and the composer said so directly.
+Filed as a working lesson: *when the composer asks to "hear X at different Y",
+ask whether Y is a comparison axis or a trajectory.* Rev 3 read it as the first;
+it was the second.
+
+### BUILT: `bank/texture_params.json` rev 4 — SIX LADDERS, each one gesture
+
+Every variant is now a **complete 6-rung ladder that plays as a single
+continuous 36 s gesture**. Rungs 6 / 9 / 12 / 15 / 18 / 22 attacks per s (rev 2's
+rungs, the ones the composer liked), 6 s each.
+
+    A  smear ladder      character fixed, only bpm steps
+    B  rain ladder       character fixed, only bpm steps
+    C  gallop ladder     character fixed, only bpm steps
+    D  groove ladder     character fixed, only bpm steps
+    E  MIXED ladder      groove groove gallop rain rain smear — character
+                         changes AS it accelerates (figure dissolving into texture)
+    F  SMOOTH accel      one 36 s section, bpmEnd ramp 36->132, no steps
+
+**`gap: 0` is load-bearing.** The engine defaults `spec.gap` to **2** (:970), so
+a chained ladder would otherwise carry **2 s of silence between every rung** and
+the accelerando would not exist. Verified contiguous by measurement on all six.
+
+**Free from the engine, nothing built:** each section emits its own timeline
+marker at its `t0` (:923), so the rungs arrive **labelled** when inserted —
+6 markers per ladder, confirmed. And `bpmEnd`/`rampFrom` already give a linear
+ramp inside a section, which is where F comes from; `curves.bpm` would give an
+arbitrary acceleration shape (unused so far).
+
+### MEASURED (node, all six, before handover)
+
+    ladder  span   notes  mk  hard soft  rung densities (attacks/s)
+    A       36.1     495   6     1    0   6.0  9.2 12.0 15.2 18.2 22.0
+    B       36.1     495   6     2    0   6.0  9.2 12.0 15.2 18.2 22.0  + 1 RING
+    C       36.1     498   6     2    0   6.2  9.2 12.2 15.2 18.2 22.2
+    D       35.9     492   6     1    1   5.8  9.3 12.0 15.0 17.8 22.0
+    E       35.9     496   6     1    1   5.8  9.3 12.2 15.2 18.2 22.0
+    F       36.1     504   1     0    0   continuous ramp
+
+All six accelerate **~3.7x** by attack count (first 6 s = 36 attacks -> last 6 s
+= 133). F is 2.82x because a *linear* bpm ramp spends its first 6 s averaging
+well above 6/s — worth knowing if the two are ever compared as equals.
+`B` fires the expected ring flag at the top rung (0.382 s re-attack vs 0.42 s).
+
+### NEW FINDING: RUNG SEAMS PRODUCE HARD COLLISIONS, and they are systematic
+
+Every hard flag in every ladder sits **exactly on a rung boundary**:
+
+    A  hard @ 24.00 s   (rung 4->5 boundary = 24.0)
+    B  hard @ 17.96 s, 23.99 s   (18.0, 24.0)
+    C  hard @ 17.92 s, 23.93 s   (18.0, 24.0)
+    D  hard @ 29.99 s   (30.0)
+    E  hard @ 23.99 s   (24.0)
+
+**Mechanism:** each section starts its own onset series at phase 0, so the last
+attack of rung N and the first attack of rung N+1 can land on the SAME player
+inside the hard threshold. **The engine's 2 s default gap is exactly what hid
+this** — chaining sections contiguously is a case that had never been exercised,
+because nothing before now wanted a seamless multi-section spec.
+
+**Not fixed, deliberately.** It is 1–2 notes out of ~495 (0.2–0.4%), it does not
+block the listening question at all, and the mock-up plays hard conflicts
+perfectly cleanly anyway (2r) so it cannot mislead the ear. But **fixing it is a
+design decision about what happens at a seam** (phase-offset policy, or let the
+2r resolver move the note to a free player), and that is the composer's to make
+once a ladder is actually wanted as material. **Flagged as: the one thing that
+must be settled before any ladder becomes score material.**
+
+### TWO EARLIER CLAIMS FROM THIS SAME SITTING, NOW CORRECTED BY MEASUREMENT
+
+**CORRECTION 1 — the rev-3 claim "GALLOP unevenness is flat at ~0.65, therefore
+speed-invariant" WAS AN ARTIFACT.** In rev 4's ladder the same gallop settings
+measure unevenness **0.02–0.11**, not 0.65. The difference is the **window
+length**: rev 3 used 10 s sections against a 6 s lap (ratio 1.67, constant
+across all four cells), rev 4 uses 6 s sections against the same 6 s lap
+(ratio 1.00). Over exactly one lap the players sweep uniformly through every
+phase, so their mean cycle positions come out evenly spread and unevenness
+collapses. **The "flatness" was flat because the window/lap ratio was held
+constant, not because the character is speed-invariant.**
+
+**Generalisation, and it is the real lesson: `unevenness` is only a valid
+character fingerprint for STATIONARY textures.** Smear, rain and groove are
+stationary — their statistics do not depend on where you put the window. A
+gallop is a *drifting* process by construction, so its unevenness is a function
+of window/lap and is not a property of the texture alone. Any future comparison
+involving gallop must either fix window/lap explicitly or use a different
+statistic.
+
+**CORRECTION 2 — sd/unevenness are MEANINGLESS for a ramped section.** F reads
+sd 26.4 / unev 0.60, which looks like a strongly irregular texture. It is not:
+F is dead-even smear at every instant. The metrics are computed over the whole
+36 s against a single period (`60 / voices[0].bpm`, :968) — so on a ramp they
+measure **the acceleration**, not the character. Reading F's numbers as texture
+statistics would be a straightforward error.
+
+**Both corrections have the same shape as Principle 5** (a check that shares a
+formula with the thing it checks is a mirror): here, a statistic was read
+outside the conditions that make it meaningful. Neither was caught by reading —
+both fell out of rendering the same character under a second set of conditions.
+
+### PANEL DISPLAY CAVEAT (not fixed, zero-code scope held)
+
+The panel's status line reports `r.report[0].metrics` — **rung 1 only** — and a
+density that is the **mean across rungs** (texture_panel.js:343–346). So on a
+ladder the header reads roughly 13.8/s with rung 1's sd/unev, describing nothing
+the composer is actually hearing. The per-rung truth is in the section labels
+and in this log. Noted rather than fixed: 2ad's scope is zero code, and the
+composer is listening rather than reading the header.
+
+**Still UNHEARD.** `/api/textureparams` re-verified serving rev 4, six ladders,
+landing on A. No sound verified.
