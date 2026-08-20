@@ -4298,3 +4298,23 @@ changes to the live rig, both verified in the running app:
   at own pace, demand finer resolution between any rungs (AI rewrites, boxes
   follow in ~1 s); part 2 = a dialed 6-step sequence + the stopwatch run;
   tempo re-enters per step whenever wanted (bpm box sits beside offset).
+
+**2ag follow-up 9 — THE TWO-AXIS FINDING (composer's ear) and the ZONE
+COMPLEXITY LADDER (rev 11).** After listening to rev 10 the composer
+concluded, unprompted: *"it seems to me that it's a combination of offset
+amount and then complexity, ratio complexity... something like point five and
+then whatever complex version that's between point five and point three."*
+**Correct, and it exposed rev 10's confound:** rungs 2-5 walked the AMOUNT
+axis with ratio complexity held simple (all 1/q). The formalization adopted:
+every offset has a ZONE (where it sits) and a DEPTH (how complex its ratio);
+the generator for depth-within-zone is the MEDIANT / Stern-Brocot walk, ~7
+rungs per zone, no matrix. S6 rewritten as the 1/2 -> 1/3 zone walk: 1/2,
+2/5, 3/7, 4/9, 5/12, 7/17, limit sqrt(2)-1 (the zone's noble number).
+Group counts verified with the exported rotor math BEFORE handover:
+2/5/7/9/10/10/10 - pulse fissions into figure into lump; rungs 5-7 share a
+count and differ by GRID (12/17/never), which is exactly the ear question.
+Panel verified on rev 11 (7 rows, correct values, readouts at rungs 1/2/7).
+Verification note: the in-pane panel lagged at rev 10 because BACKGROUND TABS
+THROTTLE setInterval - the pane is hidden so its 1 s poll stalls; the
+composer's visible browser is unaffected. Worth remembering for future pane
+verifications: force refresh(true) rather than waiting on the poll.
