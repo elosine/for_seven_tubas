@@ -41,6 +41,15 @@ for (const key of ['sharp', 'flat', 'natural']) {
     if (a.anchors) accidentals[key].anchors = a.anchors;
   }
 }
+// The flat is vertically ASYMMETRIC: its BULB, not its bbox center, sits on
+// the note's line/space (review measurement: bulb center ~x 0.235, y 0.88 of
+// the glyph box). Sharp/natural are symmetric — bbox center is correct.
+if (accidentals.flat) {
+  accidentals.flat.anchors = Object.assign({}, accidentals.flat.anchors, {
+    noteY: { x: 0.235, y: 0.88 },
+  });
+  accidentals.flat._provenance.note = 'noteY anchor = bulb center, measured in phase-B engraving review 2026-08-19';
+}
 
 const out = {
   _provenance: {

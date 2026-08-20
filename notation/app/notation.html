@@ -69,8 +69,10 @@
   function render() {
     try {
       const paged = $('mode').value === 'pages';
-      const w = Math.max(2, parseFloat($('w').value) || 16);
-      let t0, t1, reshow = [], pageNote = '';
+      const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
+      const w = Math.max(wMin, parseFloat($('w').value) || 16);
+      const secEnd = state.ir.source.window[1];
+      let t0, t1, reshow = [], pageNote = '', ownsEnd;
       if (paged) {
         if (!state.pages || state.pagesW !== w) {
           state.pages = NotationSplice.planPages(state.ir, state.pageRules, w);
@@ -78,9 +80,12 @@
         }
         const p = state.pages[state.pageIdx];
         t0 = p.t0; t1 = p.t1; reshow = p.reshow;
-        pageNote = ' · page ' + (state.pageIdx + 1) + '/' + state.pages.length + ' (' + p.kind + ')';
+        ownsEnd = state.pageIdx === state.pages.length - 1;
+        pageNote = ' · page ' + (state.pageIdx + 1) + '/' + state.pages.length + ' (' + p.kind + ')' +
+          (p.offGrid && p.offGrid.length ? ' · off-grid: ' + p.offGrid.length : '');
       } else {
         t0 = parseFloat($('t0').value) || 0; t1 = t0 + w;
+        ownsEnd = t1 >= secEnd - 1e-9; // boundary events belong to the NEXT window
       }
       const sel = $('parts').value;
       const parts = sel === 'all' ? state.ir.source.parts : [parseInt(sel, 10)];
@@ -91,10 +96,10 @@
         widthPx, heightPx, window: [t0, t1],
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
-      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd });
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
-      $('err').textContent = '';
+      $('err').textContent = (state.model.warnings || []).join('\n');
     } catch (e) { $('err').textContent = String(e.stack || e); }
   }
   for (const id of ['parts', 'mode', 't0', 'w']) $(id).addEventListener('change', render);

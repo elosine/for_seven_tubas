@@ -324,3 +324,13 @@ with capture stubs; the SOUND claim awaits the composer.** If the blip survives
 250 ms of settle, this story is wrong too — then run the `.mid`-vs-live control
 above. Fallback shipped regardless: the panel's **Fade ladder** plays N attack
 lengths in ONE play session, so a press-edge artifact can hit at most rung 1.
+
+- **2026-08-19 (Phase B review): render.js re-implements procedural stamp
+  geometry.** stems/dots/staff lines/ledgers/beams are inline math in the
+  renderer while stamps.js's constructors for the same shapes are exercised
+  only by tools/test_stamps.js — the B3 parity gate tests a mirror of
+  geometry production never runs (piece #2 Principle 29). Minimal fix done
+  (ledger width reads glyphs.json); full fix = route the inline shapes
+  through the stamp constructors. Not now: v0 shapes are trivial and the
+  render snapshot pins them; becomes real when shapes gain complexity
+  (beam slants, double beams) at material time.

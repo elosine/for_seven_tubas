@@ -3,11 +3,10 @@
   "version": "0.1",
   "cutSlackSeconds": 2.0,
   "minPageSeconds": 3.0,
-  "preferences": [
-    "clean chunk boundary (interrupts nothing)",
-    "fewest interrupted chunks; ties break toward the target time",
-    "when a sub-beat (subdivision >= 2) chunk must be interrupted, the cut snaps to ITS beat grid so no beam group is ever split (stamp-atomic)"
+  "_doc_cutPreference": [
+    "candidates are scored: fewest SEVERED beamable pairs across ALL interrupted sub-beat chunks (stamp-atomic; grids in different parts can be incommensurate, so any chunk still left off its grid is RECORDED in the page's offGrid list, never silent) · then fewest interrupted chunks (by MATERIAL extent, not span) · ties toward the target time"
   ],
-  "reshowAtCut": ["clef", "tempoLabelContinuation", "partLabel"],
+  "reshowAtCut": ["tempoLabelContinuation"],
+  "_doc_alwaysShown": "the clef pins to the view's left edge and part labels always draw — render behavior, not rules; only tempoLabelContinuation is rule-gated here",
   "continuationPrefix": "(cont.) "
 }

@@ -3429,3 +3429,54 @@ committed+pushed+logged, parachute live throughout.** Phase gates open:
 B5 first-pixels + B6 phase-end (one review). Next per the roadmap:
 **Phase C — study score v0**, or fold composer feedback from the gate
 first.
+
+## Day 19 (2026-08-19, late night) — Phase B code review: 30 findings, all run-proven; fixes applied
+
+**Three review agents (correctness · engraving conventions · contracts),
+every load-bearing finding PROVEN BY RUNNING code.** All fixed same
+sitting; the regression suite now carries a red case for each. Highlights:
+- **Page-seam double print (must-fix):** an event exactly on a cut inked on
+  BOTH pages (7 of 749 events at pageSeconds 16 — cuts land on onsets BY
+  CONSTRUCTION, since boundary cuts ARE first onsets). Pages are now
+  half-open at the right edge (`ownsEnd`), matching the IR's own [start,
+  end) convention; verified live (window paging no longer duplicates).
+- **Stamp-atomic held for only ONE part (must-fix):** the beat-snap
+  satisfied subBeat[0]'s grid and could sever another part's beam. Cuts are
+  now scored against the BEAMABLE PAIRS of every interrupted sub-beat
+  chunk; any chunk still off-grid is RECORDED on the page (`offGrid`,
+  displayed in the app) — incommensurate grids make perfection impossible,
+  so the residue is loud, never silent. Multi-part proof in the suite
+  (incommensurate 0.25/0.21 grids, zero severed pairs end-to-end).
+- **A doubled onset demoted a whole stream to bricks (must-fix):** d<=0
+  slipped the rebase guards, fitUnit rejected the run, every note fell to a
+  singleton. Same-onset events now sideline as their own chunk; the run
+  survives (red case in the golden tool).
+- **Dead-span "(cont.)" labels:** continuation/interruption now judged by
+  MATERIAL extent, not span (spans run to the next chunk's start by
+  convention) — 9 phantom labels on page 4 gone, and the re-plan actually
+  found a CLEAN cut at 48.8 that the dead spans had been hiding.
+- **Engraving fixes** (reviewer measured coordinates in rendered SVGs):
+  down-stem beams drew on the wrong side of the tip line · staccato dots
+  landed ON staff lines (now space-snapped, Gould) · dots read the
+  pre-beam stem direction (now placed after directions are final) · stems
+  now extend to the middle line for ledgered notes (261 of 749 events
+  live beyond the 3rd ledger) · beamed-group direction = farthest note,
+  ties down (was majority-vote) · flags now mark only OFF-beat notes
+  (57 of 88 flags were on-beat quarters wearing 8th flags) · the flat's
+  BULB, not its bbox center, sits on the note (noteY anchor added).
+- **Authored overlays finally render (contracts reviewer):** spelling
+  overlays APPLY before staff placement (A4's Bb2 now places at -1, not
+  A#2's -1.5), dynamics render below the staff, instructions above, and
+  any unconsumed overlay kind is a loud warning surfaced in the app —
+  silence was the failure mode amendment 1 exists to prevent.
+- **Strategy honesty:** 'proportional' chunks no longer wear simple-bar
+  dress (no beams/flags/bpm label — the residue treatment is OPEN, E0-E3);
+  unchanged tempo labels suppressed; server mount got the trailing-sep
+  containment guard + .md MIME; page_rules dead fields demoted to _doc
+  (P6: only rules that execute); pageSeconds<=0 throws instead of hanging.
+- **Recorded as debt, not fixed (NITS):** the renderer re-implements
+  stem/dot/staff/ledger/beam geometry instead of calling the stamp
+  constructors the B3 parity gate tests — piece #2's P29 mirror smell.
+  Minimal fix applied (ledger width now reads the glyph table); full
+  rerouting queued.
+**Suite after fixes: 7 test tools + battery, all green, all prove-red.**

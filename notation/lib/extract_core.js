@@ -85,6 +85,15 @@
       const e = item.ev;
       if (!run.length) { run.push(e); continue; }
       const d = e.onset - run[run.length - 1].onset;
+      if (d <= opt.TOL) {
+        // (near-)same onset as the previous stream note — a stacked dyad or
+        // coinciding accent. It can never occupy a grid slot of its own
+        // (grids are strictly increasing), and letting it into the run used
+        // to fail the whole fit and demote EVERY note to a parachute brick
+        // (review finding, proven by run). Sideline it; the run survives.
+        splitters.push(item);
+        continue;
+      }
       if (d > opt.GAPMAX) { flush(); run.push(e); continue; }
       if (unit === null) {
         if (d <= opt.MAXUNIT && d > 0) { unit = d; run.push(e); }

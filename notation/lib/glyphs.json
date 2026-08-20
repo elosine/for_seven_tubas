@@ -99,7 +99,14 @@
    "_provenance": {
     "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/accidental_paths.json",
     "ported": "2026-08-20",
-    "by": "tools/port_glyphs.js"
+    "by": "tools/port_glyphs.js",
+    "note": "noteY anchor = bulb center, measured in phase-B engraving review 2026-08-19"
+   },
+   "anchors": {
+    "noteY": {
+     "x": 0.235,
+     "y": 0.88
+    }
    }
   },
   "natural": {

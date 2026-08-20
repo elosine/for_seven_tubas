@@ -32,8 +32,8 @@ eq(n(/<circle /g), 19, '19 staccato dots');
 eq(n(/<polygon /g), 0, 'no beams at subdivision 1');
 // rects: 5 staff lines + 19 stems + 4 ledgers + 2 GC ticks + 1 paper = 31
 eq(n(/<rect /g), 31, 'rect census (staff+stems+ledgers+ticks+paper)');
-// texts: 2 tempo labels + 1 part label + 1 marker read-through = 4
-eq(n(/<text /g), 4, 'text census');
+// texts: 2 tempo + 1 part label + 1 marker + authored instruction + dynamic = 6
+eq(n(/<text /g), 6, 'text census (incl. rendered overlays)');
 ok(svg.includes('base x15'), 'marker read-through rendered');
 ok(!svg.includes('NaN'), 'no NaN leaked into the SVG');
 
@@ -41,6 +41,14 @@ ok(!svg.includes('NaN'), 'no NaN leaked into the SVG');
 const view2 = Coords.makeView({ widthPx: 600, heightPx: 300, window: [58.4, 60.0], systems: Coords.systemsForParts([4]) });
 const svg2 = Render.renderSection(model, view2, G, {});
 ok((svg2.match(/<circle /g) || []).length === 3, 'narrow window shows only its 3 dots');
+
+// page ownership (review fix): an event exactly on the cut belongs to the
+// NEXT page — ownsEnd:false excludes the 60.8 BASE attack, true includes it
+const view3 = Coords.makeView({ widthPx: 600, heightPx: 300, window: [58.4, 60.8], systems: Coords.systemsForParts([4]) });
+const openSvg = Render.renderSection(model, view3, G, { ownsEnd: false });
+const closedSvg = Render.renderSection(model, view3, G, { ownsEnd: true });
+ok((openSvg.match(/<circle /g) || []).length === 4, 'half-open page: boundary attack excluded');
+ok((closedSvg.match(/<circle /g) || []).length === 5, 'final/standalone window: boundary attack included');
 
 // ---- snapshot (svg hash + censuses; the full svg is deterministic) ----
 function snap(perturb) {

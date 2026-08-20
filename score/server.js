@@ -30,7 +30,8 @@ for (const d of [SCORES_DIR, VERSIONS_DIR, MOTIVES_DIR]) {
 const MIME = {
     '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
     '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png',
-    '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi'
+    '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi',
+    '.md': 'text/plain; charset=utf-8'
 };
 
 const safe = name => String(name).replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -931,7 +932,9 @@ const server = http.createServer((req, res) => {
         // registry, schema — Phase B5 (plan DB-1)
         if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
         const filepath = path.normalize(path.join(base, rel));
-        if (!filepath.startsWith(path.normalize(base))) { res.statusCode = 403; return res.end('Forbidden'); }
+        // trailing-separator guard: without it a sibling dir whose name
+        // extends the base (e.g. notation_backup/) would pass startsWith
+        if (!filepath.startsWith(path.normalize(base) + path.sep)) { res.statusCode = 403; return res.end('Forbidden'); }
         if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
             res.setHeader('Content-Type', MIME[path.extname(filepath).toLowerCase()] || 'application/octet-stream');
             // never let the browser cache app code — a stale composer.html

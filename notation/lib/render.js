@@ -29,7 +29,12 @@
     parts.push('<rect x="0" y="0" width="' + view.widthPx + '" height="' + view.heightPx + '" fill="' + o.paper + '"/>');
 
     const [w0, w1] = view.window;
-    const inWin = t => t >= w0 - 1e-9 && t <= w1 + 1e-9;
+    // Page ownership is HALF-OPEN at the right edge (an event exactly on a
+    // cut belongs to the NEXT page — review finding: it inked on both).
+    // The final page of a tiling (or a standalone window) owns its end:
+    // pass opts.ownsEnd = true.
+    const ownsEnd = !opts || opts.ownsEnd !== false;
+    const inWin = t => t >= w0 - 1e-9 && (ownsEnd ? t <= w1 + 1e-9 : t < w1 - 1e-9);
 
     for (const sysModel of model.systems) {
       let sys;
@@ -75,13 +80,16 @@
           parts.push('<circle cx="' + X(it.t, it.dxSs).toFixed(2) + '" cy="' + Y(it.ySs).toFixed(2) + '" r="' + (glyphs.standards.staccatoDot.diameter / 2 * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'ledger') {
           if (!inWin(it.t)) continue;
-          const w = 1.04 * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx;
+          const w = glyphs.notehead.filled.wSs * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx;
           parts.push('<rect x="' + (X(it.t, 0) - w / 2).toFixed(2) + '" y="' + (Y(it.ySs) - stds.ledgerLine.thickness * ssPx / 2).toFixed(2) +
             '" width="' + w.toFixed(2) + '" height="' + (stds.ledgerLine.thickness * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'beam') {
           const tips = it.tips.filter(p => inWin(p.t));
           if (tips.length < 2) continue;
-          const t = stds.beam.thickness * ssPx;
+          // beam thickness extends TOWARD the noteheads: down the page for
+          // up-stems, up the page for down-stems (review finding: down-stem
+          // beams hung beyond the tips)
+          const t = stds.beam.thickness * ssPx * (it.dir === 'down' ? -1 : 1);
           const fwd = tips.map(p => X(p.t, p.dxSs).toFixed(2) + ',' + Y(p.ySs).toFixed(2));
           const back = tips.slice().reverse().map(p => X(p.t, p.dxSs).toFixed(2) + ',' + (Y(p.ySs) + t).toFixed(2));
           parts.push('<polygon points="' + fwd.concat(back).join(' ') + '"/>');

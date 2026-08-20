@@ -82,9 +82,27 @@ for (const g of golden.chunks) {
 if (doc.chunks.length !== golden.chunks.length)
   diffs.push(`chunk count ${doc.chunks.length} != ${golden.chunks.length}`);
 
+// ---- duplicate-onset resilience (phase-review must-fix, proven red before
+// the fix): a doubled onset inside a stream must NOT demote the run ----
+{
+  const objs = [];
+  for (let n = 0; n < 10; n++) objs.push({ id: 'wq-' + n, type: 'waveCurve', layer: 0, startSeconds: n * 0.5, endSeconds: n * 0.5 + 0.2, sonifyNote: 45, technique: 'staccato', nodes: [{}, {}] });
+  objs.push({ id: 'wq-dup', type: 'waveCurve', layer: 0, startSeconds: 2.0, endSeconds: 2.2, sonifyNote: 57, technique: 'staccato', nodes: [{}, {}] });
+  const { doc: d2 } = Extract.extract({ objects: objs }, {
+    scoreName: 'synthetic', window: [0, 6], parts: [0], id: 'dup-check',
+    registry, sampleLengths, date: 'x', toolName: 'golden',
+  });
+  const streams = d2.chunks.filter(c => c.class === 'trance-stream');
+  const gridded = d2.events.filter(e => e.metric).length;
+  if (streams.length !== 1 || gridded !== 10) {
+    diffs.push('duplicate-onset case: expected 1 stream chunk with 10 gridded events, got ' +
+      streams.length + ' streams / ' + gridded + ' gridded (' + d2.chunks.length + ' chunks)');
+  }
+}
+
 if (diffs.length) {
   console.error(`GOLDEN RED — ${diffs.length} difference(s) vs trance-bar-01:`);
   for (const d of diffs) console.error('  · ' + d);
   process.exit(1);
 }
-console.log(`GOLDEN GREEN: extraction reproduces trance-bar-01 (${golden.events.length} events, ${golden.chunks.length} chunks)`);
+console.log(`GOLDEN GREEN: extraction reproduces trance-bar-01 (${golden.events.length} events, ${golden.chunks.length} chunks) + duplicate-onset resilience`);

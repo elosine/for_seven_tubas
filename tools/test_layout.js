@@ -42,7 +42,11 @@ eq(count('glyph'), 19, 0, '19 noteheads, no flags/accidentals (naturals, m=1)');
 eq(count('stem'), 19, 0, '19 stems');
 eq(count('dot'), 19, 0, '19 staccato dots');
 eq(count('beam'), 0, 0, 'no beams at subdivision 1');
-eq(count('text'), 2, 0, 'two tempo labels');
+// texts: 2 tempo labels + the authored overlays now RENDER (review fix):
+// ov-001 instruction + ov-002 dynamic 'p'
+eq(count('text'), 4, 0, 'two tempo labels + instruction + dynamic overlay');
+ok(items.some(i => i.k === 'text' && i.text === 'p' && i.ySs < -4), "authored dynamic 'p' renders below the staff");
+ok(items.some(i => i.k === 'text' && /own pulse/.test(i.text)), 'authored instruction renders');
 eq(count('tick'), 2, 0, 'two GC re-anchor ticks');
 // ledger tally: events are B1,B2,B3,B1 + E3x15. B1 (-4.5) -> ledgers -3,-4
 // (x2 events) = 4; B2 (-1), B3 (+2.5), E3 (+0.5) -> none.
@@ -52,16 +56,23 @@ const stemFor = t => items.find(i => i.k === 'stem' && Math.abs(i.t - t) < 1e-9)
 ok(stemFor(58.4136).attach === 'up', 'B1 stem up');
 ok(stemFor(59.9136).attach === 'down', 'B3 stem down');
 ok(stemFor(60.8).attach === 'down', 'E3 stem down');
-// dot opposite stem: B1 stem up -> dot below (ySs < notehead ySs)
+// ledgered stems extend to the middle line (review fix): B1 stem length
+// max(3.5, 4.5) — tip at or above ss 0
+ok(stemFor(58.4136).yB >= -1e-9, 'B1 stem reaches the middle line');
+// dot opposite stem, snapped to a SPACE (review fix): B1 (-4.5, in space,
+// stem up) -> dot at -5.5; E3 (+0.5, space, stem down) -> +1.5
 const dotAt = t => items.find(i => i.k === 'dot' && Math.abs(i.t - t) < 1e-9);
-ok(dotAt(58.4136).ySs < -4.5, 'B1 dot below head (stem up)');
-ok(dotAt(60.8).ySs > 0.5, 'E3 dot above head (stem down)');
+eq(dotAt(58.4136).ySs, -5.5, 1e-9, 'B1 dot one space below');
+eq(dotAt(60.8).ySs, 1.5, 1e-9, 'E3 dot one space above');
+// on-LINE head reaches 1.5 to the next space center
+eq(Layout.dotYFor(-1, 'up'), -2.5, 1e-9, 'on-line head: dot in next space (never on a line)');
+eq(Layout.dotYFor(-0.5, 'up'), -1.5, 1e-9, 'in-space head: dot in next space');
 
 // ---- beaming at sub-beat level (synthetic m=2 chunk) ----
 const synth = {
   irVersion: '0.1', id: 'synth', source: { score: 'x', window: [0, 4], parts: [0] },
   provenance: { createdBy: 'test', date: 'x' },
-  events: [0, 1, 2, 4].map(n => ({
+  events: [0, 1, 3, 4].map(n => ({
     id: 'ev-n' + n, onset: n * 0.2, duration: 0.1,
     pitch: { midi: 45, spelled: sp('A', 0, 2) }, technique: 'staccato',
     metric: { chunk: 'ch-0-a', grid: [n] }, provenance: 'derived',
@@ -69,17 +80,58 @@ const synth = {
   chunks: [{
     id: 'ch-0-a', part: 0, span: [0, 4], class: 'trance-stream', strategy: 'simple-bar',
     tempo: { anchorSeconds: 0, unitSeconds: 0.2, beatSeconds: 0.4, subdivision: 2, label: 't' },
-    events: ['ev-n0', 'ev-n1', 'ev-n2', 'ev-n4'], provenance: 'derived',
+    events: ['ev-n0', 'ev-n1', 'ev-n3', 'ev-n4'],
+    devices: [{ id: 'dev-a', kind: 'gc', mode: 'landing', at: 0, provenance: 'derived' }],
+    provenance: 'derived',
   }],
   overlays: [],
 };
 const Ls = Layout.layoutSection(synth, G);
 const si = Ls.systems[0].items;
 const beams = si.filter(i => i.k === 'beam');
-eq(beams.length, 1, 0, 'one beam run (n0,n1 share beat 0; n2 alone in beat 1; n4 alone in beat 2)');
+eq(beams.length, 1, 0, 'one beam run (n0,n1 share beat 0; n3/n4 cross a beat boundary)');
 eq(beams[0].tips.length, 2, 0, 'beam covers the two contiguous same-beat notes');
+ok(beams[0].dir === 'up', 'beam item carries its stem direction');
+// flags ONLY on off-beat unbeamed notes (review fix): n3 (odd slot) yes,
+// n4 (on-beat) NO
 const flags = si.filter(i => i.k === 'glyph' && String(i.g).startsWith('flag'));
-eq(flags.length, 2, 0, 'n2 and n4 get 8th flags');
+eq(flags.length, 1, 0, 'only the off-beat lone note gets a flag');
+
+// beamed-group direction: FARTHEST note decides (review fix) — and the dot
+// follows the FINAL direction, not the personal one
+const synthDir = JSON.parse(JSON.stringify(synth));
+synthDir.events = [0, 1].map(n => ({
+  id: 'ev-d' + n, onset: n * 0.2, duration: 0.1,
+  pitch: n === 0 ? { midi: 52, spelled: sp('E', 0, 3) } : { midi: 47, spelled: sp('B', 0, 2) },
+  technique: 'staccato', metric: { chunk: 'ch-0-a', grid: [n] }, provenance: 'derived',
+}));
+synthDir.chunks[0].events = ['ev-d0', 'ev-d1'];
+const Ld = Layout.layoutSection(synthDir, G);
+const di = Ld.systems[0].items;
+// E3 (+0.5) personal down; B2 (-1) is farther -> group stems UP
+ok(di.filter(i => i.k === 'stem').every(i => i.attach === 'up'), 'farthest note (B2) forces group stems up');
+const dDot = di.find(i => i.k === 'dot' && Math.abs(i.t - 0) < 1e-9);
+eq(dDot.ySs, -0.5, 1e-9, "E3's dot follows the FINAL (up) stem: next space below the head");
+
+// proportional strategy renders WITHOUT metric apparatus (review fix)
+const synthProp = JSON.parse(JSON.stringify(synth));
+synthProp.chunks[0].strategy = 'proportional';
+const Lp = Layout.layoutSection(synthProp, G);
+const pi = Lp.systems[0].items;
+ok(pi.filter(i => i.k === 'glyph' && i.g === 'notehead').length === 4, 'proportional: noteheads render');
+ok(pi.filter(i => i.k === 'beam').length === 0, 'proportional: no beams');
+ok(pi.filter(i => i.k === 'glyph' && String(i.g).startsWith('flag')).length === 0, 'proportional: no flags');
+ok(pi.filter(i => i.k === 'text' && /bpm/.test(i.text || '')).length === 0, 'proportional: no bpm label');
+ok(pi.filter(i => i.k === 'tick').length === 1, 'proportional: GC tick stays (re-anchor is real)');
+
+// A4 morph doc: spelling overlays APPLY, instruction renders, nothing silent
+const morph = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'morph-window-01.ir.json'), 'utf8'));
+const Lm = Layout.layoutSection(morph, G);
+ok(Lm.warnings.length === 0, 'A4: all overlays consumed (no silent authored content)');
+const sys2 = Lm.systems.find(s => s.part === 2);
+const brick2 = sys2.items.find(i => i.k === 'brick');
+eq(brick2.ySs, -1, 1e-9, 'A4: respelled Bb2 places at -1 (naive A#2 would be -1.5)');
+ok(Lm.systems.every(s => s.items.some(i => i.k === 'text' && /beating/.test(i.text || ''))), 'A4: gesture-wide instruction on every part');
 
 // ---- parachute: unresolved chunk renders bricks ----
 const fb = JSON.parse(JSON.stringify(synth));
