@@ -3271,3 +3271,23 @@ the section's known pulse structure (0.4 ×22 chunks, 0.75 ×10, the
 multitempo ratio units 1.091/0.667/0.585/0.543/0.507 all present); the 5
 singles are genuinely isolated attacks (4 = the sparse opening canon's
 first entries). Next: **B2 — the coordinate module.**
+
+## Day 19 (2026-08-19, late night) — B2 RUN: the coordinate module
+
+**Composer: "b2 go."** `notation/lib/coords.js` — pure, dual-load, ONE
+module owning every translation (architecture §5): seconds → x per view ·
+lane-fraction → system bands (the meta-structure; `systemsForParts` builds
+the equal-band default) · staff-space inside a system, with **SZ-7 adopted
+structurally: ssPx derives from the band height** (`ssPerSystem` = 12), so
+a resize rescales everything coherently and no absolute-pixel calibration
+can exist to break. +ss goes UP the page (stated once, tested). Pixels
+appear only through a View object and are stored nowhere.
+
+**P8 starts before the first pixel:** `tools/test_coords.js` — unit tests
+(round-trips, band disjointness, orientation, window edges, loud errors) +
+**viewport-invariance test** (doubling the viewport doubles every px value
+and changes no relationship) + a **committed snapshot**
+(`tools/fixtures/coords_snapshot.json`, two view configs, 10-system page
+included) + **`--prove-red`** (Principle 6 built in: a perturbed run must
+fail, and does). All green; battery still 36/36. Next: **B3 — glyph port +
+stamps.**
