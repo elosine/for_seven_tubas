@@ -1,8 +1,8 @@
 {
   "_comment": "THE CONVERSATIONAL LOOP — PLAN 2x §3.3. The AI writes this file and bumps `rev`; the Texture panel polls /api/textureparams once a second and regenerates on a rev change. No websocket, no connection state, survives a page reload. `autoplay` is absent BY DESIGN — sound only ever on the composer's SPACE or Play. Every label must NAME THE DIALS IT MOVED (§6's two-sided contract), so the qualitative interface never goes opaque.",
-  "_slate": "rev 2 (2026-08-20, day 21) — THE SPEED LADDER. One character (SMEAR: jitter 0, scatter 0, unison C3), six speeds. ONLY `bpm` moves across A–F; every other dial is identical. This exists because the five stored models CONFOUND character with speed — TICKS is literally SMEAR at 12/s, GROOVE is scatter at 8/s — so 'do the categories sound different' and 'do the speeds sound different' could not be told apart from the model buttons alone. Landing variant is E (18/s), the speed the SMEAR/RAIN/GALLOP references run at, so ← steps DOWN from what the composer just heard. bpm = density x 6 at 10 players. rev 1 (the A/B/C SMEAR/RAIN/GALLOP reference slate) is recoverable from git.",
-  "rev": 2,
-  "active": "E",
+  "_slate": "rev 5 (2026-08-20, day 21) - rev 2 UNTOUCHED (A-F = the smear tempo ladder the composer kept) + variant G appended: THE ACCRETION STEP-UP, the composer pairing spoken aloud - 4 players at C tempo, 6 at D, 8 at E, 10 at F - as ONE continuous 24 s gesture (6 s per step, gap 0; the engine default gap of 2 would insert silence). Players and tempo climb together, so composite rate goes 4.8 -> 9 -> 14.4 -> 22 per s, steeper than tempo alone. Free-form player browsing needs NO new variant: the panel players field regenerates on edit (resets to the file value on variant switch by design). rev numbering: 3 was the character x speed grid, 4 the six ladder-gestures; both in git.",
+  "rev": 5,
+  "active": "G",
   "variants": {
     "A": {
       "label": "A: 6/s · 10 tubas @ 36 BPM — only bpm moved (36 vs E's 108); jitter 0, scatter 0",
@@ -173,6 +173,98 @@
                 "notelen": 0.12,
                 "scatter": 0,
                 "jitterMs": 0,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "G": {
+      "label": "G: ACCRETION STEP-UP · 4@72 > 6@90 > 8@108 > 10@132 BPM · players AND tempo climb together (4.8 > 9 > 14.4 > 22/s) · smear character throughout",
+      "fromModel": "SMEAR",
+      "spec": {
+        "name": "accretion-cf",
+        "seed": 11,
+        "t0": 0,
+        "gap": 0,
+        "sections": [
+          {
+            "dur": 6,
+            "label": "1. 4 players @ 72 BPM (C tempo) = 4.8/s",
+            "tag": "accrete",
+            "voices": [
+              {
+                "players": 4,
+                "bpm": 72,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          },
+          {
+            "dur": 6,
+            "label": "2. 6 players @ 90 BPM (D tempo) = 9.0/s",
+            "tag": "accrete",
+            "voices": [
+              {
+                "players": 6,
+                "bpm": 90,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          },
+          {
+            "dur": 6,
+            "label": "3. 8 players @ 108 BPM (E tempo) = 14.4/s",
+            "tag": "accrete",
+            "voices": [
+              {
+                "players": 8,
+                "bpm": 108,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
+                "level": 7.5,
+                "pitch": {
+                  "policy": "unison",
+                  "root": 48
+                }
+              }
+            ]
+          },
+          {
+            "dur": 6,
+            "label": "4. 10 players @ 132 BPM (F tempo) = 22.0/s",
+            "tag": "accrete",
+            "voices": [
+              {
+                "players": 10,
+                "bpm": 132,
+                "scatter": 0,
+                "jitterMs": 0,
+                "articulation": "staccato",
+                "notelen": 0.12,
                 "level": 7.5,
                 "pitch": {
                   "policy": "unison",

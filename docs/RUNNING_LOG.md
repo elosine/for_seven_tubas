@@ -4028,3 +4028,46 @@ composer is listening rather than reading the header.
 
 **Still UNHEARD.** `/api/textureparams` re-verified serving rev 4, six ladders,
 landing on A. No sound verified.
+
+## Day 21 (2026-08-20, third sitting, cont.) — reset to rev 2 by request; the ACCRETION axis named; variant G
+
+**Process correction from the composer, and it now governs the loop:** *"let's
+establish what we're talking about before you make any changes, and let's keep
+that pattern going."* Rev 3 (the grid) and rev 4 (the six ladder-gestures) were
+both built from a misread of a spoken request; both are kept in git, neither is
+the working state. Talk-first is the standing rule for 2ad from here.
+
+**The composer's mental model of rev 2 was verified exactly right:** A-F is ONE
+model (smear), single dial (bpm 36->132), nothing else moving. Their question
+"which model - rain or gallop?" -> neither; jitter and scatter are 0 in all six.
+Confirmed also: rev 2 is already at MAX player density (10 tubas every rung),
+and rung F (22/s) sits at ~92% of the 23.8/s unison-C3 ring ceiling - with the
+standing caveat that real pitch sets drop that ceiling to ~19-21/s, so F is
+OVER max once harmonized. The ladder tops out only at unison C3.
+
+**The axis catalog was laid out for discussion** (talk-first): player count ·
+jitter (order->disorder) · scatter (order->figure) · level · pitch width ·
+gallop drift. Key physical distinction on record: tempo and player count both
+raise attacks/s (= players x bpm / 60) but differ in per-player demand - a
+tempo ladder has all ten at 132 BPM by the top; an accretion ladder never asks
+any player to speed up beyond their rung tempo. The composer chose ACCRETION.
+
+**Restored rev 2 verbatim from git (a924060), then rev 5 = rev 2 + variant G:**
+- **A-F untouched** - the smear tempo ladder the composer kept.
+- **G = the accretion step-up, the composer's own pairing dictated:** 4 players
+  at C's tempo (72), 6 at D's (90), 8 at E's (108), 10 at F's (132), 6 s per
+  step, gap 0, one continuous 24 s gesture. Composite climbs 4.8 -> 9.2 ->
+  14.5 -> 22.0/s (measured; steeper than tempo alone because both dials climb).
+- Measured: 303 notes, 4 markers, contiguous, 1 hard @ 12.00 s - the known
+  rung-seam collision class from rev 4, again exactly on a boundary. Same
+  status: does not affect the mock-up audition, must be settled before any
+  ladder becomes score material.
+- Server verified serving rev 5, landing on G.
+
+**Free-form player browsing needed NO build and none was done:** the panel's
+`players` dial field regenerates on edit. Limitation stated to the composer:
+field edits reset to the file's value on variant switch (the anti-leak stamp,
+by design) - so the browse pattern is "pick the tempo rung, then walk the
+player counts," not the reverse.
+
+**Still UNHEARD** - G included. Nothing banked.
