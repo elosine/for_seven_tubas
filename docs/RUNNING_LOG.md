@@ -4584,3 +4584,22 @@ to the composer's presumption about the multitempo sections.**
   67.1 / 110.5 / 150 / 118.3 BPM etc.), while the **~51 s B section is
   uniform - all ten players at 80.0 BPM**, so it is a phase/register section
   rather than a multitempo one despite sitting in the same group.
+
+**Day 21 — `tranceA003c` (composer's next insertion pair).** Two more items on
+the alternation, each opening on the next beat:
+- **phase step 2 · 76.0-80.9 s** — 93.6 BPM, offset 0.384, 4.9 s, **row 7's
+  SECOND pitch D#**, octaves D#2/D#3/D#4 scrambled per player (no immediate
+  repeat). All ten parts verified at exactly 93.6 BPM.
+- **chord P10 · 81.2-82.4 s** — 3 beats `18 base 16`, re-voiced onto fresh
+  parts every beat.
+`003b` keeps its 2-item state (phase 1 + P9); `003c` is the 4-item version.
+**Tool now takes SRC/OUT/PLAN via env** (`ASM_PLAN="phase:1,chord:9"`), and
+because the seeds are consumed in PLAN order a prefix plan reproduces the
+earlier version's material byte-for-byte - which is how 003b was restored
+after a bad write. Phase pitch is now derived from a ROW7 table, so insert N
+automatically takes row 7's Nth pitch.
+**Process slip worth keeping:** a `sed`-style string replacement of the write
+path silently did not match, so the first run wrote the 4-item assembly into
+003b instead of creating 003c. Caught by reading the run output (it printed
+the old filename). *Lesson: when patching a script by string replacement,
+have it PRINT what it wrote - the confirmation line is what caught this.*

@@ -16,7 +16,15 @@ const nextBeat = t => {
     return (Math.abs(q - r) < 1e-6 ? r : Math.ceil(q)) * BEAT;
 };
 
-const PLAN = [ {k:'phase', n:1}, {k:'chord', n:9} ];
+// The running assembly order. Override with ASM_PLAN="phase:1,chord:9" to
+// regenerate an earlier version — the seeds are consumed in PLAN order, so a
+// prefix plan reproduces that version's material exactly.
+const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10')
+    .split(',').map(x => { const [k,n] = x.trim().split(':'); return {k, n:+n}; });
+// SRC = the file the ORIGINAL trance material comes from; OUT = where the
+// assembled version is written. Each new letter is a new version (003b -> 003c).
+const SRC = process.env.ASM_SRC || 'scores/tranceA003b.json';
+const OUT = process.env.ASM_OUT || 'scores/tranceA003c.json';
 
 // phaseSeq-01, as performed (RUNNING_LOG day 21 / params live.saved)
 const STEPS = [
@@ -27,9 +35,10 @@ const STEPS = [
     {bpm:113.4,off:0.2805, dur:7.9},
     {bpm:120,  off:0.1835, dur:10.3},
 ];
-// octaves of ROW 7's first pitch (G#, pc 8) inside the staccato window 30-65
-const ROOTPC = 8;
-const OCT = []; for (let k=ROOTPC+24;k<=65;k+=12) if (k>=30) OCT.push(k);
+// PHASE PITCH: insert N takes ROW 7's Nth pitch, as octaves inside the
+// staccato window 30-65. Row 7 = G# D# G D A E B F# A# F C# G# C.
+const ROW7 = [8,3,7,2,9,4,11,6,10,5,1,8,0];
+const octavesOf = pc => { const o=[]; for(let k=pc;k<=65;k+=12) if(k>=30) o.push(k); return o; };
 
 // OCTAVE SCRAMBLE (composer, day 21): in the PHASE segments each player keeps
 // its single steady tempo and single pitch CLASS, but each attack takes a
@@ -37,10 +46,10 @@ const OCT = []; for (let k=ROOTPC+24;k<=65;k+=12) if (k>=30) OCT.push(k);
 // (The multitempo sections already behave this way; measured 2026-08-20.)
 let OS = 8021 >>> 0;
 const osRnd = () => (OS = (OS * 1664525 + 1013904223) >>> 0) / 4294967296;
-const scrambleOct = prev => {
-    if (OCT.length < 2) return OCT[0];
+const scrambleOct = (oct, prev) => {
+    if (oct.length < 2) return oct[0];
     let k;
-    do { k = OCT[(osRnd()*OCT.length)|0]; } while (k === prev);
+    do { k = oct[(osRnd()*oct.length)|0]; } while (k === prev);
     return k;
 };
 
@@ -62,7 +71,7 @@ for (const n of ['16','03','28','12','18','27'])
     SPECIES[n] = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/VERT01-'+n+'.json'),'utf8'))
         .pitches.filter(k=>k>=30&&k<=65);
 
-const j = JSON.parse(fs.readFileSync(path.join(ROOT,'scores/tranceA003b.json'),'utf8'));
+const j = JSON.parse(fs.readFileSync(path.join(ROOT,SRC),'utf8'));
 // re-runnable: strip only what this script wrote
 j.objects = j.objects.filter(o => !(o.properties && /^asm-/.test(o.properties.gen || ''))
                               && !/^ASM /.test(o.label || ''));
@@ -90,7 +99,10 @@ PLAN.forEach(item => {
     t = nextBeat(t);                          // every insert opens on a beat
     if (item.k === 'phase') {
         const s = STEPS[item.n-1], end = t + s.dur;
-        mark(t, 'ASM phase step '+item.n+' · '+s.bpm+' BPM · offset '+s.off+' · '+s.dur+'s · oct G# '+OCT.join('/'), '#3F7D5A');
+        const pc = ROW7[item.n-1];                     // insert N -> row 7 pitch N
+        const OCT = octavesOf(pc);
+        mark(t, 'ASM phase step '+item.n+' · '+s.bpm+' BPM · offset '+s.off+' · '+s.dur+
+               's · row7 pitch '+item.n+' = '+PC[pc]+' oct '+OCT.map(NAME).join('/'), '#3F7D5A');
         const T = 60/s.bpm;
         let n = 0;
         const lastOct = new Array(10).fill(null);      // per-player, for no-repeat
@@ -98,12 +110,13 @@ PLAN.forEach(item => {
             for (let lane=0; lane<10; lane++) {
                 const at = c + ((lane*s.off)%1)*T;
                 if (at >= end - 1e-9) continue;
-                const pitch = scrambleOct(lastOct[lane]);
+                const pitch = scrambleOct(OCT, lastOct[lane]);
                 lastOct[lane] = pitch;
                 note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
                 n++;
             }
-        log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+s.dur+'s, '+n+' notes)');
+        log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+s.dur+'s, '+
+                 PC[pc]+' oct '+OCT.map(NAME).join('/')+', '+n+' notes)');
         t = end;
     } else {
         const p = patOf(item.n), t0 = t;
@@ -120,7 +133,9 @@ PLAN.forEach(item => {
 });
 mark(t, 'ASM - end -', '#8a8ac0');
 j.nextId = id + 1;
-fs.writeFileSync(path.join(ROOT,'scores/tranceA003b.json'), JSON.stringify(j,null,2)+'\n');
+if (j.metadata) j.metadata.name = path.basename(OUT).replace(/\.json$/,'');
+fs.writeFileSync(path.join(ROOT,OUT), JSON.stringify(j,null,2)+'\n');
+console.log('wrote '+OUT);
 log.forEach(l=>console.log(l));
 const added = j.objects.filter(o=>o.type==='waveCurve' && /^asm-/.test((o.properties||{}).gen||'')).length;
 console.log('added '+added+' notes · score ends '+t.toFixed(1)+'s · original intact: '+
