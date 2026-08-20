@@ -53,7 +53,7 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
         if (k==='phasearc' && parts[1]==='5') return {k, tok, n:5,
             dur: parts[2] ? +parts[2] : 17.78, arcSpec:'ps5'};
         if (k==='phasearc' && parts[1]==='6') return {k, tok, n:6,
-            dur: parts[2] ? +parts[2] : 21, arcSpec:'ps6'};
+            dur: parts[2] ? +parts[2] : 21, rampDur: parts[3] ? +parts[3] : null, arcSpec:'ps6'};
         if (k==='cblocks') return {k, tok, p:+parts[1], b:+parts[2],
             lens: parts[3].split('+').map(Number)};
         if (k==='mt') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10};
@@ -329,6 +329,10 @@ PLAN.forEach(item => {
             // CC7 carries the build (env mode, flat velocity): the velocity ramp
             // audibly changed TIMBRE, not just loudness - 2q evidence, day 21
             item.ramp = { y0: 2.2, y1: 9.5, v0: 100, v1: 100, env: true };
+            // composer, day 21: crossfaded harmony switches - players cross to
+            // the next set ONE AT A TIME across a window that eats into the
+            // FOLLOWING part (base keeps its full length)
+            item.xfade = 4;       // seconds per crossfade
         }
         if (item.arcSpec === 'ps4') {
             const tT = (rnd()*8)|0;                       // fifths chain 30+t
@@ -351,11 +355,29 @@ PLAN.forEach(item => {
         const s = STEPS[item.n-1];
         const dur = item.dur != null ? item.dur : s.dur;
         const end = t + dur;
+        // rampDur < dur = the swell tops out early and HOLDS at full for the
+        // remainder (part boundaries are laid out over rampDur, so the final
+        // part absorbs the held tail)
+        const rampSpan = item.rampDur != null ? item.rampDur : dur;
         const total = item.arc.reduce((a,p)=>a+p.frac,0);
         let acc = 0;
-        const bounds = item.arc.map(p => { acc += p.frac; return t + dur*acc/total; });
+        const bounds = item.arc.map(p => { acc += p.frac; return t + rampSpan*acc/total; });
         item.arc.forEach((p,pi) => mark(pi ? bounds[pi-1] : t,
             'PS'+item.n+' '+p.label, '#3F7D5A', (p.detail||'')+' · '+s.bpm+' BPM · offset '+s.off));
+        if (rampSpan < dur) mark(t + rampSpan, 'PS'+item.n+' hold ff', '#3F7D5A', 'full level to the end');
+        // CROSSFADED SWITCHES: each lane crosses to the next set at its own
+        // moment inside [boundary, boundary+xfade), order randomly drawn —
+        // so the harmony dissolves one player at a time into the next part
+        let sw = null;
+        if (item.xfade) {
+            sw = [];
+            for (let bi = 0; bi < item.arc.length-1; bi++) {
+                const order = pickLanes(rnd, 10);
+                const times = new Array(10);
+                order.forEach((lane, r) => times[lane] = bounds[bi] + ((r + 0.5)/10) * item.xfade);
+                sw.push(times);
+            }
+        }
         const T = 60/s.bpm;
         let n = 0, lastAt = -1, lastPitch = null;
         const lastOct = new Array(10).fill(null);
@@ -363,12 +385,19 @@ PLAN.forEach(item => {
             for (let lane=0; lane<10; lane++) {
                 const at = c + ((lane*s.off)%1)*T;
                 if (at >= end - 1e-9) continue;
-                const pi = bounds.findIndex(b => at < b - 1e-9);
-                const set = item.arc[pi < 0 ? item.arc.length-1 : pi].set;
+                let set;
+                if (sw) {
+                    let idx = 0;
+                    while (idx < sw.length && at >= sw[idx][lane]) idx++;
+                    set = item.arc[idx].set;
+                } else {
+                    const pi = bounds.findIndex(b => at < b - 1e-9);
+                    set = item.arc[pi < 0 ? item.arc.length-1 : pi].set;
+                }
                 const pitch = scrambleOct(rnd, set, lastOct[lane]);
                 lastOct[lane] = pitch;
                 if (item.ramp) {
-                    const pr = Math.max(0, Math.min(1, (at - t) / dur));
+                    const pr = Math.max(0, Math.min(1, (at - t) / rampSpan));
                     const y = item.ramp.y0 + (item.ramp.y1 - item.ramp.y0) * pr;
                     const v = Math.round(item.ramp.v0 + (item.ramp.v1 - item.ramp.v0) * pr);
                     note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase',
