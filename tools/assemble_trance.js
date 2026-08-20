@@ -30,7 +30,10 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
         if (k==='phase') {
             const it = {k, tok, n:+parts[1]};
             if (parts[2] && parts[2] !== '-') it.dur = +parts[2];
-            if (parts[3] && parts[3] !== '-') it.pc = PC.indexOf(parts[3]);
+            if (parts[3] && parts[3] !== '-') {
+                if (['fifths','cluFA','sp27','sp30'].indexOf(parts[3]) >= 0) it.set = parts[3];
+                else it.pc = PC.indexOf(parts[3]);
+            }
             return it;
         }
         const it = {k, tok, n:+parts[1]};
@@ -56,6 +59,18 @@ const STEPS = [
 // staccato window 30-65. Row 7 = G# D# G D A E B F# A# F C# G# C.
 const ROW7 = [8,3,7,2,9,4,11,6,10,5,1,8,0];
 const octavesOf = pc => { const o=[]; for(let k=pc;k<=65;k+=12) if(k>=30) o.push(k); return o; };
+// PHASE PITCH SETS beyond octaves (composer, day 21) - the live rig's presets:
+// fifths = +7 chain from the row pitch's lowest in-range instance; cluFA = the
+// F-A three-octave cluster; spNN = that species' in-window played pitches.
+const CLU_FA = [30,31,33,41,42,44,45,53,55,57];
+const phaseSet = (item, pc) => {
+    if (item.set === 'fifths') { let k = pc; while (k < 30) k += 12;
+        const o = []; for (; k <= 65; k += 7) o.push(k); return o; }
+    if (item.set === 'cluFA') return CLU_FA;
+    if (item.set === 'sp27') return SPECIES['27'];
+    if (item.set === 'sp30') return SPECIES['30'];
+    return octavesOf(pc);
+};
 
 // PER-CHUNK SEEDS (composer, day 21 — the facile-permutation fix): every
 // chunk's dice come from ITS OWN token, so editing chunk 3 cannot re-deal
@@ -91,7 +106,7 @@ const pickLanes = (rnd, n) => {
 
 const BASE = [31,45,52,59,65];
 const SPECIES = {};
-for (const n of ['16','03','28','12','18','27'])
+for (const n of ['16','03','28','12','18','27','30'])
     SPECIES[n] = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/VERT01-'+n+'.json'),'utf8'))
         .pitches.filter(k=>k>=30&&k<=65);
 
@@ -172,8 +187,9 @@ PLAN.forEach(item => {
         const dur = item.dur != null ? item.dur : s.dur;
         const end = t + dur;
         const pc = item.pc != null ? item.pc : ROW7[item.n-1]; // insert N -> row 7 pitch N
-        const OCT = octavesOf(pc);
-        mark(t, 'PS'+item.n+' '+PC[pc]+' oct', '#3F7D5A',
+        const OCT = phaseSet(item, pc);
+        const setName = item.set ? item.set.replace('fifths','5ths') : PC[pc]+' oct';
+        mark(t, 'PS'+item.n+' '+setName, '#3F7D5A',
              s.bpm+' BPM · offset '+s.off+' · '+dur+'s · oct '+OCT.map(NAME).join('/'));
         const T = 60/s.bpm;
         let n = 0;
