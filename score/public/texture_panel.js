@@ -134,6 +134,17 @@ const PANEL = {
             '<option value="octaves">octaves (root pc)</option>',
             '<option value="fifths">fifths stack</option>',
             '<option value="clusterFA">cluster F&ndash;A, octave spread</option>',
+            '</select>',
+            // ORDER — kills the arpeggio-cycling of the ascending lane map.
+            // shuffled: one scramble, each player keeps one note (re-pick the
+            // option to re-deal it). redeal: new scramble every cycle/pass.
+            // random: fresh draw per attack (audition texture; a live part
+            // would redistribute the leaps).
+            'order<select id="texLvOrder" style="width:86px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">',
+            '<option value="ascending">ascending</option>',
+            '<option value="shuffled">shuffled</option>',
+            '<option value="redeal">re-deal</option>',
+            '<option value="random">random</option>',
             '</select></div>',
             '<div id="texLvOut" style="color:#9a9;margin-top:3px">&mdash;</div>',
             // STOPWATCH LOG — every step change while live gets a timestamped
@@ -179,6 +190,10 @@ const PANEL = {
         d.querySelectorAll('#texLvJit,#texLvDb').forEach(i =>
             i.addEventListener('input', () => this.lvReadout()));
         d.querySelector('#texLvPitch').addEventListener('change', () => this.lvReadout());
+        d.querySelector('#texLvOrder').addEventListener('change', () => {
+            if (this.lv.state) this.lv.state.perm = null;   // re-picking shuffled deals fresh
+            this.lvReadout();
+        });
         this.makeDraggable(d, d.querySelector('#texDrag'));
 
         // Keys are scoped to the panel: composer.html has global handlers and a
@@ -968,6 +983,7 @@ const PANEL = {
         d.querySelector('#texLvJit').value = s.jitterMs || 0;
         d.querySelector('#texLvDb').value = s.dBpm || 0;
         d.querySelector('#texLvPitch').value = s.pitchMode || 'unison';
+        d.querySelector('#texLvOrder').value = s.pitchOrder || 'ascending';
         if (this.lv.data.secsPerStep) d.querySelector('#texLvSecs').value = this.lv.data.secsPerStep;
         this.lvHilite();
         this.lvReadout();
@@ -986,6 +1002,7 @@ const PANEL = {
         s.jitterMs = parseFloat(d.querySelector('#texLvJit').value) || 0;
         s.dBpm = parseFloat(d.querySelector('#texLvDb').value) || 0;
         s.pitchMode = (d.querySelector('#texLvPitch') || {}).value || 'unison';
+        s.pitchOrder = (d.querySelector('#texLvOrder') || {}).value || 'ascending';
     },
 
     lvSlot(i) {
@@ -1067,7 +1084,18 @@ const PANEL = {
             db: Math.max(0, num('texLvDb', 0)),
             off: Math.max(0, Math.min(0.99, num('texLvOff' + i, 0))),
             pitchMode: (d.querySelector('#texLvPitch') || {}).value || 'unison',
+            order: (d.querySelector('#texLvOrder') || {}).value || 'ascending',
         };
+    },
+
+    lvShuffle(n) {
+        const a = [];
+        for (let i = 0; i < n; i++) a.push(i);
+        for (let i = n - 1; i > 0; i--) {
+            const k = (Math.random() * (i + 1)) | 0;
+            const t = a[i]; a[i] = a[k]; a[k] = t;
+        }
+        return a;
     },
 
     // PITCH PRESETS — lane j gets pitches(mode)[j], ascending across the stage.
@@ -1153,7 +1181,7 @@ const PANEL = {
         const vel = 95;                       // level 7.5 → velocity
         const LOOK = 160, NOTE = 120, TICK = 60;
         const st = { next: [performance.now() + 150, performance.now() + 150],
-                     rr: [0, 0], cyc: performance.now() + 150 };
+                     rr: [0, 0], cyc: performance.now() + 150, perm: null, dealt: 0 };
         this.lv.state = st;
         this.lv.skipped = 0;
         this.lv.playing = true;
@@ -1170,6 +1198,20 @@ const PANEL = {
             const now = performance.now();
             const p = this.lvParams();
             const laneP = this.lvPitches(p.pitchMode, p.players, root);
+            // pitch ORDER: which note a lane sounds. Permutation state lives in
+            // st so a mid-play order change (or re-pick) deals fresh.
+            const pick = (lane) => {
+                if (p.order === 'random') return laneP[(Math.random() * p.players) | 0];
+                if (p.order === 'shuffled' || p.order === 'redeal') {
+                    if (!st.perm || st.perm.length !== p.players) st.perm = this.lvShuffle(p.players);
+                    return laneP[st.perm[lane]];
+                }
+                return laneP[lane];
+            };
+            const dealt = () => {                 // redeal: fresh permutation each full pass
+                if (p.order !== 'redeal') return;
+                if (++st.dealt >= p.players) { st.perm = this.lvShuffle(p.players); st.dealt = 0; }
+            };
             if (p.off > 0) {
                 // ROTOR mode — whole cycles are booked as they enter the look
                 // window, so edits land on the NEXT CYCLE (up to 60/bpm late),
@@ -1180,7 +1222,8 @@ const PANEL = {
                 while (st.cyc < now + LOOK) {
                     for (let j = 0; j < p.players; j++) {
                         fire(routes[j], st.cyc + ((j * p.off) % 1) * T +
-                            (p.jit ? (2 * Math.random() - 1) * p.jit : 0), laneP[j]);
+                            (p.jit ? (2 * Math.random() - 1) * p.jit : 0), pick(j));
+                        dealt();
                     }
                     st.cyc += T;
                 }
@@ -1196,7 +1239,8 @@ const PANEL = {
                 const iv = 60000 / (g.n * g.bpm);
                 while (st.next[gi] < now + LOOK) {
                     const lane = g.lane0 + (st.rr[gi]++ % g.n);
-                    fire(routes[lane], st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0), laneP[lane]);
+                    fire(routes[lane], st.next[gi] + (p.jit ? (2 * Math.random() - 1) * p.jit : 0), pick(lane));
+                    dealt();
                     st.next[gi] += iv;
                 }
             }
@@ -1252,6 +1296,7 @@ const PANEL = {
         // per-preset per-player caps (measured 2026-08-20; unison = C3)
         const CAPS = { unison: 142, octaves: 125, fifths: 122, clusterFA: 117 };
         if (p.pitchMode !== 'unison') s += ' · ' + p.pitchMode;
+        if (p.order !== 'ascending' && p.pitchMode !== 'unison') s += ' (' + p.order + ')';
         const cap = CAPS[p.pitchMode] || 142;
         if (p.bpm > cap) s += ' <span style="color:#e0b062">&#9888; over the ' + cap +
             ' BPM ring cap for this pitch set</span>';

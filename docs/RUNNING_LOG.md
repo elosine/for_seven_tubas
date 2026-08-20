@@ -4421,3 +4421,14 @@ in-app: try1's 120-BPM top step correctly flags over the 117 clusterFA cap
 (the mock-up plays it cleanly; the hall would not). 11/11 node assertions on
 lvPitches (windows, pc sets, spans, ascending); zero console errors; sound
 unverified as always.
+
+**2ag follow-up 18 — pitch ORDER dropdown (composer heard the cycling:
+ascending lane map + round-robin = a repeating arpeggio).** Four orders:
+ascending (as before) · shuffled (one scramble, each player keeps one note;
+re-picking the option deals fresh) · re-deal (new scramble every full pass /
+cycle) · random (fresh draw per attack - audition texture; a live part would
+redistribute the leaps). Permutation state lives in the play state so
+mid-play changes deal fresh; random draws from the lane distribution so the
+low-thicker weighting survives. 21/21 node assertions (permutation validity
++ variability); readout shows the order; verified in-app, zero console
+errors. Persisted per sequence as pitchOrder.
