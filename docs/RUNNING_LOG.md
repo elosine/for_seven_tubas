@@ -4603,3 +4603,19 @@ path silently did not match, so the first run wrote the 4-item assembly into
 003b instead of creating 003c. Caught by reading the run output (it printed
 the old filename). *Lesson: when patching a script by string replacement,
 have it PRINT what it wrote - the confirmation line is what caught this.*
+
+**Day 21 — PERMUTATION MACHINERY complete (composer: "make the swaps facile").**
+Three changes to `tools/assemble_trance.js`:
+- **Per-chunk seeds** — each chunk's dice derive from its own plan token (+
+  occurrence for literal repeats), so editing one chunk cannot re-deal any
+  other. PROVEN: shortened P10 from 3 blasts to 2 mid-plan; all 8 other
+  chunks came out identical in content (counts, pitch/lane sequences,
+  relative times to 0.000 ms) while shifting earlier in time. (First
+  comparison falsely flagged PH3/PH4 - a toFixed rounding bug in the CHECK,
+  not the tool; the finer check is the evidence.) One-time cost: this
+  migration re-dealt all voicings/octaves once; tranceA003e regenerated.
+- **Overrides:** phase:N[:dur][:PC] (duration seconds, pitch-class name) ·
+  mt:M[:secs] · chord:N[:from][:to][:cuivre] already existed.
+- **Reflow confirmed as automatic:** chunks lay end to end on the 0.4 grid,
+  so a length change moves/shrinks everything downstream by construction -
+  content untouched (that IS the isolation proof above).

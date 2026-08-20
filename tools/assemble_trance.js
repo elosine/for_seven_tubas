@@ -19,11 +19,21 @@ const nextBeat = t => {
 // The running assembly order. Override with ASM_PLAN="phase:1,chord:9" to
 // regenerate an earlier version — the seeds are consumed in PLAN order, so a
 // prefix plan reproduces that version's material exactly.
+// Token forms ('-' skips an optional slot):
+//   phase:N[:dur][:PC]      phase:4 · phase:4:6.5 · phase:4:-:F  (pc override)
+//   chord:N[:from][:to][:cuivre]   chord:12:1:4:2+4
+//   mt:M[:secs]             mt:B · mt:B:15
 const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3,chord:12:1:4:2+4,phase:4')
-    .split(',').map(x => { const [k,v] = x.trim().split(':');
-        if (k==='mt') return {k, m:v, secs:10};
-        const parts = x.trim().split(':');
-        const it = {k, n:+parts[1]};
+    .split(',').map(x => {
+        const tok = x.trim(), parts = tok.split(':'), k = parts[0];
+        if (k==='mt') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10};
+        if (k==='phase') {
+            const it = {k, tok, n:+parts[1]};
+            if (parts[2] && parts[2] !== '-') it.dur = +parts[2];
+            if (parts[3] && parts[3] !== '-') it.pc = PC.indexOf(parts[3]);
+            return it;
+        }
+        const it = {k, tok, n:+parts[1]};
         if (parts[2]) it.from = +parts[2];
         if (parts[3]) it.to = +parts[3];
         if (parts[4]) it.cuivre = parts[4].split('+').map(Number);
@@ -47,16 +57,25 @@ const STEPS = [
 const ROW7 = [8,3,7,2,9,4,11,6,10,5,1,8,0];
 const octavesOf = pc => { const o=[]; for(let k=pc;k<=65;k+=12) if(k>=30) o.push(k); return o; };
 
+// PER-CHUNK SEEDS (composer, day 21 — the facile-permutation fix): every
+// chunk's dice come from ITS OWN token, so editing chunk 3 cannot re-deal
+// chunk 5. Identical tokens repeated in the plan get their occurrence number
+// mixed in, so a literal repeat still draws fresh. One-time cost: this
+// migration re-dealt all voicings/octaves once (structure unchanged).
+const lcg = seed => { let s = seed >>> 0;
+    return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; };
+const hashStr = str => { let h = 5381;
+    for (let i = 0; i < str.length; i++) h = ((h * 33) ^ str.charCodeAt(i)) >>> 0;
+    return h >>> 0; };
+
 // OCTAVE SCRAMBLE (composer, day 21): in the PHASE segments each player keeps
 // its single steady tempo and single pitch CLASS, but each attack takes a
 // different octave of it — no immediate repeat, so the octave always moves.
 // (The multitempo sections already behave this way; measured 2026-08-20.)
-let OS = 8021 >>> 0;
-const osRnd = () => (OS = (OS * 1664525 + 1013904223) >>> 0) / 4294967296;
-const scrambleOct = (oct, prev) => {
+const scrambleOct = (rnd, oct, prev) => {
     if (oct.length < 2) return oct[0];
     let k;
-    do { k = oct[(osRnd()*oct.length)|0]; } while (k === prev);
+    do { k = oct[(rnd()*oct.length)|0]; } while (k === prev);
     return k;
 };
 
@@ -64,11 +83,9 @@ const scrambleOct = (oct, prev) => {
 // set: each beat re-voices the chord onto a fresh random set of parts, rather
 // than the whole run sitting on one fixed five. Also spreads the load: with a
 // fixed voicing every player re-attacks every 0.4 s, which over-rings.
-let RS = 90210 >>> 0;
-const rsRnd = () => (RS = (RS * 1664525 + 1013904223) >>> 0) / 4294967296;
-const pickLanes = n => {
+const pickLanes = (rnd, n) => {
     const a = [0,1,2,3,4,5,6,7,8,9];
-    for (let i = 9; i > 0; i--) { const k = (rsRnd()*(i+1))|0; const t=a[i]; a[i]=a[k]; a[k]=t; }
+    for (let i = 9; i > 0; i--) { const k = (rnd()*(i+1))|0; const t=a[i]; a[i]=a[k]; a[k]=t; }
     return a.slice(0, n);
 };
 
@@ -145,14 +162,19 @@ const patOf = num => {
 };
 
 let t = START, log = [];
+const occ = {};                               // occurrence count per identical token
 PLAN.forEach(item => {
+    occ[item.tok] = (occ[item.tok] || 0) + 1;
+    const rnd = lcg(hashStr(item.tok + '#' + occ[item.tok]));   // this chunk's own dice
     t = nextBeat(t);                          // every insert opens on a beat
     if (item.k === 'phase') {
-        const s = STEPS[item.n-1], end = t + s.dur;
-        const pc = ROW7[item.n-1];                     // insert N -> row 7 pitch N
+        const s = STEPS[item.n-1];
+        const dur = item.dur != null ? item.dur : s.dur;
+        const end = t + dur;
+        const pc = item.pc != null ? item.pc : ROW7[item.n-1]; // insert N -> row 7 pitch N
         const OCT = octavesOf(pc);
         mark(t, 'PS'+item.n+' '+PC[pc]+' oct', '#3F7D5A',
-             s.bpm+' BPM · offset '+s.off+' · '+s.dur+'s · oct '+OCT.map(NAME).join('/'));
+             s.bpm+' BPM · offset '+s.off+' · '+dur+'s · oct '+OCT.map(NAME).join('/'));
         const T = 60/s.bpm;
         let n = 0;
         const lastOct = new Array(10).fill(null);      // per-player, for no-repeat
@@ -160,12 +182,12 @@ PLAN.forEach(item => {
             for (let lane=0; lane<10; lane++) {
                 const at = c + ((lane*s.off)%1)*T;
                 if (at >= end - 1e-9) continue;
-                const pitch = scrambleOct(OCT, lastOct[lane]);
+                const pitch = scrambleOct(rnd, OCT, lastOct[lane]);
                 lastOct[lane] = pitch;
                 note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
                 n++;
             }
-        log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+s.dur+'s, '+
+        log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
                  PC[pc]+' oct '+OCT.map(NAME).join('/')+', '+n+' notes)');
         t = end;
     } else if (item.k === 'mt') {
@@ -192,7 +214,7 @@ PLAN.forEach(item => {
         draws.forEach((h, i) => {
             const bn = from + i;                          // this blast's number
             const v = voice(h, cu.indexOf(bn) >= 0);
-            const lanes = pickLanes(v.stac.length + v.cuiv.length);
+            const lanes = pickLanes(rnd, v.stac.length + v.cuiv.length);
             v.stac.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
                 h==='base'?'#3F7D5A':'#8a8ac0', 'P'+item.n+'b'+bn+' '+h+' '+NAME(pitch), 'asm-chord', 100));
             v.cuiv.forEach((pitch,ci)=> {
