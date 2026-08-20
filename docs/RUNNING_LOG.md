@@ -4144,3 +4144,11 @@ the old tint solidified so content cannot show through it). Verified in the
 app at a 720 px viewport: panel bottom 704 ≤ 720, content 789 px scrolls in a
 607 px box, Insert reachable after panel scroll, header stays grabbable while
 scrolled, zero console errors.
+
+**2ag follow-up 2 (same sitting) — slot buttons named, composer's call.** The
+S1-S5 buttons now carry their sequence names (smear · rain · gallop ·
+accretion · scratch) inline next to the LIVE label instead of floated right;
+seq names in the params file simplified to match (rev 9). Verified in-app:
+five named buttons render on one 25 px row inside the panel width; readout
+follows the new names. The button label is the seq's `name` field, so an
+AI-written slate renames its own buttons.

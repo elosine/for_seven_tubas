@@ -113,7 +113,7 @@ const PANEL = {
             // offsets are a later add. Steps are read from the DOM every tick,
             // so edits and arrow presses land on the NEXT attack — no restart.
             '<div style="color:#8fd6ab;border-top:1px solid #3a3a44;margin-top:8px;padding-top:6px;font-weight:600">LIVE',
-            '<span id="texLvSlots" style="float:right;font-weight:400"></span></div>',
+            '<span id="texLvSlots" style="font-weight:400;margin-left:6px"></span></div>',
             '<div style="display:grid;grid-template-columns:52px repeat(6,1fr);gap:3px;align-items:center;margin-top:5px">',
             '<span style="color:#9a9">step</span>',
             [0, 1, 2, 3, 4, 5].map(i =>
@@ -923,9 +923,9 @@ const PANEL = {
         slots.innerHTML = '';
         this.lv.data.seqs.forEach((q, i) => {
             const b = document.createElement('button');
-            b.textContent = 'S' + (i + 1);
-            b.title = q.name || '';
-            b.style.cssText = 'margin-left:3px;font-size:10px;padding:0 4px;' +
+            b.textContent = q.name || ('S' + (i + 1));   // named, per the composer
+            b.title = 'slot ' + (i + 1);
+            b.style.cssText = 'margin:0 0 2px 3px;font-size:10px;padding:0 4px;' +
                 (i === this.lv.slot ? 'background:#3F7D5A;color:#fff;border-color:#6fb98f' : '');
             b.addEventListener('click', () => this.lvSlot(i));
             slots.appendChild(b);
