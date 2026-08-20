@@ -38,7 +38,7 @@ const PANEL = {
     // time. `data` mirrors the params file's `live` block; box edits are
     // ephemeral until the AI writes them back into the file.
     lv: { playing: false, tick: null, runT: null, slot: 0, step: 0,
-          data: null, skipped: 0, state: null },
+          data: null, skipped: 0, state: null, logT0: null, log: [] },
 
     // ---------------------------------------------------------------- boot
     init() {
@@ -133,6 +133,18 @@ const PANEL = {
             '<input id="texLvSecs" type="number" step="1" min="1" value="6" style="width:34px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px">s',
             '</div>',
             '<div id="texLvOut" style="color:#9a9;margin-top:3px">&mdash;</div>',
+            // STOPWATCH LOG — every step change while live gets a timestamped
+            // line. `0` restarts the clock (the composer plays a while, THEN
+            // starts timing); Copy puts the log on the clipboard as plain text
+            // the AI can render back as a fixed texture with those durations.
+            '<div style="display:flex;gap:5px;align-items:center;margin-top:4px">',
+            '<button id="texLvZero" title="restart the stopwatch at 0.0 and clear the log (key: 0)">0</button>',
+            '<button id="texLvCopy" title="copy the log as plain text">Copy log</button>',
+            '<span style="color:#666">step changes are logged while LIVE</span>',
+            '</div>',
+            '<div id="texLvLog" style="display:none;max-height:90px;overflow:auto;margin-top:3px;',
+            'font-family:Consolas,monospace;font-size:10px;color:#9a9;background:#1b1b20;',
+            'border:1px solid #333;border-radius:3px;padding:3px 6px;white-space:pre"></div>',
             '<div style="margin-top:6px">',
             '<button id="texIns" style="width:100%"',
             ' title="insert at the playhead as a draggable group">Insert @ cursor</button>',
@@ -156,6 +168,8 @@ const PANEL = {
         d.querySelector('#texMorphGo').addEventListener('click', () => this.morphTo());
         d.querySelector('#texLvGo').addEventListener('click', () => this.lvPlay());
         d.querySelector('#texLvRun').addEventListener('click', () => this.lvRun());
+        d.querySelector('#texLvZero').addEventListener('click', () => this.lvZero());
+        d.querySelector('#texLvCopy').addEventListener('click', () => this.lvCopy());
         // the scheduler reads the DOM each tick, so inputs only need the readout
         d.querySelectorAll('#texLvJit,#texLvDb,[id^=texLvBpm],[id^=texLvPl]').forEach(i =>
             i.addEventListener('input', () => this.lvReadout()));
@@ -174,6 +188,7 @@ const PANEL = {
             if (this.lv.playing) {
                 if (k === 'ArrowLeft' || k === 'ArrowRight') { take(); this.lvStep(k === 'ArrowRight' ? 1 : -1); return; }
                 if (k === ' ') { take(); this.lvStop(); return; }
+                if (k === '0') { take(); this.lvZero(); return; }
                 if (k === 'ArrowUp' || k === 'ArrowDown') { take(); return; }
             }
             if (k === ' ') { take(); E.isPlaying() ? E.panic() : this.play(); }
@@ -958,6 +973,7 @@ const PANEL = {
         this.lvSaveBoxes();          // box edits survive a slot round-trip (in memory only)
         this.lv.slot = i;
         this.lvDraw();
+        if (this.lv.playing) this.lvLog('(slot)');   // a character change is a log event too
     },
 
     lvHilite() {
@@ -972,6 +988,46 @@ const PANEL = {
         this.lv.step = (this.lv.step + delta + 6) % 6;
         this.lvHilite();
         this.lvReadout();
+        if (this.lv.playing) this.lvLog();       // arrows AND auto-run land here
+    },
+
+    // ------------------------------------------------- stopwatch log (2ag)
+    // The log is the composer PERFORMING the ladder's shape by hand, captured
+    // as data — paste it back to the AI and it renders as a fixed texture with
+    // exactly those step durations (the 2f play-in pattern, at form level).
+    lvLogLine(tag) {
+        const p = this.lvParams();
+        const t = ((performance.now() - this.lv.logT0) / 1000).toFixed(1);
+        const ch = p.db > 0 ? 'gallop d' + p.db : (p.jit > 0 ? 'rain jit' + p.jit : 'smear');
+        return t.padStart(6) + 's  step ' + (this.lv.step + 1) + '  ' + p.bpm + 'x' + p.players +
+            ' = ' + (p.players * p.bpm / 60).toFixed(1) + '/s  ' + ch + (tag ? '  ' + tag : '');
+    },
+    lvLog(tag) {
+        if (this.lv.logT0 == null) return;
+        this.lv.log.push(this.lvLogLine(tag));
+        this.lvLogDraw();
+    },
+    lvLogDraw() {
+        const box = this.el.querySelector('#texLvLog');
+        if (!box) return;
+        box.style.display = this.lv.log.length ? '' : 'none';
+        box.textContent = this.lv.log.join('\n');
+        box.scrollTop = box.scrollHeight;
+    },
+    lvZero() {
+        this.lv.logT0 = performance.now();
+        this.lv.log = [];
+        const seq = this.lvSeq() || {};
+        this.lvLog('(zero · ' + (seq.name || 'S' + (this.lv.slot + 1)) + ')');
+    },
+    lvCopy() {
+        if (!this.lv.log.length) { this.setStatus('log is empty — press 0 while LIVE', true); return; }
+        const text = this.lv.log.join('\n');
+        const done = () => this.setStatus('log copied (' + this.lv.log.length + ' lines)');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done,
+                () => this.setStatus('clipboard refused — select the log text by hand', true));
+        } else this.setStatus('no clipboard API — select the log text by hand', true);
     },
 
     lvParams() {
@@ -1056,11 +1112,13 @@ const PANEL = {
         }, TICK);
         this.el.querySelector('#texLvGo').textContent = 'Stop';
         this.el.focus();                      // arrows work immediately
+        this.lvZero();                        // clock runs from Live; 0 restarts it whenever ready
         this.lvReadout();
     },
 
     lvStop() {
         if (this.lv.tick) { clearInterval(this.lv.tick); this.lv.tick = null; }
+        this.lvLog('(stop)');                // total duration, while logT0 is still live
         this.lv.playing = false;             // BEFORE panic — the onStop chain checks it
         if (this.lv.runT) this.lvRun();      // stopping also parks the auto-run
         E.panic();

@@ -590,3 +590,27 @@ Session-end reframe (D45): the performance side becomes its own project
 ("needs a rethink"); when notation resumes, PARTS come first, then their
 layout into the study score; requirements harvested while building the
 actual score — D6's reverse-engineering stance applied to notation.
+
+## Day 21 (2026-08-20) — the live rig: hand-performance as a compositional data source
+
+1. **"Performing the ladder's shape by hand, captured as data."** (AI phrasing,
+   composer flagged it as a keeper note.) The 2ag live rig lets the composer
+   drive a texture's speed/density steps in real time with arrow keys; the
+   stopwatch log records WHEN each step change was made. That log is a
+   hand-performed formal shape — and it can be rendered back as a fixed,
+   seeded, insertable texture with exactly those durations. The loop is
+   play-in → capture → render: the 2f play-in analysis pipeline in miniature,
+   now operating at the level of FORM (when to move) rather than notes
+   (what to play).
+2. **The interface argument underneath it:** the composer repeatedly rejected
+   parameter catalogs in favor of a performable surface ("I hit play and
+   then arrow keys... in real time"). The vocabulary result (smear/rain/
+   gallop as TWO numbers, jitter + dBpm) made that surface possible: a
+   character space small enough to drive live. Taxonomy work paid off as
+   playability, not as documentation.
+3. **Same-day method note:** the composer also installed talk-first as the
+   standing rule after two mis-built slates (rev 3 grid, rev 4 ladders) —
+   "when the composer asks to hear X at different Y, ask whether Y is a
+   comparison axis or a trajectory." Both mis-builds produced real findings
+   anyway (sd is not speed-invariant; the 18/s references sit near minimum
+   character separation) — the wrong shape still measured something true.

@@ -4152,3 +4152,27 @@ seq names in the params file simplified to match (rev 9). Verified in-app:
 five named buttons render on one 25 px row inside the panel width; readout
 follows the new names. The button label is the seq's `name` field, so an
 AI-written slate renames its own buttons.
+
+**2ag follow-up 3 (same sitting) — THE STOPWATCH LOG, composer's design.** The
+composer's spec, near-verbatim: let it play a while, press 0 to start the
+timer, every arrow press logs the time, save/copy the readout. Built exactly
+that: clock starts at Live, `0` (key or button) restarts it whenever ready;
+every step change logs a line (arrows and auto-run share lvStep, so both log
+for free); slot switches log too (a character change is a formal event);
+Stop stamps the total; `Copy log` -> clipboard, guarded when empty. Line
+format is machine-parsable on purpose:
+
+    0.0s  step 1  36x10 = 6.0/s  smear  (zero · smear)
+   12.3s  step 2  54x10 = 9.0/s  smear
+   18.3s  step 3  72x10 = 12.0/s  gallop d2  (slot)
+
+Verified in-app by driving the real code paths with the playing flag set (no
+sound - the no-autoplay rule holds): timestamps accumulate correctly across
+a simulated 18.3 s session, slot switch logs the character change, empty-copy
+guard fires, zero console errors.
+
+**WHY THE LOG MATTERS (filed to PAPER_NOTES too): the log is the composer
+performing the ladder's SHAPE by hand, captured as data.** Pasted back to the
+AI it renders as a fixed, seeded texture with exactly those step durations —
+the 2f play-in pattern operating at form level (when to move) rather than
+note level (what to play). The composer flagged the phrase as a keeper.
