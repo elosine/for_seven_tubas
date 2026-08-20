@@ -242,3 +242,35 @@ accidentals, staccato dots, bass clef, beams/stems/ledgers, M4 attack
 lines, GC ticks, bricks) renders the slice-1 + section-1 material; new
 devices get built per material during part-by-part notation, with the
 parachute carrying everything else meanwhile.
+
+### §8 addendum — the typesetting question (composer, same sitting)
+
+Composer: adjustments like notehead size or stem height, and future
+"fonts," must be accommodated by the STRUCTURES — *"this is more like
+typesetting, really… kerning and whatever other things."*
+
+Assessment against the code:
+- **The typesetting architecture is already right in kind.** Glyph metrics
+  are DATA in staff-space units (`glyphs.json`: widths + anchor points),
+  stamps are metric boxes positioned by anchor (`stamps.js`), attachment
+  (stem→head) derives from the head's anchors, and every layout item
+  carries a `dxSs` fine-offset channel — the structural "kerning" channel
+  exists on every item. Horizontal position is proportional TIME by design,
+  so classical duration-spacing kerning does not apply here; fine offsets
+  and collision fixes ride `dxSs`.
+- **The one real gap: engraving numbers are SCATTERED.** Some live in
+  `glyphs.json standards` (staff/stem/beam/ledger thickness, dot size),
+  some as `layout.js` code defaults (stemLen 3.5, accGap 0.25, the
+  text-lane heights), some as inline `render.js` multipliers (label and
+  text sizes). Today "slightly bigger noteheads" or "longer stems" is a
+  CODE edit. **Closed by plan amendment:** V0 gains the ENGRAVING REGISTRY
+  (one typography block in `container.json`, censused from the code); V1
+  wires layout/render to read it and writes the glyph extension contract.
+  After that, such adjustments are data edits that re-render everywhere —
+  set at tier 1, freely adjustable at tier 3 (POL).
+- **New "fonts" are accommodated by the model as it stands:** the
+  box+anchors+staff-space scheme is exactly how SMuFL music-font metadata
+  describes glyphs, so a real engraving font (Bravura et al.) could back
+  the same stamps later — a `glyphs.json` regeneration, not a rebuild. New
+  glyph KINDS have a fixed, small extension path (metrics entry + stamp
+  maker + renderer case + layout emitter), documented as part of V1.

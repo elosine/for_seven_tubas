@@ -1599,3 +1599,17 @@ composer asked for a read-back):*
 > fine-tooth comb and make sure that it looks exactly how I want it to
 > look. But it should basically have everything in place while I'm deciding
 > on the notation."*
+
+*Third amendment, same sitting — the typesetting framing:*
+
+> *"If we do make adjustments like notehead size or stem height or other
+> things that aren't necessarily built into the glyphs already — just making
+> sure we have accounted for this. I guess the metaphor is: this is more
+> like typesetting, really. So I just wanna make sure all the structural
+> things like kerning and whatever other things are in place, so that if we
+> do introduce new, quote-unquote, fonts or other types of things, that
+> could just be accommodated in the structures there — the spacing,
+> etcetera, structures."*
+
+> *"I'll go finish the piece and then run the plan before we start
+> notating."*

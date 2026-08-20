@@ -3667,3 +3667,20 @@ eye against true-size proofs, frozen into notation/registry/container.json)
 → POL tier-3 pass; gates G0–G6; V0–V3 before notation starts, V4/V5 by
 submission. PLAN.md item 8a added. READY, NOT STARTED (D35) — next: the
 composer's phase-shifting sitting; this plan runs when the piece is done.
+
+**Third amendment, same sitting — the TYPESETTING question.** Composer: the
+metaphor is typesetting — notehead size, stem height, "kerning," future
+quote-unquote fonts must be accommodated by the structures, not require
+rebuilds. Assessment (preplan §8 addendum): the architecture is right in
+kind — glyph metrics are data in staff-space units with anchor points,
+stamps are metric boxes, every layout item carries a dxSs fine-offset (the
+kerning channel), and the box+anchors+ss model is SMuFL-shaped so a real
+engraving font could back it later. THE ONE REAL GAP: engraving numbers are
+scattered (glyphs.json standards + layout.js code defaults + render.js
+inline multipliers) — today "bigger noteheads" is a code edit. Closed by
+plan amendment: V0 decision 10 = ENGRAVING REGISTRY (one typography block
+in container.json, censused from code); V1 wires layout/render to it +
+writes the glyph extension contract. Plan question answered: the plan IS
+already drawn (DELIVERABLES_BUILD_PLAN.md, last commit) — with this folded
+in it is complete; composer proceeds to phase shifting / finishing the
+piece, runs the plan before notating.

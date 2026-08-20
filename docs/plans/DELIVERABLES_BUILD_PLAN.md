@@ -53,6 +53,14 @@ Decisions to close (= preplan §5 drill-down + §3 tier-1 list):
    graphic.js).
 9. **Print numbers** — Letter-landscape margins, staff mm, seconds-per-system;
    proof = one printed page the composer holds.
+10. **The ENGRAVING REGISTRY** *(typesetting amendment, composer 2026-08-20 —
+   preplan §8 addendum)*: census every engraving number now living in code —
+   `layout.js` defaults (stemLen 3.5, accGap 0.25, text-lane heights) and
+   `render.js` inline text-size multipliers — and consolidate them with
+   `glyphs.json standards` into ONE typography block of `container.json`.
+   After this, "noteheads a touch bigger / stems longer" is a data edit that
+   re-renders everywhere — set at tier 1, adjustable at POL, never a code
+   edit.
 
 **Gate G0:** composer blesses `container.json`; numbers FROZEN. Later change
 requests are tier-3 ledger items unless structural.
@@ -68,6 +76,13 @@ requests are tier-3 ledger items unless structural.
 - **The PP-6 invariant as a TEST, not a hope** (Principle 6 — see it go red):
   render one window at Z=1 and Z=2, assert every drawn coordinate scales
   exactly ×Z; prove the test by mutating `ssPerSystem` and watching it fail.
+- **Wire layout/render to the V0 engraving registry** (no engraving magic
+  numbers left in code) and write the GLYPH EXTENSION CONTRACT one-pager:
+  a new glyph kind = a `glyphs.json` metrics box (ss-unit width + anchors) +
+  a `stamps.js` maker + one renderer case + a layout emitter. The
+  box+anchors+ss model is SMuFL-shaped, so a real engraving font (Bravura
+  et al.) can back the same stamps later from its metadata — a glyphs.json
+  regeneration, not a rebuild.
 
 **Gate G1:** composer flips between the windows on a real section; confirms
 by eye that zoomed = the final, bigger.
