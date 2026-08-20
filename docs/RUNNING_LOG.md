@@ -4445,3 +4445,16 @@ Measured ring caps wired into the readout: sp01 127 · sp08 117 · sp27 122 ·
 sp30 130 · sp33 122. Verified in-app: sp08 at the 120-BPM top step correctly
 warns over its 117 cap; sp30 does not (cap 130). 15/15 node assertions
 (sets, window, ascending lane spread). All order modes apply to species too.
+
+**Day 21 — row + patterns scratch score (`scores/row-fifths-01.json`).**
+(1) The composer's row spec: G#-A#-B, then +5th (repeats allowed, uncounted)
+/ down-to-a-remaining, octaves randomized in 30-65, Tuba 1, seed 20260820 -
+15 notes, all 12 pcs consumed (composer said eleven; flagged, not blocking).
+(2) Appended 12 pulse patterns @150 (seed 815), parsed from dictation as:
+pattern length in beats 2-4 at 60% / 5-8 at 40%; harmony = BASE 40% /
+species pool {16,3,28,12,18,27} 60%; one-beat gaps; each attack = the full
+chord across layers ascending. BASE identified from tranceA003a's 'base xN'
+sections = the fifths stack G1-A2-E3-B3-F4 (also section 3's underlay).
+Species = original played VERT01 pitches; window-dropped: sp16's 67, sp18's
+66, sp27's 66. Note on the mockup: 0.4s per-player spacing vs 0.33-0.53s
+rings - chords over-ring slightly at 150; fine for audition, known class.
