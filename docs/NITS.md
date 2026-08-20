@@ -334,3 +334,23 @@ lengths in ONE play session, so a press-edge artifact can hit at most rung 1.
   through the stamp constructors. Not now: v0 shapes are trivial and the
   render snapshot pins them; becomes real when shapes gain complexity
   (beam slants, double beams) at material time.
+
+## OPEN — the "27 oct B" section is not multitempo in the file (day 21, deferred)
+
+**Composer: "That section definitely sounds like a multitempo... let's put it
+as a thing to investigate."** The section at ~48.8-60.8 s in `tranceA003*`
+(marker `27 oct B`) measures as **all ten players at 0.75 s = 80 BPM, one
+uniform rate**. But gen-aud-05 segment 27 (model F `16:15:14:13:12:11` at 150)
+should be **six streams at 150 / 140.5 / 131.3 / 121.9 / 112.5 / 103.1 BPM,
+cycle 6.4 s**, with pair-splitting. The uniform 80 BPM is already baked into
+`scores/aud-9.json` (property `gen:"aud9"`), so it happened at that build
+step, not at insertion.
+**Why it matters (composer's own point): downstream notation.** A part written
+from this will read as a plain 80 BPM pulse; if the material is actually
+multitempo the notation will be wrong. Also `notation/ir/trance-bar-01.ir.json`
+(the day-19 hand-worked IR chunk) is built on the "F oct B figure on the
+player's OWN 0.75 s pulse (80 bpm)" reading — so that chunk inherits whatever
+this turns out to be.
+**To investigate:** find the console script / step that produced `aud-9` and
+determine whether the uniform pulse was a deliberate simplification or a lost
+tempo map. NOT urgent; the composer likes how it sounds.
