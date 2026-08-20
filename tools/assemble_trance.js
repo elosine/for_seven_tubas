@@ -28,6 +28,8 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
         const tok = x.trim(), parts = tok.split(':'), k = parts[0];
         if (k==='r27') return {k, tok};
         if (k==='r17') return {k, tok};
+        if (k==='phasearc' && parts[1]==='4') return {k, tok, n:4,
+            dur: parts[2] ? +parts[2] : 21.3, arcSpec:'ps4'};
         if (k==='phasearc') return {k, tok, n:+parts[1], dur: parts[2] ? +parts[2] : null,
             // composer's PS1 arc: ~50% the current G#-rooted fifths chain, then
             // the chain a half step up, last ~20% the F-A cluster
@@ -137,7 +139,7 @@ const pickLanes = (rnd, n) => {
 
 const BASE = [31,45,52,59,65];
 const SPECIES = {};
-for (const n of ['16','03','28','12','18','27','30'])
+for (const n of ['16','03','28','12','18','27','30','01','33'])
     SPECIES[n] = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/VERT01-'+n+'.json'),'utf8'))
         .pitches.filter(k=>k>=30&&k<=65);
 
@@ -280,6 +282,17 @@ PLAN.forEach(item => {
         log.push('mtdiv '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+
             parts.map((p,i)=>p.label+' '+((i?bounds[i]-bounds[i-1]:bounds[0])).toFixed(1)+'s').join(' | ')+')');
     } else if (item.k === 'phasearc') {
+        if (item.arcSpec === 'ps4') {
+            const tT = (rnd()*8)|0;                       // fifths chain 30+t
+            const chain = [30+tT,37+tT,44+tT,51+tT,58+tT];
+            const jit = () => 1 + 0.3*(rnd()-0.5);        // +/-15%
+            item.arc = [
+                {frac:jit(), set:octavesOf(ROW7[3]), label:'D oct'},
+                {frac:jit(), set:SPECIES['01'], label:'sp1'},
+                {frac:jit(), set:chain, label:'5ths '+PC[(30+tT)%12], detail:'T'+tT+' random draw'},
+                {frac:jit(), set:SPECIES['33'], label:'sp33'},
+            ];
+        }
         // PHASE with a pitch ARC: same rotor rhythm as a phase step, but the
         // pitch SET changes across sub-parts (fractions of the duration).
         const s = STEPS[item.n-1];
