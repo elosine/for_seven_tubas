@@ -177,13 +177,13 @@ const j = JSON.parse(fs.readFileSync(path.join(ROOT,SRC),'utf8'));
 j.objects = j.objects.filter(o => !(o.properties && /^asm-/.test(o.properties.gen || ''))
                               && !/^ASM /.test(o.label || ''));
 let id = (j.nextId || 1) + 1;
-const note = (t,layer,pitch,dur,color,label,gen,vel) => j.objects.push({
+const note = (t,layer,pitch,dur,color,label,gen,vel,tech) => j.objects.push({
     id:'wc-asm-'+(id++), type:'waveCurve', layer,
     startSeconds:+t.toFixed(4), endSeconds:+(t+dur).toFixed(4),
     nodes:[{pos:0,y:8,smooth:0.25},{pos:1,y:8,smooth:0.25}],
     segments:[{model:'power',slope:0}], color, fillMode:'bottom', opacity:0.55,
     performanceNotes:label, properties:{gen},
-    sonifyNote:pitch, technique:'staccato', sonifyMode:'plain', recVel:vel });
+    sonifyNote:pitch, technique:tech||'staccato', sonifyMode:'plain', recVel:vel });
 const mark = (t,label,color,detail) => j.objects.push({
     id:'mk-asm-'+(id++), type:'marker', layer:10, time:+t.toFixed(3),
     label, color, performanceNotes:detail||'', properties:{gen:'asm-mark'} });
@@ -343,14 +343,11 @@ PLAN.forEach(item => {
         item.lens.forEach((L, bi) => {
             const c = nextChord();
             const v = voice(c.h, false);
-            mark(t, 'CB'+(bi+1)+' '+c.h+' x'+L, '#8a8ac0', c.at+' pulsed '+L+' beats');
-            for (let bt = 0; bt < L; bt++) {
-                const lanes = pickLanes(rnd, v.stac.length);
-                v.stac.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
-                    c.h==='base'?'#3F7D5A':'#8a8ac0', 'CB'+(bi+1)+' '+c.h+' '+NAME(pitch), 'asm-chord', 100));
-                t += BEAT;
-            }
-            t += BEAT;                                   // one-beat rest between blocks
+            mark(t, 'CB'+(bi+1)+' '+c.h+' x'+L+' ord', '#8a8ac0', c.at+' HELD '+L+' beats, ordinario');
+            const lanes = pickLanes(rnd, v.stac.length);
+            v.stac.forEach((pitch,vi)=> note(t, lanes[vi], pitch, L*BEAT,
+                c.h==='base'?'#3F7D5A':'#8a8ac0', 'CB'+(bi+1)+' '+c.h+' '+NAME(pitch), 'asm-chord', 100, 'ord'));
+            t += L*BEAT + BEAT;                          // held block + one-beat rest
         });
         log.push('cblocks  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+item.lens.join('/')+' beats)');
     } else if (item.k === 'r17') {
