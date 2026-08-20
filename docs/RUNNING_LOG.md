@@ -4176,3 +4176,15 @@ performing the ladder's SHAPE by hand, captured as data.** Pasted back to the
 AI it renders as a fixed, seeded texture with exactly those step durations —
 the 2f play-in pattern operating at form level (when to move) rather than
 note level (what to play). The composer flagged the phrase as a keeper.
+
+**2ag follow-up 4 — composer asked: is 132x10 (scratch top step, 22/s) playable?
+Evaluated with the real machinery, not memory.** Per player trivial (2.2
+attacks/s each, 0 hard 0 soft). Unison C3 clean by 35 ms (0.455 s re-attack vs
+0.42 s ring) = 92% of ceiling. BUT: with pitch set `cl spread` -> 4 RING
+violations (worst over by 76 ms), `m3 (F)` -> 2; the mock-up plays these
+cleanly, the hall does not. And live, smear at 22/s is unreachable regardless:
+the composite grid is 45 ms while stage width (~30 ms) + human error (~+/-25
+ms) are the same size - the hall hears RAIN at the top step no matter what is
+written (the standing fragile-smear prediction, at its sharpest point).
+Practical: unison-C3 effect stands; pitched material caps ~110-115 BPM
+(~19/s); if the top is meant as an irregular wash, write rain and lose nothing.
