@@ -1,0 +1,81 @@
+{
+  "irVersion": "0.1",
+  "id": "density-apex-01",
+  "source": { "score": "cloud02-10track", "window": [47.904, 54.9], "parts": [4] },
+  "provenance": {
+    "createdBy": "hand",
+    "date": "2026-08-19",
+    "tool": "fold of analysis/e1/cloud02-10track.e1.json coverage['20'].fullVocab (tuba5 chunks; identical at eps 15/25/30)",
+    "notes": "A5: density-apex window (Phase A, last hand-worked chunk). Tuba5 = tracks[4] = layer 4 (track-id LOOKUP, spec §5). Two E1 chunks claim ALL 19 tuba5 notes in 47.904-52.0; the part is silent 52.0-54.9, so this part's residue is rest, not unclaimed notes. THE POINT OF THIS DOC: the fits' grid units are 35.7/34.0 ms — UNPLAYABLE as counted subdivisions (D43: below the 90 ms floor) — so the tempo blocks are carried as DERIVED DATA documenting the fit, while strategy = 'proportional' (Mists spatial) is the performing judgment. The fit is data; the strategy is a decision; the schema separates them — D43 in schema form. GC landings at both anchors (per-chunk re-anchoring is the GC's structural job, D43). Tempo floats are the record's exact values (subdivision x unit == beat exactly). Durations are sample-true staccato (D9). Naive sharp spelling kept (chromatic cluster band; no respell overlays — A4 exercised that pattern). No overlays at all: the override and multi-part mechanisms are proven in A3/A4; fabricating one here would invent musical judgment. The 'grouping' overlay kind remains UNEXERCISED through A3-A5 — recorded as an open exercise for slice 1."
+  },
+  "events": [
+    { "id": "ev-wc-471", "source": { "score": "cloud02-10track", "objectId": "wc-471" }, "onset": 47.904, "duration": 0.48, "pitch": { "midi": 54, "spelled": { "step": "F", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [0] }, "provenance": "derived" },
+    { "id": "ev-wc-485", "source": { "score": "cloud02-10track", "objectId": "wc-485" }, "onset": 48.398, "duration": 0.45, "pitch": { "midi": 61, "spelled": { "step": "C", "alter": 1, "octave": 4 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [14] }, "provenance": "derived" },
+    { "id": "ev-wc-494", "source": { "score": "cloud02-10track", "objectId": "wc-494" }, "onset": 48.651, "duration": 0.5, "pitch": { "midi": 59, "spelled": { "step": "B", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [21] }, "provenance": "derived" },
+    { "id": "ev-wc-504", "source": { "score": "cloud02-10track", "objectId": "wc-504" }, "onset": 48.872, "duration": 0.45, "pitch": { "midi": 55, "spelled": { "step": "G", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [27] }, "provenance": "derived" },
+    { "id": "ev-wc-513", "source": { "score": "cloud02-10track", "objectId": "wc-513" }, "onset": 49.038, "duration": 0.41, "pitch": { "midi": 53, "spelled": { "step": "F", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [32] }, "provenance": "derived" },
+    { "id": "ev-wc-526", "source": { "score": "cloud02-10track", "objectId": "wc-526" }, "onset": 49.288, "duration": 0.45, "pitch": { "midi": 55, "spelled": { "step": "G", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [39] }, "provenance": "derived" },
+    { "id": "ev-wc-536", "source": { "score": "cloud02-10track", "objectId": "wc-536" }, "onset": 49.516, "duration": 0.53, "pitch": { "midi": 58, "spelled": { "step": "A", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [45] }, "provenance": "derived" },
+    { "id": "ev-wc-544", "source": { "score": "cloud02-10track", "objectId": "wc-544" }, "onset": 49.787, "duration": 0.53, "pitch": { "midi": 58, "spelled": { "step": "A", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [53] }, "provenance": "derived" },
+    { "id": "ev-wc-553", "source": { "score": "cloud02-10track", "objectId": "wc-553" }, "onset": 50.007, "duration": 0.41, "pitch": { "midi": 53, "spelled": { "step": "F", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [59] }, "provenance": "derived" },
+    { "id": "ev-wc-563", "source": { "score": "cloud02-10track", "objectId": "wc-563" }, "onset": 50.155, "duration": 0.4, "pitch": { "midi": 57, "spelled": { "step": "A", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [63] }, "provenance": "derived" },
+    { "id": "ev-wc-572", "source": { "score": "cloud02-10track", "objectId": "wc-572" }, "onset": 50.303, "duration": 0.43, "pitch": { "midi": 56, "spelled": { "step": "G", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [67] }, "provenance": "derived" },
+    { "id": "ev-wc-577", "source": { "score": "cloud02-10track", "objectId": "wc-577" }, "onset": 50.433, "duration": 0.43, "pitch": { "midi": 56, "spelled": { "step": "G", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-471", "grid": [71] }, "provenance": "derived" },
+    { "id": "ev-wc-593", "source": { "score": "cloud02-10track", "objectId": "wc-593" }, "onset": 50.844, "duration": 0.45, "pitch": { "midi": 55, "spelled": { "step": "G", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [0] }, "provenance": "derived" },
+    { "id": "ev-wc-601", "source": { "score": "cloud02-10track", "objectId": "wc-601" }, "onset": 51.008, "duration": 0.41, "pitch": { "midi": 53, "spelled": { "step": "F", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [5] }, "provenance": "derived" },
+    { "id": "ev-wc-609", "source": { "score": "cloud02-10track", "objectId": "wc-609" }, "onset": 51.223, "duration": 0.45, "pitch": { "midi": 55, "spelled": { "step": "G", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [11] }, "provenance": "derived" },
+    { "id": "ev-wc-618", "source": { "score": "cloud02-10track", "objectId": "wc-618" }, "onset": 51.429, "duration": 0.45, "pitch": { "midi": 61, "spelled": { "step": "C", "alter": 1, "octave": 4 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [17] }, "provenance": "derived" },
+    { "id": "ev-wc-623", "source": { "score": "cloud02-10track", "objectId": "wc-623" }, "onset": 51.585, "duration": 0.48, "pitch": { "midi": 54, "spelled": { "step": "F", "alter": 1, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [22] }, "provenance": "derived" },
+    { "id": "ev-wc-634", "source": { "score": "cloud02-10track", "objectId": "wc-634" }, "onset": 51.766, "duration": 0.41, "pitch": { "midi": 53, "spelled": { "step": "F", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [27] }, "provenance": "derived" },
+    { "id": "ev-wc-648", "source": { "score": "cloud02-10track", "objectId": "wc-648" }, "onset": 52, "duration": 0.44, "pitch": { "midi": 52, "spelled": { "step": "E", "alter": 0, "octave": 3 } }, "technique": "staccato", "metric": { "chunk": "ch-4-wc-593", "grid": [34] }, "provenance": "derived" }
+  ],
+  "chunks": [
+    {
+      "id": "ch-4-wc-471",
+      "part": 4,
+      "span": [47.904, 50.844],
+      "class": "density-cloud-note",
+      "strategy": "proportional",
+      "tempo": {
+        "anchorSeconds": 47.904,
+        "unitSeconds": 0.03566662779397465,
+        "beatSeconds": 0.32099965014577186,
+        "subdivision": 9,
+        "maxErrSeconds": 0.00934,
+        "label": "E1 fit: 9 units/beat @ ~187 bpm, unit 35.7 ms — FIT DATA ONLY, below the 90 ms playable floor (D43); performed proportionally"
+      },
+      "events": ["ev-wc-471", "ev-wc-485", "ev-wc-494", "ev-wc-504", "ev-wc-513", "ev-wc-526", "ev-wc-536", "ev-wc-544", "ev-wc-553", "ev-wc-563", "ev-wc-572", "ev-wc-577"],
+      "groups": [
+        { "id": "bg-1", "kind": "beam", "events": ["ev-wc-471", "ev-wc-485", "ev-wc-494", "ev-wc-504", "ev-wc-513", "ev-wc-526", "ev-wc-536", "ev-wc-544", "ev-wc-553", "ev-wc-563", "ev-wc-572", "ev-wc-577"], "provenance": "derived" }
+      ],
+      "devices": [
+        { "id": "dev-1", "kind": "gc", "mode": "landing", "at": 47.904, "provenance": "derived" }
+      ],
+      "provenance": "derived"
+    },
+    {
+      "id": "ch-4-wc-593",
+      "part": 4,
+      "span": [50.844, 54.9],
+      "class": "density-cloud-note",
+      "strategy": "proportional",
+      "tempo": {
+        "anchorSeconds": 50.844,
+        "unitSeconds": 0.03403495007132663,
+        "beatSeconds": 0.30631455064193963,
+        "subdivision": 9,
+        "maxErrSeconds": 0.00777,
+        "label": "E1 fit: 9 units/beat @ ~196 bpm, unit 34.0 ms — FIT DATA ONLY (D43); performed proportionally; part silent 52.0-54.9"
+      },
+      "events": ["ev-wc-593", "ev-wc-601", "ev-wc-609", "ev-wc-618", "ev-wc-623", "ev-wc-634", "ev-wc-648"],
+      "groups": [
+        { "id": "bg-2", "kind": "beam", "events": ["ev-wc-593", "ev-wc-601", "ev-wc-609", "ev-wc-618", "ev-wc-623", "ev-wc-634", "ev-wc-648"], "provenance": "derived" }
+      ],
+      "devices": [
+        { "id": "dev-2", "kind": "gc", "mode": "landing", "at": 50.844, "provenance": "derived" }
+      ],
+      "provenance": "derived"
+    }
+  ],
+  "overlays": []
+}

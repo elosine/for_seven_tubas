@@ -77,8 +77,9 @@ BEING WRITTEN. Claude Code / Opus 5.**
    VALID vs source, 0.0000 ms re-derivation; span/boundary amendments).
    **A4 DONE 2026-08-19 night** (`morph-window-01.ir.json`; 5 findings incl.
    a validator gap — spelling overlays could silently re-pitch — now checked
-   with red mutations). Next: **A5 density apex** (fold the E1 fullVocab
-   record, ONE ε variant) — the last Phase A chunk. Deliberately CAPPED: strata · class
+   with red mutations). **A5 DONE 2026-08-19 night** (`density-apex-01.ir.json`).
+   **PHASE A COMPLETE** — all five chunks committed+pushed+logged. Next:
+   **Phase B, slice 1 TRANCE end-to-end** (composer gate; A1 §8 = open list). Deliberately CAPPED: strata · class
    registry · accommodation bucket · engine passes · coordinate contract ·
    parachute contract. Phase A is cut into commit-sized chunks so a credit
    expiry between them loses nothing: **A1 doc → A2 IR schema v0 → A3/A4/A5

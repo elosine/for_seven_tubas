@@ -265,6 +265,14 @@ uses the `{parts, span}` overlay target.
 clean — `VALID` on a near-empty file certifies little; read the counts in
 the success line.
 
+**Queued amendment (A5 finding, not yet needed):** integer
+`tempo.subdivision` cannot carry a p:q fit with q > 1 (beat/unit = 9/2 is
+not an integer). Free-beat fullVocab fits only ever select p:1 (E1 finding
+3), so every foldable chunk today fits — but E1b's fixed-beat records
+(9:2, 7:2, 7:3, 8:3, 9:4, 5:2, on disk in `cloud02-10track.e1b.json`) will
+need an optional `subdivisionDen` (default 1; check beat × q = p × unit).
+Enters by amendment when the first fixed-beat fit is actually folded.
+
 **Completeness note (A4 finding):** the validator never checks that every
 S1 onset inside `source.window` × `source.parts` has an event — partial
 coverage is legal and normal for hand-worked documents (`morph-window-01`

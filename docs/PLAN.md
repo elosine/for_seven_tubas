@@ -1613,8 +1613,10 @@ tempo streams + the 0.136 s seam; VALID vs source; 0.0000 ms re-derivation;
 two schema amendments: span = onset ownership, boundary = next chunk's first
 onset). **A4 DONE 2026-08-19 night** — `morph-window-01.ir.json` (8-part bloom
 entry, {parts,span} overlay, naive-spelling + authored-respell pattern;
-validator gained the renames-never-repitches check). Next: **A5 — density
-apex** (last Phase A chunk).
+validator gained the renames-never-repitches check). **A5 DONE 2026-08-19 night** — `density-apex-01.ir.json` (E1 fold;
+fit-is-data vs strategy-is-judgment split; re-derivation matches the record
+exactly). **PHASE A COMPLETE.** Next: Phase B — slice 1 TRANCE end-to-end
+(composer gate).
 
 ## Parking lot
 

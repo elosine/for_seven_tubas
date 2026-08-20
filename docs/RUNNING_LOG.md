@@ -3151,3 +3151,45 @@ proposal, authored decision, exactly amendment 1's shape.
 
 Next: **A5 — density apex** (fold ONE fullVocab ε variant of the E1 record
 for `cloud02-10track`), the last Phase A chunk.
+
+## Day 19 (2026-08-19, night) — A5 RUN: density apex folded; PHASE A COMPLETE
+
+**Composer: "a5 good."** `notation/ir/density-apex-01.ir.json` — tuba5's
+apex window (47.904-54.9 s of `cloud02-10track`), folding the E1
+`coverage['20'].fullVocab` record (identical at eps 15/25/30). Two chunks
+claim ALL 19 tuba5 notes; this part's residue is SILENCE (52.0-54.9), not
+unclaimed notes.
+
+**The A5 point, and it worked: the fit is DATA, the strategy is a
+JUDGMENT, and the schema separates them.** Both fits have 35.7/34.0 ms grid
+units — below D43's 90 ms playable floor — so the tempo blocks are carried
+as derived fit-data (full-precision floats from the record; subdivision x
+unit == beat exactly, so the consistency check doubles as drift detection
+against any future tool that rounds) while `strategy: "proportional"`
+records the Mists-spatial performing decision. D43 in schema form. GC
+landings at both anchors (re-anchoring is the GC's structural job).
+
+**Verified:** VALID + --against-source · independent re-derivation of both
+fits against raw onsets reproduces the record's claims EXACTLY (9.34 /
+7.77 ms) · track-id lookup rule applied (tuba5 = tracks[4] = layer 4).
+
+**Findings:**
+1. **Latent schema flaw confirmed, not triggered:** integer `subdivision`
+   cannot carry p:q fits with q>1 (E1b's 9:2 etc., real data on disk).
+   Free-beat fullVocab provably only selects p:1, so every foldable chunk
+   today fits. `subdivisionDen` amendment QUEUED in spec §7 for the first
+   fixed-beat fold — not built early.
+2. No overlays at all, deliberately: A3/A4 proved the override and
+   multi-part mechanisms; fabricating one here would invent musical
+   judgment. The `grouping` overlay kind is UNEXERCISED through A3-A5 —
+   recorded; slice 1's real beaming decisions exercise it.
+3. The mixed-strategy residue (unclaimed notes needing another treatment)
+   did not materialize on tuba5 — other parts have it; slice 2 meets it.
+
+**PHASE A IS COMPLETE: A1 architecture doc (2 amendments) · A2 schema v0 +
+validator (31 red mutations on record) · A3 trance bar · A4 morph window ·
+A5 density apex — every chunk committed + pushed + logged as designed.**
+Next phase per the approved path: **B — vertical slice 1, the TRANCE
+section end-to-end** (extract → IR → stamps → grid → parts → splicing with
+the first accommodation strategies). Phase gate: composer review of the A
+deliverables (A1 §8 table = what remains open).
