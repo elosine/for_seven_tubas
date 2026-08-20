@@ -46,7 +46,11 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
                 {frac:3, mode:'transpose', by:1,     label:'B oct',  detail:'A# oct +1'},
                 {frac:2, mode:'set', set:[36,43,50,57,64], label:'5ths C', detail:'C2 G2 D3 A3 E4'},
             ]};
-        if (k==='swells') return {k, tok, beats: parts[1] ? +parts[1] : 3};
+        if (k==='swells') return {k, tok,
+            lens: parts[1] ? parts[1].split('+').map(Number) : [3,3,3,3,3],
+            delay: parts[2] ? +parts[2] : 0};
+        if (k==='phasearc' && parts[1]==='5') return {k, tok, n:5,
+            dur: parts[2] ? +parts[2] : 17.78, arcSpec:'ps5'};
         if (k==='phasearc' && parts[1]==='6') return {k, tok, n:6,
             dur: parts[2] ? +parts[2] : 21, arcSpec:'ps6'};
         if (k==='cblocks') return {k, tok, p:+parts[1], b:+parts[2],
@@ -180,13 +184,13 @@ const j = JSON.parse(fs.readFileSync(path.join(ROOT,SRC),'utf8'));
 j.objects = j.objects.filter(o => !(o.properties && /^asm-/.test(o.properties.gen || ''))
                               && !/^ASM /.test(o.label || ''));
 let id = (j.nextId || 1) + 1;
-const note = (t,layer,pitch,dur,color,label,gen,vel,tech,y0,y1) => j.objects.push({
+const note = (t,layer,pitch,dur,color,label,gen,vel,tech,y0,y1,env) => j.objects.push({
     id:'wc-asm-'+(id++), type:'waveCurve', layer,
     startSeconds:+t.toFixed(4), endSeconds:+(t+dur).toFixed(4),
     nodes:[{pos:0,y:y0!=null?y0:8,smooth:0.25},{pos:1,y:y1!=null?y1:8,smooth:0.25}],
     segments:[{model:'power',slope:0}], color, fillMode:'bottom', opacity:0.55,
     performanceNotes:label, properties:{gen},
-    sonifyNote:pitch, technique:tech||'staccato', sonifyMode:'plain', recVel:vel });
+    sonifyNote:pitch, technique:tech||'staccato', sonifyMode:env?undefined:'plain', recVel:vel });
 const mark = (t,label,color,detail) => j.objects.push({
     id:'mk-asm-'+(id++), type:'marker', layer:10, time:+t.toFixed(3),
     label, color, performanceNotes:detail||'', properties:{gen:'asm-mark'} });
@@ -287,6 +291,17 @@ PLAN.forEach(item => {
         log.push('mtdiv '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+
             parts.map((p,i)=>p.label+' '+((i?bounds[i]-bounds[i-1]:bounds[0])).toFixed(1)+'s').join(' | ')+')');
     } else if (item.k === 'phasearc') {
+        if (item.arcSpec === 'ps5') {
+            // PS5 v2 (composer): jittered thirds — the sp16 voicing from the
+            // long held chord (randomly distributed) · the fifths chain on E ·
+            // the F octaves it had before.
+            const jit = () => 1 + 0.2*(rnd()-0.5);
+            item.arc = [
+                {frac:jit(), set:SPECIES['16'],   label:'sp16', detail:'the CB5 chord, scrambled'},
+                {frac:jit(), set:[40,47,54,61],   label:'5ths E', detail:'E2 B2 F#3 C#4'},
+                {frac:jit(), set:[41,53,65],      label:'F oct'},
+            ];
+        }
         if (item.arcSpec === 'ps6') {
             // THE FINALE (composer, day 21): ~21 s of phase step 6, six pitch
             // worlds — F# octaves · octaves a fifth up (C#) · fifths a fifth up
@@ -295,21 +310,16 @@ PLAN.forEach(item => {
             // length. Parts approx equal with jitter, last one x2. The whole
             // section is ONE swell: level ramps mp -> loud across the 21 s
             // (drawn envelope -> CC7, velocity alongside).
-            const agg = [];
-            for (let pc = 0; pc < 12; pc++) {
-                const c = octavesOf(pc);
-                agg.push(c[(rnd()*c.length)|0]);
-            }
+            // v2 (composer): 3:4:5 — BASE > fifths on D > F octaves, starting
+            // QUIETER (the CC7-registering test: in plain mode CC7 is pinned
+            // and velocity carries the build — 2q's question, live).
             const jit = () => 1 + 0.2*(rnd()-0.5);
             item.arc = [
-                {frac:jit(),   set:[30,42,54],           label:'F# oct'},
-                {frac:jit(),   set:[37,49,61],           label:'C# oct', detail:'a fifth above'},
-                {frac:jit(),   set:[32,39,46,53,60],     label:'5ths G#', detail:'a fifth above that'},
-                {frac:jit(),   set:phaseSet({set:'ga4'}, 0), label:'mes6'},
-                {frac:jit(),   set:agg.sort((a,b)=>a-b), label:'12-note', detail:'aggregate, random octaves'},
-                {frac:2*jit(), set:BASE,                 label:'BASE', detail:'all ten, double length'},
+                {frac:3*jit(), set:BASE,            label:'BASE'},
+                {frac:4*jit(), set:[38,45,52,59],   label:'5ths D', detail:'D2 A2 E3 B3'},
+                {frac:5*jit(), set:[41,53,65],      label:'F oct'},
             ];
-            item.ramp = { y0: 3.5, y1: 9.5, v0: 60, v1: 122 };   // mp -> loud
+            item.ramp = { y0: 2.2, y1: 9.5, v0: 35, v1: 122 };   // quieter start, to test
         }
         if (item.arcSpec === 'ps4') {
             const tT = (rnd()*8)|0;                       // fifths chain 30+t
@@ -369,21 +379,25 @@ PLAN.forEach(item => {
         // 2, 4, 6, 8, 10 players. Each block: held ord, 3 beats, the standard
         // SURGE shape (crescendo to the cut), one-beat rest between.
         const ORDER = [31, 45, 52, 59, 65];
+        t += (item.delay || 0) * BEAT;               // composer: begin one beat later
         const t0 = t;
         for (let k = 1; k <= ORDER.length; k++) {
             const chord = ORDER.slice(0, k);
-            mark(t, 'SW'+k+' +'+NAME(ORDER[k-1])+' ('+(2*k)+'p)', '#d6b45f',
-                 'base entries '+chord.map(NAME).join(' ')+' · surge swell, '+item.beats+' beats');
+            const L = item.lens[k-1] != null ? item.lens[k-1] : 3;
+            mark(t, 'SW'+k+' +'+NAME(ORDER[k-1])+' ('+(2*k)+'p) x'+L, '#d6b45f',
+                 'base entries '+chord.map(NAME).join(' ')+' · surge swell, '+L+' beats');
             const lanes = pickLanes(rnd, 2*k);
             chord.forEach((pitch,vi)=>{
-                note(t, lanes[2*vi],   pitch, item.beats*BEAT, '#d6b45f',
-                     'SW'+k+' '+NAME(pitch), 'asm-swell', 100, 'ord', 2, 9);
-                note(t, lanes[2*vi+1], pitch, item.beats*BEAT, '#d6b45f',
-                     'SW'+k+' '+NAME(pitch), 'asm-swell', 100, 'ord', 2, 9);
+                // env=true: NO sonifyMode, so the drawn surge drives CC7 —
+                // plain mode pins CC7 at 127, which made v1 inaudible
+                note(t, lanes[2*vi],   pitch, L*BEAT, '#d6b45f',
+                     'SW'+k+' '+NAME(pitch), 'asm-swell', 100, 'ord', 2, 9, true);
+                note(t, lanes[2*vi+1], pitch, L*BEAT, '#d6b45f',
+                     'SW'+k+' '+NAME(pitch), 'asm-swell', 100, 'ord', 2, 9, true);
             });
-            t += item.beats*BEAT + BEAT;
+            t += L*BEAT + BEAT;
         }
-        log.push('swells   '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  (5 blocks x '+item.beats+' beats, 2/4/6/8/10 players)');
+        log.push('swells   '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+item.lens.join('/')+' beats, 2/4/6/8/10 players, CC7-curve mode)');
     } else if (item.k === 'cblocks') {
         // CLOSING CHORD BLOCKS (composer, day 21): successive chords from the
         // pattern series, each pulsed for its own beat-length, one-beat rest
