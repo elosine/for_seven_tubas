@@ -4326,3 +4326,13 @@ depth walked; number-distance is not sound-distance (0.4167 vs 0.4142 =
 the zone/complexity walk, `amount` = the rev-10 full-gamut ladder restored as
 S7. Standing ear-question stated to the composer: if zone rungs 3-7 sound
 alike, complexity depth saturates for the ear and we stop digging that axis.**
+
+**2ag follow-up 11 — composer caught a real error in the zone ladder: the
+mediant walk CONVERGES to ~0.414, it does not SWEEP 1/2 -> 1/3 as I had
+stated it would.** rev 13: S6 phase rewritten as the true sweep - every zone
+fraction with denominator <= 12, descending: 1/2, 5/11, 4/9, 3/7, 5/12, 2/5,
+3/8, 4/11, 1/3. Verified group counts 2/10/9/7/10/5/8/10/3: a value-ordered
+sweep necessarily ZIGZAGS in complexity (simple anchors at the ends, deep
+fractions between) - stated to the composer, readout names each rung's count.
+Panel verified on rev 13. The convergent depth-walk remains in git (rev 11)
+if the depth axis is ever mined again.
