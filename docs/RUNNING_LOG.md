@@ -3291,3 +3291,35 @@ and changes no relationship) + a **committed snapshot**
 included) + **`--prove-red`** (Principle 6 built in: a perturbed run must
 fail, and does). All green; battery still 36/36. Next: **B3 — glyph port +
 stamps.**
+
+## Day 19 (2026-08-19, late night) — B3 RUN: glyphs ported, stamps are typed boxes
+
+**Composer: "b3 go."** `tools/port_glyphs.js` mechanically ports the slice-1
+set from piece #2's LP-extracted library into `notation/lib/glyphs.json`
+(provenance on every entry; source repo read-only): filled notehead (+
+measured stemAttachUp/Down, center-relative → top-origin converted), 8th
+flags up/down (stem-tip anchors), bass clef (fLine anchor = the line the
+dots straddle), sharp/flat/natural, and the measured standards (staff 5 ×
+1 ss, line 0.1 · stem 0.13 · beam 0.40/0.81/0.41 · ledger 0.1/0.25).
+Staccato dot is procedural 0.4 ss (piece #2 had none). Paths are in
+STAFF-SPACE with bbox-top-left origin, fill-only — one ssPx scale renders
+everything.
+
+**Deliberately NOT ported, with reasons:** REST glyphs — piece #2 has none
+anywhere (grep-verified), and slice 1 needs none: the IR has no rest nodes
+(spec §7 — rests are gaps) and on the strip the gap IS the rest; glyphs
+enter when rest nodes do. Dynamics glyphs — marks are authored-only
+(amendment 1); v0 renders them as text. 
+
+**`notation/lib/stamps.js` — typed boxes with anchors** ("anchors compose;
+positions don't"): notehead · stem · flag8 · clefBass · accidental ·
+staccatoDot · staffLines (per-line anchors, middle = line2) · ledgerLine ·
+beamSeg (parallelogram, vertical thickness) · `toSvg` (place by aligning a
+named anchor at a px point; uniform scale; fills only).
+
+**Gate:** `tools/test_stamps.js` — parity against LITERAL dims-table
+numbers (two-ends: not glyphs.json read back at itself) · the
+ANCHORS-COMPOSE assembly proof (notehead → stem root at stemAttachUp →
+flag at stem tip, all by anchor alignment, tip lands exactly 3.5 ss above
+the attach) · committed snapshot + --prove-red. All green; coords + battery
+regressions green. Next: **B4 — layout passes.**

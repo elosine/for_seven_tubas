@@ -1,0 +1,147 @@
+{
+ "_provenance": {
+  "note": "Slice-1 glyph set ported from piece #2 (LP/Emmentaler extractions + measured standards). Paths in STAFF-SPACE, bbox top-left origin, y down, fill-only. Regenerate with tools/port_glyphs.js.",
+  "ported": "2026-08-20"
+ },
+ "notehead": {
+  "filled": {
+   "path": "M 0.6784 0 c 0.1888 0 0.3616 0.0992 0.3616 0.304 c 0 0.2272 -0.1664 0.384 -0.3168 0.4736 c -0.1088 0.0672 -0.2336 0.1056 -0.3616 0.1056 c -0.1888 0 -0.3616 -0.0992 -0.3616 -0.304 c 0 -0.2272 0.1696 -0.384 0.32 -0.4736 c 0.1088 -0.0672 0.2304 -0.1056 0.3584 -0.1056 z",
+   "wSs": 1.04,
+   "hSs": 0.8832,
+   "anchors": {
+    "center": {
+     "x": 0.52,
+     "y": 0.4415
+    },
+    "stemAttachUp": {
+     "x": 0.9675,
+     "y": 0.3055
+    },
+    "stemAttachDown": {
+     "x": 0.065,
+     "y": 0.5775
+    }
+   },
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/notehead_paths.json + dimensions_table.json notehead.filled",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  }
+ },
+ "flag": {
+  "up8": {
+   "path": "M 0.064 0 v 1 h -0.064 v -1 h 0.064 z M 0.064 0 c 0 0.788 0.828 1.344 0.828 2.132 c 0 0.284 -0.06 0.564 -0.164 0.828 c -0.02 0.032 -0.052 0.048 -0.08 0.048 c -0.052 0 -0.104 -0.044 -0.092 -0.108 c 0.104 -0.244 0.168 -0.504 0.168 -0.768 c 0 -0.412 -0.376 -0.832 -0.66 -1.132 v -1 z",
+   "wSs": 0.892,
+   "hSs": 3.008,
+   "anchors": {
+    "stemTip": {
+     "x": 0.064,
+     "y": 0
+    }
+   },
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/flag_paths.json 8up",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  },
+  "down8": {
+   "path": "M 0.064 2.796 h -0.064 v -1 h 0.064 v 1 z M 0.064 2.796 v -1 c 0.388 -0.236 0.896 -0.592 0.896 -1.036 c 0 -0.228 -0.06 -0.448 -0.16 -0.652 c -0.012 -0.064 0.04 -0.108 0.092 -0.108 c 0.028 0 0.06 0.012 0.08 0.044 c 0.1 0.224 0.16 0.468 0.16 0.716 c 0 0.812 -1.068 1.224 -1.068 2.036 z",
+   "wSs": 1.132,
+   "hSs": 2.796,
+   "anchors": {
+    "stemTip": {
+     "x": 0.064,
+     "y": 2.796
+    }
+   },
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/flag_paths.json 8down",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  }
+ },
+ "clef": {
+  "bass": {
+   "path": "M 2.28 1.552 c 0 -0.112 0.092 -0.204 0.204 -0.204 s 0.204 0.092 0.204 0.204 s -0.092 0.204 -0.204 0.204 s -0.204 -0.092 -0.204 -0.204 z M 2.28 0.552 c 0 -0.112 0.092 -0.204 0.204 -0.204 s 0.204 0.092 0.204 0.204 s -0.092 0.204 -0.204 0.204 s -0.204 -0.092 -0.204 -0.204 z M 0.98 0 c 0.688 0 1.172 0.352 1.172 1.004 c 0 1.052 -1.052 1.656 -2.064 2.084 c -0.012 0.012 -0.024 0.016 -0.036 0.016 c -0.028 0 -0.052 -0.024 -0.052 -0.052 c 0 -0.012 0.004 -0.024 0.016 -0.036 c 0.808 -0.472 1.648 -1.06 1.648 -1.972 c 0 -0.48 -0.252 -0.94 -0.684 -0.94 c -0.296 0 -0.516 0.216 -0.616 0.504 c 0.044 -0.02 0.088 -0.032 0.136 -0.032 c 0.22 0 0.4 0.18 0.4 0.4 c 0 0.232 -0.176 0.424 -0.4 0.424 c -0.24 0 -0.448 -0.188 -0.448 -0.424 c 0 -0.532 0.408 -0.976 0.928 -0.976 z",
+   "wSs": 2.688,
+   "hSs": 3.104,
+   "anchors": {
+    "fLine": {
+     "x": 0.052,
+     "y": 1.052
+    }
+   },
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/clef_bass_paths.json (fLine = line the dots straddle = F3)",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  }
+ },
+ "accidental": {
+  "sharp": {
+   "path": "M 0.104 0.676 c -0.01 0.004 -0.02 0.008 -0.032 0.008 c -0.038 0 -0.072 -0.032 -0.072 -0.072 v -0.082 c 0 -0.028 0.018 -0.056 0.044 -0.066 l 0.06 -0.026 v -0.288 c 0 -0.028 0.022 -0.052 0.05 -0.052 s 0.052 0.024 0.052 0.052 v 0.248 l 0.138 -0.058 v -0.29 c 0 -0.028 0.024 -0.05 0.052 -0.05 s 0.05 0.022 0.05 0.05 v 0.248 c 0.01 -0.004 0.02 -0.008 0.032 -0.008 c 0.038 0 0.072 0.032 0.072 0.072 v 0.084 c 0 0.028 -0.018 0.056 -0.044 0.066 l -0.06 0.024 v 0.288 c 0.01 -0.004 0.02 -0.008 0.032 -0.008 c 0.038 0 0.072 0.032 0.072 0.072 v 0.082 c 0 0.028 -0.018 0.056 -0.044 0.066 l -0.06 0.026 v 0.288 c 0 0.028 -0.022 0.052 -0.05 0.052 s -0.052 -0.024 -0.052 -0.052 v -0.248 l -0.138 0.058 v 0.29 c 0 0.028 -0.024 0.05 -0.052 0.05 s -0.05 -0.022 -0.05 -0.05 v -0.248 c -0.01 0.004 -0.02 0.008 -0.032 0.008 c -0.038 0 -0.072 -0.032 -0.072 -0.072 v -0.084 c 0 -0.028 0.018 -0.056 0.044 -0.066 l 0.06 -0.024 v -0.288 z M 0.344 0.578 l -0.138 0.056 v 0.288 l 0.138 -0.056 v -0.288 z",
+   "wSs": 0.55,
+   "hSs": 1.5,
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/accidental_paths.json",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  },
+  "flat": {
+   "path": "M 0.144 0.83 l -0.004 0.11 v 0.02 c 0 0.042 0.004 0.084 0.01 0.124 c 0.08 -0.076 0.166 -0.158 0.166 -0.268 c 0 -0.06 -0.026 -0.122 -0.078 -0.122 c -0.062 0 -0.092 0.068 -0.094 0.136 z M 0.032 1.178 l -0.032 -1.16 c 0.022 -0.012 0.046 -0.018 0.07 -0.018 s 0.048 0.006 0.07 0.018 l -0.018 0.66 c 0.05 -0.058 0.122 -0.092 0.198 -0.092 c 0.098 0 0.15 0.108 0.15 0.216 c 0 0.15 -0.15 0.234 -0.258 0.338 c -0.04 0.04 -0.056 0.114 -0.116 0.114 c -0.038 0 -0.064 -0.036 -0.064 -0.076 z",
+   "wSs": 0.47,
+   "hSs": 1.254,
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/accidental_paths.json",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  },
+  "natural": {
+   "path": "M 0 0.016 c 0.018 -0.01 0.04 -0.016 0.06 -0.016 s 0.04 0.006 0.058 0.016 l -0.006 0.414 l 0.186 -0.054 c 0.004 -0.002 0.008 0 0.012 0 c 0.022 0 0.042 0.018 0.042 0.04 l 0.018 1.1 c -0.018 0.01 -0.04 0.016 -0.06 0.016 s -0.042 -0.006 -0.06 -0.016 l 0.008 -0.414 l -0.188 0.054 c -0.004 0.002 -0.006 0 -0.01 0 c -0.022 0 -0.042 -0.018 -0.042 -0.04 z M 0.266 0.554 l -0.156 0.046 l -0.006 0.378 l 0.156 -0.046 z",
+   "wSs": 0.37,
+   "hSs": 1.532,
+   "_provenance": {
+    "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/accidental_paths.json",
+    "ported": "2026-08-20",
+    "by": "tools/port_glyphs.js"
+   }
+  }
+ },
+ "standards": {
+  "staff": {
+   "lineThickness": 0.1,
+   "lineCount": 5,
+   "interLineSpace": 1
+  },
+  "ledgerLine": {
+   "thickness": 0.1,
+   "lengthFraction": 0.25
+  },
+  "stem": {
+   "thickness": 0.13,
+   "defaultLength": 3.5,
+   "minLength": 2.5
+  },
+  "beam": {
+   "thickness": 0.4,
+   "stackStep": 0.81,
+   "gap": 0.41
+  },
+  "staccatoDot": {
+   "diameter": 0.4,
+   "gapFromNotehead": 0.5,
+   "_note": "procedural (piece #2 had no staccato script); LP-typical proportions"
+  },
+  "_provenance": {
+   "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/dimensions_table.json (staff/ledgerLine/stem/beam rows; stem.defaultLength 3.5 ss = conventional one-octave stem, piece #2 default 10 was cell-motive-specific)",
+   "ported": "2026-08-20",
+   "by": "tools/port_glyphs.js"
+  }
+ }
+}

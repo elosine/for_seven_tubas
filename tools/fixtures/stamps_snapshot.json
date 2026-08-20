@@ -1,0 +1,84 @@
+[
+ [
+  "notehead",
+  1.04,
+  0.8832,
+  "center:0.52,0.4415 stemAttachDown:0.065,0.5775 stemAttachUp:0.9675,0.3055"
+ ],
+ [
+  "stem",
+  0.13,
+  3.5,
+  "root:0.065,3.5 tip:0.065,0"
+ ],
+ [
+  "stem",
+  0.13,
+  3.5,
+  "root:0.065,0 tip:0.065,3.5"
+ ],
+ [
+  "flag8up",
+  0.892,
+  3.008,
+  "stemTip:0.064,0"
+ ],
+ [
+  "flag8down",
+  1.132,
+  2.796,
+  "stemTip:0.064,2.796"
+ ],
+ [
+  "clefBass",
+  2.688,
+  3.104,
+  "fLine:0.052,1.052"
+ ],
+ [
+  "accidental-sharp",
+  0.55,
+  1.5,
+  "center:0.275,0.75"
+ ],
+ [
+  "accidental-flat",
+  0.47,
+  1.254,
+  "center:0.235,0.627"
+ ],
+ [
+  "accidental-natural",
+  0.37,
+  1.532,
+  "center:0.185,0.766"
+ ],
+ [
+  "staccatoDot",
+  0.4,
+  0.4,
+  "center:0.2,0.2"
+ ],
+ [
+  "staff",
+  20,
+  4.1,
+  "line0:0,0.05 line1:0,1.05 line2:0,2.05 line3:0,3.05 line4:0,4.05 middle:0,2.05"
+ ],
+ [
+  "ledger",
+  1.56,
+  0.1,
+  "center:0.78,0.05"
+ ],
+ [
+  "beam",
+  4,
+  0.9,
+  "end:4,0.5 start:0,0"
+ ],
+ [
+  "svg:notehead",
+  "<g transform=\"translate(95.840 196.468) scale(8.00000)\"><pat"
+ ]
+]

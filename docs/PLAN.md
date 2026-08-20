@@ -1624,8 +1624,11 @@ exactly). **PHASE A COMPLETE.** **PHASE B GO (composer, same night):** B0 plan
 (`docs/plans/NOTATION_SLICE1_PLAN.md`, DB-1..DB-8) · **B1 DONE** — extractor
 + `--complete` + A3 golden GREEN; `trance-section-01.ir.json` = 749 events /
 56 chunks, fully valid; accent-weave model (VERT hits join their stream's
-grid). Next: **B2 coordinate module** → B3 glyphs → B4 layout → B5 page →
-B6 splicing.
+grid). **B2 DONE** (coords module, SZ-7 lane-relative ss, snapshot+prove-red) ·
+**B3 DONE** (glyphs ported from piece #2 with provenance; stamps = typed
+boxes with anchors; parity + assembly proof green; rests deliberately
+absent — the IR has no rest nodes). Next: **B4 layout** → B5 page → B6
+splicing.
 
 ## Parking lot
 
