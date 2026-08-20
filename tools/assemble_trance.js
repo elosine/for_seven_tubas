@@ -27,6 +27,15 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
     .split(',').map(x => {
         const tok = x.trim(), parts = tok.split(':'), k = parts[0];
         if (k==='r27') return {k, tok};
+        if (k==='r17') return {k, tok};
+        if (k==='phasearc') return {k, tok, n:+parts[1], dur: parts[2] ? +parts[2] : null,
+            // composer's PS1 arc: ~50% the current G#-rooted fifths chain, then
+            // the chain a half step up, last ~20% the F-A cluster
+            arc: [
+                {frac:5, set:[32,39,46,53,60], label:'5ths G#'},
+                {frac:3, set:[33,40,47,54,61], label:'5ths A', detail:'half step up'},
+                {frac:2, set:[30,31,33,41,42,44,45,53,55,57], label:'cluFA'},
+            ]};
         if (k==='mtdiv') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10,
             // the composer's 4:3:2 arc for this insert: A# octaves -> B octaves
             // (transpose +1) -> the C-ROOTED fifths chain (C2 G2 D3 A3 E4)
@@ -270,6 +279,57 @@ PLAN.forEach(item => {
         t = t0 + secs;
         log.push('mtdiv '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+
             parts.map((p,i)=>p.label+' '+((i?bounds[i]-bounds[i-1]:bounds[0])).toFixed(1)+'s').join(' | ')+')');
+    } else if (item.k === 'phasearc') {
+        // PHASE with a pitch ARC: same rotor rhythm as a phase step, but the
+        // pitch SET changes across sub-parts (fractions of the duration).
+        const s = STEPS[item.n-1];
+        const dur = item.dur != null ? item.dur : s.dur;
+        const end = t + dur;
+        const total = item.arc.reduce((a,p)=>a+p.frac,0);
+        let acc = 0;
+        const bounds = item.arc.map(p => { acc += p.frac; return t + dur*acc/total; });
+        item.arc.forEach((p,pi) => mark(pi ? bounds[pi-1] : t,
+            'PS'+item.n+' '+p.label, '#3F7D5A', (p.detail||'')+' · '+s.bpm+' BPM · offset '+s.off));
+        const T = 60/s.bpm;
+        let n = 0;
+        const lastOct = new Array(10).fill(null);
+        for (let c = t; c < end - 1e-9; c += T)
+            for (let lane=0; lane<10; lane++) {
+                const at = c + ((lane*s.off)%1)*T;
+                if (at >= end - 1e-9) continue;
+                const pi = bounds.findIndex(b => at < b - 1e-9);
+                const set = item.arc[pi < 0 ? item.arc.length-1 : pi].set;
+                const pitch = scrambleOct(rnd, set, lastOct[lane]);
+                lastOct[lane] = pitch;
+                note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
+                n++;
+            }
+        log.push('phasearc '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
+                 item.arc.map(p=>p.label).join(' > ')+', '+n+' notes)');
+        t = end;
+    } else if (item.k === 'r17') {
+        // RE-PITCH THE ORIGINAL "17 oct A#" SECTION (composer, day 21 — the
+        // correction: the 4:3:2 arc belongs on the EXISTING section at ~36 s,
+        // not on an inserted chunk): A# octaves as written | B octaves
+        // (transpose +1) | re-draw from the C-rooted fifths chain.
+        const F5_C = [36,43,50,57,64];                   // C2 G2 D3 A3 E4
+        const w = j.objects.filter(o => o.type==='waveCurve' &&
+            (o.performanceNotes||'').indexOf('D oct A#') === 0 && !/^asm-/.test((o.properties||{}).gen||''));
+        const a = Math.min(...w.map(x=>x.startSeconds)), b = Math.max(...w.map(x=>x.startSeconds));
+        const span = b - a, b1 = a + span*4/9, b2 = a + span*7/9;
+        const lastP = new Array(10).fill(null);
+        const draw = (set, layer) => { let k;
+            do { k = set[(rnd()*set.length)|0]; } while (k === lastP[layer] && set.length > 1);
+            lastP[layer] = k; return k; };
+        let n2=0, n3=0;
+        w.sort((x,y)=>x.startSeconds-y.startSeconds).forEach(x => {
+            if (x.startSeconds < b1) return;             // part 1: A# octaves as written
+            if (x.startSeconds < b2) { x.sonifyNote = x.sonifyNote + 1; n2++; }   // B octaves
+            else { x.sonifyNote = draw(F5_C, x.layer); n3++; }
+        });
+        mark(b1, '17→B oct', '#C62828', '4:3:2 repitch, part 2 (+1)');
+        mark(b2, '17→5ths C', '#C62828', '4:3:2 repitch, part 3 (C2 G2 D3 A3 E4)');
+        log.push('r17: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  A# oct to '+b1.toFixed(1)+' | B oct '+n2+' notes to '+b2.toFixed(1)+' | 5thsC '+n3+' notes');
     } else if (item.k === 'r27') {
         // RE-PITCH THE ORIGINAL "27 oct B" SECTION (composer, day 21):
         // reversed ratio 2:3:4 across its span — B octaves stay | re-draw from
