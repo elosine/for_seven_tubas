@@ -627,3 +627,17 @@ actual score — D6's reverse-engineering stance applied to notation.
    statistical textures (smear/rain/groove/gallop) vs interlocking
    structures (hockets, phase-locked pairs) divide exactly along
    random-vs-composed phase.
+
+5. **The inverted-U, independently reproduced (day 21):** the hypothesis
+   "onset complexity = gap unevenness; both the clean pulse AND the uniform
+   smear are simple" was formed from the composer's Reich observation
+   ("something very patterned that immediately resolves into something very
+   smeary"). A scorer built on gap-CV alone then ranked 997 offsets - and
+   the smear and the pulses both landed at score ~0 with the knotty cells
+   between, WITHOUT that shape being designed in. Method note for the paper:
+   "machine proposes an order, the ear corrects it" - the score order is an
+   explicit hypothesis about perception and the composer's listen is the
+   experiment; disagreements feed back as weight corrections. Full process
+   record: docs/PHASE_COMPLEXITY.md (wrong turns kept, labeled - the
+   converge-vs-sweep miscommunication and the two-axis confound are part of
+   the argument, not noise).

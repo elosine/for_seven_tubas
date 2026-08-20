@@ -4365,3 +4365,13 @@ was a sub-fusion flam-thickened variant - audibly a THICKER stack; kept out
 of the ladder, noted as its own colour). Panel verified on rev 14 (12 rows,
 98 BPM, correct offsets). THE COMPOSER'S LISTEN IS THE EXPERIMENT: does the
 score order match the ear order? Disagreements correct the weights.
+
+**2ag follow-up 13 — consolidation (composer: "document this whole process").
+`docs/PHASE_COMPLEXITY.md` written: the full day-21 phase arc readable cold -
+origin (2ad -> "they sound kind of the same" -> the Reich reframe) · phase as
+substrate · the rotor · the four ladder iterations WITH the wrong turns
+labeled (amount/complexity confound, converge-vs-sweep) · the inverted-U
+theory · the constraint registry (caps, rain formula, no player-count
+threshold, redistribution 8/5, live floor) · the rev-14 experiment + protocol
+· open items. PAPER_NOTES #5 filed (inverted-U independently reproduced;
+machine-proposes/ear-corrects as method).**
