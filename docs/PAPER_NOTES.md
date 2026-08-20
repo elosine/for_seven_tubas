@@ -641,3 +641,16 @@ actual score — D6's reverse-engineering stance applied to notation.
    record: docs/PHASE_COMPLEXITY.md (wrong turns kept, labeled - the
    converge-vs-sweep miscommunication and the two-axis confound are part of
    the argument, not noise).
+
+6. **First ear data, and the composer names the friction (day 21, on the
+   computed ladder):** *"I'm trying to cram a square peg into a round
+   circle. By nature this is a discursive process, and it's the dramatic
+   changes - that's interesting. But for my purposes, I want a smooth
+   ramp... there's definitely a U even in the series that you produced, to
+   the ear."* Three things at once: the inverted-U prediction gets EAR
+   corroboration; the material's nature (discursive, dramatic) is named as
+   possibly against the desired form (smooth ramp); and the experiment is
+   endorsed while its premise is questioned. The composer's next move was
+   not to fix the ramp but to COMPOSE with the dramatic changes: their own
+   re-ordering of the rungs (11-2-7-3-10-4-6) is an alternating high-low
+   complexity path - the discursive quality used as material.

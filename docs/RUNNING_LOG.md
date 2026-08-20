@@ -4375,3 +4375,21 @@ theory · the constraint registry (caps, rain formula, no player-count
 threshold, redistribution 8/5, live floor) · the rev-14 experiment + protocol
 · open items. PAPER_NOTES #5 filed (inverted-U independently reproduced;
 machine-proposes/ear-corrects as method).**
+
+**2ag follow-up 14 — FIRST EAR DATA ON THE PHASE ARC (composer, on rev 14),
+and the composer's own sequence (rev 15).** The verdict, near-verbatim: *"I
+think in some ways I'm trying to cram a square peg into a round circle. I
+think by nature this is a DISCURSIVE process, and it's the dramatic changes -
+that's interesting. But for my purposes I want a SMOOTH RAMP. And I think
+that was the right experiment. But as you mentioned, there's definitely a U
+even in the series that you produced, to the ear."* Three findings in that:
+(1) the inverted-U now has EAR corroboration, heard inside the monotone-by-
+score series itself; (2) the material's nature is discursive/dramatic-change
+- the smooth ramp the composer wants may be against its grain (square peg,
+round circle - THE quotable); (3) the experiment design was right anyway.
+No theory action requested. **rev 15: slot `try1` = the composer's own order
+of rev-14 rungs 11-2-7-3-10-4-6** (offsets 0.469/0.2/0.384/0.286/0.2365/
+0.2805/0.1835; score path 0.77-0.00-0.34-0.05-0.58-0.09-0.29 = alternating
+high-low, i.e. playing WITH the dramatic changes, not against them). The
+`phase` slot stays untouched as the reference - rung numbers 1-12 remain the
+composer's working identifiers. Panel verified on rev 15, landed on try1.
