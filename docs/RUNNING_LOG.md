@@ -4318,3 +4318,11 @@ Verification note: the in-pane panel lagged at rev 10 because BACKGROUND TABS
 THROTTLE setInterval - the pane is hidden so its 1 s poll stalls; the
 composer's visible browser is unaffected. Worth remembering for future pane
 verifications: force refresh(true) rather than waiting on the poll.
+
+**2ag follow-up 10 — composer read the zone ladder as "not running the whole
+gamut" (values 0.5-0.41). Correct observation, intended design: zone held,
+depth walked; number-distance is not sound-distance (0.4167 vs 0.4142 =
+12-grid figure vs lump). Resolution: BOTH AXES AS SLOTS (rev 12) - `phase` =
+the zone/complexity walk, `amount` = the rev-10 full-gamut ladder restored as
+S7. Standing ear-question stated to the composer: if zone rungs 3-7 sound
+alike, complexity depth saturates for the ear and we stop digging that axis.**
