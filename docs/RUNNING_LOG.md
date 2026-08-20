@@ -4626,3 +4626,18 @@ assembly arc (rows as reservoirs · chord grammar from dictated preference ·
 the performed timings as form · alternation model · the permutation layer ·
 "score as plan"). PAPER_NOTES #7 filed with the five paper-facing claims.
 Sibling to PHASE_COMPLEXITY.md; raw trail stays here in day 21's entries.
+
+**Day 21 — THE FINALE BUILT (tranceA003h, second pass).** Composer's dictated
+close, all in one plan line: CB5 held chord 5 -> 13 beats · PS5 +50% (11.85s)
+re-pitched to F octaves · ACCUMULATING SWELLS - the base chord's notes enter
+in their MEASURED entry order from the section opening (G1 A2 E3 B3 F4,
+bottom-up, first PULSE onsets 0.0/2.0/4.0/7.6/10.8s), two players per note,
+blocks of 3 beats + 1 rest, 2/4/6/8/10 players, held ord with the SURGE
+shape (y 2->9) · PS6 FINALE ~21s at step 6's tempo: six pitch worlds approx
+equal +jitter with the last DOUBLE - F# oct > C# oct (a fifth up) > G#-rooted
+fifths (a fifth up again) > mes6 > the full 12-note aggregate (one random
+octave per pc) > BASE on all ten - and the whole section is ONE swell, mp ->
+loud (drawn envelope y 3.5->9.5 for CC7, velocity 60->122 alongside).
+Parser bug caught by the run log: phasearc:6 first matched the PS1 branch
+(generic pattern before the specific) - the printed arc named PS1's sets,
+which is what exposed it. Score now ends 203.0s.
