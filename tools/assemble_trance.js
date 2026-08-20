@@ -19,7 +19,7 @@ const nextBeat = t => {
 // The running assembly order. Override with ASM_PLAN="phase:1,chord:9" to
 // regenerate an earlier version — the seeds are consumed in PLAN order, so a
 // prefix plan reproduces that version's material exactly.
-const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3,chord:12:1:4:2+4')
+const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3,chord:12:1:4:2+4,phase:4')
     .split(',').map(x => { const [k,v] = x.trim().split(':');
         if (k==='mt') return {k, m:v, secs:10};
         const parts = x.trim().split(':');
@@ -84,7 +84,12 @@ for (const n of ['16','03','28','12','18','27'])
 // also reaches the 66/67 tops that staccato cannot.
 const TAX = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/blast_taxonomy.json'),'utf8'));
 const SL_ALL = JSON.parse(fs.readFileSync(path.join(ROOT,'bank/sample_lengths.json'),'utf8'));
-const cuivreLen = k => (SL_ALL.cuivre && SL_ALL.cuivre[k]) || 1.2;
+// COMPOSER, day 21: cuivre is written SHORT inside a blast - see 18.0 s in
+// tranceA003*, where a cuivre note is drawn 0.2 s like its neighbours. The
+// measured 1.0-1.35 s ring is the sample's own length (a CEILING, PLAN 2o),
+// not what the blast should show.
+const CUIVRE_LEN = 0.2;
+const cuivreLen = () => CUIVRE_LEN;
 const STD_CUIVRE = {};
 for (const n of ['16','03','28','12','18','27'])
     STD_CUIVRE[n] = ((TAX.harmonies['VERT01-'+n]||{}).stdCuivre || []).filter(k=>k>=60&&k<=67);
