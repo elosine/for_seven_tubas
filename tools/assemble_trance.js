@@ -46,6 +46,8 @@ const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,cho
                 {frac:3, mode:'transpose', by:1,     label:'B oct',  detail:'A# oct +1'},
                 {frac:2, mode:'set', set:[36,43,50,57,64], label:'5ths C', detail:'C2 G2 D3 A3 E4'},
             ]};
+        if (k==='cblocks') return {k, tok, p:+parts[1], b:+parts[2],
+            lens: parts[3].split('+').map(Number)};
         if (k==='mt') return {k, tok, m:parts[1], secs: parts[2] ? +parts[2] : 10};
         if (k==='phase') {
             const it = {k, tok, n:+parts[1]};
@@ -292,6 +294,11 @@ PLAN.forEach(item => {
                 {frac:jit(), set:chain, label:'5ths '+PC[(30+tT)%12], detail:'T'+tT+' random draw'},
                 {frac:jit(), set:SPECIES['33'], label:'sp33'},
             ];
+            // composer, day 21: sp33 doubled; total stretches so parts 1-3 keep
+            // their absolute lengths
+            const s0 = item.arc.reduce((a,p)=>a+p.frac,0);
+            item.arc[3].frac *= 2;
+            item.dur = item.dur * item.arc.reduce((a,p)=>a+p.frac,0) / s0;
         }
         // PHASE with a pitch ARC: same rotor rhythm as a phase step, but the
         // pitch SET changes across sub-parts (fractions of the duration).
@@ -320,6 +327,32 @@ PLAN.forEach(item => {
         log.push('phasearc '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
                  item.arc.map(p=>p.label).join(' > ')+', '+n+' notes)');
         t = end;
+    } else if (item.k === 'cblocks') {
+        // CLOSING CHORD BLOCKS (composer, day 21): successive chords from the
+        // pattern series, each pulsed for its own beat-length, one-beat rest
+        // between. The series pointer starts at pattern p, blast b, and rolls
+        // into the next pattern when a pattern runs out.
+        let sp = item.p, sb = item.b;
+        const nextChord = () => {
+            let d = patOf(sp).draws;
+            while (sb > d.length) { sb -= d.length; sp++; d = patOf(sp).draws; }
+            const h = d[sb-1]; sb++;
+            return { h, at: 'P'+sp+'b'+(sb-1) };
+        };
+        const t0 = t;
+        item.lens.forEach((L, bi) => {
+            const c = nextChord();
+            const v = voice(c.h, false);
+            mark(t, 'CB'+(bi+1)+' '+c.h+' x'+L, '#8a8ac0', c.at+' pulsed '+L+' beats');
+            for (let bt = 0; bt < L; bt++) {
+                const lanes = pickLanes(rnd, v.stac.length);
+                v.stac.forEach((pitch,vi)=> note(t, lanes[vi], pitch, 0.15,
+                    c.h==='base'?'#3F7D5A':'#8a8ac0', 'CB'+(bi+1)+' '+c.h+' '+NAME(pitch), 'asm-chord', 100));
+                t += BEAT;
+            }
+            t += BEAT;                                   // one-beat rest between blocks
+        });
+        log.push('cblocks  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+item.lens.join('/')+' beats)');
     } else if (item.k === 'r17') {
         // RE-PITCH THE ORIGINAL "17 oct A#" SECTION (composer, day 21 — the
         // correction: the 4:3:2 arc belongs on the EXISTING section at ~36 s,
