@@ -19,8 +19,9 @@ const nextBeat = t => {
 // The running assembly order. Override with ASM_PLAN="phase:1,chord:9" to
 // regenerate an earlier version — the seeds are consumed in PLAN order, so a
 // prefix plan reproduces that version's material exactly.
-const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10')
-    .split(',').map(x => { const [k,n] = x.trim().split(':'); return {k, n:+n}; });
+const PLAN = (process.env.ASM_PLAN || 'phase:1,chord:9,phase:2,chord:10,mt:B,chord:11,phase:3')
+    .split(',').map(x => { const [k,v] = x.trim().split(':');
+        return k==='mt' ? {k, m:v, secs:10} : {k, n:+v}; });
 // SRC = the file the ORIGINAL trance material comes from; OUT = where the
 // assembled version is written. Each new letter is a new version (003b -> 003c).
 const SRC = process.env.ASM_SRC || 'scores/tranceA003b.json';
@@ -87,6 +88,22 @@ const mark = (t,label,color) => j.objects.push({
     id:'mk-asm-'+(id++), type:'marker', layer:0, time:+t.toFixed(3),
     label, color, performanceNotes:'', properties:{gen:'asm-mark'} });
 
+// MULTITEMPO: lifted VERBATIM from the audition score (composer: "just as
+// written in the aud file") — the generator already did the part assignment
+// (4 pairs 5 tubas apart + 2 solos) and the per-attack octave draw, so nothing
+// is re-shuffled here. Only the time base moves.
+const GA = JSON.parse(fs.readFileSync(path.join(ROOT,'scores/gen-aud-05.json'),'utf8'));
+const MT_SEG = { A:2, B:7, C:12, D:17, E:22, F:27, G:32 };   // the OCT segment per model
+const mtNotes = (model, secs) => {
+    const idx = MT_SEG[model];
+    const w = GA.objects.filter(o=>o.type==='waveCurve' && o.properties && o.properties.idx===idx);
+    if (!w.length) throw new Error('multitempo segment for model '+model+' not found');
+    const t0 = Math.min(...w.map(x=>x.startSeconds));
+    return { t0, notes: w.filter(x=>x.startSeconds < t0 + secs - 1e-9)
+                          .sort((a,b)=>a.startSeconds-b.startSeconds),
+             ratios: w[0].properties.ratios, sub: w[0].properties.sub };
+};
+
 const rf = JSON.parse(fs.readFileSync(path.join(ROOT,'scores/row-fifths-01.json'),'utf8'));
 const patOf = num => {
     const m = rf.objects.find(o=>o.type==='marker' && (o.label||'').indexOf('P'+num+' [') === 0);
@@ -118,6 +135,16 @@ PLAN.forEach(item => {
         log.push('phase step '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+s.dur+'s, '+
                  PC[pc]+' oct '+OCT.map(NAME).join('/')+', '+n+' notes)');
         t = end;
+    } else if (item.k === 'mt') {
+        const secs = item.secs || 10;
+        const g = mtNotes(item.m, secs), t0 = t;
+        mark(t, 'ASM multitempo '+item.m+' · '+g.ratios+' · oct '+g.sub+' · '+secs+'s · verbatim from gen-aud-05', '#c08fd6');
+        g.notes.forEach(x => note(t + (x.startSeconds - g.t0), x.layer, x.sonifyNote,
+            +(x.endSeconds - x.startSeconds).toFixed(3), '#c08fd6',
+            'MT'+item.m+' '+NAME(x.sonifyNote), 'asm-mt', x.recVel || 112));
+        t = t0 + secs;
+        log.push('multitempo '+item.m+'  '+t0.toFixed(1)+' -> '+t.toFixed(1)+'s  ('+secs+'s, '+
+                 g.ratios+' oct '+g.sub+', '+g.notes.length+' notes)');
     } else {
         const p = patOf(item.n), t0 = t;
         mark(t, 'ASM P'+item.n+' ['+p.kind+'] x'+p.draws.length+': '+p.draws.join(' '), '#8a8ac0');

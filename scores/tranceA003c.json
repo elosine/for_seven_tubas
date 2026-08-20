@@ -35803,6 +35803,7854 @@
       "type": "marker",
       "layer": 0,
       "time": 82.4,
+      "label": "ASM multitempo B · 7:6:5:4:3:2 · oct C# · 10s · verbatim from gen-aud-05",
+      "color": "#c08fd6",
+      "performanceNotes": "",
+      "properties": {
+        "gen": "asm-mark"
+      }
+    },
+    {
+      "id": "wc-asm-8338",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 82.4,
+      "endSeconds": 82.6,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8339",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 82.4156,
+      "endSeconds": 82.6156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8340",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 82.447,
+      "endSeconds": 82.647,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8341",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 82.5984,
+      "endSeconds": 82.7984,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8342",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 82.6072,
+      "endSeconds": 82.8072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8343",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 82.7602,
+      "endSeconds": 82.9602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8344",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 82.9137,
+      "endSeconds": 83.1137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8345",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 83.0072,
+      "endSeconds": 83.2072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8346",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 83.1584,
+      "endSeconds": 83.3584,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8347",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 83.3334,
+      "endSeconds": 83.5334,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8348",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 83.3803,
+      "endSeconds": 83.5803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8349",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 83.4072,
+      "endSeconds": 83.6072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8350",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 83.4602,
+      "endSeconds": 83.6602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8351",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 83.7184,
+      "endSeconds": 83.9184,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8352",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 83.8072,
+      "endSeconds": 84.0072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8353",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 83.8156,
+      "endSeconds": 84.0156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8354",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 83.847,
+      "endSeconds": 84.047,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8355",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 84.1602,
+      "endSeconds": 84.3602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8356",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 84.2072,
+      "endSeconds": 84.4072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8357",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 84.2667,
+      "endSeconds": 84.4667,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8358",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 84.2784,
+      "endSeconds": 84.4784,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8359",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 84.3137,
+      "endSeconds": 84.5137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8360",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 84.6072,
+      "endSeconds": 84.8072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8361",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 84.7803,
+      "endSeconds": 84.9803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8362",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 84.8384,
+      "endSeconds": 85.0384,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8363",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 84.8602,
+      "endSeconds": 85.0602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8364",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 85.0072,
+      "endSeconds": 85.2072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8365",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 85.2,
+      "endSeconds": 85.4,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8366",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 85.2156,
+      "endSeconds": 85.4156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8367",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 85.247,
+      "endSeconds": 85.447,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8368",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 85.3984,
+      "endSeconds": 85.5984,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8369",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 85.4072,
+      "endSeconds": 85.6072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8370",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 85.5602,
+      "endSeconds": 85.7602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8371",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 85.7137,
+      "endSeconds": 85.9137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8372",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 85.8072,
+      "endSeconds": 86.0072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8373",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 85.9584,
+      "endSeconds": 86.1584,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8374",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 86.1334,
+      "endSeconds": 86.3334,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8375",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 86.1803,
+      "endSeconds": 86.3803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8376",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 86.2072,
+      "endSeconds": 86.4072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8377",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 86.2602,
+      "endSeconds": 86.4602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8378",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 86.5184,
+      "endSeconds": 86.7184,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8379",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 86.6072,
+      "endSeconds": 86.8072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8380",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 86.6156,
+      "endSeconds": 86.8156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8381",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 86.647,
+      "endSeconds": 86.847,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8382",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 86.9602,
+      "endSeconds": 87.1602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8383",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 87.0072,
+      "endSeconds": 87.2072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8384",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 87.0667,
+      "endSeconds": 87.2667,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8385",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 87.0784,
+      "endSeconds": 87.2784,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8386",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 87.1137,
+      "endSeconds": 87.3137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8387",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 87.4072,
+      "endSeconds": 87.6072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8388",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 87.5803,
+      "endSeconds": 87.7803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8389",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 87.6384,
+      "endSeconds": 87.8384,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8390",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 87.6602,
+      "endSeconds": 87.8602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8391",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 87.8072,
+      "endSeconds": 88.0072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8392",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 88,
+      "endSeconds": 88.2,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8393",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 88.0156,
+      "endSeconds": 88.2156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8394",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 88.047,
+      "endSeconds": 88.247,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8395",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 88.1984,
+      "endSeconds": 88.3984,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8396",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 88.2072,
+      "endSeconds": 88.4072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8397",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 88.3602,
+      "endSeconds": 88.5602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8398",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 88.5137,
+      "endSeconds": 88.7137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8399",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 88.6072,
+      "endSeconds": 88.8072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8400",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 88.7584,
+      "endSeconds": 88.9584,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8401",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 88.9334,
+      "endSeconds": 89.1334,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8402",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 88.9803,
+      "endSeconds": 89.1803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8403",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 89.0072,
+      "endSeconds": 89.2072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8404",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 89.0602,
+      "endSeconds": 89.2602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8405",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 89.3184,
+      "endSeconds": 89.5184,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8406",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 89.4072,
+      "endSeconds": 89.6072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8407",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 89.4156,
+      "endSeconds": 89.6156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8408",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 89.447,
+      "endSeconds": 89.647,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8409",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 89.7602,
+      "endSeconds": 89.9602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8410",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 89.8072,
+      "endSeconds": 90.0072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8411",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 89.8667,
+      "endSeconds": 90.0667,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8412",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 89.8784,
+      "endSeconds": 90.0784,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8413",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 89.9137,
+      "endSeconds": 90.1137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8414",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 90.2072,
+      "endSeconds": 90.4072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8415",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 90.3803,
+      "endSeconds": 90.5803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8416",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 90.4384,
+      "endSeconds": 90.6384,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8417",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 90.4602,
+      "endSeconds": 90.6602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8418",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 90.6072,
+      "endSeconds": 90.8072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8419",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 90.8,
+      "endSeconds": 91,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8420",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 90.8156,
+      "endSeconds": 91.0156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8421",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 90.847,
+      "endSeconds": 91.047,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8422",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 90.9984,
+      "endSeconds": 91.1984,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8423",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 91.0072,
+      "endSeconds": 91.2072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8424",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 91.1602,
+      "endSeconds": 91.3602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8425",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 91.3137,
+      "endSeconds": 91.5137,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8426",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 91.4072,
+      "endSeconds": 91.6072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8427",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 91.5584,
+      "endSeconds": 91.7584,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8428",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 91.7334,
+      "endSeconds": 91.9334,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8429",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 91.7803,
+      "endSeconds": 91.9803,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8430",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 91.8072,
+      "endSeconds": 92.0072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8431",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 91.8602,
+      "endSeconds": 92.0602,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8432",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 92.1184,
+      "endSeconds": 92.3184,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#3",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8433",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 92.2072,
+      "endSeconds": 92.4072,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8434",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 92.2156,
+      "endSeconds": 92.4156,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#4",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "wc-asm-8435",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 92.247,
+      "endSeconds": 92.447,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#c08fd6",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "MTB C#2",
+      "properties": {
+        "gen": "asm-mt"
+      },
+      "sonifyNote": 37,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 112
+    },
+    {
+      "id": "mk-asm-8436",
+      "type": "marker",
+      "layer": 0,
+      "time": 92.4,
+      "label": "ASM P11 [S] x5: 18 16 18 16 base",
+      "color": "#8a8ac0",
+      "performanceNotes": "",
+      "properties": {
+        "gen": "asm-mark"
+      }
+    },
+    {
+      "id": "wc-asm-8437",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 B2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 47,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8438",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 48,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8439",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C#3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8440",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 A3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 57,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8441",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 B3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 59,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8442",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 92.4,
+      "endSeconds": 92.55,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8443",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 38,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8444",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 F#2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 42,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8445",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 G#2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 44,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8446",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 A2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 45,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8447",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 C#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8448",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 62,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8449",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 92.8,
+      "endSeconds": 92.95,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 63,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8450",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 B2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 47,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8451",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 48,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8452",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C#3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 49,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8453",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 A3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 57,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8454",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 B3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 59,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8455",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 93.2,
+      "endSeconds": 93.35,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 18 C#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8456",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 38,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8457",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 F#2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 42,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8458",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 G#2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 44,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8459",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 A2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 45,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8460",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 C#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 61,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8461",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 62,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8462",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 93.6,
+      "endSeconds": 93.75,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#8a8ac0",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 16 D#4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 63,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8463",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 94,
+      "endSeconds": 94.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 base G1",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8464",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 94,
+      "endSeconds": 94.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 base A2",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 45,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8465",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 94,
+      "endSeconds": 94.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 base E3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 52,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8466",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 94,
+      "endSeconds": 94.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 base B3",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 59,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "wc-asm-8467",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 94,
+      "endSeconds": 94.15,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "P11 base F4",
+      "properties": {
+        "gen": "asm-chord"
+      },
+      "sonifyNote": 65,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 100
+    },
+    {
+      "id": "mk-asm-8468",
+      "type": "marker",
+      "layer": 0,
+      "time": 94.4,
+      "label": "ASM phase step 3 · 100.2 BPM · offset 0.2 · 5.2s · row7 pitch 3 = G oct G1/G2/G3",
+      "color": "#3F7D5A",
+      "performanceNotes": "",
+      "properties": {
+        "gen": "asm-mark"
+      }
+    },
+    {
+      "id": "wc-asm-8469",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 94.4,
+      "endSeconds": 94.52,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8470",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 94.5198,
+      "endSeconds": 94.6398,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8471",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 94.6395,
+      "endSeconds": 94.7595,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8472",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 94.7593,
+      "endSeconds": 94.8793,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8473",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 94.879,
+      "endSeconds": 94.999,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8474",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 94.4,
+      "endSeconds": 94.52,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8475",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 94.5198,
+      "endSeconds": 94.6398,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8476",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 94.6395,
+      "endSeconds": 94.7595,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8477",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 94.7593,
+      "endSeconds": 94.8793,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8478",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 94.879,
+      "endSeconds": 94.999,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8479",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 94.9988,
+      "endSeconds": 95.1188,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8480",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 95.1186,
+      "endSeconds": 95.2386,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8481",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 95.2383,
+      "endSeconds": 95.3583,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8482",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 95.3581,
+      "endSeconds": 95.4781,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8483",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 95.4778,
+      "endSeconds": 95.5978,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8484",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 94.9988,
+      "endSeconds": 95.1188,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8485",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 95.1186,
+      "endSeconds": 95.2386,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8486",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 95.2383,
+      "endSeconds": 95.3583,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8487",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 95.3581,
+      "endSeconds": 95.4781,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8488",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 95.4778,
+      "endSeconds": 95.5978,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8489",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 95.5976,
+      "endSeconds": 95.7176,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8490",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 95.7174,
+      "endSeconds": 95.8374,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8491",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 95.8371,
+      "endSeconds": 95.9571,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8492",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 95.9569,
+      "endSeconds": 96.0769,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8493",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 96.0766,
+      "endSeconds": 96.1966,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8494",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 95.5976,
+      "endSeconds": 95.7176,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8495",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 95.7174,
+      "endSeconds": 95.8374,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8496",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 95.8371,
+      "endSeconds": 95.9571,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8497",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 95.9569,
+      "endSeconds": 96.0769,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8498",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 96.0766,
+      "endSeconds": 96.1966,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8499",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 96.1964,
+      "endSeconds": 96.3164,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8500",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 96.3162,
+      "endSeconds": 96.4362,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8501",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 96.4359,
+      "endSeconds": 96.5559,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8502",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 96.5557,
+      "endSeconds": 96.6757,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8503",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 96.6754,
+      "endSeconds": 96.7954,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8504",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 96.1964,
+      "endSeconds": 96.3164,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8505",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 96.3162,
+      "endSeconds": 96.4362,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8506",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 96.4359,
+      "endSeconds": 96.5559,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8507",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 96.5557,
+      "endSeconds": 96.6757,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8508",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 96.6754,
+      "endSeconds": 96.7954,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8509",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 96.7952,
+      "endSeconds": 96.9152,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8510",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 96.915,
+      "endSeconds": 97.035,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8511",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 97.0347,
+      "endSeconds": 97.1547,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8512",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 97.1545,
+      "endSeconds": 97.2745,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8513",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 97.2743,
+      "endSeconds": 97.3943,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8514",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 96.7952,
+      "endSeconds": 96.9152,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8515",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 96.915,
+      "endSeconds": 97.035,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8516",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 97.0347,
+      "endSeconds": 97.1547,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8517",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 97.1545,
+      "endSeconds": 97.2745,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8518",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 97.2743,
+      "endSeconds": 97.3943,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8519",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 97.394,
+      "endSeconds": 97.514,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8520",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 97.5138,
+      "endSeconds": 97.6338,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8521",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 97.6335,
+      "endSeconds": 97.7535,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8522",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 97.7533,
+      "endSeconds": 97.8733,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8523",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 97.8731,
+      "endSeconds": 97.9931,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8524",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 97.394,
+      "endSeconds": 97.514,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8525",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 97.5138,
+      "endSeconds": 97.6338,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8526",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 97.6335,
+      "endSeconds": 97.7535,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8527",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 97.7533,
+      "endSeconds": 97.8733,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8528",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 97.8731,
+      "endSeconds": 97.9931,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8529",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 97.9928,
+      "endSeconds": 98.1128,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8530",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 98.1126,
+      "endSeconds": 98.2326,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8531",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 98.2323,
+      "endSeconds": 98.3523,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8532",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 98.3521,
+      "endSeconds": 98.4721,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8533",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 98.4719,
+      "endSeconds": 98.5919,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8534",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 97.9928,
+      "endSeconds": 98.1128,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8535",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 98.1126,
+      "endSeconds": 98.2326,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8536",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 98.2323,
+      "endSeconds": 98.3523,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8537",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 98.3521,
+      "endSeconds": 98.4721,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8538",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 98.4719,
+      "endSeconds": 98.5919,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8539",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 98.5916,
+      "endSeconds": 98.7116,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8540",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 98.7114,
+      "endSeconds": 98.8314,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8541",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 98.8311,
+      "endSeconds": 98.9511,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8542",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 98.9509,
+      "endSeconds": 99.0709,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8543",
+      "type": "waveCurve",
+      "layer": 4,
+      "startSeconds": 99.0707,
+      "endSeconds": 99.1907,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8544",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 98.5916,
+      "endSeconds": 98.7116,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8545",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 98.7114,
+      "endSeconds": 98.8314,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8546",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 98.8311,
+      "endSeconds": 98.9511,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8547",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 98.9509,
+      "endSeconds": 99.0709,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8548",
+      "type": "waveCurve",
+      "layer": 9,
+      "startSeconds": 99.0707,
+      "endSeconds": 99.1907,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8549",
+      "type": "waveCurve",
+      "layer": 0,
+      "startSeconds": 99.1904,
+      "endSeconds": 99.3104,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8550",
+      "type": "waveCurve",
+      "layer": 1,
+      "startSeconds": 99.3102,
+      "endSeconds": 99.4302,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8551",
+      "type": "waveCurve",
+      "layer": 2,
+      "startSeconds": 99.4299,
+      "endSeconds": 99.5499,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8552",
+      "type": "waveCurve",
+      "layer": 3,
+      "startSeconds": 99.5497,
+      "endSeconds": 99.6697,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8553",
+      "type": "waveCurve",
+      "layer": 5,
+      "startSeconds": 99.1904,
+      "endSeconds": 99.3104,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G3",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 55,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8554",
+      "type": "waveCurve",
+      "layer": 6,
+      "startSeconds": 99.3102,
+      "endSeconds": 99.4302,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8555",
+      "type": "waveCurve",
+      "layer": 7,
+      "startSeconds": 99.4299,
+      "endSeconds": 99.5499,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G1",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 31,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "wc-asm-8556",
+      "type": "waveCurve",
+      "layer": 8,
+      "startSeconds": 99.5497,
+      "endSeconds": 99.6697,
+      "nodes": [
+        {
+          "pos": 0,
+          "y": 8,
+          "smooth": 0.25
+        },
+        {
+          "pos": 1,
+          "y": 8,
+          "smooth": 0.25
+        }
+      ],
+      "segments": [
+        {
+          "model": "power",
+          "slope": 0
+        }
+      ],
+      "color": "#3F7D5A",
+      "fillMode": "bottom",
+      "opacity": 0.55,
+      "performanceNotes": "PH3 G2",
+      "properties": {
+        "gen": "asm-phase"
+      },
+      "sonifyNote": 43,
+      "technique": "staccato",
+      "sonifyMode": "plain",
+      "recVel": 95
+    },
+    {
+      "id": "mk-asm-8557",
+      "type": "marker",
+      "layer": 0,
+      "time": 99.6,
       "label": "ASM - end -",
       "color": "#8a8ac0",
       "performanceNotes": "",
@@ -35817,7 +43665,7 @@
     "sets": [],
     "cells": []
   },
-  "nextId": 8339,
+  "nextId": 8559,
   "viewport": {
     "pixelsPerSecond": 22.42751268525529,
     "scrollOffset": 1717.6285469288346
