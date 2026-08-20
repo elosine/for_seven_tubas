@@ -70,7 +70,7 @@
         }
 
         const m = c.tempo ? c.tempo.subdivision : 1;
-        items.push({ k: 'text', t: c.tempo ? c.tempo.anchorSeconds : c.span[0], dxSs: 0, ySs: o.tempoY, text: c.tempo ? c.tempo.label : '', size: 1.1 });
+        items.push({ k: 'text', t: c.tempo ? c.tempo.anchorSeconds : c.span[0], dxSs: 0, ySs: o.tempoY, text: c.tempo ? c.tempo.label : '', size: 0.75 });
         for (const d of c.devices || []) if (d.kind === 'gc') items.push({ k: 'tick', t: d.at, ySs: o.tickY });
 
         // note pass
@@ -95,7 +95,7 @@
             items.push({ k: 'dot', t: e.onset, dxSs: 0, ySs: stemDir === 'up' ? ySs - off : ySs + off });
           }
           if (e.technique !== 'staccato') {
-            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: 0.9 });
+            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: 0.7 });
           }
         }
 

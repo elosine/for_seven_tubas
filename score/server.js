@@ -927,6 +927,9 @@ const server = http.createServer((req, res) => {
         if (url === '/' || url === '/composer.html') rel = '/composer.html';
         if (url.startsWith('/docs/')) { base = DOCS_DIR; rel = url.slice('/docs'.length); }
         if (url.startsWith('/bank/')) { base = path.join(__dirname, '..', 'bank'); rel = url.slice('/bank'.length); }
+        // notation stratum (read-only GET): app page, lib modules, IR docs,
+        // registry, schema — Phase B5 (plan DB-1)
+        if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
         const filepath = path.normalize(path.join(base, rel));
         if (!filepath.startsWith(path.normalize(base))) { res.statusCode = 403; return res.end('Forbidden'); }
         if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {

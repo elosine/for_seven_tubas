@@ -1629,8 +1629,11 @@ grid). **B2 DONE** (coords module, SZ-7 lane-relative ss, snapshot+prove-red) ·
 boxes with anchors; parity + assembly proof green; rests deliberately
 absent — the IR has no rest nodes). **B4 DONE** (layout passes: staff math, stems/dots/ledgers/accidentals,
 sub-beat beaming, tempo labels + GC ticks, parachute bricks; A3-window
-census + section smoke + snapshot green). Next: **B5 render + page (first
-pixels)** → B6 splicing.
+census + section smoke + snapshot green). **B5 DONE** (render.js + notation.html + /notation/ mount; verified live
+on :5210, census-exact snapshots; clef-pinning + label-size defects found
+by EYE on the seam proof; proofs sent + committed). **First-pixels gate
+OPEN.** Next: **B6 splicing** (page mode + the first accommodation
+strategies).
 
 ## Parking lot
 

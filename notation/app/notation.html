@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Notation — slice 1 (trance)</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: #e8e6e1; font-family: sans-serif; }
+  #bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px;
+         background: #2b2b2b; color: #ddd; position: sticky; top: 0; flex-wrap: wrap; }
+  #bar label { font-size: 12px; opacity: 0.8; }
+  #bar input, #bar select, #bar button { font-size: 13px; padding: 3px 8px; }
+  #bar button { cursor: pointer; }
+  #meta { font-size: 11px; opacity: 0.65; margin-left: auto; }
+  #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; }
+  #err { color: #b00; padding: 12px; white-space: pre-wrap; font-family: monospace; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <label>parts <select id="parts">
+    <option value="all">all (T1–T10)</option>
+  </select></label>
+  <label>from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
+  <label>width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
+  <button id="prev">◀</button>
+  <button id="next">▶</button>
+  <span id="meta"></span>
+</div>
+<div id="sheet"></div>
+<div id="err"></div>
+
+<script src="/notation/lib/coords.js"></script>
+<script src="/notation/lib/stamps.js"></script>
+<script src="/notation/lib/layout.js"></script>
+<script src="/notation/lib/render.js"></script>
+<script>
+(async function () {
+  const $ = id => document.getElementById(id);
+  const state = { ir: null, glyphs: null, markers: [], model: null };
+  try {
+    const [ir, glyphs, score] = await Promise.all([
+      fetch('/notation/ir/trance-section-01.ir.json').then(r => { if (!r.ok) throw new Error('IR fetch ' + r.status); return r.json(); }),
+      fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
+      fetch('/api/composer/load/' + 'tranceA002f').then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
+    state.ir = ir; state.glyphs = glyphs;
+    const scoreData = score && (score.data || score);
+    if (scoreData && scoreData.objects) {
+      state.markers = scoreData.objects.filter(o => o.type === 'marker')
+        .map(o => ({ time: o.time, label: o.label }));
+    }
+    // one layout for the whole section; views window into it (P5)
+    state.model = NotationLayout.layoutSection(ir, glyphs);
+    for (const p of ir.source.parts) {
+      const opt = document.createElement('option');
+      opt.value = p; opt.textContent = 'T' + (p + 1);
+      $('parts').appendChild(opt);
+    }
+    render();
+  } catch (e) { $('err').textContent = String(e.stack || e); return; }
+
+  function render() {
+    try {
+      const t0 = parseFloat($('t0').value) || 0;
+      const w = Math.max(2, parseFloat($('w').value) || 16);
+      const sel = $('parts').value;
+      const parts = sel === 'all' ? state.ir.source.parts : [parseInt(sel, 10)];
+      const perSystem = sel === 'all' ? 110 : 260;
+      const heightPx = parts.length * perSystem + 30;
+      const widthPx = Math.max(600, $('sheet').clientWidth - 2);
+      const view = NotationCoords.makeView({
+        widthPx, heightPx, window: [t0, t0 + w],
+        systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
+      });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers });
+      $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
+        ' chunks · window ' + t0 + '–' + (t0 + w) + ' s';
+      $('err').textContent = '';
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+  for (const id of ['parts', 't0', 'w']) $(id).addEventListener('change', render);
+  $('prev').addEventListener('click', () => { $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16)); render(); });
+  $('next').addEventListener('click', () => { $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16); render(); });
+  window.addEventListener('resize', render);
+})();
+</script>
+</body>
+</html>

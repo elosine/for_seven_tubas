@@ -3354,3 +3354,37 @@ full-section smoke (10 systems, 2000+ items, exactly 5 bricks = the 5
 singles, no warnings) · committed snapshot + --prove-red. Full regression
 green (coords · stamps · golden · battery 36). Next: **B5 — render + the
 page: first pixels.**
+
+## Day 19 (2026-08-19, late night) — B5 RUN: FIRST PIXELS — the trance section renders
+
+**Composer: "b5 go."** `notation/lib/render.js` (pure; the ONLY place pixels
+exist) + `notation/app/notation.html` (part picker · window from/width ·
+◀▶ paging · marker read-through strip along the top) + one static mount in
+`score/server.js` (`/notation/` → the stratum, read-only GET — the
+composer app is otherwise untouched). Ink black-on-paper; parachute bricks
+in muted blue at 0.45 opacity so mixed fidelity reads at a glance.
+
+**Verified LIVE in the running app** (score-verify :5210; the composer's
+:5200 untouched — NOTE: it needs a restart to pick up the mount):
+zero console errors · full render (150 paths / 344 rects / 140 dots / 61
+texts across 10 systems, window 0-16 s) · part picker to T5 collapses to
+one system · ▶ pages the window · scrolled-window check after the fix
+below. `tools/test_render.js`: A3-window SVG census EXACT (20 paths = 19
+heads + clef · 19 dots · 31 rects · 4 texts · 0 beams) + narrow-window
+clipping + SVG-hash snapshot + prove-red.
+
+**Two defects found by LOOKING at the seam proof, not by the tests
+(Principle 4's lesson lives):** (1) the clef vanished in any window past
+the section start — placed at layout t=0, never pinned; now pins to the
+view's left edge (staff furniture is always shown). (2) tempo labels
+dwarfed a single-system staff (1.1 ss text at ssPx 23); sized down to
+0.75/0.7 ss. Snapshots regenerated deliberately (--update is a reviewed
+act), full regression green (layout · render · coords · stamps · golden ·
+battery 36).
+
+**Known v0 gap, deferred to B6 where it belongs:** a chunk whose anchor
+lies LEFT of the window loses its tempo label — re-showing context at a
+cut is exactly a page-edge accommodation strategy (the bucket's job), not
+a render hack. Proof SVGs sent to the composer + committed
+(`notation/app/proof-*.svg`): all-parts opening, and T5 alone at the
+two-tempo seam. **The B5 composer gate (first pixels) is OPEN.**
