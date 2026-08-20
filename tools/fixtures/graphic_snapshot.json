@@ -1,0 +1,25 @@
+{
+ "tranceBricks": 139,
+ "tranceMarkers": 41,
+ "bloomBricks": 8,
+ "bloomMeta": 1,
+ "beating": [
+  [
+   "T1/T2 (41)",
+   5.9253
+  ],
+  [
+   "T3/T4 (46)",
+   0
+  ],
+  [
+   "T5/T6 (51)",
+   0
+  ],
+  [
+   "T7/T8 (56)",
+   18.9715
+  ]
+ ],
+ "svgSha": "8d265e7221f52fe19ae3b2d856ad60ed39e8b612"
+}
