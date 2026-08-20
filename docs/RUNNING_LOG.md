@@ -4619,3 +4619,10 @@ Three changes to `tools/assemble_trance.js`:
 - **Reflow confirmed as automatic:** chunks lay end to end on the 0.4 grid,
   so a length change moves/shrinks everything downstream by construction -
   content untouched (that IS the isolation proof above).
+
+**Day 21 — documentation gathered (composer request, while listening):**
+`docs/ASSEMBLY_METHOD.md` written - the compositional process record of the
+assembly arc (rows as reservoirs · chord grammar from dictated preference ·
+the performed timings as form · alternation model · the permutation layer ·
+"score as plan"). PAPER_NOTES #7 filed with the five paper-facing claims.
+Sibling to PHASE_COMPLEXITY.md; raw trail stays here in day 21's entries.

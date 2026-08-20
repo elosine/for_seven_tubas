@@ -654,3 +654,21 @@ actual score — D6's reverse-engineering stance applied to notation.
    not to fix the ramp but to COMPOSE with the dramatic changes: their own
    re-ordering of the rungs (11-2-7-3-10-4-6) is an alternating high-low
    complexity path - the discursive quality used as material.
+
+7. **The assembly method (day 21, second half) - full record in
+   docs/ASSEMBLY_METHOD.md.** The compositional claims worth the paper:
+   (a) PITCH RESERVOIRS - rows grown by a dictated rule (up a fifth, down
+   to a remaining pitch) are consumed one pitch per insertion, ordering the
+   piece's tonal centers without being themes. (b) A PERFORMANCE AS FORM -
+   the composer's stopwatch run of the phase ladder became the score's
+   section durations verbatim; play-in capture at the level of when-to-move.
+   (c) DICTATED PREFERENCE BECOMES GRAMMAR - "one long then one or two
+   short, not short-long-short-long" replaced probability dice with a
+   structural rule; three spoken iterations to get there, all kept.
+   (d) VARIANT FAMILIES OVER PARAMETERS - choices presented as complete
+   score files differing in one chunk (five PS1 treatments, five PS2 pitch
+   worlds), so the composer compares hearings, not settings; per-chunk
+   seeds make the comparison exact (everything else identical to 0.000 ms).
+   (e) THE SCORE AS PLAN - the continuation is a one-line running order over
+   banked material and deterministic machinery; versions are letters,
+   families are suffixes, identity lives in the plan.
