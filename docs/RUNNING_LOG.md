@@ -4336,3 +4336,32 @@ sweep necessarily ZIGZAGS in complexity (simple anchors at the ends, deep
 fractions between) - stated to the composer, readout names each rung's count.
 Panel verified on rev 13. The convergent depth-walk remains in git (rev 11)
 if the depth axis is ever mined again.
+
+**2ag follow-up 12 — THE COMPUTED COMPLEXITY LADDER (rev 14), the experiment
+run.** Process as explained to the composer in four steps (machine proposes,
+ear corrects). Scorer `tools/score_offsets.js`: 997 offsets at 98 BPM x 10 ->
+pattern = onset groups after 25 ms fusion-merge (wrap-aware, seam at largest
+gap) -> score = gap CV + 0.1 x stack-size std -> 430 distinct audible
+patterns -> 12 picks, MONOTONE score 0.00 -> 1.25:
+
+    rung  offset  groups  score   character
+      1   0.5       2     0.00    two pulses
+      2   0.2       5     0.00    five pulses
+      3   0.286     7     0.05    seven, uneven stacks (accents)
+      4   0.2805    7     0.09    seven with a limp (one 97 ms gap)
+      5   0.0935   10     0.20    near-smear, one hitch
+      6   0.1835   10     0.29    lilting 51/62 swing + turnaround
+      7   0.384    10     0.34    three-gap cell (49/93/44)
+      8   0.4585   10     0.39    nine-run + two long holes
+      9   0.461    10     0.47    same family, deeper
+     10   0.2365   10     0.58    sharp 33/112 cell
+     11   0.469    10     0.77    tight run + two big holes
+     12   0.0585   10     1.25    fast ripple + 290 ms rest
+
+Notable: the CV-primary score reproduces the inverted-U prediction on its own
+- the smear (10 even) and the pulses (2/5 even) all land at score ~0, and the
+knotty cells rank between them. Rung 1 snapped to exact 0.5 (the 0.498 pick
+was a sub-fusion flam-thickened variant - audibly a THICKER stack; kept out
+of the ladder, noted as its own colour). Panel verified on rev 14 (12 rows,
+98 BPM, correct offsets). THE COMPOSER'S LISTEN IS THE EXPERIMENT: does the
+score order match the ear order? Disagreements correct the weights.
