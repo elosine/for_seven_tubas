@@ -4188,3 +4188,18 @@ ms) are the same size - the hall hears RAIN at the top step no matter what is
 written (the standing fragile-smear prediction, at its sharpest point).
 Practical: unison-C3 effect stands; pitched material caps ~110-115 BPM
 (~19/s); if the top is meant as an irregular wash, write rain and lose nothing.
+
+**2ag follow-up 5 — composer asked: does 132 BPM become playable at 9 or 8
+players? Where is the threshold? MEASURED ANSWER: THERE IS NO PLAYER-COUNT
+THRESHOLD.** The ring limit is per player - re-attack interval 60/bpm vs that
+player's own sample ring - so it is independent of ensemble size. Engine runs:
+132 BPM with cl spread throws rings at 10, 9, 8, and 6 players alike (worst
+overshoot 76 ms unchanged at 9). BPM is the only dial: cl spread clean at 113
+(dirty at 120); unison C3 breaks at exactly 143 (60/0.42 - the analytic
+threshold confirmed to the BPM). Player count buys composite density, never
+per-player safety. THE M1 CONNECTION: 22/s with pitched material at a
+ring-safe 110 BPM needs 12 players - which is what M1 part multiplication
+exists for, and the Penn State ensemble call is 12-20. "132 at ten" is
+recoverable as "110 at twelve" at the premiere. Character caveat: fewer
+players also does not rescue live smear (stage/human error unchanged);
+smear-live threshold ~10-12/s composite, estimate, testable with H.
