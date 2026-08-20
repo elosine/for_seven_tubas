@@ -117,9 +117,9 @@ const note = (t,layer,pitch,dur,color,label,gen,vel) => j.objects.push({
     segments:[{model:'power',slope:0}], color, fillMode:'bottom', opacity:0.55,
     performanceNotes:label, properties:{gen},
     sonifyNote:pitch, technique:'staccato', sonifyMode:'plain', recVel:vel });
-const mark = (t,label,color) => j.objects.push({
-    id:'mk-asm-'+(id++), type:'marker', layer:0, time:+t.toFixed(3),
-    label, color, performanceNotes:'', properties:{gen:'asm-mark'} });
+const mark = (t,label,color,detail) => j.objects.push({
+    id:'mk-asm-'+(id++), type:'marker', layer:10, time:+t.toFixed(3),
+    label, color, performanceNotes:detail||'', properties:{gen:'asm-mark'} });
 
 // MULTITEMPO: lifted VERBATIM from the audition score (composer: "just as
 // written in the aud file") — the generator already did the part assignment
@@ -151,8 +151,8 @@ PLAN.forEach(item => {
         const s = STEPS[item.n-1], end = t + s.dur;
         const pc = ROW7[item.n-1];                     // insert N -> row 7 pitch N
         const OCT = octavesOf(pc);
-        mark(t, 'ASM phase step '+item.n+' · '+s.bpm+' BPM · offset '+s.off+' · '+s.dur+
-               's · row7 pitch '+item.n+' = '+PC[pc]+' oct '+OCT.map(NAME).join('/'), '#3F7D5A');
+        mark(t, 'PS'+item.n+' '+PC[pc]+' oct', '#3F7D5A',
+             s.bpm+' BPM · offset '+s.off+' · '+s.dur+'s · oct '+OCT.map(NAME).join('/'));
         const T = 60/s.bpm;
         let n = 0;
         const lastOct = new Array(10).fill(null);      // per-player, for no-repeat
@@ -171,7 +171,8 @@ PLAN.forEach(item => {
     } else if (item.k === 'mt') {
         const secs = item.secs || 10;
         const g = mtNotes(item.m, secs), t0 = t;
-        mark(t, 'ASM multitempo '+item.m+' · '+g.ratios+' · oct '+g.sub+' · '+secs+'s · verbatim from gen-aud-05', '#c08fd6');
+        mark(t, 'MT '+item.m+' oct '+g.sub, '#c08fd6',
+             g.ratios+' · '+secs+'s · verbatim from gen-aud-05');
         g.notes.forEach(x => note(t + (x.startSeconds - g.t0), x.layer, x.sonifyNote,
             +(x.endSeconds - x.startSeconds).toFixed(3), '#c08fd6',
             'MT'+item.m+' '+NAME(x.sonifyNote), 'asm-mt', x.recVel || 112));
@@ -186,8 +187,8 @@ PLAN.forEach(item => {
         const from = item.from || 1, to = item.to || p.draws.length;
         const cu = item.cuivre || [];
         const draws = p.draws.slice(from-1, to);
-        mark(t, 'ASM P'+item.n+' blasts '+from+'-'+to+': '+
-            draws.map((h,i)=>h+(cu.indexOf(from+i)>=0?'(cuiv)':'')).join(' '), '#8a8ac0');
+        mark(t, 'P'+item.n+' b'+from+'-'+to+(cu.length?' cu'+cu.join('+'):''), '#8a8ac0',
+             draws.map((h,i)=>h+(cu.indexOf(from+i)>=0?'(cuiv)':'')).join(' '));
         draws.forEach((h, i) => {
             const bn = from + i;                          // this blast's number
             const v = voice(h, cu.indexOf(bn) >= 0);
@@ -210,7 +211,7 @@ PLAN.forEach(item => {
             draws.map((h,i)=>h+(cu.indexOf(from+i)>=0?'*':'')).join(' ')+'   * = cuivre)');
     }
 });
-mark(t, 'ASM - end -', '#8a8ac0');
+mark(t, 'asm end', '#8a8ac0');
 j.nextId = id + 1;
 if (j.metadata) j.metadata.name = path.basename(OUT).replace(/\.json$/,'');
 fs.writeFileSync(path.join(ROOT,OUT), JSON.stringify(j,null,2)+'\n');
