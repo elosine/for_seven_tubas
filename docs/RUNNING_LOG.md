@@ -3642,3 +3642,28 @@ tier 3 works the ledger. Boundary: this container is composer/jury-facing;
 performer-facing versions (D45's project) will look "dramatically different"
 and do not constrain tier 1. Filed as preplan doc §3; requirements updated
 (close-tier-1-first phase + polish ledger + tier-3 pass).
+
+**Evaluation + the plan drawn (same sitting).** Composer's go: "do a proper
+evaluation, and then we'll draw the plan, but we won't implement it now."
+Read the notation stack against PP-1…PP-6 (coords/splice/layout/render/
+graphic/extract_core/notation.html/page_rules). **Verdict: NOT a new build.**
+coords.makeView is fully parameterized — the 1080 video view is a config, and
+PP-6's zoom invariant (every coordinate ×Z) holds BY CONSTRUCTION because ss
+is lane-relative (SZ-7) and all px derive from the view; splice.planPages
+takes pageSeconds → the zoom re-cut is planPages(pageSeconds/Z); layout is
+view-independent so video/zoom/print share one model. Genuinely new: (1)
+transport + cursor — the app has zero animation today (clock slaved to the
+Reaper-render audio element; system turn at page.t1); (2) video export —
+deterministic frame render → ffmpeg (8.1.1 already installed, on PATH) →
+mux Reaper WAV; (3) PDF export (mm view, Letter landscape). Modifications
+confined to the notation.html shell (video + zoom modes; META overlay ported
+from graphic.js; a real header — markers today are a y=12/font-10
+placeholder, the D41-corollary trap). Glyph vocabulary growth explicitly
+fenced OUT (tier-2 material-time). Filed as preplan §8. **Build plan drawn:
+docs/plans/DELIVERABLES_BUILD_PLAN.md** — V0 close-tier-1 (9 decisions by
+eye against true-size proofs, frozen into notation/registry/container.json)
+→ V1 two windows (invariant as a mutation-proven test) → V2 transport/cursor
+→ V3 trial-insertion loop + polish ledger → V4 video export → V5 PDF export
+→ POL tier-3 pass; gates G0–G6; V0–V3 before notation starts, V4/V5 by
+submission. PLAN.md item 8a added. READY, NOT STARTED (D35) — next: the
+composer's phase-shifting sitting; this plan runs when the piece is done.

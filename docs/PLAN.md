@@ -1653,6 +1653,21 @@ notation act, when the piece calls for it: **the actual PARTS notation
 first**, then its layout into the study score; requirements harvested
 while building the real score.
 
+## 8. PENN STATE DELIVERABLES BUILD — `planned 2026-08-20, runs post-piece`
+
+- **8a — Deliverables container + exports** — `planned` — the three Penn State
+  deliverables (MIDI recording · 1920×1080 screen-following video · PDF full
+  score) and the fixed-format two-window container that ALL part-by-part
+  notation work previews in (tier-1/2/3 decision taxonomy). Preplan + decision
+  slate PP-1…PP-6: `docs/plans/PENN_STATE_DELIVERABLES_PREPLAN.md`. Build plan
+  V0–V5 + POL with gates G0–G6: `docs/plans/DELIVERABLES_BUILD_PLAN.md`.
+  **Architecture evaluated 2026-08-20 (preplan §8): NOT a new build** —
+  coords/splice/layout/render are parameter-ready (PP-6's zoom invariant holds
+  by construction); new components are transport+cursor (scoped, not Phase E),
+  video export (ffmpeg 8.1.1 installed), PDF export; `notation.html` gains the
+  two view modes. **Sequencing: runs AFTER the piece is finished, BEFORE
+  part-by-part notation begins; V4/V5 may trail until submission.**
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

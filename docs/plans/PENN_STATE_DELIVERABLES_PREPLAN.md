@@ -144,6 +144,10 @@ overlay styling.
 
 ## 7. Requirements the PLAN must cover
 
+> *2026-08-20, same sitting: all covered — the plan is drawn:
+> `docs/plans/DELIVERABLES_BUILD_PLAN.md` (V0–V5 + POL). §8 below is the
+> architecture evaluation that grounds it.*
+
 - **Close tier 1 first (§3):** the plan's opening phase enumerates every
   look-defining parameter and decides each against true-size proofs BEFORE
   part-by-part notation begins.
@@ -174,3 +178,67 @@ overlay styling.
   what exists (IR, coords, glyphs, layout passes, render, splice, study-score
   views) vs what needs building or modifying (fixed-viewport view config,
   cursor animation, the two export pipelines).
+
+## 8. Architecture evaluation (2026-08-20 — read against PP-1…PP-6)
+
+**VERDICT: NOT a new build.** The four-strata architecture holds exactly as
+designed; the two windows are VIEW CONFIGS over proven modules. The genuinely
+new work is three self-contained components (transport+cursor, video export,
+PDF export) plus app-shell growth. Files read: `notation/lib/coords.js`,
+`splice.js`, `layout.js`, `render.js`, `graphic.js`, `extract_core.js`
+(header), `app/notation.html`, `registry/page_rules.json`.
+
+**EXISTS, PARAMETER-READY (config, not code):**
+- `coords.js makeView({widthPx, heightPx, window, systems, ssPerSystem})` —
+  the locked 1920×1080 video view is literally a config. **PP-6's invariant
+  is guaranteed by construction:** ss is lane-relative (SZ-7), all px derive
+  from the view — zoom Z = same systems, heightPx×Z, window span ÷Z → every
+  coordinate scales exactly ×Z. Provable mechanically, not hoped.
+- `splice.js planPages(ir, rules, pageSeconds)` — seconds-per-system is a
+  parameter; the zoom re-cut = `planPages(pageSeconds/Z)`. Page-edge behavior
+  already rules-as-data (`page_rules.json`).
+- `layout.js` — VIEW-INDEPENDENT (seconds + ss only), so video, zoom and
+  print all share one layout model; overlays (spelling/dynamic/instruction)
+  already render; parachute bricks guarantee mixed fidelity ships.
+- `render.js` — pure model+view→SVG; print reuses it with a mm-scaled view.
+- IR pipeline — schema+validator+battery, extractor profiles (trance,
+  section1), IR picker in the app. The trial-insertion loop works at the
+  data level today.
+- Graphic view with META overlay + D28 beating lane; `/notation` mount on
+  :5200 (verified live day 20).
+
+**NEEDS MODIFICATION (targeted, in `notation.html` shell only):**
+- The app is currently responsive-width (`clientWidth`) with hardcoded
+  110 px/system and manual window/pages browsing. Needs: a **video mode**
+  (locked 1920×1080, header band, lanes from the container spec) and a
+  **zoom mode** (PP-6: ×Z view + re-cut pages + vertical scroll shell).
+  The lib modules do not change.
+- META overlay exists in `graphic.js` only → port into the notation view
+  (semi-transparent, per PP-2).
+- Header: markers currently draw INSIDE the SVG at hardcoded y=12/font 10 —
+  placeholder, not a header. Real header band is V0/V1 work; label
+  presentation measured, never assumed (D41 corollary + the renderMarker
+  trap in memory).
+
+**NEW BUILDS (the real work, all scoped):**
+1. **Transport + cursor** — the app has ZERO animation today. Clock
+   (play/pause/seek; slaved to an `<audio>` element playing the Reaper
+   render when present), cursor = `view.xOfSeconds(t)` per frame, system
+   turn when the clock crosses `page.t1`. Small and self-contained; the
+   scoped subset, explicitly NOT Phase E (D45).
+2. **Video export** — deterministic frame render (t=k/fps → SVG →
+   rasterize) → ffmpeg mux with the Reaper WAV. **ffmpeg 8.1.1 full build
+   is already installed and on PATH.** Rasterizer choice (resvg vs headless
+   Chrome) decided by font fidelity at build time.
+3. **PDF export** — mm-based view (Letter landscape), margins, title/page
+   numbers, SVG pages → PDF. Same rasterizer-family decision.
+4. **Polish ledger** — a doc + working rule; trivial.
+
+**Deliberately NOT in this build (tier-2 material-time work):** glyph
+vocabulary growth — open noteheads/values, tuplet numerals m≥3, double
+flags/beams, hairpins, tremolo sine figure (2j), morph/gliss notation,
+release devices (M3/P3). Current inventory (filled heads, 8th flags,
+accidentals, staccato dots, bass clef, beams/stems/ledgers, M4 attack
+lines, GC ticks, bricks) renders the slice-1 + section-1 material; new
+devices get built per material during part-by-part notation, with the
+parachute carrying everything else meanwhile.
