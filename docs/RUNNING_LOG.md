@@ -3578,3 +3578,23 @@ work, recorded: tuplet-bar strategy (needs fixed-beat policies — E1b's
 frame), m>=3 tuplet numerals/double flags, and the composer's ε verdict.
 Next per the roadmap: **Phase E — performance runtime** (sync, GC port =
 E3, M1/M2 at load), largely inherited from pieces #1/#2.
+
+## Day 20 (2026-08-20) — SESSION END: the reframe, and the wrap
+
+**Session-end dictation (D45, verbatim in COMPOSER_LOG):** the performance
+runtime ("Phase E") is SEVERED into its own future project — "the whole
+performance side needs a rethink." The phase's mandate — architecture and
+structures in place — confirmed delivered: "it looks like all the tools are
+there. The parts looks really good." Machinery gets built and refined WHILE
+BUILDING THE ACTUAL SCORE; requirements harvested as they arise. When
+notation resumes: **PARTS FIRST**, then laid into the study score.
+
+**Next-session ordering (the composer's):** 2ad phase-shifting sitting →
+finish the piece from the beginning → density-build experiments if time →
+the actual parts notation. Journal §2 rewritten for a cold start; D44/D45
+promoted to §4; PLANNER NOW + PLAN §7 amendment synced; PAPER_NOTES carries
+the day's three arguments (dissolving decisions ×3 · experiment↔production
+corroboration within ~3 pts · run-proven adversarial review).
+
+Housekeeping: composer's :5200 server left RUNNING (detached, has the
+/notation mount); the :5210 verify instance stopped at wrap.

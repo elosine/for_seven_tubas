@@ -1646,8 +1646,12 @@ approach/recede balls (Phase E), breath/swell lanes (material time).
 vs 26.2/57.1) · mixed per-chunk strategy renders (44 vs 88 bars at
 ε=20/30) · ε now a VISIBLE dial (IR picker + apex proofs at both) · M4
 attack-line prototype. Composer decision now concrete: A1 §8 row 3 by eye.
-Queued: tuplet-bar (fixed-beat frame), m>=3 numerals. Next: **Phase E —
-performance runtime** (GC port/E3, sync, M1/M2).
+Queued: tuplet-bar (fixed-beat frame), m>=3 numerals. ~~Next: Phase E performance runtime.~~ **PHASE E SEVERED 2026-08-20
+(D45): the performance side becomes ITS OWN PROJECT** ("needs a rethink"
+— composer; to be scoped in its own conversation). This workstream's next
+notation act, when the piece calls for it: **the actual PARTS notation
+first**, then its layout into the study score; requirements harvested
+while building the real score.
 
 ## Parking lot
 

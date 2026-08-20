@@ -556,3 +556,37 @@ Xenakis's Mists. Three printable items:*
   error budget**, and without it the whole analysis would have to price
   accumulating drift. The device and the analysis turn out to presuppose each
   other, which is the M5-chunk-as-atom convergence appearing a third time.
+
+## 2026-08-19/20 — the notation architecture built end to end in one day (phases A–D)
+
+The arc worth narrating: architecture doc → IR schema → three hand-worked
+chunks → the trance section extracted/laid-out/rendered/spliced → study
+score with a derived beating lane → Section 1's mixed strategy in
+production. Three findings bear on the argument:
+
+1. **Decisions kept DISSOLVING instead of resolving — three times in one
+   day.** The dynamics ladder, D3's performer transform, and the vertical
+   score unit each evaporated when the architecture found a way to not need
+   the answer yet (authored-first marks; blunt shape families + a transform
+   slot; an IR with no layout units). The composer's own test — "only
+   resolve what forks the architecture" — turned out to dissolve nearly
+   everything put to it.
+2. **Experiment ↔ production corroboration.** The E1 chunker (an
+   experiment) and the section1 extraction profile (production code,
+   written independently weeks-in-method apart though days apart in time)
+   land within ~3 points of each other on Section-1 coverage (24.0/53.0 %
+   vs 26.2/57.1 % at ε=20/30). And the E1 FALSE-POSITIVE lesson ("a fine
+   enough grid fits anything") reproduced itself in the production
+   segmentation within an hour of writing it — caught by the hand-worked
+   golden chunk. The hand-worked-before-code discipline (A3–A5) paid for
+   itself in one seam.
+3. **Adversarial verification as method:** three review passes (16, 22, 30
+   findings), every load-bearing finding PROVEN BY RUNNING code or checked
+   at the source, including seven validator checks that themselves lied.
+   Composer verdicts, verbatim: "I looked at the notation — looks great" ·
+   "the parts looks really good."
+
+Session-end reframe (D45): the performance side becomes its own project
+("needs a rethink"); when notation resumes, PARTS come first, then their
+layout into the study score; requirements harvested while building the
+actual score — D6's reverse-engineering stance applied to notation.

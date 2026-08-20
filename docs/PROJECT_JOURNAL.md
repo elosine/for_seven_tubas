@@ -10,224 +10,68 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 19 (2026-08-19) — NOTATION BECAME A REAL WORKSTREAM. Claude Code /
-Fable 5 + Opus 5.** Two strands ran: the ARCHITECTURE was confirmed, and the
-first M5 experiments were designed and RUN.
+**DAYS 19-20 (2026-08-19/20) — THE NOTATION ARCHITECTURE, BUILT END TO END
+IN ONE SITTING. Claude Code / Fable 5.** PLAN §7 phases A-D: A1 architecture
+doc (+2 composer amendments: dynamics decouple from MIDI, realization is
+material-dependent, D3 dissolved into blunt shape families — D44) · A2 IR
+schema v0 + validator + runnable 36-case battery · A3/A4/A5 hand-worked IR
+chunks · B1-B6 slice 1 (extract → coords → glyphs → layout → render →
+splicing, the trance section end to end) · C study score (notation view with
+click-to-zoom · GRAPHIC view · the D28 BEATING lane — bloom F2 pair peaks
+5.93 Hz) · D Section-1 MIXED STRATEGY in production (E1's frame; coverage
+corroborates D43 within ~3 pts: 24.0/53.0 % vs 26.2/57.1 % at ε=20/30; M4
+attack-line prototype). Three adversarial review passes (16+22+30 findings,
+all run-proven, all fixed). **App: `/notation/app/notation.html`** on the
+score server (:5200 restarted 2026-08-20 with the mount, detached process).
+Composer: *"the notation looks great"* · *"the parts looks really good."*
+Full trail: RUNNING_LOG days 19-20; contracts: `docs/NOTATION_ARCHITECTURE.md`
++ `notation/schema/IR_SCHEMA_v0.md`.
 
-- **Architecture confirmed → PLAN §7 amendment (four strata, N manifestations).**
-  Composition data → derived data → notation IR → renderers/runtimes; study
-  score = two VIEWS not an artifact; **"accommodation strategies"** (composer's
-  term) = a finite registry of splice behaviors per object class. Render-late is
-  forced by mandates M1/M2 (you cannot transpose an SVG). **Phase A green-lit,
-  slice 1 = TRANCE.** Working economics, binding: solid plan → AI codes a lot →
-  controlled refining → **parachute** (every chunk class carries a graphic
-  fallback, so a score can ship at any moment). No duration estimates, ever.
-- **M5 second amendment (composer, credit-wait interlude):** baseline named =
-  **Xenakis, Mists** (proportional spacing, beams on what sounds grouped) but
-  *"maybe not the only one — open to paradigm shifts"* · vocabulary widened to
-  **first-level rationals** (9:2, 7:3; not 21:19, no nesting) · **count vs
-  react** — *"players probably either count or react but not both"*, which
-  doubts M5's own tempo-per-bar idea · **the reframe that now binds
-  evaluation:** *"this is about finding ways to produce PHRASE PERFORMING
-  STRATEGIES within a context of rhythmic complexity"* — accuracy is the
-  context, phrase is the goal.
-- **The GC is NOT new: it is `GCMaker`**, a developed object in BOTH prior
-  performance apps (pieces #1 and #2, `scripts/performance_parts_patches.js`).
-  **Port, don't build.** Composer's competence profile: strong at accurate
-  entries and at ensemble-spread rhythms *"hard to notate"*; weak at phrase
-  level; and **attack-coupled** — the bounce connotes a percussive attack, so a
-  smooth-ramp entry must *"resist the stated attack."* Live hypothesis:
-  **ball carries time, page carries phrase.**
-- **`docs/NOTATION_EXPERIMENTS.md` chartered — a CONCURRENT SIDE PROJECT** to
-  the architecture build (composer's framing), folding in later as stratum-2
-  data + stratum-4 devices. E0 floor ladder (discovery) · E1 chunker · E2 tap
-  harness · E3 GC port. Every experiment carries a **pre-registered kill rule**.
-- **E1 + E1b RUN** (`tools/e1_chunker.js`, `tools/e1b_fixed_beat.js`,
-  `analysis/e1/`). See §4 **D43**; full trail RUNNING_LOG day 19.
+**THE SESSION-END REFRAME (D45, composer):** Phase E is NOT next — **the
+performance side becomes ITS OWN PROJECT** ("needs a rethink"; to be talked
+through). This phase's job was architecture/structures — confirmed in place;
+the machinery gets built and refined WHILE BUILDING THE ACTUAL SCORE, with
+requirements harvested as they arise. **When notation resumes: PARTS FIRST**
+— the players' notation — "and this then to be laid out in the study score."
 
-**DAYS 18-19 (2026-08-18/19) — THE METHOD SETTLED AND THE TRANCE SECTION STARTED
-BEING WRITTEN. Claude Code / Opus 5.**
-
-- **D41 governs everything now:** the section is written with **AI prompts and
-  pasted console scripts, not panels** (the composer stopped using the day-16/17
-  panels and said why). Scripts are handed over **in chat as fenced code blocks**;
-  one scratch score overwritten per paste; scripts FULL-clear and refuse to clear
-  real work. **Read `tools/console/README.md` before writing any console script**
-  — four labelling rules that each cost a round trip.
-- **PLAN 2ae BUILT** — 12 octave unisons banked, three column buttons in the
-  Insertion strip (insert / replace / delete), `O` = selection→ORD, drag-length
-  readout, `A`/`SHIFT+A` column select, multi-resize. A marquee was assessed and
-  **rejected on purpose** (left-drag already pans; lanes are separate divs).
-- **PLAN 2af SPEC'd then RUN** — `docs/plans/TRANCE_GENERATOR.md` is the machine
-  (UNIT · HARMONY · CUIVRE · PLAYER ASSIGNMENT), `tools/trance_gen*.py` are the
-  three hand-run variants, and five audition scores came out of them.
-- **The composer is now assembling the actual section** from `gen-aud-05` by
-  index: `aud-7` → `aud-11` / `tranceA002f`.
-
-**Next up — START HERE:**
-0. **PHASE A COMPLETE 2026-08-19 (one day, A1→A5, every chunk
-   committed+pushed+logged).** A1 `docs/NOTATION_ARCHITECTURE.md`
-   (amendments 1–2 from the composer's review dictations) · A2 IR schema v0
-   + validator (`notation/`, `tools/ir_validate.js` + runnable battery
-   `tools/ir_validate_battery.js`) · A3 `trance-bar-01` · A4
-   `morph-window-01` · A5 `density-apex-01`. **Zero composer decisions
-   block** — decisions 1/2/5/6/7 dissolved or resolved (the day-14 "owed"
-   pair included; do NOT re-open them from older text).
-   **THE PHASE GATE — what the composer reviews before Phase B (slice 1
-   TRANCE end-to-end):**
-   a. A1 §8 open rows: 3 (ε / playable floor — E2's job) · 4 (GC apex cue)
-      · 8 (tempo scope, priced by D43) · 9 (M3/P3 release session). None
-      block B's start.
-   b. Registry seeds to confirm/veto: `notation/registry/classes.json`
-      (12 classes, all status:proposed) + `accommodations.json` (5
-      strategies).
-   c. Two in-file exercise flags to revise or bless: the `p` override on
-      trance-bar-01's final BASE note · morph-window-01's "crescendo in
-      the beating" instruction wording.
-   d. Three A2 AI calls, veto open: the `notation/` root · deterministic
-      id scheme · vertical-unit-exits-the-IR (choice moves to the slice-1
-      coordinate module).
-   **PHASE B / SLICE 1 COMPLETE same night (B0-B6, composer go per chunk):**
-   the trance section runs extract → IR → stamps → coords → layout → render
-   → splicing end to end; page at `/notation/app/notation.html` (RESTART the
-   :5200 server once to pick up the mount); proofs in `notation/app/
-   proof-*.svg`; full regression suite green (7 test tools + 36-case
-   battery, all with prove-red). Phase B review pass applied (30 run-proven findings). **PHASE C v0 DONE
-   same night:** the study score — notation view + click-to-zoom · GRAPHIC
-   view (any score, S1 read-through) · the D28 BEATING LANE (bloom F2 pair
-   peaks 5.93 Hz, hand-checked). **PHASE D v0 DONE same night** (composer "on to D"): section1 profile —
-   E1's frame in production, coverage corroborates D43 (24.0 %/53.0 % vs
-   26.2/57.1) · 64 real beams, stamp-atomic held · mixed strategy renders ·
-   ε visible (apex proofs at 20 vs 30 ms + M4 attack-line mode). **The ε
-   question (§8 row 3) is now answerable by LOOKING at the committed
-   proofs.** Next: Phase E performance runtime (GC port = E3).
-1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** Named by the composer on day 18 as
-   the first thing next session; still queued (day 19 went to notation).
-   **It needs ZERO code and is already set up:**
-   `Texture` button in the score app; A/B/C are the SMEAR / RAIN / GALLOP
-   references; the panel polls `bank/texture_params.json` every 1000 ms and lands
-   on an AI edit within a second with no reload (**proven live day 17**). The
-   loop is: composer plays → comments in the day-12 vocabulary (smear · ticks ·
-   rain · gallop · groove, regular↔irregular, displacement in beats, see
-   `bank/texture_models.json` `_vocabulary`) → AI edits the variants and bumps
-   `rev` → composer re-plays. Bank a keeper with
-   `node tools/texture_bank.js --bank <NAME> --from <variant> --survives yes|no
-   --note "<plain ASCII — the shell mangles em-dashes>"`.
-   **The measured prediction to test first: RAIN and GALLOP have nearly the same
-   jitter (sd 30.7 vs 32.3 ms) but very different unevenness (0.14 vs 0.68). If
-   they sound alike they are one category with two labels.** Either answer is a
-   result.
-2. Keep assembling the section; ask for more sonorities freely (a JSON edit to
-   `bank/blast_taxonomy.json`, no code, no reload).
-3. ~~Still queued behind the trance work: the notation pass (FR-7, D3,
-   dynamics).~~ *Superseded 2026-08-19: notation is a live workstream —
-   item 0.*
+**Next up — START HERE (the composer's own ordering, dictated):**
+1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** ZERO code, set up and waiting:
+   `Texture` button; A/B/C = SMEAR / RAIN / GALLOP; the panel polls
+   `bank/texture_params.json` every second (proven live day 17). First
+   ear-question: are RAIN and GALLOP distinct? (jitter sd 30.7 vs 32.3 ms
+   but unevenness 0.14 vs 0.68 — if they sound alike, one category.) Then
+   build structures with it.
+2. **FINISH THE PIECE — "start from the beginning."** Trance section =
+   `tranceA002f` (15 identical closing chords flagged; paired-stream ear
+   question open) → assembly into the piece. `piece-s23` = 8:16 of the
+   15-minute ceiling. **PENN STATE DEADLINE: SEPT 4.**
+3. If time: **the density-build experiments** (`NOTATION_EXPERIMENTS.md` E0
+   floor ladder · E2 tap harness — E2 is also what settles ε empirically).
+4. Then **the actual notation: parts first**, laid into the study score.
 
 **Open at session end:**
-- ~~**NOTATION — the two decisions owed by the COMPOSER before slice 1 can
-  finish:** the 0-10 → dynamic-mark convention and D3's
-  performer-transform.~~ **DISSOLVED 2026-08-19** (NOTATION_ARCHITECTURE.md
-  amendments 1–2: no global ladder — marks are authored-first, per-material;
-  D3 → blunt shape families + optional per-material transform slot). Do not
-  re-open.
-- **NOTATION — two questions put to the composer, unanswered:** (a) is
-  **ε = 30 ms** acceptable musically? It roughly DOUBLES how much of Section 1
-  admits simple bars (26 % → 57 %), so the answer moves the whole strategy mix.
-  (b) Should the GC port cue **smooth entries at the parabola's APEX** — the
-  zero-velocity float — instead of at the impact, to decouple timing from the
-  attack connotation the composer identified? Untested AI proposal; composer's
-  call whether it enters E3.
-- **NOTATION — E1's honest limit, for whoever runs it next.** The headline
-  coverage number is NOT robust: it swings ~3× (37 %→11 % at ε=20 ms) purely
-  with where the "playable grid unit" floor is set (80→120 ms). **E1 cannot
-  settle that line — it is a musical judgment, and E2 is the instrument for
-  it.** Also: **one score only** (`cloud02-10track`), and the segmentation
-  parameters (`SEG_K` 2.0, `SEG_FLOOR` 0.35 s) that set the 68.8 % ceiling on
-  every number were **never swept**. **E1c is unbuilt:** the truly continuous
-  metric case (fixed unit AND fixed phase, no per-chunk re-anchoring), which is
-  what would price what the GC actually buys.
-- **THE SILENT-NOTE TRAP, still live outside the generator.** Staccato sounds
-  only MIDI 30-65, and **7 of the 13 species in `more chords` carry a 66 or 68**
-  — they render and never speak. `trance_gen*.py` octave-folds at use-time, but
-  **the Insertion strip does not**, and the blast sandbox will let you bank a
-  pitch the technique cannot sound with no warning. A one-line range check at
-  bank time was offered and NOT built.
-- **Unheard, and the notation bet rests on it:** whether a paired stream reads as
-  one line split between two players, or as two players who happen to coincide.
-- 15 identical chords close `aud-11` — far more static than anything else in the
-  section. Flagged to the composer, not acted on.
-- **Scores ARE tracked again (2026-08-19).** The "deliberately uncommitted"
-  habit began at `b608f44` for a good reason — those were live sketches that
-  autosave rewrites every 5 s, and committing that churn is noise — but it
-  over-generalised into "never commit a new score", and by day 19 the composer's
-  actual section material (`tranceA002f`) had **no backup at all**. That is the
-  exact failure §4 records three times (08-11, 08-13, 08-16), where `git
-  checkout --` was the only rescue; there would have been nothing to check out
-  from. **32 score files are now committed.** `.gitignore` was never the cause —
-  it has always said canonical scores are committed; they were simply never
-  staged.
-  **The one exception, now in `.gitignore`:** `scores/gen-aud-*.json` — 12 MB of
-  audition material regenerated byte-for-byte from `tools/trance_gen*.py` at a
-  fixed seed. Derivable output does not belong in history. `scores/versions/`
-  and `*-work.json` stay ignored as before.
-- Still open from day 15: the lazy-MIDI bug (keyboard dead on a fresh page until
-  Play / CC7 Reset / REC-arm; `initZoneMidi`, composer.html ~12246).
-- **Nothing about the SOUND has been verified by anyone** — Web MIDI is blocked
-  in the verification pane, so every claim in these docs is a data claim.
+- **Composer EYE, notation (none block):** the ε verdict — LOOK at
+  `notation/app/proof-s1-apex-e20/e30/m4.svg` (44 vs 88 claimed bars) ·
+  registry seeds all `proposed` (12 classes + 5 strategies) · GC
+  apex-vs-impact cue · two in-file placeholders (trance-bar-01's `p`,
+  morph-window-01's instruction wording).
+- **Composer EAR, piece:** paired-stream readability · the 15 closing
+  chords · velocity-vs-CC7 (2q) · the 2x listening slate.
+- **Traps still live:** staccato sounds only MIDI 30-65 and the Insertion
+  strip does NOT range-check (7 `more chords` species carry a 66/68) ·
+  the lazy-MIDI init bug (keyboard dead until Play / CC7 Reset / REC-arm).
+- **Nothing about the SOUND was verified days 19-20** — the notation work
+  makes data + pixel claims only; Web MIDI stays unverifiable in the pane.
 
 ---
 
-- **Day 17 (08-17):** the two audition machines — 2ab panel snapshots
-  (`bank/panel_snapshots.json`, the AI-dialling channel) and 2ac the MULTITEMPO
-  RIG (`MT`, ratio sets over one BPM, streams realign within 0.6 ms); 2ad proved
-  to need ZERO code. → D39, D40. *Unheard at the time.*
-- **Day 16 (08-17):** PLAN 2aa v1, the PULSE SEQUENCER STRIP (`Pulse` panel,
-  29-entry sonority menu, `pulse_seq.js`, looping 240-260 ms; audition only).
-  Findings → **D37** (five of seven staccato/cuivre pairs share pitch sets, so
-  refs resolve with per-note articulation) and **D38**. *Unheard.*
-- **Day 15 (08-17), three sittings:** two more morphs placed → `piece-s23`, 1236
-  objects, **496.6 s (8:16)** · the BALANCE abrupt-ending law found and fixed in
-  DATA · the time-readout regression fixed · **the clear cycle split in two**
-  (`SESSION_HYGIENE.md`) · fade ladder verified → `M.buildLadder` · the
-  realignment that became PLAN 2aa. **THE ENSEMBLE IS TEN TUBAS** (composer:
-  *"10 parts tracks one to ten"*); repo name stays historical. Trail:
-  RUNNING_LOG day 15.
-- **Day 14 (08-17):** **THE BLIP IS GONE** — CC7 *timing*, not values; composer:
-  *"Blip gone."* First morph then placed in the piece.
-- **Day 13 (08-17):** MORPH CYCLING (FR-3/FR-6) — `carrier.span` split from
-  `carrier.duration`; **three engine bugs found by the composer's EAR**, all one
-  kind (a mechanism correct for the body reused where its assumptions fail);
-  `docs/FEATURE_REQUESTS.md` opened.
-- **Day 12 (08-16/17), two concurrent sessions in one tree:** 2x TEXTURE SANDBOX
-  built end to end (detail in `docs/plans/TEXTURE_SANDBOX_PLAN.md` §13) — its
-  finding that reaches past the sandbox, MEASURED: **the 23/s density ceiling is
-  C3-SPECIFIC** (any real pitch set drops it to 18.9-20.8/s, so a texture
-  calibrated by ear at unison C3 is ~18 % too dense once it has pitches).
-  **Four defects found by RUNNING it, none by reading** (→ Principle 6). → D33.
-  Also 2z GESTURE SHAPING and 2y MA0-MA3 built (→ D32); the composer's verdict
-  on 2z's generic shapes set **D31: bespoke, one morph at a time**. Two
-  pre-existing 2v bugs fixed by measurement (pitch out by up to 40.2 ¢ →
-  Principle 5; stale panel dials, which invalidated every day-10 cross-variant
-  comparison). **Still open, in §6 Human Notes:** the whole 2x listening slate,
-  MA4, and re-hearing the six models now both bugs are fixed.
-- **Day 11 (08-16):** planning only — 2z and 2y drafted, reviewed, approved;
-  build order 2z→2y, never concurrent.
-- **Day 10 (08-16), two concurrent sessions:** **2v MORPHING CHORDS complete**
-  (D24–D26; six models, 101 tests; bend works ±1.99 st; *"we are already there —
-  spoiled by riches"*) and the **2j PHASE-SHIFTING arc complete** (D27–D29; the
-  two-family model; pitch beating verified predictive; the register law).
-- **Day 9 (08-16):** DB3 orchestrated; **PLAN 2t DENSITY PIPELINE** shipped
-  (D19–D23) — 251 → 160 notes at 0 hard / 0 soft, placed as **piece-s16**; 2w
-  gesture bank + recall; labels-never-render bug fixed (Principle 4).
-- **Day 8 (08-16):** collision avoidance end to end (**2r**), HARD/SOFT tiers
-  (D17), back-audit of all 164 scores clean (**2s**); `AI_METHODOLOGY.md`
-  adopted as governing (D18); `NITS.md` opened.
-- **Day 7 (08-16):** the CLUSTER SANDBOX (**2p**) — 42 takes, piano-roll editor,
-  lists + items (D14), velocity-not-CC7 (D12), `SESSION_HYGIENE.md`.
-- **Day 6 (08-15):** the blast pipeline — piece-s09, Blast Sandbox + three-tier
-  taxonomy (D11), the SAMPLE-LENGTH SURVEY → **D9**, the save system (D10).
-- **Day 3 (08-12):** CRD remote listening; species {sine, expodec, surge}; the
-  density arc → DB 044; containers begun (DB 045).
+- **Days 18-19:** trance section written via console scripts (D41); 2ae/2af
+  built; E1+E1b run (D43); notation architecture confirmed (four strata).
+- **Day 17:** 2ab panel snapshots + 2ac multitempo rig built; 2ad proved to
+  need zero code. *(All unheard.)*
+- **Days 12-16:** morphs complete (2v, D24-26) · texture sandbox (2x, D33) ·
+  cluster sandbox (2p) · density pipeline (2t, D19-23) · collision avoidance
+  (2r, D17) · piece assembly through piece-s23. Compressions in §4/RUNNING_LOG.
 
 ## §3 Principles
 
@@ -299,6 +143,31 @@ BEING WRITTEN. Claude Code / Opus 5.**
 
 ## §4 Decisions
 
+- **D45** *(2026-08-20, day 20 — session-end dictation, verbatim in
+  COMPOSER_LOG)* — **The performance runtime ("Phase E") is SEVERED from
+  this workstream into ITS OWN PROJECT; the performance side "needs a
+  rethink."** Do not build E here; it gets talked through first.
+  Corollaries, binding: (a) this phase's mandate — architecture and
+  structures — is CONFIRMED DELIVERED ("it looks like all the tools are
+  there"); (b) the machinery is built and refined **while building the
+  actual score**, requirements harvested as they arise (D6's stance applied
+  to notation); (c) **when notation resumes, PARTS COME FIRST** — the
+  players' notation — then its layout into the study score. *Why recorded
+  as a decision:* it reorders the §7 amendment's phasing (C→D→E) and
+  re-scopes E out of PLAN §7 entirely.
+- **D44** *(2026-08-19, day 19 — the A1-review dictations; full text =
+  NOTATION_ARCHITECTURE.md amendments 1-2)* — **Realization is
+  MATERIAL-DEPENDENT and notational content DECOUPLES from the MIDI.**
+  "The material will determine how the data layer is interpreted and then
+  realized for that material." Dynamics: no global level→mark law — marks
+  are authored-first IR content with provenance kinds
+  (derived / authored / authored-override; overrides live ONLY in
+  overlays; derived marks are regenerated, never stored). D3's performer
+  transform DISSOLVED: performers react to a few BLUNT SHAPE FAMILIES
+  (20 % vs 25 % slope is not consistently distinguishable); the raw curve
+  stays canonical with an optional per-material transform slot. *Killed by
+  these dissolutions:* the day-14 "owed" decisions (dynamics ladder, D3) —
+  do not re-owe them.
 - **D43** *(2026-08-19, day 19 — PLAN M5; evidence `docs/NOTATION_EXPERIMENTS.md`
   §8)* — **A metric-fit analysis must constrain the GRID UNIT, not just the
   beat; and Section 1 gets a MIXED strategy, not notated tuplets throughout.**

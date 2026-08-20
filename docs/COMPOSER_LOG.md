@@ -1479,3 +1479,29 @@ own trance section:*
 *(First composer eyes on the slice-1 pipeline output. The graphic view had
 been missed behind the view dropdown — pointed to piece-s23 @141 s for the
 bloom + beating lane.)*
+
+## 2026-08-20 (day 20, session end) — E severed into its own project; parts-first; finish the piece (dictated)
+
+*Wrapping the notation-architecture marathon:*
+
+> *"What we're calling E, I was hoping to make its own project. I think the
+> whole performance side of things needs a rethink. So we'll talk about this
+> more."*
+
+> *"My presupposition was that this was putting all the architecture and
+> structures in place. So that looks to be there. So we'll actually have to
+> build and refine the machinery, but it looks like all the tools are there.
+> The parts looks really good, though. There are a bunch of requirements,
+> and we can go as we go through it as we build the score."*
+
+> *"So, yes, finish piece. Next session, I'll sit down with AI and go
+> through the phase shifting generator and build some structures, and then
+> we'll start from the beginning. And if we have time run the experiments
+> for the density builds, and then build the actual notation. So I think the
+> first thing to make is the actual parts notation, the notation for the
+> players to perform, and this then to be laid out in the study score. But
+> we'll talk about that when we get there. It seems like everything's in
+> place."*
+
+*Filed as D45. Earlier same night: "I looked at the notation — looks
+great."*

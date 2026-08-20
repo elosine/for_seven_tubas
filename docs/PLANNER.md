@@ -8,7 +8,18 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-19) NOTATION PHASE A IS COMPLETE — the gate is yours.**
+**NOW ► (2026-08-20) NOTATION ARCHITECTURE COMPLETE (phases A-D in one
+sitting) — and the plan is back to the PIECE.** Next session, your own
+ordering: (1) the phase-shifting sitting (2ad — zero code, your ear on
+SMEAR/RAIN/GALLOP), building structures with it · (2) finish the piece,
+from the beginning (trance → assembly; Penn State Sept 4) · (3) if time,
+the density-build experiments (E0/E2) · (4) then the actual notation —
+PARTS FIRST, laid into the study score. The performance runtime is now a
+SEPARATE FUTURE PROJECT (D45 — "the whole performance side needs a
+rethink"). Notation app: /notation/app/notation.html · ε proofs await your
+eye: notation/app/proof-s1-apex-e20/e30/m4.svg.
+
+**Previously (2026-08-19) ►** NOTATION PHASE A complete — gate items now in journal §2.**
 Architecture doc + IR schema v0 + validator + three hand-worked chunks from
 your real material (a trance seam, the bloom entry, the density apex), all
 committed. The review checklist is PROJECT_JOURNAL §2 item 0 (registry seeds
