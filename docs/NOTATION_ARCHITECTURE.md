@@ -110,12 +110,18 @@ realization is MATERIAL-DEPENDENT, and IR content carries PROVENANCE KINDS.**
   it — rule + inputs recorded, regenerable) · `authored` (the composer wrote
   it — source of truth) · `authored-override` (the composer wrote it AND it
   contradicts the S1 evidence; the contradiction is recorded, not hidden).
-  Translators PROPOSE; authoring wins.
+  Translators PROPOSE; authoring wins. *(Refined at A2, 2026-08-19:
+  structural nodes carry `derived`/`authored` only — an OVERRIDE is always
+  an OVERLAY, never an edit to a derived node; and derived MARKS are
+  regenerated at translate time, never stored — stored derived facts are
+  limited to structure. IR_SCHEMA_v0 §2.)*
 - **The survival law:** S1 is live, so regenerating derived content must
   never eat authored content — authored facts re-attach by stable node
   identity, with an explicit orphan policy when their anchor disappears.
-  (Lands on A2: stable IDs + the provenance field; A3–A5 each include one
-  deliberate authored override to exercise the mechanism.)
+  (Lands on A2: stable IDs + the provenance field. *Exercise outcome,
+  2026-08-19:* A3 carried the deliberate authored-override; A4 exercised
+  authored overlays + the multi-part target; A5 deliberately carried none —
+  fabricating one would have invented musical judgment.)
 - **No P6 conflict:** P6 guards against stale DERIVATIONS posing as
   decisions; an `authored` mark is source data — the provenance label is
   exactly what keeps the two distinguishable.
@@ -218,10 +224,11 @@ shape and its laws.
   rule, generalized). A new class gets a registry entry + a journal line.
 
 **Seed classes** (observed in the real scores; the catalogue itself lives in
-the registry file, not here): staccato one-shot note · fixed one-shot
-(fp / cuivre, D9 true-length) · ORD sustained with envelope
-(`nodes`/`segments`) · drawn crescendo curve (CC7 material, D3-transform
-pending) · morph note (`morphBend`, re-key chains D26) · trance stream unit
+the registry file, not here): fixed one-shot (staccato / fp / cuivre, D9
+true-length — one class, per the registry) · ORD sustained with envelope
+(`nodes`/`segments`) · drawn crescendo curve (CC7 material; optional
+per-material transform slot, amendment 2) · morph note (`morphBend`,
+re-key chains D26) · trance stream unit
 (fixed-tempo per player, PLAN 2af) · density-cloud note (M5 material) · META
 shape · marker/label · grouped gesture (`groupId`) · S4 devices (GC modes ·
 scrolling cursor · tremolo sine figure (2j) · env-release devices (M3),

@@ -297,6 +297,9 @@ composer → notation → performance architecture.)*
     resist it). Live hypothesis: ball carries time, page carries phrase.
   - **E1 RUN (2026-08-19, composer's "digestible chunk"):** results in the
     NOTATION_EXPERIMENTS run ledger and RUNNING_LOG day 19.
+  - **Status update (2026-08-19, night):** E1 + E1b RUN (→ D43); the main
+    track's Phase A (A1–A5) completed the same day — see §7 amendment. The
+    "A1 remains next" line above is superseded; main track = Phase B gate.
 
 ## 4. Independent-work slate (composer post-wrap addendum 2026-08-10; AI executed 2026-08-11)
 
@@ -1589,9 +1592,10 @@ ship at any moment (decided chunks as notation, the rest proportional).
 + IR schema v0 + three hand-worked IR chunks) → B vertical slice 1 = TRANCE
 section end-to-end → C study score v0 → D slice 2 = SECTION 1 (M5 chunker runs
 for real) → E performance runtime. Phase-2-after-composing is superseded:
-notation starts interleaved with composing. **Phase A agenda items owed by the
-composer: the 0–10 → dynamic-mark convention and D3's performer-transform
-decision** (flagged "open before notation" since day 14).
+notation starts interleaved with composing. ~~**Phase A agenda items owed by
+the composer: the 0–10 → dynamic-mark convention and D3's performer-transform
+decision.**~~ *(Both DISSOLVED 2026-08-19 by A1 amendments 1–2 — see the A1
+record below; do not re-owe them.)*
 
 **A1 DRAFTED 2026-08-19** — `docs/NOTATION_ARCHITECTURE.md` (capped to the six
 contracts; adversarially verified against the day-19 record and the
@@ -1606,8 +1610,9 @@ JSON Schema + registry seeds + `tools/ir_validate.js`). Deterministic derived
 ids (`ev-<objectId>`, `ch-<part>-<firstEventObjectId>`) mechanize the
 survival law; IR carries NO layout units (vertical-unit choice moved to the
 slice-1 coordinate module); adversarial pass found 22 defects (7 lying
-validator checks incl. a prototype-chain bypass) — all fixed, 29-case
-mutation battery green. Trail in RUNNING_LOG day 19 night.
+validator checks incl. a prototype-chain bypass) — all fixed; mutation
+battery green (29 at A2, 31 after A4's two additions; runnable:
+`tools/ir_validate_battery.js`). Trail in RUNNING_LOG day 19 night.
 **A3 DONE 2026-08-19 night** — `notation/ir/trance-bar-01.ir.json` (two
 tempo streams + the 0.136 s seam; VALID vs source; 0.0000 ms re-derivation;
 two schema amendments: span = onset ownership, boundary = next chunk's first

@@ -199,14 +199,15 @@ musical choice (§8 row 8) forks nothing here.
 | `t0` | `tempo.anchorSeconds` (+ `span[0]`) |
 | `uMs / 1000` | `tempo.unitSeconds` |
 | `beat` | `tempo.beatSeconds` |
-| `pq` | `tempo.subdivision` = the units-per-beat integer (q of p:q against the beat); exact, unlike float recovery from `beat/uMs` |
-| `cls` | strategy: `binary`/`compound` → `simple-bar` · `tuplet-per-beat` → `tuplet-bar` (also echoed in `tempo.label`) |
+| `pq` | `tempo.subdivision` = **p** of p:q (p/q units per beat generally; integer only while q = 1 — every free-beat fullVocab fit is p:1; see §7's queued `subdivisionDen`); exact, unlike float recovery from `beat/uMs` |
+| `cls` | strategy **DEFAULT PROPOSAL ONLY**: `binary`/`compound` → `simple-bar` · `tuplet-per-beat` → `tuplet-bar` — **overridden by the playable-floor judgment (D43)**: a fit whose unit sits below ~90 ms carries its tempo as FIT DATA with strategy `proportional` (A5, `density-apex-01`, is the worked case). The fit is data; the strategy is a judgment. |
 | `ns[]` | each event's `metric.grid` |
 | `maxErrMs / 1000` | `tempo.maxErrSeconds`; the tool + ε go in the document's `provenance` |
 
 Fold-in rules: an IR document folds **exactly one ε variant** of the E1
-record (name it in `provenance.notes`); only `fullVocab` variants carry
-chunk lists — the others store bare counts and are not foldable.
+record (name it in the document's provenance — `tool` or `notes`); only
+`fullVocab` variants carry chunk lists — the others store bare counts and
+are not foldable.
 
 ## 6. Overlays — the authored channel
 
@@ -272,6 +273,10 @@ not an integer). Free-beat fullVocab fits only ever select p:1 (E1 finding
 (9:2, 7:2, 7:3, 8:3, 9:4, 5:2, on disk in `cloud02-10track.e1b.json`) will
 need an optional `subdivisionDen` (default 1; check beat × q = p × unit).
 Enters by amendment when the first fixed-beat fit is actually folded.
+Also queued (A4 finding): a P6-style SCOPED SPELLING RULE (span ×
+pitch-class → respell) as compression for per-event spelling overlays —
+A4's six-overlay chord respell is the motivating case; enters when the
+verbosity bites in production.
 
 **Completeness note (A4 finding):** the validator never checks that every
 S1 onset inside `source.window` × `source.parts` has an event — partial

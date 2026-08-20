@@ -43,6 +43,14 @@
       "status": "proposed"
     },
     {
+      "class": "drawn-crescendo-curve",
+      "classify": { "type": "waveCurve", "technique": ["ord"], "context": "hand-drawn crescendo material sonified via CC7 (multi-node level envelope, not a morph)", "not": ["morphBend"] },
+      "ir": "sustained event; the level curve stays in S1 and displays through the optional per-material transform slot (amendment 2); performance semantics attach to the blunt shape FAMILY, decided per material",
+      "accommodation": "matisse-cut",
+      "fallback": "proportional brick + curve",
+      "status": "proposed"
+    },
+    {
       "class": "ord-sustained",
       "classify": { "type": "waveCurve", "technique": ["ord"], "not": ["morphBend"] },
       "ir": "sustained event; level envelope read from S1 by reference through the optional per-material transform slot (amendment 2)",
@@ -71,7 +79,7 @@
       "classify": { "stratum": 4, "kind": "gc" },
       "ir": "device instance anchored to chunk starts (landing) or internal pulse (E3 modes)",
       "accommodation": "cursor-jump-continuous-delta",
-      "fallback": "re-anchor tick above the staff at each landing point (renderable from S2/IR chunk anchors) — a paper score keeps the GC's re-anchor cues (D43)",
+      "fallback": "re-anchor tick above the staff at each landing point (renderable from S2 (E1) chunk anchors) — a paper score keeps the GC's re-anchor cues (D43)",
       "status": "proposed"
     },
     {

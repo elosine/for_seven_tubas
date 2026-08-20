@@ -3193,3 +3193,40 @@ Next phase per the approved path: **B — vertical slice 1, the TRANCE
 section end-to-end** (extract → IR → stamps → grid → parts → splicing with
 the first accommodation strategies). Phase gate: composer review of the A
 deliverables (A1 §8 table = what remains open).
+
+## Day 19 (2026-08-19, night) — Phase A completeness-critic pass; 21 findings; the battery becomes a fact
+
+Two critic agents swept the finished phase (one retry after an API drop).
+**21 findings — no missing deliverable, but real record-hygiene debt from
+the one-day amendment cycle. All applied:**
+- **The mutation battery is now a COMMITTED, RUNNABLE artifact:**
+  `tools/ir_validate_battery.js` — 29 red + 5 green cases, self-asserting
+  on expected messages, GREEN on first run. Before this, "31 mutations on
+  record" was prose; the validator had even been modified after the battery
+  ran (A4) with no regression protection. Run it after ANY validator or
+  schema edit. (The A5 log's "31" was a miscount of 29 red; the battery
+  file is now the authority.)
+- **Two must-fixes:** the journal's "Open at session end" still owed the
+  composer the two DISSOLVED decisions (a cold reader would have waited on
+  them — struck with dated markers, "do not re-open"); and the spec §5
+  cls→strategy row would have had a Phase B extractor auto-assign
+  tuplet-bar and ERASE A5's fit-is-data/strategy-is-judgment lesson — now
+  marked DEFAULT PROPOSAL, overridden by the D43 playable-floor judgment.
+- **The phase gate got a single assembled checklist** (journal §2 item 0):
+  A1 §8 open rows · registry seeds to bless · the two in-file exercise
+  flags · the three vetoable A2 calls. PLANNER.md's NOW block now points
+  the composer at it (it had no day-19 notation entry at all — the gate
+  was invisible on the composer-facing surface).
+- Stale supersessions struck in PLAN §7 phasing, PLAN §3 M5 status,
+  PLANNER line ~243, journal item 3. Architecture §1 gained the
+  "refined at A2" marker (node/overlay provenance split) and the honest
+  A3-A5 exercise outcome; §2 seed list synced to the registry (one
+  fixed-oneshot class; drawn-crescendo → amendment-2 wording) and the
+  missing `drawn-crescendo-curve` registry entry added. Spec §5 pq row
+  corrected (subdivision = p, NOT q — an extractor following the old text
+  would have written subdivision 1 for every 9:1 fit); scoped-spelling
+  rule joined §7's queued list; ε-naming rule relaxed to tool-or-notes.
+- Left as-is, deliberately: the breath-phrase observation stays log-only
+  (amendment 1 owns all material-time realization questions); the one-off
+  re-derivation scripts stay unkept (method described, validator half
+  re-runnable via the battery).

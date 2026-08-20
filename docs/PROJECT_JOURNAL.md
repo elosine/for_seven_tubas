@@ -65,29 +65,28 @@ BEING WRITTEN. Claude Code / Opus 5.**
   index: `aud-7` → `aud-11` / `tranceA002f`.
 
 **Next up — START HERE:**
-0. **A1 + A2 BOTH DRAFTED 2026-08-19 (evening/night sittings).**
-   A1 = `docs/NOTATION_ARCHITECTURE.md` (16 findings fixed; amendments 1–2
-   from the composer's review dictations: material-dependent realization +
-   provenance kinds; D3 → blunt shape families). A2 = IR schema v0 in
-   `notation/` (22 findings fixed; 29-case mutation battery green;
-   `tools/ir_validate.js`). **Decisions 1/2/5/6/7 dissolved or resolved —
-   ZERO composer decisions block Phase A** (the §8 walk-through was closed
-   by the composer: only resolve what forks the architecture). **A3 DONE
-   2026-08-19 night** (`trance-bar-01.ir.json`: the two-tempo-stream seam,
-   VALID vs source, 0.0000 ms re-derivation; span/boundary amendments).
-   **A4 DONE 2026-08-19 night** (`morph-window-01.ir.json`; 5 findings incl.
-   a validator gap — spelling overlays could silently re-pitch — now checked
-   with red mutations). **A5 DONE 2026-08-19 night** (`density-apex-01.ir.json`).
-   **PHASE A COMPLETE** — all five chunks committed+pushed+logged. Next:
-   **Phase B, slice 1 TRANCE end-to-end** (composer gate; A1 §8 = open list). Deliberately CAPPED: strata · class
-   registry · accommodation bucket · engine passes · coordinate contract ·
-   parachute contract. Phase A is cut into commit-sized chunks so a credit
-   expiry between them loses nothing: **A1 doc → A2 IR schema v0 → A3/A4/A5
-   three IR chunks worked BY HAND from real piece data** (trance bar, morph
-   window, density apex) *before* any extractor code — hand-authoring finds
-   schema flaws cheaper than code does. Review A1 with the composer alongside
-   **the two decisions owed since day 14: the 0-10 → dynamic-mark convention,
-   and D3's performer-transform.** Slice 1 = TRANCE.
+0. **PHASE A COMPLETE 2026-08-19 (one day, A1→A5, every chunk
+   committed+pushed+logged).** A1 `docs/NOTATION_ARCHITECTURE.md`
+   (amendments 1–2 from the composer's review dictations) · A2 IR schema v0
+   + validator (`notation/`, `tools/ir_validate.js` + runnable battery
+   `tools/ir_validate_battery.js`) · A3 `trance-bar-01` · A4
+   `morph-window-01` · A5 `density-apex-01`. **Zero composer decisions
+   block** — decisions 1/2/5/6/7 dissolved or resolved (the day-14 "owed"
+   pair included; do NOT re-open them from older text).
+   **THE PHASE GATE — what the composer reviews before Phase B (slice 1
+   TRANCE end-to-end):**
+   a. A1 §8 open rows: 3 (ε / playable floor — E2's job) · 4 (GC apex cue)
+      · 8 (tempo scope, priced by D43) · 9 (M3/P3 release session). None
+      block B's start.
+   b. Registry seeds to confirm/veto: `notation/registry/classes.json`
+      (12 classes, all status:proposed) + `accommodations.json` (5
+      strategies).
+   c. Two in-file exercise flags to revise or bless: the `p` override on
+      trance-bar-01's final BASE note · morph-window-01's "crescendo in
+      the beating" instruction wording.
+   d. Three A2 AI calls, veto open: the `notation/` root · deterministic
+      id scheme · vertical-unit-exits-the-IR (choice moves to the slice-1
+      coordinate module).
 1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** Named by the composer on day 18 as
    the first thing next session; still queued (day 19 went to notation).
    **It needs ZERO code and is already set up:**
@@ -106,12 +105,17 @@ BEING WRITTEN. Claude Code / Opus 5.**
    result.
 2. Keep assembling the section; ask for more sonorities freely (a JSON edit to
    `bank/blast_taxonomy.json`, no code, no reload).
-3. Still queued behind the trance work: the notation pass (FR-7, D3, dynamics).
+3. ~~Still queued behind the trance work: the notation pass (FR-7, D3,
+   dynamics).~~ *Superseded 2026-08-19: notation is a live workstream —
+   item 0.*
 
 **Open at session end:**
-- **NOTATION — the two decisions owed by the COMPOSER before slice 1 can
-  finish:** the **0-10 → dynamic-mark convention** and **D3's
-  performer-transform** (both flagged "open before notation" since day 14).
+- ~~**NOTATION — the two decisions owed by the COMPOSER before slice 1 can
+  finish:** the 0-10 → dynamic-mark convention and D3's
+  performer-transform.~~ **DISSOLVED 2026-08-19** (NOTATION_ARCHITECTURE.md
+  amendments 1–2: no global ladder — marks are authored-first, per-material;
+  D3 → blunt shape families + optional per-material transform slot). Do not
+  re-open.
 - **NOTATION — two questions put to the composer, unanswered:** (a) is
   **ε = 30 ms** acceptable musically? It roughly DOUBLES how much of Section 1
   admits simple bars (26 % → 57 %), so the answer moves the whole strategy mix.
