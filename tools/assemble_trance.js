@@ -315,10 +315,11 @@ PLAN.forEach(item => {
             // and velocity carries the build — 2q's question, live).
             const jit = () => 1 + 0.2*(rnd()-0.5);
             item.arc = [
-                {frac:5*jit(), set:BASE,            label:'BASE'},
-                {frac:4*jit(), set:[38,45,52,59],   label:'5ths D', detail:'D2 A2 E3 B3'},
-                {frac:3*jit(), set:[41,53,65],      label:'F oct'},
+                {frac:5*jit(),   set:BASE,            label:'BASE'},
+                {frac:5.2*jit(), set:[38,45,52,59],   label:'5ths D', detail:'D2 A2 E3 B3 (+30%)'},
+                {frac:6*jit(),   set:[41,53,65],      label:'F oct', detail:'doubled'},
             ];
+            item.unison = true;   // composer: one more hit, everyone in unison
             // CC7 carries the build (env mode, flat velocity): the velocity ramp
             // audibly changed TIMBRE, not just loudness - 2q evidence, day 21
             item.ramp = { y0: 2.2, y1: 9.5, v0: 100, v1: 100, env: true };
@@ -350,7 +351,7 @@ PLAN.forEach(item => {
         item.arc.forEach((p,pi) => mark(pi ? bounds[pi-1] : t,
             'PS'+item.n+' '+p.label, '#3F7D5A', (p.detail||'')+' · '+s.bpm+' BPM · offset '+s.off));
         const T = 60/s.bpm;
-        let n = 0;
+        let n = 0, lastAt = -1, lastPitch = null;
         const lastOct = new Array(10).fill(null);
         for (let c = t; c < end - 1e-9; c += T)
             for (let lane=0; lane<10; lane++) {
@@ -369,11 +370,23 @@ PLAN.forEach(item => {
                 } else {
                     note(at, lane, pitch, 0.12, '#3F7D5A', 'PH'+item.n+' '+NAME(pitch), 'asm-phase', 95);
                 }
+                if (at > lastAt) { lastAt = at; lastPitch = pitch; }
                 n++;
             }
         log.push('phasearc '+item.n+'  '+t.toFixed(1)+' -> '+end.toFixed(1)+'s  ('+dur+'s, '+
                  item.arc.map(p=>p.label).join(' > ')+', '+n+' notes)');
         t = end;
+        if (item.unison && lastPitch != null) {
+            // ONE MORE HIT (composer): as if the last player played once more -
+            // everyone joins in unison on that pitch, one beat long, full level
+            const ut = nextBeat(t);
+            mark(ut, 'UNISON '+NAME(lastPitch), '#C62828', 'all ten, one beat, the last note x10');
+            for (let lane = 0; lane < 10; lane++)
+                note(ut, lane, lastPitch, BEAT, '#C62828', 'UNISON '+NAME(lastPitch),
+                     'asm-phase', 100, null, 9.5, 9.5, true);
+            t = ut + BEAT;
+            log.push('unison   '+ut.toFixed(1)+'s  all ten on '+NAME(lastPitch)+', one beat');
+        }
     } else if (item.k === 'swells') {
         // ACCUMULATING SWELLS (composer, day 21): the base chord's notes enter
         // in their MEASURED entry order from the section opening (G1 A2 E3 B3
