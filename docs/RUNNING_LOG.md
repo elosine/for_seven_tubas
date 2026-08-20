@@ -4458,3 +4458,11 @@ sections = the fifths stack G1-A2-E3-B3-F4 (also section 3's underlay).
 Species = original played VERT01 pitches; window-dropped: sp16's 67, sp18's
 66, sp27's 66. Note on the mockup: 0.4s per-player spacing vs 0.33-0.53s
 rings - chords over-ring slightly at 150; fine for audition, known class.
+
+**2ag follow-up 20 — FIRST STOPWATCH PERFORMANCE, composer's own timing of
+phaseSeq-01 (stored in the params file under the saved sequence, rev 21).**
+Step durations 5.4 / 4.9 / 5.2 / 7.1 / 7.9 / 10.3 s, total 40.8 s. Notable
+shape without prompting any action: the dwell LENGTHENS as the ladder climbs
+- the composer held the faster, busier steps nearly twice as long as the
+early ones (5.4 -> 10.3 s). Composer: "just hang on to these for now" -
+stored, not rendered.
