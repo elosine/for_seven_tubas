@@ -312,7 +312,7 @@ PLAN.forEach(item => {
         // correction: the 4:3:2 arc belongs on the EXISTING section at ~36 s,
         // not on an inserted chunk): A# octaves as written | B octaves
         // (transpose +1) | re-draw from the C-rooted fifths chain.
-        const F5_C = [36,43,50,57,64];                   // C2 G2 D3 A3 E4
+        const FS_OCT = [30,42,54];                       // F#1 F#2 F#3
         const w = j.objects.filter(o => o.type==='waveCurve' &&
             (o.performanceNotes||'').indexOf('D oct A#') === 0 && !/^asm-/.test((o.properties||{}).gen||''));
         const a = Math.min(...w.map(x=>x.startSeconds)), b = Math.max(...w.map(x=>x.startSeconds));
@@ -325,11 +325,11 @@ PLAN.forEach(item => {
         w.sort((x,y)=>x.startSeconds-y.startSeconds).forEach(x => {
             if (x.startSeconds < b1) return;             // part 1: A# octaves as written
             if (x.startSeconds < b2) { x.sonifyNote = x.sonifyNote + 1; n2++; }   // B octaves
-            else { x.sonifyNote = draw(F5_C, x.layer); n3++; }
+            else { x.sonifyNote = draw(FS_OCT, x.layer); n3++; }
         });
         mark(b1, '17→B oct', '#C62828', '4:3:2 repitch, part 2 (+1)');
-        mark(b2, '17→5ths C', '#C62828', '4:3:2 repitch, part 3 (C2 G2 D3 A3 E4)');
-        log.push('r17: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  A# oct to '+b1.toFixed(1)+' | B oct '+n2+' notes to '+b2.toFixed(1)+' | 5thsC '+n3+' notes');
+        mark(b2, '17→F# oct', '#C62828', '4:3:2 repitch, part 3 (F#1/2/3)');
+        log.push('r17: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  A# oct to '+b1.toFixed(1)+' | B oct '+n2+' notes to '+b2.toFixed(1)+' | F#oct '+n3+' notes');
     } else if (item.k === 'r27') {
         // RE-PITCH THE ORIGINAL "27 oct B" SECTION (composer, day 21):
         // reversed ratio 2:3:4 across its span — B octaves stay | re-draw from
@@ -337,6 +337,7 @@ PLAN.forEach(item => {
         // and dynamics untouched; only sonifyNote moves. Idempotent because
         // every run re-reads pristine SRC (003b) before transforming.
         const F5_CS = [37,44,51,58,65];                  // C#2 G#2 D#3 A#3 F4
+        const F5_C  = [36,43,50,57,64];                  // C2 G2 D3 A3 E4
         const w = j.objects.filter(o => o.type==='waveCurve' &&
             (o.performanceNotes||'').indexOf('F oct B') === 0 && !/^asm-/.test((o.properties||{}).gen||''));
         const a = Math.min(...w.map(x=>x.startSeconds)), b = Math.max(...w.map(x=>x.startSeconds));
@@ -345,15 +346,16 @@ PLAN.forEach(item => {
         const draw = (set, layer) => { let k;
             do { k = set[(rnd()*set.length)|0]; } while (k === lastP[layer] && set.length > 1);
             lastP[layer] = k; return k; };
-        let n2=0, n3=0;
+        let n1=0, n2=0, n3=0;
         w.sort((x,y)=>x.startSeconds-y.startSeconds).forEach(x => {
-            if (x.startSeconds < b1) return;             // part 1: B octaves as written
-            if (x.startSeconds < b2) { x.sonifyNote = draw(F5_CS, x.layer); n2++; }
+            if (x.startSeconds < b1) { x.sonifyNote = draw(F5_C, x.layer); n1++; }   // part 1: 5ths incl. C
+            else if (x.startSeconds < b2) { x.sonifyNote = draw(F5_CS, x.layer); n2++; }
             else { x.sonifyNote = draw(SPECIES['30'], x.layer); n3++; }
         });
+        mark(a, '27→5ths C', '#C62828', 'reversed 2:3:4 repitch, part 1 (C2 G2 D3 A3 E4)');
         mark(b1, '27→5ths C#', '#C62828', 'reversed 2:3:4 repitch, part 2');
         mark(b2, '27→sp30', '#C62828', 'reversed 2:3:4 repitch, part 3');
-        log.push('r27: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  B oct to '+b1.toFixed(1)+' | 5thsC# '+n2+' notes to '+b2.toFixed(1)+' | sp30 '+n3+' notes');
+        log.push('r27: '+a.toFixed(1)+'-'+b.toFixed(1)+'s  5thsC '+n1+' to '+b1.toFixed(1)+' | 5thsC# '+n2+' to '+b2.toFixed(1)+' | sp30 '+n3);
     } else {
         // BLAST-LEVEL addressing (composer, day 21): a chord insert can take a
         // sub-range of a pattern's blasts, and name which of them are cuivre.
