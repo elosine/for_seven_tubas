@@ -1,0 +1,13 @@
+{
+  "_contract": "Page-edge decision rules (accommodation strategy 'page-edge-rules', NOTATION_ARCHITECTURE §3 item 5): stored as RULES, not baked positions (P6). The splicer (notation/lib/splice.js) consults these; changing a rule re-plans every page on the next render.",
+  "version": "0.1",
+  "cutSlackSeconds": 2.0,
+  "minPageSeconds": 3.0,
+  "preferences": [
+    "clean chunk boundary (interrupts nothing)",
+    "fewest interrupted chunks; ties break toward the target time",
+    "when a sub-beat (subdivision >= 2) chunk must be interrupted, the cut snaps to ITS beat grid so no beam group is ever split (stamp-atomic)"
+  ],
+  "reshowAtCut": ["clef", "tempoLabelContinuation", "partLabel"],
+  "continuationPrefix": "(cont.) "
+}

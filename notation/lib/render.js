@@ -41,6 +41,13 @@
       // part label at the left edge
       parts.push('<text x="4" y="' + (sys.yTopPx + 0.9 * ssPx).toFixed(1) + '" font-size="' + (1.1 * ssPx).toFixed(1) +
         '" font-family="sans-serif" fill="' + o.muted + '">T' + (sysModel.part + 1) + '</text>');
+      // page-edge rule: a chunk continuing across the cut re-shows its tempo
+      // label at the page start (splice.js planPages -> page.reshow)
+      for (const rs of (opts && opts.reshow) || []) {
+        if (rs.part !== sysModel.part) continue;
+        parts.push('<text x="' + (4.2 * ssPx).toFixed(1) + '" y="' + Y(4.6).toFixed(1) + '" font-size="' +
+          (0.75 * ssPx * 1.3).toFixed(1) + '" font-family="sans-serif" fill="' + o.muted + '">' + esc(rs.text) + '</text>');
+      }
 
       for (const it of sysModel.items) {
         if (it.k === 'staff') {

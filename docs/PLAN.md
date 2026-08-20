@@ -1631,9 +1631,12 @@ absent — the IR has no rest nodes). **B4 DONE** (layout passes: staff math, st
 sub-beat beaming, tempo labels + GC ticks, parachute bricks; A3-window
 census + section smoke + snapshot green). **B5 DONE** (render.js + notation.html + /notation/ mount; verified live
 on :5210, census-exact snapshots; clef-pinning + label-size defects found
-by EYE on the seam proof; proofs sent + committed). **First-pixels gate
-OPEN.** Next: **B6 splicing** (page mode + the first accommodation
-strategies).
+by EYE on the seam proof; proofs sent + committed). **First-pixels gate OPEN.** **B6 DONE** — splice.js + page_rules.json
+(P6 rules-as-data); three accommodation strategies running (boundary-
+preferring cuts · stamp-atomic beat-snapping, proven end-to-end · (cont.)
+tempo-label reshow); 6 pages over the section, verified live.
+**SLICE 1 COMPLETE (B0-B6).** Phase gate: composer reviews the proofs +
+the page. Next: Phase C study score v0.
 
 ## Parking lot
 

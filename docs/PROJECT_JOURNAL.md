@@ -87,6 +87,13 @@ BEING WRITTEN. Claude Code / Opus 5.**
    d. Three A2 AI calls, veto open: the `notation/` root · deterministic
       id scheme · vertical-unit-exits-the-IR (choice moves to the slice-1
       coordinate module).
+   **PHASE B / SLICE 1 COMPLETE same night (B0-B6, composer go per chunk):**
+   the trance section runs extract → IR → stamps → coords → layout → render
+   → splicing end to end; page at `/notation/app/notation.html` (RESTART the
+   :5200 server once to pick up the mount); proofs in `notation/app/
+   proof-*.svg`; full regression suite green (7 test tools + 36-case
+   battery, all with prove-red). Next: Phase C study score v0, after the
+   composer looks at the pixels.
 1. **THE PHASE-SHIFTING MACHINE (PLAN 2ad).** Named by the composer on day 18 as
    the first thing next session; still queued (day 19 went to notation).
    **It needs ZERO code and is already set up:**

@@ -3388,3 +3388,44 @@ cut is exactly a page-edge accommodation strategy (the bucket's job), not
 a render hack. Proof SVGs sent to the composer + committed
 (`notation/app/proof-*.svg`): all-parts opening, and T5 alone at the
 two-tempo seam. **The B5 composer gate (first pixels) is OPEN.**
+
+## Day 19 (2026-08-19, late night) — B6 RUN: splicing — SLICE 1 COMPLETE
+
+**Composer: "b6 go."** `notation/lib/splice.js` + **page-edge rules as DATA**
+(`notation/registry/page_rules.json`, P6 — changing a rule re-plans every
+page) + page mode in the app (planned pages replace fixed windows; meta
+shows page k/N and the cut kind). The first three accommodation strategies
+are now RUNNING CODE:
+- **bars-prefer-chunk-boundaries:** cuts snap to chunk edges near the
+  target (fewest-interrupted, ties toward the target);
+- **stamp-atomic:** a cut forced through a sub-beat chunk snaps to THAT
+  chunk's beat grid, and sub-beat beams never cross a beat — so no beam
+  group can straddle a cut. Proven END-TO-END on a synthetic beamed chunk
+  (89 beams, 2 beat-snapped cuts, zero straddles);
+- **page-edge-rules:** a chunk continuing across a cut re-shows its tempo
+  label "(cont.) …" on the new page — closing B5's known gap where it
+  belonged.
+- (Matisse-cut needed NO code — staff lines and bricks already clip at
+  edges in the renderer; recorded because that is the point of the class.)
+
+**A data fact the test surfaced honestly:** the real section carries ZERO
+beam groups — the sub-beat chunks are the ACCELERANDO streams, whose notes
+sit 2-3 grid units apart and are never beat-adjacent. The test now asserts
+the layout beam count against an INDEPENDENT count from the IR (0 == 0
+here, and a future re-extraction that produces beams stays protected)
+rather than assuming beams exist.
+
+**Verified live** (:5210): 6 pages over the section, kinds
+interrupting/beat-snapped/end all exercised, continuation labels render,
+paging clamps, zero console errors. Page 4 (34.4-46.4, the beat-snapped
+cut protecting the accelerando region, 4 continuation labels) sent to the
+composer + committed. Full regression green: splice · render · layout ·
+coords · stamps · golden · battery 36.
+
+**SLICE 1 IS COMPLETE: B0 plan · B1 extractor · B2 coords · B3 glyphs ·
+B4 layout · B5 page · B6 splicing — extract → IR → stamps → grid → parts →
+splicing, end to end on the composer's live trance section, every chunk
+committed+pushed+logged, parachute live throughout.** Phase gates open:
+B5 first-pixels + B6 phase-end (one review). Next per the roadmap:
+**Phase C — study score v0**, or fold composer feedback from the gate
+first.

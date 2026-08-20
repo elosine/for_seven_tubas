@@ -21,6 +21,10 @@
   <label>parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
+  <label>mode <select id="mode">
+    <option value="window">window</option>
+    <option value="pages">pages</option>
+  </select></label>
   <label>from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
   <label>width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
   <button id="prev">◀</button>
@@ -34,17 +38,19 @@
 <script src="/notation/lib/stamps.js"></script>
 <script src="/notation/lib/layout.js"></script>
 <script src="/notation/lib/render.js"></script>
+<script src="/notation/lib/splice.js"></script>
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
-  const state = { ir: null, glyphs: null, markers: [], model: null };
+  const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0 };
   try {
-    const [ir, glyphs, score] = await Promise.all([
+    const [ir, glyphs, score, pageRules] = await Promise.all([
       fetch('/notation/ir/trance-section-01.ir.json').then(r => { if (!r.ok) throw new Error('IR fetch ' + r.status); return r.json(); }),
       fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
       fetch('/api/composer/load/' + 'tranceA002f').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
     ]);
-    state.ir = ir; state.glyphs = glyphs;
+    state.ir = ir; state.glyphs = glyphs; state.pageRules = pageRules;
     const scoreData = score && (score.data || score);
     if (scoreData && scoreData.objects) {
       state.markers = scoreData.objects.filter(o => o.type === 'marker')
@@ -62,26 +68,46 @@
 
   function render() {
     try {
-      const t0 = parseFloat($('t0').value) || 0;
+      const paged = $('mode').value === 'pages';
       const w = Math.max(2, parseFloat($('w').value) || 16);
+      let t0, t1, reshow = [], pageNote = '';
+      if (paged) {
+        if (!state.pages || state.pagesW !== w) {
+          state.pages = NotationSplice.planPages(state.ir, state.pageRules, w);
+          state.pagesW = w; state.pageIdx = Math.min(state.pageIdx, state.pages.length - 1);
+        }
+        const p = state.pages[state.pageIdx];
+        t0 = p.t0; t1 = p.t1; reshow = p.reshow;
+        pageNote = ' · page ' + (state.pageIdx + 1) + '/' + state.pages.length + ' (' + p.kind + ')';
+      } else {
+        t0 = parseFloat($('t0').value) || 0; t1 = t0 + w;
+      }
       const sel = $('parts').value;
       const parts = sel === 'all' ? state.ir.source.parts : [parseInt(sel, 10)];
       const perSystem = sel === 'all' ? 110 : 260;
       const heightPx = parts.length * perSystem + 30;
       const widthPx = Math.max(600, $('sheet').clientWidth - 2);
       const view = NotationCoords.makeView({
-        widthPx, heightPx, window: [t0, t0 + w],
+        widthPx, heightPx, window: [t0, t1],
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
-      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow });
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
-        ' chunks · window ' + t0 + '–' + (t0 + w) + ' s';
+        ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
       $('err').textContent = '';
     } catch (e) { $('err').textContent = String(e.stack || e); }
   }
-  for (const id of ['parts', 't0', 'w']) $(id).addEventListener('change', render);
-  $('prev').addEventListener('click', () => { $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16)); render(); });
-  $('next').addEventListener('click', () => { $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16); render(); });
+  for (const id of ['parts', 'mode', 't0', 'w']) $(id).addEventListener('change', render);
+  $('prev').addEventListener('click', () => {
+    if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
+    else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));
+    render();
+  });
+  $('next').addEventListener('click', () => {
+    if ($('mode').value === 'pages') { state.pageIdx = Math.min(state.pages ? state.pages.length - 1 : 0, state.pageIdx + 1); }
+    else $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16);
+    render();
+  });
   window.addEventListener('resize', render);
 })();
 </script>
