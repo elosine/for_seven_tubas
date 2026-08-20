@@ -1468,3 +1468,14 @@ transform:*
 *Directive: a very short bulleted list of all decisions, highlighting the
 architectural ones — those that must be addressed now or send the build in
 different directions.*
+
+## 2026-08-19 (day 19, end of night) — first look at the notation
+
+*After the server restart, the composer loaded the notation page over their
+own trance section:*
+
+> *"I looked at the notation — looks great."*
+
+*(First composer eyes on the slice-1 pipeline output. The graphic view had
+been missed behind the view dropdown — pointed to piece-s23 @141 s for the
+bloom + beating lane.)*

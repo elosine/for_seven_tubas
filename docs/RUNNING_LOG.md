@@ -3511,3 +3511,11 @@ breath and swell lanes are further derived-data lanes queued for material
 time — same mechanism, new data sources. All three views are
 CONFIGURATIONS over the strata, as the architecture demands — the graphic
 view needed zero IR.
+
+**Composer first-look verdict (same night): "I looked at the notation —
+looks great."** First eyes on the pipeline output over their own section.
+The graphic view was initially missed (it lives behind the `view` dropdown,
+and on tranceA002f it is honestly plain — no META shapes, no morphs in that
+score); pointed to piece-s23 @ 141 s for the bloom + beating lane. UI note
+recorded: the view switcher may deserve more prominence (tabs, not a
+dropdown) — material-time polish, not now.
