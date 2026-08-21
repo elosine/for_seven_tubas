@@ -36,7 +36,8 @@
   #bar input, #bar select, #bar button { font-size: 13px; padding: 3px 8px; }
   #bar button { cursor: pointer; }
   #meta { font-size: 11px; opacity: 0.65; margin-left: auto; }
-  #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; }
+  #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; position: relative; }
+  #animov { position: absolute; top: 0; left: 0; pointer-events: none; }
   #err { color: #b00; padding: 12px; white-space: pre-wrap; font-family: monospace; }
 </style>
 </head>
@@ -49,6 +50,8 @@
     <option value="zoom">zoom (×Z working)</option>
   </select></label>
   <button id="zx" style="display:none" title="flip video ↔ zoom at the same music position">⇆ video/zoom</button>
+  <button id="play" style="display:none" title="play/pause (SPACE) — click the score to seek">▶</button>
+  <label id="audWrap" style="display:none" title="attach the Reaper render — the clock slaves to it">♪ <input type="file" id="aud" accept="audio/*" style="width:150px"></label>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
     <option value="piece-s23">piece-s23</option>
@@ -57,6 +60,7 @@
     <option value="trance-section-01">trance-section-01</option>
     <option value="section1-e20">section1 · ε=20ms</option>
     <option value="section1-e30">section1 · ε=30ms</option>
+    <option value="morph-window-01">morph-window-01 (follower/wedge)</option>
   </select></label>
   <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
   <label>parts <select id="parts">
@@ -82,6 +86,8 @@
 <script src="/notation/lib/render.js"></script>
 <script src="/notation/lib/splice.js"></script>
 <script src="/notation/lib/graphic.js"></script>
+<script src="/notation/lib/transport.js"></script>
+<script src="/notation/lib/animobj.js"></script>
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
@@ -131,8 +137,11 @@
       $('irWrap').style.display = graphic ? 'none' : '';
       $('m4Wrap').style.display = graphic ? 'none' : '';
       $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       setCmode(vv === 'video' || vv === 'zoom');
+      if (vv === 'video' || vv === 'zoom') ensureLoop();
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       const paged = $('mode').value === 'pages';
@@ -230,6 +239,16 @@
       }
       svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
       $('sheet').innerHTML = svg;
+      // V2: the ANIMATION OVERLAY — a second SVG over the static page;
+      // redrawn per frame from pure state(t), never touching the page.
+      const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      ov.id = 'animov';
+      ov.setAttribute('width', view.widthPx); ov.setAttribute('height', view.heightPx);
+      $('sheet').appendChild(ov);
+      const score = state.scores[state.ir.source.score] || null;
+      state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated);
+      state.animView = view;
+      state.animStyle = C.animated;
       state.lastView = view;
       const [vt0, vt1] = view.window;
       $('meta').textContent = state.ir.id + ' · ' + (mode === 'zoom' ? 'ZOOM ×' + Z : 'VIDEO ' + W + '×' + H) +
@@ -327,6 +346,76 @@
     if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
     else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
     else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }
+  });
+
+  // ---- V2: transport + the animation loop ----
+  // The loop runs whenever a container mode is up; each frame asks the
+  // clock for `t`, turns the page when t crosses the window end (hard
+  // cut — V0.4 candidate, judged at G2), and redraws the overlay from
+  // pure state(t). The static page never re-renders inside a frame.
+  state.transport = NotationTransport.makeTransport();
+  let rafId = null;
+  // ONE frame: page-turn check + overlay redraw at time t (defaults to the
+  // clock). Named and exposed because it is ALSO the deterministic entry
+  // point V4's exporter steps through (t = k/fps) — and it lets the frame
+  // path be verified without a compositing display (rAF never fires in a
+  // hidden tab; found during V2 verification).
+  function drawOverlayFrame(tArg) {
+    const vv = $('view').value;
+    if (vv !== 'video' && vv !== 'zoom') return null;
+    const view = state.animView;
+    if (!view) return null;
+    const t = tArg !== undefined ? tArg : state.transport.now();
+    const [w0, w1] = view.window;
+    if (state.transport.isPlaying() && t >= w1 - 1e-9) {
+      // system turn: hard cut to the next page/window
+      if (vv === 'video' && state.vPages && state.pageIdx < state.vPages.length - 1) {
+        state.pageIdx++; render();
+      } else if (vv === 'zoom' && t < state.ir.source.window[1]) {
+        state.zoomT0 = w1; render();
+      } else { state.transport.pause(); $('play').textContent = '▶'; }
+      return { turned: true, t };
+    }
+    const ov = document.getElementById('animov');
+    if (ov) ov.innerHTML = NotationAnimObj.frameSvg(state.animInstances || [], view, t, state.animStyle);
+    return { turned: false, t, window: [w0, w1] };
+  }
+  window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
+  function animLoop() {
+    rafId = null;
+    if (drawOverlayFrame() === null) return; // left container modes — loop ends
+    rafId = requestAnimationFrame(animLoop);
+  }
+  function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
+  $('play').addEventListener('click', () => {
+    const view = state.animView;
+    if (!view) return;
+    if (state.transport.isPlaying()) { state.transport.pause(); $('play').textContent = '▶'; }
+    else {
+      const t = state.transport.now(), [w0, w1] = view.window;
+      if (t < w0 || t >= w1) state.transport.seek(w0); // start at this page
+      state.transport.play(); $('play').textContent = '⏸';
+    }
+    ensureLoop();
+  });
+  // click the score to SEEK (container modes; secondsOfX inverts the view)
+  $('sheet').addEventListener('click', ev => {
+    const vv = $('view').value;
+    if (vv !== 'video' && vv !== 'zoom') return;
+    const view = state.animView; if (!view) return;
+    const rect = $('sheet').querySelector('svg').getBoundingClientRect();
+    const t = view.secondsOfX(ev.clientX - rect.left);
+    const [w0, w1] = view.window;
+    if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
+  });
+  // audio attach: the clock slaves to the Reaper render (sync by construction)
+  const audEl = document.createElement('audio');
+  $('aud').addEventListener('change', () => {
+    const f = $('aud').files && $('aud').files[0];
+    if (!f) return;
+    audEl.src = URL.createObjectURL(f);
+    state.transport.attachAudio(audEl, 0);
+    $('err').textContent = '';
   });
 
   // one-click video ↔ zoom at the same music position (G1)

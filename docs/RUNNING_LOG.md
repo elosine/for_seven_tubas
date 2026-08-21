@@ -5008,3 +5008,44 @@ updated. Also requested and given: the downstream process for NEW
 animated objects (the state(t) contract's extension path, mirrored on the
 glyph contract; 2j sine figure walked through as the worked example) -
 in chat, to be encoded in the V2 build docs when V2 starts.
+
+**Day 21 (late) — V2 BUILT: transport + cursor + the animated object
+layer.** Three pieces, committed with the battery green:
+- **transport.js = the clock interface (D47)** — now/play/pause/seek in S1
+  seconds; audio-slaved when a render is attached (S1 t = currentTime +
+  offset), free-running otherwise; timebase injectable so tests never
+  touch a real clock. Source-scan enforced: transport is the ONLY notation
+  module reading a time source.
+- **animobj.js = the contract + the FIVE ports** (composer added motive
+  pie): gc (falls under gravity, lands exactly on its IR device anchor,
+  height ∝ time-left² = readable trajectory) · curveFollower (dot at the
+  SOUNDING pitch of a morphBend) · envFollower (dot riding a layer-10
+  level envelope) · lineWedge (ring filling over a >=3s hold) · motivePie
+  (pie over a score GROUP's span — gesture groups are this piece's motive
+  instances). Data bindings record their stratum; styling = container.json
+  `animated` (provisional, D48). Battery: determinism cold-seek ==
+  play-through (PROVE-RED: a registered stateful object is caught) ·
+  clock-boundary scans · staffPos MIRROR assertion vs layout (Principle
+  5) · per-object geometry (gc lands on the tick at impact to 0.11px;
+  follower starts at unbent pitch and rises with the bend).
+- **Shell:** overlay SVG above the static page (redrawn per frame, page
+  never re-rendered mid-frame) · ▶/SPACE play-pause · CLICK THE SCORE TO
+  SEEK · audio file input (clock slaves) · hard-cut system turn when the
+  clock crosses the page edge (V0.4 judged at G2).
+- **Verification finding: rAF NEVER FIRES IN A HIDDEN TAB** (Browser pane
+  visibility:hidden, 0 frames in 600ms) — the loop could not be exercised
+  headlessly. Fix that PAYS FORWARD: the per-frame path became a named
+  drawOverlayFrame(t) exposed as window.__notationFrame — which is exactly
+  V4's deterministic export entry point. Verified through it: cursor at
+  x=828.0 vs 828.0 predicted (the G2 mechanical spot-check) · GC balls
+  animate from trance IR devices (first at t=0.6, flight before the 1.2s
+  anchor) · shell frame path deterministic (same t → same frame regardless
+  of intermediate frames) · playback across 12.0s hard-cuts to page 2/6
+  and draws there · morph-window-01 added to the IR picker: followers +
+  pie live (252 circles/26 frames). envFollower + lineWedge are
+  unit-tested; live demo needs META/held material (a piece-s25 window —
+  V3's extraction job, queue for the G2 sitting).
+**G2 REMAINS (composer + audio):** onsets-on-cursor by eye with the Reaper
+render attached · GC + follower watched on real material · the two parked
+decisions (system-turn behavior; trance 12-vs-16 + apex time scale) —
+judged under motion in the same sitting.
