@@ -48,8 +48,10 @@
   },
 
   "verticalBudget": {
-    "_status": "MEASURED 2026-08-20 (tools/v0_vertical_budget.js on piece-s25-finished01) — one decision pending",
-    "_finding": "Every part spans F#1–F4 (T1/T8 to G4). Fixed furniture fits (tags 4.8 ss, dynamics 5.9 ss vs 6.51 budget). Tops: G4 ink ≈ 7.0 ss — lands in the inter-lane gap, OK. BOTTOMS: F#1 head+ledger+staccato dot ≈ 7.7 ss ≈ 9 px past the lane edge — through the 4 px gap and ~5 px into the neighbor's band. Systemic (all ten parts carry the range), but an actual COLLISION needs both neighbors at opposite extremes at the same x — expected occasional, exactly what the protrusion detector + overrides exist for."
+    "_status": "DECIDED 2026-08-20: option A — accept, machinery handles actual collisions (composer: 'A should be fine, chances are there won't be too many collisions')",
+    "_finding": "Every part spans F#1–F4 (T1/T8 to G4). Fixed furniture fits (tags 4.8 ss, dynamics 5.9 ss vs 6.51 budget). Tops: G4 ink ≈ 7.0 ss — lands in the inter-lane gap, OK. BOTTOMS: F#1 head+ledger+staccato dot ≈ 7.7 ss ≈ 9 px past the lane edge — through the 4 px gap and ~5 px into the neighbor's band. Systemic (all ten parts carry the range), but an actual COLLISION needs both neighbors at opposite extremes at the same x — expected occasional, exactly what the protrusion detector + overrides exist for.",
+    "_fixLadder": "Per-collision options at tier 3, in preference order, all data: (1) flip furniture to the free side — accents/dynamics above instead of below (engraving override); (2) horizontal micro-nudge dxSs a few px (kept sub-perceptual — proportional distance is meaning); (3) per-PAGE lane rebalance — weights are per view, give the crowded part a few px on that page only; (4) octave device (8vb) for ledger towers (tier-2 vocabulary); (5) per-page staff size — mechanically trivial (a page is a view) but reads as a zoom jump, last resort; (6) the global C-switch.",
+    "_cSwitch": "TESTED 2026-08-20 (proofs E-staff31p6 vs E-staff28): staff size flipped as ONE number on the chosen no-header container — identical ink inventory (335/173/162/22 elements), staff span lands at exactly 31.60 vs 28.00 px measured off the drawn lines, text scales within 0.1% of the predicted ratio. At staff 28 the F#1 worst case drops to ~2.5 px past the lane edge = inside the gap, no neighbor contact — so if collisions ever annoy, the one-number switch to ~28 clears them wholesale."
   },
 
   "typography": { "_status": "open — font (V0.7) undecided; engraving-registry census (V0.10) not yet run" },

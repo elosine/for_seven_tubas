@@ -4811,3 +4811,22 @@ time to [gutterPx, 1920], cursor ENTERS at the music start and never
 sweeps dead space. Filed as V0 decision 11a [A21c] + container.json
 prefatory block; render.js's pin-clef-at-x=0 is a placeholder to be
 replaced.
+
+**Day 21 — VERTICAL BUDGET DECIDED (A) + THE C-SWITCH TESTED.** Composer
+took option A (accept; machinery handles actual collisions) and asked the
+system-stress question straight: if we later choose C (smaller staff), is
+it a SWITCH - flip one number and everything resizes? ANSWERED BY RUNNING
+IT: proof pair E on the CHOSEN container (no header, lane 102.8) with
+staffPx as the flipped number - 31.6 vs 28.0. The proof tool now takes
+staffPx directly and derives ssPerSystem (exercising the V1 decoupling
+ahead of its build). Verified in the served page: identical ink inventory
+(335 rects / 173 paths / 162 circles / 22 texts both), staff span measured
+off the drawn lines = exactly 31.60 vs 28.00 px, label text scales within
+0.1% of predicted (0.8851 vs 0.8861). Bonus number: at staff 28 the F#1
+worst case drops to ~2.5px past the lane edge = inside the inter-lane gap,
+NO neighbor contact - so the C-switch also happens to clear the collision
+class wholesale if it ever annoys. Fix ladder for a real T-low/T-high
+chord crash filed in container.json (furniture flip > micro-nudge >
+per-page lane rebalance > 8vb > per-page staff > global switch); per-page
+staff size noted as mechanically trivial (a page IS a view) but visually
+a zoom jump, last resort. E proofs are in the pager (keys 13-14).

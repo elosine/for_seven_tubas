@@ -42,30 +42,40 @@ const modelS1 = Layout.layoutSection(irS1, glyphs, {});
 for (const w of modelTrance.warnings.concat(modelS1.warnings)) console.log('layout warning:', w);
 
 // One proof = header band + nested notation SVG, exactly 1920×1080.
+// headerPx 0 = the chosen video-jury container (no header at all).
+// cfg.staffPx (absolute staff height) may replace cfg.ssPerSystem — the
+// C-switch: ssPerSystem derives so staff size is the first-class number
+// (the V1 decoupling, exercised here ahead of the build).
 function proof(cfg) {
-  const { model, ir, t0, sps, headerPx, ssPerSystem, file, params } = cfg;
+  const { model, ir, t0, sps, headerPx, file, params } = cfg;
   const parts = ir.source.parts;
   const areaH = H - headerPx;
   const topPad = 8 / areaH, botPad = 8 / areaH, gap = 4 / areaH;
   const systems = Coords.systemsForParts(parts, { topPad, botPad, gap });
+  const lanePxCalc = ((1 - 2 * topPad - gap * (parts.length - 1)) / parts.length) * areaH;
+  const ssPerSystem = cfg.staffPx ? lanePxCalc / (cfg.staffPx / 4) : cfg.ssPerSystem;
   const view = Coords.makeView({ widthPx: W, heightPx: areaH, window: [t0, t0 + sps], systems, ssPerSystem });
   const inner = Render.renderSection(model, view, glyphs, { ownsEnd: true })
     .replace('<svg ', '<svg x="0" y="' + headerPx + '" ');
 
   // Header mock — px sizes stated so the eye judges REAL sizes (V0.6 intake).
-  const titlePx = Math.round(headerPx * 0.30);           // 18/24/30 at 60/80/100
-  const markerPx = Math.round(headerPx * 0.22);          // 13/18/22
-  const timePx = Math.round(headerPx * 0.26);            // 16/21/26
-  const midY = headerPx / 2;
-  const mm = Math.floor(t0 / 60), ss2 = (t0 % 60).toFixed(1).padStart(4, '0');
-  const head = [
-    '<rect x="0" y="0" width="' + W + '" height="' + headerPx + '" fill="#fafafa"/>',
-    '<line x1="0" y1="' + headerPx + '" x2="' + W + '" y2="' + headerPx + '" stroke="#999" stroke-width="1"/>',
-    '<text x="16" y="' + (midY + titlePx * 0.35) + '" font-family="sans-serif" font-size="' + titlePx + '" fill="#222">for seven tubas</text>',
-    '<text x="420" y="' + (midY + markerPx * 0.35) + '" font-family="sans-serif" font-size="' + markerPx + '" fill="#555">' + cfg.marker + '</text>',
-    '<line x1="410" y1="' + (headerPx * 0.2) + '" x2="410" y2="' + (headerPx * 0.8) + '" stroke="#ccc" stroke-width="1"/>',
-    '<text x="' + (W - 16) + '" y="' + (midY + timePx * 0.35) + '" text-anchor="end" font-family="monospace" font-size="' + timePx + '" fill="#333">' + mm + ':' + ss2 + '</text>',
-  ].join('\n');
+  // headerPx 0 (the chosen container): no band, no furniture at all.
+  let head = '';
+  if (headerPx > 0) {
+    const titlePx = Math.round(headerPx * 0.30);         // 18/24/30 at 60/80/100
+    const markerPx = Math.round(headerPx * 0.22);        // 13/18/22
+    const timePx = Math.round(headerPx * 0.26);          // 16/21/26
+    const midY = headerPx / 2;
+    const mm = Math.floor(t0 / 60), ss2 = (t0 % 60).toFixed(1).padStart(4, '0');
+    head = [
+      '<rect x="0" y="0" width="' + W + '" height="' + headerPx + '" fill="#fafafa"/>',
+      '<line x1="0" y1="' + headerPx + '" x2="' + W + '" y2="' + headerPx + '" stroke="#999" stroke-width="1"/>',
+      '<text x="16" y="' + (midY + titlePx * 0.35) + '" font-family="sans-serif" font-size="' + titlePx + '" fill="#222">for seven tubas</text>',
+      '<text x="420" y="' + (midY + markerPx * 0.35) + '" font-family="sans-serif" font-size="' + markerPx + '" fill="#555">' + cfg.marker + '</text>',
+      '<line x1="410" y1="' + (headerPx * 0.2) + '" x2="410" y2="' + (headerPx * 0.8) + '" stroke="#ccc" stroke-width="1"/>',
+      '<text x="' + (W - 16) + '" y="' + (midY + timePx * 0.35) + '" text-anchor="end" font-family="monospace" font-size="' + timePx + '" fill="#333">' + mm + ':' + ss2 + '</text>',
+    ].join('\n');
+  }
 
   const svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">',
@@ -96,6 +106,9 @@ for (const ss of [10, 12, 14]) rows.push(proof({ ...trBase, sps: 12, headerPx: 8
 for (const sps of [8, 12, 16]) rows.push(proof({ ...trBase, sps, headerPx: 80, ssPerSystem: 12, file: 'C-trance-sps' + sps + '.svg', params: 'C: ' + sps + ' s/system (' + Math.round(W / sps) + ' px/s) · trance' }));
 // D — time scale, density apex (header 80, ss 12)
 for (const sps of [4, 6, 8]) rows.push(proof({ ...apoint(sps), sps, headerPx: 80, ssPerSystem: 12, file: 'D-apex-sps' + sps + '.svg', params: 'D: ' + sps + ' s/system (' + Math.round(W / sps) + ' px/s) · density apex' }));
+// E — THE C-SWITCH TEST (day-21): the CHOSEN container (no header) with
+// staff size as the one flipped number — everything must resize from it.
+for (const st of [31.6, 28.0]) rows.push(proof({ ...trBase, sps: 12, headerPx: 0, staffPx: st, file: 'E-staff' + String(st).replace('.', 'p') + '.svg', params: 'E: CHOSEN container (no header) · staff ' + st + 'px · 12 s/system · trance' }));
 
 // index.html — PIXEL-EXACT PAGER. One proof at a time at 0,0 with zero page
 // chrome, so in browser fullscreen (F11) on a 1920×1080 screen the frame
