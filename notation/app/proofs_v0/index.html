@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><title>V0 proofs</title>
+<style>body{background:#2b2b2b;color:#ddd;font:13px sans-serif;margin:0;padding:12px}
+.proof{margin:0 0 28px}.cap{padding:6px 2px;color:#bbb}.m{color:#7fa}img{display:block;background:#fff;box-shadow:0 2px 12px #0008}
+.note{color:#fc6;padding:4px 2px 14px}</style>
+<div class="note">View at 100% browser zoom (CTRL+0). Each frame is exactly 1920×1080 — the shipped video size. Keys: J/K next/prev.</div>
+<div class="proof" id="p0"><div class="cap">1/12 — A: header 60px · ss/system 12 · 12 s/system · trance <span class="m">lane 96.8px · staff 32.3px · 160px/s</span></div><img src="A-header60.svg" width="1920" height="1080"></div>
+<div class="proof" id="p1"><div class="cap">2/12 — A: header 80px · ss/system 12 · 12 s/system · trance <span class="m">lane 94.8px · staff 31.6px · 160px/s</span></div><img src="A-header80.svg" width="1920" height="1080"></div>
+<div class="proof" id="p2"><div class="cap">3/12 — A: header 100px · ss/system 12 · 12 s/system · trance <span class="m">lane 92.8px · staff 30.9px · 160px/s</span></div><img src="A-header100.svg" width="1920" height="1080"></div>
+<div class="proof" id="p3"><div class="cap">4/12 — B: ss/system 10 · header 80 · 12 s/system · trance <span class="m">lane 94.8px · staff 37.9px · 160px/s</span></div><img src="B-ss10.svg" width="1920" height="1080"></div>
+<div class="proof" id="p4"><div class="cap">5/12 — B: ss/system 12 · header 80 · 12 s/system · trance <span class="m">lane 94.8px · staff 31.6px · 160px/s</span></div><img src="B-ss12.svg" width="1920" height="1080"></div>
+<div class="proof" id="p5"><div class="cap">6/12 — B: ss/system 14 · header 80 · 12 s/system · trance <span class="m">lane 94.8px · staff 27.1px · 160px/s</span></div><img src="B-ss14.svg" width="1920" height="1080"></div>
+<div class="proof" id="p6"><div class="cap">7/12 — C: 8 s/system (240 px/s) · trance <span class="m">lane 94.8px · staff 31.6px · 240px/s</span></div><img src="C-trance-sps8.svg" width="1920" height="1080"></div>
+<div class="proof" id="p7"><div class="cap">8/12 — C: 12 s/system (160 px/s) · trance <span class="m">lane 94.8px · staff 31.6px · 160px/s</span></div><img src="C-trance-sps12.svg" width="1920" height="1080"></div>
+<div class="proof" id="p8"><div class="cap">9/12 — C: 16 s/system (120 px/s) · trance <span class="m">lane 94.8px · staff 31.6px · 120px/s</span></div><img src="C-trance-sps16.svg" width="1920" height="1080"></div>
+<div class="proof" id="p9"><div class="cap">10/12 — D: 4 s/system (480 px/s) · density apex <span class="m">lane 94.8px · staff 31.6px · 480px/s</span></div><img src="D-apex-sps4.svg" width="1920" height="1080"></div>
+<div class="proof" id="p10"><div class="cap">11/12 — D: 6 s/system (320 px/s) · density apex <span class="m">lane 94.8px · staff 31.6px · 320px/s</span></div><img src="D-apex-sps6.svg" width="1920" height="1080"></div>
+<div class="proof" id="p11"><div class="cap">12/12 — D: 8 s/system (240 px/s) · density apex <span class="m">lane 94.8px · staff 31.6px · 240px/s</span></div><img src="D-apex-sps8.svg" width="1920" height="1080"></div>
+<script>let i=0;const n=12;document.addEventListener("keydown",e=>{if(e.key==="j"||e.key==="J")i=Math.min(n-1,i+1);else if(e.key==="k"||e.key==="K")i=Math.max(0,i-1);else return;document.getElementById("p"+i).scrollIntoView()});</script>

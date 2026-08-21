@@ -4716,3 +4716,22 @@ this one + bells and whistles" is a fourth entry and D45's realizations are
 later entries with the networked transport. Reframe worth keeping: D45 is a
 PROJECT boundary, not a SYSTEM boundary - the severed project inherits the
 whole stack and swaps the timekeeper.
+
+**Day 21 — V0 STARTED: the first true-size proof slate (8a).**
+tools/v0_proofs.js renders candidate containers at exactly 1920x1080 on
+REAL material: trance = trance-section-01's busiest 12 s window (t0=49,
+162 events, found by sliding count); apex = section1-e20 centered on the
+M5 window (48.9-54.9). Twelve proofs -> notation/app/proofs_v0/ + an
+index.html browsed at 100% zoom (captions OUTSIDE the frame so the look
+stays clean; params also in an SVG comment). Slate: A header 60/80/100px
+(lane 96.8/94.8/92.8px) - B ss/system 10/12/14 (staff 37.9/31.6/27.1px) -
+C trance 8/12/16 s/system (240/160/120 px/s) - D apex 4/6/8 s/system
+(480/320/240 px/s). Header band drawn by the proof tool at STATED px
+(title .30H, marker .22H, timecode .26H) - render.js's y=12/font-10
+marker placeholder deliberately unused (the memory trap). VERIFIED on
+:5210 via DOM (Browser pane not displayed, so no pixel screenshot):
+12/12 imgs load at exactly 1920x1080; A-header80 carries 173 paths
+(heads/clefs/accidentals), 336 rects, 162 dots; D-apex-sps6 has 10 beam
+polygons; header texts at 24/18/21px; inner svg nested at y=80. The
+slate covers V0 decisions 1-3 only; META overlay styling, font, zoom
+factor, system-turn, print numbers are separate V0 items.
