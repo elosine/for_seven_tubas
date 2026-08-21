@@ -5000,3 +5000,11 @@ visible statement that the edge is deliberate. Verified in the app: one
 rect at x=1918.5, fully inside the frame. V1 = DONE. Next: V2 (transport
 + cursor + the animated object layer; system-turn and time-scale
 re-judgment wait at its gate).
+
+**Day 21 (wrap addendum) — V2 pre-build decisions.** Composer: MOTIVE PIE
+IS IN - the V2 port inventory is now FIVE (GC ball - curve follower -
+envelope following - line-wedge meter - motive pie); container.json V0.11
+updated. Also requested and given: the downstream process for NEW
+animated objects (the state(t) contract's extension path, mirrored on the
+glyph contract; 2j sine figure walked through as the worked example) -
+in chat, to be encoded in the V2 build docs when V2 starts.

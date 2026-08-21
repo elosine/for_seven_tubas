@@ -82,5 +82,5 @@
   },
   "systemTurn": { "_status": "DEFERRED to the V2 gate — a behavior choice needing MOTION to judge; the page model supports both candidates (hard cut / two-system swap), neither is a rebuild. Judged in the same sitting as the C/D time-scale re-look." },
   "metaOverlay": { "_status": "provisional, DEFERRED — start from graphic.js's proven values (opacity 0.18, entity colors); pure data, adjust at any point through POL", "opacity": 0.18 },
-  "animatedObjects": { "_status": "vocabulary decided (V0.11 inventory: GC · curve follower · line-wedge meter · envelope following); STYLING deferred until the objects run (V2) — judged live, pure data" }
+  "animatedObjects": { "_status": "vocabulary decided (V0.11 inventory: GC · curve follower · line-wedge meter · envelope following · MOTIVE PIE — composer 2026-08-20: 'yes will use motive pie'); STYLING deferred until the objects run (V2) — judged live, pure data" }
 }
