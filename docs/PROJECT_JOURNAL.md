@@ -10,58 +10,58 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 21 (2026-08-20, third sitting) — THE TRANCE SECTION FINISHED AND IN
-THE PIECE; THE PHASE ARC COMPLETE. Claude Code / Fable 5.** The composer's
-own ordering item 1 (the phase-shifting machine) ran start to finish and
-flowed straight into item 2 (finish the piece):
-- **PLAN 2ag built in the sitting:** the LIVE RIG (real-time step-walking in
-  the Texture panel: bpm/players/offset boxes, pitch+order dropdowns,
-  stopwatch log, auto-run) — see PLAN 2ag and `docs/PHASE_COMPLEXITY.md`
-  (the whole theory arc: rotor offsets, the two-axis finding, the computed
-  complexity ladder, inverted-U CONFIRMED BY EAR).
-- **The composer PERFORMED the phase sequence** (phaseSeq-01, saved in
-  `bank/texture_params.json` live.saved with its performance) and those
-  timings became the score's phase chunks — play-in at form level.
-- **`tools/assemble_trance.js`** = the assembly instrument: one-line PLAN of
-  tokens (phase/chord/mt/swells/cblocks/gap/r17/r27/phasearc), per-chunk
-  seeds (edits stay local — proven to 0.000 ms), auto-reflow, crossfades,
-  natural-pace end fill. `docs/ASSEMBLY_METHOD.md` = the process record.
-- **`scores/tranceA004-final01.json`** (251.6 s) = the finished section;
-  **inserted into `scores/piece-s25-finished01.json` at 499.83 s as
-  `grp-tranceA4-01`** (draggable group + META shape). **The piece now runs
-  751.4 s = 12.5 min of the 15-min Penn State ceiling. DEADLINE SEPT 4.**
-- **2q RESOLVED by ear:** velocity changes TIMBRE (sample layers); CC7 is
-  loudness. Plain sonifyMode pins CC7 at 127 — drawn swells need CC7-curve
-  mode (no sonifyMode). Both now wired into the assembler.
-- Paper trail: PAPER_NOTES #1–8 filed today; RUNNING_LOG day 21 is the full
-  sequence (~25 entries, wrong turns kept).
+**DAY 21 (2026-08-20, fourth sitting) — 8a LAUNCHED: V0 + V1 BOTH CLOSED
+IN ONE SITTING. Claude Code / Fable 5.** The deliverables build (video +
+paper score) went from plan interrogation to a working two-window
+container:
+- **Plan interrogation first (composer), three amendments [A21/A21b/A21c]:**
+  the animated objects of pieces #1/#2 ARE in this score (D46 — the old
+  fence conflated animation with interactivity) · the build formally
+  rejoins the §7 one-spine model (D47 — realization = config entry, clock
+  = interface, one S1 timeline) · prefatory gutter architecture (untimed
+  dead space; cursor enters at music start).
+- **V0 run + G0 CLOSED:** proof slates A–G (`notation/app/proofs_v0/`,
+  tools/v0_proofs.js). DECIDED: no header (video) · staff 31.6 px ·
+  vertical-budget policy A (measured: F#1 ink ~9 px over; C-switch tested
+  as one flipped number) · font CRIMSON PRO LIGHT (the lineage font,
+  TTFs vendored from piece #1) · PP-3 motion. Everything data-variable
+  DEFERRED with provisional defaults per D48 (the composer's
+  decide-vs-defer filter). `notation/registry/container.json` = the spec.
+- **V1 BUILT + G1 CLOSED:** coords per-part weights + per-lane staff
+  scale + gutter mapping + `zoomCfg` (PP-6 invariant, tested on irregular
+  lanes, prove-red) · engraving census → registry + the OVERRIDE channel
+  (stemDir/beamBreak/dx/dy) + sectional staff-off · the TWO WINDOWS in
+  notation.html (video 1920×1080 pixel-exact, zoom ×2, ⇆/Z toggle,
+  chrome-free container modes, system terminal barline) ·
+  GLYPH_EXTENSION_CONTRACT.md. All four suites green throughout.
+- Composer's verdict closing G1: *"it looks good… the zoom view is
+  comfortable."* All commits pushed through `e5b0950`+.
 
 **Next up:**
-1. **Listen to the piece end to end** (`piece-s25-finished01`, 12.5 min) —
-   the trance section placement (gap at 495.3→499.8), balance, the seams.
-2. **The remaining form question: ~2.5 min of ceiling headroom** — extend,
-   or trim, or leave; the composer's call after the listen.
-3. Then the queue as before: density-build experiments (E0/E2) if time →
-   **notation, PARTS FIRST** (the D45 reframe stands).
+1. **V2 — transport + cursor + THE ANIMATED OBJECT LAYER** (clock as the
+   swappable interface; GC/curve-follower/line-wedge/envelope ports as
+   pure state(t)→SVG). **Its gate also carries: system-turn behavior +
+   the trance/apex time-scale re-look (judged under motion).**
+2. Then V3 (trial-insertion loop + polish ledger + protrusion detector);
+   V4/V5 may trail until submission. **DEADLINE SEPT 4.**
+3. Still open from the morning sittings: **the end-to-end piece listen**
+   (`piece-s25-finished01`, 12.5 min) + the ~2.5-min headroom question.
 
 **Open at session end:**
-- **Composer EAR:** the whole trance section is assembled but was auditioned
-  in chunks — the end-to-end listen is the open verdict. The "27 oct B"
-  anomaly is DEFERRED in NITS (uniform 80 BPM though chosen as multitempo —
-  matters at notation time, composer likes the sound).
-- **2ad's formal gate:** phaseSeq-01 is saved with its performance but no
-  `texture_bank.js --bank` keeper verdict was recorded; the five texture
-  models remain UNHEARD-in-the-bank formally. Close or waive next sitting.
-- **Traps still live:** staccato 30–65 silent-note trap (species tops go to
-  cuivre or get dropped — the assembler handles it; the Insertion strip
-  still does NOT) · lazy-MIDI init (dead keyboard until Play/CC7 Reset).
-- **Machinery note:** `tranceA003b.json` is the assembler's SRC (pristine
-  original material) — do not overwrite it; every version regenerates from
-  it via ASM_PLAN (h = the final state; the PLAN string is in the git log
-  and in the file's provenance).
+- **Entry-line mystery (NITS):** proof-pager cursor-entry marker is
+  pixel-verified rendering but the composer cannot see it; troubleshooting
+  deferred by instruction — revisit only if V2 visuals also diverge.
+- **2ad's formal gate** still unwaived (texture models UNHEARD-in-bank).
+- **Traps still live:** staccato 30–65 silent-note trap (Insertion strip
+  unhandled) · lazy-MIDI init · `tranceA003b.json` = assembler SRC, never
+  overwrite.
 
 ---
 
+- **Day 21 (earlier sittings):** trance section finished
+  (tranceA004-final01) and IN THE PIECE at 499.83 s — piece = 12.5 min ·
+  2ag live rig built · 2q resolved by ear (CC7 = loudness) ·
+  PAPER_NOTES #1–8.
 - **Days 19-20:** notation architecture A-D built end to end (D44, D45:
   performance side = its own future project; parts first when notation
   resumes); Penn State deliverables preplanned (PLAN 8a, runs post-piece).
@@ -142,8 +142,61 @@ flowed straight into item 2 (finish the piece):
    wrong plan, so trust the code and the plan docs over the commit that carries
    it. *(2026-08-16, day 12; noted from both sides.)*
 
+8. **THE FRAME IS THE SCREEN'S SIZE — A JUDGING SURFACE MAY OWN ZERO
+   CHROME. And presentation has THREE rungs, each of which failed once in
+   one day:** (1) *payload right* — the 1920×1080 proofs were correct while
+   the padded viewer page forced scrollbars that clipped the bottom lane;
+   (2) *paint right* — the cursor-entry line was drawn UNDER the music
+   panel's opaque background (paint ORDER is part of presentation); (3)
+   *findable* — repainted correctly, the gray hairline still could not be
+   FOUND beside ten bass clefs (pixel-verified present; salience, not
+   rendering). The chrome trap then recurred a third time in the notation
+   app (control bar + margins + scrollbars) despite being logged the same
+   day. **Rules: any surface showing a full-frame render gets margins 0,
+   suppressed scrollbars, auto-hiding controls, and a mechanical
+   scrollW==clientW check at true viewport size; proof furniture's job is
+   to be SEEN — color it.** *(2026-08-20, day 21, three instances; full
+   trail in RUNNING_LOG.)*
+
 ## §4 Decisions
 
+- **D48** *(2026-08-20, day 21 — deliverables sitting)* — **THE
+  DECIDE-VS-DEFER FILTER: composer eye-time goes to LOCK-INS only.**
+  *"Effective tests are ones that tell us flaws in the architecture… if
+  it's variable later during the polish run, let's just defer these
+  decisions."* Anything data-variable gets a provisional default and
+  waits for POL; only structure-affecting choices are decided up front.
+  Applied to close V0/G0 same day: decided = frame 1920×1080 · no header
+  (video) · staff 31.6 px · budget policy A · Crimson Pro Light · PP-3;
+  deferred-as-data = gutter width 48 · zoom Z=2 · META styling · print
+  numbers · animated styling; deferred-to-motion = system turn + C/D time
+  scales (V2 gate). *Rejected:* closing every tier-1 number by eye before
+  building — the original G0 framing.
+- **D47** *(2026-08-20, day 21)* — **THE VIDEO SCORE REJOINS THE ONE-SPINE
+  ARCHITECTURE: realization = config, clock = interface, one timeline.**
+  Composer: one score *"lives in the data"* with *"various realizations…
+  all synced to the same timeline"* — this build must plug in, not sit
+  beside. Three binding invariants ([A21b] in the build plan):
+  (1) every realization keys to S1 seconds, no private timebases;
+  (2) transports implement one interface (now/play/pause/seek in S1
+  seconds) — cursor and animated objects consume `t` only, enforced by
+  source check; local audio-slaved here, D45's networked transport later,
+  same interface; (3) `container.json` holds NAMED realization entries —
+  the future "conductor score = this one + bells and whistles" is a new
+  entry, never a fork. **D45 is thereby a PROJECT boundary, not a system
+  boundary.**
+- **D46** *(2026-08-20, day 21)* — **ANIMATION ≠ INTERACTIVITY: the
+  animated graphic objects of pieces #1/#2 ARE in the video score.**
+  Composer: *"I will be using probably all of the animated objects"* —
+  wave-curve/curve following (gliss, crescendos), GCs (beat grids,
+  single-shot events), line wedges. The original V2 fence ("no GC ball —
+  D45 territory") cut at the wrong joint. Re-cut: animated objects on the
+  shared fixed timeline are IN (V2's pure `state(t) → SVG` contract —
+  both prior apps' overlays are already t-parameterized, so it is a
+  port); what stays severed is interactivity (leader/follower, per-player
+  views, networked sync, rehearsal controls). *Why it was cheap to be
+  wrong about:* the deliverable video is itself an animated score — the
+  cursor was already conceded, the rest rides the same clock.
 - **D45** *(2026-08-20, day 20 — session-end dictation, verbatim in
   COMPOSER_LOG)* — **The performance runtime ("Phase E") is SEVERED from
   this workstream into ITS OWN PROJECT; the performance side "needs a
