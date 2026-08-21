@@ -77,7 +77,16 @@
 
       for (const it of sysModel.items) {
         if (it.k === 'staff') {
-          const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
+          // staff is FURNITURE: in a free window wider than the material
+          // (opts.staffFull, notation-view window mode) the outer segments
+          // extend to the view edges instead of stopping where the section
+          // ends — "staff lines cut short" verdict, day 22. Interior
+          // staff-off spans keep their authored extents.
+          const mw = model.window || [it.t0, it.t1];
+          const full = opts && opts.staffFull;
+          const t0 = (full && it.t0 <= mw[0] + 1e-9) ? w0 : Math.max(it.t0, w0);
+          const t1 = (full && it.t1 >= mw[1] - 1e-9) ? w1 : Math.min(it.t1, w1);
+          const x0 = view.xOfSeconds(t0), x1 = view.xOfSeconds(t1);
           for (let line = -2; line <= 2; line++) {
             const y = Y(line) - (stds.staff.lineThickness * ssPx) / 2;
             parts.push('<rect x="' + x0.toFixed(2) + '" y="' + y.toFixed(2) + '" width="' + (x1 - x0).toFixed(2) +
@@ -144,29 +153,25 @@
           if (it.t1 < w0 || it.t0 > w1) continue;
           const EC = E.envCurve;
           const yT = sys.yTopPx, yB = sys.yBotPx;
-          // cut (surge): draw the RISE to the peak sample, hold to the note
-          // end, then a 90° vertical back edge — the composer's verdict; the
-          // sounding release ramp stays in the samples, only the ink squares
+          // cut (surge): the RISE, truncated at its peak sample, is mapped
+          // over the FULL note span so it meets the note end at full height —
+          // a SHARP top-right corner, then the 90° vertical back edge (the
+          // fill closure). Round 2 verdict: the first build held a 2% shelf
+          // at the peak ("why it isn't a sharp right top corner"); the shelf
+          // was the drawn cut-ramp's honest x — legibility wins, the <=2%
+          // time stretch of the rise is accepted. Sounding data untouched.
           let samples = it.samples;
-          let cutEdge = false;
           if (it.cut) {
             let iMax = 0;
             for (let i = 1; i < samples.length; i++) if (samples[i] > samples[iMax]) iMax = i;
-            samples = samples.slice(0, iMax + 1);
-            cutEdge = samples.length >= 2;
+            if (iMax >= 1) samples = samples.slice(0, iMax + 1);
           }
           const n = samples.length;
-          const span = it.cut ? (it.t1 - it.t0) * ((n - 1) / (it.samples.length - 1)) : (it.t1 - it.t0);
           const pts = [];
           for (let i = 0; i < n; i++) {
-            const t = it.t0 + span * (i / (n - 1));
+            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
             if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
             pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
-          }
-          if (cutEdge && it.t1 >= w0 - 1e-9 && it.t1 <= w1 + 1e-9 && pts.length) {
-            // hold at peak level to the note end; the fill closure below
-            // drops the vertical edge at exactly t1
-            pts.push([view.xOfSeconds(it.t1), pts[pts.length - 1][1]]);
           }
           if (pts.length >= 2) {
             const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');

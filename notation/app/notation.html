@@ -258,7 +258,7 @@
         widthPx, heightPx, window: [t0, t1],
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
-      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked, staffFull: !paged });
       state.lastView = view;
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;

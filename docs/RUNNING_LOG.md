@@ -5288,3 +5288,24 @@ fill-only curve.**
 - Suites green (layout/render/75 snapshots/splice — corpora carry no
   env curves, so snapshots were expected to hold and did). Registry values
   and code defaults kept in sync.
+
+**Day 22 (continued) — surge round 2 + staff furniture + the persistence
+"bug" that wasn't.**
+- **Sharp top-right corner (composer: "why it isn't a sharp right top
+  corner? I think my other curves were"):** they were — piece #1's CRV data
+  ended AT the peak (y1 0 -> y2 10, no cut ramp), while our samples include
+  the drawn 2% release ramp, which round 1 rendered as a tiny shelf at the
+  top. Now the truncated rise maps over the FULL note span, meeting the
+  note end at full height -> sharp corner + 90° drop. The <=2% time
+  stretch of the rise is accepted for legibility; sounding data untouched.
+- **Staff lines cut short:** staff is FURNITURE — in a free window wider
+  than the material (window mode), outer staff segments now extend to the
+  view edges (opts.staffFull; pages/container views unchanged; interior
+  staff-off spans keep authored extents). Verified: staff x 0->1250 = full
+  sheet at width 16 over 12 s of material.
+- **"Still had to manually set settings after ctrl-shift-R — bug?" NO —
+  bootstrap:** the composer's page was running pre-persistence code, which
+  never SAVED anything; the first reload restored an empty store. Hard
+  reload does NOT clear localStorage; from this refresh on, settings
+  persist (verified saving live).
+- Suites green (75 snapshots unaffected — staffFull is opt-in per call).
