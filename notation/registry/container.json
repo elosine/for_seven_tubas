@@ -64,8 +64,8 @@
       "stackBelow": ["articulation", "dynamic", "instruction", "ottava"],
       "stackGapSs": 0.45,
       "_stackNote": "day 22, THE VERTICAL COLUMN STANDARD (composer decision; Gould and piece #2's own chain agree): below-staff chrome stacks notehead-outward in this order, each element stackGapSs (the session-77 0.45) past the previous outer ink. Articulation/instruction slots defined for when those elements arrive.",
-      "dynLadder": ["ppp", "pp", "p", "mp", "mf", "f", "ff", "fff"],
-      "_dynLadderNote": "provisional derivation: drawn level 0..1 -> ladder index (surge start=first sample, end=peak). Authored dynamic overlays supersede when present.",
+      "dynPair": ["ppp", "fff"],
+      "_dynPairNote": "day 22, composer: NO derivation — the two marks state the bottom and top LEVELS, not the curve. This piece: every surge is full-curve ppp->fff (morph section + manual judgments via authored overrides). Another piece may change the pair here.",
       "dynArrow": { "lenSs": 2.0, "headSs": 0.45, "gapSs": 0.45, "thickSs": 0.13 },
       "_dynArrowNote": "day 22, the hairpin replacement (composer: 'this is new'): start mark centered on the note column · gapSs · arrow (lenSs total incl. headSs triangle) · gapSs · end mark. Gaps = the 0.45 house standard; thickness = stem thickness.",
       "textSizes": { "dynamic": 0.9, "instruction": 0.75, "tempo": 0.75, "technique": 0.7 }
@@ -97,7 +97,8 @@
 
   "animated": {
     "_status": "PROVISIONAL styling for the V2 ports (D48: judged live at G2, adjustable through POL). Consumed by notation.html's animation loop and, later, the V4 frame renderer — same numbers by construction.",
-    "cursor": { "color": "#d84315", "wPx": 2, "opacity": 0.8 },
+    "cursor": { "color": "#FF15A0", "wPx": 3, "opacity": 1, "_note": "day 22, composer: piece #2's neon magenta (rgb 255,21,160 = the staff-2 cursor), same 3 px thickness, whole track height (spans all lanes)" },
+    "curveMeter": { "wPx": 8, "gapPx": 3, "color": "#99FF00", "fillOpacity": 0.3, "outlineWPx": 1.5, "outlineOpacity": 0.8, "_note": "day 22, composer: the piece #2 curve follower — 8 px meter riding 3 px left of the cursor, fill height = current drawn level; limeGreen rgb(153,255,0) = p2's staff-1 green" },
     "gc": { "flightSeconds": 0.6, "bounceSeconds": 0.35, "dropSs": 6, "bounceFrac": 0.35, "landSs": 3.0, "radiusSs": 0.55, "color": "#d84315" },
     "curveFollower": { "radiusSs": 0.5, "color": "#4E7A9B", "opacity": 0.9 },
     "envFollower": { "radiusPx": 6, "color": "#2E8B57", "opacity": 0.9 },

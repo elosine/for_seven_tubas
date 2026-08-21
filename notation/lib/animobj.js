@@ -122,6 +122,30 @@
       '" r="' + st.radiusPx + '" fill="' + (inst.color || st.color) + '" opacity="' + st.opacity + '"/>'];
   });
 
+  // curveMeter (day 22, THE piece-#2 curve follower, ported mechanism):
+  // while an event with a drawn level curve plays, an outlined meter +
+  // fill rect ride a fixed offset LEFT of the cursor in that part's lane;
+  // the fill's height IS the current level (grows from the lane bottom).
+  // p2 numbers: 8 px wide, 3 px gap, fill 0.3, outline 1.5 @ 0.8.
+  register('curveMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const yT = s.yTopPx, yB = s.yBotPx, H = yB - yT;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+    ];
+  });
+
   // lineWedge: inst {part, t0, t1, ySs}; a ring above the note filling
   // with progress through the hold.
   register('lineWedge', (inst, view, t, st) => {
@@ -153,9 +177,18 @@
   // Each instance records its source stratum. score may be null (IR-only).
   function collect(ir, score, style) {
     const out = [];
+    const evById = new Map(((ir && ir.events) || []).map(e => [e.id, e]));
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
         if (d.kind === 'gc') out.push({ kind: 'gc', part: c.part, at: d.at, _src: 'ir-device' });
+      }
+      // curveMeter rides every event that carries its drawn level (stratum
+      // 3 data — no side files, per the A21b strata rule)
+      for (const id of c.events || []) {
+        const e = evById.get(id);
+        if (e && e.level && e.level.samples && e.level.samples.length >= 2) {
+          out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, _src: 'ir-level' });
+        }
       }
     }
     if (score && score.objects) {

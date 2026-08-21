@@ -5409,3 +5409,26 @@ VERTICAL COLUMN STANDARD (registry data).**
   = 2.0 ss · band top 0.45 above unit ink (sharp's descender, not the
   head, correctly the ref) · 8vb NOW BELOW the dynamics, line at
   0.45+hook past fff's bottom, hook flush at head edge. Suites green.
+
+**Day 22 (continued) — dynamics de-derived · drawing layers · cursor +
+curve meter (piece #2 styling verbatim).**
+- **DECISION (composer): NO dynamic derivation.** The two marks state the
+  BOTTOM and TOP levels, not the curve. This piece: every surge =
+  full-curve ppp->fff (registry dynPair) EXCEPT the morph section;
+  manual judgment per case via authored overrides. Ladder code removed.
+- **Drawing layers made explicit** (were push-order): notation ink ->
+  env curve OVER notation -> go line over curve -> animation overlay
+  (its own SVG) on top. Stable sort by layer rank; within a layer push
+  order holds.
+- **Cursor = p2's neon magenta verbatim:** #FF15A0 (rgb 255,21,160, the
+  staff-2 cursor from index.html), 3 px, whole track height (already
+  spanned all lanes). Registry-only change.
+- **curveMeter = p2's curve follower MECHANISM ported as a sixth animobj
+  kind:** while an event with a drawn level plays, an outlined meter +
+  fill ride 3 px left of the cursor (8 px wide, fill 0.3 / outline 1.5 @
+  0.8 — p2's numbers), fill height = the CURRENT level, lane-bottom up.
+  Color limeGreen #99FF00 (p2's staff-1 green, the composer's "some shade
+  of green"). Instances collect from IR events' level.samples (stratum 3,
+  no side files). Verified at a deterministic frame (t=6.3): meter x =
+  cursor - 11 exactly; fill 0.343 vs computed exponential 0.341.
+- Suites green incl. the animobj determinism battery.

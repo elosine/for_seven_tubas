@@ -77,7 +77,13 @@
           (E.reshow.sizeSs * ssPx * E.textScale).toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(rs.text) + '</text>');
       }
 
-      for (const it of sysModel.items) {
+      // DRAWING LAYERS (day 22, composer): notation ink first, the env
+      // curve OVER the notation, the go line over the curve. (The animation
+      // overlay is its own SVG above everything; within a layer, push order
+      // holds — stable sort.)
+      const LAYER = k => (k === 'envcurve' ? 1 : k === 'goline' ? 2 : 0);
+      const itemsInLayers = [...sysModel.items].sort((a, b) => LAYER(a.k) - LAYER(b.k));
+      for (const it of itemsInLayers) {
         if (it.k === 'staff') {
           // staff is FURNITURE: in a free window wider than the material
           // (opts.staffFull, notation-view window mode) the outer segments

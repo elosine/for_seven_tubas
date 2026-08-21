@@ -243,14 +243,15 @@
                 // DYNAMIC PAIR + ARROW (the surge's hairpin replacement):
                 // start mark centered on the NOTE COLUMN (the head), then
                 // gap · short arrow · gap · end mark, all on one band.
-                // Marks derive from the drawn level (registry ladder,
-                // 0..1 -> ppp..fff) until authored overlays supersede.
+                // NO DERIVATION (composer, day 22): the two marks state the
+                // BOTTOM and TOP levels, not the curve — in this piece every
+                // surge is full-curve ppp->fff (registry dynPair); the morph
+                // section and any manual judgment go through authored
+                // overrides when that work arrives.
                 {
-                  const ladder = o.dynLadder || ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'];
                   const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
-                  const s = e.level.samples;
-                  const markOf = v => ladder[Math.max(0, Math.min(ladder.length - 1, Math.round(v * (ladder.length - 1))))];
-                  const m1 = markOf(s[0]), m2 = markOf(Math.max(...s));
+                  const pair = o.dynPair || ['ppp', 'fff'];
+                  const m1 = pair[0], m2 = pair[1];
                   const g1 = glyphs.dynamic && glyphs.dynamic[m1], g2 = glyphs.dynamic && glyphs.dynamic[m2];
                   if (g1 && g2) {
                     const bandH = Math.max(g1.hSs, g2.hSs);
