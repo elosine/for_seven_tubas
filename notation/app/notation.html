@@ -5,7 +5,12 @@
 <title>Notation — slice 1 (trance)</title>
 <style>
   :root { color-scheme: light; }
+  /* the decided notation text font (V0.7) — served from /notation/app/fonts */
+  @font-face { font-family: 'Crimson Pro Light'; font-style: normal; font-weight: 300; src: url('fonts/CrimsonPro-Light.ttf') format('truetype'); }
+  @font-face { font-family: 'Crimson Pro Light'; font-style: italic; font-weight: 300; src: url('fonts/CrimsonPro-LightItalic.ttf') format('truetype'); }
   body { margin: 0; background: #e8e6e1; font-family: sans-serif; }
+  /* V1: the container windows render at TRUE size — no responsive width */
+  #sheet.fixed { width: 1920px; overflow-x: visible; }
   #bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px;
          background: #2b2b2b; color: #ddd; position: sticky; top: 0; flex-wrap: wrap; }
   #bar label { font-size: 12px; opacity: 0.8; }
@@ -21,7 +26,10 @@
   <label>view <select id="view">
     <option value="notation">notation</option>
     <option value="graphic">graphic</option>
+    <option value="video">video (1920×1080)</option>
+    <option value="zoom">zoom (×Z working)</option>
   </select></label>
+  <button id="zx" style="display:none" title="flip video ↔ zoom at the same music position">⇆ video/zoom</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
     <option value="piece-s23">piece-s23</option>
@@ -62,12 +70,14 @@
     const r = await fetch('/notation/ir/' + name + '.ir.json');
     if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
     state.ir = await r.json();
-    state.pages = null; state.pageIdx = 0;
+    state.pages = null; state.pageIdx = 0; state.vPages = null; state.zoomT0 = undefined;
     try {
       const s = await loadScore(state.ir.source.score);
       state.markers = (s.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
     } catch (e) { state.markers = []; }
-    state.model = NotationLayout.layoutSection(state.ir, state.glyphs, { m4AttackLines: $('m4').checked });
+    state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
+      { m4AttackLines: $('m4').checked },
+      (state.container && state.container.engraving && state.container.engraving.layout) || {}));
   }
   async function loadScore(name) {
     if (state.scores[name]) return state.scores[name];
@@ -78,11 +88,12 @@
     return state.scores[name];
   }
   try {
-    const [glyphs, pageRules] = await Promise.all([
+    const [glyphs, pageRules, container] = await Promise.all([
       fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
       fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
+      fetch('/notation/registry/container.json').then(r => { if (!r.ok) throw new Error('container fetch ' + r.status); return r.json(); }),
     ]);
-    state.glyphs = glyphs; state.pageRules = pageRules;
+    state.glyphs = glyphs; state.pageRules = pageRules; state.container = container;
     for (const p of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
       const opt = document.createElement('option');
       opt.value = p; opt.textContent = 'T' + (p + 1);
@@ -94,11 +105,15 @@
 
   async function render() {
     try {
-      const graphic = $('view').value === 'graphic';
+      const vv = $('view').value;
+      const graphic = vv === 'graphic';
       $('scoreWrap').style.display = graphic ? '' : 'none';
       $('irWrap').style.display = graphic ? 'none' : '';
       $('m4Wrap').style.display = graphic ? 'none' : '';
+      $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       if (graphic) return renderGraphicView();
+      if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       const paged = $('mode').value === 'pages';
       const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
       const w = Math.max(wMin, parseFloat($('w').value) || 16);
@@ -133,6 +148,94 @@
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
       $('err').textContent = (state.model.warnings || []).join('\n');
     } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // ---- V1: THE TWO WINDOWS — container realizations over the same strata.
+  // video = the locked 1920×1080 jury frame (no header, PP-2 lanes, gutter,
+  // Crimson, META overlay). zoom = the SAME geometry ×Z (PP-6: re-cut
+  // window, vertical scroll), one click away at the same music position.
+  async function renderContainerView(mode) {
+    try {
+      const C = state.container;
+      const rz = (C.realizations || {})['video-jury'] || {};
+      const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
+      const W = (C.frame && C.frame.widthPx) || 1920;
+      const H = (C.frame && C.frame.heightPx) || 1080;
+      const parts = state.ir.source.parts;
+      // first entry into a container window: seed the width box with the
+      // container's provisional default (still freely editable after)
+      if (!state.wSeeded) {
+        $('w').value = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+        state.wSeeded = true;
+      }
+      const pageSeconds = Math.max(2, parseFloat($('w').value) || 12);
+      if (!state.vPages || state.vPagesW !== pageSeconds) {
+        state.vPages = NotationSplice.planPages(state.ir, state.pageRules, pageSeconds);
+        state.vPagesW = pageSeconds;
+        state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
+      }
+      const topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H, gap = lanes.gapPx / H;
+      const systems = NotationCoords.systemsForParts(parts, { topPad, botPad, gap, weights: lanes.weights });
+      const lanePx = ((1 - topPad - botPad - gap * (parts.length - 1)) / parts.length) * H;
+      const ssPerSystem = lanePx / (((C.staff && C.staff.staffHeightPx) || 31.6) / 4);
+      const p = state.vPages[state.pageIdx];
+      const baseCfg = {
+        widthPx: W, heightPx: H, window: [p.t0, p.t1],
+        gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0,
+        systems, ssPerSystem,
+      };
+      let cfg = baseCfg, Z = 1;
+      if (mode === 'zoom') {
+        Z = ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
+        cfg = NotationCoords.zoomCfg(baseCfg, Z, state.zoomT0 !== undefined ? state.zoomT0 : p.t0);
+        state.zoomT0 = cfg.window[0];
+        state.zoomSpan = cfg.window[1] - cfg.window[0];
+      }
+      const view = NotationCoords.makeView(cfg);
+      const ownsEnd = state.pageIdx === state.vPages.length - 1;
+      let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
+        reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+      });
+      svg = svg.replace('</svg>', metaOverlaySvg(view) + '</svg>');
+      $('sheet').innerHTML = svg;
+      state.lastView = view;
+      const [vt0, vt1] = view.window;
+      $('meta').textContent = state.ir.id + ' · ' + (mode === 'zoom' ? 'ZOOM ×' + Z : 'VIDEO ' + W + '×' + H) +
+        ' · page ' + (state.pageIdx + 1) + '/' + state.vPages.length +
+        ' · ' + vt0.toFixed(1) + '–' + vt1.toFixed(1) + ' s · staff ' +
+        (view.system(parts[0]).ssPx * 4).toFixed(1) + 'px';
+      $('err').textContent = (state.model.warnings || []).join('\n');
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // META overlay (PP-2): the score's layer-10 shapes over the whole parts
+  // area, semi-transparent — same reading graphic.js draws, over notation.
+  function metaOverlaySvg(view) {
+    try {
+      const score = state.scores[state.ir.source.score];
+      if (!score) return '';
+      const C = state.container;
+      const opacity = (C.metaOverlay && C.metaOverlay.opacity) || 0.18;
+      const [w0, w1] = view.window;
+      const sys = view.systems;
+      const yTop = sys[0].yTopPx, yBot = sys[sys.length - 1].yBotPx;
+      const X = t => view.xOfSeconds(Math.min(w1, Math.max(w0, t)));
+      const out = [];
+      for (const o of score.objects || []) {
+        if (o.type !== 'waveCurve' || o.layer !== 10) continue;
+        if (o.startSeconds >= w1 || o.endSeconds <= w0) continue;
+        const nodes = (o.nodes || []).map(n => ({ pos: n.pos, lvl: Math.min(10, Math.max(0, n.y)) / 10 }));
+        if (!nodes.length) continue;
+        const pts = nodes.map(n => {
+          const t = o.startSeconds + (o.endSeconds - o.startSeconds) * n.pos;
+          return X(t).toFixed(1) + ',' + (yBot - n.lvl * (yBot - yTop)).toFixed(1);
+        });
+        const poly = [X(o.startSeconds).toFixed(1) + ',' + yBot.toFixed(1)]
+          .concat(pts, [X(o.endSeconds).toFixed(1) + ',' + yBot.toFixed(1)]);
+        out.push('<polygon points="' + poly.join(' ') + '" fill="' + (o.color || '#2E8B57') + '" opacity="' + opacity + '"/>');
+      }
+      return out.join('\n');
+    } catch (e) { return ''; }
   }
 
   async function renderGraphicView() {
@@ -171,13 +274,35 @@
   for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
   $('ir').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
+  // one-click video ↔ zoom at the same music position (G1)
+  $('zx').addEventListener('click', () => {
+    const v = $('view').value;
+    if (v === 'video') {
+      state.zoomT0 = state.vPages ? state.vPages[state.pageIdx].t0 : 0;
+      $('view').value = 'zoom';
+    } else if (v === 'zoom') {
+      if (state.vPages && state.zoomT0 !== undefined) {
+        const t = state.zoomT0;
+        const i = state.vPages.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+        if (i >= 0) state.pageIdx = i;
+      }
+      $('view').value = 'video';
+    } else return;
+    render();
+  });
   $('prev').addEventListener('click', () => {
-    if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
+    const vv = $('view').value;
+    if (vv === 'video') state.pageIdx = Math.max(0, state.pageIdx - 1);
+    else if (vv === 'zoom') state.zoomT0 = Math.max(state.ir.source.window[0], (state.zoomT0 || 0) - (state.zoomSpan || 6));
+    else if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
     else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));
     render();
   });
   $('next').addEventListener('click', () => {
-    if ($('mode').value === 'pages') { state.pageIdx = Math.min(state.pages ? state.pages.length - 1 : 0, state.pageIdx + 1); }
+    const vv = $('view').value;
+    if (vv === 'video') state.pageIdx = Math.min(state.vPages ? state.vPages.length - 1 : 0, state.pageIdx + 1);
+    else if (vv === 'zoom') state.zoomT0 = Math.min(state.ir.source.window[1] - (state.zoomSpan || 6), (state.zoomT0 || 0) + (state.zoomSpan || 6));
+    else if ($('mode').value === 'pages') { state.pageIdx = Math.min(state.pages ? state.pages.length - 1 : 0, state.pageIdx + 1); }
     else $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16);
     render();
   });

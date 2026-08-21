@@ -4933,3 +4933,37 @@ NITS, troubleshooting deferred at composer's instruction. NET: V0's
 composer-facing work is DONE - G0 can close with decided items (frame ·
 no header · staff 31.6 · budget A · Crimson · motion model PP-3) +
 provisional defaults; V1 (the two windows) is the next build.
+
+**Day 21 — G0 CLOSED, V1 BUILT (the two windows).** Composer closed G0;
+V1 executed in three committed sub-chunks, all four suites green
+throughout, every new behavior tested red-then-green:
+- COORDS: per-part lane weights - per-lane ssPerSystem (lane height and
+  staff scale decoupled) - prefatory-gutter mapping (time onto
+  [gutterPx, width]) - zoomCfg() = the PP-6 invariant encoded ONCE
+  (uniform x-Z of every coordinate; window re-cut derives from the scale,
+  span/Z is exact only at gutter 0). Tests: irregular-lane Z-invariance at
+  Z=2/3, gutter round-trips, px-boundary source scan on layout.js,
+  prove-red sabotage of the zoom staff scale.
+- LAYOUT/RENDER: engraving census (V0.10) -> container.json engraving
+  block; code defaults = census values so zero pixels moved - the
+  ENGRAVING-OVERRIDE overlay kind (stemDir force incl. beamed runs -
+  beamBreak - dx/dy nudge; ledgers stay on pitch lines under dy) -
+  sectional staff-off spans - gutter-aware clef (right-aligned into the
+  dead space). REAL DEFECT found by probing my own green test: the first
+  gutter test's regex ignored negative x and passed while the clef sat at
+  x=-35.8 OFF-SCREEN (clef wider than gutter at big ssPx). Fix: clamp so
+  overflow is VISIBLE, never vanishing; the off-screen case is now itself
+  a test.
+- SHELL: video mode (locked 1920x1080, container-driven lanes/staff/
+  gutter/Crimson, pages at the container time scale) - zoom mode (x2,
+  1920x2160, vertical scroll) - one-click toggle preserving music
+  position - META overlay port (draws layer-10 shapes; trance scores have
+  ZERO layer-10 waveCurves - verified data-not-bug; logic proven against
+  piece-s23's 23 shapes). VERIFIED LIVE on :5210: video page 3 25.6-36.2s
+  staff 31.6px -> zoom 25.6-30.8s staff 63.2px (exactly x2) -> back to
+  the same page. Zero console errors.
+- GLYPH_EXTENSION_CONTRACT.md written (four touchpoints; animated objects
+  = the sibling state(t) contract, their print counterparts are glyphs).
+REMAINING FOR G1 (composer): flip the windows on a real section by eye;
+see one irregular-lane render and one engraving override applied (both
+are data edits, demonstrable live in the sitting).
