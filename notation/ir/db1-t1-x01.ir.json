@@ -1,0 +1,59 @@
+{
+ "irVersion": "0.1",
+ "id": "db1-t1-x01",
+ "source": {
+  "score": "piece-s25-finished01",
+  "window": [
+   0,
+   12
+  ],
+  "parts": [
+   0
+  ]
+ },
+ "provenance": {
+  "createdBy": "tools/notate_section.js (profile section1)",
+  "date": "2026-08-21",
+  "tool": "tools/notate_section.js (profile section1)",
+  "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only."
+ },
+ "events": [
+  {
+   "id": "ev-wc-3",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-3"
+   },
+   "onset": 4.198,
+   "duration": 4.192,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge"
+  }
+ ],
+ "chunks": [
+  {
+   "id": "ch-0-wc-3",
+   "part": 0,
+   "span": [
+    4.198,
+    12
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-3"
+   ],
+   "provenance": "derived"
+  }
+ ],
+ "overlays": []
+}

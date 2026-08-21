@@ -44,7 +44,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-3",
@@ -63,7 +64,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-4",
@@ -83,6 +85,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -107,7 +110,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-6",
@@ -127,6 +131,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -152,6 +157,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -177,6 +183,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -202,6 +209,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -227,6 +235,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -252,6 +261,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -277,6 +287,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -302,6 +313,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -327,6 +339,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -352,6 +365,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -377,6 +391,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -402,6 +417,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -427,6 +443,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -452,6 +469,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -477,6 +495,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -502,6 +521,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -527,6 +547,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -552,6 +573,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -577,6 +599,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -602,6 +625,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -627,6 +651,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -652,6 +677,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -677,6 +703,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -702,6 +729,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -727,6 +755,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -752,6 +781,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -777,6 +807,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -802,6 +833,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -827,6 +859,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -852,6 +885,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -877,6 +911,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -902,6 +937,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -927,6 +963,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -952,6 +989,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -977,6 +1015,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -1002,6 +1041,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -1027,6 +1067,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -1052,6 +1093,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -1077,6 +1119,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -1102,6 +1145,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -1127,6 +1171,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -1152,6 +1197,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -1177,6 +1223,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -1202,6 +1249,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -1227,6 +1275,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -1252,6 +1301,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -1277,6 +1327,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -1302,6 +1353,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -1327,6 +1379,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -1352,6 +1405,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -1377,6 +1431,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -1402,6 +1457,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -1427,6 +1483,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -1452,6 +1509,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -1477,6 +1535,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -1502,6 +1561,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -1527,6 +1587,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -1552,6 +1613,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -1577,6 +1639,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -1602,6 +1665,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -1627,6 +1691,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -1652,6 +1717,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -1677,6 +1743,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -1702,6 +1769,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -1727,6 +1795,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -1752,6 +1821,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -1777,6 +1847,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -1802,6 +1873,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -1827,6 +1899,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -1852,6 +1925,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -1877,6 +1951,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -1902,6 +1977,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -1927,6 +2003,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -1952,6 +2029,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -1977,6 +2055,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -2002,6 +2081,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -2027,6 +2107,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -2052,6 +2133,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -2077,6 +2159,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -2102,6 +2185,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -2127,6 +2211,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -2152,6 +2237,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -2177,6 +2263,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -2202,6 +2289,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -2227,6 +2315,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -2252,6 +2341,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -2277,6 +2367,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -2302,6 +2393,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -2327,6 +2419,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -2352,6 +2445,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -2377,6 +2471,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -2402,6 +2497,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -2427,6 +2523,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -2452,6 +2549,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -2477,6 +2575,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -2502,6 +2601,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -2527,6 +2627,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -2552,6 +2653,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -2577,6 +2679,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -2602,6 +2705,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -2627,6 +2731,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -2652,6 +2757,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -2677,6 +2783,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -2702,6 +2809,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -2727,6 +2835,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -2752,6 +2861,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -2777,6 +2887,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -2802,6 +2913,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -2827,6 +2939,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -2852,6 +2965,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -2877,6 +2991,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -2902,6 +3017,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -2927,6 +3043,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -2952,6 +3069,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -2977,6 +3095,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -3002,6 +3121,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -3027,6 +3147,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -3052,6 +3173,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -3077,6 +3199,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3102,6 +3225,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -3127,6 +3251,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -3152,6 +3277,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -3177,6 +3303,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -3202,6 +3329,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -3227,6 +3355,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -3252,6 +3381,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -3277,6 +3407,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -3302,6 +3433,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -3327,6 +3459,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3352,6 +3485,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -3377,6 +3511,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -3402,6 +3537,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -3427,6 +3563,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -3452,6 +3589,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -3477,6 +3615,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -3502,6 +3641,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -3527,6 +3667,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -3552,6 +3693,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -3577,6 +3719,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3602,6 +3745,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -3627,6 +3771,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -3652,6 +3797,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -3677,6 +3823,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -3702,6 +3849,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3727,6 +3875,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -3752,6 +3901,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -3777,6 +3927,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -3802,6 +3953,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -3827,6 +3979,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3852,6 +4005,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -3877,6 +4031,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -3902,6 +4057,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -3927,6 +4083,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -3952,6 +4109,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -3977,6 +4135,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -4002,6 +4161,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -4027,6 +4187,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -4052,6 +4213,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -4077,6 +4239,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -4102,6 +4265,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -4127,6 +4291,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -4152,6 +4317,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -4177,6 +4343,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -4202,6 +4369,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -4227,6 +4395,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -4252,6 +4421,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -4277,6 +4447,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -4302,6 +4473,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -4327,6 +4499,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -4352,6 +4525,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -4377,6 +4551,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -4402,6 +4577,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -4427,6 +4603,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -4452,6 +4629,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -4477,6 +4655,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -4502,6 +4681,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -4527,6 +4707,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -4552,6 +4733,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -4577,6 +4759,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -4602,6 +4785,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -4627,6 +4811,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -4652,6 +4837,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -4677,6 +4863,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -4702,6 +4889,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -4727,6 +4915,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -4752,6 +4941,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -4777,6 +4967,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -4802,6 +4993,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -4827,6 +5019,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -4852,6 +5045,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -4877,6 +5071,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -4902,6 +5097,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -4927,6 +5123,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -4952,6 +5149,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -4977,6 +5175,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -5002,6 +5201,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -5027,6 +5227,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -5052,6 +5253,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -5077,6 +5279,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -5102,6 +5305,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -5127,6 +5331,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -5152,6 +5357,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -5177,6 +5383,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -5202,6 +5409,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -5227,6 +5435,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -5252,6 +5461,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -5277,6 +5487,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -5302,6 +5513,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -5327,6 +5539,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -5352,6 +5565,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -5377,6 +5591,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -5402,6 +5617,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -5427,6 +5643,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -5452,6 +5669,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -5477,6 +5695,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -5502,6 +5721,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -5527,6 +5747,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -5552,6 +5773,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -5577,6 +5799,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -5602,6 +5825,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -5627,6 +5851,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -5652,6 +5877,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -5677,6 +5903,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -5702,6 +5929,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -5727,6 +5955,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -5752,6 +5981,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -5777,6 +6007,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -5802,6 +6033,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -5827,6 +6059,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -5852,6 +6085,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -5877,6 +6111,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -5902,6 +6137,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -5927,6 +6163,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -5952,6 +6189,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -5977,6 +6215,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -6002,6 +6241,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -6027,6 +6267,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -6052,6 +6293,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -6077,6 +6319,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -6102,6 +6345,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -6127,6 +6371,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -6152,6 +6397,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -6177,6 +6423,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -6202,6 +6449,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -6227,6 +6475,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -6252,6 +6501,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -6277,6 +6527,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -6302,6 +6553,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -6327,6 +6579,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -6352,6 +6605,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -6377,6 +6631,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -6402,6 +6657,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -6427,6 +6683,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -6452,6 +6709,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -6477,6 +6735,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -6502,6 +6761,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -6527,6 +6787,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -6552,6 +6813,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -6577,6 +6839,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -6602,6 +6865,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -6627,6 +6891,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -6652,6 +6917,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -6677,6 +6943,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -6702,6 +6969,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -6727,6 +6995,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-ta4-15",
     "grid": [
@@ -6752,6 +7021,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -6777,6 +7047,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -6802,6 +7073,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -6827,6 +7099,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -6852,6 +7125,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-ta4-8",
     "grid": [
@@ -6877,6 +7151,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-16",
     "grid": [
@@ -6902,6 +7177,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -6927,6 +7203,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -6952,6 +7229,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-4",
     "grid": [
@@ -6977,6 +7255,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-1-wc-ta4-9",
     "grid": [
@@ -7002,6 +7281,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-ta4-6",
     "grid": [
@@ -7027,6 +7307,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-ta4-10",
     "grid": [
@@ -7052,6 +7333,7 @@
    },
    "technique": "cuivre",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -7077,6 +7359,7 @@
    },
    "technique": "ord",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-7",
     "grid": [
@@ -7102,6 +7385,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-ta4-19",
     "grid": [
@@ -7127,6 +7411,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-ta4-12",
     "grid": [
@@ -7151,7 +7436,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-360",
@@ -7171,6 +7457,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-360",
     "grid": [
@@ -7196,6 +7483,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-361",
     "grid": [
@@ -7221,6 +7509,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-362",
     "grid": [
@@ -7245,7 +7534,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-364",
@@ -7264,7 +7554,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-365",
@@ -7283,7 +7574,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-366",
@@ -7303,6 +7595,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-ta4-361",
     "grid": [
@@ -7328,6 +7621,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-ta4-360",
     "grid": [
@@ -7352,7 +7646,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-ta4-369",
@@ -7372,6 +7667,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-ta4-362",
     "grid": [

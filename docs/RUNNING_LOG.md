@@ -5166,3 +5166,30 @@ tooling · render auto-attach · the protocol doc.** PLAN 8b filed.
 - **NOT built, on purpose (D48):** strategy-knobs-as-data (waits for the
   first knob that needs globalizing) · source-score polling (notation never
   mutates the piece; refresh once after composer-score edits).
+
+**Day 22 (continued) — first loop iteration for real: db1-t1-x01 + brick
+identity tooltips (IR schema amendment 3).**
+- **db1-t1-x01 = the first sandbox version file** (density build = the piece
+  OPENING, composer corrected mid-scan; T1, window 0-12 = page 1 at the
+  working scale). Honest content: ONE sounding event — GESTURE-1 is
+  ensemble-distributed, so a single part opens sparse. wc-3 = F#1,
+  4.20-8.39 s, ord, envShape SURGE, drawn curve (the composer recognized it
+  from the composer score as "the green curve" — color #2E7D32 there).
+  **Validator fact found: IR ids reject capitals** (^[a-z0-9-]) — naming is
+  db1-t1-x01 lowercase; workflow doc corrected.
+- **Composer asked: quick way to identify a brick -> hover text.** Built as
+  native SVG <title> tooltips: layout.js composes the identity line (pitch ·
+  technique · env · span · class/strategy · source object), render.js emits
+  it (bricks opt back into pointer-events). **Prerequisite done at the same
+  stroke: IR events now carry `env` (envelope species) and non-default
+  `mode` (plain/ks)** — schema amendment 3 (optional fields, old IRs stay
+  valid), extract_core carries them. That closes data-gap (a) from the
+  surge discussion: devices designed next can READ the envelope.
+- **Batteries after the change: ALL GREEN** — extractor golden, 36-case
+  validate battery, layout/render/snapshots (75)/splice/stamps/coords.
+  All three IRs re-extracted (chunk counts identical = deterministic);
+  verified LIVE on :5210 zoom view: tooltip reads "F#1 · ord · surge ·
+  4.20–8.39 s · drawn-crescendo-curve / unresolved · wc-3".
+- Lib code (layout/render) is NOT hot-polled (data is) — the composer's
+  open page needs ONE refresh to get tooltip code; IR/registry changes
+  after that land within ~1 s as designed.

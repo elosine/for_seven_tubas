@@ -137,7 +137,16 @@
         if (!isStream) {
           for (const e of evs) {
             const ySs = staffPosBass(spelledOf(e));
-            items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id });
+            // hover identity (day 22): what this un-notated material IS —
+            // pitch · technique · envelope · mode · span · class/strategy ·
+            // source object. Rendered as a native SVG <title> tooltip.
+            const sp = spelledOf(e);
+            const pname = sp.step + (sp.alter > 0 ? '#'.repeat(sp.alter) : 'b'.repeat(-sp.alter)) + sp.octave;
+            const tip = pname + ' · ' + e.technique
+              + (e.env ? ' · ' + e.env : '') + (e.mode ? ' · ' + e.mode : '')
+              + ' · ' + e.onset.toFixed(2) + '–' + (e.onset + e.duration).toFixed(2) + ' s'
+              + ' · ' + c.class + ' / ' + c.strategy + ' · ' + (e.source && e.source.objectId || e.id);
+            items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id, tip });
           }
           prevTempoLabel = null;
           continue;

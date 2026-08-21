@@ -44,7 +44,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-3",
@@ -63,7 +64,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-13",
@@ -82,7 +84,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-14",
@@ -101,7 +104,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-4",
@@ -120,7 +124,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-15",
@@ -139,7 +144,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-5",
@@ -158,7 +164,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-16",
@@ -177,7 +184,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-17",
@@ -196,7 +204,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-6",
@@ -215,7 +224,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-18",
@@ -234,7 +244,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-19",
@@ -254,6 +265,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -278,7 +290,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-7",
@@ -297,7 +310,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-21",
@@ -316,7 +330,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-22",
@@ -335,7 +350,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-23",
@@ -354,7 +370,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-24",
@@ -373,7 +390,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-25",
@@ -392,7 +410,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-26",
@@ -412,6 +431,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -436,7 +456,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-28",
@@ -455,7 +476,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-8",
@@ -474,7 +496,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-29",
@@ -493,7 +516,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-30",
@@ -513,6 +537,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -537,7 +562,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-32",
@@ -556,7 +582,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-33",
@@ -576,6 +603,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -600,7 +628,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-35",
@@ -619,7 +648,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-36",
@@ -639,6 +669,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -663,7 +694,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-37",
@@ -682,7 +714,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-38",
@@ -701,7 +734,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-39",
@@ -720,7 +754,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-40",
@@ -740,6 +775,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -764,7 +800,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-42",
@@ -783,7 +820,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-43",
@@ -802,7 +840,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-44",
@@ -821,7 +860,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-45",
@@ -840,7 +880,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-46",
@@ -859,7 +900,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-47",
@@ -878,7 +920,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-10",
@@ -897,7 +940,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-48",
@@ -917,6 +961,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-19",
     "grid": [
@@ -942,6 +987,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -966,7 +1012,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-51",
@@ -986,6 +1033,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -1011,6 +1059,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -1035,7 +1084,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-54",
@@ -1054,7 +1104,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-55",
@@ -1074,6 +1125,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1099,6 +1151,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -1123,7 +1176,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-11",
@@ -1142,7 +1196,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-58",
@@ -1162,6 +1217,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -1186,7 +1242,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-60",
@@ -1206,6 +1263,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1231,6 +1289,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -1256,6 +1315,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -1281,6 +1341,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -1305,7 +1366,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-65",
@@ -1325,6 +1387,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1349,7 +1412,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-67",
@@ -1369,6 +1433,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -1394,6 +1459,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -1418,7 +1484,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-70",
@@ -1437,7 +1504,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-71",
@@ -1457,6 +1525,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -1482,6 +1551,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -1506,7 +1576,8 @@
     }
    },
    "technique": "ord",
-   "provenance": "derived"
+   "provenance": "derived",
+   "env": "surge"
   },
   {
    "id": "ev-wc-73",
@@ -1526,6 +1597,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -1551,6 +1623,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -1576,6 +1649,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1600,7 +1674,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-77",
@@ -1620,6 +1695,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -1644,7 +1720,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-79",
@@ -1664,6 +1741,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -1689,6 +1767,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -1713,7 +1792,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-82",
@@ -1733,6 +1813,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1758,6 +1839,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-49",
     "grid": [
@@ -1782,7 +1864,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-85",
@@ -1801,7 +1884,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-86",
@@ -1821,6 +1905,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -1846,6 +1931,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-55",
     "grid": [
@@ -1871,6 +1957,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -1895,7 +1982,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-90",
@@ -1915,6 +2003,7 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -1939,7 +2028,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-92",
@@ -1958,7 +2048,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-93",
@@ -1978,6 +2069,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -2002,7 +2094,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-95",
@@ -2021,7 +2114,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-96",
@@ -2040,7 +2134,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-97",
@@ -2059,7 +2154,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-98",
@@ -2078,7 +2174,8 @@
     }
    },
    "technique": "fortepiano",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-99",
@@ -2098,6 +2195,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-4-wc-56",
     "grid": [
@@ -2123,6 +2221,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -2147,7 +2246,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-102",
@@ -2167,6 +2267,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -2191,7 +2292,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-105",
@@ -2211,6 +2313,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -2235,7 +2338,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-106",
@@ -2254,7 +2358,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-107",
@@ -2273,7 +2378,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-108",
@@ -2292,7 +2398,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-109",
@@ -2312,6 +2419,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -2337,6 +2445,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -2362,6 +2471,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -2386,7 +2496,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-113",
@@ -2405,7 +2516,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-114",
@@ -2424,7 +2536,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-115",
@@ -2443,7 +2556,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-116",
@@ -2463,6 +2577,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -2487,7 +2602,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-118",
@@ -2506,7 +2622,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-119",
@@ -2525,7 +2642,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-120",
@@ -2545,6 +2663,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -2569,7 +2688,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-122",
@@ -2589,6 +2709,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -2613,7 +2734,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-124",
@@ -2632,7 +2754,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-125",
@@ -2652,6 +2775,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-9-wc-88",
     "grid": [
@@ -2676,7 +2800,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-127",
@@ -2695,7 +2820,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-128",
@@ -2715,6 +2841,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -2740,6 +2867,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -2765,6 +2893,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -2789,7 +2918,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-132",
@@ -2808,7 +2938,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-133",
@@ -2827,7 +2958,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-134",
@@ -2846,7 +2978,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-135",
@@ -2866,6 +2999,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -2890,7 +3024,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-137",
@@ -2910,6 +3045,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -2934,7 +3070,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-139",
@@ -2953,7 +3090,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-140",
@@ -2973,6 +3111,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -2998,6 +3137,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -3022,7 +3162,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-143",
@@ -3041,7 +3182,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-144",
@@ -3060,7 +3202,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-145",
@@ -3079,7 +3222,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-146",
@@ -3098,7 +3242,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-147",
@@ -3118,6 +3263,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -3142,7 +3288,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-149",
@@ -3161,7 +3308,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-150",
@@ -3180,7 +3328,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-151",
@@ -3199,7 +3348,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-152",
@@ -3218,7 +3368,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-153",
@@ -3237,7 +3388,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-155",
@@ -3256,7 +3408,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-154",
@@ -3276,6 +3429,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-51",
     "grid": [
@@ -3301,6 +3455,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -3325,7 +3480,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-158",
@@ -3344,7 +3500,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-159",
@@ -3363,7 +3520,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-161",
@@ -3382,7 +3540,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-160",
@@ -3402,6 +3561,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-3-wc-71",
     "grid": [
@@ -3426,7 +3586,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-163",
@@ -3445,7 +3606,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-164",
@@ -3464,7 +3626,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-165",
@@ -3483,7 +3646,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-166",
@@ -3502,7 +3666,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-167",
@@ -3522,6 +3687,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-8-wc-58",
     "grid": [
@@ -3546,7 +3712,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1756",
@@ -3565,7 +3732,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1757",
@@ -3584,7 +3752,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1758",
@@ -3603,7 +3772,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1759",
@@ -3622,7 +3792,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1760",
@@ -3641,7 +3812,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1761",
@@ -3660,7 +3832,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1762",
@@ -3679,7 +3852,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1763",
@@ -3698,7 +3872,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1764",
@@ -3717,7 +3892,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1765",
@@ -3736,7 +3912,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1766",
@@ -3755,7 +3932,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1767",
@@ -3774,7 +3952,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1768",
@@ -3793,7 +3972,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1769",
@@ -3812,7 +3992,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1770",
@@ -3831,7 +4012,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1771",
@@ -3851,6 +4033,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -3875,7 +4058,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1773",
@@ -3894,7 +4078,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1774",
@@ -3913,7 +4098,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1775",
@@ -3932,7 +4118,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1776",
@@ -3951,7 +4138,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1777",
@@ -3970,7 +4158,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1778",
@@ -3990,6 +4179,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -4014,7 +4204,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1780",
@@ -4034,6 +4225,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -4058,7 +4250,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1782",
@@ -4077,7 +4270,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1783",
@@ -4096,7 +4290,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1784",
@@ -4115,7 +4310,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1785",
@@ -4134,7 +4330,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1786",
@@ -4153,7 +4350,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1787",
@@ -4172,7 +4370,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1788",
@@ -4191,7 +4390,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1789",
@@ -4210,7 +4410,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1790",
@@ -4229,7 +4430,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1791",
@@ -4248,7 +4450,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1792",
@@ -4268,6 +4471,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -4293,6 +4497,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -4317,7 +4522,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1795",
@@ -4336,7 +4542,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1796",
@@ -4355,7 +4562,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1797",
@@ -4374,7 +4582,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1798",
@@ -4394,6 +4603,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -4419,6 +4629,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -4443,7 +4654,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1801",
@@ -4462,7 +4674,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1802",
@@ -4481,7 +4694,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1803",
@@ -4500,7 +4714,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1804",
@@ -4519,7 +4734,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1805",
@@ -4539,6 +4755,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -4564,6 +4781,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -4588,7 +4806,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1808",
@@ -4607,7 +4826,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1809",
@@ -4626,7 +4846,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1810",
@@ -4645,7 +4866,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1811",
@@ -4664,7 +4886,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1812",
@@ -4683,7 +4906,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1813",
@@ -4702,7 +4926,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1814",
@@ -4721,7 +4946,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1815",
@@ -4740,7 +4966,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1816",
@@ -4759,7 +4986,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1817",
@@ -4779,6 +5007,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -4803,7 +5032,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1819",
@@ -4823,6 +5053,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -4847,7 +5078,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1821",
@@ -4866,7 +5098,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1822",
@@ -4885,7 +5118,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1823",
@@ -4904,7 +5138,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1824",
@@ -4923,7 +5158,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1825",
@@ -4942,7 +5178,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1826",
@@ -4961,7 +5198,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1827",
@@ -4981,6 +5219,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-7-wc-1771",
     "grid": [
@@ -5006,6 +5245,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -5030,7 +5270,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1830",
@@ -5050,6 +5291,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5074,7 +5316,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1832",
@@ -5093,7 +5336,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1833",
@@ -5112,7 +5356,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1834",
@@ -5132,6 +5377,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -5156,7 +5402,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1836",
@@ -5175,7 +5422,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1837",
@@ -5195,6 +5443,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -5219,7 +5468,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1839",
@@ -5239,6 +5489,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5263,7 +5514,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1841",
@@ -5282,7 +5534,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1842",
@@ -5301,7 +5554,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1843",
@@ -5321,6 +5575,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -5345,7 +5600,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1845",
@@ -5364,7 +5620,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1847",
@@ -5384,6 +5641,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -5409,6 +5667,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -5434,6 +5693,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5458,7 +5718,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1850",
@@ -5477,7 +5738,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1851",
@@ -5496,7 +5758,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1852",
@@ -5515,7 +5778,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1853",
@@ -5535,6 +5799,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5560,6 +5825,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -5584,7 +5850,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1856",
@@ -5603,7 +5870,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1857",
@@ -5623,6 +5891,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-2-wc-1780",
     "grid": [
@@ -5647,7 +5916,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1859",
@@ -5667,6 +5937,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -5692,6 +5963,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -5716,7 +5988,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1862",
@@ -5735,7 +6008,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1863",
@@ -5755,6 +6029,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5779,7 +6054,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1864",
@@ -5798,7 +6074,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1866",
@@ -5818,6 +6095,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -5842,7 +6120,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1869",
@@ -5862,6 +6141,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -5886,7 +6166,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1870",
@@ -5905,7 +6186,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1871",
@@ -5924,7 +6206,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1872",
@@ -5944,6 +6227,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -5969,6 +6253,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-0-wc-1830",
     "grid": [
@@ -5993,7 +6278,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1875",
@@ -6012,7 +6298,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1876",
@@ -6031,7 +6318,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1877",
@@ -6050,7 +6338,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1878",
@@ -6069,7 +6358,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1879",
@@ -6089,6 +6379,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-5-wc-1846",
     "grid": [
@@ -6114,6 +6405,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -6138,7 +6430,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1882",
@@ -6157,7 +6450,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1883",
@@ -6176,7 +6470,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1884",
@@ -6195,7 +6490,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1885",
@@ -6214,7 +6510,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1886",
@@ -6233,7 +6530,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1887",
@@ -6252,7 +6550,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1888",
@@ -6272,6 +6571,7 @@
    },
    "technique": "staccato",
    "provenance": "derived",
+   "mode": "plain",
    "metric": {
     "chunk": "ch-6-wc-1834",
     "grid": [
@@ -6296,7 +6596,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1890",
@@ -6315,7 +6616,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1891",
@@ -6334,7 +6636,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1892",
@@ -6353,7 +6656,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1893",
@@ -6372,7 +6676,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1894",
@@ -6391,7 +6696,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1895",
@@ -6410,7 +6716,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1896",
@@ -6429,7 +6736,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   },
   {
    "id": "ev-wc-1897",
@@ -6448,7 +6756,8 @@
     }
    },
    "technique": "staccato",
-   "provenance": "derived"
+   "provenance": "derived",
+   "mode": "plain"
   }
  ],
  "chunks": [

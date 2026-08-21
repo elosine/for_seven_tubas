@@ -135,8 +135,13 @@
         } else if (it.k === 'brick') {
           if (it.t1 < w0 || it.t0 > w1) continue;
           const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
+          // native tooltip (day 22): hover a brick to see what it is; the
+          // brick must opt back into pointer events — the sheet SVG is
+          // otherwise passive and the anim overlay above is pointer-inert.
+          const tip = it.tip ? '<title>' + esc(it.tip) + '</title>' : '';
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - 0.5 * ssPx).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
-            '" height="' + (1 * ssPx).toFixed(2) + '" fill="' + o.brick + '" opacity="' + E.brickOpacity + '"/>');
+            '" height="' + (1 * ssPx).toFixed(2) + '" fill="' + o.brick + '" opacity="' + E.brickOpacity + '"' +
+            (tip ? ' pointer-events="all">' + tip + '</rect>' : '/>'));
         }
       }
       parts.push('</g>');

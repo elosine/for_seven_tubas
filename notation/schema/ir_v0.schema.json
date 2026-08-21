@@ -1,173 +1,470 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ir_v0.schema.json",
-  "title": "Notation IR document v0",
-  "type": "object",
-  "required": ["irVersion", "id", "source", "provenance", "events", "chunks", "overlays"],
-  "additionalProperties": false,
-  "properties": {
-    "irVersion": { "const": "0.1" },
-    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
-    "source": {
-      "type": "object",
-      "required": ["score", "window", "parts"],
-      "additionalProperties": false,
-      "properties": {
-        "score": { "type": "string" },
-        "window": { "$ref": "#/definitions/span" },
-        "parts": { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 9 }, "minItems": 1 }
-      }
-    },
-    "provenance": { "$ref": "#/definitions/docProvenance" },
-    "events": { "type": "array", "items": { "$ref": "#/definitions/event" } },
-    "chunks": { "type": "array", "items": { "$ref": "#/definitions/chunk" } },
-    "overlays": { "type": "array", "items": { "$ref": "#/definitions/overlay" } }
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "ir_v0.schema.json",
+ "title": "Notation IR document v0",
+ "type": "object",
+ "required": [
+  "irVersion",
+  "id",
+  "source",
+  "provenance",
+  "events",
+  "chunks",
+  "overlays"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "irVersion": {
+   "const": "0.1"
   },
-  "definitions": {
-    "span": {
-      "type": "array", "items": { "type": "number", "minimum": 0 }, "minItems": 2, "maxItems": 2
+  "id": {
+   "type": "string",
+   "pattern": "^[a-z0-9][a-z0-9-]*$"
+  },
+  "source": {
+   "type": "object",
+   "required": [
+    "score",
+    "window",
+    "parts"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "score": {
+     "type": "string"
     },
-    "nodeProv": { "enum": ["derived", "authored"] },
-    "overlayProv": { "enum": ["authored", "authored-override"] },
-    "docProvenance": {
-      "type": "object",
-      "required": ["createdBy", "date"],
-      "additionalProperties": false,
-      "properties": {
-        "createdBy": { "type": "string" },
-        "date": { "type": "string" },
-        "tool": { "type": ["string", "null"] },
-        "notes": { "type": "string" }
-      }
+    "window": {
+     "$ref": "#/definitions/span"
     },
-    "event": {
-      "type": "object",
-      "required": ["id", "onset", "duration", "pitch", "technique", "provenance"],
-      "additionalProperties": false,
-      "properties": {
-        "id": { "type": "string", "pattern": "^ev-[A-Za-z0-9_-]+$" },
-        "source": {
-          "type": "object",
-          "required": ["score", "objectId"],
-          "additionalProperties": false,
-          "properties": {
-            "score": { "type": "string" },
-            "objectId": { "type": "string" }
-          }
-        },
-        "onset": { "type": "number", "minimum": 0 },
-        "duration": { "type": "number", "exclusiveMinimum": 0 },
-        "pitch": {
-          "type": "object",
-          "required": ["midi", "spelled"],
-          "additionalProperties": false,
-          "properties": {
-            "midi": { "type": "number", "minimum": 0, "maximum": 127 },
-            "spelled": {
-              "type": "object",
-              "required": ["step", "alter", "octave"],
-              "additionalProperties": false,
-              "properties": {
-                "step": { "enum": ["A", "B", "C", "D", "E", "F", "G"] },
-                "alter": { "type": "number", "multipleOf": 0.5, "minimum": -2, "maximum": 2 },
-                "octave": { "type": "integer", "minimum": -1, "maximum": 9 }
-              }
-            }
-          }
-        },
-        "technique": { "type": "string" },
-        "metric": {
-          "type": "object",
-          "required": ["chunk", "grid"],
-          "additionalProperties": false,
-          "properties": {
-            "chunk": { "type": "string" },
-            "grid": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 1 }
-          }
-        },
-        "provenance": { "$ref": "#/definitions/nodeProv" }
-      }
-    },
-    "chunk": {
-      "type": "object",
-      "required": ["id", "part", "span", "class", "strategy", "events", "provenance"],
-      "additionalProperties": false,
-      "properties": {
-        "id": { "type": "string", "pattern": "^ch-[A-Za-z0-9_-]+$" },
-        "part": { "type": "integer", "minimum": 0, "maximum": 9 },
-        "span": { "$ref": "#/definitions/span" },
-        "class": { "type": "string" },
-        "strategy": { "enum": ["simple-bar", "tuplet-bar", "proportional", "device", "fallback", "unresolved"] },
-        "tempo": {
-          "type": "object",
-          "required": ["anchorSeconds", "unitSeconds", "beatSeconds", "label"],
-          "additionalProperties": false,
-          "properties": {
-            "anchorSeconds": { "type": "number", "minimum": 0 },
-            "unitSeconds": { "type": "number", "exclusiveMinimum": 0 },
-            "beatSeconds": { "type": "number", "exclusiveMinimum": 0 },
-            "subdivision": { "type": "integer", "minimum": 1 },
-            "maxErrSeconds": { "type": "number", "minimum": 0 },
-            "label": { "type": "string" }
-          }
-        },
-        "events": { "type": "array", "items": { "type": "string" } },
-        "groups": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["id", "kind", "events", "provenance"],
-            "additionalProperties": false,
-            "properties": {
-              "id": { "type": "string", "pattern": "^bg-[A-Za-z0-9_-]+$" },
-              "kind": { "enum": ["beam"] },
-              "events": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
-              "provenance": { "$ref": "#/definitions/nodeProv" }
-            }
-          }
-        },
-        "devices": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["id", "kind", "mode", "at", "provenance"],
-            "additionalProperties": false,
-            "properties": {
-              "id": { "type": "string", "pattern": "^dev-[A-Za-z0-9_-]+$" },
-              "kind": { "type": "string" },
-              "mode": { "type": "string" },
-              "at": { "type": "number", "minimum": 0 },
-              "provenance": { "$ref": "#/definitions/nodeProv" }
-            }
-          }
-        },
-        "provenance": { "$ref": "#/definitions/nodeProv" }
-      }
-    },
-    "overlay": {
-      "type": "object",
-      "required": ["id", "kind", "target", "value", "provenance"],
-      "additionalProperties": false,
-      "properties": {
-        "id": { "type": "string", "pattern": "^ov-[A-Za-z0-9_-]+$" },
-        "kind": { "enum": ["dynamic", "articulation", "instruction", "spelling", "grouping", "strategy"] },
-        "target": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "properties": {
-            "event": { "type": "string" },
-            "chunk": { "type": "string" },
-            "part": { "type": "integer", "minimum": 0, "maximum": 9 },
-            "parts": { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 9 }, "minItems": 1 },
-            "span": { "$ref": "#/definitions/span" }
-          }
-        },
-        "value": {},
-        "provenance": { "$ref": "#/definitions/overlayProv" },
-        "contradicts": { "type": ["object", "string", "null"] },
-        "orphaned": { "type": "boolean" }
-      }
+    "parts": {
+     "type": "array",
+     "items": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9
+     },
+     "minItems": 1
     }
+   }
+  },
+  "provenance": {
+   "$ref": "#/definitions/docProvenance"
+  },
+  "events": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/event"
+   }
+  },
+  "chunks": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/chunk"
+   }
+  },
+  "overlays": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/overlay"
+   }
   }
+ },
+ "definitions": {
+  "span": {
+   "type": "array",
+   "items": {
+    "type": "number",
+    "minimum": 0
+   },
+   "minItems": 2,
+   "maxItems": 2
+  },
+  "nodeProv": {
+   "enum": [
+    "derived",
+    "authored"
+   ]
+  },
+  "overlayProv": {
+   "enum": [
+    "authored",
+    "authored-override"
+   ]
+  },
+  "docProvenance": {
+   "type": "object",
+   "required": [
+    "createdBy",
+    "date"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "createdBy": {
+     "type": "string"
+    },
+    "date": {
+     "type": "string"
+    },
+    "tool": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "notes": {
+     "type": "string"
+    }
+   }
+  },
+  "event": {
+   "type": "object",
+   "required": [
+    "id",
+    "onset",
+    "duration",
+    "pitch",
+    "technique",
+    "provenance"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^ev-[A-Za-z0-9_-]+$"
+    },
+    "source": {
+     "type": "object",
+     "required": [
+      "score",
+      "objectId"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "score": {
+       "type": "string"
+      },
+      "objectId": {
+       "type": "string"
+      }
+     }
+    },
+    "onset": {
+     "type": "number",
+     "minimum": 0
+    },
+    "duration": {
+     "type": "number",
+     "exclusiveMinimum": 0
+    },
+    "pitch": {
+     "type": "object",
+     "required": [
+      "midi",
+      "spelled"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "midi": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 127
+      },
+      "spelled": {
+       "type": "object",
+       "required": [
+        "step",
+        "alter",
+        "octave"
+       ],
+       "additionalProperties": false,
+       "properties": {
+        "step": {
+         "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+         ]
+        },
+        "alter": {
+         "type": "number",
+         "multipleOf": 0.5,
+         "minimum": -2,
+         "maximum": 2
+        },
+        "octave": {
+         "type": "integer",
+         "minimum": -1,
+         "maximum": 9
+        }
+       }
+      }
+     }
+    },
+    "technique": {
+     "type": "string"
+    },
+    "metric": {
+     "type": "object",
+     "required": [
+      "chunk",
+      "grid"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "chunk": {
+       "type": "string"
+      },
+      "grid": {
+       "type": "array",
+       "items": {
+        "type": "integer",
+        "minimum": 0
+       },
+       "minItems": 1
+      }
+     }
+    },
+    "provenance": {
+     "$ref": "#/definitions/nodeProv"
+    },
+    "env": {
+     "type": "string",
+     "description": "envelope species as drawn (surge, sine, expodec, ...) — day 22 amendment 3, optional"
+    },
+    "mode": {
+     "enum": [
+      "plain",
+      "ks"
+     ],
+     "description": "non-default sonify mode (plain = captured note, ks = keyswitched sample); curve mode = field omitted — day 22 amendment 3, optional"
+    }
+   }
+  },
+  "chunk": {
+   "type": "object",
+   "required": [
+    "id",
+    "part",
+    "span",
+    "class",
+    "strategy",
+    "events",
+    "provenance"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^ch-[A-Za-z0-9_-]+$"
+    },
+    "part": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 9
+    },
+    "span": {
+     "$ref": "#/definitions/span"
+    },
+    "class": {
+     "type": "string"
+    },
+    "strategy": {
+     "enum": [
+      "simple-bar",
+      "tuplet-bar",
+      "proportional",
+      "device",
+      "fallback",
+      "unresolved"
+     ]
+    },
+    "tempo": {
+     "type": "object",
+     "required": [
+      "anchorSeconds",
+      "unitSeconds",
+      "beatSeconds",
+      "label"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "anchorSeconds": {
+       "type": "number",
+       "minimum": 0
+      },
+      "unitSeconds": {
+       "type": "number",
+       "exclusiveMinimum": 0
+      },
+      "beatSeconds": {
+       "type": "number",
+       "exclusiveMinimum": 0
+      },
+      "subdivision": {
+       "type": "integer",
+       "minimum": 1
+      },
+      "maxErrSeconds": {
+       "type": "number",
+       "minimum": 0
+      },
+      "label": {
+       "type": "string"
+      }
+     }
+    },
+    "events": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "groups": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "kind",
+       "events",
+       "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string",
+        "pattern": "^bg-[A-Za-z0-9_-]+$"
+       },
+       "kind": {
+        "enum": [
+         "beam"
+        ]
+       },
+       "events": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "minItems": 2
+       },
+       "provenance": {
+        "$ref": "#/definitions/nodeProv"
+       }
+      }
+     }
+    },
+    "devices": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "kind",
+       "mode",
+       "at",
+       "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string",
+        "pattern": "^dev-[A-Za-z0-9_-]+$"
+       },
+       "kind": {
+        "type": "string"
+       },
+       "mode": {
+        "type": "string"
+       },
+       "at": {
+        "type": "number",
+        "minimum": 0
+       },
+       "provenance": {
+        "$ref": "#/definitions/nodeProv"
+       }
+      }
+     }
+    },
+    "provenance": {
+     "$ref": "#/definitions/nodeProv"
+    }
+   }
+  },
+  "overlay": {
+   "type": "object",
+   "required": [
+    "id",
+    "kind",
+    "target",
+    "value",
+    "provenance"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^ov-[A-Za-z0-9_-]+$"
+    },
+    "kind": {
+     "enum": [
+      "dynamic",
+      "articulation",
+      "instruction",
+      "spelling",
+      "grouping",
+      "strategy"
+     ]
+    },
+    "target": {
+     "type": "object",
+     "minProperties": 1,
+     "additionalProperties": false,
+     "properties": {
+      "event": {
+       "type": "string"
+      },
+      "chunk": {
+       "type": "string"
+      },
+      "part": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 9
+      },
+      "parts": {
+       "type": "array",
+       "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9
+       },
+       "minItems": 1
+      },
+      "span": {
+       "$ref": "#/definitions/span"
+      }
+     }
+    },
+    "value": {},
+    "provenance": {
+     "$ref": "#/definitions/overlayProv"
+    },
+    "contradicts": {
+     "type": [
+      "object",
+      "string",
+      "null"
+     ]
+    },
+    "orphaned": {
+     "type": "boolean"
+    }
+   }
+  }
+ }
 }

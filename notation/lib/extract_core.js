@@ -249,6 +249,12 @@
         technique: o.technique,
         provenance: 'derived',
       };
+      // envelope identity (day 22, schema amendment 3): the species the
+      // composer drew (surge/sine/expodec...) and the non-default sonify
+      // mode ('plain' = captured note, 'ks' = keyswitched sample; curve
+      // mode = omitted default). Notation devices + tooltips consume these.
+      if (o.envShape) ev.env = o.envShape;
+      if (o.sonifyMode === 'plain' || o.sonifyMode === 'ks') ev.mode = o.sonifyMode;
       events.push(ev);
       perPart.get(o.layer).push({ ev, cls, obj: o });
     }

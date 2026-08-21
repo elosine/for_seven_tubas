@@ -45,6 +45,10 @@ Every look/behavior number is data. Edit the file; the page hot-reloads it.
 | chunk strategy, bar grouping, tempo of a chunk | the version's `.ir.json` → `chunks` |
 | page-turn / splice behavior | `notation/registry/page_rules.json` |
 
+**Hover any brick** → native tooltip with its identity: pitch · technique ·
+envelope species · span · class/strategy · source object id (day 22; the
+IR carries `env`/`mode` since schema amendment 3).
+
 Polled every second: `container.json` · `glyphs.json` · the current IR ·
 the picker manifest · the renders folder. **NOT polled: the source score** —
 notation never mutates piece data; if the piece changes in the composer
@@ -53,19 +57,20 @@ score, refresh the notation page once.
 ## §3 Version files (the composer-score save model, option A1)
 
 - **A version = one IR file** in `notation/ir/`, one picker entry. Naming:
-  `<section>-<part>-xNN` (e.g. `db1-T3-x01`).
+  `<section>-<part>-xNN`, **all lowercase** (e.g. `db1-t3-x01` — the IR id
+  pattern rejects capitals, found day 22).
 - Make / fork / prune (Git Bash-compatible):
 
 ```bash
-node tools/notate_section.js --score piece-s25-finished01 --w0 114 --w1 136 --parts 2 --profile section1 --id db1-T3-x01 --exp
+node tools/notate_section.js --score piece-s25-finished01 --w0 114 --w1 136 --parts 2 --profile section1 --id db1-t3-x01 --exp
 ```
 
 ```bash
-node tools/notate_section.js --from db1-T3-x01 --id db1-T3-x02 --exp
+node tools/notate_section.js --from db1-t3-x01 --id db1-t3-x02 --exp
 ```
 
 ```bash
-node tools/notate_section.js --prune db1-T3-x01
+node tools/notate_section.js --prune db1-t3-x01
 ```
 
 - `--exp` groups the entry under **experiments** in the picker; canonical
