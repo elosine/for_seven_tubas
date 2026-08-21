@@ -1,5 +1,5 @@
 {
-  "_status": "DRAFT — accumulating V0 decisions. G0 NOT passed; nothing frozen yet. Per-item status: decided | provisional | open | reserved.",
+  "_status": "G0 CLOSED 2026-08-20 (composer: 'let's go ahead and close G0 and move with V1'). Decided items FROZEN: frame 1920×1080 · no header (video-jury) · staff 31.6 px · vertical-budget policy A · font Crimson Pro Light · motion model PP-3. Provisional items are DATA, adjustable through POL without re-opening the gate. Later change requests = tier-3 ledger items unless structural.",
   "_history": [
     "2026-08-20 (day 21): created after the first true-size proof slate (proofs_v0). A/B/C/D verdicts filed — composer's words in COMPOSER_LOG same date."
   ],
