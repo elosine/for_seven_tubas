@@ -1702,7 +1702,7 @@ notation act, when the piece calls for it: **the actual PARTS notation
 first**, then its layout into the study score; requirements harvested
 while building the real score.
 
-## 8. PENN STATE DELIVERABLES BUILD — `planned 2026-08-20, runs post-piece`
+## 8. PENN STATE DELIVERABLES BUILD — `doing 2026-08-20 (day 21): V0 done + G0 CLOSED (frame · no header · staff 31.6 · budget A · Crimson · PP-3; provisional data deferred per the composer's decide-vs-defer filter); V1 BUILT same day (coords lane flexibility + zoomCfg · engraving registry + override channel + staff-off · gutter · the two windows in notation.html, verified live) — G1 = composer's eye, pending`
 
 - **8a — Deliverables container + exports** — `planned` — the three Penn State
   deliverables (MIDI recording · 1920×1080 screen-following video · PDF full
