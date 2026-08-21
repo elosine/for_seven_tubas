@@ -202,6 +202,12 @@
         }
       }
     }
+    // notes whose device already visualizes progress (a drawn level curve →
+    // envcurve + curveMeter) don't get the generic hold-wedge on top
+    // (composer, day 22: "still a pie at the go cursor — take that away")
+    const leveled = new Set(((ir && ir.events) || [])
+      .filter(e => e.level && e.level.samples)
+      .map(e => e.source && e.source.objectId).filter(Boolean));
     if (score && score.objects) {
       const groups = new Map();
       for (const o of score.objects) {
@@ -215,7 +221,8 @@
             nodes: o.nodes.map(n => ({ pos: n.pos, lvl: Math.min(10, Math.max(0, n.y)) / 10 })), _src: 's1-meta',
           });
         }
-        if (o.layer <= 9 && !o.morphBend && has(o.layer) && (o.endSeconds - o.startSeconds) >= style.lineWedge.minHoldSeconds) {
+        if (o.layer <= 9 && !o.morphBend && has(o.layer) && !leveled.has(o.id)
+          && (o.endSeconds - o.startSeconds) >= style.lineWedge.minHoldSeconds) {
           out.push({ kind: 'lineWedge', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, _src: 's1-hold' });
         }
         if (o.groupId) {

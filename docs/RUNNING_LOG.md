@@ -5490,3 +5490,21 @@ reports, five systemic fixes.**
 - **"Bar blocks the top of T1 in zoom" (mid-turn report):** the floating
   bar + its hover zone moved to the BOTTOM edge in container modes.
 - Suites green (animobj/layout/render/snapshots/midiplayer).
+
+**Day 22 (continued) — sitting-1 round 2: the ¾ staff, the black edge, the
+"pie at the go cursor".**
+- **¾-staff diagnosis: the hidden engineering width box was still ruling
+  the page.** The persisted w=16 stretched a 12 s section onto a 16 s page
+  — staff correctly ended at the material with the G1 terminal barline,
+  inside a needlessly long page. Primary mode now pages by the REGISTRY
+  time scale; the width box only rules when ⚙ is on. (On a genuinely
+  short FINAL page the ¾-staff look + terminal barline IS the decided
+  design — G1.)
+- **Black right edge = one-sided letterbox** from fit-scaling against the
+  cmode backdrop; the sheet now centers, framing symmetrically.
+- **"Pie at the go cursor" = the lineWedge** (generic long-hold progress
+  ring), redundant on a surge whose device already shows progress twice
+  (curve + meter). Systemic rule: notes carrying a drawn level curve
+  don't collect the generic wedge; plain long holds elsewhere keep it.
+- Verified live: page 0-12, staff to 1920, centered, overlay at mid-surge
+  = cursor + meter only. Animobj battery green.

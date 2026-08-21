@@ -250,6 +250,7 @@
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       $('sheet').style.transform = '';   // fit-scaling is container-mode only
+      $('sheet').style.width = ''; $('sheet').style.margin = '';
       const paged = $('mode').value === 'pages';
       const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
       const w = Math.max(wMin, parseFloat($('w').value) || 16);
@@ -304,7 +305,13 @@
         $('w').value = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
         state.wSeeded = true;
       }
-      const pageSeconds = Math.max(2, parseFloat($('w').value) || 12);
+      // primary mode pages by the REGISTRY time scale; the width box only
+      // rules when ⚙ engineering is on (a hidden stale box was silently
+      // stretching pages — the ¾-staff report)
+      const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+      const pageSeconds = $('eng').checked
+        ? Math.max(2, parseFloat($('w').value) || regSeconds)
+        : regSeconds;
       if (!state.vPages || state.vPagesW !== pageSeconds) {
         state.vPages = NotationSplice.planPages(state.ir, state.pageRules, pageSeconds);
         state.vPagesW = pageSeconds;
@@ -639,6 +646,9 @@
       el.style.width = (+el.getAttribute('width') * k) + 'px';
       el.style.height = (+el.getAttribute('height') * k) + 'px';
     }
+    // symmetric letterbox: center the page against the dark backdrop
+    sheet.style.width = (W * k) + 'px';
+    sheet.style.margin = '0 auto';
   }
 
   // click the score to SEEK (container modes; secondsOfX inverts the view;
