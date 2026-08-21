@@ -274,3 +274,58 @@ Assessment against the code:
   the same stamps later — a `glyphs.json` regeneration, not a rebuild. New
   glyph KINDS have a fixed, small extension path (metrics entry + stamp
   maker + renderer case + layout emitter), documented as part of V1.
+
+### §8 second addendum — the composer's plan interrogation (2026-08-20, day 21, before implementation)
+
+The composer pressed three points before the go; each was checked against
+the CODE (this repo's `notation/lib/*` + both prior repos' performance
+apps), and the build plan carries the amendments as **[A21]** items.
+
+**1. THE ANIMATED OBJECTS WERE A MISS — now V2's core.** Composer: this
+score will use *"probably all of the animated objects"* from the previous
+two scores — wave-curve/curve following (glissandi, crescendos), **GCs**
+(beat grids for play-along; single-shot events — as already discussed under
+M5), the line-wedge object, etc. The original plan fenced the GC ball out
+as "D45 territory" — that conflated ANIMATION with INTERACTIVITY. Re-cut:
+animated objects on the shared fixed timeline are IN this build; what stays
+severed (D45) is interactivity — leader/follower, per-player views,
+networked sync, rehearsal controls.
+**Code finding that makes this cheap:** both prior performance apps share
+ONE overlay inventory — **GC ball · curve follower · line-wedge meter ·
+motive pie** — and every draw is already a function of
+`currentDisplayTimeSec` (piece #1/#2 `performance_canvas_patches.js`;
+piece #1's GC data model: impact/start/end, stiffness, damping, ictus,
+descentRatio). So the V2 contract — every animated object = pure
+`state(t) → SVG` — is a PORT of proven code, not a new design, and it is
+exactly the property V4's deterministic frame render requires. Print
+counterparts exist as precedent too (piece #1 `compose_pages.js` prints GC
+arcs), so the PDF side is covered by V0 decision 11 + V5.
+
+**2. BUILD-NOW-REFINE-LATER made structural.** The composer's observed
+draft defects (beam direction wrong, ink protruding into a neighbor lane)
+must be fixable LATER without code. Code findings: beam direction is a
+hard-coded convention in `layout.js` (farthest-from-middle, ties down);
+`dxSs` exists on every item but no authored per-item override reaches it;
+the overlay pipeline WARNS on unknown kinds rather than dropping them —
+the extension point is waiting. Amendments: the **engraving-override
+overlay kind** (stem force · beam split · dx/dy nudge · size) in V1, and
+the **protrusion detector** auto-filing to the polish ledger in V3. Tier-3
+polish becomes data edits working a machine-fed ledger.
+
+**3. THE TRACK-HEIGHT THOUGHT EXPERIMENT (architecture probe, not a
+decision).** Findings: `makeView` already accepts arbitrary per-part lane
+fractions — irregular heights are representable by construction — but the
+`systemsForParts` generator only emits EQUAL bands, and `ssPerSystem` is
+one global, so today a taller lane necessarily means a proportionally
+bigger staff. Amendments (V1): per-part weights in the generator; optional
+per-lane `ssPerSystem` so lane height and staff scale are independent;
+the PP-6 Z-test extended to irregular configs; and the px boundary (only
+`coords.js` computes pixels) asserted mechanically — the invariant that
+retires the viewport-math bug class from previous pieces. Because layout
+is view-independent (seconds + ss only), ANY track-height regime — video,
+zoom, print, future part extraction or conductor⇄part conversion — is a
+lane-config + view edit; part-score derivation itself stays D45.
+
+*(The "fixed width, scroll downward" memory: nothing was nixed — it split
+by window. The VIDEO view is all-parts-in-frame with no scrolling (it is a
+video); the ZOOM view scrolls vertically. PP-2/PP-6 stand.)*

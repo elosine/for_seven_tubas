@@ -1716,6 +1716,16 @@ while building the real score.
   video export (ffmpeg 8.1.1 installed), PDF export; `notation.html` gains the
   two view modes. **Sequencing: runs AFTER the piece is finished, BEFORE
   part-by-part notation begins; V4/V5 may trail until submission.**
+  **AMENDED 2026-08-20 (day 21, composer's plan interrogation, pre-go):**
+  the animated graphic objects of pieces #1/#2 (GC ball · curve follower ·
+  line-wedge meter · envelope following) are IN this score — V2 becomes
+  transport + cursor + the ANIMATED OBJECT LAYER (pure `state(t) → SVG`
+  contract; both prior apps' overlays are already t-parameterized, so it is
+  a port). D45 fence re-cut: interactivity stays severed, animation does
+  not. Also added: per-part lane weights + per-lane staff scale + the
+  px-boundary test (V1) · engraving-override overlay kind (V1) · protrusion
+  detector auto-filing to the polish ledger (V3) · animated styling + print
+  counterparts (V0.11/V5). Preplan §8 second addendum has the full analysis.
 
 ## Parking lot
 

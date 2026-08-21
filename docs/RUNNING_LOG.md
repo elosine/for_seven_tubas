@@ -4663,3 +4663,31 @@ The piece now runs 751.4s = 12.5 minutes of the 15-minute Penn State
 ceiling. Both files backed up to the session scratchpad before the write
 (both untracked - the composer's live files). Verified: no id collisions,
 no time overlap with existing material, group intact.
+
+**Day 21 — THE PLAN INTERROGATION (8a, pre-implementation).** The composer
+pressed the deliverables plan on three points before the go; every claim was
+checked against code, not asserted. (1) THE MISS: the plan had fenced the GC
+ball out as "D45 territory" — but the composer will use *"probably all of
+the animated objects"* from pieces #1/#2 in THIS score (curve/wave-curve
+following for gliss + crescendos, GCs for beat grids and single shots, line
+wedges). The fence conflated animation with interactivity. MEASURED: both
+prior performance apps share one overlay inventory (GC ball · curve
+follower · line-wedge meter · motive pie) and every draw is already a pure
+function of currentDisplayTimeSec — so the fix is a CONTRACT (state(t) →
+SVG, deterministic, no wall clock) and a PORT, not a design. That same
+property is what V4's frame-by-frame export needs, so the miss, once found,
+strengthens the export story. (2) REFINE-LATER made structural: beam
+direction is a hard-coded convention in layout.js and no authored channel
+reaches the per-item dxSs — added the engraving-override overlay kind (V1)
++ a protrusion auto-detector filing to the polish ledger (V3). The overlay
+pipeline already warns-not-drops on unknown kinds — the extension point was
+waiting. (3) TRACK-HEIGHT THOUGHT EXPERIMENT: makeView takes arbitrary lane
+fractions (irregular heights representable by construction) but
+systemsForParts only GENERATES equal bands and ssPerSystem is global — a
+taller lane today means a proportionally bigger staff. Added per-part
+weights + per-lane ssPerSystem + the px-boundary test (only coords.js may
+compute pixels — the invariant that retires the viewport-math bug class the
+composer named from previous pieces). Wrong-path kept: my first framing had
+treated "scroll downward" as possibly nixed — it wasn't; it split by window
+(video = all parts fixed, zoom = vertical scroll). Amendments live as [A21]
+in DELIVERABLES_BUILD_PLAN.md; analysis in the preplan §8 second addendum.

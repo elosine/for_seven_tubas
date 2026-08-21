@@ -693,3 +693,21 @@ actual score — D6's reverse-engineering stance applied to notation.
    0.500s steady intervals, zero ring violations in 829 pairs. The
    fast-texture illusion dissolves per part; what remains is endurance
    (84 notes over 40s), a different performer question entirely.
+
+9. **The wrong fence (day 21, plan interrogation) — animation is not
+   interactivity.** The deliverables plan had excluded the animated notation
+   devices (GC ball, curve followers, line wedges) as "performance-runtime
+   territory," severing them with D45. The composer's interrogation exposed
+   the cut as running through the wrong joint: the jury VIDEO is itself an
+   animated score, so the animated vocabulary developed across two prior
+   pieces belongs to the deliverable, and only INTERACTIVITY (leader/
+   follower, per-player views, networked sync) stays severed. Paper-facing
+   points: (a) the devices survived three pieces because their drawing code
+   was accidentally architecture — every overlay a pure function of display
+   time — which is precisely the property a deterministic frame-by-frame
+   video export needs; formalizing an accident into a contract (state(t) →
+   SVG) is the recurring maturation move of this process. (b) The
+   fence-finding method was the composer interrogating a written plan
+   against intended USE ("I will be using all the animated objects"), not
+   reviewing code — the plan document is the interface where such misses
+   become visible before they become rebuilds.
