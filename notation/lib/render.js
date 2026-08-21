@@ -26,12 +26,12 @@
       tick: { wSs: 0.12, hSs: 0.8 },
       brickOpacity: 0.45,
       reshow: { xSs: 4.2, sizeSs: 0.75 },
-      // the env-curve device (day 22): stroke/fill/dash numbers ported
-      // VERBATIM from piece #1 compose_pages.js (curve stroke 1.5 @ 0.8,
-      // fill-under 0.15; go line 0.5 @ 0.4 dash 2,2); green = this piece's
-      // surge color (#2E7D32, the composer-score drawn-curve green)
-      envCurve: { strokeWPx: 1.5, strokeOpacity: 0.8, fillOpacity: 0.15, color: '#2E7D32' },
-      goLine: { wPx: 0.5, opacity: 0.4, dash: '2,2', color: '#2E7D32' },
+      // the env-curve device (day 22, retuned same day by composer verdicts:
+      // "no outline to curve" -> fill-only, opacity raised to read alone;
+      // "go line not visible" -> thicker/darker dashes, AI-intuited numbers).
+      // Green = this piece's surge color (#2E7D32).
+      envCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.3, color: '#2E7D32' },
+      goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#2E7D32' },
     }, (opts && opts.engraving) || {});
     const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
@@ -143,13 +143,30 @@
           // 0..1 maps bottom -> top of the track), clipped to the window
           if (it.t1 < w0 || it.t0 > w1) continue;
           const EC = E.envCurve;
-          const n = it.samples.length;
           const yT = sys.yTopPx, yB = sys.yBotPx;
+          // cut (surge): draw the RISE to the peak sample, hold to the note
+          // end, then a 90° vertical back edge — the composer's verdict; the
+          // sounding release ramp stays in the samples, only the ink squares
+          let samples = it.samples;
+          let cutEdge = false;
+          if (it.cut) {
+            let iMax = 0;
+            for (let i = 1; i < samples.length; i++) if (samples[i] > samples[iMax]) iMax = i;
+            samples = samples.slice(0, iMax + 1);
+            cutEdge = samples.length >= 2;
+          }
+          const n = samples.length;
+          const span = it.cut ? (it.t1 - it.t0) * ((n - 1) / (it.samples.length - 1)) : (it.t1 - it.t0);
           const pts = [];
           for (let i = 0; i < n; i++) {
-            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
+            const t = it.t0 + span * (i / (n - 1));
             if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            pts.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yT)]);
+            pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
+          }
+          if (cutEdge && it.t1 >= w0 - 1e-9 && it.t1 <= w1 + 1e-9 && pts.length) {
+            // hold at peak level to the note end; the fill closure below
+            // drops the vertical edge at exactly t1
+            pts.push([view.xOfSeconds(it.t1), pts[pts.length - 1][1]]);
           }
           if (pts.length >= 2) {
             const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
@@ -158,8 +175,10 @@
                 ' L' + pts[0][0].toFixed(1) + ',' + yB.toFixed(1) + ' Z" fill="' + EC.color +
                 '" fill-opacity="' + EC.fillOpacity + '" stroke="none"/>');
             }
-            parts.push('<path d="' + line + '" fill="none" stroke="' + EC.color + '" stroke-width="' + EC.strokeWPx +
-              '" stroke-opacity="' + EC.strokeOpacity + '"/>');
+            if (EC.strokeWPx > 0 && EC.strokeOpacity > 0) {
+              parts.push('<path d="' + line + '" fill="none" stroke="' + EC.color + '" stroke-width="' + EC.strokeWPx +
+                '" stroke-opacity="' + EC.strokeOpacity + '"/>');
+            }
           }
         } else if (it.k === 'goline') {
           // dotted vertical at go time, full lane band (piece #1's go-time
@@ -171,6 +190,7 @@
             '" stroke="' + GL.color + '" stroke-width="' + GL.wPx + '" stroke-opacity="' + GL.opacity +
             '" stroke-dasharray="' + GL.dash + '"/>');
         } else if (it.k === 'brick') {
+          if (o.hideBricks) continue;   // day 22: the bricks toggle
           if (it.t1 < w0 || it.t0 > w1) continue;
           const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
           // native tooltip (day 22): hover a brick to see what it is; the

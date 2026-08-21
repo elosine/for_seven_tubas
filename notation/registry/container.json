@@ -72,8 +72,8 @@
       "brickOpacity": 0.45,
       "reshow": { "xSs": 4.2, "sizeSs": 0.75 },
       "systemEndBar": { "wPx": 1.5, "opacity": 0.55 },
-      "envCurve": { "strokeWPx": 1.5, "strokeOpacity": 0.8, "fillOpacity": 0.15, "color": "#2E7D32", "_note": "day 22, the surge/env-curve device element 1: stroke/fill numbers VERBATIM from piece #1 compose_pages.js (the viola opening gesture); green = this piece's composer-score surge color" },
-      "goLine": { "wPx": 0.5, "opacity": 0.4, "dash": "2,2", "color": "#2E7D32", "_note": "day 22, device element 2: the dotted go-time line, piece #1's go-time marker numbers verbatim" }
+      "envCurve": { "strokeWPx": 0, "strokeOpacity": 0, "fillOpacity": 0.3, "color": "#2E7D32", "_note": "day 22, retuned same day (composer: no outline; surge back edge = 90° cut, drawn by render when env=surge): fill-only at 0.3 so the shape reads alone. Piece #1 numbers (stroke 1.5 @ 0.8, fill 0.15) kept here for the record." },
+      "goLine": { "wPx": 1.5, "opacity": 0.85, "dash": "5,4", "color": "#2E7D32", "_note": "day 22, retuned same day (composer: 'not visible... intuit a set of settings'): thicker, denser dashes. Piece #1 originals: 0.5 @ 0.4 dash 2,2." }
     }
   },
 

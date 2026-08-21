@@ -69,6 +69,7 @@
     <option value="morph-window-01">morph-window-01 (follower/wedge)</option>
   </select></label>
   <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
+  <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
   <label>parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
@@ -103,7 +104,7 @@
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
   const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
-  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi'];
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks'];
   // hoisted: a RESTORED container view (UI persistence) runs the whole
   // transport/anim/MIDI path during the INITIAL render, which the old
   // top-to-bottom declaration order never had to survive
@@ -257,7 +258,7 @@
         widthPx, heightPx, window: [t0, t1],
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
-      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked });
       state.lastView = view;
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
@@ -320,6 +321,7 @@
       const ownsEnd = state.pageIdx === state.vPages.length - 1;
       let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
         reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+        hideBricks: !$('bricks').checked,
       });
       // system TERMINAL barline at the right edge — the visible statement
       // that the system ENDS here by design (composer, G1: staff lines
@@ -427,7 +429,7 @@
       if (y >= s.yTopPx && y <= s.yBotPx) { $('parts').value = String(s.part); render(); return; }
     }
   });
-  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
+  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score', 'bricks']) $(id).addEventListener('change', render);
   $('ir').addEventListener('change', async () => { midiFlush(); await loadIr($('ir').value); render(); });
   $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   // container-mode chrome: bar auto-hides (shown briefly on entry, and on

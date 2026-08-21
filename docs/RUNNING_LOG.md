@@ -5268,3 +5268,23 @@ four screenshots: "I dont understand them and they might be buggy").**
 - **Sandbox settings guidance given** (pre-fix: notation/window/T1/w=12,
   video for sound; post-fix: ZOOM is the primary sandbox surface as the
   two-window design intended).
+
+**Day 22 (continued) — surge device retuned by composer verdicts (round 1
+of looking at it): bricks toggle · 90° back edge · visible go line ·
+fill-only curve.**
+- **Bricks toggle:** new checkbox next to M4 lines (persists; hides the
+  parachute bricks AND their tooltips — a render option, hideBricks).
+- **90° cut:** for env=surge the drawn ink now rises to the PEAK sample,
+  holds to the note end, and drops dead-vertical — the composer's "ending/
+  back of curve should be 90 degrees." The sounding 2% release ramp stays
+  in the data untouched; only the ink squares off. Verified in the DOM:
+  ...(865,24)->(874,24)->(874,280) = rise, hold, vertical.
+- **Go line was invisible; composer delegated the numbers** ("intuit a set
+  of settings, I dont want to get bogged"): now 1.5 px @ 0.85, dash 5,4
+  (was piece #1's 0.5 @ 0.4, 2,2 — right for its dense pages, too faint
+  alone on ours). Curve = NO outline (composer), fill raised 0.15 -> 0.3
+  so the shape reads alone. Old piece-#1 numbers kept in the registry
+  _notes for the record.
+- Suites green (layout/render/75 snapshots/splice — corpora carry no
+  env curves, so snapshots were expected to hold and did). Registry values
+  and code defaults kept in sync.
