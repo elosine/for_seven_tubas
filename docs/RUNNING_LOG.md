@@ -5350,3 +5350,32 @@ five demo version files.**
   4 ledgers below; the 3-ledger rule fires). Tuba convention usually READS
   low ledgers happily — if 8vb is unwanted for this piece, the threshold
   (or below-direction engagement) is registry data, one edit.
+
+**Day 22 (continued) — nh-unit round 2: three SYSTEMIC rules (composer:
+"make sure these are systemic fixes not one offs so the troubleshooting
+gets lighter the more we make") + 15ma.**
+- **H.4c.3 WAS the missed piece-#2 rule** (the composer remembered
+  resolving it there): accidental right edge sits the D.6 gap left of
+  WHICHEVER extends further left — head edge or a ledger whose y the
+  glyph touches. Ported into the unit builder (extended from p2's
+  anchorY-match to glyph-bbox overlap, which degenerates to p2's rule on
+  exact-line notes).
+- **The go-gap is measured from the unit's RIGHTMOST INK** — the ledger
+  overhang when ledgers exist, else the head edge. (Round 1 anchored the
+  head and the ledger crossed the go line.)
+- **Ottava bracket spans the NOTEHEAD ONLY** — hook flush at the head's
+  right edge (+ endPadSs registry, default 0); dashes RIGHT-ALIGNED
+  stepping back from the hook (p2's emitDashes detail — connecting dash
+  meets the hook to form the L); label at the unit's left ink, widening
+  leftward if the span is under minBracketSpanSs; vertical ref = the
+  unit's outermost INK (head/accidental/ledger), not just the head.
+- **A fourth systemic rule found BY THE MEASUREMENTS, not the eye:**
+  noteY-aligned glyphs anchor OFF-CENTER horizontally, so edge math must
+  use (wSs - anchorX), not wSs/2 — the 3/4-flat sat 0.16 ss too far left
+  (measured 5.6 px gap vs sharp's correct 2.1). Anchor-aware edges now;
+  verified both accidentals at exactly 0.10 ss off the ledger edge.
+- **15ma/15mb ported** (baked Crimson outlines); label picks by octave
+  count (8va/8vb at 1, 15ma/15mb at 2, clamped + warned beyond).
+  x05 demo now E6 -> 15ma on a top ledger, hook verified flush at the
+  head edge (316.73 vs 316.7).
+- All suites green.

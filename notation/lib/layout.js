@@ -178,10 +178,19 @@
                 while (yDraw > th) { yDraw -= 3.5; octShift++; }
                 while (yDraw < -th) { yDraw += 3.5; octShift--; }
                 const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
-                const headDx = -(gapSs + nhO.wSs / 2);   // right edge -> gap before go
+                const ledgers = ledgersFor(yDraw);
+                // SYSTEMIC anchor rule (day 22 round 2): the gap before the
+                // go line is measured from the unit's RIGHTMOST INK — the
+                // ledger overhang when ledgers exist, else the head edge.
+                const ledgerExt = ledgers.length
+                  ? nhO.wSs * ((stds.ledgerLine && stds.ledgerLine.lengthFraction) || 0.25) : 0;
+                const headDx = -(gapSs + ledgerExt + nhO.wSs / 2);
                 items.push({ k: 'glyph', g: 'notehead-open', t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
-                for (const L of ledgersFor(yDraw)) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
-                let leftEdgeDx = headDx - nhO.wSs / 2;   // the unit's growing left edge
+                for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
+                // unit ink extents (grow as elements land) — feed both the
+                // accidental clearance and the ottava geometry
+                let leftEdgeDx = headDx - nhO.wSs / 2 - ledgerExt * (ledgers.length ? 1 : 0);
+                let inkTopY = yDraw + nhO.hSs / 2, inkBotY = yDraw - nhO.hSs / 2;
                 if (spN.alter) {
                   const accKind = ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
                     '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
@@ -190,27 +199,57 @@
                   if (acc) {
                     const accGap = (stds.accidental && stds.accidental.gapToNotehead) || 0.1;
                     const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
-                    const accDx = headDx - nhO.wSs / 2 - accGap - acc.wSs / 2;
+                    // vertical extents of the accidental glyph about the note y
+                    const accTopExt = align === 'noteY' ? acc.anchors.noteY.y : acc.hSs / 2;
+                    const accBotExt = acc.hSs - accTopExt;
+                    // H.4c.3 LEDGER CLEARANCE (piece #2, ported day 22 round
+                    // 2 — the composer remembered right): the accidental's
+                    // right edge sits the D.6 gap left of WHICHEVER extends
+                    // further left — the head's left edge or any ledger the
+                    // glyph's y-span touches. (p2 matched ledger y to the
+                    // accidental's anchorY; extended here to the glyph bbox,
+                    // which degenerates to p2's rule on exact-line notes.)
+                    let clearDx = headDx - nhO.wSs / 2;   // head left edge
+                    for (const L of ledgers) {
+                      if (L <= yDraw + accTopExt + 1e-9 && L >= yDraw - accBotExt - 1e-9) {
+                        clearDx = Math.min(clearDx, headDx - nhO.wSs / 2 - ledgerExt);
+                        break;
+                      }
+                    }
+                    // anchor-aware horizontal edges (round-2 measurement
+                    // finding): a noteY-aligned glyph anchors OFF-CENTER, so
+                    // its right edge sits (wSs - anchorX) past the anchor,
+                    // not wSs/2 — center alignment is the degenerate case
+                    const anchorX = align === 'noteY' ? acc.anchors.noteY.x : acc.wSs / 2;
+                    const accDx = clearDx - accGap - (acc.wSs - anchorX);
                     items.push({ k: 'glyph', g: 'accidental-' + accKind, t: e.onset, dxSs: accDx, ySs: yDraw, align });
-                    leftEdgeDx = accDx - acc.wSs / 2;
+                    leftEdgeDx = Math.min(leftEdgeDx, accDx - anchorX);
+                    inkTopY = Math.max(inkTopY, yDraw + accTopExt);
+                    inkBotY = Math.min(inkBotY, yDraw - accBotExt);
                   } else if (accKind === undefined) {
                     warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
                   }
                 }
                 if (octShift !== 0) {
-                  // bracket over the sounding extent; vertical per the
-                  // session-77 formula: outer VISIBLE edge sits standardGapSs
-                  // from the head's outer edge, so the line sits one hook
-                  // further out. |octShift| > 1 still draws the 8va/8vb
-                  // family label (15ma glyphs exist at the source when needed).
+                  // bracket over the NOTEHEAD ONLY (composer, round 2): the
+                  // hook lands at the head's right edge (+ endPadSs, registry,
+                  // default 0). Vertical per session 77: outer VISIBLE edge
+                  // sits standardGapSs beyond the unit's outermost INK (head,
+                  // accidental, or ledger — whichever reaches furthest), so
+                  // the line sits one hookLength past that. Label: 8va/8vb at
+                  // one octave, 15ma/15mb at two (clamped, warned beyond).
                   const O = stds.ottava || {};
                   const std = O.standardGapSs || 0.45, hook = O.hookLengthSs || 0.8;
                   const above = octShift > 0;   // sounding higher than written
-                  const ref = yDraw + (above ? nhO.hSs / 2 : -nhO.hSs / 2);
+                  const n = Math.min(2, Math.abs(octShift));
+                  if (Math.abs(octShift) > 2) warnings.push('nh-unit ' + e.id + ': ' + Math.abs(octShift) + ' octaves exceeds 15ma — clamped');
+                  const label = above ? (n === 1 ? 'va8' : 'ma15') : (n === 1 ? 'vb8' : 'mb15');
+                  const ref = above ? inkTopY : inkBotY;
                   const lineY = above ? ref + std + hook : ref - std - hook;
                   items.push({
-                    k: 'ottava', t0: e.onset, t1: e.onset + e.duration, dx0Ss: leftEdgeDx,
-                    ySs: lineY, dir: above ? 'above' : 'below', label: above ? 'va8' : 'vb8', ev: e.id,
+                    k: 'ottava', t: e.onset, dx0Ss: leftEdgeDx,
+                    dx1Ss: headDx + nhO.wSs / 2 + ((O.endPadSs != null) ? O.endPadSs : 0),
+                    ySs: lineY, dir: above ? 'above' : 'below', label, ev: e.id,
                   });
                 }
               }

@@ -190,33 +190,40 @@
             }
           }
         } else if (it.k === 'ottava') {
-          // piece #2 session-57 bracket: label glyph · dotted line · closing
-          // hook toward the staff. All geometry from glyphs.standards.ottava.
-          if (it.t1 < w0 || it.t0 > w1) continue;
+          // piece #2 session-57 bracket over the NOTEHEAD ONLY (round 2):
+          // label · dashes RIGHT-ALIGNED stepping back from the hook (p2's
+          // emitDashes — the connecting dash meets the hook, forming the L),
+          // hook at the head's right edge. Geometry: glyphs.standards.ottava.
+          if (!inWin(it.t)) continue;
           const O = stds.ottava || {};
           const lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
           const yLine = Y(it.ySs);
-          const x0 = X(Math.max(it.t0, w0), it.dx0Ss || 0);
-          const x1 = view.xOfSeconds(Math.min(it.t1, w1));
-          let xDashStart = x0;
+          let xLabel = X(it.t, it.dx0Ss || 0);
+          const xHook = X(it.t, it.dx1Ss || 0);
+          // a too-narrow unit widens the bracket leftward to its minimum span
+          const minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
+          const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0;
+          if (xHook - (xLabel + lgW) < minSpan) xLabel = xHook - minSpan - lgW;
+          let xDashStart = xLabel;
           if (lg) {
             // text baseline straddles the line (lineAttachAboveBaselineSs)
             const ty = yLine + (O.lineAttachAboveBaselineSs || 0.32) * ssPx - lg.hSs * ssPx;
-            parts.push('<g transform="translate(' + x0.toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + ssPx + ')">' +
+            parts.push('<g transform="translate(' + xLabel.toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + ssPx + ')">' +
               '<path d="' + lg.path + '"/></g>');
-            xDashStart = x0 + (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx;
+            xDashStart = xLabel + lgW;
           }
           const thick = (O.lineThicknessSs || 0.067) * ssPx;
-          const dash = ((O.dashLengthSs || 0.3) * ssPx).toFixed(2) + ',' + ((O.gapBetweenDashesSs || 0.7) * ssPx).toFixed(2);
-          if (x1 > xDashStart) {
-            parts.push('<line x1="' + xDashStart.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + x1.toFixed(2) +
-              '" y2="' + yLine.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) +
-              '" stroke-dasharray="' + dash + '"/>');
-            // hook extends from the line BACK TOWARD the staff
-            const hook = (O.hookLengthSs || 0.8) * ssPx * (it.dir === 'above' ? 1 : -1);
-            parts.push('<line x1="' + x1.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + x1.toFixed(2) +
-              '" y2="' + (yLine + hook).toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+          const dashLen = (O.dashLengthSs || 0.3) * ssPx, dashGap = (O.gapBetweenDashesSs || 0.7) * ssPx;
+          let xEnd = xHook;
+          while (xEnd - dashLen >= xDashStart - 1e-6) {
+            parts.push('<line x1="' + (xEnd - dashLen).toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xEnd.toFixed(2) +
+              '" y2="' + yLine.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+            xEnd -= dashLen + dashGap;
           }
+          // hook extends from the line BACK TOWARD the staff
+          const hook = (O.hookLengthSs || 0.8) * ssPx * (it.dir === 'above' ? 1 : -1);
+          parts.push('<line x1="' + xHook.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xHook.toFixed(2) +
+            '" y2="' + (yLine + hook).toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
         } else if (it.k === 'goline') {
           // dotted vertical at go time, full lane band (piece #1's go-time
           // marker: 0.5 @ 0.4, dasharray 2,2)

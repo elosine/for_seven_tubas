@@ -27,11 +27,11 @@
    "onset": 4.198,
    "duration": 4.192,
    "pitch": {
-    "midi": 76,
+    "midi": 88,
     "spelled": {
      "step": "E",
      "alter": 0,
-     "octave": 5
+     "octave": 6
     }
    },
    "technique": "ord",

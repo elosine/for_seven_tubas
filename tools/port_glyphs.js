@@ -97,10 +97,11 @@ const out = {
   // day 22 (nh-unit): ottava labels — piece #2's baked project-font glyphs
   // (Crimson Pro Light Italic outlined to paths, session 57); 8va/8vb only
   // for now, 15ma/22ma exist at the source when needed
-  ottavaText: {
-    va8: { path: read('glyphs/text_paths.json')['8va'].path, wSs: read('glyphs/text_paths.json')['8va'].width, hSs: read('glyphs/text_paths.json')['8va'].height, _provenance: prov('glyphs/text_paths.json 8va') },
-    vb8: { path: read('glyphs/text_paths.json')['8vb'].path, wSs: read('glyphs/text_paths.json')['8vb'].width, hSs: read('glyphs/text_paths.json')['8vb'].height, _provenance: prov('glyphs/text_paths.json 8vb') },
-  },
+  ottavaText: (() => {
+    const tx = read('glyphs/text_paths.json');
+    const one = (k) => ({ path: tx[k].path, wSs: tx[k].width, hSs: tx[k].height, _provenance: prov('glyphs/text_paths.json ' + k) });
+    return { va8: one('8va'), vb8: one('8vb'), ma15: one('15ma'), mb15: one('15mb') };
+  })(),
   flag: {
     up8: { path: fl['8up'].path, wSs: fl['8up'].width, hSs: fl['8up'].height, anchors: { stemTip: fl['8up'].anchor }, _provenance: prov('glyphs/flag_paths.json 8up') },
     down8: { path: fl['8down'].path, wSs: fl['8down'].width, hSs: fl['8down'].height, anchors: { stemTip: fl['8down'].anchor }, _provenance: prov('glyphs/flag_paths.json 8down') },
