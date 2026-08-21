@@ -4861,3 +4861,20 @@ against a contrasting generic. F-consolas + F-cascadia proofs added
 (composer permission) and only matters if the font gets EMBEDDED
 (PDF/web) - rendered video pixels carry no license question; Consolas
 ships with every Windows.
+
+**Day 21 — V0.7: THE FONT WAS CRIMSON PRO LIGHT ALL ALONG.** The composer
+corrected the Consolas guess: "Crimson Pro Light and Crimson Pro Light
+Italic." Grep of both prior repos confirms it as THE notation text font of
+the lineage - LilyPond textFontName in #1 and #2, piece #2's SVG component
+library, and piece #2's performance app EMBEDS the TTFs (@font-face,
+weight 300) and converts text to path outlines at build (the proven
+rasterizer escape hatch, now noted in container.json _exportNote). No
+download needed: TTFs copied from piece #1 public/fonts into
+notation/app/fonts/ (104+106 KB, SIL OFL). Proof pair F-crimson /
+F-crimson-italic added (pager 21-22). MECHANICS: an <img>-loaded SVG
+cannot fetch fonts, so the pager now INLINES the SVGs and @font-faces the
+TTFs at page level. VERIFIED: both faces load ("loaded" status) and render
+with real distinct metrics (canvas widths 231.1 roman / 220.5 italic /
+234.4 serif fallback); pager fit still exact (no scrollbars at
+1920x1080). Prior-use convention noted for V1 registry: Light = labels/
+tempo, Light Italic = expressive/instruction text.

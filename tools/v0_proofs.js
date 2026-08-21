@@ -130,11 +130,19 @@ const FONTS = [
   // font (PDF/web); rendered video pixels carry no font license question.
   ['consolas', 'Consolas, monospace'],
   ['cascadia', "'Cascadia Mono', monospace"],
+  // day-21 correction (composer): THE font of both prior pieces — Crimson
+  // Pro Light (+ Light Italic for expressive text). LilyPond textFontName
+  // in #1/#2, embedded + text-outlined in #2's performance app. TTFs
+  // copied from piece #1 into notation/app/fonts/; the pager inlines the
+  // SVGs and @font-faces them (an <img>-loaded SVG cannot fetch fonts).
+  ['crimson', "'Crimson Pro Light', serif"],
+  ['crimson-italic', "'Crimson Pro Light', serif", 'italic'],
 ];
-for (const [name, stack] of FONTS) rows.push(proof({
+for (const [name, stack, style] of FONTS) rows.push(proof({
   ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, file: 'F-' + name + '.svg',
-  params: 'F: font ' + stack.replace(/'/g, '') + ' · chosen container · trance',
-  postProcess: svg => svg.replace(/font-family="sans-serif"/g, 'font-family="' + stack.replace(/'/g, '&#39;') + '"'),
+  params: 'F: font ' + stack.replace(/'/g, '') + (style ? ' ' + style : '') + ' · chosen container · trance',
+  postProcess: svg => svg.replace(/font-family="sans-serif"/g,
+    'font-family="' + stack.replace(/'/g, '&#39;') + '"' + (style ? ' font-style="' + style + '"' : '')),
 }));
 
 // index.html — PIXEL-EXACT PAGER. One proof at a time at 0,0 with zero page
@@ -154,17 +162,23 @@ const meta = rows.map((r, i) => ({
 fs.writeFileSync(path.join(OUT, 'index.html'), [
   '<!doctype html><meta charset="utf-8"><title>V0 proofs</title>',
   '<style>',
+  // Crimson Pro Light = the prior pieces\' notation text font; the SVGs are
+  // INLINED (not <img>) precisely so these page-level faces reach them.
+  '@font-face{font-family:"Crimson Pro Light";font-style:normal;font-weight:300;src:url("../fonts/CrimsonPro-Light.ttf") format("truetype")}',
+  '@font-face{font-family:"Crimson Pro Light";font-style:italic;font-weight:300;src:url("../fonts/CrimsonPro-LightItalic.ttf") format("truetype")}',
   'html,body{margin:0;padding:0;background:#000}',
-  '#frame{display:block;width:1920px;height:1080px;background:#fff}',
+  '#frame{display:block;width:1920px;height:1080px;background:#fff;overflow:hidden}',
+  '#frame svg{display:block}',
   '#cap{position:fixed;top:6px;right:8px;background:#000c;color:#fff;font:14px/1.4 sans-serif;padding:6px 10px;border-radius:4px;max-width:46em}',
   '#cap .hint{color:#9ab;font-size:12px}',
   '</style>',
-  '<img id="frame" src="' + meta[0].file + '" width="1920" height="1080">',
+  '<div id="frame"></div>',
   '<div id="cap"></div>',
   '<script>',
   'const M=' + JSON.stringify(meta) + ';let i=0,capOn=true;',
-  'const img=document.getElementById("frame"),cap=document.getElementById("cap");',
-  'function show(){img.src=M[i].file;cap.style.display=capOn?"block":"none";',
+  'const frame=document.getElementById("frame"),cap=document.getElementById("cap");',
+  'async function show(){const r=await fetch(M[i].file);frame.innerHTML=await r.text();',
+  ' cap.style.display=capOn?"block":"none";',
   ' cap.innerHTML=M[i].cap+"<div class=hint>J/K = next/prev &nbsp;·&nbsp; C = hide this caption &nbsp;·&nbsp; F11 = exact fit</div>";}',
   'document.addEventListener("keydown",e=>{const k=e.key.toLowerCase();',
   ' if(k==="j")i=Math.min(M.length-1,i+1);else if(k==="k")i=Math.max(0,i-1);',

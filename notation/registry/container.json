@@ -54,7 +54,11 @@
     "_cSwitch": "TESTED 2026-08-20 (proofs E-staff31p6 vs E-staff28): staff size flipped as ONE number on the chosen no-header container — identical ink inventory (335/173/162/22 elements), staff span lands at exactly 31.60 vs 28.00 px measured off the drawn lines, text scales within 0.1% of the predicted ratio. At staff 28 the F#1 worst case drops to ~2.5 px past the lane edge = inside the gap, no neighbor contact — so if collisions ever annoy, the one-number switch to ~28 clears them wholesale."
   },
 
-  "typography": { "_status": "open — font (V0.7) undecided; engraving-registry census (V0.10) not yet run" },
+  "typography": {
+    "_status": "open — font (V0.7) awaiting the composer's pick; engraving-registry census (V0.10) not yet run",
+    "_leadCandidate": "CRIMSON PRO LIGHT (+ Light Italic) — the notation text font of BOTH prior pieces (LilyPond textFontName; piece #2's performance app embeds the TTFs and outlines text to paths at build). TTFs copied from piece #1 into notation/app/fonts/ (Light 104 KB, LightItalic 106 KB; SIL OFL). Likely V1 registry mapping per prior use: Light for labels/tempo, Light Italic for expressive/instruction text.",
+    "_exportNote": "V4/V5 rasterizer must load these TTFs; piece #2's proven escape hatch if it misbehaves = convert text to path outlines at export (build_performance_app.js precedent)."
+  },
   "systemTurn": { "_status": "open (V0.4: hard cut vs two-system swap — mock both, judge by watching)" },
   "metaOverlay": { "_status": "open (V0.8: opacity/color, ported from graphic.js)" },
   "animatedObjects": { "_status": "open (V0.11: vocabulary, styling, print counterparts)" }
