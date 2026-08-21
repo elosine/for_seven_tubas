@@ -14,6 +14,21 @@
 
   function renderSection(model, view, glyphs, opts) {
     const o = Object.assign({ ink: '#111', brick: '#4E7A9B', muted: '#8a8a8a', paper: '#fff' }, opts || {});
+    // engraving registry (V0.10/V1): every look number in one mergeable
+    // block; code defaults = the census values, so a caller without opts
+    // renders identically. The shell passes container.json engraving.render.
+    const E = Object.assign({
+      fontFamily: 'sans-serif',
+      partLabel: { xPx: 4, yOffsetSs: 0.9, sizeSs: 1.1 },
+      textScale: 1.3,
+      clefInsetSs: 0.6, clefGutterGapSs: 0.75,
+      attackLine: { wSs: 0.18, hSs: 2.2, offsetSs: 1.1 },
+      tick: { wSs: 0.12, hSs: 0.8 },
+      brickOpacity: 0.45,
+      reshow: { xSs: 4.2, sizeSs: 0.75 },
+    }, (opts && opts.engraving) || {});
+    const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
     const S = Stamps.makeStamps(glyphs);
     const boxFor = g => {
       if (g === 'notehead') return S.notehead();
@@ -43,15 +58,15 @@
       const X = (t, dxSs) => view.xOfSeconds(t) + (dxSs || 0) * ssPx;
       const Y = ss => sys.yOfSs(ss);
       parts.push('<g fill="' + o.ink + '">');
-      // part label at the left edge
-      parts.push('<text x="4" y="' + (sys.yTopPx + 0.9 * ssPx).toFixed(1) + '" font-size="' + (1.1 * ssPx).toFixed(1) +
-        '" font-family="sans-serif" fill="' + o.muted + '">T' + (sysModel.part + 1) + '</text>');
+      // part label at the left edge (inside the gutter when one exists)
+      parts.push('<text x="' + E.partLabel.xPx + '" y="' + (sys.yTopPx + E.partLabel.yOffsetSs * ssPx).toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
+        '"' + fontAttr + ' fill="' + o.muted + '">T' + (sysModel.part + 1) + '</text>');
       // page-edge rule: a chunk continuing across the cut re-shows its tempo
       // label at the page start (splice.js planPages -> page.reshow)
       for (const rs of (opts && opts.reshow) || []) {
         if (rs.part !== sysModel.part) continue;
-        parts.push('<text x="' + (4.2 * ssPx).toFixed(1) + '" y="' + Y(4.6).toFixed(1) + '" font-size="' +
-          (0.75 * ssPx * 1.3).toFixed(1) + '" font-family="sans-serif" fill="' + o.muted + '">' + esc(rs.text) + '</text>');
+        parts.push('<text x="' + (view.gutterPx + E.reshow.xSs * ssPx).toFixed(1) + '" y="' + Y(4.6).toFixed(1) + '" font-size="' +
+          (E.reshow.sizeSs * ssPx * E.textScale).toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(rs.text) + '</text>');
       }
 
       for (const it of sysModel.items) {
@@ -63,10 +78,21 @@
               '" height="' + (stds.staff.lineThickness * ssPx).toFixed(2) + '"/>');
           }
         } else if (it.k === 'clef') {
-          // the clef PINS to the view's left edge when the strip has
-          // scrolled past its home position — staff furniture, always shown
-          const cx = Math.max(view.xOfSeconds(it.t), 0);
-          parts.push(Stamps.toSvg(S.clefBass(), { xPx: cx + 0.6 * ssPx, yPx: Y(1), ssPx, align: 'fLine' }));
+          // with a prefatory gutter the clef lives IN the dead space,
+          // right-aligned toward the music start (A21c — it must never sit
+          // over the first notes); without one it pins to the view's left
+          // edge as before (staff furniture, always shown)
+          if (view.gutterPx > 0) {
+            // clamp at the left edge: a clef too big for the gutter pokes
+            // VISIBLY into the music (protrusion-detector territory) rather
+            // than vanishing off-screen — invisible failure is worse
+            const cw = glyphs.clef.bass.wSs * ssPx;
+            const cx = Math.max(2, view.gutterPx - cw - E.clefGutterGapSs * ssPx);
+            parts.push(Stamps.toSvg(S.clefBass(), { xPx: cx, yPx: Y(1), ssPx, align: 'fLine' }));
+          } else {
+            const cx = Math.max(view.xOfSeconds(it.t), 0);
+            parts.push(Stamps.toSvg(S.clefBass(), { xPx: cx + E.clefInsetSs * ssPx, yPx: Y(1), ssPx, align: 'fLine' }));
+          }
         } else if (it.k === 'glyph') {
           if (!inWin(it.t)) continue;
           parts.push(Stamps.toSvg(boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: Y(it.ySs), ssPx, align: it.align }));
@@ -95,22 +121,22 @@
           parts.push('<polygon points="' + fwd.concat(back).join(' ') + '"/>');
         } else if (it.k === 'text') {
           if (!inWin(it.t)) continue;
-          parts.push('<text x="' + X(it.t, it.dxSs).toFixed(1) + '" y="' + Y(it.ySs).toFixed(1) + '" font-size="' + ((it.size || 1) * ssPx * 1.3).toFixed(1) +
-            '" font-family="sans-serif" fill="' + o.muted + '">' + esc(it.text) + '</text>');
+          parts.push('<text x="' + X(it.t, it.dxSs).toFixed(1) + '" y="' + Y(it.ySs).toFixed(1) + '" font-size="' + ((it.size || 1) * ssPx * E.textScale).toFixed(1) +
+            '"' + fontAttr + ' fill="' + o.muted + '">' + esc(it.text) + '</text>');
         } else if (it.k === 'attackline') {
           if (!inWin(it.t)) continue;
           // M4: a vertical stroke straddling the pitch position
-          parts.push('<rect x="' + (X(it.t, 0) - 0.09 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs + 1.1)).toFixed(2) +
-            '" width="' + (0.18 * ssPx).toFixed(2) + '" height="' + (2.2 * ssPx).toFixed(2) + '"/>');
+          parts.push('<rect x="' + (X(it.t, 0) - E.attackLine.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs + E.attackLine.offsetSs)).toFixed(2) +
+            '" width="' + (E.attackLine.wSs * ssPx).toFixed(2) + '" height="' + (E.attackLine.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'tick') {
           if (!inWin(it.t)) continue;
-          parts.push('<rect x="' + (X(it.t, 0) - 0.06 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - 0.8 * ssPx).toFixed(2) +
-            '" width="' + (0.12 * ssPx).toFixed(2) + '" height="' + (0.8 * ssPx).toFixed(2) + '"/>');
+          parts.push('<rect x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - E.tick.hSs * ssPx).toFixed(2) +
+            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (E.tick.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'brick') {
           if (it.t1 < w0 || it.t0 > w1) continue;
           const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - 0.5 * ssPx).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
-            '" height="' + (1 * ssPx).toFixed(2) + '" fill="' + o.brick + '" opacity="0.45"/>');
+            '" height="' + (1 * ssPx).toFixed(2) + '" fill="' + o.brick + '" opacity="' + E.brickOpacity + '"/>');
         }
       }
       parts.push('</g>');

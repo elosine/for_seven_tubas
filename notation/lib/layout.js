@@ -60,7 +60,11 @@
   }
 
   function layoutSection(ir, glyphs, opts) {
+    // engraving numbers: code defaults = the V0.10 registry values, so a
+    // caller without opts renders identically; the shell passes
+    // container.json `engraving.layout` and edits there re-render everywhere.
     const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6 }, opts || {});
+    const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});
     const nh = glyphs.notehead.filled;
     const nhHalfW = nh.wSs / 2;
     const upAttach = { dx: nh.anchors.stemAttachUp.x - nh.anchors.center.x, dy: nh.anchors.stemAttachUp.y - nh.anchors.center.y };
@@ -74,9 +78,21 @@
     const respell = new Map();   // eventId -> spelled
     const dynTexts = [];         // {part, t, text}
     const instrTexts = [];       // {parts, t, text}
+    // [A21/V1] the ENGRAVING-OVERRIDE channel — the tier-3 "kerning" hands:
+    // per-event { stemDir, dxSs, dySs, beamBreak }. Build-now-refine-later
+    // made structural: polish is a data edit, never a code edit.
+    const engrave = new Map();   // eventId -> override value
+    // [V1] sectional staff: overlay { kind:'staff', value:'off',
+    //   target:{part, span} } suppresses the staff lines in that span
+    // ("not every page or every section will have staff").
+    const staffOff = [];         // {part, span:[a,b]}
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
+      if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
+      if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
+        staffOff.push({ part: tgt.part, span: tgt.span }); continue;
+      }
       if (ov.kind === 'dynamic' && tgt.event) {
         const e = evById.get(tgt.event);
         if (e) {
@@ -91,15 +107,25 @@
       }
       warnings.push('overlay ' + ov.id + ' (' + ov.kind + ') has no layout consumer yet — authored content NOT rendered');
     }
+    const engOf = id => engrave.get(id) || {};
 
     const spelledOf = e => respell.get(e.id) || e.pitch.spelled;
 
     const systems = ir.source.parts.map(part => {
       const items = [];
-      items.push({ k: 'staff', t0: w0, t1: w1 });
+      // staff lines, minus any authored staff-off spans for this part
+      const offs = staffOff.filter(s => s.part === part)
+        .map(s => [Math.max(w0, s.span[0]), Math.min(w1, s.span[1])])
+        .filter(s => s[1] > s[0]).sort((a, b) => a[0] - b[0]);
+      let cur = w0;
+      for (const [a, b] of offs) {
+        if (a > cur) items.push({ k: 'staff', t0: cur, t1: a });
+        cur = Math.max(cur, b);
+      }
+      if (cur < w1) items.push({ k: 'staff', t0: cur, t1: w1 });
       items.push({ k: 'clef', t: w0 });
-      for (const d of dynTexts) if (d.part === part) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: 0.9 });
-      for (const ins of instrTexts) if (ins.parts.includes(part)) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: 0.75 });
+      for (const d of dynTexts) if (d.part === part) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic });
+      for (const ins of instrTexts) if (ins.parts.includes(part)) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: TS.instruction });
 
       const chunks = ir.chunks.filter(c => c.part === part).sort((a, b) => a.span[0] - b.span[0]);
       let prevTempoLabel = null;
@@ -119,7 +145,7 @@
 
         const m = c.tempo ? c.tempo.subdivision : 1;
         if (metric && c.tempo && c.tempo.label !== prevTempoLabel) {
-          items.push({ k: 'text', t: c.tempo.anchorSeconds, dxSs: 0, ySs: o.tempoY, text: c.tempo.label, size: 0.75 });
+          items.push({ k: 'text', t: c.tempo.anchorSeconds, dxSs: 0, ySs: o.tempoY, text: c.tempo.label, size: TS.tempo });
         }
         prevTempoLabel = metric && c.tempo ? c.tempo.label : null;
         for (const d of c.devices || []) if (d.kind === 'gc') items.push({ k: 'tick', t: d.at, ySs: o.tickY });
@@ -138,23 +164,34 @@
         }
 
         // ---- note pass: heads, ledgers, accidentals (no stems/dots yet) ----
+        // engraving overrides ride here: dxSs shifts ALL of the event's ink
+        // (head, ledgers, accidental, stem, flag, dot, beam tip); dySs
+        // shifts the head+stem+dot only (ledgers stay on the pitch's lines
+        // — a nudge is cosmetic, the pitch is not restated); stemDir wins
+        // over the convention.
         const placed = new Map();
         for (const e of evs) {
           const sp = spelledOf(e);
-          const ySs = staffPosBass(sp);
-          placed.set(e.id, { e, ySs, stemDir: ySs >= 0 ? 'down' : 'up' });
-          items.push({ k: 'glyph', g: 'notehead', t: e.onset, dxSs: 0, ySs, align: 'center' });
-          for (const L of ledgersFor(ySs)) items.push({ k: 'ledger', t: e.onset, dxSs: 0, ySs: L });
+          const eng = engOf(e.id), edx = eng.dxSs || 0, edy = eng.dySs || 0;
+          const yPitch = staffPosBass(sp);
+          const ySs = yPitch + edy;
+          placed.set(e.id, {
+            e, ySs, dx: edx,
+            stemDir: eng.stemDir === 'up' || eng.stemDir === 'down' ? eng.stemDir : (ySs >= 0 ? 'down' : 'up'),
+            stemForced: eng.stemDir === 'up' || eng.stemDir === 'down',
+          });
+          items.push({ k: 'glyph', g: 'notehead', t: e.onset, dxSs: edx, ySs, align: 'center' });
+          for (const L of ledgersFor(yPitch)) items.push({ k: 'ledger', t: e.onset, dxSs: edx, ySs: L });
           if (sp.alter !== 0) {
             const kind = ACC_KIND[String(sp.alter)];
             if (kind) {
               const acc = glyphs.accidental[kind];
               const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
-              items.push({ k: 'glyph', g: 'accidental-' + kind, t: e.onset, dxSs: -(nhHalfW + o.accGap + acc.wSs / 2), ySs, align });
+              items.push({ k: 'glyph', g: 'accidental-' + kind, t: e.onset, dxSs: edx - (nhHalfW + o.accGap + acc.wSs / 2), ySs, align });
             } else warnings.push(e.id + ': no accidental glyph for alter ' + sp.alter);
           }
           if (e.technique !== 'staccato') {
-            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: 0.7 });
+            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: TS.technique });
           }
         }
 
@@ -166,6 +203,7 @@
           const flushRun = () => { if (run.length >= 2) beamRuns.push(run); run = []; };
           for (const e of grid) {
             const n = e.metric.grid[0];
+            if (engOf(e.id).beamBreak) flushRun(); // authored split BEFORE this event
             if (!run.length) { run.push(e); continue; }
             const pn = run[run.length - 1].metric.grid[0];
             if (n === pn + 1 && Math.floor(n / m) === Math.floor(pn / m)) run.push(e);
@@ -176,20 +214,23 @@
         const doneStem = new Set();
         for (const r of beamRuns) {
           // direction: the note FARTHEST from the middle line decides;
-          // ties go DOWN (engraving convention — review finding)
+          // ties go DOWN (engraving convention — review finding). An
+          // authored stemDir on any note of the run forces the whole run.
           let ext = placed.get(r[0].id).ySs;
           for (const e of r) { const y = placed.get(e.id).ySs; if (Math.abs(y) > Math.abs(ext)) ext = y; }
-          const dir = ext >= 0 ? 'down' : 'up';
+          let dir = ext >= 0 ? 'down' : 'up';
+          const forced = r.map(e => placed.get(e.id)).find(p => p.stemForced);
+          if (forced) dir = forced.stemDir;
           const att = dir === 'up' ? upAttach : dnAttach;
           const ys = r.map(e => placed.get(e.id).ySs);
           const beamYSs = dir === 'up'
             ? Math.max(Math.max(...ys) + o.stemLen, 0)
             : Math.min(Math.min(...ys) - o.stemLen, 0);
-          items.push({ k: 'beam', dir, tips: r.map(e => ({ t: e.onset, dxSs: att.dx, ySs: beamYSs })) });
+          items.push({ k: 'beam', dir, tips: r.map(e => ({ t: e.onset, dxSs: att.dx + placed.get(e.id).dx, ySs: beamYSs })) });
           for (const e of r) {
             const p = placed.get(e.id);
             p.stemDir = dir; // final direction — dots read this later
-            items.push({ k: 'stem', t: e.onset, dxSs: att.dx, yA: p.ySs - att.dy, yB: beamYSs, attach: dir });
+            items.push({ k: 'stem', t: e.onset, dxSs: att.dx + p.dx, yA: p.ySs - att.dy, yB: beamYSs, attach: dir });
             doneStem.add(e.id);
           }
         }
@@ -200,17 +241,17 @@
           const yStart = p.ySs - att.dy;
           const L = stemLenFor(p.ySs, o.stemLen);
           const yEnd = p.stemDir === 'up' ? yStart + L : yStart - L;
-          items.push({ k: 'stem', t: e.onset, dxSs: att.dx, yA: yStart, yB: yEnd, attach: p.stemDir });
+          items.push({ k: 'stem', t: e.onset, dxSs: att.dx + p.dx, yA: yStart, yB: yEnd, attach: p.stemDir });
           // flag ONLY off-beat notes of metric sub-beat chunks
           if (metric && m >= 2 && e.metric && e.metric.grid[0] % m !== 0) {
-            items.push({ k: 'glyph', g: p.stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: att.dx, ySs: yEnd, align: 'stemTip' });
+            items.push({ k: 'glyph', g: p.stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: att.dx + p.dx, ySs: yEnd, align: 'stemTip' });
           }
         }
         // ---- dot pass: AFTER stem directions are final (review finding) ----
         for (const e of evs) {
           if (e.technique !== 'staccato') continue;
           const p = placed.get(e.id);
-          items.push({ k: 'dot', t: e.onset, dxSs: 0, ySs: dotYFor(p.ySs, p.stemDir) });
+          items.push({ k: 'dot', t: e.onset, dxSs: p.dx, ySs: dotYFor(p.ySs, p.stemDir) });
         }
       }
       return { part, items };

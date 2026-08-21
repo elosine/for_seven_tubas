@@ -140,6 +140,64 @@ const Lf = Layout.layoutSection(fb, G);
 eq(Lf.systems[0].items.filter(i => i.k === 'brick').length, 4, 0, 'unresolved chunk -> 4 bricks');
 eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on the parachute path');
 
+// ---- V1 [A21]: the ENGRAVING-OVERRIDE channel (tier-3 hands) ----
+// stemDir force: the synthDir pair beams UP by convention (B2 farthest);
+// an authored stemDir DOWN on one note forces the whole run down.
+const synthForce = JSON.parse(JSON.stringify(synthDir));
+synthForce.overlays = [{ id: 'ov-f1', kind: 'engraving', target: { event: 'ev-d1' }, value: { stemDir: 'down' } }];
+const Lfr = Layout.layoutSection(synthForce, G);
+ok(Lfr.systems[0].items.filter(i => i.k === 'stem').every(i => i.attach === 'down'),
+  'engraving stemDir forces the beamed run DOWN against the convention');
+ok(Lfr.warnings.length === 0, 'engraving overlay consumed silently (no warning)');
+// and the dot follows the FORCED direction
+const fDot = Lfr.systems[0].items.find(i => i.k === 'dot' && Math.abs(i.t - 0) < 1e-9);
+ok(fDot.ySs > 0.5, 'dot flips to the other side under the forced stem');
+
+// beamBreak: split the (n0,n1) run — no run survives (singletons), and the
+// now-unbeamed off-beat n1 gains a flag alongside n3
+const synthBreak = JSON.parse(JSON.stringify(synth));
+synthBreak.overlays = [{ id: 'ov-b1', kind: 'engraving', target: { event: 'ev-n1' }, value: { beamBreak: true } }];
+const Lbk = Layout.layoutSection(synthBreak, G);
+eq(Lbk.systems[0].items.filter(i => i.k === 'beam').length, 0, 0, 'beamBreak dissolves the only run');
+eq(Lbk.systems[0].items.filter(i => i.k === 'glyph' && String(i.g).startsWith('flag')).length, 2, 0,
+  'off-beat notes n1+n3 both flagged once unbeamed');
+
+// dx/dy nudge: head+stem+dot shift horizontally; dy moves head but ledgers
+// stay on the pitch's lines (a nudge is cosmetic, not a re-pitch)
+const barNudge = JSON.parse(JSON.stringify(bar));
+barNudge.overlays = (barNudge.overlays || []).concat([
+  { id: 'ov-n1', kind: 'engraving', target: { event: bar.events[0].id }, value: { dxSs: 0.4, dySs: 0.25 } },
+]);
+const Ln = Layout.layoutSection(barNudge, G);
+const nItems = Ln.systems[0].items;
+const t0e = bar.events[0].onset;
+const nHead = nItems.find(i => i.k === 'glyph' && i.g === 'notehead' && Math.abs(i.t - t0e) < 1e-9);
+const bHead = items.find(i => i.k === 'glyph' && i.g === 'notehead' && Math.abs(i.t - t0e) < 1e-9);
+eq(nHead.dxSs - bHead.dxSs, 0.4, 1e-9, 'dxSs nudges the head');
+eq(nHead.ySs - bHead.ySs, 0.25, 1e-9, 'dySs nudges the head');
+const nDot = nItems.find(i => i.k === 'dot' && Math.abs(i.t - t0e) < 1e-9);
+eq(nDot.dxSs, 0.4, 1e-9, 'dot follows the dx nudge');
+eq(nItems.filter(i => i.k === 'ledger' && Math.abs(i.t - t0e) < 1e-9).map(i => i.ySs).join(','),
+  items.filter(i => i.k === 'ledger' && Math.abs(i.t - t0e) < 1e-9).map(i => i.ySs).join(','),
+  0, 'ledgers stay on the pitch lines under a dy nudge');
+
+// ---- V1: sectional staff-off ("not every section will have staff") ----
+const barStaff = JSON.parse(JSON.stringify(bar));
+barStaff.overlays = (barStaff.overlays || []).concat([
+  { id: 'ov-s1', kind: 'staff', value: 'off', target: { part: 4, span: [59, 60] } },
+]);
+const Lso = Layout.layoutSection(barStaff, G);
+const staffSegs = Lso.systems[0].items.filter(i => i.k === 'staff');
+eq(staffSegs.length, 2, 0, 'staff-off span splits the staff into two segments');
+eq(staffSegs[0].t1, 59, 1e-9, 'first segment ends at the off-span');
+eq(staffSegs[1].t0, 60, 1e-9, 'second segment resumes after it');
+ok(Lso.warnings.length === (bar.overlays || []).filter(o => false).length, 'staff overlay consumed');
+
+// unknown kinds still warn — the no-silent-drop guarantee survives V1
+const barZebra = JSON.parse(JSON.stringify(bar));
+barZebra.overlays = (barZebra.overlays || []).concat([{ id: 'ov-z', kind: 'zebra', target: {}, value: 1 }]);
+ok(Layout.layoutSection(barZebra, G).warnings.some(w => /zebra/.test(w)), 'unknown overlay kind still warns');
+
 // ---- full-section smoke ----
 const section = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'trance-section-01.ir.json'), 'utf8'));
 const Lsec = Layout.layoutSection(section, G);

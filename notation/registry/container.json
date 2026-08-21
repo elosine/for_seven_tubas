@@ -55,8 +55,27 @@
     "_cSwitch": "TESTED 2026-08-20 (proofs E-staff31p6 vs E-staff28): staff size flipped as ONE number on the chosen no-header container — identical ink inventory (335/173/162/22 elements), staff span lands at exactly 31.60 vs 28.00 px measured off the drawn lines, text scales within 0.1% of the predicted ratio. At staff 28 the F#1 worst case drops to ~2.5 px past the lane edge = inside the gap, no neighbor contact — so if collisions ever annoy, the one-number switch to ~28 clears them wholesale."
   },
 
+  "engraving": {
+    "_status": "CENSUS DONE 2026-08-20 (V0.10) — every look number that lived in layout.js/render.js code, consolidated here. Line/dot THICKNESSES stay in glyphs.json `standards` (glyph-family metrics, single source — edit there); this block is the single edit point for everything else. All values = the code's previous defaults, so adopting the registry changed no pixel.",
+    "layout": {
+      "stemLen": 3.5, "accGap": 0.25, "tagY": 3.5, "tempoY": 4.6, "tickY": 3.0, "dynY": -4.6,
+      "textSizes": { "dynamic": 0.9, "instruction": 0.75, "tempo": 0.75, "technique": 0.7 }
+    },
+    "render": {
+      "ink": "#111", "muted": "#8a8a8a", "brick": "#4E7A9B", "paper": "#fff",
+      "fontFamily": "'Crimson Pro Light', serif",
+      "partLabel": { "xPx": 4, "yOffsetSs": 0.9, "sizeSs": 1.1 },
+      "textScale": 1.3,
+      "clefInsetSs": 0.6, "clefGutterGapSs": 0.75,
+      "attackLine": { "wSs": 0.18, "hSs": 2.2, "offsetSs": 1.1 },
+      "tick": { "wSs": 0.12, "hSs": 0.8 },
+      "brickOpacity": 0.45,
+      "reshow": { "xSs": 4.2, "sizeSs": 0.75 }
+    }
+  },
+
   "typography": {
-    "_status": "FONT DECIDED 2026-08-20 (composer: 'let's just go with the crimson — that was the go-to font'); engraving-registry census (V0.10) still to run",
+    "_status": "FONT DECIDED 2026-08-20 (composer: 'let's just go with the crimson — that was the go-to font'); engraving-registry census (V0.10) DONE — see `engraving`",
     "font": "CRIMSON PRO LIGHT (+ Light Italic) — the notation text font of BOTH prior pieces (LilyPond textFontName; piece #2's performance app embeds the TTFs and outlines text to paths at build). TTFs vendored from piece #1 into notation/app/fonts/ (Light 104 KB, LightItalic 106 KB; SIL OFL). V1 registry mapping per prior use: Light for labels/tempo, Light Italic for expressive/instruction text.",
     "_exportNote": "V4/V5 rasterizer must load these TTFs; piece #2's proven escape hatch if it misbehaves = convert text to path outlines at export (build_performance_app.js precedent)."
   },
