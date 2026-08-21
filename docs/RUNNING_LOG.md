@@ -4987,3 +4987,16 @@ client == 1920x1080 exact, no bars either axis - zoom width exactly 1920
 no h-overflow, height 2160 wheel-scrollable with no visible bar - bar
 hides after 2s and returns on hover - keys work. F11 on the composer's
 screen = exact fit.
+
+**Day 21 — G1 CLOSED on the composer's verdict** ("I think it looks good
+... the Zoom view is comfortable, it's good"). One finding, answered with
+facts + one addition: staff lines flush to the right edge were unreadable
+as intended-vs-cut. Facts: the system ENDS at x=1920 by design (page maps
+time onto full width); no music can be sliced there (half-open page
+ownership + B6 stamp-atomic splicing, proven in slice 1). Addition: a
+SYSTEM TERMINAL BARLINE at the right edge (registry data:
+engraving.render.systemEndBar, 1.5px at 0.55) spanning all lanes - the
+visible statement that the edge is deliberate. Verified in the app: one
+rect at x=1918.5, fully inside the frame. V1 = DONE. Next: V2 (transport
++ cursor + the animated object layer; system-turn and time-scale
+re-judgment wait at its gate).

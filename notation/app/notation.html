@@ -217,7 +217,18 @@
       let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
         reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
       });
-      svg = svg.replace('</svg>', metaOverlaySvg(view) + '</svg>');
+      // system TERMINAL barline at the right edge — the visible statement
+      // that the system ENDS here by design (composer, G1: staff lines
+      // flush to the edge were unreadable as intended-vs-cut). Registry
+      // data; spans first lane top to last lane bottom, engraving-style.
+      const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
+      let endBar = '';
+      if (eb && view.systems.length) {
+        const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
+        endBar = '<rect x="' + (view.widthPx - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
+          '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
+      }
+      svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
       $('sheet').innerHTML = svg;
       state.lastView = view;
       const [vt0, vt1] = view.window;

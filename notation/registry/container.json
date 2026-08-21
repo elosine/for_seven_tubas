@@ -70,7 +70,8 @@
       "attackLine": { "wSs": 0.18, "hSs": 2.2, "offsetSs": 1.1 },
       "tick": { "wSs": 0.12, "hSs": 0.8 },
       "brickOpacity": 0.45,
-      "reshow": { "xSs": 4.2, "sizeSs": 0.75 }
+      "reshow": { "xSs": 4.2, "sizeSs": 0.75 },
+      "systemEndBar": { "wPx": 1.5, "opacity": 0.55 }
     }
   },
 
