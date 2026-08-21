@@ -39,6 +39,7 @@
     const boxFor = g => {
       if (g === 'notehead') return S.notehead();
       if (g === 'notehead-open') return S.noteheadOpen();
+      if (g.startsWith('dyn-')) return S.dynamic(g.slice(4));
       if (g === 'flag-up8') return S.flag8('up');
       if (g === 'flag-down8') return S.flag8('down');
       if (g.startsWith('accidental-')) return S.accidental(g.slice('accidental-'.length));
@@ -189,6 +190,18 @@
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
             }
           }
+        } else if (it.k === 'dynarrow') {
+          // the surge's hairpin replacement: a short rightward arrow between
+          // the two marks — line + solid triangular head, stem-thickness
+          if (!inWin(it.t)) continue;
+          const x0 = X(it.t, it.dx0Ss), x1 = X(it.t, it.dx1Ss);
+          const yA = Y(it.ySs);
+          const headL = (it.headSs || 0.45) * ssPx, thick = (it.thickSs || 0.13) * ssPx;
+          parts.push('<line x1="' + x0.toFixed(2) + '" y1="' + yA.toFixed(2) + '" x2="' + (x1 - headL).toFixed(2) +
+            '" y2="' + yA.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+          parts.push('<path d="M' + x1.toFixed(2) + ',' + yA.toFixed(2) +
+            ' L' + (x1 - headL).toFixed(2) + ',' + (yA - headL * 0.45).toFixed(2) +
+            ' L' + (x1 - headL).toFixed(2) + ',' + (yA + headL * 0.45).toFixed(2) + ' Z"/>');
         } else if (it.k === 'ottava') {
           // piece #2 session-57 bracket over the NOTEHEAD ONLY (round 2):
           // label · dashes RIGHT-ALIGNED stepping back from the hook (p2's

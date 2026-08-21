@@ -5379,3 +5379,33 @@ gets lighter the more we make") + 15ma.**
   x05 demo now E6 -> 15ma on a top ledger, hook verified flush at the
   head edge (316.73 vs 316.7).
 - All suites green.
+
+**Day 22 (continued) — device element 4: THE DYNAMIC PAIR + ARROW, and THE
+VERTICAL COLUMN STANDARD (registry data).**
+- **The convention question answered first** (composer: "is there any
+  convention... under the note vs below vs above"): instrumental dynamics
+  go BELOW the staff — "under the note" is the horizontal axis (centered
+  on the note column), "below the staff" the vertical, clear of all ink;
+  consistency band beats note-hugging (Gould). Above-staff = vocal /
+  shared-staff upper voice / grand-staff middle / congestion last resort.
+  Composer adopted the standard.
+- **THE STACK ORDER = REGISTRY DATA** (engraving.layout.stackBelow):
+  articulation · dynamic · instruction · ottava (outermost), each
+  stackGapSs 0.45 past the previous outer INK. Gould and piece #2's own
+  below-chain (chord -> dynamic -> pedal -> ottava, read from
+  pluckedPianoChord) agree. Articulation/instruction slots defined for
+  when those elements arrive.
+- **Engraved dynamic glyphs ported** (dynamic_paths.json, Emmentaler at
+  p2's locked font-size -8.5, session 49) — slice-1's text-only stance
+  superseded for devices. Vertical registration center-aligned (no
+  baseline metadata at source; p-vs-f optical baseline = polish item).
+- **The arrow (hairpin replacement):** start mark CENTERED ON THE NOTE
+  COLUMN · 0.45 gap · 2.0 ss arrow (0.45 solid head, stem thickness) ·
+  0.45 gap · end mark. All registry (dynArrow). Marks derive from the
+  drawn level via dynLadder (0..1 -> ppp..fff; surge: first sample ->
+  start, peak -> end); authored overlays supersede when present.
+- **Verified on the REAL F#1 (db1-t1-x01), every number off the DOM:**
+  ppp center 310.85 vs head 310.8 · gaps 9.6 px = 0.45 ss · arrow 42.6 px
+  = 2.0 ss · band top 0.45 above unit ink (sharp's descender, not the
+  head, correctly the ref) · 8vb NOW BELOW the dynamics, line at
+  0.45+hook past fff's bottom, hook flush at head edge. Suites green.

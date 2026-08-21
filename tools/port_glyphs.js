@@ -97,6 +97,21 @@ const out = {
   // day 22 (nh-unit): ottava labels — piece #2's baked project-font glyphs
   // (Crimson Pro Light Italic outlined to paths, session 57); 8va/8vb only
   // for now, 15ma/22ma exist at the source when needed
+  // day 22 (dynamic element): the ENGRAVED dynamic letters — Emmentaler at
+  // piece #2's locked font-size -8.5 (session 49: the SQ1-baseline corpus
+  // decision). Slice-1's deliberate no-port is superseded: the surge device
+  // renders marks as glyphs, not text. Vertical registration: center-aligned
+  // on the dynamics band (baseline metadata not in the source; p-vs-f
+  // optical baseline = polish-eye item).
+  dynamic: (() => {
+    const dp = read('glyphs/dynamic_paths.json');
+    const out2 = {};
+    for (const k of Object.keys(dp)) {
+      if (k.startsWith('_')) continue;
+      out2[k] = { path: dp[k].path, wSs: dp[k].width, hSs: dp[k].height, _provenance: prov('glyphs/dynamic_paths.json ' + k + ' (dims.dynamic, font-size -8.5 locked session 49)') };
+    }
+    return out2;
+  })(),
   ottavaText: (() => {
     const tx = read('glyphs/text_paths.json');
     const one = (k) => ({ path: tx[k].path, wSs: tx[k].width, hSs: tx[k].height, _provenance: prov('glyphs/text_paths.json ' + k) });

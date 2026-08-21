@@ -61,6 +61,13 @@
       "stemLen": 3.5, "accGap": 0.25, "tagY": 3.5, "tempoY": 4.6, "tickY": 3.0, "dynY": -4.6,
       "nhGapSs": 0.25,
       "_nhGapNote": "day 22, nh-unit horizontal standard for the surge device: the unit's rightmost ink ends this far before the go line (composer asked for 2 px at staff 31.6; expressed in ss = 2/7.9 ≈ 0.25 so the PP-6 zoom invariant holds)",
+      "stackBelow": ["articulation", "dynamic", "instruction", "ottava"],
+      "stackGapSs": 0.45,
+      "_stackNote": "day 22, THE VERTICAL COLUMN STANDARD (composer decision; Gould and piece #2's own chain agree): below-staff chrome stacks notehead-outward in this order, each element stackGapSs (the session-77 0.45) past the previous outer ink. Articulation/instruction slots defined for when those elements arrive.",
+      "dynLadder": ["ppp", "pp", "p", "mp", "mf", "f", "ff", "fff"],
+      "_dynLadderNote": "provisional derivation: drawn level 0..1 -> ladder index (surge start=first sample, end=peak). Authored dynamic overlays supersede when present.",
+      "dynArrow": { "lenSs": 2.0, "headSs": 0.45, "gapSs": 0.45, "thickSs": 0.13 },
+      "_dynArrowNote": "day 22, the hairpin replacement (composer: 'this is new'): start mark centered on the note column · gapSs · arrow (lenSs total incl. headSs triangle) · gapSs · end mark. Gaps = the 0.45 house standard; thickness = stem thickness.",
       "textSizes": { "dynamic": 0.9, "instruction": 0.75, "tempo": 0.75, "technique": 0.7 }
     },
     "render": {

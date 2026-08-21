@@ -32,6 +32,13 @@
       return box('noteheadOpen', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
     }
 
+    // engraved dynamic mark ('ppp'..'fff', 'sfz', 'sff')
+    function dynamic(kind) {
+      const g = G.dynamic && G.dynamic[kind];
+      if (!g) throw new Error('stamps: no dynamic "' + kind + '"');
+      return box('dyn-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
     // ottava label: baked project-font outline ('va8' | 'vb8')
     function ottavaText(kind) {
       const g = G.ottavaText[kind];
@@ -107,7 +114,7 @@
       ]);
     }
 
-    return { notehead, noteheadOpen, ottavaText, stem, flag8, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

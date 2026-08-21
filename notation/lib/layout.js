@@ -230,21 +230,55 @@
                     warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
                   }
                 }
+                // THE VERTICAL COLUMN STANDARD (day 22, composer + Gould +
+                // piece #2's own chain, which agree): below the unit, from
+                // the notehead outward — articulation · DYNAMIC · instruction
+                // · OTTAVA (outermost) — each stacked stackGapSs (the
+                // session-77 0.45) past the previous outer INK edge. Order is
+                // REGISTRY DATA (engraving.layout.stackBelow); the builder
+                // walks it and places whichever elements the note carries.
+                const stackGap = o.stackGapSs != null ? o.stackGapSs : 0.45;
+                let chainBotY = inkBotY;   // grows downward as chrome stacks
+
+                // DYNAMIC PAIR + ARROW (the surge's hairpin replacement):
+                // start mark centered on the NOTE COLUMN (the head), then
+                // gap · short arrow · gap · end mark, all on one band.
+                // Marks derive from the drawn level (registry ladder,
+                // 0..1 -> ppp..fff) until authored overlays supersede.
+                {
+                  const ladder = o.dynLadder || ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'];
+                  const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
+                  const s = e.level.samples;
+                  const markOf = v => ladder[Math.max(0, Math.min(ladder.length - 1, Math.round(v * (ladder.length - 1))))];
+                  const m1 = markOf(s[0]), m2 = markOf(Math.max(...s));
+                  const g1 = glyphs.dynamic && glyphs.dynamic[m1], g2 = glyphs.dynamic && glyphs.dynamic[m2];
+                  if (g1 && g2) {
+                    const bandH = Math.max(g1.hSs, g2.hSs);
+                    const yDyn = chainBotY - stackGap - bandH / 2;
+                    items.push({ k: 'glyph', g: 'dyn-' + m1, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
+                    const x0 = headDx + g1.wSs / 2 + A.gapSs;
+                    items.push({ k: 'dynarrow', t: e.onset, dx0Ss: x0, dx1Ss: x0 + A.lenSs, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs });
+                    items.push({ k: 'glyph', g: 'dyn-' + m2, t: e.onset, dxSs: x0 + A.lenSs + A.gapSs + g2.wSs / 2, ySs: yDyn, align: 'center' });
+                    chainBotY = yDyn - bandH / 2;
+                  } else {
+                    warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + m1 + '/' + m2 + ') — marks not drawn');
+                  }
+                }
+
                 if (octShift !== 0) {
-                  // bracket over the NOTEHEAD ONLY (composer, round 2): the
-                  // hook lands at the head's right edge (+ endPadSs, registry,
-                  // default 0). Vertical per session 77: outer VISIBLE edge
-                  // sits standardGapSs beyond the unit's outermost INK (head,
-                  // accidental, or ledger — whichever reaches furthest), so
-                  // the line sits one hookLength past that. Label: 8va/8vb at
-                  // one octave, 15ma/15mb at two (clamped, warned beyond).
+                  // OTTAVA — outermost of the below-chain (Gould; p2's own
+                  // order). Bracket over the NOTEHEAD ONLY: hook at the
+                  // head's right edge (+ endPadSs, default 0). Vertical per
+                  // session 77 against the CHAIN's current outer ink (below)
+                  // or the unit's top ink (above — no above-chrome yet).
+                  // Label: 8va/8vb at one octave, 15ma/15mb at two.
                   const O = stds.ottava || {};
                   const std = O.standardGapSs || 0.45, hook = O.hookLengthSs || 0.8;
                   const above = octShift > 0;   // sounding higher than written
                   const n = Math.min(2, Math.abs(octShift));
                   if (Math.abs(octShift) > 2) warnings.push('nh-unit ' + e.id + ': ' + Math.abs(octShift) + ' octaves exceeds 15ma — clamped');
                   const label = above ? (n === 1 ? 'va8' : 'ma15') : (n === 1 ? 'vb8' : 'mb15');
-                  const ref = above ? inkTopY : inkBotY;
+                  const ref = above ? inkTopY : chainBotY;
                   const lineY = above ? ref + std + hook : ref - std - hook;
                   items.push({
                     k: 'ottava', t: e.onset, dx0Ss: leftEdgeDx,
