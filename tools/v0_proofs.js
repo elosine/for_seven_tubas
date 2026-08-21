@@ -14,6 +14,9 @@ const path = require('path');
 const Coords = require('../notation/lib/coords.js');
 const Layout = require('../notation/lib/layout.js');
 const Render = require('../notation/lib/render.js');
+const Stamps = require('../notation/lib/stamps.js');
+
+const CRIMSON = "'Crimson Pro Light', serif";   // V0.7 DECIDED 2026-08-20
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'notation', 'app', 'proofs_v0');
@@ -54,9 +57,19 @@ function proof(cfg) {
   const systems = Coords.systemsForParts(parts, { topPad, botPad, gap });
   const lanePxCalc = ((1 - 2 * topPad - gap * (parts.length - 1)) / parts.length) * areaH;
   const ssPerSystem = cfg.staffPx ? lanePxCalc / (cfg.staffPx / 4) : cfg.ssPerSystem;
-  const view = Coords.makeView({ widthPx: W, heightPx: areaH, window: [t0, t0 + sps], systems, ssPerSystem });
-  const inner = Render.renderSection(model, view, glyphs, { ownsEnd: true })
-    .replace('<svg ', '<svg x="0" y="' + headerPx + '" ');
+
+  // PREFATORY GUTTER (V0.11a): untimed dead space [0, G); music maps onto
+  // [G, 1920]. Furniture (labels, clef) moves INTO the gutter; the inner
+  // render loses its own pinned clef (model filter) and part labels
+  // (post-strip) — those were the collision the composer caught.
+  const G = cfg.gutterPx || 0;
+  const usedModel = G
+    ? { ...model, systems: model.systems.map(s => ({ ...s, items: s.items.filter(it => it.k !== 'clef') })) }
+    : model;
+  const view = Coords.makeView({ widthPx: W - G, heightPx: areaH, window: [t0, t0 + sps], systems, ssPerSystem });
+  let inner = Render.renderSection(usedModel, view, glyphs, { ownsEnd: true })
+    .replace('<svg ', '<svg x="' + G + '" y="' + headerPx + '" ');
+  if (G) inner = inner.replace(/<text x="4" [^>]*>T\d+<\/text>\n?/g, '');
 
   // Header mock — px sizes stated so the eye judges REAL sizes (V0.6 intake).
   // headerPx 0 (the chosen container): no band, no furniture at all.
@@ -77,11 +90,29 @@ function proof(cfg) {
     ].join('\n');
   }
 
+  // gutter furniture, drawn by the proof in OUTER coords (header 0 here)
+  let gut = '';
+  if (G) {
+    const S = Stamps.makeStamps(glyphs);
+    const pieces = [];
+    for (const part of parts) {
+      const sys = view.system(part);
+      pieces.push('<text x="4" y="' + (sys.yTopPx + 0.9 * sys.ssPx).toFixed(1) + '" font-size="' + (1.1 * sys.ssPx).toFixed(1) +
+        '" font-family="' + CRIMSON.replace(/'/g, '&#39;') + '" fill="#8a8a8a">T' + (part + 1) + '</text>');
+      if (!cfg.noClef) pieces.push(Stamps.toSvg(S.clefBass(), {
+        xPx: G - glyphs.clef.bass.wSs * sys.ssPx - 6, yPx: sys.yOfSs(1), ssPx: sys.ssPx, align: 'fLine',
+      }));
+    }
+    // the music-start line: where the cursor ENTERS (never sweeps the gutter)
+    pieces.push('<line x1="' + G + '" y1="0" x2="' + G + '" y2="' + areaH + '" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/>');
+    gut = '<g fill="#111">' + pieces.join('\n') + '</g>';
+  }
+
   let svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">',
     '<!-- V0 proof: ' + params + ' -->',
     '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#fff"/>',
-    head, inner, '</svg>',
+    head, gut, inner, '</svg>',
   ].join('\n');
   if (cfg.postProcess) svg = cfg.postProcess(svg);
   fs.writeFileSync(path.join(OUT, file), svg);
@@ -138,6 +169,18 @@ const FONTS = [
   ['crimson', "'Crimson Pro Light', serif"],
   ['crimson-italic', "'Crimson Pro Light', serif", 'italic'],
 ];
+// G — PREFATORY GUTTER WIDTH (V0.11a), in the decided font. Three widths
+// with clef furniture + one bare page (no clef — "not every page will have
+// anything at the beginning"). Dashed line = where the cursor enters.
+const crimsonPP = svg => svg.replace(/font-family="sans-serif"/g, 'font-family="' + CRIMSON.replace(/'/g, '&#39;') + '"');
+for (const g of [36, 48, 64]) rows.push(proof({
+  ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, gutterPx: g, file: 'G-gutter' + g + '.svg',
+  params: 'G: prefatory gutter ' + g + 'px (clef + label) · Crimson · chosen container', postProcess: crimsonPP,
+}));
+rows.push(proof({
+  ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, gutterPx: 48, noClef: true, file: 'G-gutter48-bare.svg',
+  params: 'G: prefatory gutter 48px BARE (no clef — a mid-piece page) · Crimson', postProcess: crimsonPP,
+}));
 for (const [name, stack, style] of FONTS) rows.push(proof({
   ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, file: 'F-' + name + '.svg',
   params: 'F: font ' + stack.replace(/'/g, '') + (style ? ' ' + style : '') + ' · chosen container · trance',

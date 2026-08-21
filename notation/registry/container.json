@@ -55,8 +55,8 @@
   },
 
   "typography": {
-    "_status": "open — font (V0.7) awaiting the composer's pick; engraving-registry census (V0.10) not yet run",
-    "_leadCandidate": "CRIMSON PRO LIGHT (+ Light Italic) — the notation text font of BOTH prior pieces (LilyPond textFontName; piece #2's performance app embeds the TTFs and outlines text to paths at build). TTFs copied from piece #1 into notation/app/fonts/ (Light 104 KB, LightItalic 106 KB; SIL OFL). Likely V1 registry mapping per prior use: Light for labels/tempo, Light Italic for expressive/instruction text.",
+    "_status": "FONT DECIDED 2026-08-20 (composer: 'let's just go with the crimson — that was the go-to font'); engraving-registry census (V0.10) still to run",
+    "font": "CRIMSON PRO LIGHT (+ Light Italic) — the notation text font of BOTH prior pieces (LilyPond textFontName; piece #2's performance app embeds the TTFs and outlines text to paths at build). TTFs vendored from piece #1 into notation/app/fonts/ (Light 104 KB, LightItalic 106 KB; SIL OFL). V1 registry mapping per prior use: Light for labels/tempo, Light Italic for expressive/instruction text.",
     "_exportNote": "V4/V5 rasterizer must load these TTFs; piece #2's proven escape hatch if it misbehaves = convert text to path outlines at export (build_performance_app.js precedent)."
   },
   "systemTurn": { "_status": "open (V0.4: hard cut vs two-system swap — mock both, judge by watching)" },

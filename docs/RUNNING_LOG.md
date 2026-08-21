@@ -4878,3 +4878,18 @@ with real distinct metrics (canvas widths 231.1 roman / 220.5 italic /
 234.4 serif fallback); pager fit still exact (no scrollbars at
 1920x1080). Prior-use convention noted for V1 registry: Light = labels/
 tempo, Light Italic = expressive/instruction text.
+
+**Day 21 — V0.7 FONT DECIDED: CRIMSON PRO LIGHT ("that was the go-to
+font") + V0.11a GUTTER PROOFS BUILT.** Font filed as decided in
+container.json (Light = labels/tempo, Light Italic = expressive, per the
+lineage convention; export escape hatch = piece #2's text-to-outline).
+Gutter slate G (pager 23-26, all in the decided font): 36/48/64 px with
+clef+label furniture IN the gutter, plus a 48px BARE page (no clef - the
+mid-piece case), dashed line = cursor entry. Mechanics: music view maps
+onto [G,1920]; inner render loses its pinned clef (model filter - clef
+items removed from a COPY, model untouched) and its part labels
+(post-strip); the proof draws gutter furniture itself. VERIFIED
+geometrically in the browser: 10 clefs, right edge 41.6px < G=48; first
+music ink at 48.9px >= G - the clef/first-note collision the composer
+caught is GONE by construction. Composer's next verdict: gutter width
+(36/48/64) + whether the bare page reads right.

@@ -7,6 +7,7 @@
 <text x="420" y="57.7" font-family="sans-serif" font-size="22" fill="#555">TRANCE · tranceA002f · busiest 12 s</text>
 <line x1="410" y1="20" x2="410" y2="80" stroke="#ccc" stroke-width="1"/>
 <text x="1904" y="59.1" text-anchor="end" font-family="monospace" font-size="26" fill="#333">0:49.0</text>
+
 <svg x="0" y="100" xmlns="http://www.w3.org/2000/svg" width="1920" height="980" viewBox="0 0 1920 980" style="background:#fff">
 <rect x="0" y="0" width="1920" height="980" fill="#fff"/>
 <g fill="#111">

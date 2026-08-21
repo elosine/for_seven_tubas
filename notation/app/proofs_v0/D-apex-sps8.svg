@@ -7,6 +7,7 @@
 <text x="420" y="46.3" font-family="sans-serif" font-size="18" fill="#555">SECTION 1 APEX · cloud02-10track</text>
 <line x1="410" y1="16" x2="410" y2="64" stroke="#ccc" stroke-width="1"/>
 <text x="1904" y="47.35" text-anchor="end" font-family="monospace" font-size="21" fill="#333">0:47.9</text>
+
 <svg x="0" y="80" xmlns="http://www.w3.org/2000/svg" width="1920" height="1000" viewBox="0 0 1920 1000" style="background:#fff">
 <rect x="0" y="0" width="1920" height="1000" fill="#fff"/>
 <g fill="#111">
