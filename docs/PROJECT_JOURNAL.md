@@ -10,6 +10,58 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**DAY 22 (2026-08-21) — 8b: THE NOTATION WORKFLOW + THE SURGE DEVICE +
+THE COLLAPSE, one long sitting with the composer driving verdicts live.
+Claude Code / Fable 5. (mid-session checkpoint — same task continues
+after the clear.)**
+- **The machinery (PLAN 8b, all verified + pushed):** sonify_core (one
+  event compiler; two-ends battery) → export_midi (21-track SMF @60 BPM,
+  delivered; REAPER SESSION TEMPO MUST BE 60) + live MIDI in the notation
+  shell · hot reload (~1 s; lib CODE still needs one refresh) · version
+  files (--from/--exp/--prune/--demo) · docs/NOTATION_WORKFLOW.md = the
+  protocol.
+- **THE COLLAPSE (composer reframe, adopted):** the app IS the
+  presentation score — ten-lane jury frame always (empty lanes = empty
+  staves), Score ⇄ Zoom the only view choice, fit-to-window, bar at the
+  bottom edge, ⚙ hides the slice-1 proofing views. **Playback = the
+  save's scope** (load T1's file → hear T1), live from source data.
+- **THE SURGE DEVICE (db1-t1-x01, the real F#1):** fill-only curve with
+  90° cut · dotted go line · nh-unit (open head + 7 accidentals incl.
+  quartertones + ledgers + 8va/8vb/15ma, piece #2's LOCKED laws ported:
+  D.6 gap, H.4c.3 ledger clearance, D.8.1/D.8.2, sessions 57/77 ottava)
+  right-anchored 0.25 ss before go · dynamics ppp→fff + ARROW (hairpin
+  replacement; NO derivation — registry dynPair, marks state LEVELS) ·
+  THE VERTICAL COLUMN STANDARD as registry data (articulation/dynamic/
+  instruction/ottava, 0.45 chain) · cursor = p2 neon magenta #FF15A0 3px ·
+  curveMeter = p2's follower mechanism (limeGreen, cursor−11).
+- **THE SAVE SHUFFLE:** `db1-t1` = THE DRAFT (0–55.94, canonical; 52
+  events, clouds auto-resolved 3 simple-bar + 4 proportional) ·
+  `db1-t1-x02` = working (0–17: the surge + THE FIRST FP at 14.54 —
+  **the fp device is the NEXT design target**). NH demos live at
+  nh-demo-01..05 (pruned, regenerable: tools/nh_demo.js).
+- **The composer's SECTION-1 HIERARCHY dictated** → COMPOSER_LOG day 22
+  verbatim + PLAN M5 third amendment (GC / beamed-Mists-units / lines+
+  animated-beat; ~500 ms threshold empirical; NOT acted on yet).
+
+**Next up (cold pickup):**
+1. **Design the FORTEPIANO device** on db1-t1-x02 (wc-23, G#1 at
+   14.54–15.24, plain mode, fixed one-shot ~1.35–2.22 s ring — see
+   PLAN 2n): composer will drive element-by-element like the surge.
+2. Then walk db1-t1 (THE DRAFT) forward brick by brick; the hierarchy
+   (M5 third amendment) waits until the composer says go.
+3. Full trail: RUNNING_LOG day 22 (long; wrong turns kept).
+
+**Open at session end:**
+- G2/G3 formally unclosed (playback sitting effectively started G3).
+- Reaper render not yet recorded (midi/piece-s25-finished01.mid delivered;
+  60 BPM session) — MIDI live playback covers the loop meanwhile.
+- Ottava threshold question flagged: the real F#1 draws 8vb by the
+  3-ledger rule; tubists read low ledgers — composer verdict pending
+  (registry one-liner either way).
+- p-vs-f dynamic optical baseline = polish-eye item (glyphs center-aligned).
+
+---
+
 **DAY 21 (2026-08-20/21, fourth sitting) — 8a: THE WHOLE PRE-NOTATION
 CRITICAL PATH (V0→V3) CODE-COMPLETE IN ONE SITTING. Claude Code /
 Fable 5.** Plan interrogation → container decided → two windows → motion

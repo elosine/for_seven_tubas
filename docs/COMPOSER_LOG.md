@@ -1652,3 +1652,55 @@ I'm actually making the notation, same with the above decisions. So give me
 some evaluation: after this phase zero, how much are we locked in, or how
 much flexibility will we have on some of these things — or does the
 architecture have?"
+
+---
+
+## Day 22 (2026-08-21) — the SECTION-1 NOTATION HIERARCHY (dictated at the
+## end of the first device sitting; composer: "document this prompt in the
+## journal notes, I don't necessarily need your response or any analysis")
+
+"I think most of the beginning attacks or impulses will be the GC. Let me
+make a general hierarchy, and then we could figure it out or amend it later
+if we need to.
+
+I want things that are relatively spaced out — some space between playing a
+note and playing the next note — to be the GCs. These, I feel, provide the
+most rhythmic accuracy.
+
+I suspect there will be a threshold — this is where it's a little fuzzy.
+For now let's call it about an eighth note, about five hundred
+milliseconds. Probably less, but I'll have to see it and hear it. Below
+that, we cluster things into a unit. Initially I'm thinking of using beams
+and stems for these: the GC tells where the first attack is, and whatever
+other partials are in that unit are just beamed together in an approximate
+rhythm — kind of like the Xenakis Mists that we looked at. My supposition
+is that players can know when the first attack happens and then essentially
+play that figure at that GC.
+
+Then the last part, in the densest parts — this is where we have to figure
+out what the best solution to use is, and I probably will try a couple of
+things and see how they look:
+
+1. Just continuing with the Xenakis Mists is a possibility — trying to see
+   if we can get a relatively accurate rhythmic figure, and then the same
+   strategy as layer two: give a go with a GC and expect that the performer
+   will work out that rhythm, maybe in rehearsal, and just play it on go,
+   on command.
+
+2. Another possibility is this idea of LINES — just lines that mark where
+   they're meant to play, instead of noteheads or maybe together with
+   noteheads — and then some sort of surrounding BEAT structure. We find a
+   relatively appropriate tempo, maybe do some analysis, and then we have a
+   sort of beating, maybe with GCs — a tempo that gets animated somehow.
+   And then put the lines or noteheads around the beats where they are
+   meant to be, and they can hear them in relation to the beats. This is
+   the one I have the most hopes for, but I have to figure out how to
+   communicate the tempo without being too distracting: potentially
+   bouncing balls, or balls that are just on vertical lines like poles, or
+   something above that taps out the rhythm, or maybe in the same window as
+   the curve follower and you just get a steady rhythm.
+
+And then to figure out the tempo: use a steady one all throughout the
+piece — like sixty beats per minute — or something else, or try to adjust
+it for every part of the notation. In any case, we'll work that out. I
+don't think we're at any of these points yet."

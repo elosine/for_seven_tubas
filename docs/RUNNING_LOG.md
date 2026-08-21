@@ -5513,3 +5513,27 @@ reports, five systemic fixes.**
 re-flashing its 2 s entry greeting on EVERY render (page turns, hot
 reloads). Now it flashes only on the transition INTO the score view.
 Verified: page 1->2 turn leaves the bar hidden.
+
+**Day 22 (continued) — wrap of the first device arc: the hierarchy
+dictated, the save-shuffle established, T1 facts scanned.**
+- **The composer's SECTION-1 HIERARCHY dictated and filed** (verbatim
+  COMPOSER_LOG day 22; distilled as PLAN M5 third amendment): spaced
+  attacks → GC · sub-threshold (~500 ms, empirical) clusters → beamed
+  Mists-style units on a GC · densest parts → try Mists-continued vs
+  LINES-around-an-animated-BEAT-structure (composer's strongest hope).
+  Recorded, NOT acted on — "I don't think we're at any of these points
+  yet."
+- **T1 opening facts (0-60 s scan):** wc-3 is T1's ONLY surge (composer
+  suspected so). First fortepiano 14.54 (G#1; more at 23.1/24.3/27.2/
+  30.0) · first staccato 17.75 · cuivre 40.93 (VERT01-03) · Bb blast
+  48.05-52.46 · GESTURE-2 at 55.94 = provisional end of density build 1
+  (composer offered exact timings from the composer score if needed).
+- **THE SAVE SHUFFLE (composer's model):** `db1-t1` = THE DRAFT (canonical,
+  no exp): 0-55.94, becomes part of the final product — extraction came
+  out 52 events / 10 chunks with the staccato cloud runs ALREADY
+  auto-resolving (3 simple-bar + 4 proportional), surge deviced, fps as
+  bricks. `db1-t1-x02` = the working file: 0-17, surge + FIRST FP only —
+  the fp device is the next design target. NH demos renamed to their own
+  id space (nh-demo-01..05, ending the x-number collision) and pruned
+  (regenerable via tools/nh_demo.js).
+- Composer score server: already running on :5200, nothing to launch.

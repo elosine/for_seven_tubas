@@ -16,11 +16,11 @@ const ROOT = path.join(__dirname, '..');
 const SRC = 'db1-t1-x01';
 
 const CASES = [
-  { id: 'db1-t1-x02', label: 'DEMO nh: 2 ledgers below · sharp', midi: 37, spelled: { step: 'C', alter: 1, octave: 2 } },
-  { id: 'db1-t1-x03', label: 'DEMO nh: 2 ledgers above · 3/4 flat', midi: 62.5, spelled: { step: 'E', alter: -1.5, octave: 4 } },
-  { id: 'db1-t1-x04', label: 'DEMO nh: middle line', midi: 50, spelled: { step: 'D', alter: 0, octave: 3 } },
-  { id: 'db1-t1-x05', label: 'DEMO nh: 15ma · top ledger', midi: 88, spelled: { step: 'E', alter: 0, octave: 6 } },
-  { id: 'db1-t1-x06', label: 'DEMO nh: 8vb on staff · 3/4 sharp', midi: 32.5, spelled: { step: 'G', alter: 1.5, octave: 1 } },
+  { id: 'nh-demo-01', label: 'DEMO nh: 2 ledgers below · sharp', midi: 37, spelled: { step: 'C', alter: 1, octave: 2 } },
+  { id: 'nh-demo-02', label: 'DEMO nh: 2 ledgers above · 3/4 flat', midi: 62.5, spelled: { step: 'E', alter: -1.5, octave: 4 } },
+  { id: 'nh-demo-03', label: 'DEMO nh: middle line', midi: 50, spelled: { step: 'D', alter: 0, octave: 3 } },
+  { id: 'nh-demo-04', label: 'DEMO nh: 15ma · top ledger', midi: 88, spelled: { step: 'E', alter: 0, octave: 6 } },
+  { id: 'nh-demo-05', label: 'DEMO nh: 8vb on staff · 3/4 sharp', midi: 32.5, spelled: { step: 'G', alter: 1.5, octave: 1 } },
 ];
 
 const src = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', SRC + '.ir.json'), 'utf8'));

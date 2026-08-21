@@ -273,6 +273,25 @@ composer → notation → performance architecture.)*
      for failure**, settle on performance strategies, *"learn or invent some
      new things along the way."*
 
+  ### M5 third amendment (composer, 2026-08-21 day 22, dictated — THE
+  ### SECTION-1 HIERARCHY, verbatim in COMPOSER_LOG day 22; recorded, not
+  ### yet acted on)
+
+  A three-layer strategy hierarchy for section-1 attacks, by inter-onset
+  spacing: **(1) spaced attacks → GC** (most rhythmic accuracy) ·
+  **(2) below a threshold (~eighth note / ~500 ms, "probably less, I'll
+  have to see and hear it") → beamed UNITS**, GC on the unit's first
+  attack, partials beamed in approximate rhythm à la Xenakis *Mists*,
+  played as a figure on the GC · **(3) densest parts → to be tried**:
+  (a) Mists continued with rehearsed figures on GC-go, or (b) **LINES (±
+  noteheads) around an animated BEAT structure** — an analyzed tempo made
+  visible (bouncing balls / balls on poles / a tapper / a steady rhythm in
+  the curve-meter window), attacks read against the felt beat. The
+  composer's strongest hope = (b); open: how to show tempo without
+  distraction, and steady piece-wide tempo (~60) vs per-passage. This
+  slots into the E0-floor-ladder / chunker family; the 500 ms threshold is
+  the empirical knob.
+
   ### M5 status note (2026-08-19, later) — side project chartered; GC correction
 
   - **CORRECTION:** the "gravitational conductor" is not new coinage — it is

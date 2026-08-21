@@ -5,7 +5,7 @@
   "score": "piece-s25-finished01",
   "window": [
    0,
-   12
+   17
   ],
   "parts": [
    0
@@ -27,11 +27,11 @@
    "onset": 4.198,
    "duration": 4.192,
    "pitch": {
-    "midi": 37,
+    "midi": 30,
     "spelled": {
-     "step": "C",
+     "step": "F",
      "alter": 1,
-     "octave": 2
+     "octave": 1
     }
    },
    "technique": "ord",
@@ -142,6 +142,26 @@
      0
     ]
    }
+  },
+  {
+   "id": "ev-wc-23",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-23"
+   },
+   "onset": 14.544,
+   "duration": 1.49,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain"
   }
  ],
  "chunks": [
@@ -150,12 +170,26 @@
    "part": 0,
    "span": [
     4.198,
-    12
+    14.544
    ],
    "class": "drawn-crescendo-curve",
    "strategy": "unresolved",
    "events": [
     "ev-wc-3"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-23",
+   "part": 0,
+   "span": [
+    14.544,
+    17
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-23"
    ],
    "provenance": "derived"
   }
