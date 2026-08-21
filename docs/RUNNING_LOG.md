@@ -4903,3 +4903,14 @@ stack), #777 at 1.5px. Verified: it is the last element and
 elementFromPoint(48,400) hits it. Same trap family as the viewer-page
 fit and renderMarker: the payload was right, the PRESENTATION lied -
 and paint ORDER is part of presentation.
+
+**Day 21 — entry line round 2: it was PAINTING but not FINDABLE.** After
+the paint-order fix the composer still saw no line. Canvas pixel test
+(rasterize the SVG, read pixels) proved the gray hairline WAS rendering
+at x=47-48 - so round 2 was a SALIENCE failure, not a render failure: a
+1.5px dashed #777 line 6px from ten bass clefs does not read as an
+object. Lesson refined: "verify the presentation" has a third rung -
+payload right, paint right, and the mark still has to be FINDABLE by a
+human scanning a busy page. Fix: cursor-colored (#d84315) 2px dashed line
++ a filled entry arrow at the top; orange confirmed in the pixels
+(216,67,21). Proof furniture's job is to be seen.

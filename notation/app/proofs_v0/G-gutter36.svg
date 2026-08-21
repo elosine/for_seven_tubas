@@ -715,5 +715,6 @@
 <circle cx="1809.79" cy="1040.35" r="1.58"/>
 </g>
 </svg>
-<line x1="36" y1="0" x2="36" y2="1080" stroke="#777" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="36" y1="0" x2="36" y2="1080" stroke="#d84315" stroke-width="2" stroke-dasharray="7 5" opacity="0.85"/>
+<polygon points="28,2 44,2 36,16" fill="#d84315"/>
 </svg>

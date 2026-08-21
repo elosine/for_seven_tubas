@@ -105,10 +105,14 @@ function proof(cfg) {
     }
     gut = '<g fill="#111">' + pieces.join('\n') + '</g>';
     // the music-start line: where the cursor ENTERS (never sweeps the
-    // gutter). Drawn AFTER the inner svg — the music panel's opaque white
-    // background starts at exactly x=G and was painting over half the
-    // 1px stroke (composer: "i dont see the line").
-    entryLine = '<line x1="' + G + '" y1="0" x2="' + G + '" y2="' + areaH + '" stroke="#777" stroke-width="1.5" stroke-dasharray="4 4"/>';
+    // gutter). Drawn AFTER the inner svg (paint order) — and, after the
+    // composer twice failed to FIND a gray hairline beside ten clefs
+    // (pixel test proved it painted), made salient: cursor-colored with
+    // an entry arrow. Proof furniture — its job is to be seen.
+    entryLine = [
+      '<line x1="' + G + '" y1="0" x2="' + G + '" y2="' + areaH + '" stroke="#d84315" stroke-width="2" stroke-dasharray="7 5" opacity="0.85"/>',
+      '<polygon points="' + (G - 8) + ',2 ' + (G + 8) + ',2 ' + G + ',16" fill="#d84315"/>',
+    ].join('\n');
   }
 
   let svg = [
