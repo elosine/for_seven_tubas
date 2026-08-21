@@ -481,13 +481,16 @@
   // hovering the top edge); LEFT/RIGHT page, Z flips video↔zoom — so the
   // frame can be judged with zero page furniture. F11 = exact fit.
   function setCmode(on) {
+    // flash the bar only on ENTERING the score view — not on every render
+    // (page turns and hot reloads re-render, and the bar kept popping up)
+    const was = document.body.classList.contains('cmode');
     document.body.classList.toggle('cmode', on);
     document.documentElement.classList.toggle('cmode', on);
-    if (on) {
+    if (on && !was) {
       $('bar').classList.add('shown');
       clearTimeout(barTimer);
       barTimer = setTimeout(() => $('bar').classList.remove('shown'), 2000);
-    } else $('bar').classList.remove('shown');
+    } else if (!on) $('bar').classList.remove('shown');
   }
   $('hoverzone').addEventListener('mouseenter', () => $('bar').classList.add('shown'));
   $('bar').addEventListener('mouseleave', () => { if (document.body.classList.contains('cmode')) $('bar').classList.remove('shown'); });

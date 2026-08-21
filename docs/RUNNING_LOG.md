@@ -5508,3 +5508,8 @@ reports, five systemic fixes.**
   don't collect the generic wedge; plain long holds elsewhere keep it.
 - Verified live: page 0-12, staff to 1920, centered, overlay at mid-surge
   = cursor + meter only. Animobj battery green.
+
+**Day 22 (continued) — bar no longer pops on page turns:** setCmode was
+re-flashing its 2 s entry greeting on EVERY render (page turns, hot
+reloads). Now it flashes only on the transition INTO the score view.
+Verified: page 1->2 turn leaves the bar hidden.
