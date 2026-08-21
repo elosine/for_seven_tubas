@@ -31,6 +31,7 @@ const MIME = {
     '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
     '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png',
     '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi',
+    '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ttf': 'font/ttf',
     '.md': 'text/plain; charset=utf-8'
 };
 
@@ -920,6 +921,16 @@ const server = http.createServer((req, res) => {
             if (err) return R.status(400).json({ error: 'Bad JSON' });
             handleGenerateOstinato({ body }, R);
         });
+    }
+
+    // notation workflow: list available audio renders (notation/audio/) so
+    // the page can offer one-click attach without a HEAD-probe dance
+    if (req.method === 'GET' && url === '/api/notation/renders') {
+        const dir = path.join(__dirname, '..', 'notation', 'audio');
+        let files = [];
+        try { files = fs.readdirSync(dir).filter(f => /\.(wav|mp3)$/i.test(f)); } catch (e) { }
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ files }));
     }
 
     // Static: /docs/* from repo docs, everything else from score/public

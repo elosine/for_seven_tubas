@@ -68,6 +68,8 @@ a framing, a reversal, a quotable phrase. Verbatim where the wording matters.
 - **Composer score:** `node score/server.js` → http://localhost:5200/composer.html
   (7 tracks, Tuba 1–7; saving protocol = piece #3's D8: canonical `scores/7tubas.json`,
   CTRL+S versions capped 20 gitignored, 5 s autosave)
+- **Notation workshop:** same score server → http://localhost:5200/notation/app/notation.html
+  (tier-2 experiment loop: `docs/NOTATION_WORKFLOW.md` — read it before notation work)
 - **Sandbox:** `node sandbox/serve.js` → http://localhost:4700
 - Motive library shared between them: `sandbox/motives/` (linked blocks per #3's D9)
 - Ports (loopMIDI, case-sensitive): `Tuba1` … `Tuba7`

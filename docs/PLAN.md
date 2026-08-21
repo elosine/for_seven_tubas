@@ -1734,6 +1734,27 @@ while building the real score.
   realization = new entries, never a fork). D45 = a project boundary, not
   a system boundary.
 
+- **8b — NOTATION EXPERIMENT WORKFLOW (the tier-2 loop machinery)** —
+  `built + verified live 2026-08-21 (day 22)` — from the composer's workflow
+  brief (sandbox-style version files · minimal UI, AI-prompt-driven changes ·
+  playback per experiment · global-change structures from day one). Protocol
+  doc: **`docs/NOTATION_WORKFLOW.md`** (the portable per-session contract).
+  Built: **sonify_core.js** (one event compiler = composer.html's playback
+  math extracted pure; two-ends battery vs the app's own source, 99k checks +
+  prove-red) → consumers **tools/export_midi.js** (21-track SMF at 60 BPM,
+  independent read-back verify; `midi/piece-s25-finished01.mid` delivered for
+  the Reaper audio recording) and **notation/lib/midiplayer.js** (live MIDI
+  under the D47 transport as a CONSUMER of t; headless 60 fps battery vs the
+  file path — 4401/4401 notes, prearm/bend/flush cures proven) · **hot
+  reload** (1 s poll: registry/glyphs/current IR/manifest/renders; re-render
+  preserves page+zoom+transport; verified live: staff 29→31.6 landed on the
+  open page) · **variant tooling** (notate_section.js --from/--exp/--prune;
+  picker "experiments" optgroup, live merge+prune verified) · **render
+  auto-attach** (notation/audio/<score>.wav → ♪ chip; MIDI↔render exclusive).
+  Deferred per D48: strategy-knobs-as-data (until a knob needs globalizing) ·
+  source-score polling (refresh after editing the piece). **Remaining =
+  composer's ear:** first MIDI playback sitting (G2/G3 can fold in).
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

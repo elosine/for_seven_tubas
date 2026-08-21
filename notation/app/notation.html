@@ -52,6 +52,8 @@
   <button id="zx" style="display:none" title="flip video ↔ zoom at the same music position">⇆ video/zoom</button>
   <button id="play" style="display:none" title="play/pause (SPACE) — click the score to seek">▶</button>
   <label id="audWrap" style="display:none" title="attach the Reaper render — the clock slaves to it">♪ <input type="file" id="aud" accept="audio/*" style="width:150px"></label>
+  <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
+  <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
     <option value="piece-s23">piece-s23</option>
@@ -88,6 +90,9 @@
 <script src="/notation/lib/graphic.js"></script>
 <script src="/notation/lib/transport.js"></script>
 <script src="/notation/lib/animobj.js"></script>
+<script src="/sandbox/instruments.js"></script>
+<script src="/sonify_core.js"></script>
+<script src="/notation/lib/midiplayer.js"></script>
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
@@ -105,6 +110,29 @@
       { m4AttackLines: $('m4').checked },
       (state.container && state.container.engraving && state.container.engraving.layout) || {}));
   }
+  function mergeManifest(man) {
+    const sel = $('ir');
+    const have = new Set([...sel.querySelectorAll('option')].map(o => o.value));
+    let expGroup = sel.querySelector('optgroup[label="experiments"]');
+    for (const e of (man && man.irs) || []) {
+      if (have.has(e.id)) continue;
+      const opt = document.createElement('option');
+      opt.value = e.id; opt.textContent = e.label || e.id;
+      if (e.exp) {
+        if (!expGroup) {
+          expGroup = document.createElement('optgroup');
+          expGroup.label = 'experiments';
+          sel.appendChild(expGroup);
+        }
+        expGroup.appendChild(opt);
+      } else sel.insertBefore(opt, expGroup);
+    }
+    const ids = new Set(((man && man.irs) || []).map(e => e.id));
+    for (const o of [...sel.querySelectorAll('option')]) {
+      if (!ids.has(o.value) && !state.builtinIrs.has(o.value) && o.value !== sel.value) o.remove();
+    }
+    if (expGroup && !expGroup.children.length) expGroup.remove();
+  }
   async function loadScore(name) {
     if (state.scores[name]) return state.scores[name];
     const r = await fetch('/api/composer/load/' + name);
@@ -121,16 +149,13 @@
     ]);
     state.glyphs = glyphs; state.pageRules = pageRules; state.container = container;
     // V3: extracted sections register themselves in the manifest
-    // (tools/notate_section.js) — merge into the picker, no duplicates
+    // (tools/notate_section.js) — merge into the picker, no duplicates.
+    // Experiments (exp:true — the version files of the notation workflow)
+    // group separately; entries pruned from the manifest leave the picker.
+    state.builtinIrs = new Set([...$('ir').options].map(o => o.value));
     try {
       const man = await fetch('/notation/ir/index.json').then(r => r.ok ? r.json() : null);
-      const have = new Set([...$('ir').options].map(o => o.value));
-      for (const e of (man && man.irs) || []) {
-        if (have.has(e.id)) continue;
-        const opt = document.createElement('option');
-        opt.value = e.id; opt.textContent = e.label || e.id;
-        $('ir').appendChild(opt);
-      }
+      if (man) mergeManifest(man);
     } catch (e) { /* manifest optional */ }
     for (const p of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
       const opt = document.createElement('option');
@@ -151,9 +176,10 @@
       $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('midiWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       setCmode(vv === 'video' || vv === 'zoom');
-      if (vv === 'video' || vv === 'zoom') ensureLoop();
+      if (vv === 'video' || vv === 'zoom') { ensureLoop(); ensureMidi(); }
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       const paged = $('mode').value === 'pages';
@@ -335,7 +361,7 @@
     }
   });
   for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
-  $('ir').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
+  $('ir').addEventListener('change', async () => { midiFlush(); await loadIr($('ir').value); render(); });
   $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   // container-mode chrome: bar auto-hides (shown briefly on entry, and on
   // hovering the top edge); LEFT/RIGHT page, Z flips video↔zoom — so the
@@ -367,6 +393,47 @@
   // pure state(t). The static page never re-renders inside a frame.
   state.transport = NotationTransport.makeTransport();
   let rafId = null;
+
+  // ---- MIDI playback (the working-loop default; the audio render is the
+  // second timebase option). Player = notation/lib/midiplayer.js, a
+  // transport CONSUMER over sonify_core — the same computation
+  // tools/export_midi.js serializes. Init is EAGER on entering a container
+  // mode (the lazy-init trap: a lazy request swallows the first notes).
+  state.midi = { outputs: null, ccPoints: null, players: {}, warned: false };
+  async function ensureMidi() {
+    if (state.midi.outputs || state.midi.failed) return;
+    try {
+      const access = await navigator.requestMIDIAccess();
+      const map = {};
+      access.outputs.forEach(o => { map[o.name.toLowerCase()] = o; });
+      state.midi.outputs = map;
+      state.midi.ccPoints = (await fetch('/probes/cc7_map.json').then(r => r.json()))
+        .points.slice().sort((a, b) => a.db - b.db);
+    } catch (e) {
+      state.midi.failed = true; $('midi').checked = false;
+      $('err').textContent = 'Web MIDI unavailable — MIDI playback off (' + e + ')';
+    }
+  }
+  function midiPlayer() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    const score = name && state.scores[name];
+    if (!score || !state.midi.outputs || !state.midi.ccPoints) return null;
+    if (!state.midi.players[name]) {
+      state.midi.players[name] = NotationMidiPlayer.makeMidiPlayer({
+        score, instruments: INSTRUMENTS, ccPoints: state.midi.ccPoints,
+        outputs: state.midi.outputs,
+      });
+    }
+    return state.midi.players[name];
+  }
+  function midiFlush() { const p = midiPlayer(); if (p) p.flush(); }
+  $('midi').addEventListener('change', () => {
+    if ($('midi').checked) {
+      ensureMidi();
+      state.transport.detachAudio();   // back to MIDI = free-running clock
+      $('rend').textContent = '♪ render';
+    } else midiFlush();
+  });
   // ONE frame: page-turn check + overlay redraw at time t (defaults to the
   // clock). Named and exposed because it is ALSO the deterministic entry
   // point V4's exporter steps through (t = k/fps) — and it lets the frame
@@ -393,9 +460,30 @@
     return { turned: false, t, window: [w0, w1] };
   }
   window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
+  let midiWasPlaying = false;
   function animLoop() {
     rafId = null;
-    if (drawOverlayFrame() === null) return; // left container modes — loop ends
+    if (drawOverlayFrame() === null) {      // left container modes — loop ends
+      if (midiWasPlaying) { midiFlush(); midiWasPlaying = false; }
+      return;
+    }
+    // MIDI rides the loop, NOT drawOverlayFrame — the V4 exporter steps
+    // that function deterministically and must never emit sound.
+    const playing = state.transport.isPlaying() && $('midi').checked;
+    if (playing) {
+      const p = midiPlayer();
+      if (p) {
+        p.tick(state.transport.now());
+        if (!state.midi.warned) {
+          const miss = p.missingPorts();
+          if (miss.length) {
+            state.midi.warned = true;
+            $('err').textContent = 'MIDI ports not found: ' + miss.join(', ') + ' — check loopMIDI names';
+          }
+        }
+      }
+    } else if (midiWasPlaying) midiFlush(); // pause/stop/toggle-off: the cure
+    midiWasPlaying = playing;
     rafId = requestAnimationFrame(animLoop);
   }
   function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
@@ -427,6 +515,9 @@
     if (!f) return;
     audEl.src = URL.createObjectURL(f);
     state.transport.attachAudio(audEl, 0);
+    // a render + live MIDI would double every note — audio attach wins,
+    // MIDI re-enables with one click
+    if ($('midi').checked) { $('midi').checked = false; midiFlush(); }
     $('err').textContent = '';
   });
 
@@ -462,6 +553,73 @@
     else $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16);
     render();
   });
+  // ---- HOT RELOAD (the "noteheads smaller → they appear smaller" loop) ----
+  // Every second (texture-panel precedent, D48: pure data): re-fetch the
+  // engraving registry, glyphs, the current IR and the picker manifest;
+  // on change, re-layout + re-render PRESERVING page, zoom position and
+  // the transport (clock + play state live outside render entirely).
+  // The source SCORE is deliberately not polled — notation experiments
+  // never mutate the piece data; refresh after editing it in the composer.
+  // (No document.hidden gate: the pane/browser throttles hidden-tab timers
+  // itself, and a gate makes the page stale the moment it is next seen.)
+  const watch = { sig: {}, irName: null };
+  async function pollChanges() {
+    const cur = $('ir').value;
+    const urls = {
+      container: '/notation/registry/container.json',
+      glyphs: '/notation/lib/glyphs.json',
+      manifest: '/notation/ir/index.json',
+      ir: '/notation/ir/' + cur + '.ir.json',
+    };
+    let dirty = false;
+    for (const [k, u] of Object.entries(urls)) {
+      let txt;
+      try { const r = await fetch(u); if (!r.ok) continue; txt = await r.text(); } catch (e) { continue; }
+      if (k === 'ir' && watch.irName !== cur) { watch.irName = cur; watch.sig.ir = txt; continue; }
+      if (watch.sig[k] === undefined) { watch.sig[k] = txt; continue; }   // baseline
+      if (watch.sig[k] === txt) continue;
+      watch.sig[k] = txt;
+      if (k === 'manifest') { try { mergeManifest(JSON.parse(txt)); } catch (e) { } continue; }
+      try {
+        if (k === 'container') state.container = JSON.parse(txt);
+        if (k === 'glyphs') state.glyphs = JSON.parse(txt);
+      } catch (e) { continue; }   // half-written file mid-edit: next poll gets it
+      dirty = true;
+    }
+    if (dirty && $('ir').value === cur) {
+      const keep = { pageIdx: state.pageIdx, zoomT0: state.zoomT0, wSeeded: state.wSeeded };
+      try { await loadIr(cur); } catch (e) { return; }   // invalid IR mid-edit: retry next poll
+      state.pageIdx = keep.pageIdx; state.zoomT0 = keep.zoomT0; state.wSeeded = keep.wSeeded;
+      render();
+    }
+    detectRender();   // a freshly dropped render shows its chip without a reload
+  }
+  setInterval(pollChanges, 1000);
+
+  // ---- render auto-detect: notation/audio/<scoreName>.wav|.mp3 ----
+  // The chip appears when a render exists; one click slaves the clock to it
+  // (MIDI unchecks itself). Re-checking the MIDI box detaches the render.
+  async function detectRender() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    if (!name) return;
+    try {
+      const { files } = await fetch('/api/notation/renders').then(r => r.json());
+      const hit = (files || []).find(f => f.toLowerCase().startsWith(name.toLowerCase() + '.'));
+      state.renderUrl = hit ? '/notation/audio/' + hit : null;
+      $('rend').style.display = state.renderUrl ? '' : 'none';
+    } catch (e) { }
+  }
+  $('rend').addEventListener('click', () => {
+    if (!state.renderUrl) return;
+    audEl.src = state.renderUrl;
+    state.transport.attachAudio(audEl, 0);
+    if ($('midi').checked) { $('midi').checked = false; midiFlush(); }
+    $('rend').textContent = '♪ render ✓';
+    $('err').textContent = '';
+  });
+  $('ir').addEventListener('change', detectRender);
+  detectRender();
+
   window.addEventListener('resize', render);
 })();
 </script>

@@ -30,8 +30,9 @@ const chunk = (id, data) => Buffer.concat([Buffer.from(id, 'ascii'), Buffer.from
 
 function trackChunk(events, name) {
     // events: {tick, kind:'on'|'off', bytes:[]} — note-OFF sorts first at equal
-    // ticks so a repeated note releases before it retriggers.
-    const rank = k => (k === 'off' ? 0 : k === 'bend' ? 1 : 2);   // off, then bend, then on
+    // ticks so a repeated note releases before it retriggers; controllers land
+    // before the attack they prepare (sonify_core's KIND_RANK, same order).
+    const rank = k => (k === 'off' ? 0 : k === 'cc' ? 1 : k === 'bend' ? 2 : 3);   // off, cc, bend, on
     events.sort((a, b) => a.tick - b.tick || rank(a.kind) - rank(b.kind));
     const data = [];
     if (name) data.push(0x00, 0xff, 0x03, ...vlq(name.length), ...Buffer.from(name, 'ascii'));
@@ -55,7 +56,12 @@ function writeMidi(file, { bpm = 120, tracks }) {
     for (const tr of tracks) {
         const ch = (tr.channel || 1) - 1;
         const ev = [];
-        for (const n of tr.notes) {
+        // RAW mode (export_midi.js): pre-built {t, kind, bytes} events — the
+        // channel already lives in the status byte, mixed channels per track OK.
+        for (const e of tr.events || []) {
+            ev.push({ tick: secToTick(e.t), kind: e.kind, bytes: e.bytes });
+        }
+        for (const n of tr.notes || []) {
             ev.push({ tick: secToTick(n.t), kind: 'on', bytes: [0x90 | ch, n.pitch, n.vel || 95] });
             ev.push({ tick: secToTick(n.t + n.dur), kind: 'off', bytes: [0x80 | ch, n.pitch, 0] });
         }
@@ -76,8 +82,9 @@ function writeMidi(file, { bpm = 120, tracks }) {
     fs.mkdirSync(path.dirname(abs), { recursive: true });
     fs.writeFileSync(abs, Buffer.concat([header, ...chunks]));
 
-    const notes = tracks.reduce((a, t) => a + t.notes.length, 0);
-    const end = Math.max(...tracks.flatMap(t => t.notes.map(n => n.t + n.dur)));
+    const notes = tracks.reduce((a, t) => a + (t.notes ? t.notes.length : (t.events || []).filter(e => e.kind === 'on').length), 0);
+    const end = Math.max(0, ...tracks.flatMap(t => (t.notes || []).map(n => n.t + n.dur)),
+        ...tracks.flatMap(t => (t.events || []).map(e => e.t)));
     return { file: abs, tracks: tracks.length, notes, seconds: +end.toFixed(2), ppq: PPQ, bpm };
 }
 

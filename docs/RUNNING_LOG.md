@@ -5080,3 +5080,89 @@ detector.**
 **G3 formally closes when the composer names a fresh window and sees it
 start-to-preview (one prompt -> one command -> refresh). G2+G3 can share
 one sitting: play piece-open-01 with the Reaper render.**
+
+---
+
+**Day 22 (2026-08-21) — NOTATION WORKFLOW BUILD, first chunk: sonify_core
+extraction + the piece as a MIDI file (the composer records audio from it).**
+Session opened with the composer's workflow brief (verbatim intent in chat,
+distilled to the approved slate): sandbox-style NOTATION EXPERIMENTS with
+version files like the composer score's saves · minimal UI, AI-prompt-driven
+("noteheads smaller -> they appear smaller") · playback with each experiment
+· global-change structures from day one · derive sibling parts from the
+principles once one part settles. Approved: A1 (versions = IR files in the
+existing picker, exp-grouped) · build chunk = MIDI timebase + hot reload +
+variant tooling + audio auto-attach + workflow doc · knobs-as-data DEFERRED
+until a knob needs globalizing (D48 filter) · G2/G3 verdicts deferred, not
+blocking. **Audio latency note (composer): rendered-audio slaving showed
+higher latency in the past; MIDI is the working default, audio stays as the
+second timebase option.**
+- **DECISION: one event compiler, N consumers.** score/public/sonify_core.js
+  (dual-load) now holds the playback math VERBATIM from composer.html
+  (computeYAtT/computeSegY/evalWaveCurve/curveValToCC/morphBendAt + the
+  tickCurvePlayback semantics: prearm CC0/KS/CC7 at -0.15 s, >=25 ms CC7
+  stream on-change, morph bends, residue cures) plus compileScore(score,
+  instruments, ccPoints, opts) -> flat sorted MIDI event list. Consumers:
+  export_midi.js (file) and the notation shell's MidiTimebase (live, next).
+  composer.html itself NOT rewired — the live app the composer depends on
+  stays untouched mid-build; drift is guarded by the battery below, and a
+  later delegation rewire is optional, not owed.
+- **THE TWO-ENDS BATTERY (Principle 5 applied): tools/test_sonify_core.js
+  extracts the app's method SOURCES out of composer.html at test time** and
+  runs both implementations on randomized inputs: 99,087 checks green (all
+  5 curve models + ctrl segments, real CC7 map dense grid, morph bend
+  schedules, plus structural assertions on the compiled piece). --prove-red
+  perturbs the core by t+0.001 and the suite catches all 20,000 affected
+  checks (Principle 6: seen red).
+- **One real bug found by the battery's sort assertion:** compileScore
+  appended the end-of-file CC7=127 sweep AFTER sorting, so the final cure
+  events violated the declared same-instant order (off<cc<bend<on). Sort
+  moved after the sweep.
+- **tools/export_midi.js + midi_out.js raw-event/cc extension:** 21-track
+  SMF (tempo + T1,T1b..T10,T10b — empty-track order FIXED so Reaper routing
+  survives re-exports), 60 BPM / 960 PPQ = 1 beat/s, ~1.04 ms tick. The
+  tool INDEPENDENTLY parses the file it wrote and recounts: 4401 notes,
+  22,497 CC, 3,531 bends across 40 port-channels, 12.53 min — exact match
+  vs compiled events. midi/piece-s25-finished01.mid DELIVERED to the
+  composer with the 60-BPM-session reminder (also printed by the tool on
+  every run).
+
+**Day 22 (continued) — the rest of the workflow chunk BUILT + VERIFIED LIVE
+(:5210 score-verify): live MIDI in the notation shell · hot reload · version
+tooling · render auto-attach · the protocol doc.** PLAN 8b filed.
+- **notation/lib/midiplayer.js = live MIDI as a transport CONSUMER** (D47
+  kept: only transport.js reads a clock; the player receives t). A faithful
+  port of tickCurvePlayback's semantics over sonify_core math — prearm,
+  scrub-in mid-note, CC7 stream paced by transport-t (not wall clock), morph
+  bends, the flush cure. **Headless battery (tools/test_midiplayer.js):**
+  whole piece at 60 fps into a fake rig, cross-checked against
+  compileScore — 4401/4401 notes both paths, every note prearmed, worst
+  onset lag exactly one frame, bends re-centered, flush sweep present,
+  scrub-in proven. In the shell: MIDI checkbox (default ON), eager init on
+  entering a container view (the lazy-init trap), missing-port warning,
+  MIDI↔render mutually exclusive. Graceful-failure path verified live (this
+  pane has no Web MIDI permission -> box unchecks + message; the composer's
+  Chrome already grants it for the score origin).
+- **HOT RELOAD verified live:** 1 s poll over container.json / glyphs.json /
+  current IR / picker manifest / renders list; on change -> re-layout +
+  re-render PRESERVING page, zoom position and the transport. Proof: staff
+  29 -> 31.6 registry edit landed on the open page within ~1.5 s, still on
+  page 2/6. **One design reversal during verification:** the document.hidden
+  poll gate was DROPPED — the embedded pane reports hidden even when
+  fronted, and a gate makes the page stale at the moment it is next seen;
+  browsers throttle hidden-tab timers themselves.
+- **Version files (option A1) live:** notate_section.js gains --from (fork a
+  version), --exp (picker "experiments" optgroup), --prune (file + manifest
+  entry out; git keeps history). Fork->appear and prune->vanish both
+  observed on the open page within ~1 s. Naming convention db1-T3-x01.
+- **Render auto-attach:** notation/audio/<scoreName>.wav|.mp3 (gitignored)
+  -> /api/notation/renders -> ♪ render chip; click slaves the clock
+  (MIDI unchecks), re-checking MIDI detaches. Dummy-file chip
+  appear/disappear verified live. MIME map gained wav/mp3/ttf.
+- **docs/NOTATION_WORKFLOW.md** = the portable protocol (the loop, the
+  phrase->file map, version commands, sound modes, derivation §6);
+  CLAUDE.md Apps points at it. NITS: pre-existing negative-rect console
+  noise on the default view, filed.
+- **NOT built, on purpose (D48):** strategy-knobs-as-data (waits for the
+  first knob that needs globalizing) · source-score polling (notation never
+  mutates the piece; refresh once after composer-score edits).

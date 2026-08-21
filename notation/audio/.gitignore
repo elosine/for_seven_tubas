@@ -1,0 +1,5 @@
+# Reaper renders dropped here auto-attach in notation.html (chip: "♪ render").
+# Convention: <scoreName>.wav or .mp3 (e.g. piece-s25-finished01.wav).
+# Big binaries stay out of git.
+*.wav
+*.mp3

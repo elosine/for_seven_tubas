@@ -10,6 +10,14 @@
 
 ## Open
 
+- **notation.html's default `notation` view logs ~40 console errors on
+  trance-section-01: `<rect> attribute width: A negative value is not valid
+  ("-9678.23")`.** Pre-existing (render.js path, untouched by the day-22
+  workflow build — the container views don't produce it). The browser drops
+  the invalid rects, the page renders fine; some off-window element isn't
+  clamped before drawing. Cosmetic console noise until it hides a real error
+  behind the spam. *(Found 2026-08-21 verifying the workflow chunk on 5210.)*
+
 - **The blocked-Web-MIDI message names port 5200 even when you are on another
   port.** `morph_emit.js` hardcodes *"this browser has BLOCKED Web MIDI for
   localhost:5200"*; served from the `score-verify` instance on 5210 the message

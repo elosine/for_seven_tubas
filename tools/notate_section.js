@@ -8,6 +8,16 @@
 //
 //   node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 40
 //        [--parts 0-9] [--profile trance|section1] [--id slug] [--label text]
+//        [--exp]
+//
+// NOTATION-WORKFLOW additions (day 22 — the version-file system, option A1):
+//   --from <id> --id <new>   fork an existing IR into a new version file
+//                            (experiment saves: db1-T3-x01, x02, ...);
+//                            content copied verbatim, re-validated, own
+//                            picker entry. Edit the fork's file directly —
+//                            the app hot-reloads it within ~1 s.
+//   --exp                    group the entry under "experiments" in the picker
+//   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
 // Steps: extract (extract_core, same as ir_extract.js) -> validate
 // (ir_validate.js --against-source --complete, an INDEPENDENT process) ->
@@ -23,10 +33,68 @@ function arg(name, def) {
   const i = process.argv.indexOf('--' + name);
   return i >= 0 ? process.argv[i + 1] : def;
 }
+const flag = name => process.argv.includes('--' + name);
+const manifestPath = path.join(ROOT, 'notation', 'ir', 'index.json');
+const readManifest = () => fs.existsSync(manifestPath)
+  ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : { irs: [] };
+const writeManifest = m => fs.writeFileSync(manifestPath, JSON.stringify(m, null, 1));
+
+// ---- --prune: remove a version file + its picker entry ----
+const pruneId = arg('prune');
+if (pruneId) {
+  const file = path.join(ROOT, 'notation', 'ir', pruneId + '.ir.json');
+  const manifest = readManifest();
+  const had = manifest.irs.some(e => e.id === pruneId);
+  manifest.irs = manifest.irs.filter(e => e.id !== pruneId);
+  writeManifest(manifest);
+  const existed = fs.existsSync(file);
+  if (existed) fs.unlinkSync(file);
+  console.log('PRUNED ' + pruneId + ' — file ' + (existed ? 'removed' : 'absent') +
+    ', manifest entry ' + (had ? 'removed' : 'absent') + ' (git history keeps both)');
+  process.exit(0);
+}
+
+// ---- --from: fork an existing IR into a new version file ----
+const fromId = arg('from');
+if (fromId) {
+  const id = arg('id');
+  if (!id) { console.error('--from needs --id <new-version-id>'); process.exit(2); }
+  const srcFile = path.join(ROOT, 'notation', 'ir', fromId + '.ir.json');
+  const doc = JSON.parse(fs.readFileSync(srcFile, 'utf8'));
+  doc.id = id;
+  const outRel = 'notation/ir/' + id + '.ir.json';
+  fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
+  try {
+    execFileSync(process.execPath, [path.join(ROOT, 'tools', 'ir_validate.js'), outRel, '--against-source', '--complete'],
+      { cwd: ROOT, stdio: 'pipe' });
+  } catch (e) {
+    fs.unlinkSync(path.join(ROOT, outRel));
+    console.error('VALIDATION FAILED — fork removed:\n' + String(e.stdout || '') + String(e.stderr || ''));
+    process.exit(1);
+  }
+  const manifest = readManifest();
+  const src = manifest.irs.find(e => e.id === fromId) || {};
+  const label = arg('label', id + ' (from ' + fromId + ')');
+  manifest.irs = manifest.irs.filter(e => e.id !== id);
+  manifest.irs.push({
+    id, label, score: src.score || (doc.source && doc.source.score),
+    window: src.window || (doc.source && doc.source.window),
+    profile: src.profile, exp: flag('exp') || src.exp || undefined, from: fromId,
+  });
+  writeManifest(manifest);
+  console.log('FORKED ' + fromId + ' -> ' + id + ' · VALID · in the picker as "' + label + '"' +
+    (flag('exp') || src.exp ? ' [experiments]' : ''));
+  console.log('  edit ' + outRel + ' directly — the open notation page picks changes up within ~1 s');
+  process.exit(0);
+}
+
+// ---- normal extract mode ----
 const scoreName = arg('score');
 const w0 = parseFloat(arg('w0')), w1 = parseFloat(arg('w1'));
 if (!scoreName || isNaN(w0) || isNaN(w1)) {
-  console.error('usage: notate_section.js --score <name> --w0 <s> --w1 <s> [--parts 0-9] [--profile trance|section1] [--id slug] [--label text]');
+  console.error('usage: notate_section.js --score <name> --w0 <s> --w1 <s> [--parts 0-9] [--profile trance|section1] [--id slug] [--label text] [--exp]\n' +
+    '       notate_section.js --from <id> --id <new> [--label text] [--exp]\n' +
+    '       notate_section.js --prune <id>');
   process.exit(2);
 }
 const partsArg = arg('parts', '0-9');
@@ -60,15 +128,14 @@ try {
 }
 
 // picker manifest (the app reads this; hardcoded options remain as fallback)
-const manifestPath = path.join(ROOT, 'notation', 'ir', 'index.json');
-let manifest = { irs: [] };
-if (fs.existsSync(manifestPath)) manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+const manifest = readManifest();
 manifest.irs = manifest.irs.filter(e => e.id !== id);
-manifest.irs.push({ id, label, score: scoreName, window: [w0, w1], profile });
-fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1));
+manifest.irs.push({ id, label, score: scoreName, window: [w0, w1], profile, exp: flag('exp') || undefined });
+writeManifest(manifest);
 
 const byStrategy = {};
 for (const c of doc.chunks) byStrategy[c.strategy] = (byStrategy[c.strategy] || 0) + 1;
 console.log('READY: ' + id + ' — ' + doc.events.length + ' events, ' + doc.chunks.length + ' chunks ' +
-  JSON.stringify(byStrategy) + ' · VALID vs source · in the picker as "' + label + '"');
+  JSON.stringify(byStrategy) + ' · VALID vs source · in the picker as "' + label + '"' +
+  (flag('exp') ? ' [experiments]' : ''));
 for (const w of warnings) console.warn('  warn: ' + w);
