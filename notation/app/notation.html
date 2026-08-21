@@ -22,10 +22,12 @@
   body.cmode { background: #111; }
   body.cmode #sheet { margin: 0; box-shadow: none; }
   body.cmode #sheet svg { display: block; } /* inline-svg baseline adds 4px */
-  body.cmode #bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10;
-                    transform: translateY(-100%); transition: transform .15s; opacity: 0.96; }
+  /* day 22: the floating bar lives at the BOTTOM edge in container modes —
+     at the top it sat exactly over T1's lane whenever shown */
+  body.cmode #bar { position: fixed; top: auto; bottom: 0; left: 0; right: 0; z-index: 10;
+                    transform: translateY(100%); transition: transform .15s; opacity: 0.96; }
   body.cmode #bar.shown, body.cmode #bar:hover { transform: none; }
-  #hoverzone { display: none; position: fixed; top: 0; left: 0; right: 0; height: 14px; z-index: 9; }
+  #hoverzone { display: none; position: fixed; top: auto; bottom: 0; left: 0; right: 0; height: 14px; z-index: 9; }
   body.cmode #hoverzone { display: block; }
   body.cmode #err { position: fixed; left: 8px; bottom: 8px; z-index: 10;
                     background: #fff8; border-radius: 4px; }
@@ -57,6 +59,7 @@
   <button id="play" style="display:none" title="play/pause (SPACE) — click the score to seek">▶</button>
   <label id="audWrap" style="display:none" title="attach the Reaper render — the clock slaves to it">♪ <input type="file" id="aud" accept="audio/*" style="width:150px"></label>
   <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
+  <label id="metaWrap" title="the META layer over the frame: layer-10 shape overlay + its envelope follower — off by default in the working loop"><input type="checkbox" id="metaov"> META</label>
   <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
@@ -105,7 +108,7 @@
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
   const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
-  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng'];
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng', 'metaov'];
   // THE FRAME (day 22, the collapse): the presentation score always shows
   // every lane (PP-2); a save covering fewer parts leaves the rest as
   // empty staves. One place to change if the ensemble ever isn't ten.
@@ -246,6 +249,7 @@
       else state.lastContainerMode = null;   // fix A: re-entering zoom re-centers
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
+      $('sheet').style.transform = '';   // fit-scaling is container-mode only
       const paged = $('mode').value === 'pages';
       const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
       const w = Math.max(wMin, parseFloat($('w').value) || 16);
@@ -357,12 +361,20 @@
       const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       ov.id = 'animov';
       ov.setAttribute('width', view.widthPx); ov.setAttribute('height', view.heightPx);
+      // viewBox so fit-scaling (CSS size) scales the overlay's CONTENT too
+      ov.setAttribute('viewBox', '0 0 ' + view.widthPx + ' ' + view.heightPx);
       $('sheet').appendChild(ov);
       const score = state.scores[state.ir.source.score] || null;
-      state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated);
+      state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
+        { parts: state.ir.source.parts, meta: $('metaov').checked });
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;
+      // FIT-TO-WINDOW (day 22): the frame stays 1920×1080 internally (jury
+      // geometry untouched) but DISPLAYS scaled to the window — Score fits
+      // whole; Zoom fits width and scrolls height by design. F11 on a
+      // 1080p screen = scale 1 = true size, exactly as before.
+      fitSheet(mode);
       // fix A (day 22): entering zoom auto-centers the viewport on the first
       // part's staff — the sheet is taller than the screen and the scrollbar
       // is hidden by design, so without this the first thing seen is ceiling.
@@ -370,8 +382,10 @@
       // across hot reloads and page turns.
       if (mode === 'zoom' && state.lastContainerMode !== 'zoom') {
         // center on the SAVE's first lane, not lane 0 of the frame
+        // (scale-aware: measure the displayed svg, not the internal px)
         const homePart = (state.ir.source.parts && state.ir.source.parts[0]) || 0;
-        const sy = view.system(homePart).yOfSs(0) + $('sheet').offsetTop;
+        const k = sheetScale();
+        const sy = view.system(homePart).yOfSs(0) * k + $('sheet').offsetTop;
         window.scrollTo({ top: Math.max(0, sy - window.innerHeight / 2) });
       }
       state.lastContainerMode = mode;
@@ -388,6 +402,7 @@
   // area, semi-transparent — same reading graphic.js draws, over notation.
   function metaOverlaySvg(view) {
     try {
+      if (!$('metaov').checked) return '';   // day 22: META is opt-in in the loop
       const score = state.scores[state.ir.source.score];
       if (!score) return '';
       const C = state.container;
@@ -416,6 +431,7 @@
 
   async function renderGraphicView() {
     try {
+      $('sheet').style.transform = '';
       const name = $('score').value;
       const score = await loadScore(name);
       const t0 = parseFloat($('t0').value) || 0;
@@ -447,7 +463,7 @@
       if (y >= s.yTopPx && y <= s.yBotPx) { $('parts').value = String(s.part); render(); return; }
     }
   });
-  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score', 'bricks']) $(id).addEventListener('change', render);
+  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score', 'bricks', 'metaov']) $(id).addEventListener('change', render);
   $('eng').addEventListener('change', () => {
     if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
     render();
@@ -470,7 +486,18 @@
   $('bar').addEventListener('mouseleave', () => { if (document.body.classList.contains('cmode')) $('bar').classList.remove('shown'); });
   document.addEventListener('keydown', ev => {
     if (!document.body.classList.contains('cmode')) return;
-    if (ev.target && /INPUT|SELECT|TEXTAREA/.test(ev.target.tagName)) return;
+    const tag = ev.target && ev.target.tagName;
+    // SPACE always plays (day 22 — it used to work only while the ▶ button
+    // happened to keep focus; after touching any control it toggled THAT).
+    // Only genuine typing fields keep it.
+    const typing = tag === 'TEXTAREA' || (tag === 'INPUT' && !/checkbox|radio/i.test(ev.target.type));
+    if (ev.key === ' ' && !typing) {
+      ev.preventDefault();
+      if (ev.target && ev.target.blur) ev.target.blur();
+      $('play').click();
+      return;
+    }
+    if (tag && /INPUT|SELECT|TEXTAREA/.test(tag)) return;
     if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
     else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
     else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }
@@ -589,13 +616,40 @@
     }
     ensureLoop();
   });
-  // click the score to SEEK (container modes; secondsOfX inverts the view)
+  // fit-to-window machinery: CSS transform on the sheet — pure display
+  // scaling, coordinates inside stay 1920×1080
+  function sheetScale() {
+    const svg = $('sheet').querySelector('svg');
+    if (!svg) return 1;
+    const r = svg.getBoundingClientRect();
+    const w = +svg.getAttribute('width');
+    return w ? r.width / w : 1;
+  }
+  function fitSheet(mode) {
+    // viewBox-based scaling, NOT css transform — transforms leave the
+    // layout box unscaled, so the page kept phantom scroll space
+    const sheet = $('sheet');
+    const svg = sheet.querySelector('svg');
+    if (!svg) return;
+    const W = +svg.getAttribute('width'), H = +svg.getAttribute('height');
+    const k = mode === 'video'
+      ? Math.min(1, window.innerWidth / W, window.innerHeight / H)
+      : Math.min(1, window.innerWidth / W);
+    for (const el of sheet.querySelectorAll('svg')) {
+      el.style.width = (+el.getAttribute('width') * k) + 'px';
+      el.style.height = (+el.getAttribute('height') * k) + 'px';
+    }
+  }
+
+  // click the score to SEEK (container modes; secondsOfX inverts the view;
+  // scale-aware — divide the click by the displayed scale)
   $('sheet').addEventListener('click', ev => {
     const vv = $('view').value;
     if (vv !== 'video' && vv !== 'zoom') return;
     const view = state.animView; if (!view) return;
-    const rect = $('sheet').querySelector('svg').getBoundingClientRect();
-    const t = view.secondsOfX(ev.clientX - rect.left);
+    const svg = $('sheet').querySelector('svg');
+    const rect = svg.getBoundingClientRect();
+    const t = view.secondsOfX((ev.clientX - rect.left) * (view.widthPx / rect.width));
     const [w0, w1] = view.window;
     if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
   });

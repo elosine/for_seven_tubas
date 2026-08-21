@@ -5458,3 +5458,35 @@ document semantics.**
   Sparse-lane cap now moot in container views (always 10 lanes; the cap
   code remains for any future sparse frame config). Suites green.
 - NOTATION_WORKFLOW §5 rewritten to the new recipe: pick save, SPACE.
+
+**Day 22 (continued) — first real sitting on the collapsed app: five
+reports, five systemic fixes.**
+- **"Phantom pie" + stray objects: the collapse had exposed SCORE-WIDE
+  animated objects to the ten-lane frame** (before, non-save lanes didn't
+  exist so their instances silently skipped). collect() now scopes to the
+  save: part-bearing kinds filter to ir.source.parts; motivePie qualifies
+  only when its WHOLE group lives in the save (a lone member isn't the
+  group — GESTURE-1's pie no longer haunts a T1 solo). Battery caught my
+  first over-eager default (fixture ir has no source → now null = unscoped;
+  the shell opts in explicitly).
+- **"Large green triangle" = the META overlay, not the curve** (the
+  composer's zoom-shrink report dissolved with this: the real device curve
+  is lane-bounded and grows ×2 in zoom; the giant thing was META spanning
+  the whole frame). META (overlay + its envFollower) is now a checkbox,
+  default OFF in the loop, persisted — on for full-score judging.
+- **SPACE "gets trapped": there was never a space handler** — it worked
+  only while the ▶ button kept focus; touching any control stole it.
+  Space now always toggles play in container modes (blurs the control;
+  only genuine text/number typing keeps it).
+- **"Page only reaches T8" (mid-turn report): the fixed 1920×1080 frame
+  assumed F11.** FIT-TO-WINDOW added: Score scales to fit both axes, Zoom
+  fits width and scrolls height by design; internally still 1920×1080 so
+  jury geometry is untouched (F11 on 1080p = scale 1 = true size).
+  First implementation via css transform left PHANTOM SCROLL (transforms
+  don't shrink layout boxes — measured scrollH 2160 for 1440 of content);
+  reworked to viewBox-based sizing, scrollH now exact (720/720 video,
+  1440 zoom). Click-to-seek + zoom auto-center made scale-aware; the
+  anim overlay gained a viewBox so it scales with the page.
+- **"Bar blocks the top of T1 in zoom" (mid-turn report):** the floating
+  bar + its hover zone moved to the BOTTOM edge in container modes.
+- Suites green (animobj/layout/render/snapshots/midiplayer).

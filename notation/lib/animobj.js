@@ -175,7 +175,18 @@
 
   // ---------- data bindings: strata → instances ----------
   // Each instance records its source stratum. score may be null (IR-only).
-  function collect(ir, score, style) {
+  // opts (day 22, the collapse): { parts, meta }. Instances are SCOPED TO
+  // THE SAVE — the ten-lane frame exposed every score-wide object (phantom
+  // pies, other parts' wedges). Part-bearing kinds filter to the save's
+  // parts; motivePie qualifies only when its WHOLE group lives inside them
+  // (a lone member isn't the group); envFollower rides the META overlay's
+  // visibility (opts.meta).
+  function collect(ir, score, style, opts) {
+    const O = opts || {};
+    const partList = O.parts || (ir && ir.source && ir.source.parts) || null;
+    const allowed = partList ? new Set(partList) : null;   // null = unscoped
+    const has = l => !allowed || allowed.has(l);
+    const metaOn = O.meta !== false;
     const out = [];
     const evById = new Map(((ir && ir.events) || []).map(e => [e.id, e]));
     for (const c of (ir && ir.chunks) || []) {
@@ -195,25 +206,29 @@
       const groups = new Map();
       for (const o of score.objects) {
         if (o.type !== 'waveCurve') continue;
-        if (o.morphBend && o.layer <= 9) {
+        if (o.morphBend && o.layer <= 9 && has(o.layer)) {
           out.push({ kind: 'curveFollower', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, midi: o.sonifyNote, morphBend: o.morphBend, _src: 's1-morph' });
         }
-        if (o.layer === 10 && o.nodes && o.nodes.length) {
+        if (metaOn && o.layer === 10 && o.nodes && o.nodes.length) {
           out.push({
             kind: 'envFollower', t0: o.startSeconds, t1: o.endSeconds, color: o.color,
             nodes: o.nodes.map(n => ({ pos: n.pos, lvl: Math.min(10, Math.max(0, n.y)) / 10 })), _src: 's1-meta',
           });
         }
-        if (o.layer <= 9 && !o.morphBend && (o.endSeconds - o.startSeconds) >= style.lineWedge.minHoldSeconds) {
+        if (o.layer <= 9 && !o.morphBend && has(o.layer) && (o.endSeconds - o.startSeconds) >= style.lineWedge.minHoldSeconds) {
           out.push({ kind: 'lineWedge', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, _src: 's1-hold' });
         }
         if (o.groupId) {
-          const g = groups.get(o.groupId) || { t0: Infinity, t1: -Infinity, color: o.color };
+          const g = groups.get(o.groupId) || { t0: Infinity, t1: -Infinity, color: o.color, layers: new Set() };
           g.t0 = Math.min(g.t0, o.startSeconds); g.t1 = Math.max(g.t1, o.endSeconds);
+          if (o.layer <= 9) g.layers.add(o.layer);
           groups.set(o.groupId, g);
         }
       }
-      for (const [id, g] of groups) out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
+      for (const [id, g] of groups) {
+        if (![...g.layers].every(has)) continue;   // the whole group or no pie
+        out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
+      }
     }
     return out;
   }
