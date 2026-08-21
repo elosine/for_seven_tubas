@@ -5224,3 +5224,28 @@ dotted go line, ported from piece #1's viola opening gesture.**
   top->cut geometry exact; dotted line at x 702.89 vs 702.9 computed for
   onset 4.198. Composer's page needs ONE refresh (lib code), then registry
   tuning lands in ~1 s.
+
+**Day 22 (continued) — UI persistence + the STALENESS CUE for frozen curve
+samples (composer: "I caught that you are pre-generating samples... lets
+have a cue"; "hot reload keep all the parameters?").**
+- **UI persistence:** every control (view/mode/parts/t0/w/ir/score/m4/midi)
+  + page index + zoom position now survive a reload (localStorage, saved on
+  change and on every render; selects only restore to options that still
+  exist). Cost of doing it: THREE latent TDZ bugs surfaced — restoring a
+  container view runs the whole transport/anim/MIDI path during the INITIAL
+  render, which the old top-to-bottom declaration order never had to
+  survive (UI consts, barTimer, rafId/midiWasPlaying/state.transport/
+  state.midi). All hoisted; the failure mode was page-dead-with-ReferenceError.
+- **The staleness model, stated:** the composer score stays the curve's
+  source of truth; IR level.samples = a snapshot at extract. New 1 Hz
+  mtime stat (/api/composer/mtime/<name>, cheap) watches the source file;
+  on change the page re-fetches the score (META overlay + markers refresh
+  too) and re-evaluates every extracted curve through sonify_core — drift
+  > 0.002 raises an amber badge naming the object: "wc-3 (curve) — ask the
+  AI to refresh <id>". Also flags (moved) onsets and (removed) objects.
+  A re-extract clears the badge (fresh snapshot supersedes).
+- **Verified live on a SCRATCH COPY of the piece** (never the real file —
+  the autosave-overwrite trap class): slope 0.35 -> 0.8 on disk -> badge in
+  ~1.5 s -> re-extract -> badge cleared AND the curve redrew steeper
+  (midpoint y 885.8 vs computed 893 for k=3.2, within sampling tolerance).
+  Persistence verified by full reload restoring video view + experiment IR.

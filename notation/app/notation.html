@@ -39,6 +39,10 @@
   #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; position: relative; }
   #animov { position: absolute; top: 0; left: 0; pointer-events: none; }
   #err { color: #b00; padding: 12px; white-space: pre-wrap; font-family: monospace; }
+  #stale { color: #8a6d3b; padding: 0 12px 12px; white-space: pre-wrap; font-family: monospace; }
+  #stale:empty { display: none; }
+  body.cmode #stale { position: fixed; left: 8px; bottom: 34px; z-index: 10;
+                      background: #fff8; border-radius: 4px; padding: 4px 8px; }
 </style>
 </head>
 <body>
@@ -81,6 +85,7 @@
 <div id="hoverzone" title="controls"></div>
 <div id="sheet"></div>
 <div id="err"></div>
+<div id="stale" title="the extracted snapshot no longer matches the composer score"></div>
 
 <script src="/notation/lib/coords.js"></script>
 <script src="/notation/lib/stamps.js"></script>
@@ -97,6 +102,16 @@
 (async function () {
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
+  const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi'];
+  // hoisted: a RESTORED container view (UI persistence) runs the whole
+  // transport/anim/MIDI path during the INITIAL render, which the old
+  // top-to-bottom declaration order never had to survive
+  let barTimer = null;
+  let rafId = null;
+  let midiWasPlaying = false;
+  state.transport = NotationTransport.makeTransport();
+  state.midi = { outputs: null, ccPoints: null, players: {}, failed: false, warned: false };
   async function loadIr(name) {
     const r = await fetch('/notation/ir/' + name + '.ir.json');
     if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
@@ -162,12 +177,43 @@
       opt.value = p; opt.textContent = 'T' + (p + 1);
       $('parts').appendChild(opt);
     }
+    restoreUi();                 // day 22: controls survive a reload
     await loadIr($('ir').value);
+    restoreUiPosition();         // loadIr resets page/zoom — reapply saved
     render();
   } catch (e) { $('err').textContent = String(e.stack || e); return; }
 
+  // ---- UI persistence (day 22): a reload keeps every control + position.
+  // Saved on every control change and every render (page/zoom moves).
+  function savedUi() { try { return JSON.parse(localStorage.getItem(UI_KEY) || '{}'); } catch (e) { return {}; } }
+  function restoreUi() {
+    const s = savedUi();
+    for (const f of UI_FIELDS) {
+      if (s[f] === undefined) continue;
+      const el = $(f);
+      if (el.type === 'checkbox') { el.checked = !!s[f]; continue; }
+      // a select only restores to an option that still exists
+      if (el.tagName === 'SELECT' && ![...el.querySelectorAll('option')].some(op => op.value === String(s[f]))) continue;
+      el.value = s[f];
+    }
+    if (s.wSeeded) state.wSeeded = true;   // saved w wins over the container seed
+  }
+  function restoreUiPosition() {
+    const s = savedUi();
+    if (s.pageIdx !== undefined) state.pageIdx = s.pageIdx;
+    if (s.zoomT0 !== undefined && s.ir === $('ir').value) state.zoomT0 = s.zoomT0;
+  }
+  function saveUi() {
+    const o = {};
+    for (const f of UI_FIELDS) { const el = $(f); o[f] = el.type === 'checkbox' ? el.checked : el.value; }
+    o.pageIdx = state.pageIdx; o.zoomT0 = state.zoomT0; o.wSeeded = state.wSeeded;
+    try { localStorage.setItem(UI_KEY, JSON.stringify(o)); } catch (e) { }
+  }
+  for (const f of UI_FIELDS) $(f).addEventListener('change', saveUi);
+
   async function render() {
     try {
+      saveUi();   // every render = a position/control state worth restoring
       const vv = $('view').value;
       const graphic = vv === 'graphic';
       $('scoreWrap').style.display = graphic ? '' : 'none';
@@ -366,7 +412,6 @@
   // container-mode chrome: bar auto-hides (shown briefly on entry, and on
   // hovering the top edge); LEFT/RIGHT page, Z flips video↔zoom — so the
   // frame can be judged with zero page furniture. F11 = exact fit.
-  let barTimer = null;
   function setCmode(on) {
     document.body.classList.toggle('cmode', on);
     document.documentElement.classList.toggle('cmode', on);
@@ -391,15 +436,13 @@
   // clock for `t`, turns the page when t crosses the window end (hard
   // cut — V0.4 candidate, judged at G2), and redraws the overlay from
   // pure state(t). The static page never re-renders inside a frame.
-  state.transport = NotationTransport.makeTransport();
-  let rafId = null;
-
   // ---- MIDI playback (the working-loop default; the audio render is the
   // second timebase option). Player = notation/lib/midiplayer.js, a
   // transport CONSUMER over sonify_core — the same computation
   // tools/export_midi.js serializes. Init is EAGER on entering a container
   // mode (the lazy-init trap: a lazy request swallows the first notes).
-  state.midi = { outputs: null, ccPoints: null, players: {}, warned: false };
+  // (transport + state.midi are created at the top of the IIFE — see the
+  // hoisting note there.)
   async function ensureMidi() {
     if (state.midi.outputs || state.midi.failed) return;
     try {
@@ -460,7 +503,6 @@
     return { turned: false, t, window: [w0, w1] };
   }
   window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
-  let midiWasPlaying = false;
   function animLoop() {
     rafId = null;
     if (drawOverlayFrame() === null) {      // left container modes — loop ends
@@ -590,11 +632,59 @@
       const keep = { pageIdx: state.pageIdx, zoomT0: state.zoomT0, wSeeded: state.wSeeded };
       try { await loadIr(cur); } catch (e) { return; }   // invalid IR mid-edit: retry next poll
       state.pageIdx = keep.pageIdx; state.zoomT0 = keep.zoomT0; state.wSeeded = keep.wSeeded;
+      // a fresh extract supersedes any staleness verdict — recompute clean
+      state.src.stale = []; $('stale').textContent = '';
       render();
     }
     detectRender();   // a freshly dropped render shows its chip without a reload
+    checkSource();    // the pre-generated-samples cue (see below)
   }
   setInterval(pollChanges, 1000);
+
+  // ---- source-score staleness (day 22): the IR's level samples are a
+  // SNAPSHOT taken at extract; the composer keeps adjusting curves in the
+  // composer score. A 1 Hz mtime stat watches the source file; on change
+  // the score re-fetches (META overlay + markers refresh too) and every
+  // extracted curve is re-evaluated through the SAME math (sonify_core) —
+  // any drift beyond 0.002 raises the amber cue naming the objects.
+  state.src = { name: null, mtime: null, stale: [] };
+  async function checkSource() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    if (!name) return;
+    if (name !== state.src.name) { state.src = { name, mtime: null, stale: [] }; $('stale').textContent = ''; }
+    let mt;
+    try { mt = (await fetch('/api/composer/mtime/' + name).then(r => r.json())).mtimeMs; } catch (e) { return; }
+    if (mt === undefined) return;
+    if (state.src.mtime === null) { state.src.mtime = mt; return; }
+    if (mt === state.src.mtime) return;
+    state.src.mtime = mt;
+    delete state.scores[name];
+    let score;
+    try { score = await loadScore(name); } catch (e) { return; }
+    state.markers = (score.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
+    const stale = [];
+    for (const e of state.ir.events || []) {
+      const oid = e.source && e.source.objectId;
+      const o = (score.objects || []).find(x => x.id === oid);
+      if (!o) { stale.push((oid || e.id) + ' (removed)'); continue; }
+      if (Math.abs(o.startSeconds - e.onset) > 1e-3) stale.push(oid + ' (moved)');
+      if (e.level && e.level.samples && o.nodes && o.nodes.length >= 2 && Array.isArray(o.segments)) {
+        const n = e.level.samples.length;
+        let maxd = 0;
+        for (let i = 0; i < n; i++) {
+          const d = Math.abs(SonifyCore.evalWaveCurve(o, i / (n - 1)) - e.level.samples[i]);
+          if (d > maxd) maxd = d;
+        }
+        if (maxd > 0.002) stale.push(oid + ' (curve)');
+      }
+    }
+    state.src.stale = [...new Set(stale)];
+    $('stale').textContent = state.src.stale.length
+      ? '⚠ changed in composer score since extract: ' + state.src.stale.join(', ') +
+        ' — ask the AI to refresh ' + state.ir.id
+      : '';
+    render();   // the META overlay + markers read the fresh score
+  }
 
   // ---- render auto-detect: notation/audio/<scoreName>.wav|.mp3 ----
   // The chip appears when a render exists; one click slaves the clock to it

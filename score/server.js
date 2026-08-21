@@ -923,6 +923,15 @@ const server = http.createServer((req, res) => {
         });
     }
 
+    // notation workflow: score-file mtime — the 1 Hz staleness probe behind
+    // the "curve changed since extract" cue (cheap stat, no file read)
+    if (req.method === 'GET' && url.startsWith('/api/composer/mtime/')) {
+        const fp = path.join(SCORES_DIR, `${safe(url.slice('/api/composer/mtime/'.length))}.json`);
+        res.setHeader('Content-Type', 'application/json');
+        try { return res.end(JSON.stringify({ mtimeMs: fs.statSync(fp).mtimeMs })); }
+        catch (e) { res.statusCode = 404; return res.end('{}'); }
+    }
+
     // notation workflow: list available audio renders (notation/audio/) so
     // the page can offer one-click attach without a HEAD-probe dance
     if (req.method === 'GET' && url === '/api/notation/renders') {
