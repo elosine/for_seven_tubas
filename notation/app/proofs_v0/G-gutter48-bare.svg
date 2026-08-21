@@ -11,8 +11,7 @@
 <text x="4" y="655.9" font-size="8.7" font-family="&#39;Crimson Pro Light&#39;, serif" fill="#8a8a8a">T7</text>
 <text x="4" y="762.7" font-size="8.7" font-family="&#39;Crimson Pro Light&#39;, serif" fill="#8a8a8a">T8</text>
 <text x="4" y="869.5" font-size="8.7" font-family="&#39;Crimson Pro Light&#39;, serif" fill="#8a8a8a">T9</text>
-<text x="4" y="976.3" font-size="8.7" font-family="&#39;Crimson Pro Light&#39;, serif" fill="#8a8a8a">T10</text>
-<line x1="48" y1="0" x2="48" y2="1080" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/></g>
+<text x="4" y="976.3" font-size="8.7" font-family="&#39;Crimson Pro Light&#39;, serif" fill="#8a8a8a">T10</text></g>
 <svg x="48" y="0" xmlns="http://www.w3.org/2000/svg" width="1872" height="1080" viewBox="0 0 1872 1080" style="background:#fff">
 <rect x="0" y="0" width="1872" height="1080" fill="#fff"/>
 <g fill="#111">
@@ -706,4 +705,5 @@
 <circle cx="1798.26" cy="1040.35" r="1.58"/>
 </g>
 </svg>
+<line x1="48" y1="0" x2="48" y2="1080" stroke="#777" stroke-width="1.5" stroke-dasharray="4 4"/>
 </svg>

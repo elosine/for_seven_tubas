@@ -91,7 +91,7 @@ function proof(cfg) {
   }
 
   // gutter furniture, drawn by the proof in OUTER coords (header 0 here)
-  let gut = '';
+  let gut = '', entryLine = '';
   if (G) {
     const S = Stamps.makeStamps(glyphs);
     const pieces = [];
@@ -103,16 +103,19 @@ function proof(cfg) {
         xPx: G - glyphs.clef.bass.wSs * sys.ssPx - 6, yPx: sys.yOfSs(1), ssPx: sys.ssPx, align: 'fLine',
       }));
     }
-    // the music-start line: where the cursor ENTERS (never sweeps the gutter)
-    pieces.push('<line x1="' + G + '" y1="0" x2="' + G + '" y2="' + areaH + '" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/>');
     gut = '<g fill="#111">' + pieces.join('\n') + '</g>';
+    // the music-start line: where the cursor ENTERS (never sweeps the
+    // gutter). Drawn AFTER the inner svg — the music panel's opaque white
+    // background starts at exactly x=G and was painting over half the
+    // 1px stroke (composer: "i dont see the line").
+    entryLine = '<line x1="' + G + '" y1="0" x2="' + G + '" y2="' + areaH + '" stroke="#777" stroke-width="1.5" stroke-dasharray="4 4"/>';
   }
 
   let svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">',
     '<!-- V0 proof: ' + params + ' -->',
     '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#fff"/>',
-    head, gut, inner, '</svg>',
+    head, gut, inner, entryLine, '</svg>',
   ].join('\n');
   if (cfg.postProcess) svg = cfg.postProcess(svg);
   fs.writeFileSync(path.join(OUT, file), svg);

@@ -4893,3 +4893,13 @@ geometrically in the browser: 10 clefs, right edge 41.6px < G=48; first
 music ink at 48.9px >= G - the clef/first-note collision the composer
 caught is GONE by construction. Composer's next verdict: gutter width
 (36/48/64) + whether the bare page reads right.
+
+**Day 21 — the invisible entry line (composer: "i dont see the line").**
+Cause: the dashed music-start line was drawn at exactly x=G BEFORE the
+nested music svg, whose opaque white background begins at exactly x=G -
+the paint order covered the right half of the 1px stroke and left a
+sub-pixel sliver. Fix: line drawn AFTER the inner svg (top of the paint
+stack), #777 at 1.5px. Verified: it is the last element and
+elementFromPoint(48,400) hits it. Same trap family as the viewer-page
+fit and renderMarker: the payload was right, the PRESENTATION lied -
+and paint ORDER is part of presentation.
