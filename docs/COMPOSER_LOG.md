@@ -1613,3 +1613,42 @@ composer asked for a read-back):*
 
 > *"I'll go finish the piece and then run the plan before we start
 > notating."*
+
+## 2026-08-20 (day 21) — V0 proof verdicts: no header; staff 31.6; time scale must flex (dictated)
+
+*On the first true-size proof slate (A header / B staff / C-D time scale):*
+
+"For A, no header at all. We don't need any of that — clock, title, or any
+information at all. This will be akin to the paper score; there's rarely a
+header on paper scores, and they don't need to see the time for the
+presentation score. Eventually, for the conductor score, the conductor will
+need to see the time.
+
+For B, I think the 31.6-pixel is the good size for the staff. We'll talk
+about this down the road — not every page or every section will have staff.
+But for the staff sections, 31.6.
+
+Group C — this points back to the architecture. The architecture needs to
+support a variety in this area: I might need a page that contains four
+beats because there's dense material in there, and then a page that
+contains twenty beats. It's my hope that the architecture can support that
+sort of flexibility. In the past I've gone with a steady scroll, and this
+will probably be the same — the same speed — but it might be worth thinking
+about whether I want different-speed scrolls or different-scale parts of
+the score, if that's doable in this architecture. For the trance, probably
+twelve, but could be sixteen — I have to see it and understand what the
+trade-offs are. Just looking at the static score, twelve probably looks
+best. It's going to depend on the graphic density of the material.
+
+For D, eight is okay — it looks good, but it'll depend. For the density
+build, I doubt that eight will give enough room to have those
+close-together rhythms.
+
+It also made me think about lane height and staff size: that needs to be
+tested with things like ledger lines and accents and dynamics and hairpins
+— all things that add vertical space. But these are the kind of more
+minutiae decisions that I'm hoping are flexible and can be worked out when
+I'm actually making the notation, same with the above decisions. So give me
+some evaluation: after this phase zero, how much are we locked in, or how
+much flexibility will we have on some of these things — or does the
+architecture have?"

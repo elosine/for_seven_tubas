@@ -4750,3 +4750,27 @@ scrollW/H == clientW/H == 1920/1080 (no bars either axis), frame rect
 (0,0,1920,1080), J/K/C all fire. Lesson filed: the proof CONTENT was
 verified in v1 but the VIEWING SURFACE was not - same trap class as the
 renderMarker memory (measure the presentation, not just the payload).
+
+**Day 21 — V0 VERDICTS ROUND 1 (composer, on proofs_v0; verbatim in
+COMPOSER_LOG).** A: NO HEADER AT ALL for the video score ("akin to the
+paper score"); the future CONDUCTOR realization carries the clock - which
+is the realization-as-config design paying off on its first decision.
+B: staff = 31.6 px DECIDED for staff sections - note it was chosen as an
+ABSOLUTE size, so with the header gone (lane 94.8 -> 102.8 px) the V1
+staff/lane decoupling stops being optional and becomes required (staff px
+first-class, air absorbs the difference: ~35.6 px per side). Also: "not
+every page or every section will have staff" -> sectional staff on/off
+filed to V1 (today layout draws the staff full-width always). C: trance
+12 s/system PROVISIONAL (maybe 16; judged static, re-judge under motion at
+G2); the REQUIREMENT is per-section variety - a 4-beat dense page next to
+a 20-beat sparse page. Architecture answer, verified against the code:
+per-PAGE/SECTION scale is already a parameter (planPages pageSeconds;
+px/s = 1920/window per view) - the boundary is UNIFORM TIME WITHIN ONE
+PAGE (xOfSeconds is linear inside a window; nonlinear in-page time would
+be a coords change). D: apex 8 s/system okay FOR THIS MATERIAL; density
+builds expected tighter. NEW V0 item surfaced: the VERTICAL-STRESS proof -
+lane height judged with ledgers + accents + dynamics + hairpins (mock
+strokes for glyphs that don't exist yet; the question is air budget, not
+glyph shape). container.json DRAFT created (decided/provisional/open per
+item; G0 not passed). Composer's meta-question answered in chat and the
+answer filed: what G0 freezes vs what stays data-cheap.

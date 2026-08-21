@@ -1,0 +1,46 @@
+{
+  "_status": "DRAFT — accumulating V0 decisions. G0 NOT passed; nothing frozen yet. Per-item status: decided | provisional | open | reserved.",
+  "_history": [
+    "2026-08-20 (day 21): created after the first true-size proof slate (proofs_v0). A/B/C/D verdicts filed — composer's words in COMPOSER_LOG same date."
+  ],
+
+  "frame": { "widthPx": 1920, "heightPx": 1080, "_status": "decided (PP-1: the deliverable format)" },
+
+  "staff": {
+    "staffHeightPx": 31.6,
+    "ssPx": 7.9,
+    "_status": "decided (for staff sections)",
+    "_note": "Composer 2026-08-20: '31.6 is the good size for the staff.' Chosen as an ABSOLUTE size, independent of lane height — requires V1's per-lane decoupling (staff px is the first-class number; ssPerSystem derives). Staff presence is PER SECTION, not global: 'not every page or every section will have staff' — sectional staff on/off filed to V1."
+  },
+
+  "timeScale": {
+    "model": "seconds-per-system, PER SECTION; steady scroll (one global value) is the probable default, but the architecture must allow a dense page at few beats and a sparse page at many (composer 2026-08-20). Uniform px/s WITHIN a page is the structural boundary.",
+    "defaults": { "trance": 12, "denseApex": 8 },
+    "_status": "provisional",
+    "_note": "Trance: 'probably 12, could be 16 — have to see the trade-offs' (judged static; re-judge under motion at G2). Apex: 8 okay for THIS material; the density builds likely need tighter pages ('I doubt 8 will give enough room for those close-together rhythms')."
+  },
+
+  "realizations": {
+    "_note": "A21b invariant 3: a realization = view config + transport binding + device set + styling. Header presence/content is PER REALIZATION, not container-global — the video has none, the future conductor score carries the clock.",
+    "video-jury": {
+      "headerPx": 0,
+      "parts": "all 10 in frame (PP-2)",
+      "lanes": { "model": "equal; per-part weights supported (V1)", "padTopPx": 8, "padBotPx": 8, "gapPx": 4 },
+      "transport": "local-audio",
+      "_derived": "lanePx = (1080 - 16 - 36) / 10 = 102.8 · air above+below staff ≈ 35.6 px per side at staff 31.6",
+      "_status": "header decided ('no header at all — akin to the paper score'); lane numbers provisional pending the vertical-stress proof (ledgers, accents, dynamics, hairpins)"
+    },
+    "zoom-working": { "zoomZ": null, "_status": "open (V0.5)" },
+    "print-letter": { "_status": "open (V0.9: margins, staff mm, seconds-per-system, printed-page proof)" },
+    "conductor": {
+      "headerPx": null,
+      "_status": "reserved — NOT in this build",
+      "_note": "Future realization: 'eventually, for the conductor score, the conductor will need to see the time.' Reserved so the no-header verdict stays per-realization."
+    }
+  },
+
+  "typography": { "_status": "open — font (V0.7) undecided; engraving-registry census (V0.10) not yet run" },
+  "systemTurn": { "_status": "open (V0.4: hard cut vs two-system swap — mock both, judge by watching)" },
+  "metaOverlay": { "_status": "open (V0.8: opacity/color, ported from graphic.js)" },
+  "animatedObjects": { "_status": "open (V0.11: vocabulary, styling, print counterparts)" }
+}
