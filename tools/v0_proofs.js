@@ -121,6 +121,15 @@ const FONTS = [
   ['times', "'Times New Roman', serif"],
   ['palatino', "'Palatino Linotype', serif"],
   ['segoe', "'Segoe UI', sans-serif"],
+  // day-21 addition: the composer remembered the prior scores' voice —
+  // both piece #1 and #2 apps use CONSOLAS for all score-machine text
+  // (time, tempo, labels). Verified really installed by canvas width vs
+  // serif fallback (document.fonts.check false-positives!). Inconsolata,
+  // the free variant the composer recalled, is NOT installed — needs a
+  // download (composer permission) and only matters if we ever EMBED the
+  // font (PDF/web); rendered video pixels carry no font license question.
+  ['consolas', 'Consolas, monospace'],
+  ['cascadia', "'Cascadia Mono', monospace"],
 ];
 for (const [name, stack] of FONTS) rows.push(proof({
   ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, file: 'F-' + name + '.svg',

@@ -4844,3 +4844,20 @@ installable ink; all four VERIFIED INSTALLED via document.fonts.check on
 this machine. The winner still must survive the V4/V5 rasterizer - that
 proof lives in V4 (frame-vs-app pixel comparison), noted in the plan's
 risk section already. Pager now 18 proofs; F group = 15-18.
+
+**Day 21 — V0.7 addendum: "console pro" = CONSOLAS, the prior scores'
+voice.** Composer remembered the font from the previous pieces; grep of
+both prior repos confirms - piece #1 and #2 apps use Consolas for ALL
+score-machine text (time displays, tempo readouts, labels; Segoe only for
+UI chrome). The free variant the composer half-remembered = Inconsolata
+(OFL). INSTALLATION TRUTH REQUIRED TWO MEASUREMENTS: document.fonts.check
+said all five candidates installed - FALSE POSITIVES. Canvas width vs
+monospace fallback couldn't separate Consolas (it IS the Windows
+monospace fallback); width vs SERIF fallback settled it: Consolas and
+Cascadia Mono really installed; Inconsolata and Source Code Pro NOT
+(they fell back). Trap filed: fonts.check is a liar, measure widths
+against a contrasting generic. F-consolas + F-cascadia proofs added
+(pager now 20; F group 15-20). Inconsolata would need a download
+(composer permission) and only matters if the font gets EMBEDDED
+(PDF/web) - rendered video pixels carry no license question; Consolas
+ships with every Windows.
