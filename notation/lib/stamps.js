@@ -26,6 +26,19 @@
       return box('notehead', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
     }
 
+    // day 22 (nh-unit): the OPEN head (piece #2 halfNote), used stemless
+    function noteheadOpen() {
+      const g = G.notehead.open;
+      return box('noteheadOpen', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+
+    // ottava label: baked project-font outline ('va8' | 'vb8')
+    function ottavaText(kind) {
+      const g = G.ottavaText[kind];
+      if (!g) throw new Error('stamps: no ottavaText "' + kind + '"');
+      return box('ottava-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
     // A stem is a thin filled rect. dir 'up': rises from the notehead's
     // stemAttachUp; 'down': descends from stemAttachDown. Anchors: root
     // (where it meets the notehead) and tip (where a flag/beam attaches).
@@ -94,7 +107,7 @@
       ]);
     }
 
-    return { notehead, stem, flag8, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, ottavaText, stem, flag8, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

@@ -59,6 +59,8 @@
     "_status": "CENSUS DONE 2026-08-20 (V0.10) — every look number that lived in layout.js/render.js code, consolidated here. Line/dot THICKNESSES stay in glyphs.json `standards` (glyph-family metrics, single source — edit there); this block is the single edit point for everything else. All values = the code's previous defaults, so adopting the registry changed no pixel.",
     "layout": {
       "stemLen": 3.5, "accGap": 0.25, "tagY": 3.5, "tempoY": 4.6, "tickY": 3.0, "dynY": -4.6,
+      "nhGapSs": 0.25,
+      "_nhGapNote": "day 22, nh-unit horizontal standard for the surge device: the unit's rightmost ink ends this far before the go line (composer asked for 2 px at staff 31.6; expressed in ss = 2/7.9 ≈ 0.25 so the PP-6 zoom invariant holds)",
       "textSizes": { "dynamic": 0.9, "instruction": 0.75, "tempo": 0.75, "technique": 0.7 }
     },
     "render": {

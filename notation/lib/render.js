@@ -38,6 +38,7 @@
     const S = Stamps.makeStamps(glyphs);
     const boxFor = g => {
       if (g === 'notehead') return S.notehead();
+      if (g === 'notehead-open') return S.noteheadOpen();
       if (g === 'flag-up8') return S.flag8('up');
       if (g === 'flag-down8') return S.flag8('down');
       if (g.startsWith('accidental-')) return S.accidental(g.slice('accidental-'.length));
@@ -121,8 +122,11 @@
           parts.push('<circle cx="' + X(it.t, it.dxSs).toFixed(2) + '" cy="' + Y(it.ySs).toFixed(2) + '" r="' + (glyphs.standards.staccatoDot.diameter / 2 * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'ledger') {
           if (!inWin(it.t)) continue;
-          const w = glyphs.notehead.filled.wSs * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx;
-          parts.push('<rect x="' + (X(it.t, 0) - w / 2).toFixed(2) + '" y="' + (Y(it.ySs) - stds.ledgerLine.thickness * ssPx / 2).toFixed(2) +
+          // day 22: honor the item's dxSs (was silently dropped — a shifted
+          // head left its ledgers behind) and its own head width (the open
+          // head is wider than filled)
+          const w = (it.wSs || glyphs.notehead.filled.wSs) * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx;
+          parts.push('<rect x="' + (X(it.t, it.dxSs) - w / 2).toFixed(2) + '" y="' + (Y(it.ySs) - stds.ledgerLine.thickness * ssPx / 2).toFixed(2) +
             '" width="' + w.toFixed(2) + '" height="' + (stds.ledgerLine.thickness * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'beam') {
           const tips = it.tips.filter(p => inWin(p.t));
@@ -184,6 +188,34 @@
               parts.push('<path d="' + line + '" fill="none" stroke="' + EC.color + '" stroke-width="' + EC.strokeWPx +
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
             }
+          }
+        } else if (it.k === 'ottava') {
+          // piece #2 session-57 bracket: label glyph · dotted line · closing
+          // hook toward the staff. All geometry from glyphs.standards.ottava.
+          if (it.t1 < w0 || it.t0 > w1) continue;
+          const O = stds.ottava || {};
+          const lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
+          const yLine = Y(it.ySs);
+          const x0 = X(Math.max(it.t0, w0), it.dx0Ss || 0);
+          const x1 = view.xOfSeconds(Math.min(it.t1, w1));
+          let xDashStart = x0;
+          if (lg) {
+            // text baseline straddles the line (lineAttachAboveBaselineSs)
+            const ty = yLine + (O.lineAttachAboveBaselineSs || 0.32) * ssPx - lg.hSs * ssPx;
+            parts.push('<g transform="translate(' + x0.toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + ssPx + ')">' +
+              '<path d="' + lg.path + '"/></g>');
+            xDashStart = x0 + (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx;
+          }
+          const thick = (O.lineThicknessSs || 0.067) * ssPx;
+          const dash = ((O.dashLengthSs || 0.3) * ssPx).toFixed(2) + ',' + ((O.gapBetweenDashesSs || 0.7) * ssPx).toFixed(2);
+          if (x1 > xDashStart) {
+            parts.push('<line x1="' + xDashStart.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + x1.toFixed(2) +
+              '" y2="' + yLine.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) +
+              '" stroke-dasharray="' + dash + '"/>');
+            // hook extends from the line BACK TOWARD the staff
+            const hook = (O.hookLengthSs || 0.8) * ssPx * (it.dir === 'above' ? 1 : -1);
+            parts.push('<line x1="' + x1.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + x1.toFixed(2) +
+              '" y2="' + (yLine + hook).toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
           }
         } else if (it.k === 'goline') {
           // dotted vertical at go time, full lane band (piece #1's go-time

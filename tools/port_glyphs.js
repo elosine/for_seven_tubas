@@ -31,7 +31,9 @@ const nf = dims.notehead.filled;
 const centerY = nf.height / 2;
 
 const accidentals = {};
-for (const key of ['sharp', 'flat', 'natural']) {
+// day 22 (nh-unit): the full seven — quartertone pairs included (SI2 tuba
+// quartertones are piece material; piece #2 measured all seven at D.6)
+for (const key of ['sharp', 'flat', 'natural', 'quarterSharp', 'quarterFlat', 'threeQuarterSharp', 'threeQuarterFlat']) {
   if (ac[key]) {
     const a = ac[key];
     accidentals[key] = { path: a.path, wSs: a.width, hSs: a.height, _provenance: prov('glyphs/accidental_paths.json') };
@@ -50,6 +52,12 @@ if (accidentals.flat) {
   });
   accidentals.flat._provenance.note = 'noteY anchor = bulb center, measured in phase-B engraving review 2026-08-19';
 }
+// flat-family quartertones share the flat's vertical asymmetry (piece #2
+// D.6: topExtent 0.89 / bottomExtent 0.364 identical to flat) — same noteY
+// y; x = bulb center (quarterFlat = mirrored single bulb, threeQuarterFlat
+// = double bulb, right bulb registers on the note; x PROVISIONAL, polish-eye)
+if (accidentals.quarterFlat) accidentals.quarterFlat.anchors = Object.assign({}, accidentals.quarterFlat.anchors, { noteY: { x: 0.235, y: 0.88 } });
+if (accidentals.threeQuarterFlat) accidentals.threeQuarterFlat.anchors = Object.assign({}, accidentals.threeQuarterFlat.anchors, { noteY: { x: 0.561, y: 0.88 } });
 
 const out = {
   _provenance: {
@@ -68,6 +76,30 @@ const out = {
       },
       _provenance: prov('glyphs/notehead_paths.json + dimensions_table.json notehead.filled'),
     },
+    // day 22 (nh-unit, the surge device element 3): the OPEN head — piece
+    // #2's halfNote (D.3b locked; wider than filled, 1.1072 vs 1.04, same
+    // height). Used stemless as the surge cue head; stem anchors carried
+    // anyway so a stemmed use later costs nothing.
+    open: (() => {
+      const no = dims.notehead.halfNote;
+      const cy = no.height / 2;
+      return {
+        path: nh.halfNote.path, wSs: no.width, hSs: no.height,
+        anchors: {
+          center: { x: no.width / 2, y: cy },
+          stemAttachUp: { x: no.stemAttachUp.x, y: cy + no.stemAttachUp.y },
+          stemAttachDown: { x: no.stemAttachDown.x, y: cy + no.stemAttachDown.y },
+        },
+        _provenance: prov('glyphs/notehead_paths.json halfNote + dimensions_table.json notehead.halfNote (D.3b)'),
+      };
+    })(),
+  },
+  // day 22 (nh-unit): ottava labels — piece #2's baked project-font glyphs
+  // (Crimson Pro Light Italic outlined to paths, session 57); 8va/8vb only
+  // for now, 15ma/22ma exist at the source when needed
+  ottavaText: {
+    va8: { path: read('glyphs/text_paths.json')['8va'].path, wSs: read('glyphs/text_paths.json')['8va'].width, hSs: read('glyphs/text_paths.json')['8va'].height, _provenance: prov('glyphs/text_paths.json 8va') },
+    vb8: { path: read('glyphs/text_paths.json')['8vb'].path, wSs: read('glyphs/text_paths.json')['8vb'].width, hSs: read('glyphs/text_paths.json')['8vb'].height, _provenance: prov('glyphs/text_paths.json 8vb') },
   },
   flag: {
     up8: { path: fl['8up'].path, wSs: fl['8up'].width, hSs: fl['8up'].height, anchors: { stemTip: fl['8up'].anchor }, _provenance: prov('glyphs/flag_paths.json 8up') },
@@ -87,6 +119,19 @@ const out = {
     stem: { thickness: dims.stem.thickness, defaultLength: 3.5, minLength: dims.stem.minLength },
     beam: { thickness: dims.beam.thickness, stackStep: dims.beam.stackStep, gap: dims.beam.gap },
     staccatoDot: { diameter: 0.4, gapFromNotehead: 0.5, _note: 'procedural (piece #2 had no staccato script); LP-typical proportions' },
+    // day 22 (nh-unit): the placement LAWS from piece #2, ported with their
+    // locked provenance — accidental gap (D.6), accidental-column packing
+    // (D.8.2), chord displacement threshold (D.8.1), ottava geometry +
+    // engage rule (sessions 57/77 + staffRouter).
+    accidental: { gapToNotehead: 0.1, _provenance: prov('dimensions_table.json accidental (D.6 locked: LP 0.35 tightened to 0.10 by eye probe)') },
+    accidentalColumn: { minLateralGap: 0.1, fullSlotWidth: 0.75, verticalCollisionTolerance: 0.05, _provenance: prov('dimensions_table.json accidentalColumn (D.8.2 locked: right-to-left packing; full slot when y-bboxes collide, tight gap when clear)') },
+    noteColumn: { displaceThresholdSteps: 1, _provenance: prov('dimensions_table.json noteColumn (D.8.1 locked: displace when |staffPosDelta| <= 1, bottom-up, alternate sides, wider intervals reset)') },
+    ottava: {
+      lineThicknessSs: 0.0671, hookLengthSs: 0.8, dashLengthSs: 0.3, gapBetweenDashesSs: 0.7,
+      minDashCount: 2, minBracketSpanSs: 1.3671, textGapBeforeLineSs: 0.1, lineAttachAboveBaselineSs: 0.3249,
+      ledgerLineThreshold: 3, standardGapSs: 0.45,
+      _provenance: prov('dimensions_table.json ottava + staffRouter (sessions 57/77 locked: engage smallest variant bringing written notes within 3 ledger lines; bracket outer VISIBLE edge sits standardGapSs from the reference edge, so lineY = ref -/+ (standardGapSs + hookLengthSs); text baseline at lineY + lineAttachAboveBaselineSs)'),
+    },
     _provenance: prov('dimensions_table.json (staff/ledgerLine/stem/beam rows; stem.defaultLength 3.5 ss = conventional one-octave stem, piece #2 default 10 was cell-motive-specific)'),
   },
 };

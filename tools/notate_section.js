@@ -64,8 +64,13 @@ if (fromId) {
   doc.id = id;
   const outRel = 'notation/ir/' + id + '.ir.json';
   fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
+  // --demo: schema/structure validation only — demo forks deliberately edit
+  // musical content (pitches for device exercises) and would rightly fail
+  // the against-source cross-check; they are visual test-benches, not piece
+  // data, and must say so in their label.
+  const vArgs = flag('demo') ? [] : ['--against-source', '--complete'];
   try {
-    execFileSync(process.execPath, [path.join(ROOT, 'tools', 'ir_validate.js'), outRel, '--against-source', '--complete'],
+    execFileSync(process.execPath, [path.join(ROOT, 'tools', 'ir_validate.js'), outRel, ...vArgs],
       { cwd: ROOT, stdio: 'pipe' });
   } catch (e) {
     fs.unlinkSync(path.join(ROOT, outRel));

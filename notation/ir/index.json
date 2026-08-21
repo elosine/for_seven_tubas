@@ -30,6 +30,71 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "db1-t1-x02",
+   "label": "DEMO nh: 2 ledgers below · sharp",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true,
+   "from": "db1-t1-x01",
+   "demo": true
+  },
+  {
+   "id": "db1-t1-x03",
+   "label": "DEMO nh: 2 ledgers above · 3/4 flat",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true,
+   "from": "db1-t1-x01",
+   "demo": true
+  },
+  {
+   "id": "db1-t1-x04",
+   "label": "DEMO nh: middle line",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true,
+   "from": "db1-t1-x01",
+   "demo": true
+  },
+  {
+   "id": "db1-t1-x05",
+   "label": "DEMO nh: 8va · top ledger",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true,
+   "from": "db1-t1-x01",
+   "demo": true
+  },
+  {
+   "id": "db1-t1-x06",
+   "label": "DEMO nh: 8vb on staff · 3/4 sharp",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true,
+   "from": "db1-t1-x01",
+   "demo": true
   }
  ]
 }

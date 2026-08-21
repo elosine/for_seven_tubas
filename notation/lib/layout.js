@@ -63,7 +63,7 @@
     // engraving numbers: code defaults = the V0.10 registry values, so a
     // caller without opts renders identically; the shell passes
     // container.json `engraving.layout` and edits there re-render everywhere.
-    const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6 }, opts || {});
+    const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6, nhGapSs: 0.25 }, opts || {});
     const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});
     const nh = glyphs.notehead.filled;
     const nhHalfW = nh.wSs / 2;
@@ -158,6 +158,62 @@
               // stays in the data, only the drawing squares it off
               items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: e.env === 'surge' });
               items.push({ k: 'goline', t: e.onset, ev: e.id });
+
+              // THE NH-UNIT (device element 3, day 22): open head (stemless)
+              // + accidental + ledgers + ottava, right-anchored a fixed gap
+              // BEFORE go time (o.nhGapSs; the composer's "2 px" at staff
+              // 31.6 = 0.25 ss — expressed in ss so the PP-6 zoom invariant
+              // holds). Placement laws = piece #2's locked numbers, now in
+              // glyphs.standards (accidental gap D.6 · ottava sessions
+              // 57/77 · engage rule = staffRouter's 3-ledger threshold).
+              {
+                const stds = glyphs.standards;
+                const nhO = glyphs.notehead.open;
+                const spN = spelledOf(e);
+                let yDraw = staffPosBass(spN);
+                // ottava: smallest shift bringing the WRITTEN note within
+                // 3 ledger lines (|ySs| <= 5); one octave = 3.5 staff steps
+                const th = 2 + ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3);
+                let octShift = 0;
+                while (yDraw > th) { yDraw -= 3.5; octShift++; }
+                while (yDraw < -th) { yDraw += 3.5; octShift--; }
+                const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
+                const headDx = -(gapSs + nhO.wSs / 2);   // right edge -> gap before go
+                items.push({ k: 'glyph', g: 'notehead-open', t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
+                for (const L of ledgersFor(yDraw)) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
+                let leftEdgeDx = headDx - nhO.wSs / 2;   // the unit's growing left edge
+                if (spN.alter) {
+                  const accKind = ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
+                    '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
+                    '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)];
+                  const acc = accKind && glyphs.accidental[accKind];
+                  if (acc) {
+                    const accGap = (stds.accidental && stds.accidental.gapToNotehead) || 0.1;
+                    const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
+                    const accDx = headDx - nhO.wSs / 2 - accGap - acc.wSs / 2;
+                    items.push({ k: 'glyph', g: 'accidental-' + accKind, t: e.onset, dxSs: accDx, ySs: yDraw, align });
+                    leftEdgeDx = accDx - acc.wSs / 2;
+                  } else if (accKind === undefined) {
+                    warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
+                  }
+                }
+                if (octShift !== 0) {
+                  // bracket over the sounding extent; vertical per the
+                  // session-77 formula: outer VISIBLE edge sits standardGapSs
+                  // from the head's outer edge, so the line sits one hook
+                  // further out. |octShift| > 1 still draws the 8va/8vb
+                  // family label (15ma glyphs exist at the source when needed).
+                  const O = stds.ottava || {};
+                  const std = O.standardGapSs || 0.45, hook = O.hookLengthSs || 0.8;
+                  const above = octShift > 0;   // sounding higher than written
+                  const ref = yDraw + (above ? nhO.hSs / 2 : -nhO.hSs / 2);
+                  const lineY = above ? ref + std + hook : ref - std - hook;
+                  items.push({
+                    k: 'ottava', t0: e.onset, t1: e.onset + e.duration, dx0Ss: leftEdgeDx,
+                    ySs: lineY, dir: above ? 'above' : 'below', label: above ? 'va8' : 'vb8', ev: e.id,
+                  });
+                }
+              }
             }
           }
           prevTempoLabel = null;

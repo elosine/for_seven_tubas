@@ -5309,3 +5309,44 @@ fill-only curve.**
   reload does NOT clear localStorage; from this refresh on, settings
   persist (verified saving live).
 - Suites green (75 snapshots unaffected — staffFull is opt-in per call).
+
+**Day 22 (continued) — device element 3: THE NH-UNIT (open head +
+accidentals + ledgers + ottava), piece #2's locked laws ported wholesale;
+five demo version files.**
+- **The dig (composer: "we did all of this in 2pno2perc... dig a little
+  deeper there"):** notation_studio's dimensions_table had every law LOCKED
+  with provenance — accidental gapToNotehead 0.10 (D.6, tightened from
+  LP's 0.35 by eye probe) · accidental-column packing right-to-left,
+  minLateralGap 0.10 / fullSlotWidth 0.75 / collision tol 0.05 (D.8.2) ·
+  chord displacement |staffPosDelta| <= 1, bottom-up, alternate sides
+  (D.8.1 — carried for the chord phase, not yet consumed) · ottava
+  geometry sessions 57/77 (hook 0.8, dash 0.3/0.7, text-baseline formula)
+  + engage rule = smallest variant within staffRouter's 3-LEDGER threshold.
+  All now in glyphs.json `standards` via port_glyphs.js, with provenance.
+- **Ported glyphs:** halfNote -> notehead.open (D.3b: wider than filled,
+  1.1072 vs 1.04) · ALL SEVEN accidentals incl. quarter/3-quarter pairs
+  (flat-family noteY anchors; 3/4-flat bulb x PROVISIONAL, polish-eye) ·
+  8va/8vb baked Crimson outlines -> ottavaText.
+- **The nh-unit in layout:** right-anchored 0.25 ss before the go line
+  (composer's "2 px" at staff 31.6, expressed in ss so PP-6 zoom holds);
+  open head stemless + ledgers (at the head's dx, own width) + accidental
+  at the D.6 gap + ottava bracket over the sounding extent when the
+  written note exceeds 3 ledgers (drawn position shifts, 8va/8vb label).
+  Schema needed NOTHING: alter already multipleOf 0.5; the validator even
+  enforces spelled<->midi with fractional alters (caught E-3/4-flat vs
+  midi 64 -> corrected to 62.5. Quartertone midi is fractional by design.)
+- **Demo machinery:** notate_section --demo (schema-only validation — demo
+  forks edit pitches and would rightly fail against-source; labeled DEMO)
+  + tools/nh_demo.js regenerates the composer's five exercises x02-x06
+  (2 ledgers below + sharp · 2 above + 3/4 flat · middle line · 8va on a
+  top ledger · 8vb on-staff + 3/4 sharp).
+- **Pre-existing bug fixed en route:** render dropped dxSs on ledger items
+  (a shifted head left its ledgers behind); now honored + ledgers take the
+  head's own width.
+- **All verified live** (:5210 DOM): heads/accidentals/ledgers/both ottava
+  directions land; anchor math exact (head right edge 322.6 vs go 328 =
+  0.25 ss). Suites green (layout/render/75 snapshots/splice/stamps).
+- **FLAG FOR THE COMPOSER: the real F#1 surge now engages 8vb** (it sits
+  4 ledgers below; the 3-ledger rule fires). Tuba convention usually READS
+  low ledgers happily — if 8vb is unwanted for this piece, the threshold
+  (or below-direction engagement) is registry data, one edit.
