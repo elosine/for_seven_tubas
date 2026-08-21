@@ -5432,3 +5432,29 @@ curve meter (piece #2 styling verbatim).**
   no side files). Verified at a deterministic frame (t=6.3): meter x =
   cursor - 11 exactly; fill 0.343 vs computed exponential 0.341.
 - Suites green incl. the animobj determinism battery.
+
+**Day 22 (continued) — THE COLLAPSE: one presentation score, composer-score
+document semantics.**
+- **The composer's reframe, adopted whole** ("just like the composer score
+  — it's just one thing, not a bunch of different views"; confirmed NOT
+  against the architecture — it IS A21b, the views were slice-1
+  scaffolding): the app opens INTO the presentation score. Ten-lane jury
+  frame ALWAYS (FRAME_PARTS; a T1 save shows nine empty staves — layout
+  gained opts.frameParts, empty lanes = staff+clef+label). ⇆/Z = the one
+  view choice (Score <-> Zoom ×2, zoom auto-centers on the SAVE's first
+  lane). Bar = save picker · play · Score/Zoom · pages · MIDI/render · ⚙.
+- **⚙ = engineering mode**: the notation/graphic proofing views and their
+  window/parts/mode/width controls live behind it (for AI verification,
+  not the loop). ⚙ off forces a container view; state persists.
+- **PLAYBACK = THE SAVE'S SCOPE** (the held decision, now built): the
+  player filters to ir.source.parts — load the T1 experiment, hear T1;
+  still LIVE scheduling from source data (not a fixed MIDI file), so curve
+  edits/re-extracts stay instantly audible. Player cache keyed by
+  score+parts. Battery extended: parts:[0] plays exactly T1's 465 notes on
+  tuba1/tuba1b only (first run caught my own test's coarse stepping
+  jumping over sub-frame notes — test artifact, fixed to frame rate).
+- **Verified live as a fresh user** (localStorage cleared): opens in video,
+  ten lanes T1-T10 (50 staff lines), slim bar, ⚙ reveals/hides, zx flips.
+  Sparse-lane cap now moot in container views (always 10 lanes; the cap
+  code remains for any future sparse frame config). Suites green.
+- NOTATION_WORKFLOW §5 rewritten to the new recipe: pick save, SPACE.

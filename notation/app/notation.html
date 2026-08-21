@@ -47,7 +47,7 @@
 </head>
 <body>
 <div id="bar">
-  <label>view <select id="view">
+  <label id="viewWrap">view <select id="view">
     <option value="notation">notation</option>
     <option value="graphic">graphic</option>
     <option value="video">video (1920×1080)</option>
@@ -70,17 +70,18 @@
   </select></label>
   <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
   <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
-  <label>parts <select id="parts">
+  <label id="partsWrap">parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
-  <label>mode <select id="mode">
+  <label id="modeWrap">mode <select id="mode">
     <option value="window">window</option>
     <option value="pages">pages</option>
   </select></label>
-  <label>from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
-  <label>width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
+  <label id="t0Wrap">from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
+  <label id="wWrap">width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
   <button id="prev">◀</button>
   <button id="next">▶</button>
+  <label id="engWrap" title="engineering controls: the slice-1 proofing views (notation/graphic) and their window/parts overrides — off = the presentation score alone"><input type="checkbox" id="eng"> ⚙</label>
   <span id="meta"></span>
 </div>
 <div id="hoverzone" title="controls"></div>
@@ -104,7 +105,11 @@
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
   const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
-  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks'];
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng'];
+  // THE FRAME (day 22, the collapse): the presentation score always shows
+  // every lane (PP-2); a save covering fewer parts leaves the rest as
+  // empty staves. One place to change if the ensemble ever isn't ten.
+  const FRAME_PARTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   // hoisted: a RESTORED container view (UI persistence) runs the whole
   // transport/anim/MIDI path during the INITIAL render, which the old
   // top-to-bottom declaration order never had to survive
@@ -123,7 +128,7 @@
       state.markers = (s.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
     } catch (e) { state.markers = []; }
     state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
-      { m4AttackLines: $('m4').checked },
+      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS },
       (state.container && state.container.engraving && state.container.engraving.layout) || {}));
   }
   function mergeManifest(man) {
@@ -179,6 +184,8 @@
       $('parts').appendChild(opt);
     }
     restoreUi();                 // day 22: controls survive a reload
+    // primary mode (⚙ off) knows only the presentation score
+    if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
     await loadIr($('ir').value);
     restoreUiPosition();         // loadIr resets page/zoom — reapply saved
     render();
@@ -217,9 +224,18 @@
       saveUi();   // every render = a position/control state worth restoring
       const vv = $('view').value;
       const graphic = vv === 'graphic';
-      $('scoreWrap').style.display = graphic ? '' : 'none';
+      // THE COLLAPSE (day 22): the presentation score is the app; the
+      // proofing machinery (views, window/parts overrides) lives behind ⚙.
+      const eng = $('eng').checked;
+      $('viewWrap').style.display = eng ? '' : 'none';
+      $('partsWrap').style.display = eng ? '' : 'none';
+      $('modeWrap').style.display = eng ? '' : 'none';
+      $('t0Wrap').style.display = eng ? '' : 'none';
+      $('wWrap').style.display = eng ? '' : 'none';
+      $('bricksWrap').style.display = eng ? '' : 'none';
+      $('scoreWrap').style.display = (graphic && eng) ? '' : 'none';
       $('irWrap').style.display = graphic ? 'none' : '';
-      $('m4Wrap').style.display = graphic ? 'none' : '';
+      $('m4Wrap').style.display = (graphic || !eng) ? 'none' : '';
       $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
@@ -277,7 +293,7 @@
       const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
       const W = (C.frame && C.frame.widthPx) || 1920;
       const H = (C.frame && C.frame.heightPx) || 1080;
-      const parts = state.ir.source.parts;
+      const parts = FRAME_PARTS;   // the jury frame: all lanes, always
       // first entry into a container window: seed the width box with the
       // container's provisional default (still freely editable after)
       if (!state.wSeeded) {
@@ -353,7 +369,9 @@
       // Only on ENTRY (view switch / ⇆ / Z): manual scrolling then sticks
       // across hot reloads and page turns.
       if (mode === 'zoom' && state.lastContainerMode !== 'zoom') {
-        const sy = view.system(parts[0]).yOfSs(0) + $('sheet').offsetTop;
+        // center on the SAVE's first lane, not lane 0 of the frame
+        const homePart = (state.ir.source.parts && state.ir.source.parts[0]) || 0;
+        const sy = view.system(homePart).yOfSs(0) + $('sheet').offsetTop;
         window.scrollTo({ top: Math.max(0, sy - window.innerHeight / 2) });
       }
       state.lastContainerMode = mode;
@@ -430,6 +448,10 @@
     }
   });
   for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score', 'bricks']) $(id).addEventListener('change', render);
+  $('eng').addEventListener('change', () => {
+    if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
+    render();
+  });
   $('ir').addEventListener('change', async () => { midiFlush(); await loadIr($('ir').value); render(); });
   $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   // container-mode chrome: bar auto-hides (shown briefly on entry, and on
@@ -484,13 +506,17 @@
     const name = state.ir && state.ir.source && state.ir.source.score;
     const score = name && state.scores[name];
     if (!score || !state.midi.outputs || !state.midi.ccPoints) return null;
-    if (!state.midi.players[name]) {
-      state.midi.players[name] = NotationMidiPlayer.makeMidiPlayer({
+    // the save's scope (composer-score document semantics): only the parts
+    // this version file contains sound — key the cache accordingly
+    const parts = (state.ir.source.parts || []).slice().sort();
+    const key = name + '|' + parts.join(',');
+    if (!state.midi.players[key]) {
+      state.midi.players[key] = NotationMidiPlayer.makeMidiPlayer({
         score, instruments: INSTRUMENTS, ccPoints: state.midi.ccPoints,
-        outputs: state.midi.outputs,
+        outputs: state.midi.outputs, parts,
       });
     }
-    return state.midi.players[name];
+    return state.midi.players[key];
   }
   function midiFlush() { const p = midiPlayer(); if (p) p.flush(); }
   $('midi').addEventListener('change', () => {

@@ -111,7 +111,11 @@
 
     const spelledOf = e => respell.get(e.id) || e.pitch.spelled;
 
-    const systems = ir.source.parts.map(part => {
+    // frameParts (day 22, the collapse): when given, EVERY listed lane gets
+    // a system — lanes the IR doesn't cover render as empty staves (the
+    // composer's "I should still see empty other tracks"). Default = the
+    // IR's own parts (proofing views, tests, exports unchanged).
+    const systems = (o.frameParts || ir.source.parts).map(part => {
       const items = [];
       // staff lines, minus any authored staff-off spans for this part
       const offs = staffOff.filter(s => s.part === part)

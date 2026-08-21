@@ -106,7 +106,15 @@ node tools/notate_section.js --prune db1-t3-x01
 1. loopMIDI ports up (`tuba1`…`tuba10b`), Reaper rack with input
    monitoring ON.
 2. `node score/server.js` → http://localhost:5200/notation/app/notation.html
-3. View = **zoom** (or video), pick the version, SPACE.
+3. Pick the save, SPACE. That's all — **the page IS the presentation
+   score** (day 22 collapse): the full ten-lane jury frame, empty lanes as
+   empty staves, ⇆/Z flips Score ↔ Zoom (zoom auto-centers on the save's
+   first lane). **Playback = the save's scope**: only the parts the version
+   file contains sound (composer-score document semantics), live from the
+   source data — no fixed MIDI files.
+4. The **⚙ checkbox** reveals the engineering controls (the slice-1
+   proofing views notation/graphic + window/parts/mode overrides) — for AI
+   verification work, not the composing loop.
 
 ## §6 Derivation (settle one part → all parts)
 

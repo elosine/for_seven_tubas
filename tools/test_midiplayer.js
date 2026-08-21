@@ -129,6 +129,17 @@ rig2.t = T0 + 1; p2.flush();
 const offs2 = rig2.log.filter(e => (e.bytes[0] & 0xF0) === 0x80);
 ok(offs2.length >= spanning.length, 'flush did not release scrubbed notes');
 
+// ---- the save's scope (day 22): parts filter sounds ONLY those layers ----
+const rig3 = makeRig();
+const p3 = makeMidiPlayer({ score, instruments: INSTRUMENTS, ccPoints, outputs: rig3.outputs, parts: [0] });
+for (let t = 0; t <= tEnd; t += DT) { rig3.t = t; p3.tick(t); }   // frame-rate: coarser steps jump over sub-step notes
+rig3.t = tEnd; p3.flush();
+const t1Sounding = sounding.filter(w => w.layer === 0);
+const ons3 = rig3.log.filter(e => (e.bytes[0] & 0xF0) === 0x90 && e.bytes[2] > 0);
+ok(ons3.length === t1Sounding.length, `parts:[0] played ${ons3.length} != T1's ${t1Sounding.length}`);
+ok(rig3.log.every(e => e.port === 'tuba1' || e.port === 'tuba1b'), 'parts:[0] touched a non-T1 port');
+
 console.log(`checks ${checks} · failures ${fails} · live events ${rig.log.length} ` +
-    `(${ons.length} on / ${offs.length} off / ${bends.length} bend) vs file ${compiled.events.length}`);
+    `(${ons.length} on / ${offs.length} off / ${bends.length} bend) vs file ${compiled.events.length}` +
+    ` · parts-scope: ${ons3.length} T1 notes only`);
 process.exit(fails ? 1 : 0);

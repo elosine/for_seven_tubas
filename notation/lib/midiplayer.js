@@ -28,6 +28,10 @@
     const score = cfg.score, instruments = cfg.instruments, ccPoints = cfg.ccPoints;
     const outputs = cfg.outputs || {};
     const spanDb = cfg.levelSpanDb != null ? cfg.levelSpanDb : Core.LEVEL_SPAN_DB;
+    // the SAVE-FILE scope (day 22, composer-score document semantics): when
+    // cfg.parts is given, only those layers sound — load a T1 experiment,
+    // hear T1; the full ensemble plays only when the save contains it.
+    const partSet = cfg.parts ? new Set(cfg.parts) : null;
     const PREARM_S = Core.PREARM_S;
 
     const active = {};        // wc.id -> { note, port, ch, lastCC, lastSendT, lastBend }
@@ -55,6 +59,7 @@
 
       for (const wc of score.objects || []) {
         if (wc.type !== 'waveCurve' || wc.sonifyNote == null) continue;
+        if (partSet && !partSet.has(wc.layer)) continue;   // the save's scope
         // cheap reject before any lookup (the whole piece is iterated per frame)
         if (t < wc.startSeconds - PREARM_S - 1 && !active[wc.id]) continue;
         if (t > wc.endSeconds + 1 && !active[wc.id]) continue;
