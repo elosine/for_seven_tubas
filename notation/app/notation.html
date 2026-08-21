@@ -226,6 +226,7 @@
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       setCmode(vv === 'video' || vv === 'zoom');
       if (vv === 'video' || vv === 'zoom') { ensureLoop(); ensureMidi(); }
+      else state.lastContainerMode = null;   // fix A: re-entering zoom re-centers
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       const paged = $('mode').value === 'pages';
@@ -288,9 +289,19 @@
         state.vPagesW = pageSeconds;
         state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
       }
-      const topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H, gap = lanes.gapPx / H;
+      let topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H;
+      const gap = lanes.gapPx / H;
+      let lanePx = ((1 - topPad - botPad - gap * (parts.length - 1)) / parts.length) * H;
+      // fix B (day 22): sparse-part IRs — cap the lane and center the band,
+      // so a 1-part experiment stops inflating one lane to the whole frame.
+      // Registry data (lanes.sparseCapPx); full material stays below the cap
+      // and renders exactly as before.
+      if (lanes.sparseCapPx && lanePx > lanes.sparseCapPx) {
+        lanePx = lanes.sparseCapPx;
+        const content = (lanePx * parts.length + lanes.gapPx * (parts.length - 1)) / H;
+        topPad = botPad = Math.max(0, (1 - content) / 2);
+      }
       const systems = NotationCoords.systemsForParts(parts, { topPad, botPad, gap, weights: lanes.weights });
-      const lanePx = ((1 - topPad - botPad - gap * (parts.length - 1)) / parts.length) * H;
       const ssPerSystem = lanePx / (((C.staff && C.staff.staffHeightPx) || 31.6) / 4);
       const p = state.vPages[state.pageIdx];
       const baseCfg = {
@@ -334,6 +345,16 @@
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;
+      // fix A (day 22): entering zoom auto-centers the viewport on the first
+      // part's staff — the sheet is taller than the screen and the scrollbar
+      // is hidden by design, so without this the first thing seen is ceiling.
+      // Only on ENTRY (view switch / ⇆ / Z): manual scrolling then sticks
+      // across hot reloads and page turns.
+      if (mode === 'zoom' && state.lastContainerMode !== 'zoom') {
+        const sy = view.system(parts[0]).yOfSs(0) + $('sheet').offsetTop;
+        window.scrollTo({ top: Math.max(0, sy - window.innerHeight / 2) });
+      }
+      state.lastContainerMode = mode;
       const [vt0, vt1] = view.window;
       $('meta').textContent = state.ir.id + ' · ' + (mode === 'zoom' ? 'ZOOM ×' + Z : 'VIDEO ' + W + '×' + H) +
         ' · page ' + (state.pageIdx + 1) + '/' + state.vPages.length +

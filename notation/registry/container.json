@@ -26,7 +26,7 @@
     "video-jury": {
       "headerPx": 0,
       "parts": "all 10 in frame (PP-2)",
-      "lanes": { "model": "equal; per-part weights supported (V1)", "padTopPx": 8, "padBotPx": 8, "gapPx": 4 },
+      "lanes": { "model": "equal; per-part weights supported (V1)", "padTopPx": 8, "padBotPx": 8, "gapPx": 4, "sparseCapPx": 220, "_sparseNote": "day 22 (fix B): when an IR carries fewer parts than fill the frame, each lane is capped at this height and the band is centered vertically — single-part experiment IRs stop inflating one lane to the whole frame. Full 10-part material computes lanes below the cap and is untouched (the jury frame stays exactly PP-2)." },
       "transport": "local-audio",
       "_derived": "lanePx = (1080 - 16 - 36) / 10 = 102.8 · air above+below staff ≈ 35.6 px per side at staff 31.6",
       "_status": "header decided ('no header at all — akin to the paper score'); lane numbers provisional pending the vertical-stress proof (ledgers, accents, dynamics, hairpins)"

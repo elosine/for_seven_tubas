@@ -5249,3 +5249,22 @@ have a cue"; "hot reload keep all the parameters?").**
   ~1.5 s -> re-extract -> badge cleared AND the curve redrew steeper
   (midpoint y 885.8 vs computed 893 for k=3.2, within sampling tolerance).
   Persistence verified by full reload restoring video view + experiment IR.
+
+**Day 22 (continued) — views explained + fixes A/B (composer walked in with
+four screenshots: "I dont understand them and they might be buggy").**
+- **Diagnosis first:** nothing was broken geometry. Shot 4 (zoom "empty")
+  = the staff centered in a 2160-px sheet with the scrollbar HIDDEN by
+  design — the composer was looking at the ceiling with no way to know.
+  Root mismatch: a 1-part experiment IR inside the 10-part jury frame
+  inflates one lane to the whole 1080.
+- **Fix A:** entering zoom auto-centers the viewport on the first part's
+  staff (only on ENTRY — manual scrolling sticks across hot reloads).
+- **Fix B:** `lanes.sparseCapPx: 220` (registry data, video-jury entry) —
+  when computed lanes exceed the cap, lanes cap and the band centers.
+  Verified: 1-part video staff lands 523.8-555.4 (frame center 540);
+  zoom auto-scrolls to the staff (scrollY 720 of 2160, center exact);
+  **10-part piece-open-01 untouched** (50 staff lines, 43-1036 = PP-2
+  jury frame exactly — the cap only exists for sparse IRs).
+- **Sandbox settings guidance given** (pre-fix: notation/window/T1/w=12,
+  video for sound; post-fix: ZOOM is the primary sandbox surface as the
+  two-window design intended).
