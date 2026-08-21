@@ -1,0 +1,8581 @@
+{
+ "irVersion": "0.1",
+ "id": "piece-trance-w1",
+ "source": {
+  "score": "piece-s25-finished01",
+  "window": [
+   500,
+   530
+  ],
+  "parts": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ "provenance": {
+  "createdBy": "tools/notate_section.js (profile trance)",
+  "date": "2026-08-21",
+  "tool": "tools/notate_section.js (profile trance)",
+  "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only."
+ },
+ "events": [
+  {
+   "id": "ev-wc-ta4-2",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-2"
+   },
+   "onset": 500.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-3",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-3"
+   },
+   "onset": 500.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-4",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-4"
+   },
+   "onset": 501.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-5",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-5"
+   },
+   "onset": 501.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-6",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-6"
+   },
+   "onset": 501.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-7",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-7"
+   },
+   "onset": 501.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-9",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-9"
+   },
+   "onset": 502.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-8",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-8"
+   },
+   "onset": 502.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-11",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-11"
+   },
+   "onset": 502.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-10",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-10"
+   },
+   "onset": 502.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-13",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-13"
+   },
+   "onset": 503.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     3
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-12",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-12"
+   },
+   "onset": 503.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-14",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-14"
+   },
+   "onset": 503.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     3
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-15",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-15"
+   },
+   "onset": 503.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-17",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-17"
+   },
+   "onset": 503.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-16",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-16"
+   },
+   "onset": 503.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-18",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-18"
+   },
+   "onset": 503.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     5
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-21",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-21"
+   },
+   "onset": 504.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     8
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-20",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-20"
+   },
+   "onset": 504.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-19",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-19"
+   },
+   "onset": 504.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-23",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-23"
+   },
+   "onset": 504.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     7
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-24",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-24"
+   },
+   "onset": 504.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     6
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-22",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-22"
+   },
+   "onset": 504.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-25",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-25"
+   },
+   "onset": 505.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     7
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-27",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-27"
+   },
+   "onset": 505.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     6
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-26",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-26"
+   },
+   "onset": 505.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-30",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-30"
+   },
+   "onset": 505.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-28",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-28"
+   },
+   "onset": 505.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     3
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-29",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-29"
+   },
+   "onset": 505.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     9
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-33",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-33"
+   },
+   "onset": 505.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-31",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-31"
+   },
+   "onset": 505.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     8
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-32",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-32"
+   },
+   "onset": 505.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     10
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-34",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-34"
+   },
+   "onset": 506.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     11
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-35",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-35"
+   },
+   "onset": 506.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     6
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-36",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-36"
+   },
+   "onset": 506.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     7
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-39",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-39"
+   },
+   "onset": 506.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     11
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-37",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-37"
+   },
+   "onset": 506.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     11
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-38",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-38"
+   },
+   "onset": 506.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     9
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-41",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-41"
+   },
+   "onset": 507.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-40",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-40"
+   },
+   "onset": 507.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     7
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-42",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-42"
+   },
+   "onset": 507.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-45",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-45"
+   },
+   "onset": 507.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-46",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-46"
+   },
+   "onset": 507.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-43",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-43"
+   },
+   "onset": 507.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-44",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-44"
+   },
+   "onset": 507.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     10
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-49",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-49"
+   },
+   "onset": 507.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-47",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-47"
+   },
+   "onset": 507.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     10
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-50",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-50"
+   },
+   "onset": 507.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-48",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-48"
+   },
+   "onset": 507.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     9
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-53",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-53"
+   },
+   "onset": 508.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-51",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-51"
+   },
+   "onset": 508.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-54",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-54"
+   },
+   "onset": 508.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     10
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-52",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-52"
+   },
+   "onset": 508.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-56",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-56"
+   },
+   "onset": 508.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-58",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-58"
+   },
+   "onset": 508.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-55",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-55"
+   },
+   "onset": 508.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-57",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-57"
+   },
+   "onset": 508.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-61",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-61"
+   },
+   "onset": 509.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-62",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-62"
+   },
+   "onset": 509.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-60",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-60"
+   },
+   "onset": 509.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-59",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-59"
+   },
+   "onset": 509.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-66",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-66"
+   },
+   "onset": 509.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-64",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-64"
+   },
+   "onset": 509.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     14
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-63",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-63"
+   },
+   "onset": 509.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-65",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-65"
+   },
+   "onset": 509.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-67",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-67"
+   },
+   "onset": 509.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     20
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-68",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-68"
+   },
+   "onset": 509.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     18
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-70",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-70"
+   },
+   "onset": 509.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-69",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-69"
+   },
+   "onset": 509.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     16
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-72",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-72"
+   },
+   "onset": 510.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-74",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-74"
+   },
+   "onset": 510.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-73",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-73"
+   },
+   "onset": 510.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-71",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-71"
+   },
+   "onset": 510.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-77",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-77"
+   },
+   "onset": 510.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-75",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-75"
+   },
+   "onset": 510.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-79",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-79"
+   },
+   "onset": 510.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-78",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-78"
+   },
+   "onset": 510.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-76",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-76"
+   },
+   "onset": 510.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     22
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-80",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-80"
+   },
+   "onset": 511.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-82",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-82"
+   },
+   "onset": 511.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     22
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-81",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-81"
+   },
+   "onset": 511.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-84",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-84"
+   },
+   "onset": 511.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-83",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-83"
+   },
+   "onset": 511.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     23
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-217",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-217"
+   },
+   "onset": 511.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-216",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-216"
+   },
+   "onset": 511.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-215",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-215"
+   },
+   "onset": 511.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     22
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-219",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-219"
+   },
+   "onset": 511.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     18
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-218",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-218"
+   },
+   "onset": 511.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     20
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-85",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-85"
+   },
+   "onset": 511.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-88",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-88"
+   },
+   "onset": 511.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-89",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-89"
+   },
+   "onset": 511.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-86",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-86"
+   },
+   "onset": 511.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     20
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-87",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-87"
+   },
+   "onset": 511.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-92",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-92"
+   },
+   "onset": 512.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-91",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-91"
+   },
+   "onset": 512.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-90",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-90"
+   },
+   "onset": 512.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     23
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-94",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-94"
+   },
+   "onset": 512.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     22
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-93",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-93"
+   },
+   "onset": 512.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-95",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-95"
+   },
+   "onset": 512.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-97",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-97"
+   },
+   "onset": 512.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-98",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-98"
+   },
+   "onset": 512.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-99",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-99"
+   },
+   "onset": 512.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-96",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-96"
+   },
+   "onset": 512.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-104",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-104"
+   },
+   "onset": 513.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-101",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-101"
+   },
+   "onset": 513.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-103",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-103"
+   },
+   "onset": 513.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     23
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-100",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-100"
+   },
+   "onset": 513.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-102",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-102"
+   },
+   "onset": 513.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     28
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-107",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-107"
+   },
+   "onset": 513.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     31
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-106",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-106"
+   },
+   "onset": 513.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-109",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-109"
+   },
+   "onset": 513.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-108",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-108"
+   },
+   "onset": 513.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-105",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-105"
+   },
+   "onset": 513.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-114",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-114"
+   },
+   "onset": 513.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-112",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-112"
+   },
+   "onset": 513.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-111",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-111"
+   },
+   "onset": 513.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-113",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-113"
+   },
+   "onset": 513.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-110",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-110"
+   },
+   "onset": 513.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-117",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-117"
+   },
+   "onset": 514.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-116",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-116"
+   },
+   "onset": 514.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-118",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-118"
+   },
+   "onset": 514.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     28
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-119",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-119"
+   },
+   "onset": 514.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-115",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-115"
+   },
+   "onset": 514.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     31
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-124",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-124"
+   },
+   "onset": 514.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-121",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-121"
+   },
+   "onset": 514.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     32
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-123",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-123"
+   },
+   "onset": 514.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-120",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-120"
+   },
+   "onset": 514.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-122",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-122"
+   },
+   "onset": 514.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-126",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-126"
+   },
+   "onset": 515.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     32
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-127",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-127"
+   },
+   "onset": 515.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     28
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-129",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-129"
+   },
+   "onset": 515.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     31
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-128",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-128"
+   },
+   "onset": 515.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-125",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-125"
+   },
+   "onset": 515.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     33
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-130",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-130"
+   },
+   "onset": 515.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-132",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-132"
+   },
+   "onset": 515.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-131",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-131"
+   },
+   "onset": 515.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     33
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-134",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-134"
+   },
+   "onset": 515.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     31
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-133",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-133"
+   },
+   "onset": 515.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     28
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-138",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-138"
+   },
+   "onset": 515.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-139",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-139"
+   },
+   "onset": 515.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-136",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-136"
+   },
+   "onset": 515.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-137",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-137"
+   },
+   "onset": 515.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     32
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-135",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-135"
+   },
+   "onset": 515.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     35
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-141",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-141"
+   },
+   "onset": 516.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-143",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-143"
+   },
+   "onset": 516.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-144",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-144"
+   },
+   "onset": 516.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-140",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-140"
+   },
+   "onset": 516.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     32
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-142",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-142"
+   },
+   "onset": 516.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-146",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-146"
+   },
+   "onset": 516.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-147",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-147"
+   },
+   "onset": 516.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-145",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-145"
+   },
+   "onset": 516.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-149",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-149"
+   },
+   "onset": 516.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-148",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-148"
+   },
+   "onset": 516.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-294",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-294"
+   },
+   "onset": 517.03,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 54,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-293",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-293"
+   },
+   "onset": 517.03,
+   "duration": 0.51,
+   "pitch": {
+    "midi": 42,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-292",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-292"
+   },
+   "onset": 517.03,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-296",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-296"
+   },
+   "onset": 517.43,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-297",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-297"
+   },
+   "onset": 517.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-295",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-295"
+   },
+   "onset": 517.43,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     33
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-304",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-304"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-299",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-299"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-300",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-300"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 43,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     40
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-298",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-298"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-303",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-303"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     35
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-307",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-307"
+   },
+   "onset": 517.83,
+   "duration": 1.25,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-305",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-305"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 58,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-302",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-302"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 54,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-301",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-301"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-306",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-306"
+   },
+   "onset": 517.83,
+   "duration": 0.1999999999999318,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     40
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-154",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-154"
+   },
+   "onset": 518.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     43
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-150",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-150"
+   },
+   "onset": 518.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-153",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-153"
+   },
+   "onset": 518.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     35
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-152",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-152"
+   },
+   "onset": 518.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-151",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-151"
+   },
+   "onset": 518.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-156",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-156"
+   },
+   "onset": 518.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-159",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-159"
+   },
+   "onset": 518.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-158",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-158"
+   },
+   "onset": 518.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-155",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-155"
+   },
+   "onset": 518.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     40
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-157",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-157"
+   },
+   "onset": 518.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-162",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-162"
+   },
+   "onset": 519.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     45
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-160",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-160"
+   },
+   "onset": 519.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-161",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-161"
+   },
+   "onset": 519.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-164",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-164"
+   },
+   "onset": 519.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-163",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-163"
+   },
+   "onset": 519.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-310",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-310"
+   },
+   "onset": 519.43,
+   "duration": 0.20000000000004547,
+   "pitch": {
+    "midi": 46,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-311",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-311"
+   },
+   "onset": 519.43,
+   "duration": 1.35,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     43
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-308",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-308"
+   },
+   "onset": 519.43,
+   "duration": 0.20000000000004547,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-313",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-313"
+   },
+   "onset": 519.43,
+   "duration": 1.14,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-309",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-309"
+   },
+   "onset": 519.43,
+   "duration": 0.20000000000004547,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-312",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-312"
+   },
+   "onset": 519.43,
+   "duration": 1.28,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-168",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-168"
+   },
+   "onset": 519.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-165",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-165"
+   },
+   "onset": 519.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-169",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-169"
+   },
+   "onset": 519.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-166",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-166"
+   },
+   "onset": 519.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-167",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-167"
+   },
+   "onset": 519.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-174",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-174"
+   },
+   "onset": 520.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     45
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-170",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-170"
+   },
+   "onset": 520.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-173",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-173"
+   },
+   "onset": 520.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-171",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-171"
+   },
+   "onset": 520.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-172",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-172"
+   },
+   "onset": 520.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-178",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-178"
+   },
+   "onset": 520.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-175",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-175"
+   },
+   "onset": 520.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-179",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-179"
+   },
+   "onset": 520.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-177",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-177"
+   },
+   "onset": 520.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-176",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-176"
+   },
+   "onset": 520.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-314",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-314"
+   },
+   "onset": 521.03,
+   "duration": 1.49,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-322",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-322"
+   },
+   "onset": 521.03,
+   "duration": 1.88,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-316",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-316"
+   },
+   "onset": 521.03,
+   "duration": 1.38,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-321",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-321"
+   },
+   "onset": 521.03,
+   "duration": 2.1,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-320",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-320"
+   },
+   "onset": 521.03,
+   "duration": 2.22,
+   "pitch": {
+    "midi": 58,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     43
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-315",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-315"
+   },
+   "onset": 521.03,
+   "duration": 1.51,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-319",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-319"
+   },
+   "onset": 521.03,
+   "duration": 1.68,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     45
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-318",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-318"
+   },
+   "onset": 521.03,
+   "duration": 1.77,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-323",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-323"
+   },
+   "onset": 521.03,
+   "duration": 1.36,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-317",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-317"
+   },
+   "onset": 521.03,
+   "duration": 1.76,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-184",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-184"
+   },
+   "onset": 521.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-182",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-182"
+   },
+   "onset": 521.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     45
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-180",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-180"
+   },
+   "onset": 521.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-181",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-181"
+   },
+   "onset": 521.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-183",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-183"
+   },
+   "onset": 521.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-186",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-186"
+   },
+   "onset": 522.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-187",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-187"
+   },
+   "onset": 522.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-185",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-185"
+   },
+   "onset": 522.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-189",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-189"
+   },
+   "onset": 522.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     49
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-188",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-188"
+   },
+   "onset": 522.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-328",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-328"
+   },
+   "onset": 522.63,
+   "duration": 1.66,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-331",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-331"
+   },
+   "onset": 522.63,
+   "duration": 1.88,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-332",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-332"
+   },
+   "onset": 522.63,
+   "duration": 1.61,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-333",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-333"
+   },
+   "onset": 522.63,
+   "duration": 1.52,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-325",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-325"
+   },
+   "onset": 522.63,
+   "duration": 1.65,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-324",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-324"
+   },
+   "onset": 522.63,
+   "duration": 1.66,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-326",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-326"
+   },
+   "onset": 522.63,
+   "duration": 1.97,
+   "pitch": {
+    "midi": 42,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     49
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-330",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-330"
+   },
+   "onset": 522.63,
+   "duration": 1.6,
+   "pitch": {
+    "midi": 54,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-327",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-327"
+   },
+   "onset": 522.63,
+   "duration": 1.76,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-329",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-329"
+   },
+   "onset": 522.63,
+   "duration": 1.67,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-191",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-191"
+   },
+   "onset": 523.43,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-192",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-192"
+   },
+   "onset": 523.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-193",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-193"
+   },
+   "onset": 523.43,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     49
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-190",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-190"
+   },
+   "onset": 523.43,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-194",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-194"
+   },
+   "onset": 523.43,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-196",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-196"
+   },
+   "onset": 523.83,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     57
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-195",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-195"
+   },
+   "onset": 523.83,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-198",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-198"
+   },
+   "onset": 523.83,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     53
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-199",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-199"
+   },
+   "onset": 523.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-197",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-197"
+   },
+   "onset": 523.83,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-202",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-202"
+   },
+   "onset": 524.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     55
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-201",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-201"
+   },
+   "onset": 524.23,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-203",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-203"
+   },
+   "onset": 524.23,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-200",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-200"
+   },
+   "onset": 524.23,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-204",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-204"
+   },
+   "onset": 524.23,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-208",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-208"
+   },
+   "onset": 524.63,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-207",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-207"
+   },
+   "onset": 524.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     57
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-205",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-205"
+   },
+   "onset": 524.63,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-209",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-209"
+   },
+   "onset": 524.63,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-206",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-206"
+   },
+   "onset": 524.63,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     53
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-210",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-210"
+   },
+   "onset": 525.03,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     60
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-214",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-214"
+   },
+   "onset": 525.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     53
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-211",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-211"
+   },
+   "onset": 525.03,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-212",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-212"
+   },
+   "onset": 525.03,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     55
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-213",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-213"
+   },
+   "onset": 525.03,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     58
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-337",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-337"
+   },
+   "onset": 525.43,
+   "duration": 1.4,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     61
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-336",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-336"
+   },
+   "onset": 525.43,
+   "duration": 1.49,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     58
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-334",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-334"
+   },
+   "onset": 525.43,
+   "duration": 1.66,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     59
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-339",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-339"
+   },
+   "onset": 525.43,
+   "duration": 1.66,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     58
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-340",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-340"
+   },
+   "onset": 525.43,
+   "duration": 1.6,
+   "pitch": {
+    "midi": 54,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-341",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-341"
+   },
+   "onset": 525.43,
+   "duration": 1.51,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     57
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-343",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-343"
+   },
+   "onset": 525.43,
+   "duration": 1.35,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-342",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-342"
+   },
+   "onset": 525.43,
+   "duration": 1.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     53
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-335",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-335"
+   },
+   "onset": 525.43,
+   "duration": 1.57,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-8-wc-ta4-15",
+    "grid": [
+     55
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-338",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-338"
+   },
+   "onset": 525.43,
+   "duration": 1.97,
+   "pitch": {
+    "midi": 42,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     59
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-350",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-350"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     63
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-346",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-346"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 46,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     60
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-347",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-347"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     61
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-344",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-344"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-3-wc-ta4-8",
+    "grid": [
+     60
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-348",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-348"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-16",
+    "grid": [
+     56
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-349",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-349"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 58,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     55
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-345",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-345"
+   },
+   "onset": 526.23,
+   "duration": 1.0399999999999636,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     61
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-352",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-352"
+   },
+   "onset": 527.43,
+   "duration": 1.32000000000005,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-4",
+    "grid": [
+     66
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-356",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-356"
+   },
+   "onset": 527.43,
+   "duration": 1.14,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-1-wc-ta4-9",
+    "grid": [
+     63
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-353",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-353"
+   },
+   "onset": 527.43,
+   "duration": 1.32000000000005,
+   "pitch": {
+    "midi": 46,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-2-wc-ta4-6",
+    "grid": [
+     64
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-354",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-354"
+   },
+   "onset": 527.43,
+   "duration": 1.35,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-5-wc-ta4-10",
+    "grid": [
+     62
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-355",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-355"
+   },
+   "onset": 527.43,
+   "duration": 1.28,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "cuivre",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     58
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-351",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-351"
+   },
+   "onset": 527.43,
+   "duration": 1.32000000000005,
+   "pitch": {
+    "midi": 30,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-7",
+    "grid": [
+     64
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-357",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-357"
+   },
+   "onset": 529.03,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-7-wc-ta4-19",
+    "grid": [
+     62
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-358",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-358"
+   },
+   "onset": 529.0341,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-6-wc-ta4-12",
+    "grid": [
+     65
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-359",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-359"
+   },
+   "onset": 529.2261,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-360",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-360"
+   },
+   "onset": 529.2671,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-360",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-361",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-361"
+   },
+   "onset": 529.3985,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-361",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-362",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-362"
+   },
+   "onset": 529.4643,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-362",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-363",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-363"
+   },
+   "onset": 529.4811,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-364",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-364"
+   },
+   "onset": 529.5729,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-365",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-365"
+   },
+   "onset": 529.7011,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-366",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-366"
+   },
+   "onset": 529.7985,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-4-wc-ta4-361",
+    "grid": [
+     1
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-367",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-367"
+   },
+   "onset": 529.8517,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-0-wc-ta4-360",
+    "grid": [
+     1
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-ta4-368",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-368"
+   },
+   "onset": 529.9282,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-ta4-369",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-ta4-369"
+   },
+   "onset": 529.971,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "metric": {
+    "chunk": "ch-9-wc-ta4-362",
+    "grid": [
+     1
+    ]
+   }
+  }
+ ],
+ "chunks": [
+  {
+   "id": "ch-0-wc-ta4-4",
+   "part": 0,
+   "span": [
+    501.03,
+    529.2671
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 501.03,
+    "unitSeconds": 0.4000000000000004,
+    "beatSeconds": 0.4000000000000004,
+    "subdivision": 1,
+    "maxErrSeconds": 4.973799150320701e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-4",
+    "ev-wc-ta4-11",
+    "ev-wc-ta4-21",
+    "ev-wc-ta4-33",
+    "ev-wc-ta4-41",
+    "ev-wc-ta4-56",
+    "ev-wc-ta4-66",
+    "ev-wc-ta4-80",
+    "ev-wc-ta4-85",
+    "ev-wc-ta4-95",
+    "ev-wc-ta4-104",
+    "ev-wc-ta4-107",
+    "ev-wc-ta4-124",
+    "ev-wc-ta4-130",
+    "ev-wc-ta4-141",
+    "ev-wc-ta4-146",
+    "ev-wc-ta4-304",
+    "ev-wc-ta4-154",
+    "ev-wc-ta4-162",
+    "ev-wc-ta4-168",
+    "ev-wc-ta4-314",
+    "ev-wc-ta4-184",
+    "ev-wc-ta4-328",
+    "ev-wc-ta4-191",
+    "ev-wc-ta4-196",
+    "ev-wc-ta4-210",
+    "ev-wc-ta4-337",
+    "ev-wc-ta4-350",
+    "ev-wc-ta4-352"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-4",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-4",
+      "ev-wc-ta4-11",
+      "ev-wc-ta4-21",
+      "ev-wc-ta4-33",
+      "ev-wc-ta4-41",
+      "ev-wc-ta4-56",
+      "ev-wc-ta4-66",
+      "ev-wc-ta4-80",
+      "ev-wc-ta4-85",
+      "ev-wc-ta4-95",
+      "ev-wc-ta4-104",
+      "ev-wc-ta4-107",
+      "ev-wc-ta4-124",
+      "ev-wc-ta4-130",
+      "ev-wc-ta4-141",
+      "ev-wc-ta4-146",
+      "ev-wc-ta4-304",
+      "ev-wc-ta4-154",
+      "ev-wc-ta4-162",
+      "ev-wc-ta4-168",
+      "ev-wc-ta4-314",
+      "ev-wc-ta4-184",
+      "ev-wc-ta4-328",
+      "ev-wc-ta4-191",
+      "ev-wc-ta4-196",
+      "ev-wc-ta4-210",
+      "ev-wc-ta4-337",
+      "ev-wc-ta4-350",
+      "ev-wc-ta4-352"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-4",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 501.03,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-ta4-360",
+   "part": 0,
+   "span": [
+    529.2671,
+    530
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 529.2671,
+    "unitSeconds": 0.5846000000000231,
+    "beatSeconds": 0.5846000000000231,
+    "subdivision": 1,
+    "maxErrSeconds": 0,
+    "label": "unit 584.6 ms · beat 0.585 s (103 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-360",
+    "ev-wc-ta4-367"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-360",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-360",
+      "ev-wc-ta4-367"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-360",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 529.2671,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-ta4-9",
+   "part": 1,
+   "span": [
+    502.23,
+    529.4811
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 502.23,
+    "unitSeconds": 0.3999999999999996,
+    "beatSeconds": 0.3999999999999996,
+    "subdivision": 1,
+    "maxErrSeconds": 5.1514348342607263e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-9",
+    "ev-wc-ta4-14",
+    "ev-wc-ta4-25",
+    "ev-wc-ta4-39",
+    "ev-wc-ta4-45",
+    "ev-wc-ta4-53",
+    "ev-wc-ta4-61",
+    "ev-wc-ta4-77",
+    "ev-wc-ta4-88",
+    "ev-wc-ta4-97",
+    "ev-wc-ta4-114",
+    "ev-wc-ta4-117",
+    "ev-wc-ta4-126",
+    "ev-wc-ta4-138",
+    "ev-wc-ta4-147",
+    "ev-wc-ta4-296",
+    "ev-wc-ta4-299",
+    "ev-wc-ta4-160",
+    "ev-wc-ta4-165",
+    "ev-wc-ta4-174",
+    "ev-wc-ta4-178",
+    "ev-wc-ta4-322",
+    "ev-wc-ta4-186",
+    "ev-wc-ta4-331",
+    "ev-wc-ta4-202",
+    "ev-wc-ta4-208",
+    "ev-wc-ta4-336",
+    "ev-wc-ta4-346",
+    "ev-wc-ta4-356"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-9",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-9",
+      "ev-wc-ta4-14",
+      "ev-wc-ta4-25",
+      "ev-wc-ta4-39",
+      "ev-wc-ta4-45",
+      "ev-wc-ta4-53",
+      "ev-wc-ta4-61",
+      "ev-wc-ta4-77",
+      "ev-wc-ta4-88",
+      "ev-wc-ta4-97",
+      "ev-wc-ta4-114",
+      "ev-wc-ta4-117",
+      "ev-wc-ta4-126",
+      "ev-wc-ta4-138",
+      "ev-wc-ta4-147",
+      "ev-wc-ta4-296",
+      "ev-wc-ta4-299",
+      "ev-wc-ta4-160",
+      "ev-wc-ta4-165",
+      "ev-wc-ta4-174",
+      "ev-wc-ta4-178",
+      "ev-wc-ta4-322",
+      "ev-wc-ta4-186",
+      "ev-wc-ta4-331",
+      "ev-wc-ta4-202",
+      "ev-wc-ta4-208",
+      "ev-wc-ta4-336",
+      "ev-wc-ta4-346",
+      "ev-wc-ta4-356"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-9",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 502.23,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-ta4-363",
+   "part": 1,
+   "span": [
+    529.4811,
+    530
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-363"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-ta4-6",
+   "part": 2,
+   "span": [
+    501.83,
+    530
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 501.83,
+    "unitSeconds": 0.4000000000000001,
+    "beatSeconds": 0.4000000000000001,
+    "subdivision": 1,
+    "maxErrSeconds": 5.3290705182007514e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-6",
+    "ev-wc-ta4-13",
+    "ev-wc-ta4-23",
+    "ev-wc-ta4-34",
+    "ev-wc-ta4-49",
+    "ev-wc-ta4-58",
+    "ev-wc-ta4-67",
+    "ev-wc-ta4-72",
+    "ev-wc-ta4-217",
+    "ev-wc-ta4-89",
+    "ev-wc-ta4-98",
+    "ev-wc-ta4-106",
+    "ev-wc-ta4-121",
+    "ev-wc-ta4-132",
+    "ev-wc-ta4-145",
+    "ev-wc-ta4-297",
+    "ev-wc-ta4-300",
+    "ev-wc-ta4-150",
+    "ev-wc-ta4-156",
+    "ev-wc-ta4-310",
+    "ev-wc-ta4-170",
+    "ev-wc-ta4-316",
+    "ev-wc-ta4-187",
+    "ev-wc-ta4-332",
+    "ev-wc-ta4-192",
+    "ev-wc-ta4-201",
+    "ev-wc-ta4-207",
+    "ev-wc-ta4-334",
+    "ev-wc-ta4-347",
+    "ev-wc-ta4-353"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-6",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-6",
+      "ev-wc-ta4-13",
+      "ev-wc-ta4-23",
+      "ev-wc-ta4-34",
+      "ev-wc-ta4-49",
+      "ev-wc-ta4-58",
+      "ev-wc-ta4-67",
+      "ev-wc-ta4-72",
+      "ev-wc-ta4-217",
+      "ev-wc-ta4-89",
+      "ev-wc-ta4-98",
+      "ev-wc-ta4-106",
+      "ev-wc-ta4-121",
+      "ev-wc-ta4-132",
+      "ev-wc-ta4-145",
+      "ev-wc-ta4-297",
+      "ev-wc-ta4-300",
+      "ev-wc-ta4-150",
+      "ev-wc-ta4-156",
+      "ev-wc-ta4-310",
+      "ev-wc-ta4-170",
+      "ev-wc-ta4-316",
+      "ev-wc-ta4-187",
+      "ev-wc-ta4-332",
+      "ev-wc-ta4-192",
+      "ev-wc-ta4-201",
+      "ev-wc-ta4-207",
+      "ev-wc-ta4-334",
+      "ev-wc-ta4-347",
+      "ev-wc-ta4-353"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-6",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 501.83,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-ta4-8",
+   "part": 3,
+   "span": [
+    502.23,
+    529.2261
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 502.23,
+    "unitSeconds": 0.3999999999999994,
+    "beatSeconds": 0.3999999999999994,
+    "subdivision": 1,
+    "maxErrSeconds": 5.3290705182007514e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-8",
+    "ev-wc-ta4-17",
+    "ev-wc-ta4-24",
+    "ev-wc-ta4-37",
+    "ev-wc-ta4-46",
+    "ev-wc-ta4-51",
+    "ev-wc-ta4-62",
+    "ev-wc-ta4-75",
+    "ev-wc-ta4-82",
+    "ev-wc-ta4-92",
+    "ev-wc-ta4-101",
+    "ev-wc-ta4-112",
+    "ev-wc-ta4-116",
+    "ev-wc-ta4-131",
+    "ev-wc-ta4-139",
+    "ev-wc-ta4-149",
+    "ev-wc-ta4-294",
+    "ev-wc-ta4-298",
+    "ev-wc-ta4-159",
+    "ev-wc-ta4-161",
+    "ev-wc-ta4-311",
+    "ev-wc-ta4-175",
+    "ev-wc-ta4-321",
+    "ev-wc-ta4-185",
+    "ev-wc-ta4-333",
+    "ev-wc-ta4-195",
+    "ev-wc-ta4-205",
+    "ev-wc-ta4-339",
+    "ev-wc-ta4-344"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-8",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-8",
+      "ev-wc-ta4-17",
+      "ev-wc-ta4-24",
+      "ev-wc-ta4-37",
+      "ev-wc-ta4-46",
+      "ev-wc-ta4-51",
+      "ev-wc-ta4-62",
+      "ev-wc-ta4-75",
+      "ev-wc-ta4-82",
+      "ev-wc-ta4-92",
+      "ev-wc-ta4-101",
+      "ev-wc-ta4-112",
+      "ev-wc-ta4-116",
+      "ev-wc-ta4-131",
+      "ev-wc-ta4-139",
+      "ev-wc-ta4-149",
+      "ev-wc-ta4-294",
+      "ev-wc-ta4-298",
+      "ev-wc-ta4-159",
+      "ev-wc-ta4-161",
+      "ev-wc-ta4-311",
+      "ev-wc-ta4-175",
+      "ev-wc-ta4-321",
+      "ev-wc-ta4-185",
+      "ev-wc-ta4-333",
+      "ev-wc-ta4-195",
+      "ev-wc-ta4-205",
+      "ev-wc-ta4-339",
+      "ev-wc-ta4-344"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-8",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 502.23,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-ta4-359",
+   "part": 3,
+   "span": [
+    529.2261,
+    530
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-359"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-ta4-16",
+   "part": 4,
+   "span": [
+    503.83,
+    529.3985
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 503.83,
+    "unitSeconds": 0.4000000000000002,
+    "beatSeconds": 0.4000000000000002,
+    "subdivision": 1,
+    "maxErrSeconds": 5.1514348342607263e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-16",
+    "ev-wc-ta4-30",
+    "ev-wc-ta4-35",
+    "ev-wc-ta4-47",
+    "ev-wc-ta4-60",
+    "ev-wc-ta4-64",
+    "ev-wc-ta4-79",
+    "ev-wc-ta4-216",
+    "ev-wc-ta4-86",
+    "ev-wc-ta4-103",
+    "ev-wc-ta4-109",
+    "ev-wc-ta4-123",
+    "ev-wc-ta4-127",
+    "ev-wc-ta4-136",
+    "ev-wc-ta4-303",
+    "ev-wc-ta4-158",
+    "ev-wc-ta4-164",
+    "ev-wc-ta4-173",
+    "ev-wc-ta4-179",
+    "ev-wc-ta4-320",
+    "ev-wc-ta4-182",
+    "ev-wc-ta4-325",
+    "ev-wc-ta4-193",
+    "ev-wc-ta4-203",
+    "ev-wc-ta4-214",
+    "ev-wc-ta4-340",
+    "ev-wc-ta4-348"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-16",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-16",
+      "ev-wc-ta4-30",
+      "ev-wc-ta4-35",
+      "ev-wc-ta4-47",
+      "ev-wc-ta4-60",
+      "ev-wc-ta4-64",
+      "ev-wc-ta4-79",
+      "ev-wc-ta4-216",
+      "ev-wc-ta4-86",
+      "ev-wc-ta4-103",
+      "ev-wc-ta4-109",
+      "ev-wc-ta4-123",
+      "ev-wc-ta4-127",
+      "ev-wc-ta4-136",
+      "ev-wc-ta4-303",
+      "ev-wc-ta4-158",
+      "ev-wc-ta4-164",
+      "ev-wc-ta4-173",
+      "ev-wc-ta4-179",
+      "ev-wc-ta4-320",
+      "ev-wc-ta4-182",
+      "ev-wc-ta4-325",
+      "ev-wc-ta4-193",
+      "ev-wc-ta4-203",
+      "ev-wc-ta4-214",
+      "ev-wc-ta4-340",
+      "ev-wc-ta4-348"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-16",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 503.83,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-ta4-361",
+   "part": 4,
+   "span": [
+    529.3985,
+    530
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 529.3985,
+    "unitSeconds": 0.39999999999997726,
+    "beatSeconds": 0.39999999999997726,
+    "subdivision": 1,
+    "maxErrSeconds": 0,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-361",
+    "ev-wc-ta4-366"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-361",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-361",
+      "ev-wc-ta4-366"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-361",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 529.3985,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-ta4-10",
+   "part": 5,
+   "span": [
+    502.63,
+    530
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 502.63,
+    "unitSeconds": 0.3999999999999998,
+    "beatSeconds": 0.3999999999999998,
+    "subdivision": 1,
+    "maxErrSeconds": 5.684341886080802e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-10",
+    "ev-wc-ta4-20",
+    "ev-wc-ta4-27",
+    "ev-wc-ta4-31",
+    "ev-wc-ta4-43",
+    "ev-wc-ta4-55",
+    "ev-wc-ta4-68",
+    "ev-wc-ta4-74",
+    "ev-wc-ta4-81",
+    "ev-wc-ta4-215",
+    "ev-wc-ta4-91",
+    "ev-wc-ta4-99",
+    "ev-wc-ta4-108",
+    "ev-wc-ta4-120",
+    "ev-wc-ta4-129",
+    "ev-wc-ta4-143",
+    "ev-wc-ta4-307",
+    "ev-wc-ta4-155",
+    "ev-wc-ta4-163",
+    "ev-wc-ta4-308",
+    "ev-wc-ta4-171",
+    "ev-wc-ta4-315",
+    "ev-wc-ta4-180",
+    "ev-wc-ta4-189",
+    "ev-wc-ta4-324",
+    "ev-wc-ta4-190",
+    "ev-wc-ta4-198",
+    "ev-wc-ta4-211",
+    "ev-wc-ta4-341",
+    "ev-wc-ta4-354"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-10",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-10",
+      "ev-wc-ta4-20",
+      "ev-wc-ta4-27",
+      "ev-wc-ta4-31",
+      "ev-wc-ta4-43",
+      "ev-wc-ta4-55",
+      "ev-wc-ta4-68",
+      "ev-wc-ta4-74",
+      "ev-wc-ta4-81",
+      "ev-wc-ta4-215",
+      "ev-wc-ta4-91",
+      "ev-wc-ta4-99",
+      "ev-wc-ta4-108",
+      "ev-wc-ta4-120",
+      "ev-wc-ta4-129",
+      "ev-wc-ta4-143",
+      "ev-wc-ta4-307",
+      "ev-wc-ta4-155",
+      "ev-wc-ta4-163",
+      "ev-wc-ta4-308",
+      "ev-wc-ta4-171",
+      "ev-wc-ta4-315",
+      "ev-wc-ta4-180",
+      "ev-wc-ta4-189",
+      "ev-wc-ta4-324",
+      "ev-wc-ta4-190",
+      "ev-wc-ta4-198",
+      "ev-wc-ta4-211",
+      "ev-wc-ta4-341",
+      "ev-wc-ta4-354"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-10",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 502.63,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-ta4-2",
+   "part": 6,
+   "span": [
+    500.23,
+    503.03
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-2"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-ta4-12",
+   "part": 6,
+   "span": [
+    503.03,
+    529.9282
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 503.03,
+    "unitSeconds": 0.40000787087628165,
+    "beatSeconds": 0.40000787087628165,
+    "subdivision": 1,
+    "maxErrSeconds": 0.0035883930416886756,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-12",
+    "ev-wc-ta4-22",
+    "ev-wc-ta4-38",
+    "ev-wc-ta4-50",
+    "ev-wc-ta4-59",
+    "ev-wc-ta4-70",
+    "ev-wc-ta4-78",
+    "ev-wc-ta4-90",
+    "ev-wc-ta4-100",
+    "ev-wc-ta4-111",
+    "ev-wc-ta4-118",
+    "ev-wc-ta4-134",
+    "ev-wc-ta4-137",
+    "ev-wc-ta4-305",
+    "ev-wc-ta4-157",
+    "ev-wc-ta4-313",
+    "ev-wc-ta4-169",
+    "ev-wc-ta4-177",
+    "ev-wc-ta4-319",
+    "ev-wc-ta4-188",
+    "ev-wc-ta4-326",
+    "ev-wc-ta4-199",
+    "ev-wc-ta4-212",
+    "ev-wc-ta4-343",
+    "ev-wc-ta4-358"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-12",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-12",
+      "ev-wc-ta4-22",
+      "ev-wc-ta4-38",
+      "ev-wc-ta4-50",
+      "ev-wc-ta4-59",
+      "ev-wc-ta4-70",
+      "ev-wc-ta4-78",
+      "ev-wc-ta4-90",
+      "ev-wc-ta4-100",
+      "ev-wc-ta4-111",
+      "ev-wc-ta4-118",
+      "ev-wc-ta4-134",
+      "ev-wc-ta4-137",
+      "ev-wc-ta4-305",
+      "ev-wc-ta4-157",
+      "ev-wc-ta4-313",
+      "ev-wc-ta4-169",
+      "ev-wc-ta4-177",
+      "ev-wc-ta4-319",
+      "ev-wc-ta4-188",
+      "ev-wc-ta4-326",
+      "ev-wc-ta4-199",
+      "ev-wc-ta4-212",
+      "ev-wc-ta4-343",
+      "ev-wc-ta4-358"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-12",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 503.03,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-ta4-368",
+   "part": 6,
+   "span": [
+    529.9282,
+    530
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-368"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-ta4-5",
+   "part": 7,
+   "span": [
+    501.43,
+    504.23
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-5"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-ta4-19",
+   "part": 7,
+   "span": [
+    504.23,
+    529.5729
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 504.23,
+    "unitSeconds": 0.39999999999999947,
+    "beatSeconds": 0.39999999999999947,
+    "subdivision": 1,
+    "maxErrSeconds": 5.3290705182007514e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-19",
+    "ev-wc-ta4-28",
+    "ev-wc-ta4-40",
+    "ev-wc-ta4-48",
+    "ev-wc-ta4-54",
+    "ev-wc-ta4-63",
+    "ev-wc-ta4-73",
+    "ev-wc-ta4-219",
+    "ev-wc-ta4-87",
+    "ev-wc-ta4-96",
+    "ev-wc-ta4-113",
+    "ev-wc-ta4-122",
+    "ev-wc-ta4-133",
+    "ev-wc-ta4-144",
+    "ev-wc-ta4-295",
+    "ev-wc-ta4-302",
+    "ev-wc-ta4-153",
+    "ev-wc-ta4-309",
+    "ev-wc-ta4-166",
+    "ev-wc-ta4-318",
+    "ev-wc-ta4-181",
+    "ev-wc-ta4-330",
+    "ev-wc-ta4-200",
+    "ev-wc-ta4-209",
+    "ev-wc-ta4-342",
+    "ev-wc-ta4-349",
+    "ev-wc-ta4-355",
+    "ev-wc-ta4-357"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-19",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-19",
+      "ev-wc-ta4-28",
+      "ev-wc-ta4-40",
+      "ev-wc-ta4-48",
+      "ev-wc-ta4-54",
+      "ev-wc-ta4-63",
+      "ev-wc-ta4-73",
+      "ev-wc-ta4-219",
+      "ev-wc-ta4-87",
+      "ev-wc-ta4-96",
+      "ev-wc-ta4-113",
+      "ev-wc-ta4-122",
+      "ev-wc-ta4-133",
+      "ev-wc-ta4-144",
+      "ev-wc-ta4-295",
+      "ev-wc-ta4-302",
+      "ev-wc-ta4-153",
+      "ev-wc-ta4-309",
+      "ev-wc-ta4-166",
+      "ev-wc-ta4-318",
+      "ev-wc-ta4-181",
+      "ev-wc-ta4-330",
+      "ev-wc-ta4-200",
+      "ev-wc-ta4-209",
+      "ev-wc-ta4-342",
+      "ev-wc-ta4-349",
+      "ev-wc-ta4-355",
+      "ev-wc-ta4-357"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-19",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 504.23,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-ta4-364",
+   "part": 7,
+   "span": [
+    529.5729,
+    530
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-364"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-ta4-3",
+   "part": 8,
+   "span": [
+    500.63,
+    503.43
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-3"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-ta4-15",
+   "part": 8,
+   "span": [
+    503.43,
+    529.7011
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 503.43,
+    "unitSeconds": 0.3999999999999999,
+    "beatSeconds": 0.3999999999999999,
+    "subdivision": 1,
+    "maxErrSeconds": 5.5067062021407764e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-15",
+    "ev-wc-ta4-26",
+    "ev-wc-ta4-36",
+    "ev-wc-ta4-44",
+    "ev-wc-ta4-52",
+    "ev-wc-ta4-69",
+    "ev-wc-ta4-71",
+    "ev-wc-ta4-84",
+    "ev-wc-ta4-218",
+    "ev-wc-ta4-94",
+    "ev-wc-ta4-105",
+    "ev-wc-ta4-110",
+    "ev-wc-ta4-119",
+    "ev-wc-ta4-128",
+    "ev-wc-ta4-140",
+    "ev-wc-ta4-293",
+    "ev-wc-ta4-301",
+    "ev-wc-ta4-152",
+    "ev-wc-ta4-167",
+    "ev-wc-ta4-323",
+    "ev-wc-ta4-183",
+    "ev-wc-ta4-327",
+    "ev-wc-ta4-197",
+    "ev-wc-ta4-206",
+    "ev-wc-ta4-335"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-15",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-15",
+      "ev-wc-ta4-26",
+      "ev-wc-ta4-36",
+      "ev-wc-ta4-44",
+      "ev-wc-ta4-52",
+      "ev-wc-ta4-69",
+      "ev-wc-ta4-71",
+      "ev-wc-ta4-84",
+      "ev-wc-ta4-218",
+      "ev-wc-ta4-94",
+      "ev-wc-ta4-105",
+      "ev-wc-ta4-110",
+      "ev-wc-ta4-119",
+      "ev-wc-ta4-128",
+      "ev-wc-ta4-140",
+      "ev-wc-ta4-293",
+      "ev-wc-ta4-301",
+      "ev-wc-ta4-152",
+      "ev-wc-ta4-167",
+      "ev-wc-ta4-323",
+      "ev-wc-ta4-183",
+      "ev-wc-ta4-327",
+      "ev-wc-ta4-197",
+      "ev-wc-ta4-206",
+      "ev-wc-ta4-335"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-15",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 503.43,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-ta4-365",
+   "part": 8,
+   "span": [
+    529.7011,
+    530
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-ta4-365"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-ta4-7",
+   "part": 9,
+   "span": [
+    501.83,
+    529.4643
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 501.83,
+    "unitSeconds": 0.40000000000000013,
+    "beatSeconds": 0.40000000000000013,
+    "subdivision": 1,
+    "maxErrSeconds": 5.1514348342607263e-14,
+    "label": "unit 400.0 ms · beat 0.400 s (150 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-7",
+    "ev-wc-ta4-18",
+    "ev-wc-ta4-29",
+    "ev-wc-ta4-32",
+    "ev-wc-ta4-42",
+    "ev-wc-ta4-57",
+    "ev-wc-ta4-65",
+    "ev-wc-ta4-76",
+    "ev-wc-ta4-83",
+    "ev-wc-ta4-93",
+    "ev-wc-ta4-102",
+    "ev-wc-ta4-115",
+    "ev-wc-ta4-125",
+    "ev-wc-ta4-135",
+    "ev-wc-ta4-142",
+    "ev-wc-ta4-148",
+    "ev-wc-ta4-292",
+    "ev-wc-ta4-306",
+    "ev-wc-ta4-151",
+    "ev-wc-ta4-312",
+    "ev-wc-ta4-172",
+    "ev-wc-ta4-176",
+    "ev-wc-ta4-317",
+    "ev-wc-ta4-329",
+    "ev-wc-ta4-194",
+    "ev-wc-ta4-204",
+    "ev-wc-ta4-213",
+    "ev-wc-ta4-338",
+    "ev-wc-ta4-345",
+    "ev-wc-ta4-351"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-7",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-7",
+      "ev-wc-ta4-18",
+      "ev-wc-ta4-29",
+      "ev-wc-ta4-32",
+      "ev-wc-ta4-42",
+      "ev-wc-ta4-57",
+      "ev-wc-ta4-65",
+      "ev-wc-ta4-76",
+      "ev-wc-ta4-83",
+      "ev-wc-ta4-93",
+      "ev-wc-ta4-102",
+      "ev-wc-ta4-115",
+      "ev-wc-ta4-125",
+      "ev-wc-ta4-135",
+      "ev-wc-ta4-142",
+      "ev-wc-ta4-148",
+      "ev-wc-ta4-292",
+      "ev-wc-ta4-306",
+      "ev-wc-ta4-151",
+      "ev-wc-ta4-312",
+      "ev-wc-ta4-172",
+      "ev-wc-ta4-176",
+      "ev-wc-ta4-317",
+      "ev-wc-ta4-329",
+      "ev-wc-ta4-194",
+      "ev-wc-ta4-204",
+      "ev-wc-ta4-213",
+      "ev-wc-ta4-338",
+      "ev-wc-ta4-345",
+      "ev-wc-ta4-351"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-7",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 501.83,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-ta4-362",
+   "part": 9,
+   "span": [
+    529.4643,
+    530
+   ],
+   "class": "trance-stream",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 529.4643,
+    "unitSeconds": 0.5067000000000235,
+    "beatSeconds": 0.5067000000000235,
+    "subdivision": 1,
+    "maxErrSeconds": 0,
+    "label": "unit 506.7 ms · beat 0.507 s (118 bpm) × 1"
+   },
+   "events": [
+    "ev-wc-ta4-362",
+    "ev-wc-ta4-369"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-ta4-362",
+     "kind": "beam",
+     "events": [
+      "ev-wc-ta4-362",
+      "ev-wc-ta4-369"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-ta4-362",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 529.4643,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  }
+ ],
+ "overlays": []
+}

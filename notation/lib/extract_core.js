@@ -218,7 +218,11 @@
     Classify.assertRegistry(registry);
     const warnings = [];
 
-    const inWin = o => o.type === 'waveCurve' && o.startSeconds >= w0 && o.startSeconds <= w1 && parts.includes(o.layer);
+    // HALF-OPEN window (A3 span-ownership law; matches render.js's page
+    // rule): an onset exactly at w1 belongs to the NEXT window. Was
+    // inclusive both ends — surfaced day 21 when a piece extraction hit
+    // an onset at exactly the cut and the chunk-span validator refused it.
+    const inWin = o => o.type === 'waveCurve' && o.startSeconds >= w0 && o.startSeconds < w1 && parts.includes(o.layer);
     const objs = score.objects.filter(inWin).sort((a, b) => a.startSeconds - b.startSeconds || a.layer - b.layer);
 
     const events = [];

@@ -269,7 +269,7 @@ function completeness(doc, errs) {
   for (const o of score.objects || []) {
     if (o.type !== 'waveCurve' || o.layer === 10) continue;
     if (!doc.source.parts.includes(o.layer)) continue;
-    if (o.startSeconds < w0 || o.startSeconds > w1) continue;
+    if (o.startSeconds < w0 || o.startSeconds >= w1) continue; // half-open (A3 ownership law)
     if (!have.has(o.id)) errs.push(`--complete: S1 object ${o.id} (layer ${o.layer}, t=${o.startSeconds}) has no event in this document`);
   }
 }

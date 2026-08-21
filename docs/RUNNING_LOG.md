@@ -5049,3 +5049,34 @@ layer.** Three pieces, committed with the battery green:
 render attached · GC + follower watched on real material · the two parked
 decisions (system-turn behavior; trance 12-vs-16 + apex time scale) —
 judged under motion in the same sitting.
+
+**Day 21 (late) — V3 BUILT AND RUN: the trial-insertion loop + ledger +
+detector.**
+- **tools/notate_section.js = the ONE COMMAND:** score + window + profile
+  -> extract (extract_core) -> INDEPENDENT validation (ir_validate
+  --against-source --complete; a failing doc is DELETED, never left
+  half-usable) -> notation/ir/<id>.ir.json -> notation/ir/index.json
+  manifest -> the app's picker populates itself from the manifest.
+- **Run twice for real on the piece:** piece-open-01 (0-40, section1
+  profile: 309 events, 68 chunks - 20 unresolved/35 proportional/13
+  simple-bar = mixed fidelity shipping as designed) and piece-trance-w1
+  (500-530, trance profile: 296 events, 13 simple-bar/8 unresolved).
+- **A REAL EXTRACTOR BUG surfaced on the first run:** an onset EXACTLY at
+  the window end (t=40) was included (inWin was inclusive both ends) while
+  the chunk-span law is half-open - the validator refused its own
+  extractor's output. Fixed BOTH sides to the A3 ownership law (extractor
+  < w1; validator --complete >= w1 excluded); goldens + 36-case battery
+  green after. The one-command loop's validate-or-delete design is what
+  caught it.
+- **docs/NOTATION_POLISH.md created** (D18 rule at its head) and
+  **tools/protrusion_detect.js** filed its first REAL findings: 24 items
+  across three sections - low staccato dots (~5.4px) and low accidentals
+  (~3.1px) crossing the bottom lane edge - exactly the class the V0
+  vertical-budget measurement predicted, now sitting silently for POL.
+- **ALL FIVE animated objects now observed LIVE** on piece-open-01 in the
+  video container: envFollower (META shapes), lineWedge (holds), motivePie
+  (gesture groups) join gc + curveFollower. Picker manifest merge
+  verified; zero console errors.
+**G3 formally closes when the composer names a fresh window and sees it
+start-to-preview (one prompt -> one command -> refresh). G2+G3 can share
+one sitting: play piece-open-01 with the Reaper render.**

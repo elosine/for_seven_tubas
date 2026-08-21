@@ -120,6 +120,18 @@
       fetch('/notation/registry/container.json').then(r => { if (!r.ok) throw new Error('container fetch ' + r.status); return r.json(); }),
     ]);
     state.glyphs = glyphs; state.pageRules = pageRules; state.container = container;
+    // V3: extracted sections register themselves in the manifest
+    // (tools/notate_section.js) — merge into the picker, no duplicates
+    try {
+      const man = await fetch('/notation/ir/index.json').then(r => r.ok ? r.json() : null);
+      const have = new Set([...$('ir').options].map(o => o.value));
+      for (const e of (man && man.irs) || []) {
+        if (have.has(e.id)) continue;
+        const opt = document.createElement('option');
+        opt.value = e.id; opt.textContent = e.label || e.id;
+        $('ir').appendChild(opt);
+      }
+    } catch (e) { /* manifest optional */ }
     for (const p of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
       const opt = document.createElement('option');
       opt.value = p; opt.textContent = 'T' + (p + 1);

@@ -1,0 +1,24 @@
+{
+ "irs": [
+  {
+   "id": "piece-open-01",
+   "label": "piece opening 0-40 (parachute+META)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    40
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "piece-trance-w1",
+   "label": "piece trance 500-530",
+   "score": "piece-s25-finished01",
+   "window": [
+    500,
+    530
+   ],
+   "profile": "trance"
+  }
+ ]
+}
