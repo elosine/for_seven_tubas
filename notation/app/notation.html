@@ -11,6 +11,25 @@
   body { margin: 0; background: #e8e6e1; font-family: sans-serif; }
   /* V1: the container windows render at TRUE size — no responsive width */
   #sheet.fixed { width: 1920px; overflow-x: visible; }
+  /* container modes (video/zoom): the frame is the SCREEN's size, so the
+     page may own zero chrome — no margins, no visible scrollbars, and the
+     control bar floats and auto-hides (hover the top edge to get it back).
+     At F11 on a 1920×1080 screen the video frame fits EXACTLY. */
+  /* the page scroller is the HTML element — suppress bars there (wheel
+     scrolling still works; the zoom view relies on it) */
+  html.cmode { scrollbar-width: none; }
+  html.cmode::-webkit-scrollbar { display: none; }
+  body.cmode { background: #111; }
+  body.cmode #sheet { margin: 0; box-shadow: none; }
+  body.cmode #sheet svg { display: block; } /* inline-svg baseline adds 4px */
+  body.cmode #bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+                    transform: translateY(-100%); transition: transform .15s; opacity: 0.96; }
+  body.cmode #bar.shown, body.cmode #bar:hover { transform: none; }
+  #hoverzone { display: none; position: fixed; top: 0; left: 0; right: 0; height: 14px; z-index: 9; }
+  body.cmode #hoverzone { display: block; }
+  body.cmode #err { position: fixed; left: 8px; bottom: 8px; z-index: 10;
+                    background: #fff8; border-radius: 4px; }
+  body.cmode #err:empty { display: none; }
   #bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px;
          background: #2b2b2b; color: #ddd; position: sticky; top: 0; flex-wrap: wrap; }
   #bar label { font-size: 12px; opacity: 0.8; }
@@ -53,6 +72,7 @@
   <button id="next">▶</button>
   <span id="meta"></span>
 </div>
+<div id="hoverzone" title="controls"></div>
 <div id="sheet"></div>
 <div id="err"></div>
 
@@ -112,6 +132,7 @@
       $('m4Wrap').style.display = graphic ? 'none' : '';
       $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
+      setCmode(vv === 'video' || vv === 'zoom');
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
       const paged = $('mode').value === 'pages';
@@ -274,6 +295,29 @@
   for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score']) $(id).addEventListener('change', render);
   $('ir').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
   $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
+  // container-mode chrome: bar auto-hides (shown briefly on entry, and on
+  // hovering the top edge); LEFT/RIGHT page, Z flips video↔zoom — so the
+  // frame can be judged with zero page furniture. F11 = exact fit.
+  let barTimer = null;
+  function setCmode(on) {
+    document.body.classList.toggle('cmode', on);
+    document.documentElement.classList.toggle('cmode', on);
+    if (on) {
+      $('bar').classList.add('shown');
+      clearTimeout(barTimer);
+      barTimer = setTimeout(() => $('bar').classList.remove('shown'), 2000);
+    } else $('bar').classList.remove('shown');
+  }
+  $('hoverzone').addEventListener('mouseenter', () => $('bar').classList.add('shown'));
+  $('bar').addEventListener('mouseleave', () => { if (document.body.classList.contains('cmode')) $('bar').classList.remove('shown'); });
+  document.addEventListener('keydown', ev => {
+    if (!document.body.classList.contains('cmode')) return;
+    if (ev.target && /INPUT|SELECT|TEXTAREA/.test(ev.target.tagName)) return;
+    if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
+    else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
+    else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }
+  });
+
   // one-click video ↔ zoom at the same music position (G1)
   $('zx').addEventListener('click', () => {
     const v = $('view').value;

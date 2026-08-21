@@ -4967,3 +4967,23 @@ throughout, every new behavior tested red-then-green:
 REMAINING FOR G1 (composer): flip the windows on a real section by eye;
 see one irregular-lane render and one engraving override applied (both
 are data edits, demonstrable live in the sitting).
+
+**Day 21 — G1 round 1: THE APP REPEATED THE PAGER'S CHROME BUG (composer
+caught it, third instance of the trap).** Video mode rendered a perfect
+1920x1080 SVG inside a page with a sticky control bar + 14px sheet margins
++ OS scrollbars - so the frame scrolled, wobbled, and the zoom's right
+edge was ambiguous (margin pushed it past the window; nothing ran off).
+The lesson now has a NAME in this project: THE FRAME IS THE SCREEN'S
+SIZE, SO THE JUDGING SURFACE MAY OWN ZERO CHROME - it was learned on the
+proofs pager, logged, and still re-committed in the app shell. Fix
+(container modes only; classic modes untouched): margins/shadow stripped
+- control bar floats and AUTO-HIDES (2s after entry; hover the top edge
+to recall; opacity trick none) - scrollbars suppressed on the HTML
+element (first attempt suppressed body's - wrong scroller, caught by
+measurement) - svg display:block (inline baseline added 4px, caught by
+measurement) - LEFT/RIGHT keys page, Z flips video/zoom, so judging needs
+no bar at all. VERIFIED at a true 1920x1080 viewport: video scroll ==
+client == 1920x1080 exact, no bars either axis - zoom width exactly 1920
+no h-overflow, height 2160 wheel-scrollable with no visible bar - bar
+hides after 2s and returns on hover - keys work. F11 on the composer's
+screen = exact fit.
