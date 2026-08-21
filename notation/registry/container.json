@@ -31,8 +31,8 @@
       "_derived": "lanePx = (1080 - 16 - 36) / 10 = 102.8 · air above+below staff ≈ 35.6 px per side at staff 31.6",
       "_status": "header decided ('no header at all — akin to the paper score'); lane numbers provisional pending the vertical-stress proof (ledgers, accents, dynamics, hairpins)"
     },
-    "zoom-working": { "zoomZ": null, "_status": "open (V0.5)" },
-    "print-letter": { "_status": "open (V0.9: margins, staff mm, seconds-per-system, printed-page proof)" },
+    "zoom-working": { "zoomZ": 2, "_status": "provisional, DEFERRED — Z is a pure view parameter (PP-6 invariant holds at any Z); adjust freely once the zoom window exists (V1)" },
+    "print-letter": { "_status": "DEFERRED to V5 — Letter landscape adopted (PP-4); margins/staff-mm are data, decided against the one printed page V5's gate requires anyway" },
     "conductor": {
       "headerPx": null,
       "_status": "reserved — NOT in this build",
@@ -42,9 +42,10 @@
   },
 
   "prefatory": {
-    "_status": "open — NEW V0 item (composer finding, day 21: 'the first note of T2 is sitting on top of the bass clef')",
+    "_status": "architecture DECIDED (the gutter exists, cursor enters at music start — V1 spec); WIDTH = provisional 48, DEFERRED to polish (composer, day 21: defer anything that is data-variable later; spend eye-time only on lock-ins). Adjustable any time — even per page in principle.",
     "model": "UNTIMED dead space at the system's left edge: the view maps [t0,t1] onto [gutterPx, 1920], not [0, 1920]. Gutter CONTENT is per page, rules-as-data ('not every page will have a bass clef at the beginning' — or anything at all). The CURSOR enters at the music start (x = gutterPx at page t0), never sweeps the dead area; same rule at any right-edge dead space. Today render.js pins the clef at x=0 OVER the music — placeholder, replaced by this.",
-    "gutterPx": null
+    "gutterPx": 48,
+    "_clefNote": "The clef does NOT scale with the gutter — its size is tied to STAFF size (drawn in ss, anchored on the F line), identical at any gutter width. The gutter must simply be wide enough to hold it: clef ≈ 21 px at staff 31.6, plus the part label; 48 leaves ~6 px air. Floor ≈ 36 px (label and clef start to crowd)."
   },
 
   "verticalBudget": {
@@ -59,7 +60,7 @@
     "font": "CRIMSON PRO LIGHT (+ Light Italic) — the notation text font of BOTH prior pieces (LilyPond textFontName; piece #2's performance app embeds the TTFs and outlines text to paths at build). TTFs vendored from piece #1 into notation/app/fonts/ (Light 104 KB, LightItalic 106 KB; SIL OFL). V1 registry mapping per prior use: Light for labels/tempo, Light Italic for expressive/instruction text.",
     "_exportNote": "V4/V5 rasterizer must load these TTFs; piece #2's proven escape hatch if it misbehaves = convert text to path outlines at export (build_performance_app.js precedent)."
   },
-  "systemTurn": { "_status": "open (V0.4: hard cut vs two-system swap — mock both, judge by watching)" },
-  "metaOverlay": { "_status": "open (V0.8: opacity/color, ported from graphic.js)" },
-  "animatedObjects": { "_status": "open (V0.11: vocabulary, styling, print counterparts)" }
+  "systemTurn": { "_status": "DEFERRED to the V2 gate — a behavior choice needing MOTION to judge; the page model supports both candidates (hard cut / two-system swap), neither is a rebuild. Judged in the same sitting as the C/D time-scale re-look." },
+  "metaOverlay": { "_status": "provisional, DEFERRED — start from graphic.js's proven values (opacity 0.18, entity colors); pure data, adjust at any point through POL", "opacity": 0.18 },
+  "animatedObjects": { "_status": "vocabulary decided (V0.11 inventory: GC · curve follower · line-wedge meter · envelope following); STYLING deferred until the objects run (V2) — judged live, pure data" }
 }

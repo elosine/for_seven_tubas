@@ -4914,3 +4914,22 @@ payload right, paint right, and the mark still has to be FINDABLE by a
 human scanning a busy page. Fix: cursor-colored (#d84315) 2px dashed line
 + a filled entry arrow at the top; orange confirmed in the pixels
 (216,67,21). Proof furniture's job is to be seen.
+
+**Day 21 — COURSE CORRECTION (composer, binding): spend eye-time on
+LOCK-INS only.** "Effective tests are ones that tell us flaws in the
+architecture... if it's variable later during the polish run, let's just
+defer these decisions." Applied: V0's remaining opens re-classified by
+that filter. DEFERRED with provisional defaults (all pure data, adjustable
+through POL): gutter width 48 (the gutter's EXISTENCE was the
+architecture find; its width never needed an eye) · zoom Z=2 (PP-6 holds
+at any Z) · META overlay styling (graphic.js values) · print numbers (to
+V5's own gate) · animated-object styling (to V2, judged live). DEFERRED
+TO V2 GATE: system-turn behavior + the C/D time-scale re-look (need
+motion). REMAINING AI-SIDE: engraving census (V0.10, no composer time).
+Clef question answered from arithmetic, no test: clef size rides STAFF
+size, not gutter - identical at any width; gutter floor ~36px, 48 has
+~6px air. Entry-line invisibility on the composer's machine filed to
+NITS, troubleshooting deferred at composer's instruction. NET: V0's
+composer-facing work is DONE - G0 can close with decided items (frame ·
+no header · staff 31.6 · budget A · Crimson · motion model PP-3) +
+provisional defaults; V1 (the two windows) is the next build.

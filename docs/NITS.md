@@ -354,3 +354,15 @@ this turns out to be.
 **To investigate:** find the console script / step that produced `aud-9` and
 determine whether the uniform pulse was a deliberate simplification or a lost
 tempo map. NOT urgent; the composer likes how it sounds.
+
+## Entry-line invisible on the composer's machine (day 21, deferred)
+
+The G-proof cursor-entry marker (orange 2px dashed + arrow at x=gutter)
+is pixel-verified rendering in the verify browser (canvas rasterize +
+getImageData: color 216,67,21 present), but the composer does not see it
+after hard reloads and a Chrome restart. Unresolved viewer-side mystery -
+composer explicitly deferred troubleshooting ("rather not do this kind of
+troubleshooting now"). Only matters to proof furniture; the REAL cursor
+entry behavior is V2 code with its own gate. Revisit only if V1/V2
+visuals also diverge on the composer's machine (then it is a real
+rendering-environment difference worth understanding).
