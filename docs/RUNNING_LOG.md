@@ -4790,3 +4790,24 @@ extension, not a rebuild. Held as a MARKED DOOR in container.json
 (timeScale._midPageNote) with the two design cautions: in proportional
 notation distance IS time, so a mid-page seam must sit at a chunk
 boundary and be visibly marked, and the cursor changes speed at the seam.
+
+**Day 21 — THE VERTICAL BUDGET, MEASURED (and what the stress test was
+for).** The composer asked what the vertical-stress test would establish
+and whether it is necessary - the right reframe turned it from an eye
+proof into a MEASUREMENT (tools/v0_vertical_budget.js over the finished
+piece): the container fixes the AIR BUDGET (no header -> lane 102.8px,
+staff 31.6 -> 6.51 ss middle-to-edge + 0.51 ss gap) and the material fixes
+the DEMAND (pitch extremes per part + fixed text furniture). Result:
+furniture fits (tags 4.8, dynamics 5.9 ss) - tops fit via the gap (G4 ~=
+7.0 ss) - BOTTOMS DO NOT: every part carries F#1 (the staccato-range
+floor), whose head+ledger+dot ink ~= 7.7 ss ~= 9px past the lane edge,
+~5px into the neighbor's band. Systemic in range, occasional in fact (a
+collision needs BOTH neighbors at opposite extremes at the same x).
+Composer decision queued: accept + polish-pass nudges vs widen gaps vs
+smaller staff vs an octave device. ALSO from the composer's same look:
+first note sits ON the bass clef -> named the missing feature exactly -
+PREFATORY (untimed) SPACE: per-page gutter content as rules, view maps
+time to [gutterPx, 1920], cursor ENTERS at the music start and never
+sweeps dead space. Filed as V0 decision 11a [A21c] + container.json
+prefatory block; render.js's pin-clef-at-x=0 is a placeholder to be
+replaced.

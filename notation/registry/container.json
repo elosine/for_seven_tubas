@@ -41,6 +41,17 @@
     }
   },
 
+  "prefatory": {
+    "_status": "open — NEW V0 item (composer finding, day 21: 'the first note of T2 is sitting on top of the bass clef')",
+    "model": "UNTIMED dead space at the system's left edge: the view maps [t0,t1] onto [gutterPx, 1920], not [0, 1920]. Gutter CONTENT is per page, rules-as-data ('not every page will have a bass clef at the beginning' — or anything at all). The CURSOR enters at the music start (x = gutterPx at page t0), never sweeps the dead area; same rule at any right-edge dead space. Today render.js pins the clef at x=0 OVER the music — placeholder, replaced by this.",
+    "gutterPx": null
+  },
+
+  "verticalBudget": {
+    "_status": "MEASURED 2026-08-20 (tools/v0_vertical_budget.js on piece-s25-finished01) — one decision pending",
+    "_finding": "Every part spans F#1–F4 (T1/T8 to G4). Fixed furniture fits (tags 4.8 ss, dynamics 5.9 ss vs 6.51 budget). Tops: G4 ink ≈ 7.0 ss — lands in the inter-lane gap, OK. BOTTOMS: F#1 head+ledger+staccato dot ≈ 7.7 ss ≈ 9 px past the lane edge — through the 4 px gap and ~5 px into the neighbor's band. Systemic (all ten parts carry the range), but an actual COLLISION needs both neighbors at opposite extremes at the same x — expected occasional, exactly what the protrusion detector + overrides exist for."
+  },
+
   "typography": { "_status": "open — font (V0.7) undecided; engraving-registry census (V0.10) not yet run" },
   "systemTurn": { "_status": "open (V0.4: hard cut vs two-system swap — mock both, judge by watching)" },
   "metaOverlay": { "_status": "open (V0.8: opacity/color, ported from graphic.js)" },

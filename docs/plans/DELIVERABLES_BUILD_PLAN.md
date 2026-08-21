@@ -125,6 +125,15 @@ Decisions to close (= preplan §5 drill-down + §3 tier-1 list):
    After this, "noteheads a touch bigger / stems longer" is a data edit that
    re-renders everywhere — set at tier 1, adjustable at POL, never a code
    edit.
+11a. **[A21c] THE PREFATORY GUTTER** *(composer finding on the round-1
+   proofs: a first note sitting ON the bass clef)*: untimed dead space at
+   the system's left edge — the view maps time onto `[gutterPx, 1920]`,
+   gutter CONTENT is per page as rules-as-data (clef, or nothing — not
+   every page opens with one), and **the cursor enters at the music start,
+   never sweeping the dead area** (same at any right-edge dead space).
+   V0 decides the gutter width by proof; V1 gives `makeView` the music
+   region; V2's cursor honors it. Replaces render.js's pin-clef-at-x=0
+   placeholder.
 11. **[A21] The ANIMATED-OBJECT VOCABULARY + styling** — which animated
    objects ship in this score's video view (starting inventory = the shared
    overlay set of BOTH prior performance apps: **GC ball · curve follower ·
