@@ -10,47 +10,53 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 21 (2026-08-20, fourth sitting) — 8a LAUNCHED: V0 + V1 BOTH CLOSED
-IN ONE SITTING. Claude Code / Fable 5.** The deliverables build (video +
-paper score) went from plan interrogation to a working two-window
-container:
-- **Plan interrogation first (composer), three amendments [A21/A21b/A21c]:**
-  the animated objects of pieces #1/#2 ARE in this score (D46 — the old
-  fence conflated animation with interactivity) · the build formally
-  rejoins the §7 one-spine model (D47 — realization = config entry, clock
-  = interface, one S1 timeline) · prefatory gutter architecture (untimed
-  dead space; cursor enters at music start).
-- **V0 run + G0 CLOSED:** proof slates A–G (`notation/app/proofs_v0/`,
-  tools/v0_proofs.js). DECIDED: no header (video) · staff 31.6 px ·
-  vertical-budget policy A (measured: F#1 ink ~9 px over; C-switch tested
-  as one flipped number) · font CRIMSON PRO LIGHT (the lineage font,
-  TTFs vendored from piece #1) · PP-3 motion. Everything data-variable
-  DEFERRED with provisional defaults per D48 (the composer's
-  decide-vs-defer filter). `notation/registry/container.json` = the spec.
-- **V1 BUILT + G1 CLOSED:** coords per-part weights + per-lane staff
-  scale + gutter mapping + `zoomCfg` (PP-6 invariant, tested on irregular
-  lanes, prove-red) · engraving census → registry + the OVERRIDE channel
-  (stemDir/beamBreak/dx/dy) + sectional staff-off · the TWO WINDOWS in
-  notation.html (video 1920×1080 pixel-exact, zoom ×2, ⇆/Z toggle,
-  chrome-free container modes, system terminal barline) ·
-  GLYPH_EXTENSION_CONTRACT.md. All four suites green throughout.
-- Composer's verdict closing G1: *"it looks good… the zoom view is
-  comfortable."* All commits pushed through `e5b0950`+.
+**DAY 21 (2026-08-20/21, fourth sitting) — 8a: THE WHOLE PRE-NOTATION
+CRITICAL PATH (V0→V3) CODE-COMPLETE IN ONE SITTING. Claude Code /
+Fable 5.** Plan interrogation → container decided → two windows → motion
+→ the loop. The workshop is built; notating is what remains.
+- **Plan interrogation (composer), amendments [A21/A21b/A21c] → D46–D48:**
+  animated objects ARE in this score (D46, animation ≠ interactivity) ·
+  the build rejoins the §7 one-spine model (D47: realization = config,
+  clock = interface, one S1 timeline) · decide-vs-defer filter (D48) ·
+  prefatory gutter architecture (untimed dead space, cursor enters at
+  music start).
+- **V0 + G0 CLOSED:** proof slates A–G. Decided: no header · staff
+  31.6 px · budget policy A · CRIMSON PRO LIGHT (the lineage font,
+  vendored from piece #1) · PP-3. Data-variable items deferred with
+  provisional defaults. Spec = `notation/registry/container.json`.
+- **V1 + G1 CLOSED** (composer: "it looks good… the zoom view is
+  comfortable"): lane flexibility + zoomCfg (PP-6 proven) · engraving
+  registry + override channel + staff-off · the two chrome-free windows
+  in notation.html · system terminal barline · GLYPH_EXTENSION_CONTRACT.
+- **V2 BUILT:** transport.js = the D47 clock interface (audio-slaved,
+  injectable timebase) · animobj.js = the pure state(t)→SVG contract +
+  ALL FIVE ports (composer added motive pie) with determinism battery +
+  stateful prove-red · shell: overlay loop, ▶/SPACE, click-to-seek,
+  hard-cut turns; `drawOverlayFrame(t)` exposed = V4's export entry.
+- **V3 BUILT + RUN:** tools/notate_section.js (extract → validate-or-
+  delete → manifest → picker, one command) run on piece-open-01 (0–40)
+  + piece-trance-w1 (500–530); half-open window bug fixed BOTH sides
+  (A3 ownership law; goldens + 36-case battery green) ·
+  docs/NOTATION_POLISH.md created · protrusion detector filed its first
+  24 real items · all five animated objects observed LIVE on piece
+  material. Full trail: RUNNING_LOG day 21 (very long, wrong turns kept).
 
 **Next up:**
-1. **V2 — transport + cursor + THE ANIMATED OBJECT LAYER** (clock as the
-   swappable interface; GC/curve-follower/line-wedge/envelope ports as
-   pure state(t)→SVG). **Its gate also carries: system-turn behavior +
-   the trance/apex time-scale re-look (judged under motion).**
-2. Then V3 (trial-insertion loop + polish ledger + protrusion detector);
-   V4/V5 may trail until submission. **DEADLINE SEPT 4.**
-3. Still open from the morning sittings: **the end-to-end piece listen**
-   (`piece-s25-finished01`, 12.5 min) + the ~2.5-min headroom question.
+1. **THE G2+G3 SITTING (~20 min, composer + the Reaper render):** play
+   piece-open-01 in video mode with audio (onsets-on-cursor by eye) ·
+   name one fresh window (closes G3) · two verdicts under motion:
+   system-turn (hard cut) + trance 12-vs-16 / apex time scale.
+2. **Then TIER-2 NOTATION BEGINS** — part by part, section by section
+   (M5 chunker experiments for section 1; new devices/glyphs per
+   material). V4/V5 exports + POL trail until submission. **SEPT 4.**
+3. Still open from the morning sittings: the end-to-end piece listen
+   (piece-s25-finished01, 12.5 min) + the ~2.5-min headroom question.
 
 **Open at session end:**
-- **Entry-line mystery (NITS):** proof-pager cursor-entry marker is
-  pixel-verified rendering but the composer cannot see it; troubleshooting
-  deferred by instruction — revisit only if V2 visuals also diverge.
+- **G2/G3 pending** (agenda above); notation content is MIXED FIDELITY by
+  design until tier-2 work happens (parachute bricks are placeholders).
+- **Entry-line mystery (NITS):** pixel-verified rendering the composer
+  cannot see; revisit only if V2 visuals also diverge on their machine.
 - **2ad's formal gate** still unwaived (texture models UNHEARD-in-bank).
 - **Traps still live:** staccato 30–65 silent-note trap (Insertion strip
   unhandled) · lazy-MIDI init · `tranceA003b.json` = assembler SRC, never
@@ -915,14 +921,28 @@ container:
   second and honours `active` on a rev bump — verified live), the A/B/C slate is
   already SMEAR/RAIN/GALLOP, and the banking CLI was run end to end and reverted.
   **Waits only on the composer's ear.**
+- 2026-08-20/21 — **PLAN 8a V0–V3: THE DELIVERABLES CONTAINER, CODE-COMPLETE
+  IN ONE SITTING** — G0 + G1 closed by the composer; the two windows, the
+  clock interface, all five animated objects, the one-command
+  trial-insertion loop, the polish ledger + protrusion detector. The
+  pre-notation critical path is done; G2/G3 = one ~20-min composer
+  sitting; V4/V5 exports trail until submission.
 
 ## §6 Human Notes
 
+- *(2026-08-21, day 21 — CURRENT)* **THE G2+G3 SITTING (~20 min) is the only
+  thing between here and notating:** play `piece-open-01` in video mode with
+  the Reaper render (onsets-on-cursor by eye) · name one fresh window
+  ("notate X–Y of piece-s25") · verdicts under motion: hard-cut page turn ·
+  trance 12-vs-16 / apex time scale · first look at all five animated
+  objects (styling reactions welcome, filed not debated). Item 4 below
+  (GC apex-vs-impact cue) belongs to this sitting too.
 - *(2026-08-19, day 19, notation)* **FOUR THINGS THE NOTATION WORK NEEDS FROM
-  YOU** — the first two have been owed since day 14 and now block slice 1:
-  1. **The 0-10 → dynamic-mark convention** (how your 0-10 levels become
-     *pp / mf / ffff* on a page).
-  2. **D3's performer-transform decision.**
+  YOU** — ~~the first two~~ *(1–2 DISSOLVED by D44, day 19 — do not re-owe:
+  dynamics are authored-first with provenance; D3 became blunt shape
+  families)*:
+  1. ~~The 0-10 → dynamic-mark convention~~ *(dissolved)*
+  2. ~~D3's performer-transform decision.~~ *(dissolved)*
   3. **Is ε = 30 ms acceptable to your ear?** This is the highest-leverage
      answer available: at 20 ms only ~26 % of Section 1 admits simple bars, at
      30 ms it is ~57 %. The whole strategy mix moves on it. *(Related knob, same
@@ -934,8 +954,9 @@ container:
      predictive while dropping the percussive connotation, so a ramped entry no
      longer has to *"resist the stated attack."* Untested; your call whether it
      goes into the GC port at all.
-- *(2026-08-19, day 19)* **NEXT SESSION STARTS HERE — the phase-shifting
-  machine.** The composer named it explicitly at session end. It needs no code:
+- *(2026-08-19, day 19)* ~~**NEXT SESSION STARTS HERE — the phase-shifting
+  machine.**~~ *(DONE day 21 first sitting — 2ag built, phaseSeq-01 performed,
+  trance section finished and in the piece.)* The composer named it explicitly at session end. It needs no code:
   `Texture` button, A/B/C are SMEAR / RAIN / GALLOP, the panel polls every second
   so an AI edit lands with no reload. **Answer one question by ear: are they
   distinct?** The measured prediction on record — RAIN and GALLOP have nearly the
