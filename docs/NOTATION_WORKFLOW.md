@@ -50,9 +50,13 @@ envelope species · span · class/strategy · source object id (day 22; the
 IR carries `env`/`mode` since schema amendment 3).
 
 Polled every second: `container.json` · `glyphs.json` · the current IR ·
-the picker manifest · the renders folder. **NOT polled: the source score** —
-notation never mutates piece data; if the piece changes in the composer
-score, refresh the notation page once.
+the picker manifest · the renders folder · **the source score's mtime**.
+When the composer score changes, the page re-fetches it (META overlay +
+markers refresh) and re-checks every extracted curve snapshot against the
+live shape — drift raises an amber badge naming the object ("wc-3 (curve) —
+ask the AI to refresh <id>"); a re-extract clears it. The curve's source of
+truth is ALWAYS the composer score; `level.samples` is a snapshot at
+extract time. Controls + page/zoom position survive reloads (localStorage).
 
 ## §3 Version files (the composer-score save model, option A1)
 
