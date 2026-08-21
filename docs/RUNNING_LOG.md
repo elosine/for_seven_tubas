@@ -4830,3 +4830,17 @@ chord crash filed in container.json (furniture flip > micro-nudge >
 per-page lane rebalance > 8vb > per-page staff > global switch); per-page
 staff size noted as mechanically trivial (a page IS a view) but visually
 a zoom jump, last resort. E proofs are in the pager (keys 13-14).
+
+**Day 21 — V0.7 FONT SLATE BUILT (composer deferred the pick order; font
+chosen over system-turn because it constrains the V4/V5 rasterizer and
+every text item inherits it; the system-turn mock needs MOTION and will
+bundle with the first cursor work, where the C/D re-judgment happens
+anyway).** Proofs F-georgia / F-times / F-palatino / F-segoe: the chosen
+container (no header, staff 31.6, trance busiest window), one font per
+proof applied to ALL 22 text items (part labels, tempo marks, technique
+tags) by post-processing render.js's hardcoded sans-serif (V1 moves it to
+the engraving registry). Windows system fonts only so the proofs show
+installable ink; all four VERIFIED INSTALLED via document.fonts.check on
+this machine. The winner still must survive the V4/V5 rasterizer - that
+proof lives in V4 (frame-vs-app pixel comparison), noted in the plan's
+risk section already. Pager now 18 proofs; F group = 15-18.

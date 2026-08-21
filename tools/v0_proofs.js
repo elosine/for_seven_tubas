@@ -77,12 +77,13 @@ function proof(cfg) {
     ].join('\n');
   }
 
-  const svg = [
+  let svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">',
     '<!-- V0 proof: ' + params + ' -->',
     '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#fff"/>',
     head, inner, '</svg>',
   ].join('\n');
+  if (cfg.postProcess) svg = cfg.postProcess(svg);
   fs.writeFileSync(path.join(OUT, file), svg);
 
   const lane = systems[0];
@@ -109,6 +110,23 @@ for (const sps of [4, 6, 8]) rows.push(proof({ ...apoint(sps), sps, headerPx: 80
 // E — THE C-SWITCH TEST (day-21): the CHOSEN container (no header) with
 // staff size as the one flipped number — everything must resize from it.
 for (const st of [31.6, 28.0]) rows.push(proof({ ...trBase, sps: 12, headerPx: 0, staffPx: st, file: 'E-staff' + String(st).replace('.', 'p') + '.svg', params: 'E: CHOSEN container (no header) · staff ' + st + 'px · 12 s/system · trance' }));
+// F — THE FONT (V0.7): same chosen container, one font per proof, applied
+// to every text item (part labels, tempo marks, technique tags). Windows
+// system fonts only, so what the composer sees is exactly installable ink;
+// the winner must then survive the V4/V5 rasterizer (that proof is V4's).
+// render.js hardcodes sans-serif today — swapped here by post-process; V1
+// moves it into the engraving registry.
+const FONTS = [
+  ['georgia', 'Georgia, serif'],
+  ['times', "'Times New Roman', serif"],
+  ['palatino', "'Palatino Linotype', serif"],
+  ['segoe', "'Segoe UI', sans-serif"],
+];
+for (const [name, stack] of FONTS) rows.push(proof({
+  ...trBase, sps: 12, headerPx: 0, staffPx: 31.6, file: 'F-' + name + '.svg',
+  params: 'F: font ' + stack.replace(/'/g, '') + ' · chosen container · trance',
+  postProcess: svg => svg.replace(/font-family="sans-serif"/g, 'font-family="' + stack.replace(/'/g, '&#39;') + '"'),
+}));
 
 // index.html — PIXEL-EXACT PAGER. One proof at a time at 0,0 with zero page
 // chrome, so in browser fullscreen (F11) on a 1920×1080 screen the frame
