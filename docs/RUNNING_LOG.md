@@ -4735,3 +4735,18 @@ marker placeholder deliberately unused (the memory trap). VERIFIED on
 polygons; header texts at 24/18/21px; inner svg nested at y=80. The
 slate covers V0 decisions 1-3 only; META overlay styling, font, zoom
 factor, system-turn, print numbers are separate V0 items.
+
+**Day 21 — THE VIEWER WAS LYING ABOUT THE FIT (composer caught it on first
+load).** The v1 proof index was a padded scroll page - 12px body padding
+(content 1944px on a 1920 screen -> horizontal scrollbar), a note bar +
+captions above the frames (vertical scroll to reach part 1), and the
+spawned scrollbar ate ~17px of the 1080 (bottom lane clipped). On a screen
+the SAME SIZE as the frame, any page chrome at all breaks the fit - the
+judgment surface must have zero chrome of its own, which is also just what
+the shipped video has (fullscreen playback, no browser). Rebuilt as a
+pixel-exact pager: one frame at 0,0, no margins, J/K step, C toggles the
+caption overlay, F11 = exact fit. VERIFIED at a true 1920x1080 viewport:
+scrollW/H == clientW/H == 1920/1080 (no bars either axis), frame rect
+(0,0,1920,1080), J/K/C all fire. Lesson filed: the proof CONTENT was
+verified in v1 but the VIEWING SURFACE was not - same trap class as the
+renderMarker memory (measure the presentation, not just the payload).

@@ -97,19 +97,40 @@ for (const sps of [8, 12, 16]) rows.push(proof({ ...trBase, sps, headerPx: 80, s
 // D — time scale, density apex (header 80, ss 12)
 for (const sps of [4, 6, 8]) rows.push(proof({ ...apoint(sps), sps, headerPx: 80, ssPerSystem: 12, file: 'D-apex-sps' + sps + '.svg', params: 'D: ' + sps + ' s/system (' + Math.round(W / sps) + ' px/s) · density apex' }));
 
-// index.html — browse at 100%; caption OUTSIDE the frame so the look stays clean
-const blocks = rows.map((r, i) =>
-  '<div class="proof" id="p' + i + '"><div class="cap">' + (i + 1) + '/' + rows.length + ' — ' + r.params +
-  ' <span class="m">lane ' + r.lanePx + 'px · staff ' + r.staffPx + 'px · ' + r.pxPerS + 'px/s</span></div>' +
-  '<img src="' + r.file + '" width="1920" height="1080"></div>').join('\n');
+// index.html — PIXEL-EXACT PAGER. One proof at a time at 0,0 with zero page
+// chrome, so in browser fullscreen (F11) on a 1920×1080 screen the frame
+// fills the screen exactly — the same fit the shipped video will have.
+// (v1 was a padded scroll page; on a 1080 screen the padding + caption bar
+// + scrollbars forced scrolling and clipped the bottom lane — composer hit
+// it immediately. The judgment surface must have no chrome of its own.)
+// Keys: J/K step · C caption overlay on/off. Caption defaults ON; it
+// overlays the header's right side, one keypress removes it for the clean
+// look. Scrollbars appear only if the window is SMALLER than 1920×1080
+// (i.e. not fullscreen), so nothing is ever unreachable.
+const meta = rows.map((r, i) => ({
+  file: r.file,
+  cap: (i + 1) + '/' + rows.length + ' — ' + r.params + '   [lane ' + r.lanePx + 'px · staff ' + r.staffPx + 'px · ' + r.pxPerS + 'px/s]',
+}));
 fs.writeFileSync(path.join(OUT, 'index.html'), [
   '<!doctype html><meta charset="utf-8"><title>V0 proofs</title>',
-  '<style>body{background:#2b2b2b;color:#ddd;font:13px sans-serif;margin:0;padding:12px}',
-  '.proof{margin:0 0 28px}.cap{padding:6px 2px;color:#bbb}.m{color:#7fa}img{display:block;background:#fff;box-shadow:0 2px 12px #0008}',
-  '.note{color:#fc6;padding:4px 2px 14px}</style>',
-  '<div class="note">View at 100% browser zoom (CTRL+0). Each frame is exactly 1920×1080 — the shipped video size. Keys: J/K next/prev.</div>',
-  blocks,
-  '<script>let i=0;const n=' + rows.length + ';document.addEventListener("keydown",e=>{if(e.key==="j"||e.key==="J")i=Math.min(n-1,i+1);else if(e.key==="k"||e.key==="K")i=Math.max(0,i-1);else return;document.getElementById("p"+i).scrollIntoView()});</script>',
+  '<style>',
+  'html,body{margin:0;padding:0;background:#000}',
+  '#frame{display:block;width:1920px;height:1080px;background:#fff}',
+  '#cap{position:fixed;top:6px;right:8px;background:#000c;color:#fff;font:14px/1.4 sans-serif;padding:6px 10px;border-radius:4px;max-width:46em}',
+  '#cap .hint{color:#9ab;font-size:12px}',
+  '</style>',
+  '<img id="frame" src="' + meta[0].file + '" width="1920" height="1080">',
+  '<div id="cap"></div>',
+  '<script>',
+  'const M=' + JSON.stringify(meta) + ';let i=0,capOn=true;',
+  'const img=document.getElementById("frame"),cap=document.getElementById("cap");',
+  'function show(){img.src=M[i].file;cap.style.display=capOn?"block":"none";',
+  ' cap.innerHTML=M[i].cap+"<div class=hint>J/K = next/prev &nbsp;·&nbsp; C = hide this caption &nbsp;·&nbsp; F11 = exact fit</div>";}',
+  'document.addEventListener("keydown",e=>{const k=e.key.toLowerCase();',
+  ' if(k==="j")i=Math.min(M.length-1,i+1);else if(k==="k")i=Math.max(0,i-1);',
+  ' else if(k==="c")capOn=!capOn;else return;show();});',
+  'show();',
+  '</script>',
 ].join('\n'));
 
 console.table(rows);
