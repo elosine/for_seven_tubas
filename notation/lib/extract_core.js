@@ -12,11 +12,11 @@
 // chunk's source id so they stay unique and stable.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./classify.js'));
+    module.exports = factory(require('./classify.js'), require('../../score/public/sonify_core.js'));
   } else {
-    root.NotationExtract = factory(root.NotationClassify);
+    root.NotationExtract = factory(root.NotationClassify, root.SonifyCore);
   }
-})(typeof self !== 'undefined' ? self : this, function (Classify) {
+})(typeof self !== 'undefined' ? self : this, function (Classify, SonifyCore) {
 
   const DEFAULTS = {
     TOL: 0.015,        // s — onset tolerance for grid membership (trance is near-exact)
@@ -255,6 +255,20 @@
       // mode = omitted default). Notation devices + tooltips consume these.
       if (o.envShape) ev.env = o.envShape;
       if (o.sonifyMode === 'plain' || o.sonifyMode === 'ks') ev.mode = o.sonifyMode;
+      // the drawn level curve (day 22, amendment 4): curve-mode events carry
+      // their shape as 101 normalized samples — the piece #1 curve-library
+      // precedent (frozen at extract; re-extract refreshes). Sampled through
+      // sonify_core.evalWaveCurve = the SAME math playback follows, so the
+      // drawn shape, the heard shape and the notated shape are one function.
+      // segments must exist as an array — golden finding: some generated
+      // curve-less objects carry nodes only, and playback itself would
+      // throw on them in curve mode, so they are de facto non-curve
+      if (!ev.mode && SonifyCore && o.nodes && o.nodes.length >= 2 && Array.isArray(o.segments)) {
+        ev.level = {
+          samples: Array.from({ length: 101 }, (_, i) =>
+            +SonifyCore.evalWaveCurve(o, i / 100).toFixed(4)),
+        };
+      }
       events.push(ev);
       perPart.get(o.layer).push({ ev, cls, obj: o });
     }

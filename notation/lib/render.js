@@ -26,6 +26,12 @@
       tick: { wSs: 0.12, hSs: 0.8 },
       brickOpacity: 0.45,
       reshow: { xSs: 4.2, sizeSs: 0.75 },
+      // the env-curve device (day 22): stroke/fill/dash numbers ported
+      // VERBATIM from piece #1 compose_pages.js (curve stroke 1.5 @ 0.8,
+      // fill-under 0.15; go line 0.5 @ 0.4 dash 2,2); green = this piece's
+      // surge color (#2E7D32, the composer-score drawn-curve green)
+      envCurve: { strokeWPx: 1.5, strokeOpacity: 0.8, fillOpacity: 0.15, color: '#2E7D32' },
+      goLine: { wPx: 0.5, opacity: 0.4, dash: '2,2', color: '#2E7D32' },
     }, (opts && opts.engraving) || {});
     const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
@@ -132,6 +138,38 @@
           if (!inWin(it.t)) continue;
           parts.push('<rect x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - E.tick.hSs * ssPx).toFixed(2) +
             '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (E.tick.hSs * ssPx).toFixed(2) + '"/>');
+        } else if (it.k === 'envcurve') {
+          // the drawn level curve over the FULL lane band (piece #1: value
+          // 0..1 maps bottom -> top of the track), clipped to the window
+          if (it.t1 < w0 || it.t0 > w1) continue;
+          const EC = E.envCurve;
+          const n = it.samples.length;
+          const yT = sys.yTopPx, yB = sys.yBotPx;
+          const pts = [];
+          for (let i = 0; i < n; i++) {
+            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
+            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
+            pts.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yT)]);
+          }
+          if (pts.length >= 2) {
+            const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+            if (EC.fillOpacity > 0) {
+              parts.push('<path d="' + line + ' L' + pts[pts.length - 1][0].toFixed(1) + ',' + yB.toFixed(1) +
+                ' L' + pts[0][0].toFixed(1) + ',' + yB.toFixed(1) + ' Z" fill="' + EC.color +
+                '" fill-opacity="' + EC.fillOpacity + '" stroke="none"/>');
+            }
+            parts.push('<path d="' + line + '" fill="none" stroke="' + EC.color + '" stroke-width="' + EC.strokeWPx +
+              '" stroke-opacity="' + EC.strokeOpacity + '"/>');
+          }
+        } else if (it.k === 'goline') {
+          // dotted vertical at go time, full lane band (piece #1's go-time
+          // marker: 0.5 @ 0.4, dasharray 2,2)
+          if (!inWin(it.t)) continue;
+          const GL = E.goLine;
+          const gx = view.xOfSeconds(it.t).toFixed(2);
+          parts.push('<line x1="' + gx + '" y1="' + sys.yTopPx.toFixed(1) + '" x2="' + gx + '" y2="' + sys.yBotPx.toFixed(1) +
+            '" stroke="' + GL.color + '" stroke-width="' + GL.wPx + '" stroke-opacity="' + GL.opacity +
+            '" stroke-dasharray="' + GL.dash + '"/>');
         } else if (it.k === 'brick') {
           if (it.t1 < w0 || it.t0 > w1) continue;
           const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));

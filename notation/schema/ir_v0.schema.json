@@ -241,6 +241,25 @@
       "ks"
      ],
      "description": "non-default sonify mode (plain = captured note, ks = keyswitched sample); curve mode = field omitted — day 22 amendment 3, optional"
+    },
+    "level": {
+     "type": "object",
+     "description": "the drawn level curve, normalized samples 0-1 over the note span (piece #1 curve-library precedent; sampled at extract time by sonify_core.evalWaveCurve) — day 22 amendment 4, optional, curve-mode events only",
+     "properties": {
+      "samples": {
+       "type": "array",
+       "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+       },
+       "minItems": 2
+      }
+     },
+     "required": [
+      "samples"
+     ],
+     "additionalProperties": false
     }
    }
   },

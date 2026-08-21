@@ -147,6 +147,15 @@
               + ' · ' + e.onset.toFixed(2) + '–' + (e.onset + e.duration).toFixed(2) + ' s'
               + ' · ' + c.class + ' / ' + c.strategy + ' · ' + (e.source && e.source.objectId || e.id);
             items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id, tip });
+            // THE SURGE/ENV-CURVE DEVICE, element 1+2 of N (day 22, composer
+            // spec; ported from piece #1's viola opening gesture — curve +
+            // dotted go line; notehead/dynamics/arrow follow in later
+            // iterations). Draws whenever the event carries its drawn level
+            // curve; the parachute brick stays until the device is complete.
+            if (e.level && e.level.samples && e.level.samples.length >= 2) {
+              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id });
+              items.push({ k: 'goline', t: e.onset, ev: e.id });
+            }
           }
           prevTempoLabel = null;
           continue;

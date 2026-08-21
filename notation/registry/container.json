@@ -71,7 +71,9 @@
       "tick": { "wSs": 0.12, "hSs": 0.8 },
       "brickOpacity": 0.45,
       "reshow": { "xSs": 4.2, "sizeSs": 0.75 },
-      "systemEndBar": { "wPx": 1.5, "opacity": 0.55 }
+      "systemEndBar": { "wPx": 1.5, "opacity": 0.55 },
+      "envCurve": { "strokeWPx": 1.5, "strokeOpacity": 0.8, "fillOpacity": 0.15, "color": "#2E7D32", "_note": "day 22, the surge/env-curve device element 1: stroke/fill numbers VERBATIM from piece #1 compose_pages.js (the viola opening gesture); green = this piece's composer-score surge color" },
+      "goLine": { "wPx": 0.5, "opacity": 0.4, "dash": "2,2", "color": "#2E7D32", "_note": "day 22, device element 2: the dotted go-time line, piece #1's go-time marker numbers verbatim" }
     }
   },
 

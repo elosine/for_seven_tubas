@@ -5193,3 +5193,34 @@ identity tooltips (IR schema amendment 3).**
 - Lib code (layout/render) is NOT hot-polled (data is) — the composer's
   open page needs ONE refresh to get tooltip code; IR/registry changes
   after that land within ~1 s as designed.
+
+**Day 22 (continued) — THE SURGE DEVICE, elements 1+2 ONLY (composer:
+"one element at a time... those two alone nothing else"): the curve + the
+dotted go line, ported from piece #1's viola opening gesture.**
+- **The full device as spec'd by the composer (for the record, built
+  incrementally):** curve · dotted line at go time · WHITE notehead on the
+  staff just before go time · start/end dynamics (ppp/fff here) with an
+  ARROW between them INSTEAD OF A HAIRPIN ("this is new"). Elements 3-5
+  deliberately NOT built yet.
+- **The reference found:** piece #1 curve_library/CRV_20260111_005727
+  ("used with initial viola cres.", 4 s, y 0->10) + compose_pages.js —
+  numbers ported VERBATIM: curve stroke 1.5 @ 0.8 + fill-under 0.15;
+  go line 0.5 @ 0.4, dasharray 2,2, full lane band. Color = #2E7D32
+  (this piece's composer-score surge green). All in container.json
+  engraving.render (envCurve/goLine) — hot-tunable.
+- **The composer asked for the curve equation: wc-3 rise = EXPONENTIAL,
+  slope 0.35** (k = 4*slope = 1.4), peak at 98%, linear cut over the last
+  2% (nodes [[0,0],[0.98,10],[1,0]]).
+- **IR schema amendment 4: event.level.samples** — 101 normalized samples,
+  frozen at extract (piece #1 curve-library precedent), computed through
+  sonify_core.evalWaveCurve = the SAME math playback follows: drawn, heard
+  and notated shape are one function. Golden found a real edge on first
+  run: generated objects with nodes but NO segments array (playback would
+  throw on them in curve mode too) — sampling now requires segments.
+- **Parachute kept:** the brick (and its tooltip) stays under the curve
+  until the device is complete — the class still reads unresolved.
+- Batteries all green (golden, 36-case validator, layout/render/75
+  snapshots/splice). **Verified live (:5210, video frame):** curve bottom->
+  top->cut geometry exact; dotted line at x 702.89 vs 702.9 computed for
+  onset 4.198. Composer's page needs ONE refresh (lib code), then registry
+  tuning lands in ~1 s.

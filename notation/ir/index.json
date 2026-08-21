@@ -1,17 +1,6 @@
 {
  "irs": [
   {
-   "id": "db1-t1-x01",
-   "label": "db1 T1 x01 (page 1, 0-12)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    12
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
    "id": "piece-open-01",
    "label": "piece opening 0-40 (parachute+META)",
    "score": "piece-s25-finished01",
@@ -30,6 +19,17 @@
     530
    ],
    "profile": "trance"
+  },
+  {
+   "id": "db1-t1-x01",
+   "label": "db1 T1 x01 (page 1, 0-12)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    12
+   ],
+   "profile": "section1",
+   "exp": true
   }
  ]
 }
