@@ -14,10 +14,11 @@
   },
 
   "timeScale": {
-    "model": "seconds-per-system, PER SECTION; steady scroll (one global value) is the probable default, but the architecture must allow a dense page at few beats and a sparse page at many (composer 2026-08-20). Uniform px/s WITHIN a page is the structural boundary.",
+    "model": "seconds-per-system, PER SECTION; steady scroll (one global value) is the probable default, but the architecture must allow a dense page at few beats and a sparse page at many (composer 2026-08-20). Uniform px/s WITHIN a page is the CURRENT state, not a hard wall — see _midPageNote.",
     "defaults": { "trance": 12, "denseApex": 8 },
     "_status": "provisional",
-    "_note": "Trance: 'probably 12, could be 16 — have to see the trade-offs' (judged static; re-judge under motion at G2). Apex: 8 okay for THIS material; the density builds likely need tighter pages ('I doubt 8 will give enough room for those close-together rhythms')."
+    "_note": "Trance: 'probably 12, could be 16 — have to see the trade-offs' (judged static; re-judge under motion at G2). Apex: 8 okay for THIS material; the density builds likely need tighter pages ('I doubt 8 will give enough room for those close-together rhythms').",
+    "_midPageNote": "Composer asked (2026-08-20): half a page at 2 cm/beat, the rest at 1.5? Not supported today (xOfSeconds is linear per view), BUT it is a contained extension, not a rebuild: because ONLY coords.js computes pixels, a piecewise-linear time map in the view would re-space layout, cursor, and animated objects automatically. If ever wanted: break scale only at chunk boundaries and mark the seam visually — in proportional notation distance IS time, so an unmarked scale change silently mis-calibrates the reader. The cursor also visibly changes speed at the seam. Held as a MARKED DOOR: build only when a real page demands it."
   },
 
   "realizations": {
@@ -35,7 +36,8 @@
     "conductor": {
       "headerPx": null,
       "_status": "reserved — NOT in this build",
-      "_note": "Future realization: 'eventually, for the conductor score, the conductor will need to see the time.' Reserved so the no-header verdict stays per-realization."
+      "_note": "Future realization: 'eventually, for the conductor score, the conductor will need to see the time.' Reserved so the no-header verdict stays per-realization.",
+      "_note2": "Composer 2026-08-20: rehearsal numbers and the like probably sit ABOVE the entire score — a shared band across all parts, i.e. per-realization furniture for conductor/rehearsal/performance realizations. NOT in video-jury. Cross that bridge at that build."
     }
   },
 

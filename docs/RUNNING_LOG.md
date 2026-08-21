@@ -4774,3 +4774,19 @@ strokes for glyphs that don't exist yet; the question is air budget, not
 glyph shape). container.json DRAFT created (decided/provisional/open per
 item; G0 not passed). Composer's meta-question answered in chat and the
 answer filed: what G0 freezes vs what stays data-cheap.
+
+**Day 21 — V0 round 1, two follow-ups.** (1) Rehearsal numbers etc. = a
+shared band ABOVE the whole score, per-realization furniture for the
+conductor/rehearsal/performance realizations, NOT video-jury - filed in
+container.json (conductor._note2), bridge crossed at that build. (2) The
+"time is uniform within one page" boundary RESTATED more precisely on the
+composer's push: what is free today = per-page/per-section scale and
+scroll speed (each page has its own px/s; the cursor follows). What is
+not built = a mid-page scale change (half the page 2 cm/beat, half 1.5).
+BUT the honest assessment is SOFT boundary: because only coords.js
+computes pixels, a piecewise-linear xOfSeconds in the view would re-space
+layout + cursor + animated objects automatically - a contained one-module
+extension, not a rebuild. Held as a MARKED DOOR in container.json
+(timeScale._midPageNote) with the two design cautions: in proportional
+notation distance IS time, so a mid-page seam must sit at a chunk
+boundary and be visibly marked, and the cursor changes speed at the seam.
