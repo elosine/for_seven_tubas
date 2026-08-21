@@ -16,6 +16,48 @@
 > — the original V2 fence cut them out at the wrong joint. Details in
 > preplan §8 second addendum. Amendments marked **[A21]** below.
 
+## Where this sits in the §7 architecture **[A21b]**
+
+*(Added 2026-08-20 after the composer's second interrogation point: this
+score must REJOIN the one-score-many-realizations architecture — "all synced
+to the same timeline… each of these scores are realizations of the dataset"
+— not become a separate system beside it.)*
+
+**The video/paper score = three more MANIFESTATIONS of the four-strata
+spine** (PLAN §7 amendment: one data spine · composition data → derived
+data → notation IR → renderers/runtimes). The video view, zoom view, and
+print view are stratum-4 VIEW CONFIGS over the same strata 1–3 everything
+else reads — same S1, same IR, same coords/layout/render modules the study
+score already uses. Three invariants make "same system" binding rather than
+aspirational:
+
+1. **ONE TIMELINE.** Every realization keys to S1's timecode in seconds —
+   `view.xOfSeconds(t)` is the only bridge to space, and no realization may
+   introduce a private timebase. The video's audio-slaved clock REPORTS
+   positions on that same timeline; so will D45's networked clock.
+2. **THE CLOCK IS AN INTERFACE, NOT AN ENGINE.** Transport implementations
+   differ per realization (here: local, audio-slaved; performance score:
+   networked/WebSocket-synced, D45) — but they implement one interface
+   (now / play / pause / seek, in S1 seconds), and **everything downstream
+   (cursor, animated objects, system turns) consumes `t` and never reads a
+   clock source directly**. Swapping the transport swaps the sync
+   machinery; zero notation or animation code changes. That is the seam
+   the two "different animation engines" share — the engine is the same,
+   only the timekeeper differs.
+3. **A REALIZATION IS A CONFIG, NOT A FORK.** `container.json` is
+   structured as named REALIZATION entries (video-jury · zoom-working ·
+   print-letter), each = view config + transport binding + device set +
+   styling. The composer's anticipated "modified conductor score — this
+   one plus extra bells and whistles" is then a FOURTH entry (extra
+   overlays/device set over the same strata), and the performance score's
+   realizations are later entries with the networked transport — never a
+   parallel codebase.
+
+Animated objects obey the strata too: each declares which stratum feeds it
+(GC devices are already IR data — `layout.js` consumes `devices[].kind ===
+'gc'` today; envelope/wave-curve follows read S1; beating curves read
+stratum 2) — no side files, no second dataset.
+
 ## What this plan delivers
 
 - The **two-window container** (video view 1920×1080 + zoom view) that ALL
@@ -46,7 +88,12 @@ Deliverable: **`notation/registry/container.json`** — every look-defining
 number, decided by the composer's EYE against true-size proofs rendered at
 exactly 1920×1080 (and a printed page for the print side). Proofs are cheap
 renders of REAL material (a trance window + the density apex — the two
-extremes).
+extremes). **[A21b]** Structured as named REALIZATION entries from day one
+(`video-jury` · `zoom-working` · `print-letter`), each = view config +
+transport binding + device set + styling — so a later conductor-score or
+performance realization is a new entry over the same strata, never a fork
+(§ "Where this sits" invariant 3). Shared typography/engraving lives once;
+entries override only what differs.
 
 Decisions to close (= preplan §5 drill-down + §3 tier-1 list):
 1. **Lane config / track height** — header height, paddings, gaps (start from
@@ -149,7 +196,14 @@ clock as the cursor.)*
 
 - **Clock:** play/pause/seek; when a Reaper-render audio file is loaded, the
   clock SLAVES to `audio.currentTime` (sync exact by construction); without
-  audio, `performance.now`.
+  audio, `performance.now`. **[A21b] Built as the first implementation of
+  the CLOCK INTERFACE** (§ "Where this sits" invariant 2): transport
+  exposes now/play/pause/seek in S1 seconds; cursor, system turns, and
+  every animated object take `t` as an argument and NEVER read the clock
+  source directly. Enforced the same way as the px boundary: a source
+  check that `audio.currentTime` / `performance.now` appear only inside
+  the transport module. D45's networked transport later implements the
+  same interface — the sync machinery swaps, nothing downstream changes.
 - **Cursor:** `view.xOfSeconds(t)` per animation frame; **system turn** when
   the clock crosses `page.t1`, behavior per V0 decision 4.
 - **The ANIMATED-OBJECT CONTRACT** (the architectural core of this phase):
@@ -266,6 +320,11 @@ submission bundle exists.
   layouts, no M1/M2 at load. **Animated notation objects on the shared
   fixed timeline (GC, followers, wedges) are IN — see V2.** The severed
   D45 project inherits the V2 contract rather than rebuilding it.
+  **[A21b]** More precisely: D45 inherits the WHOLE stack — strata 1–3,
+  coords/layout/render, the animated-object registry, the clock
+  interface — and adds new realization entries plus a networked transport
+  implementation. What is severed is a PROJECT boundary, not a system
+  boundary: one system, same logic, different realization configs.
 - **No glyph-vocabulary expansion** beyond what V0 proofs need. New devices
   (tuplet numerals m≥3, double flags/beams, open heads/values, hairpins,
   tremolo sine figure, morph/gliss notation, release devices M3/P3) are

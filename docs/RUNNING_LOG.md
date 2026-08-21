@@ -4691,3 +4691,28 @@ composer named from previous pieces). Wrong-path kept: my first framing had
 treated "scroll downward" as possibly nixed — it wasn't; it split by window
 (video = all parts fixed, zoom = vertical scroll). Amendments live as [A21]
 in DELIVERABLES_BUILD_PLAN.md; analysis in the preplan §8 second addendum.
+
+**Day 21 — PLAN INTERROGATION, SECOND PASS: rejoining the one-score
+architecture.** The composer's addition: the video score must plug into the
+S7 four-strata system - one dataset, one timeline, N realizations - even
+though it moves first and even though its animation engine differs from the
+performance score's (which needs WebSockets/cross-web sync). Assessment
+against S7 + the code: the strata already carry most of the guarantee
+(video/zoom/print are stratum-4 view configs over the same S1 + IR +
+coords/layout/render the study score uses; GC devices are ALREADY IR data -
+layout.js consumes devices[].kind === 'gc' today). The one seam where a
+separate system could have grown unnoticed: THE CLOCK. V2 was speced as a
+local audio-slaved clock with no stated relationship to D45's future
+networked sync - two transports, and if cursor/objects bound directly to
+the local one, the performance runtime would rebuild the animation layer.
+Closed with three [A21b] invariants in the build plan: (1) one timeline -
+everything keys to S1 seconds, no private timebases; (2) clock = INTERFACE
+(now/play/pause/seek in S1 seconds); cursor, system turns and animated
+objects consume t only, never a clock source, enforced by the same
+source-check pattern as the px boundary; (3) realization = CONFIG -
+container.json holds named realization entries (video-jury, zoom-working,
+print-letter), so the composer's anticipated "modified conductor score =
+this one + bells and whistles" is a fourth entry and D45's realizations are
+later entries with the networked transport. Reframe worth keeping: D45 is a
+PROJECT boundary, not a SYSTEM boundary - the severed project inherits the
+whole stack and swaps the timekeeper.

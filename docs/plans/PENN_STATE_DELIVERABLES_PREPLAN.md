@@ -329,3 +329,23 @@ lane-config + view edit; part-score derivation itself stays D45.
 *(The "fixed width, scroll downward" memory: nothing was nixed — it split
 by window. The VIDEO view is all-parts-in-frame with no scrolling (it is a
 video); the ZOOM view scrolls vertically. PP-2/PP-6 stand.)*
+
+**4. REJOINING THE ONE-SCORE-MANY-REALIZATIONS ARCHITECTURE (composer,
+same sitting, second pass).** The instruction: even though this score moves
+first, it must plug into the §7 four-strata system — *"one score, so to
+speak, which lives in the data and various realizations"*, all synced to
+one timeline — same logic as the final composer score and the performance
+score; a future "modified conductor score" is this one plus extras, and
+none of these may become separate systems. Assessment: the strata already
+guarantee most of it (video/zoom/print = stratum-4 view configs over the
+same S1 + IR + coords/layout/render the study score uses; GC devices are
+already IR data). The ONE place a fork could have grown is the CLOCK —
+V2's local audio-slaved transport vs the performance score's future
+networked sync. Closed by three [A21b] invariants in the build plan:
+one timeline (S1 seconds, no private timebases) · the clock is an
+INTERFACE (transport implementations swap; cursor/objects consume `t`
+only, enforced by source check) · a realization is a CONFIG
+(`container.json` = named realization entries; conductor score = a new
+entry with an extra device set, D45 realizations = new entries with the
+networked transport — never a parallel codebase). D45 is thereby a
+PROJECT boundary, not a system boundary.

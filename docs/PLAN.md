@@ -1726,6 +1726,13 @@ while building the real score.
   px-boundary test (V1) · engraving-override overlay kind (V1) · protrusion
   detector auto-filing to the polish ledger (V3) · animated styling + print
   counterparts (V0.11/V5). Preplan §8 second addendum has the full analysis.
+  **[A21b] same sitting:** the build formally REJOINS §7's one-spine-many-
+  realizations model — three invariants: one timeline (S1 seconds) · clock
+  = interface (local audio-slaved here, D45's networked transport later,
+  same interface, enforced by source check) · realization = named config
+  entry in container.json (a future conductor score or performance
+  realization = new entries, never a fork). D45 = a project boundary, not
+  a system boundary.
 
 ## Parking lot
 
