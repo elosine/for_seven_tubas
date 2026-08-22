@@ -63,38 +63,75 @@ ok(byKind('motivePie').length === 1 && byKind('motivePie')[0].t0 === 14 && byKin
   'group span -> motivePie');
 
 // ---------- behavior spot-checks (pure geometry) ----------
-// gc: THE REAL TRAJECTORY (day 23) — piece #1's GCMaker formulas, asserted
-// against the preset's own arithmetic, not against a copy of the code.
+// gc: THE GC OBJECT'S BALL (day 23, ported whole from piece #1 via
+// notation/lib/gc.js). Every number below is asserted against piece #1's
+// stated look (LOOK) and the preset's own arithmetic — never against a
+// re-run of the code under test. NaN guard: every read is checked finite.
+const GCm = require(path.join(ROOT, 'notation', 'lib', 'gc.js'));
 const gcSt = ST.gc, gcSys = view.system(4);
 const P = gcSt.preset;
 const PRE = P.duration * P.descentRatio / 100;          // 0.36 at the Short preset
 const POST = P.duration * (1 - P.descentRatio / 100);   // 0.24
-const yAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gcSt); return m.length ? parseFloat(m[0].match(/cy="(-?[\d.]+)"/)[1]) : null; };
-// THE LANE LAW (day 23, composer): impact at the lane BOTTOM, apex at the
-// lane TOP, each inset by the ball's radius so the disc is whole there.
-const rPx = gcSt.radiusSs * gcSys.ssPx;
-const inset = gcSt.insetSs != null ? gcSt.insetSs * gcSys.ssPx : rPx;
-const yLand = gcSys.yBotPx - inset, drop = (gcSys.yBotPx - gcSys.yTopPx) - 2 * inset;
-const hAt = t => (yLand - yAt(t)) / drop;               // height above the landing line, 0..1
+const circleAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gcSt); if (!m.length) return null;
+  const c = { cx: +m[0].match(/cx="(-?[\d.]+)"/)[1], cy: +m[0].match(/cy="(-?[\d.]+)"/)[1], r: +m[0].match(/r="(-?[\d.]+)"/)[1], fill: m[0].match(/fill="([^"]+)"/)[1] };
+  if (![c.cx, c.cy, c.r].every(Number.isFinite)) { failures++; console.error('FAIL gc: non-finite geometry at t=' + t + ' ' + m[0]); }
+  return c; };
+const yAt = t => { const c = circleAt(t); return c ? c.cy : null; };
+// piece #1's geometry: k = frame magnification; impact 5 px above the lane
+// bottom; height = lane − 10; ball r 5; stated at the 1080 frame
+const k = view.heightPx / GCm.LOOK.frameHeightPx;
+const yLand = gcSys.yBotPx - 5 * k, drop = gcSys.heightPx - 10 * k;
+const hAt = t => (yLand - yAt(t)) / drop;               // height above impact, 0..1
 const HTOL = 0.06 / drop;   // cy is written at toFixed(1) — compare within half a rounded pixel
-// stated as the composer stated it: the ball's own edges touch the lane's
-eq(yAt(14.0) + rPx, gcSys.yBotPx, 0.06, 'gc: at impact the ball sits ON the lane bottom');
-eq(yAt(14.0 - PRE) - rPx, gcSys.yTopPx, 0.06, 'gc: the arc tops out AT the lane top');
-eq(drop + 2 * rPx, gcSys.yBotPx - gcSys.yTopPx, 1e-9, 'gc: the trajectory spans the whole lane height');
-// the SPAN is asymmetric and comes from the preset (piece #1's stored GCs
-// carry exactly this: start = impact - 0.36, end = impact + 0.24)
 ok(yAt(14.0 - PRE - 0.01) === null && yAt(14.0 + POST + 0.01) === null, 'gc active only over [at-0.36, at+0.24]');
 ok(yAt(14.0 - PRE + 0.001) !== null && yAt(14.0 + POST - 0.001) !== null, 'gc active inside that span');
-eq(hAt(14.0), 0, HTOL, 'gc lands exactly on the tick at impact time');
-eq(hAt(14.0 - PRE), 1, HTOL, 'gc starts at the full drop height');
-// rebound = damping/100 (100 => the ball returns to full height)
+eq(hAt(14.0), 0, HTOL, 'gc: at impact the ball sits 5 px above the lane bottom (piece #1 impactY)');
+eq(hAt(14.0 - PRE), 1, HTOL, 'gc: starts at the full drop = lane height − 10 (piece #1 h)');
 eq(hAt(14.0 + POST), P.damping / 100, HTOL, 'gc rebounds to damping/100 of the drop');
-// THE ICTUS SHAPE: descentPower 2.8 means the ball hangs, then drops late —
-// at the MIDPOINT of the descent it has fallen only 1 - 0.5^2.8 of the way
 eq(hAt(14.0 - PRE / 2), 1 - Math.pow(0.5, 1 + (P.ictus / 1000) * 20), HTOL, 'descent follows 1 - u^descentPower (the ictus hang)');
-// ascent eases out with ascentPower = 1 + stiffness/50
 eq(hAt(14.0 + POST / 2), (P.damping / 100) * (1 - Math.pow(0.5, 1 + P.stiffness / 50)), HTOL, 'ascent follows 1 - (1-u)^ascentPower');
 ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable trajectory)');
+// THE BALL TRAVELS IN TIME (piece #1 calculateBallPositionForPage): x is the
+// playhead's x, so it arrives at the go line exactly at impact
+{
+  const c0 = circleAt(14.0 - PRE), c1 = circleAt(14.0), c2 = circleAt(14.0 + POST);
+  eq(c1.cx, view.xOfSeconds(14.0), 0.06, 'gc: ball on the go line at impact');
+  eq(c0.cx, view.xOfSeconds(14.0 - PRE), 0.06, 'gc: ball starts duration·descentRatio to the LEFT of the go line');
+  ok(c0.cx < c1.cx && c1.cx < c2.cx, 'gc: ball moves left→right with time');
+  eq(c1.r, 5 * k, 0.06, 'gc: ball radius = piece #1 5 px × frame magnification');
+  ok(c1.fill === 'rgb(255, 21, 160)', 'gc: ball color = piece #1 neonMagenta (' + c1.fill + ')');
+}
+// the static ink (render.js) shares the SAME physics module — assert the
+// arc's endpoints and the impact marker against the identical numbers
+{
+  const Render = require(path.join(ROOT, 'notation', 'lib', 'render.js'));
+  const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
+  const model = { systems: [{ part: 4, items: [{ k: 'gc', t: 14.0, ev: 'x' }] }] };
+  const svg = Render.renderSection(model, view, G, { engraving: C.engraving.render });
+  const arc = svg.match(/<path class="gc-arc" d="([^"]+)" stroke="([^"]+)" stroke-width="([\d.]+)" fill="none"\/>/);
+  ok(!!arc, 'render: the GC arc is drawn');
+  if (arc) {
+    const pts = arc[1].split(/\s*[ML]/).filter(x => x.trim()).map(p => p.trim().split(/\s+/).map(Number));
+    ok(pts.length === 201, 'render: 201 samples (piece #1 numSamples 100 per phase) — ' + pts.length);
+    eq(pts[0][0], view.xOfSeconds(14.0 - PRE), 0.06, 'render: arc starts at impact − 0.36 s');
+    eq(pts[0][1], yLand - drop, 0.06, 'render: arc starts at the apex (lane top + 5)');
+    eq(pts[100][0], view.xOfSeconds(14.0), 0.06, 'render: arc passes the go line at sample 100');
+    eq(pts[100][1], yLand, 0.06, 'render: arc touches the impact point');
+    eq(pts[200][0], view.xOfSeconds(14.0 + POST), 0.06, 'render: arc ends at impact + 0.24 s');
+    ok(arc[2] === 'rgb(255, 21, 160)', 'render: arc stroke = neonMagenta');
+    eq(+arc[3], 1.5 * k, 0.01, 'render: arc stroke-width = piece #1 1.5 px × magnification');
+  }
+  const imp = svg.match(/<circle class="gc-impact" cx="([\d.]+)" cy="([\d.]+)" r="([\d.]+)" fill="([^"]+)"\/>/);
+  ok(!!imp, 'render: the impact marker is drawn');
+  if (imp) {
+    eq(+imp[1], view.xOfSeconds(14.0), 0.06, 'render: impact marker on the go line');
+    eq(+imp[2], yLand, 0.06, 'render: impact marker 5 px above the lane bottom');
+    eq(+imp[3], 4 * k, 0.01, 'render: impact marker r = piece #1 4 px × magnification');
+  }
+  // the ball lands ON the impact marker: same point, from the two modules
+  const cImp = circleAt(14.0);
+  if (imp && cImp) { eq(cImp.cx, +imp[1], 0.06, 'ball and marker agree in x at impact'); eq(cImp.cy, +imp[2], 0.06, 'ball and marker agree in y at impact'); }
+}
 // ---- per-NOTE GC from the engraving device (day 23, wc-29) ----
 {
   const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));

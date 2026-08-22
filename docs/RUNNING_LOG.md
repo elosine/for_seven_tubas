@@ -5906,3 +5906,49 @@ dictated, the save-shuffle established, T1 facts scanned.**
   DRAWN (a static trajectory guide) and the IMPACT marked (a dot/tick at
   the landing), those are two new elements, not staging — flagged, not
   built.
+- **GC round 3 — THE WHOLE OBJECT (composer): *"when I say GC, that is
+  the whole thing. It's an object that I've been using, just like the
+  curves... I want the whole object, the same colors, the same lines, and
+  line thickness, and then those trajectory... the ball should be the same
+  color, the same size as in those scores."*** Rounds 1–2 had ported the
+  PHYSICS and guessed the LOOK (a staff-step ball, then a lane-spanning
+  ball); the composer's correction is that the look is not a judgment to
+  be made here — it exists, in two scores, and is to be copied.
+- **Read piece #1's object whole** (`GCMaker.calculateTrajectory`,
+  `renderGC`, `update` in public/index.html): the ARC is STATIC PAGE INK —
+  a 201-point polyline (100 samples per phase) whose x is TIME (impact +
+  Δt × px/s) and whose y = impactY − relY; stroke = the GC color, **1.5
+  px**, no fill. The **impact marker** is a filled circle **r 4 px** at
+  (impactX, **trackBottom − 5**). Height **h = trackHeight − 10**. The
+  **ball** is **r 5 px**, same color, and TRAVELS IN TIME along the arc
+  (x = the playhead's x), arriving on the impact marker at impact. Color
+  neonMagenta = **rgb(255, 21, 160)** (ColorMap).
+- **Piece #2 diffed against piece #1, same three functions** (composer:
+  "look at piece two as well, to see if we made any changes along the
+  way"): `calculateTrajectory` identical; `renderGC` identical except
+  `ScoreViewMode.sectionForPage` (single-page view plumbing) and a hidden
+  bounding box; `update` identical except the single-page `inTop` rule
+  and a hide-inactive-balls sweep. **No visual adjustment was ever made;
+  only the preset differs (Medium vs Short).** One port serves both.
+- Built: `notation/lib/gc.js` — ONE copy of physics + look (DEFAULT_PRESET,
+  LOOK, params, heightFrac, trajectory, laneGeom), dual-load. render.js
+  draws the static arc + impact marker from it (layout emits `{k:'gc'}`
+  for the device; registry `engraving.render.gc` = preset + color + look);
+  animobj.js moves the ball from it (registry `animated.gc`, same preset).
+  px are piece #1's at the 1080 frame, scaled by view.heightPx/1080 so
+  zoom ×2 is a faithful magnification (PP-6). The day-23 stagings
+  (landSs/dropSs, then span=lane/insetSs) are gone from the registry.
+- Test trap caught: after the staging fields were removed, the round-2
+  lane assertions PASSED on NaN (`Math.abs(NaN - x) > tol` is false) — a
+  green that meant nothing. The rewritten block checks every read is
+  finite, asserts against gc.js's LOOK numbers and the preset arithmetic,
+  and cross-checks the two consumers: the ball's (cx, cy) at impact equals
+  the rendered marker's. Arc endpoints, sample count (201), stroke, color,
+  marker radius all asserted. Batteries green: animobj, layout, render,
+  snapshots, stamps, splice, extract-played, midiplayer, coords.
+- Verified live (video, page 2, T1): arc x 888.7→982.3 (= 17.389→17.989 s),
+  y 13.0 (apex = lane top + 5) → 105.8 (impact = lane bottom − 5), stroke
+  rgb(255,21,160) 1.5 px · impact marker (944.84, 105.8) r 4 on the go
+  line · ball r 5 rides the arc: (888.7, 13.0) → (944.8, 105.8) at 17.749
+  → (982.3, 13.0); same color. Composer to judge against their memory of
+  the two scores.

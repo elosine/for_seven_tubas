@@ -4,11 +4,11 @@
 // fidelity is visible at a glance.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./stamps.js'));
+    module.exports = factory(require('./stamps.js'), require('./gc.js'));
   } else {
-    root.NotationRender = factory(root.NotationStamps);
+    root.NotationRender = factory(root.NotationStamps, root.NotationGC);
   }
-})(typeof self !== 'undefined' ? self : this, function (Stamps) {
+})(typeof self !== 'undefined' ? self : this, function (Stamps, GC) {
 
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -257,6 +257,21 @@
           parts.push('<line x1="' + gx + '" y1="' + sys.yTopPx.toFixed(1) + '" x2="' + gx + '" y2="' + sys.yBotPx.toFixed(1) +
             '" stroke="' + GL.color + '" stroke-width="' + GL.wPx + '" stroke-opacity="' + GL.opacity +
             '" stroke-dasharray="' + GL.dash + '"/>');
+        } else if (it.k === 'gc') {
+          // THE GC OBJECT's static ink (day 23, piece #1's renderGC verbatim):
+          // the trajectory polyline across TIME, stroke = the GC color at
+          // 1.5 px, no fill; the impact marker r 4 px on the go line, 5 px
+          // above the lane bottom. Sizes at the 1080 frame × magnification.
+          // Clipped to the page like the ring bar (an arc may cross a cut).
+          const P = GC.params(Object.assign({}, (E.gc && E.gc.preset) || {}, it.preset || {}));
+          if (it.t + P.post < w0 || it.t - P.pre > w1) continue;
+          const G = GC.laneGeom(sys, view, E.gc && E.gc.look);
+          const color = (E.gc && E.gc.color) || G.look.color;
+          const d = GC.trajectory(P).map((p, i) =>
+            (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');
+          parts.push('<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>');
+          if (inWin(it.t)) parts.push('<circle class="gc-impact" cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
+            '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
         } else if (it.k === 'ringbar') {
           // the sounding-length bar: left edge flush with the go line,
           // right edge at onset + sounding length, centered on the written

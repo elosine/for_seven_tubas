@@ -28,9 +28,9 @@
 // fed it. New device kinds: register(kind, stateFn) + a collect source +
 // styling in container.json `animated`. See the contract doc.
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.NotationAnimObj = factory();
-})(typeof self !== 'undefined' ? self : this, function () {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./gc.js'));
+  else root.NotationAnimObj = factory(root.NotationGC);
+})(typeof self !== 'undefined' ? self : this, function (GC) {
 
   const REG = {};
   function register(kind, stateFn) { REG[kind] = stateFn; }
@@ -78,73 +78,26 @@
       ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + large + ' 1 ' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Z"/>';
   }
 
-  // GC preset → trajectory constants (piece #1's GCMaker formulas). A
-  // per-instance `preset:{...}` overrides the registry's, so one note can
-  // carry a different ball without a second registry entry.
-  function gcParams(st, inst) {
-    const P = Object.assign({ stiffness: 62, damping: 100, ictus: 90, descentRatio: 60, duration: 0.6 },
-      st.preset || {}, (inst && inst.preset) || {});
-    const df = P.descentRatio / 100;
-    return {
-      descentPower: 1 + (P.ictus / 1000) * 20,
-      ascentPower: 1 + P.stiffness / 50,
-      rebound: P.damping / 100,
-      pre: P.duration * df,
-      post: P.duration * (1 - df),
-    };
-  }
-
   // ---------- the five state functions ----------
-  // gc: inst {part, at}; active [at - flight, at + bounce]. Fixed x at the
-  // anchor; ball falls from `dropSs` above the tick, height ∝ (time left)²
-  // (flight time readable from the trajectory — the preparatory-beat
-  // property), one damped bounce after impact.
-  // THE REAL GC TRAJECTORY (day 23) — ported verbatim from the string
-  // quartet's GCMaker.generateTrajectory (piece #1, public/index.html):
-  //   descentPower = 1 + (ictus/1000)·20      ascentPower = 1 + stiffness/50
-  //   reboundFraction = damping/100           descentFraction = descentRatio/100
-  //   descent  y = h·(1 − u^descentPower)     u: 0→1 over duration·descentFraction
-  //   ascent   y = h·rebound·(1 − (1−u)^ascentPower)
-  // Timing is asymmetric about the impact and comes straight from the
-  // preset: the ball is airborne duration·descentFraction BEFORE the go
-  // point and duration·(1−descentFraction) after. The five preset numbers
-  // are registry data (animated.gc); piece #1's own records confirm the
-  // convention — every GC in its 6:10 section has
-  // start = impact − 0.36, end = impact + 0.24 at duration 0.6 / ratio 60.
+  // gc: THE BALL OF THE GC OBJECT (day 23, ported whole from piece #1 —
+  // physics + look in notation/lib/gc.js, ONE copy shared with render.js,
+  // which draws the static arc + impact marker). inst {part, at, preset?};
+  // active over [at − duration·descentRatio, at + duration·(1−descentRatio)].
+  // The ball TRAVELS IN TIME along the drawn arc (x = xOfSeconds(t), as
+  // piece #1's calculateBallPositionForPage), arriving at the impact marker
+  // on the go line exactly at impact. Sizes are piece #1's px at the 1080
+  // frame, scaled by the view's magnification (PP-6).
   register('gc', (inst, view, t, st) => {
     const s = view.system(inst.part);
-    const P = gcParams(st, inst);
-    if (t < inst.at - P.pre || t > inst.at + P.post) return [];
-    const x = view.xOfSeconds(inst.at);
-    // THE BALL SPANS THE LANE (day 23, composer, after seeing the first
-    // version): "the impact point at the bottom of the track and the arc
-    // to stop at the very top of the track ... the vertical trajectory of
-    // the ball will be the whole lane height." So the geometry is
-    // LANE-relative, not staff-step-relative — impact at the lane bottom,
-    // apex at the lane top, each inset by the ball's radius so the disc is
-    // whole at both extremes (insetSs 0 puts its CENTRE on the edges).
-    // It therefore scales with lane height, part count and zoom on its own.
-    // span:'staffSteps' returns to the old landSs/dropSs staging.
-    const r = st.radiusSs * s.ssPx;
-    const laneMode = st.span !== 'staffSteps';
-    const inset = laneMode ? (st.insetSs != null ? st.insetSs * s.ssPx : r) : 0;
-    const yLand = laneMode ? s.yBotPx - inset : s.yOfSs(st.landSs);
-    const dropPx = laneMode ? (s.yBotPx - s.yTopPx) - 2 * inset : st.dropSs * s.ssPx;
-    // clamp: at the exact window edge floating point can hand back u = -1e-16,
-    // and Math.pow(negative, 2.8) is NaN — a silent invisible ball (found by
-    // the battery on the first run, day 23)
-    const cl = u => (u < 0 ? 0 : u > 1 ? 1 : u);
-    let hFrac;
-    if (t <= inst.at) {
-      const u = cl(P.pre > 0 ? (t - (inst.at - P.pre)) / P.pre : 1);
-      hFrac = 1 - Math.pow(u, P.descentPower);
-    } else {
-      const u = cl(P.post > 0 ? (t - inst.at) / P.post : 1);
-      hFrac = P.rebound * (1 - Math.pow(1 - u, P.ascentPower));
-    }
-    const y = yLand - hFrac * dropPx;
+    const P = GC.params(Object.assign({}, st.preset || {}, (inst && inst.preset) || {}));
+    const frac = GC.heightFrac(P, t - inst.at);
+    if (frac === null) return [];
+    const G = GC.laneGeom(s, view, st.look);
+    const x = view.xOfSeconds(t);
+    const y = G.impactY - frac * G.h;
+    const r = G.look.ballRadiusPx * G.k;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
-      '" fill="' + st.color + '"/>'];
+      '" fill="' + (st.color || G.look.color) + '"/>'];
   });
 
   // curveFollower: inst {part, t0, t1, midi, morphBend}; dot at the

@@ -215,6 +215,13 @@
               items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: !!dev.cut });
             }
             if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
+            // THE GC OBJECT (wc-29, day 23 — composer: "when I say GC, that is
+            // the whole thing"): the static arc + impact marker are page ink
+            // (render.js draws them from notation/lib/gc.js; the ball is
+            // animobj's). Impact = the go time. `gc: true` = the registry
+            // preset; `gc: {...}` = a per-note preset.
+            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id },
+              typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
             // ledger lines (|ySs| <= 5); one octave = 3.5 staff steps
