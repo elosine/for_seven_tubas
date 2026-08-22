@@ -228,10 +228,27 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   const ks = K.find(i => i.k === 'stem');
   const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
   ok(kh && kh.ySs === -5.5 && !K.some(i => i.g === 'notehead-open'), 'staccato: FILLED head at pitch (G1, -5.5)');
-  ok(ks && ks.attach === 'up' && Math.abs(ks.dxSs - (kh.dxSs + G.notehead.filled.anchors.stemAttachUp.x - G.notehead.filled.anchors.center.x)) < 1e-9, 'staccato: stem up from the head right attach point');
+  // the head is SCALED (piece #2 cellMotive.scaleFactor 0.844, composer day
+  // 23): its stem-attach offset scales with it
+  const HK = 0.844;
+  ok(kh && Math.abs(kh.scale - HK) < 1e-9, 'staccato: head carries the 0.844 scale (piece #2 cellMotive)');
+  ok(ks && ks.attach === 'up' && Math.abs(ks.dxSs - (kh.dxSs + (G.notehead.filled.anchors.stemAttachUp.x - G.notehead.filled.anchors.center.x) * HK)) < 1e-9, 'staccato: stem up from the SCALED head right attach point');
   // G1 sits 5.5 below the middle line: the stem extends to the middle line
   // (stemLenFor: max(3.5, |ySs|)) — a stem outside the staff reaches it
-  ok(ks && Math.abs((ks.yB - ks.yA) - 5.5) < 1e-9, 'staccato G1: stem reaches the middle line (5.5 ss, Gould)');
+  // FLAG-CLEAR (composer: the flag bottom clears the staff by ~3 px = 0.38
+  // ss): flag bottom = tip − flag height must sit exactly 0.38 above the
+  // top staff line (+2) — asserted from the emitted flag item's own metrics
+  ok(kf && Math.abs((kf.ySs - G.flag.up8.hSs) - (2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 ss above the top staff line (' + (kf.ySs - G.flag.up8.hSs).toFixed(3) + ')');
+  ok(ks && (ks.yB - ks.yA) > 5.5, 'staccato G1: the flag-clear stem is longer than the middle-line default (' + (ks.yB - ks.yA).toFixed(2) + ' ss)');
+  // a note with room keeps the default: the same device on A3 (+4, stem down,
+  // flag rises from the tip below) needs flag top ≤ −2.38 → tip ≤ −5.39 → 9.4 ss,
+  // longer than the default, so the rule still governs; on D3 (0) stem down:
+  // tip ≤ −5.39 → 5.39 > 3.5 — also governed. The rule governs every in-staff
+  // note; it yields only when the default already clears.
+  // STACCATO DOT on the notehead side (below, stem up), centered in a space
+  const kdot = K.find(i => i.k === 'dot');
+  ok(kdot && Math.abs(kdot.dxSs - kh.dxSs) < 1e-9, 'staccato: dot centered on the head column');
+  ok(kdot && kdot.ySs === Layout.dotYFor(-5.5, 'up') && kdot.ySs < kh.ySs, 'staccato: dot BELOW the head (notehead side), dotYFor law (' + kdot.ySs + ')');
   ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
   // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
   // go line"). Measured from the EMITTED items' own glyph metrics — the ink

@@ -6004,3 +6004,34 @@ dictated, the save-shuffle established, T1 facts scanned.**
   inside the lane (top 8); wc-29's stem 58.3→82.1 reaches the middle line.
   **Look change for the composer to judge: wc-23's sfzp is now ABOVE the
   staff** (the rule's first real application), and wc-29's stem is 5.5 ss.
+- **wc-29 round 4 (composer): flag clears the staff by ~3 px · smaller
+  head ("there was already a formulation") · staccato dot on the notehead
+  side.** (An "fff" was started and withdrawn: "I take that back... we'll
+  talk about it afterwards.")
+  - Small head: the composer's memory was right — piece #2
+    `notehead.cellMotive.scaleFactor 0.844` ("composer wants cell-internal
+    noteheads slightly smaller... applied at render time as an SVG scale
+    wrapper on the existing notehead-filled path — no new glyph bake");
+    there is also `filledCellAlt` (0.8775×0.7506, a separately extracted,
+    slightly anisotropic glyph). Used the 0.844 uniform scale: stamps gains
+    `scaled(box, k)` (metrics + anchors + a scale wrapper on the path),
+    layout scales the head's metrics so ledgers, stem attach and the column
+    anchor follow; device knob `nhHeadScale`.
+  - Flag clearance: piece #2's computeFlaggedStemLength law with THIS
+    piece's clearance — registry `engraving.layout.flagClearanceSs 0.38`
+    (= 3 px at 7.9 px/ss; p2 used 1.0 ss). Device knob `nhStemRule:
+    'flagClear'`; the default length wins when already longer. G1 stem up:
+    tip = 2 + 0.38 + 3.008 → stem 10.77 ss (p2's mk-34 was 11.3 under its
+    1.0 ss rule — the composer's eye had been right that it was the stem).
+  - Dot: `nhDot` → the dotYFor law (notehead side, opposite the stem,
+    centered in a space; in-space head → the next space, 1.0 ss). Part of
+    the unit's ink so the column chain stacks past it.
+  - Verified live (video, page 2): head 6.93 px wide (0.844 × 8.2) · flag
+    bottom y 40.6 vs top line 43.6 = **3.0 px** · stem 16.8→101.9 = 10.77
+    ss · dot cx 942.68 = head column, cy 110.75 · unit ink 937.5→952.2
+    (ledger overhang to flag right) mid 944.85 vs go line 944.84.
+  - **Flag for the composer:** G1 sits in a space (−5.5), so the dot's
+    "next space" is −6.5 = exactly the lane edge — the dot's centre is on
+    the edge and its lower half is in the 4 px inter-lane gap. The
+    alternative is the registry's staccatoDot.gapFromNotehead (0.5 ss from
+    the head's edge → −6.44, 0.07 ss inside) — a house choice, not built.

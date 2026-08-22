@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
         fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhStem: 'flag8', nhAnchor: 'center' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhAnchor: 'center' },
       },
     }, o.devices || {});
     const engrave = new Map();
@@ -155,7 +155,7 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhStem: 'flag8', nhAnchor: 'center' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhAnchor: 'center' },
       },
     }, o.devices || {});
     const deviceOf = makeDeviceOf(DEV, engOf);
@@ -251,7 +251,17 @@
                 // head kind is device data (wc-29, day 23): 'open' (the
                 // surge / fp unit) or 'filled' (the staccato unit)
                 const headKind = dev.nhHead === 'filled' ? 'filled' : 'open';
-                const nhO = glyphs.notehead[headKind];
+                // HEAD SCALE (day 23, composer: "make the note head smaller —
+                // there was already a formulation for a small note head"):
+                // piece #2's notehead.cellMotive.scaleFactor 0.844, a uniform
+                // scale on the same outline (no new glyph); metrics + anchors
+                // scale with it, so ledgers, stem attach and the column
+                // anchor all follow. Device data (nhHeadScale), default 1.
+                const headK = dev.nhHeadScale > 0 ? dev.nhHeadScale : 1;
+                const nhO = (g => headK === 1 ? g : {
+                  wSs: g.wSs * headK, hSs: g.hSs * headK,
+                  anchors: Object.fromEntries(Object.keys(g.anchors).map(n => [n, { x: g.anchors[n].x * headK, y: g.anchors[n].y * headK }])),
+                })(glyphs.notehead[headKind]);
                 const headGlyph = headKind === 'filled' ? 'notehead' : 'notehead-open';
                 const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
                 const ledgers = ledgersFor(yDraw);
@@ -323,7 +333,7 @@
                 const headDx = dev.nhAnchor === 'center'
                   ? -(leftRel + rightExt) / 2
                   : -(gapSs + rightExt);
-                items.push({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
+                items.push(Object.assign({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
@@ -331,13 +341,40 @@
                 let inkTopY = yDraw + nhO.hSs / 2, inkBotY = yDraw - nhO.hSs / 2;
                 if (stemKind) {
                   const yStart = yDraw - att.dy;
-                  const L = stemLenFor(yDraw, o.stemLen);
+                  let L = stemLenFor(yDraw, o.stemLen);
+                  // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
+                  // of the flag clear the staff, just like three pixels or so
+                  // — maybe not the full typical gap"): piece #2's
+                  // flagClearance law (computeFlaggedStemLength) with this
+                  // piece's clearance — registry flagClearanceSs (0.38 ss =
+                  // 3 px at the jury frame's 7.9 px/ss; p2 used 1.0). The
+                  // flag's near edge clears the outer staff line; the default
+                  // length wins when it is already longer. Device data
+                  // (nhStemRule: 'flagClear').
+                  if (flagG && dev.nhStemRule === 'flagClear') {
+                    const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
+                    const need = stemDir === 'up'
+                      ? (2 + clr + flagG.hSs) - yStart      // flag hangs down from the tip
+                      : yStart - (-2 - clr - flagG.hSs);    // flag rises from the tip
+                    L = Math.max(L, need);
+                  }
                   const yEnd = stemDir === 'up' ? yStart + L : yStart - L;
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (flagG) items.push({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' });
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)
                   if (stemDir === 'up') inkTopY = Math.max(inkTopY, yEnd); else inkBotY = Math.min(inkBotY, yEnd);
+                }
+                // STACCATO DOT (day 23, composer: "the staccato dot should
+                // always be on the notehead, so below in this case"): the
+                // notehead side, opposite the stem, centered in a space
+                // (dotYFor — the metric notes' law). Part of the unit's ink,
+                // so the column chain stacks past it (articulation first).
+                if (dev.nhDot) {
+                  const yDot = dotYFor(yDraw, stemDir);
+                  const rDot = ((stds.staccatoDot && stds.staccatoDot.diameter) || 0.4) / 2;
+                  items.push({ k: 'dot', t: e.onset, dxSs: headDx, ySs: yDot });
+                  inkTopY = Math.max(inkTopY, yDot + rDot); inkBotY = Math.min(inkBotY, yDot - rDot);
                 }
                 if (accRel) {
                   items.push({ k: 'glyph', g: 'accidental-' + accRel.kind, t: e.onset, dxSs: headDx + accRel.dx, ySs: yDraw, align: accRel.align });

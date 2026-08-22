@@ -123,7 +123,7 @@
           }
         } else if (it.k === 'glyph') {
           if (!inWin(it.t)) continue;
-          parts.push(Stamps.toSvg(boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: Y(it.ySs), ssPx, align: it.align }));
+          parts.push(Stamps.toSvg(it.scale ? Stamps.scaled(boxFor(it.g), it.scale) : boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: Y(it.ySs), ssPx, align: it.align }));
         } else if (it.k === 'stem') {
           if (!inWin(it.t)) continue;
           const x = X(it.t, it.dxSs) - (stds.stem.thickness * ssPx) / 2;

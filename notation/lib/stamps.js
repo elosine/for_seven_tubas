@@ -119,6 +119,24 @@
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL
   // anchor `align` lands at (xPx, yPx); everything scales by ssPx.
+  // day 23: a box at a uniform scale k — piece #2's 'cellMotive.scaleFactor'
+  // mechanism ("applied at render time as an SVG scale wrapper on the
+  // existing notehead-filled path — no new glyph bake"). Metrics and
+  // anchors scale with it so layout and render agree.
+  function scaled(b, k) {
+    if (!k || k === 1) return b;
+    const anchors = {};
+    for (const n of Object.keys(b.anchors || {})) anchors[n] = { x: b.anchors[n].x * k, y: b.anchors[n].y * k };
+    const prims = b.prims.map(p => {
+      if (p.type === 'path') return { type: 'path', d: p.d, k: (p.k || 1) * k };
+      if (p.type === 'rect') return { type: 'rect', x: p.x * k, y: p.y * k, w: p.w * k, h: p.h * k };
+      if (p.type === 'circle') return { type: 'circle', cx: p.cx * k, cy: p.cy * k, r: p.r * k };
+      if (p.type === 'poly') return { type: 'poly', pts: p.pts.map(q => [q[0] * k, q[1] * k]) };
+      return p;
+    });
+    return { kind: b.kind, wSs: b.wSs * k, hSs: b.hSs * k, anchors, prims };
+  }
+
   function toSvg(b, place) {
     const { xPx, yPx, ssPx, align, fill } = place;
     const a = align ? b.anchors[align] : { x: 0, y: 0 };
@@ -126,7 +144,7 @@
     const tx = xPx - a.x * ssPx, ty = yPx - a.y * ssPx;
     const parts = [];
     for (const p of b.prims) {
-      if (p.type === 'path') parts.push('<path d="' + p.d + '"/>');
+      if (p.type === 'path') parts.push('<path' + (p.k && p.k !== 1 ? ' transform="scale(' + p.k.toFixed(4) + ')"' : '') + ' d="' + p.d + '"/>');
       else if (p.type === 'rect') parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '"/>');
       else if (p.type === 'circle') parts.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '"/>');
       else if (p.type === 'poly') parts.push('<polygon points="' + p.pts.map(q => q.join(',')).join(' ') + '"/>');
@@ -135,5 +153,5 @@
       (fill ? ' fill="' + fill + '"' : '') + '>' + parts.join('') + '</g>';
   }
 
-  return { makeStamps, toSvg };
+  return { makeStamps, toSvg, scaled };
 });
