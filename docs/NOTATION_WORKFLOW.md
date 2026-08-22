@@ -93,6 +93,10 @@ node tools/notate_section.js --prune db1-t3-x01
   `tools/test_midiplayer.js`). Needs loopMIDI ports up + Reaper monitoring
   ON (piece #3 Principle 1). Pause/stop always sweeps CC7=127 (the residue
   cure) — quiet tracks afterwards are NOT expected; if heard, Principle 3.
+  **The IR is authoritative for sound** (day 22): object ends follow the
+  version file's event durations (`withIrDurations`, a per-play clone — the
+  archive score is never edited). Protocol + ledger:
+  `docs/ARCHIVE_AMENDMENTS.md`.
 - **Render (optional).** Drop `<scoreName>.wav|.mp3` into `notation/audio/`
   → a **♪ render** chip appears; clicking slaves the clock to it (MIDI
   unchecks; re-checking MIDI detaches). Renders are gitignored.

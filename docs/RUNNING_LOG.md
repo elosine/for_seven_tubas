@@ -5629,3 +5629,52 @@ dictated, the save-shuffle established, T1 facts scanned.**
   (registry ringBar.opacity 1 -> 0.8; hot-reloaded, verified 0.8 on the
   page; the in-app hidden pane took ~5 s because its timers are throttled —
   not a bug).
+- **"The sound cuts out about halfway through the line" — HYPOTHESIS (not
+  yet a finding): note-off truncates the fp sample.** Evidence: sonify_core
+  sends note-off at the object's drawn end (wc.endSeconds); wc-23 is drawn
+  0.70 s (hand-drawn in grp-g1-opening, not inserted at the 2n length);
+  0.70/1.49 = 47 % = the composer's "halfway or a little more." The 2n
+  probe held notes 5 s, so it never tested early note-off on fp (the 2o
+  gap, for cuivre, in the other direction). Counter-possibility: the
+  probe's 12 dB-above-floor tail is simply inaudible in the room.
+  **Ear test set up:** `scores/probe-wc23-noteoff.json` = the piece score
+  with ONLY wc-23 lengthened to 16.034 (onset + 1.49); extracted as
+  `db1-t1-x03` (experiments). Headless compile confirms the only
+  difference: off@15.243 (x02) vs off@16.034 (x03), same on, same
+  port/channel. If x03 rings to the bar's end → note-off truncates →
+  fix is either the DATA (lengthen fps to their 2n length in the score)
+  or the PLAYBACK LAW (fixed one-shots' note-off at onset + sample
+  length; would have to land in the composer app too, sonify_core is its
+  extracted twin). If x03 sounds the same → the bar is honest, the tail is
+  just quiet.
+- **FINDING (composer's ear on x03): "that one was the whole bar more or
+  less, let's use that one."** Note-off DOES truncate the fp sample; the
+  drawn 0.70 s was cutting a 1.49 s sound in half. Decision: the 1.49 s.
+- **"Is it complicated to replace the midi note in the IR?" — no; built
+  as a law:** THE IR IS AUTHORITATIVE FOR SOUND in the notation app.
+  `midiplayer.withIrDurations(score, ir)` returns a per-play clone whose
+  object ends = IR onset + duration (the archive object untouched; the
+  player cache is keyed by the IR object so a hot-reloaded IR gets a fresh
+  player). Battery: wc-23 end 15.243 → 16.034, archive not mutated,
+  unchanged objects same reference, compiled note-off at 16.034; 29/29.
+  Rejected: changing sonify_core's law (it is composer.html's extracted
+  twin with a two-ends parity battery — the app would have to change too)
+  and editing the archive (the composer's "finished" objects).
+- **Protocol for "finished" archive objects** (composer asked for one) →
+  `docs/ARCHIVE_AMENDMENTS.md`: archive frozen · corrections live in the
+  IR (systematic = extractor rule, singular = override) · playback follows
+  the IR · every amendment = a ledger line · fold-back is an explicit
+  composer act · known divergences stated (export_midi renders, the
+  composer app). First ledger line: wc-23. export_midi --ir → NITS.
+- Probe cleanup: `db1-t1-x03` pruned, `scores/probe-wc23-noteoff.json`
+  deleted (both regenerable; the finding is what mattered).
+- **"In page two the cursor speeds up significantly."** Measured: page 1
+  = 12 s over the width, page 2 = the last page's [12, 17] mapped across
+  the FULL width — 5 s stretched, 2.3× cursor speed. Fix: every page's
+  window is pageSeconds long; a short final page keeps the scale (the G1
+  ¾-staff look), the terminal barline moves to the material's end, and
+  playback stops at the material's end (drawOverlayFrame endT = min(w1,
+  source end)). Verified live: 156 px/s on both pages (surge go line
+  702.9 @ 4.198 s; wc-23 go line 444.9 @ 14.544 s; same 48 px gutter),
+  end bar at x 826.5 = 17 s, bar width 232.4 = 1.49 s.
+- Ring bar opacity 0.8 → **0.65** (composer), verified on the page.

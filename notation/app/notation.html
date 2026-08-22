@@ -349,8 +349,15 @@
       const systems = NotationCoords.systemsForParts(parts, { topPad, botPad, gap, weights: lanes.weights });
       const ssPerSystem = lanePx / (((C.staff && C.staff.staffHeightPx) || 31.6) / 4);
       const p = state.vPages[state.pageIdx];
+      // CONSTANT TIME SCALE (day 22, second note — composer: "in page two
+      // the cursor speeds up significantly"): every page's window is
+      // pageSeconds long, including a short FINAL page — its material ends
+      // early (the G1 ¾-staff look) and the terminal barline sits at the
+      // material's end. Before, the last page's window was [t0, t1] of the
+      // material mapped across the full width: 5 s stretched over 1920 px.
+      const srcEnd = state.ir.source.window[1];
       const baseCfg = {
-        widthPx: W, heightPx: H, window: [p.t0, p.t1],
+        widthPx: W, heightPx: H, window: [p.t0, p.t0 + pageSeconds],
         gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0,
         systems, ssPerSystem,
       };
@@ -375,7 +382,9 @@
       let endBar = '';
       if (eb && view.systems.length) {
         const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
-        endBar = '<rect x="' + (view.widthPx - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
+        // at the material's end when that falls inside the page, else the edge
+        const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
+        endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
           '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
       }
       svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
@@ -566,16 +575,24 @@
     const score = name && state.scores[name];
     if (!score || !state.midi.outputs || !state.midi.ccPoints) return null;
     // the save's scope (composer-score document semantics): only the parts
-    // this version file contains sound — key the cache accordingly
+    // this version file contains sound — key the cache accordingly.
+    // THE IR IS AUTHORITATIVE FOR SOUND (day 22, second note): the player
+    // compiles a clone whose object ends follow the IR's event durations
+    // (withIrDurations); the archive score is untouched. Keyed by the IR
+    // object itself, so a hot-reloaded IR gets a fresh player.
     const parts = (state.ir.source.parts || []).slice().sort();
-    const key = name + '|' + parts.join(',');
-    if (!state.midi.players[key]) {
-      state.midi.players[key] = NotationMidiPlayer.makeMidiPlayer({
-        score, instruments: INSTRUMENTS, ccPoints: state.midi.ccPoints,
+    const key = name + '|' + parts.join(',') + '|' + state.ir.id;
+    const cached = state.midi.players[key];
+    if (!cached || cached.ir !== state.ir) {
+      const amended = NotationMidiPlayer.withIrDurations(score, state.ir);
+      const player = NotationMidiPlayer.makeMidiPlayer({
+        score: amended.score, instruments: INSTRUMENTS, ccPoints: state.midi.ccPoints,
         outputs: state.midi.outputs, parts,
       });
+      state.midi.players[key] = { ir: state.ir, player, amended: amended.amended };
+      if (amended.amended.length) console.info('midi: IR durations applied to ' + amended.amended.length + ' object(s)', amended.amended);
     }
-    return state.midi.players[key];
+    return state.midi.players[key].player;
   }
   function midiFlush() { const p = midiPlayer(); if (p) p.flush(); }
   $('midi').addEventListener('change', () => {
@@ -597,11 +614,16 @@
     if (!view) return null;
     const t = tArg !== undefined ? tArg : state.transport.now();
     const [w0, w1] = view.window;
-    if (state.transport.isPlaying() && t >= w1 - 1e-9) {
+    // the page ends at its window OR at the material's end, whichever is
+    // first (a short final page keeps the time scale, so its window runs
+    // past the material — playback stops at the material)
+    const srcEnd = state.ir.source.window[1];
+    const endT = Math.min(w1, srcEnd);
+    if (state.transport.isPlaying() && t >= endT - 1e-9) {
       // system turn: hard cut to the next page/window
       if (vv === 'video' && state.vPages && state.pageIdx < state.vPages.length - 1) {
         state.pageIdx++; render();
-      } else if (vv === 'zoom' && t < state.ir.source.window[1]) {
+      } else if (vv === 'zoom' && t < srcEnd) {
         state.zoomT0 = w1; render();
       } else { state.transport.pause(); $('play').textContent = '▶'; }
       return { turned: true, t };

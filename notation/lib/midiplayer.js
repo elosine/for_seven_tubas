@@ -17,6 +17,16 @@
 //     -> { tick(t), flush(), missingPorts(), stats() }
 //   · outputs: { portNameLower -> WebMIDI output } (composer.html's map shape)
 //   · call tick(t) each frame WHILE PLAYING; call flush() on pause/stop/exit.
+//
+//   withIrDurations(score, ir) -> { score, amended }
+//     THE IR IS AUTHORITATIVE FOR SOUND in the notation app (day 22, second
+//     note — the composer: "is it complicated to replace the midi note in
+//     the ir?"). Every IR event that names a source object sets that
+//     object's sounding end to onset + duration (the extractor's 2n law
+//     gives fixed one-shots their measured sample length); the archive
+//     score is NOT edited — this is a per-play clone. First case: wc-23,
+//     hand-drawn 0.70 s, whose note-off cut the 1.49 s fp sample in half
+//     (composer heard it; the x03 probe proved it).
 
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(root && root.SonifyCore);
@@ -162,5 +172,23 @@
     };
   }
 
-  return { makeMidiPlayer };
+  // the IR's durations applied to a clone of the score (pure; the archive
+  // object is never mutated). `amended` lists what changed, for the log.
+  function withIrDurations(score, ir) {
+    const byObj = new Map();
+    for (const e of (ir && ir.events) || []) {
+      const oid = e.source && e.source.objectId;
+      if (oid && e.onset != null && e.duration != null) byObj.set(oid, e.onset + e.duration);
+    }
+    const amended = [];
+    const objects = (score.objects || []).map(o => {
+      const end = byObj.get(o.id);
+      if (end === undefined || Math.abs(end - o.endSeconds) < 1e-3) return o;
+      amended.push({ id: o.id, from: o.endSeconds, to: end });
+      return Object.assign({}, o, { endSeconds: end });
+    });
+    return { score: Object.assign({}, score, { objects }), amended };
+  }
+
+  return { makeMidiPlayer, withIrDurations };
 });

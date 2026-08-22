@@ -139,6 +139,27 @@ const ons3 = rig3.log.filter(e => (e.bytes[0] & 0xF0) === 0x90 && e.bytes[2] > 0
 ok(ons3.length === t1Sounding.length, `parts:[0] played ${ons3.length} != T1's ${t1Sounding.length}`);
 ok(rig3.log.every(e => e.port === 'tuba1' || e.port === 'tuba1b'), 'parts:[0] touched a non-T1 port');
 
+// ---- THE IR IS AUTHORITATIVE FOR SOUND (day 22, second note): a clone of
+// the score whose object ends follow the IR's event durations — the
+// archive object untouched; wc-23 (hand-drawn 0.70 s) sounds its 1.49 s
+// fp sample; everything the IR does not name is the same object reference.
+{
+    const { withIrDurations } = require(path.join(ROOT, 'notation', 'lib', 'midiplayer.js'));
+    const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-t1-x02.ir.json'), 'utf8'));
+    const before = score.objects.find(o => o.id === 'wc-23').endSeconds;
+    const { score: sc2, amended } = withIrDurations(score, ir);
+    const w23 = sc2.objects.find(o => o.id === 'wc-23');
+    ok(Math.abs(before - 15.243) < 1e-9, 'fixture: wc-23 drawn end is 15.243');
+    ok(Math.abs(w23.endSeconds - 16.034) < 1e-6, `wc-23 sounding end follows the IR (${w23.endSeconds})`);
+    ok(score.objects.find(o => o.id === 'wc-23').endSeconds === before, 'archive object NOT mutated');
+    ok(amended.length === 1 && amended[0].id === 'wc-23', `amended list names wc-23 only (${JSON.stringify(amended)})`);
+    ok(sc2.objects.find(o => o.id === 'wc-3') === score.objects.find(o => o.id === 'wc-3'), 'unchanged object = same reference (surge end already equals the IR)');
+    // the compiled note-off moves with it
+    const ev2 = Core.compileScore(sc2, INSTRUMENTS, ccPoints, { parts: [0], window: [14, 17] }).events;
+    const off = ev2.find(e => e.kind === 'off' && e.bytes[1] === 32);
+    ok(off && Math.abs(off.t - 16.034) < 1e-6, `compiled note-off at 16.034 (${off && off.t})`);
+}
+
 console.log(`checks ${checks} · failures ${fails} · live events ${rig.log.length} ` +
     `(${ons.length} on / ${offs.length} off / ${bends.length} bend) vs file ${compiled.events.length}` +
     ` · parts-scope: ${ons3.length} T1 notes only`);

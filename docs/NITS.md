@@ -376,3 +376,5 @@ visuals also diverge on the composer's machine (then it is a real
 rendering-environment difference worth understanding).
 
 - *(2026-08-21, day 22)* **notation.html page title still reads "Notation — slice 1 (trance)"** after the collapse made it the presentation score. Cosmetic; one string in `notation/app/notation.html`. Deferred — nothing depends on it.
+
+- *(2026-08-21, day 22)* **`tools/export_midi.js` compiles the raw archive, so a Reaper render plays un-amended notes** (wc-23's fp cut at 0.70 s, while the notation app now sounds 1.49 s via `withIrDurations`). Add `--ir <id>` applying `midiplayer.withIrDurations` before the next render is made. See `docs/ARCHIVE_AMENDMENTS.md` → Known gaps.
