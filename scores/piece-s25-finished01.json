@@ -3147,7 +3147,7 @@
     {
       "id": "wc-87",
       "type": "waveCurve",
-      "layer": 7,
+      "layer": 8,
       "startSeconds": 30.662,
       "endSeconds": 30.923,
       "nodes": [

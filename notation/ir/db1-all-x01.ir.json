@@ -12284,34 +12284,46 @@
    "part": 7,
    "span": [
     25.858,
-    31.174
+    29.152
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-55",
     "ev-wc-60",
-    "ev-wc-65",
-    "ev-wc-75",
-    "ev-wc-82",
-    "ev-wc-87"
+    "ev-wc-65"
    ],
    "provenance": "derived"
   },
   {
-   "id": "ch-7-wc-94",
+   "id": "ch-7-wc-75",
    "part": 7,
    "span": [
-    31.174,
+    29.152,
+    32.442
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-75",
+    "ev-wc-82",
+    "ev-wc-94",
+    "ev-wc-97",
+    "ev-wc-104",
+    "ev-wc-108"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-115",
+   "part": 7,
+   "span": [
+    32.442,
     33.888
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
-    "ev-wc-94",
-    "ev-wc-97",
-    "ev-wc-104",
-    "ev-wc-108",
     "ev-wc-115",
     "ev-wc-124"
    ],
@@ -12513,7 +12525,7 @@
    "part": 8,
    "span": [
     29.125,
-    32.137
+    30.662
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
@@ -12523,49 +12535,37 @@
    "provenance": "derived"
   },
   {
-   "id": "ch-8-wc-111",
+   "id": "ch-8-wc-87",
    "part": 8,
    "span": [
-    32.137,
-    33.356
+    30.662,
+    36.671
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
+    "ev-wc-87",
     "ev-wc-111",
-    "ev-wc-129"
-   ],
-   "provenance": "derived"
-  },
-  {
-   "id": "ch-8-wc-135",
-   "part": 8,
-   "span": [
-    33.356,
-    38.043
-   ],
-   "class": "density-cloud-note",
-   "strategy": "unresolved",
-   "events": [
+    "ev-wc-129",
     "ev-wc-135",
     "ev-wc-167",
-    "ev-wc-1763",
-    "ev-wc-1774",
-    "ev-wc-1782",
-    "ev-wc-1802"
+    "ev-wc-1763"
    ],
    "provenance": "derived"
   },
   {
-   "id": "ch-8-wc-1821",
+   "id": "ch-8-wc-1774",
    "part": 8,
    "span": [
-    38.043,
+    36.671,
     39.365
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
+    "ev-wc-1774",
+    "ev-wc-1782",
+    "ev-wc-1802",
     "ev-wc-1821",
     "ev-wc-1832",
     "ev-wc-1841",

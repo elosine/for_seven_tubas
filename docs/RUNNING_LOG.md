@@ -7335,3 +7335,69 @@ Five even 16ths with no rests at all — the grid is literally 0,1,2,3,4. The
 23 ms buys away an alternation the ear is unlikely to parse (206/271/205/257).
 Splitting into pairs would read err 0, but that is the 2-note artefact above:
 it would cost two tempo marks and state nothing.
+
+### wc-87 moved T8 → T9 to get its ring bar back, and four more analyses (day 24)
+
+**The move, and why it is not a notation fix.** T8's fortepiano at 30.662
+(`wc-87`, B2, sample **1.87 s**) had its next attack 0.512 s later, so the
+breath rule (next gesture minus 0.5 s) left it **0.012 s** of bar — the device
+was there and drew nothing. Composer: *"Let's move that whole figure to t nine
+and give it its full length and bar back."* T9 is the sparse part; its
+neighbours are 29.125 and 32.137.
+
+Measured before applying (the tool's dry run prints the destination's
+neighbours for exactly this reason):
+
+| | next attack | room after breath | bar drawn |
+|---|---|---|---|
+| T8 (before) | 31.174 | 0.012 s | 0.012 s |
+| **T9 (now)** | 32.137 | 0.975 s | **0.975 s** |
+| T9, breath waived (`ringBarBreath:false`) | 32.137 | 1.475 s | 1.475 s |
+
+So the bar is back — **0.975 s, up from 0.012** — but **not the full 1.87 s**,
+and it cannot be in T9 either: the sample outlasts the gap to T9's own next
+note. Full length needs the breath waived (1.475 s) or wc-111 moved too.
+Flagged, not decided. It still trips `flagShortBarSeconds` at 1.0 (0.975 is
+just under); at the 0.35 threshold discussed earlier it would go quiet.
+
+Verified: bar 30.662 → 31.637 in T9; `techniqueFor` routes it to `tuba9` where
+it was `tuba8`; one-line diff; five batteries green. Ledgered as the second
+SCORE EDIT.
+
+### Four analyses (nothing built)
+
+Reminder that governs all of them: **any two onsets fit exactly** — the unit is
+the gap — so 2-note "err 0" blocks below are arithmetic, not evidence.
+
+**T5, last five** (IOIs 182 · 200 · 285 · 395 — a steady accelerando in
+reverse, i.e. slowing). One group: ♩=78.3 in **32nds**, grid 0,2,4,7,11, 10 ms.
+The 32nds are the price of that 182→395 spread. Cheapest honest alternative:
+**[1-3] ♩=79.8 16ths (6 ms) + [4-5]** — two units, and the first three become
+three consecutive 16ths.
+
+**T6, last three** (IOIs 203 · 503). One group: ♩=66 in 16ths, grid **0,1,3**,
+24 ms — note · note · rest · note. The only other reading worth the ink is
+[1-2] beamed + a lone one-shot. Three notes is little enough that this is
+mostly a taste call.
+
+**T7, last eight** (IOIs 182 · 448 · 157 · 141 · 183 · 190 · 369). All eight
+need **32nds** at 25 ms — the 448 ms gap early on is what forces the fine grid.
+The material splits naturally: **[1-4] ♩=74 16ths (23 ms) + [5-8] ♩=80.9 16ths
+(2 ms)**. Notes 5-8 at **2 ms** is the cleanest thing in this part, grid
+0,1,2,4. If any split is going to be made in T7, that is where it wants to go.
+
+**T8, last ten** (IOIs 1075 · 516 · 308 · 487 · 311 · 180 · 320 · 229 · 216 —
+a clear accelerando). All ten: ♩=83.9 in **32nds** across a 41-slot grid,
+29 ms — technically a fit, practically a wall of rests. The natural cut is at
+the end: **[1-7 or 1-8] ♩=75 32nds (18 ms) + [8-10] ♩=66.8 16ths (4 ms)** or
+**[9-10]**. The tail (notes 8-10, grid 0,1,2) is three consecutive 16ths at
+4 ms — the cleanest sub-span in the part. The head of the run is where the
+32nds live, because 1075 ms and 180 ms have to share one unit.
+
+**The pattern across all four** (worth noticing before the remaining parts get
+notated): every one of these tails ends in a short, fast, near-even group that
+fits 16ths almost exactly, preceded by a longer, more spread stretch that only
+fits under 32nds. The section's accelerando is doing this — the last few
+attacks converge on a pulse. Splitting each tail off as its own beamed group is
+consistently the cheapest reading, and it is the same shape the composer chose
+by ear in T2 (`--beamBreak 4`).
