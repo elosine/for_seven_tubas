@@ -1721,7 +1721,7 @@ notation act, when the piece calls for it: **the actual PARTS notation
 first**, then its layout into the study score; requirements harvested
 while building the real score.
 
-## 8. PENN STATE DELIVERABLES BUILD — `doing 2026-08-20 (day 21): V0 done + G0 CLOSED (frame · no header · staff 31.6 · budget A · Crimson · PP-3; provisional data deferred per the composer's decide-vs-defer filter); V1 BUILT same day (coords lane flexibility + zoomCfg · engraving registry + override channel + staff-off · gutter · the two windows in notation.html, verified live) — **G1 CLOSED same day** (composer: "it looks good... the zoom view is comfortable"; right-edge finding answered with the system terminal barline, registry data). **V2 BUILT same day** (transport.js = the D47 clock interface, audio-slaving, injectable timebase · animobj.js = the state(t)→SVG contract + all FIVE ports incl. motive pie, determinism battery w/ stateful prove-red · shell: overlay loop, play/SPACE, click-to-seek, hard-cut turns; drawOverlayFrame(t) exposed = V4's export entry). **G2 = composer + the Reaper render, pending — that sitting also decides system-turn behavior + the C/D time-scale re-look.** **V3 BUILT + RUN same day** (notate_section.js one-command loop: extract → validate-or-delete → manifest → picker; two piece windows extracted — piece-open-01 + piece-trance-w1, all five animated objects live on them; half-open window bug fixed both sides per the A3 ownership law; NOTATION_POLISH.md ledger created; protrusion detector filed its first 24 real items). **G3 = composer runs the loop once (one prompt); can share the G2 sitting.** The pre-notation critical path (V0→V3) is CODE-COMPLETE — V4/V5 (exports) may trail until submission; part-by-part notation can begin after G2/G3`
+## 8. PENN STATE DELIVERABLES BUILD — `doing 2026-08-20 (day 21) → 8c note-by-note notation running since day 22: V0 done + G0 CLOSED (frame · no header · staff 31.6 · budget A · Crimson · PP-3; provisional data deferred per the composer's decide-vs-defer filter); V1 BUILT same day (coords lane flexibility + zoomCfg · engraving registry + override channel + staff-off · gutter · the two windows in notation.html, verified live) — **G1 CLOSED same day** (composer: "it looks good... the zoom view is comfortable"; right-edge finding answered with the system terminal barline, registry data). **V2 BUILT same day** (transport.js = the D47 clock interface, audio-slaving, injectable timebase · animobj.js = the state(t)→SVG contract + all FIVE ports incl. motive pie, determinism battery w/ stateful prove-red · shell: overlay loop, play/SPACE, click-to-seek, hard-cut turns; drawOverlayFrame(t) exposed = V4's export entry). **G2 = composer + the Reaper render, pending — that sitting also decides system-turn behavior + the C/D time-scale re-look.** **V3 BUILT + RUN same day** (notate_section.js one-command loop: extract → validate-or-delete → manifest → picker; two piece windows extracted — piece-open-01 + piece-trance-w1, all five animated objects live on them; half-open window bug fixed both sides per the A3 ownership law; NOTATION_POLISH.md ledger created; protrusion detector filed its first 24 real items). **G3 = composer runs the loop once (one prompt); can share the G2 sitting.** The pre-notation critical path (V0→V3) is CODE-COMPLETE — V4/V5 (exports) may trail until submission; part-by-part notation can begin after G2/G3`
 
 - **8a — Deliverables container + exports** — `planned` — the three Penn State
   deliverables (MIDI recording · 1920×1080 screen-following video · PDF full
@@ -1773,6 +1773,22 @@ while building the real score.
   Deferred per D48: strategy-knobs-as-data (until a knob needs globalizing) ·
   source-score polling (refresh after editing the piece). **Remaining =
   composer's ear:** first MIDI playback sitting (G2/G3 can fold in).
+
+- **8c — TIER-2 NOTATION, T1 NOTE BY NOTE (the working loop on THE DRAFT)** —
+  `doing 2026-08-21 (day 22)` — the composer's method: *the next note in
+  source order, regardless of technique*, designed element by element on
+  the working file `db1-t1-x02`, each settled element becoming registry
+  data (D50) so siblings inherit it; THE DRAFT `db1-t1` (0–55.94) is the
+  canonical accumulator. **Done:** wc-3 (the surge, second sitting) ·
+  **wc-23** (G#1 fp, third sitting: go line #333 · nh-unit + 8vb · THE RING
+  BAR at the 1.49 s sample length, ⅔ brick, 0.65 · **sfzp**; D49 note-off
+  finding + ARCHIVE_AMENDMENTS.md; playhead readout; constant final-page
+  time scale). **Next:** wc-29, the first staccato (17.749) — extend x02's
+  window first. **Fold-in question open:** the draft's chunker swept wc-23
+  into a staccato cloud; fixed one-shots must stay out of clouds or the
+  device must apply inside streams (decide at promotion). *Why it matters:*
+  every device decided here is the section-1 vocabulary; the M5 hierarchy
+  (third amendment) waits until the composer says go.
 
 ## Parking lot
 

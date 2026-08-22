@@ -10,127 +10,75 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 22 (2026-08-21) — 8b: THE NOTATION WORKFLOW + THE SURGE DEVICE +
-THE COLLAPSE, one long sitting with the composer driving verdicts live.
-Claude Code / Fable 5. (mid-session checkpoint — same task continues
-after the clear.)**
-- **The machinery (PLAN 8b, all verified + pushed):** sonify_core (one
-  event compiler; two-ends battery) → export_midi (21-track SMF @60 BPM,
-  delivered; REAPER SESSION TEMPO MUST BE 60) + live MIDI in the notation
-  shell · hot reload (~1 s; lib CODE still needs one refresh) · version
-  files (--from/--exp/--prune/--demo) · docs/NOTATION_WORKFLOW.md = the
-  protocol.
-- **THE COLLAPSE (composer reframe, adopted):** the app IS the
-  presentation score — ten-lane jury frame always (empty lanes = empty
-  staves), Score ⇄ Zoom the only view choice, fit-to-window, bar at the
-  bottom edge, ⚙ hides the slice-1 proofing views. **Playback = the
-  save's scope** (load T1's file → hear T1), live from source data.
-- **THE SURGE DEVICE (db1-t1-x01, the real F#1):** fill-only curve with
-  90° cut · dotted go line · nh-unit (open head + 7 accidentals incl.
-  quartertones + ledgers + 8va/8vb/15ma, piece #2's LOCKED laws ported:
-  D.6 gap, H.4c.3 ledger clearance, D.8.1/D.8.2, sessions 57/77 ottava)
-  right-anchored 0.25 ss before go · dynamics ppp→fff + ARROW (hairpin
-  replacement; NO derivation — registry dynPair, marks state LEVELS) ·
-  THE VERTICAL COLUMN STANDARD as registry data (articulation/dynamic/
-  instruction/ottava, 0.45 chain) · cursor = p2 neon magenta #FF15A0 3px ·
-  curveMeter = p2's follower mechanism (limeGreen, cursor−11).
-- **THE SAVE SHUFFLE:** `db1-t1` = THE DRAFT (0–55.94, canonical; 52
-  events, clouds auto-resolved 3 simple-bar + 4 proportional) ·
-  `db1-t1-x02` = working (0–17: the surge + THE FIRST FP at 14.54 —
-  **the fp device is the NEXT design target**). NH demos live at
-  nh-demo-01..05 (pruned, regenerable: tools/nh_demo.js).
-- **The composer's SECTION-1 HIERARCHY dictated** → COMPOSER_LOG day 22
-  verbatim + PLAN M5 third amendment (GC / beamed-Mists-units / lines+
-  animated-beat; ~500 ms threshold empirical; NOT acted on yet).
+**DAY 22 (2026-08-21, third sitting) — T1's SECOND NOTE (wc-23) DESIGNED
+ELEMENT BY ELEMENT; THE NOTE-OFF FINDING; THE IR BECOMES AUTHORITATIVE
+FOR SOUND. Claude Code / Fable 5.**
+- **Reframe (composer):** the unit of work is THE NOTE in source order,
+  not a technique-device — *"regardless if it is a fortepiano or not."*
+  T1 order: wc-3 (surge, done) → **wc-23 (G#1 fp, 14.544, this sitting)**
+  → wc-29 (staccato 17.749, NEXT).
+- **wc-23 now carries:** dotted go line (`#333`, composer: "always black
+  gray") · nh-unit (open head + ♯ + **8vb** by the 3-ledger rule) · THE
+  RING BAR (go line → sounding length 1.49 s, centered on the written
+  head, ⅔ brick height, black, opacity 0.65) · **sfzp** on the dynamic
+  slot. All registry data: `engraving.layout.devices` (byEnv / byTechnique
+  / per-item `device:{}` override) — fortepiano = goLine + nhUnit +
+  ringBar + dynMark 'sfzp'; the other four T1 fps inherit it.
+- **FINDING: the note-off was cutting the fp sample in half.** The archive
+  object is hand-drawn 0.70 s; the G#1 fp sample is 1.49 s (2n table);
+  composer heard the cut, the x03 probe (note-off moved to 1.49) proved it
+  by ear. → **D49: THE IR IS AUTHORITATIVE FOR SOUND** (`midiplayer.
+  withIrDurations`, per-play clone, archive untouched) + the ARCHIVE
+  AMENDMENTS protocol (`docs/ARCHIVE_AMENDMENTS.md`, ledger line 1 =
+  wc-23). Known gap: export_midi renders still play the raw archive (NITS).
+- **Fixes the composer hit live:** playhead readout (`t 14.54 s` pill,
+  T key / `t` box) · final page no longer stretched (constant px/s,
+  terminal barline + stop at the material's end) · bricks toggle is
+  behind ⚙.
+- **Glyph capture, short form:** `tools/glyph_probe_dyn_extra.js` (one LP
+  fixture at the locked −8.5 via piece #2's oracle read-only; sfz
+  re-extracted = byte-identical check) → fp/sfp/sfzp + accent/marcato in
+  `notation/glyph_sources/`, merged by `port_glyphs.js`.
 
 **Next up (cold pickup):**
-1. **Design the FORTEPIANO device** on db1-t1-x02 (wc-23, G#1 at
-   14.54–15.24, plain mode, fixed one-shot ~1.35–2.22 s ring — see
-   PLAN 2n): composer will drive element-by-element like the surge.
-2. Then walk db1-t1 (THE DRAFT) forward brick by brick; the hierarchy
-   (M5 third amendment) waits until the composer says go.
-3. Full trail: RUNNING_LOG day 22 (long; wrong turns kept).
+1. **Composer's look at wc-23 as a whole** (sfzp size vs the surge's ppp;
+   bar at 0.65) — then **wc-29, the first staccato (17.749)**, same
+   element-by-element method on `db1-t1-x02` (extend its window past 17 s
+   first: re-extract x02 with `--w1 20` or fork x03).
+2. Pending composer verdicts (§6): ottava vs low ledgers · the "FP3x"
+   performance note · the amendments protocol (accept/veto).
+3. Fold-in question logged for promotion: THE DRAFT's chunker swept wc-23
+   into a staccato cloud (ch-0-wc-23, proportional) — fixed one-shots must
+   stay out of clouds, or the device must apply inside streams.
+4. Full trail: RUNNING_LOG day 22 (three sittings; wrong turns kept).
 
 **Open at session end:**
-- G2/G3 formally unclosed (playback sitting effectively started G3).
-- Reaper render not yet recorded (midi/piece-s25-finished01.mid delivered;
-  60 BPM session) — MIDI live playback covers the loop meanwhile.
-- Ottava threshold question flagged: the real F#1 draws 8vb by the
-  3-ledger rule; tubists read low ledgers — composer verdict pending
-  (registry one-liner either way).
-- p-vs-f dynamic optical baseline = polish-eye item (glyphs center-aligned).
+- G2/G3 formally unclosed (the loop is running; close on paper when convenient).
+- Reaper render not yet recorded; when made, export_midi needs `--ir`
+  (withIrDurations) or the fps will be short in the render.
+- p-vs-f dynamic optical baseline = polish-eye item.
 
 ---
 
-**DAY 21 (2026-08-20/21, fourth sitting) — 8a: THE WHOLE PRE-NOTATION
-CRITICAL PATH (V0→V3) CODE-COMPLETE IN ONE SITTING. Claude Code /
-Fable 5.** Plan interrogation → container decided → two windows → motion
-→ the loop. The workshop is built; notating is what remains.
-- **Plan interrogation (composer), amendments [A21/A21b/A21c] → D46–D48:**
-  animated objects ARE in this score (D46, animation ≠ interactivity) ·
-  the build rejoins the §7 one-spine model (D47: realization = config,
-  clock = interface, one S1 timeline) · decide-vs-defer filter (D48) ·
-  prefatory gutter architecture (untimed dead space, cursor enters at
-  music start).
-- **V0 + G0 CLOSED:** proof slates A–G. Decided: no header · staff
-  31.6 px · budget policy A · CRIMSON PRO LIGHT (the lineage font,
-  vendored from piece #1) · PP-3. Data-variable items deferred with
-  provisional defaults. Spec = `notation/registry/container.json`.
-- **V1 + G1 CLOSED** (composer: "it looks good… the zoom view is
-  comfortable"): lane flexibility + zoomCfg (PP-6 proven) · engraving
-  registry + override channel + staff-off · the two chrome-free windows
-  in notation.html · system terminal barline · GLYPH_EXTENSION_CONTRACT.
-- **V2 BUILT:** transport.js = the D47 clock interface (audio-slaved,
-  injectable timebase) · animobj.js = the pure state(t)→SVG contract +
-  ALL FIVE ports (composer added motive pie) with determinism battery +
-  stateful prove-red · shell: overlay loop, ▶/SPACE, click-to-seek,
-  hard-cut turns; `drawOverlayFrame(t)` exposed = V4's export entry.
-- **V3 BUILT + RUN:** tools/notate_section.js (extract → validate-or-
-  delete → manifest → picker, one command) run on piece-open-01 (0–40)
-  + piece-trance-w1 (500–530); half-open window bug fixed BOTH sides
-  (A3 ownership law; goldens + 36-case battery green) ·
-  docs/NOTATION_POLISH.md created · protrusion detector filed its first
-  24 real items · all five animated objects observed LIVE on piece
-  material. Full trail: RUNNING_LOG day 21 (very long, wrong turns kept).
-
-**Next up:**
-1. **THE G2+G3 SITTING (~20 min, composer + the Reaper render):** play
-   piece-open-01 in video mode with audio (onsets-on-cursor by eye) ·
-   name one fresh window (closes G3) · two verdicts under motion:
-   system-turn (hard cut) + trance 12-vs-16 / apex time scale.
-2. **Then TIER-2 NOTATION BEGINS** — part by part, section by section
-   (M5 chunker experiments for section 1; new devices/glyphs per
-   material). V4/V5 exports + POL trail until submission. **SEPT 4.**
-3. Still open from the morning sittings: the end-to-end piece listen
-   (piece-s25-finished01, 12.5 min) + the ~2.5-min headroom question.
-
-**Open at session end:**
-- **G2/G3 pending** (agenda above); notation content is MIXED FIDELITY by
-  design until tier-2 work happens (parachute bricks are placeholders).
-- **Entry-line mystery (NITS):** pixel-verified rendering the composer
-  cannot see; revisit only if V2 visuals also diverge on their machine.
-- **2ad's formal gate** still unwaived (texture models UNHEARD-in-bank).
-- **Traps still live:** staccato 30–65 silent-note trap (Insertion strip
-  unhandled) · lazy-MIDI init · `tranceA003b.json` = assembler SRC, never
-  overwrite.
-
----
-
-- **Day 21 (earlier sittings):** trance section finished
-  (tranceA004-final01) and IN THE PIECE at 499.83 s — piece = 12.5 min ·
-  2ag live rig built · 2q resolved by ear (CC7 = loudness) ·
-  PAPER_NOTES #1–8.
-- **Days 19-20:** notation architecture A-D built end to end (D44, D45:
-  performance side = its own future project; parts first when notation
-  resumes); Penn State deliverables preplanned (PLAN 8a, runs post-piece).
-
-- **Days 18-19:** trance section written via console scripts (D41); 2ae/2af
-  built; E1+E1b run (D43); notation architecture confirmed (four strata).
-- **Day 17:** 2ab panel snapshots + 2ac multitempo rig built; 2ad proved to
-  need zero code. *(All unheard.)*
-- **Days 12-16:** morphs complete (2v, D24-26) · texture sandbox (2x, D33) ·
-  cluster sandbox (2p) · density pipeline (2t, D19-23) · collision avoidance
-  (2r, D17) · piece assembly through piece-s23. Compressions in §4/RUNNING_LOG.
+- **Day 22 (first + second sittings):** 8b machinery (sonify_core →
+  export_midi + live MIDI, hot reload, version files,
+  NOTATION_WORKFLOW.md) · THE COLLAPSE (the app IS the presentation score;
+  playback = the save's scope) · THE SURGE DEVICE on the real F#1 (curve,
+  go line, nh-unit, dyn pair + arrow, column standard, cursor/follower) ·
+  save shuffle (`db1-t1` = THE DRAFT 0–55.94; `db1-t1-x02` = working 0–17)
+  · Section-1 hierarchy dictated (PLAN M5 third amendment, not acted on).
+- **Day 21:** plan interrogation (D46–D48) · V0/G0 + V1/G1 closed · V2
+  (transport, animobj, the five ports) · V3 (notate_section.js loop) —
+  pre-notation critical path code-complete · trance section finished and
+  in the piece (12.5 min) · 2ag live rig · PAPER_NOTES #1–9.
+- **Days 19-20:** notation architecture A-D built end to end (D44, D45);
+  Penn State deliverables preplanned (PLAN 8a).
+- **Days 18-19:** trance section via console scripts (D41); 2ae/2af; E1+E1b
+  (D43); notation architecture confirmed (four strata).
+- **Day 17:** 2ab panel snapshots + 2ac multitempo rig; 2ad needs zero code.
+- **Days 12-16:** morphs (2v, D24-26) · texture sandbox (2x, D33) · cluster
+  sandbox (2p) · density pipeline (2t, D19-23) · collision avoidance (2r,
+  D17) · piece assembly through piece-s23.
 
 ## §3 Principles
 
@@ -216,8 +164,54 @@ Fable 5.** Plan interrogation → container decided → two windows → motion
    to be SEEN — color it.** *(2026-08-20, day 21, three instances; full
    trail in RUNNING_LOG.)*
 
+9. **Before measuring the sample, check who sends the note-off.** (day 22,
+   wc-23) A "sample sounds shorter than its table says" report had two
+   candidate causes: the probe's tail is inaudible, or playback cuts it.
+   One compiled number (note-off at the drawn 0.70 s = 47 % of the 1.49 s
+   bar = "about halfway") pointed at the second; a one-variable probe
+   (same note, note-off moved) and the composer's ear confirmed it in one
+   listen. The 2n probe held every note 5 s — a one-shot table measured
+   under a long hold says nothing about early note-offs.
+10. **Glyph capture, short form, with the equality check.** (day 22) A new
+   Emmentaler glyph = one LP fixture at the locked size + one extraction
+   through piece #2's oracle modules (read-only) — NOT the 10-step
+   protocol, whose other steps discovered numbers that are now locked.
+   Always re-extract one already-ported glyph in the same run: a
+   byte-identical path is the proof the pipeline is the same one.
+
 ## §4 Decisions
 
+- **D51** *(2026-08-21, day 22 — wc-23)* — **A FIXED ONE-SHOT'S NOTATED
+  LENGTH IS ITS MEASURED SAMPLE LENGTH, and the page shows it as THE RING
+  BAR.** Composer: *"we'll just go with that length because it sounds
+  good"* (2n table: G#1 fp = 1.49 s). The bar runs from the go line to
+  onset + sounding length, centered on the written head, ⅔ brick height,
+  black at 0.65. The dynamic is a single engraved mark on the column's
+  dynamic slot (**sfzp** for fortepiano — composer's choice after the
+  fp/sfp/sfzp briefing). *Rejected:* the drawn object length (0.70 s — it
+  was a hand-drawn approximation, and it was cutting the sample); a
+  derived dynamic (marks state levels, never derive — the day-22 rule).
+- **D50** *(2026-08-21, day 22 — wc-23)* — **DEVICE MEMBERSHIP IS REGISTRY
+  DATA, and the unit of notation work is THE NOTE in source order.**
+  `engraving.layout.devices`: byEnv (surge) → byTechnique (fortepiano) →
+  per-item `device:{}` override; one builder per element (nh-unit, go line,
+  ring bar, dyn pair, dyn mark, ottava). A settled note's device reaches its
+  siblings through the technique entry (§6 derivation). Composer's reframe:
+  *"I want to work on next note regardless if it is a fortepiano or not"*
+  — design the note, let the registry generalize. *Rejected:* a second
+  code block per technique (branches are where the bugs live); designing
+  "the fp device" as a category up front.
+- **D49** *(2026-08-21, day 22 — wc-23)* — **THE ARCHIVE IS FROZEN; THE IR
+  IS AUTHORITATIVE FOR SOUND; AMENDMENTS ARE A LEDGER.** When notation
+  finds a "finished" archive object wrong (wc-23's note-off cut its 1.49 s
+  sample at 0.70 s — composer's ear, x03 probe), the correction lives in
+  the IR (systematic → extractor rule; singular → override), the notation
+  app plays the IR (`midiplayer.withIrDurations`, a per-play clone), every
+  amendment gets a line in `docs/ARCHIVE_AMENDMENTS.md`, and folding back
+  into the archive is an explicit composer act. *Rejected:* editing the
+  archive score as a side effect; changing sonify_core's note-off law (it
+  is composer.html's extracted twin with a parity battery — the app would
+  have had to change too). Known divergence: export_midi renders (NITS).
 - **D48** *(2026-08-20, day 21 — deliverables sitting)* — **THE
   DECIDE-VS-DEFER FILTER: composer eye-time goes to LOCK-INS only.**
   *"Effective tests are ones that tell us flaws in the architecture… if
@@ -982,8 +976,21 @@ Fable 5.** Plan interrogation → container decided → two windows → motion
 
 ## §6 Human Notes
 
-- *(2026-08-21, day 21 — CURRENT)* **THE G2+G3 SITTING (~20 min) is the only
-  thing between here and notating:** play `piece-open-01` in video mode with
+- *(2026-08-21, day 22 third sitting — CURRENT)* **Three verdicts owed, none
+  blocking:** (1) **8vb vs low ledgers** — both the F#1 surge and the G#1
+  fp write an octave up under 8vb by the 3-ledger rule; tubists read low
+  ledgers. One registry number (`glyphs.standards.ottava.ledgerLineThreshold`,
+  now 3) flips every low note at once. (2) **"FP3x"** — the performance
+  note on wc-23 in the archive; if it means something performative, it is
+  a separate element on the note. (3) **The ARCHIVE AMENDMENTS protocol**
+  (`docs/ARCHIVE_AMENDMENTS.md`) was written to your ask — accept or amend
+  it; the first ledger line (wc-23) is in. Also: look at wc-23 whole
+  (sfzp next to the surge's ppp; the bar at 0.65) before wc-29 starts.
+- *(2026-08-21, day 21)* ~~**THE G2+G3 SITTING (~20 min) is the only thing
+  between here and notating**~~ *(effectively dissolved day 22: the loop
+  is running on db1-t1-x02 with live MIDI; close on paper when convenient —
+  the hard-cut turn and the animated objects have now been seen live.)*
+- *(2026-08-21, day 21)* **THE G2+G3 SITTING (~20 min)** — see the strike-through above; details kept: play `piece-open-01` in video mode with
   the Reaper render (onsets-on-cursor by eye) · name one fresh window
   ("notate X–Y of piece-s25") · verdicts under motion: hard-cut page turn ·
   trance 12-vs-16 / apex time scale · first look at all five animated

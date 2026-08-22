@@ -711,3 +711,28 @@ actual score — D6's reverse-engineering stance applied to notation.
    against intended USE ("I will be using all the animated objects"), not
    reviewing code — the plan document is the interface where such misses
    become visible before they become rebuilds.
+
+
+10. **Notation as an audit of the "finished" archive (day 22, wc-23).** The
+    second note of the piece, designed element by element, exposed a flaw in
+    the archive score that no amount of listening in the composer app had
+    surfaced: the hand-drawn fp object was 0.70 s long, and the playback
+    note-off at the drawn end cut the 1.49 s sample roughly in half. The
+    discovery chain is the paper-relevant part: (a) the notation drew the
+    note at its *measured* sample length (the 2n table), (b) the composer's
+    ear reported the sound ending "about halfway" along that bar, (c) one
+    compiled number (0.70/1.49 = 47 %) turned a vague report into a
+    hypothesis, (d) a one-variable probe (same note, note-off moved) let the
+    composer confirm it in a single listen. Two methodological consequences
+    were adopted on the spot: **the IR is authoritative for sound** in the
+    notation app (a per-play clone of the score; the archive is never
+    edited), and an **archive-amendments ledger** (`ARCHIVE_AMENDMENTS.md`)
+    that records each correction with its evidence and keeps fold-back an
+    explicit act. The broader claim: a notation layer that draws from
+    *measured* facts (sample lengths, thresholds) rather than from the drawn
+    object is a second, independent reading of the score, and disagreements
+    between the two readings are findings, not bugs. Also worth a sentence:
+    the composer's reframing of the unit of work — "the next note,
+    regardless of technique" — against the AI's instinct to design a
+    "device per technique"; generalization happened anyway, but as registry
+    data extracted from a settled note, not as an up-front category.
