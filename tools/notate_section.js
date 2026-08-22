@@ -357,6 +357,15 @@ const { doc, warnings } = Extract.extract(score, {
     console.log('  beam ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) +
       ' (' + members.map(e => e.source.objectId + ':' + e.technique).join(' ') + ')');
     console.log('    beam levels: ' + members.map(e => e.source.objectId + '=' + (RINGS.has(e.technique) ? '1 (primary only, it rings)' : '2 (a 16th)')).join(' · '));
+    // WHO CARRIES THE GC (registry figures.beam.gc): 'ring' = the first
+    // member that rings (the long note — composer, day 24: "let's shift the
+    // GC to the half note"), 'first' = member 1, false = none. A group with
+    // no ringing member falls back to the first, so the cue never vanishes.
+    const ringIdx = members.findIndex(e => RINGS.has(e.technique));
+    const gcRule = FIG_BM.gc != null ? FIG_BM.gc : 'first';
+    const gcIdx = gcRule === 'ring' ? (ringIdx >= 0 ? ringIdx : 0) : gcRule === 'first' ? 0 : -1;
+    if (gcRule === 'ring' && ringIdx < 0) console.log('    note: no ringing member — GC falls back to the first note');
+    console.log('    GC on ' + (gcIdx >= 0 ? members[gcIdx].source.objectId + ' (' + gcRule + ')' : 'none'));
     members.forEach((e, i) => {
       const firstOnly = v => v === 'first' ? i === 0 : !!v;
       const dev = {
@@ -364,13 +373,14 @@ const { doc, warnings } = Extract.extract(score, {
         noteBeams: RINGS.has(e.technique) ? 1 : 2,
         beamPos: i, noteUnits: 1,
         // the standards (registry engraving.layout.figures.beam): no go
-        // lines, GC on the first note only, first head centred on its go
-        // time, dynamics together above the beam
+        // lines, GC on the ringing note, every head centred on its go time,
+        // dynamics together above the beam
         goLine: firstOnly(FIG_BM.goLine != null ? FIG_BM.goLine : false),
-        gc: firstOnly(FIG_BM.gc != null ? FIG_BM.gc : 'first'),
+        gc: i === gcIdx,
         dynAboveBeam: FIG_BM.dynAboveBeam != null ? !!FIG_BM.dynAboveBeam : true,
       };
-      if (i === 0 && FIG_BM.firstAnchor) dev.nhAnchor = FIG_BM.firstAnchor;
+      const anch = FIG_BM.anchor || (i === 0 ? FIG_BM.firstAnchor : null);
+      if (anch) dev.nhAnchor = anch;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     });
   });

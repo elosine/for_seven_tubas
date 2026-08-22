@@ -940,8 +940,18 @@
               // "a short beam where the sixteenth note beam is, not something
               // that connects". Standard fractional-beam practice.
               const t = run[0];
-              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b + '-stub', stub: true,
-                tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off }, { t: t.t, dxSs: t.dxSs + stub, ySs: t.ySs + off }] });
+              // ...EXCEPT ON THE GROUP'S LAST NOTE, where it points LEFT (day 24,
+              // composer, on the third partial of T2's first group: "the beamlet
+              // should go inside the stem rather than protruding outside... on the
+              // left of the stem"). A right-pointing stub there hangs past the end
+              // of the primary beam and reads as material that is not written.
+              // Gould's rule too: a fractional beam points toward the group it
+              // belongs to, which for the final note is backwards.
+              const lastOfGroup = t === g.tips[g.tips.length - 1];
+              const dxA = lastOfGroup ? t.dxSs - stub : t.dxSs;
+              const dxB = lastOfGroup ? t.dxSs : t.dxSs + stub;
+              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b + '-stub', stub: true, inward: lastOfGroup || undefined,
+                tips: [{ t: t.t, dxSs: dxA, ySs: t.ySs + off }, { t: t.t, dxSs: dxB, ySs: t.ySs + off }] });
             }
             run = [];
           };

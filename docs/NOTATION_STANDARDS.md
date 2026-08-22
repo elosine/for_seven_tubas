@@ -49,8 +49,8 @@ precedes them. `@part` is required in a multi-part file.
 | Each note keeps its own technique device (head, ring bar, dot, dynamic) | "stem the half note, and then just connect it to the sixteenth note with a beam" | `--beam` writes ONLY stem/beam fields |
 | Beam levels are **derived**: a short one-shot is the 16th (two levels → a stub); anything that rings takes the primary only | "have the sixteenth stub on the first one" | `figures.beam.ringTechniques` |
 | **No go lines** | "get rid of that go line too" | `figures.beam.goLine: false` |
-| GC on the **first note only** | "remove the GC from the second one" | `figures.beam.gc: "first"` |
-| The first note's **head is centred on its go time** | "move the first black note head in so that it's centered on the go line" | `figures.beam.firstAnchor: "headCenter"` |
+| GC on the **RINGING note** — the long one whose entry needs the cue (`first` stays legal, and is the fallback when nothing rings) | "let's shift the GC to the half note" | `figures.beam.gc: "ring"` |
+| **Every** member's head is **centred on its go time** | "move the first black note head in so that it's centered on the go line" · then, once the half note carried the GC: "the note head should be centered on go time along with the GC" | `figures.beam.anchor: "headCenter"` |
 | The members' dynamics go **together on one row above the beam**; the beam is lowered to fit them | "when we have two consecutive dynamics like that, let's go ahead and put them together… they both need to be at the top because the sfzp won't fit below" | `figures.beam.dynAboveBeam: true`; `layout.js` group dyns row |
 
 ## Laws that apply to every beam (code, not numbers)
@@ -60,6 +60,7 @@ precedes them. `@part` is required in a multi-part file.
 | **A beam is FLAT. Always.** The group is levelled to the tip furthest from the staff and every stem moves with it | "Beams should always be flat" — a mixed fp+staccato group once sloped by half a space because each note took its own flag's height | `layout.js`, the group pass (day 24) |
 | **One stem direction per group**, decided by the member **furthest from the middle line**; ties go UP (the GC objects live under the staff) | T2's cluster: the first note (A3) made the group stem-down and the A1 three ledgers below got a 0.33 ss stem | `layout.js` groupDir pre-pass (day 24) |
 | A beam may be **lowered** — for accents, for a tuplet bracket, for the dynamics row — never raised past the flagged-stem height | "if you need to bring it down to accommodate the sfzp" | `layout.js` beamY rules |
+| **A beamlet on the group's LAST note points INWARD** (left of the stem); everywhere else it points right, toward the gap the note opens | "the beamlet should go inside the stem rather than protruding outside… on the left of the stem" | `layout.js` beamlet flush (day 24); Gould: a fractional beam points toward its own group |
 | A page cut is **never later than the page's window end** | the constant-time-scale page (day 22) drew [t0, t0+8]; a cut at 33.1 left 32.0–33.1 on no page | `notation/lib/splice.js` planPages (day 24) |
 
 ## The one-shot vocabulary (for completeness — settled days 22–23)
@@ -71,6 +72,36 @@ precedes them. `@part` is required in a multi-part file.
 | **staccato** | go line · GC · filled head 0.844 · 16th flag (flag-clear stem) · dot at 0.15 · one band dynamic beside the stem (D52) · unit 0.6 ss before go so the head clears the impact marker | `devices.byTechnique.staccato` |
 | **plain ord** (day 24, provisional) | go line · open nh-unit · band dynamic; no GC, no ring bar | `devices.byTechnique.ord` |
 | No ottava anywhere: tubists read ledgers (D54) | — | `glyphs.standards.ottava.ledgerLineThreshold 4` |
+
+## Deriving cluster dynamics (captured, NOT wired)
+
+Composer, day 24: *"forte with accents is good. We can capture that as a standard.
+I'm not sure we're ready for AI to generate the clusters, but let's just capture it
+in case that does happen."* No flag runs this — `--dyn` and `--accents` stay the
+composer's. It is written down so a generator starts from this reasoning.
+Lives in `figures.cluster.dynamicsRule`.
+
+1. Band every partial from its captured velocity (`dynamicBands`).
+2. **Ambient**: one dynamic at the *softer* level, not one per partial. Where the
+   level shifts mid-cluster, a second ambient at that point — in practice at a
+   beam-group start, taking that member's own band.
+3. **Accents**: every partial whose band is *above* its current ambient. Partials
+   at the ambient get nothing.
+
+**Why**: there is no engraved mark meaning "slightly softer" — the composer asked.
+The inverse is standard: state the soft level once, mark the loud ones.
+
+**Measured against both real clusters (day 24)** — this is the part a generator
+needs:
+
+| cluster | bands | rule gives | composer chose | verdict |
+|---|---|---|---|---|
+| cl-2 (T2, 6) | fff f fff f fff fff — **two** | ambient `f`, accents 1,3,5,6 | ambient `f`, accents 1,3,5,6 | **exact, derived independently** |
+| cl-1 (T1, 12) | mf/f/fff — **three** | ambients at members 1 and 9; accents 4,7,8 | dynamics on 1 and 9; accents 4,7,8,**12** | ambients and 3 of 4 accents; member 12's accent is *below* its ambient — a shaping choice on the final partial no velocity rule predicts |
+
+So: reliable for a two-band cluster, a starting point for a three-band one, never
+the last word. **A generated cluster should PROPOSE marks and say which partials it
+could not explain.**
 
 ## Per-note overrides (when one note must differ)
 

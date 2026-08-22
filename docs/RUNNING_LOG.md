@@ -7191,3 +7191,70 @@ composer's note confirms it was the right law.
   for the row), stub 7.9 px, zero go lines, one GC
 - nine batteries green (splice + layout + render snapshots all intentional
   no-ops or deliberate updates, each proven)
+
+### Three corrections that became standards: the GC on the ringing note, the inward beamlet, and the dynamics derivation (day 24)
+
+**1. The GC moves to the half note** (composer, reversing the earlier
+*"remove the GC from the second one"*): *"let's shift the GC to the half note…
+if the half note needs to shift, the note head should be centered on go time
+along with the GC."*
+
+- `figures.beam.gc` is now **`"ring"`** — the first member whose technique
+  rings (fortepiano/cuivre/ord), because the long note is the one whose entry
+  needs the cue. `"first"` stays a legal value and is the fallback when nothing
+  in the group rings, so the cue can never vanish; the tool prints which note
+  got it.
+- `figures.beam.firstAnchor` became **`anchor`** — EVERY member's head is now
+  centred on its go time, not just the first. Measured: both heads at dx 0.00.
+  The half note did not in fact need to shift for clearance (the GC impact
+  marker lives at the bottom of the lane, cy 212.6 in a lane running ~122–229,
+  while the head sits on the staff) — centring it is the alignment the composer
+  asked for, not a collision fix.
+
+**2. A beamlet on a group's LAST note points INWARD** (composer, on the third
+partial of T2's first group): *"the beamlet should go inside the stem rather
+than protruding outside… on the left of the stem."* A right-pointing stub there
+hangs past the end of the primary beam and reads as material that is not
+written. Gould agrees: a fractional beam points toward the group it belongs to,
+which for the final note is backwards.
+
+Audited every stub in the section afterwards — **exactly one flipped**:
+T2 cl-2a at 33.31, now `dx -0.18 → 0.82` (ending at the stem) where it was
+`0.82 → 1.82`. Live: `353→361` px where it was `361→369`. T1's three stubs
+(31.55, 31.89, 32.95) are untouched, because none of them is the last note of
+its group — the settled day-23 figure is safe.
+
+**3. The dynamics derivation, captured but deliberately NOT wired** (composer:
+*"forte with accents is good. We can capture that as a standard. I'm not sure
+we're ready for AI to generate the clusters, but let's just capture it in case
+that does happen."*) → `figures.cluster.dynamicsRule` + a section in
+NOTATION_STANDARDS.md.
+
+The rule: band every partial from its velocity · place ONE ambient mark at the
+*softer* level (a second where the level shifts, in practice at a beam-group
+start, taking that member's own band) · accent every partial whose band is
+above its current ambient. The reason it is the inverse of what the composer
+first reached for: **there is no engraved mark meaning "slightly softer"** —
+they asked directly. Stating the soft level once and marking the loud ones
+carries the same information in one dynamic.
+
+**Then measured against both real clusters, which is the part that matters:**
+
+| cluster | bands | rule gives | composer chose | verdict |
+|---|---|---|---|---|
+| cl-2 (T2, 6 partials) | fff f fff f fff fff — two | ambient `f`, accents 1,3,5,6 | ambient `f`, accents 1,3,5,6 | **exact, derived independently** |
+| cl-1 (T1, 12 partials) | mf/f/fff — three | ambients at members 1 and 9, accents 4,7,8 | dynamics on 1 and 9, accents 4,7,8,**12** | ambients right, 3 of 4 accents right; member 12's accent is BELOW its ambient — a shaping choice on the final partial that no velocity rule predicts |
+
+So the rule is reliable for a two-band cluster and a starting point for a
+three-band one. Filed with the instruction that a generator should **propose**
+marks and **say which partials it could not explain** — never auto-apply. This
+is the honest half: a rule that reproduced one cluster exactly would look
+trustworthy; testing it against the harder one is what shows its edge.
+
+**Verified** (rebuild + hard reload): tool prints `GC on wc-98 (ring)`; the
+pair draws one GC impact at the half note's go time (cx 1778.7) and zero go
+lines; both heads dx 0.00; the inward stub at 353→361; seven batteries green;
+`protrusion_detect` files the same 17 pre-existing accidental items and nothing
+new, so the centred heads cost no clearance. (It also appends its section on
+every run — the duplicate from today's second run was removed by hand; worth a
+`--dry` habit or a dedupe in the tool.)

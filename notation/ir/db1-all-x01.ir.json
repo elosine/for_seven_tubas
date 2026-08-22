@@ -13524,7 +13524,7 @@
      "beamPos": 0,
      "noteUnits": 1,
      "goLine": false,
-     "gc": true,
+     "gc": false,
      "dynAboveBeam": true,
      "nhAnchor": "headCenter"
     }
@@ -13545,8 +13545,9 @@
      "beamPos": 1,
      "noteUnits": 1,
      "goLine": false,
-     "gc": false,
-     "dynAboveBeam": true
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "headCenter"
     }
    },
    "provenance": "authored"

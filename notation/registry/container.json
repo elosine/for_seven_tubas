@@ -95,14 +95,26 @@
           "nhAnchor": "leftEdge", "nhHead": "filled", "nhHeadScale": 0.844, "nhDot": true, "nhDotGapSs": 0.15,
           "dynBesideStem": false,
           "dynamics": "ambient+accents",
+          "dynamicsRule": {
+            "_status": "CAPTURED, NOT WIRED (day 24, composer: 'forte with accents is good. We can capture that as a standard. I'm not sure we're ready for AI to generate the clusters, but let's just capture it in case that does happen'). No flag runs this; --dyn and --accents stay the composer's. It is written down so a future generator starts from the composer's own reasoning rather than re-deriving it.",
+            "rule": [
+              "1. Band every partial from its captured velocity (engraving.layout.dynamicBands).",
+              "2. AMBIENT: place one dynamic at the SOFTER level, not one per partial. Where the level shifts mid-cluster, place a second ambient at that point — in practice at a beam-group start, taking that member's own band.",
+              "3. ACCENTS: every partial whose band is ABOVE its current ambient gets an accent; partials AT the ambient get nothing.",
+              "4. The result is the ambient+deviation shape from DYNAMICS_FRAMEWORK: 'loud, slightly softer, loud, slightly softer, loud loud' is ONE f plus accents, never fff f fff f fff fff."
+            ],
+            "_why": "There is no engraved mark meaning 'slightly softer' (the composer asked). The inverse exists and is standard: state the soft level once, mark the loud ones. One dynamic instead of six.",
+            "_validation": "MEASURED against both real clusters, day 24. cl-2 (T2, 6 partials, velocities 121 105 121 109 127 127 = two bands fff/f): the rule gives ambient f + accents 1,3,5,6 — EXACTLY the composer's own choice, derived independently. cl-1 (T1, 12 partials, three bands mf/f/fff): the rule reproduces the two ambients (members 1 and 9, at the two beam-group starts) and three of four accents (4,7,8) but NOT the accent on member 12, whose band (f) is BELOW its ambient (fff) — a shaping decision on the final partial that no velocity rule predicts. So: reliable for a two-band cluster, a starting point for a three-band one, never the last word.",
+            "_confidence": "Do not auto-apply. A generated cluster should PROPOSE marks under this rule and say which partials it could not explain."
+          },
           "_note": "A CLUSTER (D56): a composer-named span of partials on ONE analysed tempo. Go line and GC on the FIRST partial only ('the GC only on the first one, so it launches the whole cluster'); every partial's NOTEHEAD LEFT EDGE sits on its own go time ('because of the scrolling person'); filled head at the 0.844 cell scale, staccato dot at the 0.15 tight gap; every partial written as a 16th, gaps as rests, the second beam level as beamlets (beamStubSs). Dynamics = the ambient+deviation model (DYNAMICS_FRAMEWORK): one ambient mark on a chosen member, ACCENTS on the members louder than it — 'loud, slightly softer, loud' is f with accents, not fff f fff. Per-partial marks remain available (--dyn n,n,n)."
         },
         "beam": {
-          "goLine": false, "gc": "first",
-          "firstAnchor": "headCenter",
+          "goLine": false, "gc": "ring",
+          "anchor": "headCenter",
           "dynAboveBeam": true,
           "ringTechniques": ["fortepiano", "cuivre", "ord"],
-          "_note": "A BEAM (day 24): notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests. The short one-shot is the 16th (two beam levels, so the second level is a stub); anything in ringTechniques is the long note (primary beam only). NO go lines ('get rid of that go line too'); GC on the first note only; the first note's HEAD is centred on its go time; the members' dynamics go TOGETHER on one row ABOVE the beam, the beam lowered to fit them ('they both need to be at the top because the sfzp won't fit below')."
+          "_note": "A BEAM (day 24): notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests. The short one-shot is the 16th (two beam levels, so the second level is a stub); anything in ringTechniques is the long note (primary beam only). NO go lines; GC on the RINGING note (day 24, composer: 'let's shift the GC to the half note' - the long note is the one whose entry needs the cue; 'first' stays legal and is the fallback when no member rings); EVERY member's HEAD is centred on its go time (first on the 16th, then on the half note once it carried the GC: 'the note head should be centered on go time along with the GC'); the members' dynamics go TOGETHER on one row ABOVE the beam, the beam lowered to fit them ('they both need to be at the top because the sfzp won't fit below')."
         },
         "_beamsAreFlat": "A beam is FLAT, always — layout levels every group to the tip furthest from the staff and moves the stems with it (the group's height, never a member's: a mixed fortepiano+staccato group once sloped by half a space because each note derived the beam from its own flag). Not a number — a law in notation/lib/layout.js, restated here so it is found."
       },

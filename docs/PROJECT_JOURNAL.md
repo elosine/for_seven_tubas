@@ -123,6 +123,26 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   fit. Composer's note *"beams should always be flat"* confirmed the
   levelling law from the previous sitting.
 
+- **Three more corrections, all captured as STANDARDS rather than per-note
+  edits** (day 24, later): (1) **the GC sits on the RINGING note** of a beam,
+  not the first — *"let's shift the GC to the half note"* — and EVERY member's
+  head is centred on its go time (`figures.beam.gc: "ring"`, `anchor:
+  "headCenter"`); (2) **a beamlet on a group's LAST note points INWARD** —
+  *"inside the stem rather than protruding outside"* — everywhere else it
+  still points right; audited every stub, exactly one flipped, T1's three are
+  untouched; (3) **the cluster dynamics derivation is written down but NOT
+  wired** (`figures.cluster.dynamicsRule`), at the composer's request — *"I'm
+  not sure we're ready for AI to generate the clusters, but let's just capture
+  it in case that does happen."*
+- **The dynamics rule was tested, not just stated.** Ambient at the softer
+  level + accents above it reproduces T2's cluster EXACTLY (independently
+  derived: ambient f, accents 1,3,5,6) but on T1's 12-partial three-band
+  cluster it gets both ambients and 3 of 4 accents — member 12's accent is
+  BELOW its ambient, a shaping choice no velocity rule predicts. Filed as
+  "propose and say what you could not explain", never auto-apply. **There is
+  no engraved mark for "slightly softer"** — the composer asked; the inverse
+  (state the soft level once, accent the loud ones) is the standard answer.
+
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
 day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at
