@@ -5604,3 +5604,23 @@ dictated, the save-shuffle established, T1 facts scanned.**
   24.29-30.75 (simple-bar chunk). When wc-23 is promoted, the classifier
   must keep fixed one-shots out of clouds (or the device must apply inside
   streams) — a §6 derivation question for the promotion step.
+- **Go line color:** composer — *"keep that go line always black gray,
+  whatever it was before... previous AI figure[d] out all the opacity,
+  etcetera settings. Those were all fine. Just change the color back."*
+  It had been surge green since the port (no earlier color exists; a repo
+  grep of piece #1 found nothing under that name) → `#333`, width/opacity/
+  dash untouched (registry engraving.render.goLine).
+- **wc-23 element 2 — THE RING BAR (composer spec, verbatim-ish):** a
+  black line centered on the notehead's vertical center; left edge flush
+  with the go line; thickness ~2/3 of the blue brick's height; right edge
+  *"precisely to whatever we said that length of a sample"*; always black
+  unless otherwise specified. Built: layout item `ringbar` (t0 = onset,
+  t1 = onset + duration — for fixed one-shots the 2n sample length, so
+  1.49 s here; ySs = the WRITTEN head position incl. ottava shift, hoisted
+  out of the nh-unit block so either element can stand alone) · render
+  rect from registry engraving.render.ringBar { hSs 0.667, #111, opacity
+  1 } · fortepiano device gains ringBar. Battery: fp ring bar spans
+  1..2.49 at ySs -2; surge has none. Suites green.
+- Verified live (db1-t1-x02 page 2): bar x 1000.47 = go line x; width
+  557.86 = the brick's; height 5.27 = 2/3 x 7.9; bar center y 75.20 =
+  open-head bbox center 75.20 (measured via CTM). Go line stroke #333.

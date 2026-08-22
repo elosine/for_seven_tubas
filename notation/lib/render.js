@@ -31,7 +31,12 @@
       // "go line not visible" -> thicker/darker dashes, AI-intuited numbers).
       // Green = this piece's surge color (#2E7D32).
       envCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.3, color: '#2E7D32' },
-      goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#2E7D32' },
+      // go line: near-black (composer, day 22 second note: "always black
+      // gray" — the surge green was never meant for it); width/opacity/dash
+      // = the retuned numbers, untouched
+      goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#333' },
+      // the ring bar (wc-23 element 2): 2/3 of the brick height, always black
+      ringBar: { hSs: 0.667, color: '#111', opacity: 1 },
     }, (opts && opts.engraving) || {});
     const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
@@ -252,6 +257,16 @@
           parts.push('<line x1="' + gx + '" y1="' + sys.yTopPx.toFixed(1) + '" x2="' + gx + '" y2="' + sys.yBotPx.toFixed(1) +
             '" stroke="' + GL.color + '" stroke-width="' + GL.wPx + '" stroke-opacity="' + GL.opacity +
             '" stroke-dasharray="' + GL.dash + '"/>');
+        } else if (it.k === 'ringbar') {
+          // the sounding-length bar: left edge flush with the go line,
+          // right edge at onset + sounding length, centered on the written
+          // head; clipped to the page like a brick
+          if (it.t1 < w0 || it.t0 > w1) continue;
+          const RB = E.ringBar;
+          const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
+          const h = RB.hSs * ssPx;
+          parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
+            '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
         } else if (it.k === 'brick') {
           if (o.hideBricks) continue;   // day 22: the bricks toggle
           if (it.t1 < w0 || it.t0 > w1) continue;

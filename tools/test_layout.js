@@ -174,6 +174,11 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on 
   ok(F.some(i => i.k === 'glyph' && i.g === 'notehead-open' && i.ySs === -2) && F.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'fortepiano: open head (written G#2) + sharp');
   ok(F.some(i => i.k === 'ottava' && i.label === 'vb8') && has(F, 'ledger') === 0, 'fortepiano G#1: 8vb, no ledgers');
   ok(has(F, 'brick') === 1, 'fortepiano: the brick stays until the device is complete');
+  // the ring bar: go line -> onset + sounding length (1.49 = the measured
+  // G#1 fp sample), centered on the WRITTEN head (G#2 under 8vb = -2)
+  const rb = F.find(i => i.k === 'ringbar');
+  ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - 2.49) < 1e-9 && rb.ySs === -2, 'fortepiano: ring bar spans onset..onset+1.49 at the written head');
+  ok(has(S, 'ringbar') === 0, 'surge: no ring bar');
   ok(has(K, 'goline') === 0 && has(K, 'glyph') === 0 && has(K, 'brick') === 1, 'staccato: brick alone');
   // per-item override: give the fp a dyn pair; take the surge's curve away
   const ov = JSON.parse(JSON.stringify(dir));

@@ -119,7 +119,7 @@
     // is how a settled note's device reaches its siblings (§6 derivation).
     const DEV = Object.assign({
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
-      byTechnique: { fortepiano: { goLine: true, nhUnit: true } },
+      byTechnique: { fortepiano: { goLine: true, nhUnit: true, ringBar: true } },
     }, o.devices || {});
     const deviceOf = e => Object.assign({},
       (DEV.byTechnique || {})[e.technique] || {},
@@ -181,6 +181,23 @@
               items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: !!dev.cut });
             }
             if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
+            // the WRITTEN position (shared by the nh-unit and the ring bar):
+            // ottava = smallest shift bringing the written note within 3
+            // ledger lines (|ySs| <= 5); one octave = 3.5 staff steps
+            const stds = glyphs.standards;
+            const spN = spelledOf(e);
+            let yDraw = staffPosBass(spN);
+            const th = 2 + ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3);
+            let octShift = 0;
+            while (yDraw > th) { yDraw -= 3.5; octShift++; }
+            while (yDraw < -th) { yDraw += 3.5; octShift--; }
+            // THE RING BAR (wc-23 element 2, day 22, composer spec): a black
+            // bar whose left edge is flush with the go line and whose right
+            // edge is exactly the note's sounding length (for fixed
+            // one-shots = the measured sample length, the 2n law), centered
+            // on the written notehead's vertical center; thickness = 2/3 of
+            // the brick height (registry engraving.render.ringBar).
+            if (dev.ringBar) items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + e.duration, ySs: yDraw, ev: e.id });
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
@@ -190,16 +207,7 @@
               // glyphs.standards (accidental gap D.6 · ottava sessions
               // 57/77 · engage rule = staffRouter's 3-ledger threshold).
               {
-                const stds = glyphs.standards;
                 const nhO = glyphs.notehead.open;
-                const spN = spelledOf(e);
-                let yDraw = staffPosBass(spN);
-                // ottava: smallest shift bringing the WRITTEN note within
-                // 3 ledger lines (|ySs| <= 5); one octave = 3.5 staff steps
-                const th = 2 + ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3);
-                let octShift = 0;
-                while (yDraw > th) { yDraw -= 3.5; octShift++; }
-                while (yDraw < -th) { yDraw += 3.5; octShift--; }
                 const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
                 const ledgers = ledgersFor(yDraw);
                 // SYSTEMIC anchor rule (day 22 round 2): the gap before the
