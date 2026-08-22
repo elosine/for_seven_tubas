@@ -442,9 +442,11 @@
       "instruction",
       "spelling",
       "grouping",
-      "strategy"
+      "strategy",
+      "engraving"
      ]
     },
+    "_kindNote": "day 23 amendment 6: 'engraving' — the V1 per-item override channel (value.device = a device-membership override; also stemDir, spelled, nudges). layout.js has consumed it since day 22, but the enum never listed it, so a VALIDATED IR could not carry one — the channel existed only in hand-built test objects. Found the moment the first real one was written (the composer's beamed cluster, notate_section --cluster).",
     "target": {
      "type": "object",
      "minProperties": 1,

@@ -6378,3 +6378,37 @@ dictated, the save-shuffle established, T1 facts scanned.**
     inserts at position 0, corrupting layout.js twice. Restored from git
     both times. Lesson: bound a slice by searching FORWARD from the start
     index, and assert the slice is non-empty and plausible before using it.
+- **Warnings off the score (composer: "get rid of the warning text at the
+  bottom of the score — that's a bit distracting; we'll just talk about it
+  as they come up"):** layout warnings now go to the browser console in the
+  presentation views (video/zoom); `#err` keeps only real errors
+  (exceptions). The proofing views behind ⚙ still print them.
+- **THE FIRST BEAMED CLUSTER — 31.49–33.59, eight notes** (composer:
+  "let's treat this as one cluster... just see the smaller notehead at each
+  of those positions... stem them all... a single beam above the staff
+  line, at the same height as our flagged ones, whatever that long stem
+  was... and nothing else"). Members: wc-101 wc-106 wc-113 wc-114 wc-119
+  wc-126 wc-133 wc-138 (31.549–33.468).
+  - Built as the AUTHORED channel, not a new chunk class: `notate_section
+    --cluster t0-t1` (repeatable) writes one `engraving` overlay per member
+    carrying the cluster device — small filled head (0.844), stem to the
+    beam, centred on the onset, everything else off (no go line, GC, ring
+    bar, dot, dynamic). Written at extraction, so a re-extract keeps it;
+    the span is the composer's judgment, never the chunker's.
+  - Layout: `nhStem: 'beam'` + `device.beamGroup` — members' stems reach
+    the BEAM LINE and their tips accumulate into ONE beam item per group.
+    **The beam height is derived, not chosen: staff edge + flag clearance
+    + a flag's height = 2 + 0.38 + 3.008 = 5.388 ss**, i.e. exactly a lone
+    flagged one-shot's stem tip, so cluster and one-shot top out together
+    (asserted both ways in the battery). A group of one draws no beam and
+    warns.
+  - **SCHEMA GAP FOUND AND CLOSED (amendment 6):** `layout.js` has consumed
+    `kind: 'engraving'` overlays since day 22 (the V1 per-item override
+    channel), but the schema's overlay-kind enum never listed it — so a
+    VALIDATED IR could never carry one; the channel existed only in
+    hand-built test objects. The first real one failed validation
+    immediately, which is the validator doing its job.
+  - Verified live (page 3): 8 small filled heads · 8 stems, every top at
+    y 16.8 · ONE beam 1228.6→1528, 3.16 px thick at y 16.8 — the same
+    height as the flagged one-shots' stem tips · warning strip empty.
+    Ledgers and accidentals kept (pitch is not "else"); flag if not wanted.

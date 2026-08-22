@@ -434,7 +434,13 @@
         ' · page ' + (state.pageIdx + 1) + '/' + state.vPages.length +
         ' · ' + vt0.toFixed(1) + '–' + vt1.toFixed(1) + ' s · staff ' +
         (view.system(parts[0]).ssPx * 4).toFixed(1) + 'px';
-      $('err').textContent = (state.model.warnings || []).join('\n');
+      // day 23 (composer: "get rid of the warning text at the bottom of the
+      // score — that's a bit distracting; we'll just talk about it as they
+      // come up"): layout warnings go to the console in the presentation
+      // views, never onto the page. #err stays for real errors (exceptions).
+      const _warn = state.model.warnings || [];
+      if (_warn.length) console.warn('[notation] ' + _warn.length + ' layout warning(s):\n' + _warn.join('\n'));
+      $('err').textContent = '';
     } catch (e) { $('err').textContent = String(e.stack || e); }
   }
 

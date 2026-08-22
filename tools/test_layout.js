@@ -342,6 +342,38 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   const F2 = one(ov, 'f'), S2 = one(ov, 's');
   ok(has(F2, 'dynarrow') === 1 && F2.some(i => i.g === 'dyn-f') && F2.some(i => i.g === 'dyn-p'), 'override: fp gains an f->p pair');
   ok(has(S2, 'envcurve') === 0 && has(S2, 'goline') === 1, 'override: surge curve off, go line stays');
+  // ---- THE BEAMED CLUSTER (day 23, composer: "treat this as one cluster...
+  // the smaller notehead at each position, stem them all, a single beam
+  // above the staff at the same height as our flagged ones, nothing else") ----
+  {
+    const CL = { device: { goLine: false, gc: false, ringBar: false, dynMark: false, nhDot: false,
+      nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'beam', nhAnchor: 'center', beamGroup: 'cl-1' } };
+    const cl = JSON.parse(JSON.stringify(dir));
+    cl.events = [0, 1, 2].map(n => ({ id: 'c' + n, onset: 1 + n * 0.3, duration: 0.46,
+      pitch: { midi: 43, spelled: { step: 'G', alter: 0, octave: 2 } }, technique: 'staccato', provenance: 'derived', mode: 'plain', vel: 90 }));
+    cl.chunks = [{ id: 'cc', part: 0, span: [1, 2.5], class: 'fixed-oneshot', strategy: 'unresolved', events: ['c0', 'c1', 'c2'] }];
+    cl.overlays = cl.events.map(e => ({ id: 'ov-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: CL, provenance: 'authored' }));
+    const L = Layout.layoutSection(cl, G);
+    const its = L.systems[0].items, cnt = k => its.filter(i => i.k === k).length;
+    ok(its.filter(i => i.k === 'glyph' && i.g === 'notehead').length === 3 && its.every(i => i.k !== 'glyph' || i.g !== 'notehead' || i.scale === 0.844), 'cluster: a small filled head at every position');
+    ok(cnt('stem') === 3 && cnt('dot') === 0 && cnt('goline') === 0 && cnt('gc') === 0 && !its.some(i => /^dyn-/.test(i.g || '')), 'cluster: stems only — no dot, go line, GC or dynamic');
+    const bm = its.find(i => i.k === 'beam');
+    ok(bm && bm.tips.length === 3 && bm.dir === 'up' && bm.group === 'cl-1', 'cluster: ONE beam over all three');
+    // the beam sits at the flagged one-shot's stem tip: staff edge + flag
+    // clearance + a flag's height — asserted against the constants, and
+    // against a real flagged note laid out from the same registry
+    const expectY = 2 + 0.38 + G.flag.up8.hSs;
+    ok(bm && bm.tips.every(t => Math.abs(t.ySs - expectY) < 1e-9), 'cluster: beam at the flagged-stem height (' + (bm && bm.tips[0].ySs.toFixed(3)) + ' = 2 + 0.38 + ' + G.flag.up8.hSs + ')');
+    ok(its.filter(i => i.k === 'stem').every(st => Math.abs(st.yB - expectY) < 1e-9), 'cluster: every stem reaches the beam');
+    const kfTip = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
+    ok(kfTip && Math.abs(kfTip.ySs - expectY) < 1e-9, 'cluster: a lone flagged one-shot tops out at the same height');
+    // a one-note cluster draws no beam and warns
+    const solo = JSON.parse(JSON.stringify(cl));
+    solo.events = solo.events.slice(0, 1); solo.chunks[0].events = ['c0']; solo.overlays = solo.overlays.slice(0, 1);
+    const L1 = Layout.layoutSection(solo, G);
+    ok(!L1.systems[0].items.some(i => i.k === 'beam') && L1.warnings.some(w => /beam group "cl-1" has 1 note/.test(w)), 'cluster of one: no beam + a warning');
+  }
+
   // registry opts replace the code defaults wholesale
   const R = Layout.layoutSection(JSON.parse(JSON.stringify(dir)), G, { devices: { byEnv: {}, byTechnique: {} } }).systems[0].items;
   ok(has(R, 'goline') === 0 && has(R, 'envcurve') === 0 && has(R, 'brick') === 3, 'empty devices map: bricks only');

@@ -18,6 +18,7 @@
 //                            the app hot-reloads it within ~1 s.
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
+//   --cluster t0-t1          mark a span as one beamed cluster (repeatable; authored overlays)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
 // Steps: extract (extract_core, same as ir_extract.js) -> validate
@@ -127,6 +128,35 @@ const { doc, warnings } = Extract.extract(score, {
 // no bars, no beams. The chunker's grouping is not lost — it is simply not
 // applied; a plain re-extract without --bricks brings it back. Working files
 // only (the canonical extraction keeps the chunker's strategies).
+// --cluster t0-t1 (day 23, the composer's working loop): mark a span as ONE
+// beamed cluster — every event whose onset falls inside gets an engraving
+// overlay carrying the cluster device (small filled head, stem to the beam,
+// nothing else). Repeatable: --cluster 31.49-33.59 --cluster 36.2-38.3.
+// Written at EXTRACTION so a re-extract keeps it; the span is the composer's
+// judgment, not the chunker's.
+{
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--cluster') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+    if (!m) { console.error('--cluster needs t0-t1 (e.g. --cluster 31.49-33.59)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2])]);
+  }
+  spans.forEach((sp, n) => {
+    const key = 'cl-' + (n + 1);
+    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9);
+    if (!members.length) { console.error('--cluster ' + sp.join('-') + ': no events in the span'); process.exit(2); }
+    for (const e of members) doc.overlays.push({
+      id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id },
+      value: { device: {
+        goLine: false, gc: false, ringBar: false, dynMark: false, dynBesideStem: false, nhDot: false,
+        nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'beam', nhAnchor: 'center', beamGroup: key,
+      } },
+      provenance: 'authored',
+    });
+    console.log('  cluster ' + key + ': ' + members.length + ' notes ' + sp[0] + '-' + sp[1] + ' s (' + members.map(e => e.source.objectId).join(' ') + ')');
+  });
+}
 if (flag('bricks')) {
   // devices go too (day 23 bug): the chunker's cloud-landing GC is a
   // GROUPING artifact — left behind, animobj still made a ball for it

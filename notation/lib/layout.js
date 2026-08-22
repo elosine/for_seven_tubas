@@ -192,6 +192,11 @@
     // IR's own parts (proofing views, tests, exports unchanged).
     const systems = (o.frameParts || ir.source.parts).map(part => {
       const items = [];
+      // BEAMED CLUSTER (day 23, composer): notes carrying the same
+      // device.beamGroup are drawn as small heads + stems reaching ONE beam
+      // held at the flagged-stem height. Tips accumulate here and flush to a
+      // single beam item after the chunk walk.
+      const beamGroups = new Map();
       // staff lines, minus any authored staff-off spans for this part
       const offs = staffOff.filter(s => s.part === part)
         .map(s => [Math.max(w0, s.span[0]), Math.min(w1, s.span[1])])
@@ -335,7 +340,7 @@
                 // as on metric notes. Attach points come from THIS head's
                 // own anchors; length = the one-octave default, extended to
                 // the middle line outside the staff (stemLenFor).
-                const stemKind = dev.nhStem === 'flag8' || dev.nhStem === 'plain' ? dev.nhStem : null;
+                const stemKind = dev.nhStem === 'flag8' || dev.nhStem === 'plain' || dev.nhStem === 'beam' ? dev.nhStem : null;
                 const engS = engOf(e.id);
                 const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir : (yDraw >= 0 ? 'down' : 'up');
                 const attA = stemDir === 'up' ? nhO.anchors.stemAttachUp : nhO.anchors.stemAttachDown;
@@ -492,14 +497,10 @@
                   // 3 px at the jury frame's 7.9 px/ss; p2 used 1.0). The
                   // flag's near edge clears the outer staff line — or the
                   // CHAIN stacked above the staff, when the chain is up there
-                  // (then the mark sits between the staff and the flag). The
-                  // default length wins when it is already longer.
+                  // and not beside the stem. The default length wins when it
+                  // is already longer.
                   if (flagG && dev.nhStemRule === 'flagClear') {
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
-                    // the chain above a flagged unit sits BESIDE the stem (day 23,
-                    // composer: "the right edge of the dynamic clears the stem"), so
-                    // the flag clears only the staff; a device without dynBesideStem
-                    // keeps the under-the-flag stack and the stem clears the chain
                     const beside = !!dev.dynBesideStem;
                     const clearTop = STAFF_EDGE + (chainAbove && underFlag && !beside ? needAbove : 0);
                     const need = stemDir === 'up'
@@ -507,7 +508,21 @@
                       : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
                     L = Math.max(L, need);
                   }
-                  const yEnd = stemDir === 'up' ? yStart + L : yStart - L;
+                  let yEnd = stemDir === 'up' ? yStart + L : yStart - L;
+                  // A BEAM MEMBER'S STEM REACHES THE BEAM (day 23, composer:
+                  // "a single beam above the staff line... at the same height
+                  // as our flagged ones, whatever that long stem was"). The
+                  // beam line is exactly the flagged-stem tip: the staff edge
+                  // + the flag clearance + a flag's height, so a beamed
+                  // cluster and a lone flagged one-shot top out together.
+                  if (stemKind === 'beam') {
+                    const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
+                    const beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + glyphs.flag.up8.hSs);
+                    yEnd = stemDir === 'up' ? beamY : -beamY;
+                    const key = dev.beamGroup || 'beam';
+                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [] });
+                    beamGroups.get(key).tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
+                  }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}));
@@ -727,6 +742,14 @@
           const p = placed.get(e.id);
           items.push({ k: 'dot', t: e.onset, dxSs: p.dx, ySs: dotYFor(p.ySs, p.stemDir) });
         }
+      }
+      // one beam per group, drawn after the notes (a beam of 1 is a lone
+      // stem — no beam, and a warning: the composer's cluster caught a
+      // single note)
+      for (const [key, g] of beamGroups) {
+        if (g.tips.length < 2) { warnings.push('beam group "' + key + '" has ' + g.tips.length + ' note(s) — no beam drawn'); continue; }
+        g.tips.sort((a, b) => a.t - b.t);
+        items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
       }
       return { part, items };
     });
