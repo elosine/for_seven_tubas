@@ -1465,6 +1465,9 @@
      "beamPos": 0,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 2,
+     "noteBeams": 1,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1496,6 +1499,9 @@
      "beamPos": 2,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 2,
+     "noteBeams": 1,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1527,6 +1533,9 @@
      "beamPos": 4,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1558,6 +1567,9 @@
      "beamPos": 5,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -1590,6 +1602,9 @@
      "beamPos": 6,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 2,
+     "noteBeams": 1,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1621,6 +1636,9 @@
      "beamPos": 8,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 2,
+     "noteBeams": 1,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1652,6 +1670,9 @@
      "beamPos": 10,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -1684,6 +1705,9 @@
      "beamPos": 11,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -1716,6 +1740,9 @@
      "beamPos": 14,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1747,6 +1774,13 @@
      "beamPos": 15,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "tupletGroup": "cl-1-tp10",
+     "tupletNum": 3,
+     "tupletDen": 2,
+     "tupletStartPos": 15,
+     "tupletSlot": 0,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1778,6 +1812,13 @@
      "beamPos": 16,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "tupletGroup": "cl-1-tp10",
+     "tupletNum": 3,
+     "tupletDen": 2,
+     "tupletStartPos": 15,
+     "tupletSlot": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1809,6 +1850,9 @@
      "beamPos": 17,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasTuplet": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }

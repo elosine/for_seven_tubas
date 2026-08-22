@@ -6626,3 +6626,43 @@ dictated, the save-shuffle established, T1 facts scanned.**
   the bracket gets drawn like the ottava, and "3:2" is set in the app's own
   notation font (Crimson Pro) at the measured proportions. Saved to
   `notation/glyph_sources/tuplet_extra.json`.
+- **FIGURE 1 REWRITTEN AT TRUE DURATIONS + FIGURE 2'S 3:2 TUPLET (composer
+  go).** The spacing analysis that preceded it: the score is PROPORTIONAL
+  (x = real time) while beams/flags/rests are METRIC symbols, so the page
+  tells two stories that disagree by up to 36 ms = 5.6 px. But the bigger
+  cause in figure 1 was MINE: I had written all eight notes as 16ths with
+  rests at the empty positions ("we can think of them all as sixteenth
+  notes or shorter"), so every note looked identical and the eye expected
+  even spacing. **The composer diagnosed it themselves** — *"the beaming
+  suggests a series of twelve evenly spaced sixteenth notes, but that's
+  not what it looks like."*
+  - Fixed: each member's WRITTEN VALUE is now its duration to the next
+    attack in grid units — **8th 8th 16th 16th 8th 8th 16th 16th**. Two
+    consequences, both visible: the four internal rests VANISH (an 8th
+    fills its own gap), and the **secondary beam now runs only over
+    consecutive 16ths** (two short segments, 1344–1369 and 1502–1531)
+    instead of the full width — so the beam pattern itself shows which
+    notes are close and which are apart. Staccato dots still carry the
+    shortness, so nothing is lost musically. Last member of a beam group
+    is capped at one unit (a group never spills past its own end).
+  - **The 3:2 tuplet** on members 10–11: bracket 34.129→34.473 (grid
+    15–16 = 344 ms), three slots of 114.7 ms, the third an in-bracket
+    16th rest at 34.358. Error on member 11 improves from −36 to +21 ms,
+    and — the point — the triplet SHOWS that the pair is faster.
+    No extra rest before the final partial: it lands on grid 17 right
+    after the bracket, exactly as the composer predicted.
+  - Drawn to the composer's own LilyPond standard: flat bracket, hooks
+    descending, horizontal in two segments with a gap for the numeral,
+    "3:2" italic straddling the line. Live: bracket segments 1628.1–1644.5
+    and 1665.4–1681.8 (h 1.26 px = 0.16 ss), hooks 5.53 px (0.7 ss) at
+    both ends, "3:2" centred at x 1655.
+  - **The beam dropped to 4.856 ss** (from 5.220) so the bracket fits —
+    composer: *"if we need to lower the beams to accommodate, that's
+    fine."* Derived: laneHalf − (padding 0.5 + hook 0.7 + the numeral's
+    cap above the line 0.454). Bracket ink now tops out at **6.510**
+    against the lane's 6.51, and the accents sit below it at 6.146.
+  - Verified live (page 3): primary beams 1232–1531 and 1604–1694 at
+    y 21; secondary beams only over the 16th pairs and across all of
+    group 2; the 8th rest in the gap; the tuplet rest inside the bracket;
+    no warnings beyond the four standing ring-bar flags. All batteries
+    green.

@@ -220,6 +220,28 @@
           parts.push('<path d="M' + x1.toFixed(2) + ',' + yA.toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA - headL * 0.45).toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA + headL * 0.45).toFixed(2) + ' Z"/>');
+        } else if (it.k === 'tuplet') {
+          // THE TUPLET BRACKET (day 23) — the composer's LilyPond standard,
+          // measured: a FLAT bracket (their own flatten-tuplet-bracket), hooks
+          // descending toward the notes, the horizontal in TWO segments with a
+          // gap for the numeral, which straddles the line. Geometry:
+          // engraving.layout.tuplet.
+          const TP = E.tuplet || {};
+          const th = (TP.thicknessSs || 0.16) * ssPx, hook = (TP.hookLengthSs || 0.7) * ssPx;
+          const yL = Y(it.ySs);
+          const x0 = view.xOfSeconds(it.t0), x1 = view.xOfSeconds(it.t1);
+          const size = (TP.numeralSizeSs || 1.2348) * ssPx;
+          const gap = (it.text || '3:2').length * (TP.numeralGapPerCharSs || 0.88) * ssPx;
+          const gMid = (x0 + x1) / 2, gA = gMid - gap / 2, gB = gMid + gap / 2;
+          const dir = it.dir === 'down' ? -1 : 1;      // hooks point toward the notes
+          const seg = (a, b) => '<rect x="' + Math.min(a, b).toFixed(2) + '" y="' + (yL - th / 2).toFixed(2) +
+            '" width="' + Math.abs(b - a).toFixed(2) + '" height="' + th.toFixed(2) + '"/>';
+          const vert = x => '<rect x="' + (x - th / 2).toFixed(2) + '" y="' + (dir > 0 ? yL : yL - hook).toFixed(2) +
+            '" width="' + th.toFixed(2) + '" height="' + hook.toFixed(2) + '"/>';
+          parts.push(seg(x0, gA), seg(gB, x1), vert(x0), vert(x1));
+          const baseY = yL + (TP.numeralBaselineBelowSs || 0.41) * ssPx;
+          parts.push('<text x="' + gMid.toFixed(1) + '" y="' + baseY.toFixed(1) + '" font-size="' + size.toFixed(1) +
+            '" text-anchor="middle" font-style="italic"' + fontAttr + ' fill="' + o.ink + '">' + esc(it.text || '3:2') + '</text>');
         } else if (it.k === 'ottava') {
           // piece #2 session-57 bracket over the NOTEHEAD ONLY (round 2):
           // label · dashes RIGHT-ALIGNED stepping back from the hook (p2's

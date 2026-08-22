@@ -22,6 +22,7 @@
 //   --accents 4,7,8          cluster members (1-based) carrying an accent
 //   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
 //   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
+//   --tuplet 10-11@3:2       members 10-11 form a 3:2 tuplet; spare slots become rests in the bracket
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
@@ -193,10 +194,39 @@ const { doc, warnings } = Extract.extract(score, {
     // composer, day 23: "let's not beam them altogether... the first group of
     // notes and then the second group, but conceptually keep the same tempo".
     const breaks = listArg('beamBreak');
+    // --tuplet 10-11@3:2 : members 10..11 form a 3:2 tuplet (three in the
+    // space of two units). Slots beyond the members become rests INSIDE the
+    // bracket — composer, day 23: "one sixteenth rest, which is part of that
+    // bracket". Repeatable.
+    const tuplets = [];
+    for (let i = 0; i < process.argv.length; i++) {
+      if (process.argv[i] !== '--tuplet') continue;
+      const mm = String(process.argv[i + 1] || '').match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
+      if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
+      tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
+    }
     const anyArtic = accentAt.size ? 'accent' : null;
     if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(','));
     if (dynAt.size) console.log('    dynamics: ' + [...dynAt].map(([n, m]) => n + ':' + m).join(' '));
     if (breaks.size) console.log('    beam breaks before members ' + [...breaks].join(','));
+    // WRITTEN DURATIONS (day 23): each member lasts until the next attack, in
+    // grid units — so an 8th is written as an 8th and fills its own gap
+    // instead of a 16th plus a rest. A member inside a tuplet takes the
+    // tuplet's slot value instead. The last member of a BEAM GROUP stops at
+    // one unit (a group never spills across its own end).
+    const lastOfGroup = new Set();
+    for (let k = 1; k <= members.length; k++) { if (breaks.has(k)) lastOfGroup.add(k - 2); }
+    lastOfGroup.add(members.length - 1);
+    const tupOf = k => tuplets.find(t => k + 1 >= t.from && k + 1 <= t.to) || null;
+    const durUnits = members.map((e, k) => {
+      if (tupOf(k)) return null;                       // tuplet members: slot value
+      if (lastOfGroup.has(k)) return 1;
+      return fit.grid[k + 1] - fit.grid[k];
+    });
+    const beamsFor = u => (u >= 4 ? 0 : u >= 2 ? 1 : 2);   // quarter 0, 8th 1, 16th 2
+    console.log('    written values: ' + members.map((e, k) => tupOf(k) ? 'tup' : (durUnits[k] === 1 ? '16th' : durUnits[k] === 2 ? '8th' : durUnits[k] + 'u')).join(' '));
+    for (const t of tuplets) console.log('    tuplet ' + t.num + ':' + t.den + ' over members ' + t.from + '-' + t.to +
+      ' (' + t.num + ' slots of ' + (t.den / t.num * fit.unit * 1000).toFixed(1) + ' ms; ' + (t.num - (t.to - t.from + 1)) + ' rest slot(s))');
     let sub = 0;   // beam-group index within the cluster
     members.forEach((e, k) => {
       if (breaks.has(k + 1)) sub++;
@@ -209,6 +239,19 @@ const { doc, warnings } = Extract.extract(score, {
         beamGroup: gkey, clusterId: key, beamUnit: fit.unit, beamPos: fit.grid[k],
         beamLevels: fit.beams, beamSubdivision: fit.subdivision,
       };
+      const tp = tupOf(k);
+      if (tp) {
+        dev.tupletGroup = key + '-tp' + tp.from;
+        dev.tupletNum = tp.num; dev.tupletDen = tp.den;
+        dev.tupletStartPos = fit.grid[tp.from - 1];
+        dev.tupletSlot = k - (tp.from - 1);
+        dev.noteBeams = 2;                       // a triplet 16th still shows two beams
+        dev.beamHasTuplet = true;
+      } else {
+        dev.noteUnits = durUnits[k];
+        dev.noteBeams = beamsFor(durUnits[k]);
+      }
+      if (tuplets.length) dev.beamHasTuplet = true;
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
       if (anyArtic) dev.beamHasArtic = anyArtic;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });

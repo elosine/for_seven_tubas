@@ -547,11 +547,20 @@
                     // pattern read). The beam therefore sits at the
                     // flagged-stem height OR lower, whichever lets the accent
                     // stay inside the lane. Registry data all the way down.
+                    const CSb = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
+                    const gapA = o.stackGapSs != null ? o.stackGapSs : 0.45;
                     if (dev.beamHasArtic) {
-                      const CSb = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
-                      const gapA = o.stackGapSs != null ? o.stackGapSs : 0.45;
                       const aG = glyphs.articulation && glyphs.articulation[dev.beamHasArtic];
                       if (aG) beamY = Math.min(beamY, CSb.laneHalfSs - gapA - aG.hSs);
+                    }
+                    // ...and lower again for a TUPLET BRACKET (day 23, composer:
+                    // "if we need to lower the beams to accommodate, that's
+                    // fine"). Above the beam the bracket needs: padding + hook
+                    // + however far the numeral's cap rises above the line.
+                    if (dev.beamHasTuplet) {
+                      const TP = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
+                      const capAbove = TP.numeralSizeSs * TP.numeralCapFactor - TP.numeralBaselineBelowSs;
+                      beamY = Math.min(beamY, CSb.laneHalfSs - (TP.paddingSs + TP.hookLengthSs + capAbove));
                     }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
@@ -561,6 +570,11 @@
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
+                    // the WRITTEN value decides how many beams this note carries
+                    // (day 23: figure 1 rewritten at true durations — 8ths get
+                    // one beam, 16ths two, so the beam pattern itself shows
+                    // which notes are close and which are apart)
+                    grp.tips[grp.tips.length - 1].beams = dev.noteBeams || 1;
                     if (dev.beamUnit) {
                       grp.unit = dev.beamUnit;
                       grp.beams = dev.beamLevels || 1;
@@ -569,6 +583,16 @@
                       const cl = clusters.get(cid);
                       if (cl.anchorT == null || e.onset < cl.anchorT) { cl.anchorT = e.onset; cl.anchorPos = dev.beamPos; }
                       cl.positions.push(dev.beamPos);
+                      if (dev.noteUnits) cl.covers = (cl.covers || []).concat([[dev.beamPos, dev.beamPos + dev.noteUnits]]);
+                      if (dev.tupletGroup) {
+                        if (!cl.tuplets) cl.tuplets = new Map();
+                        if (!cl.tuplets.has(dev.tupletGroup)) cl.tuplets.set(dev.tupletGroup, {
+                          num: dev.tupletNum, den: dev.tupletDen, startPos: dev.tupletStartPos,
+                          slotUnits: dev.tupletDen / dev.tupletNum, slots: new Map(), dir: stemDir,
+                        });
+                        cl.tuplets.get(dev.tupletGroup).slots.set(dev.tupletSlot, e.onset);
+                        cl.covers = (cl.covers || []).concat([[dev.tupletStartPos, dev.tupletStartPos + dev.tupletDen]]);
+                      }
                     }
                   }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
@@ -803,12 +827,23 @@
         // runs the whole group. beams = log2(value / quarter); the grid comes
         // from the cluster overlay (unitSeconds + the members' positions), so
         // the drawing follows the analysis rather than a guess.
-        const lvl = g.beams || 1;
+        // SECONDARY BEAMS run only over CONSECUTIVE notes that both carry
+        // that level (day 23): with figure 1 written at true durations —
+        // 8th 8th 16th 16th 8th 8th 16th 16th — the second beam appears
+        // only over the 16th pairs, so the beam pattern itself shows the
+        // rhythm instead of implying eight even notes.
         const step = (glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81;
-        for (let b = 2; b <= lvl; b++) {
+        const maxLvl = Math.max(...g.tips.map(t => t.beams || 1));
+        for (let b = 2; b <= maxLvl; b++) {
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
-          items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
-            tips: g.tips.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+          let run = [];
+          const flush = () => {
+            if (run.length >= 2) items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
+              tips: run.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+            run = [];
+          };
+          for (const t of g.tips) { if ((t.beams || 1) >= b) run.push(t); else flush(); }
+          flush();
         }
         // ARTICULATIONS above the beam, every one at the SAME height so the
         // group reads as one gesture (Gould: articulations align across a
@@ -836,9 +871,26 @@
         const filled = new Set(cl.positions);
         const last = Math.max(...cl.positions), first = Math.min(...cl.positions);
         const t0Grid = cl.anchorT - cl.anchorPos * cl.unit;   // grid position 0 in seconds
+        // a note's WRITTEN VALUE covers the units it lasts (day 23): an 8th
+        // fills its own gap, so no rest is written there — the cure for
+        // figure 1's "twelve even sixteenths" look.
+        const covered = n => (cl.covers || []).some(([a, b]) => n >= a && n < b - 1e-9);
+        // TUPLET BRACKETS + the rests inside them
+        if (cl.tuplets) for (const [tk, tp] of cl.tuplets) {
+          const t0 = t0Grid + tp.startPos * cl.unit, t1 = t0 + tp.den * cl.unit;
+          const TP = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {});
+          const beamTop = (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
+          const yB = tp.dir === 'up' ? beamTop + TP.paddingSs + TP.hookLengthSs : -(Math.abs(beamTop) + TP.paddingSs + TP.hookLengthSs);
+          items.push({ k: 'tuplet', t0, t1, ySs: yB, dir: tp.dir, text: tp.num + ':' + tp.den, group: tk });
+          for (let sIdx = 0; sIdx < tp.num; sIdx++) {
+            if (tp.slots.has(sIdx)) continue;
+            const t = t0 + sIdx * tp.slotUnits * cl.unit;
+            if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur: cl.sub * 4, t, dxSs: 0, cluster: cid, units: 1, tuplet: tk });
+          }
+        }
         for (let n = first; n <= last;) {
-          if (filled.has(n)) { n++; continue; }
-          let run = 0; while (!filled.has(n + run) && n + run <= last) run++;
+          if (filled.has(n) || covered(n)) { n++; continue; }
+          let run = 0; while (!filled.has(n + run) && !covered(n + run) && n + run <= last) run++;
           let R = 1;
           for (const cand of [8, 4, 2, 1]) { if (cand <= run && n % cand === 0) { R = cand; break; } }
           const dur = (cl.sub * 4) / R;                       // 4 sixteenth-units -> a quarter rest
