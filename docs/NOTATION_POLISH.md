@@ -47,3 +47,23 @@
 - `trance-section-01` · T6 @ 22.80 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
 - `trance-section-01` · T10 @ 17.20 s — dot crosses the bottom lane edge into the neighbor by ~5.4 px
 - `trance-section-01` · T10 @ 27.60 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+
+### 2026-08-22 — db1-all-x01
+
+- `db1-all-x01` · T1 @ 4.20 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T1 @ 30.00 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T1 @ 32.58 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T1 @ 34.51 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T2 @ 29.65 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T2 @ 36.76 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T5 @ 2.00 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T5 @ 34.34 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T5 @ 39.61 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T6 @ 24.28 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T7 @ 14.34 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T7 @ 34.55 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T7 @ 37.02 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T8 @ 32.44 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T8 @ 36.55 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T10 @ 30.73 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px
+- `db1-all-x01` · T10 @ 36.31 s — glyph:accidental-sharp crosses the bottom lane edge into the neighbor by ~3.1 px

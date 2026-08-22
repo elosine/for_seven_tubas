@@ -7020,3 +7020,82 @@ one field.)
 **Musical consequence worth the composer's ear:** T9 now ENTERS at 17.19
 instead of 21.07. Since T9 has no surge, this staccato G1 is now that player's
 first sound in the piece.
+
+### BEAM WITHOUT CLUSTERING — the mixed pair, T2 31.176 + 31.396 (day 24)
+
+Composer: *"There are two notes beginning at thirty one point one six… stem the
+half note, and then just connect it to the sixteenth note with a beam, and
+have the sixteenth stub on the first one. And then remove the GC from the
+second one, the long tone that hits at thirty one point three nine."*
+
+**The pair, identified:** T2 `wc-95` (staccato, A2/midi 45, **31.176**) and T2
+`wc-98` (fortepiano, A1/midi 33, **31.396** — the composer's "31.39" exactly,
+1.40 s sample-true, `FP3x`). Both in `grp-g1-opening`. Reading "two notes
+beginning at 31.16" as *the two-note group begins there*, since T2 has exactly
+one note at 31.176 and the next at 31.396.
+
+**Why `--cluster` was the wrong tool, and what replaced it.** `--cluster` is
+built for a run of staccato partials: it fits a tempo, **redraws every member as
+a 16th on that grid**, and fills the gaps with rests. Here the composer wants
+the opposite — two notes that keep being what they are, joined by a beam. So a
+second flag, `--beam t0-t1@part`:
+
+- the overlay carries **only** the stem/beam fields, so head, ring bar, dot and
+  dynamic still resolve from each note's own technique entry (D50). Measured
+  result: the 16th keeps filled head + staccato dot + band `f`; the long tone
+  keeps **open head** (= the half note) + 3 ledgers + ring bar + `sfzp`.
+- **no `beamUnit` is written** — that is precisely what keeps the grid, and
+  therefore the rests, out of it. A beam, not a cluster.
+- **how many beams a member carries is DERIVED, not asked for:** a short fixed
+  one-shot (staccato) is the "sixteenth" and takes two levels; anything that
+  rings (fortepiano, cuivre, ord) is the long note and takes the primary beam
+  only. The second level then has no neighbour to connect to, and layout's
+  existing beamlet rule draws it as a **stub on the short note** — the figure
+  asked for, from the rule day 23 already settled, with nothing new invented.
+
+**`--noGc wc-98`** is a separate, general per-note override (`gc: false`), named
+by OBJECT ID rather than member number so it stays unambiguous with several
+groups in flight and works on any note, beamed or not. It removes the GC from
+**both** the page and the animation, because `animobj` resolves its per-note
+GCs through the same `deviceResolver` (D50) — one rule, two consumers.
+
+### The bug this uncovered: A BEAM IS THE GROUP'S, NOT THE NOTE'S
+
+Each note computes its beam height from **its own technique's flag** — the
+comment in layout.js says so explicitly ("the beam tracks the flag the one-shots
+actually wear"). That is level by construction for a group of one technique,
+which is every group built so far. A **mixed** group is not: a fortepiano
+carries no `nhStem` of its own, falls back to flag8 — and `flag.up8.hSs` is
+**3.008** where `flag.up16.hSs` is **3.508**. So the beam joining a fortepiano
+to a staccato would slope by **half a staff space**.
+
+Found by measuring the glyph table *before* drawing anything, then **confirmed
+live by accident**: the first browser check still had the old `layout.js`
+cached, and its beam polygon came back
+`1721.49,119.68 → 1773.92,123.63` — a 3.95 px drop, which is 0.5 ss × 7.9 px/ss
+to the pixel. The stale cache turned into the cleanest possible before/after.
+
+**Fix:** after a group's tips are collected, level them to the tip FURTHEST from
+the staff and move each note's stem with it. Furthest, not nearest, so no stem
+is ever shortened under its own flag clearance; and it is a provable no-op when
+the tips already agree, which is why both snapshot batteries (layout, render)
+stayed green over the existing cluster. Stems are linked to their tips at push
+time so the two can never drift apart.
+
+### Verified
+
+- headless: beam tips **both at ySs 5.888**, both stems ending at exactly
+  5.888; stub `bm-1-b2-stub` at t=31.176 running dx −0.72 → +0.28 (**1.0 ss**,
+  pointing right); `gc` item present at 31.176, **absent** at 31.396.
+- live, after a hard reload: T2's beam polygon `1721.49,119.68 →
+  1773.92,119.68` — **flat**; the stub 1721.49 → 1729.39 = **7.9 px = 1.0 ss**
+  exactly, one beam level (0.81 ss stackStep) below the primary; T2's GC
+  impacts on that page are 561.4 / 1084.2 / 1370.1 / 1486.4 / **1727.2** — the
+  16th at 1727.2 keeps its GC and **there is none at 1773.9**, the long tone.
+- `protrusion_detect` over the whole section files 17 items, none of them this
+  figure — the pair fits its lane, `sfzp` above the beam included.
+- eight batteries green; layout `--prove-red` still red.
+
+**One thing not asked for and therefore not changed:** both notes keep their go
+lines. The cluster convention gives the go line to member 1 only; the composer
+named the GC here and not the go line, so it was left alone.

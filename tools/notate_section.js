@@ -26,6 +26,11 @@
 //   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
 //   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
 //   --tuplet 10-11@3:2       members 10-11 form a 3:2 tuplet; spare slots become rests in the bracket
+//   --beam t0-t1@part        beam the notes in a span WITHOUT making them a cluster:
+//                            each keeps its own technique device (head, ring bar,
+//                            dynamic) and only gains a stem to a shared beam. No
+//                            tempo fit, no grid, no rests. Repeatable.
+//   --noGc wc-98[,wc-…]      drop the GC from named objects (per-note device override)
 //   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
 //   --beamThrough 2          beam group N keeps its secondary beam unbroken across rests
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
@@ -287,6 +292,78 @@ const { doc, warnings } = Extract.extract(score, {
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     });
   });
+}
+// --beam t0-t1@part (day 24, the composer's mixed pair): BEAM WITHOUT
+// CLUSTERING. --cluster exists for a run of staccato partials: it fits a
+// tempo, redraws every member as a 16th on that grid, and fills the gaps
+// with rests. This is the other case — the composer beaming notes that keep
+// being what they are: *"stem the half note, and then just connect it to the
+// sixteenth note with a beam, and have the sixteenth stub on the first one"*.
+// So the overlay carries ONLY the stem/beam fields; head, ring bar, dot and
+// dynamic still resolve from each note's own technique entry (D50). No
+// beamUnit is written, which is what keeps the grid — and therefore the
+// rests — out of it.
+//
+// HOW MANY BEAMS a member carries is derived from its technique rather than
+// asked for: a SHORT fixed one-shot (staccato) is the "sixteenth" and takes
+// two levels; anything that rings (fortepiano, cuivre, ord) is the long note
+// and takes the primary beam only. The second level then has no neighbour to
+// connect to and layout draws it as a STUB on the short note — exactly the
+// figure asked for, and the same beamlet rule day 23 settled.
+{
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--beam') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part (e.g. --beam 31.17-31.40@1)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+  }
+  const partOfEvent = new Map();
+  for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+  const RINGS = new Set(['fortepiano', 'cuivre', 'ord']);   // long notes: primary beam only
+  spans.forEach((sp, k) => {
+    const key = 'bm-' + (k + 1);
+    const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+      (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+    if (members.length < 2) { console.error('--beam ' + label + ': ' + members.length + ' event(s) in the span — a beam needs at least 2'); process.exit(2); }
+    if (sp[2] === null && parts.length > 1) {
+      console.error('--beam ' + label + ': this IR carries ' + parts.length + ' parts — name the part: --beam ' + sp[0] + '-' + sp[1] + '@<part>');
+      process.exit(2);
+    }
+    console.log('  beam ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) +
+      ' (' + members.map(e => e.source.objectId + ':' + e.technique).join(' ') + ')');
+    console.log('    beam levels: ' + members.map(e => e.source.objectId + '=' + (RINGS.has(e.technique) ? '1 (primary only, it rings)' : '2 (a 16th)')).join(' · '));
+    members.forEach((e, i) => {
+      const dev = {
+        nhStem: 'beam', beamGroup: key,
+        noteBeams: RINGS.has(e.technique) ? 1 : 2,
+        beamPos: i, noteUnits: 1,
+      };
+      doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
+    });
+  });
+}
+// --noGc wc-98 (day 24): a per-note device override that removes the GC —
+// composer, on the long tone at the end of the beamed pair: *"remove the GC
+// from the second one"*. Named by OBJECT ID rather than by member number so
+// it stays unambiguous with several groups in flight, and so it can be used
+// on any note, beamed or not. Merged onto whatever overlay the note already
+// carries.
+{
+  const ids = new Set();
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--noGc') continue;
+    for (const v of String(process.argv[i + 1] || '').split(',')) if (v.trim()) ids.add(v.trim());
+  }
+  for (const id of ids) {
+    const e = doc.events.find(x => x.source.objectId === id);
+    if (!e) { console.error('--noGc ' + id + ': no such object in this window/parts'); process.exit(2); }
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { gc: false });
+    else doc.overlays.push({ id: 'ov-nogc-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { gc: false } }, provenance: 'authored' });
+    console.log('  noGc: ' + id + ' (' + e.technique + ' at ' + e.onset.toFixed(3) + ') — GC removed, page and ball');
+  }
 }
 if (flag('bricks')) {
   // devices go too (day 23 bug): the chunker's cloud-landing GC is a

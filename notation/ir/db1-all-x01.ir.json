@@ -13307,6 +13307,41 @@
     }
    },
    "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-1-ev-wc-95",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-95"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-1",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-1-ev-wc-98",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-98"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-1",
+     "noteBeams": 1,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "gc": false
+    }
+   },
+   "provenance": "authored"
   }
  ]
 }

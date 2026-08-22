@@ -73,6 +73,30 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   instead of 21.07, and since T9 has no surge this is that player's first
   sound in the piece.**
 
+- **BEAM WITHOUT CLUSTERING (`--beam`) + `--noGc`** — the composer's mixed
+  pair in T2: `wc-95` (staccato 31.176) beamed to `wc-98` (fortepiano
+  31.396, the long tone), *"stem the half note... connect it to the sixteenth
+  with a beam... the sixteenth stub on the first one... remove the GC from
+  the second one"*. `--cluster` was the wrong tool: it refits a tempo and
+  redraws every member as a 16th on a grid with rests. `--beam t0-t1@part`
+  writes ONLY the stem/beam fields, so each note keeps its own technique
+  device — the 16th its filled head + dot + band dynamic, the long tone its
+  OPEN head (the half note) + ring bar + sfzp. Beam levels are DERIVED, not
+  asked for: a short one-shot takes two, anything that rings takes the
+  primary only, so day 23's beamlet rule produces the stub by itself.
+  `--noGc <objectId>` is a general per-note override and removes the ball
+  too (animobj resolves GCs through the same resolver, D50).
+- **A BEAM IS THE GROUP'S HEIGHT, NOT THE NOTE'S** *(bug found and fixed,
+  day 24 — worth remembering because it can only ever appear in a MIXED
+  group)*. Each note derives its beam height from its own technique's flag;
+  a fortepiano has no `nhStem`, falls back to flag8 (3.008 ss) where the
+  staccato uses flag16 (3.508), so the joining beam sloped by half a space.
+  Caught by reading the glyph table first, then confirmed live by a stale
+  browser cache that rendered the old code beside the new: 3.95 px of slope,
+  which is 0.5 ss to the pixel. Groups are now levelled to the tip furthest
+  from the staff (never shortens a stem) with the stems moved along; a
+  provable no-op for single-technique groups, both snapshot batteries green.
+
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
 day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at

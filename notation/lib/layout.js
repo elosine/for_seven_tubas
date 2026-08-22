@@ -505,6 +505,9 @@
 
                 if (stemKind) {
                   const yStart = yDraw - att.dy;
+                  // set when this note joins a beam group, so the group can
+                  // LEVEL the beam afterwards and move this note's stem with it
+                  let beamTip = null;
                   let L = stemLenFor(yDraw, o.stemLen);
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so
@@ -579,6 +582,7 @@
                     // one beam, 16ths two, so the beam pattern itself shows
                     // which notes are close and which are apart)
                     const tipRef = grp.tips[grp.tips.length - 1];
+                    beamTip = tipRef;
                     tipRef.beams = dev.noteBeams || 1;
                     // grid position + written length, so the secondary beam can
                     // tell "adjacent 16ths" (connect) from "16th then a rest"
@@ -612,6 +616,7 @@
                     }
                   }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
+                  if (beamTip) beamTip.stem = items[items.length - 1];
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}));
                   // the stem tip is the unit's outer ink on its side (a flag
@@ -837,6 +842,25 @@
       for (const [key, g] of beamGroups) {
         if (g.tips.length < 2) { warnings.push('beam group "' + key + '" has ' + g.tips.length + ' note(s) — no beam drawn'); continue; }
         g.tips.sort((a, b) => a.t - b.t);
+        // A BEAM IS FLAT, AND IT IS THE GROUP'S, NOT THE NOTE'S (day 24).
+        // Each note computes its beam height from ITS OWN technique's flag
+        // (the one-shots' flag16), so a group of one technique is level by
+        // construction — but a MIXED group is not: a fortepiano carries no
+        // nhStem of its own, falls back to flag8 (3.008 ss vs flag16's
+        // 3.508), and the beam joining it to a staccato would slope by half
+        // a space. Found day 24 by measurement, before drawing the
+        // composer's staccato-into-long-tone pair. Levelling to the tip
+        // FURTHEST from the staff keeps every stem at least as long as it
+        // asked for (never shortens one under its flag clearance), and is a
+        // provable no-op when the tips already agree.
+        {
+          const ys = g.tips.map(t => t.ySs);
+          const yLevel = g.dir === 'up' ? Math.max(...ys) : Math.min(...ys);
+          for (const t of g.tips) {
+            if (Math.abs(t.ySs - yLevel) > 1e-9 && t.stem) t.stem.yB = yLevel;
+            t.ySs = yLevel;
+          }
+        }
         items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
