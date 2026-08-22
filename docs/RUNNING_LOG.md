@@ -6721,3 +6721,20 @@ dictated, the save-shuffle established, T1 facts scanned.**
   Group 1 keeps its stubs (that was the point there). Verified live: figure
   2 = two full-width beams 1604→1694 (90.3 px each) at y 21 and 27.4, no
   stub. Batteries green.
+- **Session wrap (day 23).** Composer taking a break; asked for docs caught
+  up, everything committed and pushed, ready for a COLD START. Done:
+  journal §2 rewritten for someone who has never seen this conversation
+  (including the ONE COMMAND that rebuilds the whole working file) ·
+  **D52–D57 promoted** (one-shot dynamic ladder · the GC is a ported object
+  + z-order · tubists read ledgers + side-with-room · the breath rule ·
+  clusters are named spans with an analysed tempo · the tuplet standard
+  from the composer's own LilyPond) · **principles 11 and 12 added**
+  (survey the composer's own tools before inventing a standard; when a
+  selection rule picks something absurd the RULE is the bug) · §6 human
+  notes refreshed, two day-22 verdicts closed · PLAN 8c marked complete
+  for T1's density build 1 and **8e queued** (generate T2–T10, analysis
+  first) · PAPER_NOTES #12 ("notation as measurement, not transcription").
+  Save files: `scores/piece-s25-finished01.json` is TRACKED AND UNCHANGED
+  all day — the archive is never edited (D49); every amendment lives in
+  the IR. `notation/ir/db1-t1-x02.ir.json` and `db1-t1.ir.json` are
+  committed. Working tree clean, nothing unpushed.

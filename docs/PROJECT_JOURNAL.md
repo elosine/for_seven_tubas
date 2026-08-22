@@ -10,75 +10,88 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 22 (2026-08-21, third sitting) — T1's SECOND NOTE (wc-23) DESIGNED
-ELEMENT BY ELEMENT; THE NOTE-OFF FINDING; THE IR BECOMES AUTHORITATIVE
-FOR SOUND. Claude Code / Fable 5.**
-- **Reframe (composer):** the unit of work is THE NOTE in source order,
-  not a technique-device — *"regardless if it is a fortepiano or not."*
-  T1 order: wc-3 (surge, done) → **wc-23 (G#1 fp, 14.544, this sitting)**
-  → wc-29 (staccato 17.749, NEXT).
-- **wc-23 now carries:** dotted go line (`#333`, composer: "always black
-  gray") · nh-unit (open head + ♯ + **8vb** by the 3-ledger rule) · THE
-  RING BAR (go line → sounding length 1.49 s, centered on the written
-  head, ⅔ brick height, black, opacity 0.65) · **sfzp** on the dynamic
-  slot. All registry data: `engraving.layout.devices` (byEnv / byTechnique
-  / per-item `device:{}` override) — fortepiano = goLine + nhUnit +
-  ringBar + dynMark 'sfzp'; the other four T1 fps inherit it.
-- **FINDING: the note-off was cutting the fp sample in half.** The archive
-  object is hand-drawn 0.70 s; the G#1 fp sample is 1.49 s (2n table);
-  composer heard the cut, the x03 probe (note-off moved to 1.49) proved it
-  by ear. → **D49: THE IR IS AUTHORITATIVE FOR SOUND** (`midiplayer.
-  withIrDurations`, per-play clone, archive untouched) + the ARCHIVE
-  AMENDMENTS protocol (`docs/ARCHIVE_AMENDMENTS.md`, ledger line 1 =
-  wc-23). Known gap: export_midi renders still play the raw archive (NITS).
-- **Fixes the composer hit live:** playhead readout (`t 14.54 s` pill,
-  T key / `t` box) · final page no longer stretched (constant px/s,
-  terminal barline + stop at the material's end) · bricks toggle is
-  behind ⚙ *(moved to the compacted bar day 23 — composer's ask)*.
-- **Glyph capture, short form:** `tools/glyph_probe_dyn_extra.js` (one LP
-  fixture at the locked −8.5 via piece #2's oracle read-only; sfz
-  re-extracted = byte-identical check) → fp/sfp/sfzp + accent/marcato in
-  `notation/glyph_sources/`, merged by `port_glyphs.js`.
+**DAY 23 (2026-08-22) — DENSITY BUILD 1 IS NOTATED, T1. The one-shot
+vocabulary is complete and the first CLUSTER is on the page. Claude Code /
+Fable 5 (+ Opus 5 for two stretches).**
 
-**Next up (cold pickup):**
-1. **Composer's look at wc-23 as a whole** (sfzp size vs the surge's ppp;
-   bar at 0.65) — then **wc-29, the first staccato (17.749)**, same
-   element-by-element method on `db1-t1-x02` (extend its window past 17 s
-   first: re-extract x02 with `--w1 20` or fork x03).
-2. Pending composer verdicts (§6): ottava vs low ledgers · the "FP3x"
-   performance note · the amendments protocol (accept/veto).
-3. Fold-in question logged for promotion: THE DRAFT's chunker swept wc-23
-   into a staccato cloud (ch-0-wc-23, proportional) — fixed one-shots must
-   stay out of clouds, or the device must apply inside streams.
-4. Full trail: RUNNING_LOG day 22 (three sittings; wrong turns kept).
+- **What the working file holds now** (`db1-t1-x02`, 0–55.94 s, `--bricks`
+  mode so nothing is grouped except what the composer named):
+  wc-3 surge · wc-23 fp · wc-29 the first staccato one-shot · three more
+  fps at 23–30 s · **a 12-note cluster 31.49–34.6 at ♩ 87.2 in two beam
+  groups**. Rebuild it with exactly this command (it is the whole state):
+  ```
+  node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 \
+    --parts 0 --profile section1 --id db1-t1-x02 --exp --bricks \
+    --cluster 31.49-34.6 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
+    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9
+  ```
+- **THE ONE-SHOT (GC) VOCABULARY, settled note by note:** go line · the
+  WHOLE GC OBJECT ported from piece #1 (static arc + impact marker + the
+  ball — D53) · filled head at piece #2's 0.844 cell scale · stem with a
+  **16th (double) flag** · staccato dot at the 0.15 tight gap · **one
+  dynamic from five wide bands** (ppp p mf f fff, D52) · ring bar on the
+  fortepianos only, cut by a breath (D55). Fortepianos now carry GCs too;
+  only the surge has none.
+- **THE CLUSTER VOCABULARY:** a composer-named span becomes an authored
+  overlay set; `notation/lib/cluster_fit.js` runs an exhaustive tempo
+  search scored on COMPLEXITY, and the page draws what the analysis chose
+  (D56). This cluster: unit 172 ms, ♩ 87.2 × 4, **no tuplet**, max err
+  36 ms. Two beam groups, beamlets in the first, a 3:2 bracket in the
+  second.
+- **No ottava anywhere:** tubists read ledger lines (threshold 3 → 4,
+  D54). F#1, the piece's lowest note, is exactly 4 ledgers.
+
+**Next up (the composer's own words at session end):** *"have AI generate
+the rest of the tuba parts for this first density build. We'll do an
+evaluation first, analysis of what's there, and if there was anything
+missing in our generator, our pipeline, to accommodate something different
+in one of the remaining nine tuba parts. And then we'll try generation, and
+I'll look at it."*
+1. **ANALYSE T2–T10 over 0–55.94 first** — the same window, all nine parts.
+   What to look for, concretely: techniques present beyond staccato/fp/ord
+   (cuivre appears in T1 at 40.9 — does it appear here?) · notes needing a
+   device the vocabulary has no entry for · pitches outside F#1–F4 or below
+   the 4-ledger threshold · clusters whose onsets DON'T admit a metric fit
+   (`tools/cluster_tempo.js` per candidate span — a "NO FIT" is a real
+   result and means proportional) · simultaneities (the chord case: the
+   breath rule and beam adjacency both treat same-onset notes specially) ·
+   whether any part's density makes the 6.51 ss half-lane overflow.
+2. Then generate, then the composer looks.
+- **Held, not blocked:** the four ring-bar flags in T1 (wc-44 0.71 · wc-49
+  0.66 · wc-62 0.36 · wc-83 0.25 s) — `flagShortBarSeconds` is 1.0, which
+  in this material flags almost every fp; 0.35 would flag only the two
+  genuinely tiny ones. Composer's call, one registry number.
 
 **Open at session end:**
-- G2/G3 formally unclosed (the loop is running; close on paper when convenient).
-- Reaper render not yet recorded; when made, export_midi needs `--ir`
-  (withIrDurations) or the fps will be short in the render.
-- p-vs-f dynamic optical baseline = polish-eye item.
+- The composer has NOT seen figure 1's beamlets or figure 2's solid beam
+  since the last change — first thing to look at on return.
+- Cluster dynamics used the ambient+deviation model for the first time
+  (f · accents · fff · accent). Whether that generalises to nine more
+  parts is exactly what the analysis above should test.
+- `export_midi --ir` still un-built (NITS): a Reaper render would play the
+  un-amended archive.
+- G2/G3 formally unclosed (the loop has been running all day; close on
+  paper when convenient).
 
 ---
 
-- **Day 22 (first + second sittings):** 8b machinery (sonify_core →
-  export_midi + live MIDI, hot reload, version files,
-  NOTATION_WORKFLOW.md) · THE COLLAPSE (the app IS the presentation score;
-  playback = the save's scope) · THE SURGE DEVICE on the real F#1 (curve,
-  go line, nh-unit, dyn pair + arrow, column standard, cursor/follower) ·
-  save shuffle (`db1-t1` = THE DRAFT 0–55.94; `db1-t1-x02` = working 0–17)
-  · Section-1 hierarchy dictated (PLAN M5 third amendment, not acted on).
+- **Day 22 (three sittings):** 8b machinery (sonify_core → export_midi +
+  live MIDI, hot reload, NOTATION_WORKFLOW.md) · THE COLLAPSE (the app IS
+  the presentation score) · THE SURGE DEVICE on the real F#1 · wc-23
+  designed element by element (go line, nh-unit, ring bar, sfzp) · **D49
+  the IR is authoritative for sound** + ARCHIVE_AMENDMENTS · D50 device
+  membership is registry data · D51 a fixed one-shot's length is its
+  sample length.
 - **Day 21:** plan interrogation (D46–D48) · V0/G0 + V1/G1 closed · V2
-  (transport, animobj, the five ports) · V3 (notate_section.js loop) —
-  pre-notation critical path code-complete · trance section finished and
-  in the piece (12.5 min) · 2ag live rig · PAPER_NOTES #1–9.
-- **Days 19-20:** notation architecture A-D built end to end (D44, D45);
+  (transport, animobj, the five ports) · V3 (notate_section loop) — the
+  pre-notation critical path code-complete · trance section finished.
+- **Days 19-20:** notation architecture A–D built end to end (D44, D45);
   Penn State deliverables preplanned (PLAN 8a).
 - **Days 18-19:** trance section via console scripts (D41); 2ae/2af; E1+E1b
   (D43); notation architecture confirmed (four strata).
-- **Day 17:** 2ab panel snapshots + 2ac multitempo rig; 2ad needs zero code.
-- **Days 12-16:** morphs (2v, D24-26) · texture sandbox (2x, D33) · cluster
+- **Days 12-17:** morphs (2v, D24-26) · texture sandbox (2x, D33) · cluster
   sandbox (2p) · density pipeline (2t, D19-23) · collision avoidance (2r,
-  D17) · piece assembly through piece-s23.
+  D17) · 2ab panel snapshots + 2ac multitempo rig · piece assembly.
 
 ## §3 Principles
 
@@ -172,6 +185,27 @@ FOR SOUND. Claude Code / Fable 5.**
    (same note, note-off moved) and the composer's ear confirmed it in one
    listen. The 2n probe held every note 5 s — a one-shot table measured
    under a long hold says nothing about early note-offs.
+11. **A "STANDARD" MAY ALREADY EXIST IN THE COMPOSER'S OWN TOOLS — SURVEY
+   BEFORE INVENTING.** (day 23) Twice in one session the right answer was
+   already on disk and merely unlocated: the tuplet bracket (101 of piece
+   #2's 809 `.ly` files, settings unanimous — and the composer's memory of
+   "3:2" was exactly the `calc-fraction-text` override they had chosen 29
+   times) and the small notehead (piece #2's `cellMotive.scaleFactor
+   0.844`, which the composer half-remembered as "there was already a
+   formulation"). Rests, by contrast, genuinely did not exist anywhere in
+   the lineage. **The order is: survey the corpus → if found, port and
+   measure → only then capture.** A census (how many files, how many
+   agree) is what turns "I think I did this once" into a standard.
+12. **WHEN A SELECTION RULE PICKS SOMETHING ABSURD, THE RULE IS THE BUG.**
+   (day 23, cluster tempo) "Coarsest grid that fits" chose 176 ms at 28 ms
+   error over 175 ms at 20 ms. "Minimum error" then chose a 26.6 ms grid —
+   64th notes, mathematically perfect, unreadable. Neither was a coding
+   error; both were honest implementations of a wrong criterion. The fix
+   was to score COMPLEXITY explicitly (playable floor, power-of-2
+   subdivision, conductable beat, rests to read) and put that scoring in
+   ONE module both the analysis tool and the page consume. **Running a
+   rule on real material is how you find out what it actually optimises.**
+
 10. **Glyph capture, short form, with the equality check.** (day 22) A new
    Emmentaler glyph = one LP fixture at the locked size + one extraction
    through piece #2's oracle modules (read-only) — NOT the 10-step
@@ -181,6 +215,77 @@ FOR SOUND. Claude Code / Fable 5.**
 
 ## §4 Decisions
 
+- **D57** *(2026-08-22, day 23)* — **THE TUPLET STANDARD IS THE COMPOSER'S
+  OWN LILYPOND PRACTICE, surveyed then measured.** 101 of piece #2's 809
+  `.ly` files carry tuplets; the settings never vary where they appear:
+  `TupletBracket.direction #UP` (29/29), `bracket-visibility ##t`,
+  `padding 0.5`, `TupletNumber.text = tuplet-number::calc-fraction-text`
+  (29/32 — the override that prints **"3:2"** instead of a bare "3"),
+  `font-size #-5`, plus the composer's own `flatten-tuplet-bracket` scheme
+  function, which levels both ends = the straight bracket they remembered.
+  Measured by probe: thickness 0.16 ss, hook 0.7, horizontal in two
+  segments with a 2.6388 ss numeral gap inset 0.40, numeral baseline 0.41
+  BELOW the line, size 1.2348 italic. **No glyph tracing needed** — LP
+  draws the bracket as strokes and typesets the numeral as text, so this
+  app does the same in its own font. *Rejected:* inventing a house
+  bracket; capturing digit glyphs.
+- **D56** *(2026-08-22, day 23)* — **A CLUSTER IS A COMPOSER-NAMED SPAN,
+  AND ITS RHYTHM IS AN ANALYSIS, NOT A GUESS.** `--cluster t0-t1` writes
+  authored `engraving` overlays; `notation/lib/cluster_fit.js` runs an
+  exhaustive unit search (20–500 ms) scored on COMPLEXITY — a grid finer
+  than D43's 0.09 s playable floor is disqualified, non-power-of-2 costs a
+  tuplet level, an unconductable beat and extra rests cost a little — and
+  the same module feeds both the analysis tool and the page, so they
+  cannot disagree. A single-unit grid can never produce NESTED tuplets by
+  construction, which answers the composer's original worry. *Two wrong
+  selection rules were caught by running them:* "coarsest that fits" took
+  176 ms at 28 ms error over 175 at 20; "minimum error" took a 26.6 ms
+  grid (64ths) — precise and unreadable.
+- **D55** *(2026-08-22, day 23)* — **A RING BAR ENDS A BREATH BEFORE THE
+  NEXT GESTURE.** bar = min(sample length, next attack − `breathSeconds`
+  0.5). The sample only CAPS it, so a note with room keeps its full ring
+  and nothing earlier in the piece is affected. Drawing only: playback
+  still follows the IR duration (D49), because the sample rings what it
+  rings. A moderately quick tuba breath ≈ 0.5 s (snatch 0.25–0.35; full
+  1–1.5). Simultaneities are not a "next attack". *Rejected:* subtracting
+  the breath from the sample length (the composer corrected this within
+  the hour — it must be measured backwards from the next gesture).
+- **D54** *(2026-08-22, day 23)* — **TUBISTS READ LEDGER LINES: NO OTTAVA
+  IN THIS PIECE** (`ledgerLineThreshold` 3 → 4; F#1, the lowest note, is
+  exactly 4 ledgers). Piece #2's 3 was piano-derived. Consequence,
+  measured: the lowest notes then reach the lane edge and NOTHING fits
+  below them, so **the column chain flips to the side with room**
+  (`chainSide.sideWithRoom`), referenced against the outer ink OR the
+  outer staff line, whichever is further out. *Rejected:* a smaller staff
+  (re-opens G0); letting chrome overflow into the neighbour's lane.
+- **D53** *(2026-08-22, day 23)* — **"GC" MEANS THE WHOLE OBJECT, AND IT
+  IS PORTED, NOT DESIGNED.** Composer: *"when I say GC, that is the whole
+  thing... the same colors, the same lines, and line thickness, and then
+  those trajectory... and the ball should be the same color, the same size
+  as in those scores."* `notation/lib/gc.js` carries piece #1's
+  `calculateTrajectory`/`renderGC`/`update` verbatim: static arc (201-pt
+  polyline across TIME, 1.5 px, neonMagenta rgb(255,21,160)) + impact
+  marker (r 4 px at laneBottom − 5) + ball (r 5 px) — one module for both
+  consumers, so the drawn arc and the moving ball cannot drift. Preset =
+  piece #1's "Short" (62/100/90/60/0.6), the one all 43 GCs of its 6:10
+  section carry; piece #2's 203 GCs are all "Medium" — **they differ**.
+  **Z-order** (composer: "carry that as a decision"): staff · go line · GC
+  static ink · NOTATION · the animated overlay (ball 0.85, cursor) on top.
+  *Rejected:* two rounds of AI-designed staging (staff-step ball, then a
+  lane-spanning one) — the look existed already and was to be copied.
+- **D52** *(2026-08-22, day 23)* — **A ONE-SHOT'S DYNAMIC IS ONE MARK FROM
+  FIVE WIDE BANDS, LOOKED UP FROM THE CAPTURED VELOCITY.** IR schema
+  amendment 5 (`vel`); registry `dynamicBands` ppp ≤45 · p ≤75 · mf ≤100 ·
+  f ≤118 · fff ≤127 (PROVISIONAL until the SI2 velocity→dB ladder);
+  device `dynMark: 'band'`. Composer: *"go from ppp to fff and collapse
+  some of the middle range — five categories is fine, but more distinct
+  jumps."* Grounded in `docs/DYNAMICS_FRAMEWORK.md`: ~5 loudness
+  categories are identifiable (Miller), markings are relative not absolute
+  (Kosta et al.; Ligeti), shape transmits better than level (Nakamura),
+  and timbre is half of perceived dynamic on brass (Fabiani & Friberg).
+  For a GROUP, the ambient-plus-deviation form: one mark plus accents on
+  the departures — first applied on the day-23 cluster. *Rejected:*
+  per-note values (unplayable and inaudible — the Structures Ia lesson).
 - **D51** *(2026-08-21, day 22 — wc-23)* — **A FIXED ONE-SHOT'S NOTATED
   LENGTH IS ITS MEASURED SAMPLE LENGTH, and the page shows it as THE RING
   BAR.** Composer: *"we'll just go with that length because it sounds
@@ -975,6 +1080,28 @@ FOR SOUND. Claude Code / Fable 5.**
   sitting; V4/V5 exports trail until submission.
 
 ## §6 Human Notes
+
+- *(2026-08-22, day 23 — CURRENT)* **Nothing blocking; four things await
+  your eye or your call.** (1) **You have not seen the last two changes** —
+  figure 1's beamlets (stubs on the notes that open a gap) and figure 2's
+  solid double beam. First thing on return. (2) **`flagShortBarSeconds`**
+  is 1.0, which flags almost every fortepiano in this material (four in
+  T1); **0.35** would flag only the genuinely tiny bars (wc-62 0.36,
+  wc-83 0.25). One registry number. (3) **The last partial's dynamic**:
+  you asked for fff on member 12, whose velocity band is f — written as
+  you said, flagged in case it was a slip. (4) **The dynamic-band
+  thresholds are provisional** until the SI2 velocity→dB ladder is
+  measured; the section-1 census under them is in the day-23 running log.
+- *(2026-08-22, day 23)* **A sound question, not a notation one:** every
+  staccato sample (0.43–0.48 s here) OUTLASTS every gap in the cluster
+  (155–377 ms). So the figure sounds overlapped, not detached, whatever the
+  page says. If you want audible detachment that is a sample/technique
+  decision.
+- *(2026-08-21, day 22 third sitting)* ~~**Three verdicts owed**~~ —
+  (1) 8vb vs low ledgers **CLOSED day 23: ledgers, D54**; (2) "FP3x"
+  **CLOSED day 23: it is provenance from the A1-5 transform, not a
+  performance instruction**; (3) the ARCHIVE AMENDMENTS protocol —
+  still un-vetoed, in force, two ledger lines now (wc-23, wc-29).
 
 - *(2026-08-21, day 22 third sitting — CURRENT)* **Three verdicts owed, none
   blocking:** (1) **8vb vs low ledgers** — both the F#1 surge and the G#1

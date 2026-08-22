@@ -1775,43 +1775,33 @@ while building the real score.
   composer's ear:** first MIDI playback sitting (G2/G3 can fold in).
 
 - **8c — TIER-2 NOTATION, T1 NOTE BY NOTE (the working loop on THE DRAFT)** —
-  `doing 2026-08-21 (day 22)` — the composer's method: *the next note in
-  source order, regardless of technique*, designed element by element on
-  the working file `db1-t1-x02`, each settled element becoming registry
-  data (D50) so siblings inherit it; THE DRAFT `db1-t1` (0–55.94) is the
-  canonical accumulator. **Done:** wc-3 (the surge, second sitting) ·
-  **wc-23** (G#1 fp, third sitting: go line #333 · nh-unit + 8vb · THE RING
-  BAR at the 1.49 s sample length, ⅔ brick, 0.65 · **sfzp**; D49 note-off
-  finding + ARCHIVE_AMENDMENTS.md; playhead readout; constant final-page
-  time scale). **Next:** wc-29, the first staccato (17.749) — extend x02's
-  window first. **Fold-in question open:** the draft's chunker swept wc-23
-  into a staccato cloud; fixed one-shots must stay out of clouds or the
-  device must apply inside streams (decide at promotion). *Why it matters:*
-  every device decided here is the section-1 vocabulary; the M5 hierarchy
-  (third amendment) waits until the composer says go.
-
-- **8d — PAGE-EDGE STRATEGY (the presentation score at a cut)** — `queued
-  2026-08-22 (day 23)`, raised by the composer on wc-29 (*"what happens if
-  there are things at the edges — do we repeat them on the next page, some
-  form of the notation, continue shapes?"*). The case that raised it was
-  NOT a page edge — the zoom viewport's 6 s step (fixed: SHIFT+←/→ pans
-  1 s, HOME re-aligns) — so the strategy is filed, not built. What exists:
-  `splice.js` cuts within ±2 s slack of each 12 s target, never severs a
-  beam (stamp-atomic), judges "interrupted" by ONSETS only, reshows only
-  the tempo label "(cont.)". AI's recommendation, in order: **R1** teach
-  the cutter to see INK (onset → end of ring bar / curve / bracket; data
-  the IR already holds) so the slack finds a clean gap — cheapest, biggest
-  win; **R3** draw the presentation cut as a marked hairline inside the
-  zoom view so a split can be judged without flipping to video; **R2**
-  when a cut must sever: *events continue, states restate* — sustained
-  elements continue from the next page's left edge with no new head (in
-  proportional notation a repeated head reads as a second attack), while
-  reader-state restates at the page start (tempo label — built; 8vb;
-  parenthesised dynamic reminder; clef — pins already); point events are
-  atomic to their onset page. **R4 = the trigger:** run the cutter over THE
-  DRAFT under R1's definition and list what it would sever; build R2 only
-  if Section 1 actually produces a case. Composer has not ruled on R2.
-  All three land as rules in `notation/registry/page_rules.json` (P6).
+  `doing 2026-08-21 (day 22) → DENSITY BUILD 1 COMPLETE FOR T1 2026-08-22
+  (day 23)` — the composer's method: *the next note in source order,
+  regardless of technique*, designed element by element on `db1-t1-x02`,
+  each settled element becoming registry data (D50) so siblings inherit it.
+  **Done:** wc-3 (surge) · wc-23 (G#1 fp — D49/D51) · **wc-29 the first
+  staccato one-shot** (filled head at 0.844, 16th flag, staccato dot at the
+  0.15 tight gap, band dynamic, GC, go line) · **the fortepianos gained
+  GCs and breath-cut ring bars (D55)** · **the first CLUSTER, 31.49–34.6,
+  12 notes at ♩ 87.2 in two beam groups** (D56: the tempo is an exhaustive
+  complexity-scored fit; beamlets in group 1, a 3:2 bracket in group 2 to
+  the composer's own LilyPond standard, D57). Along the way: no ottava in
+  the piece (D54), the one-shot dynamic ladder (D52), the GC ported whole
+  (D53), rests and 16th flags captured for the first time in the lineage.
+  *Why it matters:* every device decided here is the section-1 vocabulary.
+- **8e — GENERATE T2–T10 FOR DENSITY BUILD 1** — `next (composer, day 23
+  session end)`. Composer: *"have AI generate the rest of the tuba parts
+  for this first density build. We'll do an evaluation first, analysis of
+  what's there, and if there was anything missing in our generator, our
+  pipeline, to accommodate something different in one of the remaining nine
+  tuba parts. And then we'll try generation, and I'll look at it."*
+  **Step 1 is ANALYSIS, not generation** — over 0–55.94, all nine parts:
+  techniques beyond staccato/fp/ord · notes needing a device the vocabulary
+  lacks · pitches outside F#1–F4 or past the 4-ledger threshold · candidate
+  cluster spans that admit NO metric fit (a real result → proportional) ·
+  simultaneities (chords: the breath rule and beam adjacency both treat
+  same-onset notes specially) · any part dense enough to overflow the
+  6.51 ss half-lane. Then generate, then the composer looks.
 
 ## Parking lot
 

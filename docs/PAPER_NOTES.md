@@ -751,3 +751,38 @@ Friberg 2011). Provenance therefore decides the channel: authored → exact
 marks; played-in → ambient + deviations; generated → range + character.
 Composer, verbatim: *"play this note at 100 and then play the other note at
 103 — that they can't do"*; *"it's usually couched in something else."*
+
+## #12 — Notation as measurement, not transcription (2026-08-22, day 23)
+
+A full day of notating one part produced a pattern worth naming: **almost
+every notational decision was settled by a measurement, and several
+reversed the intuition that preceded them.**
+
+- The composer worried a staccato 8th would be played longer than a
+  staccato 16th. True by convention — and irrelevant here, because the
+  measured tuba staccato sample (0.43–0.48 s) is longer than both
+  interpretations AND longer than every gap in the figure. The written
+  value cannot control duration on this instrument; it controls when the
+  next attack comes. The notation was then designed to say that.
+- The ottava question dissolved the same way: 8vb exists in piano practice
+  to keep chrome near the staff; a tuba part written at pitch reaches the
+  lane edge, and the *measurement* (nothing fits below A1) forced a rule —
+  the column flips to the side with room — that no amount of taste would
+  have produced.
+- The GC "design" was two rounds of AI invention before the composer said
+  the object already existed and was to be copied whole. Porting it took
+  less time than either invented version.
+
+**The generalisation for the paper:** in a proportional score driven by
+real recordings, the notation is downstream of instrument measurements, and
+the productive move is repeatedly to ask *what does the material actually
+do* rather than *what should this look like*. The composer's own phrasing
+for the underlying tension: *"play this note at 100 and then play the other
+note at 103 — that they can't do."*
+
+Related: the spacing complaint that opened the last stretch — "the beaming
+suggests twelve evenly spaced sixteenth notes, but that's not what it looks
+like" — is the clearest statement yet of the piece's central notational
+problem. **x is real time; beams are metric symbols; the page tells two
+stories.** Every device settled on day 23 is a way of keeping those two
+stories from contradicting each other.
