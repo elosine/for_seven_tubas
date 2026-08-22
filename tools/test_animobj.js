@@ -70,9 +70,17 @@ const P = gcSt.preset;
 const PRE = P.duration * P.descentRatio / 100;          // 0.36 at the Short preset
 const POST = P.duration * (1 - P.descentRatio / 100);   // 0.24
 const yAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gcSt); return m.length ? parseFloat(m[0].match(/cy="(-?[\d.]+)"/)[1]) : null; };
-const yLand = gcSys.yOfSs(gcSt.landSs), drop = gcSt.dropSs * gcSys.ssPx;
+// THE LANE LAW (day 23, composer): impact at the lane BOTTOM, apex at the
+// lane TOP, each inset by the ball's radius so the disc is whole there.
+const rPx = gcSt.radiusSs * gcSys.ssPx;
+const inset = gcSt.insetSs != null ? gcSt.insetSs * gcSys.ssPx : rPx;
+const yLand = gcSys.yBotPx - inset, drop = (gcSys.yBotPx - gcSys.yTopPx) - 2 * inset;
 const hAt = t => (yLand - yAt(t)) / drop;               // height above the landing line, 0..1
 const HTOL = 0.06 / drop;   // cy is written at toFixed(1) — compare within half a rounded pixel
+// stated as the composer stated it: the ball's own edges touch the lane's
+eq(yAt(14.0) + rPx, gcSys.yBotPx, 0.06, 'gc: at impact the ball sits ON the lane bottom');
+eq(yAt(14.0 - PRE) - rPx, gcSys.yTopPx, 0.06, 'gc: the arc tops out AT the lane top');
+eq(drop + 2 * rPx, gcSys.yBotPx - gcSys.yTopPx, 1e-9, 'gc: the trajectory spans the whole lane height');
 // the SPAN is asymmetric and comes from the preset (piece #1's stored GCs
 // carry exactly this: start = impact - 0.36, end = impact + 0.24)
 ok(yAt(14.0 - PRE - 0.01) === null && yAt(14.0 + POST + 0.01) === null, 'gc active only over [at-0.36, at+0.24]');

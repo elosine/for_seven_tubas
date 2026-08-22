@@ -116,7 +116,20 @@
     const P = gcParams(st, inst);
     if (t < inst.at - P.pre || t > inst.at + P.post) return [];
     const x = view.xOfSeconds(inst.at);
-    const yLand = s.yOfSs(st.landSs);
+    // THE BALL SPANS THE LANE (day 23, composer, after seeing the first
+    // version): "the impact point at the bottom of the track and the arc
+    // to stop at the very top of the track ... the vertical trajectory of
+    // the ball will be the whole lane height." So the geometry is
+    // LANE-relative, not staff-step-relative — impact at the lane bottom,
+    // apex at the lane top, each inset by the ball's radius so the disc is
+    // whole at both extremes (insetSs 0 puts its CENTRE on the edges).
+    // It therefore scales with lane height, part count and zoom on its own.
+    // span:'staffSteps' returns to the old landSs/dropSs staging.
+    const r = st.radiusSs * s.ssPx;
+    const laneMode = st.span !== 'staffSteps';
+    const inset = laneMode ? (st.insetSs != null ? st.insetSs * s.ssPx : r) : 0;
+    const yLand = laneMode ? s.yBotPx - inset : s.yOfSs(st.landSs);
+    const dropPx = laneMode ? (s.yBotPx - s.yTopPx) - 2 * inset : st.dropSs * s.ssPx;
     // clamp: at the exact window edge floating point can hand back u = -1e-16,
     // and Math.pow(negative, 2.8) is NaN — a silent invisible ball (found by
     // the battery on the first run, day 23)
@@ -129,8 +142,8 @@
       const u = cl(P.post > 0 ? (t - inst.at) / P.post : 1);
       hFrac = P.rebound * (1 - Math.pow(1 - u, P.ascentPower));
     }
-    const y = yLand - hFrac * st.dropSs * s.ssPx;
-    return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (st.radiusSs * s.ssPx).toFixed(1) +
+    const y = yLand - hFrac * dropPx;
+    return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
       '" fill="' + st.color + '"/>'];
   });
 

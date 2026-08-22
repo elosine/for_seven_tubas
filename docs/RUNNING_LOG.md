@@ -5876,3 +5876,33 @@ dictated, the save-shuffle established, T1 facts scanned.**
   (= −0.36 / +0.24) · notation ink (head 1251.5 → flag right 1279.87 in
   zoom) midpoint 1265.685 vs go line 1265.69. Batteries: layout, render,
   snapshots, stamps, splice, extract-played, midiplayer, coords, animobj.
+- **wc-29, GC round 2 — THE BALL SPANS THE LANE (composer, on seeing round
+  1):** *"I want the impact point to be at the bottom of the track and arc
+  to stop at the very top of the track. So, essentially, the vertical
+  trajectory of the ball will be the whole lane height... I just see the
+  ball, but it's a very short path."* Round 1's staging was staff-step
+  based (landSs 3.0 / dropSs 3.9) and gave a path barely a staff tall —
+  and 3.9 was itself a FIT, forced by the top lane's 4.52 ss of headroom.
+  The composer's answer dissolves that constraint instead of tuning it:
+  measure the ball against the LANE, not the staff.
+- Built: `animated.gc.span = 'lane'` (registry) — impact at the lane
+  bottom, apex at the lane top, each inset by `insetSs` (0.55 = the ball's
+  radius) so the disc is whole at both extremes. The path now scales with
+  lane height, part count and zoom by itself; `span:'staffSteps'` returns
+  to landSs/dropSs, which stay in the registry unused.
+- Test rewritten to assert the composer's sentence directly, in the
+  ball's own edges: at impact `cy + r == lane bottom`; at the apex
+  `cy - r == lane top`; `drop + 2r == lane height`. (The previous
+  assertions measured against landSs/dropSs and went red, correctly — the
+  reference itself had changed, not the arithmetic.)
+- Verified live (video, page 2, T1 lane): apex ball-top **8.0 px** = the
+  lane top · impact ball-bottom **110.8** = the lane bottom · centre travel
+  12.3 → 106.5 = **94.2 px**, three times round 1's ~31 px · cx 944.8 = the
+  go line throughout · window 17.389–17.989 unchanged. Batteries: animobj,
+  layout, render, snapshots, stamps, splice.
+- **Open (composer's phrasing, not yet acted on):** *"I don't see either
+  the arcs or the impact point."* Read here as "the path was too short to
+  read" — which the lane span fixes. If it instead means the ARC should be
+  DRAWN (a static trajectory guide) and the IMPACT marked (a dot/tick at
+  the landing), those are two new elements, not staging — flagged, not
+  built.
