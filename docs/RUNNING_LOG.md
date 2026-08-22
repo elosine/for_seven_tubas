@@ -7401,3 +7401,55 @@ fits under 32nds. The section's accelerando is doing this — the last few
 attacks converge on a pulse. Splitting each tail off as its own beamed group is
 consistently the cheapest reading, and it is the same shape the composer chose
 by ear in T2 (`--beamBreak 4`).
+
+### T3's two figures with a PICK-UP, T4's last five, and a correction I owed (day 24)
+
+**A correction first.** The composer asked for T3's *last nine partials* and I
+had only analysed **five** of them (29.93–31.97), never the four at
+33.18–34.51. Their own hypothesis — *"grouped the first four, one shot,
+another one shot, and grouped the last three"* — describes 4+1+1+3 = nine, and
+it had never been tested. Ran it properly:
+
+| | their grouping (4·1·1·3) | mine (1·4·1·3) |
+|---|---|---|
+| front block | notes 1-4: **32nds, 10 ms** | notes 2-5: **16ths, 1 ms** |
+| back block | notes 7-9: 16ths, 28 ms | identical |
+
+The two readings differ by ONE thing: which note stands alone at the front.
+Note 1 sits **55 ms** off the 2-5 grid (tolerance 30), so it is not a member
+the fit narrowly rejected — it is a separate attack. Composer chose the second
+and then improved it: **note 1 is a PICK-UP to the group, not a lone one-shot.**
+
+**`--pickup N` (new).** The tempo belongs to the main figure, so the fit runs on
+the members AFTER the pick-up and the pick-up is then measured onto that grid at
+a negative slot. Fitting all five together would let a loose anticipation drag
+the grid to accommodate itself — exactly what produced the 32nds reading. The
+GC and go line move to the first note after the pick-up (composer: *"the GC then
+is actually on number two"*). The pick-up's own miss is printed (55 ms here) and
+never constrains the fit, which is the point: a pick-up is played TO the
+downbeat, not metronomically before it. Regression: T1's cluster rebuilds
+byte-identical.
+
+**Built:** T3 cl-3 = pick-up + four at ♩=105.6, grid 0,2,6,9,14, **1 ms** ·
+T3 cl-4 = the last three at ♩=71.6, grid 0,2,3, 28 ms · T4 cl-5 = the last five
+at ♩=65.5, grid 0,1,2,3,4, 23 ms.
+
+**Dynamics — the captured rule applied, and once refused.** T3's two groups are
+two-band (f/mf), the rule's home ground: ambient `mf` + accents on the f
+partials (1,3,4 and 1,3). **T4's last five has FOUR bands** (p 72 · mf 85 ·
+f 110/118 · fff 123) — the rule would give ambient `p` and accents on four of
+five notes, which is not a shape. That is the documented failure mode, so the
+contour IS the content there and it gets per-partial marks. First time the
+captured rule was consulted and deliberately not followed.
+
+**Left-edge question, answered with a measurement** (composer: *"reassure me
+that for all the clusters... the left side of the note head is on the go
+line"*): **31 of 31 cluster noteheads, deviation 0.000000 ss.** It is
+`figures.cluster.nhAnchor: "leftEdge"` in the registry, so it holds for every
+cluster built from here on. A first pass reported 3 failures — that was my
+checker matching noteheads by time across ALL parts instead of per part, not
+the notation. Worth the note: a verification script is code too.
+
+**Also verified:** T3's primary beam spans all five members with the last stub
+INWARD; T4's five consecutive 16ths get a solid double beam and no stubs at all
+(nothing opens a gap). Five batteries green.

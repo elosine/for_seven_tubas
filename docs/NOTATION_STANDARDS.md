@@ -40,6 +40,7 @@ precedes them. `@part` is required in a multi-part file.
 | Per-partial marks remain available | "let's just keep all the dynamics" | `--dyn 1,2,3,…` (bare = the velocity band; `n:mark` overrules it) |
 | Accents sit **above the beam on one row**; the beam is lowered to make room inside the lane | (day 23) | `layout.js` beamHasArtic; `engraving.layout.stackGapSs` |
 | Tuplet bracket = the composer's own LilyPond standard (D57) | — | `engraving.layout.tuplet`; `--tuplet a-b@n:d` |
+| **A PICK-UP is fitted separately** (`--pickup N`): the tempo is fitted to the notes AFTER the pick-up, then the pick-up is placed on that grid at a negative slot, and the **GC and go line move to the downbeat** — the first note after it | "1 should be a pick-up. The GC then is actually on number two" | `--pickup N` (positional); the pick-up's own miss is reported, never constrains the fit |
 | The tempo is the analysis's, not a guess; **tolerance is a compositional dial** — looser buys simpler | — | `--clusterTol` (0.03 default; T1 used 0.05) |
 
 ## The beam standard (a short note beamed into a long one)

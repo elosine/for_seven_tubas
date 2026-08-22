@@ -34,6 +34,10 @@
 //                            dynamic) and only gains a stem to a shared beam. No
 //                            tempo fit, no grid, no rests. Repeatable.
 //   --noGc wc-98[,wc-…]      drop the GC from named objects (per-note device override)
+//   --pickup N               the first N members are a PICK-UP: the tempo is fitted to the
+//                            REST of the cluster and the pick-up is placed on that grid
+//                            before position 0 (negative slots). The GC and go line move
+//                            to the first member AFTER the pick-up — the downbeat.
 //   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
 //   --beamThrough 2          beam group N keeps its secondary beam unbroken across rests
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
@@ -166,7 +170,7 @@ const { doc, warnings } = Extract.extract(score, {
   // Before this they were global, and T2's cluster silently inherited T1's
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -202,10 +206,38 @@ const { doc, warnings } = Extract.extract(score, {
         ' into one group. Name the part: --cluster ' + sp[0] + '-' + sp[1] + '@<part>');
       process.exit(2);
     }
-    const fit = ClusterFit.fit(members.map(e => e.onset), { TOL });
+    // --pickup N (day 24, composer: "1 should be a pick-up. The GC then is
+    // actually on number two"): the tempo belongs to the MAIN figure, and the
+    // pick-up hangs off the front of it. So the fit runs on the members AFTER
+    // the pick-up — otherwise a loose anticipation drags the whole grid to fit
+    // itself — and the pick-up is then measured onto that grid at negative
+    // positions. Its own error is reported separately and never constrains the
+    // fit, which is the whole point: a pick-up is played TO the downbeat, not
+    // metronomically before it.
+    const pickup = Math.max(0, parseInt(modVals('pickup')[0] || '0', 10));
+    if (pickup >= members.length) { console.error('--pickup ' + pickup + ': cluster ' + label + ' has only ' + members.length + ' members'); process.exit(2); }
+    const mainMembers = members.slice(pickup);
+    const fit = ClusterFit.fit(mainMembers.map(e => e.onset), { TOL });
     if (!fit) {
       console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
       process.exit(2);
+    }
+    if (pickup) {
+      // place each pick-up note on the main grid, at whatever slot it lands
+      // nearest; report the miss so an unplayable pick-up is never silent
+      const anchor = mainMembers[0].onset;
+      const pre = [];
+      for (let i = 0; i < pickup; i++) {
+        const rel = (members[i].onset - anchor) / fit.unit;
+        const slot = Math.round(rel);
+        pre.push({ slot, errMs: Math.abs(rel - slot) * fit.unit * 1000 });
+      }
+      // shift the whole grid so the earliest pick-up sits at 0 and the rest follow
+      const shift = -Math.min(...pre.map(p => p.slot));
+      fit.grid = pre.map(p => p.slot + shift).concat(fit.grid.map(g => g + shift));
+      console.log('    pick-up: ' + pickup + ' note(s) placed on the main grid at slot(s) ' +
+        pre.map((p, i) => members[i].source.objectId + '@' + (p.slot + shift) + ' (off ' + p.errMs.toFixed(0) + ' ms)').join(', ') +
+        ' — the fit itself is the ' + mainMembers.length + ' note(s) after it');
     }
     console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
     console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
@@ -285,7 +317,9 @@ const { doc, warnings } = Extract.extract(score, {
     members.forEach((e, k) => {
       if (breaks.has(k + 1)) sub++;
       const gkey = key + String.fromCharCode(97 + sub);   // cl-1a, cl-1b, ...
-      const firstOnly = v => v === 'first' ? k === 0 : !!v;
+      // the DOWNBEAT owns the launch, not the pick-up (composer: "the GC then
+      // is actually on number two")
+      const firstOnly = v => v === 'first' ? k === pickup : !!v;
       const dev = {
         goLine: firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : 'first'),
         gc: firstOnly(FIG_CL.gc != null ? FIG_CL.gc : 'first'),
