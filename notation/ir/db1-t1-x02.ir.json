@@ -1743,6 +1743,7 @@
      "noteUnits": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1781,6 +1782,7 @@
      "tupletSlot": 0,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1819,6 +1821,7 @@
      "tupletSlot": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -1853,6 +1856,7 @@
      "noteUnits": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }

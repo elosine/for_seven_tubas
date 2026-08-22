@@ -6710,3 +6710,14 @@ dictated, the save-shuffle established, T1 facts scanned.**
     (after notes 1, 2, 5, 6 — exactly where the composer said), the 8th
     rest at 1544 in the gap, the tuplet's 16th rest at 1660 inside the
     bracket. Batteries green.
+- **Figure 2 back to a solid double beam** (composer, with a screenshot
+  showing the orphan stub at the group's right end): *"the second figure,
+  let's just keep it as is. They can all be beamed together. It's fine, the
+  sixteenths."* The beamlet rule had been breaking group 2's secondary beam
+  at the TUPLET'S OWN internal rest, leaving the final partial with a stub.
+  Added `--beamThrough N`: beam group N keeps its secondary beam unbroken
+  across rests — standard where the group is one rhythmic unit, and a
+  tuplet's internal rest should never sever the group that contains it.
+  Group 1 keeps its stubs (that was the point there). Verified live: figure
+  2 = two full-width beams 1604→1694 (90.3 px each) at y 21 and 27.4, no
+  stub. Batteries green.

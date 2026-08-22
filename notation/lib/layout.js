@@ -564,7 +564,7 @@
                     }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
-                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [] });
+                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough });
                     const grp = beamGroups.get(key);
                     grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
                     // the cluster's metric facts, carried on the overlay by
@@ -871,7 +871,11 @@
           let prev = null;
           for (const t of g.tips) {
             if ((t.beams || 1) < b) { flush(); prev = null; continue; }
-            if (prev && t.pos != null && prev.pos != null && Math.abs((prev.pos + (prev.len || 1)) - t.pos) > 1e-6) flush();
+            // ...unless the group beams THROUGH its rests (day 23, composer,
+            // on the second figure: "they can all be beamed together, it's
+            // fine, the sixteenths"). Standard where the group is one
+            // rhythmic unit — the tuplet's internal rest should not sever it.
+            if (!g.through && prev && t.pos != null && prev.pos != null && Math.abs((prev.pos + (prev.len || 1)) - t.pos) > 1e-6) flush();
             run.push(t); prev = t;
           }
           flush();

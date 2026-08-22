@@ -24,6 +24,7 @@
 //   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
 //   --tuplet 10-11@3:2       members 10-11 form a 3:2 tuplet; spare slots become rests in the bracket
 //   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
+//   --beamThrough 2          beam group N keeps its secondary beam unbroken across rests
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
@@ -195,6 +196,9 @@ const { doc, warnings } = Extract.extract(score, {
     // composer, day 23: "let's not beam them altogether... the first group of
     // notes and then the second group, but conceptually keep the same tempo".
     const breaks = listArg('beamBreak');
+    // --beamThrough 2 : beam group #2 (1-based) keeps its secondary beam
+    // unbroken across rests — composer, day 23, on the second figure.
+    const through = listArg('beamThrough');
     // --tuplet 10-11@3:2 : members 10..11 form a 3:2 tuplet (three in the
     // space of two units). Slots beyond the members become rests INSIDE the
     // bracket — composer, day 23: "one sixteenth rest, which is part of that
@@ -262,6 +266,7 @@ const { doc, warnings } = Extract.extract(score, {
         dev.noteBeams = beamsFor(durUnits[k]);
       }
       if (tuplets.length) dev.beamHasTuplet = true;
+      if (through.has(sub + 1)) dev.beamThrough = true;
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
       if (anyArtic) dev.beamHasArtic = anyArtic;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
