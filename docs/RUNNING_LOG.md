@@ -5537,3 +5537,33 @@ dictated, the save-shuffle established, T1 facts scanned.**
   id space (nh-demo-01..05, ending the x-number collision) and pruned
   (regenerable via tools/nh_demo.js).
 - Composer score server: already running on :5200, nothing to launch.
+
+**Day 22 (2026-08-21, new sitting) — T1's second note, reframed.**
+- Composer: work on *"the very next note in T1 ... regardless if it is a
+  fortepiano or not."* The unit of work is THE NOTE, not a technique-device
+  category (the day-22 wrap had framed it as "design the fp device").
+  Source score read directly to confirm identity: `wc-23`, G#1 (MIDI 32),
+  14.544-15.243 drawn (0.70 s), flat level 6.7, technique fortepiano, plain,
+  recVel 85, performanceNotes "FP3x", group grp-g1-opening. Third note =
+  `wc-29` staccato 17.749. Working file `db1-t1-x02` holds wc-23 as an
+  unresolved fixed-oneshot placeholder (span stretched to the window end 17).
+- Bricks toggle question: it lives behind the gear (engineering mode) since
+  the collapse; state persists with the other controls (read from code,
+  composer to confirm live).
+- **"How do I see what time I'm at?" — there was no playhead readout**; the
+  bar's #meta shows only the page range. Added `t 14.54 s`: a fixed pill at
+  the bottom-right in Score/Zoom (DOM only, never in the SVG — exports stay
+  clean; hides while the bar is up) + the same number in the bar before
+  #meta. Fed by the rAF loop from drawOverlayFrame's returned t, so it
+  tracks click-to-seek while paused as well as playback. Verified in the
+  in-app browser: element present, fixed/bottom-right, seek lands
+  (t = 7.08 after a 60 % click on a 0-12 page). NOT verified: the live
+  number itself — the in-app pane was not compositing (the hidden-tab rAF
+  trap from V2), so the composer's refresh is the check.
+- Composer confirmed the readout live ("brick at 14.58") — the live number
+  is now verified on the composer's machine. Made the pill toggleable on
+  request: `t` checkbox in the bar (container modes; persisted with the
+  other controls) + the T key. Verified in the in-app browser after a
+  reload: T hides/shows the pill and the saved state flips false/true.
+  Draft-vs-working restated: `db1-t1` (no x-number) carries the whole
+  draft; x02 is the disposable working file.

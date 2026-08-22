@@ -43,6 +43,16 @@
   #err { color: #b00; padding: 12px; white-space: pre-wrap; font-family: monospace; }
   #stale { color: #8a6d3b; padding: 0 12px 12px; white-space: pre-wrap; font-family: monospace; }
   #stale:empty { display: none; }
+  /* day 22: playhead readout — the composer could not tell what time the
+     cursor was at. A pill at the bottom-right in container modes (DOM
+     only; never in the SVG, so exports stay clean), hidden while the bar
+     is up because the bar carries the same number. */
+  #tnow { display: none; }
+  body.cmode.tshow #tnow { display: block; position: fixed; right: 10px; bottom: 8px; z-index: 10;
+                     font: 13px/1 monospace; color: #ddd; background: #111c;
+                     padding: 5px 9px; border-radius: 4px; pointer-events: none; }
+  body.cmode #bar.shown ~ #tnow, body.cmode #bar:hover ~ #tnow { display: none; }
+  #tbar { font: 13px/1 monospace; opacity: 0.9; display: none; }
   body.cmode #stale { position: fixed; left: 8px; bottom: 34px; z-index: 10;
                       background: #fff8; border-radius: 4px; padding: 4px 8px; }
 </style>
@@ -85,12 +95,15 @@
   <button id="prev">◀</button>
   <button id="next">▶</button>
   <label id="engWrap" title="engineering controls: the slice-1 proofing views (notation/graphic) and their window/parts overrides — off = the presentation score alone"><input type="checkbox" id="eng"> ⚙</label>
+  <label id="tshowWrap" style="display:none" title="show the playhead time pill on the score (T)"><input type="checkbox" id="tshow" checked> t</label>
+  <span id="tbar" title="playhead time — click the score to seek"></span>
   <span id="meta"></span>
 </div>
 <div id="hoverzone" title="controls"></div>
 <div id="sheet"></div>
 <div id="err"></div>
 <div id="stale" title="the extracted snapshot no longer matches the composer score"></div>
+<div id="tnow" title="playhead time"></div>
 
 <script src="/notation/lib/coords.js"></script>
 <script src="/notation/lib/stamps.js"></script>
@@ -108,7 +121,7 @@
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
   const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
-  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng', 'metaov'];
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng', 'metaov', 'tshow'];
   // THE FRAME (day 22, the collapse): the presentation score always shows
   // every lane (PP-2); a save covering fewer parts leaves the rest as
   // empty staves. One place to change if the ensemble ever isn't ten.
@@ -221,6 +234,7 @@
     try { localStorage.setItem(UI_KEY, JSON.stringify(o)); } catch (e) { }
   }
   for (const f of UI_FIELDS) $(f).addEventListener('change', saveUi);
+  $('tshow').addEventListener('change', () => document.body.classList.toggle('tshow', $('tshow').checked));
 
   async function render() {
     try {
@@ -243,6 +257,9 @@
       $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('midiWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('tbar').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('tshowWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      document.body.classList.toggle('tshow', $('tshow').checked);
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       setCmode(vv === 'video' || vv === 'zoom');
       if (vv === 'video' || vv === 'zoom') { ensureLoop(); ensureMidi(); }
@@ -511,6 +528,11 @@
     if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
     else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
     else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }
+    else if (ev.key === 't' || ev.key === 'T') {   // playhead pill on/off
+      $('tshow').checked = !$('tshow').checked;
+      $('tshow').dispatchEvent(new Event('change'));
+      ev.preventDefault();
+    }
   });
 
   // ---- V2: transport + the animation loop ----
@@ -589,12 +611,21 @@
     return { turned: false, t, window: [w0, w1] };
   }
   window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
+  let tnowShown = '';
+  function showTnow(t) {
+    const s = 't ' + t.toFixed(2) + ' s';
+    if (s === tnowShown) return;
+    tnowShown = s;
+    $('tnow').textContent = s; $('tbar').textContent = s;
+  }
   function animLoop() {
     rafId = null;
-    if (drawOverlayFrame() === null) {      // left container modes — loop ends
+    const fr = drawOverlayFrame();
+    if (fr === null) {      // left container modes — loop ends
       if (midiWasPlaying) { midiFlush(); midiWasPlaying = false; }
       return;
     }
+    showTnow(fr.t);   // the playhead readout (pill + bar)
     // MIDI rides the loop, NOT drawOverlayFrame — the V4 exporter steps
     // that function deterministically and must never emit sound.
     const playing = state.transport.isPlaying() && $('midi').checked;

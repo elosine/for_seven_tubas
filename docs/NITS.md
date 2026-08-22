@@ -374,3 +374,5 @@ troubleshooting now"). Only matters to proof furniture; the REAL cursor
 entry behavior is V2 code with its own gate. Revisit only if V1/V2
 visuals also diverge on the composer's machine (then it is a real
 rendering-environment difference worth understanding).
+
+- *(2026-08-21, day 22)* **notation.html page title still reads "Notation — slice 1 (trance)"** after the collapse made it the presentation score. Cosmetic; one string in `notation/app/notation.html`. Deferred — nothing depends on it.
