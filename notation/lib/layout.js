@@ -402,9 +402,15 @@
                 // horizontal ink on the go time; the day-22 default hangs the
                 // unit's rightmost ink a fixed gap BEFORE it. Device data, so
                 // one technique can differ from another.
-                const headDx = dev.nhAnchor === 'center'
-                  ? -(leftRel + rightExt) / 2
-                  : -(gapSs + rightExt);
+                // 'leftEdge' (day 23, composer, for clusters): the NOTEHEAD's
+                // left edge — accidentals and ledgers excluded — sits precisely
+                // on the go time, "because of the scrolling person": what
+                // crosses the cursor at the go moment is the head itself.
+                const headDx = dev.nhAnchor === 'leftEdge'
+                  ? nhO.wSs / 2
+                  : dev.nhAnchor === 'center'
+                    ? -(leftRel + rightExt) / 2
+                    : -(gapSs + rightExt);
                 items.push(Object.assign({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 // unit ink extents (grow as elements land) — feed both the
@@ -533,7 +539,17 @@
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
                     if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [] });
-                    beamGroups.get(key).tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
+                    const grp = beamGroups.get(key);
+                    grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
+                    // the cluster's metric facts, carried on the overlay by
+                    // notate_section --cluster (which runs the tempo fit)
+                    if (dev.beamUnit) {
+                      grp.unit = dev.beamUnit;
+                      grp.beams = dev.beamLevels || 1;
+                      grp.restDur = dev.beamRestDur || 16;
+                      if (grp.anchorT == null || e.onset < grp.anchorT) grp.anchorT = e.onset;
+                      (grp.positions = grp.positions || []).push(dev.beamPos);
+                    }
                   }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
@@ -762,6 +778,35 @@
         if (g.tips.length < 2) { warnings.push('beam group "' + key + '" has ' + g.tips.length + ' note(s) — no beam drawn'); continue; }
         g.tips.sort((a, b) => a.t - b.t);
         items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
+        // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
+        // notes ARE — at a 16th grid every note is a 16th, so a second beam
+        // runs the whole group. beams = log2(value / quarter); the grid comes
+        // from the cluster overlay (unitSeconds + the members' positions), so
+        // the drawing follows the analysis rather than a guess.
+        const lvl = g.beams || 1;
+        const step = (glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81;
+        for (let b = 2; b <= lvl; b++) {
+          const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
+          items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
+            tips: g.tips.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+        }
+        // RESTS at the empty grid positions (composer: "let's put in any rests
+        // that are necessary... we can think of them all as sixteenth notes or
+        // shorter"). Position: LP's own — the rest's origin on the MIDDLE LINE
+        // (captured with the glyph). The float-toward-the-beam rule (Gould;
+        // Finale's 'Allow Rests to Float') exists to stop a beam colliding
+        // with a rest — here the beam sits ~6 ss above the staff, so there is
+        // no collision and the rest keeps its normal position.
+        if (g.unit && g.positions && g.positions.length) {
+          const filled = new Set(g.positions);
+          const lastN = Math.max(...g.positions);
+          for (let n = 0; n <= lastN; n++) {
+            if (filled.has(n)) continue;
+            const t = g.anchorT + n * g.unit;
+            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
+            items.push({ k: 'rest', dur: g.restDur || 16, t, dxSs: 0, group: key });
+          }
+        }
       }
       return { part, items };
     });

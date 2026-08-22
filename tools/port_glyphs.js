@@ -134,6 +134,22 @@ const out = {
     }
     return out3;
   })(),
+  // day 23: RESTS — the first material in the lineage to need one (the
+  // composer's beamed cluster). Captured by tools/glyph_probe_rests.js
+  // through the same LP pipeline at the same locked size (a notehead
+  // re-extracted as the equality check). topSs/botSs carry LP'S OWN
+  // vertical placement about the staff middle line, so the convention
+  // travels with the glyph instead of being re-invented in layout.
+  rest: (() => {
+    const rs = readLocal('rest_extra.json');
+    const out4 = {};
+    for (const k of Object.keys(rs)) {
+      if (k.startsWith('_')) continue;
+      out4[k] = { path: rs[k].path, wSs: rs[k].width, hSs: rs[k].height, topSs: rs[k].topSs, botSs: rs[k].botSs,
+        _provenance: { source: rs._meta.source, extracted: rs._meta.date, by: rs._meta.extractedBy } };
+    }
+    return out4;
+  })(),
   ottavaText: (() => {
     const tx = read('glyphs/text_paths.json');
     const one = (k) => ({ path: tx[k].path, wSs: tx[k].width, hSs: tx[k].height, _provenance: prov('glyphs/text_paths.json ' + k) });
@@ -185,4 +201,4 @@ const out = {
 
 const outFile = path.join(ROOT, 'notation', 'lib', 'glyphs.json');
 fs.writeFileSync(outFile, JSON.stringify(out, null, 1));
-console.log('wrote ' + outFile + ' — noteheads, 8th + 16th flags, bass clef, ' + Object.keys(accidentals).length + ' accidentals, standards');
+console.log('wrote ' + outFile + ' — noteheads, 8th + 16th flags, rests, bass clef, ' + Object.keys(accidentals).length + ' accidentals, standards');

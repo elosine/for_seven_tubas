@@ -20,6 +20,10 @@
 // The search is exhaustive over a unit grid, so "no fit exists under X ms" is a
 // RESULT, not a failure to find one.
 //
+// The search + scoring live in notation/lib/cluster_fit.js — the SAME module
+// notate_section --cluster uses to draw the result, so this report and the page
+// can never disagree. This tool adds the human-readable survey around it.
+//
 // usage: node tools/cluster_tempo.js --ir db1-t1-x02 --t0 31.49 --t1 33.59
 //        node tools/cluster_tempo.js --onsets 31.549,31.892,...
 const fs = require('fs');
@@ -88,6 +92,17 @@ function complexity(u, m) {
   if (u < PLAYABLE) score += 8;           // grid finer than the playable floor
   return { score, beat, bpm, tuplet: pow2(m) ? null : m };
 }
+
+const ClusterFit = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
+console.log('=== THE CHOSEN FIT (notation/lib/cluster_fit.js — what --cluster will draw) ===');
+for (const tol of [0.020, 0.030, 0.050]) {
+  const f = ClusterFit.fit(onsets, { TOL: tol });
+  if (!f) { console.log('  tol ' + (tol * 1000) + ' ms: NO FIT — proportional is the honest reading'); continue; }
+  console.log('  tol ' + (tol * 1000) + ' ms: unit ' + (f.unit * 1000).toFixed(1) + ' ms · beat ' + f.beat.toFixed(3) + ' s = ' +
+    f.bpm.toFixed(1) + ' bpm x ' + f.subdivision + (f.tuplet ? (' [' + f.tuplet + '-tuplet]') : ' [no tuplet]') +
+    ' · max err ' + (f.maxErr * 1000).toFixed(1) + ' ms · grid ' + f.grid.join(',') + ' · ' + f.beams + ' beam(s), 1/' + f.restDur + ' rests');
+}
+console.log('');
 
 const TOLS = [0.020, 0.030, 0.050];
 for (const tol of TOLS) {

@@ -6453,3 +6453,52 @@ dictated, the save-shuffle established, T1 facts scanned.**
     epsilon and the fit sits right at it. If the ear rejects 20 ms, no
     other tempo does better — the honest fallback is proportional
     (spatial) notation, which has zero error by construction.
+- **THE CLUSTER, second pass (composer's full spec).** Built:
+  - **`nhAnchor: 'leftEdge'`** — the NOTEHEAD's left edge (accidentals and
+    ledgers excluded) sits precisely on the go time, *"because of the
+    scrolling person"*: what crosses the cursor at the go moment is the
+    head itself. Clusters only; everything else keeps its anchor.
+  - **GC + go line on the FIRST note only** (*"so it launches the whole
+    cluster"*), impact/nadir on the same go time. Go line kept as a
+    temporary guideline, to be removed.
+  - **The rhythm is the ANALYSIS, drawn.** `--cluster` now runs the tempo
+    fit itself, through a new shared module `notation/lib/cluster_fit.js`
+    that `tools/cluster_tempo.js` also uses — one algorithm, so the report
+    and the page can never disagree. Result written into the overlays:
+    unit 175 ms · beat 0.700 s = **♩ 85.7 × 4, no tuplet** · grid
+    0,2,4,5,6,8,10,11 · max err 20 ms · **2 beams** · 16th rests.
+  - **Two wrong selection rules, caught by running them:** "coarsest that
+    fits" took a 176 ms grid at 28 ms error over 175 ms at 20 ms;
+    "minimum error" then took a **26.6 ms** grid (64ths, grid 0,13,27,…) —
+    precise and unreadable. The fix was to move the COMPLEXITY SCORE into
+    the shared module and select on it: a grid finer than D43's 0.09 s
+    playable floor is disqualified (+100), non-power-of-2 costs one tuplet
+    level, an unconductable beat and extra rests cost a little. Both tools
+    now agree on 175 ms at every tolerance 20/30/50 ms.
+  - **Secondary beams** stack toward the noteheads at the registry's
+    `beam.stackStep` (0.81 ss). **Rests** fill the empty grid positions.
+  - **Staccato dots on every member.**
+  - **RESTS DID NOT EXIST IN THE LINEAGE** — neither piece #1 nor #2 ever
+    needed one. Captured with the short-form protocol (principle 10):
+    `tools/glyph_probe_rests.js`, one LP fixture at the locked
+    NoteHead.font-size −2, extracted through piece #2's oracle modules
+    read-only, **with a notehead in the same fixture as the equality
+    check — path byte-identical to the ported `notehead.filled`**. Got
+    rest8/16/32/4. The vertical convention travels WITH the glyph:
+    `topSs`/`botSs` about the staff middle line, derived from the fixture
+    (LP anchors every rest ON the middle line; cross-checked because the
+    c'' head sits exactly 0.5 ss above it). Re-port safe: 0 pre-existing
+    entries changed.
+  - **The convention, looked up as asked:** rests inside a beamed group —
+    the BEAM keeps its normal position and the REST is displaced toward it
+    (Gould; Finale's "Allow Rests to Float", Sibelius needs a plug-in).
+    That rule exists to avoid a beam/rest collision — here the beam sits
+    ~6 ss above the staff, so there is none, and the rest keeps its normal
+    middle-line position. Which is also the composer's instinct
+    ("centered in the staff"). Both agree; no float applied.
+  - Verified live (page 3): first head's LEFT edge 1225.6 = the go time
+    1225.6 = the go line = the GC impact · 8 heads · 8 dots · two beams
+    1232.1→1531.5 at y 12.9 and 19.3 (6.4 px = 0.81 ss apart) · 4 sixteenth
+    rests at y 54.2 = exactly LP's placement (middle line 59.4 − 0.656 ss).
+  - **Dynamics on the cluster: deliberately left off** (composer: "we'll do
+    a second pass for dynamics").

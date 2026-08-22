@@ -68,6 +68,15 @@
     }
     function flag8(dir) { return flagN(8, dir); }
 
+    // day 23: rests. The glyph carries LP's own vertical placement
+    // (topSs/botSs about the staff middle line), so the caller positions by
+    // 'restTop' — the bbox top — and LP's convention travels with the glyph.
+    function rest(dur) {
+      const g = G.rest && G.rest['rest' + dur];
+      if (!g) throw new Error('stamps: no rest "' + dur + '"');
+      return box('rest' + dur, g.wSs, g.hSs, { topLeft: { x: 0, y: 0 }, center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
     function clefBass() {
       const g = G.clef.bass;
       return box('clefBass', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
@@ -119,7 +128,7 @@
       ]);
     }
 
-    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, rest, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

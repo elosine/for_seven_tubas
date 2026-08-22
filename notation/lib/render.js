@@ -123,6 +123,13 @@
         } else if (it.k === 'glyph') {
           if (!inWin(it.t)) continue;
           parts.push(Stamps.toSvg((it.scale || it.scaleY) ? Stamps.scaled(boxFor(it.g), it.scale || 1, it.scaleY != null ? it.scaleY : (it.scale || 1)) : boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: Y(it.ySs), ssPx, align: it.align }));
+        } else if (it.k === 'rest') {
+          // day 23: a rest at LP's own vertical placement — the glyph's topSs
+          // is where its bbox top sits above the staff middle line, so the
+          // rest lands exactly where LilyPond would put it.
+          if (!inWin(it.t)) continue;
+          const rg = glyphs.rest['rest' + it.dur];
+          parts.push(Stamps.toSvg(S.rest(it.dur), { xPx: X(it.t, it.dxSs) - (rg.wSs / 2) * ssPx, yPx: Y(it.ySs != null ? it.ySs : rg.topSs), ssPx, align: 'topLeft' }));
         } else if (it.k === 'stem') {
           if (!inWin(it.t)) continue;
           const x = X(it.t, it.dxSs) - (stds.stem.thickness * ssPx) / 2;
