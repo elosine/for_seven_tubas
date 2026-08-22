@@ -17,6 +17,7 @@
 //                            picker entry. Edit the fork's file directly —
 //                            the app hot-reloads it within ~1 s.
 //   --exp                    group the entry under "experiments" in the picker
+//   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
 // Steps: extract (extract_core, same as ir_extract.js) -> validate
@@ -118,8 +119,19 @@ const sampleLengths = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'sample
 const { doc, warnings } = Extract.extract(score, {
   scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: {},
   date: new Date().toISOString().slice(0, 10),
-  toolName: 'tools/notate_section.js (profile ' + profile + ')',
+  toolName: 'tools/notate_section.js (profile ' + profile + ')' + (flag('bricks') ? ' --bricks' : ''),
 });
+// --bricks (day 23, the composer's working loop — "bricks and the midi sound
+// all the way through"): every chunk stays UNRESOLVED, so the page shows the
+// parachute bricks everywhere and each note carries its technique's device;
+// no bars, no beams. The chunker's grouping is not lost — it is simply not
+// applied; a plain re-extract without --bricks brings it back. Working files
+// only (the canonical extraction keeps the chunker's strategies).
+if (flag('bricks')) {
+  for (const c of doc.chunks) { c.strategy = 'unresolved'; delete c.tempo; delete c.groups; }
+  for (const e of doc.events) delete e.metric;
+  doc.provenance.notes += ' BRICKS MODE: all chunks forced unresolved (working file).';
+}
 fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
 
 // independent validation — a failed doc is REMOVED, never left half-usable

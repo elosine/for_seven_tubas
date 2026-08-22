@@ -6268,3 +6268,27 @@ dictated, the save-shuffle established, T1 facts scanned.**
   dense ink at impact — translucency is the compromise; the impact marker
   stays solid (the datum). Watch-case: layer-2 beamed groups crossed by an
   arc's descent. To promote at session end as a decision.
+- **Z-order carried as a decision (composer: "works for now, carry that as
+  a decision")** → promote at session end.
+- **The cluster-threshold strategy, opened (composer):** "everything gets a
+  GC unless there's a quick repeat after, but... some quick notes might
+  form a pattern or a cluster, sonically, with some notes nearby that
+  might have longer gaps... instead of trying to swallow this all whole,
+  let's find the first quick notes in Tuba 1." T1 0–55.94 IOI table
+  computed (52 notes). **First quick note: wc-106 at 31.892 s, 0.343 s
+  after wc-101** (G2 → G#2, v117 → v114). Before it, 23.1–31.5 s has gaps
+  of 0.75–1.76 s (fp/staccato alternating on A#1/G2); after it, dense runs
+  31.5–34.5 (gaps 0.13–0.46), 36.2–40.3, 44.2–46.4. **A drawable-threshold
+  fact:** the GC object is 0.6 s long (0.36 + 0.24), so two one-shots
+  closer than 0.6 s have OVERLAPPING ARCS — wc-101→wc-106 is the first
+  such pair. Musical threshold = the composer's; 0.6 s is where "every
+  note a GC" stops being drawable regardless.
+- **x02 extended through the density build ("bricks and the midi sound all
+  the way through"):** new `--bricks` mode in notate_section.js — every
+  chunk forced unresolved (bricks everywhere, each note carrying its
+  technique's device; chunker grouping not applied, not lost); x02 =
+  0–55.94 (GESTURE-2 = the draft's end). Read "two zero one" as x02; say
+  if 201 s was meant. Headless: 52 bricks · 44 GC units · 50 go lines · 5
+  ring bars · 51 marks (44 band + 5 sfzp + the surge pair) · 0 warnings.
+  Live: 5 pages, pages 3–4 hold the dense runs (17 and 27 arcs), no
+  errors. Playback scope = the window, so MIDI sounds to 55.94.
