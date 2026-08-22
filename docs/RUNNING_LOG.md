@@ -5707,3 +5707,54 @@ dictated, the save-shuffle established, T1 facts scanned.**
 - **Session wrap (third sitting):** journal §2 rewritten for a cold start,
   D49–D51 promoted, principles 9–10, §6 verdicts owed, PLAN 8c created,
   COMPOSER_LOG verbatim, PAPER_NOTES #10. Next: wc-29 (first staccato).
+
+**Day 23 (2026-08-22) — wc-23 closed; wc-29 (the first staccato) opened.**
+- Session start: composer's "last look" at wc-23 — *"make sure we haven't
+  forgotten anything."* Sweep found five open threads: FP3x · 8vb vs
+  ledgers · the whole-note look · the cloud fold-in · export_midi --ir.
+- **FP3x / STAC-rev decoded from git history, not guessed.** Composer's
+  recollection: *"3rd level of fp ... my guess is fp, something else, and
+  then sfzp."* Actual origin: `1109b65` "fp durations **x3 target**" (the
+  A1-5 transform tripled fp durations) and `2bd18e1` "random half of
+  fortepianos **reverted** to staccato at original duration." Both are
+  PROVENANCE tags of the A1-5-fp_cres transform, not performance
+  instructions — so nothing is missing on wc-23, and moot anyway since D51
+  replaced the drawn duration with the sample length. §6 item (2) closed.
+- **Composer: "2 looks good, let's move on to 3."** wc-23 approved whole
+  (sfzp beside the surge's ppp; bar at 0.65). §6 item (3) closed. 8vb vs
+  ledgers still owed (not raised).
+- **wc-29 identity (source read):** G1 (MIDI 31), staccato, drawn
+  17.749-18.035 (0.286 s), level 7.1, plain, recVel 90, grp-g1-opening.
+  2n staccato sample at 31 = **0.46 s** → IR duration 0.46, sounds to
+  18.209. Same D49 law as the fp: the drawn object is 0.17 s short of the
+  sample; withIrDurations amends it (ledger line 2 below).
+- x02 re-extracted 0-20 s (same id; it had no overlays/overrides to lose).
+- **BUG FOUND by the re-extract — the fold-in question arrived early:**
+  the chunker made wc-23 + wc-29 ONE `density-cloud-note` proportional
+  chunk (two notes 3.2 s apart), which would have stripped wc-23's device
+  on the page. Cause: `segmentPlayed` (extract_core.js) compares each gap
+  to 2× the local median IOI — but the FIRST gap of a run has no median,
+  and the code used the gap itself as the reference: `max(2d, 0.35) ≥ d`
+  always, so the second note of any run joined unconditionally. The
+  trance segmenter `segment()` has the guard (MAXUNIT 2.0 s: "a first IOI
+  above this starts no stream"); the section1 profile never got it.
+  **Fix:** first IOI above MAXUNIT starts no group (same constant, same
+  meaning). Test added (two notes 3.2 s apart = two singles; two at 1.2 s
+  = still one proportional group, DOCUMENTED not blessed); proven red on
+  the old code (2 failures), green on the new. Result: x02 = three
+  `unresolved` singles (surge · fp · staccato). The 1.2 s-spaced fps at
+  23-31 s would still group — that remains the promotion-time question
+  (fixed one-shots in clouds: stay out, or device applies inside streams).
+- Composer (on the batteries): *"what were the test batteries for at this
+  juncture?"* — answer: the segmenter is shared code (every section-1
+  extraction), so the extraction test + prove-red was the necessary check;
+  running the whole notation stack (layout/render/animobj/...) after it
+  was the exhaustive-audit habit, not the targeted check. Noted.
+- `test_midiplayer` went red (1/29): its withIrDurations check pinned
+  "amended list names wc-23 only" against the WORKING file x02, which now
+  rightly amends wc-29 too. A test pinned to a disposable file breaks the
+  moment the file does its job. Rewritten to assert the LAW: amended =
+  every IR event whose duration differs from the drawn object. 30/30.
+- Composer: *"I just want to see the brick, I'll develop the notation part
+  by part like the others."* → no device for staccato yet; wc-29 shows as
+  a brick (0.46 s) on page 2 of x02; elements come one at a time.

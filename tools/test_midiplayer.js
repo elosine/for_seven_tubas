@@ -152,7 +152,17 @@ ok(rig3.log.every(e => e.port === 'tuba1' || e.port === 'tuba1b'), 'parts:[0] to
     ok(Math.abs(before - 15.243) < 1e-9, 'fixture: wc-23 drawn end is 15.243');
     ok(Math.abs(w23.endSeconds - 16.034) < 1e-6, `wc-23 sounding end follows the IR (${w23.endSeconds})`);
     ok(score.objects.find(o => o.id === 'wc-23').endSeconds === before, 'archive object NOT mutated');
-    ok(amended.length === 1 && amended[0].id === 'wc-23', `amended list names wc-23 only (${JSON.stringify(amended)})`);
+    // the amended list is THE LAW, not a fixed roster: exactly those IR events
+    // whose duration differs from the drawn object (x02 is a working file —
+    // day 23 it gained wc-29, staccato 0.286 s drawn -> 0.46 s sample)
+    const expectAmended = ir.events.filter(e => {
+        const o = score.objects.find(x => x.id === e.source.objectId);
+        return o && Math.abs((o.endSeconds - o.startSeconds) - e.duration) > 1e-6;
+    }).map(e => e.source.objectId).sort();
+    ok(JSON.stringify(amended.map(a => a.id).sort()) === JSON.stringify(expectAmended),
+        'amended list = every IR event whose duration differs from the drawn object (' +
+        JSON.stringify(amended) + ' vs ' + JSON.stringify(expectAmended) + ')');
+    ok(amended.some(a => a.id === 'wc-23'), 'wc-23 is among the amended');
     ok(sc2.objects.find(o => o.id === 'wc-3') === score.objects.find(o => o.id === 'wc-3'), 'unchanged object = same reference (surge end already equals the IR)');
     // the compiled note-off moves with it
     const ev2 = Core.compileScore(sc2, INSTRUMENTS, ccPoints, { parts: [0], window: [14, 17] }).events;

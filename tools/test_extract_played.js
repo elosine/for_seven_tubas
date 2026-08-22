@@ -63,6 +63,20 @@ const note = (id, t) => ({ id, type: 'waveCurve', layer: 0, startSeconds: +t.toF
   ok(prop && prop.events.length === 4, 'the short group is proportional residue');
 }
 
+// ---- first IOI of a run is bounded (day 23, wc-23 → wc-29): two one-shots
+// 3.2 s apart are two singles, never a two-note "cloud"; the old code used the
+// first gap as its own reference, so the second note always joined ----
+{
+  const far = xt([note('wf-0', 10), note('wf-1', 13.2)], 0.02);
+  const singles = far.chunks.filter(c => c.strategy === 'unresolved' && c.events.length === 1);
+  eq(singles.length, 2, 0, 'first-IOI 3.2 s: two singles');
+  ok(!far.chunks.some(c => c.class === 'density-cloud-note'), 'first-IOI 3.2 s: no cloud chunk');
+  // the guard is MAXUNIT (2.0 s), same constant as the trance segmenter — below it, still a group
+  const near = xt([note('wg-0', 10), note('wg-1', 11.2)], 0.02);
+  const prop = near.chunks.find(c => c.strategy === 'proportional');
+  ok(prop && prop.events.length === 2, 'first-IOI 1.2 s: still one proportional group (documented, not blessed — the fold-in question)');
+}
+
 // ---- REAL DATA: coverage cross-check vs D43 (independent tool, same frame) ----
 const e20 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'section1-e20.ir.json'), 'utf8'));
 const e30 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'section1-e30.ir.json'), 'utf8'));

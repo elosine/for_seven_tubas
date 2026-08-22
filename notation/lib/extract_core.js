@@ -151,8 +151,14 @@
       const d = e.onset - run[run.length - 1].onset;
       if (d <= opt.TOL / 2) { splitters.push(item); continue; } // stacked duplicate
       const recent = iois.slice(-6).sort((a, b) => a - b);
-      const med = recent.length ? recent[Math.floor(recent.length / 2)] : d;
-      const threshold = Math.max(opt.SEG_K * med, opt.SEG_FLOOR);
+      // First IOI of a run has no local median to compare against — using
+      // the gap itself as its own reference (the day-21 code) made the
+      // second note join UNCONDITIONALLY (2·d ≥ d always; wc-23 → wc-29 at
+      // 3.2 s became a two-note "cloud", day 23). Mirror segment()'s guard:
+      // a first IOI above MAXUNIT starts no group.
+      const threshold = recent.length
+        ? Math.max(opt.SEG_K * recent[Math.floor(recent.length / 2)], opt.SEG_FLOOR)
+        : opt.MAXUNIT;
       if (d > threshold) { flush(); run.push(e); iois.length = 0; }
       else { run.push(e); iois.push(d); }
     }

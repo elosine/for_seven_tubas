@@ -5,7 +5,7 @@
   "score": "piece-s25-finished01",
   "window": [
    0,
-   17
+   20
   ],
   "parts": [
    0
@@ -13,7 +13,7 @@
  },
  "provenance": {
   "createdBy": "tools/notate_section.js (profile section1)",
-  "date": "2026-08-21",
+  "date": "2026-08-22",
   "tool": "tools/notate_section.js (profile section1)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only."
  },
@@ -162,6 +162,26 @@
    "technique": "fortepiano",
    "provenance": "derived",
    "mode": "plain"
+  },
+  {
+   "id": "ev-wc-29",
+   "source": {
+    "score": "piece-s25-finished01",
+    "objectId": "wc-29"
+   },
+   "onset": 17.749,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain"
   }
  ],
  "chunks": [
@@ -184,12 +204,26 @@
    "part": 0,
    "span": [
     14.544,
-    17
+    17.749
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-23"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-29",
+   "part": 0,
+   "span": [
+    17.749,
+    20
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-29"
    ],
    "provenance": "derived"
   }
