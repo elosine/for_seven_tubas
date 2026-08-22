@@ -34,7 +34,7 @@ FOR SOUND. Claude Code / Fable 5.**
 - **Fixes the composer hit live:** playhead readout (`t 14.54 s` pill,
   T key / `t` box) · final page no longer stretched (constant px/s,
   terminal barline + stop at the material's end) · bricks toggle is
-  behind ⚙.
+  behind ⚙ *(moved to the compacted bar day 23 — composer's ask)*.
 - **Glyph capture, short form:** `tools/glyph_probe_dyn_extra.js` (one LP
   fixture at the locked −8.5 via piece #2's oracle read-only; sfz
   re-extracted = byte-identical check) → fp/sfp/sfzp + accent/marcato in

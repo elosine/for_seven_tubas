@@ -70,6 +70,7 @@
   <label id="audWrap" style="display:none" title="attach the Reaper render — the clock slaves to it">♪ <input type="file" id="aud" accept="audio/*" style="width:150px"></label>
   <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
   <label id="metaWrap" title="the META layer over the frame: layer-10 shape overlay + its envelope follower — off by default in the working loop"><input type="checkbox" id="metaov"> META</label>
+  <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
   <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
@@ -82,7 +83,6 @@
     <option value="morph-window-01">morph-window-01 (follower/wedge)</option>
   </select></label>
   <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
-  <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
   <label id="partsWrap">parts <select id="parts">
     <option value="all">all (T1–T10)</option>
   </select></label>
@@ -249,7 +249,10 @@
       $('modeWrap').style.display = eng ? '' : 'none';
       $('t0Wrap').style.display = eng ? '' : 'none';
       $('wWrap').style.display = eng ? '' : 'none';
-      $('bricksWrap').style.display = eng ? '' : 'none';
+      // bricks is a LOOK toggle, not proofing machinery — it stays on the
+      // compacted bar beside META (composer, day 23). Graphic view draws its
+      // own bricks and ignores the flag, so it hides only there.
+      $('bricksWrap').style.display = graphic ? 'none' : '';
       $('scoreWrap').style.display = (graphic && eng) ? '' : 'none';
       $('irWrap').style.display = graphic ? 'none' : '';
       $('m4Wrap').style.display = (graphic || !eng) ? 'none' : '';

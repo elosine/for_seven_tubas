@@ -5758,3 +5758,13 @@ dictated, the save-shuffle established, T1 facts scanned.**
 - Composer: *"I just want to see the brick, I'll develop the notation part
   by part like the others."* → no device for staccato yet; wc-29 shows as
   a brick (0.46 s) on page 2 of x02; elements come one at a time.
+- **Bricks checkbox promoted to the compacted toolbar** (composer ask). It
+  had been gated behind ⚙ by THE COLLAPSE, on the reading that bricks are
+  proofing furniture. They are not: with the notation still being built
+  note by note, the brick IS the visible content for every unnotated note,
+  so its on/off is a LOOK decision the composer makes constantly. Now
+  beside META (the other layer toggle); hidden only in graphic view, which
+  draws its own bricks and ignores the flag. State already persisted
+  (`notation-ui`). Verified live: with ⚙ off the bar reads ⇆ · ▶ · ♪ ·
+  MIDI · META · bricks · ir · ◀▶ · ⚙ · t; unchecking removes both bricks
+  from the SVG (2 → 0 → 2), saved flag follows.
