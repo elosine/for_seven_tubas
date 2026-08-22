@@ -66,7 +66,7 @@
     const DEV = Object.assign({
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
-        fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
         staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
@@ -151,7 +151,7 @@
     const DEV = Object.assign({
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
-        fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
@@ -238,7 +238,22 @@
             // one-shots = the measured sample length, the 2n law), centered
             // on the written notehead's vertical center; thickness = 2/3 of
             // the brick height (registry engraving.render.ringBar).
-            if (dev.ringBar) items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + e.duration, ySs: yDraw, ev: e.id });
+            if (dev.ringBar) {
+              // THE BREATH CUT (day 23, composer): a player cannot ring the
+              // full sample AND breathe before the next attack, so the notated
+              // bar is the sample length MINUS a breath — registry
+              // engraving.layout.breathSeconds (0.5 = a moderately quick tuba
+              // breath; snatch 0.25-0.35, full relaxed 1-1.5). Drawing only:
+              // playback still follows the IR duration (D49), since the sample
+              // rings what it rings. Flagged when the cut takes the bar under
+              // flagShortBarSeconds — the composer's judgment, note by note.
+              const breath = dev.ringBarBreath === false ? 0 : (o.breathSeconds != null ? o.breathSeconds : 0.5);
+              const barLen = Math.max(0, e.duration - breath);
+              const flagUnder = o.flagShortBarSeconds != null ? o.flagShortBarSeconds : 1.0;
+              if (breath > 0 && barLen < flagUnder)
+                warnings.push('ring bar ' + e.id + ': ' + barLen.toFixed(2) + ' s after the ' + breath + ' s breath (sample ' + e.duration.toFixed(2) + ') — under ' + flagUnder + ' s, composer judgment');
+              items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + barLen, ySs: yDraw, ev: e.id });
+            }
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
@@ -266,7 +281,22 @@
                 // the gap before go is device data too (day 23, option B for the
                 // GC unit: 0.6 ss so the head clears the impact marker's left
                 // edge, r 0.51 ss); the registry default (0.25) serves the rest
-                const gapSs = dev.nhGapSs != null ? dev.nhGapSs : (o.nhGapSs != null ? o.nhGapSs : 0.25);
+                let gapSs = dev.nhGapSs != null ? dev.nhGapSs : (o.nhGapSs != null ? o.nhGapSs : 0.25);
+                // A UNIT THAT CARRIES A GC IS PUSHED CLEAR OF ITS IMPACT MARKER
+                // (day 23, composer, on giving the fortepianos GCs: "you might
+                // need to push it over, so all the ledgers, the right edge
+                // clears the GC descending arc... just the bottom notehead and
+                // ledger lines"). The arc only reaches head height in the last
+                // ~15 ms before impact, so clearing the MARKER clears the arc:
+                // gap >= marker radius + the tight gap. Registry
+                // gcImpactRadiusSs (0.51 = the GC look's 4 px at the 1080 frame
+                // over the jury frame's 7.9 px/ss; both scale with frame
+                // height, so the ratio is frame-invariant).
+                if (dev.gc) {
+                  const rImp = o.gcImpactRadiusSs != null ? o.gcImpactRadiusSs : 0.51;
+                  const tight = o.tightGapSs != null ? o.tightGapSs : 0.15;
+                  gapSs = Math.max(gapSs, rImp + tight);
+                }
                 const ledgers = ledgersFor(yDraw);
                 // STEM + FLAG (wc-29, day 23 — composer: "black note head,
                 // stem, and I think one flag"): nhStem = 'flag8' | 'plain' |

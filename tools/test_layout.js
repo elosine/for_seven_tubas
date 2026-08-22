@@ -186,7 +186,22 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // the ring bar: go line -> onset + sounding length (1.49 = the measured
   // G#1 fp sample), centered on the WRITTEN head (G#2 under 8vb = -2)
   const rb = F.find(i => i.k === 'ringbar');
-  ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - 2.49) < 1e-9 && rb.ySs === -5.5, 'fortepiano: ring bar spans onset..onset+1.49 at the written head');
+  // THE BREATH CUT (day 23, composer): the bar is the sample length MINUS a
+  // breath (registry breathSeconds 0.5) — the player cannot ring the full
+  // sample and still breathe before the next attack. 1.49 - 0.5 = 0.99,
+  // which also trips the short-bar flag (< 1 s).
+  ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - (1 + 1.49 - 0.5)) < 1e-9 && rb.ySs === -5.5, 'fortepiano: ring bar = sample - breath, at the written head (' + (rb && (rb.t1 - rb.t0).toFixed(3)) + ' s)');
+  {
+    const sub = JSON.parse(JSON.stringify(dir)); sub.events = sub.events.filter(e => e.id === 'f'); sub.chunks = sub.chunks.filter(c => c.events[0] === 'f');
+    const L = Layout.layoutSection(sub, G);
+    ok(L.warnings.some(w => /ring bar ev-f|ring bar f:/.test(w) && /0\.99/.test(w)), 'fortepiano: the short bar is FLAGGED for the composer (' + (L.warnings[0] || 'none') + ')');
+    const L0 = Layout.layoutSection(JSON.parse(JSON.stringify(sub)), G, { breathSeconds: 0 });
+    const rb0 = L0.systems[0].items.find(i => i.k === 'ringbar');
+    ok(rb0 && Math.abs((rb0.t1 - rb0.t0) - 1.49) < 1e-9 && !L0.warnings.length, 'fortepiano: breathSeconds 0 restores the full sample bar, no flag');
+  }
+  // the fp now carries a GC too (composer, day 23) — so its unit is pushed
+  // clear of the impact marker like the staccato's
+  ok(has(F, 'gc') === 1, 'fortepiano: carries a GC');
   ok(has(S, 'ringbar') === 0, 'surge: no ring bar');
   // the single mark: sfzp on the dynamic slot, centered on the head column.
   // THE SIDE-WITH-ROOM RULE (day 23): G#1's bottom ink (sharp tip, -6.25)
@@ -293,13 +308,16 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // BEFORE the go time with the device gap 0.6 ss: the rightmost ink (the
   // flag's right edge here) ends 0.6 before go, so the head clears the
   // impact marker (r 0.51 ss, centred on go) with air
-  ok(Math.abs(inkR - (-0.6)) < 1e-9, 'staccato: rightmost ink 0.6 ss before go (device nhGapSs)');
+  // the GC-clearance rule raises the device's 0.6 to marker radius + tight
+  // gap (0.51 + 0.15 = 0.66), so the rightmost ink clears the impact marker
+  ok(Math.abs(inkR - (-0.66)) < 1e-9, 'staccato: rightmost ink 0.66 ss before go = marker radius + tight gap (' + inkR.toFixed(3) + ')');
+  ok(inkR < -0.51 - 1e-9, 'staccato: the whole unit clears the impact marker (r 0.51)');
   ok(kh.dxSs + G.notehead.filled.wSs * HK / 2 < -0.51 - 1e-9, 'staccato: the head clears the impact marker (r 0.51)');
   ok(kdot.dxSs + 0.2 < -0.51 - 1e-9, 'staccato: the dot clears the impact marker too');
   // the fp keeps the day-22 anchor — rightmost ink a gap BEFORE go — so the
   // change is per-technique device data, not a global re-anchoring
   const fhd = F.find(i => i.k === 'glyph' && i.g === 'notehead-open');
-  ok(fhd.dxSs + G.notehead.open.wSs / 2 < -0.24, 'fortepiano: still anchored BEFORE the go line (unchanged by the staccato anchor)');
+  ok(fhd.dxSs + G.notehead.open.wSs / 2 < -0.51 - 1e-9, 'fortepiano: head clears the impact marker (GC-clearance gap)');
   // stemDir override per item, as on metric notes
   const kd = JSON.parse(JSON.stringify(dir));
   kd.overlays = [{ id: 'o3', kind: 'engraving', target: { event: 'k' }, value: { stemDir: 'down' } }];

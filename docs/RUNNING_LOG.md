@@ -6292,3 +6292,51 @@ dictated, the save-shuffle established, T1 facts scanned.**
   ring bars · 51 marks (44 band + 5 sfzp + the surge pair) · 0 warnings.
   Live: 5 pages, pages 3–4 hold the dense runs (17 and 27 arcs), no
   errors. Playback scope = the window, so MIDI sounds to 55.94.
+- **wc-44/49/52 — the three impulses at 23 s. Composer: the breath cut, the
+  phantom ball, and GCs on the fortepianos.**
+  - **Breath figure given** (asked for): a moderately quick tuba breath
+    ≈ **0.5 s** (snatch 0.25–0.35; full relaxed on a large horn 1–1.5;
+    brass pedagogy, Jacobs/Frederiksen). It coincides usefully with the GC
+    object's own 0.6 s length. Sample-length averages, also asked:
+    **fortepiano 1.67 s** (median 1.66, 1.35 A3 – 2.22 A#3, barely
+    register-dependent: octave means 1.57/1.67/1.75/1.63) · staccato 0.45
+    (0.33–0.53) · cuivre 1.17 (C4–G4 only).
+  - **THE BREATH CUT (composer): the ring bar = sample length − 0.5 s**,
+    registry `breathSeconds`; DRAWING ONLY — playback still follows the IR
+    duration (D49), since the sample rings what it rings (flagged for the
+    composer to confirm that reading). `flagShortBarSeconds 1.0` raises a
+    warning per note. **Only one flag in T1 0–55.94: wc-23, 0.99 s** (the
+    G#1 fp, sample 1.49). All other fp bars survive the cut ≥ 1 s.
+  - **BUG FOUND AND FIXED — the phantom ball** (composer: "the second fp
+    has a bouncing ball, no GC... the first one doesn't"). Cause: my
+    `--bricks` mode forced every chunk unresolved but LEFT the chunker's
+    cloud-landing GC devices; animobj makes a ball from a chunk device,
+    layout draws an arc only from an engraving device, and the unresolved
+    branch draws no tick — so `ch-0-wc-49`'s landing GC (anchored at
+    24.291 = wc-49's onset) produced a ball with nothing under it. Seven
+    such chunks. Fix: `--bricks` strips devices too. **New law asserted:
+    every ball has an arc** — the animobj battery now cross-checks the two
+    sources against the real working IR (49 balls, 49 arcs, 0 orphans).
+  - **GCs on the fortepianos** (composer: "change now the fortepianos to
+    also include GCs... the only one that doesn't have it is the surge
+    crescendo"): `gc: true` on the fp device — the standards carried
+    everything else, no new code. Everything else unchanged (open head,
+    ring bar, sfzp).
+  - **The GC-clearance gap, derived not guessed** (composer: "you might
+    need to push it over, so all the ledgers, the right edge clears the GC
+    descending arc... don't worry about the top stuff"): a unit carrying a
+    GC is anchored at least `gcImpactRadiusSs + tightGapSs` = 0.51 + 0.15
+    = 0.66 ss before go. The arc only reaches head height in the last
+    ~15 ms (the ictus hang), so clearing the MARKER clears the arc.
+    0.51 ss = the GC look's 4 px at the 1080 frame over the jury frame's
+    7.9 px/ss — both scale with frame height, so the ratio is invariant.
+    Raised the staccato's 0.6 to 0.66 too (uniform rule; 0.5 px shift).
+  - Verified live (page 3, 24–36 s): fp ledger right edge clears the
+    marker by 1.2 px = the tight gap exactly; fp head by 3.4 px; staccato
+    head by 7.2 px (its flag is the rightmost ink). Bars 1.19 s each. The
+    wc-23 flag shows in the app's warning strip.
+  - **STILL OPEN — three bars run past the next attack** even after the
+    cut: wc-49 ends 25.481 > wc-52 at 25.454 (0.027 s) · wc-62 ends 28.406
+    > wc-68 at 28.078 (0.33) · wc-83 ends 31.163 > wc-89 at 30.752 (0.41).
+    A tubist cannot ring note 1 into note 2, so a cap at the next attack
+    is the obvious rule — NOT built, composer's call.

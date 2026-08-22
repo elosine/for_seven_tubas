@@ -1289,15 +1289,6 @@
     "ev-wc-73",
     "ev-wc-83"
    ],
-   "devices": [
-    {
-     "id": "dev-wc-49",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 24.291,
-     "provenance": "derived"
-    }
-   ],
    "provenance": "derived"
   },
   {
@@ -1324,15 +1315,6 @@
     "ev-wc-155",
     "ev-wc-161"
    ],
-   "devices": [
-    {
-     "id": "dev-wc-89",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 30.752,
-     "provenance": "derived"
-    }
-   ],
    "provenance": "derived"
   },
   {
@@ -1354,15 +1336,6 @@
     "ev-wc-1820",
     "ev-wc-1825"
    ],
-   "devices": [
-    {
-     "id": "dev-wc-1759",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 36.218,
-     "provenance": "derived"
-    }
-   ],
    "provenance": "derived"
   },
   {
@@ -1382,15 +1355,6 @@
     "ev-wc-1863",
     "ev-wc-1873"
    ],
-   "devices": [
-    {
-     "id": "dev-wc-1830",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 38.34,
-     "provenance": "derived"
-    }
-   ],
    "provenance": "derived"
   },
   {
@@ -1407,15 +1371,6 @@
     "ev-wc-1890",
     "ev-wc-1904",
     "ev-wc-1910"
-   ],
-   "devices": [
-    {
-     "id": "dev-wc-1883",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 39.61,
-     "provenance": "derived"
-    }
    ],
    "provenance": "derived"
   },
@@ -1450,15 +1405,6 @@
     "ev-wc-1990",
     "ev-wc-2001"
    ],
-   "devices": [
-    {
-     "id": "dev-wc-1942",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 44.188,
-     "provenance": "derived"
-    }
-   ],
    "provenance": "derived"
   },
   {
@@ -1474,15 +1420,6 @@
     "ev-wc-2014",
     "ev-wc-2023",
     "ev-wc-2026"
-   ],
-   "devices": [
-    {
-     "id": "dev-wc-2014",
-     "kind": "gc",
-     "mode": "landing",
-     "at": 46.077,
-     "provenance": "derived"
-    }
    ],
    "provenance": "derived"
   },

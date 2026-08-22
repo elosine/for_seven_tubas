@@ -128,7 +128,11 @@ const { doc, warnings } = Extract.extract(score, {
 // applied; a plain re-extract without --bricks brings it back. Working files
 // only (the canonical extraction keeps the chunker's strategies).
 if (flag('bricks')) {
-  for (const c of doc.chunks) { c.strategy = 'unresolved'; delete c.tempo; delete c.groups; }
+  // devices go too (day 23 bug): the chunker's cloud-landing GC is a
+  // GROUPING artifact — left behind, animobj still made a ball for it
+  // while layout drew nothing (the unresolved branch has no tick), so a
+  // ball fell on wc-49 out of nowhere. A ball without an arc is a bug.
+  for (const c of doc.chunks) { c.strategy = 'unresolved'; delete c.tempo; delete c.groups; delete c.devices; }
   for (const e of doc.events) delete e.metric;
   doc.provenance.notes += ' BRICKS MODE: all chunks forced unresolved (working file).';
 }

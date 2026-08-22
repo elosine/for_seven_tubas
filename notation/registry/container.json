@@ -66,7 +66,7 @@
           "surge": { "curve": true, "cut": true, "goLine": true, "nhUnit": true, "dynPair": true }
         },
         "byTechnique": {
-          "fortepiano": { "goLine": true, "nhUnit": true, "ringBar": true, "dynMark": "sfzp" },
+          "fortepiano": { "goLine": true, "gc": true, "nhUnit": true, "ringBar": true, "dynMark": "sfzp" },
           "staccato": { "goLine": true, "gc": true, "nhUnit": true, "nhHead": "filled", "nhHeadScale": 0.844, "nhStem": "flag8", "nhStemRule": "flagClear", "nhDot": true, "nhDotGapSs": 0.15, "nhGapSs": 0.6, "dynMark": "band", "dynBesideStem": true },
           "_staccatoNote": "day 23, OPTION B of the layering discussion (Tufte: layering & separation, 1+1=3, position before colour): NO go line for a point-in-time gesture — the GC's impact marker IS the go mark, so a go line was a third encoding of one time; the unit sits BEFORE the go time like every other unit (reading rule: the ink just before the mark is what you play at the mark), with nhGapSs 0.6 so the head clears the marker's left edge (r 0.51 ss) with air; head, dot and ledgers sit under the arc (the ictus hang keeps the arc at 35 %+ height 0.05 s before impact); stem and flag may cross it (composer). Option A (centred on go, marker lightened) rejected: it lightens the datum. nhAnchor 'center' remains available as a device value."
         }
@@ -79,6 +79,11 @@
       "flagClearanceSs": 0.38,
       "chainAboveGapSs": 0.3,
       "_chainAboveGapNote": "day 23: when the chain sits ABOVE a flagged stem-up unit it goes BETWEEN the staff and the flag (composer: 'let's see if we can get the dynamic above the staff and below the bottom of the flag'); the flag-clear stem rule then clears the chain, and this tighter gap (vs the 0.45 house standard) is the air on each side of the mark in that slot.",
+      "breathSeconds": 0.5,
+      "_breathNote": "day 23 (composer): the ring bar is the sample length MINUS a breath, because the player cannot ring the full sample and still breathe before the next attack. 0.5 s = a moderately quick tuba breath (snatch 0.25-0.35 s; full relaxed 1-1.5 s). DRAWING ONLY — playback still follows the IR duration (D49), since the sample rings what it rings. flagShortBarSeconds raises a warning when the cut takes a bar under that length, for the composer to judge note by note.",
+      "flagShortBarSeconds": 1.0,
+      "gcImpactRadiusSs": 0.51,
+      "_gcImpactRadiusNote": "day 23: the GC impact marker's radius in ss — the GC look's 4 px at the 1080 frame over the jury frame's 7.9 px/ss. Both scale with frame height, so the ratio is frame-invariant. A unit carrying a GC is anchored at least this + tightGapSs before the go time, so its notehead and ledgers clear the marker (and therefore the descending arc, which only reaches head height in the last ~15 ms).",
       "tightGapSs": 0.15,
       "_tightGapNote": "day 23, THE TIGHT GAP STANDARD (composer): the staccato dot sits 0.15 ss (1.2 px at the jury frame) from the head's edge ('reduce 50% the gap'), and the same value is the air between a dynamic's right edge and the stem ('just a little tiny bit of gap... akin to the staccato gap'). nhDotGapSs and dynStemGapSs both carry it; one number to change if the eye wants more.",
       "dynStemGapSs": 0.15,

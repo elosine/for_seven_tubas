@@ -143,8 +143,24 @@ ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable traje
              { id: 'c-b', part: 0, span: [14.544, 17.749], class: 'fixed-oneshot', strategy: 'unresolved', events: ['ev-b'] }], overlays: [],
   };
   const gcs = Anim.collect(nir, null, ST, { parts: [0], deviceOf: Layout.deviceResolver(nir, {}) }).filter(i => i.kind === 'gc');
-  ok(gcs.length === 1 && gcs[0]._src === 'device', 'staccato device -> exactly one per-note GC (the fp has none)');
-  eq(gcs[0].at, 17.749, 1e-9, 'per-note GC impact = the note go time (so the ball lands ON the go line)');
+  // day 23: the fortepiano carries a GC too (composer) — both notes get one,
+  // each impacting on its own go time
+  ok(gcs.length === 2 && gcs.every(g => g._src === 'device'), 'staccato AND fortepiano devices -> a per-note GC each (' + gcs.length + ')');
+  const ats = gcs.map(g => g.at).sort((a, b) => a - b);
+  eq(ats[0], 14.544, 1e-9, 'fp GC impact = its go time');
+  eq(ats[1], 17.749, 1e-9, 'staccato GC impact = its go time (the ball lands ON the go line)');
+  // EVERY BALL HAS AN ARC (day 23 bug: a leftover chunk device put a ball on
+  // wc-49 with nothing drawn). Assert the two sources agree on this IR.
+  {
+    const Layout2 = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+    const G2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
+    const real = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-t1-x02.ir.json'), 'utf8'));
+    const balls = Anim.collect(real, null, ST, { parts: real.source.parts, deviceOf: Layout2.deviceResolver(real, (C.engraving || {}).layout || {}) }).filter(i => i.kind === 'gc');
+    const arcs = Layout2.layoutSection(real, G2, (C.engraving || {}).layout || {}).systems
+      .flatMap(sy => sy.items).filter(i => i.k === 'gc').map(i => +i.t.toFixed(6));
+    const missing = balls.map(b => +b.at.toFixed(6)).filter(t => !arcs.includes(t));
+    ok(missing.length === 0, 'every ball has an arc on the real working IR (' + balls.length + ' balls, ' + arcs.length + ' arcs; orphans: ' + JSON.stringify(missing) + ')');
+  }
   const none = Anim.collect(nir, null, ST, { parts: [0] }).filter(i => i.kind === 'gc');
   ok(none.length === 0, 'no resolver -> no per-note GCs (opt-in, nothing implicit)');
 }
