@@ -109,6 +109,23 @@
     }
     const engOf = id => engrave.get(id) || {};
 
+    // DEVICE MEMBERSHIP IS REGISTRY DATA (day 22, second note): which
+    // drawn elements an un-notated event carries — curve · go line ·
+    // nh-unit · dynamic pair — resolved by ENV first (surge), then by
+    // TECHNIQUE (fortepiano), then the per-item engraving override
+    // (`device: {...}`) on top. Code defaults mirror container.json
+    // engraving.layout.devices so a caller without opts renders the same.
+    // The composer works note by note, in order; a technique entry here
+    // is how a settled note's device reaches its siblings (§6 derivation).
+    const DEV = Object.assign({
+      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
+      byTechnique: { fortepiano: { goLine: true, nhUnit: true } },
+    }, o.devices || {});
+    const deviceOf = e => Object.assign({},
+      (DEV.byTechnique || {})[e.technique] || {},
+      (e.env && (DEV.byEnv || {})[e.env]) || {},
+      engOf(e.id).device || {});
+
     const spelledOf = e => respell.get(e.id) || e.pitch.spelled;
 
     // frameParts (day 22, the collapse): when given, EVERY listed lane gets
@@ -151,18 +168,20 @@
               + ' · ' + e.onset.toFixed(2) + '–' + (e.onset + e.duration).toFixed(2) + ' s'
               + ' · ' + c.class + ' / ' + c.strategy + ' · ' + (e.source && e.source.objectId || e.id);
             items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id, tip });
-            // THE SURGE/ENV-CURVE DEVICE, element 1+2 of N (day 22, composer
-            // spec; ported from piece #1's viola opening gesture — curve +
-            // dotted go line; notehead/dynamics/arrow follow in later
-            // iterations). Draws whenever the event carries its drawn level
-            // curve; the parachute brick stays until the device is complete.
-            if (e.level && e.level.samples && e.level.samples.length >= 2) {
+            // THE SURGE/ENV-CURVE DEVICE (day 22, composer spec; ported from
+            // piece #1's viola opening gesture — curve + dotted go line +
+            // nh-unit + dynamic pair/arrow). Membership per deviceOf(e);
+            // the parachute brick stays until the device is complete.
+            const dev = deviceOf(e);
+            const hasCurve = dev.curve && e.level && e.level.samples && e.level.samples.length >= 2;
+            if (hasCurve) {
               // cut: a surge IS peak-cut — the notated back edge is a clean
               // 90° drop (composer, day 22); the sounding 2% release ramp
               // stays in the data, only the drawing squares it off
-              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: e.env === 'surge' });
-              items.push({ k: 'goline', t: e.onset, ev: e.id });
-
+              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: !!dev.cut });
+            }
+            if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
+            if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
               // BEFORE go time (o.nhGapSs; the composer's "2 px" at staff
@@ -251,10 +270,12 @@
                 // BOTTOM and TOP levels, not the curve — in this piece every
                 // surge is full-curve ppp->fff (registry dynPair); the morph
                 // section and any manual judgment go through authored
-                // overrides when that work arrives.
-                {
+                // overrides when that work arrives. Drawn only when the
+                // device carries dynPair (true = the registry pair; an
+                // array = that pair).
+                if (dev.dynPair) {
                   const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
-                  const pair = o.dynPair || ['ppp', 'fff'];
+                  const pair = Array.isArray(dev.dynPair) ? dev.dynPair : (o.dynPair || ['ppp', 'fff']);
                   const m1 = pair[0], m2 = pair[1];
                   const g1 = glyphs.dynamic && glyphs.dynamic[m1], g2 = glyphs.dynamic && glyphs.dynamic[m2];
                   if (g1 && g2) {

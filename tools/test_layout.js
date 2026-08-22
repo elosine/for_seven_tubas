@@ -140,6 +140,55 @@ const Lf = Layout.layoutSection(fb, G);
 eq(Lf.systems[0].items.filter(i => i.k === 'brick').length, 4, 0, 'unresolved chunk -> 4 bricks');
 eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on the parachute path');
 
+// ---- DEVICE MEMBERSHIP (day 22, second note): registry-resolved ----
+// surge env = curve + go line + nh-unit + dyn pair; fortepiano technique =
+// go line + nh-unit only; staccato = brick alone; per-item override wins.
+{
+  const mk = (id, technique, env, withCurve) => {
+    const e = { id, onset: 1, duration: 1.49, pitch: { midi: 32, spelled: { step: 'G', alter: 1, octave: 1 } }, technique, provenance: 'derived', mode: 'plain' };
+    if (env) e.env = env;
+    if (withCurve) e.level = { samples: [0, 0.5, 1] };
+    return e;
+  };
+  const dir = {
+    irVersion: 1, id: 'dev-test', source: { score: 'x', window: [0, 4], parts: [0] },
+    events: [mk('s', 'ord', 'surge', true), mk('f', 'fortepiano'), mk('k', 'staccato')],
+    chunks: [
+      { id: 'c1', part: 0, span: [1, 2.5], class: 'drawn-crescendo-curve', strategy: 'unresolved', events: ['s'] },
+      { id: 'c2', part: 0, span: [1, 2.5], class: 'fixed-oneshot', strategy: 'unresolved', events: ['f'] },
+      { id: 'c3', part: 0, span: [1, 2.5], class: 'fixed-oneshot', strategy: 'unresolved', events: ['k'] },
+    ], overlays: [],
+  };
+  const one = (ir, id) => {
+    const sub = JSON.parse(JSON.stringify(ir)); sub.events = sub.events.filter(e => e.id === id); sub.chunks = sub.chunks.filter(c => c.events[0] === id);
+    return Layout.layoutSection(sub, G).systems[0].items;
+  };
+  const has = (it, k) => it.filter(i => i.k === k).length;
+  const S = one(dir, 's'), F = one(dir, 'f'), K = one(dir, 'k');
+  ok(has(S, 'envcurve') === 1 && has(S, 'goline') === 1 && has(S, 'dynarrow') === 1, 'surge: curve + go line + dyn arrow');
+  ok(S.some(i => i.k === 'glyph' && i.g === 'notehead-open') && S.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'surge: open head + sharp');
+  ok(has(F, 'envcurve') === 0 && has(F, 'goline') === 1 && has(F, 'dynarrow') === 0, 'fortepiano: go line, NO curve, NO dyn pair');
+  // G#1 = 5.5 steps below the middle line: past the 3-ledger threshold, so
+  // the unit writes it an octave up on the bottom line under 8vb (the same
+  // rule the F#1 surge takes — composer's ottava verdict still pending)
+  ok(F.some(i => i.k === 'glyph' && i.g === 'notehead-open' && i.ySs === -2) && F.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'fortepiano: open head (written G#2) + sharp');
+  ok(F.some(i => i.k === 'ottava' && i.label === 'vb8') && has(F, 'ledger') === 0, 'fortepiano G#1: 8vb, no ledgers');
+  ok(has(F, 'brick') === 1, 'fortepiano: the brick stays until the device is complete');
+  ok(has(K, 'goline') === 0 && has(K, 'glyph') === 0 && has(K, 'brick') === 1, 'staccato: brick alone');
+  // per-item override: give the fp a dyn pair; take the surge's curve away
+  const ov = JSON.parse(JSON.stringify(dir));
+  ov.overlays = [
+    { id: 'o1', kind: 'engraving', target: { event: 'f' }, value: { device: { dynPair: ['f', 'p'] } } },
+    { id: 'o2', kind: 'engraving', target: { event: 's' }, value: { device: { curve: false } } },
+  ];
+  const F2 = one(ov, 'f'), S2 = one(ov, 's');
+  ok(has(F2, 'dynarrow') === 1 && F2.some(i => i.g === 'dyn-f') && F2.some(i => i.g === 'dyn-p'), 'override: fp gains an f->p pair');
+  ok(has(S2, 'envcurve') === 0 && has(S2, 'goline') === 1, 'override: surge curve off, go line stays');
+  // registry opts replace the code defaults wholesale
+  const R = Layout.layoutSection(JSON.parse(JSON.stringify(dir)), G, { devices: { byEnv: {}, byTechnique: {} } }).systems[0].items;
+  ok(has(R, 'goline') === 0 && has(R, 'envcurve') === 0 && has(R, 'brick') === 3, 'empty devices map: bricks only');
+}
+
 // ---- V1 [A21]: the ENGRAVING-OVERRIDE channel (tier-3 hands) ----
 // stemDir force: the synthDir pair beams UP by convention (B2 farthest);
 // an authored stemDir DOWN on one note forces the whole run down.

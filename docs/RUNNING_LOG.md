@@ -5567,3 +5567,40 @@ dictated, the save-shuffle established, T1 facts scanned.**
   reload: T hides/shows the pill and the saved state flips false/true.
   Draft-vs-working restated: `db1-t1` (no x-number) carries the whole
   draft; x02 is the disposable working file.
+- **wc-23 length decided by the composer = the measured fp sample length**:
+  *"we'll just go with that length because it sounds good."* 2n table
+  (bank/sample_lengths.json) fortepiano MIDI 32 = **1.49 s** → the note
+  spans 14.544-16.034. The extractor had already applied the 2n law
+  (ev-wc-23 duration 1.49 in db1-t1-x02), so the brick is already right;
+  the drawn 0.70 s object is not the musical length. Composer also confirmed
+  the working order: T1's articulations strictly in source order (wc-3 surge
+  → wc-23 → wc-29 staccato 17.749).
+- **wc-23 element 1 — composer: "Open Notehead unit with GoLine... all the
+  accidentals, ledgers, etcetera that go with it... or Ottava. Let's start
+  with that."** Built as REGISTRY DATA rather than a second device block:
+  `engraving.layout.devices` in container.json — byEnv (surge = curve + cut
+  + goLine + nhUnit + dynPair) then byTechnique (fortepiano = goLine +
+  nhUnit) then a per-item engraving override `device:{...}`. layout.js's
+  surge block now reads `deviceOf(e)`; ONE nh-unit builder serves both
+  (the curve additionally requires level samples — survey: `surge` is the
+  only env carrying samples across all 11 IRs). Consequence: every fp in
+  the draft inherits the unit; only wc-23 is visible in x02 this sitting.
+- Test added (test_layout DEVICE MEMBERSHIP): surge/fortepiano/staccato
+  item census + override (fp gains f->p pair; surge curve off) + empty
+  registry map = bricks only. My first assertion was WRONG, not the code:
+  I expected ledgers on G#1, but G#1 = -5.5 ss, past the 3-ledger
+  threshold, so the unit writes G#2 on the bottom line under 8vb — the
+  same open ottava question as the F#1 surge (composer verdict pending;
+  `glyphs.standards.ottava.ledgerLineThreshold` is the one-liner).
+  Batteries green: layout, render, snapshots, animobj, stamps.
+- Verified live (in-app browser, db1-t1-x02 page 2, 12-17 s): dotted go
+  line at x=1000.5, open head at 989.8, sharp at 984.6, 8vb bracket with
+  hook, brick underneath, no warnings. Go line keeps the surge GREEN
+  (#2E7D32, one registry color) — flagged to the composer, not decided.
+- **Finding for the fold-in (not now):** in THE DRAFT (db1-t1) wc-23 is
+  NOT a brick — the chunker swept it into `ch-0-wc-23` (density-cloud-note,
+  proportional, 2 fp + 1 staccato, 14.54-24.29), so there it draws as a
+  stream note and the device does not apply. Same for the fps at
+  24.29-30.75 (simple-bar chunk). When wc-23 is promoted, the classifier
+  must keep fixed one-shots out of clouds (or the device must apply inside
+  streams) — a §6 derivation question for the promotion step.
