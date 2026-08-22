@@ -1764,7 +1764,7 @@
      "gc": false,
      "ringBar": false,
      "dynBesideStem": false,
-     "dynMark": "band",
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1795,7 +1795,7 @@
      "gc": false,
      "ringBar": false,
      "dynBesideStem": false,
-     "dynMark": "fff",
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1809,6 +1809,7 @@
      "beamPos": 17,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
    },

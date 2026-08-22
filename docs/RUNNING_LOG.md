@@ -6579,3 +6579,18 @@ dictated, the save-shuffle established, T1 facts scanned.**
     proud. Options for the composer: put every cluster dynamic above the
     beam (uniform, needs the beam ~0.2 ss lower); keep the split and drop
     the beam slightly; or accept the 1 px.
+- **The last figure, composer's final call:** *"keep the fff dynamic at the
+  beginning, get rid of the mf, and put an accent on the last partial — no
+  dynamic marking, though."* → `--accents 4,7,8,12 --dyn 1,9`. Group 2 now
+  reads: **fff** at its first note, nothing on the two middle notes, an
+  **accent** on the last. **This also dissolved the look problem flagged in
+  the previous entry**: with the mf and the last fff gone, both remaining
+  dynamics sit BELOW (f at ySs −3.86, fff at −2.94) and all four accents
+  sit ABOVE at one height (6.090, top exactly 6.510 = the lane edge). No
+  mixed sides, no overflow — the composer's musical choice happened to be
+  the geometrically clean one too.
+  - Verified live (page 3): 12 heads · 4 accents at y 8.0 (the lane's top
+    edge) at x 1360, 1493, 1523, 1685 · 2 dynamics below (f at ~1226, fff
+    at 1594) · two beam groups 1232→1531 and 1604→1694 at y 18.2 / 24.6 ·
+    5 rests (four 16ths + the 8th in the gap) · 6 accidentals · no
+    warnings. Batteries green.
