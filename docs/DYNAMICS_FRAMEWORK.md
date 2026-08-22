@@ -97,8 +97,34 @@ deviation + hairpin per phrase** (principles 2–4): the phrase's median band
 is its marking; notes ≥ 1 band above get `>` (≥ 2: `^`); monotonic runs
 over the perceptual threshold get a hairpin; softer deviations —
 composer's choice among cue-size head / parenthesized mark / nothing.
-**The composer's starting point: this layer** (*"achieving a variety of
-dynamic within a phrase. So let's start there."*).
+*(Corrected by the composer the same hour: the whole two-layer picture was
+the framing; the starting point is **layer 1**, not this one — see §5a.)*
+
+### 5a. Order of work (composer, day 23, verbatim)
+
+*"I'm not ready to address the dense ones. I was just describing the whole
+picture... I want to address just the one shots, the GC ones, and see if we
+can find a generalized strategy as we proceed through the piece. And then
+when the threshold crosses and we need to start grouping things into
+clusters or phrases or motives, then we'll address that strategy. But it
+will join perceptually the GC strategy. So in other words, these are just
+notational devices, and they will both contribute to the overall
+pointillistic, kaleidoscopic texture of the meta sound, the ensemble
+sound."*
+
+Census at the time (T1 draft window 0–55.94, current chunker): exactly one
+isolated staccato — wc-29; 43 grouped from 24.3 s on (the six fps at ~1.2 s
+spacing are grouped as a "bar" — the promotion-time question). The
+"isolated enough" threshold is the composer's, found note by note.
+
+**Layer-1 strategy as proposed (awaiting go):** one marking per one-shot
+from five wide bands (ppp · p · mf · f · fff, middle collapsed); the IR
+gains `vel` (plain-mode velocity with provenance); bands are registry
+data (`dynamicBands`, provisional thresholds ≤45 / 75 / 100 / 118 / 127,
+re-set after the tuba velocity→dB ladder); the staccato device's
+`dynMark: 'band'` uses the same single-mark slot and column chain as
+wc-23's sfzp. No accents or hairpins on one-shots unless the walk through
+the piece proves otherwise.
 
 ## 6. Proposals (P1–P5, as revised by the composer's directions)
 

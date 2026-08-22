@@ -6171,3 +6171,17 @@ dictated, the save-shuffle established, T1 facts scanned.**
   spatial around a shown beat first; notated rhythm / tuplet toggles are a
   parts-time question ("for this, we should just settle on the
   presentation"). Dot spacing + go line still held.
+- **Correction (composer): "I'm not ready to address the dense ones... I
+  want to address just the one shots, the GC ones, and see if we can find a
+  generalized strategy as we proceed through the piece... when the
+  threshold crosses and we need to start grouping things into clusters or
+  phrases or motives, then we'll address that strategy. But it will join
+  perceptually the GC strategy... these are just notational devices, and
+  they will both contribute to the overall pointillistic, kaleidoscopic
+  texture of the meta sound."** AI had read "let's start there" as layer 2.
+  Framework §5a amended. Census: T1 0–55.94 has ONE isolated staccato by
+  the chunker (wc-29); 43 grouped from 24.3 s. The IR carries no velocity
+  yet. Proposed (awaiting go): IR gains `vel`; registry `dynamicBands`
+  ppp/p/mf/f/fff at ≤45/75/100/118/127 (provisional; ~4/75/240/250/130
+  of the 699 section-1 staccatos); staccato device `dynMark:'band'` on the
+  sfzp slot; wc-29 (v90) → mf. No accents/hairpins on one-shots.
