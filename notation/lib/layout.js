@@ -1047,14 +1047,39 @@
             if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur: cl.sub * 4, t, dxSs: 0, cluster: cid, units: 1, tuplet: tk });
           }
         }
+        // ONE REST PER SILENCE, DOTS ALLOWED (day 24, composer: "can you
+        // combine the rests, the second could be a dotted 8th rest and the 4th
+        // and 5th rests could be an 8th rest"). The day-23 rule took the
+        // longest POWER-OF-2 rest whose start was a multiple of its own length
+        // — engraving's beat-alignment convention, which on this material split
+        // a 3-unit silence into a 16th plus an 8th and a 2-unit silence into two
+        // 16ths. On a PROPORTIONAL page there are no barlines for a rest to
+        // straddle, so the alignment rule buys nothing and costs legibility:
+        // greedy longest-first over dotted values as well, no alignment test.
+        //   R units -> value (cl.sub*4)/R ; R = 3·2^k -> the next longer glyph, dotted
+        // Capped at 6 units (a dotted quarter at sub 4): an 8-unit rest would
+        // want a half-rest glyph, which this font does not carry — the old code
+        // could ask for one and throw. Two quarters instead.
+        const restFor = R => {
+          const base = cl.sub * 4;
+          if ((R & (R - 1)) === 0) { const d = base / R; return glyphs.rest['rest' + d] ? { dur: d, dotted: false } : null; }
+          if (R % 3 === 0 && ((R / 3) & (R / 3 - 1)) === 0) { const d = base / (2 * (R / 3)); return glyphs.rest['rest' + d] ? { dur: d, dotted: true } : null; }
+          return null;
+        };
         for (let n = first; n <= last;) {
           if (filled.has(n) || covered(n)) { n++; continue; }
           let run = 0; while (!filled.has(n + run) && !covered(n + run) && n + run <= last) run++;
-          let R = 1;
-          for (const cand of [8, 4, 2, 1]) { if (cand <= run && n % cand === 0) { R = cand; break; } }
-          const dur = (cl.sub * 4) / R;                       // 4 sixteenth-units -> a quarter rest
-          const t = t0Grid + n * cl.unit;
-          if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur, t, dxSs: 0, cluster: cid, units: R });
+          let R = 1, spec = restFor(1);
+          for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= run && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
+          // CENTRED IN ITS OWN SILENCE (day 24, composer: "move them into a
+          // better horizontal position... they don't seem spatially accurate").
+          // The page maps x to TIME, so a rest drawn at the start of its gap
+          // hugs the note before it and leaves the silence looking empty. The
+          // rest now sits at the midpoint of the span it covers, which is what
+          // a proportional page means by the rest's position.
+          const t = t0Grid + (n + R / 2) * cl.unit;
+          if (t >= w0 - 1e-9 && t <= w1 + 1e-9)
+            items.push({ k: 'rest', dur: spec.dur, dotted: spec.dotted || undefined, t, dxSs: 0, cluster: cid, units: R });
           n += R;
         }
       }

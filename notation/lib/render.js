@@ -133,7 +133,17 @@
           // rest lands exactly where LilyPond would put it.
           if (!inWin(it.t)) continue;
           const rg = glyphs.rest['rest' + it.dur];
-          parts.push(Stamps.toSvg(S.rest(it.dur), { xPx: X(it.t, it.dxSs) - (rg.wSs / 2) * ssPx, yPx: Y(it.ySs != null ? it.ySs : rg.topSs), ssPx, align: 'topLeft' }));
+          const rx = X(it.t, it.dxSs) - (rg.wSs / 2) * ssPx;
+          parts.push(Stamps.toSvg(S.rest(it.dur), { xPx: rx, yPx: Y(it.ySs != null ? it.ySs : rg.topSs), ssPx, align: 'topLeft' }));
+          // AUGMENTATION DOT (day 24): a dotted rest is the glyph plus a dot to
+          // its right, vertically on the rest's own middle. Same diameter as the
+          // staccato dot (glyphs.standards) — one dot size in the piece.
+          if (it.dotted) {
+            const dd = ((glyphs.standards.augmentationDot || glyphs.standards.staccatoDot).diameter) * ssPx;
+            const gap = ((E.restDotGapSs != null) ? E.restDotGapSs : 0.28) * ssPx;
+            parts.push('<circle cx="' + (rx + rg.wSs * ssPx + gap + dd / 2).toFixed(2) + '" cy="' +
+              (Y(it.ySs != null ? it.ySs : rg.topSs) + (rg.hSs / 2) * ssPx).toFixed(2) + '" r="' + (dd / 2).toFixed(2) + '"/>');
+          }
         } else if (it.k === 'stem') {
           if (!inWin(it.t)) continue;
           const x = X(it.t, it.dxSs) - (stds.stem.thickness * ssPx) / 2;

@@ -7453,3 +7453,42 @@ the notation. Worth the note: a verification script is code too.
 **Also verified:** T3's primary beam spans all five members with the last stub
 INWARD; T4's five consecutive 16ths get a solid double beam and no stubs at all
 (nothing opens a gap). Five batteries green.
+
+### Rests: one per silence, dots allowed, and centred — plus WHY they looked wrong (day 24)
+
+Composer, on T3's figure: *"can you combine the rests, the second could be a
+dotted 8th rest and the 4th and 5th rests could be an 8th rest etc. and then
+move them into a better horizontal position, or explain to me what their
+horizontal positioning is about. They don't seem spatially accurate."*
+
+**Why they were spatially wrong, and it is worth stating plainly:** these pages
+map x to TIME. The rest was being drawn at the START of its gap, so it hugged
+the note that had just sounded and left the rest of the silence looking empty.
+Rests now sit at the **midpoint of the span they cover**. On this figure that
+moves the quarter rest 284 ms to the right — a third of a second — into the
+middle of its own silence. (In metric notation a rest belongs at the start of
+its slot, because a barline says where the beat is. On a proportional page
+nothing does, so the start position is just wrong.)
+
+**Merging.** The day-23 rule took the longest POWER-OF-2 rest whose start was a
+multiple of its own length — engraving's beat-alignment convention. With no
+barlines to straddle it buys nothing and costs legibility: a 3-unit silence
+came out as a 16th plus an 8th, a 2-unit silence as two 16ths. Now greedy
+longest-first over **dotted values too**, no alignment test:
+`R units -> (sub·4)/R`, and `R = 3·2^k -> the next longer glyph, dotted`.
+
+T3's cluster (grid 0,2,6,9,14) went from **seven** rests to **four**:
+16th · **dotted 8th** · 8th · quarter — exactly the composer's reading.
+
+Capped at 6 units (a dotted quarter). An 8-unit rest would need a half-rest
+glyph this font does not carry, and the old candidate list `[8,4,2,1]` could ask
+for one and throw — a latent crash removed on the way past.
+
+The augmentation dot reuses `standards.staccatoDot.diameter` (one dot size in
+the piece), gap `restDotGapSs` 0.28, drawn on the rest glyph's own vertical
+middle. `standards.augmentationDot` is read first if it is ever added.
+
+**Also:** the `mf` moved from the downbeat to partial 1 and now draws BELOW the
+staff (y −2.94) — the chain's default side, available because partial 1 sits on
+the staff where the downbeat's three ledgers left no room. Accents stay on 1, 3,
+4. Four batteries green.
