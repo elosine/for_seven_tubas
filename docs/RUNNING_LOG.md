@@ -5624,3 +5624,8 @@ dictated, the save-shuffle established, T1 facts scanned.**
 - Verified live (db1-t1-x02 page 2): bar x 1000.47 = go line x; width
   557.86 = the brick's; height 5.27 = 2/3 x 7.9; bar center y 75.20 =
   open-head bbox center 75.20 (measured via CTM). Go line stroke #333.
+- Ring bar tuning: composer started toward "thinner," reversed ("no,
+  actually, leave it"), chose transparency instead: **opacity 0.8**
+  (registry ringBar.opacity 1 -> 0.8; hot-reloaded, verified 0.8 on the
+  page; the in-app hidden pane took ~5 s because its timers are throttled —
+  not a bug).

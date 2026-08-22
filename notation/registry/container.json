@@ -92,7 +92,7 @@
       "systemEndBar": { "wPx": 1.5, "opacity": 0.55 },
       "envCurve": { "strokeWPx": 0, "strokeOpacity": 0, "fillOpacity": 0.3, "color": "#2E7D32", "_note": "day 22, retuned same day (composer: no outline; surge back edge = 90° cut, drawn by render when env=surge): fill-only at 0.3 so the shape reads alone. Piece #1 numbers (stroke 1.5 @ 0.8, fill 0.15) kept here for the record." },
       "goLine": { "wPx": 1.5, "opacity": 0.85, "dash": "5,4", "color": "#333", "_note": "day 22 second note (wc-23), composer: 'keep that go line always black gray' — the surge green was never meant for it; width/opacity/dash unchanged. Earlier same day: retuned (composer: 'not visible... intuit a set of settings'): thicker, denser dashes. Piece #1 originals: 0.5 @ 0.4 dash 2,2." },
-      "ringBar": { "hSs": 0.667, "color": "#111", "opacity": 1, "_note": "day 22 second note (wc-23), composer spec: a black bar, left edge flush with the go line, right edge exactly at the note's sounding length (fixed one-shots = the measured sample length, 2n), centered on the written notehead's vertical center, thickness 2/3 of the brick height (brick = 1 ss). Always black unless otherwise specified." }
+      "ringBar": { "hSs": 0.667, "color": "#111", "opacity": 0.8, "_note": "day 22 second note (wc-23), composer spec: a black bar, left edge flush with the go line, right edge exactly at the note's sounding length (fixed one-shots = the measured sample length, 2n), centered on the written notehead's vertical center, thickness 2/3 of the brick height (brick = 1 ss). Always black unless otherwise specified." }
     }
   },
 
