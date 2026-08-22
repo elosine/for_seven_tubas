@@ -6340,3 +6340,41 @@ dictated, the save-shuffle established, T1 facts scanned.**
     > wc-68 at 28.078 (0.33) · wc-83 ends 31.163 > wc-89 at 30.752 (0.41).
     A tubist cannot ring note 1 into note 2, so a cap at the next attack
     is the obvious rule — NOT built, composer's call.
+- **THE BREATH RULE, corrected by the composer** (my first build had it
+  backwards): *"working backwards, what I meant was the next gesture minus
+  breath... we can just ignore the sample length, just keep no changes
+  there... let's just deal with these three gestures and the ones before
+  aren't affected."* → **bar = min(sample length, next attack − breath)**.
+  The sample only CAPS; the bar is measured backwards from the next
+  gesture. Consequence, exactly as the composer predicted: nothing before
+  23 s changes (wc-23 keeps its full 1.49 — its next attack is 3.2 s away).
+  - Every fp in T1 0–55.94 under the rule: wc-23 1.490 (next in 3.205,
+    uncapped) · **wc-44 0.709** (next in 1.209) · **wc-49 0.663** (1.163)
+    · wc-62 0.362 (0.862) · wc-83 0.249 (0.749).
+  - **Flags: 4** (composer asked "let me know if that throws a bunch") —
+    every fp except wc-23 now falls under the 1 s threshold, because in
+    this material the fps are 0.75–1.2 s apart and the breath eats half of
+    that. So the flag threshold is doing nothing useful here: 1 s was
+    chosen against SAMPLE lengths, not against gaps. Options for the
+    composer: lower `flagShortBarSeconds` (0.35 would flag only wc-62 and
+    wc-83, the genuinely tiny ones), or drop the flag and read the bars.
+  - **Bars past the next attack: 0** — the rule removes the overlap
+    problem by construction (it was the reason it came up).
+  - **A real refinement the battery forced:** the first version took "the
+    next attack" as the next event in the part, but the fixture stacks
+    three events at one onset and the bar refused to draw. A simultaneity
+    is one gesture, not a next attack — the rule now looks for the next
+    STRICTLY LATER onset. That matters for real chords, not just fixtures.
+  - Also: a gap shorter than the breath draws NO bar and warns (nothing
+    hits it in this window).
+  - Tests: bar = next − breath · the flag · gap-under-breath → no bar ·
+    breathSeconds 0 → bar runs to the next attack. All batteries green.
+  - Verified live (page 3): bars at 24.291 = 0.663 s, 27.216 = 0.362,
+    30.003 = 0.249; wc-44's 0.709 sits on page 2's side of the cut; the
+    wc-44 flag shows in the app's warning strip.
+  - **My process error, recorded:** two patch scripts ran a slice-based
+    replacement whose start index came AFTER its end index (the `gc` block
+    precedes the ring bar), producing an empty match — and `replace('')`
+    inserts at position 0, corrupting layout.js twice. Restored from git
+    both times. Lesson: bound a slice by searching FORWARD from the start
+    index, and assert the slice is non-empty and plausible before using it.

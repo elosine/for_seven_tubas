@@ -101,6 +101,30 @@
     const upAttach = { dx: nh.anchors.stemAttachUp.x - nh.anchors.center.x, dy: nh.anchors.stemAttachUp.y - nh.anchors.center.y };
     const dnAttach = { dx: nh.anchors.stemAttachDown.x - nh.anchors.center.x, dy: nh.anchors.stemAttachDown.y - nh.anchors.center.y };
     const evById = new Map(ir.events.map(e => [e.id, e]));
+    // NEXT ATTACK IN THE PART (day 23): the ring bar ends a breath before the
+    // NEXT GESTURE, so the player has time to take it. Built once per part
+    // from every event the IR carries — technique-blind, as the composer put
+    // it ("the next gesture minus breath").
+    const nextOnset = new Map();
+    {
+      const byPart = new Map();
+      for (const c of ir.chunks) for (const id of c.events || []) {
+        const ev = evById.get(id); if (!ev) continue;
+        if (!byPart.has(c.part)) byPart.set(c.part, []);
+        byPart.get(c.part).push(ev);
+      }
+      for (const list of byPart.values()) {
+        list.sort((a, b) => a.onset - b.onset);
+        // the next attack is the next STRICTLY LATER onset — notes sharing an
+        // onset are one gesture (a chord/simultaneity), not a next attack to
+        // breathe before. Found by the battery, whose fixture stacks three
+        // events at one onset and had the bar refuse to draw.
+        for (let i = 0; i < list.length; i++) {
+          const later = list.find(x => x.onset > list[i].onset + 1e-9);
+          if (later) nextOnset.set(list[i].id, later.onset);
+        }
+      }
+    }
     const chById = new Map(ir.chunks.map(c => [c.id, c]));
     const warnings = [];
     const [w0, w1] = ir.source.window;
@@ -239,20 +263,26 @@
             // on the written notehead's vertical center; thickness = 2/3 of
             // the brick height (registry engraving.render.ringBar).
             if (dev.ringBar) {
-              // THE BREATH CUT (day 23, composer): a player cannot ring the
-              // full sample AND breathe before the next attack, so the notated
-              // bar is the sample length MINUS a breath — registry
-              // engraving.layout.breathSeconds (0.5 = a moderately quick tuba
-              // breath; snatch 0.25-0.35, full relaxed 1-1.5). Drawing only:
-              // playback still follows the IR duration (D49), since the sample
-              // rings what it rings. Flagged when the cut takes the bar under
-              // flagShortBarSeconds — the composer's judgment, note by note.
+              // THE BREATH RULE (day 23, composer, corrected): the bar ends a
+              // breath before the NEXT GESTURE — "working backwards... the next
+              // gesture minus breath". The measured sample length only CAPS it,
+              // so a note with room keeps its full ring (nothing earlier in the
+              // piece is affected) and only a note crowded by the next attack is
+              // shortened. registry breathSeconds (0.5 = a moderately quick tuba
+              // breath). DRAWING ONLY: playback still follows the IR duration
+              // (D49) — the sample rings what it rings.
               const breath = dev.ringBarBreath === false ? 0 : (o.breathSeconds != null ? o.breathSeconds : 0.5);
-              const barLen = Math.max(0, e.duration - breath);
+              const nxt = nextOnset.get(e.id);
+              const room = nxt != null ? nxt - e.onset - breath : Infinity;
+              const barLen = Math.min(e.duration, room);
               const flagUnder = o.flagShortBarSeconds != null ? o.flagShortBarSeconds : 1.0;
-              if (breath > 0 && barLen < flagUnder)
-                warnings.push('ring bar ' + e.id + ': ' + barLen.toFixed(2) + ' s after the ' + breath + ' s breath (sample ' + e.duration.toFixed(2) + ') — under ' + flagUnder + ' s, composer judgment');
-              items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + barLen, ySs: yDraw, ev: e.id });
+              if (barLen <= 0) {
+                warnings.push('ring bar ' + e.id + ': no room before the next attack (' + (nxt - e.onset).toFixed(2) + ' s gap, ' + breath + ' s breath) — bar not drawn');
+              } else {
+                if (barLen < e.duration - 1e-9 && barLen < flagUnder)
+                  warnings.push('ring bar ' + e.id + ': ' + barLen.toFixed(2) + ' s — the next attack is ' + (nxt - e.onset).toFixed(2) + ' s away, less the ' + breath + ' s breath (sample ' + e.duration.toFixed(2) + ') — under ' + flagUnder + ' s, composer judgment');
+                items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + barLen, ySs: yDraw, ev: e.id });
+              }
             }
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
