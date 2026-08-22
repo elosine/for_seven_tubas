@@ -88,6 +88,24 @@
       "flagShortBarSeconds": 1.0,
       "gcImpactRadiusSs": 0.51,
       "_gcImpactRadiusNote": "day 23: the GC impact marker's radius in ss — the GC look's 4 px at the 1080 frame over the jury frame's 7.9 px/ss. Both scale with frame height, so the ratio is frame-invariant. A unit carrying a GC is anchored at least this + tightGapSs before the go time, so its notehead and ledgers clear the marker (and therefore the descending arc, which only reaches head height in the last ~15 ms).",
+      "figures": {
+        "_note": "day 24 — THE FIGURE STANDARDS AS DATA (composer: 'let's try to capture these as standards or something documented somehow because after the clear, we've lost... I've had to reestablish some of these rules'). tools/notate_section.js builds every --cluster and --beam overlay FROM these blocks, so a rule lives here once and docs/NOTATION_STANDARDS.md describes it in words. Edit here; the next extract carries it.",
+        "cluster": {
+          "goLine": "first", "gc": "first",
+          "nhAnchor": "leftEdge", "nhHead": "filled", "nhHeadScale": 0.844, "nhDot": true, "nhDotGapSs": 0.15,
+          "dynBesideStem": false,
+          "dynamics": "ambient+accents",
+          "_note": "A CLUSTER (D56): a composer-named span of partials on ONE analysed tempo. Go line and GC on the FIRST partial only ('the GC only on the first one, so it launches the whole cluster'); every partial's NOTEHEAD LEFT EDGE sits on its own go time ('because of the scrolling person'); filled head at the 0.844 cell scale, staccato dot at the 0.15 tight gap; every partial written as a 16th, gaps as rests, the second beam level as beamlets (beamStubSs). Dynamics = the ambient+deviation model (DYNAMICS_FRAMEWORK): one ambient mark on a chosen member, ACCENTS on the members louder than it — 'loud, slightly softer, loud' is f with accents, not fff f fff. Per-partial marks remain available (--dyn n,n,n)."
+        },
+        "beam": {
+          "goLine": false, "gc": "first",
+          "firstAnchor": "headCenter",
+          "dynAboveBeam": true,
+          "ringTechniques": ["fortepiano", "cuivre", "ord"],
+          "_note": "A BEAM (day 24): notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests. The short one-shot is the 16th (two beam levels, so the second level is a stub); anything in ringTechniques is the long note (primary beam only). NO go lines ('get rid of that go line too'); GC on the first note only; the first note's HEAD is centred on its go time; the members' dynamics go TOGETHER on one row ABOVE the beam, the beam lowered to fit them ('they both need to be at the top because the sfzp won't fit below')."
+        },
+        "_beamsAreFlat": "A beam is FLAT, always — layout levels every group to the tip furthest from the staff and moves the stems with it (the group's height, never a member's: a mixed fortepiano+staccato group once sloped by half a space because each note derived the beam from its own flag). Not a number — a law in notation/lib/layout.js, restated here so it is found."
+      },
       "beamStubSs": 1.0,
       "_beamStubNote": "day 23 (composer's midway solution): every partial is written as a 16th and the gaps carry 16th rests, but the SECOND beam level is a STUB (a fractional beam / beamlet) on a note with no 16th neighbour, and a connecting segment only between adjacent 16ths — 'a short beam where the sixteenth note beam is, not something that connects', so the phrasing still reads. Standard practice (Gould: fractional beams); length in ss, tune by eye. Stubs point RIGHT, toward the gap the note opens.",
       "tuplet": { "thicknessSs": 0.16, "hookLengthSs": 0.7, "paddingSs": 0.5, "numeralSizeSs": 1.2348, "numeralBaselineBelowSs": 0.41, "numeralInsetSs": 0.4, "numeralGapPerCharSs": 0.88, "numeralCapFactor": 0.7 },

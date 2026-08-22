@@ -70,6 +70,8 @@ a framing, a reversal, a quotable phrase. Verbatim where the wording matters.
   CTRL+S versions capped 20 gitignored, 5 s autosave)
 - **Notation workshop:** same score server → http://localhost:5200/notation/app/notation.html
   (tier-2 experiment loop: `docs/NOTATION_WORKFLOW.md` — read it before notation work)
+  **The settled figure rules: `docs/NOTATION_STANDARDS.md` — read before drawing
+  any cluster or beam.** They are registry data (`container.json → engraving.layout.figures`).
 - **Sandbox:** `node sandbox/serve.js` → http://localhost:4700
 - Motive library shared between them: `sandbox/motives/` (linked blocks per #3's D9)
 - Ports (loopMIDI, case-sensitive): `Tuba1` … `Tuba7`

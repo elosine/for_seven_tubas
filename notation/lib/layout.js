@@ -190,6 +190,29 @@
 
     const spelledOf = e => respell.get(e.id) || e.pitch.spelled;
 
+    // BEAM GROUP DIRECTION (day 24): ONE direction per group, decided by the
+    // member FURTHEST from the middle line (Gould), ties up — this vocabulary
+    // keeps its GC objects under the staff, so up is the house side. Found
+    // on T2's six-note cluster: the group's first note (A3, above the middle
+    // line) set the direction for all three, and the A1 three ledgers down
+    // got a 0.33 ss stem with the beam running through its own ledgers. A
+    // per-item stemDir override still wins for that note.
+    const groupDir = new Map();
+    {
+      const th = 2 + ((glyphs.standards.ottava && glyphs.standards.ottava.ledgerLineThreshold) || 3);
+      const far = new Map();   // group -> {y, dir}
+      for (const e of ir.events) {
+        const d = deviceOf(e);
+        if (!d.beamGroup || d.nhStem !== 'beam') continue;
+        let y = staffPosBass(spelledOf(e));
+        while (y > th) y -= 3.5;
+        while (y < -th) y += 3.5;
+        const cur = far.get(d.beamGroup);
+        if (!cur || Math.abs(y) > Math.abs(cur.y) + 1e-9 || (Math.abs(Math.abs(y) - Math.abs(cur.y)) <= 1e-9 && y < cur.y)) far.set(d.beamGroup, { y });
+      }
+      for (const [k, v] of far) groupDir.set(k, v.y > 0 ? 'down' : 'up');
+    }
+
     // frameParts (day 22, the collapse): when given, EVERY listed lane gets
     // a system — lanes the IR doesn't cover render as empty staves (the
     // composer's "I should still see empty other tracks"). Default = the
@@ -352,7 +375,9 @@
                 const stemKind = /^flag\d+$/.test(dev.nhStem || '') || dev.nhStem === 'plain' || dev.nhStem === 'beam' ? dev.nhStem : null;
                 const flagDur = /^flag(\d+)$/.test(stemKind || '') ? +RegExp.$1 : null;
                 const engS = engOf(e.id);
-                const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir : (yDraw >= 0 ? 'down' : 'up');
+                const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir
+                  : (dev.beamGroup && groupDir.has(dev.beamGroup)) ? groupDir.get(dev.beamGroup)
+                  : (yDraw >= 0 ? 'down' : 'up');
                 const attA = stemDir === 'up' ? nhO.anchors.stemAttachUp : nhO.anchors.stemAttachDown;
                 const att = { dx: attA.x - nhO.anchors.center.x, dy: attA.y - nhO.anchors.center.y };
                 const flagG = flagDur ? glyphs.flag[(stemDir === 'up' ? 'up' : 'down') + flagDur] : null;
@@ -413,8 +438,14 @@
                 // left edge — accidentals and ledgers excluded — sits precisely
                 // on the go time, "because of the scrolling person": what
                 // crosses the cursor at the go moment is the head itself.
+                // 'headCenter' (day 24, composer, the first note of a beamed
+                // pair: "move the first black note head in so that it's
+                // centered on the go line"): the HEAD's own centre on the go
+                // time, accidental and ledgers hanging off it as they fall.
                 const headDx = dev.nhAnchor === 'leftEdge'
                   ? nhO.wSs / 2
+                  : dev.nhAnchor === 'headCenter'
+                    ? 0
                   : dev.nhAnchor === 'center'
                     ? -(leftRel + rightExt) / 2
                     : -(gapSs + rightExt);
@@ -451,8 +482,16 @@
                   if (a && b) pairG = { pr, a, b, h: Math.max(a.hSs, b.hSs) };
                   else warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + pr[0] + '/' + pr[1] + ') — marks not drawn');
                 }
-                const chainH = (pairG ? pairG.h : 0) + (markG ? markG.hSs : 0);
-                const chainN = (pairG ? 1 : 0) + (markG ? 1 : 0);
+                // DYNAMICS ABOVE THE BEAM (day 24, composer, on the beamed pair
+                // whose sfzp would not fit below: "when we have two consecutive
+                // dynamics like that, let's go ahead and put them together... they
+                // both need to be at the top"): a beam member with dynAboveBeam
+                // hands its mark to the BEAM GROUP, which draws every member's
+                // mark on one row above the beam and lowers the beam to make the
+                // room. The mark then plays no part in the chain.
+                const markAboveBeam = !!(markG && dev.dynAboveBeam && dev.nhStem === 'beam');
+                const chainH = (pairG ? pairG.h : 0) + (markG && !markAboveBeam ? markG.hSs : 0);
+                const chainN = (pairG ? 1 : 0) + (markG && !markAboveBeam ? 1 : 0);
 
                 // the flag, possibly compressed vertically (day 23, composer:
                 // "if we can adjust it so it's not so tall") — device
@@ -577,6 +616,7 @@
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
+                    if (markAboveBeam) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     // the WRITTEN value decides how many beams this note carries
                     // (day 23: figure 1 rewritten at true durations — 8ths get
                     // one beam, 16ths two, so the beam pattern itself shows
@@ -681,7 +721,7 @@
                 // sfzp"): one engraved mark on the dynamic slot, centered on
                 // the note column like the pair's start mark. dynMark is the
                 // glyph key (registry device / per-item override).
-                if (markG) {
+                if (markG && !markAboveBeam) {
                   const yDyn = placeChain(markG.hSs);
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
@@ -855,7 +895,19 @@
         // provable no-op when the tips already agree.
         {
           const ys = g.tips.map(t => t.ySs);
-          const yLevel = g.dir === 'up' ? Math.max(...ys) : Math.min(...ys);
+          let yLevel = g.dir === 'up' ? Math.max(...ys) : Math.min(...ys);
+          // ...and LOWER for the group's dynamics row (day 24): above the
+          // beam the row needs stackGap + the tallest mark, inside the lane.
+          // Same shape as the accent rule, applied at group level so the
+          // whole beam moves as one and stays flat.
+          if (g.dyns && g.dyns.length) {
+            const CSg = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
+            const gapD = o.stackGapSs != null ? o.stackGapSs : 0.45;
+            const hMax = Math.max(...g.dyns.map(d => d.hSs));
+            const aH = (g.artics && g.artics.length) ? gapD + Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs)) : 0;
+            const lim = CSg.laneHalfSs - gapD - hMax - aH;
+            yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim);
+          }
           for (const t of g.tips) {
             if (Math.abs(t.ySs - yLevel) > 1e-9 && t.stem) t.stem.yB = yLevel;
             t.ySs = yLevel;
@@ -920,6 +972,17 @@
             const y = g.dir === 'up' ? beamTop + gapA + aG.hSs / 2 : beamTop - gapA - aG.hSs / 2;
             items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
           }
+        }
+        // THE DYNAMICS ROW above the beam (day 24): every member's mark on ONE
+        // line, centred on its head column — consecutive dynamics read as a
+        // phrase, not as per-note chrome. Above the accents when both exist.
+        if (g.dyns && g.dyns.length) {
+          const gapD = o.stackGapSs != null ? o.stackGapSs : 0.45;
+          const aH = (g.artics && g.artics.length) ? gapD + Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs)) : 0;
+          const hMax = Math.max(...g.dyns.map(d => d.hSs));
+          const base = g.tips[0].ySs;
+          const y = g.dir === 'up' ? base + aH + gapD + hMax / 2 : base - aH - gapD - hMax / 2;
+          for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
         }
       }
       // RESTS (day 23, composer: "let's put in any rests that are necessary...

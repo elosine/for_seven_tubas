@@ -19,6 +19,9 @@
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
+//                            overlays). THE MODIFIERS BELOW ARE POSITIONAL: each applies
+//                            to the --cluster that precedes it (day 24, two clusters in
+//                            one file). Was: mark a span as one beamed cluster (authored
 //                            overlays). @part (0-based lane) confines it to ONE part —
 //                            required in an all-parts file, where a bare span would sweep
 //                            every lane's notes in that window into one beam group.
@@ -131,6 +134,11 @@ const outRel = 'notation/ir/' + id + '.ir.json';
 const score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', scoreName + '.json'), 'utf8'));
 const registry = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'classes.json'), 'utf8'));
 const sampleLengths = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'sample_lengths.json'), 'utf8'));
+// THE FIGURE STANDARDS (day 24): every --cluster / --beam overlay is built
+// from registry data, so the rules survive a cleared chat. Edit the registry,
+// not this file, to change how a figure is drawn.
+const FIG = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8')).engraving.layout.figures) || {};
+const FIG_CL = FIG.cluster || {}, FIG_BM = FIG.beam || {};
 
 const { doc, warnings } = Extract.extract(score, {
   scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: {},
@@ -152,22 +160,38 @@ const { doc, warnings } = Extract.extract(score, {
 // first one, though, so it launches the whole cluster" (composer).
 // Repeatable. Written at EXTRACTION so a re-extract keeps it.
 {
+  // POSITIONAL MODIFIERS (day 24, the moment a file held TWO clusters): every
+  // --cluster collects the --clusterTol / --accents / --dyn / --beamBreak /
+  // --beamThrough / --tuplet flags that FOLLOW it, up to the next --cluster.
+  // Before this they were global, and T2's cluster silently inherited T1's
+  // accents and a tuplet over members it did not have. A modifier before any
+  // --cluster is an error, not a default.
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
-    if (process.argv[i] !== '--cluster') continue;
-    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
-    if (!m) { console.error('--cluster needs t0-t1 or t0-t1@part (e.g. --cluster 31.49-33.59@0)'); process.exit(2); }
-    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+    const a = process.argv[i];
+    if (a === '--cluster') {
+      const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+      if (!m) { console.error('--cluster needs t0-t1 or t0-t1@part (e.g. --cluster 31.49-33.59@0)'); process.exit(2); }
+      spans.push({ sp: [parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)], mods: [] });
+      i++; continue;
+    }
+    if (MODS.has(a)) {
+      if (!spans.length) { console.error(a + ' must follow the --cluster it modifies'); process.exit(2); }
+      spans[spans.length - 1].mods.push([a, String(process.argv[i + 1] || '')]);
+      i++;
+    }
   }
-  const TOL = parseFloat(arg('clusterTol', '0.030'));
   // ONE implementation of the fit, shared with tools/cluster_tempo.js
   const ClusterFit = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
   // event -> part, off the chunks (the only place the extraction records it).
   // Without this a span in an all-parts file claims all ten lanes at once.
   const partOfEvent = new Map();
   for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
-  spans.forEach((sp, n) => {
+  spans.forEach(({ sp, mods }, n) => {
     const key = 'cl-' + (n + 1);
+    const modVals = name => mods.filter(([k]) => k === '--' + name).map(([, v]) => v);
+    const TOL = parseFloat(modVals('clusterTol')[0] || '0.030');
     const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
     const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
       (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
@@ -193,10 +217,8 @@ const { doc, warnings } = Extract.extract(score, {
     // shape from DYNAMICS_FRAMEWORK, decided by ear rather than derived.
     const listArg = (name) => {
       const out = new Set();
-      for (let i = 0; i < process.argv.length; i++) {
-        if (process.argv[i] !== '--' + name) continue;
-        for (const v of String(process.argv[i + 1] || '').split(',')) { const n = parseInt(v, 10); if (n > 0) out.add(n); }
-      }
+      for (const val of modVals(name))
+        for (const v of val.split(',')) { const n = parseInt(v, 10); if (n > 0) out.add(n); }
       return out;
     };
     const accentAt = listArg('accents');
@@ -204,9 +226,8 @@ const { doc, warnings } = Extract.extract(score, {
     // mark, the composer overruling the band — day 23: fff on the last note,
     // whose band is f)
     const dynAt = new Map();
-    for (let i = 0; i < process.argv.length; i++) {
-      if (process.argv[i] !== '--dyn') continue;
-      for (const v of String(process.argv[i + 1] || '').split(',')) {
+    for (const val of modVals('dyn')) {
+      for (const v of val.split(',')) {
         const mm = v.match(/^(\d+)(?::(\w+))?$/); if (!mm) continue;
         dynAt.set(parseInt(mm[1], 10), mm[2] || 'band');
       }
@@ -224,9 +245,8 @@ const { doc, warnings } = Extract.extract(score, {
     // bracket — composer, day 23: "one sixteenth rest, which is part of that
     // bracket". Repeatable.
     const tuplets = [];
-    for (let i = 0; i < process.argv.length; i++) {
-      if (process.argv[i] !== '--tuplet') continue;
-      const mm = String(process.argv[i + 1] || '').match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
+    for (const val of modVals('tuplet')) {
+      const mm = val.match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
       if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
       tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
     }
@@ -265,11 +285,14 @@ const { doc, warnings } = Extract.extract(score, {
     members.forEach((e, k) => {
       if (breaks.has(k + 1)) sub++;
       const gkey = key + String.fromCharCode(97 + sub);   // cl-1a, cl-1b, ...
+      const firstOnly = v => v === 'first' ? k === 0 : !!v;
       const dev = {
-        goLine: k === 0, gc: k === 0, ringBar: false, dynBesideStem: false,
+        goLine: firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : 'first'),
+        gc: firstOnly(FIG_CL.gc != null ? FIG_CL.gc : 'first'),
+        ringBar: false, dynBesideStem: !!FIG_CL.dynBesideStem,
         dynMark: dynAt.has(k + 1) ? dynAt.get(k + 1) : false,
-        nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'beam', nhAnchor: 'leftEdge',
-        nhDot: true, nhDotGapSs: 0.15,
+        nhUnit: true, nhHead: FIG_CL.nhHead || 'filled', nhHeadScale: FIG_CL.nhHeadScale || 0.844, nhStem: 'beam', nhAnchor: FIG_CL.nhAnchor || 'leftEdge',
+        nhDot: FIG_CL.nhDot != null ? !!FIG_CL.nhDot : true, nhDotGapSs: FIG_CL.nhDotGapSs != null ? FIG_CL.nhDotGapSs : 0.15,
         beamGroup: gkey, clusterId: key, beamUnit: fit.unit, beamPos: fit.grid[k],
         beamLevels: fit.beams, beamSubdivision: fit.subdivision,
       };
@@ -320,7 +343,7 @@ const { doc, warnings } = Extract.extract(score, {
   }
   const partOfEvent = new Map();
   for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
-  const RINGS = new Set(['fortepiano', 'cuivre', 'ord']);   // long notes: primary beam only
+  const RINGS = new Set(FIG_BM.ringTechniques || ['fortepiano', 'cuivre', 'ord']);   // long notes: primary beam only
   spans.forEach((sp, k) => {
     const key = 'bm-' + (k + 1);
     const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
@@ -335,11 +358,19 @@ const { doc, warnings } = Extract.extract(score, {
       ' (' + members.map(e => e.source.objectId + ':' + e.technique).join(' ') + ')');
     console.log('    beam levels: ' + members.map(e => e.source.objectId + '=' + (RINGS.has(e.technique) ? '1 (primary only, it rings)' : '2 (a 16th)')).join(' · '));
     members.forEach((e, i) => {
+      const firstOnly = v => v === 'first' ? i === 0 : !!v;
       const dev = {
         nhStem: 'beam', beamGroup: key,
         noteBeams: RINGS.has(e.technique) ? 1 : 2,
         beamPos: i, noteUnits: 1,
+        // the standards (registry engraving.layout.figures.beam): no go
+        // lines, GC on the first note only, first head centred on its go
+        // time, dynamics together above the beam
+        goLine: firstOnly(FIG_BM.goLine != null ? FIG_BM.goLine : false),
+        gc: firstOnly(FIG_BM.gc != null ? FIG_BM.gc : 'first'),
+        dynAboveBeam: FIG_BM.dynAboveBeam != null ? !!FIG_BM.dynAboveBeam : true,
       };
+      if (i === 0 && FIG_BM.firstAnchor) dev.nhAnchor = FIG_BM.firstAnchor;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     });
   });

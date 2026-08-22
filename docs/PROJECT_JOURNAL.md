@@ -23,8 +23,12 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
     --parts 0-9 --profile section1 --id db1-all-x01 --exp --bricks \
     --label "db1 ALL PARTS x01 (0-55.94, bricks; T1 cluster kept)" \
     --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
-    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9
+    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 \
+    --beam 31.17-31.40@1 \
+    --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6
   ```
+  (modifiers are POSITIONAL since day 24 — each applies to the `--cluster`
+  before it. **T2 is now fully figured**: the pair + the six-note cluster.)
   `db1-t1-x02` is untouched and still in the picker.
 - **DECISION (→ §4 at session end): cuivre inherits the fortepiano device set.**
   The three cuivre notes (T1/T4/T8, all at 40.93) are members of
@@ -96,6 +100,28 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   which is 0.5 ss to the pixel. Groups are now levelled to the tip furthest
   from the staff (never shortens a stem) with the stems moved along; a
   provable no-op for single-technique groups, both snapshot batteries green.
+
+- **THE STANDARDS ARE WRITTEN DOWN — `docs/NOTATION_STANDARDS.md`** (composer:
+  *"after the clear, we've lost. I've had to reestablish some of these
+  rules"*). Every cluster/beam rule in the composer's words beside its
+  registry key; `notate_section.js` builds figures FROM
+  `container.json → engraving.layout.figures`, so the rules are data. READ IT
+  BEFORE DRAWING A FIGURE.
+- **T2's six notes at 32.56–34.51 = ONE cluster at ♩=101.4** (option c of
+  three the composer was shown; max err 28 ms; two beam groups, `f` once +
+  accents on the loud partials = the ambient+deviation model, chosen after the
+  composer asked whether one mark + "softer" exists — it doesn't, the inverse
+  does). **Three bugs fixed on the way**, none of which T1's cluster could
+  have shown: cluster modifiers were global (now positional) · a beam group
+  took its stem direction from its first member (now Gould's furthest-from-
+  middle rule, ties up) · **the page planner could cut later than the page
+  window, leaving 32.0–33.1 on no page** (slack now backwards only; the
+  committed splice snapshot had the defect baked in).
+- **The beamed pair is now a STANDARD, not a one-off** (`figures.beam`): no go
+  lines · GC first-only · first head centred on its go time (`headCenter`) ·
+  the members' dynamics together on one row above the beam, beam lowered to
+  fit. Composer's note *"beams should always be flat"* confirmed the
+  levelling law from the previous sitting.
 
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG

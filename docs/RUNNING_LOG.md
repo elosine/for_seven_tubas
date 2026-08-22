@@ -7099,3 +7099,95 @@ time so the two can never drift apart.
 **One thing not asked for and therefore not changed:** both notes keep their go
 lines. The cluster convention gives the go line to member 1 only; the composer
 named the GC here and not the go line, so it was left alone.
+
+### T2's six-note cluster at ONE tempo, the pair re-drawn under a beam standard, and THE STANDARDS WRITTEN DOWN (day 24)
+
+**The rhythmic analysis, as the composer asked to have it explained first.**
+Figure A (32.559 / 32.981 / 33.311, gaps 422 · 330 ms, ratio 1.28 — between 5:4
+and 4:3) and figure B (34.011 / 34.340 / 34.511, gaps 329 · 171 ms, ratio
+1.92 ≈ 2:1). The search is exhaustive over every unit 20–500 ms in 0.2 ms
+steps; a unit survives when every note rounds to a grid slot within the
+tolerance and no two share a slot; survivors are ranked by COMPLEXITY (a unit
+under the 90 ms playable floor +100, a non-power-of-2 subdivision +10, a beat
+outside 0.5–1.5 s +4/+6, each empty slot +0.25) and accuracy only breaks ties.
+So "does a tempo work" has many yeses (43 surviving grid patterns for A at
+30 ms) and the real question is which is simplest.
+
+- A alone: ♩=102 in 16ths at 18 ms (grid 0,3,5); at 50 ms it flattens to
+  three 8ths at ♩=77 (31 ms). The 32nd-note reading at ♩=70 is three times
+  more accurate (5 ms) and LOSES — accuracy is a gate, complexity decides.
+- B alone: ♩=90.5 in 16ths, **2.6 ms** — the cleanest fit in the section.
+- **A+B as one figure: ♩=101.4 in 16ths, grid 0,3,5 · 10,12,13, max err 28 ms.**
+  The composer chose this (option c) over two tempo marks 0.7 s apart. The
+  shape, every slot a 16th: note · 8th-rest · note | 16th-rest · note ·
+  8th-rest | 8th-rest · note · 16th-rest | note · note.
+
+**Built:** `--cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f
+--accents 1,3,5,6`. Two beam groups on one tempo; group 1 = three isolated
+16ths (stubs on each), group 2 = stub + a connected pair.
+
+**Dynamics — the composer asked for a weigh-in.** Velocities 121 105 121 109
+127 127 → bands fff f fff f fff fff: *"loud, slightly softer, loud, slightly
+softer, loud loud… if I set just once FFF, is there something that says place
+slightly softer instead of a dynamic for each partial?"* Answer: not as
+"softer" — standard notation has no per-note softer mark — but the INVERSE is
+exactly the ambient+deviation model DYNAMICS_FRAMEWORK already adopted and
+day 23's cluster already used: one ambient mark at the SOFTER level and
+accents on the louder partials. So `--dyn 1:f` (the explicit-mark form, since
+member 1's own band is fff) + accents on 1,3,5,6. Same information, one
+dynamic. Per-partial marks stay one flag away (`--dyn 1,2,3,4,5,6`).
+
+### Three bugs found by this figure, all in code the T1 cluster never exercised
+
+1. **Cluster modifiers were GLOBAL.** With two `--cluster` spans in one file,
+   T2's cluster inherited T1's `--accents 4,7,8,12` and a `--tuplet 10-11`
+   over members it does not have. Modifiers are now POSITIONAL: each applies
+   to the `--cluster` that precedes it. T1 rebuilt under the new parser is
+   byte-identical to day 23.
+2. **A beam group took its stem direction from its FIRST member.** Member 1
+   (A3, above the middle line) made group 1 stem-down; the A1 three ledgers
+   below then got a 0.33 ss stem with the beam running through its own
+   ledgers. Now: one direction per group, decided by the member furthest from
+   the middle line (Gould), ties up — a pre-pass in layout.js. Both groups
+   came out stem-up, beams flat at 5.22.
+3. **The page planner could cut LATER than the page's window.** Since the
+   day-22 constant-time-scale change a video page draws exactly
+   [t0, t0 + 8 s], but the cut slack reached ±2 s forward too — page 4 showed
+   24–32 while its cut sat at 33.1, so page 5 began at 33.1 and **32.0–33.1
+   was on no page at all**, the cluster's first two notes inside it. The
+   committed splice snapshot had the same defect baked in (pages 12→25.6 and
+   36.2→48.8, both longer than 12 s). Slack now reaches only backwards (an
+   early cut overlaps the next page, losing nothing); the minPage guarantee is
+   kept. Snapshot updated deliberately, `--prove-red` still red. Pages now
+   0–8 · 8–16 · 16–24 · 24–32 · **32–40** · 38.7–46.7 · 46.7–54.7.
+
+### The pair, re-drawn to the composer's corrections
+
+*"Beams should always be flat… if you need to bring it down to accommodate the
+sfzp… when we have two consecutive dynamics like that, put them together…
+get rid of the second go line… move the first black note head in so that
+it's centered on the go line… get rid of that go line too."* All five are now
+the BEAM STANDARD (registry `figures.beam`), not per-note edits: no go lines,
+GC first-only, first head `headCenter` (a new anchor: dx exactly 0.00), the
+members' dynamics on ONE ROW above the beam with the beam lowered to fit
+(5.888 → 5.09; `f` and `sfzp` both at 6.02, top edge at 6.505 inside the 6.51
+lane). The flat-beam levelling was already in from the previous sitting; the
+composer's note confirms it was the right law.
+
+### The standards, captured
+
+- `container.json → engraving.layout.figures` — `cluster` and `beam` blocks;
+  `notate_section.js` builds every overlay FROM them, so the rules are data.
+- `docs/NOTATION_STANDARDS.md` — every rule in the composer's words, with the
+  registry key or code location beside it. The index, not the source.
+
+### Verified live (hard reload; page 5 = 32.0–40.0)
+
+- cluster group 1: primary 185→284→361 at y 125.0, FLAT, three 7.9 px stubs
+  one level below · group 2: 525→602→642 FLAT, stub on 525, 602→642
+  connected · GC and go line at x 179 only (member 1) · `f` once, accents on
+  1, 3, 5, 6 above the beams at one height
+- pair (page 4): beam 1730→1774 at 125.99 both ends (lowered 6.3 px = 0.8 ss
+  for the row), stub 7.9 px, zero go lines, one GC
+- nine batteries green (splice + layout + render snapshots all intentional
+  no-ops or deliberate updates, each proven)

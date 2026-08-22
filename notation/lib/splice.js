@@ -119,7 +119,13 @@
       if (target >= w1 - minPage) cut = w1;
       else {
         const lo = Math.max(t + minPage, target - slack);
-        const hi = Math.min(w1 - minPage, target + slack);
+        // NEVER LATER THAN THE PAGE END (day 24): the video page draws a
+        // CONSTANT window [t0, t0 + pageSeconds] (day 22), so a cut chosen
+        // past that edge leaves material on NO page — T2 32.0-33.1 vanished
+        // between page 4 (shown to 32.0) and page 5 (starting 33.1). The slack
+        // now reaches only backwards; an early cut merely overlaps the next
+        // page, which loses nothing.
+        const hi = Math.max(lo, Math.min(w1 - minPage, target));   // >= lo keeps the minPage guarantee when pageSeconds < minPage
         const r = chooseCut(ir, ext, allPairs, target, lo, hi);
         cut = r.t; kind = r.kind; interrupted = r.interrupted; offGrid = r.offGrid; severed = r.severed;
       }

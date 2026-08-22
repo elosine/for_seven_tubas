@@ -32,6 +32,10 @@
    `--prune` the dead experiments. Decisions → RUNNING_LOG as they happen;
    look-nits → `docs/NOTATION_POLISH.md`, filed not debated.
 
+**Figures (clusters, beams):** the settled rules are `docs/NOTATION_STANDARDS.md`
+(day 24) and live as data in `container.json → engraving.layout.figures`.
+`--cluster` modifiers are positional — each applies to the span before it.
+
 ## §2 Phrase → file (the global-change map)
 
 Every look/behavior number is data. Edit the file; the page hot-reloads it.
