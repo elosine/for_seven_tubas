@@ -1,0 +1,38 @@
+{
+ "_meta": {
+  "source": "LP fixture tools/fixtures/lp_probes/tuplet.svg \u2014 the COMPOSER'S OWN standard, surveyed from piece #2's lilypond_code (809 .ly files, 101 with tuplets): TupletBracket.direction #UP (29/29), bracket-visibility ##t (190 uses), padding 0.5 ('bracket height', 36), TupletNumber.text = tuplet-number::calc-fraction-text (29/32), font-size -5 (32), plus the composer's own flatten-tuplet-bracket scheme function (41 uses) which levels both bracket ends to the higher one.",
+  "extractedBy": "tools/glyph_probe_tuplet.js (piece #2 oracle modules, read-only)",
+  "pipelineCheck": "a c'' notehead in the same fixture matched the ported notehead.filled byte-for-byte",
+  "lilypond": "GNU LilyPond 2.24.4",
+  "date": "2026-08-22",
+  "note": "NO GLYPH TRACING NEEDED. The bracket is procedural in LP too - four <line> strokes, not a glyph. The NUMERAL came out as an SVG <text> element (serif italic), not an Emmentaler outline: LP's SVG backend typesets tuplet numbers as text. So the bracket is drawn and the numeral is set in the app's own notation font (Crimson Pro), at the measured proportions."
+ },
+ "bracket": {
+  "thicknessSs": 0.16,
+  "hookLengthSs": 0.7,
+  "hookDirection": "toward the notes (down, when direction is UP)",
+  "numeralGapSs": 2.6388,
+  "numeralInsetSs": 0.3999,
+  "paddingSs": 0.5,
+  "_measured": {
+   "leftEndX": -0.2,
+   "rightEndX": 5.6174,
+   "leftSegment": [
+    -0.2,
+    1.4893
+   ],
+   "rightSegment": [
+    4.1281,
+    5.6174
+   ],
+   "bracketAboveMiddleLineSs": 2.8
+  }
+ },
+ "numeral": {
+  "text": "3:2",
+  "fontSizeSs": 1.2348,
+  "style": "italic",
+  "baselineBelowBracketSs": 0.41,
+  "startXFromBracketLeftSs": 1.8892
+ }
+}

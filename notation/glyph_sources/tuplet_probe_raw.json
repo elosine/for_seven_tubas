@@ -1,0 +1,58 @@
+{
+ "_meta": {
+  "source": "LP fixture tools/fixtures/lp_probes/tuplet.svg — the composer's own overrides, surveyed from piece #2 lilypond_code (101 of 809 .ly files carry tuplets; direction #UP 29/29, padding 0.5, calc-fraction-text 29/32, font-size -5, plus the flatten-tuplet-bracket scheme function verbatim)",
+  "standard": {
+   "direction": "UP",
+   "bracketVisibility": true,
+   "padding": 0.5,
+   "numberText": "tuplet-number::calc-fraction-text",
+   "numberFontSize": -5,
+   "flattened": true
+  },
+  "anchor": "path (0,0) == glyph bbox top-left; ySs values are relative to the STAFF MIDDLE LINE, +up",
+  "extractedBy": "tools/glyph_probe_tuplet.js (piece #2 oracle modules, read-only)",
+  "pipelineCheck": "a c'' notehead in the same fixture matched the ported notehead.filled",
+  "lilypond": "see fixture",
+  "date": "2026-08-22",
+  "middleLineY": 6.5007
+ },
+ "_rawGroups": [
+  {
+   "tx": 16.9394,
+   "ty": 6.5007,
+   "w": 1.0464,
+   "h": 2.2944,
+   "letters": 1,
+   "topSs": 0.656,
+   "botSs": -1.6384
+  },
+  {
+   "tx": 14.707,
+   "ty": 6.0007,
+   "w": 1.04,
+   "h": 0.8832,
+   "letters": 1,
+   "topSs": 0.9416,
+   "botSs": 0.0584
+  },
+  {
+   "tx": 1.6381,
+   "ty": 6.0007,
+   "w": 1.04,
+   "h": 0.8832,
+   "letters": 1,
+   "topSs": 0.9416,
+   "botSs": 0.0584
+  },
+  {
+   "tx": 12.4745,
+   "ty": 6.0007,
+   "w": 1.04,
+   "h": 0.8832,
+   "letters": 1,
+   "topSs": 0.9416,
+   "botSs": 0.0584
+  }
+ ],
+ "_rawStrokes": []
+}

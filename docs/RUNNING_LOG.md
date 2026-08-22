@@ -6594,3 +6594,35 @@ dictated, the save-shuffle established, T1 facts scanned.**
     at 1594) · two beam groups 1232→1531 and 1604→1694 at y 18.2 / 24.6 ·
     5 rests (four 16ths + the 8th in the gap) · 6 accidentals · no
     warnings. Batteries green.
+- **TUPLET STANDARD — surveyed from the composer's LilyPond corpus, then
+  measured.** Composer: *"my memory must be from my work in LilyPond... do
+  a survey of the LilyPond files, see if you can find a tuplet standard
+  there, probably working backwards in time."* **Survey (piece #2's
+  `lilypond_code/`, 809 .ly files): 101 carry tuplets.** Newest = the
+  SATP001 piano set (2026-04-02); then BowOverpressure (03-16), Bartók
+  pizz / clb templates (03-09). **The settings are unanimous where they
+  appear:** `TupletBracket.direction #UP` **29/29** · `bracket-visibility
+  ##t` 190 uses · `padding 0.5` (the composer's own comment: *"bracket
+  height"*) 36 · `TupletNumber.text = tuplet-number::calc-fraction-text`
+  **29/32** — this is the override that prints **"3:2"** rather than LP's
+  default bare "3", so the composer's memory was exactly right ·
+  `TupletNumber.font-size #-5` 32 · and the composer's own Scheme function
+  `flatten-tuplet-bracket` (41 uses), which levels both bracket ends to the
+  higher one = the "straight bracket" they described.
+- **The probe (`tools/glyph_probe_tuplet.js`), run with those overrides
+  verbatim.** Notehead equality check passed (path byte-identical to the
+  ported `notehead.filled`), so it is the same pipeline as every other
+  glyph. **MEASURED:** bracket thickness **0.16 ss** · hook **0.7 ss**,
+  descending toward the notes · the horizontal is drawn in TWO segments
+  with a **2.6388 ss gap** for the numeral, the numeral inset **0.40 ss**
+  into that gap · numeral baseline **0.41 ss below** the bracket line
+  (so the digits straddle it) · numeral font-size **1.2348 ss**, italic ·
+  bracket sat 2.8 ss above the middle line in the fixture (LP's own
+  clearance; ours will hang off the beam by padding 0.5 instead).
+- **A finding that removes work: NO GLYPH TRACING IS NEEDED.** The bracket
+  is procedural in LilyPond too — four `<line>` strokes, not a glyph. And
+  the numeral came out as an SVG `<text>` element (serif italic), NOT an
+  Emmentaler outline: LP's SVG backend typesets tuplet numbers as text. So
+  the bracket gets drawn like the ottava, and "3:2" is set in the app's own
+  notation font (Crimson Pro) at the measured proportions. Saved to
+  `notation/glyph_sources/tuplet_extra.json`.
