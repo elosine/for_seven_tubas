@@ -5768,3 +5768,23 @@ dictated, the save-shuffle established, T1 facts scanned.**
   (`notation-ui`). Verified live: with ⚙ off the bar reads ⇆ · ▶ · ♪ ·
   MIDI · META · bricks · ir · ◀▶ · ⚙ · t; unchecking removes both bricks
   from the SVG (2 → 0 → 2), saved flag follows.
+- **Edge cases — composer's question (on wc-29):** *"this brick is on the
+  right edge... when I eventually put the notation in, I'll have to see it
+  split over two pages, and that's not that easy for me to evaluate... so
+  we slide the page over a little bit on the screen... I don't wanna make
+  any changes to the main view... what happens if there are things at the
+  edges? Do we repeat them on the next page? Some form of the notation,
+  continue shapes?"* **Diagnosis: not a page edge.** The presentation page
+  (12 s video frame) holds wc-29 at its centre (x 945/1920); the ZOOM
+  viewport (6 s, stepping in whole spans from the page start: 12–18, 18–24)
+  cut it at 18.0 (17.749–18.209). A working-view artifact.
+- **Built: zoom pan.** SHIFT+←/→ moves the zoom viewport 1 s; HOME
+  re-aligns it to the page start; ◀ ▶ keep their whole-span step; video
+  untouched; state rides the persisted zoomT0. Verified live: at 12.0–17.8
+  the wc-29 brick was clipped to 30 px at the edge; one SHIFT+→ → 13.0–18.8,
+  brick 143.5 px = 0.46 s at 312 px/s; HOME returns to 12.0.
+- **Filed, not built: PLAN 8d (page-edge strategy)** with the AI's
+  recommendations R1 (cutter sees ink, not onsets) · R3 (presentation cut
+  drawn as a hairline in zoom) · R2 (*events continue, states restate*) ·
+  R4 (sweep the draft; build R2 only on a real case). Composer chose
+  option (a): pan now, file, carry on with wc-29 — R2 not yet ruled on.

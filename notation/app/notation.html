@@ -92,8 +92,8 @@
   </select></label>
   <label id="t0Wrap">from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
   <label id="wWrap">width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
-  <button id="prev">◀</button>
-  <button id="next">▶</button>
+  <button id="prev" title="previous page / zoom step (←) · SHIFT+← pans the zoom 1 s · HOME = page start">◀</button>
+  <button id="next" title="next page / zoom step (→) · SHIFT+→ pans the zoom 1 s · HOME = page start">▶</button>
   <label id="engWrap" title="engineering controls: the slice-1 proofing views (notation/graphic) and their window/parts overrides — off = the presentation score alone"><input type="checkbox" id="eng"> ⚙</label>
   <label id="tshowWrap" style="display:none" title="show the playhead time pill on the score (T)"><input type="checkbox" id="tshow" checked> t</label>
   <span id="tbar" title="playhead time — click the score to seek"></span>
@@ -537,6 +537,23 @@
       return;
     }
     if (tag && /INPUT|SELECT|TEXTAREA/.test(tag)) return;
+    // ZOOM PAN (day 23, composer: "slide the page over a little bit") — the
+    // zoom viewport steps in whole spans with ◀ ▶, so a note near a 6 s
+    // boundary (wc-29 at 17.75–18.21) sat cut at the viewport edge. SHIFT+
+    // arrows pan by 1 s; HOME re-aligns to the page start. Zoom only — the
+    // video frame (the presentation page) is untouched.
+    if ($('view').value === 'zoom' && ev.shiftKey && (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft')) {
+      const [s0, s1] = state.ir.source.window, span = state.zoomSpan || 6;
+      const d = ev.key === 'ArrowRight' ? 1 : -1;
+      state.zoomT0 = Math.min(Math.max(s0, (state.zoomT0 || 0) + d), Math.max(s0, s1 - span));
+      render(); ev.preventDefault(); return;
+    }
+    if ($('view').value === 'zoom' && ev.key === 'Home') {
+      const t = state.zoomT0 || 0;
+      const pg = state.vPages && state.vPages.find(p => t >= p.t0 - 1e-9 && t < p.t1);
+      state.zoomT0 = pg ? pg.t0 : state.ir.source.window[0];
+      render(); ev.preventDefault(); return;
+    }
     if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
     else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
     else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }

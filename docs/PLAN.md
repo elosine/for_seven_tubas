@@ -1790,6 +1790,29 @@ while building the real score.
   every device decided here is the section-1 vocabulary; the M5 hierarchy
   (third amendment) waits until the composer says go.
 
+- **8d — PAGE-EDGE STRATEGY (the presentation score at a cut)** — `queued
+  2026-08-22 (day 23)`, raised by the composer on wc-29 (*"what happens if
+  there are things at the edges — do we repeat them on the next page, some
+  form of the notation, continue shapes?"*). The case that raised it was
+  NOT a page edge — the zoom viewport's 6 s step (fixed: SHIFT+←/→ pans
+  1 s, HOME re-aligns) — so the strategy is filed, not built. What exists:
+  `splice.js` cuts within ±2 s slack of each 12 s target, never severs a
+  beam (stamp-atomic), judges "interrupted" by ONSETS only, reshows only
+  the tempo label "(cont.)". AI's recommendation, in order: **R1** teach
+  the cutter to see INK (onset → end of ring bar / curve / bracket; data
+  the IR already holds) so the slack finds a clean gap — cheapest, biggest
+  win; **R3** draw the presentation cut as a marked hairline inside the
+  zoom view so a split can be judged without flipping to video; **R2**
+  when a cut must sever: *events continue, states restate* — sustained
+  elements continue from the next page's left edge with no new head (in
+  proportional notation a repeated head reads as a second attack), while
+  reader-state restates at the page start (tempo label — built; 8vb;
+  parenthesised dynamic reminder; clef — pins already); point events are
+  atomic to their onset page. **R4 = the trigger:** run the cutter over THE
+  DRAFT under R1's definition and list what it would sever; build R2 only
+  if Section 1 actually produces a case. Composer has not ruled on R2.
+  All three land as rules in `notation/registry/page_rules.json` (P6).
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +
