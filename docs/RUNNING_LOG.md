@@ -7258,3 +7258,80 @@ lines; both heads dx 0.00; the inward stub at 353→361; seven batteries green;
 new, so the centred heads cost no clearance. (It also appends its section on
 every run — the duplicate from today's second run was removed by hand; worth a
 `--dry` habit or a dedupe in the tool.)
+
+### T4's pair, the ring bar shortened from the left, and two rhythmic analyses (day 24)
+
+**T4 30.396 + 30.794 built as a beam** (`--beam 30.39-30.80@3`): wc-86
+(staccato B♭3) into wc-90 (fortepiano B♭1, 1.69 s). Everything the composer
+listed — stems up · no go lines · GC on the half note · heads centred on go —
+came out of the STANDARD with no per-note argument. Stems-up in particular was
+not asked for in the flag: the group-direction law (furthest from the middle
+line wins, day 24) picks up on B♭1's three ledgers below and turns the whole
+group up by itself. Verified: heads at dx 0.000, beam flat at y 5.089, stub
+1547.7 → 1555.5 px, GC at 1637.8 = the fp's go time, zero go lines on either
+note.
+
+**THE RING BAR WAS STILL FLUSH WITH THE GO LINE** (composer, spotting it on
+T2's figure first): *"you have to shorten the duration bar from the left. It
+still got its own old setting… have the notehead and ledger and a little bit of
+space and then a duration bar."* The day-22 spec said "left edge flush with the
+go line", which was right while every unit hung BEFORE its go time — but a head
+centred ON it (nhAnchor headCenter, this morning) puts head and ledgers on top
+of the bar's first millimetres.
+
+Restated against the unit's own right ink edge, so the rule is anchor-agnostic:
+`dx0Ss = max(0, headDx + rightExt + ringBarGapSs)`, gap default 0.25 = the
+existing `nhGapSs` standard. Live proof on T4's fp: ledgers span
+1631.2 → 1644.3 px, the bar now starts at **1646.3** — a 2.0 px gap, which is
+0.25 ss at this frame.
+
+**A regression the snapshots did NOT catch, found by measuring instead.** The
+first version had no clamp, and I had claimed it was "provably a no-op" for
+default-anchored bars: there `headDx + rightExt = -nhGapSs`, so the bar should
+land exactly on the go line. That algebra is only true for a unit WITHOUT a GC.
+A GC-bearing unit is pushed clear of its impact marker (gap becomes
+gcImpactRadius 0.51 + 0.15 = 0.66), so all 44 bars in the section moved 0.41 ss
+to the LEFT of their attacks — a ring bar starting before the note sounds.
+Both layout and render snapshots stayed GREEN through it, because their fixture
+carries no GC-bearing ring bar. Clamping at 0 restores exactly 42 bars to
+dx0Ss 0.000 and leaves only the two centred heads shifted (1.080 each). The
+lesson is the one the methodology already states: a confidence claim has to be
+measured, and "the batteries are green" is not the same as "I checked".
+
+### The analyses (nothing built from these yet)
+
+**A caveat that governs both: ANY two onsets fit exactly** — the unit is simply
+the gap. So every 2-note "err 0 ms" below is arithmetic, not evidence. Only
+3-note and longer fits say anything.
+
+**T3, 29.93–31.97, five staccatos** (IOIs 339 · 567 · 428 · 708 ms). The
+composer's own hypothesis wins outright:
+
+| reading | fit | err |
+|---|---|---|
+| **one-shot + LAST FOUR (2-5)** | **♩=105.6 × 16ths, grid 0,4,7,12** | **1 ms** |
+| first four (1-4) + one-shot | ♩=67.0 × 32nds, grid 0,3,8,12 | 10 ms |
+| all five | ♩=66.6 × 32nds, grid 0,3,8,12,18 | 17 ms |
+| 1shot, 1shot, last three (3-5) | ♩=67.1 × 16ths | 19 ms |
+| first three (1-3) + 2 one-shots | ♩=96.4 × 8ths | 28 ms |
+
+Notes 2-5 at **1 ms** is the cleanest fit found anywhere in the section so far
+(T2's best was 2.6 ms), and it is the only multi-note reading here that is both
+a power-of-2 subdivision and effectively exact. Every other reading pays 10-28
+ms and most need 32nds. 16 whole readings have every beamed block fitting;
+they are in the day-24 scratch analysis.
+
+**T4, last five staccatos, 45.278–46.217** (IOIs 206 · 271 · 205 · 257 ms —
+near-even, mean 235). The simplest reading is also nearly the best:
+
+| reading | fit | err |
+|---|---|---|
+| **all five as consecutive 16ths** | **♩=65.5 × 16ths, grid 0,1,2,3,4** | **23 ms** |
+| last three (3-5) | ♩=67.4 × 16ths, grid 0,1,2 | 17 ms |
+| first four (1-4) | ♩=65.9, grid 0,1,2,3 | 22 ms |
+| notes 2-5 | ♩=60.2, grid 0,1,2,3 | 22 ms |
+
+Five even 16ths with no rests at all — the grid is literally 0,1,2,3,4. The
+23 ms buys away an alternation the ear is unlikely to parse (206/271/205/257).
+Splitting into pairs would read err 0, but that is the 2-note artefact above:
+it would cost two tempo marks and state nothing.

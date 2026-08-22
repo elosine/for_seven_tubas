@@ -143,6 +143,25 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   no engraved mark for "slightly softer"** — the composer asked; the inverse
   (state the soft level once, accent the loud ones) is the standard answer.
 
+- **T4's pair at 30.40/30.79 built from the standard alone** — stems up, no go
+  lines, GC on the half note, heads centred — no per-note arguments needed.
+  Stems-up came from the group-direction law by itself.
+- **THE RING BAR NO LONGER STARTS AT THE GO LINE** (composer spotted it on
+  T2): it begins after the nh-unit's ink + `ringBarGapSs` (0.25), clamped so
+  it never precedes the attack. The day-22 "flush with the go line" spec was
+  correct only while units hung BEFORE their go time. **A regression the
+  snapshots did not catch:** without the clamp, all 44 bars moved 0.41 ss LEFT
+  (a GC-bearing unit is pushed clear of its marker, so the algebra I called
+  "provably a no-op" held only for units without a GC) — both batteries stayed
+  green because the fixture has no GC-bearing ring bar. Measuring found it.
+- **Analyses delivered, nothing built from them yet.** T3 29.93–31.97: the
+  composer's own guess wins — **one-shot + the LAST FOUR at ♩=105.6 in 16ths,
+  1 ms error**, the cleanest fit in the section; every other reading costs
+  10–28 ms and most need 32nds. T4's last five: **five consecutive 16ths at
+  ♩=65.5, grid 0,1,2,3,4, 23 ms** — no rests at all. **Caveat that governs
+  both: any TWO onsets fit exactly, so 2-note "err 0" readings are arithmetic,
+  not evidence.**
+
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
 day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at

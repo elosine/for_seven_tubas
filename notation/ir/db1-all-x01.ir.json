@@ -13551,6 +13551,48 @@
     }
    },
    "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-2-ev-wc-86",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-86"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-2",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "headCenter"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-2-ev-wc-90",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-90"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-2",
+     "noteBeams": 1,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "headCenter"
+    }
+   },
+   "provenance": "authored"
   }
  ]
 }

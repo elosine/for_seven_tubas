@@ -297,6 +297,7 @@
             // one-shots = the measured sample length, the 2n law), centered
             // on the written notehead's vertical center; thickness = 2/3 of
             // the brick height (registry engraving.render.ringBar).
+            let ringBarItem = null;
             if (dev.ringBar) {
               // THE BREATH RULE (day 23, composer, corrected): the bar ends a
               // breath before the NEXT GESTURE — "working backwards... the next
@@ -317,6 +318,7 @@
                 if (barLen < e.duration - 1e-9 && barLen < flagUnder)
                   warnings.push('ring bar ' + e.id + ': ' + barLen.toFixed(2) + ' s — the next attack is ' + (nxt - e.onset).toFixed(2) + ' s away, less the ' + breath + ' s breath (sample ' + e.duration.toFixed(2) + ') — under ' + flagUnder + ' s, composer judgment');
                 items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + barLen, ySs: yDraw, ev: e.id });
+                ringBarItem = items[items.length - 1];   // the nh-unit shortens it from the LEFT (day 24)
               }
             }
             if (dev.nhUnit) {
@@ -451,6 +453,27 @@
                     : -(gapSs + rightExt);
                 items.push(Object.assign({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
+                // THE RING BAR STARTS AFTER THE UNIT, NOT AT THE GO LINE (day 24,
+                // composer: "you have to shorten the duration bar from the left. It
+                // still got its own old setting... have the notehead and ledger and a
+                // little bit of space and then a duration bar"). The day-22 spec
+                // ("left edge flush with the go line") was written when every unit
+                // hung BEFORE its go time; a head centred ON it (nhAnchor headCenter,
+                // day 24) puts head and ledgers on top of the bar's first millimetres.
+                // Stated against the unit's own right ink edge, the rule is anchor-
+                // agnostic and PROVABLY unchanged for a default-anchored unit: there
+                // headDx + rightExt = -nhGapSs, so the bar still starts exactly on the
+                // go line. Gap default = nhGapSs, the same small horizontal standard.
+                if (ringBarItem) {
+                  const rbGap = o.ringBarGapSs != null ? o.ringBarGapSs : (o.nhGapSs != null ? o.nhGapSs : 0.25);
+                  // ...but NEVER before the go line: the bar is sounding time, and
+                  // it starts at the attack. Without the clamp a GC-bearing unit (pushed
+                  // 0.66 ss clear of its impact marker) dragged its bar 0.41 ss to the
+                  // LEFT of the attack — measured on all 44 default-anchored bars, and
+                  // NOT caught by the layout/render snapshots, whose fixture has no
+                  // GC-bearing ring bar.
+                  ringBarItem.dx0Ss = Math.max(0, headDx + rightExt + rbGap);
+                }
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
                 let leftEdgeDx = headDx - nhO.wSs / 2 - ledgerExt * (ledgers.length ? 1 : 0);

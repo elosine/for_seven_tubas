@@ -310,7 +310,9 @@
           // head; clipped to the page like a brick
           if (it.t1 < w0 || it.t0 > w1) continue;
           const RB = E.ringBar;
-          const x0 = view.xOfSeconds(Math.max(it.t0, w0)), x1 = view.xOfSeconds(Math.min(it.t1, w1));
+          // dx0Ss (day 24): the bar begins after the nh-unit's ink, not at the
+          // go line — layout computes it from the unit's own right edge.
+          const x0 = X(Math.max(it.t0, w0), it.t0 >= w0 ? it.dx0Ss : 0), x1 = view.xOfSeconds(Math.min(it.t1, w1));
           const h = RB.hSs * ssPx;
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
             '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
