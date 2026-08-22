@@ -20,6 +20,8 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
 | `GAIN_STAGING.md` | Level-calibration protocol + ledger (measurement validity) |
 | `SI2_tuba_sample_lengths.md` | Instrument dataset: per-note crescendo-sample lengths |
 | `COMPOSER_LOG.md` | Composer's verbatim dictated notes, dated (primary source) |
+| `DYNAMICS_FRAMEWORK.md` | Dynamics line (day 23): the sonic fact, literature read (Nakamura, Kosta et al., Fabiani & Friberg, Ligeti), derived principles, the two layers of the density build, proposals P1–P5, measurements owed |
+| `research/` | Obtained sources (Nakamura 1987 PDF; Ligeti 1960 scans) |
 | `CURVE_DATABASE.md` | The three styles (Bloom/Linear/Surge) + catalog of used patterns (entries added as used) |
 | `research/audio/INDEX.md` | Audio evidence index (files kept out of git for now) |
 | `probes/` | All measurement instruments (MIDI probes + analyzers), reusable |

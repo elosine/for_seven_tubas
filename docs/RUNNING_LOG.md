@@ -6154,3 +6154,20 @@ dictated, the save-shuffle established, T1 facts scanned.**
   .81 rank agreement is the empirical case for ambient + deviations.
   Still missing: Khoo 2007 (only via Kosta; nice-to-have). No decision
   yet; dot spacing + go line still held.
+- **Captured (composer: "capture this both as a discussion journal... and
+  the proposal in some sort of organized document"):** today's verbatim
+  block appended to COMPOSER_LOG.md (day 23 — FP3x, the GC "that is the
+  whole thing", edge cases, ottava, the staccato unit, the layering
+  discussion, both dynamics messages); `docs/DYNAMICS_FRAMEWORK.md` created
+  (problem in the composer's terms · the sonic fact · literature table
+  with the verbatim findings · six derived principles · the two layers of
+  the density build · P1–P5 revised · measurements owed · open decisions ·
+  sources still to obtain); registered in RESEARCH_INDEX.md. Composer's
+  directions folded in: scope = this piece, this section, sonic issues
+  first; five bands with the MIDDLE COLLAPSED ("PPP to FFF... more distinct
+  jumps"); layer 1 = isolated one-shots (GC, single articulation, "probably
+  just simply dynamics"); layer 2 = dense grouped passages at the end,
+  dynamics within a phrase — **the starting point.** Rhythm for layer 2:
+  spatial around a shown beat first; notated rhythm / tuplet toggles are a
+  parts-time question ("for this, we should just settle on the
+  presentation"). Dot spacing + go line still held.
