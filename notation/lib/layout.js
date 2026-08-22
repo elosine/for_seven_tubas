@@ -353,7 +353,44 @@
                 // REGISTRY DATA (engraving.layout.stackBelow); the builder
                 // walks it and places whichever elements the note carries.
                 const stackGap = o.stackGapSs != null ? o.stackGapSs : 0.45;
-                let chainBotY = inkBotY;   // grows downward as chrome stacks
+                // THE SIDE-WITH-ROOM RULE (day 23, composer, after the ledger
+                // measurement — without ottava the lowest notes end at the
+                // lane edge and nothing stacks below them): the chain goes
+                // BELOW by default and flips ABOVE the unit's top ink when it
+                // would not fit between the bottom ink and the lane edge.
+                // Gould: dynamics above where below is obstructed; articulation
+                // at the stem side when the head side is crowded. An ottava
+                // pins the chain to its own side (the sign is outermost).
+                // laneHalfSs = the PRESENTATION half-lane (registry
+                // engraving.layout.chainSide), so a sparse experiment IR makes
+                // the same choice the draft will.
+                const CS = Object.assign({ rule: 'sideWithRoom', laneHalfSs: 6.51 }, o.chainSide || {});
+                let needBelow = 0;
+                if (dev.dynPair) {
+                  const pr = Array.isArray(dev.dynPair) ? dev.dynPair : (o.dynPair || ['ppp', 'fff']);
+                  const a = glyphs.dynamic && glyphs.dynamic[pr[0]], b = glyphs.dynamic && glyphs.dynamic[pr[1]];
+                  if (a && b) needBelow += stackGap + Math.max(a.hSs, b.hSs);
+                }
+                if (dev.dynMark && glyphs.dynamic && glyphs.dynamic[dev.dynMark]) needBelow += stackGap + glyphs.dynamic[dev.dynMark].hSs;
+                // chrome clears THE STAFF as well as the unit's ink: the
+                // chain's reference edge is the unit's outer ink or the
+                // outer staff line (±2), whichever is further out — a
+                // dynamic never sits inside the staff or among the ledgers
+                // (found live, day 23: the flipped sfzp hung from the head's
+                // top and landed across ledgers -3/-4)
+                const STAFF_EDGE = 2;
+                const refBot = Math.min(inkBotY, -STAFF_EDGE), refTop = Math.max(inkTopY, STAFF_EDGE);
+                const roomBelow = CS.laneHalfSs + refBot, roomAbove = CS.laneHalfSs - refTop;
+                const chainAbove = CS.rule === 'sideWithRoom' && octShift === 0 && needBelow > 0
+                  && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
+                let chainBotY = refBot;   // grows downward as chrome stacks
+                let chainTopY = refTop;   // grows upward when the chain is above
+                // one placement helper for every chain element: returns the
+                // element's center y and advances the chain's outer edge
+                const placeChain = h => {
+                  if (chainAbove) { const y = chainTopY + stackGap + h / 2; chainTopY = y + h / 2; return y; }
+                  const y = chainBotY - stackGap - h / 2; chainBotY = y - h / 2; return y;
+                };
 
                 // DYNAMIC PAIR + ARROW (the surge's hairpin replacement):
                 // start mark centered on the NOTE COLUMN (the head), then
@@ -372,12 +409,11 @@
                   const g1 = glyphs.dynamic && glyphs.dynamic[m1], g2 = glyphs.dynamic && glyphs.dynamic[m2];
                   if (g1 && g2) {
                     const bandH = Math.max(g1.hSs, g2.hSs);
-                    const yDyn = chainBotY - stackGap - bandH / 2;
+                    const yDyn = placeChain(bandH);
                     items.push({ k: 'glyph', g: 'dyn-' + m1, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
                     const x0 = headDx + g1.wSs / 2 + A.gapSs;
                     items.push({ k: 'dynarrow', t: e.onset, dx0Ss: x0, dx1Ss: x0 + A.lenSs, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs });
                     items.push({ k: 'glyph', g: 'dyn-' + m2, t: e.onset, dxSs: x0 + A.lenSs + A.gapSs + g2.wSs / 2, ySs: yDyn, align: 'center' });
-                    chainBotY = yDyn - bandH / 2;
                   } else {
                     warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + m1 + '/' + m2 + ') — marks not drawn');
                   }
@@ -390,9 +426,8 @@
                 if (dev.dynMark) {
                   const g = glyphs.dynamic && glyphs.dynamic[dev.dynMark];
                   if (g) {
-                    const yDyn = chainBotY - stackGap - g.hSs / 2;
+                    const yDyn = placeChain(g.hSs);
                     items.push({ k: 'glyph', g: 'dyn-' + dev.dynMark, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
-                    chainBotY = yDyn - g.hSs / 2;
                   } else {
                     warnings.push('nh-unit ' + e.id + ': dynamic glyph "' + dev.dynMark + '" missing — mark not drawn');
                   }
@@ -411,7 +446,7 @@
                   const n = Math.min(2, Math.abs(octShift));
                   if (Math.abs(octShift) > 2) warnings.push('nh-unit ' + e.id + ': ' + Math.abs(octShift) + ' octaves exceeds 15ma — clamped');
                   const label = above ? (n === 1 ? 'va8' : 'ma15') : (n === 1 ? 'vb8' : 'mb15');
-                  const ref = above ? inkTopY : chainBotY;
+                  const ref = above ? chainTopY : chainBotY;
                   const lineY = above ? ref + std + hook : ref - std - hook;
                   items.push({
                     k: 'ottava', t: e.onset, dx0Ss: leftEdgeDx,

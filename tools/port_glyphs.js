@@ -167,7 +167,10 @@ const out = {
     ottava: {
       lineThicknessSs: 0.0671, hookLengthSs: 0.8, dashLengthSs: 0.3, gapBetweenDashesSs: 0.7,
       minDashCount: 2, minBracketSpanSs: 1.3671, textGapBeforeLineSs: 0.1, lineAttachAboveBaselineSs: 0.3249,
-      ledgerLineThreshold: 3, standardGapSs: 0.45,
+      // 4 (day 23, composer): tuba players read ledger lines; piece #2's 3 was
+      // piano-derived. F#1 = the piece's lowest note = exactly 4 ledgers, so no
+      // note in the piece takes an ottava.
+      ledgerLineThreshold: 4, standardGapSs: 0.45,
       _provenance: prov('dimensions_table.json ottava + staffRouter (sessions 57/77 locked: engage smallest variant bringing written notes within 3 ledger lines; bracket outer VISIBLE edge sits standardGapSs from the reference edge, so lineY = ref -/+ (standardGapSs + hookLengthSs); text baseline at lineY + lineAttachAboveBaselineSs)'),
     },
     _provenance: prov('dimensions_table.json (staff/ledgerLine/stem/beam rows; stem.defaultLength 3.5 ss = conventional one-octave stem, piece #2 default 10 was cell-motive-specific)'),

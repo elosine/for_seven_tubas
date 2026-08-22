@@ -175,37 +175,63 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   ok(has(S, 'envcurve') === 1 && has(S, 'goline') === 1 && has(S, 'dynarrow') === 1, 'surge: curve + go line + dyn arrow');
   ok(S.some(i => i.k === 'glyph' && i.g === 'notehead-open') && S.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'surge: open head + sharp');
   ok(has(F, 'envcurve') === 0 && has(F, 'goline') === 1 && has(F, 'dynarrow') === 0, 'fortepiano: go line, NO curve, NO dyn pair');
-  // G#1 = 5.5 steps below the middle line: past the 3-ledger threshold, so
-  // the unit writes it an octave up on the bottom line under 8vb (the same
-  // rule the F#1 surge takes — composer's ottava verdict still pending)
-  ok(F.some(i => i.k === 'glyph' && i.g === 'notehead-open' && i.ySs === -2) && F.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'fortepiano: open head (written G#2) + sharp');
-  ok(F.some(i => i.k === 'ottava' && i.label === 'vb8') && has(F, 'ledger') === 0, 'fortepiano G#1: 8vb, no ledgers');
+  // G#1 = 5.5 steps below the middle line. Day 23 (composer's verdict on
+  // the ottava question): TUBA PLAYERS READ LEDGER LINES — threshold 4, so
+  // the whole piece (lowest note F#1 = exactly 4 ledgers) writes at pitch,
+  // no 8vb anywhere. G#1 takes three ledgers (-3, -4, -5).
+  ok(F.some(i => i.k === 'glyph' && i.g === 'notehead-open' && i.ySs === -5.5) && F.some(i => i.k === 'glyph' && i.g === 'accidental-sharp'), 'fortepiano: open head at pitch (G#1, -5.5) + sharp');
+  ok(!F.some(i => i.k === 'ottava') && has(F, 'ledger') === 3, 'fortepiano G#1: no ottava, three ledgers');
   ok(has(F, 'brick') === 1, 'fortepiano: the brick stays until the device is complete');
   // the ring bar: go line -> onset + sounding length (1.49 = the measured
   // G#1 fp sample), centered on the WRITTEN head (G#2 under 8vb = -2)
   const rb = F.find(i => i.k === 'ringbar');
-  ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - 2.49) < 1e-9 && rb.ySs === -2, 'fortepiano: ring bar spans onset..onset+1.49 at the written head');
+  ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - 2.49) < 1e-9 && rb.ySs === -5.5, 'fortepiano: ring bar spans onset..onset+1.49 at the written head');
   ok(has(S, 'ringbar') === 0, 'surge: no ring bar');
-  // the single mark: sfzp on the dynamic slot, centered on the head column,
-  // and the ottava stacks BELOW it (column order: dynamic before ottava)
+  // the single mark: sfzp on the dynamic slot, centered on the head column.
+  // THE SIDE-WITH-ROOM RULE (day 23): G#1's bottom ink (sharp tip, -6.25)
+  // leaves 0.26 ss to the lane edge (6.51) — the mark (0.45 + 0.97) cannot
+  // fit below, so the chain flips ABOVE the unit's top ink.
   const mark = F.find(i => i.k === 'glyph' && i.g === 'dyn-sfzp');
   const hd = F.find(i => i.k === 'glyph' && i.g === 'notehead-open');
-  const ot = F.find(i => i.k === 'ottava');
   ok(mark && Math.abs(mark.dxSs - hd.dxSs) < 1e-9, 'fortepiano: sfzp centered on the head column');
-  ok(mark && ot && ot.ySs < mark.ySs - G.dynamic.sfzp.hSs / 2, 'fortepiano: ottava below the dynamic');
+  // ... and ABOVE THE STAFF, not among the ledgers: the chain's reference is
+  // the outer staff line (+2) when the unit's ink is lower than that
+  ok(mark && mark.ySs - G.dynamic.sfzp.hSs / 2 >= 2 + 0.45 - 1e-9, 'fortepiano G#1: sfzp ABOVE the staff (clears the top line by the 0.45 gap)');
+  ok(mark && Math.abs((mark.ySs - G.dynamic.sfzp.hSs / 2) - (2 + 0.45)) < 1e-9, 'fortepiano G#1: sfzp sits exactly 0.45 above the top staff line');
+  ok(mark && mark.ySs + G.dynamic.sfzp.hSs / 2 <= 6.51 + 1e-9, 'fortepiano G#1: the flipped mark stays inside the lane');
+  // a note with room below keeps the chain below: same fp device on D3
+  {
+    const mid = JSON.parse(JSON.stringify(dir));
+    mid.events = mid.events.map(e => e.id === 'f' ? Object.assign({}, e, { pitch: { midi: 50, spelled: { step: 'D', alter: 0, octave: 3 } } }) : e);
+    const FM = one(mid, 'f');
+    const mm = FM.find(i => i.k === 'glyph' && i.g === 'dyn-sfzp'), hm = FM.find(i => i.k === 'glyph' && i.g === 'notehead-open');
+    ok(mm && hm && mm.ySs < hm.ySs, 'fortepiano D3: chain stays BELOW when there is room');
+    // an in-staff note's dynamic clears the BOTTOM staff line, never sits inside the staff
+    ok(mm && Math.abs((mm.ySs + G.dynamic.sfzp.hSs / 2) - (-2 - 0.45)) < 1e-9, 'fortepiano D3: sfzp sits exactly 0.45 below the bottom staff line');
+  }
+  // the rule is registry data: a huge lane puts G#1's chain back below
+  {
+    const FB = Layout.layoutSection(JSON.parse(JSON.stringify(dir)), G, { chainSide: { rule: 'sideWithRoom', laneHalfSs: 20 } }).systems[0].items.filter(() => true);
+    const sub = JSON.parse(JSON.stringify(dir)); sub.events = sub.events.filter(e => e.id === 'f'); sub.chunks = sub.chunks.filter(c => c.events[0] === 'f');
+    const FB2 = Layout.layoutSection(sub, G, { chainSide: { rule: 'sideWithRoom', laneHalfSs: 20 } }).systems[0].items;
+    const m2 = FB2.find(i => i.k === 'glyph' && i.g === 'dyn-sfzp'), h2 = FB2.find(i => i.k === 'glyph' && i.g === 'notehead-open');
+    ok(m2 && h2 && m2.ySs < h2.ySs, 'fortepiano G#1 with a 20 ss half-lane: chain below (the rule reads the registry lane)');
+  }
   ok(has(S, 'glyph') && !S.some(i => i.g === 'dyn-sfzp'), 'surge: no single mark (pair + arrow instead)');
   // THE STACCATO UNIT (wc-29, day 23 — composer: "black note head, stem,
   // and I think one flag"): filled head + stem + 8th flag, nothing else
-  // yet. G1 → written G2 (-2, below the middle line) → stem UP, flag-up8
+  // yet. G1 at pitch (-5.5, below the middle line) → stem UP, flag-up8
   // at the tip; the flag reaches past the head, so the column anchor
   // (rightmost ink a gap before go) is the flag's right edge.
   ok(has(K, 'goline') === 1 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: go line, no ring bar / dynamic; brick stays');
   const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
   const ks = K.find(i => i.k === 'stem');
   const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
-  ok(kh && kh.ySs === -2 && !K.some(i => i.g === 'notehead-open'), 'staccato: FILLED head at the written G2');
+  ok(kh && kh.ySs === -5.5 && !K.some(i => i.g === 'notehead-open'), 'staccato: FILLED head at pitch (G1, -5.5)');
   ok(ks && ks.attach === 'up' && Math.abs(ks.dxSs - (kh.dxSs + G.notehead.filled.anchors.stemAttachUp.x - G.notehead.filled.anchors.center.x)) < 1e-9, 'staccato: stem up from the head right attach point');
-  ok(ks && Math.abs((ks.yB - ks.yA) - 3.5) < 1e-9, 'staccato: one-octave stem (3.5 ss) inside the staff');
+  // G1 sits 5.5 below the middle line: the stem extends to the middle line
+  // (stemLenFor: max(3.5, |ySs|)) — a stem outside the staff reaches it
+  ok(ks && Math.abs((ks.yB - ks.yA) - 5.5) < 1e-9, 'staccato G1: stem reaches the middle line (5.5 ss, Gould)');
   ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
   // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
   // go line"). Measured from the EMITTED items' own glyph metrics — the ink

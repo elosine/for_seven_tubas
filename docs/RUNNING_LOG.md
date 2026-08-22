@@ -5952,3 +5952,55 @@ dictated, the save-shuffle established, T1 facts scanned.**
   line · ball r 5 rides the arc: (888.7, 13.0) → (944.8, 105.8) at 17.749
   → (982.3, 13.0); same color. Composer to judge against their memory of
   the two scores.
+- **OTTAVA VERDICT (composer) + THE SIDE-WITH-ROOM RULE.** Composer asked
+  whether a single-note ottava keeps its bracket. Answer given: Gould and
+  Stone both allow the sign alone on a single note/chord; LilyPond/Dorico/
+  Sibelius keep a minimal bracket by default, and piece #2 followed LP
+  deliberately (session 57: minBracketSpanSs 1.3671, minDashCount 2, so
+  the bracket never collapses). Underneath: 8vb is piano/double-bass
+  practice; TUBA PLAYERS READ LEDGER LINES. Composer: *"For the lowest
+  notes, it's probably the first one"* (ledgers) — *"do a quick measurement
+  and see without the ottava, the full ledger line at our current sizing...
+  it will all fit. And then what do we do with a stack of accents or
+  dynamics?"*
+- **The measurement (video frame, 10 lanes, staff 31.6 → ss 7.9 px):**
+  lane 102.8 px, staff centred → 6.51 ss from the middle line to the lane
+  edge. Lowest note in every part = **F#1** (4 ledgers, head on the 4th:
+  ySs −6, head bottom −6.44 → **0.07 ss = 0.5 px** above the lane edge;
+  its sharp reaches −6.75 → 2 px into the 4 px inter-lane gap). G1/G#1:
+  3 ledgers, head bottom −5.94 → 0.57 ss room (0.26 with a sharp). A1/A#1:
+  1.07 ss. Highest note G4 = +5 (3 ledgers above), 1.07 ss room. A chain
+  element needs 0.45 + its height (dynamic ≈1.4 ss, accent ≈1.3) → NOTHING
+  fits below any note at or below A1. Ledgers fit; chrome does not.
+- Options offered: (a) chain flips to the side with room · (b) smaller
+  staff (26 px → one dynamic fits under F#1; 24 → dynamic + accent;
+  re-opens G0) · (c) overflow into the gap (collides with the neighbour's
+  G4). **Composer: "flip the threshold to 4 and build (a)."**
+- Built: `glyphs.standards.ottava.ledgerLineThreshold` 3 → **4** (in
+  glyphs.json AND in port_glyphs.js, so a re-port cannot revert it) — F#1
+  is exactly 4 ledgers, so **no note in the piece takes an ottava**.
+  `engraving.layout.chainSide = { rule:'sideWithRoom', laneHalfSs: 6.51 }`
+  — the column chain stacks below by default and flips ABOVE when it would
+  not fit between the note's bottom ink and the lane edge; laneHalfSs is
+  the PRESENTATION half-lane on purpose (a capped sparse lane must make
+  the same choice the draft will). An ottava pins the chain to its side.
+- **Bug found live in my own rule, first try:** "above" hung from the
+  unit's top ink — for a ledger note that is the HEAD, so the flipped sfzp
+  landed across ledgers −3/−4 (y 85.7–93.4 vs ledgers at 83.1/91.0). And
+  the same latent flaw below: an in-staff note's dynamic would have sat
+  INSIDE the staff. Fix: the chain's reference edge is the unit's outer
+  ink OR the outer staff line (±2), whichever is further out. Asserted
+  both ways (G#1 sfzp exactly 0.45 above the top line; D3 sfzp exactly
+  0.45 below the bottom line; a 20 ss half-lane puts G#1's chain back
+  below — the rule reads the registry).
+- Tests: six fixtures assumed the 8vb world (written G2/G#2) → rewritten
+  at pitch (−5.5, three ledgers, stem to the middle line = 5.5 ss per
+  stemLenFor). Batteries green: layout, render, snapshots, stamps, splice,
+  animobj, extract-played.
+- Verified live (video, page 2, T1): wc-23 and wc-29 heads at y 99.4–106.4
+  (−5.5) on ledgers at 83.1/91.0/98.9 (−3/−4/−5); wc-23's sharp to 108.8
+  vs lane bottom 110.8; **no ottava text on the page**; wc-23's sfzp at
+  32.4–40.1, bottom edge 3.5 px = 0.45 ss above the top staff line (43.6),
+  inside the lane (top 8); wc-29's stem 58.3→82.1 reaches the middle line.
+  **Look change for the composer to judge: wc-23's sfzp is now ABOVE the
+  staff** (the rule's first real application), and wc-29's stem is 5.5 ss.

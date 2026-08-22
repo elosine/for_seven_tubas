@@ -452,7 +452,7 @@
    "minBracketSpanSs": 1.3671,
    "textGapBeforeLineSs": 0.1,
    "lineAttachAboveBaselineSs": 0.3249,
-   "ledgerLineThreshold": 3,
+   "ledgerLineThreshold": 4,
    "standardGapSs": 0.45,
    "_provenance": {
     "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/dimensions_table.json ottava + staffRouter (sessions 57/77 locked: engage smallest variant bringing written notes within 3 ledger lines; bracket outer VISIBLE edge sits standardGapSs from the reference edge, so lineY = ref -/+ (standardGapSs + hookLengthSs); text baseline at lineY + lineAttachAboveBaselineSs)",
