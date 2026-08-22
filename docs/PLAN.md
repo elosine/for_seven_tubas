@@ -1789,8 +1789,8 @@ while building the real score.
   the piece (D54), the one-shot dynamic ladder (D52), the GC ported whole
   (D53), rests and 16th flags captured for the first time in the lineage.
   *Why it matters:* every device decided here is the section-1 vocabulary.
-- **8e — GENERATE T2–T10 FOR DENSITY BUILD 1** — `next (composer, day 23
-  session end)`. Composer: *"have AI generate the rest of the tuba parts
+- **8e — GENERATE T2–T10 FOR DENSITY BUILD 1** — `ANALYSIS + BUILD DONE
+  2026-08-22 (day 24); awaiting the composer's eye`. Composer: *"have AI generate the rest of the tuba parts
   for this first density build. We'll do an evaluation first, analysis of
   what's there, and if there was anything missing in our generator, our
   pipeline, to accommodate something different in one of the remaining nine
@@ -1802,6 +1802,25 @@ while building the real score.
   simultaneities (chords: the breath rule and beam adjacency both treat
   same-onset notes specially) · any part dense enough to overflow the
   6.51 ss half-lane. Then generate, then the composer looks.
+  **DONE, day 24 — the analysis answered every one of those questions and the
+  build shipped as `db1-all-x01` (ALL TEN PARTS, 0–55.94, 456 events, 129
+  chunks, valid; `--bricks`, clusters deliberately left loose; T1's authored
+  cluster carried in verbatim, proven byte-identical).** Findings: 456 notes
+  (staccato 390 · fp 42 · ord 21 · cuivre 3) · pitch 30–67, so nothing crosses
+  the D54 ledger threshold and no ottava is needed anywhere · no within-part
+  simultaneity (min IOI 0.130 s; the chord case is a CROSS-part vertical) · no
+  part denser than T1, so no half-lane overflow · every one of 57 candidate
+  cluster spans ADMITS a metric fit at 30 ms, so "no fit → proportional" does
+  not arise here. **Two vocabulary holes found and closed as registry data
+  (D50):** cuivre inherits the fortepiano device set (the three cuivre notes
+  are members of the ten-part fp blast at 40.93, `performanceNotes` says so),
+  and plain sustained `ord` gets go line + nh-unit + band dynamic
+  (PROVISIONAL) so the 48.05 octaves-Bb blast stops drawing as ten bare
+  bricks. `--cluster` gained `@part` so the coming part-by-part cluster pass
+  can run inside one all-parts file. Full trail: RUNNING_LOG day 24.
+  **Remaining = the composer's eye** (no screenshot was possible this
+  session), plus one open question: whether the three cuivre notes want a
+  cuivré text mark, since the technique is currently invisible on the page.
 
 ## Parking lot
 

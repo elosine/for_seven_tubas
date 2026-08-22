@@ -10,6 +10,65 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+**DAY 24 (2026-08-22, second sitting) — THE WHOLE SECTION IS NOTATED FOR ALL
+TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
+
+- **The working file is now `db1-all-x01`** (0–55.94, **parts 0–9**, `--bricks`,
+  456 events / 129 chunks, valid): every individual GC, every surge and every
+  fortepiano in the section, in all ten lanes. T1's authored cluster
+  (31.49–34.6) is carried inside it and rebuilds **byte-identical** to the
+  day-23 file. One command rebuilds the whole thing:
+  ```
+  node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 \
+    --parts 0-9 --profile section1 --id db1-all-x01 --exp --bricks \
+    --label "db1 ALL PARTS x01 (0-55.94, bricks; T1 cluster kept)" \
+    --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
+    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9
+  ```
+  `db1-t1-x02` is untouched and still in the picker.
+- **DECISION (→ §4 at session end): cuivre inherits the fortepiano device set.**
+  The three cuivre notes (T1/T4/T8, all at 40.93) are members of
+  `grp-vert03-fp-01`, whose seven other members are technique `fortepiano` at
+  the same instant and velocity, and whose score `performanceNotes` reads
+  "VERT01-03 fortepiano" on every member. Drawing them differently would notate
+  a *timbre* difference as a *gesture* difference. Rejected: leaving them as
+  bare bricks (a ten-part chord with three holes) and inventing a cuivre-only
+  device with no composer input.
+- **DECISION (PROVISIONAL, → §4): plain sustained `ord` = go line + nh-unit +
+  one band dynamic.** No GC (the surge precedent — a sustained entry is not an
+  impact) and no ring bar (ord duration is real per D9; the bar exists to show
+  a FIXED one-shot ringing past its written value). This is what the 48.05
+  octaves-Bb blast now draws, ten lanes at **f**. Say the word and it changes.
+- **A trap that was found and closed:** device membership resolves
+  `byTechnique` first and `byEnv` **on top**, so a bare `ord` entry leaks its
+  band dynamic onto all eleven surges (`ord` + env `surge`). `byEnv.surge` now
+  carries an explicit `dynMark: false`. Surge look verified unchanged by count.
+- **`--cluster` now takes `@part`** (`31.49-34.6@0`) and REFUSES a bare span in
+  a multi-part IR, naming the lanes it would have swallowed. This is what makes
+  the coming part-by-part cluster pass work inside one file instead of ten forks.
+
+**Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
+**clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
+day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at
+30 ms**; the tolerance is a compositional dial (a looser one buys a simpler
+notation, since the fit is complexity-scored, D56); and the automatic grouping
+is a candidate list, not the answer — for T1 it proposed 13 notes where the
+composer named 12.
+
+**Open at session end (day 24):**
+- **Nothing has been looked at.** Screenshots were unavailable this session —
+  the Browser pane would not composite — so every claim is a count or a position
+  read out of the live DOM, never an image. The composer's eye is the one
+  missing check, and it is the whole next step.
+- **One open question:** should the three cuivre notes carry a `cuivré` text
+  mark? Right now the technique is invisible on the page.
+- `flagShortBarSeconds` now has data behind it: at 1.0 the section raises **21**
+  judgment flags across ten parts; 0.5 → 9; **0.35 → 3**; 0.25 → 2.
+- Still open from day 23: `export_midi --ir` un-built (NITS) · G2/G3 unclosed
+  on paper.
+
+---
+
 **DAY 23 (2026-08-22) — DENSITY BUILD 1 IS NOTATED, T1. The one-shot
 vocabulary is complete and the first CLUSTER is on the page. Claude Code /
 Fable 5 (+ Opus 5 for two stretches).**

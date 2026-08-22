@@ -64,9 +64,11 @@
   function deviceResolver(ir, opts) {
     const o = opts || {};
     const DEV = Object.assign({
-      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
+      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true, dynMark: false } },
       byTechnique: {
         fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },   // day 24 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
+        ord: { goLine: true, nhUnit: true, dynMark: 'band' },                              // day 24 — plain sustained ord, provisional (registry _ordNote)
         staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag16', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
@@ -173,9 +175,11 @@
     // The composer works note by note, in order; a technique entry here
     // is how a settled note's device reaches its siblings (§6 derivation).
     const DEV = Object.assign({
-      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
+      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true, dynMark: false } },
       byTechnique: {
         fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },   // day 24 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
+        ord: { goLine: true, nhUnit: true, dynMark: 'band' },                              // day 24 — plain sustained ord, provisional (registry _ordNote)
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked

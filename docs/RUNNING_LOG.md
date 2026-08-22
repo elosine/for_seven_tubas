@@ -6738,3 +6738,152 @@ dictated, the save-shuffle established, T1 facts scanned.**
   all day — the archive is never edited (D49); every amendment lives in
   the IR. `notation/ir/db1-t1-x02.ir.json` and `db1-t1.ir.json` are
   committed. Working tree clean, nothing unpushed.
+
+---
+
+## Day 24 (2026-08-22) — DENSITY BUILD 1, ALL TEN PARTS: the one-shot vocabulary applied section-wide
+
+Composer's ask, verbatim: *"insert for the first density build section all the
+individual GCs and the surges and the forte pianos. and then I want to leave the
+clusters... we'll take the clusters part by part."*
+
+### The analysis first (PLAN 8e step 1, done before generating)
+
+Census of `piece-s25-finished01`, window **0–55.94** (marker GESTURE-2 at 55.94
+ends the section), layers 0–9:
+
+- **461 waveCurve objects; 456 are notes**, 5 are layer-10 META shapes
+  (classified `meta-shape`, skipped by the extractor — they are the only objects
+  in the window with `technique: undefined`, and layer 10 is matched first, so
+  nothing throws).
+- Per part: T1 52 · T2 47 · T3 47 · T4 47 · T5 45 · T6 48 · T7 46 · T8 46 ·
+  T9 36 · T10 42.
+- Techniques: **staccato 390 · fortepiano 42 · ord 21 · cuivre 3**.
+- The 21 ord split cleanly: **11 surges** (`envShape: surge`, curve mode,
+  staggered 2.00→28.87, one per part except **T9, which has no surge**) and
+  the **10-part octaves-Bb blast at 48.05** (plain mode, 4.41 s, vel 112).
+- **Pitch: 30–67.** F#1 (30) is the 4-ledger floor already known; the ceiling
+  is G4 (67, T8's cuivre) = **3 ledgers above** — so nothing in the section
+  crosses the D54 threshold and no ottava is needed anywhere. Confirmed by
+  measurement, not assumption.
+- **No within-part simultaneities**: the smallest IOI in any part is 0.130 s
+  (T1, T7, T10). The chord case is a CROSS-part vertical (the 40.93 blast),
+  which each part reads as one note — so neither the breath rule nor beam
+  adjacency has a same-onset case to handle here.
+- **Density**: no part is denser than T1, which already lays out inside the
+  6.51 ss half-lane. Nothing to solve.
+- **Sample lengths**: 0 missing across all 435 fixed one-shots.
+
+**Two vocabulary holes found, and they are exactly the ones the section shows
+the composer first:**
+
+1. **cuivre had no device entry.** The three cuivre notes (T1 wc-1587 midi 62,
+   T4 wc-1584 midi 63, T8 wc-1580 midi 67) are all at **40.93** and all belong
+   to `grp-vert03-fp-01` — whose other seven members are technique `fortepiano`,
+   same instant, same velocity 112, and whose score `performanceNotes` on
+   **every** member reads *"VERT01-03 fortepiano"*. So the gesture is a
+   fortepiano blast in ten parts and cuivre is its timbre in three of them.
+   Without an entry those three drew as bare parachute bricks: a ten-part chord
+   with three holes in it.
+2. **Plain (non-surge) sustained `ord` had no entry** — so the ten-part
+   octaves-Bb blast at 48.05 drew as ten bare bricks. This is not one of the
+   three things the composer named, but it is the last gesture of the section.
+
+### The two decisions (registry data, D50)
+
+- **cuivre INHERITS THE FORTEPIANO DEVICE SET verbatim** — go line, GC,
+  nh-unit, ring bar, `sfzp`. Reasoning is evidence, not taste: drawing three
+  members of one blast differently from the other seven would notate a *timbre*
+  difference as a *gesture* difference. Cuivre sample lengths exist (62=1.14,
+  63=1.25, 67=0.99 s) so the ring bars are sample-true like their siblings.
+  **Open for the composer:** whether a cuivré TEXT mark should additionally
+  sit on those three — the technique is currently invisible on the page.
+- **`ord` gets go line + nh-unit + one band dynamic. PROVISIONAL.** No GC (the
+  surge precedent: a sustained entry is not a point-in-time impact, and
+  `byEnv.surge` carries no GC) and no ring bar (ord duration is real per D9 and
+  the brick already shows it; the ring bar exists to show a FIXED one-shot
+  ringing past its written value). At vel 112 all ten read **f**.
+- **Regression guard, and it was a real one:** membership resolves
+  `byTechnique` first, then `byEnv` ON TOP. A bare `ord` entry would therefore
+  have leaked its band mark onto all eleven surges, which are `ord` + env
+  `surge`. Fixed by giving `byEnv.surge` an explicit **`dynMark: false`**, which
+  cancels it. The settled surge look is unchanged — verified by count: 11
+  envcurves, 11 dyn-arrows, 11 ppp/fff pairs, zero band marks on a surge.
+
+### The build
+
+One command; `--bricks` because the clusters are deliberately left loose:
+
+```
+node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 \
+  --parts 0-9 --profile section1 --id db1-all-x01 --exp --bricks \
+  --label "db1 ALL PARTS x01 (0-55.94, bricks; T1 cluster kept)" \
+  --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
+  --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9
+```
+
+→ **456 events, 129 chunks, VALID vs source.**
+
+**`--cluster` gained an optional `@part`** (`31.49-34.6@0`). In an all-parts file
+a bare span would sweep every lane's notes in that window into one beam group,
+so the tool now **refuses** a bare span when the IR carries more than one part,
+and names the parts it would have swallowed. This is what makes the coming
+part-by-part cluster pass possible without forking ten files. Event→part comes
+off `chunk.part` (the only place the extraction records it).
+
+**Regression proof:** T1 rebuilt with the new `@0` syntax and diffed against the
+day-23 file — **byte-identical** ignoring `id` and `provenance`. So the day-23
+work is preserved inside the section file rather than re-derived.
+
+### Verified (what was run, not read)
+
+- `test_layout` · `test_render` · `test_coords` · `test_animobj` · `test_stamps` ·
+  `test_snapshots` · `test_sonify_core` — all green after the registry + layout
+  edits.
+- **Headless layout over the real registry**: 4402 items — 456 bricks · 445 go
+  lines (456 minus the 11 cluster members that suppress theirs) · **424 GCs**
+  (staccato 390 + fp 42 + cuivre 3, minus the same 11) · 44 ring bars · 11
+  envcurves · 66 open noteheads (surge 11 + fp 42 + cuivre 3 + ord 10) · 390
+  filled · 45 `sfzp` (42 fp + **3 cuivre**) · 390 band marks (380 staccato +
+  **10 ord**) · 4 accents · 1 tuplet · 8 beams · 6 rests.
+- **Both verticals draw identically in all ten lanes** — at 40.93:
+  `brick goline gc ringbar notehead-open [ledgers] [accidental] dyn-sfzp` in
+  every system; at 48.05: `brick goline notehead-open [ledgers] accidental dyn-f`
+  in every system.
+- **In the running app** (`:5210`, notation.html): picker loads `db1-all-x01`,
+  **7 pages**, no console errors, ink scales with density (page 5 = 33.1–41.1 s,
+  3343 elements, 203 GC impacts; page 1 = 179 elements, 2). On page 6 the ten
+  GC impacts of the 40.93 blast sit at the left edge across **all ten lanes**,
+  the three cuivre lanes included — the registry change confirmed live, not
+  inferred.
+- **NOT verified: how it looks.** Screenshots were unavailable this session (the
+  Browser pane would not composite). Every claim above is a count or a position
+  read out of the live DOM. The composer's eye is the missing check.
+
+### Two measurements the composer asked for earlier, now answered with data
+
+- **`flagShortBarSeconds`** (the standing human note): across ten parts the
+  current 1.0 raises **21** "composer judgment" flags. 0.5 → 9. **0.35 → 3.**
+  0.25 → 2. One registry number.
+- **One ring bar is not drawn at all**: `wc-78` — the next attack is exactly
+  0.50 s away and the breath is 0.50 s, so there is no room. It warns rather
+  than drawing a zero-length bar. Filed to NITS.
+
+### The cluster ground for the part-by-part pass (computed, not acted on)
+
+Running `cluster_fit` over every extraction group of ≥3 notes: **57 candidate
+spans across the ten parts; 372 of the 456 notes are inside one; ZERO are
+"NO FIT"** — at 30 ms tolerance every candidate admits a metric reading. So the
+"proportional is the honest reading" case does not arise in this section on the
+current grouping.
+
+Two things that matter for the pass:
+
+- **The tolerance is a compositional dial, not a technicality.** The same span
+  returns a different tempo at 30 vs 50 ms, and since the fit is scored on
+  COMPLEXITY (D56) a looser tolerance buys a simpler notation — e.g. T1
+  30.75–34.51: 97.7 bpm ×8 (unit 77 ms) at 30 ms, 88.9 bpm ×4 (unit 169 ms) at
+  50 ms. T1's finished cluster used `--clusterTol 0.05`.
+- **The automatic grouping is a candidate list, not the answer.** For T1 the
+  extraction proposes 30.75–34.51 (13 notes); the composer named 31.49–34.6
+  (12), dropping wc-89. The span is authored.

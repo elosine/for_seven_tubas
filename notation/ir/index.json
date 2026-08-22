@@ -51,6 +51,17 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "db1-all-x01",
+   "label": "db1 ALL PARTS x01 (0-55.94, bricks; T1 cluster kept)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    55.94
+   ],
+   "profile": "section1",
+   "exp": true
   }
  ]
 }

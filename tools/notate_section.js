@@ -18,7 +18,10 @@
 //                            the app hot-reloads it within ~1 s.
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
-//   --cluster t0-t1          mark a span as one beamed cluster (repeatable; authored overlays)
+//   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
+//                            overlays). @part (0-based lane) confines it to ONE part —
+//                            required in an all-parts file, where a bare span would sweep
+//                            every lane's notes in that window into one beam group.
 //   --accents 4,7,8          cluster members (1-based) carrying an accent
 //   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
 //   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
@@ -147,23 +150,35 @@ const { doc, warnings } = Extract.extract(score, {
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     if (process.argv[i] !== '--cluster') continue;
-    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
-    if (!m) { console.error('--cluster needs t0-t1 (e.g. --cluster 31.49-33.59)'); process.exit(2); }
-    spans.push([parseFloat(m[1]), parseFloat(m[2])]);
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+    if (!m) { console.error('--cluster needs t0-t1 or t0-t1@part (e.g. --cluster 31.49-33.59@0)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
   }
   const TOL = parseFloat(arg('clusterTol', '0.030'));
   // ONE implementation of the fit, shared with tools/cluster_tempo.js
   const ClusterFit = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
+  // event -> part, off the chunks (the only place the extraction records it).
+  // Without this a span in an all-parts file claims all ten lanes at once.
+  const partOfEvent = new Map();
+  for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
   spans.forEach((sp, n) => {
     const key = 'cl-' + (n + 1);
-    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9).sort((a, b) => a.onset - b.onset);
-    if (!members.length) { console.error('--cluster ' + sp.join('-') + ': no events in the span'); process.exit(2); }
-    const fit = ClusterFit.fit(members.map(e => e.onset), { TOL });
-    if (!fit) {
-      console.error('--cluster ' + sp.join('-') + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
+    const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+      (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+    if (!members.length) { console.error('--cluster ' + label + ': no events in the span'); process.exit(2); }
+    if (sp[2] === null && parts.length > 1) {
+      console.error('--cluster ' + label + ': this IR carries ' + parts.length + ' parts — a bare span would beam ' +
+        members.length + ' notes across lanes ' + [...new Set(members.map(e => partOfEvent.get(e.id)))].join(',') +
+        ' into one group. Name the part: --cluster ' + sp[0] + '-' + sp[1] + '@<part>');
       process.exit(2);
     }
-    console.log('  cluster ' + key + ': ' + members.length + ' notes ' + sp[0] + '-' + sp[1] + ' s (' + members.map(e => e.source.objectId).join(' ') + ')');
+    const fit = ClusterFit.fit(members.map(e => e.onset), { TOL });
+    if (!fit) {
+      console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
+      process.exit(2);
+    }
+    console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
     console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
       (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
       ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
