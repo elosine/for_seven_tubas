@@ -6533,3 +6533,49 @@ dictated, the save-shuffle established, T1 facts scanned.**
     11.9 × 6.6 px at y 8.0 = the lane's top edge exactly (headless: accent
     top 6.510 vs laneHalf 6.51) · one **f** below the first head (ySs
     −3.86) · no warnings. Batteries green.
+- **THE LAST CLUSTER — analysis first, as the composer asked ("do analysis
+  and talk first before doing anything").** Density build 1 ends at
+  **34.509**; CLOUD02-I starts new material at 36.19. Remaining after
+  cluster 1: **four notes 33.930–34.509** (B2 v123 fff · G1 v127 fff ·
+  A#1 v97 mf · F#1 v109 f), IOIs 0.200 / 0.135 / 0.244 — faster and less
+  regular than cluster 1. Three options put to the composer:
+  **A** own cluster at 20 ms → 70.4 ms unit, ♩106.5, **32nd grid, 3 beams**;
+  **B** own cluster at 30 ms → 111.4 ms, ♩67.3, 3 beams, 22.8 ms err;
+  **C** ONE 12-note cluster → **172 ms, ♩87.2 × 4, 2 beams**, grid
+  0,2,4,5,6,8,10,11,14,15,16,17, max err **36 ms**. Measured and reported:
+  the two groups CANNOT share cluster 1's 175 ms grid as separate clusters
+  (84 ms continuing it, 54 ms re-anchored), so it was a new tempo or a
+  merge. Also flagged: A/B would print two tempo marks 0.46 s apart for a
+  reader following a cursor. **Composer chose C** — with a refinement:
+  *"let's not beam them altogether. So we'll beam the first group of notes
+  and then the second group... but conceptually we can keep them in the
+  same tempo. Then we'll need to calculate the rest between the two groups
+  and just have the longest rest you could fit in there."*
+  - Built: **`--beamBreak 9`** — one cluster (one tempo, one grid) can now
+    carry several beam groups (`cl-1a`, `cl-1b`); the beam HEIGHT stays
+    uniform across the cluster (both at 5.220, since the cluster carries
+    accents), so the two groups read as one gesture at one level.
+  - **Rests moved from the beam group to the CLUSTER** — a gap between two
+    beam groups belongs to neither group, and that is exactly where the
+    composer wanted a rest. Merging is greedy longest-first with metric
+    alignment: at position n with r empty units, take the largest
+    power-of-2 rest R ≤ r where n % R === 0 (the standard rule that stops
+    a rest straddling its own beat). Result: four 16th rests inside group
+    1 and **one 8th rest in the gap** at 33.613 — "the longest that fits".
+  - **Dynamics per the composer**, and `--dyn` now takes `n` (use the
+    band) or `n:mark` (explicit): **f** on member 1 · accents 4, 7, 8 ·
+    **fff** on member 9 (the first note of the second beam group) · **mf**
+    on 11 · **fff** on 12. NOTE FOR THE COMPOSER: member 12's velocity is
+    109, whose band is **f**, not fff — written as instructed, flagged
+    here in case "MF and then FFF" was meant as mf → f.
+  - Verified live (page 3): two beam groups 1232→1531 and 1604→1694, both
+    at y 18.2 / 24.6 · three accents at y 8.0 · the 8th rest in the gap ·
+    12 heads, 12 dots, one GC + one go line on the first note only.
+  - **A LOOK ISSUE the measurement surfaced, not fixed:** members 11 and 12
+    are too low (A#1, F#1) for a dynamic below, so the side-with-room rule
+    flipped their mf/fff ABOVE the beam — while the f and fff on members 1
+    and 9 sit below. Four dynamics, two below and two above. And the
+    flipped pair tops out at 6.645 ss against the lane's 6.51 — about 1 px
+    proud. Options for the composer: put every cluster dynamic above the
+    beam (uniform, needs the beam ~0.2 ss lower); keep the split and drop
+    the beam slightly; or accept the 1 px.

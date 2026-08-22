@@ -20,7 +20,8 @@
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
 //   --cluster t0-t1          mark a span as one beamed cluster (repeatable; authored overlays)
 //   --accents 4,7,8          cluster members (1-based) carrying an accent
-//   --dyn 1                  cluster member(s) carrying the single ambient dynamic
+//   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
+//   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
@@ -175,16 +176,38 @@ const { doc, warnings } = Extract.extract(score, {
       }
       return out;
     };
-    const accentAt = listArg('accents'), dynAt = listArg('dyn');
+    const accentAt = listArg('accents');
+    // --dyn accepts `n` (use the note's velocity band) or `n:mark` (an explicit
+    // mark, the composer overruling the band — day 23: fff on the last note,
+    // whose band is f)
+    const dynAt = new Map();
+    for (let i = 0; i < process.argv.length; i++) {
+      if (process.argv[i] !== '--dyn') continue;
+      for (const v of String(process.argv[i + 1] || '').split(',')) {
+        const mm = v.match(/^(\d+)(?::(\w+))?$/); if (!mm) continue;
+        dynAt.set(parseInt(mm[1], 10), mm[2] || 'band');
+      }
+    }
+    // --beamBreak 9 : member numbers (1-based) that START a new beam group.
+    // One cluster (one tempo, one grid) can carry several beam groups —
+    // composer, day 23: "let's not beam them altogether... the first group of
+    // notes and then the second group, but conceptually keep the same tempo".
+    const breaks = listArg('beamBreak');
     const anyArtic = accentAt.size ? 'accent' : null;
-    if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(',') + (dynAt.size ? ' · dynamic on ' + [...dynAt].join(',') : ''));
+    if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(','));
+    if (dynAt.size) console.log('    dynamics: ' + [...dynAt].map(([n, m]) => n + ':' + m).join(' '));
+    if (breaks.size) console.log('    beam breaks before members ' + [...breaks].join(','));
+    let sub = 0;   // beam-group index within the cluster
     members.forEach((e, k) => {
+      if (breaks.has(k + 1)) sub++;
+      const gkey = key + String.fromCharCode(97 + sub);   // cl-1a, cl-1b, ...
       const dev = {
         goLine: k === 0, gc: k === 0, ringBar: false, dynBesideStem: false,
-        dynMark: dynAt.has(k + 1) ? 'band' : false,
+        dynMark: dynAt.has(k + 1) ? dynAt.get(k + 1) : false,
         nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'beam', nhAnchor: 'leftEdge',
         nhDot: true, nhDotGapSs: 0.15,
-        beamGroup: key, beamUnit: fit.unit, beamPos: fit.grid[k], beamLevels: fit.beams, beamRestDur: fit.restDur,
+        beamGroup: gkey, clusterId: key, beamUnit: fit.unit, beamPos: fit.grid[k],
+        beamLevels: fit.beams, beamSubdivision: fit.subdivision,
       };
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
       if (anyArtic) dev.beamHasArtic = anyArtic;

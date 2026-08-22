@@ -1459,11 +1459,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 0,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },
@@ -1489,11 +1490,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 2,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },
@@ -1519,11 +1521,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 4,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },
@@ -1549,11 +1552,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 5,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -1580,11 +1584,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 6,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },
@@ -1610,11 +1615,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 8,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },
@@ -1640,11 +1646,12 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 10,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -1671,12 +1678,137 @@
      "nhAnchor": "leftEdge",
      "nhDot": true,
      "nhDotGapSs": 0.15,
-     "beamGroup": "cl-1",
-     "beamUnit": 0.17500000000000296,
+     "beamGroup": "cl-1a",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
      "beamPos": 11,
      "beamLevels": 2,
-     "beamRestDur": 16,
+     "beamSubdivision": 4,
      "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-1-ev-wc-146",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-146"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "ringBar": false,
+     "dynBesideStem": false,
+     "dynMark": "band",
+     "nhUnit": true,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "beamGroup": "cl-1b",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
+     "beamPos": 14,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-1-ev-wc-150",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-150"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "ringBar": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "beamGroup": "cl-1b",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
+     "beamPos": 15,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-1-ev-wc-155",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-155"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "ringBar": false,
+     "dynBesideStem": false,
+     "dynMark": "band",
+     "nhUnit": true,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "beamGroup": "cl-1b",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
+     "beamPos": 16,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-1-ev-wc-161",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-161"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "ringBar": false,
+     "dynBesideStem": false,
+     "dynMark": "fff",
+     "nhUnit": true,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "beamGroup": "cl-1b",
+     "clusterId": "cl-1",
+     "beamUnit": 0.17200000000000287,
+     "beamPos": 17,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
      "beamHasArtic": "accent"
     }
    },

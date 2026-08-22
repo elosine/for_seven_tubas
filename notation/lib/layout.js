@@ -197,6 +197,9 @@
       // held at the flagged-stem height. Tips accumulate here and flush to a
       // single beam item after the chunk walk.
       const beamGroups = new Map();
+      // rests belong to the CLUSTER, not to a beam group: a gap between two
+      // beam groups is exactly where a rest goes, and neither group owns it.
+      const clusters = new Map();
       // staff lines, minus any authored staff-off spans for this part
       const offs = staffOff.filter(s => s.part === part)
         .map(s => [Math.max(w0, s.span[0]), Math.min(w1, s.span[1])])
@@ -561,9 +564,11 @@
                     if (dev.beamUnit) {
                       grp.unit = dev.beamUnit;
                       grp.beams = dev.beamLevels || 1;
-                      grp.restDur = dev.beamRestDur || 16;
-                      if (grp.anchorT == null || e.onset < grp.anchorT) grp.anchorT = e.onset;
-                      (grp.positions = grp.positions || []).push(dev.beamPos);
+                      const cid = dev.clusterId || key;
+                      if (!clusters.has(cid)) clusters.set(cid, { unit: dev.beamUnit, sub: dev.beamSubdivision || 4, positions: [] });
+                      const cl = clusters.get(cid);
+                      if (cl.anchorT == null || e.onset < cl.anchorT) { cl.anchorT = e.onset; cl.anchorPos = dev.beamPos; }
+                      cl.positions.push(dev.beamPos);
                     }
                   }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
@@ -818,22 +823,28 @@
             items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
           }
         }
-        // RESTS at the empty grid positions (composer: "let's put in any rests
-        // that are necessary... we can think of them all as sixteenth notes or
-        // shorter"). Position: LP's own — the rest's origin on the MIDDLE LINE
-        // (captured with the glyph). The float-toward-the-beam rule (Gould;
-        // Finale's 'Allow Rests to Float') exists to stop a beam colliding
-        // with a rest — here the beam sits ~6 ss above the staff, so there is
-        // no collision and the rest keeps its normal position.
-        if (g.unit && g.positions && g.positions.length) {
-          const filled = new Set(g.positions);
-          const lastN = Math.max(...g.positions);
-          for (let n = 0; n <= lastN; n++) {
-            if (filled.has(n)) continue;
-            const t = g.anchorT + n * g.unit;
-            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            items.push({ k: 'rest', dur: g.restDur || 16, t, dxSs: 0, group: key });
-          }
+      }
+      // RESTS (day 23, composer: "let's put in any rests that are necessary...
+      // just have the longest rest you could fit in there, or a combination if
+      // it needs to be"). Computed per CLUSTER over the whole grid, so the gap
+      // BETWEEN two beam groups gets its rest. Greedy longest-first with metric
+      // alignment: at grid position n with r empty units left, take the largest
+      // power-of-2 rest R <= r whose start is a multiple of R — the standard
+      // rule that keeps a rest from straddling its own beat.
+      for (const [cid, cl] of clusters) {
+        if (!cl.unit || !cl.positions.length) continue;
+        const filled = new Set(cl.positions);
+        const last = Math.max(...cl.positions), first = Math.min(...cl.positions);
+        const t0Grid = cl.anchorT - cl.anchorPos * cl.unit;   // grid position 0 in seconds
+        for (let n = first; n <= last;) {
+          if (filled.has(n)) { n++; continue; }
+          let run = 0; while (!filled.has(n + run) && n + run <= last) run++;
+          let R = 1;
+          for (const cand of [8, 4, 2, 1]) { if (cand <= run && n % cand === 0) { R = cand; break; } }
+          const dur = (cl.sub * 4) / R;                       // 4 sixteenth-units -> a quarter rest
+          const t = t0Grid + n * cl.unit;
+          if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur, t, dxSs: 0, cluster: cid, units: R });
+          n += R;
         }
       }
       return { part, items };
