@@ -242,6 +242,12 @@
      ],
      "description": "non-default sonify mode (plain = captured note, ks = keyswitched sample); curve mode = field omitted — day 22 amendment 3, optional"
     },
+    "vel": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 127,
+     "description": "the captured MIDI velocity of a plain-mode note (the score object's recVel — a play-in or engine value, see DYNAMICS_FRAMEWORK.md §2); the one-shot dynamic mark derives from it through registry dynamicBands — day 23 amendment 5, optional, plain-mode events only"
+    },
     "level": {
      "type": "object",
      "description": "the drawn level curve, normalized samples 0-1 over the note span (piece #1 curve-library precedent; sampled at extract time by sonify_core.evalWaveCurve) — day 22 amendment 4, optional, curve-mode events only",

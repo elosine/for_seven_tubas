@@ -161,7 +161,8 @@
    },
    "technique": "fortepiano",
    "provenance": "derived",
-   "mode": "plain"
+   "mode": "plain",
+   "vel": 85
   },
   {
    "id": "ev-wc-29",
@@ -181,7 +182,8 @@
    },
    "technique": "staccato",
    "provenance": "derived",
-   "mode": "plain"
+   "mode": "plain",
+   "vel": 90
   }
  ],
  "chunks": [

@@ -1,16 +1,6 @@
 {
  "irs": [
   {
-   "id": "piece-open-01",
-   "label": "piece opening 0-40 (parachute+META)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    40
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "piece-trance-w1",
    "label": "piece trance 500-530",
    "score": "piece-s25-finished01",
@@ -32,6 +22,17 @@
    "exp": true
   },
   {
+   "id": "db1-t1-x02",
+   "label": "db1 T1 x02 (working, 0-20)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    20
+   ],
+   "profile": "section1",
+   "exp": true
+  },
+  {
    "id": "db1-t1",
    "label": "T1 DRAFT — density build 1 (0-55.9, to GESTURE-2)",
    "score": "piece-s25-finished01",
@@ -42,15 +43,14 @@
    "profile": "section1"
   },
   {
-   "id": "db1-t1-x02",
-   "label": "db1 T1 x02 (working, 0-20)",
+   "id": "piece-open-01",
+   "label": "piece opening 0-40 (parachute+META)",
    "score": "piece-s25-finished01",
    "window": [
     0,
-    20
+    40
    ],
-   "profile": "section1",
-   "exp": true
+   "profile": "section1"
   }
  ]
 }

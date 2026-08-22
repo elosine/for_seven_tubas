@@ -261,6 +261,10 @@
       // mode = omitted default). Notation devices + tooltips consume these.
       if (o.envShape) ev.env = o.envShape;
       if (o.sonifyMode === 'plain' || o.sonifyMode === 'ks') ev.mode = o.sonifyMode;
+      // the captured velocity (day 23, amendment 5): plain-mode notes play at
+      // recVel (sonify_core), so the one-shot dynamic derives from it
+      // (DYNAMICS_FRAMEWORK.md — five wide bands, registry dynamicBands)
+      if (o.sonifyMode === 'plain' && Number.isFinite(o.recVel)) ev.vel = Math.max(1, Math.min(127, Math.round(o.recVel)));
       // the drawn level curve (day 22, amendment 4): curve-mode events carry
       // their shape as 101 normalized samples — the piece #1 curve-library
       // precedent (frozen at extract; re-extract refreshes). Sampled through

@@ -6185,3 +6185,54 @@ dictated, the save-shuffle established, T1 facts scanned.**
   ppp/p/mf/f/fff at ≤45/75/100/118/127 (provisional; ~4/75/240/250/130
   of the 699 section-1 staccatos); staccato device `dynMark:'band'` on the
   sfzp slot; wc-29 (v90) → mf. No accents/hairpins on one-shots.
+- **GO on the one-shot dynamics (composer: "yes to the ladder, the
+  dynamics, the named dynamics, ppp to fff, and the velocity conversion")
+  + the statistics + wc-29 round 5.** Built:
+  - IR schema **amendment 5**: `vel` (the captured velocity of a
+    plain-mode note, 1–127) — extraction writes it (`extract_core`);
+    x02, the draft `db1-t1` and `piece-open-01` re-extracted (all
+    overlay-free, regenerable; the draft also picks up the day-23
+    segmenter fix).
+  - Registry `engraving.layout.dynamicBands` = ppp ≤45 · p ≤75 · mf ≤100
+    · f ≤118 · fff ≤127 (PROVISIONAL until the SI2 ladder); device
+    `dynMark: 'band'` looks the mark up from `vel` on the same slot as a
+    literal mark ('sfzp'); a plain-mode event WITHOUT vel warns (stale
+    extraction) and draws nothing; an event with no mode is not a captured
+    note → no mark, no noise.
+  - **Census, section 1 (0–240 s), all parts, provisional bands:**
+    staccato ppp 4 · p 66 · mf 277 · f 221 · fff 131 (699); fortepiano
+    1 · 13 · 44 · 18 · 16 (92); cuivre 0 · 0 · 0 · 3 · 12. Per part the
+    staccatos are even (65–74 each, same shape). ppp nearly empty — the
+    ladder measurement decides whether the thresholds move.
+  - **The mark between the staff and the flag** (composer: "let's see if we
+    can get the dynamic above the staff and below the bottom of the
+    flag"): the chain is now resolved BEFORE the stem; the side decision
+    uses the head-side ink (head, dot, accidental); when the chain goes
+    above a flagged stem-up unit it stacks from the staff top with
+    `chainAboveGapSs 0.3`, and the flag-clear stem rule clears the CHAIN,
+    not just the staff.
+  - **The flag height** (composer: "if we can adjust it so it's not so
+    tall. How would we do that?"): at full height the stack 2 + 0.3 + 0.97
+    + 0.38 + 3.008 = 6.66 ss overflows the 6.51 half-lane; built an
+    anisotropic y-scale (stamps.scaled gains ky; render passes scaleY;
+    device `nhFlagScaleY`, registry `flagScaleY` 0.65 → flag 1.96 ss; the
+    stack tops at 5.64). Alternatives recorded, not built: (a) a
+    procedural STRAIGHT flag — LilyPond's modern-straight style, a short
+    thick diagonal from the tip (Boulez/Stockhausen-era look; arguably the
+    better stylistic fit for a point gesture; a new stamp primitive, ~1 h);
+    (b) a uniform scale (shrinks the width too — at 0.65 the flag looks
+    thin); (c) a smaller dynamic glyph (cue-size, 0.844 like the head);
+    (d) a longer stem without compression (overflows the lane).
+  - Dot spacing: device `nhDotGapSs 0.3` (2.4 px) from the SCALED head's
+    edge, replacing dotYFor's space-centring for the unit (metric notes
+    keep dotYFor). Go line back on the staccato device.
+  - Tests: fixture staccato carries vel 90; asserts mf · band table from
+    opts (3-band → fff) · no-vel warning · flag scaleY 0.65 · mf bottom
+    exactly 0.3 above the top line · flag bottom exactly 0.38 above the mf
+    top · stem tip ≤ 6.51 · dot 0.3 below the scaled head edge. A default
+    mismatch caught by the battery (code fell back to 0.45 without the
+    registry) fixed to mirror the registry. All batteries green.
+  - Verified live (video): go line at 944.84 · stem tip y 15.1 (lane top
+    8) · flag 15.1–30.6 (ky 0.65) · 3.0 px · mf 33.6–41.2 centred on the
+    head column · 2.4 px · top line 43.6 · head 99.9–105.8 · 2.4 px · dot
+    r 1.58 at 109.7.

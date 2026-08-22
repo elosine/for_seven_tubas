@@ -123,18 +123,21 @@
   // mechanism ("applied at render time as an SVG scale wrapper on the
   // existing notehead-filled path — no new glyph bake"). Metrics and
   // anchors scale with it so layout and render agree.
-  function scaled(b, k) {
-    if (!k || k === 1) return b;
+  // k = x scale, ky = y scale (defaults to k). An anisotropic ky (day 23,
+  // the compressed flag) keeps x geometry — stem attach, width — intact.
+  function scaled(b, k, ky) {
+    k = k || 1; ky = ky == null ? k : ky;
+    if (k === 1 && ky === 1) return b;
     const anchors = {};
-    for (const n of Object.keys(b.anchors || {})) anchors[n] = { x: b.anchors[n].x * k, y: b.anchors[n].y * k };
+    for (const n of Object.keys(b.anchors || {})) anchors[n] = { x: b.anchors[n].x * k, y: b.anchors[n].y * ky };
     const prims = b.prims.map(p => {
-      if (p.type === 'path') return { type: 'path', d: p.d, k: (p.k || 1) * k };
-      if (p.type === 'rect') return { type: 'rect', x: p.x * k, y: p.y * k, w: p.w * k, h: p.h * k };
-      if (p.type === 'circle') return { type: 'circle', cx: p.cx * k, cy: p.cy * k, r: p.r * k };
-      if (p.type === 'poly') return { type: 'poly', pts: p.pts.map(q => [q[0] * k, q[1] * k]) };
+      if (p.type === 'path') return { type: 'path', d: p.d, k: (p.k || 1) * k, ky: (p.ky || p.k || 1) * ky };
+      if (p.type === 'rect') return { type: 'rect', x: p.x * k, y: p.y * ky, w: p.w * k, h: p.h * ky };
+      if (p.type === 'circle') return { type: 'circle', cx: p.cx * k, cy: p.cy * ky, r: p.r * k };
+      if (p.type === 'poly') return { type: 'poly', pts: p.pts.map(q => [q[0] * k, q[1] * ky]) };
       return p;
     });
-    return { kind: b.kind, wSs: b.wSs * k, hSs: b.hSs * k, anchors, prims };
+    return { kind: b.kind, wSs: b.wSs * k, hSs: b.hSs * ky, anchors, prims };
   }
 
   function toSvg(b, place) {
@@ -144,7 +147,10 @@
     const tx = xPx - a.x * ssPx, ty = yPx - a.y * ssPx;
     const parts = [];
     for (const p of b.prims) {
-      if (p.type === 'path') parts.push('<path' + (p.k && p.k !== 1 ? ' transform="scale(' + p.k.toFixed(4) + ')"' : '') + ' d="' + p.d + '"/>');
+      if (p.type === 'path') {
+        const kx = p.k || 1, ky = p.ky == null ? kx : p.ky;
+        parts.push('<path' + (kx !== 1 || ky !== 1 ? ' transform="scale(' + kx.toFixed(4) + ' ' + ky.toFixed(4) + ')"' : '') + ' d="' + p.d + '"/>');
+      }
       else if (p.type === 'rect') parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '"/>');
       else if (p.type === 'circle') parts.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '"/>');
       else if (p.type === 'poly') parts.push('<polygon points="' + p.pts.map(q => q.join(',')).join(' ') + '"/>');

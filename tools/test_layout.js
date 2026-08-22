@@ -153,6 +153,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
 {
   const mk = (id, technique, env, withCurve) => {
     const e = { id, onset: 1, duration: 1.49, pitch: { midi: 32, spelled: { step: 'G', alter: 1, octave: 1 } }, technique, provenance: 'derived', mode: 'plain' };
+    if (technique === 'staccato') e.vel = 90;   // wc-29's captured velocity → band mf
     if (env) e.env = env;
     if (withCurve) e.level = { samples: [0, 0.5, 1] };
     return e;
@@ -225,7 +226,21 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // (rightmost ink a gap before go) is the flag's right edge.
   // OPTION B (day 23 layering discussion): NO go line — the GC's impact
   // marker is the go mark; the unit sits before it like every other unit
-  ok(has(K, 'goline') === 0 && has(K, 'gc') === 1 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: GC, no go line / ring bar / dynamic; brick stays');
+  // day 23 (composer): the go line is BACK on the staccato; the GC stays;
+  // the dynamic is THE ONE-SHOT MARK from the velocity bands (vel 90 → mf)
+  ok(has(K, 'goline') === 1 && has(K, 'gc') === 1 && has(K, 'ringbar') === 0 && has(K, 'brick') === 1, 'staccato: go line + GC, no ring bar; brick stays');
+  const kmark = K.find(i => i.k === 'glyph' && /^dyn-/.test(i.g));
+  ok(kmark && kmark.g === 'dyn-mf', 'staccato vel 90 → band mark mf (' + (kmark && kmark.g) + ')');
+  // the band table is registry data: tighter thresholds move the mark
+  {
+    const sub = JSON.parse(JSON.stringify(dir)); sub.events = sub.events.filter(e => e.id === 'k'); sub.chunks = sub.chunks.filter(c => c.events[0] === 'k');
+    const KB = Layout.layoutSection(sub, G, { dynamicBands: [{ max: 60, mark: 'ppp' }, { max: 89, mark: 'p' }, { max: 127, mark: 'fff' }] }).systems[0].items;
+    ok(KB.some(i => i.g === 'dyn-fff'), 'staccato: bands from opts → vel 90 lands in fff under a 3-band table');
+    // a plain-mode event WITHOUT vel warns (stale extraction), draws no mark
+    const sub2 = JSON.parse(JSON.stringify(sub)); delete sub2.events[0].vel;
+    const L2 = Layout.layoutSection(sub2, G);
+    ok(!L2.systems[0].items.some(i => /^dyn-/.test(i.g || '')) && L2.warnings.some(w => /no vel/.test(w)), 'staccato without vel: no mark + a warning (never a silent default)');
+  }
   const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
   const ks = K.find(i => i.k === 'stem');
   const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
@@ -240,7 +255,15 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // FLAG-CLEAR (composer: the flag bottom clears the staff by ~3 px = 0.38
   // ss): flag bottom = tip − flag height must sit exactly 0.38 above the
   // top staff line (+2) — asserted from the emitted flag item's own metrics
-  ok(kf && Math.abs((kf.ySs - G.flag.up8.hSs) - (2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 ss above the top staff line (' + (kf.ySs - G.flag.up8.hSs).toFixed(3) + ')');
+  // THE MARK BETWEEN STAFF AND FLAG (composer: "the dynamic above the staff
+  // and below the bottom of the flag"): G1's chain cannot fit below (dot at
+  // the lane edge), so it flips above; the stem rule lifts the compressed
+  // flag (0.65 × 3.008 = 1.955 ss) over the mark; gaps = chainAboveGapSs 0.3
+  const FH = G.flag.up8.hSs * 0.65;
+  ok(kf && Math.abs(kf.scaleY - 0.65) < 1e-9, 'staccato: flag carries scaleY 0.65');
+  ok(kmark && Math.abs((kmark.ySs - G.dynamic.mf.hSs / 2) - (2 + 0.3)) < 1e-9, 'staccato G1: mf bottom exactly 0.3 above the top staff line (' + (kmark.ySs - G.dynamic.mf.hSs / 2).toFixed(3) + ')');
+  ok(kf && kmark && Math.abs((kf.ySs - FH) - (kmark.ySs + G.dynamic.mf.hSs / 2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 above the mark top (' + (kf.ySs - FH).toFixed(3) + ')');
+  ok(kf && kf.ySs <= 6.51 + 1e-9, 'staccato G1: the lifted stem tip stays inside the lane (' + kf.ySs.toFixed(3) + ' ≤ 6.51)');
   ok(ks && (ks.yB - ks.yA) > 5.5, 'staccato G1: the flag-clear stem is longer than the middle-line default (' + (ks.yB - ks.yA).toFixed(2) + ' ss)');
   // a note with room keeps the default: the same device on A3 (+4, stem down,
   // flag rises from the tip below) needs flag top ≤ −2.38 → tip ≤ −5.39 → 9.4 ss,
@@ -250,7 +273,9 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // STACCATO DOT on the notehead side (below, stem up), centered in a space
   const kdot = K.find(i => i.k === 'dot');
   ok(kdot && Math.abs(kdot.dxSs - kh.dxSs) < 1e-9, 'staccato: dot centered on the head column');
-  ok(kdot && kdot.ySs === Layout.dotYFor(-5.5, 'up') && kdot.ySs < kh.ySs, 'staccato: dot BELOW the head (notehead side), dotYFor law (' + kdot.ySs + ')');
+  // the dot: notehead side (below, stem up), 0.3 ss from the SCALED head's
+  // bottom edge (composer: "two or three pixels, very tight")
+  ok(kdot && Math.abs((kh.ySs - G.notehead.filled.hSs * HK / 2) - (kdot.ySs + 0.2) - 0.3) < 1e-9 && kdot.ySs < kh.ySs, 'staccato: dot 0.3 ss below the head edge (' + kdot.ySs.toFixed(3) + ')');
   ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
   // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
   // go line"). Measured from the EMITTED items' own glyph metrics — the ink

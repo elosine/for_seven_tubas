@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
         fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        staccato: { gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhGapSs: 0.6 },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhFlagScaleY: 0.65, nhDot: true, nhDotGapSs: 0.3, nhGapSs: 0.6, dynMark: 'band' },
       },
     }, o.devices || {});
     const engrave = new Map();
@@ -155,7 +155,7 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhGapSs: 0.6 },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhFlagScaleY: 0.65, nhDot: true, nhDotGapSs: 0.3, nhGapSs: 0.6, dynMark: 'band' },
       },
     }, o.devices || {});
     const deviceOf = makeDeviceOf(DEV, engOf);
@@ -342,6 +342,85 @@
                 // accidental clearance and the ottava geometry
                 let leftEdgeDx = headDx - nhO.wSs / 2 - ledgerExt * (ledgers.length ? 1 : 0);
                 let inkTopY = yDraw + nhO.hSs / 2, inkBotY = yDraw - nhO.hSs / 2;
+                // ---- THE CHAIN, RESOLVED BEFORE THE STEM (day 23) ----
+                // The single mark: a literal glyph key ('sfzp') or 'band' —
+                // THE ONE-SHOT DYNAMIC (DYNAMICS_FRAMEWORK.md): one marking
+                // from five wide bands, looked up from the captured velocity
+                // (IR `vel`, amendment 5) in registry dynamicBands. A band
+                // mark with no velocity is a warning, never a silent default.
+                let markKey = null;
+                if (dev.dynMark === 'band') {
+                  const bands = o.dynamicBands || [{ max: 45, mark: 'ppp' }, { max: 75, mark: 'p' }, { max: 100, mark: 'mf' }, { max: 118, mark: 'f' }, { max: 127, mark: 'fff' }];
+                  if (Number.isFinite(e.vel)) {
+                    const b = bands.find(b => e.vel <= b.max) || bands[bands.length - 1];
+                    markKey = b.mark;
+                  } else if (e.mode === 'plain') warnings.push('nh-unit ' + e.id + ': plain-mode event carries no vel (pre-amendment-5 extraction — re-extract) — no mark drawn');
+                  // no mode = not a captured note: nothing to band, no mark, no noise
+                } else if (dev.dynMark) markKey = dev.dynMark;
+                const markG = markKey && glyphs.dynamic ? glyphs.dynamic[markKey] : null;
+                if (markKey && !markG) warnings.push('nh-unit ' + e.id + ': dynamic glyph "' + markKey + '" missing — mark not drawn');
+                const stackGap = o.stackGapSs != null ? o.stackGapSs : 0.45;
+                // the chain's elements and their heights, known before anything
+                // is placed — the stem needs them (it may have to clear the chain)
+                let pairG = null;
+                if (dev.dynPair) {
+                  const pr = Array.isArray(dev.dynPair) ? dev.dynPair : (o.dynPair || ['ppp', 'fff']);
+                  const a = glyphs.dynamic && glyphs.dynamic[pr[0]], b = glyphs.dynamic && glyphs.dynamic[pr[1]];
+                  if (a && b) pairG = { pr, a, b, h: Math.max(a.hSs, b.hSs) };
+                  else warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + pr[0] + '/' + pr[1] + ') — marks not drawn');
+                }
+                const chainH = (pairG ? pairG.h : 0) + (markG ? markG.hSs : 0);
+                const chainN = (pairG ? 1 : 0) + (markG ? 1 : 0);
+
+                // the flag, possibly compressed vertically (day 23, composer:
+                // "if we can adjust it so it's not so tall") — device
+                // nhFlagScaleY / registry flagScaleY; anisotropic, so only the
+                // height changes; the stem attach and the flag's x are untouched
+                const flagKy = flagG ? (dev.nhFlagScaleY > 0 ? dev.nhFlagScaleY : (o.flagScaleY > 0 ? o.flagScaleY : 1)) : 1;
+                const flagH = flagG ? flagG.hSs * flagKy : 0;
+
+                // THE SIDE-WITH-ROOM RULE (day 23, composer, after the ledger
+                // measurement — without ottava the lowest notes end at the
+                // lane edge and nothing stacks below them): the chain goes
+                // BELOW by default and flips ABOVE when it would not fit
+                // between the unit's bottom ink and the lane edge. Gould:
+                // dynamics above where below is obstructed. An ottava pins
+                // the chain to its own side (the sign is outermost).
+                // laneHalfSs = the PRESENTATION half-lane (registry
+                // engraving.layout.chainSide), so a sparse experiment IR makes
+                // the same choice the draft will. Decided on the HEAD-SIDE ink
+                // (head, dot, accidental) — the stem is placed afterwards and,
+                // for a flagged stem-up unit, the chain sits BETWEEN THE STAFF
+                // AND THE FLAG (composer: "the dynamic above the staff and
+                // below the bottom of the flag"), the stem clearing it.
+                const CS = Object.assign({ rule: 'sideWithRoom', laneHalfSs: 6.51 }, o.chainSide || {});
+                const STAFF_EDGE = 2;
+                const rDot = ((stds.staccatoDot && stds.staccatoDot.diameter) || 0.4) / 2;
+                // STACCATO DOT (day 23, composer: "always on the notehead, so
+                // below in this case"; then "reduce the vertical space between
+                // the bottom of the note head and the staccato dot... two or
+                // three pixels"): the notehead side, opposite the stem; gap
+                // from the head's edge = device nhDotGapSs (0.3 ss = 2.4 px at
+                // the jury frame) — tighter than the metric notes' space-
+                // centred dotYFor, which stays their law.
+                let yDot = null;
+                if (dev.nhDot) {
+                  const gapDot = dev.nhDotGapSs != null ? dev.nhDotGapSs : (stds.staccatoDot && stds.staccatoDot.gapFromNotehead) || 0.5;
+                  yDot = stemDir === 'up' ? yDraw - nhO.hSs / 2 - gapDot - rDot : yDraw + nhO.hSs / 2 + gapDot + rDot;
+                }
+                const headTop = Math.max(inkTopY, yDot != null ? yDot + rDot : -Infinity, accRel ? yDraw + accRel.accTopExt : -Infinity);
+                const headBot = Math.min(inkBotY, yDot != null ? yDot - rDot : Infinity, accRel ? yDraw - accRel.accBotExt : Infinity);
+                const refBot0 = Math.min(headBot, -STAFF_EDGE), refTop0 = Math.max(headTop, STAFF_EDGE);
+                // above a flagged stem-up unit the chain sits under the flag with
+                // the tighter gap (registry chainAboveGapSs); elsewhere the house 0.45
+                const underFlag = !!flagG && stemDir === 'up';
+                const gapAbove = underFlag ? (o.chainAboveGapSs != null ? o.chainAboveGapSs : 0.3) : stackGap;
+                const needBelow = chainN ? chainN * stackGap + chainH : 0;
+                const needAbove = chainN ? chainN * gapAbove + chainH : 0;
+                const roomBelow = CS.laneHalfSs + refBot0, roomAbove = CS.laneHalfSs - refTop0;
+                const chainAbove = CS.rule === 'sideWithRoom' && octShift === 0 && chainN > 0
+                  && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
+
                 if (stemKind) {
                   const yStart = yDraw - att.dy;
                   let L = stemLenFor(yDraw, o.stemLen);
@@ -351,31 +430,27 @@
                   // flagClearance law (computeFlaggedStemLength) with this
                   // piece's clearance — registry flagClearanceSs (0.38 ss =
                   // 3 px at the jury frame's 7.9 px/ss; p2 used 1.0). The
-                  // flag's near edge clears the outer staff line; the default
-                  // length wins when it is already longer. Device data
-                  // (nhStemRule: 'flagClear').
+                  // flag's near edge clears the outer staff line — or the
+                  // CHAIN stacked above the staff, when the chain is up there
+                  // (then the mark sits between the staff and the flag). The
+                  // default length wins when it is already longer.
                   if (flagG && dev.nhStemRule === 'flagClear') {
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
+                    const clearTop = STAFF_EDGE + (chainAbove && underFlag ? needAbove : 0);
                     const need = stemDir === 'up'
-                      ? (2 + clr + flagG.hSs) - yStart      // flag hangs down from the tip
-                      : yStart - (-2 - clr - flagG.hSs);    // flag rises from the tip
+                      ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
+                      : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
                     L = Math.max(L, need);
                   }
                   const yEnd = stemDir === 'up' ? yStart + L : yStart - L;
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
-                  if (flagG) items.push({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' });
+                  if (flagG) items.push(Object.assign({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
+                    flagKy !== 1 ? { scaleY: flagKy } : {}));
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)
                   if (stemDir === 'up') inkTopY = Math.max(inkTopY, yEnd); else inkBotY = Math.min(inkBotY, yEnd);
                 }
-                // STACCATO DOT (day 23, composer: "the staccato dot should
-                // always be on the notehead, so below in this case"): the
-                // notehead side, opposite the stem, centered in a space
-                // (dotYFor — the metric notes' law). Part of the unit's ink,
-                // so the column chain stacks past it (articulation first).
-                if (dev.nhDot) {
-                  const yDot = dotYFor(yDraw, stemDir);
-                  const rDot = ((stds.staccatoDot && stds.staccatoDot.diameter) || 0.4) / 2;
+                if (yDot != null) {
                   items.push({ k: 'dot', t: e.onset, dxSs: headDx, ySs: yDot });
                   inkTopY = Math.max(inkTopY, yDot + rDot); inkBotY = Math.min(inkBotY, yDot - rDot);
                 }
@@ -392,43 +467,20 @@
                 // session-77 0.45) past the previous outer INK edge. Order is
                 // REGISTRY DATA (engraving.layout.stackBelow); the builder
                 // walks it and places whichever elements the note carries.
-                const stackGap = o.stackGapSs != null ? o.stackGapSs : 0.45;
-                // THE SIDE-WITH-ROOM RULE (day 23, composer, after the ledger
-                // measurement — without ottava the lowest notes end at the
-                // lane edge and nothing stacks below them): the chain goes
-                // BELOW by default and flips ABOVE the unit's top ink when it
-                // would not fit between the bottom ink and the lane edge.
-                // Gould: dynamics above where below is obstructed; articulation
-                // at the stem side when the head side is crowded. An ottava
-                // pins the chain to its own side (the sign is outermost).
-                // laneHalfSs = the PRESENTATION half-lane (registry
-                // engraving.layout.chainSide), so a sparse experiment IR makes
-                // the same choice the draft will.
-                const CS = Object.assign({ rule: 'sideWithRoom', laneHalfSs: 6.51 }, o.chainSide || {});
-                let needBelow = 0;
-                if (dev.dynPair) {
-                  const pr = Array.isArray(dev.dynPair) ? dev.dynPair : (o.dynPair || ['ppp', 'fff']);
-                  const a = glyphs.dynamic && glyphs.dynamic[pr[0]], b = glyphs.dynamic && glyphs.dynamic[pr[1]];
-                  if (a && b) needBelow += stackGap + Math.max(a.hSs, b.hSs);
-                }
-                if (dev.dynMark && glyphs.dynamic && glyphs.dynamic[dev.dynMark]) needBelow += stackGap + glyphs.dynamic[dev.dynMark].hSs;
-                // chrome clears THE STAFF as well as the unit's ink: the
-                // chain's reference edge is the unit's outer ink or the
-                // outer staff line (±2), whichever is further out — a
-                // dynamic never sits inside the staff or among the ledgers
-                // (found live, day 23: the flipped sfzp hung from the head's
-                // top and landed across ledgers -3/-4)
-                const STAFF_EDGE = 2;
-                const refBot = Math.min(inkBotY, -STAFF_EDGE), refTop = Math.max(inkTopY, STAFF_EDGE);
-                const roomBelow = CS.laneHalfSs + refBot, roomAbove = CS.laneHalfSs - refTop;
-                const chainAbove = CS.rule === 'sideWithRoom' && octShift === 0 && needBelow > 0
-                  && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
+                // Chrome clears THE STAFF as well as the unit's ink: the
+                // reference edge is the outer ink or the outer staff line
+                // (±2), whichever is further out (found live, day 23: the
+                // flipped sfzp had landed across ledgers -3/-4). Above a
+                // flagged stem-up unit the reference is the staff top, the
+                // flag having been lifted over the chain by the stem rule.
+                const refBot = Math.min(inkBotY, -STAFF_EDGE);
+                const refTop = (chainAbove && underFlag) ? refTop0 : Math.max(inkTopY, STAFF_EDGE);
                 let chainBotY = refBot;   // grows downward as chrome stacks
                 let chainTopY = refTop;   // grows upward when the chain is above
                 // one placement helper for every chain element: returns the
                 // element's center y and advances the chain's outer edge
                 const placeChain = h => {
-                  if (chainAbove) { const y = chainTopY + stackGap + h / 2; chainTopY = y + h / 2; return y; }
+                  if (chainAbove) { const y = chainTopY + gapAbove + h / 2; chainTopY = y + h / 2; return y; }
                   const y = chainBotY - stackGap - h / 2; chainBotY = y - h / 2; return y;
                 };
 
@@ -442,35 +494,23 @@
                 // overrides when that work arrives. Drawn only when the
                 // device carries dynPair (true = the registry pair; an
                 // array = that pair).
-                if (dev.dynPair) {
+                if (pairG) {
                   const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
-                  const pair = Array.isArray(dev.dynPair) ? dev.dynPair : (o.dynPair || ['ppp', 'fff']);
-                  const m1 = pair[0], m2 = pair[1];
-                  const g1 = glyphs.dynamic && glyphs.dynamic[m1], g2 = glyphs.dynamic && glyphs.dynamic[m2];
-                  if (g1 && g2) {
-                    const bandH = Math.max(g1.hSs, g2.hSs);
-                    const yDyn = placeChain(bandH);
-                    items.push({ k: 'glyph', g: 'dyn-' + m1, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
-                    const x0 = headDx + g1.wSs / 2 + A.gapSs;
-                    items.push({ k: 'dynarrow', t: e.onset, dx0Ss: x0, dx1Ss: x0 + A.lenSs, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs });
-                    items.push({ k: 'glyph', g: 'dyn-' + m2, t: e.onset, dxSs: x0 + A.lenSs + A.gapSs + g2.wSs / 2, ySs: yDyn, align: 'center' });
-                  } else {
-                    warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + m1 + '/' + m2 + ') — marks not drawn');
-                  }
+                  const [m1, m2] = pairG.pr, g1 = pairG.a, g2 = pairG.b;
+                  const yDyn = placeChain(pairG.h);
+                  items.push({ k: 'glyph', g: 'dyn-' + m1, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
+                  const x0 = headDx + g1.wSs / 2 + A.gapSs;
+                  items.push({ k: 'dynarrow', t: e.onset, dx0Ss: x0, dx1Ss: x0 + A.lenSs, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs });
+                  items.push({ k: 'glyph', g: 'dyn-' + m2, t: e.onset, dxSs: x0 + A.lenSs + A.gapSs + g2.wSs / 2, ySs: yDyn, align: 'center' });
                 }
 
                 // SINGLE DYNAMIC MARK (wc-23, day 22 — composer: "let's go with
                 // sfzp"): one engraved mark on the dynamic slot, centered on
                 // the note column like the pair's start mark. dynMark is the
                 // glyph key (registry device / per-item override).
-                if (dev.dynMark) {
-                  const g = glyphs.dynamic && glyphs.dynamic[dev.dynMark];
-                  if (g) {
-                    const yDyn = placeChain(g.hSs);
-                    items.push({ k: 'glyph', g: 'dyn-' + dev.dynMark, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
-                  } else {
-                    warnings.push('nh-unit ' + e.id + ': dynamic glyph "' + dev.dynMark + '" missing — mark not drawn');
-                  }
+                if (markG) {
+                  const yDyn = placeChain(markG.hSs);
+                  items.push({ k: 'glyph', g: 'dyn-' + markKey, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
                 }
 
                 if (octShift !== 0) {
