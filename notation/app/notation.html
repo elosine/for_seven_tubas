@@ -37,6 +37,15 @@
   #bar label { font-size: 12px; opacity: 0.8; }
   #bar input, #bar select, #bar button { font-size: 13px; padding: 3px 8px; }
   #bar button { cursor: pointer; }
+  /* PER-PART SOLO (day 24) — same convention as the composer score
+     (composer.html 2026-08-12): S per part, amber when on, ALT+click
+     exclusive, un-soloed lanes at 0.3. The buttons live on the BAR, never
+     in the SVG, so the 1920x1080 frame stays export-clean. */
+  #soloBtns { display: inline-flex; gap: 2px; }
+  #soloBtns button { font-size: 10px; line-height: 12px; padding: 1px 3px; min-width: 22px;
+                     border: 1px solid #666; background: #3a3a3a; color: #aaa; border-radius: 2px; }
+  #soloBtns button.on { background: #f9a825; border-color: #f57f17; color: #fff; }
+  #sheet g.sysDim { opacity: 0.3; }
   #meta { font-size: 11px; opacity: 0.65; margin-left: auto; }
   #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; position: relative; }
   #animov { position: absolute; top: 0; left: 0; pointer-events: none; }
@@ -71,6 +80,7 @@
   <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
   <label id="metaWrap" title="the META layer over the frame: layer-10 shape overlay + its envelope follower — off by default in the working loop"><input type="checkbox" id="metaov"> META</label>
   <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
+  <span id="soloWrap" title="solo a part: click toggles, ALT+click = exclusive (ALT+click the only soloed part clears it). Soloed parts keep full ink and are the only ones that sound; the rest dim to 30%. An attached audio render cannot be soloed - MIDI can.">solo <span id="soloBtns"></span></span>
   <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
     <option value="tranceA002f">tranceA002f</option>
@@ -121,6 +131,11 @@
 (async function () {
   const $ = id => document.getElementById(id);
   const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
+  // PER-PART SOLO (day 24, composer: "can we do a solo button for each
+  // track"). Empty set = no solo = everything sounds at full ink;
+  // otherwise ONLY these parts sound and the rest dim. Same semantics as
+  // the composer score's lane S buttons (composer.html, 2026-08-12).
+  state.solo = new Set();
   const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
   const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng', 'metaov', 'tshow'];
   // THE FRAME (day 22, the collapse): the presentation score always shows
@@ -135,6 +150,72 @@
   let midiWasPlaying = false;
   state.transport = NotationTransport.makeTransport();
   state.midi = { outputs: null, ccPoints: null, players: {}, failed: false, warned: false };
+  // ---- PER-PART SOLO ----------------------------------------------------
+  // The effective scope: the save's parts, narrowed by solo. ONE function,
+  // so the page, the animation overlay and the MIDI player can never
+  // disagree about who is soloed.
+  function soloScope() {
+    const all = (state.ir && state.ir.source.parts) || [];
+    if (!state.solo.size) return all;
+    const on = all.filter(p => state.solo.has(p));
+    return on.length ? on : all;   // a solo set that selects nothing is no solo
+  }
+  function buildSoloButtons() {
+    const box = $('soloBtns');
+    box.innerHTML = '';
+    // only the parts this save actually contains: a T1 experiment gets one
+    // button, the ten-part section gets ten
+    for (const p of (state.ir && state.ir.source.parts) || []) {
+      const b = document.createElement('button');
+      b.textContent = 'T' + (p + 1);
+      b.dataset.part = String(p);
+      b.title = 'solo T' + (p + 1) + ' (ALT+click = exclusive)';
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (e.altKey) {
+          const wasOnly = state.solo.size === 1 && state.solo.has(p);
+          state.solo.clear();
+          if (!wasOnly) state.solo.add(p);
+        } else if (state.solo.has(p)) state.solo.delete(p);
+        else state.solo.add(p);
+        soloChanged();
+      });
+      box.appendChild(b);
+    }
+    applySolo();
+  }
+  // Applied AFTER every render (innerHTML replaces the lanes wholesale, so
+  // the dim cannot live in the rendered markup) and on every solo change.
+  // Class only: no geometry, no re-layout, no re-render.
+  function applySolo() {
+    const on = new Set(soloScope());
+    const dim = state.solo.size > 0;
+    for (const g of document.querySelectorAll('#sheet g.sys')) {
+      const m = (g.getAttribute('class') || '').match(/sys-p(\d+)/);
+      if (m) g.classList.toggle('sysDim', dim && !on.has(+m[1]));
+    }
+    for (const b of document.querySelectorAll('#soloBtns button'))
+      b.classList.toggle('on', state.solo.has(+b.dataset.part));
+    splitAnim();
+  }
+  // The animation overlay is redrawn 60x a second, so the soloed/un-soloed
+  // partition is computed HERE (on a solo change or an instance rebuild),
+  // never per frame.
+  function splitAnim() {
+    const all = state.animInstances || [];
+    if (!state.solo.size) { state.animOn = all; state.animOff = null; return; }
+    const on = new Set(soloScope());
+    state.animOn = all.filter(i => i.part === undefined || on.has(i.part));
+    state.animOff = all.filter(i => i.part !== undefined && !on.has(i.part));
+  }
+  function soloChanged() {
+    // the OLD player stops being ticked the moment the scope changes, so
+    // sweep it first or notes sounding on a part that just lost solo hang
+    // forever (the residue class, piece #3 Principle 3). midiPlayer() keys
+    // on the scope, so the next tick picks up the player for the new set.
+    midiFlush();
+    applySolo();
+  }
   async function loadIr(name) {
     const r = await fetch('/notation/ir/' + name + '.ir.json');
     if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
@@ -147,6 +228,9 @@
     state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
       { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS },
       (state.container && state.container.engraving && state.container.engraving.layout) || {}));
+    // a new save = a new part list; drop a solo that no longer applies
+    for (const p of [...state.solo]) if (!(state.ir.source.parts || []).includes(p)) state.solo.delete(p);
+    buildSoloButtons();
   }
   function mergeManifest(man) {
     const sel = $('ir');
@@ -301,6 +385,7 @@
         systems: NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx }),
       });
       $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked, staffFull: !paged });
+      applySolo();   // innerHTML replaced the lanes - re-assert the dim
       state.lastView = view;
       $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
         ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
@@ -410,6 +495,7 @@
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;
+      applySolo();   // fresh page + fresh instances: re-assert dim and split
       // FIT-TO-WINDOW (day 22): the frame stays 1920×1080 internally (jury
       // geometry untouched) but DISPLAYS scaled to the window — Score fits
       // whole; Zoom fits width and scrolls height by design. F11 on a
@@ -610,7 +696,10 @@
     // compiles a clone whose object ends follow the IR's event durations
     // (withIrDurations); the archive score is untouched. Keyed by the IR
     // object itself, so a hot-reloaded IR gets a fresh player.
-    const parts = (state.ir.source.parts || []).slice().sort();
+    // ...narrowed by SOLO (day 24): only soloed parts sound. The scope is in
+    // the cache key, so each solo set gets its own compiled player and
+    // flipping back is instant.
+    const parts = soloScope().slice().sort();
     const key = name + '|' + parts.join(',') + '|' + state.ir.id;
     const cached = state.midi.players[key];
     if (!cached || cached.ir !== state.ir) {
@@ -659,7 +748,15 @@
       return { turned: true, t };
     }
     const ov = document.getElementById('animov');
-    if (ov) ov.innerHTML = NotationAnimObj.frameSvg(state.animInstances || [], view, t, state.animStyle);
+    if (ov) {
+      // solo up: soloed objects at full ink (and they own the cursor), the
+      // rest inside one dimming group - the page's 0.3 for its animation
+      const on = state.animOn || state.animInstances || [];
+      let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle);
+      if (state.animOff && state.animOff.length)
+        svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false }) + '</g>';
+      ov.innerHTML = svg;
+    }
     return { turned: false, t, window: [w0, w1] };
   }
   window.__notationFrame = drawOverlayFrame; // V4 export + headless verification

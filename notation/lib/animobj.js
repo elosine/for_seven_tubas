@@ -251,11 +251,14 @@
     return out;
   }
 
-  // one frame: every active instance's state at t, plus the cursor
-  function frameSvg(instances, view, t, style) {
+  // one frame: every active instance's state at t, plus the cursor.
+  // opts.cursor === false suppresses the cursor line — the per-part solo
+  // (day 24) draws the frame in two passes (soloed at full opacity, the
+  // rest inside a dimming group) and only the first pass owns the cursor.
+  function frameSvg(instances, view, t, style, opts) {
     const [w0, w1] = view.window;
     const parts = [];
-    if (t >= w0 && t <= w1) {
+    if ((!opts || opts.cursor !== false) && t >= w0 && t <= w1) {
       const yTop = view.systems[0].yTopPx, yBot = view.systems[view.systems.length - 1].yBotPx;
       const x = view.xOfSeconds(t);
       parts.push('<line x1="' + x.toFixed(1) + '" y1="' + yTop.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yBot.toFixed(1) +

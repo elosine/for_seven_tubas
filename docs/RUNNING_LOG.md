@@ -6887,3 +6887,68 @@ Two things that matter for the pass:
 - **The automatic grouping is a candidate list, not the answer.** For T1 the
   extraction proposes 30.75–34.51 (13 notes); the composer named 31.49–34.6
   (12), dropping wc-89. The span is authored.
+
+### Per-part SOLO in the notation page (day 24)
+
+Composer: *"can we do a solo button for each track"*. The **composer score
+already had this** (lane `S` buttons, 2026-08-12) — the notation page had
+nothing but the ⚙ `parts` dropdown, which re-renders with a single part and
+changes the layout. So this is the same tool, ported, not a new idea:
+
+- **Semantics copied verbatim from `composer.html`** so the two apps behave
+  identically: click toggles a part into the solo set · **ALT+click = exclusive**
+  (ALT+click on the only soloed part clears it) · soloed = amber · un-soloed
+  lanes at **0.3 opacity** · any solo active → **only soloed parts send MIDI**.
+- **The buttons live on the BAR, never in the SVG.** The frame is the
+  presentation score (day-22 collapse) and the `#tnow` pill already set the
+  precedent — DOM-only chrome, so exports stay clean. The strip sits beside the
+  META/bricks look toggles, which means it is available with the engineering
+  controls OFF, where the composing loop runs.
+- **Only the parts the save contains get a button** — `db1-t1-x02` shows one,
+  `db1-all-x01` shows ten. Loading a save drops a solo that no longer applies.
+
+Implementation, three small pieces:
+
+1. `render.js` — each system group is now `<g class="sys sys-pN">`. That is the
+   whole hook: the shell can restyle one lane with a class toggle, **no
+   re-render, no re-layout**. Snapshot drift was proven to be exactly this and
+   nothing else: stripping the class from the current SVG reproduces the
+   committed sha1 (`5bc069c3…`) byte for byte, all four ink counts unchanged
+   (+19 bytes). Snapshot updated deliberately; `--prove-red` still red.
+2. `animobj.js` — `frameSvg(..., opts)` gained `opts.cursor === false`. The
+   overlay is drawn in **two passes** when a solo is up: soloed instances at
+   full ink (owning the one cursor), the rest inside a single
+   `<g opacity="0.3">`. The partition is computed on a solo change / instance
+   rebuild, **never per frame** — the overlay redraws 60×/s.
+3. `notation.html` — `soloScope()` is the single source of truth (the save's
+   parts, narrowed by solo) and feeds the page dim, the overlay split **and**
+   the MIDI player's `parts`, so the three can never disagree. The scope is in
+   the player cache key, so each solo set gets its own compiled player and
+   flipping back is instant. `soloChanged()` flushes the outgoing player first —
+   without it, notes sounding on a part that just lost solo hang forever (the
+   residue class, piece #3 Principle 3).
+
+**Verified live** (`:5210`, `db1-all-x01`, driven through the real DOM):
+
+- ten buttons, ten tagged system groups, nothing dimmed at rest
+- click T3 → 9 lanes dimmed, computed opacity **0.3**; click T7 → adds
+  (2 lit); click T3 again → removes; **ALT+click T5 → exclusive**; ALT+click T5
+  again → clears, all lanes back to opacity 1
+- overlay at t=34 on the apex page: no solo = 17 elements / 0 dim groups /
+  1 cursor; solo T3 = 18 elements / exactly **1** dim group / 11 elements inside
+  it / **still exactly 1 cursor** (the dim pass suppresses its own)
+- **the dim survives a page turn** (page 5→6, 9 still dimmed, T3 still lit),
+  **survives the zoom view** (9 of 10 dimmed there too), and **survives the
+  1 s hot-reload poll** — which matters, because the cluster pass edits the IR
+  under the composer's eye while a part is soloed
+- switching to the one-part save rebuilds the strip to a single T1 button and
+  drops the stale T3 solo; no console errors anywhere
+- batteries green: layout · render · coords · animobj · stamps · snapshots ·
+  sonify_core · midiplayer
+
+**Not verified by ear.** The MIDI gate feeds the solo-filtered list into
+`makeMidiPlayer`'s existing `parts` scope, which `test_midiplayer` already
+proves in isolation (`parts:[0]` sounds only T1's notes and touches only
+`tuba1`/`tuba1b`) — but Web MIDI is unavailable in the verification browser, so
+nobody has heard a soloed part. **Known limitation:** an attached audio render
+cannot be soloed (it is a stereo mix); MIDI can.

@@ -43,6 +43,15 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   `byTechnique` first and `byEnv` **on top**, so a bare `ord` entry leaks its
   band dynamic onto all eleven surges (`ord` + env `surge`). `byEnv.surge` now
   carries an explicit `dynMark: false`. Surge look verified unchanged by count.
+- **PER-PART SOLO in the notation page** (composer asked for it the same
+  sitting): one button per part on the bar — click toggles, **ALT+click =
+  exclusive**, soloed parts keep full ink and are the only ones that sound,
+  the rest dim to 30 %. Same convention as the composer score's lane S
+  buttons, so the two apps behave identically. Buttons only for the parts the
+  save contains. Survives page turns, the zoom flip and the hot reload (which
+  matters — the cluster pass edits the IR while a part is soloed). A render
+  cannot be soloed; MIDI can. Not yet heard: Web MIDI is unavailable in the
+  verification browser, so the mute path is proven by unit test, not by ear.
 - **`--cluster` now takes `@part`** (`31.49-34.6@0`) and REFUSES a bare span in
   a multi-part IR, naming the lanes it would have swallowed. This is what makes
   the coming part-by-part cluster pass work inside one file instead of ten forks.

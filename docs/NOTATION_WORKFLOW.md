@@ -16,6 +16,11 @@
    view = zoom; SPACE plays, click seeks, Z flips video↔zoom). **MIDI is the
    default sound** — the loopMIDI/Reaper rig, same latency behavior as the
    composer score. A render, when one exists, is one click (§4).
+   **Solo (day 24):** the bar carries one button per part in the save —
+   click toggles, ALT+click is exclusive; soloed parts keep full ink and are
+   the only ones that sound, the rest dim to 30 %. Same convention as the
+   composer score. Survives page turns, the zoom flip and the hot reload.
+   A render cannot be soloed (it is a mix); MIDI can.
 4. **Composer asks for changes in plain language.** AI edits DATA (§2), the
    open page updates within ~1 s, playhead and page preserved. New
    glyphs/devices are a code step (GLYPH_EXTENSION_CONTRACT.md /

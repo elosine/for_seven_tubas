@@ -70,7 +70,10 @@
       const ssPx = sys.ssPx;
       const X = (t, dxSs) => view.xOfSeconds(t) + (dxSs || 0) * ssPx;
       const Y = ss => sys.yOfSs(ss);
-      parts.push('<g fill="' + o.ink + '">');
+      // class carries the part so a caller can restyle ONE lane without a
+      // re-render — the per-part solo dim (day 24). Presentation-neutral:
+      // a class attribute adds no ink and no geometry.
+      parts.push('<g class="sys sys-p' + sysModel.part + '" fill="' + o.ink + '">');
       // part label at the left edge (inside the gutter when one exists)
       parts.push('<text x="' + E.partLabel.xPx + '" y="' + (sys.yTopPx + E.partLabel.yOffsetSs * ssPx).toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
         '"' + fontAttr + ' fill="' + o.muted + '">T' + (sysModel.part + 1) + '</text>');
