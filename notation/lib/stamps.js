@@ -77,6 +77,14 @@
       return box('rest' + dur, g.wSs, g.hSs, { topLeft: { x: 0, y: 0 }, center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
     }
 
+    // day 23: articulations (accent, marcato — captured day 22 for the
+    // column standard's articulation slot)
+    function articulation(kind) {
+      const g = G.articulation && G.articulation[kind];
+      if (!g) throw new Error('stamps: no articulation "' + kind + '"');
+      return box('artic-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
     function clefBass() {
       const g = G.clef.bass;
       return box('clefBass', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
@@ -128,7 +136,7 @@
       ]);
     }
 
-    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, rest, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, rest, articulation, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

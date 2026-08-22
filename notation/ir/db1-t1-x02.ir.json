@@ -1450,8 +1450,8 @@
      "goLine": true,
      "gc": true,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": "band",
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1463,7 +1463,8 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 0,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1479,8 +1480,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1492,7 +1493,8 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 2,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1508,8 +1510,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1521,7 +1523,8 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 4,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1537,8 +1540,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1550,7 +1553,9 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 5,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1566,8 +1571,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1579,7 +1584,8 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 6,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1595,8 +1601,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1608,7 +1614,8 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 8,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1624,8 +1631,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1637,7 +1644,9 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 10,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -1653,8 +1662,8 @@
      "goLine": false,
      "gc": false,
      "ringBar": false,
-     "dynMark": false,
      "dynBesideStem": false,
+     "dynMark": false,
      "nhUnit": true,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -1666,7 +1675,9 @@
      "beamUnit": 0.17500000000000296,
      "beamPos": 11,
      "beamLevels": 2,
-     "beamRestDur": 16
+     "beamRestDur": 16,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"

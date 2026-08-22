@@ -46,6 +46,7 @@
       if (g === 'notehead-open') return S.noteheadOpen();
       if (g.startsWith('dyn-')) return S.dynamic(g.slice(4));
       if (/^flag-(up|down)\d+$/.test(g)) { const m = g.match(/^flag-(up|down)(\d+)$/); return S.flagN(+m[2], m[1]); }
+      if (g.startsWith('artic-')) return S.articulation(g.slice('artic-'.length));
       if (g.startsWith('accidental-')) return S.accidental(g.slice('accidental-'.length));
       throw new Error('render: unknown glyph item "' + g + '"');
     };

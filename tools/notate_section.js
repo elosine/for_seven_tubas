@@ -19,6 +19,8 @@
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
 //   --cluster t0-t1          mark a span as one beamed cluster (repeatable; authored overlays)
+//   --accents 4,7,8          cluster members (1-based) carrying an accent
+//   --dyn 1                  cluster member(s) carrying the single ambient dynamic
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
@@ -161,13 +163,31 @@ const { doc, warnings } = Extract.extract(score, {
     console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
       (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
       ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
+    // --accents 4,7,8 / --dyn 1 (1-based member numbers, composer's call per
+    // cluster): which members carry an accent, and which carries the single
+    // ambient dynamic. Everything else stays bare — the ambient-plus-deviation
+    // shape from DYNAMICS_FRAMEWORK, decided by ear rather than derived.
+    const listArg = (name) => {
+      const out = new Set();
+      for (let i = 0; i < process.argv.length; i++) {
+        if (process.argv[i] !== '--' + name) continue;
+        for (const v of String(process.argv[i + 1] || '').split(',')) { const n = parseInt(v, 10); if (n > 0) out.add(n); }
+      }
+      return out;
+    };
+    const accentAt = listArg('accents'), dynAt = listArg('dyn');
+    const anyArtic = accentAt.size ? 'accent' : null;
+    if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(',') + (dynAt.size ? ' · dynamic on ' + [...dynAt].join(',') : ''));
     members.forEach((e, k) => {
       const dev = {
-        goLine: k === 0, gc: k === 0, ringBar: false, dynMark: false, dynBesideStem: false,
+        goLine: k === 0, gc: k === 0, ringBar: false, dynBesideStem: false,
+        dynMark: dynAt.has(k + 1) ? 'band' : false,
         nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'beam', nhAnchor: 'leftEdge',
         nhDot: true, nhDotGapSs: 0.15,
         beamGroup: key, beamUnit: fit.unit, beamPos: fit.grid[k], beamLevels: fit.beams, beamRestDur: fit.restDur,
       };
+      if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
+      if (anyArtic) dev.beamHasArtic = anyArtic;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     });
   });

@@ -535,7 +535,21 @@
                     const techStem = ((DEV.byTechnique || {})[e.technique] || {}).nhStem;
                     const fdur = /^flag(\d+)$/.test(techStem || '') ? +RegExp.$1 : 8;
                     const fgB = glyphs.flag['up' + fdur] || glyphs.flag.up8;
-                    const beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + fgB.hSs);
+                    let beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + fgB.hSs);
+                    // ...BUT the group's ARTICULATIONS need room above it (day
+                    // 23): in this frame the lane holds 6.51 ss and the lowest
+                    // cluster notes already reach the bottom edge, so an accent
+                    // cannot go on the notehead side — it goes above the beam,
+                    // uniformly for the whole group (which also makes the
+                    // pattern read). The beam therefore sits at the
+                    // flagged-stem height OR lower, whichever lets the accent
+                    // stay inside the lane. Registry data all the way down.
+                    if (dev.beamHasArtic) {
+                      const CSb = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
+                      const gapA = o.stackGapSs != null ? o.stackGapSs : 0.45;
+                      const aG = glyphs.articulation && glyphs.articulation[dev.beamHasArtic];
+                      if (aG) beamY = Math.min(beamY, CSb.laneHalfSs - gapA - aG.hSs);
+                    }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
                     if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [] });
@@ -543,6 +557,7 @@
                     grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
+                    if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
                     if (dev.beamUnit) {
                       grp.unit = dev.beamUnit;
                       grp.beams = dev.beamLevels || 1;
@@ -789,6 +804,19 @@
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
           items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
             tips: g.tips.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+        }
+        // ARTICULATIONS above the beam, every one at the SAME height so the
+        // group reads as one gesture (Gould: articulations align across a
+        // beamed group). Centred on each note's head column.
+        if (g.artics && g.artics.length) {
+          const gapA = o.stackGapSs != null ? o.stackGapSs : 0.45;
+          const beamTop = g.tips[0].ySs;
+          for (const a of g.artics) {
+            const aG = glyphs.articulation && glyphs.articulation[a.kind];
+            if (!aG) { warnings.push('articulation "' + a.kind + '" has no glyph — not drawn'); continue; }
+            const y = g.dir === 'up' ? beamTop + gapA + aG.hSs / 2 : beamTop - gapA - aG.hSs / 2;
+            items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
+          }
         }
         // RESTS at the empty grid positions (composer: "let's put in any rests
         // that are necessary... we can think of them all as sixteenth notes or

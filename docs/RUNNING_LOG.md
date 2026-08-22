@@ -6502,3 +6502,34 @@ dictated, the save-shuffle established, T1 facts scanned.**
     rests at y 54.2 = exactly LP's placement (middle line 59.4 − 0.656 ss).
   - **Dynamics on the cluster: deliberately left off** (composer: "we'll do
     a second pass for dynamics").
+- **Cluster dynamics, the composer's reading of the table:** the eight
+  members band as **f f f fff f f fff fff** (velocities 117 114 105 127 105
+  114 124 127 — a narrow, loud strip, only two bands). AI proposed the
+  ambient-plus-deviation shape from DYNAMICS_FRAMEWORK; **composer:
+  *"that's a pretty clear pattern... two of the fffs have higher pitches,
+  so that helps. But let's just do accents on all of the fffs. And let's do
+  on the first partial, the single f."*** → three symbols instead of eight:
+  one **f** on member 1, **accents** on members 4, 7, 8. THE FIRST REAL
+  APPLICATION OF THE AMBIENT + DEVIATION MODEL, chosen by ear.
+  - Built: `--accents 4,7,8 --dyn 1` on `notate_section --cluster`
+    (1-based member numbers, the composer's call per cluster); device
+    `nhArtic` + `dynMark:'band'` on the named members only. Accent glyph
+    was already ported (day 22, for the column standard's articulation
+    slot); stamps/render gained the articulation stamp.
+  - **A GEOMETRY FINDING that forced a rule.** Measured before building:
+    an accent on the NOTEHEAD SIDE fits under G2 (−3.91) and B2 (−2.91)
+    but NOT under G1 — it would reach −7.41 against a lane half of 6.51,
+    i.e. into the inter-lane gap and the neighbour's staff. And above the
+    beam there was only 0.622 ss of room for a 1.29 ss requirement. So
+    neither side worked at the beam's flagged-stem height.
+    **The rule: the beam sits at the flagged-stem height OR LOWER —
+    whichever keeps the group's articulations inside the lane** (5.888 →
+    **5.220** here, = laneHalf − stackGap − accent height). Accents then go
+    ABOVE the beam, all at ONE height, which is also how Gould aligns
+    articulations across a beamed group — and it makes the composer's
+    pattern read as a pattern. Registry-derived throughout; a cluster
+    without accents keeps the 5.888 beam.
+  - Verified live (page 3): beams at y 18.2 / 24.6 · three accents
+    11.9 × 6.6 px at y 8.0 = the lane's top edge exactly (headless: accent
+    top 6.510 vs laneHalf 6.51) · one **f** below the first head (ySs
+    −3.86) · no warnings. Batteries green.
