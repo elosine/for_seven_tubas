@@ -18,6 +18,7 @@ const ROOT = path.join(__dirname, '..');
 const P2 = 'C:/Users/jwloy/GitHub/composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine';
 
 const read = f => JSON.parse(fs.readFileSync(path.join(P2, f), 'utf8'));
+const readLocal = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'glyph_sources', f), 'utf8'));
 const nh = read('glyphs/notehead_paths.json');
 const fl = read('glyphs/flag_paths.json');
 const cb = read('glyphs/clef_bass_paths.json');
@@ -110,7 +111,28 @@ const out = {
       if (k.startsWith('_')) continue;
       out2[k] = { path: dp[k].path, wSs: dp[k].width, hSs: dp[k].height, _provenance: prov('glyphs/dynamic_paths.json ' + k + ' (dims.dynamic, font-size -8.5 locked session 49)') };
     }
+    // day 22 (second note, wc-23 = sfzp): THIS piece's additions, captured
+    // by tools/glyph_probe_dyn_extra.js through the same LP pipeline at the
+    // same locked size (sfz re-extracted as the equality check) — merged
+    // here so a re-port never drops them.
+    const extra = readLocal('dynamic_extra.json');
+    for (const k of Object.keys(extra)) {
+      if (k.startsWith('_')) continue;
+      out2[k] = { path: extra[k].path, wSs: extra[k].width, hSs: extra[k].height, _provenance: { source: extra._meta.source, extracted: extra._meta.date, by: extra._meta.extractedBy } };
+    }
     return out2;
+  })(),
+  // day 22: ARTICULATIONS for the column standard's articulation slot —
+  // accent + marcato, same probe (stock Script size). Placement above/below
+  // is the layout's business, not the glyph's.
+  articulation: (() => {
+    const sc = readLocal('script_extra.json');
+    const out3 = {};
+    for (const k of Object.keys(sc)) {
+      if (k.startsWith('_')) continue;
+      out3[k] = { path: sc[k].path, wSs: sc[k].width, hSs: sc[k].height, _provenance: { source: sc._meta.source, extracted: sc._meta.date, by: sc._meta.extractedBy } };
+    }
+    return out3;
   })(),
   ottavaText: (() => {
     const tx = read('glyphs/text_paths.json');

@@ -5678,3 +5678,26 @@ dictated, the save-shuffle established, T1 facts scanned.**
   702.9 @ 4.198 s; wc-23 go line 444.9 @ 14.544 s; same 48 px gutter),
   end bar at x 826.5 = 17 s, bar width 232.4 = 1.49 s.
 - Ring bar opacity 0.8 → **0.65** (composer), verified on the page.
+- **wc-23 element 3 — the dynamic. Composer asked what fp engraving
+  convention is (answered: fp is a dynamic, not an articulation; accent
+  implies no drop; family fp/sfp/sfzp by attack sharpness; tuba has no
+  special convention) → "Let's go with SFZP."** Then: does it need piece
+  #2's whole glyph protocol? Answer: no — the glyphs were never traced;
+  they are Emmentaler outlines from an LP-rendered SVG. Ran the SHORT form
+  (one fixture, one extraction, no corpus audit — the size -8.5 and the
+  column spacings are already locked): `tools/glyph_probe_dyn_extra.js`
+  renders fp/sfp/sfzp (make-dynamic-script) + accent/marcato at the locked
+  sizes via piece #2's oracle modules (read-only), with **sfz re-extracted
+  as the pipeline check: byte-identical path, 1.1753×0.9705 = the ported
+  composite.** Outputs `notation/glyph_sources/{dynamic,script}_extra.json`;
+  `port_glyphs.js` merges them (re-port-safe); regenerated glyphs.json
+  changed NO existing entry. New: dynamic fp 1.1665 · sfp 1.2818 · sfzp
+  1.7257 (h 0.9705) · articulation accent 1.504×0.84 · marcato 1.0012×1.1.
+  First filter bug: I looked for scripts at ty<0; forced-above scripts sit
+  between the note line and the top — filter = above the notehead line.
+- Device gains `dynMark` (single engraved mark on the dynamic slot,
+  centered on the head column; fortepiano = 'sfzp'); ottava stacks below
+  it per the column order. Battery: centered on head, ottava below, surge
+  unaffected. Verified live: sfzp 13.6 px wide centered at x 438.5 = head
+  center; 0.44 ss below the unit's lowest ink (the sharp, not the head —
+  the chain hangs from the unit's ink, as specified); 8vb below the mark.

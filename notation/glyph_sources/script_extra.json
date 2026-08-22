@@ -1,0 +1,29 @@
+{
+ "_meta": {
+  "source": "LP fixture tools/fixtures/lp_probes/dynamic_extra.svg (stock Script size at NoteHead.font-size = #-2, piece #2 mute_harmonic convention; forced above with ^)",
+  "anchor": "path (0, 0) == composite bbox top-left; anchor { x, y } == typographic baseline-left offset within bbox",
+  "extractedBy": "tools/glyph_probe_dyn_extra.js (piece #2 oracle modules, read-only)",
+  "lilypond": "see fixture",
+  "date": "2026-08-22"
+ },
+ "accent": {
+  "path": "M 0.06 0.148 c -0.032 -0.008 -0.06 -0.036 -0.06 -0.072 c 0 -0.04 0.036 -0.076 0.076 -0.076 c 0.008 0 0.012 0.004 0.02 0.004 l 1.348 0.344 c 0.032 0.008 0.06 0.036 0.06 0.072 s -0.028 0.064 -0.06 0.072 l -1.348 0.344 c -0.008 0 -0.012 0.004 -0.02 0.004 c -0.04 0 -0.076 -0.036 -0.076 -0.076 c 0 -0.036 0.028 -0.064 0.06 -0.072 l 0.824 -0.212 l 0.436 -0.06 l -0.436 -0.06 z",
+  "width": 1.504,
+  "height": 0.84,
+  "anchor": {
+   "x": 0.752,
+   "y": 0.42
+  },
+  "letterCount": 1
+ },
+ "marcato": {
+  "path": "M 0.05261 1.1 c -0.036 0 -0.064 -0.04 -0.048 -0.072 l 0.452 -1 c 0.008 -0.016 0.024 -0.028 0.044 -0.028 s 0.036 0.012 0.044 0.028 l 0.452 1 c 0.016 0.032 -0.012 0.072 -0.048 0.072 h -0.264 c -0.02 0 -0.04 -0.012 -0.048 -0.028 l -0.272 -0.6 l -0.268 0.6 c -0.008 0.016 -0.024 0.028 -0.044 0.028 z",
+  "width": 1.0012,
+  "height": 1.1,
+  "anchor": {
+   "x": 0.5006,
+   "y": 1.1
+  },
+  "letterCount": 1
+ }
+}

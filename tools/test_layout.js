@@ -179,6 +179,14 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on 
   const rb = F.find(i => i.k === 'ringbar');
   ok(rb && Math.abs(rb.t0 - 1) < 1e-9 && Math.abs(rb.t1 - 2.49) < 1e-9 && rb.ySs === -2, 'fortepiano: ring bar spans onset..onset+1.49 at the written head');
   ok(has(S, 'ringbar') === 0, 'surge: no ring bar');
+  // the single mark: sfzp on the dynamic slot, centered on the head column,
+  // and the ottava stacks BELOW it (column order: dynamic before ottava)
+  const mark = F.find(i => i.k === 'glyph' && i.g === 'dyn-sfzp');
+  const hd = F.find(i => i.k === 'glyph' && i.g === 'notehead-open');
+  const ot = F.find(i => i.k === 'ottava');
+  ok(mark && Math.abs(mark.dxSs - hd.dxSs) < 1e-9, 'fortepiano: sfzp centered on the head column');
+  ok(mark && ot && ot.ySs < mark.ySs - G.dynamic.sfzp.hSs / 2, 'fortepiano: ottava below the dynamic');
+  ok(has(S, 'glyph') && !S.some(i => i.g === 'dyn-sfzp'), 'surge: no single mark (pair + arrow instead)');
   ok(has(K, 'goline') === 0 && has(K, 'glyph') === 0 && has(K, 'brick') === 1, 'staccato: brick alone');
   // per-item override: give the fp a dyn pair; take the surge's curve away
   const ov = JSON.parse(JSON.stringify(dir));

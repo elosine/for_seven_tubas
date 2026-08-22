@@ -119,7 +119,7 @@
     // is how a settled note's device reaches its siblings (§6 derivation).
     const DEV = Object.assign({
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
-      byTechnique: { fortepiano: { goLine: true, nhUnit: true, ringBar: true } },
+      byTechnique: { fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' } },
     }, o.devices || {});
     const deviceOf = e => Object.assign({},
       (DEV.byTechnique || {})[e.technique] || {},
@@ -296,6 +296,21 @@
                     chainBotY = yDyn - bandH / 2;
                   } else {
                     warnings.push('nh-unit ' + e.id + ': dynamic glyphs missing (' + m1 + '/' + m2 + ') — marks not drawn');
+                  }
+                }
+
+                // SINGLE DYNAMIC MARK (wc-23, day 22 — composer: "let's go with
+                // sfzp"): one engraved mark on the dynamic slot, centered on
+                // the note column like the pair's start mark. dynMark is the
+                // glyph key (registry device / per-item override).
+                if (dev.dynMark) {
+                  const g = glyphs.dynamic && glyphs.dynamic[dev.dynMark];
+                  if (g) {
+                    const yDyn = chainBotY - stackGap - g.hSs / 2;
+                    items.push({ k: 'glyph', g: 'dyn-' + dev.dynMark, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
+                    chainBotY = yDyn - g.hSs / 2;
+                  } else {
+                    warnings.push('nh-unit ' + e.id + ': dynamic glyph "' + dev.dynMark + '" missing — mark not drawn');
                   }
                 }
 
