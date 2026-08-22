@@ -223,7 +223,9 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // yet. G1 at pitch (-5.5, below the middle line) → stem UP, flag-up8
   // at the tip; the flag reaches past the head, so the column anchor
   // (rightmost ink a gap before go) is the flag's right edge.
-  ok(has(K, 'goline') === 1 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: go line, no ring bar / dynamic; brick stays');
+  // OPTION B (day 23 layering discussion): NO go line — the GC's impact
+  // marker is the go mark; the unit sits before it like every other unit
+  ok(has(K, 'goline') === 0 && has(K, 'gc') === 1 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: GC, no go line / ring bar / dynamic; brick stays');
   const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
   const ks = K.find(i => i.k === 'stem');
   const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
@@ -259,8 +261,12 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
     ? G.accidental.sharp.anchors.noteY.x : G.accidental.sharp.wSs / 2;
   const inkL = Math.min(kh.dxSs - G.notehead.filled.wSs / 2, ka.dxSs - accAnchorX);
   const inkR = Math.max(kh.dxSs + G.notehead.filled.wSs / 2, flagRight);
-  ok(Math.abs((inkL + inkR) / 2) < 1e-9, 'staccato: the unit ink is CENTERED on the go line (' + ((inkL + inkR) / 2).toFixed(6) + ')');
-  ok(inkL < 0 && inkR > 0, 'staccato: the unit straddles the go line (ink on both sides)');
+  // BEFORE the go time with the device gap 0.6 ss: the rightmost ink (the
+  // flag's right edge here) ends 0.6 before go, so the head clears the
+  // impact marker (r 0.51 ss, centred on go) with air
+  ok(Math.abs(inkR - (-0.6)) < 1e-9, 'staccato: rightmost ink 0.6 ss before go (device nhGapSs)');
+  ok(kh.dxSs + G.notehead.filled.wSs * HK / 2 < -0.51 - 1e-9, 'staccato: the head clears the impact marker (r 0.51)');
+  ok(kdot.dxSs + 0.2 < -0.51 - 1e-9, 'staccato: the dot clears the impact marker too');
   // the fp keeps the day-22 anchor — rightmost ink a gap BEFORE go — so the
   // change is per-technique device data, not a global re-anchoring
   const fhd = F.find(i => i.k === 'glyph' && i.g === 'notehead-open');

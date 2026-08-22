@@ -97,7 +97,7 @@
     const y = G.impactY - frac * G.h;
     const r = G.look.ballRadiusPx * G.k;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
-      '" fill="' + (st.color || G.look.color) + '"/>'];
+      '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
   });
 
   // curveFollower: inst {part, t0, t1, midi, morphBend}; dot at the

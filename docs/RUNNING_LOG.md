@@ -6035,3 +6035,38 @@ dictated, the save-shuffle established, T1 facts scanned.**
     the edge and its lower half is in the 4 px inter-lane gap. The
     alternative is the registry's staccatoDot.gapFromNotehead (0.5 ss from
     the head's edge → −6.44, 0.07 ss inside) — a house choice, not built.
+- **THE LAYERING DISCUSSION (composer asked for design-principle analysis;
+  Tufte — *Visual Explanations*' Challenger chapter, *Envisioning
+  Information*'s layering & separation).** Composer's own first move,
+  in the asking: *"let's remove the go line layer since this is a point in
+  time gesture anyways. It doesn't need the go line. The other go lines are
+  there because the notation doesn't line up with the go time."* AI's
+  analysis, filed for the paper: (1) inventory by what each layer ENCODES
+  — three static marks said "when" (go line, impact marker, ball-at-
+  impact); dropping the go line is the data-ink move, not a compromise;
+  (2) the conflict is PITCH-DEPENDENT: the impact marker occupies
+  −6.39..−5.37 ss, so only bottom-octave heads (≤ about C2) collide; G1's
+  head overlapped the marker's top half and the dot its bottom half;
+  (3) the arc is nearly free vertically — the ictus hang keeps it at 35 %
+  of lane height 0.05 s before impact, 68 % at 0.12 s — while clearing it
+  horizontally (0.36 s = 56 px) is impossible in dense material; (4)
+  principles: Tufte's 1+1=3 (black head on magenta disc makes a third
+  shape), smallest effective difference (lighten the secondary, never the
+  datum), Bertin's ranking (position is the strongest channel; colour
+  cannot rescue two figures at one position), the Challenger lesson (the
+  decisive variables — WHEN and WHAT — must never fight), small-multiples
+  consistency (every other unit reads "the ink just before the mark is
+  what you play at the mark"). Options: A = head on the go time, marker
+  lightened/ringed (rejected: lightens the datum; 1+1=3 persists for the
+  bottom octave); B = unit before the go time, no go line, gap sized to
+  clear the marker (recommended); C = vertical separation (impossible: the
+  marker's height IS the object). **Composer: "B, let's try it."**
+- Built: staccato device loses `goLine`; `nhGapSs` becomes device data
+  (0.6 ss for the GC unit; the registry 0.25 serves the rest); `nhAnchor`
+  back to the default "before" ('center' stays available); ball opacity
+  0.85 (`animated.gc.opacity`) so it never hides a head it passes.
+- Verified live (video, page 2): no go line at wc-29 · flag right edge
+  940.1 = 4.7 px (0.6 ss) before go 944.84 · head right 934.0 vs marker
+  left 940.8 = **6.8 px air** · ledgers end 935.8 · dot cx 930.6, clear ·
+  marker solid at (944.84, 105.8) r 4 · ball at impact (944.8, 105.8),
+  opacity 0.85. Composer to judge the page with and without the ball.

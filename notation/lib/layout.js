@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
         fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhAnchor: 'center' },
+        staccato: { gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhGapSs: 0.6 },
       },
     }, o.devices || {});
     const engrave = new Map();
@@ -155,7 +155,7 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhAnchor: 'center' },
+        staccato: { gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhGapSs: 0.6 },
       },
     }, o.devices || {});
     const deviceOf = makeDeviceOf(DEV, engOf);
@@ -263,7 +263,10 @@
                   anchors: Object.fromEntries(Object.keys(g.anchors).map(n => [n, { x: g.anchors[n].x * headK, y: g.anchors[n].y * headK }])),
                 })(glyphs.notehead[headKind]);
                 const headGlyph = headKind === 'filled' ? 'notehead' : 'notehead-open';
-                const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
+                // the gap before go is device data too (day 23, option B for the
+                // GC unit: 0.6 ss so the head clears the impact marker's left
+                // edge, r 0.51 ss); the registry default (0.25) serves the rest
+                const gapSs = dev.nhGapSs != null ? dev.nhGapSs : (o.nhGapSs != null ? o.nhGapSs : 0.25);
                 const ledgers = ledgersFor(yDraw);
                 // STEM + FLAG (wc-29, day 23 — composer: "black note head,
                 // stem, and I think one flag"): nhStem = 'flag8' | 'plain' |
