@@ -6253,3 +6253,18 @@ dictated, the save-shuffle established, T1 facts scanned.**
   (video): dot top 1.18 px under the head · mf right edge 1.15 px left of
   the stem, 2.4 px above the top line · flag 16.8–40.6 full height, 3.0 px
   above the top line · stem tip 16.8 (lane top 8).
+- **Composer verdicts:** (1) **the dynamic bands / conversion are correct
+  for now** — "this section was more weighted toward the louder... but we
+  can reevaluate. This analysis is useful so we can reevaluate in future
+  sections." → thresholds stay; the census is the per-section
+  re-evaluation instrument; the SI2 ladder stays queued as the evidence
+  lever. (2) **Z-ORDER, made explicit** (composer asked whether a
+  conclusion was drawn — it was built, not stated): bottom→top = staff +
+  ledgers · go line · GC static ink (arc + impact marker) · NOTATION
+  (head, dot, stem, flag, dynamic — drawn after the GC, so ink over
+  guide) · the animated overlay (ball at 0.85, cursor) over everything.
+  Rationale: notation is the primary figure, the arc a guide; the ball is
+  the transient "now", kin to the cursor, and must never be hidden behind
+  dense ink at impact — translucency is the compromise; the impact marker
+  stays solid (the datum). Watch-case: layer-2 beamed groups crossed by an
+  arc's descent. To promote at session end as a decision.
