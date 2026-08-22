@@ -78,25 +78,58 @@
       ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + large + ' 1 ' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Z"/>';
   }
 
+  // GC preset → trajectory constants (piece #1's GCMaker formulas). A
+  // per-instance `preset:{...}` overrides the registry's, so one note can
+  // carry a different ball without a second registry entry.
+  function gcParams(st, inst) {
+    const P = Object.assign({ stiffness: 62, damping: 100, ictus: 90, descentRatio: 60, duration: 0.6 },
+      st.preset || {}, (inst && inst.preset) || {});
+    const df = P.descentRatio / 100;
+    return {
+      descentPower: 1 + (P.ictus / 1000) * 20,
+      ascentPower: 1 + P.stiffness / 50,
+      rebound: P.damping / 100,
+      pre: P.duration * df,
+      post: P.duration * (1 - df),
+    };
+  }
+
   // ---------- the five state functions ----------
   // gc: inst {part, at}; active [at - flight, at + bounce]. Fixed x at the
   // anchor; ball falls from `dropSs` above the tick, height ∝ (time left)²
   // (flight time readable from the trajectory — the preparatory-beat
   // property), one damped bounce after impact.
+  // THE REAL GC TRAJECTORY (day 23) — ported verbatim from the string
+  // quartet's GCMaker.generateTrajectory (piece #1, public/index.html):
+  //   descentPower = 1 + (ictus/1000)·20      ascentPower = 1 + stiffness/50
+  //   reboundFraction = damping/100           descentFraction = descentRatio/100
+  //   descent  y = h·(1 − u^descentPower)     u: 0→1 over duration·descentFraction
+  //   ascent   y = h·rebound·(1 − (1−u)^ascentPower)
+  // Timing is asymmetric about the impact and comes straight from the
+  // preset: the ball is airborne duration·descentFraction BEFORE the go
+  // point and duration·(1−descentFraction) after. The five preset numbers
+  // are registry data (animated.gc); piece #1's own records confirm the
+  // convention — every GC in its 6:10 section has
+  // start = impact − 0.36, end = impact + 0.24 at duration 0.6 / ratio 60.
   register('gc', (inst, view, t, st) => {
     const s = view.system(inst.part);
-    const flight = st.flightSeconds, bounce = st.bounceSeconds;
-    if (t < inst.at - flight || t > inst.at + bounce) return [];
+    const P = gcParams(st, inst);
+    if (t < inst.at - P.pre || t > inst.at + P.post) return [];
     const x = view.xOfSeconds(inst.at);
     const yLand = s.yOfSs(st.landSs);
-    let y;
+    // clamp: at the exact window edge floating point can hand back u = -1e-16,
+    // and Math.pow(negative, 2.8) is NaN — a silent invisible ball (found by
+    // the battery on the first run, day 23)
+    const cl = u => (u < 0 ? 0 : u > 1 ? 1 : u);
+    let hFrac;
     if (t <= inst.at) {
-      const u = (inst.at - t) / flight;          // 1 → 0 approaching impact
-      y = yLand - st.dropSs * s.ssPx * u * u;
+      const u = cl(P.pre > 0 ? (t - (inst.at - P.pre)) / P.pre : 1);
+      hFrac = 1 - Math.pow(u, P.descentPower);
     } else {
-      const v = (t - inst.at) / bounce;          // damped single bounce
-      y = yLand - st.dropSs * s.ssPx * st.bounceFrac * 4 * v * (1 - v);
+      const u = cl(P.post > 0 ? (t - inst.at) / P.post : 1);
+      hFrac = P.rebound * (1 - Math.pow(1 - u, P.ascentPower));
     }
+    const y = yLand - hFrac * st.dropSs * s.ssPx;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (st.radiusSs * s.ssPx).toFixed(1) +
       '" fill="' + st.color + '"/>'];
   });
@@ -189,9 +222,21 @@
     const metaOn = O.meta !== false;
     const out = [];
     const evById = new Map(((ir && ir.events) || []).map(e => [e.id, e]));
+    // per-NOTE GC (day 23, wc-29): the engraving device may put a ball on a
+    // single note — its impact is the note's go time, so the ball lands on
+    // the go line. The resolver comes from the caller (layout.deviceResolver)
+    // so this module keeps no second copy of the membership rules (D50).
+    const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
         if (d.kind === 'gc') out.push({ kind: 'gc', part: c.part, at: d.at, _src: 'ir-device' });
+      }
+      if (devOf) for (const id of c.events || []) {
+        const e = evById.get(id);
+        if (!e) continue;
+        const dv = devOf(e) || {};
+        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' },
+          typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum
       // 3 data — no side files, per the A21b strata rule)

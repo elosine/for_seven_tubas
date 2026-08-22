@@ -47,6 +47,37 @@
 
   const ACC_KIND = { '1': 'sharp', '-1': 'flat', '0': 'natural' };
 
+  // ONE copy of the membership rules (D50): byTechnique → byEnv → per-item
+  // override. layoutSection uses it internally; deviceResolver exposes the
+  // same function to other modules (animobj's per-note GC) so the rules are
+  // never re-implemented next door.
+  function makeDeviceOf(DEV, engOf) {
+    return e => Object.assign({},
+      (DEV.byTechnique || {})[e.technique] || {},
+      (e.env && (DEV.byEnv || {})[e.env]) || {},
+      (engOf(e.id) || {}).device || {});
+  }
+
+  // Public: build the resolver from an IR + the registry engraving.layout
+  // (the same opts layoutSection takes). Reads the IR's engraving overlays
+  // so a per-item `device:{}` override is honoured here too.
+  function deviceResolver(ir, opts) {
+    const o = opts || {};
+    const DEV = Object.assign({
+      byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
+      byTechnique: {
+        fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhStem: 'flag8', nhAnchor: 'center' },
+      },
+    }, o.devices || {});
+    const engrave = new Map();
+    for (const ov of (ir && ir.overlays) || []) {
+      if (ov.kind === 'engraving' && ov.target && ov.target.event)
+        engrave.set(ov.target.event, Object.assign({}, engrave.get(ov.target.event), ov.value));
+    }
+    return makeDeviceOf(DEV, id => engrave.get(id) || {});
+  }
+
   // Engraving: a stem outside the staff extends to the middle line.
   function stemLenFor(ySs, base) { return Math.max(base, Math.abs(ySs)); }
 
@@ -124,13 +155,10 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { nhUnit: true, nhHead: 'filled', nhStem: 'flag8' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhStem: 'flag8', nhAnchor: 'center' },
       },
     }, o.devices || {});
-    const deviceOf = e => Object.assign({},
-      (DEV.byTechnique || {})[e.technique] || {},
-      (e.env && (DEV.byEnv || {})[e.env]) || {},
-      engOf(e.id).device || {});
+    const deviceOf = makeDeviceOf(DEV, engOf);
 
     const spelledOf = e => respell.get(e.id) || e.pitch.spelled;
 
@@ -241,7 +269,53 @@
                   ? nhO.wSs * ((stds.ledgerLine && stds.ledgerLine.lengthFraction) || 0.25) : 0;
                 const flagRight = flagG ? att.dx + (flagG.wSs - flagG.anchors.stemTip.x) : -Infinity;
                 const rightExt = Math.max(nhO.wSs / 2 + ledgerExt, flagRight);
-                const headDx = -(gapSs + rightExt);
+                // ACCIDENTAL GEOMETRY, computed BEFORE the anchor (day 23):
+                // every offset below is relative to the head's center, so
+                // the unit's horizontal ink is known before it is placed —
+                // which is what centering on the go line requires.
+                const accKind = spN.alter ? ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
+                  '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
+                  '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)] : null;
+                const acc = accKind ? glyphs.accidental[accKind] : null;
+                let accRel = null;
+                if (acc) {
+                  const accGap = (stds.accidental && stds.accidental.gapToNotehead) || 0.1;
+                  const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
+                  const accTopExt = align === 'noteY' ? acc.anchors.noteY.y : acc.hSs / 2;
+                  const accBotExt = acc.hSs - accTopExt;
+                  // H.4c.3 LEDGER CLEARANCE (piece #2, ported day 22 round
+                  // 2 — the composer remembered right): the accidental's
+                  // right edge sits the D.6 gap left of WHICHEVER extends
+                  // further left — the head's left edge or any ledger the
+                  // glyph's y-span touches. (p2 matched ledger y to the
+                  // accidental's anchorY; extended here to the glyph bbox,
+                  // which degenerates to p2's rule on exact-line notes.)
+                  let clearRel = -nhO.wSs / 2;
+                  for (const L of ledgers) {
+                    if (L <= yDraw + accTopExt + 1e-9 && L >= yDraw - accBotExt - 1e-9) {
+                      clearRel = -nhO.wSs / 2 - ledgerExt;
+                      break;
+                    }
+                  }
+                  // anchor-aware horizontal edges (round-2 measurement
+                  // finding): a noteY-aligned glyph anchors OFF-CENTER, so
+                  // its right edge sits (wSs - anchorX) past the anchor,
+                  // not wSs/2 — center alignment is the degenerate case
+                  const anchorX = align === 'noteY' ? acc.anchors.noteY.x : acc.wSs / 2;
+                  accRel = { dx: clearRel - accGap - (acc.wSs - anchorX), align, anchorX, accTopExt, accBotExt, kind: accKind };
+                } else if (spN.alter) {
+                  warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
+                }
+                const leftRel = Math.min(-(nhO.wSs / 2 + (ledgers.length ? ledgerExt : 0)),
+                  accRel ? accRel.dx - accRel.anchorX : Infinity);
+                // THE ANCHOR (day 23, composer on wc-29: "everything centered
+                // on the go line"): 'center' puts the MIDPOINT of the unit's
+                // horizontal ink on the go time; the day-22 default hangs the
+                // unit's rightmost ink a fixed gap BEFORE it. Device data, so
+                // one technique can differ from another.
+                const headDx = dev.nhAnchor === 'center'
+                  ? -(leftRel + rightExt) / 2
+                  : -(gapSs + rightExt);
                 items.push({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 // unit ink extents (grow as elements land) — feed both the
@@ -258,44 +332,11 @@
                   // hangs back toward the head, never past the tip)
                   if (stemDir === 'up') inkTopY = Math.max(inkTopY, yEnd); else inkBotY = Math.min(inkBotY, yEnd);
                 }
-                if (spN.alter) {
-                  const accKind = ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
-                    '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
-                    '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)];
-                  const acc = accKind && glyphs.accidental[accKind];
-                  if (acc) {
-                    const accGap = (stds.accidental && stds.accidental.gapToNotehead) || 0.1;
-                    const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
-                    // vertical extents of the accidental glyph about the note y
-                    const accTopExt = align === 'noteY' ? acc.anchors.noteY.y : acc.hSs / 2;
-                    const accBotExt = acc.hSs - accTopExt;
-                    // H.4c.3 LEDGER CLEARANCE (piece #2, ported day 22 round
-                    // 2 — the composer remembered right): the accidental's
-                    // right edge sits the D.6 gap left of WHICHEVER extends
-                    // further left — the head's left edge or any ledger the
-                    // glyph's y-span touches. (p2 matched ledger y to the
-                    // accidental's anchorY; extended here to the glyph bbox,
-                    // which degenerates to p2's rule on exact-line notes.)
-                    let clearDx = headDx - nhO.wSs / 2;   // head left edge
-                    for (const L of ledgers) {
-                      if (L <= yDraw + accTopExt + 1e-9 && L >= yDraw - accBotExt - 1e-9) {
-                        clearDx = Math.min(clearDx, headDx - nhO.wSs / 2 - ledgerExt);
-                        break;
-                      }
-                    }
-                    // anchor-aware horizontal edges (round-2 measurement
-                    // finding): a noteY-aligned glyph anchors OFF-CENTER, so
-                    // its right edge sits (wSs - anchorX) past the anchor,
-                    // not wSs/2 — center alignment is the degenerate case
-                    const anchorX = align === 'noteY' ? acc.anchors.noteY.x : acc.wSs / 2;
-                    const accDx = clearDx - accGap - (acc.wSs - anchorX);
-                    items.push({ k: 'glyph', g: 'accidental-' + accKind, t: e.onset, dxSs: accDx, ySs: yDraw, align });
-                    leftEdgeDx = Math.min(leftEdgeDx, accDx - anchorX);
-                    inkTopY = Math.max(inkTopY, yDraw + accTopExt);
-                    inkBotY = Math.min(inkBotY, yDraw - accBotExt);
-                  } else if (accKind === undefined) {
-                    warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
-                  }
+                if (accRel) {
+                  items.push({ k: 'glyph', g: 'accidental-' + accRel.kind, t: e.onset, dxSs: headDx + accRel.dx, ySs: yDraw, align: accRel.align });
+                  leftEdgeDx = Math.min(leftEdgeDx, headDx + accRel.dx - accRel.anchorX);
+                  inkTopY = Math.max(inkTopY, yDraw + accRel.accTopExt);
+                  inkBotY = Math.min(inkBotY, yDraw - accRel.accBotExt);
                 }
                 // THE VERTICAL COLUMN STANDARD (day 22, composer + Gould +
                 // piece #2's own chain, which agree): below the unit, from
@@ -495,5 +536,5 @@
     return { systems, window: [w0, w1], warnings };
   }
 
-  return { layoutSection, staffPosBass, ledgersFor, dotYFor, stemLenFor };
+  return { layoutSection, deviceResolver, staffPosBass, ledgersFor, dotYFor, stemLenFor };
 });

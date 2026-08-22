@@ -63,15 +63,46 @@ ok(byKind('motivePie').length === 1 && byKind('motivePie')[0].t0 === 14 && byKin
   'group span -> motivePie');
 
 // ---------- behavior spot-checks (pure geometry) ----------
-// gc: lands EXACTLY on the tick at impact; above it before; bounces after
+// gc: THE REAL TRAJECTORY (day 23) — piece #1's GCMaker formulas, asserted
+// against the preset's own arithmetic, not against a copy of the code.
 const gcSt = ST.gc, gcSys = view.system(4);
-const yAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gcSt); return m.length ? parseFloat(m[0].match(/cy="([\d.]+)"/)[1]) : null; };
-ok(yAt(14.0 - gcSt.flightSeconds - 0.01) === null, 'gc inactive before its flight window');
-eq(yAt(14.0), gcSys.yOfSs(gcSt.landSs), 0.11, 'gc lands on the tick at impact time');
-ok(yAt(13.7) < gcSys.yOfSs(gcSt.landSs), 'gc is ABOVE the tick mid-flight (smaller y = higher)');
-ok(yAt(14.15) < gcSys.yOfSs(gcSt.landSs), 'gc bounces above the tick after impact');
-// trajectory is predictive: farther from impact = higher
-ok(yAt(13.5) < yAt(13.9), 'drop height grows with time-to-impact (readable trajectory)');
+const P = gcSt.preset;
+const PRE = P.duration * P.descentRatio / 100;          // 0.36 at the Short preset
+const POST = P.duration * (1 - P.descentRatio / 100);   // 0.24
+const yAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gcSt); return m.length ? parseFloat(m[0].match(/cy="(-?[\d.]+)"/)[1]) : null; };
+const yLand = gcSys.yOfSs(gcSt.landSs), drop = gcSt.dropSs * gcSys.ssPx;
+const hAt = t => (yLand - yAt(t)) / drop;               // height above the landing line, 0..1
+const HTOL = 0.06 / drop;   // cy is written at toFixed(1) — compare within half a rounded pixel
+// the SPAN is asymmetric and comes from the preset (piece #1's stored GCs
+// carry exactly this: start = impact - 0.36, end = impact + 0.24)
+ok(yAt(14.0 - PRE - 0.01) === null && yAt(14.0 + POST + 0.01) === null, 'gc active only over [at-0.36, at+0.24]');
+ok(yAt(14.0 - PRE + 0.001) !== null && yAt(14.0 + POST - 0.001) !== null, 'gc active inside that span');
+eq(hAt(14.0), 0, HTOL, 'gc lands exactly on the tick at impact time');
+eq(hAt(14.0 - PRE), 1, HTOL, 'gc starts at the full drop height');
+// rebound = damping/100 (100 => the ball returns to full height)
+eq(hAt(14.0 + POST), P.damping / 100, HTOL, 'gc rebounds to damping/100 of the drop');
+// THE ICTUS SHAPE: descentPower 2.8 means the ball hangs, then drops late —
+// at the MIDPOINT of the descent it has fallen only 1 - 0.5^2.8 of the way
+eq(hAt(14.0 - PRE / 2), 1 - Math.pow(0.5, 1 + (P.ictus / 1000) * 20), HTOL, 'descent follows 1 - u^descentPower (the ictus hang)');
+// ascent eases out with ascentPower = 1 + stiffness/50
+eq(hAt(14.0 + POST / 2), (P.damping / 100) * (1 - Math.pow(0.5, 1 + P.stiffness / 50)), HTOL, 'ascent follows 1 - (1-u)^ascentPower');
+ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable trajectory)');
+// ---- per-NOTE GC from the engraving device (day 23, wc-29) ----
+{
+  const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+  const nir = {
+    irVersion: 1, id: 'gc-dev', source: { score: 'x', window: [0, 20], parts: [0] },
+    events: [{ id: 'ev-a', onset: 17.749, duration: 0.46, pitch: { midi: 31, spelled: { step: 'G', alter: 0, octave: 1 } }, technique: 'staccato', provenance: 'derived' },
+             { id: 'ev-b', onset: 14.544, duration: 1.49, pitch: { midi: 32, spelled: { step: 'G', alter: 1, octave: 1 } }, technique: 'fortepiano', provenance: 'derived' }],
+    chunks: [{ id: 'c-a', part: 0, span: [17.749, 20], class: 'fixed-oneshot', strategy: 'unresolved', events: ['ev-a'] },
+             { id: 'c-b', part: 0, span: [14.544, 17.749], class: 'fixed-oneshot', strategy: 'unresolved', events: ['ev-b'] }], overlays: [],
+  };
+  const gcs = Anim.collect(nir, null, ST, { parts: [0], deviceOf: Layout.deviceResolver(nir, {}) }).filter(i => i.kind === 'gc');
+  ok(gcs.length === 1 && gcs[0]._src === 'device', 'staccato device -> exactly one per-note GC (the fp has none)');
+  eq(gcs[0].at, 17.749, 1e-9, 'per-note GC impact = the note go time (so the ball lands ON the go line)');
+  const none = Anim.collect(nir, null, ST, { parts: [0] }).filter(i => i.kind === 'gc');
+  ok(none.length === 0, 'no resolver -> no per-note GCs (opt-in, nothing implicit)');
+}
 
 // curveFollower: y moves with the bend (midi 47 bending +2 st over 4 s)
 const cf = byKind('curveFollower')[0], cfSt = ST.curveFollower;

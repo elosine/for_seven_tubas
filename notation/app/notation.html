@@ -402,7 +402,10 @@
       $('sheet').appendChild(ov);
       const score = state.scores[state.ir.source.score] || null;
       state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
-        { parts: state.ir.source.parts, meta: $('metaov').checked });
+        { parts: state.ir.source.parts, meta: $('metaov').checked,
+          // per-note GCs come from the SAME device rules the engraving uses
+          // (D50) — one resolver, built by layout, handed to animobj
+          deviceOf: NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {}) });
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;

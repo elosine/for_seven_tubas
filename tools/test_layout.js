@@ -199,7 +199,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // yet. G1 → written G2 (-2, below the middle line) → stem UP, flag-up8
   // at the tip; the flag reaches past the head, so the column anchor
   // (rightmost ink a gap before go) is the flag's right edge.
-  ok(has(K, 'goline') === 0 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: no go line / ring bar / dynamic; brick stays');
+  ok(has(K, 'goline') === 1 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: go line, no ring bar / dynamic; brick stays');
   const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
   const ks = K.find(i => i.k === 'stem');
   const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
@@ -207,8 +207,21 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   ok(ks && ks.attach === 'up' && Math.abs(ks.dxSs - (kh.dxSs + G.notehead.filled.anchors.stemAttachUp.x - G.notehead.filled.anchors.center.x)) < 1e-9, 'staccato: stem up from the head right attach point');
   ok(ks && Math.abs((ks.yB - ks.yA) - 3.5) < 1e-9, 'staccato: one-octave stem (3.5 ss) inside the staff');
   ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
+  // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
+  // go line"). Measured from the EMITTED items' own glyph metrics — the ink
+  // midpoint, not a re-run of the placement formula.
   const flagRight = kf.dxSs + G.flag.up8.wSs - G.flag.up8.anchors.stemTip.x;
-  ok(Math.abs(flagRight - (-0.25)) < 1e-9, 'staccato: the flag right edge sits the 0.25 gap before go (rightmost-ink rule)');
+  const ka = K.find(i => i.k === 'glyph' && i.g === 'accidental-sharp');
+  const accAnchorX = (G.accidental.sharp.anchors && G.accidental.sharp.anchors.noteY)
+    ? G.accidental.sharp.anchors.noteY.x : G.accidental.sharp.wSs / 2;
+  const inkL = Math.min(kh.dxSs - G.notehead.filled.wSs / 2, ka.dxSs - accAnchorX);
+  const inkR = Math.max(kh.dxSs + G.notehead.filled.wSs / 2, flagRight);
+  ok(Math.abs((inkL + inkR) / 2) < 1e-9, 'staccato: the unit ink is CENTERED on the go line (' + ((inkL + inkR) / 2).toFixed(6) + ')');
+  ok(inkL < 0 && inkR > 0, 'staccato: the unit straddles the go line (ink on both sides)');
+  // the fp keeps the day-22 anchor — rightmost ink a gap BEFORE go — so the
+  // change is per-technique device data, not a global re-anchoring
+  const fhd = F.find(i => i.k === 'glyph' && i.g === 'notehead-open');
+  ok(fhd.dxSs + G.notehead.open.wSs / 2 < -0.24, 'fortepiano: still anchored BEFORE the go line (unchanged by the staccato anchor)');
   // stemDir override per item, as on metric notes
   const kd = JSON.parse(JSON.stringify(dir));
   kd.overlays = [{ id: 'o3', kind: 'engraving', target: { event: 'k' }, value: { stemDir: 'down' } }];

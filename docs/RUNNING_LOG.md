@@ -5819,3 +5819,60 @@ dictated, the save-shuffle established, T1 facts scanned.**
   x 1247.6 w 2.05 px (0.13 ss) h 55.3 px (3.5 ss) · flag at the tip
   14.1×47.5 px (0.892×3.008 ss) · flag right edge 1261.7 vs brick 1265.7 =
   0.25 ss gap · 8vb under the head. Composer to judge the look.
+- **wc-29 element 2 — THE GO LINE + THE GC, both centered on the go line;
+  the notation re-centered on it too.** Composer: *"put in the go line and
+  then put the GC centered on that go line... let's center the musical
+  notation there. So I guess centered on the go line. So everything
+  centered on the go line."*
+- **THE REAL GC PARAMETERS, queried from the composer's own scores** (they
+  had forgotten which; the answer was in the data, not in memory):
+  - **Piece #1 (string quartet), the 6:10 section:** 43 GCs between 355.6
+    and 374.1 s, ALL ONE PRESET — `BartokPizz_GC_20260309_112021`
+    ("Short"): **stiffness 62 · damping 100 · ictus 90 · descentRatio 60 ·
+    duration 0.6**, color neonMagenta, spread over T1–T4. Their stored
+    spans confirm the timing law: start = impact − 0.36, end = impact +
+    0.24 (= duration × descentRatio and its complement).
+  - **The curves are INTERLEAVED with them, not after** (composer
+    remembered "afterwards"): 11 curves 350.5–369.2, model `logarithmic`,
+    and they are exactly the "slope down / slope back up" the composer
+    described — 0→10 at slope +0.25 / +0.40 / +0.286 / +0.280, 10→0 at
+    −0.479 / −0.2, plus flat holds at 6.5. Full list in the session trail.
+  - **Piece #2 (2p2p) DIFFERS:** all 203 of its GCs are the "Medium"
+    preset (50/80/120/55/1.1) — including `ar-mk34-piano2`, the very
+    element we looked at this morning. Composer's instruction ("use the
+    string quartet version") therefore MATTERS; it was not the same.
+- **Physics ported verbatim** from piece #1's `GCMaker.generateTrajectory`
+  (public/index.html): descentPower = 1 + ictus/1000×20 (2.8) · ascentPower
+  = 1 + stiffness/50 (2.24) · rebound = damping/100 (1.0, so the ball
+  returns to full height) · descentFraction = descentRatio/100 (0.6).
+  Descent y = h(1 − u^2.8) — the ICTUS HANG: at the midpoint of the fall
+  the ball has dropped only 14 % of the way, then plunges. The day-21 port
+  was a placeholder (u², 4v(1−v)); it is gone.
+- Per-note GCs: the ball now comes from the ENGRAVING DEVICE, not only
+  from chunk devices — `deviceOf` is passed into animobj by the app from
+  `layout.deviceResolver(ir, opts)`, a new export so the D50 membership
+  rules exist in ONE place instead of being re-implemented next door.
+  Impact = the note's onset, so the ball lands ON the go line.
+- **Centering:** the nh-unit's anchor is now device data — `nhAnchor:
+  'center'` puts the MIDPOINT of the unit's horizontal ink on the go time;
+  the day-22 default (rightmost ink a gap BEFORE go) is untouched and the
+  fp/surge keep it (asserted). Implementation: the accidental's geometry is
+  computed BEFORE the anchor is chosen (it was computed inline during
+  emission), so the unit's ink extent is known before it is placed.
+- **BUG the battery caught on the first run:** at the exact window edge
+  floating point yields u = −1e-16, and `Math.pow(negative, 2.8)` is NaN —
+  an invisible ball, silently. Clamped.
+- **FINDING (real, unresolved): the ball did not fit the frame.** With the
+  real trajectory the full drop is used, and at the V2 placeholder's
+  dropSs 6 the ball spent its first third ABOVE the frame edge — measured
+  cy −11.7 (video) / −23.4 (zoom ×2) — because T1 is the TOP lane and holds
+  only **4.52 ss** above the landing line. Set dropSs **3.9**, the largest
+  drop whose ball (radius 0.55) stays fully inside the frame in both views;
+  verified every sampled frame now has top ≥ 0. **This is a fit, not a
+  judgment** — a taller preparatory arc needs a frame top margin or a
+  GC band above the lanes. Composer's call (§6).
+- Verified live (video, page 2): go line at x 944.84 · ball cx 944.8 =
+  the go line · lands cy 35.7 exactly at 17.749 · active 17.389→17.989
+  (= −0.36 / +0.24) · notation ink (head 1251.5 → flag right 1279.87 in
+  zoom) midpoint 1265.685 vs go line 1265.69. Batteries: layout, render,
+  snapshots, stamps, splice, extract-played, midiplayer, coords, animobj.
