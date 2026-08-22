@@ -56,6 +56,23 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   a multi-part IR, naming the lanes it would have swallowed. This is what makes
   the coming part-by-part cluster pass work inside one file instead of ten forks.
 
+- **FIRST COMPOSITIONAL EDIT TO THE ARCHIVE: `wc-28` moved T2 → T9**
+  (composer: *"in tuba two at seventeen nineteen there is a GC. Can we move
+  that to another part, two by nine?"*). Staccato G1 at 17.19. **This is a
+  new class of change and it extended the protocol** (ARCHIVE_AMENDMENTS
+  rule 5, new): rules 1-4 cover an archive VALUE being wrong, which lives in
+  the IR — but a part move changes which MIDI port sounds the note, and the
+  player compiles the archive, so an IR-only move would draw it on T9 and
+  sound it on tuba2b. Compositional edits therefore go in the SCORE, via
+  `tools/move_object.js` (dry run by default; refuses a same-onset collision
+  in the target part), ledgered as **SCORE EDIT**, with every IR re-extracted
+  in the same breath. One-line diff; undo is `git checkout -- scores/…`.
+  Verified both ways: the live page shows the GC on T9's lane and nothing in
+  T2 before 22.66, and `techniqueFor` now routes the note to `tuba9b` where
+  it was `tuba2b`. **Musical consequence for the ear: T9 now ENTERS at 17.19
+  instead of 21.07, and since T9 has no surge this is that player's first
+  sound in the piece.**
+
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
 day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at

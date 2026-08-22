@@ -10989,26 +10989,12 @@
    "part": 1,
    "span": [
     13.97,
-    17.19
+    22.664
    ],
    "class": "drawn-crescendo-curve",
    "strategy": "unresolved",
    "events": [
     "ev-wc-7"
-   ],
-   "provenance": "derived"
-  },
-  {
-   "id": "ch-1-wc-28",
-   "part": 1,
-   "span": [
-    17.19,
-    22.664
-   ],
-   "class": "fixed-oneshot",
-   "strategy": "unresolved",
-   "events": [
-    "ev-wc-28"
    ],
    "provenance": "derived"
   },
@@ -12476,6 +12462,20 @@
    "strategy": "unresolved",
    "events": [
     "ev-wc-1613"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-28",
+   "part": 8,
+   "span": [
+    17.19,
+    21.07
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-28"
    ],
    "provenance": "derived"
   },

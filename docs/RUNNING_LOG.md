@@ -6952,3 +6952,71 @@ proves in isolation (`parts:[0]` sounds only T1's notes and touches only
 `tuba1`/`tuba1b`) — but Web MIDI is unavailable in the verification browser, so
 nobody has heard a soloed part. **Known limitation:** an attached audio render
 cannot be soloed (it is a stereo mix); MIDI can.
+
+### The first COMPOSITIONAL edit to the archive: wc-28, T2 → T9 (day 24)
+
+Composer: *"in tuba two at seventeen nineteen there is a GC. Can we move that
+to another part, two by nine?"*
+
+**The note:** `wc-28` — staccato, G1 (midi 31), vel 72, 17.190–17.604 s, group
+`grp-g1-opening`, performance note `STAC-rev`. The only T2 event within 3 s of
+17.19, so the identification is unambiguous. It carries a GC because the
+staccato technique entry does (D50).
+
+**Reading "two by nine" as T2 → T9**, on evidence rather than grammar: T9 is
+the only part with a hole there — it was **empty until 21.07 s**, the last part
+to enter and the sparsest in the section (36 notes, and the only part with no
+surge). Nothing else in the ensemble is free at 17.19. Both plausible dictations
+("to T9", "to be nine") land on the same part.
+
+**Why this could NOT be an IR amendment.** Every archive correction so far
+(wc-23, wc-29) has been a *value* being wrong — a duration under-specified
+against the measured sample — and those live in the IR by design (D49). A part
+move is a different animal: it changes **who plays the note**, and therefore
+which MIDI port sounds it. The notation app's player compiles the archive (with
+IR durations applied), so an IR-only move would have drawn the note on T9's
+staff while it kept sounding out of `tuba2b`. That is precisely the silent
+divergence ARCHIVE_AMENDMENTS exists to prevent. So the edit belongs in the
+score, and protocol rule 5 wants it to be an explicit ledgered act — *"a script
+run from this ledger"*.
+
+**`tools/move_object.js`** is that script. `--score --object --toPart`, dry run
+by default. It prints the object's full identity and the destination's
+neighbours, and **refuses** when the target part already holds a note within
+`--tol` (0.03 s) of the onset — because extraction sidelines same-onset notes in
+one part as splitters (they cannot share a grid slot), so such a move would
+quietly change how the part reads. `--force` overrides; a no-op move is refused
+too.
+
+**Formatting proven before writing**, so a 4 MB archive could not be reformatted
+by accident: `JSON.stringify(score, null, 2) + '\n'` reproduces the committed
+file byte for byte (checked by round-trip; the only difference from a naive
+stringify was the trailing newline). The resulting diff is **one line**:
+`"layer": 1` → `"layer": 8`. Undo is `git checkout -- scores/…`.
+
+**Safety check that mattered:** a server was live on :5200 while this was
+written. Canonical `piece-*` saves turn out to be protected by the composer
+app's working-copy mechanism — opening one puts the session in
+`piece-s25-finished01-work` and autosave writes THERE, and only when dirty — so
+a passively-open composer app cannot clobber an archive edit. (If the composer
+is mid-edit in a work copy, that copy and the archive have now diverged by this
+one field.)
+
+**Verified, page and sound both:**
+
+- Re-extract of `db1-all-x01` (identical command, T1 cluster preserved): still
+  456 events / 129 chunks / valid. **T2 47 → 46 notes, T9 36 → 37**; wc-28 is
+  now T9's **first note in the piece**, 3.88 s ahead of wc-38.
+- **Live page** (page 3, 16.0–24.0 s): the GC impact at 17.19 is on **T9's**
+  lane, and T2 carries no impact until x1607 ≈ 22.66 s (wc-42), exactly as the
+  data says. Cross-check on the same page: the 17.75/17.77 pair (wc-29 T1,
+  wc-30 T6) lands at x457/x462, which fixes the time→x mapping independently.
+- **Sound follows**: compiling the amended archive routes wc-28 to **`tuba9b`
+  ch 3**, where it was `tuba2b` ch 3 — the same channel, the new port, matching
+  T9's other staccato (wc-43 → tuba9b). So this is a real part change, not a
+  drawing change.
+- Eight batteries green; the IR revalidates against the amended source.
+
+**Musical consequence worth the composer's ear:** T9 now ENTERS at 17.19
+instead of 21.07. Since T9 has no surge, this staccato G1 is now that player's
+first sound in the piece.

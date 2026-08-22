@@ -1082,7 +1082,7 @@
     {
       "id": "wc-28",
       "type": "waveCurve",
-      "layer": 1,
+      "layer": 8,
       "startSeconds": 17.19,
       "endSeconds": 17.604,
       "nodes": [
