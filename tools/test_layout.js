@@ -259,11 +259,15 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // and below the bottom of the flag"): G1's chain cannot fit below (dot at
   // the lane edge), so it flips above; the stem rule lifts the compressed
   // flag (0.65 × 3.008 = 1.955 ss) over the mark; gaps = chainAboveGapSs 0.3
-  const FH = G.flag.up8.hSs * 0.65;
-  ok(kf && Math.abs(kf.scaleY - 0.65) < 1e-9, 'staccato: flag carries scaleY 0.65');
+  // round 6 (composer): the mark sits BESIDE the stem — right edge 0.15 ss
+  // left of the stem's left edge — above the staff (0.3); the flag is back
+  // to full height and clears only the staff (0.38)
+  ok(kf && kf.scaleY == null, 'staccato: flag at full height (no scaleY)');
   ok(kmark && Math.abs((kmark.ySs - G.dynamic.mf.hSs / 2) - (2 + 0.3)) < 1e-9, 'staccato G1: mf bottom exactly 0.3 above the top staff line (' + (kmark.ySs - G.dynamic.mf.hSs / 2).toFixed(3) + ')');
-  ok(kf && kmark && Math.abs((kf.ySs - FH) - (kmark.ySs + G.dynamic.mf.hSs / 2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 above the mark top (' + (kf.ySs - FH).toFixed(3) + ')');
-  ok(kf && kf.ySs <= 6.51 + 1e-9, 'staccato G1: the lifted stem tip stays inside the lane (' + kf.ySs.toFixed(3) + ' ≤ 6.51)');
+  ok(kf && Math.abs((kf.ySs - G.flag.up8.hSs) - (2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 above the top staff line (' + (kf.ySs - G.flag.up8.hSs).toFixed(3) + ')');
+  const stemLeft = ks.dxSs - G.standards.stem.thickness / 2;
+  ok(kmark && Math.abs((kmark.dxSs + G.dynamic.mf.wSs / 2) - (stemLeft - 0.15)) < 1e-9, 'staccato G1: mf right edge exactly 0.15 ss left of the stem (' + (stemLeft - (kmark.dxSs + G.dynamic.mf.wSs / 2)).toFixed(3) + ')');
+  ok(kf && kf.ySs <= 6.51 + 1e-9, 'staccato G1: stem tip inside the lane (' + kf.ySs.toFixed(3) + ' ≤ 6.51)');
   ok(ks && (ks.yB - ks.yA) > 5.5, 'staccato G1: the flag-clear stem is longer than the middle-line default (' + (ks.yB - ks.yA).toFixed(2) + ' ss)');
   // a note with room keeps the default: the same device on A3 (+4, stem down,
   // flag rises from the tip below) needs flag top ≤ −2.38 → tip ≤ −5.39 → 9.4 ss,
@@ -275,7 +279,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   ok(kdot && Math.abs(kdot.dxSs - kh.dxSs) < 1e-9, 'staccato: dot centered on the head column');
   // the dot: notehead side (below, stem up), 0.3 ss from the SCALED head's
   // bottom edge (composer: "two or three pixels, very tight")
-  ok(kdot && Math.abs((kh.ySs - G.notehead.filled.hSs * HK / 2) - (kdot.ySs + 0.2) - 0.3) < 1e-9 && kdot.ySs < kh.ySs, 'staccato: dot 0.3 ss below the head edge (' + kdot.ySs.toFixed(3) + ')');
+  ok(kdot && Math.abs((kh.ySs - G.notehead.filled.hSs * HK / 2) - (kdot.ySs + 0.2) - 0.15) < 1e-9 && kdot.ySs < kh.ySs, 'staccato: dot 0.15 ss below the head edge — the tight gap (' + kdot.ySs.toFixed(3) + ')');
   ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
   // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
   // go line"). Measured from the EMITTED items' own glyph metrics — the ink

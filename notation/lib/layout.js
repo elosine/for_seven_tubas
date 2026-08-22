@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
         fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhFlagScaleY: 0.65, nhDot: true, nhDotGapSs: 0.3, nhGapSs: 0.6, dynMark: 'band' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
     const engrave = new Map();
@@ -155,7 +155,7 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhFlagScaleY: 0.65, nhDot: true, nhDotGapSs: 0.3, nhGapSs: 0.6, dynMark: 'band' },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
     const deviceOf = makeDeviceOf(DEV, engOf);
@@ -436,7 +436,12 @@
                   // default length wins when it is already longer.
                   if (flagG && dev.nhStemRule === 'flagClear') {
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
-                    const clearTop = STAFF_EDGE + (chainAbove && underFlag ? needAbove : 0);
+                    // the chain above a flagged unit sits BESIDE the stem (day 23,
+                    // composer: "the right edge of the dynamic clears the stem"), so
+                    // the flag clears only the staff; a device without dynBesideStem
+                    // keeps the under-the-flag stack and the stem clears the chain
+                    const beside = !!dev.dynBesideStem;
+                    const clearTop = STAFF_EDGE + (chainAbove && underFlag && !beside ? needAbove : 0);
                     const need = stemDir === 'up'
                       ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
                       : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
@@ -510,7 +515,18 @@
                 // glyph key (registry device / per-item override).
                 if (markG) {
                   const yDyn = placeChain(markG.hSs);
-                  items.push({ k: 'glyph', g: 'dyn-' + markKey, t: e.onset, dxSs: headDx, ySs: yDyn, align: 'center' });
+                  // BESIDE THE STEM (day 23, composer): when the chain is above a
+                  // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
+                  // the stem's left edge (registry 0.15 = the staccato-dot gap),
+                  // instead of centred on the head column; the flag, on the stem's
+                  // other side, is then free to keep its full height
+                  let dxMark = headDx;
+                  if (dev.dynBesideStem && chainAbove && stemKind && stemDir === 'up') {
+                    const gapStem = o.dynStemGapSs != null ? o.dynStemGapSs : 0.15;
+                    const stemLeft = headDx + att.dx - ((stds.stem && stds.stem.thickness) || 0.13) / 2;
+                    dxMark = stemLeft - gapStem - markG.wSs / 2;
+                  }
+                  items.push({ k: 'glyph', g: 'dyn-' + markKey, t: e.onset, dxSs: dxMark, ySs: yDyn, align: 'center' });
                 }
 
                 if (octShift !== 0) {

@@ -67,7 +67,7 @@
         },
         "byTechnique": {
           "fortepiano": { "goLine": true, "nhUnit": true, "ringBar": true, "dynMark": "sfzp" },
-          "staccato": { "goLine": true, "gc": true, "nhUnit": true, "nhHead": "filled", "nhHeadScale": 0.844, "nhStem": "flag8", "nhStemRule": "flagClear", "nhFlagScaleY": 0.65, "nhDot": true, "nhDotGapSs": 0.3, "nhGapSs": 0.6, "dynMark": "band" },
+          "staccato": { "goLine": true, "gc": true, "nhUnit": true, "nhHead": "filled", "nhHeadScale": 0.844, "nhStem": "flag8", "nhStemRule": "flagClear", "nhDot": true, "nhDotGapSs": 0.15, "nhGapSs": 0.6, "dynMark": "band", "dynBesideStem": true },
           "_staccatoNote": "day 23, OPTION B of the layering discussion (Tufte: layering & separation, 1+1=3, position before colour): NO go line for a point-in-time gesture — the GC's impact marker IS the go mark, so a go line was a third encoding of one time; the unit sits BEFORE the go time like every other unit (reading rule: the ink just before the mark is what you play at the mark), with nhGapSs 0.6 so the head clears the marker's left edge (r 0.51 ss) with air; head, dot and ledgers sit under the arc (the ictus hang keeps the arc at 35 %+ height 0.05 s before impact); stem and flag may cross it (composer). Option A (centred on go, marker lightened) rejected: it lightens the datum. nhAnchor 'center' remains available as a device value."
         }
       },
@@ -79,7 +79,11 @@
       "flagClearanceSs": 0.38,
       "chainAboveGapSs": 0.3,
       "_chainAboveGapNote": "day 23: when the chain sits ABOVE a flagged stem-up unit it goes BETWEEN the staff and the flag (composer: 'let's see if we can get the dynamic above the staff and below the bottom of the flag'); the flag-clear stem rule then clears the chain, and this tighter gap (vs the 0.45 house standard) is the air on each side of the mark in that slot.",
-      "flagScaleY": 0.65,
+      "tightGapSs": 0.15,
+      "_tightGapNote": "day 23, THE TIGHT GAP STANDARD (composer): the staccato dot sits 0.15 ss (1.2 px at the jury frame) from the head's edge ('reduce 50% the gap'), and the same value is the air between a dynamic's right edge and the stem ('just a little tiny bit of gap... akin to the staccato gap'). nhDotGapSs and dynStemGapSs both carry it; one number to change if the eye wants more.",
+      "dynStemGapSs": 0.15,
+      "_dynStemGapNote": "day 23 (composer): above a stem-up flagged unit the dynamic sits BESIDE the stem — its right edge dynStemGapSs left of the stem — not centred on the head column; the flag, on the stem's other side, keeps its full height (flagScaleY back to 1.0; the compression stays available as a knob).",
+      "flagScaleY": 1.0,
       "_flagScaleYNote": "day 23: vertical-only scale on the 8th flag for the staccato unit (composer: 'if we can adjust it so it's not so tall'). At 1.0 the staff + mf + flag chain (2 + 0.3 + 0.97 + 0.3 + 3.008 = 6.58 ss) overflows the 6.51 ss half-lane by 0.07; at 0.65 the flag is 1.96 ss tall and the chain tops out at 5.53. Anisotropic — the Emmentaler curl is compressed, not redrawn; alternatives (a procedural straight flag as in LilyPond's modern-straight style, or a uniform scale) are listed in RUNNING_LOG day 23.",
       "_flagClearanceNote": "day 23 (composer, wc-29): 'have the bottom of the flag clear the staff, just like three pixels or so — maybe not the full typical gap.' 3 px at the jury frame (7.9 px/ss) = 0.38 ss. Piece #2's computeFlaggedStemLength law with this clearance (p2 used stem.flagClearance.clearanceSs = 1.0): the flag's near edge clears the outer staff line; applied by devices with nhStemRule 'flagClear'; the default stem length wins when already longer. Head scale 0.844 = piece #2 notehead.cellMotive.scaleFactor (the composer's remembered small-notehead formulation; uniform scale on the same outline, no new glyph). nhDot = the staccato dot on the notehead side (dotYFor).",
       "chainSide": { "rule": "sideWithRoom", "laneHalfSs": 6.51 },

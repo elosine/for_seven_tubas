@@ -6236,3 +6236,20 @@ dictated, the save-shuffle established, T1 facts scanned.**
     8) · flag 15.1–30.6 (ky 0.65) · 3.0 px · mf 33.6–41.2 centred on the
     head column · 2.4 px · top line 43.6 · head 99.9–105.8 · 2.4 px · dot
     r 1.58 at 109.7.
+- **wc-29 round 6 (composer): "staccato can be closer, reduce 50% the gap;
+  move the dynamic so the right edge of the dynamic clears the stem, just
+  a little tiny bit of gap — akin to the staccato gap; go back to the old
+  flag; capture these as standards."** → **THE TIGHT GAP STANDARD 0.15 ss**
+  (1.2 px at the jury frame): registry `tightGapSs` documented, carried by
+  `nhDotGapSs` (dot from the head edge) and `dynStemGapSs` (the dynamic's
+  right edge from the stem's left edge). Device `dynBesideStem`: above a
+  stem-up flagged unit the mark sits BESIDE the stem (not centred on the
+  head column), so the flag on the stem's other side keeps its full
+  height — `flagScaleY` back to 1.0 (the compression stays a knob) and the
+  flag-clear stem rule again clears only the staff (a device without
+  dynBesideStem keeps the under-the-flag stack). Tests updated (mf right
+  edge exactly 0.15 left of the stem; dot exactly 0.15 below the scaled
+  head edge; flag at full height, 0.38 above the top line). Verified live
+  (video): dot top 1.18 px under the head · mf right edge 1.15 px left of
+  the stem, 2.4 px above the top line · flag 16.8–40.6 full height, 3.0 px
+  above the top line · stem tip 16.8 (lane top 8).
