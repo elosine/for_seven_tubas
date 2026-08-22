@@ -6666,3 +6666,47 @@ dictated, the save-shuffle established, T1 facts scanned.**
     group 2; the 8th rest in the gap; the tuplet rest inside the bracket;
     no warnings beyond the four standing ring-bar flags. All batteries
     green.
+- **THE DURATION QUESTION, settled by measurement, then the composer's
+  midway solution.** Composer: *"I do want the eighth notes to be the same
+  duration, the shortness to be the same as the sixteenth notes. If a
+  staccato dotted eighth note is interpreted to be played the same duration
+  as the other ones, we'll just leave it."* Analysis given:
+  - **The convention says their worry is real** — staccato shortens
+    PROPORTIONALLY to the written value, so at ♩87.2 a staccato 8th reads
+    ~172 ms and a staccato 16th ~86 ms: twice as long.
+  - **But the measurement says the distinction is unplayable here.** The
+    2n staccato samples for figure 1's eight pitches are **0.43–0.48 s,
+    mean 458 ms** (0.33–0.53 across the whole range — essentially flat).
+    That is LONGER than both interpretations, and **longer than every gap
+    in the figure** (all seven gaps 155–377 ms are shorter than the sample
+    that precedes them). The written value cannot control duration on this
+    instrument; it controls WHEN THE NEXT ATTACK COMES. Noted as a
+    consequence: the figure's real sound is overlap, not detachment — a
+    sample/technique question, not a notation one.
+  - Options put: (A) keep 8ths/16ths + a front-matter line ("all staccato
+    attacks one fixed short length, note values indicate placement"),
+    (B) all 16ths + rests — which would give flag·rest·flag·rest·pair,
+    (C) note that the piece already carries sounding length in the RING
+    BAR, so staccatos having none is already consistent.
+  - **Composer's midway solution, and it is the standard device:**
+    *"almost like flags on all the eighth notes. So there'll be the
+    connecting beam on top. And then for those notes, just a short beam
+    where the sixteenth note beam is, not something that connects. So you
+    can still see the phrasing. And then let's put back the sixteenth
+    rests."* → **BEAMLETS (fractional beams)**. Every partial is written
+    as a 16th; the primary beam still groups the gesture; the SECOND level
+    connects only ADJACENT 16ths and appears as a **stub** on a note that
+    opens a gap. Registry `beamStubSs 1.0`; `--trueDurations` keeps the
+    8th/16th writing available.
+  - Implementation detail worth keeping: a secondary run now continues only
+    while consecutive notes ABUT — the previous note's written length must
+    reach the next one's grid position — so a rest breaks the beam
+    automatically, and tuplet members (fractional positions) obey the same
+    rule.
+  - Result, live (page 3): primary beams 1232–1531 and 1604–1694 · second
+    level = **stubs (7.9 px) on notes 1, 2, 6 and the final partial**,
+    connecting segments over notes 3–4–5 (48.5 px), 7–8 (29.2 px) and
+    members 9–10–11 (52.3 px) · **16th rests at 1248, 1302, 1409, 1463**
+    (after notes 1, 2, 5, 6 — exactly where the composer said), the 8th
+    rest at 1544 in the gap, the tuplet's 16th rest at 1660 inside the
+    bracket. Batteries green.

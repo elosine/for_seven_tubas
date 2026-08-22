@@ -1465,8 +1465,8 @@
      "beamPos": 0,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "noteUnits": 2,
-     "noteBeams": 1,
+     "noteUnits": 1,
+     "noteBeams": 2,
      "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
@@ -1499,8 +1499,8 @@
      "beamPos": 2,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "noteUnits": 2,
-     "noteBeams": 1,
+     "noteUnits": 1,
+     "noteBeams": 2,
      "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
@@ -1602,8 +1602,8 @@
      "beamPos": 6,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "noteUnits": 2,
-     "noteBeams": 1,
+     "noteUnits": 1,
+     "noteBeams": 2,
      "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }
@@ -1636,8 +1636,8 @@
      "beamPos": 8,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "noteUnits": 2,
-     "noteBeams": 1,
+     "noteUnits": 1,
+     "noteBeams": 2,
      "beamHasTuplet": true,
      "beamHasArtic": "accent"
     }

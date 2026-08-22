@@ -23,6 +23,7 @@
 //   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
 //   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
 //   --tuplet 10-11@3:2       members 10-11 form a 3:2 tuplet; spare slots become rests in the bracket
+//   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
 //
@@ -218,12 +219,21 @@ const { doc, warnings } = Extract.extract(score, {
     for (let k = 1; k <= members.length; k++) { if (breaks.has(k)) lastOfGroup.add(k - 2); }
     lastOfGroup.add(members.length - 1);
     const tupOf = k => tuplets.find(t => k + 1 >= t.from && k + 1 <= t.to) || null;
+    // EVERY PARTIAL IS A 16th (day 23, composer's midway solution): the
+    // written value no longer carries duration — the instrument's staccato is
+    // one fixed length whatever is written (measured: 0.43-0.48 s across this
+    // figure, longer than any gap in it). So all notes are 16ths, the gaps get
+    // 16th rests, and the SECOND beam level does the phrasing work: a
+    // connecting segment between adjacent 16ths, a stub on a note that opens a
+    // gap. --trueDurations restores the 8th/16th writing.
+    const trueDur = flag('trueDurations');
     const durUnits = members.map((e, k) => {
       if (tupOf(k)) return null;                       // tuplet members: slot value
+      if (!trueDur) return 1;
       if (lastOfGroup.has(k)) return 1;
       return fit.grid[k + 1] - fit.grid[k];
     });
-    const beamsFor = u => (u >= 4 ? 0 : u >= 2 ? 1 : 2);   // quarter 0, 8th 1, 16th 2
+    const beamsFor = u => (u >= 4 ? 0 : u >= 2 ? 1 : 2);   // quarter 0, 8th 1, 16th 2 (only under --trueDurations)
     console.log('    written values: ' + members.map((e, k) => tupOf(k) ? 'tup' : (durUnits[k] === 1 ? '16th' : durUnits[k] === 2 ? '8th' : durUnits[k] + 'u')).join(' '));
     for (const t of tuplets) console.log('    tuplet ' + t.num + ':' + t.den + ' over members ' + t.from + '-' + t.to +
       ' (' + t.num + ' slots of ' + (t.den / t.num * fit.unit * 1000).toFixed(1) + ' ms; ' + (t.num - (t.to - t.from + 1)) + ' rest slot(s))');

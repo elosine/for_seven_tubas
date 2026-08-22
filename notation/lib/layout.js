@@ -574,7 +574,19 @@
                     // (day 23: figure 1 rewritten at true durations — 8ths get
                     // one beam, 16ths two, so the beam pattern itself shows
                     // which notes are close and which are apart)
-                    grp.tips[grp.tips.length - 1].beams = dev.noteBeams || 1;
+                    const tipRef = grp.tips[grp.tips.length - 1];
+                    tipRef.beams = dev.noteBeams || 1;
+                    // grid position + written length, so the secondary beam can
+                    // tell "adjacent 16ths" (connect) from "16th then a rest"
+                    // (a stub). Tuplet members carry fractional positions so
+                    // adjacency inside a bracket works the same way.
+                    if (dev.tupletGroup) {
+                      tipRef.pos = dev.tupletStartPos + dev.tupletSlot * (dev.tupletDen / dev.tupletNum);
+                      tipRef.len = dev.tupletDen / dev.tupletNum;
+                    } else if (dev.beamPos != null) {
+                      tipRef.pos = dev.beamPos;
+                      tipRef.len = dev.noteUnits != null ? dev.noteUnits : 1;
+                    }
                     if (dev.beamUnit) {
                       grp.unit = dev.beamUnit;
                       grp.beams = dev.beamLevels || 1;
@@ -836,13 +848,32 @@
         const maxLvl = Math.max(...g.tips.map(t => t.beams || 1));
         for (let b = 2; b <= maxLvl; b++) {
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
+          const stub = o.beamStubSs != null ? o.beamStubSs : 1.0;
           let run = [];
           const flush = () => {
-            if (run.length >= 2) items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
-              tips: run.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+            if (run.length >= 2) {
+              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
+                tips: run.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+            } else if (run.length === 1) {
+              // A BEAMLET (day 23, composer): a note with no 16th neighbour
+              // still shows the second level, as a stub pointing right —
+              // "a short beam where the sixteenth note beam is, not something
+              // that connects". Standard fractional-beam practice.
+              const t = run[0];
+              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b + '-stub', stub: true,
+                tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off }, { t: t.t, dxSs: t.dxSs + stub, ySs: t.ySs + off }] });
+            }
             run = [];
           };
-          for (const t of g.tips) { if ((t.beams || 1) >= b) run.push(t); else flush(); }
+          // a run continues only while consecutive notes ABUT: the previous
+          // note's written length must reach the next one's position, i.e.
+          // nothing (a rest) sits between them
+          let prev = null;
+          for (const t of g.tips) {
+            if ((t.beams || 1) < b) { flush(); prev = null; continue; }
+            if (prev && t.pos != null && prev.pos != null && Math.abs((prev.pos + (prev.len || 1)) - t.pos) > 1e-6) flush();
+            run.push(t); prev = t;
+          }
           flush();
         }
         // ARTICULATIONS above the beam, every one at the SAME height so the
