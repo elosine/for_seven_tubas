@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
       byTechnique: {
         fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag16', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
     const engrave = new Map();
@@ -179,7 +179,7 @@
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
         // go line / ring bar / dynamic until asked
-        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag8', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
+        staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag16', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
     }, o.devices || {});
     const deviceOf = makeDeviceOf(DEV, engOf);
@@ -340,12 +340,16 @@
                 // as on metric notes. Attach points come from THIS head's
                 // own anchors; length = the one-octave default, extended to
                 // the middle line outside the staff (stemLenFor).
-                const stemKind = dev.nhStem === 'flag8' || dev.nhStem === 'plain' || dev.nhStem === 'beam' ? dev.nhStem : null;
+                // nhStem: 'flag8' | 'flag16' | 'plain' | 'beam' (day 23 — the
+                // composer's double flag on the one-shot GC notes)
+                const stemKind = /^flag\d+$/.test(dev.nhStem || '') || dev.nhStem === 'plain' || dev.nhStem === 'beam' ? dev.nhStem : null;
+                const flagDur = /^flag(\d+)$/.test(stemKind || '') ? +RegExp.$1 : null;
                 const engS = engOf(e.id);
                 const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir : (yDraw >= 0 ? 'down' : 'up');
                 const attA = stemDir === 'up' ? nhO.anchors.stemAttachUp : nhO.anchors.stemAttachDown;
                 const att = { dx: attA.x - nhO.anchors.center.x, dy: attA.y - nhO.anchors.center.y };
-                const flagG = stemKind === 'flag8' ? (stemDir === 'up' ? glyphs.flag.up8 : glyphs.flag.down8) : null;
+                const flagG = flagDur ? glyphs.flag[(stemDir === 'up' ? 'up' : 'down') + flagDur] : null;
+                if (flagDur && !flagG) warnings.push('nh-unit ' + e.id + ': no flag glyph for ' + stemKind + ' ' + stemDir);
                 // SYSTEMIC anchor rule (day 22 round 2): the gap before the
                 // go line is measured from the unit's RIGHTMOST INK — the
                 // ledger overhang when ledgers exist, else the head edge —
@@ -517,14 +521,22 @@
                   // cluster and a lone flagged one-shot top out together.
                   if (stemKind === 'beam') {
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
-                    const beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + glyphs.flag.up8.hSs);
+                    // the beam tracks THE FLAG THE ONE-SHOTS ACTUALLY WEAR
+                    // (composer: "at the same height as our flagged ones") —
+                    // read from this technique's own device, so switching the
+                    // one-shot flag (8th -> 16th, day 23) moves the beam with
+                    // it. The battery caught this the moment the flag changed.
+                    const techStem = ((DEV.byTechnique || {})[e.technique] || {}).nhStem;
+                    const fdur = /^flag(\d+)$/.test(techStem || '') ? +RegExp.$1 : 8;
+                    const fgB = glyphs.flag['up' + fdur] || glyphs.flag.up8;
+                    const beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + fgB.hSs);
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
                     if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [] });
                     beamGroups.get(key).tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
                   }
                   items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
-                  if (flagG) items.push(Object.assign({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
+                  if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}));
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)

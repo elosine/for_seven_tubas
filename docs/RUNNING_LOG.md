@@ -6412,3 +6412,44 @@ dictated, the save-shuffle established, T1 facts scanned.**
     y 16.8 · ONE beam 1228.6→1528, 3.16 px thick at y 16.8 — the same
     height as the flagged one-shots' stem tips · warning strip empty.
     Ledgers and accidentals kept (pitch is not "else"); flag if not wanted.
+- **The double flag (composer: "sixteenth flag, double flag on the
+  staccato... replace those single flags with double flags"):** the 16th
+  flags were never ported — only the 8ths. Extended `port_glyphs.js` to
+  carry `16up` / `16down` from piece #2's `flag_paths.json` (same session-49
+  capture, stock LP at the locked sizes, so no new measurement): up16
+  0.892 × 3.508, down16 1.132 × 3.008. **Re-port verified safe: 0
+  pre-existing entries changed** (including the day-23 ledgerLineThreshold
+  4). stamps' `flag8` generalised to `flagN(dur, dir)`; render matches
+  `flag-(up|down)N`; layout's `nhStem` accepts any `flagN`; staccato device
+  → `flag16`.
+- **A coupling the battery caught immediately:** the beam line had been
+  derived from the 8TH flag's height, so the moment the one-shots became
+  16ths the cluster beam no longer matched their stem tips — breaking the
+  composer's own rule ("the beam at the same height as our flagged ones").
+  Fixed at the root: the beam height now reads THE TECHNIQUE'S OWN nhStem
+  and uses that flag's height, so any future flag change moves the beam
+  with it. New height 2 + 0.38 + 3.508 = **5.888 ss**.
+- **CLUSTER TEMPO ANALYSIS (composer: "see if we can find a tempo that
+  keeps... the least complex, precise rhythmic notation... prevent us from
+  using triple-nested tuplets. Let me know if you had any success with
+  finding an analytical model").** Built `tools/cluster_tempo.js` — an
+  EXHAUSTIVE unit search (20–500 ms at 0.2 ms steps) scored on accuracy
+  (max |onset − grid|) and complexity (power-of-2 subdivision = no tuplet ·
+  one tuplet level vs nesting · beat conductable 0.3–1.5 s · grid above
+  D43's 0.09 s playable floor). Exhaustive, so "no fit under X ms" is a
+  RESULT, not a search failure. Also: this single-unit model can never
+  produce NESTED tuplets by construction — nesting would need a second,
+  incommensurate grid.
+  - **RESULT for 31.49–33.59: it fits a plain grid with NO TUPLET AT ALL.**
+    Unit **175 ms**, beat 0.700 s = **♩ = 85.7**, subdivision 4 (16ths).
+    Grid 0,2,4,5,6,8,10,11 → beats 0 · 0.5 · 1 · 1.25 · 1.5 · 2 · 2.5 ·
+    2.75. Rhythm: 8th 8th 16th 16th 8th 8th 16th. **Max error 20 ms**,
+    per-note 0 / −7 / +20 / +1 / −19 / +4 / −18 / −6 ms.
+  - Round-tempo check: **♩ = 86 gives max 22.3 ms** (same grid) — worth it
+    if a round number matters; ♩ = 85 → 32.7 ms; 84 → 53.7; 88 → 44; 80
+    and 90 break the grid entirely. So 85.7 (or 86) is a genuine local
+    optimum, not one of many.
+  - Caveat for the composer's ear: 20 ms is the tight end of E1's open
+    epsilon and the fit sits right at it. If the ear rejects 20 ms, no
+    other tempo does better — the honest fallback is proportional
+    (spatial) notation, which has zero error by construction.

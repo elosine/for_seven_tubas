@@ -58,10 +58,15 @@
       return box('stem', t, L, anchors, [rectPrim(0, 0, t, L)]);
     }
 
-    function flag8(dir) {
-      const g = dir === 'up' ? G.flag.up8 : G.flag.down8;
-      return box('flag8' + dir, g.wSs, g.hSs, { stemTip: g.anchors.stemTip }, [pathPrim(g.path)]);
+    // day 23: 8th AND 16th flags (composer: "sixteenth flag, double flag on
+    // the staccato... replace those single flags with double flags").
+    function flagN(dur, dir) {
+      const key = (dir === 'up' ? 'up' : 'down') + dur;
+      const g = G.flag[key];
+      if (!g) throw new Error('stamps: no flag "' + key + '"');
+      return box('flag' + dur + dir, g.wSs, g.hSs, { stemTip: g.anchors.stemTip }, [pathPrim(g.path)]);
     }
+    function flag8(dir) { return flagN(8, dir); }
 
     function clefBass() {
       const g = G.clef.bass;
@@ -114,7 +119,7 @@
       ]);
     }
 
-    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, clefBass, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

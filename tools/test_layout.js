@@ -145,7 +145,7 @@ const Lf0 = Layout.layoutSection(JSON.parse(JSON.stringify(fb)), G, { devices: {
 eq(Lf0.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no device: no glyphs on the parachute path');
 eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'notehead').length, 4, 0, 'staccato device: 4 filled heads on the parachute path');
 eq(Lf.systems[0].items.filter(i => i.k === 'stem').length, 4, 0, 'staccato device: 4 stems');
-eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length, 4, 0, 'staccato device: 4 flags');
+eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').length, 4, 0, 'staccato device: 4 sixteenth flags');
 
 // ---- DEVICE MEMBERSHIP (day 22, second note): registry-resolved ----
 // surge env = curve + go line + nh-unit + dyn pair; fortepiano technique =
@@ -268,7 +268,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   }
   const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
   const ks = K.find(i => i.k === 'stem');
-  const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
+  const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up16');   // day 23: the double flag
   ok(kh && kh.ySs === -5.5 && !K.some(i => i.g === 'notehead-open'), 'staccato: FILLED head at pitch (G1, -5.5)');
   // the head is SCALED (piece #2 cellMotive.scaleFactor 0.844, composer day
   // 23): its stem-attach offset scales with it
@@ -289,7 +289,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // to full height and clears only the staff (0.38)
   ok(kf && kf.scaleY == null, 'staccato: flag at full height (no scaleY)');
   ok(kmark && Math.abs((kmark.ySs - G.dynamic.mf.hSs / 2) - (2 + 0.3)) < 1e-9, 'staccato G1: mf bottom exactly 0.3 above the top staff line (' + (kmark.ySs - G.dynamic.mf.hSs / 2).toFixed(3) + ')');
-  ok(kf && Math.abs((kf.ySs - G.flag.up8.hSs) - (2 + 0.38)) < 1e-9, 'staccato G1: flag bottom exactly 0.38 above the top staff line (' + (kf.ySs - G.flag.up8.hSs).toFixed(3) + ')');
+  ok(kf && Math.abs((kf.ySs - G.flag.up16.hSs) - (2 + 0.38)) < 1e-9, 'staccato G1: 16th-flag bottom exactly 0.38 above the top staff line (' + (kf.ySs - G.flag.up16.hSs).toFixed(3) + ')');
   const stemLeft = ks.dxSs - G.standards.stem.thickness / 2;
   ok(kmark && Math.abs((kmark.dxSs + G.dynamic.mf.wSs / 2) - (stemLeft - 0.15)) < 1e-9, 'staccato G1: mf right edge exactly 0.15 ss left of the stem (' + (stemLeft - (kmark.dxSs + G.dynamic.mf.wSs / 2)).toFixed(3) + ')');
   ok(kf && kf.ySs <= 6.51 + 1e-9, 'staccato G1: stem tip inside the lane (' + kf.ySs.toFixed(3) + ' ≤ 6.51)');
@@ -305,11 +305,11 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   // the dot: notehead side (below, stem up), 0.3 ss from the SCALED head's
   // bottom edge (composer: "two or three pixels, very tight")
   ok(kdot && Math.abs((kh.ySs - G.notehead.filled.hSs * HK / 2) - (kdot.ySs + 0.2) - 0.15) < 1e-9 && kdot.ySs < kh.ySs, 'staccato: dot 0.15 ss below the head edge — the tight gap (' + kdot.ySs.toFixed(3) + ')');
-  ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
+  ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: the 16th flag hangs from the stem tip');
   // CENTERED ON THE GO LINE (day 23, composer: "everything centered on the
   // go line"). Measured from the EMITTED items' own glyph metrics — the ink
   // midpoint, not a re-run of the placement formula.
-  const flagRight = kf.dxSs + G.flag.up8.wSs - G.flag.up8.anchors.stemTip.x;
+  const flagRight = kf.dxSs + G.flag.up16.wSs - G.flag.up16.anchors.stemTip.x;
   const ka = K.find(i => i.k === 'glyph' && i.g === 'accidental-sharp');
   const accAnchorX = (G.accidental.sharp.anchors && G.accidental.sharp.anchors.noteY)
     ? G.accidental.sharp.anchors.noteY.x : G.accidental.sharp.wSs / 2;
@@ -332,7 +332,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
   const kd = JSON.parse(JSON.stringify(dir));
   kd.overlays = [{ id: 'o3', kind: 'engraving', target: { event: 'k' }, value: { stemDir: 'down' } }];
   const K2 = one(kd, 'k');
-  ok(K2.find(i => i.k === 'stem').attach === 'down' && K2.some(i => i.g === 'flag-down8'), 'staccato: stemDir override flips stem + flag');
+  ok(K2.find(i => i.k === 'stem').attach === 'down' && K2.some(i => i.g === 'flag-down16'), 'staccato: stemDir override flips stem + flag');
   // per-item override: give the fp a dyn pair; take the surge's curve away
   const ov = JSON.parse(JSON.stringify(dir));
   ov.overlays = [
@@ -362,10 +362,11 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length
     // the beam sits at the flagged one-shot's stem tip: staff edge + flag
     // clearance + a flag's height — asserted against the constants, and
     // against a real flagged note laid out from the same registry
-    const expectY = 2 + 0.38 + G.flag.up8.hSs;
-    ok(bm && bm.tips.every(t => Math.abs(t.ySs - expectY) < 1e-9), 'cluster: beam at the flagged-stem height (' + (bm && bm.tips[0].ySs.toFixed(3)) + ' = 2 + 0.38 + ' + G.flag.up8.hSs + ')');
+    // the beam follows the flag the one-shots wear — day 23: the 16th
+    const expectY = 2 + 0.38 + G.flag.up16.hSs;
+    ok(bm && bm.tips.every(t => Math.abs(t.ySs - expectY) < 1e-9), 'cluster: beam at the flagged-stem height (' + (bm && bm.tips[0].ySs.toFixed(3)) + ' = 2 + 0.38 + ' + G.flag.up16.hSs + ')');
     ok(its.filter(i => i.k === 'stem').every(st => Math.abs(st.yB - expectY) < 1e-9), 'cluster: every stem reaches the beam');
-    const kfTip = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
+    const kfTip = K.find(i => i.k === 'glyph' && i.g === 'flag-up16');
     ok(kfTip && Math.abs(kfTip.ySs - expectY) < 1e-9, 'cluster: a lone flagged one-shot tops out at the same height');
     // a one-note cluster draws no beam and warns
     const solo = JSON.parse(JSON.stringify(cl));

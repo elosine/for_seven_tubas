@@ -142,6 +142,12 @@ const out = {
   flag: {
     up8: { path: fl['8up'].path, wSs: fl['8up'].width, hSs: fl['8up'].height, anchors: { stemTip: fl['8up'].anchor }, _provenance: prov('glyphs/flag_paths.json 8up') },
     down8: { path: fl['8down'].path, wSs: fl['8down'].width, hSs: fl['8down'].height, anchors: { stemTip: fl['8down'].anchor }, _provenance: prov('glyphs/flag_paths.json 8down') },
+    // 16th flags (day 23, composer: "sixteenth flag, double flag on the
+    // staccato... let's replace those single flags with double flags") —
+    // same capture as the 8ths (session 49, stock LP at the locked sizes),
+    // ported from the same file, so no new measurement was needed
+    up16: { path: fl['16up'].path, wSs: fl['16up'].width, hSs: fl['16up'].height, anchors: { stemTip: fl['16up'].anchor }, _provenance: prov('glyphs/flag_paths.json 16up') },
+    down16: { path: fl['16down'].path, wSs: fl['16down'].width, hSs: fl['16down'].height, anchors: { stemTip: fl['16down'].anchor }, _provenance: prov('glyphs/flag_paths.json 16down') },
   },
   clef: {
     bass: {
@@ -179,4 +185,4 @@ const out = {
 
 const outFile = path.join(ROOT, 'notation', 'lib', 'glyphs.json');
 fs.writeFileSync(outFile, JSON.stringify(out, null, 1));
-console.log('wrote ' + outFile + ' — noteheads, 8th flags, bass clef, ' + Object.keys(accidentals).length + ' accidentals, standards');
+console.log('wrote ' + outFile + ' — noteheads, 8th + 16th flags, bass clef, ' + Object.keys(accidentals).length + ' accidentals, standards');

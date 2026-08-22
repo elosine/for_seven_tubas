@@ -67,7 +67,7 @@
         },
         "byTechnique": {
           "fortepiano": { "goLine": true, "gc": true, "nhUnit": true, "ringBar": true, "dynMark": "sfzp" },
-          "staccato": { "goLine": true, "gc": true, "nhUnit": true, "nhHead": "filled", "nhHeadScale": 0.844, "nhStem": "flag8", "nhStemRule": "flagClear", "nhDot": true, "nhDotGapSs": 0.15, "nhGapSs": 0.6, "dynMark": "band", "dynBesideStem": true },
+          "staccato": { "goLine": true, "gc": true, "nhUnit": true, "nhHead": "filled", "nhHeadScale": 0.844, "nhStem": "flag16", "nhStemRule": "flagClear", "nhDot": true, "nhDotGapSs": 0.15, "nhGapSs": 0.6, "dynMark": "band", "dynBesideStem": true },
           "_staccatoNote": "day 23, OPTION B of the layering discussion (Tufte: layering & separation, 1+1=3, position before colour): NO go line for a point-in-time gesture — the GC's impact marker IS the go mark, so a go line was a third encoding of one time; the unit sits BEFORE the go time like every other unit (reading rule: the ink just before the mark is what you play at the mark), with nhGapSs 0.6 so the head clears the marker's left edge (r 0.51 ss) with air; head, dot and ledgers sit under the arc (the ictus hang keeps the arc at 35 %+ height 0.05 s before impact); stem and flag may cross it (composer). Option A (centred on go, marker lightened) rejected: it lightens the datum. nhAnchor 'center' remains available as a device value."
         }
       },
