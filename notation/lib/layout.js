@@ -119,7 +119,13 @@
     // is how a settled note's device reaches its siblings (§6 derivation).
     const DEV = Object.assign({
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true } },
-      byTechnique: { fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' } },
+      byTechnique: {
+        fortepiano: { goLine: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
+        // wc-29 (day 23, composer): "black note head, stem, and one flag" —
+        // the same unit builder with a filled head and a flagged stem; no
+        // go line / ring bar / dynamic until asked
+        staccato: { nhUnit: true, nhHead: 'filled', nhStem: 'flag8' },
+      },
     }, o.devices || {});
     const deviceOf = e => Object.assign({},
       (DEV.byTechnique || {})[e.technique] || {},
@@ -207,21 +213,51 @@
               // glyphs.standards (accidental gap D.6 · ottava sessions
               // 57/77 · engage rule = staffRouter's 3-ledger threshold).
               {
-                const nhO = glyphs.notehead.open;
+                // head kind is device data (wc-29, day 23): 'open' (the
+                // surge / fp unit) or 'filled' (the staccato unit)
+                const headKind = dev.nhHead === 'filled' ? 'filled' : 'open';
+                const nhO = glyphs.notehead[headKind];
+                const headGlyph = headKind === 'filled' ? 'notehead' : 'notehead-open';
                 const gapSs = o.nhGapSs != null ? o.nhGapSs : 0.25;
                 const ledgers = ledgersFor(yDraw);
+                // STEM + FLAG (wc-29, day 23 — composer: "black note head,
+                // stem, and I think one flag"): nhStem = 'flag8' | 'plain' |
+                // off. Direction = the house rule (below the middle line →
+                // up) unless the per-item engraving override says stemDir,
+                // as on metric notes. Attach points come from THIS head's
+                // own anchors; length = the one-octave default, extended to
+                // the middle line outside the staff (stemLenFor).
+                const stemKind = dev.nhStem === 'flag8' || dev.nhStem === 'plain' ? dev.nhStem : null;
+                const engS = engOf(e.id);
+                const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir : (yDraw >= 0 ? 'down' : 'up');
+                const attA = stemDir === 'up' ? nhO.anchors.stemAttachUp : nhO.anchors.stemAttachDown;
+                const att = { dx: attA.x - nhO.anchors.center.x, dy: attA.y - nhO.anchors.center.y };
+                const flagG = stemKind === 'flag8' ? (stemDir === 'up' ? glyphs.flag.up8 : glyphs.flag.down8) : null;
                 // SYSTEMIC anchor rule (day 22 round 2): the gap before the
                 // go line is measured from the unit's RIGHTMOST INK — the
-                // ledger overhang when ledgers exist, else the head edge.
+                // ledger overhang when ledgers exist, else the head edge —
+                // and (day 23) a stem-up flag when it reaches past the head.
                 const ledgerExt = ledgers.length
                   ? nhO.wSs * ((stds.ledgerLine && stds.ledgerLine.lengthFraction) || 0.25) : 0;
-                const headDx = -(gapSs + ledgerExt + nhO.wSs / 2);
-                items.push({ k: 'glyph', g: 'notehead-open', t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
+                const flagRight = flagG ? att.dx + (flagG.wSs - flagG.anchors.stemTip.x) : -Infinity;
+                const rightExt = Math.max(nhO.wSs / 2 + ledgerExt, flagRight);
+                const headDx = -(gapSs + rightExt);
+                items.push({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' });
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
                 let leftEdgeDx = headDx - nhO.wSs / 2 - ledgerExt * (ledgers.length ? 1 : 0);
                 let inkTopY = yDraw + nhO.hSs / 2, inkBotY = yDraw - nhO.hSs / 2;
+                if (stemKind) {
+                  const yStart = yDraw - att.dy;
+                  const L = stemLenFor(yDraw, o.stemLen);
+                  const yEnd = stemDir === 'up' ? yStart + L : yStart - L;
+                  items.push({ k: 'stem', t: e.onset, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
+                  if (flagG) items.push({ k: 'glyph', g: stemDir === 'up' ? 'flag-up8' : 'flag-down8', t: e.onset, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' });
+                  // the stem tip is the unit's outer ink on its side (a flag
+                  // hangs back toward the head, never past the tip)
+                  if (stemDir === 'up') inkTopY = Math.max(inkTopY, yEnd); else inkBotY = Math.min(inkBotY, yEnd);
+                }
                 if (spN.alter) {
                   const accKind = ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
                     '0.5': 'quarterSharp', '-0.5': 'quarterFlat',

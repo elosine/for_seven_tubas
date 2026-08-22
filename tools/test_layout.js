@@ -138,7 +138,14 @@ const fb = JSON.parse(JSON.stringify(synth));
 fb.chunks[0].strategy = 'unresolved';
 const Lf = Layout.layoutSection(fb, G);
 eq(Lf.systems[0].items.filter(i => i.k === 'brick').length, 4, 0, 'unresolved chunk -> 4 bricks');
-eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on the parachute path');
+// the parachute path carries whatever DEVICE the technique has (registry
+// data, day 22/23) — none ⇒ bricks alone; the staccato unit (day 23) ⇒
+// filled head + stem + flag per note, bricks staying underneath
+const Lf0 = Layout.layoutSection(JSON.parse(JSON.stringify(fb)), G, { devices: { byEnv: {}, byTechnique: {} } });
+eq(Lf0.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no device: no glyphs on the parachute path');
+eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'notehead').length, 4, 0, 'staccato device: 4 filled heads on the parachute path');
+eq(Lf.systems[0].items.filter(i => i.k === 'stem').length, 4, 0, 'staccato device: 4 stems');
+eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && /^flag-/.test(i.g)).length, 4, 0, 'staccato device: 4 flags');
 
 // ---- DEVICE MEMBERSHIP (day 22, second note): registry-resolved ----
 // surge env = curve + go line + nh-unit + dyn pair; fortepiano technique =
@@ -187,7 +194,26 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph').length, 0, 0, 'no glyphs on 
   ok(mark && Math.abs(mark.dxSs - hd.dxSs) < 1e-9, 'fortepiano: sfzp centered on the head column');
   ok(mark && ot && ot.ySs < mark.ySs - G.dynamic.sfzp.hSs / 2, 'fortepiano: ottava below the dynamic');
   ok(has(S, 'glyph') && !S.some(i => i.g === 'dyn-sfzp'), 'surge: no single mark (pair + arrow instead)');
-  ok(has(K, 'goline') === 0 && has(K, 'glyph') === 0 && has(K, 'brick') === 1, 'staccato: brick alone');
+  // THE STACCATO UNIT (wc-29, day 23 — composer: "black note head, stem,
+  // and I think one flag"): filled head + stem + 8th flag, nothing else
+  // yet. G1 → written G2 (-2, below the middle line) → stem UP, flag-up8
+  // at the tip; the flag reaches past the head, so the column anchor
+  // (rightmost ink a gap before go) is the flag's right edge.
+  ok(has(K, 'goline') === 0 && has(K, 'ringbar') === 0 && !K.some(i => /^dyn-/.test(i.g || '')) && has(K, 'brick') === 1, 'staccato: no go line / ring bar / dynamic; brick stays');
+  const kh = K.find(i => i.k === 'glyph' && i.g === 'notehead');
+  const ks = K.find(i => i.k === 'stem');
+  const kf = K.find(i => i.k === 'glyph' && i.g === 'flag-up8');
+  ok(kh && kh.ySs === -2 && !K.some(i => i.g === 'notehead-open'), 'staccato: FILLED head at the written G2');
+  ok(ks && ks.attach === 'up' && Math.abs(ks.dxSs - (kh.dxSs + G.notehead.filled.anchors.stemAttachUp.x - G.notehead.filled.anchors.center.x)) < 1e-9, 'staccato: stem up from the head right attach point');
+  ok(ks && Math.abs((ks.yB - ks.yA) - 3.5) < 1e-9, 'staccato: one-octave stem (3.5 ss) inside the staff');
+  ok(kf && Math.abs(kf.dxSs - ks.dxSs) < 1e-9 && Math.abs(kf.ySs - ks.yB) < 1e-9 && kf.align === 'stemTip', 'staccato: flag-up8 hangs from the stem tip');
+  const flagRight = kf.dxSs + G.flag.up8.wSs - G.flag.up8.anchors.stemTip.x;
+  ok(Math.abs(flagRight - (-0.25)) < 1e-9, 'staccato: the flag right edge sits the 0.25 gap before go (rightmost-ink rule)');
+  // stemDir override per item, as on metric notes
+  const kd = JSON.parse(JSON.stringify(dir));
+  kd.overlays = [{ id: 'o3', kind: 'engraving', target: { event: 'k' }, value: { stemDir: 'down' } }];
+  const K2 = one(kd, 'k');
+  ok(K2.find(i => i.k === 'stem').attach === 'down' && K2.some(i => i.g === 'flag-down8'), 'staccato: stemDir override flips stem + flag');
   // per-item override: give the fp a dyn pair; take the surge's curve away
   const ov = JSON.parse(JSON.stringify(dir));
   ov.overlays = [

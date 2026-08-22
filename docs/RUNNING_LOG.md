@@ -5788,3 +5788,34 @@ dictated, the save-shuffle established, T1 facts scanned.**
   drawn as a hairline in zoom) · R2 (*events continue, states restate*) ·
   R4 (sweep the draft; build R2 only on a real case). Composer chose
   option (a): pan now, file, carry on with wc-29 — R2 not yet ruled on.
+- **wc-29 element 1 — composer: piece #2's GC one-shots ("small note
+  heads, stemmed, and single flags") → "black note head, stem, and I
+  think one flag. Let's go with one flag for now."** Found in piece #2:
+  the `pluckedPianoChord` idiom's oneShot branch (mk-52/mk-54, session
+  58c) — filled heads at LP font-size −2 (the "small" look), stem
+  thickness 0.13 ss, 8th flags captured at the same size (8up 0.892×3.008,
+  8down 1.132×2.796), stem length by the flag-clearance rule (chords
+  outside the staff). This piece already carried all of it from the
+  day-22 port (glyphs.json: notehead.filled, flag.up8/down8, stem 0.13,
+  defaultLength 3.5 = the conventional octave) and uses stems+flags on
+  the trance metric notes — so wc-29 is assembly, not capture.
+- Built as registry data: `devices.byTechnique.staccato = { nhUnit,
+  nhHead:'filled', nhStem:'flag8' }` — the SAME nh-unit builder (ledgers,
+  accidental, ottava, column anchoring inherited) with two new knobs: head
+  kind and stem kind ('flag8' | 'plain' | off). Stem direction = house
+  rule (below the middle line → up), per-item `stemDir` override as on
+  metric notes; attach points from the chosen head's own anchors; length
+  stemLenFor (3.5, extended to the middle line outside the staff). The
+  rightmost-ink anchor rule now counts a stem-up flag. Stem tip updates
+  the unit's ink extent for the column chain. Nothing else on the note.
+- Tests: parachute "no glyphs" assertion had "staccato has no device"
+  baked in → split into "no device ⇒ no glyphs" + "staccato device ⇒ 4
+  heads/stems/flags, bricks stay"; DEVICE MEMBERSHIP gains the staccato
+  census (filled G2, stem up at the right attach, 3.5 ss, flag at the tip,
+  flag right edge = −0.25 before go, stemDir override flips both). Seen
+  red (2) before the update; layout/render/snapshots/stamps green after.
+- Verified live (x02 zoom ×2, 14–19.8 s): head 1233.4–1249.8 on the bottom
+  line (cy 150.4; brick cy 205.7 = 3.5 ss lower = the sounding G1) · stem
+  x 1247.6 w 2.05 px (0.13 ss) h 55.3 px (3.5 ss) · flag at the tip
+  14.1×47.5 px (0.892×3.008 ss) · flag right edge 1261.7 vs brick 1265.7 =
+  0.25 ss gap · 8vb under the head. Composer to judge the look.
