@@ -6070,3 +6070,45 @@ dictated, the save-shuffle established, T1 facts scanned.**
   left 940.8 = **6.8 px air** · ledgers end 935.8 · dot cx 930.6, clear ·
   marker solid at (944.84, 105.8) r 4 · ball at impact (944.8, 105.8),
   opacity 0.85. Composer to judge the page with and without the ball.
+- **DYNAMICS — the strategic discussion (composer asked "what intellectual
+  domain to consult", then "look at them... build concrete proposals").**
+  Composer's framing, verbatim-ish: the MIDI's fine velocity gradations
+  give the dense material "dimensionality... from 2D to 3D"; performers
+  CAN produce varied dynamics but "it's usually couched in something else"
+  — dynamic marks + phrasing practice + accents; "play this note at 100
+  and the other at 103, that they can't do"; doesn't want an elaborate
+  model. Data first (section 1, <240 s): 699 staccatos, velocities 26–127
+  with every value used (75 at 127); playback = velocity only (plain mode,
+  CC7 full; the drawn level is recVel/12.7); **adjacent notes in a part
+  differ by a median of 14 velocity units (p75 26, p90 40)** — one full
+  marking between neighbours, kaleidoscopic contrast rather than fine
+  gradation; **provenance: A2/CLOUD02/CG/S-species = the composer's own
+  keyboard playing (2f play-in), DB3 = the density engine** — the
+  velocities are a captured PERFORMANCE, not per-note decisions.
+  Sources consulted: Miller 1956 / Garner 1953 (loudness absolute-
+  identification capacity ≈ 2.3 bits ≈ 5 categories); Kosta, Ramírez,
+  Bandtlow & Chew 2016 JMM (8 pianists × 44 Mazurkas: p ranges "often as
+  wide as mf"; in 3/8 recordings the p after an mf is louder than the mf;
+  Khoo's "primary dynamic shading" vs "inner shadings"); Nakamura 1987
+  (intended dynamics communicated "fairly well", crescendi recognized —
+  shape transmits better than level; paywalled beyond abstract); Fabiani
+  & Friberg 2011 JASA (timbre and loudness EQUALLY determine perceived
+  dynamic strength; loudness alone unreliable → for brass the accent
+  vocabulary is a dynamic channel); Boulez Structures Ia + Ligeti 1958/60
+  "Decision and Automatism" (12 serialized dynamics unrealizable/inaudible
+  as intended — dynamics are areas relative to context); Ferneyhough
+  (per-note dynamics as deliberate overload — not the aim); Lutosławski
+  ad libitum ("dynamics freely varied within p–f": range + character, the
+  honest notation of statistics); brass articulation pedagogy / Jacobs
+  (short notes are attack-dominated; dah/tah/accent/marcato = the
+  player's native inner shading). Proposals: P1 five bands by velocity
+  (calibrate by ear on the tuba samples) · P2 ambient marking per chunk +
+  deviations only across a band (> +1, ^ +2; softer = cue head /
+  parenthesized / nothing — composer's choice) · P3 hairpins on monotonic
+  runs · P4 provenance decides the channel (authored → exact; played-in →
+  P2; engine-generated → range + instruction) · P5 working-view bricks
+  coloured by band to audit thresholds. Test before building: count the
+  deviation marks P1+P2 would put on T1 section 1 (60 % = wrong model,
+  15–25 % = readable). **No decision yet.** Held by the composer until
+  after the discussion: dot spacing tightened to ~2–3 px; go line back on
+  the staccato.

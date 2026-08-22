@@ -736,3 +736,18 @@ actual score — D6's reverse-engineering stance applied to notation.
     regardless of technique" — against the AI's instinct to design a
     "device per technique"; generalization happened anyway, but as registry
     data extracted from a settled note, not as an up-front category.
+
+## #11 — The velocities are a performance, not a score (2026-08-22, day 23)
+The staccato material's "fine dynamic gradation" turned out, on inspection,
+to be two different things: a captured keyboard performance (the composer's
+own play-in sessions) and an engine's statistical jitter — neither a set of
+per-note compositional decisions. That reframes the notation problem from
+"how to notate 100 vs 103" (unanswerable; Miller's ~5 loudness categories,
+Ligeti on Structures Ia) to "how to transmit a performance's dynamic
+profile to another performer" — for which performance science has answers:
+markings are relative (Kosta et al. 2016), shape transmits better than level
+(Nakamura 1987), timbre/attack is half of perceived dynamic (Fabiani &
+Friberg 2011). Provenance therefore decides the channel: authored → exact
+marks; played-in → ambient + deviations; generated → range + character.
+Composer, verbatim: *"play this note at 100 and then play the other note at
+103 — that they can't do"*; *"it's usually couched in something else."*
