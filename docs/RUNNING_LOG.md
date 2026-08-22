@@ -6112,3 +6112,45 @@ dictated, the save-shuffle established, T1 facts scanned.**
   15–25 % = readable). **No decision yet.** Held by the composer until
   after the discussion: dot spacing tightened to ~2–3 px; go line back on
   the staccato.
+- **Sources obtained by the composer (`docs/research/`): Nakamura 1987
+  (PDF) and Ligeti 1960 (15 screenshots of the scribd scan, pp. 36–49).
+  Read in full.** Nakamura: 3 professionals (violin/recorder/oboe), de
+  Fesch sonata, level recorder, 38 listeners. Crescendi ≥ 9 dB heard by
+  87–100 %; a 2 dB "crescendo" by 34.2 % (chance ≈ 33 %); decrescendo
+  harder to play and to hear (53.6 % violin); rising pitch alone gave a
+  crescendo impression in 79 % (recorder, no intensity change). MARKS: the
+  modal response matched the performer's intended symbol only 38–53 % (p
+  violin 52.6, f violin 38.2, p recorder 45.4, mp oboe 44.7, mf oboe
+  42.8) — but Goodman–Kruskal γ = .808 / .811 / .472: listeners hear the
+  ORDER of intended dynamics, not the absolute symbol. "Intensity level is
+  not fixed by a given dynamic symbol, but is influenced by context."
+  Ligeti (Die Reihe 4, pp. 40–42), verbatim: "dynamics can only be
+  approximately estimated by the performer – this is not necessarily a
+  fault, since listeners, too, experience music according to proportions
+  that are subjective rather than calculated"; "the regions of the
+  individual intensity-values overlap, and one can certainly not be sure…
+  that a p at one point in the work will not be louder than a quasi p or
+  even a mp at another point. Thus intensity-values spread out from
+  points to become indistinctly bounded fields, and can only be estimated
+  in relation to the loudness of their environment"; three grades of
+  performable exactness — "1. Wholly unambiguous pitches, 2. Measured
+  durations… 3. Unmeasured, only estimated dynamics"; Boulez's own
+  ffff→fff swaps "wholly permissible, in view of the indistinctness of
+  intensity-values"; ON ACCENTS (p. 42): "some modes of attack have a
+  degree of intensity (such as > or sfz) which still further reinforces
+  the prescribed intensity… ppp poco sfz… pppp >. Such combinations are
+  most uncertain… the places with a weak primary degree of intensity are
+  the most problematic – the louder intensities are influenced relatively
+  less, since their additional intensity (decided by the mode of attack)
+  is unimportant in comparison with their basic intensity. This
+  'counterpoint' between the original intensities and those implicit in
+  the modes of attack creates fields of inexactness."
+  **Consequences for the proposals:** P3 hairpins need a threshold (~9 dB
+  span, Nakamura) → requires the SI2 tuba's velocity→dB curve (one
+  velocity-ladder render through the rig); the same curve calibrates P1's
+  bands (Fabiani: instrument-specific). P2's "accent = +1 band" is sound at
+  mf and above and SUSPECT at soft ambients (Ligeti) → soft clouds get
+  range/hairpin devices, not accents. Nakamura's 38–53 % symbol match vs
+  .81 rank agreement is the empirical case for ambient + deviations.
+  Still missing: Khoo 2007 (only via Kosta; nice-to-have). No decision
+  yet; dot spacing + go line still held.
