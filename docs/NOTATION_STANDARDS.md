@@ -96,8 +96,8 @@ the whole-bar rest is the one exception, and it is a different symbol. Stone
 reports the same for proportional notation, where rests are usually omitted
 altogether and, when kept, mark the start of the silence.
 
-**Vertical placement is LilyPond's own, per glyph** (,
-placed top-left by ). Roughly centred on the middle line, with the
+**Vertical placement is LilyPond's own, per glyph** (`glyphs.rest.*.topSs`,
+placed top-left by `stamps.rest`). Roughly centred on the middle line, with the
 standard refinement that flagged rests share a top edge and add hooks
 alternately downward (16th) then upward (32nd) — which is why the 16th hangs
 0.49 ss low. Inherited whole; do not fix it.
