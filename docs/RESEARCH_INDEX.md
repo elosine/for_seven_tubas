@@ -22,6 +22,7 @@ curve shapes + ensemble deployments (Risset-style patterns) that reliably target
 | `COMPOSER_LOG.md` | Composer's verbatim dictated notes, dated (primary source) |
 | `DYNAMICS_FRAMEWORK.md` | Dynamics line (day 23): the sonic fact, literature read (Nakamura, Kosta et al., Fabiani & Friberg, Ligeti), derived principles, the two layers of the density build, proposals P1–P5, measurements owed |
 | `research/` | Obtained sources (Nakamura 1987 PDF; Ligeti 1960 scans) |
+| `PLAYABILITY_MODEL.md` | The four constraint levels (hard overlap · re-attack · breath · audibility), the re-attack rule's provenance (2j tremolo), the breath model with its dials, results per section (day 25) |
 | `CURVE_DATABASE.md` | The three styles (Bloom/Linear/Surge) + catalog of used patterns (entries added as used) |
 | `research/audio/INDEX.md` | Audio evidence index (files kept out of git for now) |
 | `probes/` | All measurement instruments (MIDI probes + analyzers), reusable |

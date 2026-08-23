@@ -8585,3 +8585,113 @@ directly: **7 notes sat in the 25–30 ms band**. Both bugs were in `gapFill`:
 After both fixes every floor is honoured exactly: 30 → min gap 30 / 0 fused, 25 → 26,
 20 → 21. **B3 changed from 58 notes to 59 — the earlier B3 the composer has not yet heard
 was built under bug 1 and was three notes short of its own rule.**
+
+### Day 25 — "is there enough rebreath room in B5?" — measured, a new constraint named
+
+Composer: *"do each of the players have a chance to breathe… at least once or maybe twice…
+not just at the very beginning or the very end."* That is a REAL constraint nothing in the
+tooling checks (see the playability note above). Measured on B5 with a 1.0 s gap as the
+threshold (a staccato is a 0.05 s brick; a 1 s gap between attacks is ~0.9 s of free air):
+
+    T1  8 notes  longest gap 0.82 s   NO breath
+    T2  6        1.07, 1.03           two  (0.0→1.1, 2.4→3.4)
+    T3  7        1.39                 one  (2.1→3.5)
+    T4  7        0.76                 NO
+    T5  9        0.76                 NO
+    T6  6        1.16                 one  (2.2→3.3)
+    T7  7        1.62                 one  (0.7→2.3)
+    T8  7        0.79                 NO
+    T9  7        1.38                 one  (2.5→3.8)
+    T10 5        0.57                 NO   (but enters at 2.50 — 2.5 s of rest first)
+
+**Five parts (T1, T4, T5, T8, T10) have no 1 s gap inside the 4.2 s section.** The
+section is short enough that "no breath inside it" may be fine IF there is air on either
+side — T4 and T10 enter late (1.42 / 2.50 s); T1, T5, T8 play edge to edge. The fix is a
+third rule in the loop — a per-part breath guarantee — not a tuning. Not built; the
+composer is deciding the threshold (what gap counts, how many per part).
+
+### Day 25 — composer backs up: "one level at a time" — per-player attack density, confirmed
+
+Composer, discombobulated by the levels, asked three yes/no questions. Answered from runs,
+not memory:
+
+1. **Do we have a good per-player attack-density threshold?** Yes: attack-to-attack
+   ≥ 110 ms + 9.3 ms per semitone of leap, capped at 220 ms (`Composer.CONFLICT`, from 2j's
+   measured tremolo rates). Reasoned, not ear-confirmed for this register — soft flags can
+   only tint amber. The bricks do not enter into it (attack-to-attack).
+2. **Are all the B versions under it?** B2, B3, B4, B5: **0 hard, 0 soft**. B: 0 hard,
+   1 soft (T5, 5 ms under). **A (by-part, never audited until now): 0 hard, 14 soft** —
+   the per-part ring rule spaces attacks by sample length (0.33–0.53 s) but never looked at
+   leaps, so A carries the original's leap-tight pairs. A is NOT a clean version.
+3. **Is the original under it with 50 ms bricks + redistribution?** Nearly. 13 soft before;
+   the redistribution rule makes **11 moves and leaves 2 unresolved** (no part has a free
+   slot for them). So the original is 2 tight pairs short of passing, zero removals — the
+   claim "thirteen redistributions and it passes" written earlier today was an assertion;
+   the measured answer is 11 moves, 2 stuck.
+
+### Day 25 — BREATH, the concept and the first measurement (a model, stated as one)
+
+Composer: *"are we confident that somebody could play a dense passage of notes this short
+without re-breathing? … can we do an analysis and see for this duration and at this
+density if this is playable, and if not, where we need to build in breaths?"*
+
+**Two different things, kept apart** (the composer asked about tonguing vs breath):
+- **Tonguing** = the articulation mechanism. Single-tongued staccato is comfortable to
+  ~8 notes/s in bursts; double-tonguing beyond. Per-part rates here: original max 4/s,
+  B5 ~2/s. **Never the constraint.** The re-attack rule (110 ms + leap) already models the
+  "reset between two notes" — that IS the tonguing/embouchure check.
+- **Air** = how many puffs, how loud, how low, between chances to inhale. F#1–G#2 is the
+  tuba's bottom octave — the most air-hungry register there is — and 60 % of these notes
+  are ff or louder. A staccato costs a fraction of a sustained note (the air stops between
+  notes), so a 4 s staccato passage is NOT a 4 s held note.
+
+**The model (brass pedagogy, NOT measured — dials for a tubist to confirm):**
+- a **catch breath** needs a gap ≥ ~0.5 s between attacks (the same 0.5 s as D62's
+  notation breath — convergent, not borrowed);
+- a **full breath** needs ≥ ~1.0 s;
+- loud low staccato playing wants a catch breath every ~5 s and a full breath every
+  ~10–15 s. A 4 s burst of 16–18 fff staccatos in this register is within ONE breath —
+  a single held fff pedal note lasts 4–6 s, and staccato uses well under half the air.
+
+**Measured in the archive context (20–60 s), the longest run through the section with no
+gap ≥ 0.5 s / ≥ 1.0 s:**
+
+    ORIGINAL: catch-breath runs 1.7–4.1 s (T1/T4/T5/T7/T8 play the whole 4 s section,
+              11–12 loud notes, without one) · full-breath runs 4.5–4.7 s, ALL parts
+    B5:       catch-breath runs 0.2–1.1 s · full-breath runs 1.3–4.5 s (T5 the longest)
+
+**Reading:** even the original gets a catch breath at the section boundaries (every run
+starts at 36.2 and ends by 40.9) — **in isolation the 4.2 s section is one breath for
+five parts and that is playable.** B5 gives everyone a catch breath every ~1 s. **The real
+endurance question is not this window: 87 notes precede it (30–36.2 s) and 120 follow it
+(40.4–48 s, incl. 7 fp + 3 cuivre).** The same measurement must be run over the whole
+30–48 s stretch when the neighbouring sections are decided.
+
+**Proposed breath rule for the loop (not built):** per part, no run longer than X s without
+a gap ≥ 0.5 s, and none longer than Y s without a gap ≥ 1.0 s; starting dials X = 5,
+Y = 10; a tubist sets them. Where a run exceeds X, the fix is the composer's: open a gap
+(move a note to another part, or drop one) at the point that splits the run best.
+
+### Day 25 — side catch-up: density build 1 and the section after it, swept for levels 1–3
+
+Composer: *"keep this research handy documented… then a side catch-up on the first density
+build — any problematic sections? And confirm the B series: nothing problematic even at
+max density."* → **`docs/PLAYABILITY_MODEL.md` created** (the reference card: four levels,
+the re-attack rule, the breath model and dials, results per section, what is open);
+indexed in RESEARCH_INDEX.
+
+**B series: confirmed clean, all densities.** B2–B5: 0 hard, 0 soft; B5 catch breath
+every ≤ 1.1 s, full breath every ≤ 4.5 s.
+
+**Density build 1 (0–36.19, 167 notes): 0 hard, 11 soft, nothing on breath.** All eleven
+flags are inside 31.4–34.6 s — the stretch already figured as clusters on day 24 — and
+all are WIDE LEAPS TAKEN FAST (11–17 semitones at 155–230 ms), not re-attack problems.
+T1 has five, four of them octave-plus leaps in cl-1. Three flags are within 3 ms of the
+line. Breath: longest no-0.5 s run 3.0 s, no-1 s run 5.4 s; longest single held note 4.2 s
+(the opening surge). **Nothing was flagged on day 24 because nobody ran the auditor on the
+figured material** — the notation loop has no playability step. Filed as a question for
+a player, not a rebuild.
+
+**40.42–48 s (VERT01-03 + CLOUD02-D, unworked): 0 hard, 18 soft** — CLOUD02-D is full of
+fast wide leaps (worst T6 @45.51 D4→E2, 22 st at 136 ms, needs 315). Breath fine. **Next
+problem area; the fix there looks like redistribution before any thinning.**
