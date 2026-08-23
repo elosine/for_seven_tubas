@@ -15,7 +15,7 @@ go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
 ### State in one paragraph
 
-**Day 25 ended with PARTS 1 AND 2 DONE; PART 3 IS NEXT and it is a CONVERSATION.**
+**Day 26 ended with 8f Parts 1–2 DONE, Part 3 DONE FOR T1, and PLAN 8g (FIGURE SEAMS) APPROVED AS THE NEXT BUILD — an Opus execution job, spec in PLAN.md.**
 Density build 1 (0–34.6 s) is finished and promoted (`notation/ir/db1.ir.json`, 25
 clusters, top of the picker; its `provenance.build` rebuilds it). Day 25 ran THE
 PLAYABILITY PROCESS on **CLOUD02-I (36.19–40.42 s)**: the archive now carries 12
@@ -66,78 +66,22 @@ then build.
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
 | batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |
 
-### DAY 25 OUTCOME, then THE APPROVED PLAN (composer, day 25 late — supersedes the
-### day-24 8f steps; read this block cold and execute)
+### PLAN 8f — where it stands (the full day-25 plan text is in git, commit 4b60923)
 
-**What day 25 established** (full trail: RUNNING_LOG day 25; reference card:
-`docs/PLAYABILITY_MODEL.md`): the composer's "it feels very dense" meant UNPLAYABLE,
-not too-much. **This is THE PLAYABILITY PROCESS** — evaluate for playability, fix by
-redistribution, report audibility (fused attacks, sounding count) as a FLAG only.
-The original 159 notes of CLOUD02-I pass with **12 part moves and no removals**
-(`scores/cloud02i-or.json`, independently audited 0 hard / 0 soft). A day of thinning
-research (B, A, B2, B3–B5 in `scores/cloud02i-ab.json`, built by
-`tools/cloud02i_ab.js --brick 0.05 --fillFloors 0.03,0.025,0.02 --isolate`) stands as
-research, not deliverable. Whole-archive audit: 2 hard (trance seams @560.63 T8,
-@604.63 T6), 45 soft, four leaps >⅓ short, three of them in CLOUD02-D — all parked.
-
-**PART 1 — save files in place, both scores. `DONE 2026-08-23` (commits 2e9873a, 5f6ac88).** Model: Opus.
-- Archive: apply OR. The 12 moves, IN THIS ORDER (wc-1903 must leave T3 before
-  wc-1905 arrives): `node tools/move_object.js --score piece-s25-finished01 --object
-  <id> --toPart <p> --apply` for wc-1890→9 · wc-1910→7 · wc-1894→8 · **wc-1903→4** ·
-  wc-1898→2 · wc-1781→0 · wc-1768→8 · wc-1914→3 · wc-1816→8 · wc-1869→8 · wc-1878→2 ·
-  **wc-1905→2**. Each prints its ledger line → ARCHIVE_AMENDMENTS.md, status
-  **SCORE EDIT (archive) — applied**, why = "playability process, day 25: re-attack
-  <attack> ms vs <need> ms" (the numbers are in RUNNING_LOG "OR BUILT").
-- Bricks: the 159 staccatos in `grp-cloud02-i-01` → endSeconds = startSeconds + 0.05.
-  No tool exists — write `tools/set_brick.js --score … --group grp-cloud02-i-01
-  --brick 0.05 [--apply]` in move_object's style (dry run default, one-field diff,
-  round-trip-verified formatting). One SYSTEMATIC ledger line.
-- Commit + push (explicit paths).
-- Presentation score = the IR. Re-extract db1: run `provenance.build` from
-  `notation/ir/db1.ir.json` verbatim. Then `node tools/pattern_analyze.js --ir db1
-  --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was
-  rebuilt from the analyser on day 24, commit 2e06665) + the batteries (test_layout test_render test_animobj
-  test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer).
-  Fork the working version: `node tools/notate_section.js --from db1 --id db1-c2i-x01
-  --exp --label "CLOUD02-I trials"`.
-- **Done =** ledger has 13 new lines, db1 rebuilt and valid with the redistributed
-  section, fork in the picker, pushed. NOTHING notated.
-
-**PART 2 — the playability protocol as a tool. `DONE 2026-08-23`.** Model: Opus. Decisions made
-(composer, day 25): **A** address by marker label as well as window · **B** `--apply`
-appends ledger lines to ARCHIVE_AMENDMENTS.md itself · **C** thinning OUT of the tool
-(level 4 is a flag; the ladder stays in `cloud02i_ab.js` for research) · **D** breath
-dials 0.5 / 1.0 / X=5 / Y=10 as defaults, flag-only.
-- `notation/lib/playability.js` — THE ONE RULE MODULE: the CONFLICT constants,
-  `requiredAttack`, `pairTier`, `flags(notes)`, `redistribute(notes)` (two-pass: second
-  note, then first; fewest-notes part, smallest leap; re-flag after each move; stuck
-  reported never forced), `breathRuns(notes, dials)`, `audibility(notes, lengths)`
-  (fused <30 ms, sounding count via D51 lengths). `audit_playability.js` and
-  `cloud02i_ab.js` import it; a test asserts the constants equal `Composer.CONFLICT`
-  as read from composer.html (the browser stays the authority).
-- `tools/playability.js --score <name> (--section <marker label> | --w0 --w1)
-  [--apply] [--brick 0.05] [--listen]` — dry-run report per part: hard · soft · moves
-  it would make (id, from→to, why) · unresolved · breath runs vs dials · level-4
-  flags. `--apply` = the moves via the same code path as move_object (or by calling
-  it), bricks if asked, ledger lines appended, and it PRINTS the re-extract command.
-  `--listen` writes a scratch before/after score (the cloud02i-ab pattern).
-- `tools/test_playability.js` — golden: `scores/cloud02i-orig.json` (the
-  pre-amendment section, keep it) → 13 flags → 12 moves → 0 unresolved, the exact
-  move list above; the gap-fill floor regressions (30 ms → min gap 30 / 0 fused).
-- **Done =** "run the playability protocol on CLOUD02-D" is one prompt; dry-run
-  report comes back; `--apply` does Part 1 for that section by itself.
-
-**PART 3 — notation analysis of the presentation score, NO generation. `NEXT — START HERE`.**
-Model: Fable (it is a musical-judgement conversation, not an implementation).
-- On the rebuilt db1, 36.0–40.4, all ten parts: `pattern_analyze --part N --span
-  36.0-40.4`; the breath-rule grouping (D62); one-shot / cluster / pickup
-  classification. Report per part in SHAPES (the composer reads shapes, not tables):
-  what would be a cluster, what a one-shot, what a pickup, and a recommendation.
-  Expect "one unbroken run per part, no clean grid" — that is the day-24 finding at
-  unchanged density and it is the conversation, not a failure.
-- Refine the protocol/machine from what the report shows.
-- **THEN STOP AND TALK** about what the notation should look like before any figure
-  is generated. The composer will `/clear` at this milestone.
+**Day 25 established THE PLAYABILITY PROCESS** (reference card `docs/PLAYABILITY_MODEL.md`;
+trail RUNNING_LOG day 25): the composer's "it feels very dense" meant UNPLAYABLE, not
+too-much — evaluate for playability, fix by redistribution, report audibility as a flag
+only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is research.
+- **PART 1 — save files in place. DONE 2026-08-23** (2e9873a, 5f6ac88): 12 moves + 159
+  bricks to 50 ms, 13 ledger lines; db1 re-extracted; fork `db1-c2i-x01`.
+- **PART 2 — the process as a tool. DONE 2026-08-23** (a0ef1b7): `notation/lib/playability.js`
+  + `tools/playability.js` + `tools/test_playability.js` (22 assertions); decisions A–D.
+- **PART 3 — notation analysis in shapes, then talk. DONE FOR T1, day 26** (see D66,
+  COMPOSER_LOG day 26, RUNNING_LOG day 26). T2–T10 resume AFTER 8g, against the new report.
+- **8g — FIGURE SEAMS — the build the T1 talk produced. APPROVED, NEXT.** Spec: PLAN 8g
+  (segmenter in `pattern_fit.js` · words-first report · `--figures` on `--cluster` · T1
+  golden with the note-11 near-tie). Deferred to the page: tuplet vs dotted 16ths for a
+  3:3:2:2 figure.
 
 ### Things to know before building anything (hard-won, day 24)
 
@@ -156,31 +100,6 @@ Model: Fable (it is a musical-judgement conversation, not an implementation).
   eye on both sides of it; 1.2 heads was accepted once (T1's 3:2). Don't fight
   over 0.2 of a head.
 
-### Decided day 25 (mid-session, promote to §4 at session end)
-
-- **D64 (candidate) — PLAYABILITY LOOP BEFORE NOTATION.** Composer: *"moving forward,
-  let's make sure to do a playability loop before notating, as we're doing now."*
-  Audit (hard/soft re-attack) + breath sweep on the material, redistribution fixes
-  ledgered, THEN figures. Written into NOTATION_WORKFLOW §1 step 0; the model and
-  results live in `docs/PLAYABILITY_MODEL.md`. *Why:* day 24 figured cl-1 with four
-  octave-plus leaps at 155–200 ms nobody had checked. *Rejected:* running the audit
-  after notation — the figures would have to be rebuilt.
-
-- **Composer's direction for the rest of 8f (day 25):** finish the B series first
-  (listen B3/B4/B5, pick); THEN build the general tool — thinning analysis + thinning
-  where needed + redistribution, runnable automatically on any subsequent section —
-  from what this section taught. **Hang on to all wiring (breath rule, auditor
-  column, the general tool) until the B series is done.** The dense areas queued for it
-  are listed in `PLAYABILITY_MODEL.md` (CLOUD02-D first, then the two trance seams).
-
-- **D65 (candidate) — a fixture must never be a file the tools rewrite.** Day 25: the
-  golden case for `test_playability` was `scores/cloud02i-orig.json`, which
-  `cloud02i_ab.js --isolate` regenerates from the CURRENT archive — so it silently
-  became the "after" the moment the archive was amended, and the test would have
-  passed while measuring nothing. Recovered from git into
-  `tools/fixtures/cloud02i-preamend.json`. *Rejected:* keeping it in `scores/` with a
-  do-not-overwrite comment.
-
 ### Open, not blocking
 
 - `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); cuivré text mark on the
@@ -190,6 +109,16 @@ Model: Fable (it is a musical-judgement conversation, not an implementation).
 
 ---
 
+- **Day 26 (2026-08-23, short, Claude Code / Opus 5 → Fable 5):** Part 3 set-up —
+  `--bare` (a span cleared to bricks, figures guarded) on the trials fork · Part 3 on T1
+  — the protocol's one cluster + one-shot, the single grid's failure, the composer's
+  reframe (D66) · PLAN 8g FIGURE SEAMS approved as the next build · paper structure
+  stored (PAPER_NOTES).
+- **Day 25 (2026-08-23, Claude Code / Opus 5):** THE PLAYABILITY PROCESS — CLOUD02-I
+  passes with 12 part moves, no removals; applied to the archive and ledgered (13
+  lines); bricks 50 ms; db1 re-extracted; the process made a tool
+  (`playability.js`, 22 assertions, D64, D65); the thinning ladder kept as research;
+  THE RHYTHM (next steps · model · clear) made standing.
 - **Day 24 (2026-08-22, one long day, Claude Code / Opus 5 + Fable 5):** density
   build 1 figured for all ten parts, 25 clusters · the standards written down
   (NOTATION_STANDARDS.md) and made registry data · five design principles
@@ -341,6 +270,38 @@ Model: Fable (it is a musical-judgement conversation, not an implementation).
    byte-identical path is the proof the pipeline is the same one.
 
 ## §4 Decisions
+
+- **D66** *(2026-08-23, day 26)* — **THE FIGURE IS THE UNIT: PLAYERS READ
+  PATTERNS, NOT TEMPOS.** The notation sits between Ferneyhough (strict metric) and
+  Stone / Xenakis's *Mists* (time-space). A player in real time does pattern
+  recognition: two "long short short" figures at different spacings are one pattern
+  twice, and the page's spacing plus the scrolling cursor absorb the tempo difference —
+  no tempo change is perceived, none is cued. So figures INSIDE one gesture take their
+  own fit (principle 6, now implemented as PLAN 8g); one GC and go per gesture; the only
+  failure is *cognitive dissonance*, when visibly-unequal spacing pushes past the eye's
+  "mental rounding" — the one-notehead threshold of D63, now with its psychology — and
+  only then must the notation itself say "very long, medium, shorter" (a tuplet, or a
+  separate figure). Verbatim: COMPOSER_LOG day 26. *Why:* T1 of CLOUD02-I — one breath
+  seam, one 16-note cluster; the one grid for it needs 7:4 · 6:4 · 7:4; cut at the pace
+  changes, five figures all under 0.6 heads. *Rejected:* treating each figure's tempo
+  as a cue event (the AI's question "five tempo changes under one go?" — the wrong
+  frame) · one grid per gesture (legal at 0.7 heads and unreadable).
+
+- **D65** *(2026-08-23, day 25)* — **A FIXTURE MUST NEVER BE A FILE THE TOOLS
+  REWRITE.** The golden for `test_playability` was `scores/cloud02i-orig.json`, which
+  `cloud02i_ab.js --isolate` regenerates from the CURRENT archive — so the moment the
+  archive was amended it silently became the "after", and the test would have passed
+  while measuring nothing. Recovered from git into
+  `tools/fixtures/cloud02i-preamend.json`. *Rejected:* keeping it in `scores/` with a
+  do-not-overwrite comment.
+
+- **D64** *(2026-08-23, day 25)* — **PLAYABILITY LOOP BEFORE NOTATION.** Composer:
+  *"moving forward, let's make sure to do a playability loop before notating, as we're
+  doing now."* Audit (hard/soft re-attack) + breath sweep on the material,
+  redistribution fixes ledgered, THEN figures. NOTATION_WORKFLOW §1 step 0; model and
+  results in `docs/PLAYABILITY_MODEL.md`; the tool is `tools/playability.js`. *Why:*
+  day 24 figured cl-1 with four octave-plus leaps at 155–200 ms nobody had checked.
+  *Rejected:* auditing after notation — the figures would have to be rebuilt.
 
 - **D63** *(2026-08-23, day 24 late)* — **PATTERN BEFORE GRID.** The
   cluster notation exists to show the figure's long-short PATTERN so it is
@@ -1165,6 +1126,8 @@ Model: Fable (it is a musical-judgement conversation, not an implementation).
 
 ## §5 Done
 
+- 2026-08-23 (day 26) — `--bare` on notate_section; CLOUD02-I trials fork reads as bricks; Part 3 opened on T1; D66; PLAN 8g approved.
+- 2026-08-23 (day 25) — THE PLAYABILITY PROCESS run on CLOUD02-I and made a tool (PLAN 8f parts 1–2).
 - 2026-08-10 — 0a stack seed.
 - 2026-08-10 — Gain staging calibrated; CC7 law measured; cresc lengths DB.
 - 2026-08-10 — Crescendo research arc: laws, Xenakis rules, swell-cloud species;
