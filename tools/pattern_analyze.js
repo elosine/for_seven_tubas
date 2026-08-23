@@ -267,6 +267,9 @@ for (const g of groups) {
   const s = PF.segment(ons, opt);
   if (!s) { console.log('GESTURE ' + label + ' — no writing found'); console.log(''); continue; }
   const bvg = PF.bracketsVsGroups(s.single, s.cuts);
+  // the words column is as wide as the widest words in THIS gesture: a fixed 23
+  // ran "long medium short medium long" straight into the writing beside it
+  const wCol = Math.max(23, ...s.figures.map(f => f.words.length)) + 2;
 
   // ---- WORDS FIRST. The composer reads shapes, not tables (day 24).
   console.log('GESTURE ' + label + '   pace families: ' +
@@ -280,7 +283,7 @@ for (const g of groups) {
   console.log('   THE WRITING — ONE GRID, beams broken at the seams (--figures):');
   console.log('      ' + fmtFit(s.single));
   if (bvg) bvg.groups.forEach((gr, i) => console.log('      ' + (i + 1) + '.  notes ' +
-    (gr.from + '-' + gr.to).padStart(6).padEnd(7) + s.figures[i].words.padEnd(23) + groupWriting(bvg, gr)));
+    (gr.from + '-' + gr.to).padStart(6).padEnd(7) + s.figures[i].words.padEnd(wCol) + groupWriting(bvg, gr)));
   if (s.single && s.single.coherent === false)
     console.log('      ONE GRID IS OVER A HEAD (' + s.single.heads.toFixed(1) + ') — the page cannot say the relation on one grid; ' +
       'by hand: --ownGrids, or split at a seam (--cuts) and build two clusters');
@@ -384,7 +387,7 @@ for (const g of groups) {
   console.log('   also, each group on its OWN grid (--ownGrids, the 8g reading — no relation printed between them):');
   s.figures.forEach((f, i) => {
     const ff = f.fit;
-    console.log('      ' + (i + 1) + '.  notes ' + (f.from + '-' + f.to).padStart(6).padEnd(7) + '@' + f.onsets[0].toFixed(2) + '   ' + f.words.padEnd(23) +
+    console.log('      ' + (i + 1) + '.  notes ' + (f.from + '-' + f.to).padStart(6).padEnd(7) + '@' + f.onsets[0].toFixed(2) + '   ' + f.words.padEnd(wCol) +
       (ff ? (('♩=' + ff.bpm.toFixed(0)).padEnd(8) + (ff.heads.toFixed(1) + ' heads').padEnd(11) + ff.shape +
         (ff.tupletBeats ? ('   TUPLET ' + ff.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '') +
         (ff.coherent === false ? '   [OVER A HEAD]' : '')) : 'NO FIT'));
