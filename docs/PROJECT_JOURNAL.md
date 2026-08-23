@@ -31,7 +31,7 @@ tree clean.
 |---|---|
 | see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick `db1` (hard-reload after any `.js` change; data files hot-reload) |
 | analyse a span the NEW way (D63) | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` — seams by the breath rule, then each group's best writing + alternatives as SHAPES; pickups FLAGGED never applied |
-| check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (23/25 expected; cl-1 and cl-25 are understood exceptions) |
+| check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: `--pattern` (grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` · `--noGoLine` |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | move a note to another part | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P` (dry run; `--apply`), then ledger it in ARCHIVE_AMENDMENTS |
@@ -66,7 +66,8 @@ research, not deliverable. Whole-archive audit: 2 hard (trance seams @560.63 T8,
 - Commit + push (explicit paths).
 - Presentation score = the IR. Re-extract db1: run `provenance.build` from
   `notation/ir/db1.ir.json` verbatim. Then `node tools/pattern_analyze.js --ir db1
-  --validate` (23/25 expected) + the batteries (test_layout test_render test_animobj
+  --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was
+  rebuilt from the analyser on day 24, commit 2e06665) + the batteries (test_layout test_render test_animobj
   test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer).
   Fork the working version: `node tools/notate_section.js --from db1 --id db1-c2i-x01
   --exp --label "CLOUD02-I trials"`.

@@ -8843,3 +8843,38 @@ commands, Part 2's module boundary and decisions A–D, Part 3's stop-and-talk),
 rewritten to point at it. Model-switching practice (Fable has its own weekly balance;
 Fable for verdicts/reframes/design, Opus for lists; switch safe, context length is the
 risk; /clear at milestones with the cold-execution test) → SESSION_HYGIENE § Model strategy.
+
+### Day 25 — PART 1 DONE: archive amended, db1 rebuilt, trial fork in the picker
+
+**Archive** (`piece-s25-finished01`): 12 moves via `move_object.js --apply` in the
+journal's order, then all 159 CLOUD02-I staccato bricks to 50 ms via the new
+`tools/set_brick.js`. 13 ledger lines in ARCHIVE_AMENDMENTS, all **SCORE EDIT — applied**.
+
+**A finding worth keeping: the 12 moves CREATED two hard conflicts of their own.** After
+the moves and before the bricks the window read **2 hard, 0 soft** — T4 @40.33 (wc-1901's
+202 ms brick over a 174 ms attack gap) and T9 @36.46 (wc-1763's 182 ms over 133 ms). OR
+never showed them because OR was computed at 50 ms bricks. So the brick step is not
+cosmetic in this section: **redistribution can move a note under a long brick, and only
+the brick normalisation clears it.** Verified both ways by `set_brick`'s own census
+(whole score hard 4 → 2) before writing. Worth building into the Part-2 tool: apply
+bricks and moves together, and re-audit after.
+
+Amended archive: **CLOUD02-I 0 hard, 0 soft**; whole score 2 hard (the trance seams,
+parked) / 32 soft (was 45).
+
+**Presentation score** — `provenance.build` re-run verbatim: **db1 = 456 events, 131
+chunks (was 128 — unresolved chunks regroup around the moved notes), VALID vs source.**
+159 events in the window, per part [17 15 17 17 16 15 14 16 17 15] = OR exactly, D51
+durations intact (11 distinct sample lengths, NOT the 50 ms brick — the brick is the
+drawn value, the IR keeps the sound). All nine batteries PASS.
+
+**`--validate` is 24 of 25, not the documented 23** — cl-25 (T10) stopped being an
+exception when the composer rebuilt T10 from the analyser on day 24 (commit 2e06665);
+the §2 note predated that. Corrected in the journal. **cl-1 (T1's 3:2) is the only
+standing disagreement**, as designed. None of my edits touch a cluster — all 12 moves are
+in 36.19–40.42, where no figure exists yet.
+
+**Fork:** `db1-c2i-x01` — "CLOUD02-I trials (day 25)", in the picker under experiments.
+Verified live: page loads db1, no console errors, fork present.
+
+**Part 1 done. Nothing notated.**
