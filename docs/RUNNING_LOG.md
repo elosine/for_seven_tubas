@@ -10194,3 +10194,16 @@ units", then the 3:2 pair alone. Built with `--cuts 3,6,8,10,12,14 --rest16 8`,
 through on all seven groups; the cut sits on the beat line so nothing straddles, and
 the 3:2 bracket now covers exactly its own beam group. Ledger D-log 7. (The verdict
 plain-vs-tuplet is still unspoken, but the composer is refining the TUPLET page.)
+
+
+#### Day 29 — T3's bracket groups claim their bracket rests (over/overLeft made tuplet-aware)
+
+Composer: the 3:2's beams reach left over the bracket's leading 8th rest; the 5:4's
+beams extend over both its trailing 16th rests. The over/overLeft anchors assumed
+plain one-unit rests — now tuplet-aware: overLeft anchors to the leading bracket
+rest's slot (an 8th-level slot is 1.33 units wide); over claims ALL trailing bracket
+rests (the group's beam extent = the bracket's content extent, the same rule the
+bracket itself follows since the third-to-last-note fix). Outside brackets both keep
+their old one-rest semantics (T1/T2 pages unchanged — verified by the batteries).
+Audited: cl-4d spans 38.443→38.772 (from the 8th rest's slot) with overLeft; cl-4e
+spans 38.985→39.393 (to the last trailing rest) with over. Ledger D-log 8.

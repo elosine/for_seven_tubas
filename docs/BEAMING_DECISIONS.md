@@ -107,6 +107,13 @@ pruned — git keeps them. T4–T10 stay bare per part.*
 | 7.1 | T3 g3 [7-10] | SPLIT at the beat: **[7 r r 8] + [9 10]** (`--cuts 3,6,8,10,12,14`), the 8th rest before note 8 as two 16ths (`--rest16 8`) | "make that eighth rest two sixteenths… notehead, sixteenth rest, sixteenth rest, notehead. And let's break the beam. So that's a group of four units" | the break lands on the beat line; the 3:2 now covers exactly its own beam group [9 10] — bracket = group, the standard's ideal |
 | 7.2 | (context) | the refinement was made ON `t3-tuplets` — the composer is working the tuplet version | | plain-vs-tuplet verdict still unstated in words; the engagement says tuplets |
 
+## D-log 8 · T3: the bracket groups claim their bracket rests — day 29
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 8.1 | T3 g4 [9 10], the 3:2 | beams reach **LEFT over the leading 8th rest** of the bracket (`--beamOverLeft 4`) | "Extend the three two beam to the left over the eighth rest" | the anchors became TUPLET-AWARE: an 8th-level bracket slot is wider than one unit |
+| 8.2 | T3 g5 [11 12], the 5:4 | beams extend **RIGHT over BOTH trailing 16th rests** (`--beamOver 5`) | "extend the five four beams over the two sixteenth rests" | over now claims ALL trailing bracket rests (matching the bracket's own content-extent rule); outside a bracket it still claims the first rest only |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

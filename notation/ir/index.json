@@ -54,7 +54,7 @@
   },
   {
    "id": "t3-tuplets",
-   "label": "T3 TUPLET version (day 29) — brackets 5:4 3:2 5:4 3:2, 1.0 heads; g3 split [7 8]+[9 10], rest16 8",
+   "label": "T3 TUPLET version (day 29) — g3 split; 3:2 beam left over its 8th rest; 5:4 beams over its two 16th rests",
    "score": "piece-s25-finished01",
    "window": [
     35,

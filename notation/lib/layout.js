@@ -682,6 +682,7 @@
                     const tipRef = grp.tips[grp.tips.length - 1];
                     beamTip = tipRef;
                     tipRef.beams = dev.noteBeams || 1;
+                    tipRef.tup = dev.tupletGroup || null;   // day 29: over/overLeft anchor to bracket rests
                     // grid position + written length, so the secondary beam can
                     // tell "adjacent 16ths" (connect) from "16th then a rest"
                     // (a stub). Tuplet members carry fractional positions so
@@ -1041,8 +1042,18 @@
           const first = g.tips[0];
           const cgL = clusters.get(g.gridId);
           const pastL = (o.beamOverPastSs != null ? o.beamOverPastSs : 0.2);
-          const tSlotL = (cgL && cgL.anchorT != null && first.pos != null)
-            ? cgL.anchorT + (first.pos - cgL.anchorPos - 1) * g.unit
+          // day 29 (T3's 3:2): when the group's first note is a TUPLET member
+          // with a leading bracket rest, the beam reaches back to THAT rest's
+          // slot (an 8th-level slot is wider than one unit); otherwise one
+          // written-value width back — the rest immediately before.
+          let tSlotL = null;
+          const tpL = first.tup && cgL && cgL.tuplets && cgL.tuplets.get(first.tup);
+          if (tpL && cgL.anchorT != null) {
+            const minNote = Math.min.apply(null, [...tpL.slots.keys()]);
+            if (minNote > 0) tSlotL = cgL.anchorT + (tpL.startPos - cgL.anchorPos + (minNote - 1) * tpL.slotUnits) * g.unit;
+          }
+          if (tSlotL == null) tSlotL = (cgL && cgL.anchorT != null && first.pos != null)
+            ? cgL.anchorT + (first.pos - cgL.anchorPos - (first.len || 1)) * g.unit
             : first.t - g.unit;
           overLTip = { t: tSlotL, dxSs: -pastL, ySs: first.ySs, phantom: true };
         }
@@ -1054,14 +1065,27 @@
           // the rest, not to the last stem's own x offset (which varies per
           // note with the head it stands on, and left the second group's beam
           // ending in the middle of its rest)
-          const rg = glyphs.rest && glyphs.rest['rest' + (cl16(g) || 16)];
           const past = (o.beamOverPastSs != null ? o.beamOverPastSs : 0.2);
           // timed from the GRID slot (where the rest is), not from the last
           // note's onset, which sits off its slot by the fit error
           const cg = clusters.get(g.gridId);
-          const tSlot = (cg && cg.anchorT != null && last.pos != null)
+          // day 29 (T3's 5:4): a group ending on a TUPLET member with trailing
+          // bracket rests claims THEM ALL — the beam reaches the last bracket
+          // rest's slot (matching the bracket's own content-extent rule);
+          // otherwise the first following rest, one written value on.
+          let tSlot = null, restDur = cl16(g) || 16;
+          const tpR = last.tup && cg && cg.tuplets && cg.tuplets.get(last.tup);
+          if (tpR && cg.anchorT != null) {
+            const maxNote = Math.max.apply(null, [...tpR.slots.keys()]);
+            if (maxNote < tpR.num - 1) {
+              tSlot = cg.anchorT + (tpR.startPos - cg.anchorPos + (tpR.num - 1) * tpR.slotUnits) * g.unit;
+              restDur = tpR.valueDur || restDur;
+            }
+          }
+          if (tSlot == null) tSlot = (cg && cg.anchorT != null && last.pos != null)
             ? cg.anchorT + (last.pos - cg.anchorPos + (last.len || 1)) * g.unit
             : last.t + (last.len || 1) * g.unit;
+          const rg = glyphs.rest && glyphs.rest['rest' + restDur];
           overTip = { t: tSlot, dxSs: (rg ? rg.wSs : 1) + past, ySs: last.ySs, phantom: true };
         }
         if (g.lone && overLTip) {

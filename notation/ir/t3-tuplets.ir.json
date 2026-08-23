@@ -25,7 +25,7 @@
   "date": "2026-08-23",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t3-tuplets --exp --label \"T3 TUPLET version (day 29) — brackets 5:4 3:2 5:4 3:2, 1.0 heads; g3 split [7 8]+[9 10], rest16 8\" --bricks --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --dyn 1:mf --accents 2,3,5,12,15,17"
+  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t3-tuplets --exp --label \"T3 TUPLET version (day 29) — g3 split; 3:2 beam left over its 8th rest; 5:4 beams over its two 16th rests\" --bricks --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --beamOverLeft 4 --beamOver 5 --dyn 1:mf --accents 2,3,5,12,15,17"
  },
  "events": [
   {
@@ -5781,6 +5781,7 @@
      "noteBeams": 1,
      "beamHasTuplet": true,
      "beamThrough": true,
+     "beamOverLeft": true,
      "beamHasArtic": "accent"
     }
    },
@@ -5823,6 +5824,7 @@
      "noteBeams": 1,
      "beamHasTuplet": true,
      "beamThrough": true,
+     "beamOverLeft": true,
      "beamHasArtic": "accent"
     }
    },
@@ -5865,6 +5867,7 @@
      "noteBeams": 2,
      "beamHasTuplet": true,
      "beamThrough": true,
+     "beamOverRest": true,
      "beamHasArtic": "accent"
     }
    },
@@ -5907,6 +5910,7 @@
      "noteBeams": 2,
      "beamHasTuplet": true,
      "beamThrough": true,
+     "beamOverRest": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
