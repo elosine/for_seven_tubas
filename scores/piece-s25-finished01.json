@@ -3182,7 +3182,7 @@
     {
       "id": "wc-88",
       "type": "waveCurve",
-      "layer": 9,
+      "layer": 6,
       "startSeconds": 30.735,
       "endSeconds": 31.311,
       "nodes": [

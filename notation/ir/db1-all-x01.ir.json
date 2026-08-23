@@ -12119,6 +12119,7 @@
     "ev-wc-63",
     "ev-wc-72",
     "ev-wc-79",
+    "ev-wc-88",
     "ev-wc-102",
     "ev-wc-109",
     "ev-wc-120",
@@ -12746,7 +12747,7 @@
    "part": 9,
    "span": [
     28.87,
-    30.735
+    31.544
    ],
    "class": "drawn-crescendo-curve",
    "strategy": "unresolved",
@@ -12756,34 +12757,20 @@
    "provenance": "derived"
   },
   {
-   "id": "ch-9-wc-88",
+   "id": "ch-9-wc-100",
    "part": 9,
    "span": [
-    30.735,
-    33.377
-   ],
-   "class": "density-cloud-note",
-   "strategy": "unresolved",
-   "events": [
-    "ev-wc-88",
-    "ev-wc-100",
-    "ev-wc-110",
-    "ev-wc-116",
-    "ev-wc-122",
-    "ev-wc-125"
-   ],
-   "provenance": "derived"
-  },
-  {
-   "id": "ch-9-wc-136",
-   "part": 9,
-   "span": [
-    33.377,
+    31.544,
     36.314
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
+    "ev-wc-100",
+    "ev-wc-110",
+    "ev-wc-116",
+    "ev-wc-122",
+    "ev-wc-125",
     "ev-wc-136",
     "ev-wc-142",
     "ev-wc-149",

@@ -7854,3 +7854,31 @@ switch forced on, so a silent flip back is caught. 24 → 0.
 density build, just keep this in mind, we aren't doing anything after yet."*
 Nothing past 34.6 gets figured until asked. The T7 groups at 44.5–46.2 and T4's
 cl-9 at 45.3–46.2, built earlier today, stand but are outside the current scope.
+
+### T10's analysis, and the fp moved out of it (day 24)
+
+**T10 is the part that resisted.** Nine staccatos 31.54–34.56, gaps
+589 | 321 | 267 | 212 | 444 | 344 | 369 | 469 ms. **No gap is over a breath**,
+so by the classification rule there is no seam to split on — it is one stretch,
+and it is an accelerando into note 5 followed by a steadier back half that never
+settles onto a pulse.
+
+Nothing fits well. All nine: ♩=65 in **32nds**, 21 ms, nine notes across 26
+slots. The best pieces are [1-4] at ♩=101 in 8ths (16 ms) and [6-8] at ♩=85 in
+8ths (8 ms) — but the cuts that use them strand notes 5 and 9, both under a
+breath from their neighbours and belonging cleanly to neither side. Reported
+honestly as the first passage of the day where the data does not point
+anywhere, with a recommendation ([1-4] · [5-9]) flagged as weak and a suggestion
+to listen first.
+
+**The composer's answer was to change the music instead: `wc-88`, the F#1
+fortepiano at 30.735, moved T10 → T7.** T10 is now all staccato through the
+stretch, and the fp gets more room in T7 — its ring bar goes **0.309 → 0.426 s**
+(T7's next attack is 31.661 against T10's 31.544, less the breath). Sound
+follows to `tuba7`. Second-to-last note count unchanged at 456; chunks 129 → 128.
+
+Worth recording as method: three times today a notation problem has been
+answered by moving a note rather than by notating harder (`wc-28` T2→T9 for the
+GC, `wc-87` T8→T9 for the bar, now `wc-88` T10→T7). The analysis is not only
+choosing how to write what is there — it is surfacing where the material itself
+wants to change.
