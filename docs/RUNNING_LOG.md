@@ -9769,3 +9769,54 @@ reading page C's beams as much as hearing, and 4+4 is what C's beams nearly show
 pattern; one note is a one-shot") forbids it, yet the composer kept it inside the
 gesture (no GC, beamlets) as a tail. Nothing is decided; this is what "let's discuss
 it" is for.
+
+
+#### Day 29 — the visual pass on E, at the composer's request ("make the visual changes first... then we can discuss the analysis")
+
+**The composer (verbatim):** *"split that third rest, the dotted eighth, into three
+sixteenths, and extend the bar from the first three partials rightwards over the first
+sixteenth rest. And then the beam is just a straight sixteenth beam all the way across
+over the first sixteenth rest. So two beams all the way through the first three
+partials and over the first sixteenth rest. Let's do the same with a second grouping.
+double beams all the way through, break that eighth rest into two sixteenths, and
+extend the bar over the first sixteenth rest. the stand alone didn't get its beams...
+So it looks like a quarter note. Just two beamlets on the right. The third cluster
+should have double beams all the way through."*
+
+**Two of those were the browser, not the page.** "The stand alone didn't get its
+beams / looks like a quarter note" and "break that eighth rest into two sixteenths"
+are what the OLD `layout.js` draws for the new file — a one-tip group was "no beam
+drawn" and `rest16Before` meant nothing to it. The notation page hot-reloads DATA;
+a `.js` change needs a hard reload (the standing note in §2's tool table). My pane,
+reloaded, had both. Told the composer; the rest was built.
+
+**Built:**
+- `--rest16 4,7` — the 3-slot silence after note 3 (was a dotted-8th rest) as three
+  16th rests, and the 2-slot one before note 7 as two.
+- `--beamThrough 1,2` on both clusters — the secondary beam unbroken across the
+  rests inside each group ("double beams all the way through"). Existing flag (day 23).
+- **`--beamOver 1,2` — NEW:** beam group N's beams extend rightwards over the first
+  16th rest after its last note. In `layout.js` a PHANTOM tip (no stem) is appended to
+  the primary beam and to every secondary run that reaches the group's last note.
+  Its time is the rest's GRID slot (`anchorT + (pos − anchorPos + len)·unit`), its
+  x offset the 16th-rest glyph width + `beamOverPastSs` (0.2 ss) — so the beam ends
+  a hair past the rest's right edge. Two earlier versions were wrong in ways the DOM
+  showed: timed from the last NOTE's onset (off its slot by the fit error) with the
+  last stem's own x offset (which varies per note), the two groups' beams ended 5 px
+  past one rest and dead on the edge of the other; two slots of extension reached into
+  the second rest. Now both end +1.6 px past their rest (350.4 vs 348.8; 500.0 vs
+  498.4).
+- The lone note 7: unchanged from the morning (two right-pointing stubs at x 537.6,
+  both levels).
+
+**The page now (DOM, lane T2):** beams 240→350 (1–3, two levels) · 407→500 (4–6, two
+levels) · 538→546 ×2 (the lone 7) · 616→710 and 777→885 (8–11, 12–15, two levels
+each, through the rests) · thirteen 16th-rest glyphs · no bracket text. `test_layout`
+gained the `--beamOver` check (three tips on both levels, phantom at slot time +
+glyph width + pad, no extra stem, rests still drawn). Six layout-side batteries green.
+
+**The command that is T2 read E now:**
+```
+--cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2
+--cluster 38.50-40.40@1 --plain --beamBreak 5 --beamThrough 1,2
+```

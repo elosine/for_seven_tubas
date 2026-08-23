@@ -660,7 +660,7 @@
                     }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
-                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough });
+                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough, over: !!dev.beamOverRest });
                     const grp = beamGroups.get(key);
                     grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
                     // the cluster's metric facts, carried on the overlay by
@@ -945,6 +945,7 @@
       // one beam per group, drawn after the notes (a beam of 1 is a lone
       // stem — no beam, and a warning: the composer's cluster caught a
       // single note)
+      const cl16 = g => { const c = clusters.get(g.gridId); return c ? (c.sub || 4) * 4 : 16; };
       for (const [key, g] of beamGroups) {
         // A LONE NOTE IN A BEAM GROUP OF ITS OWN (day 29, composer, on T2's
         // seventh partial — the one note after two groups of three): "let's
@@ -1018,12 +1019,39 @@
           }
         }
         const stubLen = o.beamStubSs != null ? o.beamStubSs : 1.0;
+        // THE BEAM OVER THE FIRST REST (day 29, composer, T2: "extend the bar
+        // from the first three partials rightwards over the first sixteenth
+        // rest... two beams all the way through the first three partials and
+        // over the first sixteenth rest"). A phantom tip at the first rest's
+        // slot time, carrying the last stem's own x offset, so the beam ends
+        // just past that rest's glyph (one slot beyond the last stem) and
+        // before the next rest begins — the engraver's beam-over-a-rest, which
+        // stops where the rest's stem would be. No stem is drawn for it. Every
+        // level that reaches the last note carries on to it.
+        let overTip = null;
+        if (g.over && g.unit && g.tips.length) {
+          const last = g.tips[g.tips.length - 1];
+          // the rest's LEFT edge is on its slot time (D61), so its right edge is
+          // one glyph width on; the beam ends a hair past that — anchored to
+          // the rest, not to the last stem's own x offset (which varies per
+          // note with the head it stands on, and left the second group's beam
+          // ending in the middle of its rest)
+          const rg = glyphs.rest && glyphs.rest['rest' + (cl16(g) || 16)];
+          const past = (o.beamOverPastSs != null ? o.beamOverPastSs : 0.2);
+          // timed from the GRID slot (where the rest is), not from the last
+          // note's onset, which sits off its slot by the fit error
+          const cg = clusters.get(g.gridId);
+          const tSlot = (cg && cg.anchorT != null && last.pos != null)
+            ? cg.anchorT + (last.pos - cg.anchorPos + (last.len || 1)) * g.unit
+            : last.t + (last.len || 1) * g.unit;
+          overTip = { t: tSlot, dxSs: (rg ? rg.wSs : 1) + past, ySs: last.ySs, phantom: true };
+        }
         if (g.lone) {
           // the primary level as a right-pointing stub of the beamlet length
           const t = g.tips[0];
           items.push({ k: 'beam', dir: g.dir, group: key + '-stub', stub: true,
             tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs }, { t: t.t, dxSs: t.dxSs + stubLen, ySs: t.ySs }] });
-        } else items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
+        } else items.push({ k: 'beam', dir: g.dir, tips: overTip ? g.tips.concat([overTip]) : g.tips, group: key, over: overTip ? true : undefined });
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
         // runs the whole group. beams = log2(value / quarter); the grid comes
@@ -1042,8 +1070,10 @@
           let run = [];
           const flush = () => {
             if (run.length >= 2) {
+              // a run that reaches the group's last note carries on over the rest too
+              const tail = (overTip && run[run.length - 1] === g.tips[g.tips.length - 1]) ? [overTip] : [];
               items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
-                tips: run.map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+                tips: run.concat(tail).map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
             } else if (run.length === 1) {
               // A BEAMLET (day 23, composer): a note with no 16th neighbour
               // still shows the second level, as a stub pointing right —

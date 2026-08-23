@@ -425,6 +425,21 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
       delete plain8.overlays[2].value.device.rest16Before;
       const r8 = Layout.layoutSection(plain8, G).systems[0].items.filter(i => i.k === 'rest');
       ok(r8.length === 1 && r8[0].units === 2 && r8[0].dur === 8, 'without --rest16 the same silence is one 8th rest (' + r8.map(r => r.dur).join(' ') + ')');
+      // ---- --beamOver (day 29, composer: "extend the bar... over the first
+      // sixteenth rest... two beams all the way through") ----
+      // the pair k-a (slots 0,1; rest at slot 2) with beamThrough + beamOverRest:
+      // both levels run from note 1 to a phantom tip at slot 2's time + the
+      // 16th rest's width + the pad; no stem is drawn for the phantom.
+      const ov = JSON.parse(JSON.stringify(lone));
+      for (const n of [0, 1]) Object.assign(ov.overlays[n].value.device, { beamThrough: true, beamOverRest: true });
+      const LO = Layout.layoutSection(ov, G);
+      const io_ = LO.systems[0].items;
+      const pa = io_.filter(i => i.k === 'beam' && !i.stub && /^k-a/.test(i.group));
+      const tEnd = 1 + 2 * 0.2, dxEnd = G.rest.rest16.wSs + 0.2;
+      ok(pa.length === 2 && pa.every(b => b.tips.length === 3 && Math.abs(b.tips[2].t - tEnd) < 1e-9 && Math.abs(b.tips[2].dxSs - dxEnd) < 1e-9),
+        '--beamOver: both beam levels of the pair reach one slot on, past the first rest glyph (' + pa.map(b => b.tips.length).join('/') + ' tips)');
+      ok(io_.filter(i => i.k === 'stem').length === 3, '--beamOver: the phantom tip draws no stem');
+      ok(io_.filter(i => i.k === 'rest').length === 2, '--beamOver: the rests under the beam are still drawn');
     }
   }
 
