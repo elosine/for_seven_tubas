@@ -234,9 +234,33 @@ const { doc, warnings } = Extract.extract(score, {
     // for two notes is exact by construction, the unit being the gap. The
     // pickup designation still does its real job: moving the GC to the
     // downbeat. Day 24, rebuilding the T2/T4 pairs as clusters.
-    const onePastPickup = members.length - pickup < 2;
-    const mainMembers = onePastPickup ? members : members.slice(pickup);
-    const fit = ClusterFit.fit(mainMembers.map(e => e.onset), { TOL });
+    // THE GRID MUST BE ABLE TO HOLD THE PICK-UP (day 24, T6). Fitting only
+    // the main members keeps a loose anticipation from dragging the grid — but
+    // when the main figure is short the fit is barely constrained and picks a
+    // COARSE unit the pick-up cannot sit on. T6: two main notes 503 ms apart
+    // fitted a 500 ms unit, and the pick-up 203 ms earlier rounded onto the
+    // downbeat's own slot, 203 ms out. So: fit the main members, then TEST the
+    // pick-up against that grid; if it collides or misses the tolerance, the
+    // exclusion has failed its purpose and everything is fitted together.
+    const fitAll = () => ClusterFit.fit(members.map(e => e.onset), { TOL });
+    let onePastPickup = members.length - pickup < 2;
+    let mainMembers = onePastPickup ? members : members.slice(pickup);
+    let fit = ClusterFit.fit(mainMembers.map(e => e.onset), { TOL });
+    if (fit && pickup && !onePastPickup) {
+      const anchor = mainMembers[0].onset;
+      let ok = true, prev = 0;
+      for (let i = pickup - 1; i >= 0; i--) {
+        const rel = (members[i].onset - anchor) / fit.unit, slot = Math.round(rel);
+        if (slot >= prev || Math.abs(rel - slot) * fit.unit > TOL) { ok = false; break; }
+        prev = slot;
+      }
+      if (!ok) {
+        const whole = fitAll();
+        if (!whole) { console.error('--cluster ' + label + ': the main figure fits but the pick-up sits on no slot of that grid, and the whole figure does not fit either — proportional is the honest reading'); process.exit(2); }
+        console.log('    note: the main figure grid (unit ' + (fit.unit * 1000).toFixed(0) + ' ms) could not hold the pick-up — refitted ALL members together');
+        fit = whole; mainMembers = members; onePastPickup = true;
+      }
+    }
     if (!fit) {
       console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
       process.exit(2);

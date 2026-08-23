@@ -7763,3 +7763,69 @@ with the accent on its FIRST note, since 104 is the only f among 104/93/83.
 **Section audit after the build — the standards hold everywhere:** twelve
 clusters, **exactly one GC each**, **zero go lines on any cluster member**, and
 **0 of 48 cluster noteheads off their go time**. Seven batteries green.
+
+### T6's pickup, T7's 2+2+4, and a collision the stacking rule does not reach (day 24)
+
+**T6, last three, as a cluster with a pickup** — and building it exposed a real
+flaw in `--pickup`.
+
+The design fits the tempo to the members AFTER the pickup, so a loose
+anticipation cannot drag the grid to fit itself. Correct in general. But T6's
+"main figure" is two notes 503 ms apart, which barely constrains anything: the
+fit chose a **500 ms unit**, and the pickup 203 ms earlier then rounded onto the
+**downbeat's own grid slot** — two notes on one position, 203 ms out. It would
+have drawn nonsense.
+
+Fixed: the tool now TESTS the pickup against the grid it just found. If a pickup
+collides with another member or misses the tolerance, the exclusion has failed
+its purpose and everything is fitted together. It reports doing so. T6 →
+**♩=66.0, grid 0,1,3, 24.4 ms**, pickup one 16th before the downbeat, GC on the
+downbeat. T3's pickup is unaffected (its main figure is four notes, tightly
+constrained, still 55 ms off the grid as before).
+
+**T7, last eight, the composer's 2+2+4 — confirmed by the numbers and built:**
+
+- **cl-14** [1-2] ♩=82.4, **0.0 ms** · `p` + accent on 2
+- **cl-15** [3-4] ♩=95.5, **0.0 ms** · `mf`
+- **cl-16** [5-8] ♩=80.9, grid 0,1,2,4, **2.4 ms** · `mf` + accents 2,4
+
+All eight as one figure needs **32nds at 25 ms**, so the split is far better.
+**The 3:2 feel does not survive measurement:** the final three are 190 | 369 ms,
+a ratio of **1.94** — that is 2:1. On the grid they sit 0,1,3. No fit anywhere
+in this figure produced a tuplet. What reads as 3:2 is most likely the uneven
+1-1-2 shape: two quick notes, then a longer wait landing off the beat. Writing
+it as a triplet would be a compositional choice against the data, and would cost
+accuracy — the plain 16th reading is already at 2.4 ms.
+
+**THE COLLISION — T5 at 32.18, and the rule that does not reach it.**
+
+There IS a column rule: registry `stackBelow` = **articulation · dynamic ·
+instruction · ottava**, each `stackGapSs` (0.45) past the previous element's
+outer ink, articulation nearest the note. It governs the CHAIN.
+
+But a beamed group's accent is not placed by the chain — it is placed by the
+group's own accent row, above the beam, at one height for the whole group so the
+gesture reads as one. Two independent placers, and neither consults the other.
+They only meet when a note's chain **flips above**, which happens when there is
+no room below.
+
+Measured across the section: **1 of the 5 notes carrying both an accent and a
+dynamic collides.** The other four have their dynamic below (y −2.94 to −3.86)
+and their accent above — no contact. T5's `wc-112` is the exception because its
+head sits at −5.5 with three ledgers and a staccato dot at −6.22, and the lane
+bottom is −6.51: **0.29 ss left below, against a 0.97 ss mark.** So the chain
+flips above, onto the accent row. Accent centre 6.09, mf centre 6.16 —
+**0.84 ss of overlap**, effectively printed on top of each other.
+
+Options measured, not yet chosen:
+- **Stack it properly** (apply `stackBelow` across both placers): accent inside,
+  mf outside it. Needs beam + 0.45 + 0.84 + 0.45 + 0.97 ≤ 6.51, i.e. the beam
+  down to **3.80** from 5.22 — a visible change to the whole group's look.
+- **Keep it below**: impossible here, 0.29 ss of room.
+- **Move the ambient mark to member 2**, which is AT the ambient level (vel 93 =
+  mf) and has room. Note this is a change to the dynamics rule, not the layout:
+  *the level mark goes on the first member at the ambient level rather than on
+  member 1*. It also removes an oddity — currently the mark saying "mf" sits on
+  the one note the accent declares is louder than mf.
+
+Four batteries green.
