@@ -34,6 +34,10 @@
 //                            dynamic) and only gains a stem to a shared beam. No
 //                            tempo fit, no grid, no rests. Repeatable.
 //   --noGc wc-98[,wc-…]      drop the GC from named objects (per-note device override)
+//   --bare t0-t1[@part]      CLEAR THE NOTATION, KEEP THE BRICKS: every drawn element off
+//                            for the span (go line, GC + ball, notehead unit, dot, ring bar,
+//                            dynamic). @part optional — bare sweeps every lane by default.
+//                            Repeatable. Errors rather than blank a note that carries a figure.
 //   --pattern                take the grid from the PATTERN analyser (D63: pattern before
 //                            grid — notation/lib/pattern_fit.js) instead of cluster_fit.
 //                            Tuplets it chose become bracket groups; no --tuplet needed.
@@ -574,6 +578,60 @@ const { doc, warnings } = Extract.extract(score, {
     if (existing) existing.value.device = Object.assign({}, existing.value.device, { gc: false });
     else doc.overlays.push({ id: 'ov-nogc-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { gc: false } }, provenance: 'authored' });
     console.log('  noGc: ' + id + ' (' + e.technique + ' at ' + e.onset.toFixed(3) + ') — GC removed, page and ball');
+  }
+}
+// --bare t0-t1[@part] (day 26): CLEAR THE NOTATION, KEEP THE BRICKS.
+// Composer, setting up Part 3 on CLOUD02-I: *"the bricks are fine, that's
+// what I want to see, just the bricks. It's the GC notation that's
+// distracting right now."* An unfigured note is not blank — `--bricks`
+// leaves the chunk unresolved but every note still carries its TECHNIQUE's
+// device (staccato = go line + GC + head + flag + dot + band dynamic), so
+// 159 staccatos drew 159 arcs, balls and dashed lines over the material the
+// composer was trying to read. This switches every drawn element OFF for the
+// span, per note, leaving the parachute brick alone.
+// Unlike --cluster/--beam, @part is OPTIONAL in a multi-part file: bare is a
+// REMOVAL, not a grouping, and sweeping every lane is the normal intent.
+// Repeatable. Written at extraction, so a re-extract keeps the span bare.
+{
+  const BARE_OFF = { curve: false, cut: false, goLine: false, gc: false, nhUnit: false, nhDot: false, ringBar: false, dynMark: false, dynPair: false, dynBesideStem: false };
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--bare') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+    if (!m) { console.error('--bare needs t0-t1 or t0-t1@part (e.g. --bare 36.19-40.33)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+  }
+  if (spans.length) {
+    const partOfEvent = new Map();
+    for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+    // A FIGURE MUST NEVER BE SILENTLY BLANKED (day 24's lesson, applied at
+    // build time): if a --cluster/--beam already gave a note ink, baring it
+    // would erase a figure the composer built and the page would just look
+    // wrong. Hard error naming the notes, with the narrower span to use.
+    const figured = new Set();
+    for (const ov of doc.overlays) if (ov.kind === 'engraving' && ov.target && ov.target.event && ov.value && ov.value.device) figured.add(ov.target.event);
+    spans.forEach(sp => {
+      const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+      const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+        (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+      if (!members.length) { console.error('--bare ' + label + ': no events in the span'); process.exit(2); }
+      const clash = members.filter(e => figured.has(e.id));
+      if (clash.length) {
+        console.error('--bare ' + label + ': ' + clash.length + ' note(s) already carry a figure — baring them would erase it:');
+        console.error('    ' + clash.map(e => e.source.objectId + '@' + partOfEvent.get(e.id) + ' ' + e.onset.toFixed(3) + 's').join(', '));
+        console.error('  Narrow the bare span (or add @part) so it excludes them.');
+        process.exit(2);
+      }
+      for (const e of members) {
+        const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+        if (existing) existing.value.device = Object.assign({}, existing.value.device, BARE_OFF);
+        else doc.overlays.push({ id: 'ov-bare-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: Object.assign({}, BARE_OFF) }, provenance: 'authored' });
+      }
+      const byPart = {};
+      for (const e of members) { const p = partOfEvent.get(e.id); byPart[p] = (byPart[p] || 0) + 1; }
+      console.log('  bare ' + label + ': ' + members.length + ' notes cleared to bricks (' +
+        Object.keys(byPart).sort((a, b) => a - b).map(p => 'T' + (+p + 1) + ':' + byPart[p]).join(' ') + ')');
+    });
   }
 }
 if (flag('bricks')) {

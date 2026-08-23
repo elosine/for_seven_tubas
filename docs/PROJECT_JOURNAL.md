@@ -10,7 +10,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 25 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
+**DAY 26 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
 go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
 ### State in one paragraph
@@ -23,7 +23,9 @@ redistribution part-moves plus all 159 of that section's staccato bricks normali
 to 50 ms — **13 new ledger lines**, window audits **0 hard / 0 soft**, no note removed
 and no time or pitch changed. db1 was re-extracted from the amended archive (456
 events, 131 chunks, VALID; `--validate` 24/25; nine batteries green) and a trial fork
-**`db1-c2i-x01`** sits in the picker under experiments. **CLOUD02-I is not notated —
+**`db1-c2i-x01`** sits in the picker under experiments — **day 26: its CLOUD02-I span is
+BARE (`--bare 36.19-40.33` in its build command): bricks only, no per-note devices, so
+the composer can read the material.** **CLOUD02-I is not notated —
 that is Part 3 and it starts by talking, not building.** Whole archive still shows 2
 hard (the trance seams @560.63 T8 / @604.63 T6) and 32 soft, all parked. All pushed;
 working tree clean.
@@ -48,6 +50,7 @@ working tree clean.
 | analyse a span the NEW way (D63) | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` — seams by the breath rule, then each group's best writing + alternatives as SHAPES; pickups FLAGGED never applied |
 | check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: `--pattern` (grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` · `--noGoLine` |
+| **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score) |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |

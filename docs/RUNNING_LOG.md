@@ -8948,3 +8948,57 @@ CLAUDE.md § THE RHYTHM (the standing instruction every model reads) · SESSION_
 "Right now: step N"). Seeded with steps 1–4: Part 3 (Fable, cleared before) → notate
 CLOUD02-I (Opus build / Fable verdicts, clear before) → CLOUD02-D (playability apply +
 the nine + its analysis) → the trance seams.
+
+## Day 26 — 2026-08-23 (Claude Code / Opus 5)
+
+### Day 26 — PART 3 SET-UP: the trials fork cleared to bricks (`--bare`)
+
+Composer, opening Part 3: *"in the presentation score… let's clear that section. I'll
+just look at the bricks… thirty six to forty."* Then, when the AI misread it as
+"delete figures": *"No. We had previously inserted all the GCs in there… the bricks are
+fine, that's what I want to see, just the bricks. It's the GC notation that's
+distracting right now."*
+
+**What was actually on the page.** CLOUD02-I (36.19–40.33 s, 159 staccatos) carried
+**no figures at all** — zero overlays on any of its notes; `db1-c2i-x01`'s 87
+engraving overlays all belong to the 25 clusters at 29.9–34.6 and 44.5–46.2. The ink
+was the **per-technique device**: `--bricks` leaves every chunk unresolved but each
+note still draws its technique's device (staccato = go line + GC + ball + filled head +
+16th flag + dot + band dynamic), so 159 staccatos = 159 arcs, 159 balls, 159 dashed
+lines over the material the composer wanted to read. Nothing existed to turn that off:
+the app's `bricks` checkbox hides the BRICKS (the opposite), `--noGc` strips only the
+GC and only from individually named notes.
+
+**Built: `--bare t0-t1[@part]` on `tools/notate_section.js`** — a per-note engraving
+overlay with every drawn device element false (`curve cut goLine gc nhUnit nhDot
+ringBar dynMark dynPair dynBesideStem`); the parachute brick is untouched because it
+is drawn before the device is consulted. Design choices:
+- **Lives in the build command**, so a re-extract keeps the span bare — the fork is
+  exactly the file that gets rebuilt during trials. As parts are figured, the bare span
+  narrows (or goes `@part`) and each new figure appears against bare neighbours.
+  *Rejected:* an app-side "devices" LOOK toggle — instant and file-free, but
+  all-or-nothing across the page, so it could not show one figured part against bare
+  ones, which is Part 3's loop.
+- **`@part` optional** (unlike `--cluster`/`--beam`, which require it in a multi-part
+  file): bare is a removal, not a grouping, and sweeping every lane is the normal intent.
+- **Hard error rather than blank a figure** (day 24's lesson, applied at build time): if
+  a note in the span already carries a device overlay from `--cluster`/`--beam`, the
+  tool lists the notes and exits 2 with "narrow the span". A bare that silently erased
+  a built figure would look like a rendering bug.
+
+**Rebuilt `db1-c2i-x01`** with db1's stored `provenance.build` + `--bare 36.19-40.33`
+(id/label/`--exp` swapped): `bare 36.19-40.33: 159 notes cleared to bricks (T1:17 T2:15
+T3:17 T4:17 T5:16 T6:15 T7:14 T8:16 T9:17 T10:15)` · 456 events, 131 chunks, VALID ·
+246 overlays = 87 cluster + 159 bare, the 87 byte-identical. `db1` untouched.
+
+**Verified in the running app** (score-verify :5210, DOM audit, then screenshot):
+page 5 (32.0–40.0) — 143 bricks in the span, **0 GC impacts, 0 go lines, 0 ink of any
+kind** (path/circle/text/line) between 36.19 and 40.33; the 19 remaining arcs are the
+clusters' at ≤34.57. Page 6 (38.7–46.7) — 111 GCs, the earliest at 40.93 (the fp/cuivre
+blast, ten parts), = 120 events in 40.4–46.7 minus the 9 cluster members that carry no
+GC. Ten batteries green.
+
+**Two app gotchas met on the way, not fixed:** the video view is PAGED, so the `from`
+box is ignored there (page 5 = 32–40, page 6 = 38.7–46.7 — the span straddles the
+cut); and setting a number field by script does not fire `change`, only a real edit
+does. Neither blocks anything.
