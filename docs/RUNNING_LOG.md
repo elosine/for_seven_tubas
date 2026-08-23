@@ -9906,3 +9906,31 @@ both levels full over its internal rest at 865**. No brackets. Batteries green
 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --beamOverLeft 3
 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,3
 ```
+
+
+#### Day 29 — T2 PINNED; the beaming-standards question opens (a conversation, not a build)
+
+**Composer:** *"Let's just put a PIN in t two for now. There are some lessons, but I
+want to set up a structure for that and for the other ones moving forward. But going
+back or doing t two, I realized that perhaps the stemming and beaming wasn't as well
+thought out as it should have been. So the first step is to... educate me or do some
+research if you need as to the standard approach to beaming. When should you have
+overhangs? when should you have, like, the beamlets like I do, etcetera, which things
+should be grouped together generally and which not? and how is beaming handled with
+[tuplets]? And, like, do you beam partway into the [tuplet], etcetera."*
+
+- **T2's state at the pin:** `t2-composer` ("T2 read E") as of commit 3c0a17e —
+  [1 2 3]+over · [4 5 6]+over · 7 as the rest+partial "group of two" · [8-11]
+  through · [12 13] stubs · [14 15] through. The four scratch candidates A–D still
+  in the picker. NOT pruned — the pin is not a final.
+- **The lessons structure the composer wants (T2's and "the other ones moving
+  forward") is NOT YET SET UP** — that is the composer's named next thing after the
+  beaming conversation.
+- **Delivered: `docs/research/beaming_standards.md`** — the standard practice from
+  Gould (Behind Bars), Read, Ross, and Stone (the spatial-notation case, which is
+  ours), mapped against this piece's devices (beam=group ✓ Stone; overhang =
+  "claimed time", Gould would add stemlets; beamlet direction is MEANING — edges
+  right/left, middle points at the belonging side; bracket = arithmetic, beam =
+  grouping, straddle = the standard's own no-no). Indexed in RESEARCH_INDEX. Written
+  from knowledge of the texts (no web pass); the composer can ask for page-level
+  verification of any single claim.
