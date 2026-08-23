@@ -25,8 +25,13 @@ and no time or pitch changed. db1 was re-extracted from the amended archive (456
 events, 131 chunks, VALID; `--validate` 24/25; nine batteries green) and a trial fork
 **`db1-c2i-x01`** sits in the picker under experiments — **day 26: its CLOUD02-I span is
 BARE (`--bare 36.19-40.33` in its build command): bricks only, no per-note devices, so
-the composer can read the material.** **CLOUD02-I is not notated —
-that is Part 3 and it starts by talking, not building.** Whole archive still shows 2
+the composer can read the material.** **CLOUD02-I is not notated.
+Day 26: Part 3 ran on T1 — the protocol finds ONE 16-note cluster + a lone one-shot
+(breath seam at 559 ms), then fits it to one grid that needs three tuplet beats; cut at
+the pace changes it is five trivial figures. The composer's reframe (players read
+patterns, not tempos; the page and cursor absorb tempo; dissonance past the eye's
+rounding is the only failure) became PLAN 8g — the analyser must find the FIGURES
+inside a gesture. 8g is approved and is the next build.** Whole archive still shows 2
 hard (the trance seams @560.63 T8 / @604.63 T6) and 32 soft, all parked. All pushed;
 working tree clean.
 
@@ -34,13 +39,17 @@ working tree clean.
 
 | # | step | model | clear? | done = |
 |---|---|---|---|---|
-| **1** | **PART 3 — notation ANALYSIS of CLOUD02-I in shapes, then STOP AND TALK** (block below) | **Fable** | cleared before it (day 25) | the composer has the per-part report and the conversation about what the notation should look like has happened; the approach is written into §2 |
-| 2 | NOTATE CLOUD02-I — build the figures per the decided approach (`--cluster …` appended to db1's command, trials in `db1-c2i-x01`); composer reviews part by part | **Opus** to build · **Fable** for each "look at the page" verdict | clear before it (mode change: conversation → execution); `/checkpoint · /clear · /resume` mid-way if the chat gets long | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` still 24/25, pushed |
-| 3 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is already dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → then ITS notation analysis | **Opus** for the run/apply · **Fable** for the nine (short) and the analysis talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
-| 4 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
-| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column | — | — | — |
+| ~~1~~ | ~~PART 3 — analysis of CLOUD02-I in shapes, then STOP AND TALK~~ **T1 DONE day 26** — the talk happened; the composer's reframe is in COMPOSER_LOG day 26; the build it produced is 8g | — | — | — |
+| **2** | **8g — FIGURE SEAMS: build the segmenter** (PLAN 8g has the four-part spec; T1 is the golden: cuts after notes 5, 8, 11, 14, note 11 a near-tie) | **Opus** | **YES — clear before it** (conversation → execution; `/session-end` · `/clear` · `/session-start`) | `pattern_analyze --ir db1-c2i-x01 --part 0 --span 36.0-40.4` prints five figures in words with flags; `--validate` 24/25; batteries green; pushed |
+| 3 | T2–T10 by hand against the new report, one part at a time; composer validates the "one cluster per part, several figures" expectation; the three-class vocabulary (tuplet vs dotted 16ths) is decided ON THE PAGE when the first such figure is drawn | **Fable** | yes (execution → conversation) | every part has its read; the tool changes it shows a need for are listed |
+| 4 | NOTATE CLOUD02-I — `--cluster … --figures` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
+| 5 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → its analysis | Opus run/apply · Fable for the nine and the talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
+| 6 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
+| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**Right now:** step 1. It is a conversation; do not build.
+**Right now:** step 2 (8g). **This is a clear point** — the conversation is over and the
+build is written down in PLAN 8g. Read 8g and `notation/lib/pattern_fit.js` (164 lines),
+then build.
 
 ### The tools you will use (all verified day 24)
 

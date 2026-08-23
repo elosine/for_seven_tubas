@@ -910,3 +910,56 @@ strictly for playability."* The original passes playability with eleven part-mov
 no removals. The thinning research survives as a flag, not a deliverable. Methodological
 point: the composer's periodic "restate this for me" checks are the error-correction
 channel; the AI's verification discipline catches wrong numbers, not wrong objectives.
+
+## Day 26 — the notation sits BETWEEN Ferneyhough and Stone, and the unit of cognition is the pattern
+
+The composer, asked whether a player could follow five tempo changes inside one
+cluster, reframed the question away from tempo altogether: *"I'm trying to find some
+space between a strict notational rendering, i.e. Brian Ferneyhough, versus a
+time-space rendering, i.e. Kurt Stone or Xenakis's* Mists*. And I think this is
+precisely the example that falls in between."* The claim about performance: *"in
+real-time performance they are doing pattern recognition… as long as we beam everything
+in patterns and the spatial layout doesn't look incongruous, then that's the right
+notation."* Two "long short short" figures at different tempos are not two tempos to the
+player; they are the same pattern twice, and *"the spatial layout… and the scrolling
+cursor"* carry the difference. The written rhythm is a grouping device; the page and
+the cursor own time (first principle 1, day 24, now with its cognitive justification).
+
+The failure condition has a name — *cognitive dissonance* — and a mechanism — *"a mental
+rounding or averaging"*: the eye rounds visibly-unequal gaps to the written pattern
+until the inequality passes a threshold, and only then must the notation itself say
+*"very long, medium, shorter"* (a tuplet, or a separate figure). This gives the
+one-notehead threshold (day 24) its psychology: it is the radius of the rounding. Worth
+citing against Stone's account of proportional notation and Ferneyhough's of
+"tactility"; the piece's position is that *pattern legibility* is the invariant and
+metric exactness and spatial exactness are each sacrificed to it where they conflict.
+
+Process note for the paper: the AI's question ("five tempo changes — playable?") was
+the wrong frame, and the composer's answer did not answer it but replaced it. The
+analyser had found the right seam (breath) and the wrong unit (one grid per seam); the
+correction came from a statement about how players read, not from the numbers.
+
+## THE PAPER'S STRUCTURE — first pass (composer, day 26, 2026-08-23; stored for when the paper starts)
+
+Composer, dictated, *"just a comment for the paper development, I just don't want to
+forget it":*
+
+*"I think the first pass will be just to organise the structure and outline the
+individual parts. And I think basically there's three parts of the piece, and then
+there's the Kobayashi framing. So the framing will be the beginning and the end, and
+then we'll describe the three parts of the piece. And so I think the first pass will be
+to look at everything for each part of the piece and then construct a narrative, a very
+brief narrative of what was done to create that section. And then just a list of all
+the processes and things we did to create that section, and then I'll probably choose
+the things to talk about, and then we'll expand a narrative for each. So it'll probably
+be the case that there's just too much to talk about. And so for each section, I'll
+choose the most interesting things to focus on and then dive deep into those and then
+make sure they fall into a coherent narrative for that section."*
+
+**Shape:** Kobayashi framing (open) → Part I → Part II → Part III → Kobayashi framing
+(close). **First pass, per part of the piece:** (1) a very brief narrative of what was
+done to make it; (2) the full list of processes and things done — everything, from the
+running log; (3) the composer chooses the most interesting items; (4) those are expanded
+into a deep narrative that coheres for the section. Expect too much material; selection
+is the composer's, by interest. *The running log's "would this be expensive to
+rediscover" bar exists for step 2.*

@@ -1835,6 +1835,48 @@ while building the real score.
   A–D made · (3) notation ANALYSIS of the rebuilt section in shapes, then STOP and
   talk before any figure is generated. Done = the composer has the part-3 report and
   the conversation about what the notation should be has happened.
+  **Day 26 — Part 3 on T1 produced the conversation and a build (8g).** The
+  protocol's verdict: ONE 16-note cluster + a lone one-shot (breath seam at 559 ms);
+  "very few clusters" was true in count, wrong in meaning. Its one grid for the 16
+  needs tuplets on three beats; cut at the pace changes, five trivial figures. The
+  composer's reframe (COMPOSER_LOG day 26): players read PATTERNS, not tempos; the
+  page and cursor absorb tempo; the only failure is dissonance past the eye's
+  rounding. Remaining parts T2–T10 continue by hand against the tool, after 8g.
+- **8g — FIGURE SEAMS: the analyser finds the figures inside a gesture** —
+  `approved (composer, day 26) — NEXT BUILD`. Model: Opus, clear before it (conversation
+  → execution). **Why:** `pattern_fit.fit()` takes ONE onset list and fits ONE grid;
+  `pattern_analyze` hands it a whole breath-group. Principle 6 ("figures need not
+  share a tempo") is written in NOTATION_STANDARDS and not implemented. T1 proved it:
+  one grid = 7:4 · 6:4 · 7:4 at 0.7 heads; five figures = all under 0.6 heads, three
+  of them plain. **What:**
+  1. `notation/lib/pattern_fit.js` — `segment(onsets, opt)`: try every cut set of the
+     gesture (a gesture is ≤ ~20 notes; cuts between consecutive notes → DP over
+     prefixes, cost(figure) from the existing `fit()` ranking: tuplet beats, empty
+     slots, heads; + `CUT_COST` per cut so it never shatters into pairs; a figure
+     must have ≥ 2 notes and be under `MAX_HEADS`, else infinite). Returns the
+     figures, each with its own `fit()` result, plus **near-ties**: any cut whose
+     alternative is within a margin → FLAGGED "this note could go either way" (T1's
+     note 11, the 161 ms gap). `fit()` is untouched; `--validate` must still give
+     24/25.
+  2. `tools/pattern_analyze.js` — reports gesture → figures in WORDS first
+     ("long long short short · even even · short long · even even · pair"), then
+     each figure's writing + heads, then flags (pickup, near-tie cut, tuplet forced
+     by dissonance). The gesture's single-grid fit is printed LAST as "also", for
+     comparison, not first.
+  3. `tools/notate_section.js` — `--cluster` gains `--figures` (positional): beam
+     groups from the analyser's figures, **each fitted alone** (own unit), one GC and
+     go on the gesture's first note, every later head left-edge-on-time. The
+     existing `--beamBreak` (same tempo) stays for figures the composer wants on one
+     grid. Written values per figure from its own fit.
+  4. `tools/test_pattern_fit.js` — T1 36.22–39.61 as the golden: five figures at the
+     cuts after notes 5, 8, 11, 14; note-11 near-tie flagged; single-grid fit worse
+     than the sum. Plus a no-shatter case (three even 16ths must stay ONE figure).
+  **Deferred to the page (composer):** the three-class figure (T1 notes 1–5, 3:3:2:2
+  — "long long short short"): tuplet (the composer's word) vs dotted 16ths (a 32nd
+  grid, no 32nd heads; bends principle 7). The tool offers both; the composer picks
+  when it is drawn. **Done =** `pattern_analyze --part 0 --span 36.0-40.4` prints
+  the five figures with their flags; `--validate` 24/25; batteries green; the T2–T10
+  reads resume with the new report.
 
 ## Parking lot
 

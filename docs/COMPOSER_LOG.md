@@ -2018,3 +2018,43 @@ relatively subjective. The fortepiano is clear. But the other ones probably had
 something to do with the way I heard it. We can use our current principle for
 now, but the ones you do on your own, just flag for me, and I'll have to listen
 and either confirm that it's a pickup or have it revert to not being a pickup."*
+
+## Day 26 (2026-08-23) — Part 3 opened on T1: the space between Ferneyhough and Stone
+
+*(Context: the D63 analyser on T1 of CLOUD02-I found ONE breath seam — a 16-note
+cluster plus a lone one-shot — and then could only fit the 16 to one grid by putting
+tuplets on three beats. Split at its pace changes, each sub-run fits trivially. The AI
+asked whether a player can follow five tempo changes inside one "go".)*
+
+*"I think I would reframe the question, but also I can answer more conclusively when I
+see it. But I think what I'm doing here is trying to find some space between a strict
+notational rendering, i.e. Brian Ferneyhough, versus a time-space rendering, spatial
+rendering, i.e. the Kurt Stone or the Xenakis* Mists. *And I think this is precisely the
+example that falls in between.*
+
+*So the reframe is that I don't think a player is following or thinking about it in
+terms of five different tempo changes — back to the first principles that I revised
+earlier. I think in real-time performance they are doing pattern recognition. And so as
+long as we beam everything in patterns and the physical layout, the spatial layout,
+doesn't look incongruous, then that's the right notation. So for example, if they see a
+cluster, a pattern, that's an eighth note and two sixteenth notes in one tempo, and then
+there's a gap, and then they see another eighth note and two sixteenth notes, but
+they're slightly more spread apart because they're in a different tempo — I don't think
+they'll think of those as two separate tempos. They'll just think of it as long, short,
+short, and then another long, short, short, and use the spatial layout to navigate, and
+then the scrolling cursor to navigate those tempo changes, without thinking of them as
+tempo changes.*
+
+*However, if it's long, short, short, and then long, short, short, but the second
+grouping has a very long first gap, and the two short gaps aren't equal — or visibly
+very different — then we would have to try to remedy that, by either separating it as
+a different cluster or using some sort of tuplet value, so that at least there wouldn't
+be cognitive dissonance. It would communicate very long, medium, and shorter in the
+notation itself. But only in the cases where the visual pushes past the — I guess it's
+a mental rounding or averaging. So even though you see a long short short and the two
+short gaps aren't exactly the same, you're still going to be able to play it as long
+short short. However, at a certain point, if the gaps are too different, then there's
+the cognitive dissonance."*
+
+*(\* transcribed as "the Synocus Mists"; read as Xenakis's* Mists *— composer to
+confirm.)*

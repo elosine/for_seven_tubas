@@ -9002,3 +9002,36 @@ GC. Ten batteries green.
 box is ignored there (page 5 = 32–40, page 6 = 38.7–46.7 — the span straddles the
 cut); and setting a number field by script does not fire `change`, only a real edit
 does. Neither blocks anything.
+
+### Day 26 — PART 3, T1: the protocol's verdict, where it breaks, and the composer's reframe
+
+**Why Part 3 exists (composer):** an earlier analysis said this section would have
+"very few clusters"; the composer wants to validate or invalidate that by hand, part by
+part, and if invalidated, fix the analysis so it finds the clusters next time.
+
+**The protocol on T1** (`pattern_analyze --ir db1-c2i-x01 --part 0 --span 36.0-40.4`):
+17 notes 36.22–40.17; gaps 239 244 156 160 347 288 304 242 142 274 161 158 157 265 255
+| 559. **One breath seam** (the 559) → **one 16-note cluster + a lone one-shot at
+40.17.** So "very few clusters" was true in count and wrong in meaning: not few
+clusterable notes, ONE cluster that takes nearly everything. Composer's ear beforehand:
+*"it actually sounds like all clusters or even one long cluster."* Confirmed.
+
+**Where it breaks:** the one grid the tool finds for the 16 is ♩=120 at 0.7 heads —
+inside the threshold — but needs tuplets on three beats (7:4, 6:4, 7:4) and puts half the
+notes on fractional slots. Legal and unreadable: the 32nds smell of day 24 in another
+coat. The gaps sort into three pace families (~157 / ~245 / ~300 ms, within-family
+spread ≤1.2×, between-family ≥1.5×) in runs: med med · short short · long long long ·
+med · short · long · short short short · long long. Analysed run by run, every one is
+trivial: notes 1–5 ♩96 (a 5:4 + two 16ths, 0.6 heads) · 6–8 three even 16ths ♩51 (0.2)
+· 9–11 16th 8th 16th ♩108 (0.1; note 9 flagged pickup) · 12–14 three even 16ths ♩95
+(0.0) · 15–16 two 16ths ♩59 (0.0). The seam the tool has (breath) finds the gesture;
+the unit it fits (one grid per gesture) is wrong — principle 6 ("figures need not share
+a tempo") is stated in NOTATION_STANDARDS and not implemented.
+
+**The AI's question — "five tempo changes under one go, playable?" — was the wrong
+frame.** Composer's reframe (verbatim in COMPOSER_LOG day 26; paper framing in
+PAPER_NOTES): players do pattern recognition, not tempo tracking; two "long short short"
+figures at different spacings read as one pattern twice, the page and the cursor absorb
+the tempo; the only failure is *cognitive dissonance*, when the spacing pushes past the
+eye's *mental rounding* — and only then does the notation itself have to say "very long,
+medium, shorter" (tuplet or separate figure). Protocol consequences discussed next.
