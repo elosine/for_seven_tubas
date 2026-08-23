@@ -883,3 +883,17 @@ the dynamics rule went through (reproduced one cluster exactly, missed one
 partial on the other, filed with its failure). Pickups remain a proposal flagged
 for the ear: *"the fortepiano is clear; the other ones probably had something to
 do with the way I heard it."*
+
+**Calibration of the one-notehead threshold, from the composer's own eye
+(day 24, late).** Two figures the composer classified unprompted:
+
+| figure | written vs actual | worst displacement | composer's verdict |
+|---|---|---|---|
+| T8 31.76 (grid 0,2,5,8) | 268/402/402 vs 261/416/393 ms | **7 ms = 0.2 heads** | *"reads as coherent… I can tell visually that the second gap is wider than the third, but I don't feel the notation is at odds"* |
+| T1 figure 2 as four even 16ths | 172/172/172 vs 200/135/244 | **63 ms = 2.1 heads** | *"that T1 example does provide that dissonance if there wasn't the 3:2"* |
+
+One point below the threshold read as coherent, one point above read as
+dissonant, both from the ear that will judge the rest. The threshold is not
+arbitrary; it is bracketed. (The T8 case also shows the eye tolerating a
+visible 23 ms difference between two gaps WRITTEN equal — it is under a head,
+so it reads as "the same".)

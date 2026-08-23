@@ -266,6 +266,8 @@ could not explain.**
    rest are by ear. AI may propose a pickup but must flag it; the composer
    confirms or reverts.
 
+**Calibration (composer's eye):** T8 31.76, worst displacement 0.2 heads → *coherent*; T1's last figure as four even 16ths, 2.1 heads → *dissonant* (the 3:2 cured it). One point each side of the line.
+
 *Status: principles adopted; the analyser that implements 3–5 is the next build,
 to be validated against the 25 decided figures before it is trusted on new
 material.*
