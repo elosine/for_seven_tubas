@@ -9973,3 +9973,29 @@ audit hit a shell quirk — the notation page ignores synthetic ArrowRight, and 
 earlier script of mine had blanked the #view dropdown by grabbing the first <select>;
 #ir vs #view distinguished now. The node-side layout audit is the equivalent
 evidence.)*
+
+
+#### Day 29 — T2/T3 dictated, T4–T10 extrapolated: `db1-rebeam-x01` (db1 kept as the before)
+
+**Composer:** T2's two figures (= cl-3's two beam groups) — split the 8th rest to two
+16ths, all six slots one solid double beam, no overhang; the two separator 8th rests
+stay; grp 2 solid. T3: cl-4's five heads stay one group, ALL rests to 16ths; cl-5
+solid double. Then: *"I think I'm following a pretty regular pattern. It's not as
+complicated as I thought. So can you try doing re-beaming t four through t ten? and
+then I'll look at it when you're done and make adjustments. just save this current
+one somewhere so we can look back on it… make your changes in a new save file."*
+
+**The extrapolated recipe** (BEAMING_DECISIONS D-log 4): through everywhere ·
+within-group silences ≥2 slots → 16th rests · separator rests keep value · no
+overhangs · breaks unchanged · tuplet-internal rests untouched. **Eight cluster lines
+changed** (T2 cl-3 · T3 cl-4, cl-5 · T4 cl-7 · T7 cl-16 · T8 cl-21, cl-22 · T10
+cl-25); ten clusters need nothing (adjacent notes, already solid). Built as
+**`db1-rebeam-x01`** (exp) from db1's stored command with only those lines edited;
+**db1 untouched as the before**, per the composer's ask.
+
+**Audit (layout path, parts 1–9, 29–35.5 s):** stubs 24 → 1 (T2's untouched pickup
+pair cl-2) · solid secondaries 7 → 12 · 16th rests 16 → 30 · 8th rests 10 → 3, and
+all three survivors are deliberate: T2's separator pair at 33.45/33.74 and the 8th
+rest INSIDE T10's 3:2 bracket at 33.15 (the tuplet's own vocabulary). VALID, no new
+warnings. Awaiting the composer's eye part by part; on approval the changed lines get
+folded into db1's rebuild command and db1 rebuilt (promotion = one command).

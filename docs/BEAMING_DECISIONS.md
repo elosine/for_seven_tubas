@@ -44,6 +44,42 @@ stored rebuild command; batteries green, `--validate` still 24/25.*
 | 2.3 | groups [1 2] and [3 4 5] | overhang over the trailing 16th rest (`--beamOver 1,2`); group [6 7 8] ends on a note → NO overhang | "with the overhang over… the fourth spot, the last sixteenth rest" | claimed-time to the beat line; a group ending on a note claims nothing further |
 | 2.4 | the 8th rest (slots 12–13) and the tail | UNTOUCHED | "eighth rest is fine, and the last figure is fine" | the 8th rest SEPARATES figures — kept whole, unlike D-log 1.4's split rests, which were INSIDE a gesture |
 
+## D-log 3 · T2 + T3 ending figures (db1) — day 29, dictated
+
+*Applied in `db1-rebeam-x01` (db1 kept untouched as the before, composer's ask).*
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 3.1 | T2 cl-3 grp 1 (32.56, `N r r N r N`) | 8th rest → two 16ths (`--rest16 2`); all six slots one solid double beam (`--beamThrough`); NO overhang | "split the eighth rest into two sixteenths… beam all six spots… all double beams. No over[hang]" | ends on a note — nothing to claim |
+| 3.2 | T2 cl-3, between the groups | the two 8th rests STAY | "Then two eighth rests" | separator rests keep value (rule cand. 3 again) |
+| 3.3 | T2 cl-3 grp 2 (`N r N N`) | solid double beam | "double beam that whole group" | |
+| 3.4 | T3 cl-4 (29.93, 5 notes, silences 1·3·2·4 units) | keep ONE group; ALL rests 16ths (`--rest16 3,4,5`); solid double | "keep all of those five note heads beamed together… make all the rests sixteenth rests" | the 4-unit silence = four 16th rests — inside a group, the pulse shows |
+| 3.5 | T3 cl-5 (`N r N N`) | solid double | "beam all those together double beams" | |
+| — | T2 cl-2 (31.18, pickup pair) | untouched — not mentioned | "T two has two figures" (cl-2 not counted) | the composer counts beam groups of the ending gesture as "figures" |
+
+## D-log 4 · T4–T10 (parts 3–9) — day 29, AI-extrapolated, AWAITING THE COMPOSER'S EYE
+
+*Composer: "I think I'm following a pretty regular pattern… can you try doing
+re-beaming t four through t ten? and then I'll look at it when you're done."*
+
+**The recipe extrapolated from D-logs 1–3:** every group's secondary beam SOLID
+(`--beamThrough`) · every within-group silence of ≥2 slots written as 16th rests
+(`--rest16`) · between-figure rests keep their value · no overhangs added · existing
+beam breaks unchanged · tuplet-internal rests belong to the bracket, untouched.
+
+| cluster | change |
+|---|---|
+| T4 cl-7 33.13 (`N r N N`) | through |
+| T7 cl-16 33.58 (`N r r N r N r N`) | through + rest16 2 |
+| T8 cl-21 31.77 (`N r N r r N r r N`) | through + rest16 3,4 |
+| T8 cl-22 33.89 (`N r N N N`) | through |
+| T10 cl-25 32.93 (3:2 tail + `N r N r r N`) | through + rest16 5 (the 8th rest INSIDE the 3:2 bracket untouched — it is the tuplet's own vocabulary) |
+| T4 cl-6/cl-8 · T5 cl-10/11/12 · T6 cl-13 · T7 cl-14/15 · T8 cl-20 · T9 cl-23 · T10 cl-24 | NO CHANGE — adjacent notes only; already solid doubles |
+
+**Audit (real layout path, parts 1–9, 29–35.5 s):** secondary stubs 24 → 1 (the
+untouched T2 pickup pair), solid secondaries 7 → 12, 16th rests 16 → 30, 8th rests
+10 → 3 (T2's separator pair + T10's in-bracket one). No new warnings.
+
 ## Emerging rule candidates (NOT rules yet — extraction deferred by the composer)
 
 1. **The beam's extent is the time the group claims.** Overhang over a trailing rest
@@ -61,3 +97,6 @@ stored rebuild command; batteries green, `--validate` still 24/25.*
    fixed ratio both disagree with the ear somewhere. (1.2, 1.6, 1.7)
 6. **Where a beat exists, group by it** — cl-1's groups are the fit's beats; on T2's
    gestures (no clean beat) the groups came by ear. (2.1)
+7. **A figure = a beam group, and the composer counts figures BY beam group** (T2's
+   cl-3 = "two figures"). Tuplet-internal rests are the bracket's, not the figure's.
+   (3.1–3.5, D-log 4 T10)
