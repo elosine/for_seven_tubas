@@ -59,11 +59,16 @@ const RINGFRAC= +flag('ringFrac', 1.0);   // (a): fraction of the ring that must
 const SPACING = +flag('spacing', 0.05);   // (b2): minimum gap between any two attacks
 const TIE     = flag('tie', 'hybrid');    // (b2): hybrid | loudest | roundrobin
 const RECENT  = +flag('recent', 0.25);    // (b2, hybrid): "that part just played" window
-const FILLFLOOR = +flag('fillFloor', 0.03); // (b3): smallest room an added note may have
+// (b3+): one version per floor, each seeded from the previous, so B3 ⊂ B4 ⊂ B5 and
+// every listen strictly adds notes. Farthest-first order does not depend on the
+// floor — the floor only says when to stop — so a nested chain and independent runs
+// give the identical selection.
+const FILLFLOORS = flag('fillFloors', '0.03').split(',').map(Number);
 const BRICK   = flag('brick', null) != null ? +flag('brick') : null; // written staccato length
 const REDIST  = !args.includes('--noRedistribute');
 const ISOLATE = args.includes('--isolate');
-const STARTS  = [0, 8, 16, 24, 32];       // where each copy begins
+const GAP     = 8;                        // spacing between copies, seconds
+const STARTS  = [0, 8, 16, 24, 32];       // ORIGINAL, B, A, B2, then one per fill floor
 const META_LAYER = 10;
 const PARTS = 10;
 
@@ -252,20 +257,31 @@ function gapFill(base, floor) {
   const have = new Set(kept.map(keyOf));
   const pool = notes.filter(n => !have.has(keyOf(n)));
   const added = [];
+  const TIE_TOL = 0.005;
   for (;;) {
-    let best = null, bestRoom = -1;
+    // Room of every remaining candidate, then the TRUE maximum. Selection and the
+    // stopping test must be kept apart: an earlier version folded the tie-break
+    // into a running best-so-far, so a tied-but-roomier-looking candidate could
+    // LOWER the tracked room below the real maximum — and the floor was then
+    // tested against that drifted value. It stopped the 25 ms fill dead while
+    // seven notes with 25–30 ms of room were still on the table.
+    const cands = [];
     for (const n of pool) {
       if (have.has(keyOf(n))) continue;
       let r = Infinity;
       for (const k of kept) { const d = Math.abs(k.startSeconds - n.startSeconds); if (d < r) r = d; }
-      const better = r > bestRoom + 0.005
-        || (Math.abs(r - bestRoom) <= 0.005 && best
-            && (per[n.layer] < per[best.layer]
-                || (per[n.layer] === per[best.layer] && n.recVel > best.recVel)));
-      if (better) { best = n; bestRoom = r; }
+      cands.push({ n, r });
     }
-    if (!best || bestRoom < floor) break;
-    kept.push(best); have.add(keyOf(best)); per[best.layer]++; added.push(best);
+    if (!cands.length) break;
+    const maxRoom = cands.reduce((m, c) => Math.max(m, c.r), -Infinity);
+    if (maxRoom < floor) break;
+    // The tie pool is clamped at the floor as well as at maxRoom − tolerance:
+    // without the clamp, a note within 5 ms of the roomiest could be admitted with
+    // LESS than `floor` of room, and the 30 ms fill came out with a 27 ms gap in it.
+    const tied = cands.filter(c => c.r >= Math.max(floor, maxRoom - TIE_TOL))
+      .sort((x, y) => (per[x.n.layer] - per[y.n.layer]) || (y.n.recVel - x.n.recVel) || (y.r - x.r));
+    const pick = tied[0].n;
+    kept.push(pick); have.add(keyOf(pick)); per[pick.layer]++; added.push(pick);
   }
   return { set: kept.sort((x, y) => x.startSeconds - y.startSeconds), added };
 }
@@ -360,19 +376,26 @@ function census(set, label) {
 const B  = thinEnsemble();
 const A  = thinByPart();
 const B2 = thinBySpacing(SPACING, TIE);
-const fill = gapFill(B2, FILLFLOOR);
-const B3pre = fill.set;
-const redis = REDIST ? redistribute(B3pre) : { set: B3pre, moves: [], stuck: flags(B3pre) };
-const B3 = redis.set;
+// the add-back chain: fill → audit → redistribute where a part is tight → next floor
+const FILLED = [];
+let seed = B2;
+FILLFLOORS.forEach((floor, i) => {
+  const fill = gapFill(seed, floor);
+  const pre = fill.set;
+  const redis = REDIST ? redistribute(pre) : { set: pre, moves: [], stuck: flags(pre) };
+  const brief = f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3) });
+  FILLED.push({
+    name: 'B' + (i + 3), floor, set: redis.set,
+    loop: { added: fill.added.length, flagsBeforeRedistribution: flags(pre).map(brief),
+      moves: redis.moves, unresolved: redis.stuck.map(brief) },
+  });
+  seed = redis.set;
+});
+
 const reports = [census(notes, 'ORIGINAL'), census(B, 'B ensemble cap ' + CAP),
   census(A, 'A by-part'), census(B2, `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`),
-  census(B3, `B3 +fill ${Math.round(FILLFLOOR * 1000)}ms`)];
-const loop = {
-  added: fill.added.length,
-  flagsBeforeRedistribution: flags(B3pre).map(f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3) })),
-  moves: redis.moves,
-  unresolved: redis.stuck.map(f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3) })),
-};
+  ...FILLED.map(f => census(f.set, `${f.name} +fill ${Math.round(f.floor * 1000)}ms`))];
+const loop = Object.fromEntries(FILLED.map(f => [f.name, f.loop]));
 
 // ── emit the scratch score ────────────────────────────────────────────────────
 let nid = 1;
@@ -388,11 +411,14 @@ const COPIES = [
     tag: `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`,
     label: `B2 attack spacing ${Math.round(SPACING * 1000)}ms ${TIE} — ${B2.length} notes, `
          + `${(B2.length / SPAN).toFixed(0)}/s`, meta: null },
-  { set: B3, at: STARTS[4], group: 'grp-c2i-b3', color: '#C0392B',
-    tag: `B3 fill ${Math.round(FILLFLOOR * 1000)}ms`,
-    label: `B3 = B2 + gap-fill ${Math.round(FILLFLOOR * 1000)}ms — ${B3.length} notes, `
-         + `${(B3.length / SPAN).toFixed(0)}/s` + (redis.moves.length ? `, ${redis.moves.length} redistributed` : ''),
-    meta: null },
+  ...FILLED.map((f, i) => ({
+    set: f.set, at: STARTS[4] + i * GAP, group: 'grp-c2i-' + f.name.toLowerCase(),
+    color: ['#C0392B', '#D68910', '#7D6608'][i % 3],
+    tag: `${f.name} fill ${Math.round(f.floor * 1000)}ms`,
+    label: `${f.name} = gap-fill ${Math.round(f.floor * 1000)}ms — ${f.set.length} notes, `
+         + `${(f.set.length / SPAN).toFixed(0)}/s`
+         + (f.loop.moves.length ? `, ${f.loop.moves.length} redistributed` : ''),
+    meta: null })),
 ];
 const SLUG = { 'ORIGINAL': 'orig', 'A by-part': 'a' };
 
@@ -469,11 +495,16 @@ for (const r of reports) {
     + `fff ${String(r.fff).padStart(2)}/33  seams ${String(r.breathSeams).padStart(2)}  [${r.per.join(' ')}]`);
 }
 const fmtFlag = f => `${f.tier} T${f.part}@${f.at}`;
-console.log(`\nB3 loop: +${loop.added} added by gap-fill`
-  + ` · flags before redistribution ${loop.flagsBeforeRedistribution.length}`
-  + (loop.flagsBeforeRedistribution.length ? ' [' + loop.flagsBeforeRedistribution.map(fmtFlag).join(', ') + ']' : '')
-  + ` · moves ${loop.moves.length}`
-  + (loop.moves.length ? ' [' + loop.moves.map(m => `${m.id}@${m.at.toFixed(2)} T${m.from + 1}→T${m.to + 1}`).join(', ') + ']' : '')
-  + ` · unresolved ${loop.unresolved.length}`
-  + (loop.unresolved.length ? ' [' + loop.unresolved.map(fmtFlag).join(', ') + ']' : ''));
-console.log('\nwrote ' + OUT + ' — ' + objs.length + ' objects, copies at ' + STARTS.join('s / ') + 's');
+console.log();
+for (const f of FILLED) {
+  const L = f.loop;
+  console.log(`${f.name} loop (floor ${Math.round(f.floor * 1000)}ms): +${L.added} added`
+    + ` · flags before redistribution ${L.flagsBeforeRedistribution.length}`
+    + (L.flagsBeforeRedistribution.length ? ' [' + L.flagsBeforeRedistribution.map(fmtFlag).join(', ') + ']' : '')
+    + ` · moves ${L.moves.length}`
+    + (L.moves.length ? ' [' + L.moves.map(m => `${m.id}@${m.at.toFixed(2)} T${m.from + 1}→T${m.to + 1}`).join(', ') + ']' : '')
+    + ` · unresolved ${L.unresolved.length}`
+    + (L.unresolved.length ? ' [' + L.unresolved.map(fmtFlag).join(', ') + ']' : ''));
+}
+console.log('\nwrote ' + OUT + ' — ' + objs.length + ' objects, copies at '
+  + COPIES.map(c => c.at + 's').join(' / '));

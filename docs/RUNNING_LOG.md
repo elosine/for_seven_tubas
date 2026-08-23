@@ -8525,3 +8525,63 @@ Redistribution rule mirrors `audit_playability.js` constants (HARD = next onset 
 the brick ends; SOFT = re-attack under 110 ms + 9.3 ms/st capped at 220 ms) — the browser
 CONFLICT engine remains the authority. Verified in the composer app: 401 objects render,
 five copies at 0/8/16/24/32 s.
+
+### Day 25 — what "playability" actually checks (composer asked), and the fusion ladder B3/B4/B5
+
+**Composer: "for playability, you're looking at the rhythmic closeness AND the breaths?"
+Answer, read from the code, not memory: rhythmic closeness YES, breaths NO.**
+`tools/audit_playability.js` mirrors `Composer.CONFLICT` (composer.html:2316) and checks
+exactly two things:
+
+- **HARD** — the next note starts before the previous brick ends. Two notes at once on one
+  player. Physics; cannot be tuned. *(The mock-up cannot tell you this: technique = MIDI
+  channel, so two overlapping notes on one player hit two UVI channels and both sound
+  cleanly. Hence a written check, not an audible one.)*
+- **SOFT** — attack-to-attack re-articulation: under `minAttack` 0.11 s + `perSemitone`
+  0.0093 × leap (capped `maxLeapAdd` 0.22), or under `tongueReset` 0.03 s of silence.
+  Numbers come from 2j's tremolo table, which IS an attack rate (half step 4.5 Hz =
+  0.111 s; fifth 3.0 Hz = 0.167 s). Estimates — soft can only tint amber.
+
+**"Breath" is TWO DIFFERENT WORDS in this project, and only one is wired.** The
+`breathSeconds` 0.5 in `container.json` is a NOTATION constant — D62's "a go needs a
+breath" grouping rule and the ring-bar cut. **Nothing anywhere models air or endurance.**
+
+**Measured, since it is a fair question:** the continuous playing stretch containing this
+section (no gap ≥ 2 s) runs **9.4–22.2 s per part, 22–42 notes** — T8 plays 42 notes across
+22.2 s, T4 41 across 20.0 s, all in F#1–G#2, a low and air-hungry register. That is a real
+endurance question the tooling cannot answer and the composer may want to put to a player.
+Not binding for today's decision; recorded so it is not rediscovered.
+
+**Composer: "let's lower the fusion one step."** Built as a ladder — `--fillFloors
+0.03,0.025,0.02`, each seeded from the previous so B3 ⊂ B4 ⊂ B5 (farthest-first order does
+not depend on the floor; the floor only says when to stop, so nesting and independent runs
+give the identical selection). Copies now at 0/8/16/24/32/40/48 s.
+
+    B2 spacing 50ms   43 notes 10.2/s  sounding 5/3.6   min gap 52ms  fused  0  fff 15/33  seams 24
+    B3 +fill 30ms     59 notes 13.9/s  sounding 8/4.9   min gap 30ms  fused  0  fff 16/33  seams 29
+    B4 +fill 25ms     64 notes 15.1/s  sounding 9/5.3   min gap 26ms  fused  5  fff 17/33  seams 29
+    B5 +fill 20ms     69 notes 16.3/s  sounding 10/5.7  min gap 21ms  fused 12  fff 19/33  seams 29
+
+Redistribution fired for the first time: B4 moved wc-1914 @40.33 T6→T3, B5 moved wc-1898
+@40.00 T4→T10 — both `soft` re-attacks, both resolved, 0 unresolved. **All three audit
+clean: 0 hard, 0 soft on every part** (independent `audit_playability --parts`).
+
+**TWO REAL BUGS IN THE GAP-FILL, found by checking a surprising number instead of
+reporting it — keep this, it is the methodology working.** The first run said B4 (25 ms)
+added ZERO notes. That was implausible, so I measured the remaining candidates' rooms
+directly: **7 notes sat in the 25–30 ms band**. Both bugs were in `gapFill`:
+
+1. **The tie-break was folded into a running best-so-far, so it could LOWER the tracked
+   room below the true maximum.** Traced live: the scan reached 30 ms, then a candidate at
+   27 ms won the fewest-notes tie (within the 5 ms tolerance) and overwrote it, drifting to
+   ~24.99 ms. The stop test `bestRoom < floor` then fired against the *drifted* value and
+   halted the fill with the roomiest notes untouched. Fix: compute the true maximum first;
+   the tie-break only reorders candidates already within tolerance of it; the floor is
+   tested against the true maximum.
+2. **The tie tolerance could admit a note BELOW the floor.** After fix 1, the 30 ms fill
+   came out with a 27 ms minimum gap and 2 fused attacks — the tie pool (`maxRoom − 5 ms`)
+   reached under the floor. Fix: clamp the tie pool at `max(floor, maxRoom − tol)`.
+
+After both fixes every floor is honoured exactly: 30 → min gap 30 / 0 fused, 25 → 26,
+20 → 21. **B3 changed from 58 notes to 59 — the earlier B3 the composer has not yet heard
+was built under bug 1 and was three notes short of its own rule.**
