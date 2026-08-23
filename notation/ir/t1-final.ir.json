@@ -25,7 +25,7 @@
   "date": "2026-08-23",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t1-final --exp --label \"T1 FINAL (day 28) — the composer's groups on ONE grid, 7:4 · 6:4 · 7:4, built from the rule\" --bricks --cluster 36.21-39.62@0 --figures"
+  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t1-final --exp --label \"T1 FINAL (day 28) — the composer's groups on ONE grid, 7:4 · 6:4 · 7:4, built from the rule · dynamics day 29\" --bricks --cluster 36.21-39.62@0 --figures --dyn 1:mf,15 --accents 3,6,8,9,12"
  },
  "events": [
   {
@@ -4294,7 +4294,7 @@
      "goLine": false,
      "gc": true,
      "dynBesideStem": false,
-     "dynMark": false,
+     "dynMark": "mf",
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
@@ -4312,7 +4312,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4346,7 +4347,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4386,7 +4388,9 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4426,7 +4430,8 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4466,7 +4471,8 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4506,7 +4512,9 @@
      "tupletText": "6:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4546,7 +4554,8 @@
      "tupletText": "6:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4580,7 +4589,9 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4614,7 +4625,9 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4648,7 +4661,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4682,7 +4696,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4722,7 +4737,9 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4762,7 +4779,8 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4802,7 +4820,8 @@
      "tupletText": "7:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4818,7 +4837,7 @@
      "goLine": false,
      "gc": false,
      "dynBesideStem": false,
-     "dynMark": false,
+     "dynMark": "band",
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
@@ -4836,7 +4855,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -4870,7 +4890,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamHasArtic": "accent"
     }
    },
    "provenance": "authored"

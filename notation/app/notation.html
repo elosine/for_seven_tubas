@@ -619,6 +619,16 @@
   }
   $('hoverzone').addEventListener('mouseenter', () => $('bar').classList.add('shown'));
   $('bar').addEventListener('mouseleave', () => { if (document.body.classList.contains('cmode')) $('bar').classList.remove('shown'); });
+  // ARROWS BELONG TO THE PAGE (day 29, composer: "my arrow keys are getting
+  // trapped"). After a dropdown or checkbox choice is COMMITTED, focus stayed
+  // on the control, so arrow keys cycled the dropdown instead of paging — the
+  // same disease SPACE had on day 22 ("after touching any control it toggled
+  // THAT"), cured the same way: blur on change. Typing fields are untouched
+  // (change only fires on commit for them anyway).
+  document.addEventListener('change', ev => {
+    const t = ev.target, tag = t && t.tagName;
+    if (tag === 'SELECT' || (tag === 'INPUT' && /checkbox|radio/i.test(t.type))) t.blur();
+  });
   document.addEventListener('keydown', ev => {
     if (!document.body.classList.contains('cmode')) return;
     const tag = ev.target && ev.target.tagName;

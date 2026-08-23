@@ -10022,3 +10022,46 @@ mention on t two. Just tell me which save file we will be working in."*
   E") in the picker's experiments.** When T2 is declared final, its figures get built
   into `db1-c2i-x01` (the CLOUD02-I trials fork) with `--bare` narrowed, per the
   step-6 loop. Journal §2's "right now" updated to say all of this cold.
+
+
+#### Day 29 — arrow keys freed; DYNAMICS enter CLOUD02-I (T1 + T2) by the day-24 captured rule
+
+**1. The arrow-key trap** (composer: "my arrow keys are getting trapped"): after any
+dropdown/checkbox use, focus stayed on the control, so ← → cycled the PICKER and the
+pager's handler returned early (`INPUT|SELECT` guard). Same disease SPACE had on day
+22, same cure: a delegated `change` listener blurs selects and checkboxes on commit.
+Typing fields untouched. `notation/app/notation.html`.
+
+**2. Dynamics** (composer: "we neglected to consider dynamics... I imagine similar
+rules to what we were doing before. However, somehow it didn't make it into this
+engine"): correct — the rule was CAPTURED day 24 (`figures.cluster.dynamicsRule`,
+NOTATION_STANDARDS § Deriving cluster dynamics) but the CLOUD02-I builds carried no
+`--dyn`/`--accents` at all. Nothing needed wiring — the flags existed; they were
+simply not used. **Approach adopted for the remaining parts (the standard's own
+words): the AI applies the rule mechanically, PROPOSES marks, and names the partials
+it cannot explain; the composer adjusts.** Bands: ≤45 ppp · ≤75 p · ≤100 mf · ≤118 f
+· ≤127 fff.
+
+**T1 (16 notes, vels 55 85 106 81 100 110 80 106 102 83 90 102 99 69 123 123 →
+p mf f mf mf f mf f f mf mf f mf p fff fff):** ambient **mf stated at member 1**
+(explicit — member 1's own band is p, see flags), **second ambient at member 15
+bare (fff)** — a sustained shift at a beam-group start, exactly the rule's case;
+**accents 3,6,8,9,12** (the f partials above mf). → `--dyn 1:mf,15 --accents
+3,6,8,9,12`. **Unexplained, composer's call: members 1 (p) and 14 (p) sit BELOW the
+mf ambient** — the rule has no mark for "softer than ambient".
+
+**T2 gesture 1 (fff mf mf mf p ppp p):** ambient **mf at member 1 with an accent on
+1** (fff above ambient — the day-24 cl-2 pattern exactly: the launch spike is an
+accent, not the ambient), **second ambient at member 7 bare (p)** (group start, the
+decay's floor). → `--dyn 1:mf,7 --accents 1`. **Unexplained: members 5 (p) and 6
+(ppp) below mf** — the decay through the group the rule cannot say.
+
+**T2 gesture 2 (f f p f fff fff p f):** ambient **f at member 1 bare**, **accents
+5,6** (the fff pair above f — accents rather than a second ambient, the day-24
+choice for spikes). → `--dyn 1 --accents 5,6`. **Unexplained: members 3 and 7 (p
+dips below f).**
+
+Both files rebuilt (`t1-final`, `t2-composer` — T1's line identical in both), VALID;
+layout audit: part 0 shows mf @36.21 + fff @39.10 + five accents, part 1 shows
+mf @36.18 + p @38.10 + accent @36.18, then f @38.60 + accents @39.63/39.85. The
+six unexplained partials are the composer's list to adjust.
