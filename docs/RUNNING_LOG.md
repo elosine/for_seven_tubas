@@ -8272,3 +8272,43 @@ only, not score files. The build command is recorded here as the backstop.
 
 **Not done:** no notation built, no score edit made, nothing ledgered. The composer
 listens first.
+
+### Day 25 — 8f: B ANALYSED (playable, but it is a field of one-shots); add-back strategies sized
+
+Composer: *"let's start with analysis of b, see if anything is unplayable, and then make me
+version b version two with some of the original added back. But could you share with me the
+strategies for adding back notes first?"* — an analyse → rebuild routine with a pause between.
+
+**B isolated as its own score** (`scores/cloud02i-b.json`, copy B rebased 8→0 s) so every
+tool sees only B; extracted to `notation/ir/cloud02i-b.ir.json` (profile section1, 54 events,
+12 chunks, 0 ms stream error).
+
+**Playability (`audit_playability --parts`): 0 hard, 1 soft** — T5 @0.67 s, C#2→G1 (6 st),
+attack 161 ms vs 166 needed; 5 ms, a tongue's worth. Per-part rate 1.2–2.1/s, tessitura
+within a 4th–9th, max leap 8 st. Ring overlap: 7 of 44 within-part notes (T4 1, T5 3, T9 2,
+T10 1) — B never applied the per-part ring rule, so those seven are the A/B difference.
+
+**THE FINDING — B swung from one failure to the other.** The original had no figures because
+every part was one unbroken run; B has no figures because every part is breath-separated
+one-shots. Pattern analyser on B: **41 of 54 notes are lone one-shots**; 4 two-note pairs
+(16th·16th or 8th·16th, all 0.0 heads); ONE real figure — T5's four at 0.51 s,
+`16th · 8th · 8th · 16th` at ♩=100, 0.5 heads, note 1 flagged as a pickup. Breath seams
+36. So B notates as the OPENING vocabulary (GC + go line per note), not as clusters.
+
+**Four add-back strategies, all seeded from B (B ⊂ B2, so what was heard stays in):**
+
+| strategy | rule | est. notes | sounding max/mean | in-ring | seams |
+|---|---|---|---|---|---|
+| S1 raise the cap | same algorithm, cap 7 / 8 / 9, B kept | 73 / 81 / 88 | ~9/5.9 · 10/6.6 · 11/7.3 | 26–39 | ~32 |
+| S2 ring-clear fill | add every dropped note clear of its part-neighbours' rings (strict) | 77 | 10/6.4 | 7 (B's own) | 41 |
+| S3 loudest back | add dropped notes loudest-first to N | 70 / 80 | 10/5.8 · 13/6.6 | 21–29 | ~35 |
+| S4 figure-forming | add a dropped note only if it sits within a breath of a kept note in its part AND on a 16th grid at ♩90–120 (±30 ms) with it, 70 % ring-clear | 92 | 11/7.6 | 44 | 23 |
+
+S1 estimates undercount concurrency slightly (the seeded fill does not see B notes later in
+the same slice); the real build enforces the cap exactly. S2 strict = "B ∪ A's rule" — lines
+stay clean, ensemble drifts to mean 6.4 (above mass 4–5). S4 is the only one that REDUCES
+seams (36→23): it turns one-shots into 2–4-note figures — the page-driven strategy — at the
+cost of the most ring overlap. Strategies compose: S4 under an S1 cap is the obvious hybrid.
+
+**Paused for the composer's call** on what the added notes are FOR: the ear (S1), the lines
+(S2), the accents (S3), or the page (S4).
