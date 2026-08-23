@@ -11,27 +11,6 @@
    "profile": "trance"
   },
   {
-   "id": "db1-t1-x01",
-   "label": "db1 T1 x01 (page 1, 0-12)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    12
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "db1-t1",
-   "label": "T1 DRAFT — density build 1 (0-55.9, to GESTURE-2)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "piece-open-01",
    "label": "piece opening 0-40 (parachute+META)",
    "score": "piece-s25-finished01",
@@ -40,17 +19,6 @@
     40
    ],
    "profile": "section1"
-  },
-  {
-   "id": "db1-t1-x02",
-   "label": "db1 T1 x02 (working, 0-55.94, bricks)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1",
-   "exp": true
   },
   {
    "id": "db1-all-x01",
@@ -62,6 +30,16 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "db1",
+   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    55.94
+   ],
+   "profile": "section1"
   }
  ]
 }

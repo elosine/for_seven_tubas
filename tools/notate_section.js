@@ -585,6 +585,11 @@ if (flag('bricks')) {
   for (const e of doc.events) delete e.metric;
   doc.provenance.notes += ' BRICKS MODE: all chunks forced unresolved (working file).';
 }
+// THE COMMAND IS THE SAVE (day 25, composer asked how the files work): a
+// version file is derived — the archive plus the composer's decisions (spans,
+// pickups, dynamics) — and those decisions ARE the argv. Store it, so the file
+// can say how to rebuild itself without the journal.
+doc.provenance.build = 'node tools/notate_section.js ' + process.argv.slice(2).map(a => (/[\s"]/.test(a) ? JSON.stringify(a) : a)).join(' ');
 fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
 
 // independent validation — a failed doc is REMOVED, never left half-usable

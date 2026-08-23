@@ -69,6 +69,18 @@ extract time. Controls + page/zoom position survive reloads (localStorage).
 
 ## §3 Version files (the composer-score save model, option A1)
 
+**The three layers, in one breath (day 25, composer asked):** the ARCHIVE
+(`scores/piece-*.json`, the music, frozen, changed only by ledgered edits) ·
+VERSION FILES (`notation/ir/*.ir.json`, one per picker entry = the window +
+parts + the composer's figure decisions; DERIVED, regenerable) · the REGISTRY
+(`container.json`, `glyphs.json`, the look and the rules, shared and live).
+**The command is the save:** a version file's real content is the argv that
+built it, and since day 25 it is stored in the file (`provenance.build`,
+schema amendment 6) — `node tools/notate_section.js` with that argv rebuilds
+the file byte-identically. Promote = re-extract without `--exp` under the
+canonical id; prune the superseded experiments (git keeps them).
+
+
 - **A version = one IR file** in `notation/ir/`, one picker entry. Naming:
   `<section>-<part>-xNN`, **all lowercase** (e.g. `db1-t3-x01` — the IR id
   pattern rejects capitals, found day 22).

@@ -103,7 +103,8 @@ One IR document = one worked span of one or more parts:
   },
   "provenance": { "createdBy": "hand",          // "hand" | tool name
                   "date": "2026-08-19",
-                  "notes": "" },
+                  "notes": "",
+                  "build": "node tools/notate_section.js ..." },   // amendment 6: the command that made it (the decisions ARE the argv)
   "events":   [ /* §4 */ ],
   "chunks":   [ /* §5 */ ],
   "overlays": [ /* §6 */ ]

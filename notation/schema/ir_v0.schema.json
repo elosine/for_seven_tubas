@@ -113,6 +113,10 @@
     },
     "notes": {
      "type": "string"
+    },
+    "build": {
+     "type": "string",
+     "description": "amendment 6 (2026-08-23): the exact command line that produced this document. A version file is derived — the archive plus the composer's decisions — and those decisions ARE the argv; storing it lets the file say how to rebuild itself without the journal."
     }
    }
   },

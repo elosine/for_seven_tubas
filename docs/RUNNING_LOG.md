@@ -8088,3 +8088,28 @@ audit of everything above every beam (80 time-overlapping pairs): **0 vertical
 collisions, 0 past the lane edge** (four reported pairs are the surge's ppp/fff,
 which sit side by side in x — the audit checked time only). Four batteries
 green; T1's figure 2 unchanged.
+
+### Density build 1 promoted to the canonical `db1`; the command is the save (day 25)
+
+Composer asked for the file model in brief, then: *"bump the files. This first
+density build is done."*
+
+**Promoted:** `db1` — "DENSITY BUILD 1 — all parts, figured (finished
+2026-08-23)", no `--exp`, at the top of the picker. Content proven IDENTICAL to
+`db1-all-x01` (the working file, kept under experiments as the next x01).
+**Pruned:** `db1-t1` (the pre-figure T1 draft), `db1-t1-x01`, `db1-t1-x02`
+(the day-23 working files, superseded) — git keeps all three. The four figures
+past 34.6 stay in, at the composer's word.
+
+**The command is now IN the file.** A version file is derived — archive plus the
+composer's decisions — and the decisions ARE the argv; until today that command
+lived only in journal §2. `provenance.build` (IR schema amendment 6, the schema
+is strict and caught the unknown field before anything shipped) stores it, and
+**`db1` was rebuilt from its own stored command and came back byte-identical
+(date aside)**. A file can now say how to make itself.
+
+One shell lesson recorded for the paper's methods appendix: a regex written
+through a bash heredoc lost its backslash and became `/s|"/` — "quote anything
+containing the letter s". Caught by printing the line; fixed by writing the
+edit from a file instead of the shell. Same class as the earlier backtick
+mangling. Five batteries green.
