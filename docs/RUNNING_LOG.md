@@ -8139,3 +8139,136 @@ NOTATION_STANDARDS, then go.
 **Two batteries went red at the very end** because they hardcoded the pruned
 `db1-t1-x02`; repointed to the canonical `db1` (strictly more coverage:
 midiplayer now sees 465 T1 notes and the full amendment list). Nine green.
+
+---
+
+## Day 25 (2026-08-23) — PLAN 8f step 1: CLOUD02-I 36.0–40.4 analysed, all ten parts
+
+Ran `node tools/pattern_analyze.js --ir db1 --part N --span 36.0-40.4` for N = 0..9.
+Composer chose agenda A (analyse first, then the thinning question with evidence).
+
+**Census confirmed against day 24's measurement.** 159 notes (18/15/16/17/16/17/16/15/15/14
+for T1..T10) in 4.4 s = 36.1 notes/s. 149 within-part gaps; **7 breath seams total** across
+the whole ensemble (>= 500 ms), so 142/149 = 95 % of gaps are under a breath — day 24's
+"96 %" reproduced. Counting gaps shorter than the SHORTEST staccato sample (330 ms) gives
+114/149 = 77 %; day 24's 87 % used each note's actual sample length, so the two are
+consistent and the ring-overlap claim stands.
+
+**Breath seams per part:** T1 0 · T2 1 · T3 1 · T4 0 · T5 0 · T6 1 · T7 0 · T8 0 · T9 2 ·
+T10 2. **Five parts (T1, T4, T5, T7, T8) are ONE unbroken run of 15–18 notes** — by D62
+they cannot be split; they are a single go.
+
+**THE FINDING — the analyser says there is no pattern in the long runs.** Every group of
+more than ~8 notes needs a DIFFERENT tuplet on nearly every beat to reach the threshold:
+
+| part / group | notes | best reading | worst |
+|---|---|---|---|
+| T1 (one run) | 18 | 5:4, 7:4, 6:4, 3:2 — four tuplets | 1.0 heads |
+| T2 group 2 | 8 | 7:4 + 3:2 | 0.7 |
+| T3 group 1 | 12 | 7:4 + 5:4 | 0.9 |
+| T4 (one run) | 17 | 5:4, 6:4, 5:4, 6:4 | 0.9 |
+| T5 (one run) | 16 | 7:4, 6:4, 3:2, 3:2 | 1.0 |
+| T6 group 2 | 13 | 6:4, 5:4, 5:4 | 1.0 |
+| T7 (one run) | 16 | 3:2, 6:4, 5:4, 6:4, 5:4 — five | 0.9 |
+| T8 (one run) | 15 | 5:4, 6:4, 6:4, 3:2, 5:4 — five | 0.9 |
+| T9 group 3 | 11 | 5:4, 3:2, 5:4 | 1.0 |
+
+**0.9–1.0 heads is AT the dissonance threshold, not inside it** (first principle 4: more
+than one notehead width = dissonant; the composer's calibration points are 0.2 coherent /
+1.2 accepted once / 2.1 dissonant). So the long runs spend four to six tuplets and still
+only reach the line. That is the analyser reporting a *spray*, not a figure — principle 3
+says the notation should show the pattern as it LOOKS, and there is no long-short shape to
+show.
+
+**The short groups are clean, and they are the exception:**
+- T10 group 1 (7 notes) — `8th 8th 8th. 8th 16th 8th 16th`, NO tuplet, 0.9
+- T10 group 2 (6 notes) — six even 16ths, 1.0 (or a 6:4 sextuplet at 0.9)
+- T2 group 1 (7 notes) — `8th 8th quarter 16th 8th 8th. 16th`, NO tuplet, 0.8
+- T3 group 2 (4 notes) — `16th 8th 16th 16th`, **0.2 heads** — the cleanest thing in the section
+- T6 group 1 (4 notes) — `16th 8th. 16th 16th`, 0.9; as a 3:2 with the pickup taken, **0.4**
+- T9 group 1 (3 notes) — `8th 16th 16th`, 0.4
+- Two lone one-shots: T9 @37.39, T10 @40.23
+
+**Pickups flagged (never applied, D63 §8):** note 1 of T2, T3, T5, T6, T7, T8, T9-g1, T9-g3.
+**Only T6's is decisive** — 0.3 heads with the pickup taken vs 0.9 without. The rest are a
+wash (0.9 vs 0.9) and are the composer's ear, not the analyser's.
+
+**Not done, deliberately:** nothing built. Step 2 (the thinning question) goes to the
+composer before any `--cluster` is appended to db1's stored command.
+
+### Day 25 — 8f step 2 framed: the composer wants to HEAR it first (no build yet)
+
+Composer: *"my first ask is that we have a save file for just this section, and I can
+hear the original and then alternative side by side… the original and then b, and then
+next to that, after that, a. But don't make anything yet."* Asked for the approach in
+more detail. Numbers measured to ground the explanation (nothing built):
+
+- **Ensemble sounding count** (D51 per-pitch lengths from `SI2_staccato_lengths.md`,
+  100 ms steps, 36.0–40.6): **13–21 simultaneous ringing samples, mean 13.8.** The
+  mass boundary from DB 042 is count 4–5; the polyphony boundary is 2. The section sits
+  3–4× past "fused into mass" the whole way through.
+- **The META curve exists and spans exactly the section**: `wc-1915`, layer 10,
+  36.19–40.421, nodes y = 8.9 · 8.9 · 7.4 · 6.8 · 9.5 · 9.5 · 8.6 · 8.6 — a dip then a
+  peak. The measured count follows it (dip to 9–11 around 37.9–38.5, peak 21 at
+  39.0–39.5). So (b)'s target can be read from the composer's own drawn shape.
+- **Velocities in the window** (IR `vel`): fff 33 · ff 61 · f 38 · mf 17 · under mf 10
+  (range 26–127). Loudness-priority thinning is meaningful — there is a real spread.
+- **(a) dry-run, greedy left-to-right, strict (next onset must be >= previous kept
+  onset + that note's D51 length):** keeps **80 of 159 = 18.2/s** — almost exactly db1's
+  dense stretch (17/s). Per part 7–9 survive. At a 70 % ring (allow the decay tail to
+  overlap): 99 notes = 22.5/s.
+- IR `duration` on staccato events IS the D51 length (B1 → 0.37 ✓), so the criterion is
+  already in the file.
+
+### Day 25 — the CLOUD02-I listening file BUILT (`tools/cloud02i_ab.js`)
+
+Composer chose **cap 6, round-robin, no lead-in**. Built
+`scores/cloud02i-ab.json` — three copies of CLOUD02-I end to end, nothing canonical:
+
+    0.0 s  ORIGINAL              159 notes  37.6/s  sounding max 21  mean 13.3  seams 7
+    8.0 s  B — ensemble cap 6     54 notes  12.8/s  sounding max  6  mean  4.4  seams 36
+   16.0 s  A — by-part strict     80 notes  18.9/s  sounding max 10  mean  6.7  seams 42
+
+Command: `node tools/cloud02i_ab.js` (also stored in `metadata.provenance.build`).
+Copies are colour-coded and each is its own `groupId` (movable as a unit). The
+ORIGINAL carries the real META curve; B carries the cap-6 target drawn in the same
+convention. Verified live in the composer app: loads, all 298 objects render, the
+three copies occupy disjoint ranges across all ten lanes.
+
+**VERIFIED: the D51 lengths in `SI2_staccato_lengths.md` and the `duration` field on
+every db1 IR event agree** — 159 events, 0 mismatched. The script asserts this and
+refuses to run if they diverge. So the (a) criterion is measured, not guessed.
+
+**THE META CURVE IS A RELATIVE RATE CONTOUR, NOT AN ABSOLUTE COUNT.** `cloud02.js`
+wrote it as `y = 0.5 + 9*(r/max)` over six windows. So the shape is recovered as
+`(y-0.5)/9` and the cap-6 target is that times 6 → **4.2 at the dip, 6.0 at the
+peak**. Anyone scaling a META curve by `y/max` (as I first did) is off by the 0.5
+offset. Nodes interpolated with a smoothstep, an approximation of the drawn bezier —
+stated in the script rather than hidden.
+
+**A BUG CAUGHT BY MEASURING RATHER THAN TRUSTING — keep this.** The first (b) run
+reported `sounding max 9` against a cap of 6. Cause: round-robin re-sorts each slice
+out of time order, so when a note at t=36.25 was admitted before one at t=36.21, the
+earlier note's cap check could not see it. Fix: everything admitted inside one slice
+counts as concurrent (the 0.1 s slice is far shorter than a 0.33–0.53 s sample, so
+they really do overlap). After the fix the cap holds exactly: max 6, mean 4.4. The
+census in the script exists precisely so a cap violation cannot pass unnoticed.
+
+**THE TWO APPROACHES DO DIFFERENT AMOUNTS OF WORK — the surprise.** B is *thinner*
+than A (54 vs 80 notes) because it caps the ENSEMBLE; A caps each LINE and the ten
+lines still stack — A's ensemble sounding count is max 10, mean 6.7, **still above the
+mass boundary of 4–5**. So A fixes the page and only half-fixes the ear; B fixes the
+ear and leaves the page unknown. Predicted 7–9 for A before running it; measured 6.7
+mean / 10 max. Prediction held.
+
+Round-robin worked: B's per-part survival is 4–7 (even), A's is 7–9 by construction.
+Breath seams go 7 → 36 (B) → 42 (A): both open the material far past the point where
+the D62 breath rule gives real figure boundaries.
+
+**GOTCHA FOUND, filed to NITS:** `collectData()` in `composer.html` rebuilds
+`metadata` from `{created, modified}` every save, so **any autosave in the composer app
+wipes `metadata.provenance`**. "THE COMMAND IS THE SAVE" currently holds for IR files
+only, not score files. The build command is recorded here as the backstop.
+
+**Not done:** no notation built, no score edit made, nothing ledgered. The composer
+listens first.

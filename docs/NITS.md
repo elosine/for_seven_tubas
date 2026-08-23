@@ -382,3 +382,11 @@ rendering-environment difference worth understanding).
 - *(2026-08-22, day 24)* **The tuplet numeral is emitted on every page, not only its own.** Observed on `db1-all-x01`: the "3:2" text of T1's cluster (31.49–34.6) appears in the SVG of all 7 pages, at x = 8074 / 6202 / 4330 / 2458 / on-page / −1504 / −3376. Only the page-5 instance is inside the 1920-wide frame, so **nothing wrong is visible** — the other six are drawn far outside it. Cause not investigated: the time-window cull that drops other items evidently does not run on the tuplet numeral (or runs before its x is computed). Costs a few stray DOM nodes per page. Deferred — invisible, and the eventual SVG/PDF export is where it would start to matter.
 
 - *(2026-08-22, day 24)* **One fortepiano gets no ring bar at all: `wc-78`.** The next attack is exactly 0.50 s away and `breathSeconds` is 0.50, so the bar would have zero length; layout warns ("no room before the next attack") and draws nothing rather than a degenerate bar. That is the correct behaviour of the breath rule (day 23), but it means one fp in the section carries no sounding-length indication. Related, same family: the `flagShortBarSeconds` question in journal §6 — at the current 1.0 the section raises 21 judgment flags across ten parts, at 0.35 only 3. Both wait on the composer's eye on real pages; neither blocks anything.
+
+- **`collectData()` drops `metadata.provenance` on every save** *(day 25)*.
+  `score/public/composer.html` rebuilds `metadata` as `{created, modified}`, so a
+  generated score that stores its own build command (as `scores/cloud02i-ab.json`
+  does, mirroring the IR's `provenance.build`) loses it the first time autosave
+  fires in the app. Fix is one line — spread the loaded metadata before the two
+  timestamps. Until then, generated scores must also record their command in
+  `RUNNING_LOG.md`.
