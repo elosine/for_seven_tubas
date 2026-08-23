@@ -110,24 +110,13 @@
   },
   {
    "id": "db1",
-   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23)",
+   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23; ending figures rebeamed day 29)",
    "score": "piece-s25-finished01",
    "window": [
     0,
     55.94
    ],
    "profile": "section1"
-  },
-  {
-   "id": "db1-rebeam-x01",
-   "label": "db1 REBEAM x01 (day 29) — ending figures rebeamed per the T1-T3 pattern; db1 is the before",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1",
-   "exp": true
   }
  ]
 }

@@ -25,7 +25,7 @@
   "date": "2026-08-23",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 --parts 0-9 --profile section1 --id db1 --bricks --label \"DENSITY BUILD 1 — all parts, figured (finished 2026-08-23)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 45.27-46.22@3 --clusterTol 0.03 --dyn 1,2,3,4,5 --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --cluster 44.54-44.73@6 --clusterTol 0.03 --dyn 1:p --accents 2 --cluster 45.17-45.33@6 --clusterTol 0.03 --dyn 1:mf --cluster 45.47-46.22@6 --clusterTol 0.03 --dyn 1:mf --accents 2,4 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5"
+  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 --parts 0-9 --profile section1 --id db1 --bricks --label \"DENSITY BUILD 1 — all parts, figured (finished 2026-08-23; ending figures rebeamed day 29)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --beamThrough 1,2 --rest16 2 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --beamThrough 1 --rest16 3,4,5 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --beamThrough 1 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --beamThrough 1 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 45.27-46.22@3 --clusterTol 0.03 --dyn 1,2,3,4,5 --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --beamThrough 1 --rest16 2 --cluster 44.54-44.73@6 --clusterTol 0.03 --dyn 1:p --accents 2 --cluster 45.17-45.33@6 --clusterTol 0.03 --dyn 1:mf --cluster 45.47-46.22@6 --clusterTol 0.03 --dyn 1:mf --accents 2,4 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --beamThrough 1 --rest16 3,4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --beamThrough 1 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5 --beamThrough 1 --rest16 5"
  },
  "events": [
   {
@@ -13436,6 +13436,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13463,6 +13464,7 @@
      "beamPos": 3,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -13470,6 +13472,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -13503,6 +13506,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13537,6 +13541,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -13570,6 +13575,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13604,6 +13610,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13639,6 +13646,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13673,6 +13681,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -13699,6 +13708,7 @@
      "beamPos": 6,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -13706,6 +13716,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13733,6 +13744,7 @@
      "beamPos": 9,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -13740,6 +13752,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13767,6 +13780,7 @@
      "beamPos": 14,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -13774,6 +13788,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -13807,6 +13822,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13841,6 +13857,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -13874,6 +13891,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13968,6 +13986,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -14001,6 +14020,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14035,6 +14055,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -14792,6 +14813,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -14818,6 +14840,7 @@
      "beamPos": 3,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -14825,6 +14848,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14859,6 +14883,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14893,6 +14918,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15255,6 +15281,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15288,6 +15315,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15314,6 +15342,7 @@
      "beamPos": 5,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -15321,6 +15350,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15347,6 +15377,7 @@
      "beamPos": 8,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -15354,6 +15385,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15388,6 +15420,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15421,6 +15454,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15455,6 +15489,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15489,6 +15524,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15689,6 +15725,7 @@
      "tupletValue": 8,
      "noteBeams": 1,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15729,6 +15766,7 @@
      "tupletValue": 8,
      "noteBeams": 1,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15764,6 +15802,7 @@
      "noteUnits": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15799,6 +15838,7 @@
      "noteUnits": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "beamHasArtic": "accent"
     }
    },
@@ -15825,6 +15865,7 @@
      "beamPos": 10,
      "beamLevels": 2,
      "beamSubdivision": 4,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -15833,6 +15874,7 @@
      "noteUnits": 1,
      "noteBeams": 2,
      "beamHasTuplet": true,
+     "beamThrough": true,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }

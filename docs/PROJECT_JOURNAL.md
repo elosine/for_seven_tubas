@@ -102,12 +102,16 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**Right now:** step 5c — **THE READS, with Fable**, after a clear (execution →
-conversation). T2–T10, one part per sitting, against a report whose first writing is
-the one the composer chose. Nothing needs building first: 8i is done, T1 is decided
-(`t1-final`, alone in the picker), and the scan has already named the five straddles
-and confirmed no gesture needs `--ownGrids`. `/checkpoint · /clear · /resume` if a
-sitting runs long. Step 6 (notating) only after the reads.
+**Right now (updated mid-day 29):** the reads changed shape. T2's read produced
+`t2-composer` ("T2 read E") through five verdict rounds — **the composer has more T2
+remarks coming; that file is where they land.** A BEAMING-DECISIONS LEDGER now runs
+(`docs/BEAMING_DECISIONS.md` — rule extraction deferred, log everything); its D-log 4
+recipe (through · rest16 inside groups · separator rests keep value) was applied to
+db1's ending figures T1–T10 and **PROMOTED into db1** (day 29). The standing build
+recipe section of the ledger governs every new figure built from here. After T2's
+remaining remarks: T3's read, then onward per part; step 6 (notating into
+`db1-c2i-x01`) applies the recipe. `docs/research/beaming_standards.md` is the
+engraving reference behind it all.
 
 ### Day 28 — THE WRITING, settled (third sitting — read before touching `--figures`)
 

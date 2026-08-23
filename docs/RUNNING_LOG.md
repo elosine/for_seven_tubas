@@ -9999,3 +9999,26 @@ all three survivors are deliberate: T2's separator pair at 33.45/33.74 and the 8
 rest INSIDE T10's 3:2 bracket at 33.15 (the tuplet's own vocabulary). VALID, no new
 warnings. Awaiting the composer's eye part by part; on approval the changed lines get
 folded into db1's rebuild command and db1 rebuilt (promotion = one command).
+
+
+#### Day 29 — PROMOTED; the recipe is now the notating default; the working file named
+
+**Composer:** *"That's all good. You can go ahead and promote that one. and let's
+rejoin the notating [of CLOUD02-I]. can you incorporate as much as possible the
+beaming rules in that process as well? … I think there was a few more things to
+mention on t two. Just tell me which save file we will be working in."*
+
+- **Promoted:** db1 rebuilt with the eight rebeamed lines (label now says "ending
+  figures rebeamed day 29"); `db1-rebeam-x01` pruned (git keeps it; the before is
+  db1's prior commit b6358b0^). `--validate` 24/25; layout/snapshot/fit batteries
+  green.
+- **The ledger gained THE STANDING BUILD RECIPE section** — every new figure built
+  from here (CLOUD02-I notating onward) defaults to: through everywhere · ≥2-slot
+  within-group silences as 16th rests · separator rests keep value · overhang only
+  where the composer claims the time · tuplet-internal rests untouched. Checked:
+  `t2-composer` already conforms (its one 8th rest is a separator; the [12 13] stubs
+  are the composer's sketch, a logged deviation D-log 1.8).
+- **The working file for the composer's further T2 remarks: `t2-composer` ("T2 read
+  E") in the picker's experiments.** When T2 is declared final, its figures get built
+  into `db1-c2i-x01` (the CLOUD02-I trials fork) with `--bare` narrowed, per the
+  step-6 loop. Journal §2's "right now" updated to say all of this cold.

@@ -80,6 +80,16 @@ beam breaks unchanged · tuplet-internal rests belong to the bracket, untouched.
 untouched T2 pickup pair), solid secondaries 7 → 12, 16th rests 16 → 30, 8th rests
 10 → 3 (T2's separator pair + T10's in-bracket one). No new warnings.
 
+## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
+
+Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
+applies D-log 4's recipe by default: **secondaries solid (`--beamThrough` every
+group) · within-group silences of ≥2 slots as 16th rests (`--rest16`) · separator
+rests keep their value · overhang only where the composer says the group claims the
+time · tuplet-internal rests belong to the bracket.** Deviations happen only at the
+composer's word, and each one gets a ledger row. *(D-log 4 was promoted into `db1`
+on day 29 — composer: "That's all good. You can go ahead and promote that one.")*
+
 ## Emerging rule candidates (NOT rules yet — extraction deferred by the composer)
 
 1. **The beam's extent is the time the group claims.** Overhang over a trailing rest
