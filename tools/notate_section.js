@@ -422,12 +422,18 @@ const { doc, warnings } = Extract.extract(score, {
         // the standards (registry engraving.layout.figures.beam): no go
         // lines, GC on the ringing note, every head centred on its go time,
         // dynamics together above the beam
-        goLine: firstOnly(FIG_BM.goLine != null ? FIG_BM.goLine : false),
+        // THE GO LINE MARKS DISPLACEMENT (D58): in a beam only the GC-bearing
+        // member is displaced — pushed clear of the impact disc — so only it
+        // carries a go line. Every other head sits with its LEFT EDGE on its own
+        // go time (D59) and needs none.
+        goLine: FIG_BM.goLine === 'gc' ? (i === gcIdx) : firstOnly(FIG_BM.goLine != null ? FIG_BM.goLine : false),
         gc: i === gcIdx,
         dynAboveBeam: FIG_BM.dynAboveBeam != null ? !!FIG_BM.dynAboveBeam : true,
       };
-      const anch = FIG_BM.anchor || (i === 0 ? FIG_BM.firstAnchor : null);
-      if (anch) dev.nhAnchor = anch;
+      // 'before' is the layout default (the unit hangs ahead of the go time to
+      // clear the disc), so it is expressed by NOT setting an anchor.
+      const anch = i === gcIdx ? (FIG_BM.gcAnchor || 'before') : (FIG_BM.anchor || (i === 0 ? FIG_BM.firstAnchor : null));
+      if (anch && anch !== 'before') dev.nhAnchor = anch;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     });
   });

@@ -96,6 +96,8 @@
           "nhAnchor": "leftEdge", "nhHead": "filled", "nhHeadScale": 0.844, "nhDot": true, "nhDotGapSs": 0.15,
           "dynBesideStem": false,
           "dynamics": "ambient+accents",
+          "restsSplitAtBeat": true,
+          "_restsNote": "day 24 (D62): a rest may not cross a beat. The composer's performance model is that a cluster is GO THEN COUNT — and since no tempo is marked on the page, the rests are the only thing that shows where the beat is. A rest BEGINNING on a beat makes it visible; one running across it hides it. Measured on T3 before the change: beats 2, 3 and 4 all fell inside a rest symbol. Dotted values remain available where they do not cross a beat.",
           "dynamicsRule": {
             "_status": "CAPTURED, NOT WIRED (day 24, composer: 'forte with accents is good. We can capture that as a standard. I'm not sure we're ready for AI to generate the clusters, but let's just capture it in case that does happen'). No flag runs this; --dyn and --accents stay the composer's. It is written down so a future generator starts from the composer's own reasoning rather than re-deriving it.",
             "rule": [
@@ -111,8 +113,8 @@
           "_note": "A CLUSTER (D56): a composer-named span of partials on ONE analysed tempo. Go line and GC on the FIRST partial only ('the GC only on the first one, so it launches the whole cluster'); every partial's NOTEHEAD LEFT EDGE sits on its own go time ('because of the scrolling person'); filled head at the 0.844 cell scale, staccato dot at the 0.15 tight gap; every partial written as a 16th, gaps as rests, the second beam level as beamlets (beamStubSs). Dynamics = the ambient+deviation model (DYNAMICS_FRAMEWORK): one ambient mark on a chosen member, ACCENTS on the members louder than it — 'loud, slightly softer, loud' is f with accents, not fff f fff. Per-partial marks remain available (--dyn n,n,n)."
         },
         "beam": {
-          "goLine": false, "gc": "ring",
-          "anchor": "headCenter",
+          "goLine": "gc", "gc": "ring",
+          "anchor": "leftEdge", "gcAnchor": "before",
           "dynAboveBeam": true,
           "ringTechniques": ["fortepiano", "cuivre", "ord"],
           "_note": "A BEAM (day 24): notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests. The short one-shot is the 16th (two beam levels, so the second level is a stub); anything in ringTechniques is the long note (primary beam only). NO go lines; GC on the RINGING note (day 24, composer: 'let's shift the GC to the half note' - the long note is the one whose entry needs the cue; 'first' stays legal and is the fallback when no member rings); EVERY member's HEAD is centred on its go time (first on the 16th, then on the half note once it carried the GC: 'the note head should be centered on go time along with the GC'); the members' dynamics go TOGETHER on one row ABOVE the beam, the beam lowered to fit them ('they both need to be at the top because the sfzp won't fit below')."

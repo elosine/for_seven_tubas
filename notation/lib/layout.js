@@ -1025,6 +1025,7 @@
       // alignment: at grid position n with r empty units left, take the largest
       // power-of-2 rest R <= r whose start is a multiple of R — the standard
       // rule that keeps a rest from straddling its own beat.
+      const FIGCL = ((o.figures || {}).cluster) || {};
       for (const [cid, cl] of clusters) {
         if (!cl.unit || !cl.positions.length) continue;
         const filled = new Set(cl.positions);
@@ -1069,8 +1070,21 @@
         for (let n = first; n <= last;) {
           if (filled.has(n) || covered(n)) { n++; continue; }
           let run = 0; while (!filled.has(n + run) && !covered(n + run) && n + run <= last) run++;
+          // A REST MAY NOT CROSS A BEAT (day 24, D62 — the composer's
+          // performance model: a cluster is "go, then COUNT", and with no tempo
+          // mark on the page the rests are the ONLY thing that shows where the
+          // beat is). A rest BEGINNING on a beat makes that beat visible; a rest
+          // running across one hides it. Measured on T3's cluster before the
+          // change: beats 2, 3 and 4 all fell inside a rest symbol, so the player
+          // counted through three invisible downbeats in a row.
+          // Cap the run at the next beat boundary, then take the longest value
+          // that fits inside it — dotted values still allowed where they do not
+          // cross (registry figures.cluster.restsSplitAtBeat).
+          const splitAtBeat = FIGCL.restsSplitAtBeat !== false;
+          const toBeat = cl.sub > 0 ? cl.sub - (((n % cl.sub) + cl.sub) % cl.sub) : run;
+          const capped = splitAtBeat ? Math.min(run, toBeat) : run;
           let R = 1, spec = restFor(1);
-          for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= run && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
+          for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= capped && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
           // LEFT EDGE ON THE START OF THE SILENCE (day 24, second pass — the
           // research settled it). A rest is a note-shaped silence: engraving
           // (Gould, Ross, Read; LilyPond/Dorico/Sibelius defaults) gives it the

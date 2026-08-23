@@ -7612,3 +7612,54 @@ Standard practice, inherited whole. No change made.
 may cross a beat. Gould says split at the beat boundary so the reader can count;
 the current merged reading (the dotted 8th over slots 3–5) crosses one. That is
 the next conversation, not this one.
+
+### D62 built: rests split at the beat, and the fortepianos brought under the standards (day 24)
+
+**Rests now split at the beat.** The run is capped at the next beat boundary and
+the longest value that fits inside is taken; dotted values survive where they do
+not cross. Registry `figures.cluster.restsSplitAtBeat`.
+
+T3's cluster (unit 142 ms, beat = 4 units), before → after:
+
+| before | after |
+|---|---|
+| 16th @1 · **dotted 8th @3-5** · **8th @7-8** · **quarter @10-13** | 16th @1 · 16th @3 · **8th @4** · 16th @7 · **16th @8** · 8th @10 · **8th @12** |
+| beats 2, 3, 4 each buried inside a rest | beats 2, 3, 4 each START a rest |
+
+Seven symbols instead of four, and every downbeat is now visible ink. Worth
+noting for the record: this lands on the same rests the day-23 code produced by
+accident — its power-of-2 alignment test happened to split at beats here. The
+difference is that the rule now says WHY, and dotted values remain available
+inside a beat instead of being unreachable.
+
+**The half-note fortepianos brought under D58/D59.** Composer: *"the ones that
+are on GCs should in fact have the go line and the notation lines up before, but
+the ones that are part of clusters, the left edge should line up with the go
+time."* So a beam figure is no longer uniform — it is the two rules applied to
+two different members:
+
+| member | anchor | go line | GC |
+|---|---|---|---|
+| staccato 16th | `leftEdge` — head left edge measured at **0.000 ss** on its go time | no | no |
+| fortepiano (the ring note) | **displaced**, head left edge at **−2.044 ss** | **yes** | yes |
+
+This replaces `anchor: "headCenter"`, which had applied to every member since
+the morning. Under D59 the centred head was the odd one out, and it was flagged
+as such when D59 was locked; the composer resolved it by class rather than by
+exception, which is the better answer — the displaced member is displaced
+*because* it carries the GC, and the go line marks exactly that.
+
+**The collision picture is now belt-and-braces.** Lowering the disc (D60) clears
+the left-edge cluster heads; displacing the GC-bearing fp clears it the other
+way. Measured: **0 of 7 figure notes collide**, and the two fps now have
+**0.00 ss overlap in BOTH axes** rather than merely clearing vertically.
+
+**The duration bar moves with the head — confirmed, and it was already
+structural.** `ringBarItem.dx0Ss = max(0, headDx + rightExt + ringBarGapSs)` is
+derived from the head's own position every time, so any anchor change carries
+the bar with it; the clamp keeps it from ever starting before the attack.
+Verified across the change: the fps moved from `headCenter` to displaced and
+their bars followed automatically, now starting at **0.000 ss after the go time**
+— i.e. exactly on the attack, with the displaced unit sitting ahead of it.
+
+Eight batteries green.

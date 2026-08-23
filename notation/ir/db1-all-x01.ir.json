@@ -13955,7 +13955,7 @@
      "goLine": false,
      "gc": false,
      "dynAboveBeam": true,
-     "nhAnchor": "headCenter"
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
@@ -13973,10 +13973,9 @@
      "noteBeams": 1,
      "beamPos": 1,
      "noteUnits": 1,
-     "goLine": false,
+     "goLine": true,
      "gc": true,
-     "dynAboveBeam": true,
-     "nhAnchor": "headCenter"
+     "dynAboveBeam": true
     }
    },
    "provenance": "authored"
@@ -13997,7 +13996,7 @@
      "goLine": false,
      "gc": false,
      "dynAboveBeam": true,
-     "nhAnchor": "headCenter"
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
@@ -14015,10 +14014,9 @@
      "noteBeams": 1,
      "beamPos": 1,
      "noteUnits": 1,
-     "goLine": false,
+     "goLine": true,
      "gc": true,
-     "dynAboveBeam": true,
-     "nhAnchor": "headCenter"
+     "dynAboveBeam": true
     }
    },
    "provenance": "authored"

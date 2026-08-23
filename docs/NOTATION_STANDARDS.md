@@ -49,9 +49,9 @@ precedes them. `@part` is required in a multi-part file.
 |---|---|---|
 | Each note keeps its own technique device (head, ring bar, dot, dynamic) | "stem the half note, and then just connect it to the sixteenth note with a beam" | `--beam` writes ONLY stem/beam fields |
 | Beam levels are **derived**: a short one-shot is the 16th (two levels → a stub); anything that rings takes the primary only | "have the sixteenth stub on the first one" | `figures.beam.ringTechniques` |
-| **No go lines** | "get rid of that go line too" | `figures.beam.goLine: false` |
+| **The GC-bearing member is DISPLACED and keeps its go line**; every other head sits with its left edge ON its go time and has none | "the ones that are on GCs should in fact have the go line and the notation lines up before, but the ones that are part of clusters, the left edge should line up with the go time" | `figures.beam.goLine: "gc"`, `anchor: "leftEdge"`, `gcAnchor: "before"` |
 | GC on the **RINGING note** — the long one whose entry needs the cue (`first` stays legal, and is the fallback when nothing rings) | "let's shift the GC to the half note" | `figures.beam.gc: "ring"` |
-| **Every** member's head is **centred on its go time** | "move the first black note head in so that it's centered on the go line" · then, once the half note carried the GC: "the note head should be centered on go time along with the GC" | `figures.beam.anchor: "headCenter"` |
+| The duration bar **moves with the head, always** — it starts after the unit's ink (`ringBarGapSs`) and never before the attack | "anytime we move the note head, the duration bar gets moved together with it" | `layout.js` derives `ringBarItem.dx0Ss` from `headDx`, clamped at 0 |
 | The members' dynamics go **together on one row above the beam**; the beam is lowered to fit them | "when we have two consecutive dynamics like that, let's go ahead and put them together… they both need to be at the top because the sfzp won't fit below" | `figures.beam.dynAboveBeam: true`; `layout.js` group dyns row |
 
 ## THE GO LINE MARKS DISPLACEMENT (day 24 — the governing principle)
@@ -95,6 +95,15 @@ Read and every engraving default align rests left with notes in other voices;
 the whole-bar rest is the one exception, and it is a different symbol. Stone
 reports the same for proportional notation, where rests are usually omitted
 altogether and, when kept, mark the start of the silence.
+
+**A rest may not cross a beat** (D62). A cluster is *go, then count*, and
+since no tempo is printed the rests are the only thing that shows where the
+beat is: a rest BEGINNING on a beat makes it visible, one running across it
+hides it. The run is capped at the next beat boundary and the longest value
+that fits inside is taken — dotted values still allowed where they do not
+cross. Registry `figures.cluster.restsSplitAtBeat`. Measured on T3's cluster
+before the change: beats 2, 3 and 4 each fell inside a rest symbol, so the
+player counted through three invisible downbeats in a row.
 
 **Vertical placement is LilyPond's own, per glyph** (`glyphs.rest.*.topSs`,
 placed top-left by `stamps.rest`). Roughly centred on the middle line, with the
