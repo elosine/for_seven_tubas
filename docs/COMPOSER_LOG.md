@@ -1888,3 +1888,70 @@ just be addressed when I'm creating the parts and the actual performance
 score. For this, we should just settle on the presentation. But anyways,
 then since they're not one shots — achieving a variety of dynamic within a
 phrase. So let's start there."*
+
+
+## 2026-08-22, day 24 — the design review: go lines, GCs, alignment, rests
+
+*The composer paused note-by-note work on the density build to review the
+notation's internal logic. The sequence matters for the paper, so it is kept
+in order. Verbatim where the wording carries the reasoning; light cleanup of
+dictation elsewhere.*
+
+**Opening the review:** *"I want to pause for a bit here and review things for
+internal logic and consistency. There's a number of design standards here that
+I'm not sure are the right ones, and/or I'm not sure are being applied
+consistently, including the rest one. So let's make some decisions here."*
+
+**On the go line (after the AI read back the day-23 Option B decision and
+proposed that the go line's job is to mark displacement):** *"Okay, the go line
+principle is clear. Let's adopt this and document it: the go line marks
+displacement. It belongs on a unit whose head is not on its go time."*
+
+**Locking the cluster onset:** *"Those recommendations are good: left edge
+stays · GC stays · go line off on clusters · marker to the lane edge. Let's
+lock those in... Let's just work on the density build section... lower all the
+GCs. Then let's go one part at a time because I think I still need to see the
+go line for some things. So remove the go line for tuba 1, the first cluster
+around 31.54."*
+
+**Opening the rest question:** *"By our logic above with Cage and Brown — the
+left edge of the notehead — then the rests should be the same. Their left edge
+should line up with the go time. However, can you do a little research? Is
+that in fact how traditional typesetting approaches it? Where are rests
+situated in regular engraving, or do they have a principle?"*
+
+**After the research (left edge confirmed by both traditions):** *"Let's split
+off these things so I can properly digest everything. So the left edge of rest
+is locked. Before we talk about splitting the rests, let's just update the
+rests we currently have and left-align them with the actual go time. But first
+confirm the vertical placement — it seems like the consensus is that it's
+centred on the mid-staff line."*
+
+**THE PERFORMANCE MODEL — the prompt the composer asked to have captured in
+full, dictated 2026-08-22:**
+
+*"Okay. I think I disagree about the tempo marking, but I still think the idea
+of the clusters was that since these are much more rapid than the single
+one-shots, or the succession of single one-shots, that this is a different
+performance strategy. So, in fact, it is a GO and then COUNT. So if one-shots
+are just a go, then the clusters are a go, then count. And that's why I have
+you do the analysis. So it more or less describes a single tempo, even though
+I'm not marking the tempo. And then the groupings by beaming suggest the
+pattern or phrasing. And in this context, I think the rests, as you mentioned
+earlier, rests separated for counting, are appropriate here. And then the
+whole cluster figure is mediated by the scrolling bar. So even when the
+notation isn't time-accurate, or is a little off, then the scrolling bar helps
+with rhythmic accuracy. And I think we dealt with this earlier — when the
+physical spacing looked quite off or was incongruous with the notation, then
+at that point something probably needs to be addressed, like with the three-in-
+two on tuba one.*
+
+*However, let me push back on myself and just interrogate the Kurt Stone versus
+including rests. So I would interpret the Kurt Stone time-space notation, don't
+include rests, would probably be... I guess it's a little bit like the Xenakis
+Mists, where I use beams to suggest clumping and patterning and then just leave
+the rests out altogether and just rely wholly on the scroll bar. I think I lean
+towards using rests, but tell me if there's any strong arguments for another
+way, like the Kurt Stone, or even a different way. And then please journal this
+whole conversation — so you can make sure you capture especially this prompt,
+and then the whole conversation at some point."*

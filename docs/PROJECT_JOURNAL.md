@@ -162,6 +162,21 @@ TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
   both: any TWO onsets fit exactly, so 2-note "err 0" readings are arithmetic,
   not evidence.**
 
+- **THE DESIGN REVIEW (day 24, afternoon) — the composer paused the note-by-
+  note work to audit the standards for consistency. Five decisions, D58–D62:**
+  the go line marks DISPLACEMENT (D58) · the notehead's LEFT EDGE is the
+  moment (D59) · the GC ball lands on the LANE EDGE, 3-of-7 collisions → 0
+  (D60) · rests align like noteheads, left edge on the silence's start, two
+  wrong placements measured out first (D61) · **clusters are "go, then
+  count"; one-shots are "go"; rests included and SPLIT AT THE BEAT, no tempo
+  mark (D62)**. Composer's performance model captured verbatim in
+  COMPOSER_LOG; PAPER_NOTES #13 resolves day 19's count-vs-react question.
+  **State:** D58 rolled out to T1's cl-1 only (per figure at the composer's
+  request); D61 applied everywhere; **D62's split-at-beat rests NOT yet
+  built — awaiting the composer's word after the AI's input on Stone/Mists.**
+  T3's cluster at 29.93 is the example: three of its four rests currently
+  swallow beats 2, 3 and 4.
+
 **Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
 **clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
 day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at
@@ -389,6 +404,72 @@ I'll look at it."*
 
 ## §4 Decisions
 
+- **D62** *(2026-08-22, day 24)* — **CLUSTERS ARE "GO, THEN COUNT"; ONE-SHOTS
+  ARE "GO". Rests are INCLUDED in clusters and SPLIT AT THE BEAT, with no
+  tempo marking on the page.** Composer: *"if one-shots are just a go, then the
+  clusters are a go, then count... it more or less describes a single tempo
+  even though I'm not marking the tempo... the groupings by beaming suggest the
+  pattern or phrasing... rests separated for counting are appropriate here...
+  the whole cluster figure is mediated by the scrolling bar."* Each element has
+  one job: GC = launch · beams = phrase · rests = beat · scroll bar = correction.
+  **Rejected:** (a) Stone's time-space reading (no rests, uniform heads,
+  distance = duration) — the partials are written as beamed 16ths, i.e. metric
+  VALUES, and a system that writes values but omits rests belongs to neither
+  tradition; (b) the Xenakis-*Mists* reading the composer named (beams as
+  clumping, no rests, rely wholly on the bar) — coherent only with its own
+  conventions (no value-bearing beam levels), which would also make the D56
+  tempo fit largely pointless; (c) a printed tempo mark — the composer
+  disagreed; the tempo is implied by the figure and set by the player from
+  the first intervals. *Status: the split-at-beat rest rule is decided in
+  principle; the build awaits the composer's word after the AI's input.*
+- **D61** *(2026-08-22, day 24)* — **RESTS ALIGN LIKE NOTEHEADS: LEFT EDGE ON
+  THE MOMENT THE SILENCE BEGINS.** Researched at the composer's request.
+  Conventional engraving (Gould, Ross, Read; LilyPond/Dorico/Sibelius
+  defaults) gives a rest the position and spacing a note of its value would
+  take and aligns it left with other voices; the whole-bar rest is the one
+  floating exception and is a different symbol. Stone reports the same for
+  proportional notation (rests usually omitted; when kept, they mark the
+  start). **Rejected, both measured wrong:** the day-23 drawing (glyph
+  CENTRED on its slot — half of it hanging into the previous note, the
+  "hugging" the composer saw) and the AI's first day-24 fix (centred in the
+  whole silence — plausible from "x is time", supported by no tradition).
+  Vertical placement confirmed as LilyPond's own per-glyph metrics and left
+  untouched (the 16th hangs 0.49 ss low by the alternating-hook rule).
+- **D60** *(2026-08-22, day 24)* — **THE GC BALL LANDS ON THE LANE EDGE**
+  (`impactInsetPx` 5 → 0, in both registry copies; `test_animobj` asserts
+  they agree). Why: the disc occupied y −6.39..−5.37 ss while 42 % of the
+  section's staccatos sit at C2 or lower; measured, 3 of 7 GC-bearing figure
+  notes collided with it. After: 0 of 7; only midi 29–30 still touch, by a
+  ledger line. **Corrects day 23's** *"vertical separation is impossible
+  because the marker's height IS the object"* — the landing height is a chosen
+  number, not a property of the GC. **Rejected:** accepting the overlap
+  (1+1=3 at the datum); displacing cluster downbeats like one-shots (the one
+  head not on its time would be the downbeat); lightening the disc (rejected
+  day 23, still wrong). Composer's ear on the landing in motion still owed.
+- **D59** *(2026-08-22, day 24)* — **ALIGNMENT: THE NOTEHEAD'S LEFT EDGE IS
+  THE MOMENT.** Confirmed for clusters (`figures.cluster.nhAnchor: leftEdge`,
+  31 of 31 heads measured at 0.000 ss deviation) and adopted as the piece's
+  general principle. Time-space notation (Feldman, Brown, Cage) puts the attack
+  where the head begins; conventional engraving aligns simultaneities on left
+  edges; the composer's scrolling-reader argument says the cursor touches the
+  head as the note starts. **Rejected:** centre alignment — no tradition
+  behind it (whole notes are the only debated case). *Open consequence:* the
+  beam figures still use `headCenter` at the composer's earlier instruction;
+  under D59 that is now the inconsistent one, to be revisited when those
+  figures are reviewed.
+- **D58** *(2026-08-22, day 24)* — **THE GO LINE MARKS DISPLACEMENT.** A go
+  line belongs on a unit whose head is NOT on its go time (one-shots hang
+  0.6 ss before, to clear the GC disc; the surge) and on nothing else; a
+  cluster partial with its left edge on its go time gets none. In the
+  composer's own earlier words: *"the other go lines are there because the
+  notation doesn't line up with the go time."* This also explains the
+  unrecorded day-23 reversal (Option B dropped the staccato's go line; the
+  composer restored it hours later — correct, that unit IS displaced).
+  **Rolled out per figure** at the composer's request (`--noGoLine`, T1's
+  cl-1 first) so each is seen before the registry default flips.
+  **Rejected:** go lines everywhere (a third "when" mark at the one place
+  that must not be ambiguous); go lines nowhere (the displaced one-shot unit
+  then floats without its time).
 - **D57** *(2026-08-22, day 23)* — **THE TUPLET STANDARD IS THE COMPOSER'S
   OWN LILYPOND PRACTICE, surveyed then measured.** 101 of piece #2's 809
   `.ly` files carry tuplets; the settings never vary where they appear:

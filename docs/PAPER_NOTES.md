@@ -786,3 +786,53 @@ like" — is the clearest statement yet of the piece's central notational
 problem. **x is real time; beams are metric symbols; the page tells two
 stories.** Every device settled on day 23 is a way of keeping those two
 stories from contradicting each other.
+
+
+## #13 — "Go" versus "go, then count": the count/react split resolved by figure (2026-08-22, day 24)
+
+*Continues THE GRAVITATIONAL CONDUCTOR, AND COUNT VS REACT (day 19), where the
+composer doubted that players could both count and react. Day 24 resolves it —
+not by choosing one, but by assigning each to a figure class.*
+
+**The model, in the composer's words:** *"if one-shots are just a go, then the
+clusters are a go, then count."* A one-shot is pure reaction: the GC's ball
+lands, the player plays. A cluster — *"much more rapid than the single
+one-shots... a different performance strategy"* — is a launch followed by an
+internally counted rhythm at a tempo the analysis found but the page does NOT
+state (*"it more or less describes a single tempo even though I'm not marking
+the tempo"*). Beaming carries phrasing, not beats; **rests split at the beat
+are the only thing on the page that makes the beat visible** — which is why
+they are included and why they are split. And the scrolling bar is the
+error-correction channel: *"even when the notation isn't time-accurate, or is
+a little off, the scrolling bar helps with rhythmic accuracy."*
+
+**Why this is a finding and not a preference.** The metric-fit analysis (D56)
+was built on day 23 as a way to choose simple notation. Day 24 reveals what it
+was actually for: it decides WHICH performance strategy a figure gets. A figure
+that admits a simple grid within the ear's tolerance becomes "go, then count";
+one that does not stays a succession of "go"s. The analysis is a classifier of
+performance behaviour, not an engraving convenience.
+
+**The division of labour is Tufte-clean, and the composer arrived at it by
+interrogating their own preference against Stone.** Three candidate systems
+were on the table: (a) Gould — metric values, rests, beats visible; (b) Stone's
+time-space — uniform heads, no values, no rests, distance is duration; (c) the
+Xenakis *Mists* reading the composer named — beams as clumping, no rests, the
+bar does the rest. The composer's own partials are written as beamed 16ths,
+i.e. metric VALUES; a system that writes values but omits rests belongs to
+neither tradition. So (a) is the internally consistent choice, and the deciding
+argument was consistency within the notation rather than authority of any
+source. Each element then has exactly one job: GC = launch · beams = phrase ·
+rests = beat · bar = correction · head edge = moment.
+
+**The method note the paper should keep:** the same session locked three
+alignment rules (head left edge on the moment; rest left edge on the moment;
+GC ball on the lane edge) and each was settled by MEASUREMENT before argument
+— 3 of 7 figure downbeats were found colliding with the GC disc, 42 % of the
+section's staccatos live in the colliding register, and two successive rest
+placements (centred on the slot; centred in the silence) were both shown wrong
+against the sources before the third was adopted. The composer's phrase for
+the guardrail: *"when the physical spacing looked quite off or was incongruous
+with the notation, then something probably needs to be addressed"* — the
+page's proportional truth is the check on its metric reading, which is the
+inverse of how notation normally works.
