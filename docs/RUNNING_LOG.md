@@ -9820,3 +9820,42 @@ glyph width + pad, no extra stem, rests still drawn). Six layout-side batteries 
 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2
 --cluster 38.50-40.40@1 --plain --beamBreak 5 --beamThrough 1,2
 ```
+
+
+#### Day 29 — the seventh partial joins its group; the question of the last four
+
+**Composer:** *"the seventh partial that's on its own, let's meet the beams to the left
+and beam over that sixteenth. But first, let's discuss the last four partials. gap
+between partial two and three is bigger than the other two gaps or disproportionate
+too much. what do you recommend there? Or is there anything from the data to do
+there?"*
+
+**Built (one command, `--beamBreak 4` instead of `4,7`, `--beamOver 1` only):** gesture 1
+is now [1 2 3] + [4 5 6 7] — group 2's two beams run through the two 16th rests and
+meet note 7's stem (DOM: 407.2 → 537.6 on both levels; group 1 still 240 → 350 over
+its first rest). That is the composer's own "three plus four" alternative from the
+first verdict. The lone-note beamlet rule stays in the code, unused on this page.
+
+**The last four [12 13 14 15], gaps 219 | 292 | 186 ms — what the data says:**
+- On the built page (one plain grid, 126 ms) they sit at slots 8, 10, 12, 14 — three
+  EQUAL written gaps (252 ms) against 219 / 292 / 186. The worst displacement of the
+  whole gesture (37 ms = 1.2 heads) is here: note 15 is 37 ms before its written slot,
+  note 14 is 29 ms after — the last gap is 66 ms shorter than written. The composer's
+  eye and the analyser's number land on the same two notes.
+- **The 292 ms gap IS a pace change by the rule** (292/219 = 1.33, 292/186 = 1.57 —
+  both ≥ 1.25). It was the tool's original seam (cut after local note 6 = between 13
+  and 14); the composer's 4+4 merged across it.
+- Fitted ALONE, the four are **four even 16ths at 242 ms, worst 29 ms = 0.97 heads** —
+  on the line, not over: the analyser would write them equal too.
+- Writing short-long-short on ONE plain grid for the whole gesture costs 2.03 heads
+  at best (units 132 / 198 / 155) — dissonant elsewhere. With brackets allowed, the
+  morning's 155 grid wrote the last four as 1-2-1 slots, at the price of the 7:4 and
+  3:2 on the first four — the brackets the composer removed.
+
+**Options put to the composer:** (A) leave the values — the spacing carries it,
+0.97 alone / 1.2 shared, their own "don't fight over 0.2 of a head"; (B) say it with
+the beam: break between 13 and 14 — the tool's original seam, no bracket, no value
+change, the page's own vocabulary for "gap"; (C) own grid for the four as a run of
+four 16ths with no rests (the fit's writing of them alone) — the two halves of the
+gesture then sit on grids 1.9× apart with nothing printed. Recommendation: A, or B
+if the eye insists.
