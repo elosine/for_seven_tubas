@@ -7829,3 +7829,28 @@ Options measured, not yet chosen:
   the one note the accent declares is louder than mf.
 
 Four batteries green.
+
+### The pie, and why it "crept back" (day 24)
+
+Composer: *"the pie has crept back in T1 at the beginning."* It had not crept —
+it had always been conditional, and the condition just became true.
+
+The motive pie is an animated object bound to a score GROUP, and it draws only
+when the WHOLE group lives inside the save's parts ("the whole group or no
+pie"). `grp-g1-opening` spans 2.0–34.7 s across all ten parts. Every day-23
+working file was one part, so the group was never whole and no pie drew; the
+first all-parts section file made it whole, and the pie appeared at the top of
+T1 with a 32-second countdown. Measured with the switch forced on: **24 pies**
+across the piece, one per group.
+
+The density build's groups (`grp-g1-opening`, the cloud02 groups, the vert
+blast) are generator PROVENANCE, not motive instances — there is nothing for a
+pie to count down. It remains the trance section's device. So:
+`animated.motivePie.enabled: false` in the registry, honoured by the collector;
+`test_animobj` asserts the registry is OFF and still exercises the port with the
+switch forced on, so a silent flip back is caught. 24 → 0.
+
+**Section boundary noted** (composer): *"34.6 around is the end of the first
+density build, just keep this in mind, we aren't doing anything after yet."*
+Nothing past 34.6 gets figured until asked. The T7 groups at 44.5–46.2 and T4's
+cl-9 at 45.3–46.2, built earlier today, stand but are outside the current scope.

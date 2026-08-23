@@ -183,6 +183,6 @@
     "curveFollower": { "radiusSs": 0.5, "color": "#4E7A9B", "opacity": 0.9 },
     "envFollower": { "radiusPx": 6, "color": "#2E8B57", "opacity": 0.9 },
     "lineWedge": { "minHoldSeconds": 3, "ySs": 5.2, "radiusSs": 0.9, "color": "#8a6d3b", "opacity": 0.75 },
-    "motivePie": { "topPx": 14, "radiusPx": 9, "color": "#607D8B", "opacity": 0.75 }
+    "motivePie": { "enabled": false, "topPx": 14, "radiusPx": 9, "color": "#607D8B", "opacity": 0.75, "_note": "day 24: OFF. The pie marks a score GROUP and draws only when the whole group is inside the save — so it never showed in the one-part working files and reappeared the moment the all-parts section file existed (composer: the pie has crept back in T1). The density build's groups (grp-g1-opening spans 2-34.6 s across all ten parts; the cloud02 groups likewise) are generator PROVENANCE, not motive instances — there is nothing for a pie to count down. It remains the trance section's device; flip enabled there if wanted." }
   }
 }

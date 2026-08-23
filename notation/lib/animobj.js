@@ -244,6 +244,7 @@
         }
       }
       for (const [id, g] of groups) {
+        if (style.motivePie && style.motivePie.enabled === false) break;   // registry off-switch (day 24)
         if (![...g.layers].every(has)) continue;   // the whole group or no pie
         out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
       }

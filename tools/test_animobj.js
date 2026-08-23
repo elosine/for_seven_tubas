@@ -59,8 +59,16 @@ ok(byKind('gc').length === 1 && byKind('gc')[0]._src === 'ir-device', 'gc collec
 ok(byKind('curveFollower').length === 1, 'morph bend -> curveFollower');
 ok(byKind('envFollower').length === 1, 'layer-10 shape -> envFollower');
 ok(byKind('lineWedge').length === 1, 'long hold -> lineWedge (morph and short notes excluded)');
-ok(byKind('motivePie').length === 1 && byKind('motivePie')[0].t0 === 14 && byKind('motivePie')[0].t1 === 17.5,
-  'group span -> motivePie');
+// the pie port: OFF in the registry since day 24 (the density build's groups are
+// provenance, not motives), so the coverage check runs with the switch forced on —
+// and the registry value itself is asserted off, so a silent flip back is caught
+ok(ST.motivePie.enabled === false, 'registry: motivePie is OFF (day 24)');
+ok(byKind('motivePie').length === 0, 'motivePie OFF collects no pies');
+{
+  const ON = JSON.parse(JSON.stringify(ST)); ON.motivePie.enabled = true;
+  const pies = Anim.collect(ir, score, ON).filter(i => i.kind === 'motivePie');
+  ok(pies.length === 1 && pies[0].t0 === 14 && pies[0].t1 === 17.5, 'group span -> motivePie (switch on)');
+}
 
 // ---------- behavior spot-checks (pure geometry) ----------
 // gc: THE GC OBJECT'S BALL (day 23, ported whole from piece #1 via
