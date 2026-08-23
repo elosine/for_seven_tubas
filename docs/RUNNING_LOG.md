@@ -10119,3 +10119,14 @@ BEAMING_DECISIONS.md — confirmed to them.)
   one-shot mf · 5 accents; part 1 = 12 · 0 brackets · mf/f · 3 accents; part 2 = 12 ·
   0 brackets · mf · 6 accents; parts 3–9 = 0 beam items in the span (bare ✓).
   Batteries green.
+
+
+#### Day 29 — the T3 tuplet version built for comparison ("lets see the tuplet version")
+
+`t3-tuplets` (window 35–41, T1+T2 final beside it): T3 as `--figures` WITHOUT
+`--plain` — unit 132 ms, worst 30 ms = 1.00 heads, four brackets, no straddle:
+g1 [1-3] 5:4 · g2 plain · g3 [7-10] with a 3:2 on notes 9-10 · g4 [11-12] 5:4 ·
+g5 [13-14] 3:2 · g6 plain. Same groups, same through/dyn/accents as the plain
+proposal (only the writing differs — the D69 comparison, now with the recipe on
+both sides). The composer flips between this and `db1-c2i-x01` (plain, 1.8 heads)
+in the picker; the loser gets pruned on the verdict.
