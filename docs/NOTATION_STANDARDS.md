@@ -22,8 +22,11 @@ kinds exist:
 | **beam** | `--beam t0-t1@part` | notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests (day 24) |
 
 **Modifiers are positional** (day 24): `--clusterTol` `--accents` `--dyn`
-`--beamBreak` `--beamThrough` `--tuplet` each apply to the `--cluster` that
-precedes them. `@part` is required in a multi-part file.
+`--beamBreak` `--beamThrough` `--tuplet` `--figures` `--paceRatio` each apply to
+the `--cluster` that precedes them. `@part` is required in a multi-part file.
+**`--figures` (8g, day 27) cuts the cluster into FIGURES, each on its own grid** —
+see principle 6 below. It refuses to combine with `--beamBreak` (the opposite case:
+several beam groups on ONE tempo) or `--pattern` (which it implies).
 
 ## The cluster standard
 
@@ -259,6 +262,22 @@ could not explain.**
    does not show one.
 6. **Group first, grid second.** Gather notes into logical long-short figures;
    figures need not share a tempo (no tempo is printed).
+   **IMPLEMENTED day 27 (8g)** — `pattern_fit.segment()`, run by
+   `pattern_analyze` and written by `notate_section --cluster … --figures`. The
+   grouping rule is D67: **a cut may only land where the PACE CHANGES** — the seam
+   gap must be in a different pace band (ratio ≥ `PACE_RATIO`, 1.25) from the gap
+   before it. A figure ends when the pace changes, never in the middle of an even
+   stream, so an even run has no legal cut at all and can never be shattered into
+   pairs. A figure is also SHORT (`SOFT_MAX_NOTES` 6). Each figure is fitted alone
+   and becomes its own beam group and its own **grid domain** (`device.gridId`):
+   its rests, its written values and any tuplet bracket are computed inside it.
+   **The gesture still goes once** — one GC and one go line on its first note; a
+   seam between figures adds no ink and no rest, because two figures share no grid
+   in which a rest would mean anything. Near-tie boundaries are FLAGGED, never
+   decided (`--paceRatio` moves them). *Measured: on T1 of CLOUD02-I this replaces
+   one grid needing 7:4 · 6:4 · 7:4 at 0.7 heads with six figures needing no tuplet
+   at all and nothing past 0.2 heads; across all ten parts of the section, **no
+   figure needs a tuplet**.*
 7. **Played noteheads stay 16ths** on a 16th grid — not 8ths (too long), not
    32nds (too short). Where a 32nd rest would separate two 16ths, write two
    16ths.
@@ -270,7 +289,12 @@ could not explain.**
 
 *Status: BUILT and VALIDATED (day 24 late) — `notation/lib/pattern_fit.js`, run via
 `node tools/pattern_analyze.js --ir <id> --part N --span t0-t1` (fresh material) or
-`--validate` (every decided figure). 23 of 25 decided figures reproduced; the two
-disagreements are understood (T1's 3:2 at 1.2 heads; T10's 32nds, for which it
-proposes a 3:2 + plain instead). Pickups are FLAGGED, never applied.
-`tools/test_pattern_fit.js` guards the calibration.*
+`--validate` (every decided figure). **24 of 25** decided figures reproduced; the one
+disagreement is understood (cl-1, T1's 3:2 at 1.2 heads — T10's 32nds stopped being an
+exception on day 24). Pickups are FLAGGED, never applied.
+**Day 27 (8g): `segment()` added — a gesture is cut into FIGURES before anything is
+fitted (principle 6 above; the cut rule is D67), and the report gives the figures in
+words first with near-ties flagged, printing the old one-grid reading LAST for
+comparison. `fit()` itself is unchanged.** `tools/test_pattern_fit.js` guards the
+calibration, the 8g golden (T1), the structural no-shatter cases and the words — 40
+checks.*

@@ -669,6 +669,12 @@
                     if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     if (dev.tupletGroup) grp.hasTuplet = true;
                     if (dev.clusterId) grp.clusterId = dev.clusterId;
+                    // THE GRID DOMAIN, which is not always the cluster (8g,
+                    // day 27): --figures gives each figure its OWN unit, so
+                    // rests and tuplet brackets are computed per FIGURE. A
+                    // cluster built before 8g carries no gridId and the two
+                    // are the same thing, exactly as before.
+                    grp.gridId = dev.gridId || dev.clusterId || key;
                     // the WRITTEN value decides how many beams this note carries
                     // (day 23: figure 1 rewritten at true durations — 8ths get
                     // one beam, 16ths two, so the beam pattern itself shows
@@ -690,7 +696,7 @@
                     if (dev.beamUnit) {
                       grp.unit = dev.beamUnit;
                       grp.beams = dev.beamLevels || 1;
-                      const cid = dev.clusterId || key;
+                      const cid = dev.gridId || dev.clusterId || key;
                       if (!clusters.has(cid)) clusters.set(cid, { unit: dev.beamUnit, sub: dev.beamSubdivision || 4, positions: [] });
                       const cl = clusters.get(cid);
                       if (cl.anchorT == null || e.onset < cl.anchorT) { cl.anchorT = e.onset; cl.anchorPos = dev.beamPos; }
@@ -1097,7 +1103,7 @@
           // (the day-23 code read the FIRST group in the system — right by luck
           // while every tuplet was in T1)
           let own = null;
-          for (const gg of beamGroups.values()) if (gg.clusterId === cid && gg.hasTuplet) { own = gg; break; }
+          for (const gg of beamGroups.values()) if (gg.gridId === cid && gg.hasTuplet) { own = gg; break; }
           const beamTop = own ? own.tips[0].ySs : (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
           const lineOff = own && own.stack && own.stack.bracketLine != null ? own.stack.bracketLine : (TP.paddingSs + TP.hookLengthSs);
           const yB = tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff);

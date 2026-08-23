@@ -51,6 +51,28 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "t1-onegrid",
+   "label": "8g BEFORE — T1 36.2-39.6 on ONE grid (3 tuplet beats, 0.7 heads)",
+   "score": "piece-s25-finished01",
+   "window": [
+    35,
+    41
+   ],
+   "profile": "section1",
+   "exp": true
+  },
+  {
+   "id": "t1-figures",
+   "label": "8g AFTER — T1 36.2-39.6 as SIX figures (no tuplet, 0.2 heads)",
+   "score": "piece-s25-finished01",
+   "window": [
+    35,
+    41
+   ],
+   "profile": "section1",
+   "exp": true
   }
  ]
 }

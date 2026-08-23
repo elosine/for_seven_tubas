@@ -963,3 +963,51 @@ running log; (3) the composer chooses the most interesting items; (4) those are 
 into a deep narrative that coheres for the section. Expect too much material; selection
 is the composer's, by interest. *The running log's "would this be expensive to
 rediscover" bar exists for step 2.*
+
+## The model could not reproduce the composer's ear, and the fix was the composer's own method (2026-08-23, day 27)
+
+A clean instance of the paper's AI question, with numbers.
+
+The segmenter — the tool that decides which notes form a figure — was specified as a
+search: try every way of cutting a gesture, price each figure by the criteria the
+existing analyser already used (tuplet beats, empty slots, displacement in noteheads),
+charge a fixed cost per cut, take the cheapest. A reasonable specification, written
+after the composer had already read one gesture by hand.
+
+**It provably could not produce the composer's reading, for any cut price.** Their
+reading had both more figures and a higher total figure-cost than the reading the
+search preferred; raising the cut price penalised their reading faster than the
+alternative. No tuning existed that would work. The failure was not in the weights but
+in the *shape* of the objective.
+
+What was missing had already been said, in the transcript of the day the composer read
+the gesture by hand. They had not searched cut sets at all: they sorted the gaps into
+pace families (~157 / ~245 / ~300 ms) and read the runs. Turned into a rule — **a cut
+may only land where the pace changes; a figure never ends in the middle of an even
+stream** — it removed the spurious cut, made the anti-shattering guarantee *structural*
+rather than a matter of tuning (an even run contains no pace change, so it has no legal
+cut whatever the weights are), and took the model's stability from 10 % to 67 % of its
+own ±20 % parameter neighbourhood.
+
+Three things worth carrying into the argument:
+
+1. **The composer's method was better than the specification, and it was already on
+   record.** The AI's job was not to invent a criterion but to notice that one had
+   already been demonstrated and to formalise it. The transcript was the source.
+2. **The corrected model then went one step further than the hand reading.** It keeps
+   three of the composer's four cuts, flags the fourth as a near-tie exactly as they
+   had, and makes one additional cut that eliminates a quintuplet from their figure —
+   six figures, no tuplet anywhere, against five with a 5:4. That is their own stated
+   principle ("figures need not share a tempo") applied more consistently than they
+   applied it by hand. It is offered, not taken: the tool proposes and flags, the ear
+   disposes.
+3. **A result nobody asked for.** Once cuts land at pace changes, *not one figure in the
+   entire section requires a tuplet.* The tuplets were an artefact of forcing a single
+   grid onto a whole gesture — a notational complexity produced by the analysis method,
+   not by the music.
+
+The general form: when a model cannot reproduce a musician's judgment, the informative
+move is to prove it cannot — and then look for the criterion in what the musician
+actually did, rather than tuning until the numbers agree. Tuning would have produced a
+model that fit one gesture and nothing else; here the fragile tuned version (10 %
+robust) was built first, measured, and discarded in favour of the structural rule.

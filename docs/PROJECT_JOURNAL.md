@@ -10,12 +10,27 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 26 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
+**DAY 27 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
 go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
 ### State in one paragraph
 
-**Day 26 ended with 8f Parts 1–2 DONE, Part 3 DONE FOR T1, and PLAN 8g (FIGURE SEAMS) APPROVED AS THE NEXT BUILD — an Opus execution job, spec in PLAN.md.**
+**Day 27 ended with PLAN 8g (FIGURE SEAMS) BUILT, VERIFIED AND PUSHED. The next
+step is the composer's eye: look at `t1-figures` vs `t1-onegrid` in the picker and
+say whether the segmentation is right, then T2–T10 against the new report.**
+The analyser now cuts a gesture into FIGURES and fits each one alone
+(`pattern_fit.segment()`), reports them **in words first**, and `notate_section`
+can build them (`--cluster … --figures`). On T1 it finds SIX figures with **no
+tuplet anywhere** and nothing past 0.2 heads, against the one-grid reading's three
+tuplet beats at 0.7 heads. **It keeps three of the composer's four day-26 cuts (5,
+8, 14), flags note 11 as a near-tie exactly as the composer did, and makes one cut
+they did not — after note 3 — which removes the quintuplet from their figure 1.**
+The day's finding (D67): the cost model PLAN 8g specified provably CANNOT reproduce
+the composer's reading for any CUT_COST; what was missing was the composer's own
+day-26 method — **a cut may only land where the pace changes** — plus a
+figure-length term. That rule also makes no-shatter structural instead of tuned.
+Ten batteries green (`test_pattern_fit` 6 → 40 checks), `--validate` still 24/25,
+verified in the running app. Nothing else moved.
 Density build 1 (0–34.6 s) is finished and promoted (`notation/ir/db1.ir.json`, 25
 clusters, top of the picker; its `provenance.build` rebuilds it). Day 25 ran THE
 PLAYABILITY PROCESS on **CLOUD02-I (36.19–40.42 s)**: the archive now carries 12
@@ -39,26 +54,30 @@ working tree clean.
 
 | # | step | model | clear? | done = |
 |---|---|---|---|---|
-| ~~1~~ | ~~PART 3 — analysis of CLOUD02-I in shapes, then STOP AND TALK~~ **T1 DONE day 26** — the talk happened; the composer's reframe is in COMPOSER_LOG day 26; the build it produced is 8g | — | — | — |
-| **2** | **8g — FIGURE SEAMS: build the segmenter** (PLAN 8g has the four-part spec; T1 is the golden: cuts after notes 5, 8, 11, 14, note 11 a near-tie) | **Opus** | **YES — clear before it** (conversation → execution; `/session-end` · `/clear` · `/session-start`) | `pattern_analyze --ir db1-c2i-x01 --part 0 --span 36.0-40.4` prints five figures in words with flags; `--validate` 24/25; batteries green; pushed |
-| 3 | T2–T10 by hand against the new report, one part at a time; composer validates the "one cluster per part, several figures" expectation; the three-class vocabulary (tuplet vs dotted 16ths) is decided ON THE PAGE when the first such figure is drawn | **Fable** | yes (execution → conversation) | every part has its read; the tool changes it shows a need for are listed |
-| 4 | NOTATE CLOUD02-I — `--cluster … --figures` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
-| 5 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → its analysis | Opus run/apply · Fable for the nine and the talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
-| 6 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
+| ~~1~~ | ~~PART 3 — analysis of CLOUD02-I in shapes, then STOP AND TALK~~ **T1 DONE day 26** | — | — | — |
+| ~~2~~ | ~~8g — FIGURE SEAMS: build the segmenter~~ **DONE day 27** — built, verified in the app, pushed; the finding is D67 | — | — | — |
+| **3** | **THE COMPOSER'S EYE ON THE SEGMENTATION — 15 minutes, before any more parts.** Open the picker: **`t1-figures`** (8g AFTER — six figures, no tuplet) against **`t1-onegrid`** (8g BEFORE — one grid, 7:4·6:4·7:4). Three questions: (a) is six figures right, or is the cut after **note 3** one too many — the tool's one disagreement with your day-26 five? (b) **note 11** is flagged as a near-tie, as you called it — which side does it belong on? (c) do three 2-note "pair" figures read as fragmented on the page? | **Fable** | **YES — clear before it** (execution → conversation) | a verdict on the cut set; if the cuts want to move, the dial is `--paceRatio` (or say the boundary and it moves) |
+| 4 | T2–T10 by hand against the new report, one part at a time; composer validates the "one cluster per part, several figures" expectation; tuplet vs dotted 16ths is decided ON THE PAGE if such a figure ever appears (**note: with cuts at pace changes, NOT ONE figure in CLOUD02-I needs a tuplet — the question may never come up**) | **Fable** | yes | every part has its read; the tool changes it shows a need for are listed |
+| 5 | NOTATE CLOUD02-I — `--cluster t0-t1@part --figures` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
+| 6 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → its analysis | Opus run/apply · Fable for the nine and the talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
+| 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**Right now:** step 2 (8g). **This is a clear point** — the conversation is over and the
-build is written down in PLAN 8g. Read 8g and `notation/lib/pattern_fit.js` (164 lines),
-then build.
+**Right now:** step 3 — **the composer looks at `t1-figures` vs `t1-onegrid`**. This is
+a clear point and a mode change (execution → conversation): the build is done, verified
+and pushed, and nothing more should be notated until the segmentation has an eye on it.
+Switch to **Fable** for the verdict.
 
 ### The tools you will use (all verified day 24)
 
 | to… | run |
 |---|---|
 | see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick `db1` (hard-reload after any `.js` change; data files hot-reload) |
-| analyse a span the NEW way (D63) | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` — seams by the breath rule, then each group's best writing + alternatives as SHAPES; pickups FLAGGED never applied |
+| **analyse a span (8g, the current way)** | `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span t0-t1` — breath seams, then each gesture **cut into FIGURES and fitted one at a time**: words first ("even even · pair · short long"), then each figure's writing, then FLAGS (near-tie boundaries, pickups, the deferred dotted reading), then alternatives, and the old **one-grid reading LAST** as "also", for comparison |
+| move a figure boundary | `--paceRatio <r>` (positional, with `--figures`; default 1.25) — how far apart two gaps must be to count as different PACES, which is what decides where a cut may land. `99` = one pace, no legal cut, the whole gesture on one grid (the pre-8g reading) |
 | check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
-| build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: `--pattern` (grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` · `--noGoLine` |
+| build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: **`--figures` (8g — cut into figures, each on its own grid)** · `--paceRatio r` · `--pattern` (one grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` (several groups on ONE tempo — refuses to combine with `--figures`) · `--noGoLine` |
+| see 8g on the page | the picker's experiments: **`t1-figures`** (six figures, no tuplet) vs **`t1-onegrid`** (one grid, 7:4·6:4·7:4). Prune both when the verdict is in: `node tools/notate_section.js --prune t1-figures` |
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score) |
@@ -109,6 +128,16 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
 
 ---
 
+- **Day 27 (2026-08-23, Claude Code / Opus 5):** PLAN 8g FIGURE SEAMS BUILT —
+  `pattern_fit.segment()` (a gesture cut into figures, each fitted alone) · the
+  words-first report · `--figures` + `--paceRatio` on `notate_section` · `gridId` as
+  the grid domain in layout · `test_pattern_fit` 6 → 40 checks. **D67:** the cost
+  model the plan specified provably could not reproduce the composer's reading; the
+  rule that works came from their own day-26 method — a cut lands where the PACE
+  CHANGES — which also makes no-shatter structural. T1 = six figures, NO tuplet
+  anywhere; **not one figure in CLOUD02-I needs a tuplet** once cuts land at pace
+  changes. Verified in the app; `t1-figures` / `t1-onegrid` left in the picker for
+  the composer's eye.
 - **Day 26 (2026-08-23, short, Claude Code / Opus 5 → Fable 5):** Part 3 set-up —
   `--bare` (a span cleared to bricks, figures guarded) on the trials fork · Part 3 on T1
   — the protocol's one cluster + one-shot, the single grid's failure, the composer's
@@ -270,6 +299,30 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
    byte-identical path is the proof the pipeline is the same one.
 
 ## §4 Decisions
+
+- **D67** *(2026-08-23, day 27)* — **A CUT LANDS WHERE THE PACE CHANGES; THE FIT
+  COST ALONE CANNOT FIND THE FIGURES.** PLAN 8g specified the segmenter as "every
+  cut set, cost from the `fit()` ranking + CUT_COST per cut". **That model provably
+  cannot reproduce the composer's own day-26 reading of T1, for any CUT_COST** — the
+  hand reading has BOTH more figures and a higher figure-cost than the reading the DP
+  prefers (2.96 + 4·C vs 2.50 + 2·C), because notes 1–5 need a quintuplet while notes
+  1–2 are a *pair*, and a pair always fits exactly, for free. So the rule was taken
+  from the composer's own method instead of from the cost: day 26 sorted the gaps into
+  pace families (~157 / ~245 / ~300 ms) and read the runs, so **the seam gap must be
+  in a different pace band from the gap before it — a figure ends when the pace
+  changes, never in the middle of an even stream.** Plus a second term from the same
+  source ("players do pattern recognition"): **a figure is short** — `SOFT_MAX_NOTES 6`,
+  the largest figure in the decided section-1 vocabulary. *Why it matters beyond T1:*
+  the pace rule makes NO-SHATTER STRUCTURAL rather than tuned — an even run has no pace
+  change in it, so it has no legal cut whatever the weights are — and stability went
+  from 10 % to 67 % of the ±20 % weight neighbourhood. *Rejected, with evidence:* a
+  figure-length term alone (0 hits on the golden across 2 187 weight sets) · a
+  seam-scaled cut cost (closest — 3 of 4 cuts — but 10 % robust, and it has the sign
+  backwards for note 11, whose gap is small) · local-maximum gap detection (two cuts
+  off by one note). *Standing consequence:* the tool proposes and flags; **the ear
+  disposes.** It keeps 3 of the composer's 4 cuts, flags note 11 as they did, and makes
+  one cut they did not (after note 3) that removes the quintuplet — offered, not taken.
+  Trail: RUNNING_LOG day 27.
 
 - **D66** *(2026-08-23, day 26)* — **THE FIGURE IS THE UNIT: PLAYERS READ
   PATTERNS, NOT TEMPOS.** The notation sits between Ferneyhough (strict metric) and
@@ -1127,6 +1180,7 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
 ## §5 Done
 
 - 2026-08-23 (day 26) — `--bare` on notate_section; CLOUD02-I trials fork reads as bricks; Part 3 opened on T1; D66; PLAN 8g approved.
+- 2026-08-23 (day 27) — PLAN 8g FIGURE SEAMS built and verified: `segment()`, the words-first report, `--figures`/`--paceRatio`, `gridId` as the grid domain; D67 (a cut lands where the pace changes); T1 reads as six figures with no tuplet.
 - 2026-08-23 (day 25) — THE PLAYABILITY PROCESS run on CLOUD02-I and made a tool (PLAN 8f parts 1–2).
 - 2026-08-10 — 0a stack seed.
 - 2026-08-10 — Gain staging calibrated; CC7 law measured; cresc lengths DB.

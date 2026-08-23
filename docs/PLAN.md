@@ -1843,7 +1843,27 @@ while building the real score.
   page and cursor absorb tempo; the only failure is dissonance past the eye's
   rounding. Remaining parts T2–T10 continue by hand against the tool, after 8g.
 - **8g — FIGURE SEAMS: the analyser finds the figures inside a gesture** —
-  `approved (composer, day 26) — NEXT BUILD`. Model: Opus, clear before it (conversation
+  `DONE 2026-08-23 (day 27) — built, verified in the app, pushed. Awaiting the
+  composer's eye on the segmentation itself (see journal §2 step 3).`
+  **BUILT:** `pattern_fit.segment()` + `words()` + `paceBands()` + `dottedReading()` ·
+  the words-first report in `pattern_analyze` (one-grid reading printed LAST as "also")
+  · `--figures` and `--paceRatio` on `notate_section` · `gridId` as the grid domain in
+  `layout.js` (rests, written values and tuplet brackets are computed per FIGURE) ·
+  `--validate` made figure-aware · `test_pattern_fit` 6 → 40 checks. Ten batteries
+  green, `--validate` 24/25, `fit()` untouched.
+  **THE SPEC BELOW WAS WRONG IN ONE PLACE, AND THE CORRECTION IS D67:** the cost
+  function it names cannot produce the composer's day-26 reading of T1 for any
+  CUT_COST (the hand reading has both more figures AND a higher figure-cost than the
+  reading the DP prefers). Two terms were missing, both from the composer's own words:
+  **a cut may only land where the PACE CHANGES** (the day-26 pace-family method — which
+  also makes no-shatter structural rather than tuned, and took stability from 10 % to
+  67 % of the weight neighbourhood) and **a figure is short** (`SOFT_MAX_NOTES 6`).
+  **RESULT ON T1:** six figures, **no tuplet anywhere**, nothing past 0.2 heads, against
+  the one grid's 7:4 · 6:4 · 7:4 at 0.7. Three of the composer's four cuts kept (5, 8,
+  14), note 11 flagged as the near-tie they flagged, one extra cut after note 3 that
+  removes their quintuplet — offered, not taken. **And a result nobody asked for: not
+  one figure in the whole of CLOUD02-I needs a tuplet once cuts land at pace changes.**
+  Trail: RUNNING_LOG day 27. *(The original spec, for the record:)* Model: Opus, clear before it (conversation
   → execution). **Why:** `pattern_fit.fit()` takes ONE onset list and fits ONE grid;
   `pattern_analyze` hands it a whole breath-group. Principle 6 ("figures need not
   share a tempo") is written in NOTATION_STANDARDS and not implemented. T1 proved it:

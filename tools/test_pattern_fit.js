@@ -45,9 +45,62 @@ ok(PF.DEFAULTS.UMIN >= 0.12 && PF.DEFAULTS.UMAX <= 0.4, 'unit range keeps the 16
   const unexpected = differs.filter(c => !known.has(c));
   ok(unexpected.length === 0, 'validation: no NEW disagreements (' + (unexpected.join(',') || 'none') + ')');
 }
+
+// =====================================================================
+// 8g — SEGMENTATION. T1 36.22-39.61 is the golden: the gesture the composer
+// read by hand on day 26, the one that made 8g exist.
+// =====================================================================
+const T1 = [36.218, 36.457, 36.701, 36.857, 37.017, 37.364, 37.652, 37.956,
+  38.198, 38.340, 38.614, 38.775, 38.933, 39.090, 39.355, 39.610];
+{
+  const s = PF.segment(T1);
+  ok(!!s, '8g T1: the gesture segments');
+  // THE COMPOSER'S DAY-26 READING was cuts after notes 5, 8, 11, 14, with note
+  // 11 called a near-tie. The tool finds 5, 8 and 14, flags 11, and makes one
+  // cut the composer did not (after note 3) — which removes the quintuplet from
+  // their figure 1 entirely. See the long note at the top of pattern_fit.js.
+  // Asserting the WHOLE set, so any drift in either direction is caught.
+  ok(s.cuts.join(',') === '3,5,8,10,14', '8g T1: cuts 3,5,8,10,14 (' + s.cuts.join(',') + ')');
+  for (const b of [5, 8, 14]) ok(s.cuts.indexOf(b) >= 0, "8g T1: keeps the composer's cut after note " + b);
+  ok(s.nearTies.some(t => t.afterNote === 11), '8g T1: note 11 flagged as a near-tie — the boundary the composer flagged too');
+  // every figure trivially readable: no tuplet anywhere, nothing near the line
+  ok(s.figures.every(f => f.fit && f.fit.tupletBeats === 0), '8g T1: no figure needs a tuplet');
+  ok(s.figures.every(f => f.fit && f.fit.heads < 0.5), '8g T1: no figure past half a head (worst ' +
+    Math.max.apply(null, s.figures.map(f => f.fit.heads)).toFixed(2) + ')');
+  // and the whole point: the figures beat the one grid the tool used before 8g
+  ok(s.single && s.single.tupletBeats >= 3, '8g T1: the ONE-grid reading needs 3+ tuplet beats (' + (s.single && s.single.tupletBeats) + ')');
+  ok(s.total < s.singleCost, '8g T1: the figures cost less than the one grid (' + s.total + ' vs ' + s.singleCost + ')');
+  // STABILITY. The weights are a model, not a measurement; the reading must not
+  // hinge on the third decimal of CUT_COST.
+  ok(PF.segment(T1, { CUT_COST: 0.4 }).cuts.join(',') === s.cuts.join(',') &&
+    PF.segment(T1, { CUT_COST: 0.6 }).cuts.join(',') === s.cuts.join(','), '8g T1: same reading at CUT_COST +/-20%');
+}
+// --- NO SHATTER, and it is STRUCTURAL. An even run has no pace change in it,
+// so it has no legal cut at all — no weight can shatter it into pairs.
+for (const n of [3, 4, 6, 8, 12]) {
+  const even = Array.from({ length: n }, (_, i) => +(i * 0.158).toFixed(3));
+  const s = PF.segment(even);
+  ok(s.figures.length === 1, '8g: ' + n + ' even 16ths stay ONE figure (' + s.figures.length + ')');
+  ok(s.allowedCuts.length === 0, '8g: ' + n + ' even 16ths offer no legal cut at all');
+  ok(PF.segment(even, { CUT_COST: 0.01 }).figures.length === 1, '8g: ' + n + ' even 16ths survive a near-zero CUT_COST');
+}
+// --- THE WORDS ARE THE COMPOSER'S. 239|244|156|160 is what they looked at and
+// called "long long short short"; the quintuplet writing implies 1.6|1.6|0.8|1.0
+// and would have said something else. The words come from the SPACING.
+ok(PF.words([0.239, 0.244, 0.156, 0.160]) === 'long long short short',
+  '8g words: 239|244|156|160 reads "long long short short" (' + PF.words([0.239, 0.244, 0.156, 0.160]) + ')');
+ok(PF.words([0.288, 0.304]) === 'even even', '8g words: two near-equal gaps read "even even"');
+ok(PF.words([0.142, 0.274]) === 'short long', '8g words: 142|274 reads "short long"');
+ok(PF.words([0.255]) === 'pair', '8g words: a lone gap is a "pair"');
+// --- fit() IS UNTOUCHED (8g rule): segment() must not have changed it.
+ok(PF.fit([31.765, 32.026, 32.442, 32.835]).grid.join(',') === '0,2,5,8', '8g: fit() unchanged by segmentation');
+
 if (process.argv.includes('--prove-red')) {
   const f = PF.fit([31.765, 32.026, 32.442, 32.835], { MAX_HEADS: 0.01 });
   ok(f && !f.coherent, 'prove-red: a 0.01-head line makes T8 incoherent');
+  // and the segmenter: with pace bands wide enough to swallow every gap, T1 has
+  // no pace change anywhere and must come out as ONE figure
+  ok(PF.segment(T1, { PACE_RATIO: 99 }).figures.length === 1, 'prove-red: one pace band makes T1 a single figure');
 }
 if (fails) { console.error('PATTERN_FIT RED: ' + fails + ' failure(s) of ' + checks); process.exit(1); }
-console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration cases + unit range + T7 guard + ' + 'validation agreement');
+console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words)');

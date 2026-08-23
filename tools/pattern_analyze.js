@@ -2,13 +2,19 @@
 // pattern_analyze.js — the D63 analyser at the command line.
 //
 //   node tools/pattern_analyze.js --ir db1-all-x01 --validate
-//       every decided cluster in the IR: what the analyser proposes vs what
+//       every decided figure in the IR: what the analyser proposes vs what
 //       was built. A disagreement is a finding, not a failure — it is either
 //       a case the rule gets wrong or a case the composer's ear did something
 //       the rule should learn.
-//   node tools/pattern_analyze.js --ir db1-all-x01 --part 9 --span 32.17-34.56
-//       a fresh span: seams by the breath rule, then each group's best
-//       writing and its alternatives, as SHAPES.
+//   node tools/pattern_analyze.js --ir db1-c2i-x01 --part 0 --span 36.0-40.4
+//       a fresh span: breath seams, then each gesture cut into its FIGURES
+//       (8g) — words first, then each figure's writing, then the flags.
+//
+// 8g (day 27): a gesture is no longer forced onto one grid. segment() cuts it
+// where the PACE CHANGES and fits each figure alone — standards principle 6,
+// "group first, grid second; figures need not share a tempo". The old
+// one-grid reading is still printed, LAST, as "also", so the two can be
+// compared on the same page.
 //
 // Pickups: proposed only, never silent (composer: "the ones you do on your
 // own, just flag for me").
@@ -30,8 +36,9 @@ const ms = x => Math.round(x * 1000);
 const fmtFit = f => f ? ('♩=' + f.bpm.toFixed(0) + '  grid ' + f.grid.join(',') +
   (f.tupletBeats ? ('  TUPLET ' + f.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '') +
   '  worst ' + ms(f.worstSeconds) + ' ms = ' + f.heads.toFixed(1) + ' heads' + (f.coherent === false ? '  [OVER A HEAD — no coherent writing]' : '')) : 'NO FIT';
+const NUM = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN'];
 
-// ---------- validate: the decided clusters ----------
+// ---------- validate: the decided figures ----------
 if (flag('validate')) {
   const byCl = new Map();
   for (const o of ir.overlays) {
@@ -40,14 +47,26 @@ if (flag('validate')) {
     if (!byCl.has(d.clusterId)) byCl.set(d.clusterId, []);
     byCl.get(d.clusterId).push({ e, d });
   }
-  let agree = 0, total = 0;
-  const rows = [];
+  // A CLUSTER MAY NOW HOLD SEVERAL FIGURES, each on its own grid (8g,
+  // --figures). Validation compares GRIDS, so the unit of comparison is the
+  // figure, not the cluster: members are split by device.gridId where one is
+  // present. A cluster built before 8g has no gridId and stays one unit, so
+  // the day-24 count is unchanged.
+  const units = [];
   for (const [cid, members] of [...byCl].sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true }))) {
     members.sort((a, b) => a.e.onset - b.e.onset);
+    const ids = [...new Set(members.map(m => m.d.gridId).filter(Boolean))];
+    if (ids.length <= 1) { units.push({ label: cid, members }); continue; }
+    for (const gid of ids) units.push({ label: cid + ' ' + gid.replace(cid + '-', ''), members: members.filter(m => m.d.gridId === gid) });
+  }
+  let agree = 0, total = 0;
+  const rows = [];
+  for (const { label, members } of units) {
     const ons = members.map(m => m.e.onset);
     // the built writing, as a PATTERN: gap ratios in 16ths, pickups excluded
     const main = members.filter(m => !m.d.pickup);
     const pickups = members.filter(m => m.d.pickup);
+    if (!main.length) continue;
     const sub = main[0].d.beamSubdivision, scale = sub === 8 ? 0.5 : sub === 2 ? 2 : 1;
     const cmpSet = main.length >= 2 ? main : members;   // a pickup into a lone note: compare all
     const builtGrid16 = cmpSet.map(m => +((m.d.beamPos - cmpSet[0].d.beamPos) * scale).toFixed(3));
@@ -70,7 +89,7 @@ if (flag('validate')) {
       pickupNote = '   pickup: built has ' + pickups.length + '; analyser sees note 1 ' + ms(miss) + ' ms off the main grid (' + (miss > PF.DEFAULTS.HEAD_SECONDS ? 'would FLAG' : 'would NOT flag — under a head') + ')';
     }
     total++; if (verdict === 'AGREES') agree++;
-    rows.push({ cid, part: partOf.get(members[0].e.id), n: ons.length, t0: ons[0], verdict, built: builtGrid16, builtUnit: built.unit, f, pickupNote });
+    rows.push({ cid: label, part: partOf.get(members[0].e.id), n: ons.length, t0: ons[0], verdict, built: builtGrid16, builtUnit: built.unit, f, pickupNote });
   }
   console.log('VALIDATION — the analyser against ' + rows.length + ' decided figures (shapes compared as gap ratios; pickups excluded)');
   console.log('');
@@ -106,21 +125,76 @@ for (const g of groups) {
   const ons = g.map(e => e.onset);
   const label = g.length + ' notes @' + ons[0].toFixed(2);
   if (g.length === 1) { console.log(label + ' — a lone one-shot'); console.log(''); continue; }
-  const f = PF.fit(ons);
-  console.log('GROUP ' + label + (ons.length > 1 ? '   gaps ' + ons.slice(1).map((t, i) => ms(t - ons[i])).join('|') + ' = ' + (f ? f.gapCategories.join(' · ') : '') : ''));
-  if (!f) { console.log('   no writing found'); console.log(''); continue; }
-  console.log('   BEST:  ' + fmtFit(f));
-  console.log('          ' + f.shape);
-  for (const a of f.alternatives) console.log('   also:  ' + fmtFit(a) + '   ' + a.shape);
-  // pickup proposal: first note under a breath from the second AND off the best grid of the rest by more than a head
-  if (g.length >= 3) {
-    const rest = PF.fit(ons.slice(1));
-    if (rest && rest.coherent) {
-      const relSlot = (ons[0] - ons[1]) / rest.unit, miss = Math.abs(relSlot - Math.round(relSlot)) * rest.unit;
-      if (miss > PF.DEFAULTS.HEAD_SECONDS || rest.heads < f.heads - 0.3)
-        console.log('   PICKUP? note 1 is ' + ms(ons[1] - ons[0]) + ' ms before note 2 and sits ' + ms(miss) + ' ms off the grid of notes 2-' + g.length +
-          ' (which fit at ' + rest.heads.toFixed(1) + ' heads vs ' + f.heads.toFixed(1) + ' with it) — FLAGGED for the composer\'s ear, not applied');
-    }
+  const s = PF.segment(ons);
+  if (!s) { console.log('GESTURE ' + label + ' — no writing found'); console.log(''); continue; }
+
+  // ---- WORDS FIRST. The composer reads shapes, not tables (day 24).
+  console.log('GESTURE ' + label + '   pace families: ' +
+    s.paceBands.map(b => b.notes + ' gap' + (b.notes > 1 ? 's' : '') + ' ' + b.minMs + (b.maxMs !== b.minMs ? '-' + b.maxMs : '') + ' ms').join(' · '));
+  console.log('   ' + (NUM[s.figures.length] || s.figures.length) + ' FIGURE' + (s.figures.length > 1 ? 'S' : '') + ':   ' + s.words);
+  console.log('');
+  s.figures.forEach((f, i) => {
+    const ff = f.fit;
+    console.log('   ' + (i + 1) + '.  notes ' + (f.from + '-' + f.to).padStart(6).padEnd(7) + '@' + f.onsets[0].toFixed(2) + '   ' + f.words.padEnd(23) +
+      (ff ? (('♩=' + ff.bpm.toFixed(0)).padEnd(8) + (ff.heads.toFixed(1) + ' heads').padEnd(11) + ff.shape +
+        (ff.tupletBeats ? ('   TUPLET ' + ff.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '') +
+        (ff.coherent === false ? '   [OVER A HEAD]' : '')) : 'NO FIT'));
+  });
+  console.log('');
+
+  // ---- FLAGS: never applied, always said out loud
+  const flags = [];
+  // ONE LINE PER NOTE IN QUESTION, closest call first, four at most. Every
+  // near-tie is about a note that could sit on either side of a seam, and both
+  // directions name the same note — printing both read as duplication.
+  const byNote = new Map();
+  for (const t of s.nearTies) {
+    const note = t.kind === 'cut' ? t.afterNote : t.afterNote + 1;
+    if (!byNote.has(note) || t.delta < byNote.get(note).delta) byNote.set(note, t);
+  }
+  [...byNote].sort((a, b) => a[1].delta - b[1].delta || a[0] - b[0]).slice(0, 4).forEach(([note, t]) => {
+    flags.push('note ' + note + ' could go either way — ' + (t.kind === 'cut' ? 'keeping it with the next figure' : 'moving it to the previous figure') +
+      ' costs only +' + t.delta.toFixed(2) + ' (the ' + t.gapMs + ' ms gap after note ' + t.afterNote + ')');
+  });
+  if (byNote.size > 4) flags.push('(' + (byNote.size - 4) + ' further boundary' + (byNote.size - 4 > 1 ? 'ies' : '') + ' near-tied as well — this gesture has several equally good readings)');
+  // a pickup is asked PER FIGURE now: is the figure's first note off the grid
+  // of the rest of it? (standards: "AI may propose a pickup but must flag it")
+  s.figures.forEach((f, i) => {
+    if (f.notes < 3) return;
+    const rest = PF.fit(f.onsets.slice(1));
+    if (!rest || !rest.coherent || !f.fit) return;
+    const relSlot = (f.onsets[0] - f.onsets[1]) / rest.unit, miss = Math.abs(relSlot - Math.round(relSlot)) * rest.unit;
+    if (miss > PF.DEFAULTS.HEAD_SECONDS || rest.heads < f.fit.heads - 0.3)
+      flags.push('note ' + f.from + ' may be a PICKUP into figure ' + (i + 1) + ' — it is ' + ms(f.onsets[1] - f.onsets[0]) +
+        ' ms before note ' + (f.from + 1) + ' and sits ' + ms(miss) + ' ms off the grid of the rest (' + rest.heads.toFixed(1) +
+        ' heads without it vs ' + f.fit.heads.toFixed(1) + ' with) — FLAGGED, not applied');
+  });
+  // the deferred tuplet-vs-dotted question, raised only where it is live
+  s.figures.forEach((f, i) => {
+    if (!f.fit || !f.fit.tupletBeats || !f.dotted || !f.dotted.coherent || !f.dotted.dottedCount) return;
+    flags.push('figure ' + (i + 1) + ' is written with a tuplet (' + f.fit.beats.filter(b => b.tuplet).map(b => b.tuplet + ':4').join(',') +
+      ', ' + f.fit.heads.toFixed(1) + ' heads); it could instead be ' + f.dotted.shape + ' at ' + f.dotted.heads.toFixed(1) +
+      ' heads — no 32nd head, but a half-16th grid. DEFERRED to the page (composer, day 26)');
+  });
+  if (flags.length) { console.log('   FLAGS'); for (const x of flags) console.log('    · ' + x); console.log(''); }
+
+  if (s.alternatives.length) {
+    console.log('   ALSO POSSIBLE');
+    for (const a of s.alternatives.slice(0, 3))
+      console.log('    · cut after ' + (a.cuts.join(', ') || 'nothing') + '  (+' + a.delta.toFixed(2) + ')   ' + a.words);
+    console.log('');
+  }
+
+  // ---- THE SINGLE GRID LAST, for comparison only (this is what the tool
+  // printed FIRST before 8g, and what T1 showed was the wrong frame).
+  console.log('   also, as ONE grid (the pre-8g reading):');
+  console.log('      ' + fmtFit(s.single));
+  if (s.single) {
+    const worstFig = Math.max.apply(null, s.figures.map(f => f.fit ? f.fit.heads : 0));
+    const tup = s.figures.reduce((a, f) => a + (f.fit ? f.fit.tupletBeats : 0), 0);
+    console.log('      the ' + s.figures.length + ' figures need ' + (tup ? tup + ' tuplet beat(s)' : 'NO tuplet at all') +
+      ' and nothing past ' + worstFig.toFixed(1) + ' heads' +
+      '   (cost ' + s.total.toFixed(2) + ' vs ' + (s.singleCost == null ? '?' : s.singleCost.toFixed(2)) + ' for the one grid)');
   }
   console.log('');
 }

@@ -9035,3 +9035,115 @@ figures at different spacings read as one pattern twice, the page and the cursor
 the tempo; the only failure is *cognitive dissonance*, when the spacing pushes past the
 eye's *mental rounding* — and only then does the notation itself have to say "very long,
 medium, shorter" (tuplet or separate figure). Protocol consequences discussed next.
+
+## Day 27 — 2026-08-23 (Claude Code / Opus 5)
+
+### Day 27 — PLAN 8g FIGURE SEAMS built: the segmenter, and the finding that the specified cost could not do the job
+
+**Built:** `pattern_fit.segment()` (+ `words()`, `paceBands()`, `dottedReading()`) ·
+the words-first report in `pattern_analyze` · `--figures` (and `--paceRatio`) on
+`notate_section` · `gridId` as the grid domain in `layout.js` · 21 new assertions in
+`test_pattern_fit` (6 → 40 checks). Ten batteries green, `--validate` 24/25 on both
+`db1` and `db1-all-x01`, verified in the running app.
+
+**THE FINDING, and it cost the afternoon: the cost function PLAN 8g specified cannot
+produce the composer's own reading of T1 — for any CUT_COST.** The spec said "try every
+cut set; cost(figure) from the existing `fit()` ranking (tuplet beats, empty slots,
+heads) + CUT_COST per cut". Implemented literally, the DP on T1 returns cuts after notes
+2 and 5, not the composer's 5, 8, 11, 14. This is not a tuning problem and no sweep can
+fix it:
+
+- the composer's reading has **more figures** (5 vs 3) **and a higher figure-cost**
+  (2.96 vs 2.50) than the reading the DP prefers;
+- raising CUT_COST therefore penalises the composer's reading *faster* than the
+  alternative. Golden = 2.96 + 4·C, alternative = 2.50 + 2·C; golden wins only if
+  2C < −0.46. Never.
+
+The mechanism: notes 1–5 need a quintuplet (cost 2.38), while notes 1–2 are a **pair**
+— and a pair always fits a grid exactly, for free, because two points define the unit.
+Free pairs are the shattering pathology in miniature, and CUT_COST is the only brake.
+
+**Dead ends, kept as evidence.** (1) A **figure-length term** alone: needed, but with a
+flat cut cost the sweep over 2 187 weight sets produced *zero* hits on the golden.
+(2) A **seam-scaled cut cost** (cheap at a large gap, dear at a small one): got closest
+— cuts 5, 8, 14 — but only 10 % of its own ±20 % neighbourhood gave that answer, and it
+has the sign backwards for note 11, whose gap is *small* (161 ms). Fragile and wrong for
+the case the composer cared about; dropped. (3) Local-maximum (Gestalt) gap detection:
+gives 2, 5, 7, 10, 14 — two of them off by one note. Dropped.
+
+**WHAT WAS MISSING WAS ALREADY IN THE COMPOSER'S OWN METHOD.** Day 26 did not search cut
+sets at all: it sorted the gaps into pace families (~157 / ~245 / ~300 ms) and read the
+runs. So:
+
+> **A CUT MAY ONLY LAND WHERE THE PACE CHANGES** — the seam gap must be in a different
+> pace band from the gap before it. A figure ends when the pace changes, never in the
+> middle of an even stream.
+
+Three things fall out at once. It kills the spurious cut after note 2 (gaps 239 then
+244 — same pace, mid-run). It makes **no-shatter STRUCTURAL rather than tuned**: an even
+run has no pace change anywhere in it, so it has no legal cut, whatever the weights are
+(asserted for 3, 4, 6, 8 and 12 even 16ths, including at `CUT_COST 0.01`). And stability
+went from 10 % to **67 %** of the ±20 % weight neighbourhood.
+
+Second missing term, also from the composer's words: **a figure is short.** "Pattern
+recognition" means a shape the eye takes in at once; without a length penalty the DP
+writes eleven notes as one figure at 0.93 heads — legal by the letter and exactly what
+8g exists to stop. `SOFT_MAX_NOTES 6` (the largest figure in the decided section-1
+vocabulary), `W_LONG 0.5`.
+
+**Final defaults:** `W_TUPLET 1.0 · W_EMPTY 0.25 · W_HEADS 1.0 · SOFT_MAX_NOTES 6 ·
+W_LONG 0.5 · CUT_COST 0.5 · PACE_RATIO 1.25`. `PACE_RATIO` does two jobs — it bands the
+gaps into pace families *and* it turns milliseconds into words.
+
+**WHERE THE TOOL AND THE COMPOSER STILL DIFFER, stated rather than tuned away.** On T1
+it finds cuts after **3, 5, 8, 10, 14** — six figures. It keeps three of the composer's
+four cuts (5, 8, 14); it **flags note 11** as a near-tie (+0.27), which is the boundary
+the composer flagged by ear; and it makes one cut the composer did not, **after note 3**
+— which splits their "long long / short short" figure at its own pace change and
+**removes the quintuplet entirely**. Result: six figures, **no tuplet anywhere**, nothing
+past 0.2 heads, against five figures with a 5:4 at 0.63. That is principle 6 carried one
+step further than the hand reading went, not a disagreement with it — but it is the
+composer's call, so both are in the picker to be looked at.
+
+**A result nobody asked for, worth keeping:** with cuts at pace changes, **not one
+figure in the whole of CLOUD02-I needs a tuplet** — all ten parts, every gesture,
+scanned. The tuplet was an artefact of forcing one grid per gesture.
+
+**Verified in the running app** (score-verify :5210, DOM audit against `db1` as the
+control): T1 in `t1-figures` draws **12 beam polygons = 6 figures × 2 beam levels**, six
+separate groups with clear gaps; **exactly 1 GC impact and 1 arc** for the whole 16-note
+gesture (it still goes once); no rests inside any figure (each is a contiguous run);
+every head `leftEdge`, no go lines. The `db1` control still draws the old single-tempo
+shape (one 718 px primary beam with beamlets). The tuplet path was exercised separately
+via `--paceRatio 99` (`t1-onegrid`): one figure, brackets **7:4 · 6:4 · 7:4** rendering
+correctly — which is also the regression check on the `gridId` change, since tuplet
+bracket ownership is keyed on it.
+
+**Design notes.**
+- **`gridId`, not `clusterId`, is the grid domain** (`layout.js`). Rests, written values
+  and tuplet brackets are computed per grid; under `--figures` that is the FIGURE. A
+  cluster built before 8g carries no `gridId` and the two are the same thing, so nothing
+  moved. `--validate` splits a cluster by `gridId` for the same reason — otherwise every
+  figured cluster would read DIFFERS against a whole-gesture fit and the 24/25 would
+  become a false alarm.
+- **No rest between figures**, by design: two figures have different units, so there is
+  no shared grid in which a rest between them means anything. The seam is a beam that
+  stops and another that starts — no new ink.
+- **`--figures` refuses `--pattern`** (implied) and **`--beamBreak`** (that flag is the
+  opposite case: several beam groups on ONE tempo). An error, not a precedence rule
+  nobody would remember.
+- **`--paceRatio`** added as the one dial that moves where cuts may land. Large enough
+  (99) = one pace band = no legal cut = the whole gesture on one grid, i.e. the pre-8g
+  reading reproduced through the new code path — which is how the tuplet branch got
+  tested at all, since no real figure in the section needs one.
+- **Near-ties are printed for BOTH directions but deduped by the note in question** —
+  both directions name the same note, and printing both read as duplication.
+- **The words come from the SPACING, not from the notation.** 239|244|156|160 reads
+  "long long short short" — what the composer said looking at it. The quintuplet writing
+  implies 1.6|1.6|0.8|1.0 and would have said "long long short medium". Asserted.
+- **`fit()` is untouched**, per the spec, and asserted.
+
+**Deferred, unchanged:** tuplet vs dotted 16ths for a 3:3:2:2 figure. `dottedReading()`
+computes the half-16th reading and the report offers it wherever a figure is written
+with a tuplet, but nothing writes dotted values — that path is built when the composer
+picks (it needs `noteUnits 1.5` support in layout).
