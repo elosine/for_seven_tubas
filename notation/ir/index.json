@@ -32,61 +32,6 @@
    "exp": true
   },
   {
-   "id": "db1-c2i-x01",
-   "label": "CLOUD02-I trials (day 25)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t2-figures",
-   "label": "T2 read A (day 29) — tool's groups on ONE grid: g1 plain [1-3]+[4-7], g2 7:4 straddle + 3:2",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t2-owngrids",
-   "label": "T2 read B (day 29) — g2 on OWN grids (no bracket, no straddle); g1 as A",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t2-fourpairs",
-   "label": "T2 read C (day 29) — g2 as FOUR PAIRS (--cuts 2,4,6, the +0.02 tie); g1 as A",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t2-twogoes",
-   "label": "T2 read D (day 29) — g1 as TWO gestures (second go on note 4, the 499 ms pause as a breath); g2 as A",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
    "id": "db1",
    "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23; ending figures rebeamed day 29)",
    "score": "piece-s25-finished01",
@@ -97,23 +42,12 @@
    "profile": "section1"
   },
   {
-   "id": "t1-final",
-   "label": "T1 FINAL (day 28) — the composer's groups on ONE grid, 7:4 · 6:4 · 7:4, built from the rule · dynamics day 29",
+   "id": "db1-c2i-x01",
+   "label": "CLOUD02-I — T1 T2 FINAL + T3 proposed (day 29); T4-T10 bare",
    "score": "piece-s25-finished01",
    "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t2-composer",
-   "label": "T2 read E (day 29) — [1-3]+over · [4-6]+over · 7 beamlets right · GC on 8 · [8-11] · [12 13]+over | [14 15] · NO brackets · dyn (mf floor)",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
+    0,
+    55.94
    ],
    "profile": "section1",
    "exp": true

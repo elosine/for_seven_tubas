@@ -88,6 +88,18 @@ untouched T2 pickup pair), solid secondaries 7 → 12, 16th rests 16 → 30, 8th
 | 5.2 | T2 note 7 (the freestanding 16th) | back to **two beamlets to the right** — `--beamOverLeft` dropped | "let me change my mind on that freestanding sixteenth. let's go back to the beamlets to the right" | SUPERSEDES 1.6; the overLeft device stays in the tool, unused here |
 | 5.3 | T2 [12 13] (second-to-last pair) | secondary **solid across** + **overhang over the 16th rest after it** (`--beamThrough 2 --beamOver 2` on cl-3) | "sixteenth beams all the way across and overhang that sixteenth rest" | SUPERSEDES 1.8's stub look and the sketch's open rest — the pair now claims its rest; [14 15] unchanged |
 
+## D-log 6 · T1 rebeamed; T2 DONE; T3 proposed — day 29, the section file takes over
+
+*Everything now lives in **`db1-c2i-x01`** ("CLOUD02-I — T1 T2 FINAL + T3 proposed");
+the six scratch pages (t1-final, t2-figures/owngrids/fourpairs/twogoes/composer) are
+pruned — git keeps them. T4–T10 stay bare per part.*
+
+| # | place | decision | notes |
+|---|---|---|---|
+| 6.1 | T1 CLOUD02-I | rebeamed per the recipe: `--beamThrough 1..6` (solid doubles); no rest16 needed (no ≥2-slot within-group silences outside brackets); **brackets KEPT** (7:4 · 6:4 · 7:4 — D69 day 28, not a beam matter; composer to flag if they should go) | composer: "can you rebeam t one? and the dynamics are fine" |
+| 6.2 | T2 CLOUD02-I | **DONE** — composer's word; folded into the section file as decided (D-logs 1, 5) | "we'll mark t two is done" |
+| 6.3 | T3 CLOUD02-I | **AI-PROPOSED, awaiting the look**: `--figures --plain` — the pace rule's six groups ([1-3][4-6][7-10][11 12][13 14][15-17]) survive tuplets-off unchanged; through 1..6; dyn 1:mf, accents 2,3,5,12,15,17 (mf floor); no rest16 (the one 2-slot silence is a separator) | **THE FLAG: plain costs 1.80 heads with EIGHT of 17 notes at 1.4–1.8** vs exactly 1.00 with brackets (5:4 · 3:2 · 5:4 · 3:2). T3 is the part that needs the tuplet vocabulary; the bracketed build is one command if wanted |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

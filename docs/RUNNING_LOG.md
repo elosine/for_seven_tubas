@@ -10089,3 +10089,33 @@ no tuplets (their sketch-round call): the 219 | 292 | 186 ms disproportion is ca
 by the spacing plus the (b) break at the 292 gap.** Today's 5.3 changes only the
 first pair's LOOK — it now claims its trailing rest instead of leaving it open. The
 1.2-heads displacement (worst on the last pair) still stands, accepted.
+
+
+#### Day 29 — T1 rebeamed · T2 DONE · T3 proposed · the section file takes over
+
+**Composer:** *"can you rebeam t one? and the dynamics are fine. And we'll mark t two
+is done. after you've rebeamed t one, just go ahead and notate t three, and then I'll
+take a look… let's keep a log of my changes so far and moving forward… in a separate
+pass, we'll try to extrapolate additional rules for the generator. But let's try to
+move through finishing notating this section."* (The log exists —
+BEAMING_DECISIONS.md — confirmed to them.)
+
+- **T1 rebeamed** (recipe): through on all six groups; no rest16 applies; **brackets
+  kept** — D69 is a day-28 decision about the writing, not the beams; flagged in the
+  reply for the composer to overturn if wanted.
+- **T2 done** — folded as decided.
+- **T3 proposed** as `--figures --plain --beamThrough 1..6 --dyn 1:mf --accents
+  2,3,5,12,15,17`. The pace rule's six groups are IDENTICAL with tuplets off (cuts
+  3,6,10,12,14 — a nice datum: the grouping is robust to the writing). **THE FLAG:
+  the best plain grid (166 ms) puts EIGHT of 17 notes 1.4–1.8 heads off (worst 54 ms);
+  the bracketed reading sits at exactly 1.00.** T3 is the material the tuplet
+  vocabulary exists for; the composer sees the number before deciding.
+- **Consolidation:** everything into `db1-c2i-x01` (rebuilt from the CURRENT db1
+  command — it had predated the rebeaming — plus the three parts' cluster lines;
+  `--bare 36.19-40.33@p` for parts 3–9). The six scratch pages pruned (git keeps
+  them). T1's lone one-shot @40.17 now renders (part 0 no longer bare) with its band
+  dynamic (mf) — visible in the audit.
+- **Audit** (layout path): part 0 = 12 beam items · 3 brackets · mf/fff + the
+  one-shot mf · 5 accents; part 1 = 12 · 0 brackets · mf/f · 3 accents; part 2 = 12 ·
+  0 brackets · mf · 6 accents; parts 3–9 = 0 beam items in the span (bare ✓).
+  Batteries green.

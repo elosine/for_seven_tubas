@@ -102,6 +102,16 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
+**Right now (updated late day 29): THE SECTION FILE IS `db1-c2i-x01`** — T1 + T2
+FINAL (T2 declared done; T1 rebeamed per the recipe, brackets kept), **T3 proposed
+and awaiting the composer's look** (plain per the standing direction, but EIGHT of 17
+notes sit 1.4–1.8 heads off vs 1.00 bracketed — the flag is D-log 6.3), T4–T10 bare
+per part. All t1-*/t2-* scratch pages pruned (git keeps them). The ledger
+(BEAMING_DECISIONS.md) has D-logs 1–6; rules extraction still deferred. Next: the
+composer's T3 verdict → then T4…T10 one at a time, notated straight into the section
+file per the standing recipe + mf-floor dynamics. *(The paragraph below is the
+mid-day picture, kept for the trail.)*
+
 **Right now (updated mid-day 29):** the reads changed shape. T2's read produced
 `t2-composer` ("T2 read E") through five verdict rounds — **the composer has more T2
 remarks coming; that file is where they land.** A BEAMING-DECISIONS LEDGER now runs
