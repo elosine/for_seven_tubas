@@ -8833,3 +8833,13 @@ db1's stored build command — not from memory.
    composer reviews part by part (NOTATION_WORKFLOW §1). Trials as forks (`--from db1
    --id db1-x… --exp`), settled ones promoted into db1's command.
 6. Commit + push at each settled chunk; db1 keeps its id, label updated.
+
+### Day 25 — the three-part plan APPROVED and written down; model-switching practice recorded
+
+Composer approved the read-back ("that sounds solid") and asked for the plan to be written
+before switching models. → journal §2 (the block "DAY 25 OUTCOME, then THE APPROVED PLAN",
+executable cold: the 12 moves in order, the brick script spec, the re-extract and fork
+commands, Part 2's module boundary and decisions A–D, Part 3's stop-and-talk), PLAN 8f
+rewritten to point at it. Model-switching practice (Fable has its own weekly balance;
+Fable for verdicts/reframes/design, Opus for lists; switch safe, context length is the
+risk; /clear at milestones with the cold-execution test) → SESSION_HYGIENE § Model strategy.

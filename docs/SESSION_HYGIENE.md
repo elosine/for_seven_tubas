@@ -102,6 +102,25 @@ capability, so match the model to the kind of thinking required.
 | Implementing an agreed, written plan; mechanical edits; probes; doc updates | **Opus 5** |
 | Bulk mechanical work | **Sonnet 5** |
 
+**Fable has its own weekly credit balance** *(composer, day 25)* — so the question is
+not only "which model thinks best here" but "does this step need Fable at all". The
+working rule: **Fable for the turns where a wrong reading costs a day; Opus for every
+turn where the plan is already on paper.** Concretely:
+- Switch TO Fable for: the design/"what should this be" conversation · a verdict on a
+  musical result (the listen, the page) · a reframe or state-of-play check ("restate
+  this for me") · unknown-cause debugging. Day 25's expensive mistake — a day of
+  thinning built on reading "dense" as aesthetic — is the kind a Fable turn is for.
+- Switch TO Opus the moment the step is a LIST: applying ledgered moves, re-extracting,
+  running batteries, building to a written spec, doc updates. Opus executes a written
+  plan well; the failure mode is not execution but *deciding* an open design point
+  mid-build — so the plan entry must close the data shapes (the caveat below).
+- **Mid-session switches are safe: the transcript carries over.** The risk is context
+  LENGTH, not the switch — the early chat gets summarised and keeps conclusions, not the
+  trail. RUNNING_LOG is the trail; write to it before switching, not after.
+- **`/clear` between milestones** (the composer's practice) is the right boundary; it
+  makes the docs the handoff. The test before clearing: could a cold model execute the
+  next step from journal §2 alone? If not, the §2 block is not finished.
+
 **The plan/implement split only works if the plan is written to a FILE.**
 `/clear` discards the chat, so a plan that lives only in conversation cannot be
 handed to the implementing session. Sequence:

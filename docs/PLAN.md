@@ -1823,19 +1823,18 @@ while building the real score.
   session), plus one open question: whether the three cuivre notes want a
   cuivré text mark, since the technique is currently invisible on the page.
 
-- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `next (composer, day 24
-  wrap)`. Composer: *"It feels very dense to me. So first, let's see if it's
-  still okay or needs to be thinned. And then if it needs to be thinned, we'll
-  come up with a strategy for doing so. Then either way, we run the new analysis
-  tool for each part and put in the notation for me to review, for the whole
-  section."* Measured at the wrap: 159 staccatos in 4.4 s = 36/s (twice density
-  build 1's dense stretch), 96 % of gaps under a breath, 87 % of notes starting
-  inside the previous sample's ring. **Steps, each with a done:** (1) analyse
-  every part with `tools/pattern_analyze.js` and report in shapes · (2) the
-  thinning question put with those three numbers, strategies only if asked ·
-  (3) build all ten parts from the analyser (`--cluster … --pattern`), pickups
-  only where confirmed · (4) composer reviews part by part. The full handoff,
-  commands included, is journal §2.
+- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 25)`. **Day 25
+  reframed it:** the composer's *"it feels very dense"* meant UNPLAYABLE, not too-much —
+  *"this process is strictly for playability… the smear or audibility is of secondary
+  concern."* The section passes playability with 12 part moves and no removals (OR);
+  the day's thinning ladder is research (PLAYABILITY_MODEL.md, RUNNING_LOG day 25).
+  **The approved three-part plan lives in journal §2** (supersedes the day-24 steps):
+  (1) save files in place — OR applied to the archive + ledgered, bricks 50 ms, db1
+  re-extracted + validated, trial fork · (2) the playability protocol as a tool
+  (`notation/lib/playability.js` + `tools/playability.js` + golden test), decisions
+  A–D made · (3) notation ANALYSIS of the rebuilt section in shapes, then STOP and
+  talk before any figure is generated. Done = the composer has the part-3 report and
+  the conversation about what the notation should be has happened.
 
 ## Parking lot
 
