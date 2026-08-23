@@ -67,6 +67,10 @@
 //   --beamOver 1,2           beam group N's beams EXTEND rightwards over the first 16th rest
 //                            after its last note (day 29, composer: "extend the bar from the
 //                            first three partials rightwards over the first sixteenth rest").
+//   --beamOverLeft 3         beam group N's beams reach LEFTWARD over the 16th rest before
+//                            its first note (day 29, composer, on the lone seventh partial:
+//                            "a group of two — beams over [the] sixteenth rest and then the
+//                            partial").
 //   --ownGrids               with --figures: the 8g/8h reading instead — each figure on its
 //                            OWN grid (its own gridId, rests, values and brackets computed
 //                            inside it), no relation printed between them. The alternative,
@@ -211,7 +215,7 @@ const { doc, warnings } = Extract.extract(score, {
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
   const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids', '--plain']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--beamOver']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--beamOver', '--beamOverLeft']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -591,6 +595,10 @@ const { doc, warnings } = Extract.extract(score, {
     // its last note, over the first 16th rest that follows (day 29, composer).
     const over = listArg('beamOver');
     if (over.size) console.log('    beams extended over the first rest after group(s) ' + [...over].join(','));
+    // --beamOverLeft 3 : group #N's beams reach back over the 16th rest before
+    // its first note (day 29 — the lone partial as "a group of two")
+    const overL = listArg('beamOverLeft');
+    if (overL.size) console.log('    beams reach left over the rest before group(s) ' + [...overL].join(','));
     // --tuplet 10-11@3:2 : members 10..11 form a 3:2 tuplet (three in the
     // space of two units). Slots beyond the members become rests INSIDE the
     // bracket — composer, day 23: "one sixteenth rest, which is part of that
@@ -731,6 +739,7 @@ const { doc, warnings } = Extract.extract(score, {
       if (tuplets.length || (patTuplets && patTuplets.size) || ptp) dev.beamHasTuplet = true;
       if (through.has(sub + 1)) dev.beamThrough = true;
       if (over.has(sub + 1)) dev.beamOverRest = true;
+      if (overL.has(sub + 1)) dev.beamOverLeft = true;
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
       if (anyArtic) dev.beamHasArtic = anyArtic;
       doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });

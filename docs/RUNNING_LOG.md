@@ -9859,3 +9859,50 @@ change, the page's own vocabulary for "gap"; (C) own grid for the four as a run 
 four 16ths with no rests (the fit's writing of them alone) — the two halves of the
 gesture then sit on grids 1.9× apart with nothing printed. Recommendation: A, or B
 if the eye insists.
+
+
+#### Day 29 — the sketch settles the last four; the seventh partial was misread and is now "a group of two"
+
+**The composer sent a DRAWN SKETCH** (an engraved mock-up: pair · 16th rest · pair,
+left pair with a partial secondary beam, right pair with two full beams) with:
+*"No. The second group of four as before. So three partials broken beam over the
+sixteenth, so group of four. then the single one will be a group of two. beams over
+sixteen[th re]st and then the partial. and lets break the beam (b) like this, no
+tuplet."*
+
+**Two decisions inside it:**
+1. **The last four = option (b), drawn like the sketch, no tuplet:** break after note
+   13 → [12 13] · open 16th rest · [14 15]. The left pair's secondary stays PARTIAL
+   (stubs — not through), the right pair's secondary runs FULL over its internal rest
+   (through) — the sketch draws the 186 ms pair tight and the 219 ms pair open, which
+   is what the stubs-vs-through difference shows on a spatially true page.
+2. **"No." = the previous message was misread.** "Meet the beams to the left and beam
+   over that sixteenth" did NOT mean "join 7 to [4 5 6]" (what was built); it meant
+   the lone seventh partial keeps its own beams, REACHING LEFT over the one 16th rest
+   before it — *"the single one will be a group of two: beams over [the] sixteenth
+   rest and then the partial."* [4 5 6] goes back to three partials with the beam
+   over its first rest — *"three partials, broken beam over the sixteenth, so group
+   of four"*: the composer's own words for what the beam-over look MEANS (three notes
+   + a beamed-over rest reads as four slots). Kept verbatim; that phrase is the best
+   description yet of what --beamOver is for.
+
+**Built: `--beamOverLeft N`** (group N's beams reach back over the preceding 16th
+rest). For a LONE note it replaces the beamlet stubs: both levels drawn as real
+two-tip beams from the rest's slot (0.2 ss before its left edge) to the stem. In a
+multi-note group the left phantom joins the primary and any secondary run that starts
+on the first note (mirror of --beamOver's tail). `test_layout` gained the check (two
+2-tip beams from the rest slot, no stubs). The right-beamlet rule stays in the code
+for a lone note without the flag.
+
+**The page now (DOM, lane T2):** [1 2 3] 240→350 over its rest · [4 5 6] 407→500 over
+its rest · **7: 510→538 both levels — starting just before the rest at 512, the rest
+at 490 left outside** · GC · [8-11] 616→710 through · **[12 13] primary 777→811 with
+8-px stubs at both ends of the secondary · rest at 826 in the open · [14 15] 856→885
+both levels full over its internal rest at 865**. No brackets. Batteries green
+(test_layout 2 new checks), `--validate` untouched.
+
+**The command that is T2 read E now:**
+```
+--cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --beamOverLeft 3
+--cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,3
+```

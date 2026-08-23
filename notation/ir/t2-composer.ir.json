@@ -25,7 +25,7 @@
   "date": "2026-08-23",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t2-composer --exp --label \"T2 read E (day 29) — the composer's reading: [1-3] [4-7] (beams meet the 7th over its rests) · GC on 8 · [8-11] [12-15] · NO brackets · double beams through, beams over the first rest\" --bricks --cluster 36.21-39.62@0 --figures --cluster 36.18-38.20@1 --pattern --beamBreak 4 --rest16 4,7 --beamThrough 1,2 --beamOver 1 --cluster 38.50-40.40@1 --plain --beamBreak 5 --beamThrough 1,2"
+  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 --profile section1 --id t2-composer --exp --label \"T2 read E (day 29) — [1-3]+over · [4-6]+over · 7 = rest+partial under its own beams · GC on 8 · [8-11] · [12 13] | [14 15] (b) · NO brackets\" --bricks --cluster 36.21-39.62@0 --figures --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --beamOverLeft 3 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,3"
  },
  "events": [
   {
@@ -5006,7 +5006,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamThrough": true
+     "beamThrough": true,
+     "beamOverRest": true
     }
    },
    "provenance": "authored"
@@ -5039,7 +5040,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamThrough": true
+     "beamThrough": true,
+     "beamOverRest": true
     }
    },
    "provenance": "authored"
@@ -5072,7 +5074,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamThrough": true
+     "beamThrough": true,
+     "beamOverRest": true
     }
    },
    "provenance": "authored"
@@ -5092,7 +5095,7 @@
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
-     "beamGroup": "cl-2b",
+     "beamGroup": "cl-2c",
      "clusterId": "cl-2",
      "beamUnit": 0.137,
      "beamPos": 14,
@@ -5106,7 +5109,7 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamThrough": true
+     "beamOverLeft": true
     }
    },
    "provenance": "authored"
@@ -5270,8 +5273,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
-     "beamThrough": true
+     "noteBeams": 2
     }
    },
    "provenance": "authored"
@@ -5303,8 +5305,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
-     "beamThrough": true
+     "noteBeams": 2
     }
    },
    "provenance": "authored"
@@ -5324,7 +5325,7 @@
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
-     "beamGroup": "cl-3b",
+     "beamGroup": "cl-3c",
      "clusterId": "cl-3",
      "beamUnit": 0.126,
      "beamPos": 12,
@@ -5357,7 +5358,7 @@
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
-     "beamGroup": "cl-3b",
+     "beamGroup": "cl-3c",
      "clusterId": "cl-3",
      "beamUnit": 0.126,
      "beamPos": 14,

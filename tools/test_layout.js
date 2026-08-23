@@ -440,6 +440,19 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
         '--beamOver: both beam levels of the pair reach one slot on, past the first rest glyph (' + pa.map(b => b.tips.length).join('/') + ' tips)');
       ok(io_.filter(i => i.k === 'stem').length === 3, '--beamOver: the phantom tip draws no stem');
       ok(io_.filter(i => i.k === 'rest').length === 2, '--beamOver: the rests under the beam are still drawn');
+      // ---- --beamOverLeft (day 29, composer, the lone seventh partial:
+      // "a group of two — beams over [the] sixteenth rest and then the
+      // partial"): the lone note k-b (slot 4, rest at 3 before it) reaches
+      // back — BOTH levels as real two-tip beams from the rest's slot to the
+      // stem; no stubs drawn for it.
+      const ol = JSON.parse(JSON.stringify(lone));
+      Object.assign(ol.overlays[2].value.device, { beamOverLeft: true });
+      const LOL = Layout.layoutSection(ol, G);
+      const kb = LOL.systems[0].items.filter(i => i.k === 'beam' && /^k-b/.test(i.group));
+      const tRest = 1 + 3 * 0.2;
+      ok(kb.length === 2 && kb.every(b => !b.stub && b.tips.length === 2 && Math.abs(b.tips[0].t - tRest) < 1e-9 && b.tips[0].dxSs < 0),
+        '--beamOverLeft: both levels run from the preceding rest slot to the lone stem (' + kb.map(b => b.tips.length).join('/') + ')');
+      ok(!LOL.systems[0].items.some(i => i.stub && /^k-b/.test(i.group)), '--beamOverLeft: no stubs on the lone note');
     }
   }
 

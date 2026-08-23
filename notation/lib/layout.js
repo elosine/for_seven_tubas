@@ -660,7 +660,7 @@
                     }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
                     const key = dev.beamGroup || 'beam';
-                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough, over: !!dev.beamOverRest });
+                    if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough, over: !!dev.beamOverRest, overLeft: !!dev.beamOverLeft });
                     const grp = beamGroups.get(key);
                     grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
                     // the cluster's metric facts, carried on the overlay by
@@ -1028,6 +1028,21 @@
         // before the next rest begins — the engraver's beam-over-a-rest, which
         // stops where the rest's stem would be. No stem is drawn for it. Every
         // level that reaches the last note carries on to it.
+        // ...and its mirror (day 29, the lone seventh partial as "a group of
+        // two — beams over [the] sixteenth rest and then the partial"): a
+        // phantom tip BEFORE the group's first note, at the preceding rest's
+        // slot, so the beams reach back over that one rest. Starts a pad
+        // before the rest's left edge (which sits on its slot time, D61).
+        let overLTip = null;
+        if (g.overLeft && g.unit && g.tips.length) {
+          const first = g.tips[0];
+          const cgL = clusters.get(g.gridId);
+          const pastL = (o.beamOverPastSs != null ? o.beamOverPastSs : 0.2);
+          const tSlotL = (cgL && cgL.anchorT != null && first.pos != null)
+            ? cgL.anchorT + (first.pos - cgL.anchorPos - 1) * g.unit
+            : first.t - g.unit;
+          overLTip = { t: tSlotL, dxSs: -pastL, ySs: first.ySs, phantom: true };
+        }
         let overTip = null;
         if (g.over && g.unit && g.tips.length) {
           const last = g.tips[g.tips.length - 1];
@@ -1046,12 +1061,25 @@
             : last.t + (last.len || 1) * g.unit;
           overTip = { t: tSlot, dxSs: (rg ? rg.wSs : 1) + past, ySs: last.ySs, phantom: true };
         }
-        if (g.lone) {
+        if (g.lone && overLTip) {
+          // the lone note as "a group of two": every level runs from the
+          // phantom over the preceding rest to the stem (day 29)
+          const t = g.tips[0];
+          const step0 = (glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81;
+          for (let b = 1; b <= (t.beams || 1); b++) {
+            const off = (b - 1) * step0 * (g.dir === 'up' ? -1 : 1);
+            items.push({ k: 'beam', dir: g.dir, group: key + (b > 1 ? '-b' + b : ''), overLeft: true,
+              tips: [{ t: overLTip.t, dxSs: overLTip.dxSs, ySs: t.ySs + off }, { t: t.t, dxSs: t.dxSs, ySs: t.ySs + off }] });
+          }
+        } else if (g.lone) {
           // the primary level as a right-pointing stub of the beamlet length
           const t = g.tips[0];
           items.push({ k: 'beam', dir: g.dir, group: key + '-stub', stub: true,
             tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs }, { t: t.t, dxSs: t.dxSs + stubLen, ySs: t.ySs }] });
-        } else items.push({ k: 'beam', dir: g.dir, tips: overTip ? g.tips.concat([overTip]) : g.tips, group: key, over: overTip ? true : undefined });
+        } else {
+          const tipsP = (overLTip ? [overLTip] : []).concat(g.tips).concat(overTip ? [overTip] : []);
+          items.push({ k: 'beam', dir: g.dir, tips: tipsP, group: key, over: overTip ? true : undefined, overLeft: overLTip ? true : undefined });
+        }
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
         // runs the whole group. beams = log2(value / quarter); the grid comes
@@ -1067,13 +1095,15 @@
         for (let b = 2; b <= maxLvl; b++) {
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
           const stub = stubLen;
+          if (g.lone && overLTip) break;   // day 29: already drawn as the two-tip "group of two"
           let run = [];
           const flush = () => {
             if (run.length >= 2) {
               // a run that reaches the group's last note carries on over the rest too
               const tail = (overTip && run[run.length - 1] === g.tips[g.tips.length - 1]) ? [overTip] : [];
+              const head = (overLTip && run[0] === g.tips[0]) ? [overLTip] : [];
               items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
-                tips: run.concat(tail).map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
+                tips: head.concat(run).concat(tail).map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
             } else if (run.length === 1) {
               // A BEAMLET (day 23, composer): a note with no 16th neighbour
               // still shows the second level, as a stub pointing right —
