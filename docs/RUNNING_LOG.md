@@ -10130,3 +10130,19 @@ g5 [13-14] 3:2 · g6 plain. Same groups, same through/dyn/accents as the plain
 proposal (only the writing differs — the D69 comparison, now with the recipe on
 both sides). The composer flips between this and `db1-c2i-x01` (plain, 1.8 heads)
 in the picker; the loser gets pruned on the verdict.
+
+
+#### Day 29 — the bracket/beam collision fix ("can you fix the bracket beam collisions")
+
+The composer's screenshot of `t3-tuplets` showed the 3:2/5:4/3:2 numerals struck
+through by their own beams. **Cause:** the tuplet drawer anchored EVERY bracket of a
+cluster to the FIRST tuplet-carrying beam group's height — correct when a cluster
+was one beam group (day 24), wrong once day 29 put six groups with their own beams
+and stacks in one cluster. **Fix:** each tuplet record now carries its owning
+`beamGroup` (recorded at assembly) and the bracket is positioned from THAT group's
+beam + stack; the old scan stays as the fallback for pre-day-29 files. Verified on
+`t3-tuplets`: clearances now 1.2–2.5 ss for all four T3 brackets (each per its own
+group's stack — accented groups carry the taller offset), T1's three unchanged.
+No IR rebuilds (brackets draw at render time); the page needs a hard reload for the
+new layout.js. `test_layout` gained a data-driven check on the section file: every
+bracket clears every beam it spans. Five batteries green.

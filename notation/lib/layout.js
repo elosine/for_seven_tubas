@@ -710,6 +710,9 @@
                         if (!cl.tuplets.has(dev.tupletGroup)) cl.tuplets.set(dev.tupletGroup, {
                           num: dev.tupletNum, den: dev.tupletDen, startPos: dev.tupletStartPos,
                           slotUnits: dev.tupletDen / dev.tupletNum, slots: new Map(), dir: stemDir,
+                          // day 29: WHICH beam group owns this bracket — a cluster
+                          // now holds several groups at different beam heights
+                          grp: dev.beamGroup || null,
                           // day 24: a tuplet at the 8th level (three 8ths in a quarter) prints
                           // '3:2' and writes 8ths inside the bracket; den (4) is still the span
                           // in 16ths that places the slots. Absent = the 16th-level case (T1).
@@ -1185,8 +1188,16 @@
           // the bracket belongs to ITS group: read that group's beam and stack
           // (the day-23 code read the FIRST group in the system — right by luck
           // while every tuplet was in T1)
-          let own = null;
-          for (const gg of beamGroups.values()) if (gg.gridId === cid && gg.hasTuplet) { own = gg; break; }
+          // THE BRACKET SITS ON ITS OWN GROUP'S BEAM (day 29, composer:
+          // "fix the bracket beam collisions"). The old scan took the FIRST
+          // tuplet-carrying group of the cluster and hung EVERY bracket at
+          // that one's height — right when a cluster was one beam group
+          // (day 24), wrong once six groups share a cluster: brackets for
+          // later groups landed on their own beams. Each tuplet record now
+          // carries its owning beamGroup; the scan stays as the fallback for
+          // pre-day-29 files.
+          let own = (tp.grp && beamGroups.get(tp.grp)) || null;
+          if (!own) for (const gg of beamGroups.values()) if (gg.gridId === cid && gg.hasTuplet) { own = gg; break; }
           const beamTop = own ? own.tips[0].ySs : (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
           const lineOff = own && own.stack && own.stack.bracketLine != null ? own.stack.bracketLine : (TP.paddingSs + TP.hookLengthSs);
           const yB = tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff);

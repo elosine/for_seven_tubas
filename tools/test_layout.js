@@ -461,6 +461,27 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   ok(has(R, 'goline') === 0 && has(R, 'envcurve') === 0 && has(R, 'brick') === 3, 'empty devices map: bricks only');
 }
 
+// ---- day 29: A BRACKET SITS ON ITS OWN GROUP'S BEAM (the collision fix) ----
+// A cluster now holds several beam groups, several with brackets, at different
+// stack heights. Every tuplet item must clear the beam of the group whose span
+// it covers — checked on the real section file (db1-c2i-x01, T1's three
+// brackets over three different groups).
+{
+  const irC = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-c2i-x01.ir.json'), 'utf8'));
+  const LC = Layout.layoutSection(irC, G);
+  const s0 = LC.systems.find(s => s.part === 0);
+  const tups = s0.items.filter(i => i.k === 'tuplet' && i.t0 > 35);
+  ok(tups.length >= 3, 'section file: T1 carries its three brackets (' + tups.length + ')');
+  let bad = 0;
+  for (const t of tups) {
+    for (const bm of s0.items.filter(i => i.k === 'beam' && !/-b2|stub/.test(i.group || ''))) {
+      const t0 = bm.tips[0].t, t1 = bm.tips[bm.tips.length - 1].t;
+      if (t.t0 <= t1 + 0.01 && t.t1 >= t0 - 0.01 && t.ySs <= bm.tips[0].ySs + 0.5) bad++;
+    }
+  }
+  ok(bad === 0, 'every bracket clears every beam it spans (' + bad + ' collisions)');
+}
+
 // ---- V1 [A21]: the ENGRAVING-OVERRIDE channel (tier-3 hands) ----
 // stemDir force: the synthDir pair beams UP by convention (B2 farthest);
 // an authored stemDir DOWN on one note forces the whole run down.
