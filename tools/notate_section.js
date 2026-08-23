@@ -251,7 +251,13 @@ const { doc, warnings } = Extract.extract(score, {
       let ok = true, prev = 0;
       for (let i = pickup - 1; i >= 0; i--) {
         const rel = (members[i].onset - anchor) / fit.unit, slot = Math.round(rel);
-        if (slot >= prev || Math.abs(rel - slot) * fit.unit > TOL) { ok = false; break; }
+        // COLLISION only (day 24, second pass). A pick-up that misses the
+        // tolerance is the normal case — it is played TO the downbeat, not
+        // metronomically before it — and the miss is reported, never acted on.
+        // The first version of this test also refitted on a tolerance miss,
+        // which silently turned T3's chosen 16th reading (pickup 55 ms off a
+        // 1 ms grid) into the 32nd reading the composer had rejected.
+        if (slot >= prev) { ok = false; break; }
         prev = slot;
       }
       if (!ok) {

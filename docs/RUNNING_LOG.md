@@ -7940,3 +7940,42 @@ exactly 2** (checked across the section, 0 changed). Seven batteries green.
 
 The density is the honest cost of the reading — ten stubs in one figure — and
 it is now visible for the composer to judge, which it was not before.
+
+### A regression I caused and the composer caught: T3's figure had turned into 32nds (day 24)
+
+Composer, at T3 29.9: *"I'm trying to understand where thirty-seconds come into
+play… I think the analysis logic has become convoluted."* It had — but not the
+analysis. **The T6 fix had silently rewritten T3.**
+
+The sequence: T3's figure was built as chosen — pickup, then four notes on a
+16th grid at ♩=105.6, 1 ms, the pickup 55 ms off that grid and accepted as such
+(a pickup is played TO the downbeat). Then T6's pickup landed on top of its own
+downbeat, and the tool gained a "does the grid hold the pickup" test with a
+refit-all fallback. I wrote that test as *collides OR misses tolerance*. T3's
+pickup misses tolerance without colliding, so on the next full rebuild T3 was
+quietly refitted as all five together — the **32nd reading (♩=66.6 ×8, unit
+113 ms) the composer had explicitly rejected** two hours earlier. Three beams on
+every note, rests spanning slots. That is what they were looking at.
+
+Fixed: the refit fires on **collision only** (a pickup on another member's
+slot). A tolerance miss is the normal case for a pickup and is reported, never
+acted on. T3 is back to unit 142 ms, 2 beams, 16th rests, the pickup 55 ms off.
+T6 (cl-13) now fits its two main notes as 8ths at ♩=89 with the pickup 33 ms
+off — same drawing as before (pickup-8th, 8th, 8th), tempo from the main figure
+rather than all three, which is the pickup principle working as designed.
+
+Verified: the only 3-level beams in the section are T10's five (the one figure
+that genuinely fitted at subdivision 8); zero 32nd rests anywhere. Five
+batteries green.
+
+**Two things the composer restated that are now pinned down:**
+- **Played noteheads stay 16ths.** Not 8ths (too long), not 32nds (too short).
+  The written value is placement, not duration (day 23); on a 16th grid this is
+  automatically true.
+- **Where a 32nd rest would separate two 16ths, write two 16ths with no rest.**
+  This is the case that only arises on a 32nd grid, which T3 never had and
+  should not have had.
+
+The lesson for the method, filed: a fix made for one figure must be checked
+against every figure already built under the same flag. `--pickup` had three
+users; I verified one.
