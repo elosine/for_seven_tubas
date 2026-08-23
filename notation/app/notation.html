@@ -636,6 +636,10 @@
     // happened to keep focus; after touching any control it toggled THAT).
     // Only genuine typing fields keep it.
     const typing = tag === 'TEXTAREA' || (tag === 'INPUT' && !/checkbox|radio/i.test(ev.target.type));
+    // ESC = release focus, always (day 29, composer: "arrows still trapped,
+    // what is a quick escape") — works even in typing fields, so a captured
+    // arrow key is one keypress from freedom.
+    if (ev.key === 'Escape') { if (ev.target && ev.target.blur) ev.target.blur(); return; }
     if (ev.key === ' ' && !typing) {
       ev.preventDefault();
       if (ev.target && ev.target.blur) ev.target.blur();

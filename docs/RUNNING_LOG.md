@@ -10146,3 +10146,19 @@ group's stack — accented groups carry the taller offset), T1's three unchanged
 No IR rebuilds (brackets draw at render time); the page needs a hard reload for the
 new layout.js. `test_layout` gained a data-driven check on the section file: every
 bracket clears every beam it spans. Five batteries green.
+
+
+#### Day 29 — bracket horizontal gap + ESC as the universal focus escape
+
+- **Bracket gap** (composer: "a little bit of a gap between the brackets"): adjacent
+  groups' brackets abutted edge to edge (each spans its full beat) and read as one
+  line. Each end now pulls in by `tuplet.hGapSs` (default 0.35 ss; registry
+  `engraving.layout.tuplet.hGapSs`) — render-time, so T1 and T3 both get it with NO
+  rebuild ("you'll have to redo t one as well" — no need, and said so). Measured on
+  t3-tuplets: 5.5 px daylight between each adjacent pair (0.7 ss), even.
+- **Arrows still trapped**: the blur-on-change fix only activates after a hard
+  reload, which the composer had not done; and number inputs were never covered.
+  **ESC now blurs whatever holds focus, always** — one keypress from freedom, even
+  inside a typing field. Quick escapes that need no new code: click any empty spot
+  on the score, or TAB.
+- test_render/test_snapshots/test_layout green.
