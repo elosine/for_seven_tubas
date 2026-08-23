@@ -14490,26 +14490,26 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-cl-13-ev-wc-1995",
+   "id": "ov-cl-13-ev-wc-132",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-1995"
+    "event": "ev-wc-132"
    },
    "value": {
     "device": {
      "goLine": false,
      "gc": false,
      "dynBesideStem": false,
-     "dynMark": "mf",
+     "dynMark": "f",
      "nhUnit": true,
      "nhStem": "beam",
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-13a",
      "clusterId": "cl-13",
-     "beamUnit": 0.22720000000000445,
+     "beamUnit": 0.31499999999999795,
      "beamPos": 0,
-     "beamLevels": 2,
-     "beamSubdivision": 4,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -14523,10 +14523,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-cl-13-ev-wc-2000",
+   "id": "ov-cl-13-ev-wc-139",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2000"
+    "event": "ev-wc-139"
    },
    "value": {
     "device": {
@@ -14539,10 +14539,10 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-13a",
      "clusterId": "cl-13",
-     "beamUnit": 0.22720000000000445,
+     "beamUnit": 0.31499999999999795,
      "beamPos": 1,
-     "beamLevels": 2,
-     "beamSubdivision": 4,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -14556,10 +14556,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-cl-13-ev-wc-2022",
+   "id": "ov-cl-13-ev-wc-145",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2022"
+    "event": "ev-wc-145"
    },
    "value": {
     "device": {
@@ -14572,10 +14572,10 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-13a",
      "clusterId": "cl-13",
-     "beamUnit": 0.22720000000000445,
-     "beamPos": 3,
-     "beamLevels": 2,
-     "beamSubdivision": 4,
+     "beamUnit": 0.31499999999999795,
+     "beamPos": 2,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,

@@ -581,6 +581,16 @@
                 const roomBelow = CS.laneHalfSs + refBot0, roomAbove = CS.laneHalfSs - refTop0;
                 const chainAbove = CS.rule === 'sideWithRoom' && octShift === 0 && chainN > 0
                   && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
+                // A BEAMED NOTE WHOSE CHAIN FLIPS ABOVE HANDS ITS MARK TO THE GROUP
+                // (day 24, composer, on T5 32.18). There were two independent placers
+                // above the beam — the group's accent row, at one height for the whole
+                // gesture, and the per-note chain — and neither consulted the other, so
+                // a mark that flipped up landed ON the accent (0.84 ss of overlap
+                // measured). The group's row already stacks dynamics OUTSIDE the accents
+                // and lowers the beam to fit both inside the lane, which is the
+                // stackBelow order (articulation inside, dynamic outside) applied above
+                // the staff. So there is only ever ONE placer up there now.
+                const markToGroup = markAboveBeam || !!(markG && chainAbove && dev.nhStem === 'beam');
 
                 if (stemKind) {
                   const yStart = yDraw - att.dy;
@@ -656,7 +666,7 @@
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
-                    if (markAboveBeam) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
+                    if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     // the WRITTEN value decides how many beams this note carries
                     // (day 23: figure 1 rewritten at true durations — 8ths get
                     // one beam, 16ths two, so the beam pattern itself shows
@@ -761,7 +771,7 @@
                 // sfzp"): one engraved mark on the dynamic slot, centered on
                 // the note column like the pair's start mark. dynMark is the
                 // glyph key (registry device / per-item override).
-                if (markG && !markAboveBeam) {
+                if (markG && !markToGroup) {
                   const yDyn = placeChain(markG.hSs);
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
