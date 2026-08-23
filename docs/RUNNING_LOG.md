@@ -10207,3 +10207,22 @@ bracket itself follows since the third-to-last-note fix). Outside brackets both 
 their old one-rest semantics (T1/T2 pages unchanged — verified by the batteries).
 Audited: cl-4d spans 38.443→38.772 (from the 8th rest's slot) with overLeft; cl-4e
 spans 38.985→39.393 (to the last trailing rest) with over. Ledger D-log 8.
+
+
+#### Day 29 — T3 DONE and folded; the checkpoint before the clear
+
+*"Okay. That's t three done… let's make sure to log any of those beaming insights or
+notation insights… let's prep for a clear. And then after the clear, I'll move on to
+t four."*
+
+- T3's final = the tuplet version with D-logs 7–8 folded into **`db1-c2i-x01`**
+  (label: "CLOUD02-I — T1 T2 T3 FINAL (day 29); T4-T10 bare"); `t3-tuplets` pruned.
+  Batteries green, `--validate` 24/25.
+- **Insights logged as rule candidates 8 and 9** (BEAMING_DECISIONS.md): brackets
+  where plain fails pervasively (the T2-vs-T3 two-point datum — "how many notes
+  lie", not "how far the worst is"); a bracket ends at its content and its group may
+  claim its bracket rests with the beams (all trailing ones — unlike the plain
+  one-rest overhang); bracket = beam group as the ideal.
+- Journal §2 carries the checkpoint block: next step T4 (part 3, the straddle-heavy
+  one — 3 straddles, 2 ratio ties in the scan), the working loop, the vocabulary
+  list. Chat clears after this; /resume reads §2.

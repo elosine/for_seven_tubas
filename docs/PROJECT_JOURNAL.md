@@ -102,6 +102,22 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
+**CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
+**T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.
+**Next concrete step: T4.** The loop that worked for T2/T3: (1) `node
+tools/pattern_analyze.js --ir db1-c2i-x01 --part 3 --span 36.19-40.42` (0-INDEXED:
+T4 = part 3); (2) build the proposal INTO the section file per the ledger's STANDING
+BUILD RECIPE + mf-floor dynamics — choose brackets vs plain by rule candidate 8
+(brackets where plain fails pervasively; measure both, report both); (3) composer
+adjusts by dictation, each change a ledger row; (4) "done" → next part. **T4 is the
+straddle-heavy part: scan says 17 notes, 7 groups, 3 STRADDLES, 2 ratio ties —
+expect --cuts work and the A(a) discussion.** Beam vocabulary all built: through ·
+rest16 · beamOver/overLeft (both tuplet-aware) · bracket ends at content · bracket
+gap hGapSs · ESC frees focus. Ledger = BEAMING_DECISIONS.md (D-logs 1–9, rule
+candidates 1–9; extraction still deferred). Dynamics = day-24 rule + mf floor.
+Model for T4: Fable (verdict conversation). *(The paragraphs below are the earlier
+day-29 pictures, kept for the trail.)*
+
 **Right now (updated late day 29): THE SECTION FILE IS `db1-c2i-x01`** — T1 + T2
 FINAL (T2 declared done; T1 rebeamed per the recipe, brackets kept), **T3 proposed
 and awaiting the composer's look** (plain per the standing direction, but EIGHT of 17

@@ -114,6 +114,16 @@ pruned — git keeps them. T4–T10 stay bare per part.*
 | 8.1 | T3 g4 [9 10], the 3:2 | beams reach **LEFT over the leading 8th rest** of the bracket (`--beamOverLeft 4`) | "Extend the three two beam to the left over the eighth rest" | the anchors became TUPLET-AWARE: an 8th-level bracket slot is wider than one unit |
 | 8.2 | T3 g5 [11 12], the 5:4 | beams extend **RIGHT over BOTH trailing 16th rests** (`--beamOver 5`) | "extend the five four beams over the two sixteenth rests" | over now claims ALL trailing bracket rests (matching the bracket's own content-extent rule); outside a bracket it still claims the first rest only |
 
+## D-log 9 · T3 DONE — the tuplet version is T3 — day 29
+
+Composer: *"Okay. That's t three done."* The verdict fell by engagement, not
+proclamation: every refinement (D-logs 7, 8) was made on the TUPLET page, and it is
+the one folded into the section file. **So: T2 carries no brackets; T3 carries four.
+The reconciling insight, now with two data points: the bracket earns its place where
+the plain writing fails PERVASIVELY** (T3 plain: eight of 17 notes at 1.4–1.8 heads)
+**and is noise where plain nearly holds** (T2 plain: one note at 1.2). The section
+file is `db1-c2i-x01` = T1 T2 T3 FINAL; `t3-tuplets` pruned (git keeps it).
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
@@ -148,3 +158,12 @@ else it cannot explain.
 7. **A figure = a beam group, and the composer counts figures BY beam group** (T2's
    cl-3 = "two figures"). Tuplet-internal rests are the bracket's, not the figure's.
    (3.1–3.5, D-log 4 T10)
+8. **Brackets where plain fails pervasively; plain where it nearly holds.** T2: one
+   note at 1.2 heads → no brackets. T3: eight of 17 at 1.4–1.8 → four brackets. The
+   threshold is not a number yet; two points suggest "how MANY notes lie", not "how
+   far the worst one is". (1.3, 6.3, 9)
+9. **A bracket ends at its CONTENT, and a bracket group may claim its bracket
+   rests with its beams** — leading (the 3:2's 8th rest, overLeft) and trailing (the
+   5:4's two 16ths, over — ALL of them, unlike the plain one-rest overhang). Bracket
+   = beam group is the ideal (the g3 split made the 3:2 exact). (7.1, 8.1, 8.2, and
+   the third-to-last-note fix)

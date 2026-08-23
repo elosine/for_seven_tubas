@@ -43,22 +43,11 @@
   },
   {
    "id": "db1-c2i-x01",
-   "label": "CLOUD02-I — T1 T2 FINAL + T3 proposed (day 29); T4-T10 bare",
+   "label": "CLOUD02-I — T1 T2 T3 FINAL (day 29); T4-T10 bare",
    "score": "piece-s25-finished01",
    "window": [
     0,
     55.94
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t3-tuplets",
-   "label": "T3 TUPLET version (day 29) — g3 split; 3:2 beam left over its 8th rest; 5:4 beams over its two 16th rests",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
    ],
    "profile": "section1",
    "exp": true
