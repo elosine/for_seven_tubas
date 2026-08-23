@@ -1071,13 +1071,23 @@
           let run = 0; while (!filled.has(n + run) && !covered(n + run) && n + run <= last) run++;
           let R = 1, spec = restFor(1);
           for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= run && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
-          // CENTRED IN ITS OWN SILENCE (day 24, composer: "move them into a
-          // better horizontal position... they don't seem spatially accurate").
-          // The page maps x to TIME, so a rest drawn at the start of its gap
-          // hugs the note before it and leaves the silence looking empty. The
-          // rest now sits at the midpoint of the span it covers, which is what
-          // a proportional page means by the rest's position.
-          const t = t0Grid + (n + R / 2) * cl.unit;
+          // LEFT EDGE ON THE START OF THE SILENCE (day 24, second pass — the
+          // research settled it). A rest is a note-shaped silence: engraving
+          // (Gould, Ross, Read; LilyPond/Dorico/Sibelius defaults) gives it the
+          // rhythmic position and spacing a NOTE of that value would get, and
+          // aligns it left with notes in other voices — the only floating rest
+          // is the whole-bar rest, a different symbol. Stone reports the same
+          // for proportional notation, where rests are usually omitted and, when
+          // kept, mark the START of the silence. So the rest's LEFT EDGE goes on
+          // its slot time — the identical rule the noteheads follow.
+          //
+          // Two earlier passes were both wrong, in opposite directions: day 23
+          // CENTRED the glyph on the slot (half of it hanging back into the
+          // previous note's time — the "hugging" the composer saw), and the
+          // first day-24 fix centred it in the whole silence, which no tradition
+          // supports. Position is here; the render no longer subtracts a half
+          // width.
+          const t = t0Grid + n * cl.unit;
           if (t >= w0 - 1e-9 && t <= w1 + 1e-9)
             items.push({ k: 'rest', dur: spec.dur, dotted: spec.dotted || undefined, t, dxSs: 0, cluster: cid, units: R });
           n += R;

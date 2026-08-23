@@ -87,6 +87,21 @@ aligns simultaneities on their left edges; and the scrolling cursor touches the
 head as the note starts. Centre alignment has no tradition behind it — whole
 notes are the only case anyone argues about.
 
+### Rests follow the same rule as noteheads
+
+**A rest is a note-shaped silence: its LEFT EDGE sits on the moment the silence
+begins** — the position and spacing a note of that value would get. Gould, Ross,
+Read and every engraving default align rests left with notes in other voices;
+the whole-bar rest is the one exception, and it is a different symbol. Stone
+reports the same for proportional notation, where rests are usually omitted
+altogether and, when kept, mark the start of the silence.
+
+**Vertical placement is LilyPond's own, per glyph** (,
+placed top-left by ). Roughly centred on the middle line, with the
+standard refinement that flagged rests share a top edge and add hooks
+alternately downward (16th) then upward (32nd) — which is why the 16th hangs
+0.49 ss low. Inherited whole; do not fix it.
+
 ### The ball lands on the lane edge
 
 `impactInsetPx` **5 → 0** (day 24), in BOTH registry copies —

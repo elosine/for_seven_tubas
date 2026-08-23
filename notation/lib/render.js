@@ -133,7 +133,11 @@
           // rest lands exactly where LilyPond would put it.
           if (!inWin(it.t)) continue;
           const rg = glyphs.rest['rest' + it.dur];
-          const rx = X(it.t, it.dxSs) - (rg.wSs / 2) * ssPx;
+          // LEFT EDGE on the rest's time (day 24): a rest is placed like a note
+          // of its value, and noteheads in this piece put their left edge on the
+          // moment. The old half-width subtraction centred the glyph, hanging
+          // half of it back into the sounding note before it.
+          const rx = X(it.t, it.dxSs);
           parts.push(Stamps.toSvg(S.rest(it.dur), { xPx: rx, yPx: Y(it.ySs != null ? it.ySs : rg.topSs), ssPx, align: 'topLeft' }));
           // AUGMENTATION DOT (day 24): a dotted rest is the glyph plus a dot to
           // its right, vertically on the rest's own middle. Same diameter as the

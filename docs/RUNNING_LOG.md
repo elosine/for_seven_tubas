@@ -7556,3 +7556,59 @@ dynamic silently. Boolean modifiers now carry no value. Caught by reading the
 parser before running it, not by the output.
 
 Seven batteries green.
+
+### RESTS: left edge on the moment, same as noteheads — and the vertical confirmed (day 24)
+
+Composer: *"by our logic above with Cage and Brown, the left edge of notehead,
+then the rests should be the same... but do a little research — is that in fact
+how traditional typesetting approaches it?"*
+
+**Researched, and both traditions agree with the instinct:**
+
+- **Conventional engraving** (Gould *Behind Bars*, Ross, Read; the defaults in
+  LilyPond / Dorico / Sibelius): a rest is a *note-shaped silence*. It takes the
+  rhythmic position and horizontal spacing a NOTE of that value would take, and
+  it aligns LEFT with notes in other voices. The single exception is the
+  whole-bar rest, which is centred in its bar — a different symbol meaning "this
+  bar is empty".
+- **Proportional / time-space notation** (Stone, *Music Notation in the
+  Twentieth Century*): rests are normally OMITTED, because space is silence.
+  Where a composer keeps one for clarity it marks the START of the silence.
+
+So one rule covers the whole time axis: **the left edge is the moment.**
+
+**Two earlier passes were both wrong, in opposite directions** — worth keeping
+because the second was mine and confidently argued:
+
+1. Day 23 centred the rest GLYPH on its slot time, so half of it hung back into
+   the sounding note before it. That is the "hugging" the composer saw.
+2. The first day-24 fix centred the rest in the whole silence, reasoning from
+   "the page maps x to time". Plausible, and supported by no tradition at all.
+   The correct reading of the same premise is the note rule, not a new one.
+
+Now: `t` = the slot start in layout, and render no longer subtracts half a glyph
+width. Verified on T3's cl-3 (unit 142 ms, slot 0 at 29.927) — all four rests
+land on their slot to the nanosecond: 16th @slot 1, dotted 8th @3-5, 8th @7-8,
+quarter @10-13.
+
+**Vertical placement — confirmed, nothing to change.** The composer's memory of
+"centred on the middle line" is right in general and is already what the code
+does, because the glyphs carry LilyPond's own metrics. Measured (staff lines at
+−2..+2 ss, middle line 0):
+
+| rest | top | bottom | centre |
+|---|---|---|---|
+| quarter | +1.270 | −1.028 | **+0.12** — centred |
+| 8th | +0.656 | −0.838 | **−0.09** — centred |
+| 16th | +0.656 | −1.638 | **−0.49** — hangs low |
+| 32nd | +1.456 | −1.638 | **−0.09** — centred |
+
+The 16th is the apparent exception and is in fact the rule working: flagged
+rests share a top edge and add hooks **alternately downward then upward** — the
+16th adds its second hook below the 8th's body, the 32nd adds its third above.
+Standard practice, inherited whole. No change made.
+
+**Still open, deliberately split off at the composer's request:** whether rests
+may cross a beat. Gould says split at the beat boundary so the reader can count;
+the current merged reading (the dotted 8th over slots 3–5) crosses one. That is
+the next conversation, not this one.
