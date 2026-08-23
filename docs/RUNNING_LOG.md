@@ -8061,3 +8061,30 @@ dispute that the tail is a triplet figure; it says the bracket should cover the
 whole tail, not two notes. Inside the full cluster it reported a septuplet
 instead, because it can only place a tuplet INSIDE a beat and the composer's 3:2
 straddles one — a known limitation, treat the 7:4 as noise. Left as built.
+
+### ONE STACK ABOVE THE BEAM — accents · tuplet bracket · dynamics (day 24, late)
+
+Composer, on T10: *"resolve the mf dynamic and tuplet bracket collision and
+unify the collision detection/avoidance."* Same disease as T5's accent/mf clash
+earlier today, third placer this time: the accent row, the tuplet bracket and
+the dynamics row each positioned themselves against the beam alone, so any two
+of them could land on each other.
+
+Now there is ONE stack per beam group, built once in the group pass and read by
+every drawer: outward from the beam, **accents** (nearest the notes — Gould),
+then the **tuplet bracket** (its own padding is its gap; the numeral's cap
+counts toward its height), then the **dynamics row**; the beam is lowered so
+the whole stack fits inside the lane. Each row's offset lives in `g.stack` and
+nothing above a beam computes its own height any more.
+
+A latent bug fell out: the bracket drawer read the beam height of **the first
+beam group in the system**, not its own — right by luck while every tuplet in
+the piece was T1's, wrong the moment T10 had one. It now finds its group by
+cluster id.
+
+Verified: T10 cl-25's stack is beam 2.15 → accent 3.02 → bracket line 4.64 →
+mf centre 6.02, the mf's top at exactly 6.51 = the lane edge. Section-wide
+audit of everything above every beam (80 time-overlapping pairs): **0 vertical
+collisions, 0 past the lane edge** (four reported pairs are the surge's ppp/fff,
+which sit side by side in x — the audit checked time only). Four batteries
+green; T1's figure 2 unchanged.

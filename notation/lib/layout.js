@@ -667,6 +667,8 @@
                     // notate_section --cluster (which runs the tempo fit)
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
                     if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
+                    if (dev.tupletGroup) grp.hasTuplet = true;
+                    if (dev.clusterId) grp.clusterId = dev.clusterId;
                     // the WRITTEN value decides how many beams this note carries
                     // (day 23: figure 1 rewritten at true durations — 8ths get
                     // one beam, 16ths two, so the beam pattern itself shows
@@ -955,13 +957,37 @@
           // beam the row needs stackGap + the tallest mark, inside the lane.
           // Same shape as the accent rule, applied at group level so the
           // whole beam moves as one and stays flat.
-          if (g.dyns && g.dyns.length) {
+          // THE STACK ABOVE THE BEAM (day 24, composer: "unify the collision
+          // detection/avoidance"). Three things can sit above a beam — the
+          // accent row, a tuplet bracket, the dynamics row — and until now each
+          // placed itself against the beam alone, so any two of them collided
+          // (T5: mf on the accent; T10: mf on the bracket). One stack, one
+          // order, outward from the beam: ACCENTS (nearest the notes, Gould) ·
+          // TUPLET BRACKET (its padding is its gap) · DYNAMICS. Each row's
+          // offset is computed here once and read by every drawer below; the
+          // beam is lowered so the whole stack fits inside the lane.
+          {
             const CSg = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
             const gapD = o.stackGapSs != null ? o.stackGapSs : 0.45;
-            const hMax = Math.max(...g.dyns.map(d => d.hSs));
-            const aH = (g.artics && g.artics.length) ? gapD + Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs)) : 0;
-            const lim = CSg.laneHalfSs - gapD - hMax - aH;
-            yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim);
+            const TPg = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
+            let h = 0;
+            const st = {};
+            if (g.artics && g.artics.length) {
+              const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
+              st.articCentre = gapD + aH / 2; h = gapD + aH;
+            }
+            if (g.hasTuplet) {
+              // line at padding + hook above whatever is below it; the numeral's
+              // cap rises capAbove past the line
+              const capAbove = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
+              st.bracketLine = h + TPg.paddingSs + TPg.hookLengthSs; h = st.bracketLine + capAbove;
+            }
+            if (g.dyns && g.dyns.length) {
+              const dH = Math.max(...g.dyns.map(d => d.hSs));
+              st.dynCentre = h + gapD + dH / 2; h = h + gapD + dH;
+            }
+            g.stack = st;
+            if (h > 0) { const lim = CSg.laneHalfSs - h; yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim); }
           }
           for (const t of g.tips) {
             if (Math.abs(t.ySs - yLevel) > 1e-9 && t.stem) t.stem.yB = yLevel;
@@ -1029,12 +1055,11 @@
         // group reads as one gesture (Gould: articulations align across a
         // beamed group). Centred on each note's head column.
         if (g.artics && g.artics.length) {
-          const gapA = o.stackGapSs != null ? o.stackGapSs : 0.45;
           const beamTop = g.tips[0].ySs;
           for (const a of g.artics) {
             const aG = glyphs.articulation && glyphs.articulation[a.kind];
             if (!aG) { warnings.push('articulation "' + a.kind + '" has no glyph — not drawn'); continue; }
-            const y = g.dir === 'up' ? beamTop + gapA + aG.hSs / 2 : beamTop - gapA - aG.hSs / 2;
+            const y = g.dir === 'up' ? beamTop + g.stack.articCentre : beamTop - g.stack.articCentre;
             items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
           }
         }
@@ -1042,11 +1067,8 @@
         // line, centred on its head column — consecutive dynamics read as a
         // phrase, not as per-note chrome. Above the accents when both exist.
         if (g.dyns && g.dyns.length) {
-          const gapD = o.stackGapSs != null ? o.stackGapSs : 0.45;
-          const aH = (g.artics && g.artics.length) ? gapD + Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs)) : 0;
-          const hMax = Math.max(...g.dyns.map(d => d.hSs));
           const base = g.tips[0].ySs;
-          const y = g.dir === 'up' ? base + aH + gapD + hMax / 2 : base - aH - gapD - hMax / 2;
+          const y = g.dir === 'up' ? base + g.stack.dynCentre : base - g.stack.dynCentre;
           for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
         }
       }
@@ -1071,8 +1093,14 @@
         if (cl.tuplets) for (const [tk, tp] of cl.tuplets) {
           const t0 = t0Grid + tp.startPos * cl.unit, t1 = t0 + tp.den * cl.unit;
           const TP = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {});
-          const beamTop = (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
-          const yB = tp.dir === 'up' ? beamTop + TP.paddingSs + TP.hookLengthSs : -(Math.abs(beamTop) + TP.paddingSs + TP.hookLengthSs);
+          // the bracket belongs to ITS group: read that group's beam and stack
+          // (the day-23 code read the FIRST group in the system — right by luck
+          // while every tuplet was in T1)
+          let own = null;
+          for (const gg of beamGroups.values()) if (gg.clusterId === cid && gg.hasTuplet) { own = gg; break; }
+          const beamTop = own ? own.tips[0].ySs : (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
+          const lineOff = own && own.stack && own.stack.bracketLine != null ? own.stack.bracketLine : (TP.paddingSs + TP.hookLengthSs);
+          const yB = tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff);
           items.push({ k: 'tuplet', t0, t1, ySs: yB, dir: tp.dir, text: tp.text || (tp.num + ':' + tp.den), group: tk });
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
