@@ -135,6 +135,33 @@ T5 three each. Breath is fine (longest no-0.5 s run 2.6 s). **This is the next
 problem area**, and the fix there is probably redistribution before thinning — the
 flags are leap-driven, not density-driven.
 
+### THE WHOLE ARCHIVE, `piece-s25-finished01` (4401 notes, 751 s, F#1–G4; day 25)
+
+Composer's bar: *"I don't want to submit something that's clearly impossible… the real
+tubists might fudge it or leave it out, which is expected."*
+
+- **HARD: 2** — both trance-section block seams where a 200 ms brick runs into the next
+  block's first note on the same part; the attacks themselves are 68 / 153 ms apart.
+  **T8 @560.63** (wc-ta4-749 → wc-ta4-754) · **T6 @604.63** (wc-ta4-1343 → wc-ta4-1350).
+  Fix = one part move each, ledgered. **Before submission.**
+- **SOFT: 45.** Four are more than a third short of the need (all fast wide leaps):
+  T6 @45.51 D4→E2 **−179 ms (57 %)** · T7 @45.47 F#3→D#2 −108 (43 %) · T8 @560.63
+  D#2→F4 −126 (38 %, the same seam) · T7 @44.73 G2→D4 −105 (37 %). The other 41 are
+  under a third short — the fudge zone.
+- **Breath:** nothing near the dials in any window measured.
+
+**The dense areas to proceed through, in order of trouble** (composer: "no action now"):
+1. **CLOUD02-D, 42.4–46 s** — 18 soft, three of the piece's four worst leaps. Redistribute
+   before anything else.
+2. **Trance seams @560.63 and @604.63** — the two hard overlaps.
+3. **Density build 1, 31.4–34.6 s** — 11 soft, all leaps in the already-figured clusters;
+   T1's cl-1 is the question for a tubist.
+4. **CLOUD02-I** — done: the B series is clean at every density.
+
+**Finding the audit again:** `node tools/audit_playability.js --parts <score-name>` (whole
+file, per part, lists every flag with the pair and the shortfall). Isolate a section first
+with `tools/cloud02i_ab.js --isolate` (pattern) if you want one window.
+
 ## Open
 
 - Tubist confirmation of: the re-attack slope (2j's tremolo numbers applied to staccato),

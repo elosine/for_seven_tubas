@@ -101,6 +101,13 @@ everywhere. Composer: *"it feels very dense to me."*
   octave-plus leaps at 155–200 ms nobody had checked. *Rejected:* running the audit
   after notation — the figures would have to be rebuilt.
 
+- **Composer's direction for the rest of 8f (day 25):** finish the B series first
+  (listen B3/B4/B5, pick); THEN build the general tool — thinning analysis + thinning
+  where needed + redistribution, runnable automatically on any subsequent section —
+  from what this section taught. **Hang on to all wiring (breath rule, auditor
+  column, the general tool) until the B series is done.** The dense areas queued for it
+  are listed in `PLAYABILITY_MODEL.md` (CLOUD02-D first, then the two trance seams).
+
 ### Open, not blocking
 
 - `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); cuivré text mark on the

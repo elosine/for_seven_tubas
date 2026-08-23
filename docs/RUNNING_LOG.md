@@ -8702,3 +8702,46 @@ Composer: *"moving forward, let's make sure to do a playability loop before nota
 we're doing now."* → NOTATION_WORKFLOW §1 gains step 0; journal §2 carries it as D64
 (candidate) for promotion at session end. The order is now: audit + breath sweep →
 redistribute (ledgered) → notate.
+
+### Day 25 — "I don't want to submit something clearly impossible" — the whole archive swept
+
+Composer: *"confirm for me that these things are being taken into account with reasonable
+margins. I don't want to submit something that's clearly impossible. In rehearsal the real
+tubists might fudge it or leave it out, which is expected. But I don't want to be asking
+for something totally unreasonable from the beginning."* → the bar, in the composer's
+words: **not "perfect", but "not clearly impossible."**
+
+Whole archive (`piece-s25-finished01`, 4401 notes, 751 s, F#1–G4):
+- **HARD: 2**, both in the trance section, both seams between consecutive generated
+  blocks where a 200 ms brick of one block runs 68–80 ms into the next block's first
+  attack on the same part — **T8 @560.63** (wc-ta4-749 "F oct B" C#4 ends 560.762;
+  wc-ta4-754 "BASE" E3 starts 560.630) and **T6 @604.63** (wc-ta4-1343 "MTB" C#2 ends
+  604.677; wc-ta4-1350 "PH3" G3 starts 604.630). Both are BRICK overlaps — the attacks
+  are 68 ms and 153 ms apart. A 50 ms brick would make them soft, not hard; a part move
+  makes them free. **Two fixes, ledgered, before submission.**
+- **SOFT: 45** (the 90 in the first run counted the `-work` file twice). Worst four, all
+  wide leaps: T6 @45.51 D4→E2 short by 179 ms (57 % of the need) · T7 @45.47 F#3→D#2
+  108 ms (43 %) · T8 @560.63 D#2→F4 126 ms (38 %, the same seam) · T7 @44.73 G2→D4
+  105 ms (37 %). Everything else is under a third short. **CLOUD02-D (44–46 s) holds the
+  three worst leap asks in the piece.**
+- Per-part mean rate 0.55–0.62 notes/s over the whole piece; tightest re-attack on any
+  part 130–160 ms outside the two seams.
+- Breath on the three windows measured (0–36, 36–40, 40–48): nothing within a factor of
+  two of the dials.
+
+**Margins, honestly:** level 1 is physics, zero margin needed and two to fix. Level 2's
+RULE sits near the capability edge (110 ms at a semitone = 9/s, about what a tubist can
+single-tongue in a burst) but the MATERIAL is 2–4× slower than the rule everywhere except
+the 45 flagged leaps, and 41 of those are within a third of the need — the fudge zone the
+composer describes. Level 3's dials are generous by design. Nothing in the piece is
+"clearly impossible"; four leaps are "clearly hard" and one section (CLOUD02-D) owns three
+of them.
+
+### Day 25 — composer's direction: finish the B series, THEN build the general tool
+
+Composer: *"I wanna finish with this b section and then create whatever code is necessary
+to be able to run this thinning analysis / thinning if necessary and redistributing process
+automatically again for subsequent parts. So let's just hang on to anything until we're
+done and understand what needs to be done, and then build it all at the end of this b
+series."* → journal §2. Audit results and the queue of dense areas are in
+PLAYABILITY_MODEL.md so they can be found; no action on them now.
