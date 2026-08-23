@@ -7911,3 +7911,32 @@ each, zero go lines on any member, 0 of 87 heads off their go time, 0 of 6
 accent/dynamic collisions. 74 of the 167 notes in 0–34.6 s (44 %) are inside a
 figure**; the rest are loose one-shots, which is what they should be. Six
 batteries green.
+
+### The 32nds were never drawn — beam levels assumed a 16th grid (day 24)
+
+Composer, straight after T10 was built: *"did you end up using thirty second
+notes? I don't see them."* They were right, and it is the best kind of catch —
+the analysis said one thing and the page said another.
+
+`beamsFor` was a constant: `u >= 4 ? 0 : u >= 2 ? 1 : 2` — quarter, 8th, 16th.
+It assumed the grid was 16ths, which it had been for every cluster built until
+this one. **T10's cl-25 fitted at subdivision 8**, so its five notes sat on 32nd
+POSITIONS (slots 0, 4, 7, 10, 14 of a 115 ms unit) while each drew only two
+beams, i.e. claiming to be 16ths. The figure under-reported its own grid by a
+factor of two.
+
+The rests were already right: `base = cl.sub * 4`, so a subdivision-8 cluster
+gives 32nd-based values (the 3- and 2-unit gaps came out as dotted 16ths and
+16ths, correct at that grid). So the page was internally inconsistent —
+16th beams over 32nd rests — and only in this one figure, because it is the only
+one in the section that fitted at subdivision 8.
+
+Fixed by deriving it: a note of `u` units on a grid of `m` units per beat is
+worth `u/m` of a quarter, so it carries **log2(m/u)** beams. m=4,u=1 → 2 (every
+earlier cluster, unchanged); m=8,u=1 → 3. Verified: cl-25's five notes now
+carry 3 beams each, drawn as one primary across all five plus five stubs at
+level 2 and five at level 3; **every 16th-grid cluster member still carries
+exactly 2** (checked across the section, 0 changed). Seven batteries green.
+
+The density is the honest cost of the reading — ten stubs in one figure — and
+it is now visible for the composer to judge, which it was not before.

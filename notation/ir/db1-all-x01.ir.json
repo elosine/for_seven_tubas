@@ -13583,7 +13583,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13617,7 +13617,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "beamHasArtic": "accent"
     }
    },
@@ -13650,7 +13650,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13684,7 +13684,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -13718,7 +13718,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "beamHasArtic": "accent"
     }
    },
@@ -13852,7 +13852,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -14235,7 +14235,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -14268,7 +14268,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14302,7 +14302,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14336,7 +14336,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -14369,7 +14369,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -14503,7 +14503,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -14536,7 +14536,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -14569,7 +14569,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14603,7 +14603,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -14635,7 +14635,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -14667,7 +14667,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -14701,7 +14701,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 1,
      "beamHasArtic": "accent"
     }
    },
@@ -15464,7 +15464,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -15496,7 +15496,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -15528,7 +15528,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -15560,7 +15560,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -15592,7 +15592,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 1
     }
    },
    "provenance": "authored"
@@ -15624,7 +15624,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "beamHasArtic": "accent"
     }
    },
@@ -15657,7 +15657,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15691,7 +15691,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }
@@ -15725,7 +15725,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "beamHasArtic": "accent"
     }
    },
@@ -15758,7 +15758,7 @@
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2,
+     "noteBeams": 3,
      "nhArtic": "accent",
      "beamHasArtic": "accent"
     }

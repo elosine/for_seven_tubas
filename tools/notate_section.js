@@ -352,7 +352,17 @@ const { doc, warnings } = Extract.extract(score, {
       if (lastOfGroup.has(k)) return 1;
       return fit.grid[k + 1] - fit.grid[k];
     });
-    const beamsFor = u => (u >= 4 ? 0 : u >= 2 ? 1 : 2);   // quarter 0, 8th 1, 16th 2 (only under --trueDurations)
+    // BEAM LEVELS FOLLOW THE GRID, not a fixed 16th assumption (day 24 — the
+    // composer, on T10: "did you end up using thirty second notes? I don't see
+    // them"). A note of u units on a grid of m units per beat is worth u/m of a
+    // quarter, so it carries log2(m/u) beams: m=4,u=1 -> 2 (a 16th, every
+    // cluster before this one); m=8,u=1 -> 3 (a 32nd). The old constant said 2
+    // whatever the grid was, so T10's 32nd-grid figure drew 16ths over 32nd
+    // POSITIONS — the beams under-reported the grid by a factor of two while
+    // the rests (base = sub*4, already grid-aware) reported it correctly. The
+    // one figure in the section fitted at subdivision 8, so the one that showed
+    // it.
+    const beamsFor = u => Math.max(0, Math.round(Math.log2(fit.subdivision / u)));
     console.log('    written values: ' + members.map((e, k) => tupOf(k) ? 'tup' : (durUnits[k] === 1 ? '16th' : durUnits[k] === 2 ? '8th' : durUnits[k] + 'u')).join(' '));
     for (const t of tuplets) console.log('    tuplet ' + t.num + ':' + t.den + ' over members ' + t.from + '-' + t.to +
       ' (' + t.num + ' slots of ' + (t.den / t.num * fit.unit * 1000).toFixed(1) + ' ms; ' + (t.num - (t.to - t.from + 1)) + ' rest slot(s))');
