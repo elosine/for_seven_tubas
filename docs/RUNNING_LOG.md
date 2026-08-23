@@ -7882,3 +7882,32 @@ answered by moving a note rather than by notating harder (`wc-28` T2→T9 for th
 GC, `wc-87` T8→T9 for the bar, now `wc-88` T10→T7). The analysis is not only
 choosing how to write what is there — it is surfacing where the material itself
 wants to change.
+
+### T10 figured, and density build 1 has a figure in every part (day 24)
+
+Pulling the note at 31.54 out as its own GC — the composer's suggestion —
+**improved the analysis**, because the 589 ms gap after it was what had been
+dragging the front of the figure onto a coarse grid. The eight that remain:
+gaps 321 | 267 | 212 | 444 | 344 | 369 | 469 ms.
+
+- **cl-24** [1-3] ♩=99.0, three even 8ths, grid 0,1,2, **18 ms** · `f`
+- **cl-25** [4-8] ♩=65.2, **32nds**, grid 0,4,7,10,14, **17 ms** · `mf` + accents 2,3,5
+
+The composer's second suggestion — the last partial as its own GC too — was
+offered as an option and not taken. It would have bought the cleanest back half
+in the part ([5-7] as three even 8ths at **8 ms**) but pushed the front to four
+notes at 29 ms, and note 8 is 469 ms after note 7, i.e. under a breath, so it
+cannot stand alone without overriding the classification rule. The rule was kept
+intact. **Note 4 is the problem child either way**: 212 ms after note 3 and
+444 ms before note 5, fitting neither side well — which is why one clean three
+is available but never two.
+
+This is the only figure in the section written in 32nds, and it is honest: T10's
+stretch is an accelerando that never settles onto a pulse, and 17 ms is the best
+any reading gives it.
+
+**Density build 1 now has figures in all ten parts. Audit: 25 clusters, one GC
+each, zero go lines on any member, 0 of 87 heads off their go time, 0 of 6
+accent/dynamic collisions. 74 of the 167 notes in 0–34.6 s (44 %) are inside a
+figure**; the rest are loose one-shots, which is what they should be. Six
+batteries green.

@@ -15500,6 +15500,270 @@
     }
    },
    "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-24-ev-wc-110",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-110"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-24a",
+     "clusterId": "cl-24",
+     "beamUnit": 0.30299999999999927,
+     "beamPos": 0,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-24-ev-wc-116",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-116"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-24a",
+     "clusterId": "cl-24",
+     "beamUnit": 0.30299999999999927,
+     "beamPos": 1,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-24-ev-wc-122",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-122"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-24a",
+     "clusterId": "cl-24",
+     "beamUnit": 0.30299999999999927,
+     "beamPos": 2,
+     "beamLevels": 1,
+     "beamSubdivision": 2,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-25-ev-wc-125",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-125"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-25a",
+     "clusterId": "cl-25",
+     "beamUnit": 0.11500000000000125,
+     "beamPos": 0,
+     "beamLevels": 3,
+     "beamSubdivision": 8,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-25-ev-wc-136",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-136"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-25a",
+     "clusterId": "cl-25",
+     "beamUnit": 0.11500000000000125,
+     "beamPos": 4,
+     "beamLevels": 3,
+     "beamSubdivision": 8,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-25-ev-wc-142",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-142"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-25a",
+     "clusterId": "cl-25",
+     "beamUnit": 0.11500000000000125,
+     "beamPos": 7,
+     "beamLevels": 3,
+     "beamSubdivision": 8,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-25-ev-wc-149",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-149"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-25a",
+     "clusterId": "cl-25",
+     "beamUnit": 0.11500000000000125,
+     "beamPos": 10,
+     "beamLevels": 3,
+     "beamSubdivision": 8,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-25-ev-wc-165",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-165"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-25a",
+     "clusterId": "cl-25",
+     "beamUnit": 0.11500000000000125,
+     "beamPos": 14,
+     "beamLevels": 3,
+     "beamSubdivision": 8,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
   }
  ]
 }
