@@ -7,6 +7,14 @@
 
 ## §1 The loop, one iteration
 
+0. **PLAYABILITY LOOP FIRST — before any notation** *(composer, day 25: "moving
+   forward, let's make sure to do a playability loop before notating, as we're
+   doing now")*. Run `tools/audit_playability.js --parts <score>` on the material
+   (isolate the section as its own score if needed — `cloud02i_ab.js --isolate`
+   is the pattern) and the breath sweep from `docs/PLAYABILITY_MODEL.md`. Fix
+   what fails by redistribution (part moves, ledgered as SCORE EDITS) before a
+   single figure is drawn. Day 24 skipped this and eleven leap-tight pairs in the
+   first clusters were only found on day 25.
 1. **Composer names material + an approach.** *"DB1, Tuba 3, 114–136, try
    simple bars at ε=30"* — section names resolve via `docs/PLANNER.md` /
    the piece markers; approaches per PLAN M5 (mixed strategy is the norm).

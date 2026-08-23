@@ -8695,3 +8695,10 @@ a player, not a rebuild.
 **40.42–48 s (VERT01-03 + CLOUD02-D, unworked): 0 hard, 18 soft** — CLOUD02-D is full of
 fast wide leaps (worst T6 @45.51 D4→E2, 22 st at 136 ms, needs 315). Breath fine. **Next
 problem area; the fix there looks like redistribution before any thinning.**
+
+### Day 25 — STANDING RULE: the playability loop runs BEFORE notation (D64 candidate)
+
+Composer: *"moving forward, let's make sure to do a playability loop before notating, as
+we're doing now."* → NOTATION_WORKFLOW §1 gains step 0; journal §2 carries it as D64
+(candidate) for promotion at session end. The order is now: audit + breath sweep →
+redistribute (ledgered) → notate.

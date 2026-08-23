@@ -91,6 +91,16 @@ everywhere. Composer: *"it feels very dense to me."*
   eye on both sides of it; 1.2 heads was accepted once (T1's 3:2). Don't fight
   over 0.2 of a head.
 
+### Decided day 25 (mid-session, promote to §4 at session end)
+
+- **D64 (candidate) — PLAYABILITY LOOP BEFORE NOTATION.** Composer: *"moving forward,
+  let's make sure to do a playability loop before notating, as we're doing now."*
+  Audit (hard/soft re-attack) + breath sweep on the material, redistribution fixes
+  ledgered, THEN figures. Written into NOTATION_WORKFLOW §1 step 0; the model and
+  results live in `docs/PLAYABILITY_MODEL.md`. *Why:* day 24 figured cl-1 with four
+  octave-plus leaps at 155–200 ms nobody had checked. *Rejected:* running the audit
+  after notation — the figures would have to be rebuilt.
+
 ### Open, not blocking
 
 - `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); cuivré text mark on the
