@@ -699,6 +699,11 @@
                         if (!cl.tuplets.has(dev.tupletGroup)) cl.tuplets.set(dev.tupletGroup, {
                           num: dev.tupletNum, den: dev.tupletDen, startPos: dev.tupletStartPos,
                           slotUnits: dev.tupletDen / dev.tupletNum, slots: new Map(), dir: stemDir,
+                          // day 24: a tuplet at the 8th level (three 8ths in a quarter) prints
+                          // '3:2' and writes 8ths inside the bracket; den (4) is still the span
+                          // in 16ths that places the slots. Absent = the 16th-level case (T1).
+                          text: dev.tupletText || (dev.tupletNum + ':' + dev.tupletDen),
+                          valueDur: dev.tupletValue || (cl.sub * 4),
                         });
                         cl.tuplets.get(dev.tupletGroup).slots.set(dev.tupletSlot, e.onset);
                         cl.covers = (cl.covers || []).concat([[dev.tupletStartPos, dev.tupletStartPos + dev.tupletDen]]);
@@ -1068,11 +1073,11 @@
           const TP = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {});
           const beamTop = (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
           const yB = tp.dir === 'up' ? beamTop + TP.paddingSs + TP.hookLengthSs : -(Math.abs(beamTop) + TP.paddingSs + TP.hookLengthSs);
-          items.push({ k: 'tuplet', t0, t1, ySs: yB, dir: tp.dir, text: tp.num + ':' + tp.den, group: tk });
+          items.push({ k: 'tuplet', t0, t1, ySs: yB, dir: tp.dir, text: tp.text || (tp.num + ':' + tp.den), group: tk });
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;
-            if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur: cl.sub * 4, t, dxSs: 0, cluster: cid, units: 1, tuplet: tk });
+            if (t >= w0 - 1e-9 && t <= w1 + 1e-9) items.push({ k: 'rest', dur: tp.valueDur || (cl.sub * 4), t, dxSs: 0, cluster: cid, units: 1, tuplet: tk });
           }
         }
         // ONE REST PER SILENCE, DOTS ALLOWED (day 24, composer: "can you

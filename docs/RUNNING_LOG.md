@@ -8030,3 +8030,34 @@ Tests: `test_pattern_fit` asserts the two calibration cases (T8 coherent under
 half a head; T1's last four never written as even 16ths, which would be 2.1
 heads), the unit range, T7's no-tuplet guard, ≥23/25 agreement and no NEW
 disagreements. Prove-red bites. Four other batteries green.
+
+### T10 rebuilt from the pattern analyser: a 3:2 instead of 32nds (day 24, late)
+
+`--pattern` on `--cluster`: the grid comes from `pattern_fit` instead of
+`cluster_fit`, and each tuplet beat it chose becomes a bracket group with the
+members' slot numbers explicit (a tuplet may have a rest between two of its
+notes; the day-23 `--tuplet` path assumed consecutive slots).
+
+T10's back five (gaps 444 | 344 | 369 | 469): **a 3:2 of 8ths over the first
+beat — note, 8th rest, note — then 8th · dotted-8th · 16th**, ♩≈93, worst
+23 ms = 0.8 heads, one tuplet, no 32nds. The same five notes had been written
+in 32nds with ten stubs.
+
+**A convention the machinery did not know, caught before the composer saw it:**
+the first build printed the bracket as "3:4" with two beams on its notes. A
+triplet over a quarter is three EIGHTHS — written "3:2", one beam, an 8th rest
+inside the bracket. T1's day-23 tuplet is three sixteenths in the space of two,
+so "3:2" at the 16th level was the only case the code had met. Now: a beat-level
+n-tuplet is written at the largest power-of-2 count p ≤ n (3 → 8ths "3:2"; 5, 6,
+7 → 16ths "n:4"), with `tupletText` and `tupletValue` carried on the device so
+layout prints the right label and the right rest; `den` stays the span in 16ths
+that places the slots. T1's bracket still reads "3:2". Six batteries green.
+
+**The T1 disagreement, explained simply for the composer:** on the last four
+notes alone (200 | 135 | 244 = long-short-long), four even 16ths is 2.1 heads;
+the composer's 3:2 on the middle two is 1.2 heads; the analyser's reading —
+all four on a triplet-16th grid at 0, 2, 3, 5 — is 0.8 heads. It does not
+dispute that the tail is a triplet figure; it says the bracket should cover the
+whole tail, not two notes. Inside the full cluster it reported a septuplet
+instead, because it can only place a tuplet INSIDE a beat and the composer's 3:2
+straddles one — a known limitation, treat the 7:4 as noise. Left as built.
