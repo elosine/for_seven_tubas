@@ -8312,3 +8312,94 @@ cost of the most ring overlap. Strategies compose: S4 under an S1 cap is the obv
 
 **Paused for the composer's call** on what the added notes are FOR: the ear (S1), the lines
 (S2), the accents (S3), or the page (S4).
+
+### Day 25 — 8f: the composer's criterion is ATTACK SPACING, not sounding count — measured
+
+Composer: *"what I would like is more audible attacks… look at windows and have a
+simultaneous threshold. See how many impulses are landing within a certain threshold of
+each other and then do the round robin thinning."* A different criterion from B's: B capped
+what is RINGING (the mass); this caps how close ONSETS may land (the impulses).
+
+**The original's attacks are piled on top of each other.** Ensemble-wide gap from each
+attack to the previous one (158 gaps): **71 under 10 ms, 27 in 10–20, 10 in 20–30** — so
+108 of 158 (68 %) are within 30 ms of the previous attack, i.e. inside the fusion window
+where two onsets are heard as one. Median 12 ms, mean 26 ms. Only 16 gaps exceed 80 ms,
+none exceed 200. THIS is the smear mechanism, more than the ring overlap: the ear gets
+one attack where there were three.
+
+**ADD-BACK TO B DOES NOT WORK for this criterion — structural, not a tuning issue.** B has
+16 attack gaps under 50 ms (of 53); the sounding-count rule never looked at onsets. A rule
+that adds a dropped note only when it is ≥ T from every kept attack therefore adds almost
+nothing: 54 → 55 at 80 ms, 54 → 61 at 50 ms. The spacing rule has to run on the ORIGINAL.
+
+**Fresh thin of the original by attack spacing T** (walk in time; attacks within T of each
+other form a collision group; one survivor per group; next survivor must be ≥ T later):
+
+| T | notes | sounding max/mean | seams | note |
+|---|---|---|---|---|
+| 30 ms | 55 | 8 / 4.5 | 38 | same count as B, every attack separable |
+| 50 ms | 45 | 6 / 3.8 | 31 | already under B's cap of 6 by itself |
+| 80 ms | 33 | 5 / 2.7 | 22 | |
+| 100 ms | 28 | 4 / 2.2 | 17 | |
+| 120 ms | 25 | 4 / 2.1 | 15 | |
+
+So "more audible attacks" ≠ "more notes": a spacing-thinned version has B's note count or
+fewer, but each note is heard as its own impulse. The ceiling is SPAN/T (4.4 s / 30 ms ≈
+146; / 50 ms ≈ 88) but the real material is bursty so half that survives.
+
+**Tie-break inside a collision group matters for the accents.** Round-robin (longest-waiting
+part wins) keeps only 10/33 fff at 30 ms and 7/33 at 50 ms — it throws the loud attacks
+away blind. *Loudest wins* keeps 18/33 and 17/33 respectively but unbalances the parts
+(at 50 ms T6 gets ZERO notes; at 30 ms T5 gets 11 and T6 2). A hybrid — loudest wins
+unless that part played within the last 250 ms, then longest-waiting — keeps 15–17/33 fff
+with T6 at 1–3. Neither is free; the composer chooses.
+
+**Open for the composer:** the threshold (30 / 50 / 80 ms) and the tie-break
+(round-robin / loudest / hybrid). Not built.
+
+### Day 25 — B2 BUILT: attack spacing 50 ms, hybrid tie-break (composer: "go with 50 + hybrid")
+
+`tools/cloud02i_ab.js` extended — B2 is a fourth copy at **24 s** in
+`scores/cloud02i-ab.json`, and `--isolate` now writes each version as its own score
+rebased to 0 (`cloud02i-{orig,b,a,b2}.json`) so the auditor / extractor / analyser see
+one at a time. Command: `node tools/cloud02i_ab.js --isolate`.
+
+    ORIGINAL          159 notes 37.6/s  sounding 21/13.3  min attack gap   0ms  fused 108  fff 33/33  seams  7
+    B ensemble cap 6   54 notes 12.8/s  sounding  6/ 4.4  min attack gap   0ms  fused  13  fff 14/33  seams 36
+    A by-part          80 notes 18.9/s  sounding 10/ 6.7  min attack gap   0ms  fused  41  fff 19/33  seams 42
+    B2 50ms hybrid     43 notes 10.2/s  sounding  5/ 3.6  min attack gap  52ms  fused   0  fff 15/33  seams 24
+
+**B2 does exactly what it was asked to do: 0 fused attacks** (108 in the original, 41 in
+A, 13 in B). Every attack is its own impulse. It is also the **cleanest playability result
+of any version — 0 hard, 0 soft on all ten parts** (B had one 5 ms-tight leap). Per-part
+rate 1.1–2.2/s, max leap 9 st.
+
+**THE COST, and it is not small: T6 gets ONE note.** Per part [6 6 4 5 4 **1** 4 6 4 3].
+Diagnosed rather than guessed — **T6 has the lowest median velocity in the window (94, vs
+99–109 for everyone else) and only 2 fff.** Under "loudest wins" T6 loses essentially every
+collision it enters. This is not a bug in the tie-break; it is the material.
+
+**The `--recent` window is the dial that trades accents against balance** (probed):
+
+    recent  fff kept  T6 notes  seams
+    0.15 s   17/33       0        22
+    0.25 s   15/33       1        24     ← built
+    0.35 s   15/33       1        26
+    0.50 s   15/33       2        29
+    0.70 s   11/33       3        29
+
+No setting rescues T6 without spending accents; a per-part floor (guarantee every part N
+notes) would be a third rule, not a tuning. **Composer's call.**
+
+**Notation view of B2** (`pattern_analyze`, all ten parts): 22 lone one-shots, 6 two-note
+`16th · 16th` pairs (all 0.0 heads), one three-note figure — T8 @2.29 s,
+`8th. · 8th · 16th` at ♩=91, 0.1 heads, note 1 flagged as a possible pickup. T6 has fewer
+than 2 notes so the analyser declines it. So B2, like B, notates as the **one-shot
+vocabulary**, slightly more figured than B (6 pairs + 1 trio vs 4 pairs + 1 quartet) and
+with 24 seams instead of 36.
+
+**Extract note:** B2's IR reports `worst stream fit error 16.028 ms` and 2 `unresolved`
+strategy chunks / 2 `fixed-oneshot` — B's was 0.000 ms with everything proportional. Worth
+a look before B2 is notated for real, NOT before the composer listens.
+
+**Paused for the listen.** Nothing ledgered, archive untouched.

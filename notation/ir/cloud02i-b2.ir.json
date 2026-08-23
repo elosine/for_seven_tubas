@@ -1,0 +1,1329 @@
+{
+ "irVersion": "0.1",
+ "id": "cloud02i-b2",
+ "source": {
+  "score": "cloud02i-b2",
+  "window": [
+   0,
+   4.5
+  ],
+  "parts": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ },
+ "provenance": {
+  "createdBy": "tools/ir_extract.js (profile section1)",
+  "date": "2026-08-23",
+  "tool": "tools/ir_extract.js (profile section1)",
+  "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only."
+ },
+ "events": [
+  {
+   "id": "ev-wc-2",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-2"
+   },
+   "onset": 0,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-3",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-3"
+   },
+   "onset": 0.114,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 118,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-4",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-4"
+   },
+   "onset": 0.268,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-5",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-5"
+   },
+   "onset": 0.382,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-6",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-6"
+   },
+   "onset": 0.511,
+   "duration": 0.39,
+   "pitch": {
+    "midi": 34,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 106
+  },
+  {
+   "id": "ev-wc-7",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-7"
+   },
+   "onset": 0.588,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-8",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-8"
+   },
+   "onset": 0.679,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-9",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-9"
+   },
+   "onset": 0.827,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-10",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-10"
+   },
+   "onset": 0.942,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-11",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-11"
+   },
+   "onset": 1.071,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97
+  },
+  {
+   "id": "ev-wc-12",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-12"
+   },
+   "onset": 1.172,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-13",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-13"
+   },
+   "onset": 1.228,
+   "duration": 0.35,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 66
+  },
+  {
+   "id": "ev-wc-14",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-14"
+   },
+   "onset": 1.355,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 89,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-15",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-15"
+   },
+   "onset": 1.462,
+   "duration": 0.35,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 80
+  },
+  {
+   "id": "ev-wc-16",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-16"
+   },
+   "onset": 1.609,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-17",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-17"
+   },
+   "onset": 1.661,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-18",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-18"
+   },
+   "onset": 1.766,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 106
+  },
+  {
+   "id": "ev-wc-19",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-19"
+   },
+   "onset": 1.853,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-20",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-20"
+   },
+   "onset": 1.907,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 74
+  },
+  {
+   "id": "ev-wc-21",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-21"
+   },
+   "onset": 2.003,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 106
+  },
+  {
+   "id": "ev-wc-22",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-22"
+   },
+   "onset": 2.126,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-23",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-23"
+   },
+   "onset": 2.212,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75
+  },
+  {
+   "id": "ev-wc-24",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-24"
+   },
+   "onset": 2.286,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-25",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-25"
+   },
+   "onset": 2.409,
+   "duration": 0.39,
+   "pitch": {
+    "midi": 34,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-26",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-26"
+   },
+   "onset": 2.502,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 72
+  },
+  {
+   "id": "ev-wc-27",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-27"
+   },
+   "onset": 2.585,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 102
+  },
+  {
+   "id": "ev-wc-28",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-28"
+   },
+   "onset": 2.657,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-29",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-29"
+   },
+   "onset": 2.777,
+   "duration": 0.35,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-30",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-30"
+   },
+   "onset": 2.889,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-31",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-31"
+   },
+   "onset": 3.02,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-32",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-32"
+   },
+   "onset": 3.108,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 107,
+   "metric": {
+    "chunk": "ch-7-wc-3",
+    "grid": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-33",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-33"
+   },
+   "onset": 3.165,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-34",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-34"
+   },
+   "onset": 3.259,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-35",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-35"
+   },
+   "onset": 3.322,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-36",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-36"
+   },
+   "onset": 3.439,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-37",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-37"
+   },
+   "onset": 3.515,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97
+  },
+  {
+   "id": "ev-wc-38",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-38"
+   },
+   "onset": 3.57,
+   "duration": 0.35,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-39",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-39"
+   },
+   "onset": 3.664,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-40",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-40"
+   },
+   "onset": 3.782,
+   "duration": 0.35,
+   "pitch": {
+    "midi": 36,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-41",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-41"
+   },
+   "onset": 3.835,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 90
+  },
+  {
+   "id": "ev-wc-42",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-42"
+   },
+   "onset": 3.964,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-43",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-43"
+   },
+   "onset": 4.04,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 83
+  },
+  {
+   "id": "ev-wc-44",
+   "source": {
+    "score": "cloud02i-b2",
+    "objectId": "wc-44"
+   },
+   "onset": 4.096,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  }
+ ],
+ "chunks": [
+  {
+   "id": "ch-0-wc-6",
+   "part": 0,
+   "span": [
+    0.511,
+    1.462
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-6",
+    "ev-wc-9"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-6",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0.511,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-15",
+   "part": 0,
+   "span": [
+    1.462,
+    2.585
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-15",
+    "ev-wc-18"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-15",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 1.462,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-27",
+   "part": 0,
+   "span": [
+    2.585,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-27",
+    "ev-wc-33"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-27",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 2.585,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2",
+   "part": 1,
+   "span": [
+    0,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-2",
+    "ev-wc-11",
+    "ev-wc-13",
+    "ev-wc-20",
+    "ev-wc-25",
+    "ev-wc-36"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-2",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-7",
+   "part": 2,
+   "span": [
+    0.588,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-7",
+    "ev-wc-12",
+    "ev-wc-22",
+    "ev-wc-37"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-7",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0.588,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-16",
+   "part": 3,
+   "span": [
+    1.609,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-16",
+    "ev-wc-21",
+    "ev-wc-28",
+    "ev-wc-39",
+    "ev-wc-42"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-16",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 1.609,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-4",
+   "part": 4,
+   "span": [
+    0.268,
+    3.02
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-4",
+    "ev-wc-10"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-4",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0.268,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-31",
+   "part": 4,
+   "span": [
+    3.02,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-31",
+    "ev-wc-40"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-31",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 3.02,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-35",
+   "part": 5,
+   "span": [
+    3.322,
+    4.5
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-35"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-5",
+   "part": 6,
+   "span": [
+    0.382,
+    2.889
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-5"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-30",
+   "part": 6,
+   "span": [
+    2.889,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-30",
+    "ev-wc-38",
+    "ev-wc-44"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-30",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 2.889,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-3",
+   "part": 7,
+   "span": [
+    0.114,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "simple-bar",
+   "tempo": {
+    "anchorSeconds": 0.114,
+    "unitSeconds": 0.10303953588311131,
+    "beatSeconds": 0.3091186076493339,
+    "subdivision": 3,
+    "maxErrSeconds": 0.016027932960893665,
+    "label": "unit 103.0 ms · beat 0.309 s (194 bpm) × 3"
+   },
+   "events": [
+    "ev-wc-3",
+    "ev-wc-14",
+    "ev-wc-17",
+    "ev-wc-24",
+    "ev-wc-29",
+    "ev-wc-32"
+   ],
+   "groups": [
+    {
+     "id": "bg-wc-3",
+     "kind": "beam",
+     "events": [
+      "ev-wc-3",
+      "ev-wc-14",
+      "ev-wc-17",
+      "ev-wc-24",
+      "ev-wc-29",
+      "ev-wc-32"
+     ],
+     "provenance": "derived"
+    }
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-3",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0.114,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-8",
+   "part": 8,
+   "span": [
+    0.679,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-8",
+    "ev-wc-19",
+    "ev-wc-23",
+    "ev-wc-41"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-8",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 0.679,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-26",
+   "part": 9,
+   "span": [
+    2.502,
+    4.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "proportional",
+   "events": [
+    "ev-wc-26",
+    "ev-wc-34",
+    "ev-wc-43"
+   ],
+   "devices": [
+    {
+     "id": "dev-wc-26",
+     "kind": "gc",
+     "mode": "landing",
+     "at": 2.502,
+     "provenance": "derived"
+    }
+   ],
+   "provenance": "derived"
+  }
+ ],
+ "overlays": []
+}

@@ -10,13 +10,29 @@
 //                                META curve, round-robin across the parts
 //  16.0 s  A — thin by part      drop every note that starts inside the previous
 //                                kept note's ring (D51 sample length), per part
+//  24.0 s  B2 — thin by attack   no two attacks closer than `spacing`; the survivor
+//           spacing              of each collision is chosen by `tie`
+//
+// B2 answers a different question from B (composer, day 25: "what I would like is
+// more audible attacks… see how many impulses are landing within a certain threshold
+// of each other and then do the round robin thinning"). B caps what is RINGING — the
+// mass. B2 caps how close ONSETS may land — the impulses. In the original, 68 % of
+// attacks fall within 30 ms of the previous one, inside the window where two onsets
+// fuse into one, so this is the more direct cure for the smear. It cannot be done as
+// an add-back to B: B was never chosen on onsets and is itself full of near-
+// simultaneous attacks, so the rule runs on the ORIGINAL.
 //
 // NOTHING IS CANONICAL HERE. The archive score is read-only; whichever version the
 // composer picks becomes a SCORE EDIT, ledgered in docs/ARCHIVE_AMENDMENTS.md and
 // applied to the archive, then re-extracted. This file is for ears only.
 //
 //   node tools/cloud02i_ab.js [--cap 6] [--slice 0.1] [--ringFrac 1.0]
-//                             [--out scores/cloud02i-ab.json]
+//                             [--spacing 0.05] [--tie hybrid|loudest|roundrobin]
+//                             [--isolate] [--out scores/cloud02i-ab.json]
+//
+// --isolate additionally writes each copy as its own score rebased to 0
+// (scores/cloud02i-{orig,b,a,b2}.json) so the auditor, the IR extractor and the
+// pattern analyser see one version at a time.
 
 const fs = require('fs');
 
@@ -29,7 +45,11 @@ const OUT     = flag('out', 'scores/cloud02i-ab.json');
 const CAP     = +flag('cap', 6);          // (b): peak sounding count
 const SLICE   = +flag('slice', 0.1);      // (b): round-robin admission slice, seconds
 const RINGFRAC= +flag('ringFrac', 1.0);   // (a): fraction of the ring that must finish
-const STARTS  = [0, 8, 16];               // where each copy begins
+const SPACING = +flag('spacing', 0.05);   // (b2): minimum gap between any two attacks
+const TIE     = flag('tie', 'hybrid');    // (b2): hybrid | loudest | roundrobin
+const RECENT  = +flag('recent', 0.25);    // (b2, hybrid): "that part just played" window
+const ISOLATE = args.includes('--isolate');
+const STARTS  = [0, 8, 16, 24];           // where each copy begins
 const META_LAYER = 10;
 const PARTS = 10;
 
@@ -152,6 +172,48 @@ function thinByPart() {
   return kept.sort((x, y) => x.startSeconds - y.startSeconds);
 }
 
+// ── (b2) thin by attack spacing: no two onsets closer than SPACING ────────────
+// Walk the ensemble in time. Attacks within SPACING of the first unresolved one
+// form a COLLISION GROUP — the ear hears them as a single impulse. Exactly one
+// survives, and the next survivor must be SPACING later still.
+//
+// Who survives is the second dial, and it decides what happens to the accents:
+//   roundrobin — the part that has waited longest. Even parts, but it discards the
+//                loud attacks blind (10 of 33 fff survive at 30 ms).
+//   loudest    — the loudest attack. Keeps 17 of 33 fff but starves parts (at
+//                50 ms one part ended up with no notes at all).
+//   hybrid     — loudest, UNLESS that part played within RECENT; then longest-
+//                waiting. Keeps the accents without silencing anyone.
+function thinBySpacing(T, mode) {
+  const kept = [];
+  const last = new Array(PARTS).fill(-Infinity);
+  const waited = (n) => n.startSeconds - last[n.layer];
+  const byWait    = (x, y) => waited(y) - waited(x);
+  const byLoud    = (x, y) => (y.recVel - x.recVel) || byWait(x, y);
+  const byHybrid  = (x, y) => {
+    const jx = waited(x) < RECENT, jy = waited(y) < RECENT;
+    if (jx !== jy) return jx ? 1 : -1;   // a part that just played sorts last
+    return byLoud(x, y);
+  };
+  const pick = mode === 'roundrobin' ? byWait : mode === 'loudest' ? byLoud : byHybrid;
+
+  let i = 0;
+  while (i < notes.length) {
+    const group = [notes[i]];
+    let j = i + 1;
+    while (j < notes.length && notes[j].startSeconds - group[0].startSeconds < T) group.push(notes[j++]);
+    const lastKept = kept.length ? kept[kept.length - 1].startSeconds : -Infinity;
+    const cands = group.filter(n => n.startSeconds - lastKept >= T);
+    if (cands.length) {
+      cands.sort(pick);
+      kept.push(cands[0]);
+      last[cands[0].layer] = cands[0].startSeconds;
+    }
+    i = j;
+  }
+  return kept;
+}
+
 // ── measurement (so the report is measured, not guessed) ──────────────────────
 function census(set, label) {
   const per = new Array(PARTS).fill(0);
@@ -168,13 +230,21 @@ function census(set, label) {
     const p = set.filter(n => n.layer === L);
     for (let i = 1; i < p.length; i++) if (p[i].startSeconds - p[i - 1].startSeconds >= 0.5) seams++;
   }
+  // the ensemble-wide attack spacing — B2's criterion, reported for every version
+  const t = set.map(n => n.startSeconds).sort((a, b) => a - b);
+  let minGap = Infinity, fused = 0;
+  for (let i = 1; i < t.length; i++) { const g = t[i] - t[i - 1]; if (g < minGap) minGap = g; if (g < 0.03) fused++; }
+  const fff = set.filter(n => n.recVel >= 112).length;
   return { label, n: set.length, rate: +(set.length / SPAN).toFixed(1), per,
-    soundingMax: Math.max(...counts), soundingMean: +mean.toFixed(1), breathSeams: seams };
+    soundingMax: Math.max(...counts), soundingMean: +mean.toFixed(1), breathSeams: seams,
+    minAttackGapMs: Math.round(minGap * 1000), attacksInsideFusion: fused, fff };
 }
 
-const B = thinEnsemble();
-const A = thinByPart();
-const reports = [census(notes, 'ORIGINAL'), census(B, 'B ensemble cap ' + CAP), census(A, 'A by-part')];
+const B  = thinEnsemble();
+const A  = thinByPart();
+const B2 = thinBySpacing(SPACING, TIE);
+const reports = [census(notes, 'ORIGINAL'), census(B, 'B ensemble cap ' + CAP),
+  census(A, 'A by-part'), census(B2, `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`)];
 
 // ── emit the scratch score ────────────────────────────────────────────────────
 let nid = 1;
@@ -186,7 +256,12 @@ const COPIES = [
     label: `B ensemble cap ${CAP} — ${B.length} notes, ${(B.length / SPAN).toFixed(0)}/s`, meta: 'target' },
   { set: A, at: STARTS[2], group: 'grp-c2i-a', color: '#4A6FA5', tag: 'A by-part',
     label: `A by-part — ${A.length} notes, ${(A.length / SPAN).toFixed(0)}/s`, meta: null },
+  { set: B2, at: STARTS[3], group: 'grp-c2i-b2', color: '#8E44AD',
+    tag: `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`,
+    label: `B2 attack spacing ${Math.round(SPACING * 1000)}ms ${TIE} — ${B2.length} notes, `
+         + `${(B2.length / SPAN).toFixed(0)}/s`, meta: null },
 ];
+const SLUG = { 'ORIGINAL': 'orig', 'A by-part': 'a' };
 
 for (const c of COPIES) {
   const shift = c.at - T0;
@@ -233,9 +308,30 @@ const out = {
 };
 fs.writeFileSync(OUT, JSON.stringify(out));
 
+// ── one score per version, rebased to 0, so the tools see one at a time ───────
+if (ISOLATE) {
+  for (const c of COPIES) {
+    const slug = SLUG[c.tag] || (c.group === 'grp-c2i-b' ? 'b' : c.group === 'grp-c2i-b2' ? 'b2' : c.group);
+    const file = OUT.replace(/-ab\.json$/, '-' + slug + '.json');
+    let id = 1;
+    const only = objs.filter(o => o.groupId === c.group).map(o => {
+      const x = { ...o, id: (o.type === 'marker' ? 'mk-' : 'wc-') + (id++) };
+      if (o.type === 'marker') x.time = +(o.time - c.at).toFixed(3);
+      else { x.startSeconds = +(o.startSeconds - c.at).toFixed(3); x.endSeconds = +(o.endSeconds - c.at).toFixed(3); }
+      return x;
+    });
+    fs.writeFileSync(file, JSON.stringify({ ...out,
+      metadata: { ...out.metadata, provenance: { ...out.metadata.provenance,
+        note: 'SCRATCH: ' + c.tag + ' alone, rebased to 0, for audit / IR extract / pattern analysis.' } },
+      objects: only, nextId: id }));
+    console.log('  isolated → ' + file + '  (' + only.filter(o => o.type === 'waveCurve' && o.layer < META_LAYER).length + ' notes)');
+  }
+}
+
 for (const r of reports) {
-  console.log(`${r.label.padEnd(18)} ${String(r.n).padStart(3)} notes  ${String(r.rate).padStart(4)}/s  `
-    + `sounding max ${String(r.soundingMax).padStart(2)} mean ${r.soundingMean}  `
-    + `breath seams ${r.breathSeams}  per part [${r.per.join(' ')}]`);
+  console.log(`${r.label.padEnd(26)} ${String(r.n).padStart(3)} notes ${String(r.rate).padStart(5)}/s  `
+    + `sounding ${String(r.soundingMax).padStart(2)}/${String(r.soundingMean).padStart(4)}  `
+    + `min attack gap ${String(r.minAttackGapMs).padStart(3)}ms  fused ${String(r.attacksInsideFusion).padStart(3)}  `
+    + `fff ${String(r.fff).padStart(2)}/33  seams ${String(r.breathSeams).padStart(2)}  [${r.per.join(' ')}]`);
 }
 console.log('\nwrote ' + OUT + ' — ' + objs.length + ' objects, copies at ' + STARTS.join('s / ') + 's');
