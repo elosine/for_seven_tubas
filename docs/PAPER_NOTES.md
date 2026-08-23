@@ -836,3 +836,50 @@ the guardrail: *"when the physical spacing looked quite off or was incongruous
 with the notation, then something probably needs to be addressed"* — the
 page's proportional truth is the check on its metric reading, which is the
 inverse of how notation normally works.
+
+## #14 — Pattern before grid: the cluster notation as rhythm categorisation (2026-08-23, day 24)
+
+*The composer's reframing after a regression put 32nds into a figure they had
+rejected. Full statement in COMPOSER_LOG (day 24 late).*
+
+**The claim.** The proportional page guarantees time: every notehead's left edge
+is at its true moment, the cursor confirms it. So the rhythmic notation inside a
+cluster is free of the duty conventional notation carries — it does not have to
+*be* the timing. Its job is to show the **pattern** (long-short-short-long), so
+the player performs the figure as one unit from one go. The analysis that chooses
+the notation should therefore optimise **pattern fidelity as seen**, not
+millisecond error: *"if it looks like medium, short, short, long, those can't be
+notated as equal-duration notes."*
+
+**Why this is rhythm categorisation, not a heuristic.** Desain & Honing (2003,
+"The formation of rhythmic categories and metric priming") and London (*Hearing
+in Time*) describe listeners sorting inter-onset ratios into a small set of
+categories (1:1, 2:1, 3:1, 3:2…) with basins of tolerance around each. The
+composer's "medium-short-long" is a category judgment made by eye on a
+proportional page; the notation's task is to name the category the spacing falls
+into. The earlier fitter optimised the wrong quantity — absolute error — and so
+could produce a notation (four equal 16ths) that is accurate to 20 ms and
+categorically wrong.
+
+**The measurement that makes it codifiable.** On the video page a cluster
+notehead is 6.9 px wide and 6.9 px is 30 ms — so "the written pattern places a
+note visibly off its true position" has a number: **displacement greater than
+one notehead at page scale.** It coincides with the 30 ms tolerance in use since
+E1, but the justification moves from the ear to the eye, and it scales with the
+page (15 ms in the ×2 zoom). The fitter's new objective is the worst
+displacement, in heads, between the positions the notation implies and the true
+positions; simplicity breaks ties; tuplets are admitted when they win.
+
+**The guard survives inverted.** The old tolerance does not vanish; it stops
+being the goal and becomes the guard against claiming a shape the spacing does
+not show. T7's final three (396 | 288 | 286 ms) *felt* 3:2; a written triplet
+would need 264 | 264; the 24 ms gap was the tell. Same test, other direction:
+no equal notes over unequal spacing, no tuplet over spacing that does not show
+one.
+
+**Method note.** Validate the new analyser against the 25 figures the composer
+decided by ear before letting it guess at the dense section — the same protocol
+the dynamics rule went through (reproduced one cluster exactly, missed one
+partial on the other, filed with its failure). Pickups remain a proposal flagged
+for the ear: *"the fortepiano is clear; the other ones probably had something to
+do with the way I heard it."*

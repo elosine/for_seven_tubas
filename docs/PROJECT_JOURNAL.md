@@ -404,6 +404,22 @@ I'll look at it."*
 
 ## §4 Decisions
 
+- **D63** *(2026-08-23, day 24 late)* — **PATTERN BEFORE GRID.** The
+  cluster notation exists to show the figure's long-short PATTERN so it is
+  played as one unit from one go; the proportional page already guarantees
+  the timing. The analysis therefore optimises pattern fidelity AS SEEN — the
+  worst displacement, in noteheads at page scale (one head = 6.9 px = 30 ms on
+  the video page), between where the notation implies a note and where it
+  truly is — with simplicity only as a tie-break, and tuplets (3, 5, 7:5)
+  admitted when they win. Group by gaps first; figures need not share a tempo.
+  **Rejected:** the day-23 objective (smallest ms error within a tolerance,
+  tuplets penalised) — accurate to 20 ms and categorically wrong is possible
+  under it (four equal 16ths over medium-short-long spacing). **Kept:** the
+  ms guard, inverted — no tuplet over spacing that does not show one (T7's
+  24 ms tell). Pickups stay subjective: AI proposes and flags, the composer
+  confirms. Theory: Desain & Honing 2003, rhythm categorisation. *Nothing on
+  the page changed; the analyser is the next build, validated against the 25
+  decided figures first.*
 - **D62** *(2026-08-22, day 24)* — **CLUSTERS ARE "GO, THEN COUNT"; ONE-SHOTS
   ARE "GO". Rests are INCLUDED in clusters and SPLIT AT THE BEAT, with no
   tempo marking on the page.** Composer: *"if one-shots are just a go, then the

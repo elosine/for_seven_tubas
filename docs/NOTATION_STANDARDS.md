@@ -240,3 +240,32 @@ could not explain.**
 
 - `--noGc <objectId>[,…]` — remove the GC from named notes
 - any device field, per item, in the version file's overlay: `{ kind: "engraving", target: { event }, value: { device: { … } } }` — `stemDir`, `nhAnchor`, `dynMark`, `gc`, `goLine`, …
+
+## FIRST PRINCIPLES OF THE CLUSTER NOTATION (day 24, composer — governs all analysis from here)
+
+1. **Noteheads are spatially true, always.** Left edge on the moment; the cursor
+   hits it. Time is guaranteed by the page, not by the written rhythm.
+2. **Cluster notation is a grouping device.** Beams, flags and rests show a
+   *pattern* (long-short-short-long) to be played as one unit from one go.
+3. **The analysis chooses the notation that best shows the pattern as it
+   LOOKS** — not the grid with the smallest ms error. *"If it looks like medium,
+   short, short, long, those can't be notated as equal-duration notes."*
+4. **Dissonance is the failure:** written-equal notes over visibly unequal
+   spacing. The threshold has a number — a note displaced by more than **one
+   notehead width at page scale** (6.9 px = 30 ms on the video page, 15 ms in
+   zoom) from where the notation implies it.
+5. **Tuplets are welcome** — 3, 5, even 7:5 — when they make the visible pattern
+   legible. The ms guard runs the other way too: no tuplet over spacing that
+   does not show one.
+6. **Group first, grid second.** Gather notes into logical long-short figures;
+   figures need not share a tempo (no tempo is printed).
+7. **Played noteheads stay 16ths** on a 16th grid — not 8ths (too long), not
+   32nds (too short). Where a 32nd rest would separate two 16ths, write two
+   16ths.
+8. **Pickups are subjective.** The fortepiano case follows the breath rule; the
+   rest are by ear. AI may propose a pickup but must flag it; the composer
+   confirms or reverts.
+
+*Status: principles adopted; the analyser that implements 3–5 is the next build,
+to be validated against the 25 decided figures before it is trusted on new
+material.*

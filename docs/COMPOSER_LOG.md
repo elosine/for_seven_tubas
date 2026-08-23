@@ -1955,3 +1955,66 @@ towards using rests, but tell me if there's any strong arguments for another
 way, like the Kurt Stone, or even a different way. And then please journal this
 whole conversation — so you can make sure you capture especially this prompt,
 and then the whole conversation at some point."*
+
+
+## 2026-08-23, day 24 (late) — FIRST PRINCIPLES OF THE CLUSTER NOTATION: pattern before grid
+
+*After a regression put 32nds into T3 that the composer had rejected, they
+stopped and restated what the cluster notation is for. Dictated; light cleanup
+of transcription only. This is the governing statement for the density
+sections.*
+
+*"Let's continue in this and get back to first principles. So first, the
+noteheads will appear in space precisely where they do in time. So regardless
+of how I notate them, they're still spatially accurate, and the scrolling
+cursor will hit the left edge of every notehead at the precise time.*
+
+*Two. The beamed notation — with flags and beams, for the clusters — is a method
+for grouping notes into long-short patterns. The performer is able, from a go
+time, to perform the cluster as a unit, rather than address them as individual
+impulses like the other GCs. So the notation's first priority is to represent
+the pattern, and then the scrolling cursor will help them situate that pattern
+in time. So it might have, like, a long-short-short-long-short-short feel.*
+
+*So then the tempo analysis really is focused on how that notation should look
+to give the performer the right rhythmic phrasing feel — rather than have the
+notation durations be under a certain threshold in time accuracy. I think that's
+what we were doing wrong. Let me explain that another way: you'll try several
+tempos to find the best long-short-long pattern. If it turns out that it breaks
+down to a series of sixteenth notes with rests in between, that's good. But if
+there's a clear pattern that implies a triplet or quintuplet, or even slightly
+more complex ratios — like a seven and five, for example — then we can go with
+that.*
+
+*The only example we used so far was the last gesture of tuba one. There was a
+three-in-two, and this was discovered through the visual spacing. So that will
+affect the performer. If we notated that as four equal sixteenth notes, but
+visually, spatially, it looks like one longer, two short ones close together,
+then a bigger gap, and then the last one — or another way of thinking about it:
+medium gap, short gap, long gap — then there's cognitive dissonance there,
+because it's notated as four equal sixteenth notes.*
+
+*I'm not sure it's possible to codify this into some sort of analytical
+principle. But from my perspective, that's the general flow, or set of
+priorities. We want to gather up the notes into logical groupings rather than a
+tempo grid. So we'll leave everything — I'm not asking to change anything now —
+but to establish the right type of analysis moving forward. According to my
+narrative, those tuba-two clusters probably should just have been two separate
+ones. For that one we were prioritising the tempo, showing that both clusters
+fit into the tempo, which wasn't really the priority, because we're not showing
+the tempo anyway. It's just trying to collect the quick notes into the patterns
+that make the most sense — the long-short-long patterns. Then, additionally,
+we'll use the appropriate tuplet, even somewhat complex tuplets, if it really
+elucidates the pattern and the way it looks on screen. If it looks like medium,
+short, short, long — those can't be notated as equal-duration notes.*
+
+*So digest this and organise it for me, and see if there's anything to add or
+push back on, and then talk to me about how this informs the AI analysis
+portion — because what I want to do is see if AI can figure out the patterning
+for the next section, which is quite dense and probably a little bit complex.*
+
+*Also, I forgot to mention the idea of the pickup. I think that's going to be
+relatively subjective. The fortepiano is clear. But the other ones probably had
+something to do with the way I heard it. We can use our current principle for
+now, but the ones you do on your own, just flag for me, and I'll have to listen
+and either confirm that it's a pickup or have it revert to not being a pickup."*
