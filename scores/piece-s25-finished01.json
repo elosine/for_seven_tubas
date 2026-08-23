@@ -11538,7 +11538,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.19,
-      "endSeconds": 36.259,
+      "endSeconds": 36.24,
       "nodes": [
         {
           "pos": 0,
@@ -11573,7 +11573,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.194,
-      "endSeconds": 36.266,
+      "endSeconds": 36.244,
       "nodes": [
         {
           "pos": 0,
@@ -11608,7 +11608,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.201,
-      "endSeconds": 36.266,
+      "endSeconds": 36.251,
       "nodes": [
         {
           "pos": 0,
@@ -11713,7 +11713,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.314,
-      "endSeconds": 36.401,
+      "endSeconds": 36.364,
       "nodes": [
         {
           "pos": 0,
@@ -11748,7 +11748,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.324,
-      "endSeconds": 36.376,
+      "endSeconds": 36.374,
       "nodes": [
         {
           "pos": 0,
@@ -11783,7 +11783,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.327,
-      "endSeconds": 36.509,
+      "endSeconds": 36.377,
       "nodes": [
         {
           "pos": 0,
@@ -11888,7 +11888,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.457,
-      "endSeconds": 36.51,
+      "endSeconds": 36.507,
       "nodes": [
         {
           "pos": 0,
@@ -11923,7 +11923,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.458,
-      "endSeconds": 36.532,
+      "endSeconds": 36.508,
       "nodes": [
         {
           "pos": 0,
@@ -11955,7 +11955,7 @@
     {
       "id": "wc-1768",
       "type": "waveCurve",
-      "layer": 5,
+      "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.46,
       "endSeconds": 36.51,
@@ -11993,7 +11993,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.468,
-      "endSeconds": 36.572,
+      "endSeconds": 36.518,
       "nodes": [
         {
           "pos": 0,
@@ -12028,7 +12028,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.539,
-      "endSeconds": 36.605,
+      "endSeconds": 36.589,
       "nodes": [
         {
           "pos": 0,
@@ -12063,7 +12063,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.548,
-      "endSeconds": 36.649,
+      "endSeconds": 36.598,
       "nodes": [
         {
           "pos": 0,
@@ -12098,7 +12098,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.572,
-      "endSeconds": 36.634,
+      "endSeconds": 36.622,
       "nodes": [
         {
           "pos": 0,
@@ -12133,7 +12133,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.58,
-      "endSeconds": 36.787,
+      "endSeconds": 36.63,
       "nodes": [
         {
           "pos": 0,
@@ -12203,7 +12203,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.696,
-      "endSeconds": 36.772,
+      "endSeconds": 36.746,
       "nodes": [
         {
           "pos": 0,
@@ -12273,7 +12273,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.714,
-      "endSeconds": 36.777,
+      "endSeconds": 36.764,
       "nodes": [
         {
           "pos": 0,
@@ -12308,7 +12308,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.752,
-      "endSeconds": 36.869,
+      "endSeconds": 36.802,
       "nodes": [
         {
           "pos": 0,
@@ -12343,7 +12343,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.762,
-      "endSeconds": 36.847,
+      "endSeconds": 36.812,
       "nodes": [
         {
           "pos": 0,
@@ -12410,7 +12410,7 @@
     {
       "id": "wc-1781",
       "type": "waveCurve",
-      "layer": 4,
+      "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.857,
       "endSeconds": 36.907,
@@ -12448,7 +12448,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.869,
-      "endSeconds": 37.067,
+      "endSeconds": 36.919,
       "nodes": [
         {
           "pos": 0,
@@ -12518,7 +12518,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 36.915,
-      "endSeconds": 37.01,
+      "endSeconds": 36.965,
       "nodes": [
         {
           "pos": 0,
@@ -12623,7 +12623,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.017,
-      "endSeconds": 37.129,
+      "endSeconds": 37.067,
       "nodes": [
         {
           "pos": 0,
@@ -12658,7 +12658,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.025,
-      "endSeconds": 37.154,
+      "endSeconds": 37.075,
       "nodes": [
         {
           "pos": 0,
@@ -12693,7 +12693,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.124,
-      "endSeconds": 37.308,
+      "endSeconds": 37.174,
       "nodes": [
         {
           "pos": 0,
@@ -12728,7 +12728,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.132,
-      "endSeconds": 37.203,
+      "endSeconds": 37.182,
       "nodes": [
         {
           "pos": 0,
@@ -12763,7 +12763,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.133,
-      "endSeconds": 37.208,
+      "endSeconds": 37.183,
       "nodes": [
         {
           "pos": 0,
@@ -12903,7 +12903,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.31,
-      "endSeconds": 37.371,
+      "endSeconds": 37.36,
       "nodes": [
         {
           "pos": 0,
@@ -12938,7 +12938,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.317,
-      "endSeconds": 37.381,
+      "endSeconds": 37.367,
       "nodes": [
         {
           "pos": 0,
@@ -12973,7 +12973,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.348,
-      "endSeconds": 37.413,
+      "endSeconds": 37.398,
       "nodes": [
         {
           "pos": 0,
@@ -13008,7 +13008,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.361,
-      "endSeconds": 37.437,
+      "endSeconds": 37.411,
       "nodes": [
         {
           "pos": 0,
@@ -13113,7 +13113,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.364,
-      "endSeconds": 37.431,
+      "endSeconds": 37.414,
       "nodes": [
         {
           "pos": 0,
@@ -13183,7 +13183,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.418,
-      "endSeconds": 37.572,
+      "endSeconds": 37.468,
       "nodes": [
         {
           "pos": 0,
@@ -13218,7 +13218,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.459,
-      "endSeconds": 37.579,
+      "endSeconds": 37.509,
       "nodes": [
         {
           "pos": 0,
@@ -13253,7 +13253,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.544,
-      "endSeconds": 37.646,
+      "endSeconds": 37.594,
       "nodes": [
         {
           "pos": 0,
@@ -13288,7 +13288,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.545,
-      "endSeconds": 37.648,
+      "endSeconds": 37.595,
       "nodes": [
         {
           "pos": 0,
@@ -13323,7 +13323,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.613,
-      "endSeconds": 37.703,
+      "endSeconds": 37.663,
       "nodes": [
         {
           "pos": 0,
@@ -13393,7 +13393,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.652,
-      "endSeconds": 37.87,
+      "endSeconds": 37.702,
       "nodes": [
         {
           "pos": 0,
@@ -13463,7 +13463,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.684,
-      "endSeconds": 37.736,
+      "endSeconds": 37.734,
       "nodes": [
         {
           "pos": 0,
@@ -13498,7 +13498,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.695,
-      "endSeconds": 37.765,
+      "endSeconds": 37.745,
       "nodes": [
         {
           "pos": 0,
@@ -13533,7 +13533,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.772,
-      "endSeconds": 37.843,
+      "endSeconds": 37.822,
       "nodes": [
         {
           "pos": 0,
@@ -13568,7 +13568,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.798,
-      "endSeconds": 37.891,
+      "endSeconds": 37.848,
       "nodes": [
         {
           "pos": 0,
@@ -13603,7 +13603,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.799,
-      "endSeconds": 37.886,
+      "endSeconds": 37.849,
       "nodes": [
         {
           "pos": 0,
@@ -13635,10 +13635,10 @@
     {
       "id": "wc-1816",
       "type": "waveCurve",
-      "layer": 6,
+      "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.838,
-      "endSeconds": 37.998,
+      "endSeconds": 37.888,
       "nodes": [
         {
           "pos": 0,
@@ -13673,7 +13673,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.851,
-      "endSeconds": 37.903,
+      "endSeconds": 37.901,
       "nodes": [
         {
           "pos": 0,
@@ -13708,7 +13708,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.935,
-      "endSeconds": 38.095,
+      "endSeconds": 37.985,
       "nodes": [
         {
           "pos": 0,
@@ -13743,7 +13743,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 37.939,
-      "endSeconds": 38.103,
+      "endSeconds": 37.989,
       "nodes": [
         {
           "pos": 0,
@@ -13813,7 +13813,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.043,
-      "endSeconds": 38.171,
+      "endSeconds": 38.093,
       "nodes": [
         {
           "pos": 0,
@@ -13848,7 +13848,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.057,
-      "endSeconds": 38.199,
+      "endSeconds": 38.107,
       "nodes": [
         {
           "pos": 0,
@@ -13883,7 +13883,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.097,
-      "endSeconds": 38.149,
+      "endSeconds": 38.147,
       "nodes": [
         {
           "pos": 0,
@@ -13918,7 +13918,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.193,
-      "endSeconds": 38.277,
+      "endSeconds": 38.243,
       "nodes": [
         {
           "pos": 0,
@@ -13988,7 +13988,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.267,
-      "endSeconds": 38.453,
+      "endSeconds": 38.317,
       "nodes": [
         {
           "pos": 0,
@@ -14023,7 +14023,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.283,
-      "endSeconds": 38.345,
+      "endSeconds": 38.333,
       "nodes": [
         {
           "pos": 0,
@@ -14058,7 +14058,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.316,
-      "endSeconds": 38.387,
+      "endSeconds": 38.366,
       "nodes": [
         {
           "pos": 0,
@@ -14093,7 +14093,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.324,
-      "endSeconds": 38.414,
+      "endSeconds": 38.374,
       "nodes": [
         {
           "pos": 0,
@@ -14128,7 +14128,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.34,
-      "endSeconds": 38.457,
+      "endSeconds": 38.39,
       "nodes": [
         {
           "pos": 0,
@@ -14163,7 +14163,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.357,
-      "endSeconds": 38.453,
+      "endSeconds": 38.407,
       "nodes": [
         {
           "pos": 0,
@@ -14233,7 +14233,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.476,
-      "endSeconds": 38.638,
+      "endSeconds": 38.526,
       "nodes": [
         {
           "pos": 0,
@@ -14268,7 +14268,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.519,
-      "endSeconds": 38.641,
+      "endSeconds": 38.569,
       "nodes": [
         {
           "pos": 0,
@@ -14338,7 +14338,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.599,
-      "endSeconds": 38.662,
+      "endSeconds": 38.649,
       "nodes": [
         {
           "pos": 0,
@@ -14373,7 +14373,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.604,
-      "endSeconds": 38.667,
+      "endSeconds": 38.654,
       "nodes": [
         {
           "pos": 0,
@@ -14478,7 +14478,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.643,
-      "endSeconds": 38.732,
+      "endSeconds": 38.693,
       "nodes": [
         {
           "pos": 0,
@@ -14548,7 +14548,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.692,
-      "endSeconds": 38.789,
+      "endSeconds": 38.742,
       "nodes": [
         {
           "pos": 0,
@@ -14583,7 +14583,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.726,
-      "endSeconds": 38.869,
+      "endSeconds": 38.776,
       "nodes": [
         {
           "pos": 0,
@@ -14618,7 +14618,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.756,
-      "endSeconds": 38.865,
+      "endSeconds": 38.806,
       "nodes": [
         {
           "pos": 0,
@@ -14653,7 +14653,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.758,
-      "endSeconds": 38.817,
+      "endSeconds": 38.808,
       "nodes": [
         {
           "pos": 0,
@@ -14688,7 +14688,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.772,
-      "endSeconds": 38.836,
+      "endSeconds": 38.822,
       "nodes": [
         {
           "pos": 0,
@@ -14793,7 +14793,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.84,
-      "endSeconds": 38.913,
+      "endSeconds": 38.89,
       "nodes": [
         {
           "pos": 0,
@@ -14828,7 +14828,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.847,
-      "endSeconds": 38.987,
+      "endSeconds": 38.897,
       "nodes": [
         {
           "pos": 0,
@@ -14898,7 +14898,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.92,
-      "endSeconds": 39.121,
+      "endSeconds": 38.97,
       "nodes": [
         {
           "pos": 0,
@@ -15003,7 +15003,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 38.967,
-      "endSeconds": 39.129,
+      "endSeconds": 39.017,
       "nodes": [
         {
           "pos": 0,
@@ -15108,7 +15108,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.065,
-      "endSeconds": 39.145,
+      "endSeconds": 39.115,
       "nodes": [
         {
           "pos": 0,
@@ -15318,7 +15318,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.199,
-      "endSeconds": 39.319,
+      "endSeconds": 39.249,
       "nodes": [
         {
           "pos": 0,
@@ -15353,7 +15353,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.199,
-      "endSeconds": 39.327,
+      "endSeconds": 39.249,
       "nodes": [
         {
           "pos": 0,
@@ -15490,7 +15490,7 @@
     {
       "id": "wc-1869",
       "type": "waveCurve",
-      "layer": 6,
+      "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.212,
       "endSeconds": 39.262,
@@ -15598,7 +15598,7 @@
       "layer": 5,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.352,
-      "endSeconds": 39.406,
+      "endSeconds": 39.402,
       "nodes": [
         {
           "pos": 0,
@@ -15633,7 +15633,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.355,
-      "endSeconds": 39.408,
+      "endSeconds": 39.405,
       "nodes": [
         {
           "pos": 0,
@@ -15773,7 +15773,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.508,
-      "endSeconds": 39.57,
+      "endSeconds": 39.558,
       "nodes": [
         {
           "pos": 0,
@@ -15805,7 +15805,7 @@
     {
       "id": "wc-1878",
       "type": "waveCurve",
-      "layer": 8,
+      "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.511,
       "endSeconds": 39.561,
@@ -15913,7 +15913,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.605,
-      "endSeconds": 39.695,
+      "endSeconds": 39.655,
       "nodes": [
         {
           "pos": 0,
@@ -15948,7 +15948,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.607,
-      "endSeconds": 39.678,
+      "endSeconds": 39.657,
       "nodes": [
         {
           "pos": 0,
@@ -15983,7 +15983,7 @@
       "layer": 0,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.61,
-      "endSeconds": 39.693,
+      "endSeconds": 39.66,
       "nodes": [
         {
           "pos": 0,
@@ -16088,7 +16088,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.705,
-      "endSeconds": 39.767,
+      "endSeconds": 39.755,
       "nodes": [
         {
           "pos": 0,
@@ -16158,7 +16158,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.76,
-      "endSeconds": 39.852,
+      "endSeconds": 39.81,
       "nodes": [
         {
           "pos": 0,
@@ -16193,7 +16193,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.791,
-      "endSeconds": 39.891,
+      "endSeconds": 39.841,
       "nodes": [
         {
           "pos": 0,
@@ -16225,10 +16225,10 @@
     {
       "id": "wc-1890",
       "type": "waveCurve",
-      "layer": 0,
+      "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.801,
-      "endSeconds": 39.915,
+      "endSeconds": 39.851,
       "nodes": [
         {
           "pos": 0,
@@ -16298,7 +16298,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.848,
-      "endSeconds": 39.908,
+      "endSeconds": 39.898,
       "nodes": [
         {
           "pos": 0,
@@ -16365,7 +16365,7 @@
     {
       "id": "wc-1894",
       "type": "waveCurve",
-      "layer": 2,
+      "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.855,
       "endSeconds": 39.905,
@@ -16473,7 +16473,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 39.972,
-      "endSeconds": 40.065,
+      "endSeconds": 40.022,
       "nodes": [
         {
           "pos": 0,
@@ -16505,10 +16505,10 @@
     {
       "id": "wc-1898",
       "type": "waveCurve",
-      "layer": 3,
+      "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40,
-      "endSeconds": 40.062,
+      "endSeconds": 40.05,
       "nodes": [
         {
           "pos": 0,
@@ -16578,7 +16578,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.14,
-      "endSeconds": 40.214,
+      "endSeconds": 40.19,
       "nodes": [
         {
           "pos": 0,
@@ -16613,7 +16613,7 @@
       "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.154,
-      "endSeconds": 40.356,
+      "endSeconds": 40.204,
       "nodes": [
         {
           "pos": 0,
@@ -16648,7 +16648,7 @@
       "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.159,
-      "endSeconds": 40.217,
+      "endSeconds": 40.209,
       "nodes": [
         {
           "pos": 0,
@@ -16680,10 +16680,10 @@
     {
       "id": "wc-1903",
       "type": "waveCurve",
-      "layer": 2,
+      "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.168,
-      "endSeconds": 40.221,
+      "endSeconds": 40.218,
       "nodes": [
         {
           "pos": 0,
@@ -16750,7 +16750,7 @@
     {
       "id": "wc-1905",
       "type": "waveCurve",
-      "layer": 8,
+      "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.177,
       "endSeconds": 40.227,
@@ -16823,7 +16823,7 @@
       "layer": 9,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.23,
-      "endSeconds": 40.35,
+      "endSeconds": 40.28,
       "nodes": [
         {
           "pos": 0,
@@ -16858,7 +16858,7 @@
       "layer": 6,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.286,
-      "endSeconds": 40.358,
+      "endSeconds": 40.336,
       "nodes": [
         {
           "pos": 0,
@@ -16893,7 +16893,7 @@
       "layer": 4,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.289,
-      "endSeconds": 40.357,
+      "endSeconds": 40.339,
       "nodes": [
         {
           "pos": 0,
@@ -16925,10 +16925,10 @@
     {
       "id": "wc-1910",
       "type": "waveCurve",
-      "layer": 0,
+      "layer": 7,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.299,
-      "endSeconds": 40.37,
+      "endSeconds": 40.349,
       "nodes": [
         {
           "pos": 0,
@@ -16963,7 +16963,7 @@
       "layer": 2,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.312,
-      "endSeconds": 40.42,
+      "endSeconds": 40.362,
       "nodes": [
         {
           "pos": 0,
@@ -16998,7 +16998,7 @@
       "layer": 8,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.324,
-      "endSeconds": 40.418,
+      "endSeconds": 40.374,
       "nodes": [
         {
           "pos": 0,
@@ -17033,7 +17033,7 @@
       "layer": 1,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.326,
-      "endSeconds": 40.421,
+      "endSeconds": 40.376,
       "nodes": [
         {
           "pos": 0,
@@ -17065,10 +17065,10 @@
     {
       "id": "wc-1914",
       "type": "waveCurve",
-      "layer": 5,
+      "layer": 3,
       "groupId": "grp-cloud02-i-01",
       "startSeconds": 40.328,
-      "endSeconds": 40.42,
+      "endSeconds": 40.378,
       "nodes": [
         {
           "pos": 0,
