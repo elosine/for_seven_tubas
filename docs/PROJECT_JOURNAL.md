@@ -30,25 +30,18 @@ the composer's reading for any CUT_COST; what was missing was the composer's own
 day-26 method — **a cut may only land where the pace changes** — plus a
 figure-length term. That rule also makes no-shatter structural instead of tuned.
 Ten batteries green (`test_pattern_fit` 6 → 40 checks), `--validate` still 24/25,
-verified in the running app. Nothing else moved.
-Density build 1 (0–34.6 s) is finished and promoted (`notation/ir/db1.ir.json`, 25
-clusters, top of the picker; its `provenance.build` rebuilds it). Day 25 ran THE
-PLAYABILITY PROCESS on **CLOUD02-I (36.19–40.42 s)**: the archive now carries 12
-redistribution part-moves plus all 159 of that section's staccato bricks normalised
-to 50 ms — **13 new ledger lines**, window audits **0 hard / 0 soft**, no note removed
-and no time or pitch changed. db1 was re-extracted from the amended archive (456
-events, 131 chunks, VALID; `--validate` 24/25; nine batteries green) and a trial fork
-**`db1-c2i-x01`** sits in the picker under experiments — **day 26: its CLOUD02-I span is
-BARE (`--bare 36.19-40.33` in its build command): bricks only, no per-note devices, so
-the composer can read the material.** **CLOUD02-I is not notated.
-Day 26: Part 3 ran on T1 — the protocol finds ONE 16-note cluster + a lone one-shot
-(breath seam at 559 ms), then fits it to one grid that needs three tuplet beats; cut at
-the pace changes it is five trivial figures. The composer's reframe (players read
-patterns, not tempos; the page and cursor absorb tempo; dissonance past the eye's
-rounding is the only failure) became PLAN 8g — the analyser must find the FIGURES
-inside a gesture. 8g is approved and is the next build.** Whole archive still shows 2
-hard (the trance seams @560.63 T8 / @604.63 T6) and 32 soft, all parked. All pushed;
-working tree clean.
+verified in the running app.
+
+**The standing picture, unchanged this session.** Density build 1 (0–34.6 s) is
+finished and promoted (`notation/ir/db1.ir.json`, 25 clusters, top of the picker; its
+`provenance.build` rebuilds it). CLOUD02-I (36.19–40.42 s) has been through the
+playability process — 12 redistribution part-moves, 159 staccato bricks at 50 ms, 13
+ledger lines, 0 hard / 0 soft, no note removed and no time or pitch changed — and db1
+was re-extracted from the amended archive (456 events, 131 chunks, VALID). The trials
+fork **`db1-c2i-x01`** sits under experiments with its CLOUD02-I span **BARE**
+(`--bare 36.19-40.33`): bricks only, so the material can be read. **CLOUD02-I is still
+not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
+@604.63 T6) and 32 soft, all parked. All pushed; working tree clean.
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 
@@ -85,22 +78,14 @@ Switch to **Fable** for the verdict.
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
 | batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |
 
-### PLAN 8f — where it stands (the full day-25 plan text is in git, commit 4b60923)
+### PLAN 8f — where it stands (detail in PLAN.md 8f/8g; trails in RUNNING_LOG days 25–27)
 
-**Day 25 established THE PLAYABILITY PROCESS** (reference card `docs/PLAYABILITY_MODEL.md`;
-trail RUNNING_LOG day 25): the composer's "it feels very dense" meant UNPLAYABLE, not
-too-much — evaluate for playability, fix by redistribution, report audibility as a flag
-only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is research.
-- **PART 1 — save files in place. DONE 2026-08-23** (2e9873a, 5f6ac88): 12 moves + 159
-  bricks to 50 ms, 13 ledger lines; db1 re-extracted; fork `db1-c2i-x01`.
-- **PART 2 — the process as a tool. DONE 2026-08-23** (a0ef1b7): `notation/lib/playability.js`
-  + `tools/playability.js` + `tools/test_playability.js` (22 assertions); decisions A–D.
-- **PART 3 — notation analysis in shapes, then talk. DONE FOR T1, day 26** (see D66,
-  COMPOSER_LOG day 26, RUNNING_LOG day 26). T2–T10 resume AFTER 8g, against the new report.
-- **8g — FIGURE SEAMS — the build the T1 talk produced. APPROVED, NEXT.** Spec: PLAN 8g
-  (segmenter in `pattern_fit.js` · words-first report · `--figures` on `--cluster` · T1
-  golden with the note-11 near-tie). Deferred to the page: tuplet vs dotted 16ths for a
-  3:3:2:2 figure.
+**Day 25's THE PLAYABILITY PROCESS** (`docs/PLAYABILITY_MODEL.md`) governs: "it feels
+very dense" meant UNPLAYABLE, not too-much — evaluate for playability, fix by
+redistribution, report audibility as a flag only. Thinning stayed research.
+Parts 1 (archive amended + ledgered), 2 (`playability.js`, 22 assertions, D64/D65) and
+**8g** (the segmenter, D67) are DONE. **Part 3 (the per-part reads) is done for T1 only;
+T2–T10 resume once the composer has ruled on the T1 segmentation.**
 
 ### Things to know before building anything (hard-won, day 24)
 
@@ -118,6 +103,23 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
 - **The one-notehead threshold** (30 ms on the video page) has the composer's
   eye on both sides of it; 1.2 heads was accepted once (T1's 3:2). Don't fight
   over 0.2 of a head.
+
+### Open at session end (day 27) — in-flight, none blocking
+
+- **T1's middle is genuinely under-determined.** Seven of the nine legal
+  boundaries are near-ties within ~0.27 of each other, so the tool's six-figure
+  reading is one of several equally cheap ones. The report prints the four
+  closest calls and the top three alternative cut-sets; **the composer's verdict
+  is what settles it**, not more tuning. Move any boundary with `--paceRatio`, or
+  just name the note.
+- **The dotted-16th writing path is NOT built.** `dottedReading()` computes it and
+  the report offers it wherever a figure carries a tuplet, but nothing writes
+  dotted values — that needs `noteUnits 1.5` support in `layout.js`. Deferred on
+  purpose (composer picks when such a figure is drawn) and **it may never come up:
+  no figure in CLOUD02-I needs a tuplet at all** once cuts land at pace changes.
+- **`t1-figures` and `t1-onegrid` are scratch picker entries** built for the
+  verdict. Prune both once it is in: `node tools/notate_section.js --prune
+  t1-figures` (and `t1-onegrid`).
 
 ### Open, not blocking
 
@@ -138,16 +140,13 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
   anywhere; **not one figure in CLOUD02-I needs a tuplet** once cuts land at pace
   changes. Verified in the app; `t1-figures` / `t1-onegrid` left in the picker for
   the composer's eye.
-- **Day 26 (2026-08-23, short, Claude Code / Opus 5 → Fable 5):** Part 3 set-up —
-  `--bare` (a span cleared to bricks, figures guarded) on the trials fork · Part 3 on T1
-  — the protocol's one cluster + one-shot, the single grid's failure, the composer's
-  reframe (D66) · PLAN 8g FIGURE SEAMS approved as the next build · paper structure
-  stored (PAPER_NOTES).
-- **Day 25 (2026-08-23, Claude Code / Opus 5):** THE PLAYABILITY PROCESS — CLOUD02-I
-  passes with 12 part moves, no removals; applied to the archive and ledgered (13
-  lines); bricks 50 ms; db1 re-extracted; the process made a tool
-  (`playability.js`, 22 assertions, D64, D65); the thinning ladder kept as research;
-  THE RHYTHM (next steps · model · clear) made standing.
+- **Day 26:** `--bare` (a span cleared to bricks, figures guarded) · Part 3 on T1 — one
+  cluster + one one-shot, the single grid's failure, the composer's reframe (D66) · PLAN
+  8g approved · paper structure stored.
+- **Day 25:** THE PLAYABILITY PROCESS — CLOUD02-I passes with 12 part moves and no
+  removals, applied to the archive and ledgered (13 lines), bricks 50 ms, db1
+  re-extracted; the process made a tool (`playability.js`, D64, D65); THE RHYTHM made
+  standing.
 - **Day 24 (2026-08-22, one long day, Claude Code / Opus 5 + Fable 5):** density
   build 1 figured for all ten parts, 25 clusters · the standards written down
   (NOTATION_STANDARDS.md) and made registry data · five design principles
@@ -1307,18 +1306,31 @@ only. Thinning research (`scores/cloud02i-ab.json`, `tools/cloud02i_ab.js`) is r
 
 ## §6 Human Notes
 
-- *(2026-08-23, day 24 wrap — CURRENT)* **Nothing blocking. Three small calls
+- *(2026-08-23, day 27 — CURRENT)* **One thing is genuinely owed, and it gates the
+  next build: the segmentation verdict.** Open the picker and compare
+  **`t1-figures`** (8g AFTER — six figures, no tuplet, nothing past 0.2 heads)
+  against **`t1-onegrid`** (8g BEFORE — one grid, 7:4 · 6:4 · 7:4 at 0.7 heads).
+  Three questions: (a) **is six figures right, or is the cut after note 3 one too
+  many?** That is the tool's single disagreement with your day-26 five — it splits
+  your "long long / short short" figure at its pace change, which is what removes
+  the quintuplet. (b) **Note 11** is flagged as a near-tie, as you called it —
+  which side does it belong on? (c) Do **three 2-note "pair" figures** read as
+  fragmented on the page, or is that fine? Nothing else gets notated until this
+  has your eye. *(Everything else from the day-24 list below still stands:
+  `flagShortBarSeconds`, the cuivré mark, and the GC-ball ear check.)*
+- *(2026-08-23, day 24 wrap)* **Nothing blocking. Three small calls
   whenever convenient:** (1) `flagShortBarSeconds` 1.0 → 0.35 (21 judgment flags
   vs 3 across the section); (2) a `cuivré` text mark on the three cuivre notes
   at 40.93, currently invisible as a technique; (3) whether T1's last figure
   stays as your 3:2 (1.2 heads, approved by eye) — the analyser would write the
   whole tail as one sextuplet at 0.8. **And one ear check owed:** the GC ball
   now lands ON the lane edge (5 px lower) — look at it in motion once.
-- *(2026-08-23, day 24 wrap)* **The next section is twice as dense as the one
+- *(2026-08-23, day 24 wrap)* ~~**The next section is twice as dense as the one
   just finished** (36 notes/s vs 17; 87 % of notes start inside the previous
   sample's ring). The plan puts the thinning question to you with those numbers
-  FIRST, before any notation — say if you would rather see it notated as-is
-  first and judge from the page.
+  FIRST, before any notation.~~ *(ANSWERED day 25: "it feels very dense" meant
+  UNPLAYABLE, not too-much. CLOUD02-I passes playability with 12 part moves and
+  no removals; the thinning ladder stayed research. PLAYABILITY_MODEL.md.)*
 - *(2026-08-22, day 23)* ~~**Nothing blocking; four things await
   your eye or your call.** (1) **You have not seen the last two changes** —
   figure 1's beamlets (stubs on the notes that open a gap) and figure 2's

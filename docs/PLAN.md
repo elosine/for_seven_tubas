@@ -1823,7 +1823,7 @@ while building the real score.
   session), plus one open question: whether the three cuivre notes want a
   cuivré text mark, since the technique is currently invisible on the page.
 
-- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 25 → day 26: parts 1–3 done for T1; 8g gates the rest)`. **Day 25
+- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 27: 8g BUILT, so the gate is lifted; Part 3 resumes for T2–T10 once the composer has ruled on the T1 segmentation — journal §2 step 3)`. **Day 25
   reframed it:** the composer's *"it feels very dense"* meant UNPLAYABLE, not too-much —
   *"this process is strictly for playability… the smear or audibility is of secondary
   concern."* The section passes playability with 12 part moves and no removals (OR);
