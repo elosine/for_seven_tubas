@@ -178,7 +178,7 @@ ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable traje
   {
     const Layout2 = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
     const G2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
-    const real = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-t1-x02.ir.json'), 'utf8'));
+    const real = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'   /* day 25: the canonical section file (the T1 working file was pruned); strictly more coverage */), 'utf8'));
     const balls = Anim.collect(real, null, ST, { parts: real.source.parts, deviceOf: Layout2.deviceResolver(real, (C.engraving || {}).layout || {}) }).filter(i => i.kind === 'gc');
     const arcs = Layout2.layoutSection(real, G2, (C.engraving || {}).layout || {}).systems
       .flatMap(sy => sy.items).filter(i => i.k === 'gc').map(i => +i.t.toFixed(6));

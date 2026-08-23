@@ -8113,3 +8113,29 @@ through a bash heredoc lost its backslash and became `/s|"/` — "quote anything
 containing the letter s". Caught by printing the line; fixed by writing the
 edit from a file instead of the shell. Same class as the earlier backtick
 mangling. Five batteries green.
+
+### Day 24 wrap (written 2026-08-23, small hours) — handoff for CLOUD02-I
+
+Composer: *"I'd like to wrap and prepare for a clear… a mini plan for the next
+day on the next section, 36 to 40.4… make sure they can find everything and can
+execute it competently from cold start. The last few cold starts weren't
+necessarily the smoothest."*
+
+**Measured for the plan** (`db1`, 36.0–40.4): 159 notes, all staccato, 4.4 s
+= **36 notes/s across the ensemble — twice density build 1's dense stretch
+(17/s)**. Per part 14–18 notes, median gap 208–292 ms, **96 % of gaps under a
+breath** (one continuous run per part by D62), **130 of 149 within-part notes
+start before the previous sample has stopped ringing**. That is the evidence
+the thinning question gets put with.
+
+**The handoff is journal §2, rewritten as a cold-start block:** state in one
+paragraph · a tool table (page, analyse, validate, build, rebuild-from-the-
+stored-command, move, batteries) · PLAN 8f with four steps and a done · five
+hard-won warnings (re-check every figure under a changed flag; screenshots beat
+troubleshooting; the composer reads shapes not tables; no written 32nds; don't
+fight over 0.2 of a head) · open items. CLAUDE.md pins the read order: §2 +
+NOTATION_STANDARDS, then go.
+
+**Two batteries went red at the very end** because they hardcoded the pruned
+`db1-t1-x02`; repointed to the canonical `db1` (strictly more coverage:
+midiplayer now sees 465 T1 notes and the full amendment list). Nine green.

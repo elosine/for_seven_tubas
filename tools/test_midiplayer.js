@@ -145,7 +145,7 @@ ok(rig3.log.every(e => e.port === 'tuba1' || e.port === 'tuba1b'), 'parts:[0] to
 // fp sample; everything the IR does not name is the same object reference.
 {
     const { withIrDurations } = require(path.join(ROOT, 'notation', 'lib', 'midiplayer.js'));
-    const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-t1-x02.ir.json'), 'utf8'));
+    const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'   /* day 25: the canonical section file (the T1 working file was pruned); strictly more coverage */), 'utf8'));
     const before = score.objects.find(o => o.id === 'wc-23').endSeconds;
     const { score: sc2, amended } = withIrDurations(score, ir);
     const w23 = sc2.objects.find(o => o.id === 'wc-23');

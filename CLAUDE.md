@@ -25,7 +25,9 @@ plans around it** · no clear evidence means no diagnosis.
   variants and chooses keepers, AI files voicings/articulation-sets/
   realizations into `bank/blast_taxonomy.json` WITHOUT being asked
 - **Living plan:** `docs/PLAN.md` — stable IDs; rules in its header
-- **Session state, decisions:** `docs/PROJECT_JOURNAL.md` — §2 Resume Here first
+- **Session state, decisions:** `docs/PROJECT_JOURNAL.md` — §2 Resume Here first.
+  **Cold start = §2 + `docs/NOTATION_STANDARDS.md`, then go.** §2 carries the tool
+  table and the next section's plan with commands; do not rediscover them.
 - **Composer's verbatim thinking:** `docs/COMPOSER_LOG.md`
 - **Session hygiene, cost, model strategy:** `docs/SESSION_HYGIENE.md` — clear
   between work chunks; the docs are the handoff, not the chat.

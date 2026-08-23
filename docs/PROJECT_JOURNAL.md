@@ -10,259 +10,107 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 24 (2026-08-22, second sitting) — THE WHOLE SECTION IS NOTATED FOR ALL
-TEN PARTS, clusters deliberately left loose. Claude Code / Opus 5.**
+**DAY 25 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
+go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
-- **The working file is now `db1-all-x01`** (0–55.94, **parts 0–9**, `--bricks`,
-  456 events / 129 chunks, valid): every individual GC, every surge and every
-  fortepiano in the section, in all ten lanes. T1's authored cluster
-  (31.49–34.6) is carried inside it and rebuilds **byte-identical** to the
-  day-23 file. One command rebuilds the whole thing:
-  ```
-  node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 \
-    --parts 0-9 --profile section1 --id db1-all-x01 --exp --bricks \
-    --label "db1 ALL PARTS x01 (0-55.94, bricks; T1 cluster kept)" \
-    --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
-    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 \
-    --beam 31.17-31.40@1 \
-    --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6
-  ```
-  (modifiers are POSITIONAL since day 24 — each applies to the `--cluster`
-  before it. **T2 is now fully figured**: the pair + the six-note cluster.)
-  `db1-t1-x02` is untouched and still in the picker.
-- **DECISION (→ §4 at session end): cuivre inherits the fortepiano device set.**
-  The three cuivre notes (T1/T4/T8, all at 40.93) are members of
-  `grp-vert03-fp-01`, whose seven other members are technique `fortepiano` at
-  the same instant and velocity, and whose score `performanceNotes` reads
-  "VERT01-03 fortepiano" on every member. Drawing them differently would notate
-  a *timbre* difference as a *gesture* difference. Rejected: leaving them as
-  bare bricks (a ten-part chord with three holes) and inventing a cuivre-only
-  device with no composer input.
-- **DECISION (PROVISIONAL, → §4): plain sustained `ord` = go line + nh-unit +
-  one band dynamic.** No GC (the surge precedent — a sustained entry is not an
-  impact) and no ring bar (ord duration is real per D9; the bar exists to show
-  a FIXED one-shot ringing past its written value). This is what the 48.05
-  octaves-Bb blast now draws, ten lanes at **f**. Say the word and it changes.
-- **A trap that was found and closed:** device membership resolves
-  `byTechnique` first and `byEnv` **on top**, so a bare `ord` entry leaks its
-  band dynamic onto all eleven surges (`ord` + env `surge`). `byEnv.surge` now
-  carries an explicit `dynMark: false`. Surge look verified unchanged by count.
-- **PER-PART SOLO in the notation page** (composer asked for it the same
-  sitting): one button per part on the bar — click toggles, **ALT+click =
-  exclusive**, soloed parts keep full ink and are the only ones that sound,
-  the rest dim to 30 %. Same convention as the composer score's lane S
-  buttons, so the two apps behave identically. Buttons only for the parts the
-  save contains. Survives page turns, the zoom flip and the hot reload (which
-  matters — the cluster pass edits the IR while a part is soloed). A render
-  cannot be soloed; MIDI can. Not yet heard: Web MIDI is unavailable in the
-  verification browser, so the mute path is proven by unit test, not by ear.
-- **`--cluster` now takes `@part`** (`31.49-34.6@0`) and REFUSES a bare span in
-  a multi-part IR, naming the lanes it would have swallowed. This is what makes
-  the coming part-by-part cluster pass work inside one file instead of ten forks.
+### State in one paragraph
 
-- **FIRST COMPOSITIONAL EDIT TO THE ARCHIVE: `wc-28` moved T2 → T9**
-  (composer: *"in tuba two at seventeen nineteen there is a GC. Can we move
-  that to another part, two by nine?"*). Staccato G1 at 17.19. **This is a
-  new class of change and it extended the protocol** (ARCHIVE_AMENDMENTS
-  rule 5, new): rules 1-4 cover an archive VALUE being wrong, which lives in
-  the IR — but a part move changes which MIDI port sounds the note, and the
-  player compiles the archive, so an IR-only move would draw it on T9 and
-  sound it on tuba2b. Compositional edits therefore go in the SCORE, via
-  `tools/move_object.js` (dry run by default; refuses a same-onset collision
-  in the target part), ledgered as **SCORE EDIT**, with every IR re-extracted
-  in the same breath. One-line diff; undo is `git checkout -- scores/…`.
-  Verified both ways: the live page shows the GC on T9's lane and nothing in
-  T2 before 22.66, and `techniqueFor` now routes the note to `tuba9b` where
-  it was `tuba2b`. **Musical consequence for the ear: T9 now ENTERS at 17.19
-  instead of 21.07, and since T9 has no surge this is that player's first
-  sound in the piece.**
+Density build 1 (0–34.6 s) is FINISHED and promoted: `notation/ir/db1.ir.json`
+("DENSITY BUILD 1 — all parts, figured", top of the picker). 25 clusters across
+all ten parts, one GC each, zero go lines on cluster members, every cluster head
+with its left edge on its go time, zero collisions above any beam. **The command
+that built it is stored inside the file** (`provenance.build`) and rebuilds it
+byte-identically — that IS the save. The archive score
+`scores/piece-s25-finished01.json` had three ledgered part-moves (wc-28 T2→T9,
+wc-87 T8→T9, wc-88 T10→T7; `docs/ARCHIVE_AMENDMENTS.md`). All pushed; working
+tree clean.
 
-- **BEAM WITHOUT CLUSTERING (`--beam`) + `--noGc`** — the composer's mixed
-  pair in T2: `wc-95` (staccato 31.176) beamed to `wc-98` (fortepiano
-  31.396, the long tone), *"stem the half note... connect it to the sixteenth
-  with a beam... the sixteenth stub on the first one... remove the GC from
-  the second one"*. `--cluster` was the wrong tool: it refits a tempo and
-  redraws every member as a 16th on a grid with rests. `--beam t0-t1@part`
-  writes ONLY the stem/beam fields, so each note keeps its own technique
-  device — the 16th its filled head + dot + band dynamic, the long tone its
-  OPEN head (the half note) + ring bar + sfzp. Beam levels are DERIVED, not
-  asked for: a short one-shot takes two, anything that rings takes the
-  primary only, so day 23's beamlet rule produces the stub by itself.
-  `--noGc <objectId>` is a general per-note override and removes the ball
-  too (animobj resolves GCs through the same resolver, D50).
-- **A BEAM IS THE GROUP'S HEIGHT, NOT THE NOTE'S** *(bug found and fixed,
-  day 24 — worth remembering because it can only ever appear in a MIXED
-  group)*. Each note derives its beam height from its own technique's flag;
-  a fortepiano has no `nhStem`, falls back to flag8 (3.008 ss) where the
-  staccato uses flag16 (3.508), so the joining beam sloped by half a space.
-  Caught by reading the glyph table first, then confirmed live by a stale
-  browser cache that rendered the old code beside the new: 3.95 px of slope,
-  which is 0.5 ss to the pixel. Groups are now levelled to the tip furthest
-  from the staff (never shortens a stem) with the stems moved along; a
-  provable no-op for single-technique groups, both snapshot batteries green.
+### The tools you will use (all verified day 24)
 
-- **THE STANDARDS ARE WRITTEN DOWN — `docs/NOTATION_STANDARDS.md`** (composer:
-  *"after the clear, we've lost. I've had to reestablish some of these
-  rules"*). Every cluster/beam rule in the composer's words beside its
-  registry key; `notate_section.js` builds figures FROM
-  `container.json → engraving.layout.figures`, so the rules are data. READ IT
-  BEFORE DRAWING A FIGURE.
-- **T2's six notes at 32.56–34.51 = ONE cluster at ♩=101.4** (option c of
-  three the composer was shown; max err 28 ms; two beam groups, `f` once +
-  accents on the loud partials = the ambient+deviation model, chosen after the
-  composer asked whether one mark + "softer" exists — it doesn't, the inverse
-  does). **Three bugs fixed on the way**, none of which T1's cluster could
-  have shown: cluster modifiers were global (now positional) · a beam group
-  took its stem direction from its first member (now Gould's furthest-from-
-  middle rule, ties up) · **the page planner could cut later than the page
-  window, leaving 32.0–33.1 on no page** (slack now backwards only; the
-  committed splice snapshot had the defect baked in).
-- **The beamed pair is now a STANDARD, not a one-off** (`figures.beam`): no go
-  lines · GC first-only · first head centred on its go time (`headCenter`) ·
-  the members' dynamics together on one row above the beam, beam lowered to
-  fit. Composer's note *"beams should always be flat"* confirmed the
-  levelling law from the previous sitting.
+| to… | run |
+|---|---|
+| see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick `db1` (hard-reload after any `.js` change; data files hot-reload) |
+| analyse a span the NEW way (D63) | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` — seams by the breath rule, then each group's best writing + alternatives as SHAPES; pickups FLAGGED never applied |
+| check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (23/25 expected; cl-1 and cl-25 are understood exceptions) |
+| build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: `--pattern` (grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` · `--noGoLine` |
+| rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
+| move a note to another part | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P` (dry run; `--apply`), then ledger it in ARCHIVE_AMENDMENTS |
+| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer` — all green at close |
 
-- **Three more corrections, all captured as STANDARDS rather than per-note
-  edits** (day 24, later): (1) **the GC sits on the RINGING note** of a beam,
-  not the first — *"let's shift the GC to the half note"* — and EVERY member's
-  head is centred on its go time (`figures.beam.gc: "ring"`, `anchor:
-  "headCenter"`); (2) **a beamlet on a group's LAST note points INWARD** —
-  *"inside the stem rather than protruding outside"* — everywhere else it
-  still points right; audited every stub, exactly one flipped, T1's three are
-  untouched; (3) **the cluster dynamics derivation is written down but NOT
-  wired** (`figures.cluster.dynamicsRule`), at the composer's request — *"I'm
-  not sure we're ready for AI to generate the clusters, but let's just capture
-  it in case that does happen."*
-- **The dynamics rule was tested, not just stated.** Ambient at the softer
-  level + accents above it reproduces T2's cluster EXACTLY (independently
-  derived: ambient f, accents 1,3,5,6) but on T1's 12-partial three-band
-  cluster it gets both ambients and 3 of 4 accents — member 12's accent is
-  BELOW its ambient, a shaping choice no velocity rule predicts. Filed as
-  "propose and say what you could not explain", never auto-apply. **There is
-  no engraved mark for "slightly softer"** — the composer asked; the inverse
-  (state the soft level once, accent the loud ones) is the standard answer.
+### THE PLAN FOR THE NEXT SECTION — CLOUD02-I, 36.0–40.4 s (PLAN 8f)
 
-- **T4's pair at 30.40/30.79 built from the standard alone** — stems up, no go
-  lines, GC on the half note, heads centred — no per-note arguments needed.
-  Stems-up came from the group-direction law by itself.
-- **THE RING BAR NO LONGER STARTS AT THE GO LINE** (composer spotted it on
-  T2): it begins after the nh-unit's ink + `ringBarGapSs` (0.25), clamped so
-  it never precedes the attack. The day-22 "flush with the go line" spec was
-  correct only while units hung BEFORE their go time. **A regression the
-  snapshots did not catch:** without the clamp, all 44 bars moved 0.41 ss LEFT
-  (a GC-bearing unit is pushed clear of its marker, so the algebra I called
-  "provably a no-op" held only for units without a GC) — both batteries stayed
-  green because the fixture has no GC-bearing ring bar. Measuring found it.
-- **Analyses delivered, nothing built from them yet.** T3 29.93–31.97: the
-  composer's own guess wins — **one-shot + the LAST FOUR at ♩=105.6 in 16ths,
-  1 ms error**, the cleanest fit in the section; every other reading costs
-  10–28 ms and most need 32nds. T4's last five: **five consecutive 16ths at
-  ♩=65.5, grid 0,1,2,3,4, 23 ms** — no rests at all. **Caveat that governs
-  both: any TWO onsets fit exactly, so 2-note "err 0" readings are arithmetic,
-  not evidence.**
+Measured at close of day 24 (`db1`, window 36.0–40.4): **159 notes, all
+staccato, in 4.4 s = 36 notes/s across the ensemble — twice density build 1's
+dense stretch (17/s).** Per part 14–18 notes, median gap 208–292 ms, **96 % of
+gaps under a breath** (so by D62 each part is essentially ONE continuous run, at
+most one seam), and **130 of 149 within-part notes begin before the previous
+sample has stopped ringing** (the staccato sample is 0.33–0.5 s). Pitch F#1–G#2
+everywhere. Composer: *"it feels very dense to me."*
 
-- **THE DESIGN REVIEW (day 24, afternoon) — the composer paused the note-by-
-  note work to audit the standards for consistency. Five decisions, D58–D62:**
-  the go line marks DISPLACEMENT (D58) · the notehead's LEFT EDGE is the
-  moment (D59) · the GC ball lands on the LANE EDGE, 3-of-7 collisions → 0
-  (D60) · rests align like noteheads, left edge on the silence's start, two
-  wrong placements measured out first (D61) · **clusters are "go, then
-  count"; one-shots are "go"; rests included and SPLIT AT THE BEAT, no tempo
-  mark (D62)**. Composer's performance model captured verbatim in
-  COMPOSER_LOG; PAPER_NOTES #13 resolves day 19's count-vs-react question.
-  **State:** D58 rolled out to T1's cl-1 only (per figure at the composer's
-  request); D61 applied everywhere; **D62's split-at-beat rests NOT yet
-  built — awaiting the composer's word after the AI's input on Stone/Mists.**
-  T3's cluster at 29.93 is the example: three of its four rests currently
-  swallow beats 2, 3 and 4.
+1. **Analyse first, every part, before touching anything.** Run
+   `pattern_analyze --part N --span 36.0-40.4` for N = 0..9. Report per part in
+   the plain form the composer asked for (day 24: *"just tell me what fits into
+   a tempo or not and give me the grouping options"* — NO tables of ms, shapes
+   and a recommendation). Say for each: how many groups the breath rule gives,
+   the best writing's shape and heads, whether any note is flagged as a pickup.
+2. **The thinning question, with evidence, not feeling.** Give the composer the
+   three numbers above and what they mean: at 36/s the ensemble is past the
+   point where individual attacks are heard as events (finding 14 / the
+   sounding-count regime, DB 044), and within each part the samples overlap
+   themselves 87 % of the time. Then offer strategies only if asked:
+   (a) thin by part — drop every note that starts inside the previous sample's
+   ring (the D51 length is the criterion, measured not guessed); (b) thin by
+   ensemble — keep the density envelope (the META shape) but cap simultaneous
+   sounding count; (c) leave it — the smear IS the texture. The composer decides;
+   a move/removal is a SCORE EDIT (ledger it) and a re-extract.
+3. **Then build, all ten parts, for the composer to review.** Append the
+   `--cluster … --pattern` groups to `db1`'s stored command; pickups only where
+   the composer confirms (the analyser flags, it never applies — D63 §8);
+   dynamics from the ambient+accents rule, per-partial where four bands appear
+   (the rule's documented failure case). Re-validate. The composer then looks at
+   the page and corrects part by part, as on day 24.
+4. **Done =** every part 36–40.4 carries a figure the composer has looked at, the
+   section audit reads clean (one GC per cluster, zero go lines on members, zero
+   above-beam collisions — the day-24 audit scripts are in RUNNING_LOG), and
+   `db1` is rebuilt and pushed.
 
-**Next up:** the composer looks at `db1 ALL PARTS x01` in the picker, then the
-**clusters, part by part**. Ground already computed for that pass (RUNNING_LOG
-day 24): 57 candidate spans, 372 of 456 notes inside one, **zero NO-FITs at
-30 ms**; the tolerance is a compositional dial (a looser one buys a simpler
-notation, since the fit is complexity-scored, D56); and the automatic grouping
-is a candidate list, not the answer — for T1 it proposed 13 notes where the
-composer named 12.
+### Things to know before building anything (hard-won, day 24)
 
-**Open at session end (day 24):**
-- **Nothing has been looked at.** Screenshots were unavailable this session —
-  the Browser pane would not composite — so every claim is a count or a position
-  read out of the live DOM, never an image. The composer's eye is the one
-  missing check, and it is the whole next step.
-- **One open question:** should the three cuivre notes carry a `cuivré` text
-  mark? Right now the technique is invisible on the page.
-- `flagShortBarSeconds` now has data behind it: at 1.0 the section raises **21**
-  judgment flags across ten parts; 0.5 → 9; **0.35 → 3**; 0.25 → 2.
-- Still open from day 23: `export_midi --ir` un-built (NITS) · G2/G3 unclosed
-  on paper.
+- **A fix for one figure must be re-checked against every figure built under
+  the same flag.** The T6 pickup fix silently rewrote T3 into 32nds the composer
+  had rejected; the composer caught it. `--validate` now exists for exactly this.
+- **Screenshots beat troubleshooting.** Twice the composer "could not see" a
+  figure because the AI had built it on the wrong notes (T6, T7 tails instead of
+  the 33 s figures). Ask for / read the screenshot first.
+- **The composer reads shapes, not tables.** When an analysis was too dense
+  they said so; the plain form ("three even 8ths at 1 ms; the pickup 55 ms off")
+  worked.
+- **32nds are never wanted as written values.** Played heads stay 16ths. If the
+  analyser's best reading needs 32nds, the grouping is probably wrong.
+- **The one-notehead threshold** (30 ms on the video page) has the composer's
+  eye on both sides of it; 1.2 heads was accepted once (T1's 3:2). Don't fight
+  over 0.2 of a head.
+
+### Open, not blocking
+
+- `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); cuivré text mark on the
+  three cuivre notes at 40.93; the `analyzer`'s per-beat tuplet model cannot
+  place a tuplet across a beat line (T1's 3:2 straddles one — left as built).
+- `export_midi --ir` still un-built (NITS); G2/G3 formally unclosed on paper.
 
 ---
 
-**DAY 23 (2026-08-22) — DENSITY BUILD 1 IS NOTATED, T1. The one-shot
-vocabulary is complete and the first CLUSTER is on the page. Claude Code /
-Fable 5 (+ Opus 5 for two stretches).**
-
-- **What the working file holds now** (`db1-t1-x02`, 0–55.94 s, `--bricks`
-  mode so nothing is grouped except what the composer named):
-  wc-3 surge · wc-23 fp · wc-29 the first staccato one-shot · three more
-  fps at 23–30 s · **a 12-note cluster 31.49–34.6 at ♩ 87.2 in two beam
-  groups**. Rebuild it with exactly this command (it is the whole state):
-  ```
-  node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 \
-    --parts 0 --profile section1 --id db1-t1-x02 --exp --bricks \
-    --cluster 31.49-34.6 --clusterTol 0.05 --beamBreak 9 --beamThrough 2 \
-    --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9
-  ```
-- **THE ONE-SHOT (GC) VOCABULARY, settled note by note:** go line · the
-  WHOLE GC OBJECT ported from piece #1 (static arc + impact marker + the
-  ball — D53) · filled head at piece #2's 0.844 cell scale · stem with a
-  **16th (double) flag** · staccato dot at the 0.15 tight gap · **one
-  dynamic from five wide bands** (ppp p mf f fff, D52) · ring bar on the
-  fortepianos only, cut by a breath (D55). Fortepianos now carry GCs too;
-  only the surge has none.
-- **THE CLUSTER VOCABULARY:** a composer-named span becomes an authored
-  overlay set; `notation/lib/cluster_fit.js` runs an exhaustive tempo
-  search scored on COMPLEXITY, and the page draws what the analysis chose
-  (D56). This cluster: unit 172 ms, ♩ 87.2 × 4, **no tuplet**, max err
-  36 ms. Two beam groups, beamlets in the first, a 3:2 bracket in the
-  second.
-- **No ottava anywhere:** tubists read ledger lines (threshold 3 → 4,
-  D54). F#1, the piece's lowest note, is exactly 4 ledgers.
-
-**Next up (the composer's own words at session end):** *"have AI generate
-the rest of the tuba parts for this first density build. We'll do an
-evaluation first, analysis of what's there, and if there was anything
-missing in our generator, our pipeline, to accommodate something different
-in one of the remaining nine tuba parts. And then we'll try generation, and
-I'll look at it."*
-1. **ANALYSE T2–T10 over 0–55.94 first** — the same window, all nine parts.
-   What to look for, concretely: techniques present beyond staccato/fp/ord
-   (cuivre appears in T1 at 40.9 — does it appear here?) · notes needing a
-   device the vocabulary has no entry for · pitches outside F#1–F4 or below
-   the 4-ledger threshold · clusters whose onsets DON'T admit a metric fit
-   (`tools/cluster_tempo.js` per candidate span — a "NO FIT" is a real
-   result and means proportional) · simultaneities (the chord case: the
-   breath rule and beam adjacency both treat same-onset notes specially) ·
-   whether any part's density makes the 6.51 ss half-lane overflow.
-2. Then generate, then the composer looks.
-- **Held, not blocked:** the four ring-bar flags in T1 (wc-44 0.71 · wc-49
-  0.66 · wc-62 0.36 · wc-83 0.25 s) — `flagShortBarSeconds` is 1.0, which
-  in this material flags almost every fp; 0.35 would flag only the two
-  genuinely tiny ones. Composer's call, one registry number.
-
-**Open at session end:**
-- The composer has NOT seen figure 1's beamlets or figure 2's solid beam
-  since the last change — first thing to look at on return.
-- Cluster dynamics used the ambient+deviation model for the first time
-  (f · accents · fff · accent). Whether that generalises to nine more
-  parts is exactly what the analysis above should test.
-- `export_midi --ir` still un-built (NITS): a Reaper render would play the
-  un-amended archive.
-- G2/G3 formally unclosed (the loop has been running all day; close on
-  paper when convenient).
-
----
+- **Day 24 (2026-08-22, one long day, Claude Code / Opus 5 + Fable 5):** density
+  build 1 figured for all ten parts, 25 clusters · the standards written down
+  (NOTATION_STANDARDS.md) and made registry data · five design principles
+  locked after a consistency review (D58–D62: go line = displacement · left edge
+  = the moment · GC lands on the lane edge · rests left-edge + split at the
+  beat · clusters are "go, then count") · D63 PATTERN BEFORE GRID, the pattern
+  analyser built and validated 23/25 · three SCORE EDITS (part moves) · per-part
+  solo on the notation page · the beam figure retired into the cluster · the
+  T10 32nds replaced by a 3:2 · db1 promoted, the command stored in the file.
+- **Day 23:** T1 figured note by note (D52–D57): the one-shot vocabulary, the
+  first cluster, beamlets, the 3:2 tuplet to the composer's LilyPond standard.
 
 - **Day 22 (three sittings):** 8b machinery (sonify_core → export_midi +
   live MIDI, hot reload, NOTATION_WORKFLOW.md) · THE COLLAPSE (the app IS
@@ -1352,7 +1200,19 @@ I'll look at it."*
 
 ## §6 Human Notes
 
-- *(2026-08-22, day 23 — CURRENT)* **Nothing blocking; four things await
+- *(2026-08-23, day 24 wrap — CURRENT)* **Nothing blocking. Three small calls
+  whenever convenient:** (1) `flagShortBarSeconds` 1.0 → 0.35 (21 judgment flags
+  vs 3 across the section); (2) a `cuivré` text mark on the three cuivre notes
+  at 40.93, currently invisible as a technique; (3) whether T1's last figure
+  stays as your 3:2 (1.2 heads, approved by eye) — the analyser would write the
+  whole tail as one sextuplet at 0.8. **And one ear check owed:** the GC ball
+  now lands ON the lane edge (5 px lower) — look at it in motion once.
+- *(2026-08-23, day 24 wrap)* **The next section is twice as dense as the one
+  just finished** (36 notes/s vs 17; 87 % of notes start inside the previous
+  sample's ring). The plan puts the thinning question to you with those numbers
+  FIRST, before any notation — say if you would rather see it notated as-is
+  first and judge from the page.
+- *(2026-08-22, day 23)* ~~**Nothing blocking; four things await
   your eye or your call.** (1) **You have not seen the last two changes** —
   figure 1's beamlets (stubs on the notes that open a gap) and figure 2's
   solid double beam. First thing on return. (2) **`flagShortBarSeconds`**
@@ -1362,7 +1222,8 @@ I'll look at it."*
   you asked for fff on member 12, whose velocity band is f — written as
   you said, flagged in case it was a slip. (4) **The dynamic-band
   thresholds are provisional** until the SI2 velocity→dB ladder is
-  measured; the section-1 census under them is in the day-23 running log.
+  measured; the section-1 census under them is in the day-23 running log.~~
+  *(superseded by the day-24 wrap note above; items 1 and 3 resolved day 24, 2 and 4 carried forward)*
 - *(2026-08-22, day 23)* **A sound question, not a notation one:** every
   staccato sample (0.43–0.48 s here) OUTLASTS every gap in the cluster
   (155–377 ms). So the figure sounds overlapped, not detached, whatever the
