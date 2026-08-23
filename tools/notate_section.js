@@ -57,6 +57,13 @@
 //                            group. Implies --pattern; cannot be combined with --beamBreak
 //                            (the seams ARE the breaks — move one with --cuts). A bracket
 //                            that crosses a seam is FLAGGED (a straddle), never fixed.
+//   --plain                  NO TUPLETS (day 29, composer on T2: "let's get rid of all the
+//                            brackets"): the pattern analyser fits the best PLAIN 16th grid
+//                            and the cost is printed — over a head is allowed and flagged,
+//                            never hidden. Implies --pattern; works with --figures too.
+//   --rest16 7               the silence BEFORE member 7 is written as 16th rests, one per
+//                            slot, instead of the longest rest that fits (day 29, composer:
+//                            "change that eighth rest to two sixteenths"). Repeatable list.
 //   --ownGrids               with --figures: the 8g/8h reading instead — each figure on its
 //                            OWN grid (its own gridId, rests, values and brackets computed
 //                            inside it), no relation printed between them. The alternative,
@@ -200,8 +207,8 @@ const { doc, warnings } = Extract.extract(score, {
   // Before this they were global, and T2's cluster silently inherited T1's
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
-  const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts']);
+  const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids', '--plain']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -332,6 +339,12 @@ const { doc, warnings } = Extract.extract(score, {
     // precedence rule nobody would remember.
     const useFigures = mods.some(([k]) => k === '--figures');
     const ownGrids = mods.some(([k]) => k === '--ownGrids');
+    // --plain (day 29): the composer, reading T2 — "let's get rid of all the
+    // brackets". The analyser's candidate space loses its tuplets (TUPLETS: [])
+    // and the best plain 16th grid wins; where no plain grid is within a head
+    // the cost is PRINTED and flagged, not hidden — the page says what it
+    // costs to say nothing about the pace. Implies --pattern.
+    const plainOnly = mods.some(([k]) => k === '--plain');
     if (useFigures && mods.some(([k]) => k === '--pattern')) {
       console.error('--cluster ' + label + ': --figures writes the groups on ONE grid from the pattern analyser — --pattern is implied, drop it'); process.exit(2);
     }
@@ -359,6 +372,7 @@ const { doc, warnings } = Extract.extract(score, {
       const paceRatio = parseFloat(modVals('paceRatio')[0] || '0');
       const segOpt = {};
       if (paceRatio > 1) segOpt.PACE_RATIO = paceRatio;
+      if (plainOnly) segOpt.TUPLETS = [];   // --plain: the groups' one grid with no brackets
       // --cuts: the composer names the seams and the pace rule steps aside
       // entirely (8h). Notes are numbered from 1 within the MAIN members, so a
       // pick-up does not shift them.
@@ -456,11 +470,11 @@ const { doc, warnings } = Extract.extract(score, {
     // same object is reused rather than re-fitted — one grid, one set of
     // brackets, and the seams arriving separately as beam breaks.
     const oneGrid = useFigures && !ownGrids;
-    const usePattern = oneGrid || mods.some(([k]) => k === '--pattern');
+    const usePattern = oneGrid || plainOnly || mods.some(([k]) => k === '--pattern');
     let patTuplets = null;   // k(member index) -> {group, num, den, startPos, slot}
     if (usePattern) {
       const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
-      const pf = oneGrid ? seg.single : PF.fit(mainMembers.map(e => e.onset));
+      const pf = oneGrid ? seg.single : PF.fit(mainMembers.map(e => e.onset), plainOnly ? { TUPLETS: [] } : undefined);
       if (!pf) { console.error('--cluster ' + label + (oneGrid ? ' --figures' : ' --pattern') + ': the analyser found no writing'); process.exit(2); }
       // THE PICK-UP GOES ON THE PATTERN GRID, measured against the pattern's
       // own unit (day 28, 8i). The first version of this took its slots from
@@ -498,7 +512,8 @@ const { doc, warnings } = Extract.extract(score, {
             text: b.tuplet + ':' + p2, valueDur: 16 / (4 / p2), beams: Math.log2(p2) });
         });
       }
-      console.log('    PATTERN (D63): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
+      console.log('    PATTERN (D63' + (plainOnly ? ', --plain: no tuplets' : '') + '): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
+      if (plainOnly && !pf.coherent) console.log('    --plain: no plain 16th grid holds this gesture within a head — built as asked; the displacement above is the price of saying nothing about the pace');
     }
     if (!ownGrids) console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
     if (!ownGrids) console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
@@ -579,6 +594,16 @@ const { doc, warnings } = Extract.extract(score, {
       if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
       tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
     }
+    // --rest16 7 : the silence BEFORE member 7 is written as 16th rests, one per
+    // slot (day 29, composer, on T2's lone last partial: "let's change that
+    // eighth rest to two sixteenths"). Carried on the member's device; layout's
+    // rest pass writes every unit of the silence that ends at that member as a
+    // 16th rest instead of the longest value that fits.
+    const rest16 = listArg('rest16');
+    for (const r of rest16) {
+      if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --rest16 ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
+    }
+    if (rest16.size) console.log('    16th rests before member(s) ' + [...rest16].join(','));
     const anyArtic = accentAt.size ? 'accent' : null;
     if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(','));
     if (dynAt.size) console.log('    dynamics: ' + [...dynAt].map(([n, m]) => n + ':' + m).join(' '));
@@ -661,6 +686,7 @@ const { doc, warnings } = Extract.extract(score, {
       // whole cluster otherwise.
       if (pm) { dev.gridId = pm.gridId; dev.figure = pm.figure; }
       else if (oneGrid) dev.figure = sub + 1;
+      if (rest16.has(k + 1)) dev.rest16Before = true;   // day 29: the silence before this member as 16th rests
       if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
       if (rings) {
         // head, ring bar and dynamic come from its technique entry; the mark

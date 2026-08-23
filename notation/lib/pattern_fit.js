@@ -120,10 +120,24 @@
     if (!cands.length) return null;
     const underHead = cands.filter(c => c.heads <= opt.MAX_HEADS + 1e-9);
     const pool = underHead.length ? underHead : cands;
-    pool.sort((a, b) =>
+    // Among COHERENT readings the simplest wins (fewest tuplet beats, then
+    // fewest empty slots, then heads). When NOTHING is within a head the
+    // order flips: displacement FIRST (day 29). Found under --plain on T2's
+    // second gesture — with tuplets off, the old order chose eight even 16ths
+    // at 3.8 heads (the 430 ms gap written equal to the 157 ms one) over a
+    // rest-strewn grid at 1.4 heads, because "no rests" ranked above "close to
+    // the spacing". Principle 4 says the dissonance IS the displacement, so
+    // the least-bad incoherent reading is the one nearest the spacing, and
+    // simplicity only breaks ties. Coherent readings are sorted as before.
+    if (underHead.length) pool.sort((a, b) =>
       (a.tupBeats - b.tupBeats) ||
       (a.empty - b.empty) ||
       (a.heads - b.heads) ||
+      (b.unit - a.unit));
+    else pool.sort((a, b) =>
+      (a.heads - b.heads) ||
+      (a.tupBeats - b.tupBeats) ||
+      (a.empty - b.empty) ||
       (b.unit - a.unit));
     const best = pool[0];
     return Object.assign(describe(best, rels, opt), { coherent: underHead.length > 0, alternatives: pool.slice(1, 4).map(c => describe(c, rels, opt)) });

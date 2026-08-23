@@ -1331,3 +1331,72 @@ would cover notes 3–5, 6–7 and **11–14**, with "(verify)" written next to 
 wrong and the flagged uncertainty caught it; the claim that depended on it (no bracket
 leaves its group) held. Writing "verify this" beside a guess is what let the guess be
 wrong without costing anything.
+
+
+## Day 29 — "let's get rid of all the brackets": the second read turns the writing rule over (2026-08-23, Fable 5)
+
+**What happened.** One part after D69 — *the bracket is the message*, the composer
+asking for T1's 7:4 · 6:4 · 7:4 — the second part came back the other way. Shown four
+candidate pages for T2 (the tool's groups with the straddling 7:4; own grids; four
+pairs; two gestures), the composer chose none of them and dictated a fifth:
+
+> *"c is the closest, I hear three plus three plus one plus four plus four. and it
+> could be three plus four plus four plus four. So let's do this. first three Beamed
+> together. Then the rest — then the next three beamed together, let's change that
+> eighth rest to two sixteenths, and then that next eighth note will stand alone with
+> the two flags. then the next four together, and there will be a GC there. and I
+> didn't mention the GC on the first one. So those four together and then the last
+> four beam together. And then let's get rid of all the brackets. So let me see that,
+> and then let's discuss it."*
+>
+> *"Sorry. I changed my mind about the flags. Let's just have two beamlets on the
+> right for that single sixteenth."*
+
+Three things in that are new to the system, and each one is a place where the
+composer's page is not the tool's vocabulary: **a one-note group inside a gesture**
+(the tool's segmenter holds that a figure has at least two notes — "a figure is a
+pattern; one note is a one-shot" — but the composer's seventh partial is neither a
+figure nor a one-shot: a tail, beamleted, with no go of its own); **a silence written
+as two 16th rests rather than the longest value that fits** (the day-24 rest rule,
+"one rest per silence, dots allowed", made by the same composer — overruled for one
+silence, by eye, for reasons not yet said); and **no bracket at all** on a gesture
+that the analyser cannot write within a head without one.
+
+**The AI's reaction, verbatim, on the no-bracket request (for the record — the
+composer's standing ask is both sides):** *"Caught something that matters: with
+tuplets off, the analyser picked a grid of eight even 16ths at 3.8 heads — the 430 ms
+gap written equal to the 157 ms one. That's the fit's fallback order: when nothing
+fits within a head, it sorts by 'fewest tuplets, fewest rests' before displacement, so
+it prefers the page with no rests over the page closest to the spacing. That's
+backwards under principle 4."* The order was fixed (displacement first when nothing
+is coherent) and the plain page came out at 1.2 heads — the same 1.2 the composer had
+once accepted on T1. **The defect had been invisible for five days because every
+gesture in the piece so far had a coherent reading; it took the composer removing the
+brackets to make the analyser choose among incoherent ones.** That is the recurring
+shape of this project: the composer's verdict is what exercises the tool's untested
+branch.
+
+**The measurement that belongs in the paper.** The composer's T2 cut set and the
+tool's disagree in a way a threshold cannot fix. On gesture 2 the composer cut at the
+gesture's biggest gap (430 ms — the cut the tool's DP had passed over as a +0.02 tie,
+because a pair fits any grid for free and a cut costs 0.5) and at *neither* of the
+smaller pace changes the tool took (215 vs 157; 292 vs 219). For the pace rule to drop
+both, the ratio must exceed 292/157 = 1.86; for it to keep the composer's five T1 cuts
+it must stay under 1.272. **No constant spans both.** Either the ear's pace threshold
+is not a constant — it depends on the gesture (on T2 the 430 ms gap *dominates*, 1.47×
+the next; T1's slow gaps form a continuum) — or the composer on T2 was reading page C's
+beams as much as hearing. Both are testable; neither is decided. *(And this is the
+second time the composer's verdict on a part has changed the rule rather than the
+page: T1 found the one-sided seam, T2 finds that the pace ratio is not one number.)*
+
+**On D69 itself.** T1: *"I would like the tuplet brackets."* T2: *"let's get rid of
+all the brackets."* These are not contradictory if the rule is the one D69 actually
+states — *a pace change must be SAID on the page* — and the beams are doing the
+saying here: three-three-one / four-four, with the 16th pulse continued into the lone
+note by the two rests. On T1 the bracket said "these three are quicker than the
+16ths around them"; on T2 the composer has no quicker group inside a group to mark —
+the groups *are* the pace changes. Whether that reconciliation is the composer's or
+only the AI's is the question the discussion has to settle. *(AI's lean, stated before
+the discussion so it can be wrong on the record: the bracket is the message when a
+pace change falls INSIDE a beam group; when the pace change IS the beam break, the
+break is the message and the bracket is noise.)*

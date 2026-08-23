@@ -224,6 +224,24 @@ ok(PF.fit([31.765, 32.026, 32.442, 32.835]).grid.join(',') === '0,2,5,8', '8g: f
     '8i --ownGrids: and still nothing past 0.4 heads (' + Math.max.apply(null, s.figures.map(f => f.fit.heads)).toFixed(2) + ')');
 }
 
+// --- day 29: NOTHING WITHIN A HEAD -> displacement decides (found under --plain).
+// T2's second gesture with tuplets off: no plain grid is within a head, and the
+// least-bad one must be the one NEAREST THE SPACING (1.2 heads, rests between the
+// 16ths), not the rest-free grid of eight even 16ths at 3.8 heads that the old
+// order preferred ("no rests" ranked above "close to the spacing").
+{
+  const T2b = [38.599, 38.756, 38.971, 39.199, 39.629, 39.848, 40.140, 40.326];
+  const f = PF.fit(T2b, { TUPLETS: [] });
+  ok(f && f.coherent === false, '--plain T2 @38.60: no plain 16th grid is within a head');
+  ok(f && f.heads < 1.3 && f.heads > 1.0, '--plain T2 @38.60: the least-bad plain grid is ~1.2 heads (' + (f && f.heads.toFixed(2)) + '), not 3.8');
+  ok(f && f.tupletBeats === 0, '--plain: and it carries no tuplet');
+  const even = PF.fit(T2b, { TUPLETS: [], UMIN: 0.238, UMAX: 0.238 });
+  ok(even && even.heads > 3, 'the rest-free grid at 238 ms is 3.8 heads (' + (even && even.heads.toFixed(1)) + ') — what the old order chose');
+  // coherent readings are sorted as before: T8's plain reading still wins
+  const t8 = PF.fit([31.765, 32.026, 32.442, 32.835]);
+  ok(t8 && t8.coherent && t8.tupletBeats === 0, 'coherent order unchanged: T8 31.76 is still plain and coherent');
+}
+
 if (process.argv.includes('--prove-red')) {
   const f = PF.fit([31.765, 32.026, 32.442, 32.835], { MAX_HEADS: 0.01 });
   ok(f && !f.coherent, 'prove-red: a 0.01-head line makes T8 incoherent');
@@ -234,4 +252,4 @@ if (process.argv.includes('--prove-red')) {
   ok(PF.bracketsVsGroups(PF.segment(T1).single, [2, 4, 7, 10, 14]).straddles.length > 0, 'prove-red: a seam inside the 7:4 is a straddle');
 }
 if (fails) { console.error('PATTERN_FIT RED: ' + fails + ' failure(s) of ' + checks); process.exit(1); }
-console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words) + 8h seams (two-sided legality, ratio tie, no-clean-seam, cuts by hand, flow) + 8i brackets vs groups (T1 golden 7:4 6:4 7:4, straddle detection, the CLOUD02-I scan)');
+console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words) + 8h seams (two-sided legality, ratio tie, no-clean-seam, cuts by hand, flow) + 8i brackets vs groups (T1 golden 7:4 6:4 7:4, straddle detection, the CLOUD02-I scan) + day-29 --plain fallback (displacement first when nothing is within a head)');

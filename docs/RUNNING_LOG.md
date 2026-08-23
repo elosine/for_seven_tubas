@@ -9682,3 +9682,90 @@ under the 157 ms pair) · 616 w 25 (pair) · 674 w 137 (3–6) · 856 w 29 (pair
 beam). The 7:4's text centre sits over the break between the 616 and 674 beams — the
 straddle, visible as built. T1's lane unchanged: `7:4 6:4 7:4`, six primary beams at
 the t1-final x positions.
+
+
+#### Day 29 — THE T2 VERDICT, first pass (in progress — "let me see that, and then let's discuss it")
+
+**The composer, on the four pages (verbatim):** *"c is the closest, I hear three plus
+three plus one plus four plus four. and it could be three plus four plus four plus
+four. So let's do this. first three Beamed together. Then the rest — then the next
+three beamed together, let's change that eighth rest to two sixteenths, and then that
+next eighth note will stand alone with the two flags. then the next four together,
+and there will be a GC there. and I didn't mention the GC on the first one. So those
+four together and then the last four beam together. And then let's get rid of all
+the brackets. So let me see that, and then let's discuss it."* Then, a minute later:
+*"Sorry. I changed my mind about the flags. Let's just have two beamlets on the right
+for that single sixteenth."*
+
+**Read back as a page:** one gesture over notes 1–7 (GC on 1) with beam groups
+[1 2 3] · [4 5 6] · 7 alone (stem + two right-pointing beamlets, the two-slot silence
+before it as two 16th rests); a second gesture over 8–15 (GC on 8) with [8–11] ·
+[12–15]; **no tuplet bracket anywhere**. The breath seam the tool drew at 502 ms
+(after note 7) is the composer's gesture boundary too — Q1 is answered "one
+gesture" for the 499 ms pause, and the GC lands where the tool's breath rule put it.
+
+**Three things the tools could not write, built this sitting (all small, all tested):**
+
+1. **`--plain`** (positional modifier on `--cluster`, boolean): the pattern analyser
+   with `TUPLETS: []` — the best PLAIN 16th grid, cost printed, over a head allowed
+   and flagged. Implies `--pattern`; passes through to `--figures` as well.
+2. **`--rest16 N`**: the silence BEFORE member N written as 16th rests, one per slot
+   (`dev.rest16Before` → `cl.rest16At` → the rest pass takes R = 1 for a run that
+   ends on a marked position). Without it the same two-slot silence is one 8th rest,
+   as before — both asserted in `test_layout`.
+3. **A lone note in a beam group of its own** (`layout.js`): primary AND secondary
+   drawn as right-pointing stubs of `beamStubSs`; the day-24 "last note points left"
+   rule now applies only to groups of ≥2. The old warning survives for a CLUSTER that
+   is one note (a swept single head). `test_layout`: both stubs present, different
+   levels, no warning, the pair before it unaffected.
+
+**And one defect found on the way, fixed, and locked (`pattern_fit.js`):** with
+tuplets off, T2's second gesture came out as **eight even 16ths at 238 ms = 3.8
+heads** — the 430 ms gap written equal to the 157 ms one. Cause: when NO candidate is
+within a head, `fit()` sorted the fallback pool by (tuplet beats, empty slots, heads)
+— "no rests" outranked "close to the spacing". That is exactly the dissonance
+principle 4 names. The fallback now sorts by heads first (simplicity breaks ties);
+coherent readings keep the old order. Result: **unit 126 ms, grid 0,1,3,5,8,10,12,14,
+worst 37 ms = 1.2 heads** — the same 1.2 the composer accepted on T1's 3:2.
+`test_pattern_fit` 80 → 85 (the 1.2 vs 3.8 pair locked; T8 still plain and
+coherent). `--validate` 24/25 unchanged; all ten batteries green.
+*Also: `--plain` was first parsed as a valued modifier and ate the `--beamBreak`
+after it — gesture 2 came out as one beam of eight. `BOOL_MODS` fixed; the DOM audit
+is what caught it.*
+
+**The page: `t2-composer` ("T2 read E")**
+```
+node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 \
+  --profile section1 --id t2-composer --exp --label "T2 read E (day 29) — …" --bricks \
+  --cluster 36.21-39.62@0 --figures \
+  --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 7 \
+  --cluster 38.50-40.40@1 --plain --beamBreak 5
+```
+VALID. **DOM audit (:5200, lane T2):** primary beams at x 240 w 89 (1–3) · 407 w 66
+(4–6) · 616 w 94 (8–11) · 777 w 109 (12–15); the lone note 7 at x 538 with two
+8-px stubs at y 120 and y 126 (both levels, both to the right); two identical 16th-rest
+glyphs at x 490 and 511 — one slot (21 px) apart — between note 6's stub and note 7's
+stem; the second gesture's GC arc starting at x 553; **no bracket text on T2** (T1's
+`7:4 6:4 7:4` unchanged). The Browser pane was not displayed, so no screenshot.
+
+**Where gesture 2's 1.2 heads falls:** on the 126 ms grid the notes sit at slots
+0,1,3,5,8,10,12,14; the 37 ms miss is global note 12 (local note 5, the one after the
+430 ms gap — 3.4 slots, written as 3). The composer's "don't fight over 0.2 of a
+head" covers it, but it is the one place the plain page lies a little.
+
+**THE MEASUREMENT FOR THE DISCUSSION — one pace ratio cannot hold both verdicts.**
+The composer's T2 cut set differs from the tool's in a specific way: on gesture 2 they
+cut at the gesture's BIGGEST gap (430 ms, the one the DP passed over as a +0.02 tie)
+and at neither of the two smaller pace changes the tool took (215 vs 157 = 1.37;
+292 vs 219 = 1.33). For `--paceRatio` to drop both, 292 must fall in the same band as
+157 → r > 292/157 = **1.86**. At 1.4 the rule still cuts after 6 (the 292 gap).
+T1's five cuts need r **< 1.272** (the day-28 ratio tie). So the threshold the ear
+applied on T2 is coarser than on T1 by a factor no constant spans. Candidate
+explanations, all for the composer: (a) GPR 2b is RELATIVE — a seam is the locally
+DOMINANT gap, and in gesture 2 the 430 dwarfs everything (1.47× the next gap) while
+T1's slow gaps (265–347) form a continuum with no dominant one; (b) the composer was
+reading page C's beams as much as hearing, and 4+4 is what C's beams nearly showed;
+(c) the lone note 7 is a THIRD departure — `MIN_FIGURE_NOTES` 2 ("a figure is a
+pattern; one note is a one-shot") forbids it, yet the composer kept it inside the
+gesture (no GC, beamlets) as a tail. Nothing is decided; this is what "let's discuss
+it" is for.

@@ -391,6 +391,41 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
     solo.events = solo.events.slice(0, 1); solo.chunks[0].events = ['c0']; solo.overlays = solo.overlays.slice(0, 1);
     const L1 = Layout.layoutSection(solo, G);
     ok(!L1.systems[0].items.some(i => i.k === 'beam') && L1.warnings.some(w => /beam group "cl-1" has 1 note/.test(w)), 'cluster of one: no beam + a warning');
+    // ---- A LONE NOTE IN ITS OWN BEAM GROUP (day 29, composer, T2's seventh
+    // partial: "two beamlets on the right for that single sixteenth") ----
+    // three notes on a 16th grid at slots 0, 1 and 4; the third is a beam
+    // group of its own. It draws a right-pointing stub at BOTH levels, the
+    // silence before it is two 16th rests under --rest16, and the cluster
+    // does not warn.
+    {
+      const lone = JSON.parse(JSON.stringify(cl));
+      lone.events = [0, 1, 4].map((slot, n) => ({ id: 'c' + n, onset: 1 + slot * 0.2, duration: 0.46,
+        pitch: { midi: 43, spelled: { step: 'G', alter: 0, octave: 2 } }, technique: 'staccato', provenance: 'derived', mode: 'plain', vel: 90 }));
+      lone.chunks[0].events = ['c0', 'c1', 'c2'];
+      lone.overlays = lone.events.map((e, n) => {
+        const v = JSON.parse(JSON.stringify(CL));
+        Object.assign(v.device, { clusterId: 'k', beamGroup: n < 2 ? 'k-a' : 'k-b', beamUnit: 0.2, beamPos: [0, 1, 4][n], beamLevels: 2, beamSubdivision: 4, noteBeams: 2 });
+        if (n === 2) v.device.rest16Before = true;
+        return { id: 'ov-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: v, provenance: 'authored' };
+      });
+      const LL = Layout.layoutSection(lone, G);
+      const it = LL.systems[0].items;
+      const stubs = it.filter(i => i.k === 'beam' && i.stub && Math.abs(i.tips[0].t - 1.8) < 1e-9);
+      ok(stubs.length === 2 && stubs.every(b => !b.inward && b.tips[1].dxSs > b.tips[0].dxSs + 1e-9 && b.tips[0].t === b.tips[1].t),
+        'lone note: a right-pointing stub at both beam levels (' + stubs.length + ')');
+      ok(stubs.length === 2 && Math.abs(stubs[0].tips[0].ySs - stubs[1].tips[0].ySs) > 1e-9, 'lone note: the two stubs sit at different levels');
+      ok(!LL.warnings.some(w => /beam group "k-b"/.test(w)), 'lone note inside a cluster: no warning');
+      const pri = it.find(i => i.k === 'beam' && !i.stub && i.group === 'k-a');
+      ok(pri && pri.tips.length === 2, 'lone note: the pair before it keeps its ordinary beam');
+      const rests = it.filter(i => i.k === 'rest').sort((a, b) => a.t - b.t);
+      ok(rests.length === 2 && rests.every(r => r.units === 1 && r.dur === 16) && Math.abs(rests[0].t - 1.4) < 1e-9 && Math.abs(rests[1].t - 1.6) < 1e-9,
+        '--rest16: the two-slot silence before the lone note is two 16th rests, not an 8th (' + rests.map(r => r.dur + (r.dotted ? '.' : '')).join(' ') + ')');
+      // and WITHOUT the mark the same silence is one 8th rest, as before
+      const plain8 = JSON.parse(JSON.stringify(lone));
+      delete plain8.overlays[2].value.device.rest16Before;
+      const r8 = Layout.layoutSection(plain8, G).systems[0].items.filter(i => i.k === 'rest');
+      ok(r8.length === 1 && r8[0].units === 2 && r8[0].dur === 8, 'without --rest16 the same silence is one 8th rest (' + r8.map(r => r.dur).join(' ') + ')');
+    }
   }
 
   // registry opts replace the code defaults wholesale

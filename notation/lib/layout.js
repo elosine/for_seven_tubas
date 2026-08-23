@@ -701,6 +701,9 @@
                       const cl = clusters.get(cid);
                       if (cl.anchorT == null || e.onset < cl.anchorT) { cl.anchorT = e.onset; cl.anchorPos = dev.beamPos; }
                       cl.positions.push(dev.beamPos);
+                      // day 29 (--rest16): the silence ending at this position is
+                      // written as 16th rests, one per slot
+                      if (dev.rest16Before) (cl.rest16At = cl.rest16At || new Set()).add(dev.beamPos);
                       if (dev.noteUnits) cl.covers = (cl.covers || []).concat([[dev.beamPos, dev.beamPos + dev.noteUnits]]);
                       if (dev.tupletGroup) {
                         if (!cl.tuplets) cl.tuplets = new Map();
@@ -943,7 +946,21 @@
       // stem — no beam, and a warning: the composer's cluster caught a
       // single note)
       for (const [key, g] of beamGroups) {
-        if (g.tips.length < 2) { warnings.push('beam group "' + key + '" has ' + g.tips.length + ' note(s) — no beam drawn'); continue; }
+        // A LONE NOTE IN A BEAM GROUP OF ITS OWN (day 29, composer, on T2's
+        // seventh partial — the one note after two groups of three): "let's
+        // just have two beamlets on the right for that single sixteenth". Not
+        // a flag (their first thought, withdrawn) — the note keeps the beamed
+        // look of the cluster it belongs to, as a stem with a stub at every
+        // beam level, pointing RIGHT (the direction of the music it opens; the
+        // last-note-points-left rule below is for a note that CLOSES a group,
+        // and a lone note closes nothing). Deliberate only inside a cluster
+        // that has other notes: a cluster that IS one note is still the old
+        // mistake (a --cluster span that swept a single head) and still warns.
+        if (g.tips.length === 1) {
+          const clOf = clusters.get(g.gridId);
+          if (clOf && clOf.positions.length > 1) g.lone = true;
+          else { warnings.push('beam group "' + key + '" has 1 note(s) — no beam drawn'); continue; }
+        } else if (g.tips.length < 2) { warnings.push('beam group "' + key + '" has ' + g.tips.length + ' note(s) — no beam drawn'); continue; }
         g.tips.sort((a, b) => a.t - b.t);
         // A BEAM IS FLAT, AND IT IS THE GROUP'S, NOT THE NOTE'S (day 24).
         // Each note computes its beam height from ITS OWN technique's flag
@@ -1000,7 +1017,13 @@
             t.ySs = yLevel;
           }
         }
-        items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
+        const stubLen = o.beamStubSs != null ? o.beamStubSs : 1.0;
+        if (g.lone) {
+          // the primary level as a right-pointing stub of the beamlet length
+          const t = g.tips[0];
+          items.push({ k: 'beam', dir: g.dir, group: key + '-stub', stub: true,
+            tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs }, { t: t.t, dxSs: t.dxSs + stubLen, ySs: t.ySs }] });
+        } else items.push({ k: 'beam', dir: g.dir, tips: g.tips, group: key });
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
         // runs the whole group. beams = log2(value / quarter); the grid comes
@@ -1015,7 +1038,7 @@
         const maxLvl = Math.max(...g.tips.map(t => t.beams || 1));
         for (let b = 2; b <= maxLvl; b++) {
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
-          const stub = o.beamStubSs != null ? o.beamStubSs : 1.0;
+          const stub = stubLen;
           let run = [];
           const flush = () => {
             if (run.length >= 2) {
@@ -1034,7 +1057,7 @@
               // of the primary beam and reads as material that is not written.
               // Gould's rule too: a fractional beam points toward the group it
               // belongs to, which for the final note is backwards.
-              const lastOfGroup = t === g.tips[g.tips.length - 1];
+              const lastOfGroup = !g.lone && t === g.tips[g.tips.length - 1];   // a lone note closes nothing (day 29)
               const dxA = lastOfGroup ? t.dxSs - stub : t.dxSs;
               const dxB = lastOfGroup ? t.dxSs : t.dxSs + stub;
               items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b + '-stub', stub: true, inward: lastOfGroup || undefined,
@@ -1150,7 +1173,11 @@
           const toBeat = cl.sub > 0 ? cl.sub - (((n % cl.sub) + cl.sub) % cl.sub) : run;
           const capped = splitAtBeat ? Math.min(run, toBeat) : run;
           let R = 1, spec = restFor(1);
-          for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= capped && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
+          // day 29 (--rest16): a silence that ends on a marked member is written
+          // as 16th rests, one per slot — the composer's "two sixteenths" before
+          // T2's lone last partial, so the 16th pulse reads straight into it.
+          const as16 = !!(cl.rest16At && cl.rest16At.has(n + run));
+          if (!as16) for (const cand of [6, 4, 3, 2, 1]) { const sp = cand <= capped && restFor(cand); if (sp) { R = cand; spec = sp; break; } }
           // LEFT EDGE ON THE START OF THE SILENCE (day 24, second pass — the
           // research settled it). A rest is a note-shaped silence: engraving
           // (Gould, Ross, Read; LilyPond/Dorico/Sibelius defaults) gives it the
