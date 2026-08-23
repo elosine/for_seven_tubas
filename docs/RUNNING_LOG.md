@@ -10184,3 +10184,13 @@ tuplet, Gould). A tuplet ending on a NOTE keeps the full span. Measured after: t
 (8.4 px clear); bracket-to-bracket gaps unchanged. **T1's brackets shorten by the
 same rule automatically — render-time, no rebuilds** (the composer expected a redo;
 none needed). Three batteries green.
+
+
+#### Day 29 — T3 g3 split at the beat ([7 r r 8] + [9 10]); the 3:2 now equals its group
+
+Composer, on the tuplet page: the 8th rest inside g3 becomes two 16ths and the beam
+breaks — "notehead, sixteenth rest, sixteenth rest, notehead… a group of four
+units", then the 3:2 pair alone. Built with `--cuts 3,6,8,10,12,14 --rest16 8`,
+through on all seven groups; the cut sits on the beat line so nothing straddles, and
+the 3:2 bracket now covers exactly its own beam group. Ledger D-log 7. (The verdict
+plain-vs-tuplet is still unspoken, but the composer is refining the TUPLET page.)

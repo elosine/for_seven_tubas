@@ -100,6 +100,13 @@ pruned — git keeps them. T4–T10 stay bare per part.*
 | 6.2 | T2 CLOUD02-I | **DONE** — composer's word; folded into the section file as decided (D-logs 1, 5) | "we'll mark t two is done" |
 | 6.3 | T3 CLOUD02-I | **AI-PROPOSED, awaiting the look**: `--figures --plain` — the pace rule's six groups ([1-3][4-6][7-10][11 12][13 14][15-17]) survive tuplets-off unchanged; through 1..6; dyn 1:mf, accents 2,3,5,12,15,17 (mf floor); no rest16 (the one 2-slot silence is a separator) | **THE FLAG: plain costs 1.80 heads with EIGHT of 17 notes at 1.4–1.8** vs exactly 1.00 with brackets (5:4 · 3:2 · 5:4 · 3:2). T3 is the part that needs the tuplet vocabulary; the bracketed build is one command if wanted |
 
+## D-log 7 · T3 refinements on the tuplet page — day 29
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 7.1 | T3 g3 [7-10] | SPLIT at the beat: **[7 r r 8] + [9 10]** (`--cuts 3,6,8,10,12,14`), the 8th rest before note 8 as two 16ths (`--rest16 8`) | "make that eighth rest two sixteenths… notehead, sixteenth rest, sixteenth rest, notehead. And let's break the beam. So that's a group of four units" | the break lands on the beat line; the 3:2 now covers exactly its own beam group [9 10] — bracket = group, the standard's ideal |
+| 7.2 | (context) | the refinement was made ON `t3-tuplets` — the composer is working the tuplet version | | plain-vs-tuplet verdict still unstated in words; the engagement says tuplets |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

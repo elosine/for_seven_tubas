@@ -54,7 +54,7 @@
   },
   {
    "id": "t3-tuplets",
-   "label": "T3 TUPLET version (day 29) — the fit's brackets 5:4 3:2 5:4 3:2, worst 1.0 heads (vs plain 1.8); same groups, dyn, accents",
+   "label": "T3 TUPLET version (day 29) — brackets 5:4 3:2 5:4 3:2, 1.0 heads; g3 split [7 8]+[9 10], rest16 8",
    "score": "piece-s25-finished01",
    "window": [
     35,
