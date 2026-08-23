@@ -12,6 +12,10 @@
 //                                kept note's ring (D51 sample length), per part
 //  24.0 s  B2 — thin by attack   no two attacks closer than `spacing`; the survivor
 //           spacing              of each collision is chosen by `tie`
+//  32.0 s  B3 — B2 + gap-fill    B2 kept whole; dropped notes added back farthest-
+//                                first (most room to the nearest kept attack) down
+//                                to `fillFloor`; then audited and, where a part is
+//                                tight, a note REDISTRIBUTED to a free part
 //
 // B2 answers a different question from B (composer, day 25: "what I would like is
 // more audible attacks… see how many impulses are landing within a certain threshold
@@ -28,7 +32,14 @@
 //
 //   node tools/cloud02i_ab.js [--cap 6] [--slice 0.1] [--ringFrac 1.0]
 //                             [--spacing 0.05] [--tie hybrid|loudest|roundrobin]
+//                             [--fillFloor 0.03] [--brick 0.05] [--noRedistribute]
 //                             [--isolate] [--out scores/cloud02i-ab.json]
+//
+// --brick normalises every staccato's written length (endSeconds − startSeconds) in
+// the ORIGINAL copy — the played lengths ran 50–218 ms and the composer wants them all
+// at the staccato minimum. Sound is unaffected (D51: a staccato is a fixed sample);
+// measured: it causes no playability change either (0 hard overlaps before and after).
+// Page hygiene. Not applied to the archive here — that is a ledgered SCORE EDIT.
 //
 // --isolate additionally writes each copy as its own score rebased to 0
 // (scores/cloud02i-{orig,b,a,b2}.json) so the auditor, the IR extractor and the
@@ -48,8 +59,11 @@ const RINGFRAC= +flag('ringFrac', 1.0);   // (a): fraction of the ring that must
 const SPACING = +flag('spacing', 0.05);   // (b2): minimum gap between any two attacks
 const TIE     = flag('tie', 'hybrid');    // (b2): hybrid | loudest | roundrobin
 const RECENT  = +flag('recent', 0.25);    // (b2, hybrid): "that part just played" window
+const FILLFLOOR = +flag('fillFloor', 0.03); // (b3): smallest room an added note may have
+const BRICK   = flag('brick', null) != null ? +flag('brick') : null; // written staccato length
+const REDIST  = !args.includes('--noRedistribute');
 const ISOLATE = args.includes('--isolate');
-const STARTS  = [0, 8, 16, 24];           // where each copy begins
+const STARTS  = [0, 8, 16, 24, 32];       // where each copy begins
 const META_LAYER = 10;
 const PARTS = 10;
 
@@ -77,6 +91,8 @@ const score = JSON.parse(fs.readFileSync(SRC, 'utf8'));
 const inGroup = score.objects.filter(o => o.groupId === GROUP);
 const notes = inGroup
   .filter(o => o.type === 'waveCurve' && o.layer < META_LAYER && o.sonifyNote != null)
+  .map(o => BRICK != null && o.technique === 'staccato'
+    ? { ...o, endSeconds: +(o.startSeconds + BRICK).toFixed(3) } : o)
   .sort((a, b) => a.startSeconds - b.startSeconds);
 const meta = inGroup.find(o => o.type === 'waveCurve' && o.layer === META_LAYER);
 if (!notes.length) throw new Error('no notes in group ' + GROUP);
@@ -214,6 +230,107 @@ function thinBySpacing(T, mode) {
   return kept;
 }
 
+// ── (b3) gap-fill, farthest-first ─────────────────────────────────────────────
+// Composer, day 25: "find impulses that will thicken the texture… which impulses
+// from the original will make this window denser without overlap."
+//
+// Every dropped note has a ROOM: its distance to the nearest kept attack, ensemble-
+// wide. Add the note with the most room, recompute, repeat, stop when the best room
+// left is under FILLFLOOR. This fills the sparsest moments first and never piles
+// onto a busy one. Ties (within 5 ms) go to the part with the fewest notes, then
+// the loudest — the fewest-notes rule alone lifts T6 from 1 note to 4–5.
+//
+// Proven before this was written: at the SAME floor as B2 nothing can come back
+// (every dropped note is within `spacing` of a kept one — that is what the thinning
+// pass did), so FILLFLOOR must be below SPACING. 30 ms is the fusion edge and the
+// composer's one-notehead width on the video page.
+function gapFill(base, floor) {
+  const kept = base.slice();
+  const per = new Array(PARTS).fill(0);
+  for (const k of kept) per[k.layer]++;
+  const keyOf = n => n.id;
+  const have = new Set(kept.map(keyOf));
+  const pool = notes.filter(n => !have.has(keyOf(n)));
+  const added = [];
+  for (;;) {
+    let best = null, bestRoom = -1;
+    for (const n of pool) {
+      if (have.has(keyOf(n))) continue;
+      let r = Infinity;
+      for (const k of kept) { const d = Math.abs(k.startSeconds - n.startSeconds); if (d < r) r = d; }
+      const better = r > bestRoom + 0.005
+        || (Math.abs(r - bestRoom) <= 0.005 && best
+            && (per[n.layer] < per[best.layer]
+                || (per[n.layer] === per[best.layer] && n.recVel > best.recVel)));
+      if (better) { best = n; bestRoom = r; }
+    }
+    if (!best || bestRoom < floor) break;
+    kept.push(best); have.add(keyOf(best)); per[best.layer]++; added.push(best);
+  }
+  return { set: kept.sort((x, y) => x.startSeconds - y.startSeconds), added };
+}
+
+// ── playability: the auditor's rule, restated here so the loop can run on it ──
+// Same constants as tools/audit_playability.js (which mirrors Composer.CONFLICT in
+// score/public/composer.html — the browser engine is the authority). HARD = the
+// next note starts before the previous brick ends. SOFT = the re-attack is shorter
+// than 110 ms plus a leap allowance (9.3 ms per semitone, capped at 220 ms).
+const TONGUE_RESET = 0.03, MIN_ATTACK = 0.11, PER_SEMITONE = 0.0093, MAX_LEAP_ADD = 0.22;
+const requiredAttack = (a, b) => MIN_ATTACK + Math.min(MAX_LEAP_ADD, Math.abs(b.sonifyNote - a.sonifyNote) * PER_SEMITONE);
+function pairTier(a, b) {
+  if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';
+  if (b.startSeconds - a.endSeconds < TONGUE_RESET - 1e-6) return 'soft';
+  return (b.startSeconds - a.startSeconds) < requiredAttack(a, b) - 1e-6 ? 'soft' : 'free';
+}
+function flags(set) {
+  const out = [];
+  for (let L = 0; L < PARTS; L++) {
+    const p = set.filter(n => n.layer === L).sort((x, y) => x.startSeconds - y.startSeconds);
+    for (let i = 1; i < p.length; i++) {
+      const tier = pairTier(p[i - 1], p[i]);
+      if (tier !== 'free') out.push({ tier, a: p[i - 1], b: p[i], part: L });
+    }
+  }
+  return out;
+}
+
+// ── redistribution: move a tight note to a part where it is free ──────────────
+// Composer, day 25: "if it's not playable in a given part, redistribute some notes to
+// another part — without changing or removing notes." Time and pitch never change;
+// only `layer`. For each flagged pair the SECOND note is the candidate (the first is
+// where the line was going). A receiving part qualifies when the note is `free`
+// against both its neighbours there. Preference: the part with the fewest notes,
+// then the smallest leap from that part's neighbours (keeps tessituras tight).
+// Re-flag after every move; give up on a note that no part can take and report it.
+function redistribute(set) {
+  const work = set.map(n => ({ ...n }));
+  const moves = [], stuck = [];
+  for (let guard = 0; guard < 200; guard++) {
+    const fl = flags(work);
+    const f = fl.find(x => !stuck.includes(x.b.id));
+    if (!f) break;
+    const n = f.b;
+    const per = new Array(PARTS).fill(0);
+    for (const k of work) per[k.layer]++;
+    let best = null;
+    for (let Q = 0; Q < PARTS; Q++) {
+      if (Q === n.layer) continue;
+      const p = work.filter(k => k.layer === Q && k.id !== n.id).sort((x, y) => x.startSeconds - y.startSeconds);
+      const prev = p.filter(k => k.startSeconds <= n.startSeconds).pop();
+      const next = p.find(k => k.startSeconds > n.startSeconds);
+      if (prev && pairTier(prev, n) !== 'free') continue;
+      if (next && pairTier(n, next) !== 'free') continue;
+      const leap = Math.max(prev ? Math.abs(prev.sonifyNote - n.sonifyNote) : 0, next ? Math.abs(next.sonifyNote - n.sonifyNote) : 0);
+      const score = per[Q] * 100 + leap;
+      if (!best || score < best.score) best = { Q, score, leap };
+    }
+    if (!best) { stuck.push(n.id); continue; }
+    moves.push({ id: n.id, at: n.startSeconds, from: n.layer, to: best.Q, tier: f.tier, leap: best.leap });
+    n.layer = best.Q;
+  }
+  return { set: work.sort((x, y) => x.startSeconds - y.startSeconds), moves, stuck: flags(work) };
+}
+
 // ── measurement (so the report is measured, not guessed) ──────────────────────
 function census(set, label) {
   const per = new Array(PARTS).fill(0);
@@ -243,8 +360,19 @@ function census(set, label) {
 const B  = thinEnsemble();
 const A  = thinByPart();
 const B2 = thinBySpacing(SPACING, TIE);
+const fill = gapFill(B2, FILLFLOOR);
+const B3pre = fill.set;
+const redis = REDIST ? redistribute(B3pre) : { set: B3pre, moves: [], stuck: flags(B3pre) };
+const B3 = redis.set;
 const reports = [census(notes, 'ORIGINAL'), census(B, 'B ensemble cap ' + CAP),
-  census(A, 'A by-part'), census(B2, `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`)];
+  census(A, 'A by-part'), census(B2, `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`),
+  census(B3, `B3 +fill ${Math.round(FILLFLOOR * 1000)}ms`)];
+const loop = {
+  added: fill.added.length,
+  flagsBeforeRedistribution: flags(B3pre).map(f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3) })),
+  moves: redis.moves,
+  unresolved: redis.stuck.map(f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3) })),
+};
 
 // ── emit the scratch score ────────────────────────────────────────────────────
 let nid = 1;
@@ -260,6 +388,11 @@ const COPIES = [
     tag: `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`,
     label: `B2 attack spacing ${Math.round(SPACING * 1000)}ms ${TIE} — ${B2.length} notes, `
          + `${(B2.length / SPAN).toFixed(0)}/s`, meta: null },
+  { set: B3, at: STARTS[4], group: 'grp-c2i-b3', color: '#C0392B',
+    tag: `B3 fill ${Math.round(FILLFLOOR * 1000)}ms`,
+    label: `B3 = B2 + gap-fill ${Math.round(FILLFLOOR * 1000)}ms — ${B3.length} notes, `
+         + `${(B3.length / SPAN).toFixed(0)}/s` + (redis.moves.length ? `, ${redis.moves.length} redistributed` : ''),
+    meta: null },
 ];
 const SLUG = { 'ORIGINAL': 'orig', 'A by-part': 'a' };
 
@@ -300,6 +433,7 @@ const out = {
       note: 'SCRATCH — three copies of CLOUD02-I for A/B listening. Nothing canonical; '
           + 'the chosen version becomes a SCORE EDIT ledgered in docs/ARCHIVE_AMENDMENTS.md.',
       census: reports,
+      b3Loop: loop,
     },
   },
   objects: objs, markers: [],
@@ -311,7 +445,7 @@ fs.writeFileSync(OUT, JSON.stringify(out));
 // ── one score per version, rebased to 0, so the tools see one at a time ───────
 if (ISOLATE) {
   for (const c of COPIES) {
-    const slug = SLUG[c.tag] || (c.group === 'grp-c2i-b' ? 'b' : c.group === 'grp-c2i-b2' ? 'b2' : c.group);
+    const slug = SLUG[c.tag] || c.group.replace('grp-c2i-', '');
     const file = OUT.replace(/-ab\.json$/, '-' + slug + '.json');
     let id = 1;
     const only = objs.filter(o => o.groupId === c.group).map(o => {
@@ -334,4 +468,12 @@ for (const r of reports) {
     + `min attack gap ${String(r.minAttackGapMs).padStart(3)}ms  fused ${String(r.attacksInsideFusion).padStart(3)}  `
     + `fff ${String(r.fff).padStart(2)}/33  seams ${String(r.breathSeams).padStart(2)}  [${r.per.join(' ')}]`);
 }
+const fmtFlag = f => `${f.tier} T${f.part}@${f.at}`;
+console.log(`\nB3 loop: +${loop.added} added by gap-fill`
+  + ` · flags before redistribution ${loop.flagsBeforeRedistribution.length}`
+  + (loop.flagsBeforeRedistribution.length ? ' [' + loop.flagsBeforeRedistribution.map(fmtFlag).join(', ') + ']' : '')
+  + ` · moves ${loop.moves.length}`
+  + (loop.moves.length ? ' [' + loop.moves.map(m => `${m.id}@${m.at.toFixed(2)} T${m.from + 1}→T${m.to + 1}`).join(', ') + ']' : '')
+  + ` · unresolved ${loop.unresolved.length}`
+  + (loop.unresolved.length ? ' [' + loop.unresolved.map(fmtFlag).join(', ') + ']' : ''));
 console.log('\nwrote ' + OUT + ' — ' + objs.length + ' objects, copies at ' + STARTS.join('s / ') + 's');

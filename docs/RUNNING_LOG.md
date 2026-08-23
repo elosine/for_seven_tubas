@@ -8403,3 +8403,125 @@ strategy chunks / 2 `fixed-oneshot` — B's was 0.000 ms with everything proport
 a look before B2 is notated for real, NOT before the composer listens.
 
 **Paused for the listen.** Nothing ledgered, archive untouched.
+
+### Day 25 — B2 approved by ear ("That's better"); the ADD-BACK strategy sized, not built
+
+Composer: *"pursue the add back strategy, but in reverse… find impulses that will thicken
+the texture… which impulses from the original will make this window denser without
+overlap… then look for playability, and if it's not playable in a given part, redistribute
+some notes to another part — without changing or removing notes."* Asked for the strategy
+back first.
+
+**PROVEN, not guessed: at the same 50 ms floor, ZERO dropped notes can come back.** Every
+note B2 dropped lies within 50 ms of a note B2 kept — that is what the greedy pass does
+(non-winners are pairwise within T of their winner; groups with no qualifying candidate
+are all within T of the last kept). So an add-back must use a SMALLER floor than the base:
+room ≥ 40 ms → 16 of 116 dropped notes qualify; ≥ 30 ms → 27; ≥ 20 ms → 46.
+
+**Gap-fill (farthest-first) add-back, select-only:** repeatedly add the dropped note with
+the most room to its nearest kept attack (ensemble-wide); ties within 5 ms → the part
+with the fewest notes, then loudest; stop when the best remaining room is under the floor.
+
+    floor 40 ms → 53 notes (+10)  min gap 41  fused 0  tight re-attacks 0  parts [7 6 4 5 7 5 5 6 5 3]
+    floor 35 ms → 55 notes (+12)  min gap 36
+    floor 30 ms → 56 notes (+13)  min gap 33  fused 0  tight re-attacks 0  parts [7 6 5 5 8 5 5 6 5 4]
+
+T6 goes 1 → 5 from the fewest-notes tie-break alone. A META-shape guard (per-window
+budget) never binds at these counts — moot. **The peak window (2.82–3.53 s) has ZERO
+addable notes even at 30 ms**: B2 already saturated it.
+
+**THE CEILING: select-only add-back tops out at ~56 notes (+13).** The original's attacks
+are so piled (median gap 12 ms) that only 27 of 116 dropped notes have 30 ms of room.
+Theoretical capacity at 30 ms spacing is 141 attacks in 4.23 s — the original's 159 would
+nearly FIT if they were spread. They are not spread; they are stacked.
+
+**The way past the ceiling is a NUDGE, and the composer's own calibration says it is
+invisible**: one notehead width = 30 ms on the video page (first principle 4). A dropped
+note allowed to move ≤ 25 ms to the nearest free slot:
+
+    floor 50 ms, nudge ≤ 25 ms →  56 (+13)  13 moved, median 9 ms, max 23
+    floor 40 ms, nudge ≤ 25 ms →  65 (+22)  11 moved, median 14 ms       tight 0  T6 = 5
+    floor 40 ms, nudge ≤ 50 ms →  80 (+37)  26 moved, median 29 ms       tight 0
+    floor 30 ms, nudge ≤ 25 ms →  83 (+40)  25 moved, median 17 ms       tight 1
+    floor 30 ms, nudge ≤ 50 ms → 102 (+59)  44 moved, median 32 ms       tight 3
+
+A nudge is a TIME edit, which the composer has not authorised — the redistribution they
+described is a PART edit (and part changes do nothing for attack spacing, which is
+ensemble-wide; they only serve per-part playability). Offered, not applied.
+
+**Playability proxy** (within-part re-attack under the auditor's 110 ms + leap allowance):
+0 tight pairs in every select-only variant and in the 40 ms nudges. Redistribution may
+not even be needed; the real audit runs after the build.
+
+### Day 25 — the bricks, and what playability actually says about the original
+
+Composer: *"these should all be staccatos… some of the bricks are longer. That must have
+been from my playing… reduce the note lengths to all staccato length and then see what we
+can get back in."* Also the meta-strategy: *"there might have been a situation where all I
+did with the original is not remove anything at all, but redistributed some parts."*
+
+**Bricks in CLOUD02-I (159):** 73 under 60 ms · 32 at 60–80 · 19 at 80–100 · 21 at 100–150
+· 10 at 150–200 · 4 over 200 (max 218 ms; min 50 ms). They are the played lengths from
+`clusterClouds02` carried through `cloud02.js`. NB the archive's OTHER staccatos are mostly
+longer still — density build 1's 120 staccatos have a median brick of 135 ms — so "all
+minimum length" is a new convention for this section, not a restoration.
+
+**THE BRICKS CAUSE NO PLAYABILITY FAILURE. Measured:** within-part hard overlaps in the
+original window = **0 as-is, 0 at 50 ms bricks**. The sound is unaffected either way
+(D51: a staccato is a fixed sample; note-off is ignored). So normalising the bricks buys
+nothing for playability or sound — it is page/display hygiene. Done in the scratch pipeline
+(`--brick 0.05`), NOT applied to the archive; if a version goes canonical, the 159
+`endSeconds` changes are one ledger line.
+
+**THE ORIGINAL WAS ALREADY PLAYABLE.** `audit_playability --parts cloud02i-orig`: **0 hard,
+13 soft** across T1/T3/T4/T5/T6/T7/T9 — every one a re-attack 130–191 ms with a 3–9 st
+leap, 1–40 ms under the estimated need. Thirteen redistributions of a second note, zero
+removals, and the auditor would pass the full 159. **So the composer's meta-strategy is
+RIGHT about the players and wrong about the ear:** playability was never the binding
+constraint here — the 108 fused attacks were. Two ceilings, and they are far apart:
+
+- **playability ceiling** (per part, ~110–330 ms re-attack × 10 parts) ≈ 40–60 attacks/s —
+  the original's 38/s fits under it with 13 small fixes;
+- **audibility ceiling** (ensemble attack spacing ≥ 30 ms) = 33/s if perfectly spread;
+  ~13/s (56 notes) with the attacks where the composer played them, ~20/s (83) with
+  ≤ 25 ms nudges.
+
+The thinning is an ear decision. Redistribution serves the players and does not move the
+audibility ceiling at all (spacing is ensemble-wide, part-blind). Consequence for the
+composer's loop "add back → audit → redistribute → add back again": at a fixed floor it
+terminates after ONE pass — redistribution frees per-part room, but the add-back is
+limited by ensemble room, which redistribution cannot create. The only second-pass lever
+is a lower floor (into fusion) or the nudge.
+
+### Day 25 — B3 BUILT: B2 + gap-fill 30 ms, bricks at 50 ms, the audit→redistribute loop run
+
+Composer approved gap-fill farthest-first and laid out the loop: normalise bricks → rerun
+B2 → playability → redistribute if needed → add back → audit → repeat to max density.
+
+Built in `tools/cloud02i_ab.js` (`--fillFloor 0.03 --brick 0.05`, redistribution on by
+default, `--noRedistribute` to see the raw fill). Command now:
+`node tools/cloud02i_ab.js --brick 0.05 --isolate`. Fifth copy at **32 s**.
+
+    B2 spacing 50ms hybrid   43 notes 10.2/s  sounding 5/3.6  min gap 52ms  fused 0  fff 15/33  seams 24  [6 6 4 5 4 1 4 6 4 3]
+    B3 +fill 30ms            58 notes 13.7/s  sounding 8/4.8  min gap 30ms  fused 0  fff 16/33  seams 30  [7 6 5 5 8 5 6 6 5 5]
+
+- **Bricks:** all 159 at 50 ms in every copy (verified in the app: min = max = 0.050).
+  **B2 is byte-for-byte the same selection as before** (43 notes, same onsets) — attack
+  spacing reads onsets only, as predicted. The brick change moved nothing.
+- **Gap-fill added 15** (estimate was 13; the tie rule on ids vs keys). Rooms 30–49 ms.
+  **T6 took 4 of the 15** (1 → 5) from the fewest-notes tie-break alone.
+- **Playability of B3 before redistribution: 0 hard, 0 soft** (tool's own check, then
+  confirmed independently by `audit_playability --parts cloud02i-b3`: no flags on any
+  part; tightest re-attack 150 ms in T5). **So the redistribution step had nothing to
+  do — 0 moves.** The rule is built and dormant: second note of a flagged pair moves
+  to the part with the fewest notes where it is `free` against both neighbours,
+  smallest leap as the tie-break; re-flag after each move; unresolvable notes reported.
+- **The loop terminates here.** At floor 30 ms every remaining dropped note is inside
+  30 ms of a kept attack, and redistribution cannot create ensemble room. Max density
+  at "no fused attacks, selection only" = **58 notes, 13.7/s, sounding mean 4.8** — right
+  at the mass boundary (4–5) rather than three times past it.
+
+Redistribution rule mirrors `audit_playability.js` constants (HARD = next onset before
+the brick ends; SOFT = re-attack under 110 ms + 9.3 ms/st capped at 220 ms) — the browser
+CONFLICT engine remains the authority. Verified in the composer app: 401 objects render,
+five copies at 0/8/16/24/32 s.
