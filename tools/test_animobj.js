@@ -77,15 +77,23 @@ const circleAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gc
   if (![c.cx, c.cy, c.r].every(Number.isFinite)) { failures++; console.error('FAIL gc: non-finite geometry at t=' + t + ' ' + m[0]); }
   return c; };
 const yAt = t => { const c = circleAt(t); return c ? c.cy : null; };
-// piece #1's geometry: k = frame magnification; impact 5 px above the lane
-// bottom; height = lane − 10; ball r 5; stated at the 1080 frame
+// piece #1's geometry: k = frame magnification; height = lane − 10; ball r 5;
+// stated at the 1080 frame. The LANDING HEIGHT is registry data (day 24: the
+// composer lowered the ball to the lane edge so bottom-octave heads stop
+// sharing a position with the disc), so read it rather than restate it.
 const k = view.heightPx / GCm.LOOK.frameHeightPx;
-const yLand = gcSys.yBotPx - 5 * k, drop = gcSys.heightPx - 10 * k;
+// ...and the two copies MUST agree, or the ball lands where the disc is not.
+// They live in different registry blocks and nothing else checks them.
+ok(C.animated.gc.look.impactInsetPx === C.engraving.render.gc.look.impactInsetPx,
+  'registry: animated + static impactInsetPx agree (' + C.animated.gc.look.impactInsetPx +
+  ' vs ' + C.engraving.render.gc.look.impactInsetPx + ')');
+const INSET = C.animated.gc.look.impactInsetPx;
+const yLand = gcSys.yBotPx - INSET * k, drop = gcSys.heightPx - 10 * k;
 const hAt = t => (yLand - yAt(t)) / drop;               // height above impact, 0..1
 const HTOL = 0.06 / drop;   // cy is written at toFixed(1) — compare within half a rounded pixel
 ok(yAt(14.0 - PRE - 0.01) === null && yAt(14.0 + POST + 0.01) === null, 'gc active only over [at-0.36, at+0.24]');
 ok(yAt(14.0 - PRE + 0.001) !== null && yAt(14.0 + POST - 0.001) !== null, 'gc active inside that span');
-eq(hAt(14.0), 0, HTOL, 'gc: at impact the ball sits 5 px above the lane bottom (piece #1 impactY)');
+eq(hAt(14.0), 0, HTOL, 'gc: at impact the ball sits on the registry landing height (inset ' + INSET + ' px)');
 eq(hAt(14.0 - PRE), 1, HTOL, 'gc: starts at the full drop = lane height − 10 (piece #1 h)');
 eq(hAt(14.0 + POST), P.damping / 100, HTOL, 'gc rebounds to damping/100 of the drop');
 eq(hAt(14.0 - PRE / 2), 1 - Math.pow(0.5, 1 + (P.ictus / 1000) * 20), HTOL, 'descent follows 1 - u^descentPower (the ictus hang)');
@@ -114,7 +122,7 @@ ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable traje
     const pts = arc[1].split(/\s*[ML]/).filter(x => x.trim()).map(p => p.trim().split(/\s+/).map(Number));
     ok(pts.length === 201, 'render: 201 samples (piece #1 numSamples 100 per phase) — ' + pts.length);
     eq(pts[0][0], view.xOfSeconds(14.0 - PRE), 0.06, 'render: arc starts at impact − 0.36 s');
-    eq(pts[0][1], yLand - drop, 0.06, 'render: arc starts at the apex (lane top + 5)');
+    eq(pts[0][1], yLand - drop, 0.06, 'render: arc starts at the apex (drop above the landing height)');
     eq(pts[100][0], view.xOfSeconds(14.0), 0.06, 'render: arc passes the go line at sample 100');
     eq(pts[100][1], yLand, 0.06, 'render: arc touches the impact point');
     eq(pts[200][0], view.xOfSeconds(14.0 + POST), 0.06, 'render: arc ends at impact + 0.24 s');
@@ -125,7 +133,7 @@ ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable traje
   ok(!!imp, 'render: the impact marker is drawn');
   if (imp) {
     eq(+imp[1], view.xOfSeconds(14.0), 0.06, 'render: impact marker on the go line');
-    eq(+imp[2], yLand, 0.06, 'render: impact marker 5 px above the lane bottom');
+    eq(+imp[2], yLand, 0.06, 'render: impact marker at the registry landing height (inset ' + INSET + ' px)');
     eq(+imp[3], 4 * k, 0.01, 'render: impact marker r = piece #1 4 px × magnification');
   }
   // the ball lands ON the impact marker: same point, from the two modules

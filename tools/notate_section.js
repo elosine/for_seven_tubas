@@ -34,6 +34,9 @@
 //                            dynamic) and only gains a stem to a shared beam. No
 //                            tempo fit, no grid, no rests. Repeatable.
 //   --noGc wc-98[,wc-…]      drop the GC from named objects (per-note device override)
+//   --noGoLine               drop the go line from this cluster (day 24 principle: THE GO LINE
+//                            MARKS DISPLACEMENT — a head already sitting on its go time does not
+//                            need one). Applied per cluster while the composer reviews each.
 //   --pickup N               the first N members are a PICK-UP: the tempo is fitted to the
 //                            REST of the cluster and the pick-up is placed on that grid
 //                            before position 0 (negative slots). The GC and go line move
@@ -170,7 +173,8 @@ const { doc, warnings } = Extract.extract(score, {
   // Before this they were global, and T2's cluster silently inherited T1's
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup']);
+  const BOOL_MODS = new Set(['--noGoLine']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -182,6 +186,10 @@ const { doc, warnings } = Extract.extract(score, {
     }
     if (MODS.has(a)) {
       if (!spans.length) { console.error(a + ' must follow the --cluster it modifies'); process.exit(2); }
+      // BOOLEAN modifiers carry no value — consuming the next argv as their
+      // 'value' would swallow the flag after them (e.g. --noGoLine --dyn 1:mf
+      // would eat --dyn and silently drop the dynamic).
+      if (BOOL_MODS.has(a)) { spans[spans.length - 1].mods.push([a, '']); continue; }
       spans[spans.length - 1].mods.push([a, String(process.argv[i + 1] || '')]);
       i++;
     }
@@ -214,6 +222,7 @@ const { doc, warnings } = Extract.extract(score, {
     // positions. Its own error is reported separately and never constrains the
     // fit, which is the whole point: a pick-up is played TO the downbeat, not
     // metronomically before it.
+    const noGoLine = mods.some(([k]) => k === '--noGoLine');
     const pickup = Math.max(0, parseInt(modVals('pickup')[0] || '0', 10));
     if (pickup >= members.length) { console.error('--pickup ' + pickup + ': cluster ' + label + ' has only ' + members.length + ' members'); process.exit(2); }
     const mainMembers = members.slice(pickup);
@@ -320,8 +329,12 @@ const { doc, warnings } = Extract.extract(score, {
       // the DOWNBEAT owns the launch, not the pick-up (composer: "the GC then
       // is actually on number two")
       const firstOnly = v => v === 'first' ? k === pickup : !!v;
+      // THE GO LINE MARKS DISPLACEMENT (day 24): a cluster head sits with its
+      // LEFT EDGE on its own go time, so it is not displaced and needs no line.
+      // Per-cluster while the composer reviews part by part; the registry
+      // default flips to false once every figure has been seen.
       const dev = {
-        goLine: firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : 'first'),
+        goLine: noGoLine ? false : firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : 'first'),
         gc: firstOnly(FIG_CL.gc != null ? FIG_CL.gc : 'first'),
         ringBar: false, dynBesideStem: !!FIG_CL.dynBesideStem,
         dynMark: dynAt.has(k + 1) ? dynAt.get(k + 1) : false,

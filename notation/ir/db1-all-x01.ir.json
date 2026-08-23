@@ -22,7 +22,7 @@
  },
  "provenance": {
   "createdBy": "tools/notate_section.js (profile section1) --bricks",
-  "date": "2026-08-22",
+  "date": "2026-08-23",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file)."
  },
@@ -12892,7 +12892,7 @@
    },
    "value": {
     "device": {
-     "goLine": true,
+     "goLine": false,
      "gc": true,
      "ringBar": false,
      "dynBesideStem": false,

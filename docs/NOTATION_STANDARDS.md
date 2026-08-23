@@ -54,6 +54,61 @@ precedes them. `@part` is required in a multi-part file.
 | **Every** member's head is **centred on its go time** | "move the first black note head in so that it's centered on the go line" · then, once the half note carried the GC: "the note head should be centered on go time along with the GC" | `figures.beam.anchor: "headCenter"` |
 | The members' dynamics go **together on one row above the beam**; the beam is lowered to fit them | "when we have two consecutive dynamics like that, let's go ahead and put them together… they both need to be at the top because the sfzp won't fit below" | `figures.beam.dynAboveBeam: true`; `layout.js` group dyns row |
 
+## THE GO LINE MARKS DISPLACEMENT (day 24 — the governing principle)
+
+**A go line belongs on a unit whose head is NOT on its go time. A head that
+already sits on its go time does not get one.**
+
+Composer, day 23, in the asking: *"the other go lines are there because the
+notation doesn't line up with the go time."* Locked in day 24.
+
+| unit | head position | go line |
+|---|---|---|
+| one-shot (staccato / fp / cuivre) | hangs **before** its go time (`nhGapSs` 0.6, to clear the GC disc) | **yes** — it marks the displacement |
+| surge | unit before the go time | **yes** |
+| cluster partial | **left edge ON** its go time (`nhAnchor: "leftEdge"`) | **no** — nothing to mark |
+| beam member | head **centred on** its go time (`anchor: "headCenter"`) | **no** |
+
+Being rolled out one figure at a time at the composer's request
+(`--noGoLine`, a positional cluster modifier) so each is seen before the
+registry default flips to `false`.
+
+### Three marks say "now"; only one is the datum
+
+At an onset there can be three marks all stating the same time: the GC's impact
+disc, the go line, and the notehead's left edge. The **GC is the datum** — it
+alone carries the *launch*, not merely the time. The go line survives only
+where the head is displaced. Everything else is redundant ink at the one place
+in the notation that must not be ambiguous.
+
+**Alignment: left edge on the go time.** Time-space notation (Feldman, Brown,
+Cage) puts the attack where the notehead *begins*; conventional engraving
+aligns simultaneities on their left edges; and the scrolling cursor touches the
+head as the note starts. Centre alignment has no tradition behind it — whole
+notes are the only case anyone argues about.
+
+### The ball lands on the lane edge
+
+`impactInsetPx` **5 → 0** (day 24), in BOTH registry copies —
+`engraving.render.gc.look` (the static disc) and `animated.gc.look` (the falling
+ball). They must agree or the ball lands where the disc is not; nothing checked
+this until `test_animobj` gained the assertion the same day, and the test itself
+now reads the number instead of restating it.
+
+**Why:** the disc occupied y −6.39..−5.37 ss while **42 % of the section's
+staccatos sit at C2 or lower**, so a bottom-octave head landing on its own go
+time shared a position with the disc — Tufte's 1+1=3 at the datum, and exactly
+the collision the day-23 Option B discussion existed to prevent.
+
+**Measured before and after: 3 of 7 GC-bearing figure notes collided; now 0 of
+7.** Only midi 29–30 (F1/F♯1, the piece's two lowest) still reach the disc, and
+by a ledger line rather than the head.
+
+Day 23 called vertical separation impossible *"because the marker's height IS
+the object"*. That was too strong: the **landing height** is a number we chose,
+not something inherent to the GC. Moving it changes where the ball lands, not
+what the GC is.
+
 ## Laws that apply to every beam (code, not numbers)
 
 | law | why | lives in |

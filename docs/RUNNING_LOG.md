@@ -7492,3 +7492,67 @@ middle. `standards.augmentationDot` is read first if it is ever added.
 staff (y −2.94) — the chain's default side, available because partial 1 sits on
 the staff where the downbeat's three ledgers left no room. Accents stay on 1, 3,
 4. Four batteries green.
+
+### THE GO LINE PRINCIPLE, locked — and the ball lowered to the lane edge (day 24)
+
+The composer paused the note-by-note work to review the design for internal
+consistency, starting from the day-23 Option B decision (the one-shot's unit
+sits before its go time so it never covers the GC's disc).
+
+**The principle, in the composer's own earlier words, now adopted:** *"the other
+go lines are there because the notation doesn't line up with the go time."* So —
+**the go line marks DISPLACEMENT.** It belongs on a unit whose head is not on
+its go time (the one-shots, hanging 0.6 ss before; the surge) and on nothing
+else. A cluster partial, whose LEFT EDGE sits on its own go time, has nothing to
+mark and gets none. This also explains the day-23 reversal that went unrecorded:
+Option B dropped the staccato's go line, the composer restored it the same
+afternoon — correct, because that unit IS displaced.
+
+**Alignment settled: left edge stays.** Time-space notation (Feldman, Brown,
+Cage) puts the attack where the head begins; conventional engraving aligns
+simultaneities on left edges; and the composer's own scrolling-reader argument
+says the cursor touches the head as the note starts. Centre has no tradition
+behind it.
+
+**Three marks say "now"; only the GC is the datum** — it alone carries the
+launch rather than merely the time.
+
+**THE MEASUREMENT THAT DECIDED THE LAST PIECE.** Before arguing, counted the
+actual collisions: the disc occupied y −6.39..−5.37 ss, and **3 of 7 GC-bearing
+figure notes overlapped it** — T3's G♯1 downbeat by half the disc's height, both
+beam half-notes by a pixel. Not an edge case either: **164 of 390 staccatos in
+the section (42 %) sit at C2 or lower**, the register that reaches the disc.
+
+Composer chose to lower the landing point. `impactInsetPx` **5 → 0** — the ball
+now lands ON the lane edge instead of hovering 5 px above it. **After: 0 of 7
+collide.** Only midi 29–30 (F1/F♯1, the piece's two lowest) still reach the
+disc, and by a ledger line rather than a head.
+
+Day 23 had called vertical separation impossible *"because the marker's height
+IS the object"*. That was too strong, and worth recording as a correction: the
+**landing height is a number we chose**, not something inherent to the GC.
+
+**A duplication found while making the change — the kind that only shows up
+under a live edit.** `impactInsetPx` exists TWICE in the registry:
+`engraving.render.gc.look` (the static disc) and `animated.gc.look` (the falling
+ball). Nothing tied them together, so changing one would have left the ball
+landing where the disc is not — a bug invisible in a still frame and obvious in
+motion. Both moved; `test_animobj` now **asserts they agree** (proven to bite:
+set them 3 vs 0 and the battery goes red), and the test reads the number from
+the registry instead of restating it, which is what made it fail in the first
+place.
+
+**Rollout is per figure, at the composer's request** (*"I think I still need to
+see the go line for some things"*): `--noGoLine` is a positional cluster
+modifier, applied so far to **T1's first cluster (cl-1, 31.49–34.6)** only.
+Verified: T1 has a GC at 31.55 with no go line, while its three loose one-shots
+at 29.09/30.00/30.75 keep theirs — exactly the principle. The registry default
+flips to false once every figure has been seen.
+
+**A parser trap fixed on the way:** the positional-modifier reader consumed the
+next argv as every modifier's value, so a valueless flag like `--noGoLine` would
+have swallowed the flag after it — `--noGoLine --dyn 1:mf` would have eaten the
+dynamic silently. Boolean modifiers now carry no value. Caught by reading the
+parser before running it, not by the output.
+
+Seven batteries green.
