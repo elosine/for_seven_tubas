@@ -321,11 +321,7 @@ function flags(set) {
 function redistribute(set) {
   const work = set.map(n => ({ ...n }));
   const moves = [], stuck = [];
-  for (let guard = 0; guard < 200; guard++) {
-    const fl = flags(work);
-    const f = fl.find(x => !stuck.includes(x.b.id));
-    if (!f) break;
-    const n = f.b;
+  const homeFor = (n) => {
     const per = new Array(PARTS).fill(0);
     for (const k of work) per[k.layer]++;
     let best = null;
@@ -340,8 +336,20 @@ function redistribute(set) {
       const score = per[Q] * 100 + leap;
       if (!best || score < best.score) best = { Q, score, leap };
     }
-    if (!best) { stuck.push(n.id); continue; }
-    moves.push({ id: n.id, at: n.startSeconds, from: n.layer, to: best.Q, tier: f.tier, leap: best.leap });
+    return best;
+  };
+  for (let guard = 0; guard < 200; guard++) {
+    const fl = flags(work);
+    const f = fl.find(x => !stuck.includes(x.b.id));
+    if (!f) break;
+    // Second note first (the first is where the line was going); if no part can
+    // take it, try the FIRST note. On CLOUD02-I the two pairs the second-note pass
+    // could not place both resolved this way (day 25) — at the section's tail every
+    // part is busy, but the earlier note of the pair has more neighbours with room.
+    let n = f.b, best = homeFor(n), which = 'second';
+    if (!best) { n = f.a; best = homeFor(n); which = 'first'; }
+    if (!best) { stuck.push(f.b.id); continue; }
+    moves.push({ id: n.id, at: n.startSeconds, from: n.layer, to: best.Q, tier: f.tier, leap: best.leap, which });
     n.layer = best.Q;
   }
   return { set: work.sort((x, y) => x.startSeconds - y.startSeconds), moves, stuck: flags(work) };
@@ -392,10 +400,26 @@ FILLFLOORS.forEach((floor, i) => {
   seed = redis.set;
 });
 
-const reports = [census(notes, 'ORIGINAL'), census(B, 'B ensemble cap ' + CAP),
+// ── THE PLAYABILITY PROCESS: the original, every note kept, redistributed ─────
+// Composer, day 25, reframing the day: "this process is strictly for playability…
+// the smear or audibility is of secondary concern. My 'this just sounds dense'
+// comment wasn't meant as negative — it sounded very unplayable." So the primary
+// deliverable is NOT a thinned version: it is the original with the tight pairs
+// moved to parts that have room, and whatever cannot be moved reported for the
+// composer's call. Level-4 numbers (fused attacks, sounding count) stay in the
+// census as a FLAG only.
+const OR = redistribute(notes);
+const orBrief = f => ({ tier: f.tier, part: f.part + 1, at: +f.b.startSeconds.toFixed(3),
+  pair: `${f.a.sonifyNote}→${f.b.sonifyNote}`,
+  attackMs: Math.round((f.b.startSeconds - f.a.startSeconds) * 1000),
+  needMs: Math.round(requiredAttack(f.a, f.b) * 1000) });
+const orLoop = { flagsBefore: flags(notes).map(orBrief), moves: OR.moves, unresolved: OR.stuck.map(orBrief) };
+
+const reports = [census(notes, 'ORIGINAL'), census(OR.set, 'OR original redistributed'),
+  census(B, 'B ensemble cap ' + CAP),
   census(A, 'A by-part'), census(B2, `B2 spacing ${Math.round(SPACING * 1000)}ms ${TIE}`),
   ...FILLED.map(f => census(f.set, `${f.name} +fill ${Math.round(f.floor * 1000)}ms`))];
-const loop = Object.fromEntries(FILLED.map(f => [f.name, f.loop]));
+const loop = Object.fromEntries([['OR', orLoop], ...FILLED.map(f => [f.name, f.loop])]);
 
 // ── emit the scratch score ────────────────────────────────────────────────────
 let nid = 1;
@@ -419,8 +443,14 @@ const COPIES = [
          + `${(f.set.length / SPAN).toFixed(0)}/s`
          + (f.loop.moves.length ? `, ${f.loop.moves.length} redistributed` : ''),
     meta: null })),
+  // the playability deliverable, last so every earlier copy keeps its position
+  { set: OR.set, at: STARTS[4] + FILLED.length * GAP, group: 'grp-c2i-or', color: '#1B5E20',
+    tag: 'OR original redistributed',
+    label: `OR = ORIGINAL, every note kept, ${OR.moves.length} redistributed`
+         + (OR.stuck.length ? `, ${OR.stuck.length} tight pair${OR.stuck.length > 1 ? 's' : ''} left for the composer` : ''),
+    meta: 'orig' },
 ];
-const SLUG = { 'ORIGINAL': 'orig', 'A by-part': 'a' };
+const SLUG = { 'ORIGINAL': 'orig', 'A by-part': 'a', 'OR original redistributed': 'or' };
 
 for (const c of COPIES) {
   const shift = c.at - T0;
@@ -496,6 +526,10 @@ for (const r of reports) {
 }
 const fmtFlag = f => `${f.tier} T${f.part}@${f.at}`;
 console.log();
+console.log(`OR (the playability process on the original): ${orLoop.flagsBefore.length} flags before`
+  + ` · ${OR.moves.length} moves [${OR.moves.map(m => `T${m.from + 1}→T${m.to + 1}@${m.at.toFixed(2)}`).join(', ')}]`
+  + ` · ${orLoop.unresolved.length} unresolved`
+  + (orLoop.unresolved.length ? ' [' + orLoop.unresolved.map(f => `T${f.part}@${f.at} ${f.pair} ${f.attackMs}ms needs ${f.needMs}`).join(', ') + ']' : ''));
 for (const f of FILLED) {
   const L = f.loop;
   console.log(`${f.name} loop (floor ${Math.round(f.floor * 1000)}ms): +${L.added} added`

@@ -897,3 +897,16 @@ dissonant, both from the ear that will judge the rest. The threshold is not
 arbitrary; it is bracketed. (The T8 case also shows the eye tolerating a
 visible 23 ms difference between two gaps WRITTEN equal — it is under a head,
 so it reads as "the same".)
+
+## Day 25 — "dense" meant unplayable, not too much (the wrong objective, caught)
+
+The composer said of a 4.4 s passage: *"it feels very dense to me."* The AI read that as
+an aesthetic judgment about the texture and spent the day building a thinning ladder for
+the EAR — sounding-count caps, attack-spacing rules, a gap-fill with two real bugs found
+and fixed. All of it measured, all of it verified, all of it aimed at the wrong target.
+The composer, asking for a state-of-play: *"My 'this just sounds dense' comment wasn't
+meant as negative, just meant by ear. It sounded very unplayable… this process is
+strictly for playability."* The original passes playability with eleven part-moves and
+no removals. The thinning research survives as a flag, not a deliverable. Methodological
+point: the composer's periodic "restate this for me" checks are the error-correction
+channel; the AI's verification discipline catches wrong numbers, not wrong objectives.

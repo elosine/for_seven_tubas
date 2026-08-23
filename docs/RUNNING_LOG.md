@@ -8745,3 +8745,52 @@ automatically again for subsequent parts. So let's just hang on to anything unti
 done and understand what needs to be done, and then build it all at the end of this b
 series."* → journal §2. Audit results and the queue of dense areas are in
 PLAYABILITY_MODEL.md so they can be found; no action on them now.
+
+### Day 25 — REFRAME (composer): this is THE PLAYABILITY PROCESS; the smear is secondary
+
+Composer, verbatim: *"I want to define this process, what we're doing now, as the
+playability process. And what that is is exactly as it sounds. I just want to evaluate
+things for playability — useful to flag up, I should say — the smear or audibility is of
+secondary concern. My 'this just sounds dense' comment wasn't meant as negative, just
+meant by ear. It sounded very unplayable, and maybe I didn't do the proper checks when
+writing. So this process is strictly for playability. And then I don't mind getting a flag
+about those other aspects, including the smear or overlap."*
+
+**What this changes.** The day's thinning work (B, A, B2, B3–B5) was built on the AI's
+reading of "it feels very dense" as an ear judgment about the texture. It was a
+playability worry. So:
+- **The primary deliverable is the ORIGINAL, REDISTRIBUTED** — every note kept, 11 part
+  moves, two tight pairs for the composer's call. Not a thinned version.
+- **The B series stands as research** (the audibility ladder, the attack-spacing finding,
+  the META-curve scaling, the gap-fill bugs) — flagged, available, secondary.
+- **The process definition:** audit levels 1–3 → redistribute → report; level 4 (fused
+  attacks, sounding count) is a FLAG in the report, never a reason to remove a note.
+- For the paper (PAPER_NOTES): a clean case of the AI optimising the wrong objective for
+  several hours because one word ("dense") was read as aesthetic when it was practical —
+  and the composer's checks ("let me restate… is this correct?") catching it.
+
+### Day 25 — OR BUILT: the original, every note kept, redistributed — 0 hard, 0 soft
+
+The playability deliverable. `cloud02i_ab.js` now builds **OR** (copy at **56 s**, dark
+green, `scores/cloud02i-or.json`): the 159 original notes, bricks 50 ms, redistribution
+applied. Census identical to the original on every level-4 number (37.6/s, fused 108,
+sounding 21/13.3) — as it must be: part moves change nothing the ear hears in the
+mock-up. Per part after: [17 15 17 17 16 15 14 16 17 15].
+
+**The two stuck pairs, and how they resolved.** The second-note pass left two: T3 @40.31
+C#2→G#1 (5 st) 144 ms needs 157 — 13 ms short (8 %); T9 @40.18 E2→A#1 (6 st) 152 ms
+needs 166 — 14 ms short (8 %). Both at the section's tail (40.18–40.31), where every part
+has 1–3 attacks in the last 0.6 s and no part had a free slot for the SECOND note. Tested
+before recommending: **the FIRST note of each pair had room** — wc-149 (T3) could go to
+T5; wc-145 (T9) to T4/T6/T8/T10. So the rule gained a second pass: if no part can take the
+second note, try the first. Result: **12 moves, 0 unresolved; independent audit of OR: 0
+hard, 0 soft on all ten parts.** The composer's question ("still good to go with those,
+or resolve?") was answered by resolving them — at 8 % short they were fudge-zone anyway.
+
+Moves (abs. time): T1→T10@39.80 · T1→T8@40.30 · T3→T9@39.85 · T3→T5@40.17 (first-note
+pass) · T4→T3@40.00 · T5→T1@36.86 · T6→T9@36.46 · T6→T4@40.33 · T7→T9@37.84 ·
+T7→T9@39.21 · T9→T3@39.51 · T9→T3@40.18 (first-note pass). Each is one ledger line in
+ARCHIVE_AMENDMENTS when OR is applied to the archive — not yet done.
+
+Verified in the composer app: 698 objects render, OR occupies 56.0–60.1 s across all ten
+lanes. The B series (8–48 s) is untouched and stands as the audibility research.
