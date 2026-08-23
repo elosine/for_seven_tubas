@@ -49,12 +49,18 @@
 //                            note 2, after note 5, …", numbered from 1 within the main
 //                            members. The pace rule steps aside; each figure is still
 //                            fitted alone. Refused if a cut would leave a one-note figure.
-//   --figures                8g: CUT THE GESTURE INTO FIGURES and fit each one ALONE
-//                            (pattern_fit.segment — cuts where the PACE CHANGES). Every
-//                            figure is its own beam group and its own grid (rests, written
-//                            values, tuplets computed inside it); the GC and go line stay
-//                            on the gesture's first note. Near-ties are printed. Cannot be
-//                            combined with --pattern (implied) or --beamBreak (one tempo).
+//   --figures                8i (day 28, D69 — THE BRACKET IS THE MESSAGE): the gesture is
+//                            cut into GROUPS at the pace changes (pattern_fit.segment, the
+//                            8h two-sided seam rule) and written on ONE GRID, with the beams
+//                            broken at the seams. Every pace change is then SAID on the page
+//                            as the tuplet relation the fit found — a bracket on the quick
+//                            group. Implies --pattern; cannot be combined with --beamBreak
+//                            (the seams ARE the breaks — move one with --cuts). A bracket
+//                            that crosses a seam is FLAGGED (a straddle), never fixed.
+//   --ownGrids               with --figures: the 8g/8h reading instead — each figure on its
+//                            OWN grid (its own gridId, rests, values and brackets computed
+//                            inside it), no relation printed between them. The alternative,
+//                            by hand, where one grid cannot hold the gesture under a head.
 //   --noGoLine               drop the go line from this cluster (day 24 principle: THE GO LINE
 //                            MARKS DISPLACEMENT — a head already sitting on its go time does not
 //                            need one). Applied per cluster while the composer reviews each.
@@ -194,8 +200,8 @@ const { doc, warnings } = Extract.extract(score, {
   // Before this they were global, and T2's cluster silently inherited T1's
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
-  const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--paceRatio', '--cuts']);
+  const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -292,50 +298,70 @@ const { doc, warnings } = Extract.extract(score, {
       console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
       process.exit(2);
     }
-    // --figures (8g, day 27): THE GESTURE IS CUT INTO FIGURES, EACH ON ITS OWN
-    // GRID. Standards principle 6 — "figures need not share a tempo (no tempo
-    // is printed)". pattern_fit.segment() cuts where the PACE CHANGES and fits
-    // each figure alone; every figure becomes its own beam group AND its own
-    // grid domain (device.gridId), so its rests, its written values and any
-    // tuplet bracket are computed inside it and never across a seam.
+    // --figures (8i, day 28 — D69, THE BRACKET IS THE MESSAGE): THE GESTURE IS
+    // CUT INTO GROUPS WHERE THE PACE CHANGES, AND WRITTEN ON ONE GRID.
+    //
+    // 8g/8h settled the CUT; 8i settled the WRITING. The composer, shown the
+    // same notes both ways: *"there should be some communication to the
+    // performer if there is a speed change... the first two sixteenth notes
+    // look much further apart than the next three. And so the seven-four
+    // bracket is appropriate."* Each group on its own grid writes everything as
+    // plain 16ths and prints no tempo, so the page says "same" with its VALUES
+    // while its SPACING says "different". ONE grid says the relation out loud,
+    // as the bracket the fit already found.
+    //
+    // So the seams from pattern_fit.segment() become BEAM BREAKS on the single
+    // grid (break member = base + cut + 1), and the grid and its tuplets come
+    // from the EXISTING --pattern path. No new drawing code — which is what
+    // lets the build be proved identical to the page the composer approved by
+    // hand (t1-hybrid2 = --pattern --beamBreak 3,6,8,11,15).
     //
     // The gesture keeps ONE launch: the GC and the go line stay on its first
-    // note (figures.cluster.gc = 'first' — the whole point of a cluster is that
-    // it goes once), and every later head sits with its LEFT EDGE on its own go
-    // time, which it already did. So a seam between figures adds no ink at all:
-    // it is a beam that stops and another that starts.
+    // note (figures.cluster.gc = 'first'), and every head sits with its LEFT
+    // EDGE on its own go time. A seam adds no ink of its own — it is a beam
+    // that stops and another that starts.
     //
-    // --beamBreak is the OTHER case and stays: several beam groups that share
-    // ONE tempo ("conceptually keep the same tempo", day 23). Asking for both
-    // at once is a contradiction, so it is an error rather than a precedence
-    // rule nobody would remember.
+    // --ownGrids keeps the 8g/8h reading as the ALTERNATIVE: each figure its own
+    // grid domain (device.gridId), its rests, values and brackets computed
+    // inside it and never across a seam. By hand, where one grid cannot hold the
+    // gesture under a head.
+    //
+    // --beamBreak is no longer the other case for a gesture like this:
+    // --figures synthesises the breaks itself, and a seam is moved with --cuts.
+    // Asking for both is a contradiction, so it is an error rather than a
+    // precedence rule nobody would remember.
     const useFigures = mods.some(([k]) => k === '--figures');
+    const ownGrids = mods.some(([k]) => k === '--ownGrids');
     if (useFigures && mods.some(([k]) => k === '--pattern')) {
-      console.error('--cluster ' + label + ': --figures already fits every figure with the pattern analyser — drop --pattern'); process.exit(2);
+      console.error('--cluster ' + label + ': --figures writes the groups on ONE grid from the pattern analyser — --pattern is implied, drop it'); process.exit(2);
     }
     if (useFigures && mods.some(([k]) => k === '--beamBreak')) {
-      console.error('--cluster ' + label + ': --beamBreak splits ONE tempo into beam groups; --figures gives each figure its OWN tempo. Use one or the other'); process.exit(2);
+      console.error('--cluster ' + label + ': --figures breaks the beams at the seams itself; use --cuts to move a seam'); process.exit(2);
     }
-    // --cuts (8h) names the seams BETWEEN figures, so it means nothing without
+    if (ownGrids && !useFigures) {
+      console.error('--cluster ' + label + ': --ownGrids is how --figures writes its groups — add --figures'); process.exit(2);
+    }
+    // --cuts (8h) names the seams BETWEEN groups, so it means nothing without
     // them: silently ignoring it would let a hand reading be built as the
     // tool's own and nobody would see the difference.
     if (!useFigures && mods.some(([k]) => k === '--cuts')) {
       console.error('--cluster ' + label + ': --cuts names the seams between FIGURES — add --figures'); process.exit(2);
     }
-    let perMember = null;
+    let perMember = null, seg = null, bvg = null;
+    const figBreaks = new Set();   // 8i: the seams, as 1-based member numbers
     if (useFigures) {
       const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
       // --paceRatio: how far apart two gaps must be to count as different paces
       // (default 1.25). It is the one dial that changes WHERE cuts may go —
       // raise it to group more loosely (at the limit, one pace band means no
-      // cut is legal anywhere and the gesture stays a single figure on one
+      // cut is legal anywhere and the gesture stays a single group on one
       // grid, which is the pre-8g reading); lower it to group more tightly.
       const paceRatio = parseFloat(modVals('paceRatio')[0] || '0');
       const segOpt = {};
       if (paceRatio > 1) segOpt.PACE_RATIO = paceRatio;
       // --cuts: the composer names the seams and the pace rule steps aside
       // entirely (8h). Notes are numbered from 1 within the MAIN members, so a
-      // pick-up does not shift them. Each figure is still fitted alone.
+      // pick-up does not shift them.
       const cutsRaw = (modVals('cuts')[0] || '').trim();
       if (cutsRaw) {
         const cl = cutsRaw.split(',').map(x => parseInt(x.trim(), 10));
@@ -344,60 +370,69 @@ const { doc, warnings } = Extract.extract(score, {
         if (why) { console.error('--cluster ' + label + ' --cuts ' + cutsRaw + ': ' + why); process.exit(2); }
         segOpt.CUTS = cl;
       }
-      const seg = PF.segment(mainMembers.map(e => e.onset), Object.keys(segOpt).length ? segOpt : undefined);
+      seg = PF.segment(mainMembers.map(e => e.onset), Object.keys(segOpt).length ? segOpt : undefined);
       if (paceRatio > 1) console.log('    paceRatio ' + paceRatio + ' (default ' + PF.SEG_DEFAULTS.PACE_RATIO + ')');
       if (segOpt.CUTS) console.log('    cuts BY HAND after note ' + segOpt.CUTS.join(', ') + ' — the pace rule was not consulted');
       if (!seg) { console.error('--cluster ' + label + ' --figures: the analyser found no reading'); process.exit(2); }
       const base = (pickup && !onePastPickup) ? pickup : 0;   // index of mainMembers[0] within members
-      perMember = new Array(members.length).fill(null);
-      seg.figures.forEach((fg, fi) => {
-        const gid = key + '-f' + (fi + 1), grp = key + String.fromCharCode(97 + fi), ff = fg.fit;
-        // a tuplet lives inside ONE beat of ONE figure; slots are explicit
-        // because a tuplet may have a rest between two of its notes
-        const tup = new Map();
-        for (const b of (ff.beats || [])) {
-          if (!b.tuplet) continue;
-          const p2 = b.tuplet >= 4 ? 4 : 2;
-          ff.grid.forEach((g, i) => {
-            const rel = g - b.beat * 4;
-            if (rel >= -1e-6 && rel < 4 - 1e-6) tup.set(i, {
-              group: gid + '-pb' + b.beat, num: b.tuplet, den: 4, startPos: b.beat * 4,
-              slot: Math.round(rel / (4 / b.tuplet)), text: b.tuplet + ':' + p2,
-              valueDur: 16 / (4 / p2), beams: Math.log2(p2),
+      // THE SEAM IS THE BEAM BREAK (8i). Everything else about the one-grid
+      // build then comes from the --pattern path below, unchanged. Under
+      // --ownGrids the beam groups are the grid domains instead, so the breaks
+      // are not synthesised at all — they would say the same thing twice.
+      if (!ownGrids) for (const c of seg.cuts) figBreaks.add(base + c + 1);
+      bvg = PF.bracketsVsGroups(seg.single, seg.cuts);
+      if (ownGrids) {
+        perMember = new Array(members.length).fill(null);
+        seg.figures.forEach((fg, fi) => {
+          const gid = key + '-f' + (fi + 1), grp = key + String.fromCharCode(97 + fi), ff = fg.fit;
+          // a tuplet lives inside ONE beat of ONE figure; slots are explicit
+          // because a tuplet may have a rest between two of its notes
+          const tup = new Map();
+          for (const b of (ff.beats || [])) {
+            if (!b.tuplet) continue;
+            const p2 = b.tuplet >= 4 ? 4 : 2;
+            ff.grid.forEach((g, i) => {
+              const rel = g - b.beat * 4;
+              if (rel >= -1e-6 && rel < 4 - 1e-6) tup.set(i, {
+                group: gid + '-pb' + b.beat, num: b.tuplet, den: 4, startPos: b.beat * 4,
+                slot: Math.round(rel / (4 / b.tuplet)), text: b.tuplet + ':' + p2,
+                valueDur: 16 / (4 / p2), beams: Math.log2(p2),
+              });
             });
-          });
+          }
+          for (let i = 0; i < fg.notes; i++)
+            perMember[base + (fg.from - 1) + i] = {
+              unit: ff.unit, pos: ff.grid[i], gridId: gid, group: grp, beams: 2, sub: 4,
+              tuplet: tup.get(i) || null, last: i === fg.notes - 1, figure: fi + 1,
+            };
+        });
+        // A PICK-UP HANGS OFF FIGURE 1, on figure 1's unit — the same rule as
+        // before (the tempo belongs to the main figure), narrowed to the figure
+        // the pick-up actually leads into.
+        if (pickup && !onePastPickup) {
+          const f1 = perMember[pickup], anchor = mainMembers[0].onset, pre = [];
+          for (let i = 0; i < pickup; i++) {
+            const rel = (members[i].onset - anchor) / f1.unit, slot = Math.round(rel);
+            pre.push({ slot: slot, errMs: Math.abs(rel - slot) * f1.unit * 1000 });
+          }
+          let ok = true, prev = 0;
+          for (let i = pickup - 1; i >= 0; i--) { if (pre[i].slot >= prev) { ok = false; break; } prev = pre[i].slot; }
+          if (!ok) { console.error('--cluster ' + label + ' --figures --ownGrids: the pick-up sits on no slot of figure 1’s grid (unit ' + (f1.unit * 1000).toFixed(0) + ' ms) — drop --ownGrids or drop --pickup'); process.exit(2); }
+          const shift = -Math.min.apply(null, pre.map(x => x.slot));
+          for (const pm of perMember) if (pm && pm.gridId === key + '-f1') pm.pos += shift;
+          for (let i = 0; i < pickup; i++)
+            perMember[i] = { unit: f1.unit, pos: pre[i].slot + shift, gridId: key + '-f1', group: key + 'a', beams: 2, sub: 4, tuplet: null, last: false, figure: 1 };
+          console.log('    pick-up: ' + pickup + ' note(s) on figure 1’s grid at slot(s) ' +
+            pre.map((x, i) => members[i].source.objectId + '@' + (x.slot + shift) + ' (off ' + x.errMs.toFixed(0) + ' ms)').join(', '));
         }
-        for (let i = 0; i < fg.notes; i++)
-          perMember[base + (fg.from - 1) + i] = {
-            unit: ff.unit, pos: ff.grid[i], gridId: gid, group: grp, beams: 2, sub: 4,
-            tuplet: tup.get(i) || null, last: i === fg.notes - 1, figure: fi + 1,
-          };
-      });
-      // A PICK-UP HANGS OFF FIGURE 1, on figure 1's unit — the same rule as
-      // before (the tempo belongs to the main figure), narrowed to the figure
-      // the pick-up actually leads into.
-      if (pickup && !onePastPickup) {
-        const f1 = perMember[pickup], anchor = mainMembers[0].onset, pre = [];
-        for (let i = 0; i < pickup; i++) {
-          const rel = (members[i].onset - anchor) / f1.unit, slot = Math.round(rel);
-          pre.push({ slot: slot, errMs: Math.abs(rel - slot) * f1.unit * 1000 });
-        }
-        let ok = true, prev = 0;
-        for (let i = pickup - 1; i >= 0; i--) { if (pre[i].slot >= prev) { ok = false; break; } prev = pre[i].slot; }
-        if (!ok) { console.error('--cluster ' + label + ' --figures: the pick-up sits on no slot of figure 1\'s grid (unit ' + (f1.unit * 1000).toFixed(0) + ' ms) — drop --figures or drop --pickup'); process.exit(2); }
-        const shift = -Math.min.apply(null, pre.map(x => x.slot));
-        for (const pm of perMember) if (pm && pm.gridId === key + '-f1') pm.pos += shift;
-        for (let i = 0; i < pickup; i++)
-          perMember[i] = { unit: f1.unit, pos: pre[i].slot + shift, gridId: key + '-f1', group: key + 'a', beams: 2, sub: 4, tuplet: null, last: false, figure: 1 };
-        console.log('    pick-up: ' + pickup + ' note(s) on figure 1\'s grid at slot(s) ' +
-          pre.map((x, i) => members[i].source.objectId + '@' + (x.slot + shift) + ' (off ' + x.errMs.toFixed(0) + ' ms)').join(', '));
+        console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) +
+          ' — ' + seg.figures.length + ' FIGURES, each on its OWN grid (--ownGrids)');
+        console.log('    ' + seg.words);
+        seg.figures.forEach((fg, fi) => console.log('    f' + (fi + 1) + ': notes ' + (base + fg.from) + '-' + (base + fg.to) +
+          '  ' + fg.words + '  ·  unit ' + (fg.fit.unit * 1000).toFixed(0) + ' ms = ' + fg.fit.bpm.toFixed(0) + ' bpm · ' +
+          fg.fit.heads.toFixed(1) + ' heads · grid ' + fg.fit.grid.join(',') +
+          (fg.fit.tupletBeats ? ('  TUPLET ' + fg.fit.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '')));
       }
-      console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' — ' + seg.figures.length + ' FIGURES (8g)');
-      console.log('    ' + seg.words);
-      seg.figures.forEach((fg, fi) => console.log('    f' + (fi + 1) + ': notes ' + (base + fg.from) + '-' + (base + fg.to) +
-        '  ' + fg.words + '  ·  unit ' + (fg.fit.unit * 1000).toFixed(0) + ' ms = ' + fg.fit.bpm.toFixed(0) + ' bpm · ' +
-        fg.fit.heads.toFixed(1) + ' heads · grid ' + fg.fit.grid.join(',') +
-        (fg.fit.tupletBeats ? ('  TUPLET ' + fg.fit.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '')));
       // one line per note in question, closest call first: both directions of a
       // near-tie name the SAME note, and printing both reads as duplication
       const ntBy = new Map();
@@ -415,15 +450,37 @@ const { doc, warnings } = Extract.extract(score, {
     // each tuplet beat becomes a bracket group over that beat, with the
     // members' slot numbers explicit (a tuplet may have a rest between two
     // of its notes — the existing --tuplet path assumed consecutive slots).
-    const usePattern = mods.some(([k]) => k === '--pattern') && !useFigures;
+    //
+    // 8i: --figures (without --ownGrids) IS this path. segment() already fitted
+    // the whole gesture as seg.single on its way to pricing the cuts, so the
+    // same object is reused rather than re-fitted — one grid, one set of
+    // brackets, and the seams arriving separately as beam breaks.
+    const oneGrid = useFigures && !ownGrids;
+    const usePattern = oneGrid || mods.some(([k]) => k === '--pattern');
     let patTuplets = null;   // k(member index) -> {group, num, den, startPos, slot}
     if (usePattern) {
       const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
-      const pf = PF.fit(mainMembers.map(e => e.onset));
-      if (!pf) { console.error('--cluster ' + label + ' --pattern: the analyser found no writing'); process.exit(2); }
-      // carry the pickup placement forward if there was one
-      const shift = (pickup && !onePastPickup) ? (fit.grid[pickup] - 0) : 0;   // main grid begins at fit.grid[pickup] after the pickup shift
-      const pre = (pickup && !onePastPickup) ? fit.grid.slice(0, pickup) : [];
+      const pf = oneGrid ? seg.single : PF.fit(mainMembers.map(e => e.onset));
+      if (!pf) { console.error('--cluster ' + label + (oneGrid ? ' --figures' : ' --pattern') + ': the analyser found no writing'); process.exit(2); }
+      // THE PICK-UP GOES ON THE PATTERN GRID, measured against the pattern's
+      // own unit (day 28, 8i). The first version of this took its slots from
+      // the cluster_fit grid that the pattern is about to replace — which is a
+      // different unit, and on a span with no pick-up the slice was empty so
+      // nothing ever showed it. Same rule as the cluster_fit path below: each
+      // pick-up lands on the nearest slot, the whole grid shifts so the
+      // earliest sits at 0, and the miss is reported rather than acted on.
+      let pre = [], shift = 0;
+      if (pickup && !onePastPickup) {
+        const anchor = mainMembers[0].onset, slots = [];
+        for (let i = 0; i < pickup; i++) {
+          const rel = (members[i].onset - anchor) / pf.unit, slot = Math.round(rel);
+          slots.push({ slot: slot, errMs: Math.abs(rel - slot) * pf.unit * 1000 });
+        }
+        shift = -Math.min.apply(null, slots.map(x => x.slot));
+        pre = slots.map(x => x.slot + shift);
+        console.log('    pick-up: ' + pickup + ' note(s) on the pattern grid at slot(s) ' +
+          slots.map((x, i) => members[i].source.objectId + '@' + (x.slot + shift) + ' (off ' + x.errMs.toFixed(0) + ' ms)').join(', '));
+      }
       fit.unit = pf.unit; fit.beat = pf.unit * 4; fit.bpm = pf.bpm; fit.subdivision = 4; fit.beams = 2; fit.restDur = 16;
       fit.maxErr = pf.worstSeconds; fit.tuplet = null;
       fit.grid = pre.concat(pf.grid.map(g => +(g + shift).toFixed(4)));
@@ -443,11 +500,29 @@ const { doc, warnings } = Extract.extract(score, {
       }
       console.log('    PATTERN (D63): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
     }
-    if (!useFigures) console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
-    if (!useFigures) console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
+    if (!ownGrids) console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
+    if (!ownGrids) console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
       (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
       ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
-    if (pickup && !onePastPickup && !useFigures) {
+    // 8i: THE GROUPS AND THE BRACKETS, SIDE BY SIDE. What the page will say
+    // about each group, and whether any bracket says it across a seam.
+    if (oneGrid) {
+      const gBase = (pickup && !onePastPickup) ? pickup : 0;
+      console.log('    ' + seg.figures.length + ' GROUPS on ONE grid (8i), beams broken after note ' +
+        (seg.cuts.map(c => gBase + c).join(', ') || 'nothing') + ':  ' + seg.words);
+      (bvg ? bvg.groups : []).forEach(g => console.log('    g' + g.group + ': notes ' + (gBase + g.from) + '-' + (gBase + g.to) +
+        '  ' + seg.figures[g.group - 1].words.padEnd(23) +
+        (g.plain ? 'plain 16ths' : g.brackets.map(b => b.text + ' over notes ' + (gBase + b.notes[0]) + '-' + (gBase + b.notes[1]) +
+          (b.covers === 'exact' ? '' : b.covers === 'part' ? ' (part of the group; the rest is plain)' : ' — STRADDLES A SEAM')).join(' · '))));
+      for (const st of (bvg ? bvg.straddles : []))
+        console.log('    STRADDLE: the ' + st.text + ' on beat ' + st.beat + ' covers notes ' + (gBase + st.notes[0]) + '-' + (gBase + st.notes[1]) +
+          ', across the seam after note ' + (gBase + st.seamAfter) + ' — the bracket says "quicker" about two different groups. ' +
+          'FLAGGED, not fixed: move the seam (--cuts) or write it as --ownGrids');
+      if (seg.single && seg.single.coherent === false)
+        console.log('    ONE GRID IS OVER A HEAD (' + seg.single.heads.toFixed(1) + ') — the page cannot say the relation on one grid. ' +
+          'By hand: --ownGrids, or split at a seam (--cuts) and build two clusters');
+    }
+    if (pickup && !onePastPickup && !useFigures && !usePattern) {
       // place each pick-up note on the main grid, at whatever slot it lands
       // nearest; report the miss so an unplayable pick-up is never silent
       const anchor = mainMembers[0].onset;
@@ -490,6 +565,7 @@ const { doc, warnings } = Extract.extract(score, {
     // composer, day 23: "let's not beam them altogether... the first group of
     // notes and then the second group, but conceptually keep the same tempo".
     const breaks = listArg('beamBreak');
+    for (const b of figBreaks) breaks.add(b);   // 8i: --figures' seams ARE the breaks
     // --beamThrough 2 : beam group #2 (1-based) keeps its secondary beam
     // unbroken across rests — composer, day 23, on the second figure.
     const through = listArg('beamThrough');
@@ -584,6 +660,7 @@ const { doc, warnings } = Extract.extract(score, {
       // per gridId (layout.js), which is the figure under --figures and the
       // whole cluster otherwise.
       if (pm) { dev.gridId = pm.gridId; dev.figure = pm.figure; }
+      else if (oneGrid) dev.figure = sub + 1;
       if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
       if (rings) {
         // head, ring bar and dynamic come from its technique entry; the mark

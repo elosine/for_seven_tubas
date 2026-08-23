@@ -22,11 +22,13 @@ kinds exist:
 | **beam** | `--beam t0-t1@part` | notes joined by a beam that KEEP their own technique device — no tempo, no grid, no rests (day 24) |
 
 **Modifiers are positional** (day 24): `--clusterTol` `--accents` `--dyn`
-`--beamBreak` `--beamThrough` `--tuplet` `--figures` `--paceRatio` each apply to
-the `--cluster` that precedes them. `@part` is required in a multi-part file.
-**`--figures` (8g, day 27) cuts the cluster into FIGURES, each on its own grid** —
-see principle 6 below. It refuses to combine with `--beamBreak` (the opposite case:
-several beam groups on ONE tempo) or `--pattern` (which it implies).
+`--beamBreak` `--beamThrough` `--tuplet` `--figures` `--ownGrids` `--paceRatio`
+`--cuts` each apply to the `--cluster` that precedes them. `@part` is required in a
+multi-part file. **`--figures` (8i, day 28) cuts the cluster into GROUPS at its pace
+changes and writes them on ONE grid, beams broken at the seams** — see principle 6
+below. It refuses to combine with `--pattern` (which it implies) or `--beamBreak`
+(the seams ARE the breaks — move one with `--cuts`). **`--ownGrids`** (with
+`--figures`) is the alternative: each group on its own grid, the 8g/8h reading.
 
 ## The cluster standard
 
@@ -260,35 +262,54 @@ could not explain.**
 5. **Tuplets are welcome** — 3, 5, even 7:5 — when they make the visible pattern
    legible. The ms guard runs the other way too: no tuplet over spacing that
    does not show one.
-6. **Group first, grid second.** Gather notes into logical long-short figures;
-   ~~figures need not share a tempo (no tempo is printed)~~.
-   **DAY 28 VERDICT (D69) — SUPERSEDES the writing clause above and the "own grid"
-   sentences below; PLAN 8i builds it and rewrites this principle:** *the groups are
-   beam groups on ONE grid, and the bracket the fit places on a quicker group is the
-   communication of the pace change to the performer — "there should be some
-   communication to the performer if there is a speed change... the first two sixteenth
-   notes look much further apart than the next three, and so the seven-four bracket is
-   appropriate."* Own grids (no bracket) are the alternative, by hand. The seam rule
-   below (where the groups are) is unchanged.
-   **IMPLEMENTED day 27 (8g)** — `pattern_fit.segment()`, run by
-   `pattern_analyze` and written by `notate_section --cluster … --figures`. The
-   grouping rule is D67: **a cut may only land where the PACE CHANGES** — the seam
-   gap must be in a different pace band (ratio ≥ `PACE_RATIO`, 1.25) from the gap
-   before it. A figure ends when the pace changes, never in the middle of an even
-   stream, so an even run has no legal cut at all and can never be shattered into
-   pairs. A figure is also SHORT (`SOFT_MAX_NOTES` 6). Each figure is fitted alone
-   and becomes its own beam group and its own **grid domain** (`device.gridId`):
-   its rests, its written values and any tuplet bracket are computed inside it.
-   **The gesture still goes once** — one GC and one go line on its first note; a
-   seam between figures adds no ink and no rest, because two figures share no grid
-   in which a rest would mean anything. Near-tie boundaries are FLAGGED, never
-   decided (`--paceRatio` moves them). *Measured: on T1 of CLOUD02-I this replaces
-   one grid needing 7:4 · 6:4 · 7:4 at 0.7 heads with six figures needing no tuplet
-   at all and nothing past 0.3 heads.*
+6. **Group first, grid second — and then SAY THE RELATION.** Gather notes into
+   logical long-short groups; write them on ONE grid, with the beams broken at
+   the seams, so that the bracket the fit places on a quicker group communicates
+   the pace change to the performer.
+
+   **THE WRITING CLAUSE (day 28, D69 — supersedes "figures need not share a
+   tempo (no tempo is printed)").** The composer, shown the same sixteen notes
+   written both ways: *"my mental model is that there should be some
+   communication to the performer if there is a speed change... So the first two
+   sixteenth notes look much further apart than the next three. And so the
+   seven-four bracket is appropriate."* Each group on its own grid writes
+   everything as plain 16ths and prints no relation between the grids — a page
+   whose VALUES say "same" where its SPACING says "different". **One grid says it
+   out loud.** So: the groups are BEAM GROUPS on ONE grid, and the bracket IS the
+   message. **Own grids (`--ownGrids`) are the alternative, by hand**, where one
+   grid cannot hold the gesture inside a head. *The seam rule — where the groups
+   are — is unchanged by this; only the writing moved.*
+
+   **BUILT day 28 (8i)** — `--cluster … --figures` on `notate_section` now means
+   exactly this, and it is reproducible from the rule: `t1-final` built with no
+   `--cuts` and no `--beamBreak` is **IR-identical** to the hand-typed page the
+   composer approved (`t1-hybrid2` = `--pattern --beamBreak 3,6,8,11,15`), on
+   every drawn field. `device.figure` records the group number; there is no
+   `gridId`, because one grid is one grid domain.
+
+   **THE STRADDLE FLAG.** `fit()` chooses a tuplet PER BEAT and `segment()`
+   chooses the seams; nothing makes the two line up. Where a bracket covers half
+   of one group and half of the next it says "quicker" about both, which is the
+   one thing D69 forbids. `pattern_fit.bracketsVsGroups()` reports every such
+   **straddle** — the tool flags it and never fixes it (composer's call A(a), day
+   28: fix only if it appears in the reads and they want it fixed). *On T1 there
+   is none: the fit's tuplet beats and the composer's seams see the same quick
+   runs, because a seam IS a pace change. Across CLOUD02-I five gestures of
+   fifteen carry one.*
+
+   **THE GROUPING RULE (D67, day 27) — a cut may only land where the PACE
+   CHANGES.** The seam gap must be in a different pace band (ratio ≥
+   `PACE_RATIO`, 1.25) from its neighbour. A group ends when the pace changes,
+   never in the middle of an even stream, so an even run has no legal cut at all
+   and can never be shattered into pairs. A group is also SHORT
+   (`SOFT_MAX_NOTES` 6). **The gesture still goes once** — one GC and one go line
+   on its first note; a seam is a beam that stops and another that starts, and
+   adds no ink of its own. Near-tie boundaries are FLAGGED, never decided
+   (`--paceRatio` moves them; `--cuts a,b,c` names them outright).
 
    **THE SEAM IS THE SLOWER GAP — day 28 (8h, D68), the rule that says WHICH SIDE.**
    A cut lands where the pace changes (D67, above); 8h adds which of the two notes
-   at that change belongs to which figure. **A seam is a gap that is not quicker
+   at that change belongs to which group. **A seam is a gap that is not quicker
    than either neighbour and is a pace change from at least one of them** — a
    banded local maximum (Lerdahl & Jackendoff GPR 2b: a group boundary falls at the
    greater inter-onset interval). *The boundary note goes with the QUICK side.*
@@ -301,17 +322,22 @@ could not explain.**
    where the 304 ms gap joins the 239 ms band), and **where the rule can find no
    seam at all it says so** (`noSeam`) instead of inventing one — T7 @36.19, whose
    every slow gap has a slower neighbour, is by ear. `--cuts a,b,c` names the seams
-   by hand on either tool and legality steps aside; each figure is still fitted alone.
+   by hand on either tool and legality steps aside; each group is still fitted from
+   the notes.
 
-   ***RE-MEASURED under the two-sided rule (day 28), and the day-27 claim did NOT
-   survive: across all ten parts of CLOUD02-I, THREE figures need a tuplet*** — T7
-   @36.19 (notes 1–6, 0.9 heads), T7 @39.51 (notes 5–8, 0.6), T8 @37.14 (notes 4–7,
-   0.9) — against **none** under the one-sided rule. The reason is not that the new
-   rule reads worse: the old rule cut MORE (60 figures against 55), and a
-   short-enough figure fits any grid for free. Cutting only at real seams leaves
-   larger, more musical figures, and three of them genuinely want a bracket. Worst
-   displacement across the whole section improved, 1.00 heads → 0.93. **So the
-   tuplet-vs-dotted question deferred on day 26 is LIVE again, in three places.**
+   **THE PRE-READ MEASUREMENT (day 28, 8i): CAN THE GESTURE BE SAID ON ONE GRID?**
+   `pattern_analyze --scan t0-t1` counts it. This replaces "how many figures need
+   a tuplet", which under D69 measures nothing — a bracket is the message, not a
+   cost; that number only said how finely the material had been cut. ***Measured
+   on CLOUD02-I (36.19–40.42, all ten parts): fifteen gestures, and ALL FIFTEEN sit
+   within a head on one grid*** (worst 1.00, T3 @36.33 — exactly on the line;
+   T9 @37.39 next at 0.99). **So nothing in this section needs `--ownGrids`.**
+   What the scan does surface for the reads is **five straddles** (T2 @38.60,
+   T4 @36.20 with three, T9 @36.33, T9 @37.39, T10 @38.69), **one gesture with no
+   clean seam** (T7 @36.19) and **five ratio ties**. *The day-27 "no figure needs a
+   tuplet" claim and its day-28 correction to "three do" are both retired with the
+   metric they belonged to: under one grid, ten of the fifteen gestures carry at
+   least one bracket, which is the point rather than the cost.*
 7. **Played noteheads stay 16ths** on a 16th grid — not 8ths (too long), not
    32nds (too short). Where a 32nd rest would separate two 16ths, write two
    16ths.
@@ -332,8 +358,14 @@ words first with near-ties flagged, printing the old one-grid reading LAST for
 comparison. `fit()` itself is unchanged.**
 **Day 28 (8h): the seam test became TWO-SIDED (D68) — see principle 6. With it came
 the RATIO TIE flag, the NO CLEAN SEAM flag, `--cuts a,b,c` (name the seams by hand,
-on both tools) and the FLOW flag (adjacent figures at 2:1 or 3:2 could share one
+on both tools) and the FLOW flag (adjacent groups at 2:1 or 3:2 could share one
 grid — a report only, nothing is built from it). `fit()` is still unchanged.**
+**Day 28 (8i, D69): the WRITING settled — `--figures` is now the groups on ONE grid
+with the beams broken at the seams, `--ownGrids` is the alternative,
+`bracketsVsGroups()` reports every STRADDLE, the report prints the one-grid writing
+FIRST and own grids LAST, and `--scan t0-t1` is the pre-read measurement (is the
+gesture's one grid within a head?). `fit()` and `segment()` are both unchanged.**
 `tools/test_pattern_fit.js` guards the calibration, the T1 golden (now the composer's
-own cuts), the structural no-shatter cases, the words, and the 8h seam behaviour — 61
-checks.*
+own cuts AND the composer's page, 7:4 · 6:4 · 7:4), the structural no-shatter cases,
+the words, the 8h seam behaviour, straddle detection and the CLOUD02-I scan — 80
+checks (83 with `--prove-red`).*

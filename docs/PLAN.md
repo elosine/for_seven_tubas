@@ -2016,10 +2016,21 @@ while building the real score.
 
 - **8i — THE BRACKET IS THE MESSAGE: the composer's groups on ONE grid, beams broken
   at the seams, as the default build; the report and the scan that go with it** —
-  `todo (approved by the composer day 28, third sitting — "I would like the tuplet
-  brackets"; design calls answered: A(a) bracket scope stays per beat, watch for
-  straddles in the reads · B(a) one grid per gesture, the fit's brackets, FLOW stays a
-  flag)`. Model: **Opus**, clear before it (conversation → execution). Decision: **D69**
+  **`DONE 2026-08-23 (day 28, fourth sitting, Opus 5)` — all nine items built and
+  verified; `t1-final` is IR-identical to `t1-hybrid2` on every drawn field and alone
+  in the picker. Trail: RUNNING_LOG day 28 fourth entry (with the CLOUD02-I scan
+  table). TWO THINGS THE BUILD FOUND: (a) the scan says **all 15 gestures of
+  CLOUD02-I fit ONE grid inside a head** — nothing in this section needs
+  `--ownGrids`; (b) **five gestures carry a STRADDLING bracket** (T2 @38.60, T4
+  @36.20 ×3, T9 @36.33, T9 @37.39, T10 @38.69), so design call A(a)'s watch item is
+  real in a third of the section and comes to the composer part by part in 5c. Also
+  fixed on the way, unasked: `--pattern --pickup` had been placing the pick-up on
+  the cluster_fit grid it was about to overwrite — the new default routes through
+  that path, so it had to be right.`**
+  *(Originally: `todo (approved by the composer day 28, third sitting — "I would like
+  the tuplet brackets"; design calls answered: A(a) bracket scope stays per beat,
+  watch for straddles in the reads · B(a) one grid per gesture, the fit's brackets,
+  FLOW stays a flag)`.)* Model: **Opus**, clear before it (conversation → execution). Decision: **D69**
   (journal §4, filed). Trail: RUNNING_LOG day 28 third entry, COMPOSER_LOG day 28,
   PAPER_NOTES day 28 ("the bracket is the message").
   **Why (the composer, verbatim):** *"my mental model is that there should be some

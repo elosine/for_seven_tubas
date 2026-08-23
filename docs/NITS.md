@@ -10,6 +10,14 @@
 
 ## Open
 
+- **`notate_section.js --prune` can fail with a Windows `UNKNOWN` error writing
+  `notation/ir/index.json` while the notation page is open on it.** Seen once,
+  2026-08-23 (day 28, pruning six entries in a loop with :5210 live): the IR file was
+  already removed, the manifest write threw, and the entry was left orphaned until a
+  retry — which worked immediately. Transient write contention with the page’s
+  manifest poll. Harmless as long as the failure is noticed (it is loud); a retry or a
+  short write-retry loop would close it. Deferred: one command, one retry.
+
 - **notation.html's default `notation` view logs ~40 console errors on
   trance-section-01: `<rect> attribute width: A negative value is not valid
   ("-9678.23")`.** Pre-existing (render.js path, untouched by the day-22

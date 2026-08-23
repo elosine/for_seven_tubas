@@ -53,52 +53,8 @@
    "exp": true
   },
   {
-   "id": "t1-onegrid",
-   "label": "8g BEFORE — T1 36.2-39.6 on ONE grid (3 tuplet beats, 0.7 heads)",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t1-figures",
-   "label": "8g AFTER — T1 36.2-39.6 as SIX figures (no tuplet, 0.2 heads)",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t1-hybrid",
-   "label": "8g HYBRID — T1 on ONE grid (7:4 6:4 7:4), beams broken at the six figures",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t1-hybrid2",
-   "label": "8g HYBRID-2 — ONE grid, beams broken at the COMPOSER'S groups 2+3 / 2+3 / 4 / 2 (day 28)",
-   "score": "piece-s25-finished01",
-   "window": [
-    35,
-    41
-   ],
-   "profile": "section1",
-   "exp": true
-  },
-  {
-   "id": "t1-figures2",
-   "label": "8h — T1 as the COMPOSER'S groups, each on its own grid",
+   "id": "t1-final",
+   "label": "T1 FINAL (day 28) — the composer's groups on ONE grid, 7:4 · 6:4 · 7:4, built from the rule",
    "score": "piece-s25-finished01",
    "window": [
     35,

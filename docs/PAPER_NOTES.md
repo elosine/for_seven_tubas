@@ -1270,3 +1270,64 @@ offer, by hand, not the default).
    break — and that is exactly the thing the tool could not see without the detour. The
    grouping was worth two days; the writing was worth none, and the composer's eye
    settled it in a sentence.
+
+### Day 28, fourth sitting — what the build DID to the argument (8i, Opus 5)
+
+*Three things came out of building 8i that the third sitting's dialogue could not have
+predicted, and each of them is evidence for a different claim.*
+
+**1. The metric that was replaced, and why the replacement is the interesting part.**
+Across three days the same section was scored three different ways by the same tool:
+
+| day | rule | the number reported | what it actually measured |
+|---|---|---|---|
+| 27 (8g) | one-sided seam | "**0** of 60 figures need a tuplet" | how finely the material was cut |
+| 28 (8h) | two-sided seam (D68) | "**3** of 55 figures need a tuplet" | the same thing, cut less finely |
+| 28 (8i) | one grid (D69) | "**15** of 15 gestures fit one grid inside a head; **12** carry a bracket" | whether the page can say the relation |
+
+The first two numbers moved because the *cutting* changed, not because the material
+did — a short-enough figure fits any grid for free, so cutting more finely drives the
+"needs a tuplet" count toward zero no matter what the music does. The number looked
+like a measurement of the notation and was a measurement of the tool's own parameter.
+**It was only visible as a proxy failure once the composer's verdict made the quantity
+irrelevant.** For the paper this is the cleanest instance of a recurring shape: *an
+automated criterion that improves monotonically in its own parameter is measuring the
+parameter.*
+
+**2. The composer's page was reproducible from the rule — but only after the rule had
+been corrected by the composer's ear, twice.** `t1-final`, built with no `--cuts` and
+no `--beamBreak`, is IR-identical on every drawn field to `t1-hybrid2`, which the
+composer had hand-typed. That is the strongest form of the claim the whole project is
+testing: *the composer's judgement, once stated, can be encoded and then reproduced
+without them.* The honest qualification is the order of events — the ear came first
+(day 28: cuts after 2,5,7,10,14, and "I would like the tuplet brackets"), the rule
+second (D68 then D69), the reproduction third. The tool did not discover the page; it
+was corrected into being able to rebuild it. **What that buys is not this page — it is
+the other nine parts**, which the tool now writes the same way without the composer
+having to type anything.
+
+**3. The design call the composer deferred came due immediately, and the scan is what
+made it visible.** In the third sitting the composer answered call **A(a)** — keep the
+bracket scope per beat, flag a bracket that straddles a seam, *and fix it only if one
+appears in the reads*. One `--scan` over CLOUD02-I: **five of fifteen gestures carry a
+straddling bracket**, T4 @36.20 three of them. So the case the composer treated as
+hypothetical is a third of the section. Two observations for the argument:
+
+- **A deferral is only cheap if you can measure how often it will bite before you pay
+  for it.** The scan took one command and turned "we'll see" into "five places, named".
+  Without it the composer would have met the straddles one at a time across ten
+  sittings, deciding the same question ten times.
+- **The straddle exists because two independently-correct rules meet.** `fit()` chooses
+  tuplets per BEAT (it must — a bracket is a beat-level object); `segment()` chooses
+  seams by PACE. On T1 they coincide, which is why the composer's page is legal — *a
+  seam IS a pace change, and a pace change is what buys a bracket.* The coincidence is
+  not guaranteed, and where it fails the page says "quicker" about two groups at once.
+  This is a good small example of a class the paper should name: **composed rules that
+  are each right and jointly produce a statement neither intended.**
+
+*A smaller note, for the methodology section.* The plan predicted the three brackets
+would cover notes 3–5, 6–7 and **11–14**, with "(verify)" written next to it. Measured:
+3–5, 6–7 and **12–14** — note 11 sits in the preceding plain beat. The prediction was
+wrong and the flagged uncertainty caught it; the claim that depended on it (no bracket
+leaves its group) held. Writing "verify this" beside a guess is what let the guess be
+wrong without costing anything.

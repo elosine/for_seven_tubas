@@ -156,12 +156,82 @@ ok(PF.words([0.255]) === 'pair', '8g words: a lone gap is a "pair"');
 // --- fit() IS UNTOUCHED (8g rule): segment() must not have changed it.
 ok(PF.fit([31.765, 32.026, 32.442, 32.835]).grid.join(',') === '0,2,5,8', '8g: fit() unchanged by segmentation');
 
+// =====================================================================
+// 8i — BRACKETS vs GROUPS (D69, "the bracket is the message"). 8h decides
+// WHERE the seams are; fit() decides which BEATS carry a tuplet. Nothing makes
+// the two line up, and where they do not a bracket says "quicker" about half of
+// one group and half of the next. That is a STRADDLE, and it is flagged.
+// =====================================================================
+{
+  const s = PF.segment(T1);
+  const b = PF.bracketsVsGroups(s.single, s.cuts);
+  ok(!!b, '8i T1: bracketsVsGroups returns a reading');
+  // THE COMPOSER'S PAGE (t1-hybrid2, approved day 28): ONE grid at 125 ms with
+  // three brackets — 7:4, 6:4, 7:4. This is the golden for the whole of 8i.
+  ok(s.single && Math.round(s.single.unit * 1000) === 125, '8i T1: the one grid is a 125 ms 16th (' + (s.single && Math.round(s.single.unit * 1000)) + ')');
+  ok(b && b.brackets.map(x => x.text).join(' ') === '7:4 6:4 7:4',
+    '8i T1: three brackets, 7:4 6:4 7:4 (' + (b && b.brackets.map(x => x.text).join(' ')) + ')');
+  ok(b && b.brackets.map(x => x.notes.join('-')).join(' ') === '3-5 6-7 12-14',
+    '8i T1: they cover notes 3-5, 6-7, 12-14 (' + (b && b.brackets.map(x => x.notes.join('-')).join(' ')) + ')');
+  // and against the groups: two cover a group exactly, one covers part of one
+  // (note 11 sits in the plain beat before the septuplet), three are plain
+  ok(b && b.groups.map(g => g.from + '-' + g.to).join(' ') === '1-2 3-5 6-7 8-10 11-14 15-16',
+    '8i T1: six groups, the composer’s (' + (b && b.groups.map(g => g.from + '-' + g.to).join(' ')) + ')');
+  ok(b && b.groups.filter(g => g.plain).map(g => g.group).join(',') === '1,4,6',
+    '8i T1: groups 1, 4 and 6 are plain 16ths (' + (b && b.groups.filter(g => g.plain).map(g => g.group).join(',')) + ')');
+  ok(b && b.groups[1].brackets[0].covers === 'exact' && b.groups[2].brackets[0].covers === 'exact',
+    '8i T1: the 7:4 and the 6:4 cover groups 2 and 3 exactly');
+  ok(b && b.groups[4].brackets[0].covers === 'part',
+    '8i T1: the second 7:4 covers PART of group 5 — note 11 is in the plain beat before it (' + (b && b.groups[4].brackets[0].covers) + ')');
+  // THE CLAIM THAT MATTERS: on T1 the fit's beats and the composer's seams see
+  // the same quick runs, because a seam IS a pace change. So no bracket leaves
+  // its group, and the page the composer approved is legal under D69.
+  ok(b && b.straddles.length === 0, '8i T1: NO bracket straddles a seam (' + (b && b.straddles.length) + ')');
+}
+// --- 8i: a straddle IS detected. Pure function, so the case is constructed:
+// a triplet on beat 1 covers notes 3-5, and the seam falls after note 4.
+{
+  const single = { grid: [0, 1, 4, 5.333, 6.667, 8], beats: [{ beat: 0, tuplet: null }, { beat: 1, tuplet: 3 }, { beat: 2, tuplet: null }] };
+  const b = PF.bracketsVsGroups(single, [4]);
+  ok(b && b.straddles.length === 1, '8i straddle: a bracket across a seam is caught (' + (b && b.straddles.length) + ')');
+  ok(b && b.straddles[0].seamAfter === 4 && b.straddles[0].notes.join('-') === '3-5',
+    '8i straddle: it names the seam (after 4) and the notes (3-5)');
+  ok(b && b.straddles[0].text === '3:2', '8i straddle: and the bracket it is (' + (b && b.straddles[0].text) + ')');
+  ok(b && b.groups[0].brackets[0].covers === 'straddle' && b.groups[1].brackets[0].covers === 'straddle',
+    '8i straddle: both groups report the bracket as leaving them');
+  // and the negative: move the seam to the beat line and the same notes are clean
+  ok(PF.bracketsVsGroups(single, [2]).straddles.length === 0, '8i straddle: a seam ON the beat line straddles nothing');
+}
+// --- 8i: the SCAN is the pre-read measurement. Its two numbers on CLOUD02-I are
+// the day-28 record: every gesture fits ONE grid inside a head, and five of them
+// carry a bracket that crosses a seam (design call A(a) — the watch item is real).
+{
+  const out = execFileSync(process.execPath, [path.join(ROOT, 'tools', 'pattern_analyze.js'), '--ir', 'db1-c2i-x01', '--scan', '36.19-40.42'], { cwd: ROOT }).toString();
+  const w = out.match(/one grid WITHIN a head: (\d+)\s+·\s+OVER a head: (\d+)/);
+  ok(w && w[1] === '15' && w[2] === '0', '8i scan: CLOUD02-I is 15 gestures within a head, 0 over (' + (w ? w[1] + '/' + w[2] : '?') + ')');
+  const st = out.match(/brackets straddling a seam: (\d+)/);
+  ok(st && st[1] === '5', '8i scan: five gestures carry a straddling bracket (' + (st ? st[1] : '?') + ')');
+  ok(/T7\s+36\.19.*no clean seam/.test(out), '8i scan: T7 @36.19 still reports no clean seam');
+}
+// --- 8i: --ownGrids is the ALTERNATIVE, and segment() is what it is built from.
+// The per-figure reading is unchanged by 8i — every 8g/8h assertion above still
+// describes what --ownGrids writes; only the DEFAULT moved to one grid.
+{
+  const s = PF.segment(T1);
+  ok(s.figures.length === 6 && s.figures.every(f => f.fit && f.fit.coherent !== false),
+    '8i --ownGrids: the six per-figure fits are untouched by 8i');
+  ok(Math.max.apply(null, s.figures.map(f => f.fit.heads)) < 0.4,
+    '8i --ownGrids: and still nothing past 0.4 heads (' + Math.max.apply(null, s.figures.map(f => f.fit.heads)).toFixed(2) + ')');
+}
+
 if (process.argv.includes('--prove-red')) {
   const f = PF.fit([31.765, 32.026, 32.442, 32.835], { MAX_HEADS: 0.01 });
   ok(f && !f.coherent, 'prove-red: a 0.01-head line makes T8 incoherent');
   // and the segmenter: with pace bands wide enough to swallow every gap, T1 has
   // no pace change anywhere and must come out as ONE figure
   ok(PF.segment(T1, { PACE_RATIO: 99 }).figures.length === 1, 'prove-red: one pace band makes T1 a single figure');
+  // and the straddle detector: cut T1 mid-septuplet and it must complain
+  ok(PF.bracketsVsGroups(PF.segment(T1).single, [2, 4, 7, 10, 14]).straddles.length > 0, 'prove-red: a seam inside the 7:4 is a straddle');
 }
 if (fails) { console.error('PATTERN_FIT RED: ' + fails + ' failure(s) of ' + checks); process.exit(1); }
-console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words) + 8h seams (two-sided legality, ratio tie, no-clean-seam, cuts by hand, flow)');
+console.log('PATTERN_FIT GREEN: ' + checks + ' checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words) + 8h seams (two-sided legality, ratio tie, no-clean-seam, cuts by hand, flow) + 8i brackets vs groups (T1 golden 7:4 6:4 7:4, straddle detection, the CLOUD02-I scan)');

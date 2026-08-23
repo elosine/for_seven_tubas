@@ -9451,3 +9451,160 @@ entries pruned). Principle 6 carries a supersede note until 8i rewrites it. For 
 record, the AI's lean an hour earlier was `t1-figures2`; the composer's principle
 overruled it and the AI's own FLOW remark ("the bracket is what says quicker") was the
 half-formed version of the rule the composer stated whole.
+
+### Day 28 (fourth sitting, Opus 5) — PLAN 8i BUILT: the bracket is the message
+
+The composer's verdict from the third sitting (*"I would like the tuplet brackets"*,
+D69) turned into the default build. `--figures` no longer means "each figure on its
+own grid"; it means **the groups from 8h, on ONE grid, with the beams broken at the
+seams** — so every pace change is said on the page as the tuplet relation the fit
+already found. `--ownGrids` keeps the old behaviour as the by-hand alternative.
+
+**The whole of the build is a re-wiring, not new drawing code.** `--figures` now runs
+`PF.segment()` for the seams, hands `seg.single` to the EXISTING `--pattern` grid path,
+and synthesises the `--beamBreak` set from the cuts (`break member = base + cut + 1`).
+That was deliberate, and it is what made the proof below possible.
+
+**THE PROOF (item 7 of the plan).** `t1-final`, built with **no `--cuts` and no
+`--beamBreak`** —
+
+```
+node tools/notate_section.js --score piece-s25-finished01 --w0 35 --w1 41 --parts 0-9 \
+  --profile section1 --id t1-final --exp --label "T1 FINAL (day 28) — …" --bricks \
+  --cluster 36.21-39.62@0 --figures
+```
+
+— against `t1-hybrid2`, the page the composer approved, which was **hand-typed** as
+`--pattern --beamBreak 3,6,8,11,15`:
+
+- `events`, `chunks`, `source` and `irVersion`: **identical**. 16 overlays each, same ids.
+- Every drawn device field on all 16 overlays: **identical** — beam group, beam unit,
+  beam position, beam levels, subdivision, all seven tuplet fields, heads, dots, GC.
+- **The single difference is `device.figure`**, which `t1-hybrid2` never carried
+  (nothing writes it on the `--pattern` path) and which item 1 of the plan asked for.
+  It records the group number (1,1,2,2,2,3,3,4,4,4,5,5,5,5,6,6 — the composer's six)
+  and draws nothing. Reported rather than stripped from the diff: it is the one
+  place the spec's item 1 and item 7 pull against each other, and the honest answer
+  is "identical on every drawn field, plus one new annotation".
+
+**DOM audit (:5210 `score-verify`, both IRs loaded in the same page):** 21 polygons,
+6 primary beams and 3 tuplet texts `7:4 6:4 7:4`, one `gc-arc`, one `gc-impact` —
+and the polygon bounding boxes, text positions and notehead positions are **byte-equal
+between `t1-final` and `t1-hybrid2`**. The six primary beams span exactly notes 1–2,
+3–5, 6–7, 8–10, 11–14, 15–16 (checked by mapping each beam's x-range onto the 16
+notehead x-positions: the stem sits 17.42 px right of each head's left edge, and every
+beam endpoint lands on one). *No screenshot — the Browser pane was not displayed on
+the composer's side this sitting; the DOM audit needs no pane.*
+
+**`--ownGrids` was proved too, the same way:** built from `--figures --ownGrids` it is
+**byte-identical to `t1-figures2`**. The old reading is preserved exactly, not
+approximated.
+
+#### The one place the plan's expectation was wrong, and it is a small correction
+
+PLAN 8i predicted (flagged "verify") that on T1 the three brackets would cover
+**3–5, 6–7 and 11–14**. Measured: **3–5, 6–7 and 12–14**. Note 11 sits at grid
+position 19, which is inside beat 4 — a PLAIN beat — while the septuplet is beat 5.
+So group 5 (notes 11–14) is written `16th + 7:4 [16th 16th 16th]`: the bracket covers
+*part* of the group and nothing outside it. **The claim that mattered survives intact
+— `straddles.length === 0`**, no bracket leaves its group, and the page the composer
+approved is legal under D69. `bracketsVsGroups()` now distinguishes `exact` / `part` /
+`straddle` per group for exactly this reason.
+
+#### THE SCAN — the new pre-read measurement (item 5)
+
+"How many figures need a tuplet" is retired. Under D69 a bracket is the message, not
+a cost, and that number only ever measured how finely the material had been cut (day
+27: 0 of 60 — day 28 under the corrected rule: 3 of 55). **The question the reads
+actually open with is: can this gesture be said on ONE grid?**
+
+`node tools/pattern_analyze.js --ir db1-c2i-x01 --scan 36.19-40.42`
+
+```
+part  t0      notes  groups (cuts)          unit  heads  brackets      flags
+T1    36.22      16  6 (2,5,7,10,14)        125   0.70  7:4 6:4 7:4   2 ratio ties · flow 1+2,5+6
+T1    40.17       1  a lone one-shot
+T2    36.19       7  2 (3)                  137   0.83  plain         flow 1+2
+T2    38.60       8  3 (2,6)                155   0.73  7:4 3:2       1 STRADDLE · flow 1+2
+T3    36.33      17  6 (3,6,10,12,14)       132   1.00  5:4 3:2 5:4 3:2  1 ratio tie · flow 2+3,3+4
+T4    36.20      17  7 (2,6,9,11,13,15)     131   0.90  5:4 6:4 5:4 6:4 6:4  3 STRADDLES · 2 ratio ties · flow 6+7
+T5    36.46      16  6 (2,6,9,11,14)        132   0.87  7:4 5:4 6:4 3:2  flow 1+2,5+6
+T6    36.32       1  a lone one-shot
+T6    36.92       2  1 (—)                  208   0.00  plain
+T6    37.70      12  4 (2,4,10)             128   0.95  7:4 5:4       2 ratio ties · flow 2+3
+T7    36.19       6  1 (—)                  137   0.90  3:2           no clean seam · 2 ratio ties
+T7    38.32       8  2 (4)                  152   0.93  3:2 3:2       flow 1+2
+T8    36.30      16  6 (3,7,9,11,13)        143   0.90  5:4 6:4 6:4 3:2 5:4  flow 1+2,5+6
+T9    36.33       4  2 (2)                  168   0.70  6:4           1 STRADDLE · flow 1+2
+T9    37.39      13  4 (3,6,9)              141   0.99  5:4 5:4 7:4   1 STRADDLE · flow 2+3
+T10   36.31       7  2 (3)                  146   0.93  plain
+T10   38.69       8  3 (2,4)                155   0.80  6:4           1 STRADDLE · flow 1+2,2+3
+
+SUMMARY — 15 gestures
+  one grid WITHIN a head: 15   ·   OVER a head: 0
+  brackets straddling a seam: 5  → T2 @38.60, T4 @36.20, T9 @36.33, T9 @37.39, T10 @38.69
+  no clean seam: 1  → T7 @36.19
+  ratio ties: 5  → T1 @36.22, T3 @36.33, T4 @36.20, T6 @37.70, T7 @36.19
+```
+
+**Three things this says, and they change what step 5c looks like:**
+
+1. **Nothing in CLOUD02-I needs `--ownGrids`.** All fifteen gestures sit within a
+   head on one grid. The by-hand escape the plan built for is not needed anywhere in
+   this section. *Worst is T3 @36.33 at exactly 1.00 heads — on the line, not over
+   it; T9 @37.39 is next at 0.99. Both are calls for the eye, and the composer's
+   standing note applies ("don't fight over 0.2 of a head").*
+2. **The straddle watch item is real — five of fifteen gestures carry one**, T4
+   @36.20 three of them. Design call A(a) said "build only if one appears and the
+   composer wants it fixed". They appear. The tool flags them; the fix (a bracket
+   scoped to the figure rather than the beat, a change to `fit()`'s model) is still
+   unbuilt and still the composer's call, part by part.
+3. **Twelve of the fifteen carry at least one bracket**; three are plain (T2 @36.19,
+   T6 @36.92, T10 @36.31). Under D69 that is the point, not the cost — those twelve
+   are the gestures whose page now says its own pace changes out loud.
+
+#### What was fixed on the way, and was not asked for
+
+**`--pattern --pickup` placed the pick-up on the wrong grid.** The pattern path took
+its pick-up slots from `fit.grid.slice(0, pickup)` — the *cluster_fit* grid it was
+about to overwrite, at a different unit — and the later, correct pick-up block was
+guarded `!useFigures`, so it did not run either. Nothing ever showed it because no
+built figure combined `--pattern` with `--pickup`, and on a span without one the
+slice is empty. **8i routes the new default through that path, so it had to be
+right:** the pick-up is now measured against the pattern's own unit, the grid shifts
+so the earliest pick-up sits at 0, and the miss is printed. Same rule as the
+cluster_fit path, one code path instead of two. *Found by reading, not by a failure —
+recorded here because a silent wrong-grid pick-up is exactly the class of bug that
+would have surfaced as "the composer cannot see the figure".*
+
+**A cosmetic one, also unasked:** under `--ownGrids` the synthesised beam breaks were
+being computed and printed ("beam breaks before members 3,6,8,11,15") even though the
+grid domains already do that job there. Guarded — the line no longer appears, and
+`--ownGrids` stayed byte-identical to `t1-figures2` after the change (re-verified).
+
+#### Verification
+
+- **All ten batteries green** (`test_layout test_render test_animobj test_splice
+  test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer
+  test_playability`).
+- `test_pattern_fit` **61 → 80 checks** (83 with `--prove-red`). New: the T1 golden
+  for D69 (one grid at 125 ms, brackets `7:4 6:4 7:4` over notes 3–5 / 6–7 / 12–14,
+  groups 1·4·6 plain, group 5 `part`, **no straddle**); a constructed straddle case
+  (a 3:2 on beat 1 cut after note 4 → one straddle naming the seam and the notes) and
+  its negative (a seam on the beat line straddles nothing); the CLOUD02-I scan's two
+  numbers (15/0 within a head, 5 straddles) locked as a regression; `--ownGrids`
+  unchanged. `--prove-red` gained a straddle red (cut T1 mid-septuplet → it complains).
+- `node tools/pattern_analyze.js --ir db1 --validate` → **24 of 25**, unchanged.
+  `device.figure` carries no `gridId`, so a one-grid cluster is still one unit.
+- **All four refusals exercised at the command line:** `--figures --beamBreak`
+  ("--figures breaks the beams at the seams itself; use --cuts to move a seam") ·
+  `--figures --pattern` ("implied — drop it") · `--ownGrids` without `--figures` ·
+  `--cuts` without `--figures`.
+- **The picker holds `t1-final` alone for T1.** The five scratch entries
+  (`t1-onegrid t1-figures t1-hybrid t1-hybrid2 t1-figures2`) are pruned; git keeps them.
+
+**One papercut, filed to NITS:** `--prune` failed once with a Windows `UNKNOWN` error
+writing `notation/ir/index.json` while the notation page was open on it, then
+succeeded on retry. Transient write contention with the page's manifest poll; the IR
+file had already been removed, so the manifest entry was left orphaned until the
+retry. Worth knowing before pruning a batch with the page open.

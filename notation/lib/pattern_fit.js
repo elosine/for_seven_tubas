@@ -394,6 +394,80 @@
     };
   }
 
+  // ---------------------------------------------------------------------
+  // BRACKETS vs GROUPS (8i, day 28 — D69). "THE BRACKET IS THE MESSAGE."
+  //
+  // The composer, looking at T1 written both ways: *"my mental model is that
+  // there should be some communication to the performer if there is a speed
+  // change... So the first two sixteenth notes look much further apart than
+  // the next three. And so the seven-four bracket is appropriate."*
+  //
+  // So 8h's GROUPING stands and 8g's WRITING falls: the gesture stays on ONE
+  // grid, the seams become beam breaks, and every pace change is said out loud
+  // as the tuplet relation the fit already found. Written as plain 16ths on
+  // their own grids the same notes make a page whose VALUES say "same" while
+  // its SPACING says "different".
+  //
+  // This function is the check that the two agree. fit() chooses a tuplet PER
+  // BEAT (design call A(a), day 28: that model stays); segment() chooses the
+  // seams. Nothing makes a beat line up with a seam — on T1 they happen to,
+  // because a seam IS a pace change and a pace change is what buys a bracket.
+  // Where they do NOT, a bracket covers half of one group and half of the next
+  // and says the wrong thing under D69. That is a STRADDLE, and it is flagged
+  // rather than fixed: the composer decides whether it is worth changing the
+  // bracket model for.
+  //
+  // Takes the ONE-GRID fit (seg.single) and the cut set (seg.cuts). Pure.
+  function bracketsVsGroups(single, cuts) {
+    if (!single || !single.grid || !single.grid.length) return null;
+    const SUB = DEFAULTS.SUB;
+    const n = single.grid.length;
+    const cutList = (cuts || []).slice().sort((a, b) => a - b).filter(c => c >= 1 && c < n);
+    // the groups the cuts make, as [firstNote, lastNote] 1-based
+    const bounds = []; { let s = 1; for (const c of cutList) { bounds.push([s, c]); s = c + 1; } bounds.push([s, n]); }
+    const groupOf = i => { let g = 1; for (const c of cutList) { if (i > c) g++; else break; } return g; };
+    const beatOf = i => Math.floor(single.grid[i - 1] / SUB + 1e-9);
+    // every beat the fit put a tuplet on, and which notes fall inside it
+    const brackets = [];
+    for (const b of (single.beats || [])) {
+      if (!b.tuplet) continue;
+      const notes = [];
+      for (let i = 1; i <= n; i++) if (beatOf(i) === b.beat) notes.push(i);
+      if (!notes.length) continue;
+      const den = b.tuplet >= 4 ? 4 : 2;
+      brackets.push({
+        beat: b.beat, tuplet: b.tuplet, text: b.tuplet + ':' + den,
+        notes: [notes[0], notes[notes.length - 1]],
+        groups: [...new Set(notes.map(groupOf))].sort((x, z) => x - z),
+      });
+    }
+    brackets.sort((a, b) => a.beat - b.beat);
+    // A STRADDLE: a bracket whose notes sit on both sides of a seam. One entry
+    // per seam crossed — a bracket may cross more than one.
+    const straddles = [];
+    for (const br of brackets)
+      for (const c of cutList)
+        if (br.notes[0] <= c && br.notes[1] > c)
+          straddles.push({ beat: br.beat, tuplet: br.tuplet, text: br.text, notes: br.notes.slice(), seamAfter: c });
+    // per group: the brackets over it, and how much of it each one covers.
+    // 'exact' = the bracket and the group are the same notes (T1's three);
+    // 'part' = it covers some of the group and nothing outside it (fine — the
+    // rest of the group is plain); 'straddle' = it leaves the group.
+    const groups = bounds.map(([a, z], gi) => {
+      const mine = brackets.filter(br => br.groups.indexOf(gi + 1) >= 0);
+      return {
+        group: gi + 1, from: a, to: z, notes: z - a + 1,
+        brackets: mine.map(br => ({
+          beat: br.beat, tuplet: br.tuplet, text: br.text, notes: br.notes.slice(),
+          covers: (br.notes[0] < a || br.notes[1] > z) ? 'straddle'
+            : (br.notes[0] === a && br.notes[1] === z) ? 'exact' : 'part',
+        })),
+        plain: mine.length === 0,
+      };
+    });
+    return { groups: groups, brackets: brackets, straddles: straddles, cuts: cutList };
+  }
+
   function segment(onsets, options) {
     const opt = Object.assign({}, DEFAULTS, SEG_DEFAULTS, options || {});
     const n = onsets ? onsets.length : 0;
@@ -596,5 +670,5 @@
     };
   }
 
-  return { fit, segment, words, paceBands, dottedReading, flow, cutsReason, DEFAULTS, SEG_DEFAULTS };
+  return { fit, segment, words, paceBands, dottedReading, flow, cutsReason, bracketsVsGroups, DEFAULTS, SEG_DEFAULTS };
 });
