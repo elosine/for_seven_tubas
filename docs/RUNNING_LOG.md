@@ -10162,3 +10162,25 @@ bracket clears every beam it spans. Five batteries green.
   inside a typing field. Quick escapes that need no new code: click any empty spot
   on the score, or TAB.
 - test_render/test_snapshots/test_layout green.
+
+
+#### Day 29 — the bracket ends at its content ("does that include the third to the last note?")
+
+**Composer, on T3's tail 3:2:** *"Does that include the third to the last note? The
+bracket is ambiguous. It either needs to extend to include that note or come back to
+not include that note. In any case, let's have a look at the spacing there."*
+
+**Answer: the 3:2 is notes 13–14 only** (plus its internal rest); note 15 opens the
+final plain group. **The ambiguity was real and measured:** the bracket was drawn to
+its full arithmetic beat span, and note 15 plays EARLY (295 ms after note 14 against
+352 written — the spatial-truth head sits 0.44 slots back), so the bracket's right
+edge ended 1.5 px PAST the head's left edge. An overlap, not just a crowd.
+
+**Fix (layout + render): a tuplet whose last slots are RESTS ends just past its
+trailing rest's glyph** — t1 = the last rest's slot time, dx1Ss = rest glyph width +
+pad (the beamOver anchoring exactly); the rest stays covered (it is part of the
+tuplet, Gould). A tuplet ending on a NOTE keeps the full span. Measured after: the
+3:2 ends 15.3 px clear of note 15's head; the 5:4 beside it shortened the same way
+(8.4 px clear); bracket-to-bracket gaps unchanged. **T1's brackets shorten by the
+same rule automatically — render-time, no rebuilds** (the composer expected a redo;
+none needed). Three batteries green.

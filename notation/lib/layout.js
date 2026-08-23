@@ -1184,6 +1184,29 @@
         // TUPLET BRACKETS + the rests inside them
         if (cl.tuplets) for (const [tk, tp] of cl.tuplets) {
           const t0 = t0Grid + tp.startPos * cl.unit, t1 = t0 + tp.den * cl.unit;
+          // THE BRACKET ENDS AT ITS CONTENT, NOT AT THE BEAT LINE (day 29,
+          // composer, on T3's 3:2: "Does that include the third to the last
+          // note? The bracket is ambiguous... it needs to come back to not
+          // include that note"). A tuplet whose LAST slots are rests was drawn
+          // to the full arithmetic span — its right edge landing exactly on
+          // the next group's first note (worse when that note plays early and
+          // its spatially-true head sits back under the line). The bracket
+          // still covers its trailing rest — the rest is part of the tuplet
+          // (Gould) — but stops just past the rest's glyph: t1 becomes the
+          // last trailing rest's slot time and dx1Ss carries glyph + pad, the
+          // beamOver anchoring exactly. A tuplet ending on a NOTE keeps the
+          // full span (nothing sits inside it to collide with).
+          let tEnd = t1, dx1 = null;
+          {
+            const noteSlots = [...tp.slots.keys()];
+            const lastNote = noteSlots.length ? Math.max.apply(null, noteSlots) : -1;
+            if (lastNote >= 0 && lastNote < tp.num - 1) {
+              const lastRestSlot = tp.num - 1;
+              const rg = glyphs.rest && glyphs.rest['rest' + (tp.valueDur || (cl.sub * 4))];
+              tEnd = t0 + lastRestSlot * tp.slotUnits * cl.unit;
+              dx1 = (rg ? rg.wSs : 1) + (o.beamOverPastSs != null ? o.beamOverPastSs : 0.2);
+            }
+          }
           const TP = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {});
           // the bracket belongs to ITS group: read that group's beam and stack
           // (the day-23 code read the FIRST group in the system — right by luck
@@ -1201,7 +1224,7 @@
           const beamTop = own ? own.tips[0].ySs : (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
           const lineOff = own && own.stack && own.stack.bracketLine != null ? own.stack.bracketLine : (TP.paddingSs + TP.hookLengthSs);
           const yB = tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff);
-          items.push({ k: 'tuplet', t0, t1, ySs: yB, dir: tp.dir, text: tp.text || (tp.num + ':' + tp.den), group: tk });
+          items.push({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: tp.dir, text: tp.text || (tp.num + ':' + tp.den), group: tk });
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;

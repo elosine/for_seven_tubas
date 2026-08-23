@@ -250,7 +250,10 @@
           // and read as one line — each end pulls in by hGapSs so neighbours
           // show daylight. Registry: engraving.layout.tuplet.hGapSs.
           const hIn = (TP.hGapSs != null ? TP.hGapSs : 0.35) * ssPx;
-          const x0 = view.xOfSeconds(it.t0) + hIn, x1 = view.xOfSeconds(it.t1) - hIn;
+          // dx1Ss: layout anchored the right end to the bracket's own trailing
+          // rest glyph (day 29) — use it instead of the symmetric inset
+          const x0 = view.xOfSeconds(it.t0) + hIn;
+          const x1 = it.dx1Ss != null ? view.xOfSeconds(it.t1) + it.dx1Ss * ssPx : view.xOfSeconds(it.t1) - hIn;
           const size = (TP.numeralSizeSs || 1.2348) * ssPx;
           const gap = (it.text || '3:2').length * (TP.numeralGapPerCharSs || 0.88) * ssPx;
           const gMid = (x0 + x1) / 2, gA = gMid - gap / 2, gB = gMid + gap / 2;
