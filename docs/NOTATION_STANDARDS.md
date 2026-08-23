@@ -261,7 +261,15 @@ could not explain.**
    legible. The ms guard runs the other way too: no tuplet over spacing that
    does not show one.
 6. **Group first, grid second.** Gather notes into logical long-short figures;
-   figures need not share a tempo (no tempo is printed).
+   ~~figures need not share a tempo (no tempo is printed)~~.
+   **DAY 28 VERDICT (D69) — SUPERSEDES the writing clause above and the "own grid"
+   sentences below; PLAN 8i builds it and rewrites this principle:** *the groups are
+   beam groups on ONE grid, and the bracket the fit places on a quicker group is the
+   communication of the pace change to the performer — "there should be some
+   communication to the performer if there is a speed change... the first two sixteenth
+   notes look much further apart than the next three, and so the seven-four bracket is
+   appropriate."* Own grids (no bracket) are the alternative, by hand. The seam rule
+   below (where the groups are) is unchanged.
    **IMPLEMENTED day 27 (8g)** — `pattern_fit.segment()`, run by
    `pattern_analyze` and written by `notate_section --cluster … --figures`. The
    grouping rule is D67: **a cut may only land where the PACE CHANGES** — the seam

@@ -2110,3 +2110,24 @@ system."*
 *(AI note: measured, the second/third gaps are 53 % bigger than the fourth/fifth. The
 six groups they hear are exactly the banded local maxima of the gap sequence — "the
 seam is the slower gap", Lerdahl & Jackendoff's GPR 2b — see RUNNING_LOG day 28.)*
+
+### Day 28, after 8h — T1's final is `t1-hybrid2`; the bracket is the message (2026-08-23)
+
+*(Asked which file the machine proposed; told it was `t1-figures2` — own grids, no
+bracket — with the AI leaning that way.)*
+
+*"No. I would like the tuplet brackets. And the idea there is... my mental model is that
+there should be some communication to the performer if there is a speed change. Within
+the threshold or, I guess, for me, it's with the visual. So the first two sixteenth notes
+look much further apart than the next three. And so the seven-four bracket is
+appropriate. So talk to me about this and anything that needs to change in the machine
+before moving on."*
+
+*(AI note: this is the day-27 "flow" remark made the rule — see the entry above, "the
+flow wasn't communicated in the groupings". The grouping (8h) stands; the writing goes
+back onto ONE grid so that every seam's pace change is said by a bracket. RUNNING_LOG
+day 28, third entry.)*
+
+*(Design calls put to the composer — A: bracket scope per beat (a) or per figure (b);
+B: one grid per gesture with the fit's brackets (a) or pairwise clean-ratio grids (b):)*
+*"Aa, Ba"* → PLAN 8i.

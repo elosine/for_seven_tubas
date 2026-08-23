@@ -2014,6 +2014,108 @@ while building the real score.
   gestures are by ear; the full flow build (B′: the analyser finding sub-beat tuplets
   and merging figures) waits until C shows how often the FLOW flag fires.
 
+- **8i — THE BRACKET IS THE MESSAGE: the composer's groups on ONE grid, beams broken
+  at the seams, as the default build; the report and the scan that go with it** —
+  `todo (approved by the composer day 28, third sitting — "I would like the tuplet
+  brackets"; design calls answered: A(a) bracket scope stays per beat, watch for
+  straddles in the reads · B(a) one grid per gesture, the fit's brackets, FLOW stays a
+  flag)`. Model: **Opus**, clear before it (conversation → execution). Decision: **D69**
+  (journal §4, filed). Trail: RUNNING_LOG day 28 third entry, COMPOSER_LOG day 28,
+  PAPER_NOTES day 28 ("the bracket is the message").
+  **Why (the composer, verbatim):** *"my mental model is that there should be some
+  communication to the performer if there is a speed change. Within the threshold or, I
+  guess, for me, it's with the visual. So the first two sixteenth notes look much further
+  apart than the next three. And so the seven-four bracket is appropriate."* Two 16ths
+  far apart then three close together, all written as plain 16ths, is a page whose
+  VALUES say "same" while its SPACING says "different"; the bracket on the quick group
+  is the correction. So: **8h's grouping stands (the seams are the composer's groups);
+  8g's writing falls (own grids, no bracket, "no tempo is printed").** The gesture stays
+  on ONE grid so that every seam's pace change is written as a tuplet relation. T1's
+  final is `t1-hybrid2` — which was HAND-TYPED (`--pattern --beamBreak 3,6,8,11,15`
+  from the composer's verdict); 8i makes it reproducible from the rule.
+  **What (A — the build):**
+  1. `tools/notate_section.js`: **`--figures` now means** — `PF.segment()` for the seams
+     (with `--paceRatio` / `--cuts` as today), then the EXISTING `--pattern` grid path
+     (`PF.fit()` over the whole gesture — it is already `seg.single`) and the EXISTING
+     `--beamBreak` path with the breaks synthesised from the cuts: break member (1-based)
+     = `base + cut + 1` for every cut, where `base` is the pick-up offset already
+     computed in that branch. **No new drawing code** — the proof of correctness is
+     identity with the hand-built file (item 7). Record `device.figure` (the group
+     number) on every member; **no `gridId`** — one grid is one grid domain, so
+     `--validate` keeps counting the cluster as one unit. Print per group: notes a–b,
+     the words, and the bracket covering them if any (from item 3).
+  2. **`--ownGrids`** (positional bool modifier, requires `--figures`): the day-27/28
+     behaviour — each figure on its own grid, its own `gridId` — kept as the
+     alternative, not the default. Refusals: `--figures --beamBreak` ("--figures breaks
+     the beams at the seams itself; use --cuts to move a seam") · `--figures --pattern`
+     ("implied — drop it") · `--ownGrids` without `--figures`.
+  3. `notation/lib/pattern_fit.js`: **`bracketsVsGroups(single, cuts)`** — for a
+     one-grid fit and a cut set, per group: which tuplet beat(s) cover its notes (or
+     none); and **`straddles`**: every tuplet beat whose notes fall on BOTH sides of a
+     seam, as `{ beat, tuplet, notes: [a..b], seamAfter }`. This is design call A's
+     watch item made a flag: a bracket that covers half a group and half the next says
+     the wrong thing under D69, and the composer must not have to hunt for it. Pure
+     function, exported, unit-tested. On T1 the expected answer: beat 1's 7:4 covers
+     exactly notes 3–5, beat 2's 6:4 exactly 6–7, beat 5's 7:4 exactly 11–14 — *(verify;
+     this is the coincidence noted on day 28: the fit's tuplet beats and the composer's
+     groups see the same quick runs because seams ARE pace changes)* — **no straddle**.
+  **What (B — the report):**
+  4. `tools/pattern_analyze.js` per gesture, in this order: the pace families and the
+     groups in words (as now) → **THE WRITING, ONE GRID**: `fmtFit(s.single)` then one
+     line per group (notes, words, `7:4 [16th 16th 16th]` or `plain`) → **if the one
+     grid is over a head**: *"ONE GRID IS OVER A HEAD (x.x) — the page cannot say the
+     relation on one grid; by hand: `--ownGrids`, or split at a seam (`--cuts`) and
+     build two clusters"* → FLAGS (straddles FIRST, then ratio tie / no clean seam /
+     cuts by hand / pickups as now) → FLOW (unchanged, a flag) → ALSO POSSIBLE (cut
+     alternatives, unchanged) → **last, "also, each group on its OWN grid (`--ownGrids`,
+     the 8g reading)"**: the per-figure fits with their heads, and the dotted flag where
+     a figure carries its own tuplet. Drop the line that scores the figures against the
+     one grid by tuplet count ("need NO tuplet at all") — under D69 a bracket is the
+     message, not a cost.
+  5. **`--scan t0-t1`** on `pattern_analyze` (all parts, no `--part`): one row per
+     gesture — part, t0, notes, groups (cut set), one-grid unit / heads / tuplet beats /
+     coherent, straddles, noSeam, ratio tie, FLOW pairs — and a summary: gestures whose
+     one grid is within a head vs over; straddles; noSeam; ratio ties. **This is the
+     pre-read measurement now**, replacing "figures needing a tuplet" (which measured
+     how finely the material had been cut). Run it on CLOUD02-I (`--ir db1-c2i-x01
+     --scan 36.19-40.42`) and write the table to RUNNING_LOG; every gesture over a head
+     is named there — those are the by-hand cases for the reads.
+  **What (tests, builds, docs):**
+  6. `tools/test_pattern_fit.js`: T1 → `bracketsVsGroups(seg.single, seg.cuts)` gives
+     the three brackets on exactly the groups above and `straddles.length === 0`; a
+     constructed case WITH a straddle (a tuplet beat across a cut) is detected; `--ownGrids`
+     semantics unchanged (the existing per-figure assertions move under that name).
+     Every existing check stays green.
+  7. **Build `t1-final`** — `--cluster 36.21-39.62@0 --figures` (no `--cuts`, no
+     `--beamBreak`), label *"T1 FINAL (day 28) — the composer's groups on ONE grid, 7:4 ·
+     6:4 · 7:4, built from the rule"*, experiments. **Proof:** its IR is identical to
+     `t1-hybrid2` except `id`, `label` and `provenance` (diff the two JSONs with those
+     stripped — the events, chunks and every overlay must match) **and** a DOM audit at
+     :5210 (`score-verify`) shows the six primary beams over 1–2, 3–5, 6–7, 8–10, 11–14,
+     15–16, the three tuplet texts `7:4 6:4 7:4`, one `gc-arc`, one `gc-impact`. If it
+     is NOT identical, stop and report the difference — that is a finding, do not prune.
+     When it is: **prune the five scratch entries** `t1-onegrid t1-figures t1-hybrid
+     t1-hybrid2 t1-figures2` (`node tools/notate_section.js --prune <id>`, one each; git
+     keeps them). The picker then holds `t1-final` alone for T1.
+  8. All ten batteries green; `--validate` still **24/25**; the T1 report prints the
+     six groups, the one-grid writing with its three brackets on the right groups, no
+     straddle, the ratio tie on 7, FLOW 1+2; the T7 report prints "no clean seam" and
+     the one-grid writing for it.
+  9. Docs: NOTATION_STANDARDS principle 6 rewritten under D69 (the writing clause: *a
+     pace change must be said on the page — the groups are beam groups on ONE grid and
+     the bracket on the quick group is the communication; own grids are the alternative,
+     by hand*; replace the day-28 "three figures need a tuplet" paragraph with the scan's
+     within-a-head count); journal §2 thread advanced (8i done → the reads, Fable) and
+     the tool table (`--figures` meaning, `--ownGrids`, `--scan`); PLAN 8i status;
+     RUNNING_LOG entry with the scan table. Commit with explicit paths, push.
+  **Done =** items 1–9 verified as stated; `t1-final` is the only T1 entry in the picker
+  and is IR-identical to the composer-approved `t1-hybrid2`; the reads can run against a
+  report whose first writing is the one the composer chose.
+  **Out of scope (the composer's calls A(a), B(a)):** bracket scope = figure (a change to
+  `fit()`'s per-beat tuplet model) — watch for straddles in the reads, build only if one
+  appears and the composer wants it fixed · pairwise shared grids at a clean ratio (FLOW
+  as a builder) — FLOW stays a flag, taken by hand with `--tuplet a-b@3:2` where wanted.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

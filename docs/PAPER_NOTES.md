@@ -1200,3 +1200,73 @@ absent. Same notes, same groups, same single launch. *That is the choice the who
 apparatus exists to put in front of the composer:* not what the notes are, not where the
 groups are — those are settled — but whether the page says "these two paces are related"
 out loud, or leaves the relation in the spacing.
+
+---
+
+## Day 28, third sitting — "I would like the tuplet brackets": the bracket is the message (2026-08-23, Fable 5)
+
+*The third reversal of the day, and the one that closes the loop: the 8g–8h detour found
+the grouping, and the writing went back to where it started — with the groups now
+visible. Both sides verbatim, per the composer's standing ask.*
+
+**The AI, asked which file the machine proposed:**
+
+> Short answer: the machine's proposal is `t1-figures2` — that's 8h. `t1-hybrid2` is 8g,
+> and it was built by hand from your groups, not by the rule. [...] The choice is yours
+> by eye; my lean is figures2, because the 7:4 and 6:4 are artefacts of the 125 ms grid
+> rather than a relation you meant — but the counter-argument is the one I made
+> yesterday, that without a bracket the quick groups "just look like even 16ths."
+
+**The composer:**
+
+> No. I would like the tuplet brackets. And the idea there is... my mental model is that
+> there should be some communication to the performer if there is a speed change. Within
+> the threshold or, I guess, for me, it's with the visual. So the first two sixteenth
+> notes look much further apart than the next three. And so the seven-four bracket is
+> appropriate. So talk to me about this and anything that needs to change in the machine
+> before moving on.
+
+**The AI, restating it as a rule and conceding:**
+
+> Two 16ths far apart, then three close together, all written as plain 16ths: the values
+> say "same" while the spacing says "different." That's a contradiction on the page. The
+> bracket on the quick group resolves it. So figures are still the unit of *grouping* —
+> but the gesture stays on one grid, so that every seam's pace change is written as a
+> tuplet relation. "No tempo is printed, so figures need not share a grid" — that clause
+> of 8g falls.
+
+> Honest note for the paper: net of 8g + 8h, the page came back to the day-26 one-grid
+> reading with the beams broken at the right places. The detour found the grouping; the
+> writing returned to where it started, now with the groups visible. The FLOW flag I
+> built this morning was the seed of this ("the bracket is what says quicker") — you've
+> made it the rule.
+
+**Two design calls, and the composer's answers — "Aa, Ba":** bracket scope stays per
+beat (fit()'s model) with a straddle flag, rather than rebuilding fit() around the figure;
+one grid per gesture with the fit's brackets, rather than pairwise shared grids at the
+clean ratio (FLOW found 3:2 at 0.17 heads for figures 1+2 against the 7:4 at 0.7 — on
+offer, by hand, not the default).
+
+*What the exchange shows, for the argument.* Three things:
+
+1. **The composer's principle was already on the record a day earlier** — *"the flow
+   wasn't communicated in the groupings... the seven-four bracket communicates that the
+   last two of that five are quicker"* (COMPOSER_LOG, day 28 first sitting) — and the AI
+   had heard it well enough to build a *flag* from it, but not well enough to make it the
+   *rule*. It still leaned the other way an hour after building the flag. The composer
+   stated the principle whole; the AI had stated it by half and then argued against its
+   own half.
+2. **The metric and the principle pulled in opposite directions and the principle won.**
+   Everything measurable favoured `t1-figures2`: fewer brackets, 0.3 heads against 0.7,
+   a cheaper cost. The composer's ground was not measurable by the tool at all — whether
+   the page *tells the performer* something the spacing alone leaves implicit. This is
+   the same lesson as the morning's "no tuplet" number (a proxy that moved with the wrong
+   variable), now from the other side: the proxy was right about legibility and wrong
+   about communication.
+3. **The detour was not wasted, and the paper should say precisely what it bought.**
+   8g removed the brackets to find the groups; 8h corrected which side a boundary note
+   falls on; 8i puts the groups back onto the one grid the tool had proposed on day 26.
+   What changed between the day-26 page and the final page is only where the beams
+   break — and that is exactly the thing the tool could not see without the detour. The
+   grouping was worth two days; the writing was worth none, and the composer's eye
+   settled it in a sentence.

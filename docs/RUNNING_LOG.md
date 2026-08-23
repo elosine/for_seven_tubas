@@ -9406,3 +9406,48 @@ With figure 4 now starting at note 8 rather than 9, the analyser flags **note 8 
 possible PICKUP into figure 4** (242 ms before note 9, 42 ms off the grid of the rest;
 0.0 heads without it against 0.3 with). It is a flag, not an application (standards
 principle 8). It is on the composer's side of the line and belongs to step C.
+
+### Day 28 — THE VERDICT ON THE WRITING: "I would like the tuplet brackets" — the bracket is the message
+
+**Composer, verbatim, on being told the machine's proposal was `t1-figures2`:** *"No. I
+would like the tuplet brackets. ... my mental model is that there should be some
+communication to the performer if there is a speed change. Within the threshold or, I
+guess, for me, it's with the visual. So the first two sixteenth notes look much further
+apart than the next three. And so the seven-four bracket is appropriate."*
+
+**T1's final = `t1-hybrid2`** (ONE grid, the composer's six groups as beam groups,
+7:4 · 6:4 · 7:4). **What the verdict reverses and what it keeps:**
+- KEEPS 8h's grouping rule — the six groups are theirs and the seams are right.
+- REVERSES 8g's notation conclusion: *"a tuplet bracket bought to hold two unrelated
+  paces together is ink that buys nothing"* → the bracket is what TELLS the performer
+  the pace changed. "No tempo is printed, so figures need not share a grid" falls: if
+  the values on the page all say 16th while the spacing says slow-slow-quick-quick-quick,
+  the values are lying, and the bracket is the correction.
+- The AI's lean (figures2) was wrong by this principle; the FLOW flag built this
+  morning ("the bracket is what says quicker") was the seed, and the composer has made
+  it the rule rather than a flag.
+- Net of 8g + 8h, for the record: the page came back to the day-26 one-grid reading
+  **with the beams broken at the right places**. The detour found the grouping; the
+  writing returned to where it started, now with the groups visible.
+
+**What it asks of the machine (proposed to the composer, this sitting):** (1) a build
+mode that takes the seams from 8h, ONE grid from `fit()` over the gesture, and breaks
+the beams at the seams — automatically, so `t1-hybrid2` (hand-typed `--beamBreak
+3,6,8,11,15`) is reproducible from the rule; (2) the report leads with that reading and
+the pre-read measurement becomes "is the gesture's ONE grid within a head", not "does a
+figure need a tuplet"; (3) principle 6 and a decision. Two design calls raised: bracket
+scope (beat vs figure) and which bracket (the one grid's 7:4 vs the pairwise 3:2 FLOW
+finds). Outcome below when the composer answers.
+
+**Outcome (composer): "Aa, Ba."** A(a) — bracket scope stays per beat; a bracket
+straddling a seam becomes a FLAG (8i item 3) and is fixed only if it appears in the
+reads and the composer wants it. B(a) — one grid per gesture with the fit's brackets;
+FLOW stays a flag, taken by hand. **D69 filed; PLAN 8i specified** (the composer's page
+as the default `--figures` build — the existing `--pattern` grid + `--beamBreak` at the
+8h seams, no new drawing code; `--ownGrids` kept; `bracketsVsGroups()` + the STRADDLE
+flag; the report flipped; `--scan` = the within-a-head count as the pre-read
+measurement; `t1-final` proven IR-identical to `t1-hybrid2`, then the five scratch
+entries pruned). Principle 6 carries a supersede note until 8i rewrites it. For the
+record, the AI's lean an hour earlier was `t1-figures2`; the composer's principle
+overruled it and the AI's own FLOW remark ("the bracket is what says quicker") was the
+half-formed version of the rule the composer stated whole.
