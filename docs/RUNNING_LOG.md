@@ -7727,3 +7727,39 @@ by pattern, so prose can break it.
 
 Nine batteries green. Duration bars still track their heads automatically: both
 fps moved to `leftEdge` and their bars followed to +1.634 ss, past the unit ink.
+
+### T4's two clusters and T5's three — twelve figures now in the section (day 24)
+
+**T4, 33.13–34.51, five notes** (gaps 337 | 214 | **644** | 184 ms). Every
+grouping fitted, so this was a musical call, not a technical one — reported that
+way. The 644 ms gap is over a breath, so notes 1–3 and 4–5 are genuinely two
+gestures and the composer took the two-cluster reading:
+
+- **cl-7** three notes at **♩=84.5**, grid 0,2,3, **18 ms** · `f` + accent on 2
+- **cl-8** two notes at **♩=81.5**, grid 0,1, **0 ms** · `fff`
+
+Rejected: all five at ♩=86 (27 ms, glues across the 644 ms gap) and note 1 as a
+pickup to 2–5 (14 ms, still crosses it). Worth noting the composer's own
+instinct was "no room for a GC and two clusters of two" — the correct split is
+**3 + 2**, and 644 ms is ample room for the second GC.
+
+**T5, eight partials 31.05–34.57** (gaps 378 | **749** | 280 | 282 | **1393** |
+209 | 229 ms). Two gaps well over a breath cut this into three blocks, and each
+fits almost exactly on its own:
+
+- **cl-10** [1-2] **♩=79.4**, 8ths, **0.0 ms**
+- **cl-11** [3-4-5] **♩=106.9**, 8ths, **0.8 ms**
+- **cl-12** [6-7-8] **♩=69.6**, 16ths, **6.8 ms**
+
+Cleaner than anything in T4. All eight as one figure also fits but only in
+**32nds** at 25 ms — the 1393 ms gap forces the fine grid. Flagged the real
+cost of the three-block reading before recommending it: three GCs and three
+tempi across 3.5 s. Composer took the three blocks.
+
+Dynamics from the ambient+accents rule throughout: T5's blocks come out `mf` +
+accents on 2 / 1 / 1,3 — the middle block is the interesting one, ambient `mf`
+with the accent on its FIRST note, since 104 is the only f among 104/93/83.
+
+**Section audit after the build — the standards hold everywhere:** twelve
+clusters, **exactly one GC each**, **zero go lines on any cluster member**, and
+**0 of 48 cluster noteheads off their go time**. Seven batteries green.
