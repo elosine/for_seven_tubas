@@ -95,6 +95,17 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "t1-figures2",
+   "label": "8h — T1 as the COMPOSER'S groups, each on its own grid",
+   "score": "piece-s25-finished01",
+   "window": [
+    35,
+    41
+   ],
+   "profile": "section1",
+   "exp": true
   }
  ]
 }

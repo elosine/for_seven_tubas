@@ -1122,3 +1122,81 @@ knowing it, a rule from the grouping literature that the tool had implemented by
 The AI's contribution was not the rule; it was recognising the rule in the verdict,
 measuring it (53 %, 1.256, 13 of 14), locating the defect in one comparison, and
 separating what generalises from what stays by ear.
+
+---
+
+## Day 28, second sitting — THE METRIC THAT WAS MEASURING THE WRONG THING (2026-08-23, Opus 5)
+
+*The paper's best moment in this stretch is not that the rule got fixed. It is what the
+fix did to the evidence that had been offered for the previous rule.*
+
+**The claim, day 27, in the tool's own report and in the standards document:** *"the 6
+figures need NO tuplet at all"* — and, across all ten parts of CLOUD02-I, **not one
+figure needs a tuplet**. It was written into `NOTATION_STANDARDS.md` principle 6 as a
+measured result, and into the journal as a reason the deferred tuplet-vs-dotted question
+"may never come up". It read as strong evidence: a segmentation rule so good that the
+notation it produces needs no brackets anywhere.
+
+**Re-measured under the corrected rule (day 28), the number is 3, not 0.** T7 @36.19,
+T7 @39.51, T8 @37.14. And the reason is the part worth writing down:
+
+| | day 27 (one-sided seam test) | day 28 (two-sided, D68) |
+|---|---|---|
+| figures across the section | **60** | **55** |
+| figures needing a tuplet | **0** | **3** |
+| worst displacement, any figure | 1.00 heads | **0.93 heads** |
+
+**The old rule cut MORE, and a short enough figure fits some grid for free.** Two notes
+are always a pair; a pair always lands exactly. "No tuplet anywhere" was not measuring
+the quality of the grouping — it was measuring how finely the material had been
+shredded. The metric moved with the wrong variable. When the rule stopped over-cutting,
+the figures got larger and more musical, three of them turned out to genuinely want a
+bracket, and the metric that had looked like a *success* got *worse* while the thing it
+was supposed to be a proxy for (worst displacement — the actual dissonance the composer
+reads) got *better*: 1.00 → 0.93 heads.
+
+*For the argument:* this is the second time in three days that a plausible objective
+function was the problem rather than the model under it (D67 was the first — the cost
+model that provably could not reproduce the composer's reading). Both were caught the
+same way: **by checking the tool's output against the composer's ear rather than against
+the tool's own score.** A system that tunes toward "fewer brackets" will find that
+shattering the music into pairs is the global optimum. Nothing in the notation rules
+forbids it; only the ear does.
+
+### The smaller correction, kept because it is the same lesson at small scale
+
+The day-28 derivation established that T1's 7-vs-8 boundary hangs on a ratio near the
+1.25 pace threshold, and named it **304/242 = 1.256** — the seam gap against its right
+neighbour. Building it, the number turned out to be **304/239 = 1.272** — the seam
+against the *shortest gap of the band it joins*, because the banding is greedy from each
+band's own minimum, not pairwise. The direction of the finding was untouched (a ~2 % move
+in one threshold swaps the reading); the arithmetic behind it was wrong, and had it gone
+into the paper unmeasured it would have been wrong there. **The tool now bisects for the
+crossing and prints what it measures.**
+
+### The AI's own words, verbatim, on the reversal (composer's standing ask)
+
+> The rule checks out exactly — `{2,5,7,10,14}` at 1.25, flipping to `{2,5,8,10,14}` at
+> 1.31. One correction to the spec's arithmetic I'll record: the flip is driven by
+> 304/**239** = 1.272 (the band's anchor), not 304/242 = 1.256.
+
+> **Finding — the day-27 claim does not survive.** Under the corrected rule three
+> figures in CLOUD02-I need a tuplet (0 before).
+
+> Why, and it is not a regression. The old rule cut MORE — 60 figures against 55 — and
+> a short-enough figure fits some grid for free. "No tuplet anywhere" was partly an
+> artifact of over-cutting. Cutting only at real seams leaves larger, more musical
+> figures, and three of them genuinely want a bracket; the worst displacement across the
+> section went DOWN, 1.00 → 0.93 heads.
+
+### And the thing the two candidate pages turn out to differ by
+
+`t1-figures2` (the composer's six groups, each on its own grid) against `t1-hybrid2`
+(the same six groups on ONE grid): **DOM-audited head for head, all sixteen noteheads
+sit at identical x-positions and the six primary beams span identical groups.** The
+entire difference between the two readings, on the page, is **three tuplet brackets and
+eight beam segments** — 13 polygons against 21, and the text `7:4 6:4 7:4` present or
+absent. Same notes, same groups, same single launch. *That is the choice the whole
+apparatus exists to put in front of the composer:* not what the notes are, not where the
+groups are — those are settled — but whether the page says "these two paces are related"
+out loud, or leaves the relation in the spacing.

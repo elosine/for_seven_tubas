@@ -276,8 +276,34 @@ could not explain.**
    in which a rest would mean anything. Near-tie boundaries are FLAGGED, never
    decided (`--paceRatio` moves them). *Measured: on T1 of CLOUD02-I this replaces
    one grid needing 7:4 · 6:4 · 7:4 at 0.7 heads with six figures needing no tuplet
-   at all and nothing past 0.2 heads; across all ten parts of the section, **no
-   figure needs a tuplet**.*
+   at all and nothing past 0.3 heads.*
+
+   **THE SEAM IS THE SLOWER GAP — day 28 (8h, D68), the rule that says WHICH SIDE.**
+   A cut lands where the pace changes (D67, above); 8h adds which of the two notes
+   at that change belongs to which figure. **A seam is a gap that is not quicker
+   than either neighbour and is a pace change from at least one of them** — a
+   banded local maximum (Lerdahl & Jackendoff GPR 2b: a group boundary falls at the
+   greater inter-onset interval). *The boundary note goes with the QUICK side.*
+   Day 27 compared the seam with the gap BEFORE it only, so at a slow→quick change
+   the quick gap became the seam and the pace-change note landed on the slow side —
+   on T1 that gave cuts after 3 and 8 where the composer's ear said 2 and 7. Under
+   the two-sided rule the legal set on T1 is exactly the composer's five (2, 5, 7,
+   10, 14) and the search takes all of them. **Where the reading hangs on the
+   threshold itself it is flagged as a RATIO TIE** (T1's 7-vs-8 flips at 1.272,
+   where the 304 ms gap joins the 239 ms band), and **where the rule can find no
+   seam at all it says so** (`noSeam`) instead of inventing one — T7 @36.19, whose
+   every slow gap has a slower neighbour, is by ear. `--cuts a,b,c` names the seams
+   by hand on either tool and legality steps aside; each figure is still fitted alone.
+
+   ***RE-MEASURED under the two-sided rule (day 28), and the day-27 claim did NOT
+   survive: across all ten parts of CLOUD02-I, THREE figures need a tuplet*** — T7
+   @36.19 (notes 1–6, 0.9 heads), T7 @39.51 (notes 5–8, 0.6), T8 @37.14 (notes 4–7,
+   0.9) — against **none** under the one-sided rule. The reason is not that the new
+   rule reads worse: the old rule cut MORE (60 figures against 55), and a
+   short-enough figure fits any grid for free. Cutting only at real seams leaves
+   larger, more musical figures, and three of them genuinely want a bracket. Worst
+   displacement across the whole section improved, 1.00 heads → 0.93. **So the
+   tuplet-vs-dotted question deferred on day 26 is LIVE again, in three places.**
 7. **Played noteheads stay 16ths** on a 16th grid — not 8ths (too long), not
    32nds (too short). Where a 32nd rest would separate two 16ths, write two
    16ths.
@@ -295,6 +321,11 @@ exception on day 24). Pickups are FLAGGED, never applied.
 **Day 27 (8g): `segment()` added — a gesture is cut into FIGURES before anything is
 fitted (principle 6 above; the cut rule is D67), and the report gives the figures in
 words first with near-ties flagged, printing the old one-grid reading LAST for
-comparison. `fit()` itself is unchanged.** `tools/test_pattern_fit.js` guards the
-calibration, the 8g golden (T1), the structural no-shatter cases and the words — 40
+comparison. `fit()` itself is unchanged.**
+**Day 28 (8h): the seam test became TWO-SIDED (D68) — see principle 6. With it came
+the RATIO TIE flag, the NO CLEAN SEAM flag, `--cuts a,b,c` (name the seams by hand,
+on both tools) and the FLOW flag (adjacent figures at 2:1 or 3:2 could share one
+grid — a report only, nothing is built from it). `fit()` is still unchanged.**
+`tools/test_pattern_fit.js` guards the calibration, the T1 golden (now the composer's
+own cuts), the structural no-shatter cases, the words, and the 8h seam behaviour — 61
 checks.*

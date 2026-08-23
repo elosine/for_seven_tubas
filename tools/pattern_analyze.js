@@ -9,6 +9,10 @@
 //   node tools/pattern_analyze.js --ir db1-c2i-x01 --part 0 --span 36.0-40.4
 //       a fresh span: breath seams, then each gesture cut into its FIGURES
 //       (8g) — words first, then each figure's writing, then the flags.
+//       --paceRatio 1.31   move the threshold that decides where a cut MAY land
+//       --cuts 2,5,7,10,14 name the seams by hand; the rule steps aside (8h).
+//                          Notes are numbered from 1 within the gesture, so the
+//                          span must hold exactly one.
 //
 // 8g (day 27): a gesture is no longer forced onto one grid. segment() cuts it
 // where the PACE CHANGES and fits each figure alone — standards principle 6,
@@ -37,6 +41,13 @@ const fmtFit = f => f ? ('♩=' + f.bpm.toFixed(0) + '  grid ' + f.grid.join(','
   (f.tupletBeats ? ('  TUPLET ' + f.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '') +
   '  worst ' + ms(f.worstSeconds) + ' ms = ' + f.heads.toFixed(1) + ' heads' + (f.coherent === false ? '  [OVER A HEAD — no coherent writing]' : '')) : 'NO FIT';
 const NUM = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN'];
+// a cut set as the groups it makes: 2,5 over 7 notes -> [1,2]+[3,4,5]+[6,7]
+const groupsOf = (cuts, n) => {
+  const out = []; let s = 1;
+  for (const c of (cuts || [])) { out.push([s, c]); s = c + 1; }
+  out.push([s, n]);
+  return out.map(([a, b]) => '[' + (b - a <= 3 ? Array.from({ length: b - a + 1 }, (_, i) => a + i).join(',') : a + '-' + b) + ']').join('+');
+};
 
 // ---------- validate: the decided figures ----------
 if (flag('validate')) {
@@ -108,7 +119,18 @@ if (flag('validate')) {
 // ---------- a fresh span ----------
 const part = parseInt(arg('part'), 10);
 const sp = String(arg('span', '')).match(/^([\d.]+)-([\d.]+)$/);
-if (isNaN(part) || !sp) { console.error('usage: --ir <id> (--validate | --part N --span t0-t1)'); process.exit(2); }
+if (isNaN(part) || !sp) { console.error('usage: --ir <id> (--validate | --part N --span t0-t1 [--cuts a,b,c] [--paceRatio r])'); process.exit(2); }
+// --cuts / --paceRatio (8h): the two ways to overrule the segmenter. --paceRatio
+// moves the threshold that decides where a cut MAY land; --cuts names the seams
+// outright and the rule steps aside. --cuts numbers notes from 1 within the
+// gesture, so it is refused when the span holds more than one gesture — a silent
+// mis-application would be worse than an error.
+const CUTS = String(arg('cuts', '')).trim();
+const cutsArr = CUTS ? CUTS.split(',').map(x => parseInt(x.trim(), 10)) : null;
+if (cutsArr && cutsArr.some(x => !Number.isInteger(x))) { console.error('--cuts wants whole note numbers, e.g. --cuts 2,5,7,10,14'); process.exit(2); }
+const PACE = parseFloat(arg('paceRatio', '0'));
+const segOpt = {};
+if (PACE > 1) segOpt.PACE_RATIO = PACE;
 const notes = evs.filter(e => partOf.get(e.id) === part && e.onset >= +sp[1] - 1e-9 && e.onset <= +sp[2] + 1e-9);
 if (notes.length < 2) { console.error('fewer than 2 notes in the span'); process.exit(2); }
 console.log('T' + (part + 1) + '  ' + notes.length + ' notes  ' + notes[0].onset.toFixed(3) + ' – ' + notes[notes.length - 1].onset.toFixed(3));
@@ -125,7 +147,17 @@ for (const g of groups) {
   const ons = g.map(e => e.onset);
   const label = g.length + ' notes @' + ons[0].toFixed(2);
   if (g.length === 1) { console.log(label + ' — a lone one-shot'); console.log(''); continue; }
-  const s = PF.segment(ons);
+  const opt = Object.assign({}, segOpt);
+  if (cutsArr) {
+    if (groups.filter(x => x.length > 1).length > 1) {
+      console.error('--cuts numbers notes inside ONE gesture, and this span holds ' +
+        groups.filter(x => x.length > 1).length + ' — narrow the span to the gesture you mean'); process.exit(2);
+    }
+    const why = PF.cutsReason(ons.length, cutsArr, PF.SEG_DEFAULTS.MIN_FIGURE_NOTES);
+    if (why) { console.error('--cuts ' + CUTS + ': ' + why); process.exit(2); }
+    opt.CUTS = cutsArr;
+  }
+  const s = PF.segment(ons, opt);
   if (!s) { console.log('GESTURE ' + label + ' — no writing found'); console.log(''); continue; }
 
   // ---- WORDS FIRST. The composer reads shapes, not tables (day 24).
@@ -144,6 +176,36 @@ for (const g of groups) {
 
   // ---- FLAGS: never applied, always said out loud
   const flags = [];
+  // 8h — THE SEAMS THEMSELVES come before anything about how a figure is
+  // written: where the cuts are is the bigger question, and the two ways the
+  // rule can be unsure of them are structural, not matters of cost.
+  const paceUsed = opt.PACE_RATIO || PF.SEG_DEFAULTS.PACE_RATIO;
+  if (s.byHand) flags.push('CUTS BY HAND: after note ' + s.cuts.join(', ') + ' = ' + groupsOf(s.cuts, ons.length) +
+    ' — the pace rule was not consulted; each figure is still fitted alone');
+  if (s.noSeam) flags.push('NO CLEAN SEAM under the rule — every slow gap has a slower neighbour, so the only pace ' +
+    'changes here are joins, not seams. This one is by ear; the one-grid reading below is what the tool can offer');
+  // both sides of a ratio tie name the same flip, so they are printed as one
+  // line: where the seam is now, and where it goes if the threshold moves
+  // grouped by the READING they lead to, not by boundary: several boundaries
+  // moving together are one decision, and the threshold that matters is the
+  // first one crossed
+  const tieGroups = new Map();
+  for (const t of s.ratioTies) {
+    const k = (t.altCuts || []).join(',');
+    if (!tieGroups.has(k)) tieGroups.set(k, { ratio: Infinity, altRatio: t.altRatio, altCuts: t.altCuts, because: null, here: [], there: [] });
+    const tg = tieGroups.get(k);
+    if (t.ratio < tg.ratio) { tg.ratio = t.ratio; tg.because = t.because; }
+    (s.cuts.indexOf(t.afterNote) >= 0 ? tg.here : tg.there).push(t.afterNote);
+  }
+  for (const tg of tieGroups.values()) {
+    const where = tg.because ? ' (where the ' + tg.because.slowMs + ' ms gap joins the ' + tg.because.quickMs + ' ms band)' : '';
+    flags.push('RATIO TIE — ' + (tg.here.length
+      ? 'the cut after ' + tg.here.join(' and ') + ' holds at pace ratio ' + paceUsed + ' only up to ' + tg.ratio.toFixed(3) + where +
+        '; past that the seam is after ' + (tg.there.join(' and ') || 'nothing')
+      : 'no seam is legal at pace ratio ' + paceUsed + ', but past ' + tg.ratio.toFixed(3) + where + ' one is — after ' + tg.there.join(' and ')) +
+      ' — cuts ' + (tg.altCuts || []).join(',') + ' = ' + groupsOf(tg.altCuts, ons.length) +
+      '.  --paceRatio ' + tg.altRatio + ' to see it — composer\'s call');
+  }
   // ONE LINE PER NOTE IN QUESTION, closest call first, four at most. Every
   // near-tie is about a note that could sit on either side of a seam, and both
   // directions name the same note — printing both read as duplication.
@@ -177,6 +239,25 @@ for (const g of groups) {
       ' heads — no 32nd head, but a half-16th grid. DEFERRED to the page (composer, day 26)');
   });
   if (flags.length) { console.log('   FLAGS'); for (const x of flags) console.log('    · ' + x); console.log(''); }
+
+  // ---- FLOW (8h part B): could two adjacent figures share ONE grid? A FLAG
+  // ONLY — nothing is built from it. Two figures at 2:1 or 3:2 can be drawn on
+  // one grid with a bracket on the quicker, which reads as one flowing shape;
+  // separate grids read as "even 16ths, then even 16ths" (composer, day 28).
+  // The number is printed even when it is poor: the choice is made by eye.
+  const flowLines = [];
+  for (let i = 0; i + 1 < s.figures.length; i++) {
+    const fl = PF.flow(s.figures[i], s.figures[i + 1]);
+    if (!fl || !fl.fits) continue;
+    flowLines.push('figures ' + (i + 1) + '+' + (i + 2) + ' could share ONE grid at ' + fl.unitMs + ' ms — ' +
+      fl.shape + ' — worst ' + fl.worstMs + ' ms = ' + fl.heads.toFixed(2) + ' heads' +
+      (fl.coherent === false ? '   [OVER A HEAD]' : '') + '; the ' + fl.target + ' bracket is what says "quicker"');
+  }
+  if (flowLines.length) {
+    console.log('   FLOW (a flag only — nothing is built from it)');
+    for (const x of flowLines) console.log('    · ' + x);
+    console.log('');
+  }
 
   if (s.alternatives.length) {
     console.log('   ALSO POSSIBLE');

@@ -9283,3 +9283,126 @@ report only), C = the T2–T10 reads after it. Running order and models in journ
 **Also asked, and made standing in CLAUDE.md:** the AI's own reactions (e.g. the Lerdahl
 & Jackendoff identification) are captured verbatim for the paper, not summarised —
 PAPER_NOTES day 28 now carries both sides of the exchange.
+
+---
+
+## Day 28 (second sitting) — 2026-08-23 (Claude Code / Opus 5)
+
+### Day 28 — PLAN 8h BUILT: the seam is the slower gap, and the "no tuplet" claim does not survive it
+
+**Built exactly as specified (PLAN 8h, items 1–10), one sitting, nothing referred back
+to the composer.** Files: `notation/lib/pattern_fit.js`, `tools/pattern_analyze.js`,
+`tools/notate_section.js`, `tools/test_pattern_fit.js`.
+
+**A — the rule.** `segment()`'s legality loop is now two-sided. With `s = band(gaps[b-1])`
+(the seam), `L = band(gaps[b-2])`, `R = band(gaps[b])` or null at the end, a cut after
+note `b` is legal iff `s >= L && (R === null || s >= R) && (s !== L || (R !== null && s !== R))`
+— *not quicker than either neighbour, and a pace change from at least one*. Nothing else
+in the DP moved. **On T1 the legal set is exactly `2,5,7,10,14` — the composer's own five
+— and the DP TAKES all five** (it declined none by cost, which was the thing to check).
+The one-sided rule had made nine boundaries legal (`3,5,6,7,8,9,10,11,14`) and chosen
+`3,5,8,10,14`.
+
+**The number that had to be corrected.** The day-28 scratch derivation said the 7-vs-8
+boundary hangs on 304/242 = 1.256 — the seam against its RIGHT NEIGHBOUR. It does not.
+`paceBands` is greedy from each band's own shortest gap, so the crossing is
+**304/239 = 1.272**, the seam against the SHORTEST GAP OF THE BAND IT JOINS. Measured by
+bisection, not assumed: legal at 1.25, illegal at 1.3125, flip at 1.2720. The report and
+the battery both carry 1.272 now. (The direction of the finding is unchanged — a ~2 %
+move in `PACE_RATIO` swaps the reading — only the arithmetic behind it.)
+
+**Ratio ties.** Legality is re-run at `PACE_RATIO × 0.95 / × 1.05`; any boundary whose
+legality moves is reported with the bisected flip ratio, the two gaps whose ratio it is,
+and **the whole alternative reading at the other threshold**, so the composer sees what
+they would be choosing. Both sides of one flip (here 7 and 8) print as ONE line, grouped
+by the reading they lead to — two lines read as duplication.
+
+**No clean seam.** `result.noSeam` when nothing is legal AND the gesture is longer than
+`SOFT_MAX_NOTES`, or its one-grid fit needs a tuplet or has no coherent writing. T7
+@36.19 (gaps 378 323 130 292 367) is the case that named it: every slow gap has a slower
+neighbour, so the only pace changes are joins. **An even run also has no legal cut but is
+NOT flagged** — that distinction is what makes the flag worth having, and it is asserted
+in the battery.
+
+**`--cuts a,b,c`** on both tools ("say the boundary and it moves", promised day 27):
+explicit seams, legality steps aside entirely, each figure still fitted alone,
+`byHand` set. A cut that would isolate a note is refused with a reason
+(`PF.cutsReason`, exported so the tools can say WHICH cut is impossible rather than
+"no reading found"). On `pattern_analyze` it is refused when the span holds more than
+one gesture — the numbering would be ambiguous and a silent mis-application is worse
+than an error. `--paceRatio` was added to `pattern_analyze` at the same time (it existed
+only on `notate_section`), because the ratio-tie flag is not actionable without it.
+
+**B — FLOW, a flag only.** `PF.flow(figA, figB)`: if the two figures' own units stand
+within 8 % of 2:1 or 3:2, it computes the shared-grid writing (2:1 counts in the quick
+unit, the slow figure becomes 8ths; 3:2 counts in the slow unit, the quick figure becomes
+a 3:2 bracket), anchors at the earlier figure's first note, snaps the later figure's
+first note to its nearest integer slot, and reports the worst displacement in heads.
+Printed even when poor, marked `[OVER A HEAD]` past 1.0. **Nothing is built from it.**
+On T1: *figures 1+2 could share ONE grid at 239 ms — 16th 16th | 3:2 [16th 16th 16th] —
+worst 5 ms = 0.17 heads.* (The day-28 estimate was 0.10 heads; measured, it is 0.17.)
+Figures 5+6 also stand at 3:2 but at 1.13 heads — over the line, printed anyway.
+
+### Day 28 — THE RE-MEASUREMENT: three figures in CLOUD02-I need a tuplet, not zero
+
+The day-27 claim in journal §2 and NOTATION_STANDARDS principle 6 — ***"not one figure
+in CLOUD02-I needs a tuplet once cuts land at pace changes"*** — was re-run under the
+two-sided rule, all ten parts, 36.19–40.42, and **it is no longer true.**
+
+| | day 27 (one-sided) | day 28 (two-sided, 8h) |
+|---|---|---|
+| gestures | 15 | 15 |
+| figures | **60** | **55** |
+| figures needing a tuplet | **0** | **3** |
+| worst displacement, any figure | 1.00 heads | **0.93 heads** |
+| gestures with no clean seam | — | 1 (T7 @36.19) |
+| gestures carrying a ratio tie | — | 5 |
+| adjacent pairs that could share a grid (FLOW) | — | 17 |
+| gestures whose LEGAL set changed | — | **13 of 15** |
+
+The three: **T7 @36.19** notes 1–6 (1 tuplet beat, 0.9 heads) · **T7 @39.51** notes 5–8
+(1.25, 0.6) · **T8 @37.14** notes 4–7 (1, 0.9).
+
+**Why, and it is not a regression.** The old rule cut MORE — 60 figures against 55 — and
+a short-enough figure fits some grid for free. "No tuplet anywhere" was partly an
+artifact of over-cutting. Cutting only at real seams leaves larger, more musical figures,
+and three of them genuinely want a bracket; the worst displacement across the section
+went DOWN, 1.00 → 0.93 heads. **Consequence for the reads (step C): the
+tuplet-vs-dotted question deferred on day 26 is live again, in three places, and
+`dottedReading()` still has no writing path (`noteUnits 1.5` in layout.js).** Measured
+with the day-27 `pattern_fit.js` taken straight from `git show HEAD:` and run against the
+same scan, so the two columns differ only in the rule.
+
+*(A first attempt at the comparison — forcing every one-sided-legal boundary via `CUTS`
+— was wrong and thrown away: forcing all of them violates `MIN_FIGURE_NOTES` and 13 of
+15 gestures returned null, giving a nonsense "2 gestures, 0 tuplets". The dead end is
+kept because the shortcut looked reasonable.)*
+
+### Day 28 — verification: what was actually checked
+
+- **Ten batteries green.** `test_pattern_fit` 40 → **61 checks** (63 with `--prove-red`):
+  the T1 golden is now `2,5,7,10,14` plus "those five are the only LEGAL seams"; the
+  ratio tie on 7 with its 1.272 / 304-over-239 provenance; `PACE_RATIO 1.31` puts the
+  seam after 8, not 7; T7's `noSeam` **and** the even-run counter-case; `--cuts`
+  round-trips the hand reading, still builds the ILLEGAL day-27 set when asked, and
+  refuses `[1]` with a reason; FLOW's 3:2 arithmetic and its refusal of 4:3.
+- `node tools/pattern_analyze.js --ir db1 --validate` → **24 of 25**, unchanged.
+- The T1 report prints six figures in words, the ratio tie on 7, the FLOW flag on 1+2.
+  The T7 report prints "NO CLEAN SEAM".
+- **`t1-figures2` built and DOM-audited in the running app** (:5210 `score-verify`):
+  `--cluster 36.21-39.62@0 --figures`, **no `--cuts` needed — the corrected rule gives
+  the composer's five cuts on its own.** Six primary beam polygons spanning exactly
+  notes 1–2, 3–5, 6–7, 8–10, 11–14, 15–16; one `gc-arc`, one `gc-impact`.
+- **Against `t1-hybrid2`, head for head:** all 16 notehead x-positions identical, the
+  same six primary beams — the page differs by **13 beam polygons and no tuplet text
+  (figures2) against 21 polygons and three brackets 7:4 · 6:4 · 7:4 (hybrid2)**. That
+  is the whole of the choice in step C: same notes, same groups, same launch, three
+  brackets and eight beam segments more or less. Screenshot taken (Browser pane open
+  this session).
+
+### Day 28 — a new flag that appeared, and is not a defect
+
+With figure 4 now starting at note 8 rather than 9, the analyser flags **note 8 as a
+possible PICKUP into figure 4** (242 ms before note 9, 42 ms off the grid of the rest;
+0.0 heads without it against 0.3 with). It is a flag, not an application (standards
+principle 8). It is on the composer's side of the line and belongs to step C.

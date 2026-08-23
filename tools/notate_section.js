@@ -45,6 +45,10 @@
 //                            different PACES (default 1.25) — the dial that decides where
 //                            a cut may land. Large enough = one pace, no legal cut, the
 //                            whole gesture on one grid (the pre-8g reading).
+//   --cuts 2,5,7,10,14       with --figures: NAME THE SEAMS BY HAND (8h) — "cut after
+//                            note 2, after note 5, …", numbered from 1 within the main
+//                            members. The pace rule steps aside; each figure is still
+//                            fitted alone. Refused if a cut would leave a one-note figure.
 //   --figures                8g: CUT THE GESTURE INTO FIGURES and fit each one ALONE
 //                            (pattern_fit.segment — cuts where the PACE CHANGES). Every
 //                            figure is its own beam group and its own grid (rests, written
@@ -191,7 +195,7 @@ const { doc, warnings } = Extract.extract(score, {
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
   const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--paceRatio']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--paceRatio', '--cuts']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -312,6 +316,12 @@ const { doc, warnings } = Extract.extract(score, {
     if (useFigures && mods.some(([k]) => k === '--beamBreak')) {
       console.error('--cluster ' + label + ': --beamBreak splits ONE tempo into beam groups; --figures gives each figure its OWN tempo. Use one or the other'); process.exit(2);
     }
+    // --cuts (8h) names the seams BETWEEN figures, so it means nothing without
+    // them: silently ignoring it would let a hand reading be built as the
+    // tool's own and nobody would see the difference.
+    if (!useFigures && mods.some(([k]) => k === '--cuts')) {
+      console.error('--cluster ' + label + ': --cuts names the seams between FIGURES — add --figures'); process.exit(2);
+    }
     let perMember = null;
     if (useFigures) {
       const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
@@ -321,8 +331,22 @@ const { doc, warnings } = Extract.extract(score, {
       // cut is legal anywhere and the gesture stays a single figure on one
       // grid, which is the pre-8g reading); lower it to group more tightly.
       const paceRatio = parseFloat(modVals('paceRatio')[0] || '0');
-      const seg = PF.segment(mainMembers.map(e => e.onset), paceRatio > 1 ? { PACE_RATIO: paceRatio } : undefined);
+      const segOpt = {};
+      if (paceRatio > 1) segOpt.PACE_RATIO = paceRatio;
+      // --cuts: the composer names the seams and the pace rule steps aside
+      // entirely (8h). Notes are numbered from 1 within the MAIN members, so a
+      // pick-up does not shift them. Each figure is still fitted alone.
+      const cutsRaw = (modVals('cuts')[0] || '').trim();
+      if (cutsRaw) {
+        const cl = cutsRaw.split(',').map(x => parseInt(x.trim(), 10));
+        if (cl.some(x => !Number.isInteger(x))) { console.error('--cluster ' + label + ' --cuts: whole note numbers, e.g. --cuts 2,5,7,10,14'); process.exit(2); }
+        const why = PF.cutsReason(mainMembers.length, cl, PF.SEG_DEFAULTS.MIN_FIGURE_NOTES);
+        if (why) { console.error('--cluster ' + label + ' --cuts ' + cutsRaw + ': ' + why); process.exit(2); }
+        segOpt.CUTS = cl;
+      }
+      const seg = PF.segment(mainMembers.map(e => e.onset), Object.keys(segOpt).length ? segOpt : undefined);
       if (paceRatio > 1) console.log('    paceRatio ' + paceRatio + ' (default ' + PF.SEG_DEFAULTS.PACE_RATIO + ')');
+      if (segOpt.CUTS) console.log('    cuts BY HAND after note ' + segOpt.CUTS.join(', ') + ' — the pace rule was not consulted');
       if (!seg) { console.error('--cluster ' + label + ' --figures: the analyser found no reading'); process.exit(2); }
       const base = (pickup && !onePastPickup) ? pickup : 0;   // index of mainMembers[0] within members
       perMember = new Array(members.length).fill(null);

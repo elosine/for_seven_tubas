@@ -214,15 +214,21 @@
   // With both in, the model is stable: 67 % of the +/-20 % weight neighbourhood
   // gives the same reading of T1, against 10 % before.
   //
-  // WHERE IT STILL DISAGREES WITH THE COMPOSER, and why that is not a bug:
-  // it finds cuts after notes 5, 8 and 14 (three of the four made by hand), it
-  // FLAGS note 11 as a near-tie (the fourth — the composer flagged it too), and
-  // it makes one cut the composer did not, after note 3. That cut is the
-  // composer's own principle 6 carried one step further: it splits the
-  // "long long / short short" figure at its pace change and so removes the
-  // quintuplet — six figures, no tuplet anywhere, nothing past 0.2 heads,
-  // against five figures with a 5:4 at 0.63. The tool proposes; the ear
-  // disposes. Every boundary it is unsure of is printed.
+  // WHERE IT DISAGREED WITH THE COMPOSER, AND WHAT THAT DISAGREEMENT WAS
+  // (day 27 -> day 28, kept because the correction is the finding).
+  //
+  // As built on day 27 the tool cut after notes 3, 5, 8, 10 and 14; the
+  // composer's ear said 2, 5, 7, 10 and 14. Two of five, each one note late,
+  // each in the same direction — which is what a systematic defect looks like,
+  // not what taste looks like. The defect was that a seam was tested against
+  // the gap BEFORE it only. 8h (D68) makes the test two-sided — THE SEAM IS
+  // THE SLOWER GAP — and the legal set becomes the composer's five exactly,
+  // with the DP taking all of them. See the rule at the top of segment().
+  //
+  // Nothing else about D67 moved: a cut still lands only where the pace
+  // changes, no-shatter is still structural, and every boundary the tool is
+  // unsure of is still printed rather than decided (near-ties by cost,
+  // ratio ties by the pace threshold itself).
   // ---------------------------------------------------------------------
   const SEG_DEFAULTS = {
     MIN_FIGURE_NOTES: 2,      // a figure is a pattern; one note is a one-shot
@@ -316,6 +322,78 @@
     };
   }
 
+  // WHY A HAND CUT SET IS REFUSED, in words the caller can print. segment()
+  // returns null for an impossible --cuts; this is the same check exported so
+  // the tools can say WHICH cut is impossible instead of "no reading found".
+  function cutsReason(nNotes, cuts, minNotes) {
+    const MIN = Math.max(2, minNotes || 2);
+    if (!cuts || !cuts.length) return null;
+    let prev = 0;
+    for (const c of cuts) {
+      if (!Number.isInteger(c)) return 'cut "' + c + '" is not a whole note number';
+      if (c <= prev) return 'cuts must ascend and not repeat (' + cuts.join(',') + ')';
+      if (c >= nNotes) return 'cut after note ' + c + ' is past the end (' + nNotes + ' notes)';
+      if (c - prev < MIN) return 'cut after note ' + c + ' leaves a figure of ' + (c - prev) +
+        ' note(s); a figure is a pattern, so it needs at least ' + MIN;
+      prev = c;
+    }
+    if (nNotes - prev < MIN) return 'the last figure would be ' + (nNotes - prev) +
+      ' note(s); a figure is a pattern, so it needs at least ' + MIN;
+    return null;
+  }
+
+  // ---------------------------------------------------------------------
+  // FLOW (8h, part B) — COULD THESE TWO FIGURES SHARE ONE GRID?
+  //
+  // A REPORT ONLY. Nothing is written from it. Two adjacent figures whose
+  // units stand at 2:1 or 3:2 could be drawn on ONE grid with a bracket on
+  // the quicker one, and that reads as a single flowing shape instead of two
+  // unrelated tempos side by side. The composer, day 28: a quick group on its
+  // own grid "just looks like even 16ths" — the bracket is what says QUICKER.
+  //
+  // Only 2:1 and 3:2, because that is the composer's vocabulary. The number is
+  // printed even when it is poor, marked past a head like everything else, so
+  // the choice is made by eye and not by the tool.
+  //
+  // The written values are the values ON THE SHARED GRID: a figure whose unit
+  // is twice the grid unit is 8ths, one at two-thirds of it is a 3:2 bracket
+  // of 16ths. (A figure with a rest inside it keeps that rest; the words here
+  // name the values, not the full spelling.)
+  // ---------------------------------------------------------------------
+  function flow(figA, figB, options) {
+    const opt = Object.assign({}, DEFAULTS, options || {});
+    if (!figA || !figB || !figA.fit || !figB.fit) return null;
+    const ua = figA.fit.unit, ub = figB.fit.unit;
+    if (!(ua > 0) || !(ub > 0)) return null;
+    const slow = Math.max(ua, ub), quick = Math.min(ua, ub), r = slow / quick;
+    let target = null;
+    for (const t of [2, 1.5]) if (r / t <= 1.08 && r / t >= 1 / 1.08) target = t;
+    if (!target) return { fits: false, ratio: +r.toFixed(3) };
+    const U = target === 2 ? quick : slow;               // 2:1 counts in the quick unit; 3:2 in the slow
+    const mult = u => (Math.abs(u - U) < Math.abs(u - U * 2) && Math.abs(u - U) < Math.abs(u - U * 2 / 3)) ? 1
+      : (target === 2 ? 2 : 2 / 3);
+    const ma = mult(ua), mb = mult(ub);
+    const rel = f => f.fit.grid.map(g => g - f.fit.grid[0]);
+    const t0 = figA.onsets[0];
+    const startB = Math.round((figB.onsets[0] - t0) / U);
+    const idealA = rel(figA).map(g => t0 + ma * g * U);
+    const idealB = rel(figB).map(g => t0 + startB * U + mb * g * U);
+    let worst = 0;
+    figA.onsets.forEach((t, i) => { worst = Math.max(worst, Math.abs(t - idealA[i])); });
+    figB.onsets.forEach((t, i) => { worst = Math.max(worst, Math.abs(t - idealB[i])); });
+    const value = m => m === 2 ? '8th' : '16th';
+    const spell = (f, m) => m === 2 / 3
+      ? '3:2 [' + f.onsets.map(() => '16th').join(' ') + ']'
+      : f.onsets.map(() => value(m)).join(' ');
+    return {
+      fits: true, ratio: +r.toFixed(3), target: target === 2 ? '2:1' : '3:2',
+      unit: U, unitMs: Math.round(U * 1000),
+      shape: spell(figA, ma) + ' | ' + spell(figB, mb),
+      worstSeconds: worst, worstMs: Math.round(worst * 1000), heads: worst / opt.HEAD_SECONDS,
+      coherent: worst <= opt.HEAD_SECONDS * opt.MAX_HEADS + 1e-9,
+    };
+  }
+
   function segment(onsets, options) {
     const opt = Object.assign({}, DEFAULTS, SEG_DEFAULTS, options || {});
     const n = onsets ? onsets.length : 0;
@@ -323,11 +401,44 @@
     const MIN = Math.max(2, opt.MIN_FIGURE_NOTES);
     const gaps = onsets.slice(1).map((t, i) => t - onsets[i]);
     const pb = paceBands(gaps, opt.PACE_RATIO);
-    // A CUT MUST LAND WHERE THE PACE CHANGES. Cut "after note b" makes gaps[b-1]
-    // the seam; it is legal only where that gap is a different pace from the one
-    // before it. An even run therefore has no legal cut at all.
-    const allowed = new Set();
-    for (let b = MIN; b <= n - MIN; b++) if (pb.bandOf(gaps[b - 1]) !== pb.bandOf(gaps[b - 2])) allowed.add(b);
+    // ------------------------------------------------------------------
+    // THE SEAM IS THE SLOWER GAP (8h, day 28 — D68). A cut still lands only
+    // where the PACE CHANGES (D67, the composer's own day-26 method); 8h adds
+    // WHICH SIDE the boundary note goes to, which the day-27 test got wrong.
+    //
+    // Cut "after note b" makes gaps[b-1] the seam. Day 27 compared that gap
+    // with the one BEFORE it only, so at a slow->quick change the QUICK gap
+    // became the seam and the pace-change note landed on the SLOW side. On T1
+    // that gave cuts after 3 and 8 where the composer's ear said 2 and 7 — one
+    // note off, twice, from the same one-sided defect.
+    //
+    // A seam is a gap that is NOT QUICKER THAN EITHER NEIGHBOUR and is a pace
+    // change from at least one of them — a banded local maximum (Lerdahl &
+    // Jackendoff GPR 2b: a group boundary falls at the greater inter-onset
+    // interval). Bands index ascending (0 = quickest), so ">=" reads "not
+    // quicker". The last clause is the pace-change requirement: a gap in the
+    // same band as BOTH neighbours is mid-run and no seam at all — which is
+    // what keeps NO-SHATTER structural rather than a matter of weights.
+    //
+    // The last gap has no right neighbour (R === null); it is judged on the
+    // left alone, as before.
+    // ------------------------------------------------------------------
+    const legalAt = ratio => {
+      const b2 = paceBands(gaps, ratio), out = new Set();
+      for (let b = MIN; b <= n - MIN; b++) {
+        const s = b2.bandOf(gaps[b - 1]), L = b2.bandOf(gaps[b - 2]);
+        const R = b < n - 1 ? b2.bandOf(gaps[b]) : null;
+        if (s >= L && (R === null || s >= R) && (s !== L || (R !== null && s !== R))) out.add(b);
+      }
+      return out;
+    };
+    // CUTS: the composer names the seams and legality steps aside entirely
+    // ("say the boundary and it moves", promised day 27, built day 28). Each
+    // figure is still fitted ALONE — the hand decides WHERE, the tool still
+    // decides how each piece is written.
+    const byHand = opt.CUTS && opt.CUTS.length ? opt.CUTS.slice().sort((a, b) => a - b) : null;
+    if (byHand && cutsReason(n, byHand, MIN)) return null;
+    const allowed = byHand ? new Set(byHand) : legalAt(opt.PACE_RATIO);
     // fit() is the expensive call (~2-7 ms); every [i,j) is wanted by the main
     // search and again by each constrained re-run, so it is memoised once.
     const memo = new Map();
@@ -349,13 +460,14 @@
     // best[j] = cheapest reading of the first j notes. `forbid` bans a cut at a
     // boundary, `force` requires one — used only to PRICE the alternative to
     // each decision, never to make it.
-    const solve = (forbid, force) => {
+    const solve = (forbid, force, allowSet) => {
+      const A = allowSet || allowed;
       const best = new Array(n + 1).fill(null);
       best[0] = { total: 0, starts: [] };
       for (let j = MIN; j <= n; j++) {
         for (let i = 0; i + MIN <= j; i++) {
           if (!best[i]) continue;
-          if (i > 0 && !allowed.has(i)) continue;
+          if (i > 0 && !A.has(i)) continue;
           if (i > 0 && forbid && forbid.has(i)) continue;
           if (force) { let bad = false; for (const b of force) if (b > i && b < j) { bad = true; break; } if (bad) continue; }
           const c = costOf(i, j);
@@ -366,7 +478,9 @@
       }
       return best[n];
     };
-    const sol = solve(null, null);
+    // Under --cuts every named boundary is FORCED as well as allowed, so the
+    // DP has exactly one reading to price: the composer's.
+    const sol = solve(null, byHand ? new Set(byHand) : null);
     if (!sol) return null;
     const cuts = sol.starts.slice(1);            // boundary b = "cut after note b"
     const figureAt = (s, e) => {
@@ -386,9 +500,11 @@
     // Inside NEAR_TIE the decision belongs to the composer, and the report says
     // so instead of hiding it. Each constrained answer is also a real
     // alternative reading, so the two fall out of one pass.
+    // Under --cuts there is nothing to be unsure about: the composer has
+    // overridden the rule, so the tool does not second-guess its own seams.
     const nearTies = [], altMap = new Map();
     const cutSet = new Set(cuts);
-    for (const b of [...allowed].sort((a, z) => a - z)) {
+    for (const b of (byHand ? [] : [...allowed].sort((a, z) => a - z))) {
       const alt = cutSet.has(b) ? solve(new Set([b]), null) : solve(null, new Set([b]));
       if (!alt) continue;
       const delta = +(alt.total - sol.total).toFixed(3);
@@ -401,10 +517,73 @@
         nearTies.push({ afterNote: b, kind: cutSet.has(b) ? 'cut' : 'nocut', delta: delta, gapMs: Math.round(gaps[b - 1] * 1000) });
     }
     const alternatives = [...altMap.values()].sort((a, b) => a.delta - b.delta);
+    // ------------------------------------------------------------------
+    // RATIO TIES (8h). PACE_RATIO is a model of the eye, not a measurement, so
+    // a boundary that hangs on its third decimal belongs to the composer and
+    // not to the tool. Re-run the LEGALITY (not the whole DP) at +/-5 % and
+    // report every boundary whose legality moves — with the ratio where it
+    // actually flips, bisected, and the two gaps whose ratio that is.
+    //
+    // T1's cut after note 7 is the case: it is legal at 1.25 and illegal at
+    // 1.3125, flipping at 1.272 — which is 304/239, the seam gap against the
+    // shortest gap of the band it joins. (The day-28 scratch called it
+    // 304/242 = 1.256, the seam against its right NEIGHBOUR; the banding is
+    // greedy from the band's own shortest, so 239 is the number that decides.)
+    // ------------------------------------------------------------------
+    const ratioTies = [];
+    if (!byHand) {
+      const RS = [opt.PACE_RATIO * 0.95, opt.PACE_RATIO, opt.PACE_RATIO * 1.05];
+      const sets = RS.map(legalAt);
+      // the greedy banding breaks between two sorted gaps when their ratio to
+      // the band's own shortest reaches PACE_RATIO, so every flip threshold IS
+      // one of those pair ratios: naming the pair says WHY it flipped.
+      const breaksOf = r => {
+        const sorted = gaps.slice().sort((a, b) => a - b), out = [];
+        let anchor = sorted[0];
+        for (let i = 1; i < sorted.length; i++)
+          if (sorted[i] / anchor >= r) { out.push({ value: sorted[i], anchor: anchor }); anchor = sorted[i]; }
+        return out;
+      };
+      const seen = new Set();
+      for (const s of sets) for (const b of s) seen.add(b);
+      for (const b of [...seen].sort((x, z) => x - z)) {
+        const has = sets.map(s => s.has(b));
+        if (has.every(Boolean) || has.every(x => !x)) continue;
+        const k = has[0] !== has[1] ? 0 : 1;              // the sample pair that straddles the flip
+        let lo = RS[k], hi = RS[k + 1];
+        const loHas = has[k];
+        for (let it = 0; it < 40; it++) {
+          const mid = (lo + hi) / 2;
+          if (legalAt(mid).has(b) === loHas) lo = mid; else hi = mid;
+        }
+        const bLo = breaksOf(lo), bHi = breaksOf(hi);
+        const gone = bLo.find(x => !bHi.some(y => Math.abs(y.value - x.value) < 1e-9)) ||
+          bHi.find(x => !bLo.some(y => Math.abs(y.value - x.value) < 1e-9)) || null;
+        const other = has.findIndex(h => h !== has[1]);   // a sample where it reads differently
+        const altSol = solve(null, null, sets[other]);
+        ratioTies.push({
+          afterNote: b, ratio: +((lo + hi) / 2).toFixed(4),
+          legalAt: RS.filter((r, i) => has[i]).map(r => +r.toFixed(4)),
+          notLegalAt: RS.filter((r, i) => !has[i]).map(r => +r.toFixed(4)),
+          because: gone ? { slowMs: Math.round(gone.value * 1000), quickMs: Math.round(gone.anchor * 1000) } : null,
+          altRatio: +RS[other].toFixed(4),
+          altCuts: altSol ? altSol.starts.slice(1) : null,
+        });
+      }
+    }
     const single = fit(onsets, opt);
     const singleCost = single ? (opt.W_TUPLET * single.tupletBeats + opt.W_EMPTY * single.emptySlots + opt.W_HEADS * single.heads) : null;
+    // NO CLEAN SEAM (8h). The rule can legitimately find NOWHERE to cut — every
+    // slow gap has a slower neighbour, so the only pace changes are joins, not
+    // seams. That is a real answer for a short even shape and a confession for
+    // anything longer or anything the one grid cannot write plainly. Say which:
+    // the gesture still comes back as one figure, but flagged for the ear.
+    // T7 @36.19 of CLOUD02-I (378 323 130 292 367) is the case that named it.
+    const noSeam = !byHand && allowed.size === 0 &&
+      (n > opt.SOFT_MAX_NOTES || !single || single.tupletBeats > 0 || single.coherent === false);
     return {
       figures: figures, cuts: cuts, nearTies: nearTies, alternatives: alternatives,
+      ratioTies: ratioTies, noSeam: noSeam, byHand: !!byHand,
       allowedCuts: [...allowed].sort((a, b) => a - b),
       paceBands: pb.bands.map(b => ({ notes: b.length, minMs: Math.round(b[0] * 1000), maxMs: Math.round(b[b.length - 1] * 1000) })),
       gapsMs: gaps.map(g => Math.round(g * 1000)),
@@ -417,5 +596,5 @@
     };
   }
 
-  return { fit, segment, words, paceBands, dottedReading, DEFAULTS, SEG_DEFAULTS };
+  return { fit, segment, words, paceBands, dottedReading, flow, cutsReason, DEFAULTS, SEG_DEFAULTS };
 });

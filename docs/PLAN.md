@@ -1900,8 +1900,21 @@ while building the real score.
   reads resume with the new report.
 
 - **8h — THE SEAM IS THE SLOWER GAP: two-sided seam legality, the flags that go with
-  it, `--cuts` by hand, and the flow report** — `todo (approved by the composer day 28 —
-  "let's go with your plan, a through c"; this is A + B; C = the T2–T10 reads after it)`.
+  it, `--cuts` by hand, and the flow report** — `DONE 2026-08-23 (day 28, second sitting,
+  Opus 5) — all ten items built and verified as stated; pushed. C (the T2–T10 reads) is
+  next, with Fable.` **Built exactly as specified, with three things worth carrying:**
+  (1) the 7-vs-8 flip ratio is **304/239 = 1.272** (the seam against the shortest gap of
+  the band it joins), not the 304/242 = 1.256 in the spec below — `paceBands` is greedy
+  from each band's own shortest, and the crossing was measured by bisection, not assumed;
+  (2) **the re-measurement in item 7 came back 3, not 0** — three figures in CLOUD02-I
+  need a tuplet under the corrected rule (T7 @36.19, T7 @39.51, T8 @37.14) against none
+  under the one-sided rule, because the old rule cut MORE (60 figures against 55) and a
+  short figure fits for free; worst displacement improved 1.00 → 0.93 heads, so this is
+  not a regression, but **the dotted-vs-tuplet deferral is live again in three places**;
+  (3) `--paceRatio` was added to `pattern_analyze` too (it existed only on
+  `notate_section`), because the ratio-tie flag is not actionable without it.
+  `t1-figures2` needed no `--cuts` — the corrected rule gives the composer's five cuts
+  on its own. Trail: RUNNING_LOG day 28 (second sitting); decision **D68**.
   Model: **Opus**, clear before it (conversation → execution). Trail: RUNNING_LOG day 28
   (the test, the numbers), PAPER_NOTES day 28, COMPOSER_LOG day 28 (the verdict verbatim).
   Scratch proof of the rule: `seam_rule.js` in the day-28 scratchpad (re-derivable from
