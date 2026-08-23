@@ -73,6 +73,28 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "t1-hybrid",
+   "label": "8g HYBRID — T1 on ONE grid (7:4 6:4 7:4), beams broken at the six figures",
+   "score": "piece-s25-finished01",
+   "window": [
+    35,
+    41
+   ],
+   "profile": "section1",
+   "exp": true
+  },
+  {
+   "id": "t1-hybrid2",
+   "label": "8g HYBRID-2 — ONE grid, beams broken at the COMPOSER'S groups 2+3 / 2+3 / 4 / 2 (day 28)",
+   "score": "piece-s25-finished01",
+   "window": [
+    35,
+    41
+   ],
+   "profile": "section1",
+   "exp": true
   }
  ]
 }

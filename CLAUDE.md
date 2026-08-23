@@ -55,6 +55,11 @@ composer asked for one.
 - something is deliberately NOT done, and why
 - a wrong path is abandoned — **the dead ends are evidence, keep them**
 - the composer says something that reframes the work; put it in their words
+- **the AI itself reacts** — a framing, a citation ("that is Lerdahl & Jackendoff GPR 2b"),
+  a measurement that answers the composer, a reversal of its own position — capture the
+  AI's words VERBATIM too, next to the composer's, in PAPER_NOTES. *(Composer, day 28:
+  "make sure we're capturing this conversation for the paper — your reactions too.")*
+  The paper needs both sides of the exchange, not a summary of one.
 
 **Why the bar is "would this be expensive to rediscover", not "is it important".**
 The composer intends to write papers from this process — not only the one in

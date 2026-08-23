@@ -1011,3 +1011,114 @@ move is to prove it cannot — and then look for the criterion in what the music
 actually did, rather than tuning until the numbers agree. Tuning would have produced a
 model that fit one gesture and nothing else; here the fragile tuned version (10 %
 robust) was built first, measured, and discarded in favour of the structural rule.
+
+### Day 28 — the verdict splits 8g in two (in progress)
+
+The composer's first look at the segmentation: *"the pattern segmentation approach is
+the correct one."* Then a second thought: the single-grid reading *"might potentially
+be better"* — **but with the beams broken the way the segmented reading broke them.**
+That separates two things 8g had fused: finding the GROUPS (where the pace changes) and
+giving each group its own GRID. The grouping survived the eye unchallenged; the
+per-figure grid is what is now in question. Worth keeping for the argument whichever way
+the verdict goes: the analyser's contribution that held was the *segmentation* — the
+perceptual units — not the notational consequence drawn from it. A third reading (one
+grid, six beam groups) was built in minutes from an existing flag, because the tool
+had already been given the composer's day-23 distinction ("keep the same tempo, but
+not beamed altogether") as a primitive.
+
+### Day 28 — the composer's ear reproduces GPR 2b; the tool had half of it
+
+The verdict on T1: the segmentation instinct was right, two of five cuts were one note
+off, always in the same direction — the tool put the note at a pace change on the SLOW
+side; the composer hears it on the QUICK side ("two plus three", twice). Every one of
+the composer's six groups is a banded local maximum of the inter-onset gaps: **the seam
+is the slower gap.** That is Lerdahl & Jackendoff's grouping preference rule 2b
+(attack-point proximity) and Tenney & Polansky's temporal gestalt boundary — neither
+was cited to the composer; they arrived at it by ear in one sentence. D67's rule, built
+the day before from the composer's own day-26 method, was a one-sided version
+(compare the seam with the gap before it only) — so it was right at every quick→slow
+change and wrong at every slow→quick one. The correction does not cancel the rule; it
+adds the missing side. On T1 the corrected legal set IS the composer's reading, with no
+cost model involved; the one boundary they called tentatively ("sounds more like") is
+the one that flips at a 0.5 % change of the band ratio. Across the section, 13 of 14
+gestures change under the corrected rule — the reads had not yet been done, so nothing
+was lost; the order (verdict before reads) paid for itself.
+
+Two further things for the argument. (1) **The composer set the scope before giving the
+verdict:** "we won't get to a universal protocol… improve it and get it closer… if it
+doesn't generalize, we move on, it's a by-ear judgment." The tool's job is to be right
+where a rule exists and to say where one does not (one gesture in the section has no
+clean seam under the rule). (2) **Flow vs grouping.** The composer's caveat — that a
+quick group on its own grid "just looks like even sixteenths" — is a distinct
+requirement from grouping: the notation should show that one group is quicker than its
+neighbour, and a tuplet bracket does that. The 7:4 they pointed to was an artefact of a
+125 ms grid; the same five notes on one grid at 240 ms are "two sixteenths, then a 3:2
+triplet" at 0.10 heads — the bracket the composer wanted, in the ratio the music has.
+Their quoted 50 % measured 53 %.
+
+### Day 28 — THE DIALOGUE ITSELF, both sides (composer: "make sure we're capturing this conversation for the paper — your reactions too, for example the comment about Lerdahl and Jackendoff")
+
+*Standing from here (CLAUDE.md amended): the AI's own reactions — a framing, a
+citation, a reversal — are captured verbatim alongside the composer's words, not
+summarised. The composer's side of this exchange is in COMPOSER_LOG day 28; the AI's
+side is quoted here as it was said.*
+
+**1. The composer's first verdict** — *"T one looks good. I think the pattern
+segmentation approach is the correct one."* Interrupted by their own second thought:
+*"the eight g before might potentially be better. But can we break the beams the way
+in eight g after? And can you give me a very brief, concise description of why AI
+thought the after one might be better?"*
+
+**AI (Fable 5), verbatim:**
+> Why the AI preferred AFTER — in one breath: the one grid needs three tuplet brackets
+> (7:4 · 6:4 · 7:4) to hold paces that aren't in one tempo — ink stating a ratio the
+> player never counts, since they read the pattern and the cursor carries the time
+> (your D66) — and it still leaves 0.7 heads of displacement. The figures need no
+> bracket and leave 0.2. Both sit under the one-head line, so neither is *dissonant*;
+> AFTER is simpler, BEFORE is one consistent grid. Your eye decides.
+
+> Your second thought splits 8g into two things it had fused: finding the **groups**
+> (kept) vs giving each group its own **grid** (now in question).
+
+**2. The composer's verdict proper** — scope first (*"we probably won't get to a
+universal protocol… I don't necessarily want to chase to the end the algorithm. Let's
+improve it and get it closer if we can"*), then the ear: the flow caveat (the 7:4
+*"communicates that the last two of that five are quicker"*; on separate grids *"they
+all just look like even sixteenths"*), then *"two plus three… same thing for the next
+five… the rest are grouped correctly."*
+
+**AI, verbatim:**
+> Your ear found a rule, and it's a small fix, not a chase. All six of your groups are
+> exactly where the gap is a *local maximum* — "the seam is the slower gap; the
+> boundary note goes with the quick side." The tool's D67 rule was one-sided (it only
+> compared the seam with the gap *before* it), which is why it put the pace-change note
+> on the slow side twice. Corrected, the legal cuts on T1 are `2,5,7,10,14` — your
+> reading, and nothing else is legal.
+
+> It's a known rule: Lerdahl & Jackendoff's GPR 2b (attack-point proximity) / Tenney's
+> temporal-gestalt boundary. You reproduced it by ear in one sentence.
+
+> Your tentative one is a genuine near-tie: the cut after 7 is legal only because
+> 304/242 = **1.256** vs the 1.25 band ratio; at 1.3 it becomes the tool's 3+2. The
+> system should *flag* that kind of flip, not decide it.
+
+> Across CLOUD02-I, **13 of 14 gestures change** under the corrected rule — so the
+> T2–T10 reads should wait for the fix. One gesture (T7 @36.19, "slow slow *quick* slow
+> slow") has no clean seam under it → the tool should say so and hand it to your ear.
+> That's your "manual investigation" case, predicted.
+
+> Even with your groups, separate grids read "two 16ths, then three 16ths" — the
+> quickness is only in the spacing. A bracket is what *says* quicker. Hand-computed:
+> your first five on **one** grid at 240 ms = 16th 16th, then a 3:2 triplet — worst
+> 3 ms, 0.10 heads (the day-26 quintuplet was 0.63). The 7:4 you liked was the right
+> message in the wrong ratio — an artefact of the 125 ms grid.
+
+> Your "about 50 % bigger" measured **53 %**.
+
+*What the exchange shows, for the argument:* the AI's first position (AFTER is better)
+was a defensible reading of the stated principles; the composer's ear overrode it on a
+ground the principles had not named — flow between groups — and then supplied, without
+knowing it, a rule from the grouping literature that the tool had implemented by half.
+The AI's contribution was not the rule; it was recognising the rule in the verdict,
+measuring it (53 %, 1.256, 13 of 14), locating the defect in one comparison, and
+separating what generalises from what stays by ear.

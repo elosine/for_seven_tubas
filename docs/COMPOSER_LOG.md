@@ -2058,3 +2058,55 @@ the cognitive dissonance."*
 
 *(\* transcribed as "the Synocus Mists"; read as Xenakis's* Mists *— composer to
 confirm.)*
+
+## Day 28 — 2026-08-23 — the segmentation verdict, in two moves
+
+*Opening the picker on `t1-figures` (8g AFTER) vs `t1-onegrid` (8g BEFORE):*
+
+*"T one looks good. I think the pattern segmentation approach is the correct one.
+anything to update in this case. For the system"*
+
+*Minutes later, interrupting the write-up:*
+
+*"Sorry. I'm having second thoughts. the eight g before. might potentially be better.
+But can we break the beams the way in eight g after? And can you give me a very brief,
+concise description of why AI thought the after one might be better?"*
+
+*(AI note: the second thought keeps 8g's GROUPING — the six beam groups at the pace
+changes — and questions only whether each group needs its own grid. A third reading,
+`t1-hybrid` — one grid, 7:4 · 6:4 · 7:4, beams broken at the six figures — was built for
+the comparison. Verdict pending.)*
+
+*Then, the verdict proper (logistics first, then scope, then the ear):*
+
+*"One logistic thing, I think previously, agents were able to launch the browser
+themselves. So if we could get back to that state, that would be better and save some
+time than having to find alternative solutions. Otherwise, you could just instruct that
+I should open the browser or if there's a different solution."*
+
+*"And we probably won't get to a universal protocol. So there probably need to be some
+manual investigation, because I think it's getting a little too complex. And so what I
+mean to say is I don't necessarily want to chase to the end the algorithm. Let's get
+it… let's improve it and get it closer if we can."*
+
+*"Having said that, the first pass — in the first pass, the patterning instincts were
+correct, I think, with a caveat, which I'll say. But the flow wasn't communicated in
+the groupings. So in the first five notes, the second and third notes are slower. The
+gap is, like, maybe fifty percent bigger than the fourth and fifth notes. So in the
+after version they all just look like even sixteenths. In the before version, the
+seven-four bracket communicates that the second two — or the last two — of that five
+are quicker. Well, I don't know if that's amendable as some sort of additional rule or
+filter to evaluate. Let's see if there is — of course, on top of everything we've
+talked about so far. So this doesn't… I don't think this… it doesn't cancel out any
+rules, just enhances them or adds to them."*
+
+*"Then the ear part: see if this generalizes to anything. If not, we'll just move on,
+and see that it… it just needs to be a by-ear type of judgment. So I think the actual
+patterning is the first two and then the next three as a group. So two plus three. And
+then same thing for the next five. It sounds more like a two plus three to me. And the
+rest are grouped correctly. So let's get your analysis of this as it pertains to the
+system."*
+
+*(AI note: measured, the second/third gaps are 53 % bigger than the fourth/fifth. The
+six groups they hear are exactly the banded local maxima of the gap sequence — "the
+seam is the slower gap", Lerdahl & Jackendoff's GPR 2b — see RUNNING_LOG day 28.)*

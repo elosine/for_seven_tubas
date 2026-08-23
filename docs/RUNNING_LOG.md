@@ -9147,3 +9147,139 @@ bracket ownership is keyed on it.
 computes the half-16th reading and the report offers it wherever a figure is written
 with a tuplet, but nothing writes dotted values — that path is built when the composer
 picks (it needs `noteUnits 1.5` support in layout).
+
+## Day 28 — 2026-08-23 (Claude Code / Fable 5)
+
+### Day 28 — THE SEGMENTATION VERDICT, first pass: "T1 looks good" — then second thoughts, and a third reading built
+
+**Session start.** The composer opened the picker on `t1-figures` (8g AFTER) vs
+`t1-onegrid` (8g BEFORE). First reaction, verbatim: *"T one looks good. I think the
+pattern segmentation approach is the correct one."* Then, minutes later, interrupting
+the write-up: *"I'm having second thoughts. the eight g before might potentially be
+better. But can we break the beams the way in eight g after?"*
+
+**What that separates — the point worth keeping.** 8g did TWO things at once: (1) it
+found the GROUPS (cuts after notes 3, 5, 8, 10, 14 — where the pace changes), and (2)
+it gave each group its OWN grid (no tuplets, ≤0.2 heads). The composer's second thought
+accepts (1) and questions (2): keep the one grid with its 7:4 · 6:4 · 7:4, but show the
+six groups as six beam groups. Those are independent choices, and the tool already had
+the flag for the hybrid — `--beamBreak` is exactly "several beam groups on ONE tempo"
+(composer, day 23), and it takes a list.
+
+**Built: `t1-hybrid`** (scratch picker entry, third of the set) —
+`--cluster 36.21-39.62@0 --pattern --beamBreak 4,6,9,11,15` (the members that START
+a group = the cuts after 3, 5, 8, 10, 14). No code change. The `--pattern` path is the
+same `fit()` the one-grid reading used: unit 125 ms, 120 bpm × 4, worst 21 ms = 0.7
+heads, tuplet beats 2, 3 and 6.
+
+**Verified (:5210, DOM audit against `t1-onegrid` loaded in the same page):** tuplet
+bracket rects, the three `7:4 / 6:4 / 7:4` texts, all 16 head positions, 1 GC impact
+and 1 arc are IDENTICAL between the two; the only difference is the beam — one 1178 px
+primary in `t1-onegrid`, six primaries in `t1-hybrid` at x 58–226 · 280–336 · 456–662 ·
+746–795 · 890–1056 · 1148–1236 (3+2+3+2+4+2 = 16 notes), each group's last beamlet
+turned inward per the day-24 beam law. The first 7:4 bracket (beat 2 = notes 3, 4, 5)
+straddles the beam break after note 3 and draws correctly across it — brackets are keyed
+on the grid (`gridId`), not on beam groups, so this was expected but had never been
+drawn before.
+
+**Why the AI preferred AFTER, in one breath (asked for, given):** the one grid needs
+three tuplet brackets to hold paces that are not in one tempo — ink that states a ratio
+the player never counts (they read the pattern; the cursor carries the time, D66) — and
+it leaves 0.7 heads of displacement; the figures need no bracket at all and leave 0.2.
+Both are under the one-head line (principle 4), so neither is dissonant: AFTER is
+simpler, BEFORE is a single consistent grid. The eye decides.
+
+**Status:** the verdict is NOT in. Three readings in the picker for the composer's eye:
+`t1-onegrid` · `t1-hybrid` · `t1-figures`. Nothing else notated. If the hybrid wins, the
+system change is small and real: the segmenter's cuts become the DEFAULT beam breaks of a
+one-grid cluster (a `--breaksFromFigures`-style modifier, or `--figures` gaining a
+"one grid" mode), and the 8g golden keeps asserting the cut set — the cuts were right
+either way.
+
+### Day 28 — THE VERDICT PROPER: "2+3, 2+3, and the rest are right" — and the rule it turns out to be
+
+**The composer's reading of T1, by ear** (COMPOSER_LOG day 28, verbatim): the patterning
+instinct of 8g was right *with a caveat* — the groups are **[1,2] + [3,4,5]**, then
+**[6,7] + [8,9,10]**, *"and the rest are grouped correctly"* ([11–14], [15,16]). Two
+cuts move: after 3 → after **2**; after 8 → after **7**. Their ear on the first five:
+*"the second and third notes are slower… maybe fifty percent bigger than the fourth
+and fifth"* — measured **53 %** (239/244 vs 156/160).
+
+**Scope, in their words, before any of this:** *"we probably won't get to a universal
+protocol… there probably need to be some manual investigation… I don't necessarily
+want to chase to the end the algorithm. Let's improve it and get it closer if we can…
+see if this generalizes to anything. If not, we'll just move on… it just needs to be a
+by-ear type of judgment."* And: a new rule *"doesn't cancel out any rules, just
+enhances them or adds to them."*
+
+**WHAT GENERALIZES — THE SEAM IS THE SLOWER GAP.** Both cuts the composer moved, and
+all four they kept, satisfy one rule: **at a pace change, the boundary note goes with
+the QUICK side — the seam is the slower of the two gaps.** Equivalently: a seam is a
+gap that is not quicker than either neighbour and is a pace change from at least one —
+a **banded local maximum of the gap sequence**. That is Lerdahl & Jackendoff's GPR 2b
+(attack-point proximity: a boundary where the inter-onset interval exceeds both
+neighbours) and Tenney & Polansky's temporal-gestalt boundary (1980). The composer's
+ear reproduced it without being told it.
+
+**Why the tool missed it:** D67 as implemented is ONE-SIDED — "the seam gap must be in
+a different band from the gap BEFORE it" (`segment()`, `pattern_fit.js`). At a
+slow→quick change that makes the QUICK gap the seam, so the pace-change note lands on
+the slow side (the cut after 3). At quick→slow it happens to agree. The composer's rule
+keeps "a cut lands where the pace changes" (no-shatter stays structural: an even run
+has no pace change) and adds which side — enhances, does not cancel.
+
+**Tested (scratch `seam_rule.js`, using the real `paceBands()`):**
+- T1 bands at 1.25: {142…161} · {239…288} · {304, 347}.
+- Current rule, legal cuts: after 3,5,6,7,8,9,10,11,14 → the DP chose 3,5,8,10,14.
+- **Local-max rule, legal cuts: after 2,5,7,10,14 — the composer's set exactly, and
+  nothing else is legal.** No cost decision is involved on T1.
+- **The second 2+3 is a genuine near-tie:** cut-after-7 is legal only because
+  304/242 = **1.256 ≥ 1.25**. At a ratio of 1.3 the legal cut is after 8 instead —
+  [6,7,8] + [9,10], the tool's reading. The composer said *"it sounds MORE LIKE a two
+  plus three"* — tentative, and rightly so. The system must FLAG this kind of tie
+  (legality that flips within a few % of PACE_RATIO), not decide it.
+- **Across CLOUD02-I (14 gestures of 4+ notes, all ten parts): 13 of 14 would change
+  under the new rule.** So the T2–T10 reads must wait for the rule, not precede it.
+- **One gesture has NO legal seam** under the strict rule: T7 @36.19, gaps
+  378 323 130 292 367 — "slow slow QUICK slow slow"; the quick gap is a local
+  *minimum* (the strongest join), every slow gap is beaten by a slower neighbour.
+  Under the current rule the DP cut it into three pairs. This is the by-ear case the
+  composer predicted; the tool should say "no clean seam" and hand it over (the 130 ms
+  note may be a pickup — principle 8, already a flag).
+
+**THE FLOW — the caveat, analysed.** *"In the after version they all just look like
+even sixteenths. In the before version, the 7:4 bracket communicates that the last
+two of that five are quicker."* With the composer's own groups on separate grids the
+page would STILL read "two 16ths, then three 16ths" — the quickness lives only in the
+spacing. What shows it: the two groups on ONE grid. Hand-computed: **[1..5] at unit
+240 ms = 16th 16th, then a 3:2 triplet of 16ths — worst error 3 ms = 0.10 heads**
+(against the day-26 quintuplet at 0.63 and the separate grids at 0.2-with-no-bracket).
+The 3:2 is already in the vocabulary (section 1's T1, D57) and the WRITING path exists
+(`--tuplet a-b@3:2`, day 23); what cannot find it is `fit()`, whose tuplet model is
+whole-beat only (n:4). The 7:4 the composer liked is the right message in the wrong
+ratio — an artefact of the 125 ms grid. The second five does not share a grid this
+cleanly ([8,9,10] is itself 242 → 142); so this is a sometimes-rule: **adjacent figures
+whose paces stand in a simple ratio (2:1 → 8ths against 16ths, no bracket at all; 3:2 →
+a triplet on the quick one) may share one grid, and the quick one takes the bracket.**
+Cheapest honest version: the analyser REPORTS the ratio between adjacent figures and
+names the shared-grid writing where one exists; the composer takes it by eye.
+
+**Built for the eye: `t1-hybrid2`** — one grid, beams broken at the composer's groups
+(`--pattern --beamBreak 3,6,8,11,15`). Note that the one grid's 7:4 on beat 2 covers
+exactly [3,4,5] and its 6:4 on beat 3 exactly [6,7]: the composer's groups and the
+fit's tuplet beats are seeing the same quick runs.
+
+**Logistics:** screenshots fail this session — *"the Browser pane is not displayed, so
+the page is not compositing frames"*. `tabs_select`, and closing the tab + reopening
+with `preview_start`, do not display it; the pane is a panel the composer shows on
+their side. Everything was verified by DOM audit instead, which needs no pane. **When
+screenshots are wanted: open the Browser pane once at session start.**
+
+**Approved (composer):** *"It's actually fine now with the re-beaming patterns"* — the
+beaming of `t1-hybrid2` (one grid, their groups) stands as is; no adjustments. *"Let's go
+with your plan, a through c."* → **PLAN 8h** filed with the full spec (A: two-sided seam
+legality + ratio-tie flag + no-clean-seam flag + `--cuts` by hand; B: the FLOW flag,
+report only), C = the T2–T10 reads after it. Running order and models in journal §2.
+**Also asked, and made standing in CLAUDE.md:** the AI's own reactions (e.g. the Lerdahl
+& Jackendoff identification) are captured verbatim for the paper, not summarised —
+PAPER_NOTES day 28 now carries both sides of the exchange.

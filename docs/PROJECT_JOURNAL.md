@@ -10,14 +10,18 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 27 COLD START — read this block, then `docs/NOTATION_STANDARDS.md`, then
+**DAY 28 COLD START (mid-day clear → Opus builds PLAN 8h) — read this block, then
+`docs/PLAN.md` item 8h (the spec, complete), then `docs/NOTATION_STANDARDS.md`, then
 go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
 ### State in one paragraph
 
-**Day 27 ended with PLAN 8g (FIGURE SEAMS) BUILT, VERIFIED AND PUSHED. The next
-step is the composer's eye: look at `t1-figures` vs `t1-onegrid` in the picker and
-say whether the segmentation is right, then T2–T10 against the new report.**
+**Day 28, mid-day: THE T1 VERDICT IS IN and it found the seam rule one-sided — PLAN 8h
+(approved, specified, not built) corrects it. Next: Opus builds 8h after a clear, then
+Fable does the T2–T10 reads against the corrected report.** *(The paragraph below is
+day 27's picture of 8g, still accurate as a description of what exists.)*
+
+**Day 27 ended with PLAN 8g (FIGURE SEAMS) BUILT, VERIFIED AND PUSHED.**
 The analyser now cuts a gesture into FIGURES and fits each one alone
 (`pattern_fit.segment()`), reports them **in words first**, and `notate_section`
 can build them (`--cluster … --figures`). On T1 it finds SIX figures with **no
@@ -49,17 +53,44 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 |---|---|---|---|---|
 | ~~1~~ | ~~PART 3 — analysis of CLOUD02-I in shapes, then STOP AND TALK~~ **T1 DONE day 26** | — | — | — |
 | ~~2~~ | ~~8g — FIGURE SEAMS: build the segmenter~~ **DONE day 27** — built, verified in the app, pushed; the finding is D67 | — | — | — |
-| **3** | **THE COMPOSER'S EYE ON THE SEGMENTATION — 15 minutes, before any more parts.** Open the picker: **`t1-figures`** (8g AFTER — six figures, no tuplet) against **`t1-onegrid`** (8g BEFORE — one grid, 7:4·6:4·7:4). Three questions: (a) is six figures right, or is the cut after **note 3** one too many — the tool's one disagreement with your day-26 five? (b) **note 11** is flagged as a near-tie, as you called it — which side does it belong on? (c) do three 2-note "pair" figures read as fragmented on the page? | **Fable** | **YES — clear before it** (execution → conversation) | a verdict on the cut set; if the cuts want to move, the dial is `--paceRatio` (or say the boundary and it moves) |
-| 4 | T2–T10 by hand against the new report, one part at a time; composer validates the "one cluster per part, several figures" expectation; tuplet vs dotted 16ths is decided ON THE PAGE if such a figure ever appears (**note: with cuts at pace changes, NOT ONE figure in CLOUD02-I needs a tuplet — the question may never come up**) | **Fable** | yes | every part has its read; the tool changes it shows a need for are listed |
-| 5 | NOTATE CLOUD02-I — `--cluster t0-t1@part --figures` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
+| ~~3~~ | ~~THE COMPOSER'S EYE ON THE SEGMENTATION~~ **DONE day 28** — verdict: grouping instinct right, two cuts one note off (after 2 not 3, after 7 not 8), both from the same one-sided rule; beaming of `t1-hybrid2` approved as is. *(old row kept for the record:)* THE COMPOSER'S EYE ON THE SEGMENTATION — 15 minutes, before any more parts. Open the picker: **`t1-figures`** (8g AFTER — six figures, no tuplet) against **`t1-onegrid`** (8g BEFORE — one grid, 7:4·6:4·7:4). Three questions: (a) is six figures right, or is the cut after **note 3** one too many — the tool's one disagreement with your day-26 five? (b) **note 11** is flagged as a near-tie, as you called it — which side does it belong on? (c) do three 2-note "pair" figures read as fragmented on the page? | **Fable** | **YES — clear before it** (execution → conversation) | a verdict on the cut set; if the cuts want to move, the dial is `--paceRatio` (or say the boundary and it moves) |
+| **4 = A+B** | **PLAN 8h — THE SEAM IS THE SLOWER GAP:** two-sided legality in `segment()` · ratio-tie flag · no-clean-seam flag · `--cuts` by hand · the FLOW flag (adjacent figures at 2:1 / 3:2 could share a grid) · golden → `2,5,7,10,14` · `t1-figures2` built · re-measure the "no tuplet in CLOUD02-I" claim. Spec complete in PLAN.md 8h. | **Opus** | **YES — clear before it** (conversation → execution) | PLAN 8h "Done =" — batteries green, `--validate` 24/25, the T1 report prints the six figures + ratio tie + FLOW flag, `t1-figures2` DOM-verified, pushed |
+| **5 = C** | T2–T10 by hand against the CORRECTED report, one part at a time; composer validates the "one cluster per part, several figures" expectation; tuplet vs dotted 16ths is decided ON THE PAGE if such a figure ever appears (**note: with cuts at pace changes, NOT ONE figure in CLOUD02-I needs a tuplet — the question may never come up**) | **Fable** | yes | every part has its read; the tool changes it shows a need for are listed |
+| 6 | NOTATE CLOUD02-I — `--cluster t0-t1@part --figures [--cuts …]` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
 | 6 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → its analysis | Opus run/apply · Fable for the nine and the talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**Right now:** step 3 — **the composer looks at `t1-figures` vs `t1-onegrid`**. This is
-a clear point and a mode change (execution → conversation): the build is done, verified
-and pushed, and nothing more should be notated until the segmentation has an eye on it.
-Switch to **Fable** for the verdict.
+**Right now:** step 4 — **Opus builds PLAN 8h from its spec**, after a clear (conversation
+→ execution). Then clear again and switch to **Fable** for step 5 (the reads — a
+conversation, `/checkpoint · /clear · /resume` if it runs long). T1's notation candidate
+is `t1-hybrid2` (one grid, the composer's groups, beaming approved); the final choice —
+hybrid2 vs `t1-figures2` vs a hand 16th-16th-3:2 for the first five — is the first item
+of step 5, by eye. Step 6 (notating) only after the reads.
+
+### Day 28 — IN FLIGHT (mid-session, Fable 5) — read this before touching the segmenter
+
+- **T1 verdict (composer, by ear): groups are [1,2]+[3,4,5] · [6,7]+[8,9,10] · [11–14] ·
+  [15,16]** — cuts after 2,5,7,10,14 (the tool had 3,5,8,10,14). Second 2+3 said
+  tentatively ("sounds more like").
+- **The rule that generalizes: THE SEAM IS THE SLOWER GAP** — the boundary note goes
+  with the quick side; a seam = a gap not quicker than either neighbour and a pace
+  change from at least one (banded local max; Lerdahl–Jackendoff GPR 2b). D67 as
+  implemented compares the seam with the gap BEFORE only (one-sided) — that is the
+  whole defect. On T1 the corrected legal set is exactly the composer's cuts; the 7-vs-8
+  boundary flips at ratio 1.256 vs 1.25 (flag it). 13 of 14 CLOUD02-I gestures change
+  under it; T7 @36.19 has no legal seam (by-ear case). **APPROVED by the composer ("let's go with
+  your plan, a through c") → PLAN 8h, spec complete; Opus builds it after the clear.** Scratch test: scratchpad `seam_rule.js`; trail RUNNING_LOG day 28.
+- **Flow caveat:** a quick group on its own grid "just looks like even 16ths"; the
+  first five on ONE grid at 240 ms = 16th 16th + 3:2 at 0.10 heads — the writing path
+  exists (`--tuplet a-b@3:2`), `fit()` cannot find sub-beat tuplets. Cheap version =
+  report the adjacent-figure ratio; composer decides by eye.
+- **Scope (composer):** no universal protocol; improve and get closer; what does not
+  generalize is by ear. Picker now holds `t1-onegrid · t1-hybrid · t1-hybrid2
+  (composer's groups — BEAMING APPROVED as is, day 28) · t1-figures` — scratch; 8h adds
+  `t1-figures2`; prune all but the chosen one when T1's final is picked in step 5.
+- **Logistics:** screenshots need the Browser pane open on the composer's side; DOM
+  audit works without it.
 
 ### The tools you will use (all verified day 24)
 
@@ -1306,8 +1337,17 @@ T2–T10 resume once the composer has ruled on the T1 segmentation.**
 
 ## §6 Human Notes
 
-- *(2026-08-23, day 27 — CURRENT)* **One thing is genuinely owed, and it gates the
-  next build: the segmentation verdict.** Open the picker and compare
+- *(2026-08-23, day 28 — CURRENT)* **Nothing owed while Opus builds 8h.** When it is
+  built, step 5 opens with one call of yours: T1's final — `t1-hybrid2` (one grid, your
+  groups, 7:4·6:4·7:4, beaming approved) vs `t1-figures2` (your groups, each on its own
+  grid) vs the first five as 16th 16th + 3:2 by hand. Then the T2–T10 reads, one part per
+  sitting, against the corrected report; the FLOW flag and the ratio-tie flag are yours
+  to take or leave per case. *(Standing from day 24: `flagShortBarSeconds`, the cuivré
+  mark, the GC-ball ear check.)* **Logistics:** open the Browser pane at session start if
+  you want screenshots from the AI; DOM audits work without it.
+- *(2026-08-23, day 27)* ~~**One thing is genuinely owed, and it gates the
+  next build: the segmentation verdict.**~~ *(ANSWERED day 28 — see the entry above; the
+  verdict moved two cuts and exposed the one-sided seam rule → PLAN 8h.)* Open the picker and compare
   **`t1-figures`** (8g AFTER — six figures, no tuplet, nothing past 0.2 heads)
   against **`t1-onegrid`** (8g BEFORE — one grid, 7:4 · 6:4 · 7:4 at 0.7 heads).
   Three questions: (a) **is six figures right, or is the cut after note 3 one too

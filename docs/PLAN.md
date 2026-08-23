@@ -1823,7 +1823,7 @@ while building the real score.
   session), plus one open question: whether the three cuivre notes want a
   cuivré text mark, since the technique is currently invisible on the page.
 
-- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 27: 8g BUILT, so the gate is lifted; Part 3 resumes for T2–T10 once the composer has ruled on the T1 segmentation — journal §2 step 3)`. **Day 25
+- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 28: the T1 verdict is in and it found a defect in the seam rule — 8h fixes it; Part 3 resumes for T2–T10 AFTER 8h, against the corrected report — journal §2)`. **Day 25
   reframed it:** the composer's *"it feels very dense"* meant UNPLAYABLE, not too-much —
   *"this process is strictly for playability… the smear or audibility is of secondary
   concern."* The section passes playability with 12 part moves and no removals (OR);
@@ -1843,8 +1843,9 @@ while building the real score.
   page and cursor absorb tempo; the only failure is dissonance past the eye's
   rounding. Remaining parts T2–T10 continue by hand against the tool, after 8g.
 - **8g — FIGURE SEAMS: the analyser finds the figures inside a gesture** —
-  `DONE 2026-08-23 (day 27) — built, verified in the app, pushed. Awaiting the
-  composer's eye on the segmentation itself (see journal §2 step 3).`
+  `DONE 2026-08-23 (day 27) — built, verified in the app, pushed. VERDICT IN day 28:
+  the grouping instinct was right, the seam rule was one-sided — the correction is PLAN 8h
+  (approved). T1 by ear = [1,2]+[3,4,5] · [6,7]+[8,9,10] · [11–14] · [15,16].`
   **BUILT:** `pattern_fit.segment()` + `words()` + `paceBands()` + `dottedReading()` ·
   the words-first report in `pattern_analyze` (one-grid reading printed LAST as "also")
   · `--figures` and `--paceRatio` on `notate_section` · `gridId` as the grid domain in
@@ -1897,6 +1898,108 @@ while building the real score.
   when it is drawn. **Done =** `pattern_analyze --part 0 --span 36.0-40.4` prints
   the five figures with their flags; `--validate` 24/25; batteries green; the T2–T10
   reads resume with the new report.
+
+- **8h — THE SEAM IS THE SLOWER GAP: two-sided seam legality, the flags that go with
+  it, `--cuts` by hand, and the flow report** — `todo (approved by the composer day 28 —
+  "let's go with your plan, a through c"; this is A + B; C = the T2–T10 reads after it)`.
+  Model: **Opus**, clear before it (conversation → execution). Trail: RUNNING_LOG day 28
+  (the test, the numbers), PAPER_NOTES day 28, COMPOSER_LOG day 28 (the verdict verbatim).
+  Scratch proof of the rule: `seam_rule.js` in the day-28 scratchpad (re-derivable from
+  the spec below in ten lines).
+  **Why:** the composer's reading of T1 by ear is [1,2]+[3,4,5] · [6,7]+[8,9,10] ·
+  [11–14] · [15,16] = cuts after **2,5,7,10,14**; the tool gave 3,5,8,10,14. Both
+  disagreements are the same defect: `segment()` tests a seam only against the gap
+  BEFORE it, so at a slow→quick change the QUICK gap becomes the seam and the
+  pace-change note lands on the slow side. The rule that reproduces all six groups —
+  and nothing else — is: **a seam is a gap that is not quicker than either neighbour
+  and is a pace change from at least one of them** (a banded local maximum; Lerdahl &
+  Jackendoff GPR 2b). It enhances D67 (a cut still lands where the pace changes;
+  no-shatter stays structural) by adding which side.
+  **What (A — the rule and its flags):**
+  1. `notation/lib/pattern_fit.js` `segment()` — the legality loop (the line
+     `if (pb.bandOf(gaps[b - 1]) !== pb.bandOf(gaps[b - 2])) allowed.add(b)`): with
+     `s = band(gaps[b-1])`, `L = band(gaps[b-2])`, `R = b < n-1 ? band(gaps[b]) : null`
+     (bands index ascending, 0 = quickest, so "≥" means "not quicker"), a cut after
+     note `b` is legal iff `s >= L && (R === null || s >= R) && (s !== L || (R !== null
+     && s !== R))`. Everything else in the DP stays (it may still decline a legal cut
+     by cost; `MIN_FIGURE_NOTES`, `SOFT_MAX_NOTES`, `CUT_COST`, `NEAR_TIE` unchanged).
+     **Expected on T1:** legal = {2,5,7,10,14} exactly; verify the DP TAKES all five
+     (if it declines one by cost, report which and why — that is a finding, not a
+     thing to tune away).
+  2. **Ratio ties.** Re-run the legality at `PACE_RATIO × 0.95` and `× 1.05`; any cut
+     whose legality differs across the three runs goes to `result.ratioTies =
+     [{afterNote, legalAt: [ratio…], notLegalAt: [ratio…], ratio: gapA/gapB}]`. On T1
+     the cut after 7 is legal at 1.25 only because 304/242 = 1.256 (at 1.31 the legal
+     cut is after 8 instead). The existing cost-based `nearTies` stay as they are.
+  3. **No clean seam.** When `allowed` is empty and the gesture is longer than
+     `SOFT_MAX_NOTES` or its one-grid fit has `tupletBeats > 0` or `coherent ===
+     false`, set `result.noSeam = true` (the gesture still returns as one figure).
+     T7 @36.19 of CLOUD02-I (gaps 378 323 130 292 367) is the case.
+  4. **`CUTS` option** on `segment(onsets, {CUTS: [k,…]})`: explicit seams ("after
+     note k", 1-based in the main members), overriding legality entirely; each figure
+     still fitted alone; `result.byHand = true`. A hand cut that isolates one note
+     (violates `MIN_FIGURE_NOTES`) → return null with `reason`. Surface it as
+     **`--cuts a,b,c`** — a positional modifier on `--cluster … --figures` in
+     `tools/notate_section.js` (add to `MODS`; refuses without `--figures`) and as
+     `--cuts` on `tools/pattern_analyze.js`. This is the "say the boundary and it
+     moves" promised in journal §2 on day 27 and never built.
+  5. `tools/pattern_analyze.js` FLAGS section: print ratio ties as *"cut after 7 is a
+     RATIO TIE — legal at 1.25 because 304/242 = 1.256; at 1.31 the seam moves to
+     after 8 ([6,7,8]+[9,10]) — composer's call"*; print `noSeam` as *"no clean seam
+     under the rule (every slow gap has a slower neighbour; the quick gap is a join) —
+     by ear; one-grid reading follows"*; print `byHand` as *"cuts by hand: …"*.
+  **What (B — the flow report, a FLAG only, nothing written):**
+  6. After the figure list in `pattern_analyze`, for every ADJACENT pair of figures
+     take `r = slowUnit / quickUnit` from their own fits (`f.fit.unit`). If `r` is
+     within 8 % of **2** or of **1.5** (`r / target` in [1/1.08, 1.08]), compute the
+     shared-grid writing: for 2:1 the grid unit is the quick unit and the slow figure's
+     notes are 8ths ("8th 8th | 16th 16th 16th" — no bracket); for 3:2 the grid unit
+     is the slow unit and the quick figure's notes are triplet 16ths at 2/3 slot each
+     ("16th 16th | 3:2 [16th 16th 16th]"). Anchor at the earlier figure's first note;
+     the later figure's first note snaps to its nearest integer slot; worst
+     |actual − ideal| ÷ `HEAD_SECONDS` (0.030) = heads. Print *"FLOW: figures 1+2 could
+     share ONE grid at 240 ms — 16th 16th | 3:2 — worst 3 ms = 0.10 heads; the bracket
+     says 'quicker'"*. Only 2:1 and 3:2 (the composer's vocabulary); print the number
+     even when it is poor, mark `[OVER A HEAD]` past 1.0 like the rest of the report.
+     **Nothing is built from this flag** — the composer decides by eye in C, and the
+     hand-build path for a chosen case is designed then (it needs a sub-beat tuplet on
+     a shared grid; `--tuplet a-b@3:2` draws it, `fit()` cannot find it — `fit()` stays
+     untouched here too).
+  **What (tests, builds, docs):**
+  7. `tools/test_pattern_fit.js`: the T1 golden becomes **`2,5,7,10,14`**, keeping
+     the "keeps the composer's cut after 5, 10, 14" lines and replacing the note-11
+     near-tie line with: ratio tie on the cut after 7 (1.256), and `segment(T1,
+     {PACE_RATIO: 1.31}).cuts` contains 8 not 7. Keep every no-shatter case (an even
+     run has no pace change → still no legal cut). Add: T7 [378 323 130 292 367]
+     relative onsets → `noSeam === true`; `CUTS: [2,5,7,10,14]` reproduces the hand
+     reading with `byHand`; `CUTS: [1]` → null. Drop the "no figure needs a tuplet"
+     assertion on T1 unless it still holds ([8,9,10] is 242→142 — it may need one);
+     assert instead whatever the tool gives and print it. The day-27 claim "not one
+     figure in CLOUD02-I needs a tuplet" must be RE-MEASURED under the new rule (rerun
+     the all-parts scan) and the number written to RUNNING_LOG; if it changed, say so
+     in NOTATION_STANDARDS principle 6 too.
+  8. Build **`t1-figures2`** (experiments, label "8h — T1 as the COMPOSER'S groups, each
+     on its own grid") with `--cluster 36.21-39.62@0 --figures` — the corrected rule
+     should give the five cuts on its own; if the DP declines one, build with `--cuts
+     2,5,7,10,14` and report the difference. Verify in the app by DOM audit (:5210,
+     `score-verify`): primary beams over notes 1–2, 3–5, 6–7, 8–10, 11–14, 15–16; one
+     GC impact, one arc; compare against `t1-hybrid2` (same heads). A screenshot needs
+     the Browser pane open on the composer's side — DOM audit does not.
+  9. All ten batteries green; `node tools/pattern_analyze.js --ir db1 --validate` still
+     **24/25**; the T1 report (`--ir db1-c2i-x01 --part 0 --span 36.0-40.4`) prints the
+     six figures in words, the ratio tie on 7, the FLOW flag for figures 1+2; the T7
+     report (`--part 6`) prints "no clean seam" for the gesture at 36.19.
+  10. Docs: NOTATION_STANDARDS principle 6 gains the rule (D68, one paragraph: "the seam
+     is the slower gap — the boundary note goes with the quick side"); journal §2 thread
+     advanced (8h done → C next, Fable); §4 **D68** filed (why + what was rejected: the
+     one-sided rule; a cost-weighted soft preference — rejected because it would be
+     tuned, not structural, the lesson of D67); PLAN 8h status; RUNNING_LOG entry with
+     the re-measured scan. Commit with explicit paths, push.
+  **Done =** items 1–10 verified as stated; `t1-figures2` in the picker beside
+  `t1-hybrid2`; the composer can run C (the reads) against the corrected report.
+  **Out of scope, by the composer's word:** chasing the algorithm further — T7-type
+  gestures are by ear; the full flow build (B′: the analyser finding sub-beat tuplets
+  and merging figures) waits until C shows how often the FLOW flag fires.
 
 ## Parking lot
 
