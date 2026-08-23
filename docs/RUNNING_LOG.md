@@ -9608,3 +9608,77 @@ writing `notation/ir/index.json` while the notation page was open on it, then
 succeeded on retry. Transient write contention with the page's manifest poll; the IR
 file had already been removed, so the manifest entry was left orphaned until the
 retry. Worth knowing before pruning a batch with the page open.
+
+## Day 29 — 2026-08-23 (Claude Code / Fable 5)
+
+### Day 29 — THE READS open: T2 (step 5c, first part after T1)
+
+**A papercut first, because it cost a run:** `--part` is ZERO-indexed — T1 is
+`--part 0`, T2 is `--part 1`. The journal's tool table said `--part N` without
+saying so, and the first run of the sitting read T3 by mistake. Fixed in §2's table.
+(Day 26's log and the tool's own usage line both had it right: `--part 0`.)
+
+**T2 as the tool sees it** (`pattern_analyze --ir db1-c2i-x01 --part 1 --span 36.19-40.42`):
+15 notes, one breath seam (502 ms after note 7) → two gestures.
+
+- **@36.19, seven notes.** Gaps 262 | 310 | 499 | 157 | 265 | 414. Two groups:
+  [1,2,3] "even even" + [4,5,6,7] "short medium long"; seam = the 499 ms gap.
+  ONE grid at ♩=109 (137 ms), plain 16ths throughout, **no bracket**, worst
+  0.8 heads. Own grids would be ♩=54 / ♩=106 at 0.5 heads each. FLOW 1+2 is over
+  a head (2.23) — not on offer. **The thing to notice: the seam gap is 499 ms, one
+  millisecond under the 500 ms breath threshold.** Had it been 500 the tool would
+  have made two gestures (two goes, two GCs) instead of one gesture with a beam
+  break. That is an ear call, not a threshold call.
+- **@38.60, eight notes.** Gaps 157 | 215 | 228 | 430 | 219 | 292 | 186. Three
+  groups: [1,2] pair + [3,4,5,6] "short long short" + [7,8] pair; seams after 2
+  (215 ms) and 6 (292 ms). ONE grid at ♩=97 (155 ms) with a **7:4 on beat 0
+  (notes 1–3) and a 3:2 on beat 1 (notes 4–5)**, worst 0.7 heads. **THE STRADDLE:
+  the 7:4 covers notes 1–3 but the seam is after note 2** — one bracket saying
+  "quicker" about the pair and the first note of the next group. Own grids: the
+  three groups at 0.0 / 0.2 / 0.0 heads, no bracket anywhere (group 2 as
+  `16th 8th 16th 16th` at ♩=68).
+- **The DP skips the gesture's biggest gap.** The 430 ms gap after note 4 is a
+  legal seam (slower than both neighbours, ratio 1.89) and taking it gives FOUR
+  PAIRS at +0.02 — a tie, flagged ("note 5 could go either way"). Checked in
+  `segment()`: the price of a reading is each group fitted ALONE (tuplet beats +
+  empty slots + heads + length) plus CUT_COST 0.5 per cut; a pair fits any grid
+  for free, so the extra cut nets +0.02. **Under D69 the page is one grid, so the
+  own-grid part of that price describes a page that is no longer drawn; what still
+  holds is legality (where a cut MAY land) and the tie flag.** Not a defect — it is
+  exactly what the near-tie flag is for — but worth knowing when the tool prefers
+  fewer cuts: that preference is CUT_COST, not the ear. Noted for the paper.
+- **Where a straddle-free reading would have to cut:** only at the beat lines —
+  after 3 and after 5 — and neither is a legal seam (228 ms is quicker than the
+  430 that follows it). So on this gesture the fit's beats and the pace rule's
+  seams disagree BY CONSTRUCTION; every legal cut set carries at least one
+  straddle on one grid (cuts 2,6 → the 7:4; cuts 4,6 → the 3:2 instead; four
+  pairs → both). The escapes are the ones call A(a) named: live with it,
+  `--ownGrids` for this gesture, or build the figure-scoped bracket.
+- **Pickup flags, for the record, none applied:** @36.19 notes 1 and 4; nothing
+  on @38.60.
+
+#### Day 29 — T2's four candidate pages, built for the composer's eye ("put it into the score, please, so I can look")
+
+All four are window 35–41, all parts, bricks everywhere except **T1's final cluster
+(`--cluster 36.21-39.62@0 --figures`, the proven t1-final recipe) and T2** — so the
+page shows the two figured parts side by side. Scratch, `--exp`, prune all but the
+keeper when T2 is decided (`node tools/notate_section.js --prune <id>`).
+
+| id | T2 gesture 1 (@36.19) | T2 gesture 2 (@38.60) | answers |
+|---|---|---|---|
+| `t2-figures` | `36.18-38.20@1 --figures` — [1-3]+[4-7], plain | `38.50-40.40@1 --figures` — pair · short-long-short · pair, 7:4 (STRADDLE) + 3:2 | Q1 A · Q2 A · Q3 A |
+| `t2-owngrids` | as A | `… --figures --ownGrids` — three groups on their own grids, no bracket | Q3 B |
+| `t2-fourpairs` | as A | `… --figures --cuts 2,4,6` — four pairs; BOTH brackets straddle | Q2 B |
+| `t2-twogoes` | `36.18-36.90@1` + `37.20-38.20@1`, each `--figures` — two gestures, second go on note 4 | as A | Q1 B |
+
+All four `VALID vs source`, 169 events / 41 chunks. `t2-twogoes`' two small clusters
+fit at ♩=54 (3 notes, 0.5 heads) and ♩=106 (4 notes, grid 0,1,3,6 — `16th 16th
+8th 8th.` spacing, 16 ms) — the own-grid numbers the report predicted.
+
+**DOM audit (:5200, `t2-figures`, Browser pane not displayed so no screenshot):**
+lane T2 (y≈122) carries two bracket texts — `7:4` at x 652 and `3:2` at x 748 — and
+five primary beams: x 240 w 89 (notes 1–3) · 407 w 130 (4–7, with a 16th-level beam
+under the 157 ms pair) · 616 w 25 (pair) · 674 w 137 (3–6) · 856 w 29 (pair, double
+beam). The 7:4's text centre sits over the break between the 616 and 674 beams — the
+straddle, visible as built. T1's lane unchanged: `7:4 6:4 7:4`, six primary beams at
+the t1-final x positions.
