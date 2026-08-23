@@ -8794,3 +8794,42 @@ ARCHIVE_AMENDMENTS when OR is applied to the archive — not yet done.
 
 Verified in the composer app: 698 objects render, OR occupies 56.0–60.1 s across all ten
 lanes. The B series (8–48 s) is untouched and stands as the audibility research.
+
+### Day 25 — THE ROUTE from composer score to notated page, laid out (composer asked)
+
+Composer: *"detail for me the route to the notated score… my original composer score gets
+amended, and we're keeping a ledger… then you're porting to the presentation score… lay
+out everything that needs to happen so we can start notating and things are saved
+properly."* Read from the protocol (ARCHIVE_AMENDMENTS rules 1–6), `move_object.js`, and
+db1's stored build command — not from memory.
+
+**Three files, three roles:**
+1. `scores/piece-s25-finished01.json` — THE ARCHIVE (composer score). Frozen; edited only
+   by script, each edit a SCORE EDIT line in ARCHIVE_AMENDMENTS.md; git is history and
+   undo. No new composer save file — the archive itself is amended (as wc-28/87/88 were).
+2. `notation/ir/db1.ir.json` — THE PRESENTATION SCORE'S DATA. Built FROM the archive by
+   `notate_section.js`; the full command is stored in `provenance.build` and rebuilds it
+   byte-identically. Figures are `--cluster` arguments appended to that command. The app
+   reads this file. Not a new file per section — db1 already spans 0–55.94 and its
+   command already carries 25 clusters (incl. four in 44.5–46.2 s, CLOUD02-D).
+3. `scores/cloud02i-*.json` — SCRATCH (the listening file and isolates). Not on the route;
+   kept as research, never loaded for real work.
+
+**The steps:**
+1. Apply OR to the archive — 12 `move_object.js --apply` runs, in the tool's order
+   (`wc-1903` T3→T5 BEFORE `wc-1905` T9→T3: dry-run shows wc-1905 refused only because
+   wc-1903 has not left T3 yet). Each prints its ledger line. Then, optionally, the 159
+   bricks → 50 ms (no tool exists; a 20-line script, one systematic ledger line; the
+   composer's ask, page hygiene only). Ledger. Commit + push.
+2. Re-extract db1: run `provenance.build` verbatim (after the moves it is no longer
+   byte-identical in 36–40.4 — that is the point). `pattern_analyze --validate` (23/25
+   expected) + the batteries.
+3. Playability loop on the window — DONE (OR: 0 hard, 0 soft).
+4. `pattern_analyze --ir db1 --part N --span 36.0-40.4` for N = 0..9 on the redistributed
+   parts. Expect the day-24 result again (no pattern in the long runs) — density is
+   unchanged; that is now a NOTATION question (one-shots / even 16ths / clusters), not a
+   playability one.
+5. Figures: append `--cluster … @part` groups to the stored command → rebuild db1 →
+   composer reviews part by part (NOTATION_WORKFLOW §1). Trials as forks (`--from db1
+   --id db1-x… --exp`), settled ones promoted into db1's command.
+6. Commit + push at each settled chunk; db1 keeps its id, label updated.
