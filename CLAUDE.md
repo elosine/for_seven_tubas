@@ -65,6 +65,21 @@ of conclusions is worth much less than the trail.
 Also file to `docs/PAPER_NOTES.md` the moment something bears on the argument —
 a framing, a reversal, a quotable phrase. Verbatim where the wording matters.
 
+## THE RHYTHM — next steps · model · clear (standing, composer 2026-08-23)
+
+At every juncture — a chunk wrap, a milestone, a mode change (execution ↔
+conversation), or when asked "where are we" — the AI **states the next 2–4 logical
+steps, each with a recommended model and whether to clear before it**, and **says
+out loud when a good clear or switch point has arrived** ("this is a good time to
+clear", "switch to Opus for this"). The rule for the recommendation is in
+`docs/SESSION_HYGIENE.md` § Model strategy (Fable = judgment/verdicts/design;
+Opus = executing a written plan; clear at milestones and mode changes; the
+cold-execution test before any clear).
+
+**The running thread lives in `docs/PROJECT_JOURNAL.md` §2 → "NEXT STEPS · MODEL ·
+CLEAR".** Keep it current as steps complete — it is the first thing a model reads
+after a clear, and it must say what is next, with what model, right now.
+
 ## Apps
 
 - **Composer score:** `node score/server.js` → http://localhost:5200/composer.html

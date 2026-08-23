@@ -28,6 +28,18 @@ that is Part 3 and it starts by talking, not building.** Whole archive still sho
 hard (the trance seams @560.63 T8 / @604.63 T6) and 32 soft, all parked. All pushed;
 working tree clean.
 
+### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
+
+| # | step | model | clear? | done = |
+|---|---|---|---|---|
+| **1** | **PART 3 — notation ANALYSIS of CLOUD02-I in shapes, then STOP AND TALK** (block below) | **Fable** | cleared before it (day 25) | the composer has the per-part report and the conversation about what the notation should look like has happened; the approach is written into §2 |
+| 2 | NOTATE CLOUD02-I — build the figures per the decided approach (`--cluster …` appended to db1's command, trials in `db1-c2i-x01`); composer reviews part by part | **Opus** to build · **Fable** for each "look at the page" verdict | clear before it (mode change: conversation → execution); `/checkpoint · /clear · /resume` mid-way if the chat gets long | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` still 24/25, pushed |
+| 3 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is already dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → then ITS notation analysis | **Opus** for the run/apply · **Fable** for the nine (short) and the analysis talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
+| 4 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
+| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column | — | — | — |
+
+**Right now:** step 1. It is a conversation; do not build.
+
 ### The tools you will use (all verified day 24)
 
 | to… | run |

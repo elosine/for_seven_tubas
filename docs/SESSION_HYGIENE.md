@@ -121,6 +121,19 @@ turn where the plan is already on paper.** Concretely:
   makes the docs the handoff. The test before clearing: could a cold model execute the
   next step from journal §2 alone? If not, the §2 block is not finished.
 
+**THE RHYTHM (composer, day 25):** *"plan out the next logical few steps, have a
+recommended model-switching rhythm, including a clear rhythm, and then AI can say
+'this is a good time to clear' or 'this is a good time to switch models'."* Day 25
+ran this way by accident and it worked: plan read back → approved → written to §2 →
+Part 1 (Opus) → Part 2 (Opus) → "good juncture to clear?" → §2 made cold-correct →
+clear → Part 3 (Fable). So it is now the standing practice (CLAUDE.md § THE RHYTHM):
+- at every juncture the AI lists the next 2–4 steps with **model + clear** per step;
+- the AI **announces** switch/clear points rather than waiting to be asked;
+- the list is a **running thread in journal §2** ("NEXT STEPS · MODEL · CLEAR"),
+  kept current as steps complete, so it survives clears and model changes;
+- a clear is recommended at a **milestone** or a **mode change** (execution ↔
+  conversation) — and only after the cold-execution test passes.
+
 **The plan/implement split only works if the plan is written to a FILE.**
 `/clear` discards the chat, so a plan that lives only in conversation cannot be
 handed to the implementing session. Sequence:

@@ -8935,3 +8935,16 @@ Parts 1 and 2 marked DONE with their commits, Part 3 marked **NEXT — START HER
 its model. D65 (fixtures must not be tool-rewritten files) filed as a candidate.
 Cold-execution test applied: a model that has never seen this chat can run Part 3 from
 §2 alone.
+
+### Day 25 — THE RHYTHM made standing (composer): next steps · model · clear, as a running thread
+
+Composer: *"this rhythm was very useful… plan out the next logical few steps, have a
+recommended model switching rhythm, including a clear rhythm, and then AI can say 'this
+is a good time to clear' or 'switch models'. Can we write this up and have this as a
+running thread for all models and after clears?"* → three places, three jobs:
+CLAUDE.md § THE RHYTHM (the standing instruction every model reads) · SESSION_HYGIENE
+§ Model strategy (the practice and why — day 25 is the worked example) · journal §2
+"NEXT STEPS · MODEL · CLEAR" (the living table: step · model · clear? · done =, with
+"Right now: step N"). Seeded with steps 1–4: Part 3 (Fable, cleared before) → notate
+CLOUD02-I (Opus build / Fable verdicts, clear before) → CLOUD02-D (playability apply +
+the nine + its analysis) → the trance seams.
