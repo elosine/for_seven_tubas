@@ -268,6 +268,9 @@ could not explain.**
 
 **Calibration (composer's eye):** T8 31.76, worst displacement 0.2 heads → *coherent*; T1's last figure as four even 16ths, 2.1 heads → *dissonant* (the 3:2 cured it). One point each side of the line.
 
-*Status: principles adopted; the analyser that implements 3–5 is the next build,
-to be validated against the 25 decided figures before it is trusted on new
-material.*
+*Status: BUILT and VALIDATED (day 24 late) — `notation/lib/pattern_fit.js`, run via
+`node tools/pattern_analyze.js --ir <id> --part N --span t0-t1` (fresh material) or
+`--validate` (every decided figure). 23 of 25 decided figures reproduced; the two
+disagreements are understood (T1's 3:2 at 1.2 heads; T10's 32nds, for which it
+proposes a 3:2 + plain instead). Pickups are FLAGGED, never applied.
+`tools/test_pattern_fit.js` guards the calibration.*

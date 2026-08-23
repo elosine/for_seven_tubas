@@ -401,6 +401,7 @@ const { doc, warnings } = Extract.extract(score, {
         beamGroup: gkey, clusterId: key, beamUnit: fit.unit, beamPos: fit.grid[k],
         beamLevels: fit.beams, beamSubdivision: fit.subdivision,
       };
+      if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
       if (rings) {
         // head, ring bar and dynamic come from its technique entry; the mark
         // joins the group's row so a pickup+fp reads as one gesture

@@ -7979,3 +7979,54 @@ batteries green.
 The lesson for the method, filed: a fix made for one figure must be checked
 against every figure already built under the same flag. `--pickup` had three
 users; I verified one.
+
+### THE PATTERN ANALYSER built and validated against the composer's 25 decided figures (day 24, late)
+
+`notation/lib/pattern_fit.js` + `tools/pattern_analyze.js` + `tools/test_pattern_fit.js`.
+
+**The objective, as D63 states it:** for a candidate writing, put every note
+where the notation IMPLIES it and measure the worst gap from its true onset in
+NOTEHEADS at page scale (one cluster head = 6.9 px = 30 ms on the video page).
+Under one head the eye reads the writing as true. Simplicity only breaks ties:
+among coherent writings, fewest tuplet beats (3 cheaper than 5 cheaper than 6
+cheaper than 7), then fewest empty slots. Tuplets are admitted per beat, only
+where the plain 16th grid fails the eye in that beat. The played head is a real
+16th: unit 125–375 ms.
+
+**Three things the first draft got wrong, each caught by the validation:**
+1. It adopted a tuplet whenever one shaved a few ms — a quintuplet landed on
+   T2's figure that plain 16ths already wrote. Now: plain wins whenever it is
+   under a head.
+2. It halved T1's unit to 88 ms to gain 5 ms, calling the result 16ths — 32nds
+   in disguise. Now: the unit range keeps a 16th a 16th.
+3. The validator compared slot numbers, so a two-note figure written as 8ths
+   "differed" from the same figure as 16ths. Now: shapes are compared as gap
+   RATIOS, and pickups (now flagged in the IR device) are excluded from the grid.
+
+**Result: 23 of 25 decided figures reproduced outright.** Both pickups (T3,
+T6) are flagged by the analyser as it would have flagged them cold (55 and
+33 ms off the main grid). The two disagreements are the analyser doing what
+D63 asks:
+
+- **T1 cl-1 (the day-23 figure).** The composer's writing — a 3:2 straddling
+  the beat on members 10–11 — sits at **35 ms = 1.2 heads** on its last note; it
+  was built at the 50 ms tolerance before the one-head line existed. The
+  analyser keeps the first eight notes IDENTICAL and reaches 0.7 heads on the
+  tail only with a **7:4 septuplet**. A judgment call: 5 ms of fidelity for a
+  septuplet is a poor trade, and the composer has seen and approved the 3:2. It
+  also says the line may be a little soft — 1.2 heads was accepted by eye.
+- **T10 cl-25 (built an hour ago in 32nds).** The analyser's new proposal: **a
+  3:2 over the first two gaps, then 8th · dotted-8th · 16th**, at ♩≈93, 0.8
+  heads, ONE tuplet, **no 32nds**. Exactly the kind of reading D63 was adopted
+  to find — and the one the composer asked to have re-run.
+
+**T10 re-run fresh (32.13–34.56 as one span):** no breath seam, so the analyser
+takes all eight as one group and needs two tuplets (3:2 + 5:4) to reach 0.9
+heads. The composer's 3+5 split, made by ear at a 444 ms gap, gives cleaner
+figures on both sides — the seam rule is necessary but not sufficient, which is
+what D63 §8 says about pickups too.
+
+Tests: `test_pattern_fit` asserts the two calibration cases (T8 coherent under
+half a head; T1's last four never written as even 16ths, which would be 2.1
+heads), the unit range, T7's no-tuplet guard, ≥23/25 agreement and no NEW
+disagreements. Prove-red bites. Four other batteries green.
