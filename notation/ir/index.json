@@ -32,16 +32,6 @@
    "exp": true
   },
   {
-   "id": "db1",
-   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "db1-c2i-x01",
    "label": "CLOUD02-I trials (day 25)",
    "score": "piece-s25-finished01",
@@ -117,6 +107,16 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "db1",
+   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23)",
+   "score": "piece-s25-finished01",
+   "window": [
+    0,
+    55.94
+   ],
+   "profile": "section1"
   }
  ]
 }

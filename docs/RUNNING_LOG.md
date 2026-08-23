@@ -9934,3 +9934,42 @@ should be grouped together generally and which not? and how is beaming handled w
   grouping, straddle = the standard's own no-no). Indexed in RESEARCH_INDEX. Written
   from knowledge of the texts (no web pass); the composer can ask for page-level
   verification of any single claim.
+
+
+#### Day 29 — the db1 ending-figure pass opens; THE LEDGER (`BEAMING_DECISIONS.md`) starts
+
+**Composer's framing (the mode for what follows):** *"Let's go through the first
+density build and those ending figures and see if they're beamed correctly or if they
+should be beamed differently. Keep a running log… at some point we'll update the
+rules. I want to push the piece forward, so I want to defer trying to come up with
+the right rules for this, and [defer] the proper grouping-analysis structure — I
+think we've done enough on that for now. I want to just keep a log of what my
+decisions are and see if we can extract rules."* → **`docs/BEAMING_DECISIONS.md`
+created** — one row per decision, measured signals beside the composer's words, an
+"emerging rule candidates" section explicitly not-yet-rules. Seeded with the whole T2
+read (D-log 1) and today's first db1 decision (D-log 2).
+
+**The file question answered:** the composer was reading `db1-all-x01` — the stale
+day-23 fork (bricks + old T1 only). The right file is **`db1`**, the promoted build.
+The described pattern matched db1's cl-1 exactly, so the reading transferred.
+
+**D-log 2 (T1 cl-1, 31.55–34.51, unit 172 ms, `N r N r | N N N r | N r N N | 8th
+rest | tail`):** composer's regrouping [1 2]+[3 4 5]+[6 7 8]+tail, solid double beams
+throughout, overhangs over the trailing rests of groups 1 and 2, the 8th rest and the
+tail untouched. **AI verdict: agree without reservation, and logged why it is
+interesting — the cuts sit exactly on the fit's beat lines (slots 4, 8) AND are legal
+D68 pace seams: beat-grouping and pace-grouping coincide on this figure.** (The
+composer proposed beat-grouping the day after reading the beaming reference; whether
+that is influence or coincidence is one for the paper.)
+
+**Applied to db1 via the stored rebuild command** (T1's line now `--beamBreak 3,6,9
+--beamThrough 1,2,3,4 --beamOver 1,2`, everything else byte-identical), provenance
+updated by the build. **Verified through the real layout path** (NotationLayout +
+registry, the page's own code): cl-1a 2 notes + phantom 31.55→32.07 · cl-1b 3 + phantom
+32.27→32.75 · cl-1c 3, no phantom, 32.95→33.47 · cl-1d unchanged 33.93→34.51 — both
+levels each, 16th rests under the beams, **the separator 8th rest intact at 33.61**,
+no warnings. Batteries green, `--validate` 24 of 25 unchanged. *(The browser-side
+audit hit a shell quirk — the notation page ignores synthetic ArrowRight, and an
+earlier script of mine had blanked the #view dropdown by grabbing the first <select>;
+#ir vs #view distinguished now. The node-side layout audit is the equivalent
+evidence.)*
