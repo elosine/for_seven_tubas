@@ -359,10 +359,27 @@
                 // gcImpactRadiusSs (0.51 = the GC look's 4 px at the 1080 frame
                 // over the jury frame's 7.9 px/ss; both scale with frame
                 // height, so the ratio is frame-invariant).
+                // ...BUT ONLY WHEN THE HEAD ACTUALLY REACHES IT (day 24). The push
+                // was written when the disc sat 5 px above the lane edge; once the
+                // composer moved it ONTO the edge (D60) almost nothing collides, and
+                // an unconditional push just drags heads away from their own go time
+                // — which then reads, under D58, as a displacement that is not real.
+                // The disc's top edge sits one radius above the lane bottom:
+                //   discTop = -laneHalfSs + gcImpactInsetSs + gcImpactRadiusSs
+                // gcImpactInsetSs mirrors the animated GC look's landing inset;
+                // test_animobj asserts the two agree, converting via the disc radius,
+                // the one quantity the registry states in both unit systems. (Layout
+                // itself stays pixel-free — test_coords enforces that.)
                 if (dev.gc) {
                   const rImp = o.gcImpactRadiusSs != null ? o.gcImpactRadiusSs : 0.51;
                   const tight = o.tightGapSs != null ? o.tightGapSs : 0.15;
-                  gapSs = Math.max(gapSs, rImp + tight);
+                  const laneHalf = (o.chainSide && o.chainSide.laneHalfSs) || 6.51;
+                  const inset = o.gcImpactInsetSs != null ? o.gcImpactInsetSs : 0;
+                  const discTop = -laneHalf + inset + rImp;
+                  // the unit's lowest ink is the HEAD's underside: ledger lines run
+                  // from -3 down TO the note, so none of them is ever below it.
+                  const lowestInk = yDraw - nhO.hSs / 2;
+                  if (lowestInk < discTop) gapSs = Math.max(gapSs, rImp + tight);
                 }
                 const ledgers = ledgersFor(yDraw);
                 // STEM + FLAG (wc-29, day 23 — composer: "black note head,

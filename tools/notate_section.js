@@ -196,6 +196,10 @@ const { doc, warnings } = Extract.extract(score, {
   }
   // ONE implementation of the fit, shared with tools/cluster_tempo.js
   const ClusterFit = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
+  // Techniques that RING. A cluster member of one of these keeps its own
+  // technique device and takes the primary beam only. Read from
+  // figures.beam.ringTechniques, which stays the one place the list lives.
+  const RING_TECH = new Set((FIG.beam || {}).ringTechniques || ['fortepiano', 'cuivre', 'ord']);
   // event -> part, off the chunks (the only place the extraction records it).
   // Without this a span in an all-parts file claims all ten lanes at once.
   const partOfEvent = new Map();
@@ -225,13 +229,23 @@ const { doc, warnings } = Extract.extract(score, {
     const noGoLine = mods.some(([k]) => k === '--noGoLine');
     const pickup = Math.max(0, parseInt(modVals('pickup')[0] || '0', 10));
     if (pickup >= members.length) { console.error('--pickup ' + pickup + ': cluster ' + label + ' has only ' + members.length + ' members'); process.exit(2); }
-    const mainMembers = members.slice(pickup);
+    // A pickup into a SINGLE downbeat has no rhythm of its own to fit (one
+    // onset is not a grid), so the fit falls back to ALL the members — which
+    // for two notes is exact by construction, the unit being the gap. The
+    // pickup designation still does its real job: moving the GC to the
+    // downbeat. Day 24, rebuilding the T2/T4 pairs as clusters.
+    const onePastPickup = members.length - pickup < 2;
+    const mainMembers = onePastPickup ? members : members.slice(pickup);
     const fit = ClusterFit.fit(mainMembers.map(e => e.onset), { TOL });
     if (!fit) {
       console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
       process.exit(2);
     }
-    if (pickup) {
+    console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
+    console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
+      (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
+      ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
+    if (pickup && !onePastPickup) {
       // place each pick-up note on the main grid, at whatever slot it lands
       // nearest; report the miss so an unplayable pick-up is never silent
       const anchor = mainMembers[0].onset;
@@ -248,10 +262,6 @@ const { doc, warnings } = Extract.extract(score, {
         pre.map((p, i) => members[i].source.objectId + '@' + (p.slot + shift) + ' (off ' + p.errMs.toFixed(0) + ' ms)').join(', ') +
         ' — the fit itself is the ' + mainMembers.length + ' note(s) after it');
     }
-    console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
-    console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
-      (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
-      ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
     // --accents 4,7,8 / --dyn 1 (1-based member numbers, composer's call per
     // cluster): which members carry an accent, and which carries the single
     // ambient dynamic. Everything else stays bare — the ambient-plus-deviation
@@ -333,16 +343,36 @@ const { doc, warnings } = Extract.extract(score, {
       // LEFT EDGE on its own go time, so it is not displaced and needs no line.
       // Per-cluster while the composer reviews part by part; the registry
       // default flips to false once every figure has been seen.
+      // A RINGING MEMBER KEEPS ITS OWN TECHNIQUE DEVICE (day 24 — the beam
+      // standard folded back into the cluster). A fortepiano inside a cluster
+      // is still a fortepiano: open head, ring bar, its own sfzp, primary beam
+      // only. Only the short partials are rewritten as 16ths with the cluster
+      // head and dot. This is what retires --beam: a pickup into a fortepiano
+      // is a cluster whose downbeat happens to ring.
+      const rings = RING_TECH.has(e.technique);
       const dev = {
-        goLine: noGoLine ? false : firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : 'first'),
+        // NO GO LINES ON CLUSTERS (D58): every head sits with its LEFT EDGE on
+        // its own go time, so nothing is displaced and nothing needs marking.
+        goLine: noGoLine ? false : firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : false),
         gc: firstOnly(FIG_CL.gc != null ? FIG_CL.gc : 'first'),
-        ringBar: false, dynBesideStem: !!FIG_CL.dynBesideStem,
+        dynBesideStem: !!FIG_CL.dynBesideStem,
         dynMark: dynAt.has(k + 1) ? dynAt.get(k + 1) : false,
-        nhUnit: true, nhHead: FIG_CL.nhHead || 'filled', nhHeadScale: FIG_CL.nhHeadScale || 0.844, nhStem: 'beam', nhAnchor: FIG_CL.nhAnchor || 'leftEdge',
-        nhDot: FIG_CL.nhDot != null ? !!FIG_CL.nhDot : true, nhDotGapSs: FIG_CL.nhDotGapSs != null ? FIG_CL.nhDotGapSs : 0.15,
+        nhUnit: true, nhStem: 'beam', nhAnchor: FIG_CL.nhAnchor || 'leftEdge',
         beamGroup: gkey, clusterId: key, beamUnit: fit.unit, beamPos: fit.grid[k],
         beamLevels: fit.beams, beamSubdivision: fit.subdivision,
       };
+      if (rings) {
+        // head, ring bar and dynamic come from its technique entry; the mark
+        // joins the group's row so a pickup+fp reads as one gesture
+        delete dev.dynMark;
+        dev.dynAboveBeam = true;
+      } else {
+        dev.ringBar = false;
+        dev.nhHead = FIG_CL.nhHead || 'filled';
+        dev.nhHeadScale = FIG_CL.nhHeadScale || 0.844;
+        dev.nhDot = FIG_CL.nhDot != null ? !!FIG_CL.nhDot : true;
+        dev.nhDotGapSs = FIG_CL.nhDotGapSs != null ? FIG_CL.nhDotGapSs : 0.15;
+      }
       const tp = tupOf(k);
       if (tp) {
         dev.tupletGroup = key + '-tp' + tp.from;
@@ -353,7 +383,7 @@ const { doc, warnings } = Extract.extract(score, {
         dev.beamHasTuplet = true;
       } else {
         dev.noteUnits = durUnits[k];
-        dev.noteBeams = beamsFor(durUnits[k]);
+        dev.noteBeams = rings ? 1 : beamsFor(durUnits[k]);   // a ringing note takes the primary beam only
       }
       if (tuplets.length) dev.beamHasTuplet = true;
       if (through.has(sub + 1)) dev.beamThrough = true;

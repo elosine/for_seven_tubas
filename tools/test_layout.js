@@ -318,9 +318,27 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   // BEFORE the go time with the device gap 0.6 ss: the rightmost ink (the
   // flag's right edge here) ends 0.6 before go, so the head clears the
   // impact marker (r 0.51 ss, centred on go) with air
-  // the GC-clearance rule raises the device's 0.6 to marker radius + tight
-  // gap (0.51 + 0.15 = 0.66), so the rightmost ink clears the impact marker
-  ok(Math.abs(inkR - (-0.66)) < 1e-9, 'staccato: rightmost ink 0.66 ss before go = marker radius + tight gap (' + inkR.toFixed(3) + ')');
+  // THE GC-CLEARANCE PUSH IS CONDITIONAL (day 24): it applies only when the
+  // head actually reaches the disc. Once the composer moved the ball ONTO the
+  // lane edge (D60) the disc top sits at −6.00 ss, and G1's head underside is
+  // −5.87 — it clears, so the device's own 0.6 governs and the note is NOT
+  // dragged further off its go time. Both branches are asserted.
+  ok(Math.abs(inkR - (-0.60)) < 1e-9, 'staccato G1 clears the disc: rightmost ink at the device gap 0.60, no push (' + inkR.toFixed(3) + ')');
+  {
+    // ...and a note LOW enough to reach the disc still gets pushed. F#1 (midi
+    // 30) draws at −6.0, head underside −6.37, below the disc top −6.00.
+    const low = JSON.parse(JSON.stringify(dir));
+    low.events = low.events.filter(e => e.id === 'k');
+    low.chunks = low.chunks.filter(c => c.events[0] === 'k');
+    low.events[0].pitch = { midi: 30, spelled: { step: 'F', alter: 1, octave: 1 } };
+    const LK = Layout.layoutSection(low, G).systems[0].items;
+    const lh = LK.find(i => i.k === 'glyph' && i.g === 'notehead');
+    const lf = LK.find(i => i.k === 'glyph' && i.g === 'flag-up16');
+    const lInkR = Math.max(lh.dxSs + G.notehead.filled.wSs / 2,
+      lf.dxSs + G.flag.up16.wSs - G.flag.up16.anchors.stemTip.x);
+    ok(Math.abs(lh.ySs - (-6.0)) < 1e-9, 'F#1 draws at −6.0 ss (' + lh.ySs.toFixed(2) + ')');
+    ok(Math.abs(lInkR - (-0.66)) < 1e-9, 'staccato F#1 REACHES the disc: pushed to 0.66 = radius + tight gap (' + lInkR.toFixed(3) + ')');
+  }
   ok(inkR < -0.51 - 1e-9, 'staccato: the whole unit clears the impact marker (r 0.51)');
   ok(kh.dxSs + G.notehead.filled.wSs * HK / 2 < -0.51 - 1e-9, 'staccato: the head clears the impact marker (r 0.51)');
   ok(kdot.dxSs + 0.2 < -0.51 - 1e-9, 'staccato: the dot clears the impact marker too');

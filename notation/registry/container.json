@@ -87,12 +87,14 @@
       "breathSeconds": 0.5,
       "_breathNote": "day 23 (composer, corrected the same hour): THE BAR ENDS A BREATH BEFORE THE NEXT GESTURE — 'working backwards... the next gesture minus breath'. The measured sample length only CAPS it, so a note with room keeps its full ring (nothing earlier in the piece is affected) and only a note crowded by the next attack is shortened. 0.5 s = a moderately quick tuba breath (snatch 0.25-0.35 s; full relaxed on a large horn 1-1.5 s). DRAWING ONLY — playback still follows the IR duration (D49), since the sample rings what it rings. flagShortBarSeconds warns when the next attack forces a bar under that length, for the composer to judge note by note; a gap shorter than the breath draws no bar at all and warns.",
       "flagShortBarSeconds": 1.0,
+      "gcImpactInsetSs": 0,
+      "_gcImpactInsetNote": "day 24: the disc's landing height in ss, mirroring animated.gc.look.impactInsetPx (and engraving.render.gc.look). Layout needs it in ss to decide whether a GC-bearing head actually reaches the disc — the push that clears it is now CONDITIONAL, because once the ball was lowered to the lane edge almost no head collides and an unconditional push drags heads off their own go time. test_animobj asserts the px and ss copies agree, converting through gcImpactRadiusSs/impactRadiusPx, the one quantity stated in both units.",
       "gcImpactRadiusSs": 0.51,
       "_gcImpactRadiusNote": "day 23: the GC impact marker's radius in ss — the GC look's 4 px at the 1080 frame over the jury frame's 7.9 px/ss. Both scale with frame height, so the ratio is frame-invariant. A unit carrying a GC is anchored at least this + tightGapSs before the go time, so its notehead and ledgers clear the marker (and therefore the descending arc, which only reaches head height in the last ~15 ms).",
       "figures": {
         "_note": "day 24 — THE FIGURE STANDARDS AS DATA (composer: 'let's try to capture these as standards or something documented somehow because after the clear, we've lost... I've had to reestablish some of these rules'). tools/notate_section.js builds every --cluster and --beam overlay FROM these blocks, so a rule lives here once and docs/NOTATION_STANDARDS.md describes it in words. Edit here; the next extract carries it.",
         "cluster": {
-          "goLine": "first", "gc": "first",
+          "goLine": false, "gc": "first",
           "nhAnchor": "leftEdge", "nhHead": "filled", "nhHeadScale": 0.844, "nhDot": true, "nhDotGapSs": 0.15,
           "dynBesideStem": false,
           "dynamics": "ambient+accents",

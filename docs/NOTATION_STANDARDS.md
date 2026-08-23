@@ -54,6 +54,58 @@ precedes them. `@part` is required in a multi-part file.
 | The duration bar **moves with the head, always** — it starts after the unit's ink (`ringBarGapSs`) and never before the attack | "anytime we move the note head, the duration bar gets moved together with it" | `layout.js` derives `ringBarItem.dx0Ss` from `headDx`, clamped at 0 |
 | The members' dynamics go **together on one row above the beam**; the beam is lowered to fit them | "when we have two consecutive dynamics like that, let's go ahead and put them together… they both need to be at the top because the sfzp won't fit below" | `figures.beam.dynAboveBeam: true`; `layout.js` group dyns row |
 
+## THERE ARE TWO FIGURE KINDS, AND ONLY TWO (day 24)
+
+**A one-shot** — a single note with a GC. The ball says *when*, the notehead
+says *what*. The head hangs before the go time so it never covers the disc, and
+**a go line joins the two**.
+
+**A cluster** — a group with a rhythm. The GC launches the group; every head
+sits with its **left edge on its own go time**; **no go line**, because nothing
+is displaced. Members that ring (fortepiano, cuivre, ord) keep their own
+technique device — open head, ring bar, their own mark — and take the primary
+beam only. A pickup into a lone fortepiano is a cluster whose downbeat rings.
+
+*(The separate "beam" figure built earlier on day 24 was retired the same day:
+it was a cluster all along.)*
+
+### A GO NEEDS A BREATH — the classification rule
+
+**A note with less than `breathSeconds` (0.5 s) before the next attack cannot be
+its own go.** It attaches to what follows: a **member** if it fits the grid, a
+**pickup** if it does not.
+
+Not a new number — `breathSeconds` already ends the ring bar ("the bar ends a
+breath before the next gesture"), so one value answers both *when does this
+gesture end* and *is this a separate gesture at all*. A player who cannot get a
+breath is playing one shape, not two.
+
+Measured against the section when adopted: of 43 fortepianos, exactly **two**
+have under a breath before them — T2's (220 ms) and T4's (398 ms), the two the
+composer had already made pickups by ear. Every other fp has 600 ms or more.
+Zero false positives. **Outstanding:** 33 loose notes elsewhere in the section
+(T4–T10, outside the dense 36–46 s passage) sit under a breath from their
+neighbour and cannot stay one-shots.
+
+### Dynamics on a pickup
+
+**The dynamic goes on the first sounding note, even when that note is a
+pickup** — Gould, and the default in Dorico/LilyPond. A cluster's ambient mark
+therefore lands on member 1 whether or not member 1 is the pickup. A `sfzp` is
+note-specific and says nothing about the pickup, so without its own mark the
+pickup would have no stated level at all (every one-shot in this piece resets
+the dynamic, so nothing is "prevailing"). Where a beam group contains a ringing
+note, the members' marks share one row above the beam.
+
+### The GC clearance push is CONDITIONAL
+
+A GC-bearing unit is pushed clear of the disc **only when its head actually
+reaches it** — head underside below `−laneHalfSs + gcImpactInsetSs +
+gcImpactRadiusSs`. With the ball on the lane edge that is midi 29–30 only.
+Unconditional pushing drags heads off their own go time and then reads, under
+the go-line rule, as a displacement that is not real.
+
+
 ## THE GO LINE MARKS DISPLACEMENT (day 24 — the governing principle)
 
 **A go line belongs on a unit whose head is NOT on its go time. A head that

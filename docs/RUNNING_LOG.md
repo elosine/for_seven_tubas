@@ -7663,3 +7663,67 @@ their bars followed automatically, now starting at **0.000 ss after the go time*
 — i.e. exactly on the attack, with the displaced unit sitting ahead of it.
 
 Eight batteries green.
+
+### The list built: two figure kinds, go lines gone from clusters, the push made conditional (day 24)
+
+The composer's classification call — *"really, there's just two rules"* — turned
+out to simplify the code as much as the notation.
+
+**1. The beam figure is retired; it was a cluster all along.** T2's 31.17 pair
+and T4's 30.39 pair are now `--cluster … --pickup 1`. The cluster builder
+absorbed the one thing `--beam` knew that it did not: **a member that RINGS
+keeps its own technique device** (open head, ring bar, its own `sfzp`) and takes
+the primary beam only, while the short partials are still rewritten as 16ths
+with the cluster head and dot. Verified: both fps come out `head=open beams=1
+ringBar=true dot=false dynMark=sfzp`, both staccato pickups `head=filled
+beams=2 dot=true`.
+
+A wrinkle worth recording: a pickup into a SINGLE downbeat has no rhythm to fit
+— one onset is not a grid — so `ClusterFit` returned null and the build refused.
+The fit now falls back to all the members, which for two notes is exact by
+construction (the unit is the gap); the pickup designation still does its real
+job of moving the GC to the downbeat. T2 came out unit 220 ms err 0.0, T4 unit
+398 ms err 0.0.
+
+**2. Go lines gone from every cluster.** `figures.cluster.goLine` default
+flipped to `false`. Measured after the rebuild: **0 go lines on cluster
+members** (all 35 of them), **421 in the section** — exactly the 456 events
+minus those 35, i.e. every loose one-shot keeps its own, which is the rule. All
+cluster heads sit at left edge **0.000**.
+
+**3. The GC clearance push is now conditional.** It applies only where the head
+actually reaches the disc. This was the inconsistency the composer spotted on
+T2's fp: with the ball lowered to the lane edge that head clears by 0.56 ss, yet
+it was still being shoved 0.66 ss further left — a displacement the go line
+would then have to justify. Now: head underside below the disc top, or no push.
+
+`test_layout` was asserting the old unconditional value; it now asserts **both
+branches** — G1 clears and keeps its device gap 0.60; F♯1 reaches and is pushed
+to 0.66. Better coverage than before the change.
+
+**4. "A go needs a breath" adopted as the classification rule** (documented, not
+automated — it is a compositional judgement). `breathSeconds` 0.5 does double
+duty: it ends the ring bar and it decides whether a note can be its own gesture.
+Validated against the section: exactly 2 of 43 fortepianos fall under it, and
+they are precisely the two the composer had made pickups by ear. **33 loose
+notes elsewhere still sit under a breath and cannot stay one-shots** — carried
+forward.
+
+**5. Dynamics on pickups:** the ambient mark goes on member 1 even when member 1
+is the pickup (Gould; Dorico/LilyPond default). Kept the shared row above the
+beam for groups containing a ringing note.
+
+**A third copy of the landing height, and a guard for it.** Making the push
+conditional meant layout needed the disc height in *ss*, where the two existing
+copies are in px. Rather than let a third number drift, `test_animobj` now
+asserts `gcImpactInsetSs` converts to the px inset **through the disc radius** —
+the one quantity the registry states in both unit systems. Proven to bite (set
+the ss copy to 0.4 and the battery goes red).
+
+**And an architectural invariant caught me:** `test_coords` asserts layout.js is
+pixel-free, and my *comment* naming the px field tripped the regex. The guard is
+right and the comment was reworded — worth noting that the invariant is enforced
+by pattern, so prose can break it.
+
+Nine batteries green. Duration bars still track their heads automatically: both
+fps moved to `leftEdge` and their bars followed to +1.634 ss, past the unit ink.

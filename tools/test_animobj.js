@@ -87,6 +87,14 @@ const k = view.heightPx / GCm.LOOK.frameHeightPx;
 ok(C.animated.gc.look.impactInsetPx === C.engraving.render.gc.look.impactInsetPx,
   'registry: animated + static impactInsetPx agree (' + C.animated.gc.look.impactInsetPx +
   ' vs ' + C.engraving.render.gc.look.impactInsetPx + ')');
+// ...and the LAYOUT copy, in ss, must convert to the same thing. The radius is
+// the one quantity stated in BOTH units, so it carries the conversion.
+{
+  const pxPerSs = C.engraving.render.gc.look.impactRadiusPx / C.engraving.layout.gcImpactRadiusSs;
+  const expect = C.animated.gc.look.impactInsetPx / pxPerSs;
+  ok(Math.abs(C.engraving.layout.gcImpactInsetSs - expect) < 1e-6,
+    'registry: gcImpactInsetSs (' + C.engraving.layout.gcImpactInsetSs + ') = impactInsetPx converted through the radius (' + expect.toFixed(4) + ')');
+}
 const INSET = C.animated.gc.look.impactInsetPx;
 const yLand = gcSys.yBotPx - INSET * k, drop = gcSys.heightPx - 10 * k;
 const hAt = t => (yLand - yAt(t)) / drop;               // height above impact, 0..1
