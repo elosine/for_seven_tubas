@@ -10065,3 +10065,27 @@ Both files rebuilt (`t1-final`, `t2-composer` — T1's line identical in both), 
 layout audit: part 0 shows mf @36.21 + fff @39.10 + five accents, part 1 shows
 mf @36.18 + p @38.10 + accent @36.18, then f @38.60 + accents @39.63/39.85. The
 six unexplained partials are the composer's list to adjust.
+
+
+#### Day 29 — the mf floor; note 7 reverts to right beamlets; [12 13] claims its rest
+
+**Composer, three calls:** (1) *"MF is… for this section, the cloud, the quietest.
+anything below that, we can just disregard… whatever the already standing dynamic
+will prevail"* → **the CLOUD02-I dynamics floor is mf** — the six flagged partials
+dissolve (unmarked, ambient prevails), T2 g1 loses its p at member 7, and the floor
+joins the standing recipe for T3–T10. (2) note 7 back to **beamlets right**
+(supersedes the "group of two" overLeft — the device stays built, unused here).
+(3) **[12 13]: solid 16th beams + overhang over its following rest** (supersedes the
+sketch's stub-and-open-rest look; [14 15] unchanged).
+
+`t2-composer` rebuilt (commit 84256c7 — note: that commit's message claimed these
+ledger rows, but a failed doc edit meant they land in THIS commit instead): cl-2
+groups at 4+4 tips (over-phantoms), note 7 as two right stubs again; cl-3 [8-11] 4
+tips · **[12 13] 3 tips (pair + phantom)** · [14 15] 2 tips; dyn row mf @36.19 ·
+f @38.60; T1's mf/fff untouched. VALID.
+
+**The reminder the composer asked for ("did we resolve the gaps at the end?"): YES —
+no tuplets (their sketch-round call): the 219 | 292 | 186 ms disproportion is carried
+by the spacing plus the (b) break at the 292 gap.** Today's 5.3 changes only the
+first pair's LOOK — it now claims its trailing rest instead of leaving it open. The
+1.2-heads displacement (worst on the last pair) still stands, accepted.

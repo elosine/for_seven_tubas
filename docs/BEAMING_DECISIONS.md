@@ -80,6 +80,14 @@ beam breaks unchanged · tuplet-internal rests belong to the bracket, untouched.
 untouched T2 pickup pair), solid secondaries 7 → 12, 16th rests 16 → 30, 8th rests
 10 → 3 (T2's separator pair + T10's in-bracket one). No new warnings.
 
+## D-log 5 · T2 read E, second round + THE DYNAMICS FLOOR — day 29
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 5.1 | CLOUD02-I dynamics | **mf is the section's floor**: partials banded below mf get NO mark and NO flag; the standing ambient prevails | "MF is… for this section, the cloud, the quietest. anything below that, we can just disregard… whatever the already standing dynamic will prevail" | kills all six day-29 flags; T2 g1's p-at-member-7 removed (`--dyn 1:mf`); applies to T3–T10's derivations too |
+| 5.2 | T2 note 7 (the freestanding 16th) | back to **two beamlets to the right** — `--beamOverLeft` dropped | "let me change my mind on that freestanding sixteenth. let's go back to the beamlets to the right" | SUPERSEDES 1.6; the overLeft device stays in the tool, unused here |
+| 5.3 | T2 [12 13] (second-to-last pair) | secondary **solid across** + **overhang over the 16th rest after it** (`--beamThrough 2 --beamOver 2` on cl-3) | "sixteenth beams all the way across and overhang that sixteenth rest" | SUPERSEDES 1.8's stub look and the sketch's open rest — the pair now claims its rest; [14 15] unchanged |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
@@ -89,6 +97,10 @@ rests keep their value · overhang only where the composer says the group claims
 time · tuplet-internal rests belong to the bracket.** Deviations happen only at the
 composer's word, and each one gets a ledger row. *(D-log 4 was promoted into `db1`
 on day 29 — composer: "That's all good. You can go ahead and promote that one.")*
+**Dynamics (added later on day 29):** the day-24 dynamicsRule proposes marks per
+cluster, **with mf as CLOUD02-I's floor** — below-mf bands are unmarked and
+unflagged (D-log 5.1); accents mark above-ambient partials; the AI names anything
+else it cannot explain.
 
 ## Emerging rule candidates (NOT rules yet — extraction deferred by the composer)
 
