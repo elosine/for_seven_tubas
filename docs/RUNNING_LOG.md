@@ -8924,3 +8924,14 @@ F#3→D#2, 43 % short.** Breath fine everywhere (worst 4.1 s catch-run vs a 5 s 
 T10 carries 13.8 s of held notes, the most of any part. Audibility flag: 27.7
 attacks/s, 66 of 109 fused, sounding mean 10.9. **Not applied — the composer decides
 the nine.**
+
+### Day 25 — clear point: §2 made cold-start correct for PART 3
+
+Composer asked whether this is a good juncture to clear. It is — Parts 1 and 2 were
+execution (Opus), Part 3 is a musical-judgement conversation (Fable), so the mode
+changes as well as the milestone. §2 updated before clearing: state paragraph rewritten
+to end-of-day-25, tool table gains `playability.js` / `set_brick.js` / `test_playability`,
+Parts 1 and 2 marked DONE with their commits, Part 3 marked **NEXT — START HERE** with
+its model. D65 (fixtures must not be tool-rewritten files) filed as a candidate.
+Cold-execution test applied: a model that has never seen this chat can run Part 3 from
+§2 alone.

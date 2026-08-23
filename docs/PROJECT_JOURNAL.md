@@ -15,15 +15,18 @@ go. Nothing else is needed to begin. (Days 23–24 are compressed below.)**
 
 ### State in one paragraph
 
-Density build 1 (0–34.6 s) is FINISHED and promoted: `notation/ir/db1.ir.json`
-("DENSITY BUILD 1 — all parts, figured", top of the picker). 25 clusters across
-all ten parts, one GC each, zero go lines on cluster members, every cluster head
-with its left edge on its go time, zero collisions above any beam. **The command
-that built it is stored inside the file** (`provenance.build`) and rebuilds it
-byte-identically — that IS the save. The archive score
-`scores/piece-s25-finished01.json` had three ledgered part-moves (wc-28 T2→T9,
-wc-87 T8→T9, wc-88 T10→T7; `docs/ARCHIVE_AMENDMENTS.md`). All pushed; working
-tree clean.
+**Day 25 ended with PARTS 1 AND 2 DONE; PART 3 IS NEXT and it is a CONVERSATION.**
+Density build 1 (0–34.6 s) is finished and promoted (`notation/ir/db1.ir.json`, 25
+clusters, top of the picker; its `provenance.build` rebuilds it). Day 25 ran THE
+PLAYABILITY PROCESS on **CLOUD02-I (36.19–40.42 s)**: the archive now carries 12
+redistribution part-moves plus all 159 of that section's staccato bricks normalised
+to 50 ms — **13 new ledger lines**, window audits **0 hard / 0 soft**, no note removed
+and no time or pitch changed. db1 was re-extracted from the amended archive (456
+events, 131 chunks, VALID; `--validate` 24/25; nine batteries green) and a trial fork
+**`db1-c2i-x01`** sits in the picker under experiments. **CLOUD02-I is not notated —
+that is Part 3 and it starts by talking, not building.** Whole archive still shows 2
+hard (the trance seams @560.63 T8 / @604.63 T6) and 32 soft, all parked. All pushed;
+working tree clean.
 
 ### The tools you will use (all verified day 24)
 
@@ -34,8 +37,10 @@ tree clean.
 | check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: `--pattern` (grid from the D63 analyser) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` · `--noGoLine` |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
-| move a note to another part | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P` (dry run; `--apply`), then ledger it in ARCHIVE_AMENDMENTS |
-| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer` — all green at close |
+| **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score) |
+| normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |
+| move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
+| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |
 
 ### DAY 25 OUTCOME, then THE APPROVED PLAN (composer, day 25 late — supersedes the
 ### day-24 8f steps; read this block cold and execute)
@@ -51,7 +56,7 @@ research (B, A, B2, B3–B5 in `scores/cloud02i-ab.json`, built by
 research, not deliverable. Whole-archive audit: 2 hard (trance seams @560.63 T8,
 @604.63 T6), 45 soft, four leaps >⅓ short, three of them in CLOUD02-D — all parked.
 
-**PART 1 — save files in place, both scores.** Model: Opus.
+**PART 1 — save files in place, both scores. `DONE 2026-08-23` (commits 2e9873a, 5f6ac88).** Model: Opus.
 - Archive: apply OR. The 12 moves, IN THIS ORDER (wc-1903 must leave T3 before
   wc-1905 arrives): `node tools/move_object.js --score piece-s25-finished01 --object
   <id> --toPart <p> --apply` for wc-1890→9 · wc-1910→7 · wc-1894→8 · **wc-1903→4** ·
@@ -74,7 +79,7 @@ research, not deliverable. Whole-archive audit: 2 hard (trance seams @560.63 T8,
 - **Done =** ledger has 13 new lines, db1 rebuilt and valid with the redistributed
   section, fork in the picker, pushed. NOTHING notated.
 
-**PART 2 — the playability protocol as a tool.** Model: Opus. Decisions made
+**PART 2 — the playability protocol as a tool. `DONE 2026-08-23`.** Model: Opus. Decisions made
 (composer, day 25): **A** address by marker label as well as window · **B** `--apply`
 appends ledger lines to ARCHIVE_AMENDMENTS.md itself · **C** thinning OUT of the tool
 (level 4 is a flag; the ladder stays in `cloud02i_ab.js` for research) · **D** breath
@@ -98,7 +103,8 @@ dials 0.5 / 1.0 / X=5 / Y=10 as defaults, flag-only.
 - **Done =** "run the playability protocol on CLOUD02-D" is one prompt; dry-run
   report comes back; `--apply` does Part 1 for that section by itself.
 
-**PART 3 — notation analysis of the presentation score, NO generation.** Model: Fable.
+**PART 3 — notation analysis of the presentation score, NO generation. `NEXT — START HERE`.**
+Model: Fable (it is a musical-judgement conversation, not an implementation).
 - On the rebuilt db1, 36.0–40.4, all ten parts: `pattern_analyze --part N --span
   36.0-40.4`; the breath-rule grouping (D62); one-shot / cluster / pickup
   classification. Report per part in SHAPES (the composer reads shapes, not tables):
@@ -142,6 +148,14 @@ dials 0.5 / 1.0 / X=5 / Y=10 as defaults, flag-only.
   from what this section taught. **Hang on to all wiring (breath rule, auditor
   column, the general tool) until the B series is done.** The dense areas queued for it
   are listed in `PLAYABILITY_MODEL.md` (CLOUD02-D first, then the two trance seams).
+
+- **D65 (candidate) — a fixture must never be a file the tools rewrite.** Day 25: the
+  golden case for `test_playability` was `scores/cloud02i-orig.json`, which
+  `cloud02i_ab.js --isolate` regenerates from the CURRENT archive — so it silently
+  became the "after" the moment the archive was amended, and the test would have
+  passed while measuring nothing. Recovered from git into
+  `tools/fixtures/cloud02i-preamend.json`. *Rejected:* keeping it in `scores/` with a
+  do-not-overwrite comment.
 
 ### Open, not blocking
 
