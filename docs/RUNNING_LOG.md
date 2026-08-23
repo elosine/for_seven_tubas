@@ -8878,3 +8878,49 @@ in 36.19–40.42, where no figure exists yet.
 Verified live: page loads db1, no console errors, fork present.
 
 **Part 1 done. Nothing notated.**
+
+### Day 25 — PART 2 DONE: the playability process is a tool
+
+**`notation/lib/playability.js`** — THE ONE RULE MODULE. The CONFLICT constants,
+`requiredAttack`, `pairTier`, `flags`, `redistribute` (two-pass), `breathRuns`,
+`audibility`, `staccatoLengths`. `audit_playability.js` and `cloud02i_ab.js` both
+refactored onto it — before today the same constants and the same `pairTier` lived in
+THREE places "kept in sync by hand". Auditor output verified byte-identical after the
+refactor (whole archive still 2 hard / 32 soft; `cloud02i-or` still clean).
+
+**`tools/playability.js`** — one command, any section:
+`--score <name> (--section <marker label> | --w0 --w1) [--brick] [--apply] [--listen]`.
+Five numbered steps: audit → redistribute → bricks → breath → audibility FLAG. Dry run
+by default; `--apply` runs the moves through `move_object.js`, the bricks through
+`set_brick.js`, **re-reads the file from disk and re-audits it** before appending the
+ledger lines, then prints the re-extract command. `--section` resolves marker-to-next-
+marker. The window is audited IN CONTEXT (whole score passed to `flags()`, results
+filtered) so a tight pair straddling the window edge is not missed.
+
+**`tools/test_playability.js` — 22 assertions, all pass.** Notably:
+- the module's constants are compared against the ones READ OUT of composer.html, so
+  the browser engine stays the authority and drift is caught;
+- the contract: redistribution changes `layer` and nothing else — time, pitch,
+  velocity, technique, group asserted untouched, note count unchanged;
+- **the first-note pass is proven load-bearing**: a second-note-only emulation is run
+  alongside and must leave flags where the two-pass leaves none;
+- the two gap-fill bugs are guarded on the built artefacts (each floor honoured).
+
+**A TRAP FOUND BY WALKING INTO IT — keep this.** The golden fixture was
+`scores/cloud02i-orig.json`. But `cloud02i_ab.js --isolate` REGENERATES that file from
+the CURRENT archive, so the moment the archive was amended it silently stopped being
+the "before" and became the "after" — the test would have passed by measuring nothing.
+Caught when the rebuild printed "OR: 0 flags before · 0 moves". Fixture recovered from
+git (`git show 2e9873a~1:scores/cloud02i-orig.json`) into
+**`tools/fixtures/cloud02i-preamend.json`**, alongside the other snapshots. **Rule: a
+fixture must never be a file the tools rewrite.**
+
+**FIRST REAL USE — CLOUD02-D (42.38–48.05 s, 110 notes), dry run:**
+**18 soft → 9**, 0 hard throughout. Eight moves (three of them first-note pass). The
+nine that remain have no home — every part is busy at 45.4–45.5 s. Seven are under a
+fifth short (four under 3 %: T5 @45.80 1 %, T1 @46.22 1 %, T8 @45.45 2 %); **two are
+real asks — T6 @45.51 D4→E2, 22 semitones in 136 ms, 57 % short, and T7 @45.47
+F#3→D#2, 43 % short.** Breath fine everywhere (worst 4.1 s catch-run vs a 5 s dial);
+T10 carries 13.8 s of held notes, the most of any part. Audibility flag: 27.7
+attacks/s, 66 of 109 fused, sounding mean 10.9. **Not applied — the composer decides
+the nine.**

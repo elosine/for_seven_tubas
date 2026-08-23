@@ -13,32 +13,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const META_LAYER = 10;
-const TONGUE_RESET = 0.03;
-const MIN_ATTACK = 0.11;
-const PER_SEMITONE = 0.0093;
-const MAX_LEAP_ADD = 0.22;
-const WINDOW = MIN_ATTACK + MAX_LEAP_ADD;
+// The rule lives in ONE place now (day 25) — notation/lib/playability.js. This
+// file used to carry its own copy of the constants and pairTier() "kept in sync
+// by hand"; tools/test_playability.js asserts the module's constants against the
+// ones it reads out of composer.html, so the browser engine is still the authority.
+const P = require(path.join(__dirname, '..', 'notation', 'lib', 'playability.js'));
+const { META_LAYER, requiredAttack, pairTier, noteEvents } = P;
+const WINDOW = P.CONFLICT.minAttack + P.CONFLICT.maxLeapAdd;
 
 const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const pn = m => (m == null ? '?' : NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
-
-function requiredAttack(prev, next) {
-    const leap = Math.abs((next.sonifyNote || 0) - (prev.sonifyNote || 0));
-    return MIN_ATTACK + Math.min(MAX_LEAP_ADD, leap * PER_SEMITONE);
-}
-function pairTier(a, b) {
-    if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';
-    if (b.startSeconds - a.endSeconds < TONGUE_RESET - 1e-6) return 'soft';
-    return (b.startSeconds - a.startSeconds) < requiredAttack(a, b) - 1e-6 ? 'soft' : 'free';
-}
-
-function noteEvents(objects) {
-    return objects.filter(o =>
-        o && o.type === 'waveCurve' && o.sonifyNote != null &&
-        o.layer >= 0 && o.layer < META_LAYER &&
-        o.startSeconds != null && o.endSeconds != null);
-}
 
 function analyze(objects) {
     const lanes = new Map();

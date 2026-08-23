@@ -286,73 +286,20 @@ function gapFill(base, floor) {
   return { set: kept.sort((x, y) => x.startSeconds - y.startSeconds), added };
 }
 
-// ── playability: the auditor's rule, restated here so the loop can run on it ──
-// Same constants as tools/audit_playability.js (which mirrors Composer.CONFLICT in
-// score/public/composer.html — the browser engine is the authority). HARD = the
-// next note starts before the previous brick ends. SOFT = the re-attack is shorter
-// than 110 ms plus a leap allowance (9.3 ms per semitone, capped at 220 ms).
-const TONGUE_RESET = 0.03, MIN_ATTACK = 0.11, PER_SEMITONE = 0.0093, MAX_LEAP_ADD = 0.22;
-const requiredAttack = (a, b) => MIN_ATTACK + Math.min(MAX_LEAP_ADD, Math.abs(b.sonifyNote - a.sonifyNote) * PER_SEMITONE);
-function pairTier(a, b) {
-  if (b.startSeconds < a.endSeconds - 1e-6) return 'hard';
-  if (b.startSeconds - a.endSeconds < TONGUE_RESET - 1e-6) return 'soft';
-  return (b.startSeconds - a.startSeconds) < requiredAttack(a, b) - 1e-6 ? 'soft' : 'free';
-}
-function flags(set) {
-  const out = [];
-  for (let L = 0; L < PARTS; L++) {
-    const p = set.filter(n => n.layer === L).sort((x, y) => x.startSeconds - y.startSeconds);
-    for (let i = 1; i < p.length; i++) {
-      const tier = pairTier(p[i - 1], p[i]);
-      if (tier !== 'free') out.push({ tier, a: p[i - 1], b: p[i], part: L });
-    }
-  }
-  return out;
-}
+// ── playability: THE ONE RULE MODULE (day 25) ────────────────────────────────
+// This file used to carry its own copy of the CONFLICT constants and pairTier().
+// It now imports them, so the auditor, this tool and composer.html cannot drift.
+const P = require(require('path').join(__dirname, '..', 'notation', 'lib', 'playability.js'));
+const { requiredAttack, pairTier } = P;
+const flags = (set) => P.flags(set).map(f => ({ tier: f.tier, a: f.a, b: f.b, part: f.part }));
 
-// ── redistribution: move a tight note to a part where it is free ──────────────
-// Composer, day 25: "if it's not playable in a given part, redistribute some notes to
-// another part — without changing or removing notes." Time and pitch never change;
-// only `layer`. For each flagged pair the SECOND note is the candidate (the first is
-// where the line was going). A receiving part qualifies when the note is `free`
-// against both its neighbours there. Preference: the part with the fewest notes,
-// then the smallest leap from that part's neighbours (keeps tessituras tight).
-// Re-flag after every move; give up on a note that no part can take and report it.
+// ── redistribution — from the module (day 25) ────────────────────────────────
+// Composer: "if it's not playable in a given part, redistribute some notes to
+// another part — without changing or removing notes." Two passes (second note of
+// the pair, then the first); see notation/lib/playability.js for the rule.
 function redistribute(set) {
-  const work = set.map(n => ({ ...n }));
-  const moves = [], stuck = [];
-  const homeFor = (n) => {
-    const per = new Array(PARTS).fill(0);
-    for (const k of work) per[k.layer]++;
-    let best = null;
-    for (let Q = 0; Q < PARTS; Q++) {
-      if (Q === n.layer) continue;
-      const p = work.filter(k => k.layer === Q && k.id !== n.id).sort((x, y) => x.startSeconds - y.startSeconds);
-      const prev = p.filter(k => k.startSeconds <= n.startSeconds).pop();
-      const next = p.find(k => k.startSeconds > n.startSeconds);
-      if (prev && pairTier(prev, n) !== 'free') continue;
-      if (next && pairTier(n, next) !== 'free') continue;
-      const leap = Math.max(prev ? Math.abs(prev.sonifyNote - n.sonifyNote) : 0, next ? Math.abs(next.sonifyNote - n.sonifyNote) : 0);
-      const score = per[Q] * 100 + leap;
-      if (!best || score < best.score) best = { Q, score, leap };
-    }
-    return best;
-  };
-  for (let guard = 0; guard < 200; guard++) {
-    const fl = flags(work);
-    const f = fl.find(x => !stuck.includes(x.b.id));
-    if (!f) break;
-    // Second note first (the first is where the line was going); if no part can
-    // take it, try the FIRST note. On CLOUD02-I the two pairs the second-note pass
-    // could not place both resolved this way (day 25) — at the section's tail every
-    // part is busy, but the earlier note of the pair has more neighbours with room.
-    let n = f.b, best = homeFor(n), which = 'second';
-    if (!best) { n = f.a; best = homeFor(n); which = 'first'; }
-    if (!best) { stuck.push(f.b.id); continue; }
-    moves.push({ id: n.id, at: n.startSeconds, from: n.layer, to: best.Q, tier: f.tier, leap: best.leap, which });
-    n.layer = best.Q;
-  }
-  return { set: work.sort((x, y) => x.startSeconds - y.startSeconds), moves, stuck: flags(work) };
+  const r = P.redistribute(set);
+  return { set: r.notes, moves: r.moves, stuck: r.unresolved };
 }
 
 // ── measurement (so the report is measured, not guessed) ──────────────────────
