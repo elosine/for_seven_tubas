@@ -33,17 +33,7 @@
   },
   {
    "id": "db1",
-   "label": "DENSITY BUILD 1 + CLOUD02-I — all parts figured (day 30)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1"
-  },
-  {
-   "id": "db1-c2d-x01",
-   "label": "CLOUD02-D TRIALS (day 31)",
+   "label": "DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts figured (day 33)",
    "score": "piece-s25-finished01",
    "window": [
     0,

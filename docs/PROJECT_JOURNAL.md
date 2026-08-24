@@ -10,10 +10,10 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 34 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33,
-composer: "6b is done so cld 2 wrapped"). Next work: THE NEXT SECTION — a LONG
-TONE + DENSITY BUILD 2 — composed on the new save file `piece-s26`. One
-mechanical chunk is ready to run first: THE FOLD (below).**
+**DAY 34 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
+AND FOLDED (day 34): `db1` is now the single page and carries all 49 clusters,
+0–46.36 s, under the bracket-above policy. Next work: THE NEXT SECTION — a LONG
+TONE + DENSITY BUILD 2 — composed on the save file `piece-s26`.**
 
 ### State in one paragraph
 
@@ -23,8 +23,9 @@ standing verdict. The page is LOCKED under: **THE BRACKET-ABOVE POLICY**
 (every bracket above its own staff, hugged, per-IR `--bracketsAbove`; a
 bracket belongs to the staff below it) · **THE PER-MARK ACCENT LAW** (head-side
 accents hug their own note — day-31 dyn law extended) · `--dynSide` dictation ·
-the hook⇔side battery invariant · **THE APPROVED-SPAN GATE mechanised**
-(test_layout proves fork t<42 ≡ db1 every run) · **FACING BANDS named by every
+the hook⇔side battery invariant · **THE APPROVED-SPAN GATE** (it did its job —
+it caught the stale-stem-tip bug, and on day 34 proved the fold moved nothing;
+**it is now DORMANT and reports green**, see NITS day 34 / step G) · **FACING BANDS named by every
 build** (info line: T6/T7 · T8/T9 · quiet T4/T5 @34.3 — every day-31-33
 dictation landed in a facing band). Geometry guard: ZERO c2d findings; only
 the two pre-existing tier-3 items (T9 @36.87 · T10 @39.08, approved db1).
@@ -40,18 +41,24 @@ in the live app list). `piece-s25-finished01-work` is a STALE app working copy
 `piece-s26-work` on first open. **Compose the next section in `piece-s26`;
 the s25 archive is frozen as CLOUD02-D-era canon.**
 
-### THE FOLD — the ready mechanical chunk (c2d fork → db1, Opus, one command)
+### THE FOLD — DONE (day 34, one sitting)
 
-- The day-33 NITS flag question DISSOLVED: the approved-span gate proves
-  `--bracketsAbove` is a no-op on all approved material — folding WITH the
-  policy changes nothing the composer has seen.
-- Recipe: copy `provenance.build` from `notation/ir/db1-c2d-x01.ir.json`;
-  change `--id db1-c2d-x01` → `--id db1`, label → "DENSITY BUILD 1 + CLOUD02-I
-  + CLOUD02-D — all parts figured (day 33)"; run; then
-  `node tools/notate_section.js --prune db1-c2d-x01`; ten batteries.
-- Watch: test_pattern_fit expectations on db1 (clusters grow 36 → 49; the
-  validate golden `db1-all-x01` is frozen, untouched); the approved-span gate
-  and hook test skip the pruned fork automatically (existsSync-guarded).
+`db1` rebuilt from the fork's own command under `--id db1`; fork pruned. **456
+events · 127 chunks · VALID vs source · 49 clusters · `--bracketsAbove` on.**
+Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
+**zero new c2d findings.** Ten batteries green.
+
+- **Where CLOUD02-D sits: 42.37–46.36 s** — all 13 new clusters above t=42,
+  which is why the gate's threshold is 42 and why it covered 100 % of approved
+  material. db1's earlier 36 = 25 density-build-1 (29.92–34.6) + 11 CLOUD02-I
+  (36.19–40.42).
+- **The claim, measured not inferred:** 425 approved layout rows (tuplets,
+  beams, accents, dynamics below t=42) **IDENTICAL** between the day-33 db1 and
+  the folded db1. Nothing the composer approved moved. *(The batteries could not
+  say this — the gate `existsSync`-skipped itself once the fork was gone.)*
+- **CARRIED FORWARD → NITS (day 34):** that gate now hardcodes a pruned fork id
+  and therefore **reports green while asserting nothing**. Fix it before the next
+  section's fork, or the next `--bracketsAbove` build has no guard at all.
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 
@@ -60,8 +67,9 @@ the s25 archive is frozen as CLOUD02-D-era canon.**
 | ~~5c/6~~ | ~~CLOUD02-I: the reads, the notation, the fold~~ **DONE day 30** (D-logs 10–22; validate 37/40; pushed) | — | — | — |
 | ~~6a~~ | ~~CLOUD02-D playability~~ **DONE day 31** — 18 soft → 10, worst 57 % → 20 %, 0 hard; 16 moves + bricks, 17 ledger lines; PLAN 8j; the collapse pass, the same-slot bar and frozen figures built | — | — | — |
 | ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
-| **F — NEXT** | THE FOLD: c2d fork → db1 by the recipe above; prune the fork; batteries | **Opus** | **YES — clear now (section boundary; this is the prepared clear)** | db1 carries all 49 clusters; batteries green; pushed |
-| **N** | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | after F, stay cleared | section material exists in `piece-s26` |
+| ~~F~~ | ~~THE FOLD~~ **DONE day 34** — db1 carries all 49 clusters (0–46.36 s, policy on); fork pruned; 425 approved rows proven unmoved; batteries green; pushed | — | — | — |
+| **G — small, optional** | Wake the approved-span gate: discover the fork from the picker index instead of the hardcoded `db1-c2d-x01` (NITS day 34). Do it BEFORE the next section's first fork | Opus | no (small) | gate + hook test fail loudly when a `db1-*` fork drifts |
+| **N — NEXT** | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 

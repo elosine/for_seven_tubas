@@ -418,13 +418,27 @@ rendering-environment difference worth understanding).
   the composer's word — when they say go, it is one line: the techText baseline
   gap 0.15 → gapMediumSs.**
 
-- *(day 33)* **db1 does not carry the bracket-above policy** — the fork does.
+- *(day 33)* ~~**db1 does not carry the bracket-above policy** — the fork does.
   When CLOUD02-D folds into db1, decide: fold WITH `--bracketsAbove` (flips
   db1's below-brackets everywhere — the approved pages change and need a
   re-look) or keep db1 as-approved and the policy stays a per-section choice.
-  One flag on the fold command either way.
+  One flag on the fold command either way.~~ **CLOSED day 34 — folded WITH the
+  policy, and the feared re-look does not exist: measured 425 approved layout
+  rows (tuplets/beams/accents/dynamics below t=42) IDENTICAL before and after.
+  The policy is a proven no-op on classic stem-up stacks; db1 now carries it.**
 - *(day 33)* `headTopYSs` on beam tips holds the PRE-LEVEL stem tip for
   stem-up notes (stale after the stack clamp lowers a beam). The policy pass
   now sidesteps it; the day-31 consumers read it only on the head side of
   stem-down groups, where it is clean — but any FUTURE consumer on the beam
   side will trip the same way the six lifted brackets did.
+
+- *(day 34)* **THE APPROVED-SPAN GATE IS NOW DORMANT AND REPORTS GREEN.**
+  `tools/test_layout.js:518` hardcodes the fork id `db1-c2d-x01`; it is
+  `existsSync`-guarded, so with the fork pruned the assertion silently does not
+  run — the battery still prints GREEN. A guard that looks alive and protects
+  nothing is worse than no guard, and it matters at the NEXT section, whose forks
+  come off db1 with `--bracketsAbove` from birth. **Fix (small):** discover the
+  fork from `notation/ir/index.json` — any id matching `db1-*` that is not `db1`
+  or the frozen golden `db1-all-x01` — and gate that against db1, failing loudly
+  if no fork exists AND a `db1-*` id is in the picker. Same for the hook test,
+  which is guarded the same way. Not done: test machinery gets proposed first.

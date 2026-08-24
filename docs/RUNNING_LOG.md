@@ -11428,3 +11428,50 @@ after the clear.
 **Docs for the clear:** §2 rewritten for the day-34 cold start (state, the
 fold recipe, the next-section table) · §6 current note · PLAN 8j marked
 notation-done/wrapped · this entry. All pushed.
+
+#### Day 34 (first sitting) — THE FOLD RUN: db1 carries CLOUD02-D; the fork pruned
+
+**Composer:** *"what is the fold"* then *"run the fold pls"* — the explanation
+came first and is worth keeping, because it names what a fold IS in this system:
+the page is generated, never hand-edited, so `provenance.build` inside the IR is
+the page. A fork (`db1-c2d-x01`) rebuilds db1's ENTIRE command plus the new
+section under a throwaway id; folding = re-running that same command under
+`--id db1` and deleting the fork. A rename, not a rebuild.
+
+**Measured before running, not assumed** (the confidence-claim rule):
+
+- **Where CLOUD02-D actually sits: 42.37–46.36 s.** All 13 new clusters are
+  ABOVE t=42 — which is exactly why the approved-span gate's threshold is 42.
+  The gate therefore covers 100 % of the material the composer had seen; it is
+  not a partial check. *(This was worth measuring: the §2 note "fork t<42 ≡ db1"
+  and "clusters grow 36 → 49" read as contradictory until the spans were pulled
+  — db1's 36 = the 25 density-build-1 figures (29.92–34.6) + 11 CLOUD02-I
+  (36.19–40.42); the 13 c2d figures are a disjoint span.)*
+- **Flag diff fork vs db1:** fork-only = `--bracketsAbove --articSide --dynSide`
+  (exactly the day-33 locked policy). **db1-only = none** — nothing would be
+  lost by adopting the fork's command wholesale. `--bricks` parity holds.
+
+**The run.** `db1.ir.json` + `index.json` backed up to scratch first. Build:
+**READY: db1 — 456 events, 127 chunks, VALID vs source**, 49 clusters,
+`--bracketsAbove` on, label "DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts
+figured (day 33)". GEOMETRY: **2 findings, both pre-existing tier-3** (T9 @36.87
+bracket/accent, T10 @39.08 bracket/beam) — **zero new c2d findings**, matching
+day 33. FACING BANDS info line reproduced: T4/T5 34.3–34.5 · T6/T7 44.5–45.7 ·
+T8/T9 44.2–46.2. Fork pruned; picker back to one `db1`. Ten batteries green
+(75 snapshots, midiplayer 30 checks, playability 51).
+
+**The gap the batteries did NOT cover, and how it was closed.** The approved-span
+gate is `existsSync`-guarded on the fork — so the moment the fork was pruned the
+gate **skipped itself**. The ten-green report therefore proved nothing about
+whether the fold preserved approved material. Closed by re-running the gate's own
+signature function across the **day-33 backup of db1** vs the folded db1:
+**425 rows (tuplets, beams, accents, dynamics below t=42) — IDENTICAL.** Nothing
+the composer approved moved. *That is the claim the composer plans around, and it
+is now measured, not inferred.*
+
+**Discovered, and flagged rather than fixed:** the gate hardcodes the fork id
+(`tools/test_layout.js:518`). With the fork gone it is **permanently dormant and
+reports green** — a guard that looks alive and protects nothing. It matters at the
+next section, whose forks come off db1 with `--bracketsAbove` from birth. Filed to
+NITS with the fix sketch (discover the fork from the picker index); NOT edited,
+because test machinery changes get proposed first.
