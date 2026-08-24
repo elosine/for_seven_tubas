@@ -1558,3 +1558,24 @@ oracle, checked on every build. Ten batteries, 75 snapshots, live-DOM audit;
 two residual cross-lane grazes (0.35 / 0.50 ss) surfaced to the composer as
 verdicts rather than resolved by heuristic — which is what "flag, never
 squeeze" looks like in practice.
+
+**Second sitting, same day — the composer proposes the generalization.** After
+three days in which every systemic pass came from the AI (and one failed), the
+direction reverses: the composer dictates three placements, then sketches the
+rule behind their own dictations — *"So this isn't necessarily the rule, but
+evaluate it if it's helpful… if current track is beams down… and next track is
+beams up… try to move accents, text, and dynamics above if possible… I'm not
+saying to use this, but see if there are the right rules that might do
+something like this."* The epistemic posture is the mirror of day 31: where
+the AI once generalised uninvited, the composer now invites generalisation
+while withholding commitment. The AI's evaluation: formalised as FACING BANDS
+(upper part beams down over lower part beams up), the sketch reproduces every
+final dictation of days 31–33 — both facing bands in the section are exactly
+where all the dictations landed — but adopting it as machinery would also move
+two things nobody asked about (T9's accents, per the sketch's own logic; T3's
+accents, on a non-facing band the composer just approved). Recommendation
+kept on record: the rule is TRUE as a description and stays a diagnostic; it
+becomes machinery only by verdict, with its two deltas named. Also built this
+sitting, from the composer's note-relative language ("below the NOTE"): the
+per-mark accent law — the day-31 dynamics law extended to accents, which
+resolved the last collision in the section.

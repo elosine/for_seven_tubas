@@ -11306,3 +11306,61 @@ T7 5:4/7:4 numerals vs T6 beam **−0.35 ss** · T9 3:2 vs T8 accent @45.15
 **−0.50 ss**. Movers if wanted: T7's accents (re-dictate) / T8's accents
 (`--articSide above`). The old T8-5:4-vs-T9-beam (0.20) DISSOLVED under the
 policy, as predicted.
+
+
+#### Day 33 (second sitting) — three dictations, THE PER-MARK ACCENT LAW, and the composer's rule sketch evaluated
+
+**Composer (verbatim, with the two screenshots):** *"T7 … at forty five point
+six eight, the accent could go below the note and both the five four and the
+seven four brackets can come down closer to the beams. t8 and t9 Similar. …
+t eight, the one starting at forty five point one seven, four accents, they
+could all go above, giving more clearance to t nine … Same with the accent t8
+forty six point two two … the bracket five four can be pushed up a bit. …
+So this isn't necessarily the rule, but evaluate it if it's helpful. Something
+like if current track is beams down … and next track is beams up … try to move
+accents, text, and dynamics above if possible … I'm not saying to use this,
+but see if there are the right rules that might do something like this.
+Otherwise, everything else looks much better. Thank you."*
+
+**Applied by dictation (provenance edits, rebuild):** T7 cl-46 `--articSide
+above → below` · T8 cl-47 `+ --articSide above` (all five accents). T9 needed
+nothing — its accents were already above.
+
+**THE PER-MARK ACCENT LAW (built).** The first rebuild left ONE overlap: T7's
+45.65 accent, on a head-side GROUP ROW at −5.64, ran into T8's 6:4 (−0.53 ss
+ink) — the row hangs off the group's deepest column, far below the note the
+composer pointed at. Their words were note-relative — *"below the NOTE"* —
+the same language as day-31's *"closer to that notehead"* that created
+per-mark DYNAMICS. Same law, extended: **on the head side, accents place
+per-mark** (each clears its own column's head + dot + accidental by the
+medium gap, staff-edge floor); the beam side keeps the day-24 row. Dictated
+clusters only (`articSide` path); the policy bracket hug reads the per-mark
+tops, so brackets follow their accents down.
+
+**Measured, after:** T7 accents −5.64 → **−3.14 / −2.72** (below their own
+notes; 4.4 / 4.7 ss clear of T8's brackets) · T7 5:4/7:4 **+7.31** ("closer
+to the beams" — the day-31 approved height) · T8 accents +5.91 row → per-mark
+**+2.72…+3.64**, its 6:4 7.53 → **+5.12**, 5:4 **+5.26** ("pushed up" above
+the accents, tighter than before) · T6's accent re-hugged +5.14 → **+3.14**
+under the same law (flagged to the composer — same direction they keep
+asking for). **Geometry guard: ZERO c2d findings** — only the two
+pre-existing tier-3 items (T9 @36.87 · T10 @39.08, approved db1, on record
+since day 32). Approved span t<42 IDENTICAL to db1. Ten batteries + 75
+snapshots green.
+
+**THE RULE SKETCH, EVALUATED (not built — the composer asked for evaluation).**
+Formalised: a band is FACING when the upper part beams DOWN and the lower
+part beams UP — both beam-stacks land in the shared band. Measured on c2d:
+exactly TWO facing bands, **T6/T7 and T8/T9 — precisely the two places every
+final dictation of days 31–33 landed.** The rule that reproduces every one
+of those dictations: **in a facing band, each part's marks (accents,
+dynamics, text) leave for their HEAD side, per-mark** — the composer's
+sketch phrased from the beams-down side, plus its mirror (T7's accents
+going below), which they dictated today. Two deltas if adopted as a machine:
+(1) **T9's accents (@43.78, 44.40, above) would move below** — possibly what
+"t8 and t9 Similar" meant; currently clear of everything, so eye's choice;
+(2) **T3's accents would move below** (they sit above by the day-31 room
+test on a NON-facing band; the composer just called the page good, so the
+rule must not touch it unbidden). Recommendation on record: keep the page
+as dictated; adopt the facing rule at the fold only if the composer wants
+it, with those two deltas named.

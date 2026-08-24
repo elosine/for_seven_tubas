@@ -82,17 +82,18 @@ can't get to it in this go, then we'll just do it by eye"*) — and it landed.
 - Ten batteries + 75 snapshots green; approved span byte-identical to db1
   (the t<42 gate caught and killed a stale-stem-tip bug on the way).
 
-**NEXT, in order:**
-1. **The composer LOOKS at the page** (hard reload, CTRL+F5). Two measured
-   cross-lane residuals await a verdict, not silently squeezed: **T7's
-   5:4/7:4 numerals graze T6's beam 0.35 ss** (movers: T7's accents
-   re-dictated, or accept) · **T9's 3:2 vs T8's accent @45.15, 0.50 ss**
-   (mover: T8 `--articSide above`, or accept).
-2. Remaining by-eye spot fixes via `--bracketSide`/`--articSide`/`--dynSide`
-   (all dictations run LAST; edit `provenance.build` and re-run).
+**NEXT, in order (updated after the day-33 second sitting — dictations applied, page clean):**
+1. **The composer looks again** (hard reload). All three dictations applied;
+   per-mark accent law built; guard shows ZERO c2d findings. One flagged
+   side-effect for their eye: **T6 accent @45.17 re-hugged +5.14 → +3.14**
+   under the same law.
+2. **Two open questions from the rule evaluation** (RUNNING_LOG day 33,
+   second sitting): (a) did *"t8 and t9 Similar"* mean T9 accents should
+   also drop below (facing-band rule)? one flag if yes; (b) adopt the
+   FACING-BANDS rule as machinery at the fold, or keep dictation-only —
+   note it would also move T3 accents, which look good as-is.
 3. **6b proper:** the reads / verdict rounds on the figures, fold into db1.
-   Fold decision on the flag: WITH `--bracketsAbove` (db1's old pages change,
-   need a re-look) or without (policy stays per-section) — NITS day 33.
+   Fold flag decision (--bracketsAbove on db1 or not) — NITS day 33.
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 

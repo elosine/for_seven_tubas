@@ -31,23 +31,20 @@ bug can't return silently).
 | T4 | 3:2 @44.95 +5.12 · 5:4 @45.47 +5.62 |
 | T5 | 7:4 @45.10 +4.62 |
 | T6 | 3:2 @44.47 +3.62 |
-| T7 | 3:2 @43.59 +6.06 · 5:4 @44.65 +8.45 · 7:4 @45.18 +8.45 (over its dictated accent row) |
-| T8 | 3:2 @44.48 +5.62 · 6:4 @45.45 +5.12 · 5:4 @46.09 +4.12 |
+| T7 | 3:2 @43.59 +6.06 · 5:4 @44.65 +7.31 · 7:4 @45.18 +7.31 (accents per-mark below, day 33) |
+| T8 | 3:2 @44.48 +5.62 · 6:4 @45.45 +5.12 · 5:4 @46.09 +5.26 (accents per-mark above, day 33) |
 | T9 | 3:2 @44.89 +7.81 |
 | T10 | 3:2 @45.95 +6.62 |
 
 Retired with the rule: T6/T7's `--bracketSide` dictations (day 32 workarounds
 for the mixed-side regime); both `--articSide above` verdicts stand.
 
-## Cross-lane residuals (measured day 33, for the composer's eye — not silently squeezed)
+## Cross-lane residuals — RESOLVED day 33
 
-- **T7's 5:4/7:4 numeral tops vs T6's beam: 0.35 ss of overlap.** T7's stack is
-  deep by its own dictations (beam 6.11 → accents ~7.2 → bracket 8.45) and T6's
-  beam hangs −4.86 into the same band. Movers available: T7's accents
-  (dictated above day 32) or acceptance.
-- **T9's 3:2 vs T8's accent @45.15: 0.50 ss.** T8's accent row rides its beam
-  side (below); T9's bracket hugs its own stack above. Mover: T8's accents
-  (`--articSide above`, undictated so far) or acceptance.
+Both residuals dissolved by the day-33 accent dictations + THE PER-MARK
+ACCENT LAW (head-side accents hug their own column, like day-31 dynamics).
+Geometry guard: zero c2d findings; only the two pre-existing tier-3 items
+(T9 @36.87, T10 @39.08) remain, in approved db1 material.
 
 ## Regenerate this table
 

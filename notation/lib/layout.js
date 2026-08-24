@@ -1260,8 +1260,40 @@
               // day-24 order: accents nearest the notes, then the bracket
               if (g.artics && g.artics.length && g.articSide) {
                 const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
-                const base = put(g.articSide, gapMd + aH);
-                st.articY = (g.articSide === 'above' ? 1 : -1) * (base + gapMd + aH / 2);
+                if ((g.articSide === 'above') !== beamSideIsAbove) {
+                  // HEAD SIDE = PER-MARK (day 33, composer on T7 @45.68: "the
+                  // accent could go below the NOTE" — note-relative, exactly
+                  // day-31's "closer to that notehead" for dynamics; the same
+                  // law extends to accents: on the head side the heads differ
+                  // in height and a group row floats over the shallow
+                  // columns). Each accent clears ITS OWN column's ink (head +
+                  // dot + accidental) by the medium gap, floored at the staff
+                  // edge. (A dyn mark sharing the exact column is not yet
+                  // consulted — no dictated cluster has that; NITS if ever.)
+                  st.articPerMark = new Map();
+                  let outer = 0;
+                  for (const a of g.artics) {
+                    const tip = g.tips.find(t => Math.abs(t.t - a.t) < 1e-6);
+                    let y;
+                    if (g.articSide === 'above') {
+                      const col = Math.max(2,
+                        tip && tip.headTopYSs != null ? tip.headTopYSs : 2,
+                        tip && tip.accTopYSs != null ? tip.accTopYSs : -Infinity);
+                      y = col + gapMd + aH / 2;
+                    } else {
+                      const col = Math.min(-2,
+                        tip && tip.headBotYSs != null ? tip.headBotYSs : -2,
+                        tip && tip.accBotYSs != null ? tip.accBotYSs : Infinity);
+                      y = col - gapMd - aH / 2;
+                    }
+                    st.articPerMark.set(a.t, y);
+                    outer = Math.max(outer, Math.abs(y) + aH / 2);
+                  }
+                  used[g.articSide] = Math.max(used[g.articSide], outer);
+                } else {
+                  const base = put(g.articSide, gapMd + aH);
+                  st.articY = (g.articSide === 'above' ? 1 : -1) * (base + gapMd + aH / 2);
+                }
               }
               if (g.hasTuplet && g.bracketSide) {
                 const base = put(g.bracketSide, TPd.paddingSs + TPd.hookLengthSs + capD);
@@ -1316,7 +1348,8 @@
               }
               if (g.artics && g.artics.length) {
                 const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
-                if (st.articY != null) { if (st.articY > 0) ext = Math.max(ext, st.articY + aH / 2); }
+                if (st.articPerMark) { for (const yA of st.articPerMark.values()) if (yA > 0) ext = Math.max(ext, yA + aH / 2); }
+                else if (st.articY != null) { if (st.articY > 0) ext = Math.max(ext, st.articY + aH / 2); }
                 else if (st.articCentre != null && g.dir === 'up') ext = Math.max(ext, yLevel + st.articCentre + aH / 2);
               }
               st.bracketY = ext + TPa.paddingSs + TPa.hookLengthSs;
@@ -1481,7 +1514,8 @@
           for (const a of g.artics) {
             const aG = glyphs.articulation && glyphs.articulation[a.kind];
             if (!aG) { warnings.push('articulation "' + a.kind + '" has no glyph — not drawn'); continue; }
-            const y = g.stack.articY != null ? g.stack.articY
+            const y = (g.stack.articPerMark && g.stack.articPerMark.has(a.t)) ? g.stack.articPerMark.get(a.t)
+              : g.stack.articY != null ? g.stack.articY
               : (g.dir === 'up' ? beamTop + g.stack.articCentre : beamTop - g.stack.articCentre);
             items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
           }
