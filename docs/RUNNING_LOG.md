@@ -10490,3 +10490,22 @@ items. Everything applied and verified:
   The day-24 NIT ("cuivré invisible as a technique") CLOSES.
 - Ten batteries green (the re-pointed ones included), tree pushed. **Every note
   of density build 1 + CLOUD02-I is figured, foldered, and composer-approved.**
+
+
+#### Day 30 — the cuivré placement, by dictation (D-log 22.3)
+
+Composer: left-justified with the notehead's left edge, above it, "the same
+spacing as the staccato — the minimum vertical spacing", solid black; "leave
+tuba eight, and copy tuba eight for any that can't go above the notehead."
+("two by eight" in the dictation read as "tuba eight" — the fallback clause
+confirms it: T8's G4 is exactly the head where above does not fit.)
+
+Built: the techText emits inside the nh-unit (it needs the head's x) — baseline
+= head top + tightGapSs (0.15), x = head left edge, color #000 (render gained
+per-item `color`; everything else stays muted). The fit test demands the tight
+gap on BOTH sides: above the head AND clear of the lane line — first cut, T8
+passed by 0.01 ss (em 0.91 = 0.7 size × 1.3 render textScale; 6.50 vs 6.51) and
+would have touched the line; with the top margin it falls back to the tag row,
+which is precisely "copy tuba eight". Measured after: T1/T4 at baseline 4.09
+left-aligned to their heads; T8 at the tag row (dx 0, y 3.5); all three black.
+Layout-time only — no IR rebuild; hard reload shows it. Batteries green.

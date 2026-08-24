@@ -332,8 +332,15 @@
             // 'cuivré' mark): cuivre draws the same device as fortepiano and
             // was invisible as a technique on the page; the mark is TEXT, the
             // standard brass practice (the '+' sign is hand-stopping, a
-            // different instruction). Same row as the metric path's tags.
-            if (dev.techText) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique });
+            // different instruction). PLACEMENT (composer, same day): left-
+            // justified with the NOTEHEAD's left edge, just above the head at
+            // the tight gap ("the same spacing as the staccato — the minimum
+            // vertical spacing"), in SOLID BLACK; where the text cannot fit
+            // under the lane top (T8's G4 — head top + gap + em runs past
+            // laneHalfSs) the original tag-row placement stands ("copy tuba
+            // eight"). Emitted inside the nh-unit, which knows the head's x;
+            // a techText on a device with no nh-unit takes the tag row.
+            if (dev.techText && !dev.nhUnit) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: '#000' });
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
@@ -483,6 +490,22 @@
                     : -(gapSs + rightExt);
                 items.push(Object.assign({ k: 'glyph', g: headGlyph, t: e.onset, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: e.onset, dxSs: headDx, ySs: L, wSs: nhO.wSs });
+                // cuivré (day 30) — see the techText comment above the nh-unit.
+                // The em estimate mirrors engraving.render.textScale (1.3): the
+                // rendered height is size × textScale, and layout stays in ss.
+                if (dev.techText) {
+                  const tight = o.tightGapSs != null ? o.tightGapSs : 0.15;
+                  const laneHalf = (o.chainSide && o.chainSide.laneHalfSs) || 6.51;
+                  const em = TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3);
+                  const base = yDraw + nhO.hSs / 2 + tight;   // baseline just above the head
+                  // fits only if the text also CLEARS THE LANE LINE by the same
+                  // tight gap — at 0.01 ss of daylight (T8's G4) it reads as
+                  // touching, which is the composer's "can't go above" case
+                  if (base + em + tight <= laneHalf + 1e-9)
+                    items.push({ k: 'text', t: e.onset, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, size: TS.technique, color: '#000' });
+                  else
+                    items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: '#000' });
+                }
                 // THE RING BAR STARTS AFTER THE UNIT, NOT AT THE GO LINE (day 24,
                 // composer: "you have to shorten the duration bar from the left. It
                 // still got its own old setting... have the notehead and ledger and a

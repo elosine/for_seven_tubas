@@ -177,7 +177,7 @@
         } else if (it.k === 'text') {
           if (!inWin(it.t)) continue;
           parts.push('<text x="' + X(it.t, it.dxSs).toFixed(1) + '" y="' + Y(it.ySs).toFixed(1) + '" font-size="' + ((it.size || 1) * ssPx * E.textScale).toFixed(1) +
-            '"' + fontAttr + ' fill="' + o.muted + '">' + esc(it.text) + '</text>');
+            '"' + fontAttr + ' fill="' + (it.color || o.muted) + '">' + esc(it.text) + '</text>');
         } else if (it.k === 'attackline') {
           if (!inWin(it.t)) continue;
           // M4: a vertical stroke straddling the pitch position
