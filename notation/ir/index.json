@@ -33,24 +33,13 @@
   },
   {
    "id": "db1",
-   "label": "DENSITY BUILD 1 — all parts, figured (finished 2026-08-23; ending figures rebeamed day 29)",
+   "label": "DENSITY BUILD 1 + CLOUD02-I — all parts figured (day 30)",
    "score": "piece-s25-finished01",
    "window": [
     0,
     55.94
    ],
    "profile": "section1"
-  },
-  {
-   "id": "db1-c2i-x01",
-   "label": "CLOUD02-I — T1-T6 FINAL + T7-T10 PROPOSED (day 30)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1",
-   "exp": true
   }
  ]
 }

@@ -976,6 +976,47 @@ const { doc, warnings } = Extract.extract(score, {
     });
   }
 }
+// --ringFromBrick t0-t1 (day 30): UNIFORM WRITTEN RING LENGTH FROM THE DRAWN
+// BRICK. Composer, closing CLOUD02-I: "the long tone at forty one, just make
+// sure they're all the same length. Take the length from the brick in the
+// composer score." D51 makes a fixed one-shot's IR duration its SAMPLE length
+// (sound-authoritative, D49), so a chord struck together rings 0.99-1.60 s and
+// the page drew ten different bar lengths. This writes device.ringSeconds
+// (DRAWING ONLY — layout's ring pass) from the source object's drawn duration
+// (endSeconds - startSeconds), per ringing one-shot in the span.
+// Self-maintaining: redraw the brick, rebuild, the page follows. Repeatable.
+{
+  const RING_TECHS = new Set(['fortepiano', 'cuivre', 'ord']);
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--ringFromBrick') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+    if (!m) { console.error('--ringFromBrick needs t0-t1 (e.g. --ringFromBrick 40.9-41.0)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2])]);
+  }
+  if (spans.length) {
+    const byId = new Map();
+    for (const o of score.objects || []) if (o.id) byId.set(o.id, o);
+    spans.forEach(sp => {
+      const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 && RING_TECHS.has(e.technique));
+      if (!members.length) { console.error('--ringFromBrick ' + sp[0] + '-' + sp[1] + ': no ringing one-shots in the span'); process.exit(2); }
+      const lens = new Set();
+      for (const e of members) {
+        const src = byId.get(e.source.objectId);
+        if (!src || src.startSeconds == null || src.endSeconds == null) {
+          console.error('--ringFromBrick: ' + e.source.objectId + ' has no drawn brick in the score'); process.exit(2);
+        }
+        const secs = +(src.endSeconds - src.startSeconds).toFixed(4);
+        lens.add(secs);
+        const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+        if (existing) existing.value.device = Object.assign({}, existing.value.device, { ringSeconds: secs });
+        else doc.overlays.push({ id: 'ov-ring-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { ringSeconds: secs } }, provenance: 'authored' });
+      }
+      console.log('  ringFromBrick ' + sp[0] + '-' + sp[1] + ': ' + members.length + ' ring bar(s) written from the drawn brick (' +
+        [...lens].map(x => x.toFixed(2) + ' s').join(', ') + ')' + (lens.size > 1 ? '  [NOTE: the bricks themselves differ]' : ''));
+    });
+  }
+}
 if (flag('bricks')) {
   // devices go too (day 23 bug): the chunker's cloud-landing GC is a
   // GROUPING artifact — left behind, animobj still made a ball for it

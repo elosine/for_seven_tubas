@@ -464,10 +464,10 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
 // ---- day 29: A BRACKET SITS ON ITS OWN GROUP'S BEAM (the collision fix) ----
 // A cluster now holds several beam groups, several with brackets, at different
 // stack heights. Every tuplet item must clear the beam of the group whose span
-// it covers — checked on the real section file (db1-c2i-x01, T1's three
+// it covers — checked on the real promoted file (db1 — CLOUD02-I folded day 30; T1's three
 // brackets over three different groups).
 {
-  const irC = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1-c2i-x01.ir.json'), 'utf8'));
+  const irC = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'), 'utf8'));
   const LC = Layout.layoutSection(irC, G);
   const s0 = LC.systems.find(s => s.part === 0);
   const tups = s0.items.filter(i => i.k === 'tuplet' && i.t0 > 35);

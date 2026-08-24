@@ -10459,3 +10459,34 @@ freeing PLAIN halves (T4's ending — that was a false-claim removal); where bot
 halves need the lattice, one bracket says it once, ACROSS the seam, and that
 straddle is sanctioned — call A(a) answered for the same-subdivision case. The
 flag stays as information.
+
+
+#### Day 30 — CLOUD02-I DONE and FOLDED; the blast uniformed; cuivré on the page. THE SECTION CLOSES.
+
+Composer: "then all good, cld 1 done, bump all the save files" + the two wrap
+items. Everything applied and verified:
+
+- **The fold:** db1 rebuilt with every CLOUD02-I cluster line — label "DENSITY
+  BUILD 1 + CLOUD02-I — all parts figured (day 30)". `db1-c2i-x01` pruned;
+  **`db1-all-x01` kept on purpose** (test_pattern_fit's frozen validate golden —
+  D65). The scan test + test_layout's bracket check re-pointed to db1. Picker now
+  holds db1 alone for this material.
+- **`--validate` on the merged file: 37 of 40** (was 24/25 on the pre-fold 25).
+  The three DIFFERs are each the ear overruling the fit, on the record: cl-1
+  (T1's day-23 3:2, 1.2 heads, understood since day 24) · cl-28 (T2 g2 — "let's
+  get rid of all the brackets", D-log 1.3) · cl-34 (T7 g1 — the rule-8 plain
+  verdict, D-log 16.1). Validate is doing its job: recording where taste beat
+  the rule.
+- **The 40.93 blast:** new `--ringFromBrick t0-t1` on notate_section writes
+  `device.ringSeconds` from the SCORE's drawn brick (s25's ten objects are all
+  40.934→41.944 = 1.010 s); layout's ring pass honors it (drawing only — sound
+  stays the IR duration, D49/D51). Measured after: **all ten bars exactly
+  1.010 s**. Two warnings retained (T4/T6 run ~60 ms past the breath before
+  their next attacks — drawn as asked).
+- **cuivré:** registry `byTechnique.cuivre.techText: "cuivré"`; layout draws
+  techText at the tag row (o.tagY). Measured: three texts, T1/T4/T8 @40.93.
+  Double-checked the notation: text is right (day-24 open item said text;
+  Gould-practice cuivré = text instruction, `+` = hand-stopping — different).
+  The day-24 NIT ("cuivré invisible as a technique") CLOSES.
+- Ten batteries green (the re-pointed ones included), tree pushed. **Every note
+  of density build 1 + CLOUD02-I is figured, foldered, and composer-approved.**

@@ -215,7 +215,8 @@ what the GC is.
 | device | elements | lives in |
 |---|---|---|
 | **surge** | level curve with a 90° cut · go line · open nh-unit · ppp→fff pair + arrow; no GC, no band mark | `engraving.layout.devices.byEnv.surge` |
-| **fortepiano** (and **cuivre**, day 24) | go line · GC · open nh-unit · ring bar cut a breath before the next gesture (D55) · `sfzp` | `devices.byTechnique.fortepiano / cuivre` |
+| **fortepiano** (and **cuivre**, day 24) | go line · GC · open nh-unit · ring bar cut a breath before the next gesture (D55) · `sfzp` · **cuivre additionally carries the text `cuivré` at the tag row** (day 30 — a technique otherwise drawn identically to fp; text is the standard brass practice, `+` is hand-stopping) | `devices.byTechnique.fortepiano / cuivre`; `cuivre.techText` |
+| **uniform chord bars** (day 30) | a chord struck together may have its ring bars written at ONE length — the SCORE's drawn brick — instead of each note's sample length: `--ringFromBrick t0-t1` writes `device.ringSeconds` per note from `endSeconds−startSeconds` (drawing only; sound stays the IR duration per D49/D51; runs past the breath rule warn but draw as asked) | `notate_section --ringFromBrick`; `layout.js` ring pass |
 | **staccato** | go line · GC · filled head 0.844 · 16th flag (flag-clear stem) · dot at 0.15 · one band dynamic beside the stem (D52) · unit 0.6 ss before go so the head clears the impact marker | `devices.byTechnique.staccato` |
 | **plain ord** (day 24, provisional) | go line · open nh-unit · band dynamic; no GC, no ring bar | `devices.byTechnique.ord` |
 | No ottava anywhere: tubists read ledgers (D54) | — | `glyphs.standards.ottava.ledgerLineThreshold 4` |

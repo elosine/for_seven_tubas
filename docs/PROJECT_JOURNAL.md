@@ -96,8 +96,8 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 | ~~4 = A+B~~ | ~~PLAN 8h — THE SEAM IS THE SLOWER GAP~~ **DONE day 28 (second sitting)** — all ten spec items built and verified, pushed; the decision is D68, the trail is RUNNING_LOG day 28. Two things to carry forward: the tuplet re-measurement came back **3, not 0**, and a new PICKUP flag appeared on T1's note 8. | — | — | — |
 | ~~5a~~ | ~~T1's final, by eye~~ **DONE day 28 (third sitting): `t1-hybrid2` — the brackets. D69.** | — | — | — |
 | ~~5b~~ | ~~PLAN 8i — THE BRACKET IS THE MESSAGE~~ **DONE day 28 (fourth sitting)** — all nine items built and verified in the app, pushed. `t1-final` IR-identical to `t1-hybrid2`, alone in the picker; `--ownGrids` byte-identical to `t1-figures2`; batteries green, `--validate` 24/25. The scan table is in RUNNING_LOG. | — | — | — |
-| **5c = C — RIGHT NOW** | **THE READS: T2–T10 by hand against the 8i report, one part per sitting.** For each part: `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span 36.19-40.42` — the writing on ONE grid comes FIRST now, group by group with its brackets; own grids print last as the alternative. Composer validates the "one cluster per part, several groups" expectation and says whether the brackets are the ones they want. **The scan has already narrowed what to watch:** a gesture over a head — **none in this section, all 15 fit** · a **STRADDLING bracket — five, named** (T2 @38.60, T4 @36.20 ×3, T9 @36.33, T9 @37.39, T10 @38.69): call A(a) is now live, and the fix (bracket scoped to the figure, a change to `fit()`) is built only if the composer wants it · **FLOW** lines they want taken (by hand, `--tuplet a-b@3:2`) · **ratio ties** on five gestures. The dotted-16th question is not urgent — brackets are welcome. | **Fable** | **YES — clear before it** (execution → conversation) | every part has its read; the tool changes it shows a need for are listed |
-| 6 | NOTATE CLOUD02-I — `--cluster t0-t1@part --figures [--cuts …]` per the reads, in `db1-c2i-x01`, narrowing `--bare` as parts get figured; composer reviews part by part | **Opus** to build · **Fable** for each page verdict | clear before it; `/checkpoint · /clear · /resume` mid-way | every part 36–40.4 carries a figure the composer has looked at; section audit clean; db1 rebuilt, `--validate` 24/25, pushed |
+| ~~5c~~ | ~~THE READS~~ **DONE day 30 — all ten parts read, finalized, folded into db1 (D-logs 10–22); the reads also produced rule candidates 8–12 and the five-check generator recipe.** *(old row kept for the record:)* THE READS: T2–T10 by hand against the 8i report, one part per sitting. For each part: `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span 36.19-40.42` — the writing on ONE grid comes FIRST now, group by group with its brackets; own grids print last as the alternative. Composer validates the "one cluster per part, several groups" expectation and says whether the brackets are the ones they want. **The scan has already narrowed what to watch:** a gesture over a head — **none in this section, all 15 fit** · a **STRADDLING bracket — five, named** (T2 @38.60, T4 @36.20 ×3, T9 @36.33, T9 @37.39, T10 @38.69): call A(a) is now live, and the fix (bracket scoped to the figure, a change to `fit()`) is built only if the composer wants it · **FLOW** lines they want taken (by hand, `--tuplet a-b@3:2`) · **ratio ties** on five gestures. The dotted-16th question is not urgent — brackets are welcome. | **Fable** | **YES — clear before it** (execution → conversation) | every part has its read; the tool changes it shows a need for are listed |
+| ~~6~~ | ~~NOTATE CLOUD02-I~~ **DONE day 30 — folded into db1, validate 37/40 (three ear-over-fit DIFFERs on the record), pushed** | — | — | — |
 | 6 | CLOUD02-D — `playability.js --section CLOUD02-D --brick 0.05` is dry-run (18 soft → 9; two real asks T6 @45.51, T7 @45.47); composer decides the nine → `--apply` → re-extract → its analysis | Opus run/apply · Fable for the nine and the talk | clear before it (milestone) | ledgered, re-extracted, 0 hard; the nine decided |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
@@ -115,18 +115,19 @@ gate byte-identical) and T4 became 6 groups, brackets 5:4 · 6:4 · 5:4 · 3:2 �
 3:2, **zero straddles** — the two 6:4s were per-beat artifacts (only notes 13/17
 off-lattice; rule cand. 11). The day-28 A(a) fix is retired for every case seen.
 Ledger D-log 11 complete; batteries green each round; `--validate` 24/25.
-**T1–T6 are FINAL (D-logs 12, 15) and T7–T10 are PROPOSED (cl-34–40, D-logs
-16–19) — every note of CLOUD02-I now carries a figure.** The five-check
-checklist ran the whole batch; its firsts: T7g1 = first PLAIN verdict by census
-(1/6 over, T2 profile) · T10g1 = first all-plain fit · T9g1 = first same-beat
-double hand-window (3:2+3:2, bracket = pair — found + fixed a sequencing bug:
-the override validates against the UNION of windows now). T8's beat-1 artifact
-rewritten (6:4 → hand 3:2 on 4-5). **Open for the composer: T9g2's 5:4 straddle
-(survives every check — accept / name a cut / ownGrids; that gesture sits AT
-1.0 heads) · T7g1's ratio tie + plain-vs-3:2 choice · nine pickup flags
-(T7: 1, 5 · T8: 1, 4 · T9g2: 1, 4 · T10: 1, 4, 5) · near-ties (T8: 7, 11 ·
-T9g2: 9 · T10g1: 2).** Verdicts → D-log rows → section audit → db1 fold-in
-(step 6's close: rebuild, `--validate`, push).
+**CLOUD02-I IS DONE AND FOLDED (D-logs 12, 15, 20, 21, 22) — the milestone.**
+All ten parts final ("cld 1 done"); every remaining flag settled by acceptance
+(T9g2's straddle stays · T7g1 stays plain · pickups unapplied · near-ties as
+chosen). **The fold: `db1` = "DENSITY BUILD 1 + CLOUD02-I — all parts figured
+(day 30)"; `db1-c2i-x01` PRUNED; `db1-all-x01` KEPT (test_pattern_fit's frozen
+validate golden, D65); scan + bracket tests re-pointed to db1. `--validate` on
+the merged file = 37/40** (the three DIFFERs all ear-over-fit, on the record:
+cl-1 · cl-28 · cl-34). **The two closing marks: the 40.93 blast's ten ring bars
+uniform at the DRAWN BRICK's 1.010 s** (`--ringFromBrick`, new — reads the
+score's endSeconds−startSeconds; drawing only) **and `cuivré` text on T1/T4/T8**
+(registry `cuivre.techText`; the day-24 open item closes — text confirmed
+right, `+` is hand-stopping). Ten batteries green; all pushed. Day-30 rules for
+the generator: candidates 8–12 + the five-check recipe (ledger).
 
 **CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
 **T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.
@@ -292,9 +293,10 @@ next thing that happens.**
 
 ### Open, not blocking
 
-- `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); cuivré text mark on the
-  three cuivre notes at 40.93; the `analyzer`'s per-beat tuplet model cannot
-  place a tuplet across a beat line (T1's 3:2 straddles one — left as built).
+- `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); ~~cuivré text mark~~
+  *(CLOSED day 30 — techText built)*; the `analyzer`'s per-beat tuplet model cannot
+  place a tuplet across a beat line (T1's 3:2 straddles one — left as built;
+  the day-30 hand-tuplet override now covers the sub-beat cases).
 - `export_midi --ir` still un-built (NITS); G2/G3 formally unclosed on paper.
 
 ---

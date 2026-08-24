@@ -67,7 +67,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true, dynMark: false } },
       byTechnique: {
         fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },   // day 24 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
+        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp', techText: 'cuivré' },   // day 24; techText day 30 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
         ord: { goLine: true, nhUnit: true, dynMark: 'band' },                              // day 24 — plain sustained ord, provisional (registry _ordNote)
         staccato: { goLine: true, gc: true, nhUnit: true, nhHead: 'filled', nhHeadScale: 0.844, nhStem: 'flag16', nhStemRule: 'flagClear', nhDot: true, nhDotGapSs: 0.15, nhGapSs: 0.6, dynMark: 'band', dynBesideStem: true },
       },
@@ -178,7 +178,7 @@
       byEnv: { surge: { curve: true, cut: true, goLine: true, nhUnit: true, dynPair: true, dynMark: false } },
       byTechnique: {
         fortepiano: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },
-        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp' },   // day 24 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
+        cuivre: { goLine: true, gc: true, nhUnit: true, ringBar: true, dynMark: 'sfzp', techText: 'cuivré' },   // day 24; techText day 30 — the 40.93 fp blast's three cuivre members (registry _cuivreNote)
         ord: { goLine: true, nhUnit: true, dynMark: 'band' },                              // day 24 — plain sustained ord, provisional (registry _ordNote)
         // wc-29 (day 23, composer): "black note head, stem, and one flag" —
         // the same unit builder with a filled head and a flagged stem; no
@@ -310,17 +310,30 @@
               const breath = dev.ringBarBreath === false ? 0 : (o.breathSeconds != null ? o.breathSeconds : 0.5);
               const nxt = nextOnset.get(e.id);
               const room = nxt != null ? nxt - e.onset - breath : Infinity;
-              const barLen = Math.min(e.duration, room);
+              // device.ringSeconds (day 30): an authored WRITTEN length that
+              // replaces the sample-length term outright — the composer's
+              // uniform-chord case ("make sure they're all the same length;
+              // take the length from the brick"). Drawing only, like the rest
+              // of this block; sound stays the IR duration (D49/D51).
+              const barLen = dev.ringSeconds != null ? dev.ringSeconds : Math.min(e.duration, room);
               const flagUnder = o.flagShortBarSeconds != null ? o.flagShortBarSeconds : 1.0;
               if (barLen <= 0) {
                 warnings.push('ring bar ' + e.id + ': no room before the next attack (' + (nxt - e.onset).toFixed(2) + ' s gap, ' + breath + ' s breath) — bar not drawn');
               } else {
-                if (barLen < e.duration - 1e-9 && barLen < flagUnder)
+                if (dev.ringSeconds != null && barLen > room + 1e-9)
+                  warnings.push('ring bar ' + e.id + ': ringSeconds ' + barLen.toFixed(2) + ' runs past the breath before the next attack (room ' + room.toFixed(2) + ' s) — drawn as asked');
+                if (dev.ringSeconds == null && barLen < e.duration - 1e-9 && barLen < flagUnder)
                   warnings.push('ring bar ' + e.id + ': ' + barLen.toFixed(2) + ' s — the next attack is ' + (nxt - e.onset).toFixed(2) + ' s away, less the ' + breath + ' s breath (sample ' + e.duration.toFixed(2) + ') — under ' + flagUnder + ' s, composer judgment');
                 items.push({ k: 'ringbar', t0: e.onset, t1: e.onset + barLen, ySs: yDraw, ev: e.id });
                 ringBarItem = items[items.length - 1];   // the nh-unit shortens it from the LEFT (day 24)
               }
             }
+            // Technique text (day 30, registry byTechnique.techText — the
+            // 'cuivré' mark): cuivre draws the same device as fortepiano and
+            // was invisible as a technique on the page; the mark is TEXT, the
+            // standard brass practice (the '+' sign is hand-stopping, a
+            // different instruction). Same row as the metric path's tags.
+            if (dev.techText) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique });
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap

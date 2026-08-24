@@ -232,6 +232,32 @@ case: a bracket across a beam seam is sanctioned when the subdivision truly span
 the seam** — the STRADDLE flag stays as information, not as a defect. (20.1, 20.2;
 contrast 11.5 and 18.1-as-first-built.)
 
+## D-log 21 · CLOUD02-I DONE; the fold — day 30
+
+Composer: *"then all good, cld 1 done, bump all the save files… otherwise, the way
+it's notated is pretty close just with the changes I listed above."* **The section
+is FINAL.** Settled by the acceptance: T9 g2's 5:4 straddle stays (the one A(a)
+residue — accepted as built) · T7 g1 stays plain (its ratio tie and the one-3:2
+alternative decline) · all nine pickup flags stay unapplied · all near-ties stay
+as chosen.
+
+**The fold ("bump all the save files"):** everything rebuilt into **`db1`**
+("DENSITY BUILD 1 + CLOUD02-I — all parts figured (day 30)"); `db1-c2i-x01`
+PRUNED (git keeps it); **`db1-all-x01` deliberately KEPT** — it is
+`test_pattern_fit`'s frozen validate golden, and D65 says a fixture is never a
+file the tools rewrite. The scan test and `test_layout`'s bracket-clears-beam
+check re-pointed to `db1`. `--validate` on the merged file: **37 of 40** — the
+three DIFFERs are all the ear overruling the fit, each on the record (cl-1 T1's
+day-23 3:2 at 1.2 heads · cl-28 T2's "get rid of all the brackets" · cl-34 T7's
+rule-8 plain verdict).
+
+## D-log 22 · The two closing marks: uniform blast bars · cuivré — day 30
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 22.1 | the 40.93 blast (ten parts) | **all ten ring bars written at the DRAWN BRICK's length — 1.010 s uniform** (`--ringFromBrick 40.9-41.0`, new; layout honors `device.ringSeconds`, drawing only) | "the long tone at forty one, just make sure they're all the same length. Take the length from the brick in the composer score. The s twenty five finished" | D51 had each bar at its own sample length (0.99–1.60 s) — ten lengths for one chord struck together. The flag reads `endSeconds−startSeconds` from the score object, so a redrawn brick flows through on rebuild. Two honest warnings (T4/T6's bars run ~60 ms past the breath before their next attacks — drawn as asked; uniformity is the instruction) |
+| 22.2 | the three cuivre notes (T1 T4 T8 @40.93) | **`cuivré` text above each** (registry `byTechnique.cuivre.techText`; layout draws it at the tag row) | "the only thing to add is the quivere… I think it's just with text, but let's double check that" | double-checked: yes, text — the day-24 open item said "text mark", and engraving practice agrees (cuivré/brassy is a text instruction; the `+` sign is hand-stopping, a different device). The registry field is general: any technique can carry a text |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

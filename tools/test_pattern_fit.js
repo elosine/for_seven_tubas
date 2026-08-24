@@ -206,7 +206,7 @@ ok(PF.fit([31.765, 32.026, 32.442, 32.835]).grid.join(',') === '0,2,5,8', '8g: f
 // the day-28 record: every gesture fits ONE grid inside a head, and five of them
 // carry a bracket that crosses a seam (design call A(a) — the watch item is real).
 {
-  const out = execFileSync(process.execPath, [path.join(ROOT, 'tools', 'pattern_analyze.js'), '--ir', 'db1-c2i-x01', '--scan', '36.19-40.42'], { cwd: ROOT }).toString();
+  const out = execFileSync(process.execPath, [path.join(ROOT, 'tools', 'pattern_analyze.js'), '--ir', 'db1', '--scan', '36.19-40.42'], { cwd: ROOT }).toString();
   const w = out.match(/one grid WITHIN a head: (\d+)\s+·\s+OVER a head: (\d+)/);
   ok(w && w[1] === '15' && w[2] === '0', '8i scan: CLOUD02-I is 15 gestures within a head, 0 over (' + (w ? w[1] + '/' + w[2] : '?') + ')');
   const st = out.match(/brackets straddling a seam: (\d+)/);
