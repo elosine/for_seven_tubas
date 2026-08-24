@@ -398,3 +398,5 @@ rendering-environment difference worth understanding).
   fires in the app. Fix is one line — spread the loaded metadata before the two
   timestamps. Until then, generated scores must also record their command in
   `RUNNING_LOG.md`.
+
+- **notate_section report order (day 30):** a figures cluster prints its NEAR-TIE and PATTERN (D63) advisory lines BEFORE its own `cluster cl-N:` header, so they read as the tail of the previous cluster's block (seen cl-32/cl-33). Cosmetic; the lines belong to the cluster that follows them.

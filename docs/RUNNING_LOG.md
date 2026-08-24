@@ -10375,3 +10375,37 @@ call, analysis logged here):
   the notes that need it) logged in the ledger.
 - **Still open on T4:** the composer's look at the finished page; the fff-pair
   dynamics call (D-log 10.2) unaddressed.
+
+
+#### Day 30 — T4 DONE ("t4 all good") · T5 + T6 proposed with the lessons applied · the generator checklist written
+
+- **T4 FINAL** (D-log 12). The two-band dynamics derivation (fff pair → band mark,
+  f fall-back) is accepted — first confirmation of that precedent.
+- **The lessons are now the recipe** (composer: "log all lessons for generator and
+  beaming"): the STANDING BUILD RECIPE gained its day-30 additions — rule-8 census
+  before proposing · containment with straddles resolved at proposal time · the
+  rule-11 lattice audit with its standing exceptions (7:4 never reduces · a lone
+  5:4 note with no den-2 window · an even beat-3:2) · the extended dynamics rule
+  (two-band pair = band mark, lone spike = accent, below-floor = nothing) ·
+  pickups flagged never applied. Five checks, run in that order, per new figure.
+- **T5 proposed (cl-31, D-log 13):** one gesture, 16 notes, six groups. Census:
+  brackets 0.87 worst (0/16 over) vs plain 1.63 (8/16 over) → brackets. Zero
+  straddles as-fitted; lattice clean (nothing rewritten). `--rest16 6` the one
+  within-group ≥2-slot silence. Dynamics: mf@1 · fff pair [3 4] at group-2 start
+  → band mark on 3 · f fall-back on 6 (MID-GROUP — the shift point; flagged
+  least-certain) · accents 2, 14, 16 · notes 5 (ppp) and 7 (p) below floor.
+  OPEN: two pickup flags (3 → g2 at 25 ms off; 7 → g3 at 99 ms off), near-ties
+  9/6/14, the f-at-6 call.
+- **T6 proposed (D-log 14):** three units — a LONE ONE-SHOT @36.32 (un-bared;
+  renders per the vocabulary: 16th flag + GC + go line + band f — verified in the
+  layout audit) · a pair cluster (1:f; second note ppp below floor) · a 12-note
+  gesture (cl-33), four groups, 7:4 ⊂ g3 and 5:4 = g4 exact. Census 0.95 vs 1.57
+  (6/12 over) → brackets. OPEN: the RATIO TIE (cut after 4 flips at 1.248 — the
+  even run's own spread sits exactly at the line), near-tie note 2.
+- **Verified:** ten batteries green, `--validate` 24/25, layout audit parts 4–5
+  exact (brackets 7:4·5:4·6:4·3:2 and 7:4·5:4; dynamics mf/fff/f and f/f/mf;
+  accents 3 and 5; GCs 1 and 3 — the 3 = lone + pair + gesture). Label:
+  "T1-T4 FINAL + T5 T6 PROPOSED (day 30); T7-T10 bare". 
+- **NITS:** notate_section prints a figures cluster's NEAR-TIE/PATTERN lines
+  above that cluster's own header (they land visually at the tail of the previous
+  cluster's block — pre-existing print-order quirk, cosmetic only).

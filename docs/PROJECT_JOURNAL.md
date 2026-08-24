@@ -115,9 +115,15 @@ gate byte-identical) and T4 became 6 groups, brackets 5:4 · 6:4 · 5:4 · 3:2 �
 3:2, **zero straddles** — the two 6:4s were per-beat artifacts (only notes 13/17
 off-lattice; rule cand. 11). The day-28 A(a) fix is retired for every case seen.
 Ledger D-log 11 complete; batteries green each round; `--validate` 24/25.
-**Still open on T4: the composer's look · the fff-pair dynamics call (D-log
-10.2).** Then "done" → T5 (the loop: analyzer → propose per recipe → dictation
-rounds → ledger).
+**T4 went FINAL ("t4 all good", D-log 12 — the two-band dynamics precedent
+confirmed). T5 + T6 are PROPOSED (cl-31, cl-32/33 + T6's lone one-shot un-bared),
+built through the new five-check generator checklist** (recipe § Day-30
+additions: rule-8 census · containment, straddles resolved at proposal · rule-11
+lattice audit + exceptions · extended dynamics · pickups flagged) — both
+bracket-pervasive by census, zero straddles, lattice clean. **Awaiting the
+composer: T5's two pickup flags (notes 3, 7) + the f-fall-back-at-6 dynamics
+call · T6's ratio tie (cut after 4 flips at 1.248).** D-logs 13–14. Then T7–T10
+by the same loop.
 
 **CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
 **T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.

@@ -153,6 +153,45 @@ at ♩=115). Groups identical with tuplets off (cuts 2,6,9,11,13,15 both ways).*
 | 11.4 | notes 3–7 (first 5:4 + 6:4) | **merged into ONE beam group**, both brackets wholly inside (`--cuts 2,7,9,13,15`) | "yes merge 3-7" | the round-1 cut after 5 (a counting cut, mid-run by pace — D68 itself refuses it) reversed once the principle was named; the pairwise chain 205·214·215·265 (adjacent ratios ≤ 1.23) reads as one phrase |
 | 11.5 | beats 5 and 7 (the two 6:4s) | **REWRITTEN as plain 16ths + a sub-beat 3:2** on the off-lattice note's 8th: `--tuplet 12-13@3:2 --tuplet 16-17@3:2`. Built this day: under `--figures`/`--pattern` a hand `--tuplet` now OVERRIDES the fit's beat bracket (window written as the hand says · the beat's other members must sit ON the plain lattice, written plain · a window may not cross a beam seam · positions never move, only the writing) | "build the 3:2" | **the 6:4s were per-beat-model artifacts** — notes 11/12 and 15/16 sit ON the plain lattice; only 13 and 17 are off it, each exactly slot 2 of a 3:2 over its beat's last 8th. After: **zero straddles in T4**, [14 15] a bare plain pair, [16 17] = bracket exact. Inert gate: unchanged commands rebuild byte-identical. **Rule candidate 10: a bracket covers only the notes that need it — where a beat's off-lattice notes fit a sub-beat window, the small bracket beats the whole-beat one** (this also retires the day-28 A(a) "scope the bracket to the figure" fix for every case seen so far) |
 
+## D-log 12 · T4 DONE — day 30
+
+Composer: *"t4 all good."* T4 is FINAL in `db1-c2i-x01` (cl-30) as built through
+rounds 1–4: 6 groups [1 2][3-7][8 r r 9][10-13][14 15][16 17], brackets
+5:4 · 6:4 · 5:4 · 3:2 · 3:2, zero straddles, dynamics as proposed — **the D-log
+10.2 dynamics derivation (fff pair → band mark at 14, f fall-back at 16) is
+ACCEPTED, first confirmation of the two-band precedent.**
+
+## D-log 13 · T5 AI-PROPOSED (cl-31), awaiting the look — day 30
+
+*The first part proposed with ALL day-30 lessons applied at build time (see the
+recipe's day-30 additions below). One gesture, 16 notes, six groups
+`pair · short short long · long short · pair · even even · pair`.*
+
+| # | check | result |
+|---|---|---|
+| 13.1 | rule-8 census | brackets worst 0.87 (0/16 over a head) vs plain worst 1.63 (**8/16 over**) → BRACKETS, the pervasive-failure profile |
+| 13.2 | containment (rule 10) | zero straddles as-fitted: 7:4 ⊂ g2 · 5:4+6:4 ⊂ g3 · 3:2 = g5 exact |
+| 13.3 | lattice (rule 11) | no artifacts — every bracketed note off-lattice (7:4: all three · 5:4: lone note 7, no sub-beat form exists · 6:4: both · beat-3:2: even triplet of 8ths, honest); nothing rewritten |
+| 13.4 | recipe | through 1..6 · `--rest16 6` (the one ≥2-slot within-group silence outside brackets, before note 6) · separator rests keep value |
+| 13.5 | dynamics (day-24 + mf floor + T4 precedent) | ambient mf@1 · **fff pair [3 4] at group-2 start → band mark on 3** · f fall-back marked on 6 (**mid-group — the shift point; flagged as least-certain**) · accents 2, 14, 16 (above-ambient) · notes 5 (ppp) and 7 (p) below floor, unmarked |
+| 13.6 | OPEN for the composer | **two PICKUP flags** (note 3 → group 2, 25 ms off the rest's grid; note 7 → group 3, 99 ms off) — flagged, not applied · near-ties notes 9, 6, 14 · the f-at-6 dynamics call |
+
+## D-log 14 · T6 AI-PROPOSED (cl-32/cl-33 + a lone one-shot), awaiting the look — day 30
+
+*Three units: a lone one-shot @36.32 (un-bared — renders per the one-shot
+vocabulary, GC + go line + band f) · a pair cluster @36.92 (`--dyn 1:f`, second
+note ppp = below floor, unmarked) · a 12-note gesture @37.70, four groups
+`pair · pair · even ×5 · pair`.*
+
+| # | check | result |
+|---|---|---|
+| 14.1 | rule-8 census (12-note gesture) | brackets worst 0.95 (0/12 over) vs plain 1.57 (**6/12 over**) → BRACKETS |
+| 14.2 | containment | zero straddles: 7:4 ⊂ g3 · 5:4 = g4 exact |
+| 14.3 | lattice | no artifacts (7:4: all three off · 5:4: both off, neither reduces to a sub-beat window) |
+| 14.4 | recipe | through 1..4 · no rest16 (the one ≥2-slot silence is a separator, keeps its 8th) |
+| 14.5 | dynamics | ambient mf@1 · accents 2, 7, 8, 9, 11 · note 5 (p) below floor · no two-band jumps |
+| 14.6 | OPEN for the composer | **RATIO TIE: the cut after 4 flips at pace ratio 1.248** — under it the seam moves to after 5 ([3 4 5] + [6-10]); the even run's own spread is 166/133 = 1.248, exactly at the line · near-tie note 2 |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
@@ -166,6 +205,40 @@ on day 29 — composer: "That's all good. You can go ahead and promote that one.
 cluster, **with mf as CLOUD02-I's floor** — below-mf bands are unmarked and
 unflagged (D-log 5.1); accents mark above-ambient partials; the AI names anything
 else it cannot explain.
+
+### Day-30 additions (from the T4 read — build-time checks for every new figure, and the generator's checklist)
+
+1. **Rule-8 census BEFORE proposing.** Measure the one-grid writing both ways,
+   per note: brackets where plain fails pervasively (many notes over a head),
+   plain where it nearly holds. The datum so far: T2 1/15 over → plain; T3 8/17,
+   T4 6/17, T5 8/16, T6 6/12 over → brackets. The statistic is "how many notes
+   lie", not "how far the worst one is".
+2. **Containment (rule cand. 10).** A bracket must never cross a beam-group
+   boundary; it may sit wholly inside a wider phrase beam. Straddles are
+   RESOLVED at proposal time, not shipped as open flags — by aligning the group
+   to the bracket (counting), widening the beam over the whole bracket (phrase —
+   prefer this where the notes are one pace by PAIRWISE ratio, ≤1.25 adjacent),
+   or shrinking the bracket (check 3). The build refuses a hand tuplet that
+   crosses a seam.
+3. **Lattice audit (rule cand. 11).** For every fit tuplet beat, list the
+   members actually off the plain lattice. Where the off-lattice notes fit a
+   sub-beat window, the whole-beat tuplet is an artifact — write plain 16ths +
+   the small bracket via the hand-tuplet override (`--tuplet a-b@3:2`, day 30:
+   overrides the fit's beat, validates the beat's other members onto the plain
+   lattice, never moves positions). Standing exceptions: a 7:4 (never reduces) ·
+   a 5:4 holding one off-lattice note that fits no den-2 window (T4 note 10, T5
+   note 7 — 32nd-class windows are out of the vocabulary) · a beat-3:2 over
+   three genuinely even notes (T5 g5 — the even triplet IS the honest writing,
+   even with its first note on the lattice).
+4. **Dynamics, extended (T4 accepted, D-log 12).** Day-24 rule + mf floor, plus:
+   a TWO-band jump (fff) arriving as a pair at a beam-group start takes a band
+   mark on its first member (no accent on marked members); the fall-back level
+   gets its own mark at the return (group start where one exists, else the shift
+   point, flagged); a LONE one-band spike is an accent, never a mark. Below-floor
+   members get nothing and no flag.
+5. **Pickups stay flagged, never applied** (unchanged, day 24) — and a
+   composer grouping that beams the candidate backward settles its pickup
+   question by implication (T4 note 7).
 
 ## Emerging rule candidates (NOT rules yet — extraction deferred by the composer)
 
