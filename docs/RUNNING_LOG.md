@@ -11152,3 +11152,53 @@ Both are ON THE RECORD FOR THE COMPOSER, not silently patched: the first is the
 cost of the placement they just asked for, and the fix is a judgment call
 between moving T6's fff above (its upper band is empty at that instant) or
 accepting the touch. Ten batteries green; 75 snapshots green.
+
+
+#### Day 32 — CHECKPOINT: bracket ownership answered; hook direction fixed; the systemic pass called a failure
+
+**Composer:** *"move t6's fff above lots of room; I'm not sure what happened.
+but now I can't tell. Which part the brackets are assigned to. in t seven and t
+eight… make sure the brackets are pointing in the right direction and try to
+work out the spacing too. It seems like the last pass was a fail… I really need
+to move on."*
+
+**ANSWERED, from the geometry, in `docs/CLOUD02D_BRACKETS.md`** (new; regenerate
+snippet included): **every one of the 16 brackets IS on its correct part.** The
+assignment was never wrong. Two reasons it could not be SEEN:
+
+1. **Hook direction was inverted in the day-32 dictation path — FIXED.** Hooks
+   turn toward their own notes; the `bracketSide → dirDraw` flag was written
+   backwards, so **T6's 3:2** (above, hooks ascending) and **T7's 5:4 + 7:4**
+   (below, hooks descending) pointed at the NEIGHBOURING part. One line.
+   **Verified: all 16 now hook toward their own notes.** Ten batteries green,
+   75 snapshots green.
+2. **One visual gap can hold brackets from two parts — NOT fixed, and this is
+   the real problem.** A bracket below part N and one above part N+1 land in the
+   same band. **The T7/T8 gap holds four: three of T7's (below) and T8's 6:4
+   (above), interleaved in time.** Current split across the section: **8 of 16
+   above their own staff, 8 below** — the day-31 side-switching putting each
+   wherever there was room.
+
+**THE DIAGNOSIS WORTH KEEPING:** the day-31 passes each fixed their target and
+kept every battery green, but they optimised for *no ink touching anything* and
+spent **legibility of ownership**, which no check measured. Nothing collides in
+the T7/T8 gap; it is simply unreadable.
+
+**LEADING HYPOTHESIS for the next pass (untested):** put **every bracket on the
+same side of its own staff, always** — most likely the beam side, so a bracket
+is always adjacent to the beam that owns it. Ownership then never depends on
+counting gaps. Collisions that return get solved by moving **dynamics and
+accents** (per-note, mobile) instead of the brackets. This deliberately reverses
+day 31's priority order.
+
+**NOT DONE, first thing next session:** the composer's other instruction —
+**move T6's fff above** (46.18, currently −6.32; "lots of room" above). It is
+also one half of the outstanding cross-lane clash (T6 fff vs T7 accent, 0.54 ss).
+
+**Still open, measured, on the record:** T8 5:4 bracket vs T9 beam (0.20 ss
+cross-lane) · T9 @36.87 bracket×accent and T10 @39.08 bracket-under-beam (both
+PRE-EXISTING in approved db1, filed to NOTATION_POLISH tier 3).
+
+**Process note the composer stated and the AI accepts:** the strategy is **spot
+fixes to get this looking right, then move on** — not systemic redesign. Filed
+verbatim to PAPER_NOTES (both sides).

@@ -1454,3 +1454,54 @@ edges (the sanctioned straddle). Note the shape of the exchange: the composer
 asked a QUESTION about the material ("meant to be about the same?"), the AI
 verified it numerically (one lattice, 112 ms slots in both windows), and only
 then did the instruction fire — the criterion is empirical, not stylistic.
+
+---
+
+## Day 32 — THE COMPOSER CALLS THE SYSTEMIC PASS A FAILURE (verbatim, both sides)
+
+The most important process reversal in the notation work so far, and it is about
+*what an AI optimises when left to choose*.
+
+**Composer:** *"I'm not sure what happened. but now I can't tell. Which part the
+brackets are assigned to. in t seven and t eight. And consequently, I've lost
+confidence that the brackets are being shown with the correct tuba part. …It
+seems like the last pass was a fail. and I can't tell if things are better or
+worse. So to my eye, the spacings are obvious, but for whatever reason, AI is
+having trouble figuring it out."*
+
+And on strategy, which is the part that belongs in the paper:
+
+**Composer:** *"I really need to move on. I was just trying to do spot correct
+points so I can move on instead of addressing the system. But last AI agent
+apparently tried to do systemic fixes and just messed different things up. So
+the strategy now is to get this looking right and then move on. But because of
+the mess up with the brackets, I can't even do spot fixes anymore."*
+
+**What actually happened, measured (AI, day 32).** The day-31 passes were not
+wrong in their own terms: every one was driven by measurement, each fixed the
+defect it targeted, and ten batteries plus 75 snapshots stayed green throughout.
+The side-switching machinery genuinely removed the collisions it was built to
+remove. **But it optimised for "no ink touches anything" and silently spent the
+thing that actually matters: a reader's ability to tell which staff a bracket
+belongs to.** With brackets free to sit above OR below their own staff, 8 of 16
+went above and 8 below, and one visual gap (T7/T8) ended up holding four
+brackets owned by two different parts. No collision check can see that failure,
+because nothing collides.
+
+**The bug underneath the confusion was real and small:** the hook-direction flag
+in the new dictation path was inverted, so the two dictated brackets pointed
+their hooks at the *neighbouring* part instead of their own — destroying the one
+visual cue that says who owns a bracket. Found by generating an
+ownership table from the laid-out geometry rather than looking at the page.
+
+**The methodological lesson, in the composer's frame:** they asked for *spot
+fixes so they could move on*; the AI kept reaching for the general rule. Each
+generalisation was locally defensible and globally costly. The composer's
+instinct — treat the section as a deliverable, not as a system to perfect — was
+the correct engineering judgment, and the AI's instinct to systematise was the
+expensive one. *(Compare day 30, where extraction of rules was DEFERRED by the
+composer for the same reason.)*
+
+**AI, verbatim, for the record:** the assignment was never wrong — all 16
+brackets always belonged to the part whose notes they cover. What failed was
+legibility, and legibility was never in any of the checks I built.

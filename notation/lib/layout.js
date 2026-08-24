@@ -1249,7 +1249,14 @@
                 const base = put(g.bracketSide, TPd.paddingSs + TPd.hookLengthSs + capD);
                 st.bracketY = (g.bracketSide === 'above' ? 1 : -1) * (base + TPd.paddingSs + TPd.hookLengthSs);
                 // hooks point toward the notes: down for an above bracket
-                st.bracketDirDraw = g.bracketSide === 'above' ? 'down' : 'up';
+                // hooks turn TOWARD the notes. The draw flag is named for the
+                // STEM sense: 'up' = bracket above, hooks descend; 'down' =
+                // bracket below, hooks ascend. Day 32: this was inverted here
+                // when the dictation block was written, so every dictated
+                // bracket pointed away from its own notes (T6 above/hooks-down,
+                // T7 below/hooks-up) -- the composer's 'make sure the brackets
+                // are pointing in the right direction'.
+                st.bracketDirDraw = g.bracketSide === 'above' ? 'up' : 'down';
               }
             }
           }
