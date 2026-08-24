@@ -6889,7 +6889,7 @@
       "type": "waveCurve",
       "layer": 4,
       "startSeconds": 58.737,
-      "endSeconds": 58.959,
+      "endSeconds": 58.787,
       "nodes": [
         {
           "pos": 0,
@@ -7003,7 +7003,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 61.18,
-      "endSeconds": 61.451,
+      "endSeconds": 61.23,
       "nodes": [
         {
           "pos": 0,
@@ -7038,7 +7038,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 61.508,
-      "endSeconds": 61.715,
+      "endSeconds": 61.558,
       "nodes": [
         {
           "pos": 0,
@@ -7117,7 +7117,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 62.35,
-      "endSeconds": 62.541,
+      "endSeconds": 62.4,
       "nodes": [
         {
           "pos": 0,
@@ -7152,7 +7152,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 63.508,
-      "endSeconds": 63.759,
+      "endSeconds": 63.558,
       "nodes": [
         {
           "pos": 0,
@@ -7187,7 +7187,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 63.969,
-      "endSeconds": 64.077,
+      "endSeconds": 64.019,
       "nodes": [
         {
           "pos": 0,
@@ -7222,7 +7222,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 64.113,
-      "endSeconds": 64.36,
+      "endSeconds": 64.163,
       "nodes": [
         {
           "pos": 0,
@@ -7336,7 +7336,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 65.236,
-      "endSeconds": 65.441,
+      "endSeconds": 65.286,
       "nodes": [
         {
           "pos": 0,
@@ -7476,7 +7476,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 66.547,
-      "endSeconds": 66.719,
+      "endSeconds": 66.597,
       "nodes": [
         {
           "pos": 0,
@@ -7730,7 +7730,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 68.697,
-      "endSeconds": 68.871,
+      "endSeconds": 68.747,
       "nodes": [
         {
           "pos": 0,
@@ -7800,7 +7800,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 68.86,
-      "endSeconds": 69.15,
+      "endSeconds": 68.91,
       "nodes": [
         {
           "pos": 0,
@@ -7984,7 +7984,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 70.084,
-      "endSeconds": 70.288,
+      "endSeconds": 70.134,
       "nodes": [
         {
           "pos": 0,
@@ -8089,7 +8089,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 70.619,
-      "endSeconds": 70.776,
+      "endSeconds": 70.669,
       "nodes": [
         {
           "pos": 0,
@@ -8124,7 +8124,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 70.839,
-      "endSeconds": 71.08,
+      "endSeconds": 70.889,
       "nodes": [
         {
           "pos": 0,
@@ -8194,7 +8194,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 71.188,
-      "endSeconds": 71.459,
+      "endSeconds": 71.238,
       "nodes": [
         {
           "pos": 0,
@@ -8229,7 +8229,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 71.296,
-      "endSeconds": 71.558,
+      "endSeconds": 71.346,
       "nodes": [
         {
           "pos": 0,
@@ -8264,7 +8264,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 71.477,
-      "endSeconds": 71.679,
+      "endSeconds": 71.527,
       "nodes": [
         {
           "pos": 0,
@@ -8299,7 +8299,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 71.817,
-      "endSeconds": 72.081,
+      "endSeconds": 71.867,
       "nodes": [
         {
           "pos": 0,
@@ -8413,7 +8413,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 72.33,
-      "endSeconds": 72.556,
+      "endSeconds": 72.38,
       "nodes": [
         {
           "pos": 0,
@@ -8448,7 +8448,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 72.609,
-      "endSeconds": 72.726,
+      "endSeconds": 72.659,
       "nodes": [
         {
           "pos": 0,
@@ -8483,7 +8483,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 72.686,
-      "endSeconds": 72.912,
+      "endSeconds": 72.736,
       "nodes": [
         {
           "pos": 0,
@@ -8623,7 +8623,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 73.248,
-      "endSeconds": 73.422,
+      "endSeconds": 73.298,
       "nodes": [
         {
           "pos": 0,
@@ -8658,7 +8658,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 73.494,
-      "endSeconds": 73.7,
+      "endSeconds": 73.544,
       "nodes": [
         {
           "pos": 0,
@@ -8693,7 +8693,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 73.709,
-      "endSeconds": 73.919,
+      "endSeconds": 73.759,
       "nodes": [
         {
           "pos": 0,
@@ -8763,7 +8763,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 73.99,
-      "endSeconds": 74.254,
+      "endSeconds": 74.04,
       "nodes": [
         {
           "pos": 0,
@@ -8842,7 +8842,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 74.18,
-      "endSeconds": 74.349,
+      "endSeconds": 74.23,
       "nodes": [
         {
           "pos": 0,
@@ -8912,7 +8912,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 74.446,
-      "endSeconds": 74.619,
+      "endSeconds": 74.496,
       "nodes": [
         {
           "pos": 0,
@@ -8947,7 +8947,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 74.567,
-      "endSeconds": 74.766,
+      "endSeconds": 74.617,
       "nodes": [
         {
           "pos": 0,
@@ -9017,7 +9017,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 74.944,
-      "endSeconds": 75.131,
+      "endSeconds": 74.994,
       "nodes": [
         {
           "pos": 0,
@@ -9052,7 +9052,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 74.981,
-      "endSeconds": 75.057,
+      "endSeconds": 75.031,
       "nodes": [
         {
           "pos": 0,
@@ -9087,7 +9087,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 75.139,
-      "endSeconds": 75.349,
+      "endSeconds": 75.189,
       "nodes": [
         {
           "pos": 0,
@@ -9122,7 +9122,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 75.243,
-      "endSeconds": 75.396,
+      "endSeconds": 75.293,
       "nodes": [
         {
           "pos": 0,
@@ -9192,7 +9192,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 75.532,
-      "endSeconds": 75.74,
+      "endSeconds": 75.582,
       "nodes": [
         {
           "pos": 0,
@@ -9227,7 +9227,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 75.631,
-      "endSeconds": 75.808,
+      "endSeconds": 75.681,
       "nodes": [
         {
           "pos": 0,
@@ -9262,7 +9262,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 75.792,
-      "endSeconds": 75.99,
+      "endSeconds": 75.842,
       "nodes": [
         {
           "pos": 0,
@@ -9332,7 +9332,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 75.898,
-      "endSeconds": 76.106,
+      "endSeconds": 75.948,
       "nodes": [
         {
           "pos": 0,
@@ -9367,7 +9367,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 75.974,
-      "endSeconds": 76.11,
+      "endSeconds": 76.024,
       "nodes": [
         {
           "pos": 0,
@@ -9402,7 +9402,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 76.136,
-      "endSeconds": 76.284,
+      "endSeconds": 76.186,
       "nodes": [
         {
           "pos": 0,
@@ -9437,7 +9437,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 76.178,
-      "endSeconds": 76.333,
+      "endSeconds": 76.228,
       "nodes": [
         {
           "pos": 0,
@@ -9507,7 +9507,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 76.38,
-      "endSeconds": 76.573,
+      "endSeconds": 76.43,
       "nodes": [
         {
           "pos": 0,
@@ -9542,7 +9542,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 76.452,
-      "endSeconds": 76.643,
+      "endSeconds": 76.502,
       "nodes": [
         {
           "pos": 0,
@@ -9577,7 +9577,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 76.669,
-      "endSeconds": 76.744,
+      "endSeconds": 76.719,
       "nodes": [
         {
           "pos": 0,
@@ -9612,7 +9612,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 76.715,
-      "endSeconds": 76.878,
+      "endSeconds": 76.765,
       "nodes": [
         {
           "pos": 0,
@@ -9691,7 +9691,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 76.89,
-      "endSeconds": 76.973,
+      "endSeconds": 76.94,
       "nodes": [
         {
           "pos": 0,
@@ -9761,7 +9761,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 76.936,
-      "endSeconds": 77.15,
+      "endSeconds": 76.986,
       "nodes": [
         {
           "pos": 0,
@@ -9796,7 +9796,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 77.178,
-      "endSeconds": 77.359,
+      "endSeconds": 77.228,
       "nodes": [
         {
           "pos": 0,
@@ -9831,7 +9831,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 77.181,
-      "endSeconds": 77.375,
+      "endSeconds": 77.231,
       "nodes": [
         {
           "pos": 0,
@@ -9866,7 +9866,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 77.343,
-      "endSeconds": 77.49,
+      "endSeconds": 77.393,
       "nodes": [
         {
           "pos": 0,
@@ -9901,7 +9901,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 77.359,
-      "endSeconds": 77.44,
+      "endSeconds": 77.409,
       "nodes": [
         {
           "pos": 0,
@@ -9936,7 +9936,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 77.383,
-      "endSeconds": 77.461,
+      "endSeconds": 77.433,
       "nodes": [
         {
           "pos": 0,
@@ -9971,7 +9971,7 @@
       "type": "waveCurve",
       "layer": 4,
       "startSeconds": 77.411,
-      "endSeconds": 77.49,
+      "endSeconds": 77.461,
       "nodes": [
         {
           "pos": 0,
@@ -10006,7 +10006,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 77.61,
-      "endSeconds": 77.772,
+      "endSeconds": 77.66,
       "nodes": [
         {
           "pos": 0,
@@ -10041,7 +10041,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 77.763,
-      "endSeconds": 77.919,
+      "endSeconds": 77.813,
       "nodes": [
         {
           "pos": 0,
@@ -10076,7 +10076,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 77.788,
-      "endSeconds": 78.01,
+      "endSeconds": 77.838,
       "nodes": [
         {
           "pos": 0,
@@ -10111,7 +10111,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 77.794,
-      "endSeconds": 77.982,
+      "endSeconds": 77.844,
       "nodes": [
         {
           "pos": 0,
@@ -10146,7 +10146,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 77.835,
-      "endSeconds": 77.943,
+      "endSeconds": 77.885,
       "nodes": [
         {
           "pos": 0,
@@ -10181,7 +10181,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 77.907,
-      "endSeconds": 78.001,
+      "endSeconds": 77.957,
       "nodes": [
         {
           "pos": 0,
@@ -10216,7 +10216,7 @@
       "type": "waveCurve",
       "layer": 4,
       "startSeconds": 77.952,
-      "endSeconds": 78.07,
+      "endSeconds": 78.002,
       "nodes": [
         {
           "pos": 0,
@@ -10251,7 +10251,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 78.11,
-      "endSeconds": 78.243,
+      "endSeconds": 78.16,
       "nodes": [
         {
           "pos": 0,
@@ -10286,7 +10286,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 78.155,
-      "endSeconds": 78.241,
+      "endSeconds": 78.205,
       "nodes": [
         {
           "pos": 0,
@@ -10321,7 +10321,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 78.187,
-      "endSeconds": 78.374,
+      "endSeconds": 78.237,
       "nodes": [
         {
           "pos": 0,
@@ -10356,7 +10356,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 78.213,
-      "endSeconds": 78.352,
+      "endSeconds": 78.263,
       "nodes": [
         {
           "pos": 0,
@@ -10391,7 +10391,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 78.275,
-      "endSeconds": 78.372,
+      "endSeconds": 78.325,
       "nodes": [
         {
           "pos": 0,
@@ -10426,7 +10426,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 78.417,
-      "endSeconds": 78.495,
+      "endSeconds": 78.467,
       "nodes": [
         {
           "pos": 0,
@@ -10461,7 +10461,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 78.42,
-      "endSeconds": 78.515,
+      "endSeconds": 78.47,
       "nodes": [
         {
           "pos": 0,
@@ -10496,7 +10496,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 78.482,
-      "endSeconds": 78.579,
+      "endSeconds": 78.532,
       "nodes": [
         {
           "pos": 0,
@@ -10531,7 +10531,7 @@
       "type": "waveCurve",
       "layer": 3,
       "startSeconds": 78.586,
-      "endSeconds": 78.708,
+      "endSeconds": 78.636,
       "nodes": [
         {
           "pos": 0,
@@ -10566,7 +10566,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 78.601,
-      "endSeconds": 78.733,
+      "endSeconds": 78.651,
       "nodes": [
         {
           "pos": 0,
@@ -10601,7 +10601,7 @@
       "type": "waveCurve",
       "layer": 4,
       "startSeconds": 78.708,
-      "endSeconds": 78.842,
+      "endSeconds": 78.758,
       "nodes": [
         {
           "pos": 0,
@@ -10636,7 +10636,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 78.732,
-      "endSeconds": 78.87,
+      "endSeconds": 78.782,
       "nodes": [
         {
           "pos": 0,
@@ -10671,7 +10671,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 78.819,
-      "endSeconds": 78.886,
+      "endSeconds": 78.869,
       "nodes": [
         {
           "pos": 0,
@@ -10706,7 +10706,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 78.819,
-      "endSeconds": 78.96,
+      "endSeconds": 78.869,
       "nodes": [
         {
           "pos": 0,
@@ -10741,7 +10741,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 78.895,
-      "endSeconds": 78.99,
+      "endSeconds": 78.945,
       "nodes": [
         {
           "pos": 0,
@@ -10776,7 +10776,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 79.011,
-      "endSeconds": 79.191,
+      "endSeconds": 79.061,
       "nodes": [
         {
           "pos": 0,
@@ -10811,7 +10811,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 79.023,
-      "endSeconds": 79.123,
+      "endSeconds": 79.073,
       "nodes": [
         {
           "pos": 0,
@@ -10846,7 +10846,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 79.104,
-      "endSeconds": 79.261,
+      "endSeconds": 79.154,
       "nodes": [
         {
           "pos": 0,
@@ -10881,7 +10881,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 79.143,
-      "endSeconds": 79.197,
+      "endSeconds": 79.193,
       "nodes": [
         {
           "pos": 0,
@@ -10916,7 +10916,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 79.183,
-      "endSeconds": 79.251,
+      "endSeconds": 79.233,
       "nodes": [
         {
           "pos": 0,
@@ -10951,7 +10951,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 79.227,
-      "endSeconds": 79.38,
+      "endSeconds": 79.277,
       "nodes": [
         {
           "pos": 0,
@@ -10986,7 +10986,7 @@
       "type": "waveCurve",
       "layer": 7,
       "startSeconds": 79.349,
-      "endSeconds": 79.422,
+      "endSeconds": 79.399,
       "nodes": [
         {
           "pos": 0,
@@ -11021,7 +11021,7 @@
       "type": "waveCurve",
       "layer": 4,
       "startSeconds": 79.417,
-      "endSeconds": 79.488,
+      "endSeconds": 79.467,
       "nodes": [
         {
           "pos": 0,
@@ -11056,7 +11056,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 79.424,
-      "endSeconds": 79.519,
+      "endSeconds": 79.474,
       "nodes": [
         {
           "pos": 0,
@@ -11091,7 +11091,7 @@
       "type": "waveCurve",
       "layer": 8,
       "startSeconds": 79.488,
-      "endSeconds": 79.689,
+      "endSeconds": 79.538,
       "nodes": [
         {
           "pos": 0,
@@ -11126,7 +11126,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 79.489,
-      "endSeconds": 79.569,
+      "endSeconds": 79.539,
       "nodes": [
         {
           "pos": 0,
@@ -11161,7 +11161,7 @@
       "type": "waveCurve",
       "layer": 9,
       "startSeconds": 79.602,
-      "endSeconds": 79.72,
+      "endSeconds": 79.652,
       "nodes": [
         {
           "pos": 0,
@@ -11196,7 +11196,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 79.639,
-      "endSeconds": 79.698,
+      "endSeconds": 79.689,
       "nodes": [
         {
           "pos": 0,
@@ -11231,7 +11231,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 79.686,
-      "endSeconds": 79.788,
+      "endSeconds": 79.736,
       "nodes": [
         {
           "pos": 0,
@@ -11266,7 +11266,7 @@
       "type": "waveCurve",
       "layer": 5,
       "startSeconds": 79.816,
-      "endSeconds": 79.878,
+      "endSeconds": 79.866,
       "nodes": [
         {
           "pos": 0,
@@ -11301,7 +11301,7 @@
       "type": "waveCurve",
       "layer": 1,
       "startSeconds": 79.838,
-      "endSeconds": 79.945,
+      "endSeconds": 79.888,
       "nodes": [
         {
           "pos": 0,
@@ -11336,7 +11336,7 @@
       "type": "waveCurve",
       "layer": 0,
       "startSeconds": 79.944,
-      "endSeconds": 80.09,
+      "endSeconds": 79.994,
       "nodes": [
         {
           "pos": 0,
@@ -11371,7 +11371,7 @@
       "type": "waveCurve",
       "layer": 6,
       "startSeconds": 79.965,
-      "endSeconds": 80.096,
+      "endSeconds": 80.015,
       "nodes": [
         {
           "pos": 0,
@@ -11406,7 +11406,7 @@
       "type": "waveCurve",
       "layer": 2,
       "startSeconds": 79.982,
-      "endSeconds": 80.121,
+      "endSeconds": 80.032,
       "nodes": [
         {
           "pos": 0,

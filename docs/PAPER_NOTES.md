@@ -1806,3 +1806,21 @@ which is precisely what made "ADDED n / CHANGED 0" look like a plausible success
 condition when the proof was hand-rolled. One command, one column, both shapes at once.
 **The counting proof would have refused the composer's own instruction here** — not in
 some hypothetical future case, but in the eleventh of eleven columns they dictated.
+
+**Day 35, ninth sitting — the mechanization arc reaches the figure process itself.**
+The composer, planning the density-build section (GESTURE-2 x0.75, 129 spread notes —
+materially the same kind of texture that took days 25–33 of per-figure dictation on
+CLOUD02): *"do a planning with Fable. Do analysis, make sure everything is good, and
+the playability run, and then once everything is set and instructions are clear, then
+do the notation run with Opus… let's go ahead and have a go at notating the whole
+section for all ten tubas. with opus, then if necessary, a fix pass with fable."*
+This is a process inversion worth naming: on CLOUD02 the composer's eye was IN the
+loop (dictation rounds per figure); here the standards accumulated across those weeks
+— NOTATION_STANDARDS.md, the registry, the pace rule, the bracket-above policy — are
+trusted to run a whole section autonomously, and the composer's eye moves to the END
+of the loop (a fix pass over a finished page, "if necessary"). The division of labor
+also hardened into a model division: Fable = the planning/judgment sitting that
+decides what is true and writes the instructions; Opus = the execution sitting that
+runs them. The instructions themselves became the interface between the two — the
+ninth sitting's §2 block is written to be executable cold, which is the same property
+the composer demanded of checkpoints (D71).

@@ -12411,3 +12411,64 @@ distinction about rhythmic figuring both times. The distinction was real and is 
 record above, but it was not what was asked, and the second answer cost them time they
 said they did not have: *"Let's see if we can't keep this very simple… I've already spent
 too long on this."* **The measurement they wanted took one script and four numbers.**
+
+#### Day 35 (ninth sitting, Fable 5) — THE DENSITY BUILD IDENTIFIED AT 56, MEASURED, AND CLEARED FOR THE OPUS NOTATION RUN
+
+*Composer: "Lets make the density build at fifty six… do a planning with Fable. Do
+analysis, make sure everything is good, and the playability run, and then once
+everything is set and instructions are clear, then do the notation run with Opus…
+Just confirm that you know how to handle all the surge ones in there and the forte
+pianos… then if necessary, a fix pass with fable."*
+
+**WHAT THE SECTION IS — measured, not assumed.** The marker at **55.94** is
+**"GESTURE-2 x0.75 · Messiaen m6 (F)"**; every note belongs to ONE group,
+`grp-gest2-75-01`. **129 sounding notes, 55.940–80.121 s, all ten tubas** (per-part
+8–17 notes). Techniques: **92 staccato · 28 fortepiano · 8 ord+surge · 1 plain ord**
+(wc-1624, T10, 2.017 s, opens the section AT the marker). The material is **identical
+in s26 and s27** — pre-existing from assembly, zero composer edits since; the
+composer's "at fifty six" designates it as the density build. The build shape,
+measured in attacks per 5 s: **4 → 9 → 17 → 32 → 67**, accelerating straight into the
+INT2 blasts at 81.748. **128 distinct onsets, exactly one 2-note coincidence
+(78.819)** — there are NO one-instant columns here: `notate_block` has no work in this
+section, it is ALL figure process.
+
+**TWO CATCHES from the analysis, both of which would have bitten the Opus run:**
+1. **The section starts a hair before 56.** wc-1624 starts at exactly 55.940 (the
+   marker's own time). A window `--w0 56` would cut it. The build must use **`--w0
+   55.9`** — safely below the note, safely above db1's last sounding tail (48.05 +
+   4.995 = 53.045; nothing lives in 53.045–55.94). Verified db1 does NOT carry
+   wc-1624 (latest onset 48.050) — no note is shared between pages.
+2. **A surge inside a figure has no precedent.** All 11 approved db1 surges sit in
+   the unfigured opening (onsets 2.00–28.87; figured clusters start 29.92). Gest2's
+   8 surges sit INSIDE the staccato texture and will meet the figure process for the
+   first time. Devices draw per note regardless of figures (D50 — registry data), so
+   the risk is purely visual (beam vs. surge curve) — a named VERIFY point for the
+   Opus run, not a code change.
+
+**THE SURGE AND FP QUESTION, answered from the registry, not memory.** Surge =
+`byEnv` entry resolved BEFORE technique (layout.js:67): curve + peak-cut + go line +
+nh-unit + **dyn pair with arrow** (hairpin replacement; no single mark). Fortepiano =
+`byTechnique`: ring bar at measured sample length + gc + **sfzp** (D51). **fp inside
+figured clusters is already approved** — db1 density build 1 carries fp at
+30.00–31.40 inside figures. Both devices battery-covered; nothing to build.
+
+**THE PLAYABILITY RUN — the composer's instinct confirmed.** Dry then `--apply` on
+`piece-s27`, section marker window (55.94–81.748, 129 notes): **0 hard, 0 soft,
+nothing for redistribution** ("nothing one part can take on its own" — moot, the
+audit was clean). Breath: every part inside the dials. Audibility: 5.4 attacks/s,
+27/128 within 30 ms of the previous, sounding max 9 / mean 2.3. **The one write: 92
+staccato bricks 54–290 ms → 50 ms** (D51, sound unaffected), re-audited from disk
+clean, one ARCHIVE_AMENDMENTS line. **No IR re-extract owed** — no existing page
+names s27 as source (db1 → s25-finished01, int2b1 → s26). The 9 ord-family notes
+were NOT touched (D9: their duration IS the drawn length).
+
+**THE PROCESS DECISION THE COMPOSER MADE, verbatim intent:** the whole section gets
+figured **by Opus in one run under the settled standards** (NOTATION_STANDARDS.md +
+registry), flags LISTED not agonized over, then **a Fable fix pass if necessary** —
+the composer's eye lands on a finished page, not on 40+ per-figure dictation rounds.
+First whole-section autonomous figure run; CLOUD02 took days 25–33 for materially
+similar content. Filed to PAPER_NOTES.
+
+**The Opus instruction block is in journal §2** (id/label proposed `db2` /
+"DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", stated for veto). This sitting wrote:
+`scores/piece-s27.json` (92 bricks) + the ledger line + these docs. Nothing else.

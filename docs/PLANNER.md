@@ -8,15 +8,18 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35) THE INT2 BLASTS SECTION IS DONE — 81-111 s, notated,
-verified, and CLOSED BY YOUR OWN CRITERION.** You set the test — *"if everything has its
-own GC and notehead, then we're done"* — and it is met: **121 of 121 notes draw a
-notehead, a go line and a brick; nothing you composed is unrepresented** (the 23 without
-a GC are all ord, which by registry design has no impact marker). All eleven blast
-columns you dictated are on `int2b1`, your T1 breath fix is in, and the two spread
-clusters stand as free/spatial reading. **`piece-s27` is the live save file — compose
-the density build there.** `piece-s26` is frozen as the canon `int2b1` refers to.
-Nothing has been folded into `db1`, and nothing will be without your say.
+**NOW ► (2026-08-24, day 35, later) THE DENSITY BUILD IS AT 56 — and it already
+exists: the GESTURE-2 x0.75 · Messiaen m6 (F) material** (marker @55.94, one group,
+129 notes 55.94–80.12 s, all ten tubas, 92 stacc + 28 fp + 8 surge + 1 ord — density
+4→9→17→32→67 attacks/5s, accelerating into the INT2 blasts). You designated it; the
+Fable planning sitting measured it, confirmed surge/fp handling from the registry, and
+ran playability: **0 hard, 0 soft — your instinct was right** — 92 bricks normalised
+to 50 ms (ledgered), nothing else touched. **NEXT: the OPUS NOTATION RUN — the whole
+section figured in one run** under the settled standards (instruction block in journal
+§2: build `db2` · `--w0 55.9` because your first note sits AT the marker · assert 129
+· scan · figures · flags listed not solved). Then your eye + a Fable fix pass if
+necessary. One named FIRST to watch: a surge inside a figure has no precedent —
+visual check at all 8.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
