@@ -12270,3 +12270,71 @@ because which one is a musical decision.*
 **11 of 13 groups in 81–110 are now machine-generated.** The two that remain are the
 spread clusters `grp-cg001-886` @88.616 and `grp-cg007-989` @98.988 — multi-onset
 gestures needing the figure process, which is the composer's job.
+
+---
+
+#### Day 35 (seventh sitting, Opus 5) — THE T1 BREATH ANSWERED, and the page proved COMPLETE against the composer score
+
+**Two composer moves: a verdict, and a question about what the page actually contains.**
+
+**1 — THE T1 BREATH.** *Composer: "t1 breath shorten just the t1 long tone leave the
+others in the column."* Done, and the number is derived rather than chosen: T1 attacks
+again at **99.46**, the breath standard is **0.5 s**, so the tone ends at **98.960** —
+a brick of **3.075 s** (was 3.435). The other six keep 3.435, because none of them has
+a following attack to breathe before.
+
+- **`set_brick --part N` built for it** (ZERO-indexed, T1 = `--part 0`). Every earlier
+  use normalised a whole column to one length; the flag did not exist because the need
+  did not. It prints what the column will look like afterwards rather than letting the
+  composer find it on the page.
+- **THE MEASURED SOUND LINE FIRED ON ITS FIRST REAL USE.** Built this morning because
+  `--technique any` had made the tool able to reach the ord family; every one of the
+  seven earlier runs printed *"sound is unaffected"*. This one printed **"SOUND CHANGES
+  on 1 ord-family note (D9: their IR duration is the drawn length)"** — correctly, and
+  unavoidably: an ord note's drawn length IS its duration, so a player who breathes
+  really does hold it 0.36 s less. Had the line still been the recited constant, the
+  ledger would now carry a false claim about the one edit in this section that changes
+  what is heard. *The guard was written in the morning and caught something in the
+  afternoon.*
+- **Rebuilt from `provenance.build` and proved: ADDED 0 / REMOVED 0 / CHANGED 2**, both
+  items on `ev-wc-2132` (its brick and its ring bar, 99.32 → 98.96), **warnings 1 → 0**
+  — the breath warning is gone. **Verified in the running app**, measured off the
+  rendered SVG at 95.5 +4.5 s: seven bars at 95.885, the top one ending **98.96** and
+  the other six at **99.32**.
+- *The CLI said "NOT CLEAN" and was asking the wrong question* — `isClean()` is the FOLD
+  claim (nothing moved at all). The right claim here is CONFINEMENT (D73), which the
+  library has and the CLI does not expose. **NITS.**
+
+**2 — "IS EVERYTHING FROM THE COMPOSER SCORE THERE?"** *Composer: "the entire eighty one
+to one hundred and eleven in int2b1 is everything that was in the composer score there
+now… Or did you leave something out?"* **Measured, not asserted — nothing was left out:**
+
+| | |
+|---|---|
+| sounding notes in `piece-s26`, 81–111 s, T1–T10 | **121** |
+| events on `int2b1` | **121** |
+| in the score but not on the page | **0** |
+| on the page with no score note | **0** |
+| ungrouped notes | **0** — all 121 belong to the 13 groups |
+
+*(Also in that window and correctly not events: 13 markers (labels) and 13 meta-layer
+objects. Zero group handles — this material has none.)*
+
+**BUT ONE CORRECTION TO THE PICTURE.** The composer's phrasing — *"so what's standing is
+a bunch of GCs for the other material"* — implies the bricks and GCs mark what is still
+undone. **They do not.** *Every* note on this page carries its parachute brick and go
+line, including all eleven finished columns, and every staccato/fortepiano/cuivre note
+carries a GC (ord has none — no GC in its registry entry). **Measured against the
+composer's own approved db1:**
+
+- db1's 40.93 fp blast (APPROVED): `10x brick, 10x goline, 10x gc, 10x ringbar`
+- int2b1's 86.58 column: `10x brick, 10x goline, 10x gc, 10x ringbar` — **identical**
+- db1's 48.05 octaves-Bb (APPROVED): `10x brick, 10x goline, 10x ringbar`
+- int2b1's 81.75 long tone: `10x brick, 10x goline, 10x ringbar` — **identical**
+
+**So the finished columns already look exactly like the blasts the composer approved.**
+What actually separates the two remaining clusters is not their ink but their TIME:
+`grp-cg001-886` has **14 notes on 14 distinct onsets** and `grp-cg007-989` **11 on 11**,
+against one onset for every blast column. **A chord struck at one instant has no rhythm
+to notate; a gesture spread across four seconds does.** That is the whole of what the
+figure process is for, and it is the whole of what is left in 81–110.

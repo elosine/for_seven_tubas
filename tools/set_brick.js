@@ -52,11 +52,23 @@ const TECHS = technique === 'any' ? null : new Set(technique.split(',').map(s =>
 // frozen file; a wrong rationale in it is worse than a terse one.
 const WHY_DEFAULT = 'composer instruction: "these should all be staccatos… some of the bricks are longer, that must have been from my playing" — and an over-long brick reads as a HARD playability conflict when the attack gap is comfortable';
 const why = arg('why', WHY_DEFAULT);
+// --part N (ZERO-indexed: T1 = --part 0), day 35 sixth sitting. Every earlier use
+// normalised a whole column to one length, and the flag did not exist. Then the
+// breath rule flagged ONE player: T1's 95.885 long tone is written to 99.32 and
+// T1 attacks again at 99.46 — 0.14 s against the 0.5 s standard — while the other
+// six in that chord have no such attack and should keep their full length. The
+// composer: "shorten just the t1 long tone leave the others in the column." So a
+// column may be DELIBERATELY non-uniform, one part at a time.
+const part = arg('part') != null ? parseInt(arg('part'), 10) : null;
 const META_LAYER = 10;
 
 if (!scoreName || (!group && (w0 == null || w1 == null)) || !(brick > 0)) {
   console.error('usage: set_brick.js --score <name> (--group <id> | --w0 <s> --w1 <s>)'
-    + ' [--brick 0.05] [--technique staccato|a,b|any] [--why "<reason>"] [--apply]');
+    + ' [--brick 0.05] [--technique staccato|a,b|any] [--part N] [--why "<reason>"] [--apply]');
+  process.exit(2);
+}
+if (part != null && !(part >= 0 && part < META_LAYER)) {
+  console.error('--part is ZERO-indexed: T1 = --part 0 … T10 = --part 9');
   process.exit(2);
 }
 
@@ -67,9 +79,24 @@ const score = JSON.parse(raw);
 const targets = (score.objects || []).filter(o =>
   o.type === 'waveCurve' && o.layer < META_LAYER && o.sonifyNote != null
   && (TECHS === null || TECHS.has(o.technique || 'staccato'))
+  && (part == null || o.layer === part)
   && (group ? o.groupId === group : (o.startSeconds >= w0 && o.startSeconds < w1)));
 
-if (!targets.length) { console.error('no ' + technique + ' notes matched'); process.exit(1); }
+if (!targets.length) {
+  console.error('no ' + technique + ' notes matched' + (part != null ? ' on T' + (part + 1) : ''));
+  process.exit(1);
+}
+// A per-part edit deliberately leaves the column uneven, so SAY what it will look
+// like rather than letting the composer discover it on the page.
+if (part != null && group) {
+  const rest = (score.objects || []).filter(o => o.groupId === group && o.sonifyNote != null && o.layer !== part);
+  const restLens = [...new Set(rest.map(o => +(o.endSeconds - o.startSeconds).toFixed(4)))];
+  console.log('  PER-PART EDIT: T' + (part + 1) + ' only. The other ' + rest.length +
+    ' note(s) in this group keep ' + restLens.join(', ') + ' s.');
+  console.log('  -> the column becomes DELIBERATELY non-uniform. --ringFromBrick reads each');
+  console.log('     note\'s own brick, so the page follows; but notate_block will refuse to');
+  console.log('     rebuild this group afresh (its uniform-brick guard). See NITS day 35.');
+}
 
 const lens = targets.map(o => o.endSeconds - o.startSeconds);
 const changed = targets.filter(o => Math.abs((o.endSeconds - o.startSeconds) - brick) > 1e-6);

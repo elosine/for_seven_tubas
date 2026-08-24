@@ -1442,7 +1442,7 @@
     "objectId": "wc-2132"
    },
    "onset": 95.885,
-   "duration": 3.434999999999988,
+   "duration": 3.0749999999999886,
    "pitch": {
     "midi": 61,
     "spelled": {
@@ -3755,7 +3755,7 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 3.435,
+     "ringSeconds": 3.075,
      "ringBar": true
     }
    },

@@ -447,3 +447,34 @@ rendering-environment difference worth understanding).
   CLOUD02-D's number; the gate re-derived it as **42.37** on the reconstructed
   world (425 rows, matching the hand measurement), and will move itself to the
   next section's boundary automatically.
+
+---
+
+- **`notate_block`'s uniform-brick guard vs a DELIBERATELY uneven column**
+  *(day 35, sixth sitting — opened by the T1 breath fix)*
+  The guard refuses a block whose notes have different drawn lengths, on the
+  correct grounds that **which** length is the block's is a composer question.
+  The composer has now answered it the other way for one column: at 95.885,
+  **T1 is 3.075 s and the other six are 3.435 s**, because only T1 has a
+  following attack to breathe before. The page is right — `--ringFromBrick`
+  reads each note's own brick, and the rebuild proved it (2 items changed, both
+  on T1, warning gone). But `notate_block --group grp-s005-958` would now
+  **refuse** that group, and its refusal text says *"Normalise them first"*,
+  which is now **wrong advice for this case**.
+  *Not urgent:* the column is already notated and rebuilds correctly from
+  `provenance.build` forever. *The fix when it matters:* check idempotency
+  (does the build command already carry this span?) **before** the uniformity
+  refusal, so an already-notated block reports ALREADY DONE instead of asking
+  to be flattened. *Note the shape — it is the third time in three days:* a
+  guard that is still passing, whose **reason** has moved underneath it.
+
+- **`tools/prove_unmoved.js` (the CLI) can only make the FOLD claim**
+  *(day 35, sixth sitting)*
+  It reports `isClean()` — "nothing moved at all" — and prints **NOT CLEAN**
+  for any targeted change, even a perfectly confined one. The T1 breath rebuild
+  printed NOT CLEAN while being exactly right: 2 changed items, both on the one
+  event aimed at, one warning gone. **The library already has `confine()`**
+  (D73); only the CLI does not expose it. *Fix:* a `--confine <ev-id,...>` (or
+  `--group <id>`) flag so a per-part score edit can state the right claim
+  instead of a human reading the rows and deciding. Every future breath fix
+  hits this.
