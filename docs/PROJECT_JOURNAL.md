@@ -160,7 +160,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
 | ~~F~~ | ~~THE FOLD~~ **DONE day 34** — db1 carries all 49 clusters (0–46.36 s, policy on); fork pruned; 425 approved rows proven unmoved; batteries green; pushed | — | — | — |
 | ~~G~~ | ~~Wake the approved-span gate~~ **DONE day 34** — both guards discover `db1-*` forks from the picker; boundary derived (re-derived 42.37 / 425 rows on the reconstructed day-33 world); fires red on real drift; missing fork file fails loudly; prints NOT APPLICABLE when there is no fork | — | — | — |
-| **M — NEXT (day 35 verdict)** | BUILD `tools/notate_block.js` — the long-tone / block generator: reads a score group, derives the brick, refuses non-uniform, emits the `notate_section` flags, rebuilds, and proves — with the **device-gap assert** (D72) and **`prove_unmoved`** built IN, not alongside. Goldens first (41 s block + 48.05 long tone reproduced EXACTLY). **STOP 1:** ask which save file holds the 81–110 s long tones. **STOP 2:** page ready for the composer's eye; nothing folds into db1 unapproved | Opus (written spec) | resume on Opus after this checkpoint | goldens reproduce · batteries green · 81–110 notated and shown |
+| ~~M~~ | ~~BUILD the block generator~~ **DONE day 35** — `tools/notate_block.js` + `notation/lib/{device_check,prove_unmoved}.js` + `tools/prove_unmoved.js` (CLI) + `tools/test_notate_block.js`. **GOLDEN PASSES: the machine-built page is item-for-item identical to the approved db1** (warnings 22 = 22); 44/44 new checks; ten batteries green; db1 byte-identical. The golden caught a real error in the day-35 brief → **D73** (the proof is CONFINEMENT, not stillness). All four traps are refusals | — | — | — |
+| **STOP 1 — NEXT, WAITING ON THE COMPOSER** | The machine refuses 81–110 s by design (T4): **no IR covers it** — db1 ends at 55.94. `--list` on both save files shows **`piece-s26` is still byte-identical to s25 in group content**, and 81–110 holds 13 groups of which only two are `ord` long tones: **`grp-s009-817` @81.748 (10 notes, 2.172 s)** and **`grp-s005-958` @95.885 (7 notes, 3.435 s)**. **Needed from the composer:** which save file, and whether 81–110 becomes a NEW IR or db1's window extends. Both commands are printed by the refusal | Opus once answered | no | the two long tones notated and shown (= STOP 2) |
 | N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
@@ -179,9 +180,12 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score). **Day 31:** step **2b · COLLAPSE** re-seats a whole gesture when nobody is free (`--noCollapse` off); notes inside any IR's `--cluster` are **FROZEN** and the report says how many (`--refigure` lifts it, and the figures then need rebuilding); "UNRESOLVED" reads **"AT THE FLOOR"** once a gesture has been re-seated |
+| **notate a BLOCK (day 35 — the generator)** | `node tools/notate_block.js --score <save> --group <id> [--ir db1] [--apply]` — a block = one instant, one uniform drawn brick, every part (a struck blast or a held long tone). Reads the group, derives the brick, decides **fork-vs-direct from the target IR window** (refuses with both commands printed when the block is outside it), emits `--ringFromBrick`, rebuilds from the IR own `provenance.build`, then **asserts and proves**: the device-gap assert (D72) + confinement (D73 — everything that moved belongs to this block, nothing else on the page did) + the bars measured against the brick. **Snapshots the IR and byte-restores it if any of that fails.** Idempotent |
+| **find the blocks in a score** | `node tools/notate_block.js --score <save> --list` — every group with its shape; the ones marked `BLOCK` are what the generator handles. This is step 1 of the old seven-step hand process |
+| **prove a page did not move** | `node tools/prove_unmoved.js --before <path> --after <ir-id\|path> [--expect-added N]` — the day-34 fold case: compare a page against a version of itself from git or an archive. `notate_block` calls the same library internally, so a generated rebuild proves itself without anyone remembering this |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
-| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |
+| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability test_notate_block` — all green at close (**11 since day 35**) |
 
 ### Things to know before building anything (hard-won, day 24)
 
@@ -374,6 +378,38 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
    is invisible — the only proof a guard works is making it go red on purpose.*
 
 ## §4 Decisions
+
+- **D74** *(2026-08-24, day 35)* — **THE LONG TONE IS SPELLED B FLAT, AND THE PAGE ALREADY
+  DRAWN IS LEFT ALONE.** The ten pitches of the octaves-Bb long tone at 48.05 are spelled
+  A♯ in the IR (`step A, alter 1`) and the page draws ten sharps, while the composer's
+  marker and their words both say "octaves Bb". Asked twice; the composer: *"bb but no need
+  to update anything already build"*. **So: B flat is the spelling for this material going
+  forward; the 48.05 page keeps its sharps.** *Why the second half matters as much as the
+  first:* a retrofit would rebuild an approved page, spend a proof, and change nothing a
+  player reads differently at sight — the composer priced the correction against the work
+  and declined it. **The general form: a decision about future material does not
+  automatically reach backwards.** Enharmonic spelling stays a composer call either way
+  (the extractor derives it from MIDI, and nothing in the pipeline should be inferring it).
+
+- **D73** *(2026-08-24, day 35)* — **THE PROOF OF A TARGETED REBUILD IS CONFINEMENT, NOT
+  STILLNESS.** Day 34's fold and day 35's long tone both hand-rolled a before/after layout
+  diff, and both reported the same shape: **ADDED n / REMOVED 0 / CHANGED 0**. The block
+  generator's golden showed that shape is not general. Writing `--ringFromBrick` onto the
+  **ord** long tone at 48.05 **adds** ten ring bars, because the `ord` registry entry has no
+  `ringBar` and there was nothing there (that is D72). Writing the **same flag** onto the
+  **fortepiano/cuivre** blast at 40.93 **changes** ten, because those techniques already
+  draw a bar and the flag only re-sizes it from the ragged sample lengths (1.14 … 1.60 s)
+  to the uniform drawn brick (1.01 s). Same instruction, same material class, two different
+  diffs — so `CHANGED 0` as a success condition would have made the tool **refuse a correct
+  rebuild of the composer's own approved page.** **What is asserted instead:** every item
+  added, removed or changed belongs to an event this command was aimed at, **and nothing
+  else on the page moved at all** — plus the ask measured directly (*10/10 notes carry a
+  ring bar, one length, equal to the drawn brick*). *What it rejects:* counting the diff.
+  A count is a proxy for the claim; naming WHICH ink may move is the claim. `isClean()`
+  (nothing moved at all) is kept, because it is still the right question for a **fold**,
+  where by definition nothing should move. *How it was found:* only by replaying BOTH
+  hand-notated instances. With one, the machine would have shipped a success condition that
+  was an accident of one registry entry.
 
 - **D72** *(2026-08-24, day 35)* — **A DEVICE FLAG MUST TURN ITS DEVICE ON, NOT ONLY
   SIZE IT.** `--ringFromBrick` wrote `device.ringSeconds` only; layout draws a ring bar

@@ -1667,3 +1667,63 @@ that I am mildly dyslexic."* The reply-density rule had been in force since roug
 since. The behaviour was right for seven days before its cause was known. But only the
 cause makes it generalise: knowing *why* extends the rule to formats nobody has complained
 about yet, which the empirical version could never do.
+
+---
+
+## Day 35 — n=2: NOT ENOUGH TO BUILD ON, EXACTLY ENOUGH TO BUILD FROM (2026-08-24, Opus 5)
+
+*The block generator was authorised by the Fable verdict logged above, and built the same
+day. What happened during the build is a second, sharper instalment of the same argument
+about evidence — and it turned on the same number.*
+
+**The verdict's own sticking point was n=2.** Fable's first answer refused to build a
+generator over two hand-notated instances, on the grounds that a generator over two
+examples may encode accidents as rules. It reversed when the composer supplied a fact about
+the future (the material recurs). But the reversal did not dissolve the original worry — it
+only said the generator was worth having anyway. The worry was still live at build time.
+
+**It was justified, and the two instances are what proved it.** The build's golden test
+strips both `--ringFromBrick` flags out of the approved page's own build command, rebuilds
+that page as a twin, lets the machine put them back, and demands the result be item-for-item
+identical to the page the composer approved. The first run came out **ten items short, not
+twenty**:
+
+- On the **ord** long tone the flag **adds** ten ring bars — `ord` has no `ringBar` in the
+  device registry, so nothing was drawn there before.
+- On the **fortepiano/cuivre** blast the flag **changes** ten — those techniques already
+  draw a bar, and the flag only re-sizes it from the ragged measured sample lengths
+  (1.14, 1.10, 1.43, 0.953, 1.51, 0.95, 1.60, 0.99, 1.55, 1.57 s) to the one drawn brick.
+
+**The consequence for the argument.** The proof line the AI had produced by hand the day
+before — `ADDED 10 / REMOVED 0 / CHANGED 0` — and had written into the mechanization brief
+as *"today's ideal output"*, is an accident of which registry entry the material happened
+to use. Had it been encoded as the machine's success condition, the tool would have refused
+a correct rebuild of the composer's own approved page. **The AI's own summary of what it had
+just done was wrong in exactly the way the composer's filter warns about: a rule read off a
+single case.**
+
+**So the distinction the day earned is between two uses of the same evidence.** Two
+instances were *not enough to build ON* — not enough to justify committing to the
+abstraction, which is what Fable said and what the composer overrode with information only
+they had. But two instances were *exactly enough to build FROM*, because they are
+replayable: they can be stripped back out of the finished page and demanded again. **And it
+took BOTH.** With only the long tone, the machine ships the wrong success condition and
+nothing catches it. The second instance was not corroboration; it was the disconfirming
+case, and it happened to be sitting in the repository already.
+
+**What replaced the count is worth stating precisely, because it is a claim about claims.**
+The proof is no longer *how many items changed* but *which ink was allowed to move*: every
+added, removed or changed item belongs to the block the command was aimed at, and nothing
+else on the page moved at all — plus the ask measured directly (ten of ten notes carry a
+ring bar, one length, equal to the drawn brick). A count is a proxy that happened to be
+true once. Naming the permitted region is the thing the composer actually plans around.
+
+**A smaller instance of the same lesson, from the same sitting.** The device-gap assert
+could have been a two-line constant — `ringSeconds` requires `ringBar` — read straight off
+the bug that produced D72. Instead it derives its table by brace-matching `layout.js` and
+asking, of every device field the renderer reads, whether every read site sits inside some
+other field's guard. That pass found **41** dependent fields where the bug had shown one.
+The hand-written version would have been correct on the day it was written and silently
+stale afterwards. **Both moves in this sitting are the same move: prefer the mechanism that
+can still be right about cases nobody has seen yet over the rule read off the case in
+hand.**

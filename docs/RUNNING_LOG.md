@@ -11879,3 +11879,123 @@ reason makes it generalize to formats nobody has complained about yet.*
 
 **Still open, one word whenever the composer likes:** **A♯ or B♭** for the ten long-tone
 pitches at 48.05.
+
+---
+
+#### Day 35 (fourth sitting, Opus 5) — THE BLOCK GENERATOR BUILT, and the golden immediately proved the day-35 proof shape wrong
+
+*Composer, after the Fable verdict: "if staying with opus no need to clear go ahead and
+start build." Also, answering the standing question: "bb but no need to update anything
+already build" — the long-tone spelling is **B flat** going forward; the 48.05 page is left
+as it stands (ten sharps), because retrofitting it buys nothing.*
+
+**BUILT — five files, 44 checks, ten batteries still green:**
+
+- **`notation/lib/device_check.js`** — the device-gap assert (D72 made mechanical).
+- **`notation/lib/prove_unmoved.js`** — the before/after layout diff, hand-rolled twice
+  before this.
+- **`tools/notate_block.js`** — the machine.
+- **`tools/test_notate_block.js`** — the battery, with the golden.
+- **`tools/prove_unmoved.js`** — a thin CLI over the library, for the case the machine does
+  not cover: comparing a page against a version of itself from git (day 34's fold).
+
+**THE DEPENDENCY TABLE IS DERIVED FROM `layout.js`, NOT HAND-WRITTEN.** The obvious build
+was a constant — `{ringSeconds: 'ringBar'}` — which is correct today and stale the first
+time layout grows a guard. Instead `device_check` brace-matches `layout.js` and asks, of
+every `dev.X` it reads: *is every read site of X inside an `if (dev.Y)` block?* If so X
+depends on Y, which is what "only drawn under" means, asked in the only place that can
+answer it. **The pass finds 41 dependent fields**, including the two checkable by hand
+(`ringSeconds` needs `ringBar`; `nhDotGapSs` needs `nhUnit` + `nhDot`). D72's own scenario
+is rebuilt in the battery as a unit test and caught. A hardcoded FALLBACK table survives a
+parse failure, so the check degrades to weaker rather than to absent.
+
+**THE GOLDEN CAUGHT A REAL ERROR IN THE DAY-35 BRIEF — this is the finding of the
+sitting.** The golden strips both `--ringFromBrick` flags out of db1's build command,
+rebuilds that page as a twin, lets the MACHINE put them back, and requires the result to be
+item-for-item identical to the approved db1. First run: **the twin came out 10 items short
+of db1, not 20.**
+
+- On **ord** (48.05) the flag **ADDS** ten ring bars — the `ord` registry entry has no
+  `ringBar`, so there was nothing there. That IS D72.
+- On **fortepiano/cuivre** (40.93) the flag **CHANGES** ten — those techniques already draw
+  a bar, and the flag only re-sizes it from the ragged sample lengths (measured in the
+  twin: **1.14, 1.10, 1.43, 0.953, 1.51, 0.95, 1.60, 0.99, 1.55, 1.57 s**) to the uniform
+  drawn brick, 1.01 s.
+- **So `ADDED 10 / REMOVED 0 / CHANGED 0` — the shape the day-35 proof took by hand, and the
+  shape the mechanization brief wrote down as "today's ideal output" — is true of the long
+  tone and FALSE of the blast, though the instruction and the material class are identical.**
+  Encoding it as the success condition would have made the tool refuse a correct rebuild of
+  the composer's own approved page.
+
+**What replaced it: CONFINEMENT, not stillness.** `Prove.confine()` asks the question a
+targeted rebuild actually has to answer — *every item that moved belongs to the block this
+command was aimed at, and nothing else on the page moved at all* — plus a direct measurement
+of the ask itself: **10/10 notes carry a ring bar, one length, equal to the drawn brick.**
+That claim holds for both cases and is stronger than the count it replaced, because it says
+WHICH ink is allowed to move. `isClean()` (nothing moved at all) is kept for the fold case,
+where it is the right question.
+
+*Worth keeping for the paper: the generator was built from n=2, and n=2 was the whole
+argument. Two instances were not enough evidence to build ON — the Fable verdict said so and
+reversed only on the composer's fact that the material recurs. But they were exactly enough
+to build FROM, because they can be replayed. And the second instance is what caught the
+error: with only the long tone in hand, the machine would have shipped a success condition
+that was an accident of `ord` having no `ringBar`.*
+
+**THE FOUR DAY-35 TRAPS, NOW REFUSALS — each verified in the battery:**
+
+- **T1 (the wrong probe)** — proof comes from `layout.js` itself, never from guessed SVG
+  attributes. Both pages are laid out through the app's own opts composition
+  (`notation.html` line ~228) and the models are diffed.
+- **T2 (field-name guessing across three schemas)** — one function, `readBlock()`, knows
+  that score objects use `startSeconds`/`endSeconds`/`layer`/`sonifyNote`, markers use
+  `time`, and IR events use `onset`/`source.objectId`. It also knows a block's **handle** (a
+  waveCurve with no technique and no pitch) is not a note — verified: 10 notes + 1 handle,
+  never 11.
+- **T3 (a success line describing an effect it never verified)** — the device-gap assert
+  runs on the *rebuilt* IR and refuses if any field asks for something the resolved device
+  never draws.
+- **T4 (fork vs direct)** — decided from the target IR's own window, not from habit. Inside
+  the window → DIRECT (the 41 s precedent is already inside db1's build command). Outside →
+  **REFUSED**, with both real options printed as runnable commands, because that is a
+  SECTION decision and a fork inherits the same window anyway.
+
+**Two more refusals the material itself demanded**, neither in the original spec:
+
+- **a non-uniform brick** is refused with the `set_brick.js` command to normalise it — WHICH
+  brick is the block's length is a composer question, not a derivation.
+- **a technique with no ring bar** (the `staccato+cuivre` blocks at 84.6 and 85.4 s) is
+  refused rather than half-notated, because `--ringFromBrick` would silently skip those
+  notes — the exact shape of T3.
+
+**SAFETY, verified in the battery:** `--apply` snapshots the IR bytes before rebuilding. If
+the rebuild fails, or the device-gap assert fires, or the proof is not confined, the original
+file is written back **byte-for-byte** and the tool exits non-zero. A rebuild that cannot
+prove itself does not survive. *(The test poisons a build command and confirms the file is
+restored identically.)*
+
+**One cosmetic fix with a real reason:** the span is written with at least one decimal
+(`48.0-48.1`, `40.9-41.0`) so a generated `provenance.build` still matches the command in the
+journal — `48-48.1` parses the same and would have cost someone an afternoon proving they
+were the same thing. Idempotency is checked by VALUE, not string, so either form is
+recognised as already done.
+
+**VERIFIED, not asserted:** 44/44 in the new battery; **the machine-built page is
+item-for-item identical to the approved db1, warnings 22 = 22**; ten standing batteries all
+green; `db1.ir.json` byte-identical to its pre-session state; no stray picker entry (the twin
+is pruned and its manifest row checked gone); `notation/ir/index.json` restored after the
+usual line-ending churn.
+
+**STEP 1 OF THE SEVEN IS NOW A COMMAND, and it answered the composer's next question before
+it was asked.** `notate_block --list` prints every group with its shape. Run on both save
+files:
+
+- **`piece-s26` is still byte-identical to `piece-s25-finished01` in group content** — the
+  copy made on day 33; no new long-tone material has been composed into it yet.
+- The **81-110 s** region the composer named already holds **13 groups**, of which only
+  **four are block-shaped** and only **two are `ord` long tones**: **`grp-s009-817` @81.748
+  (10 notes, 2.172 s brick)** and **`grp-s005-958` @95.885 (7 notes, 3.435 s brick)**. The
+  rest are short blasts and clusters — a different notation job.
+- **No IR covers that region.** The db1 window ends at 55.94, so the machine refuses both of
+  them by design (T4) and prints the two options. **That refusal is STOP 1: which save file,
+  and one page or a new one, is the composer's call.**
