@@ -102,13 +102,22 @@ not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**DAY 30 UPDATE (this session): T4 IS PROPOSED in `db1-c2i-x01` (cl-30) and awaits
-the composer's verdict** — bracketed build chosen by rule-candidate-8 measurement
-(plain: 6 of 17 notes over a head, worst 1.83; brackets: worst 0.90, none over).
-Recipe + mf-floor dynamics applied; batteries green, `--validate` 24/25, layout
-audit exact (RUNNING_LOG day 30, ledger D-log 10). **Live in the read: the three
-straddles (A(a)) · ratio tie after 2 vs 4 · near-ties 6/9/11 · note-7 pickup ·
-the fff-pair dynamics call.** Composer verdicts → ledger rows → "done" → T5.
+**DAY 30 UPDATE (this session): T4 read is FOUR ROUNDS IN, all three straddles
+RESOLVED, awaiting the composer's look at the finished page.** Round 1: proposal
+by rule-candidate-8 measurement (plain 6/17 over a head → brackets; D-log 10).
+Round 2: composer's bracket-aligned first stretch + THE COUNTING-VS-PHRASE
+QUESTION named; AI answered CONTAINMENT (a bracket never crosses a beam boundary
+but may sit inside a wider phrase beam — rule cand. 10; PAPER_NOTES day 30).
+Round 3: "ok a" — [10-13] one phrase beam. Round 4: "yes merge 3-7 and build the
+3:2" — **notate_section gained the hand-tuplet override** (under `--figures` a
+hand `--tuplet` replaces the fit's beat bracket; lattice + seam validation; inert
+gate byte-identical) and T4 became 6 groups, brackets 5:4 · 6:4 · 5:4 · 3:2 ·
+3:2, **zero straddles** — the two 6:4s were per-beat artifacts (only notes 13/17
+off-lattice; rule cand. 11). The day-28 A(a) fix is retired for every case seen.
+Ledger D-log 11 complete; batteries green each round; `--validate` 24/25.
+**Still open on T4: the composer's look · the fff-pair dynamics call (D-log
+10.2).** Then "done" → T5 (the loop: analyzer → propose per recipe → dictation
+rounds → ledger).
 
 **CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
 **T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.

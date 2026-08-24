@@ -10339,3 +10339,39 @@ call, analysis logged here):
    `--tuplet`; the day-28 A(a) "scope the bracket to the figure" fix would then be
    unnecessary for this section. Interim: accept straddle #3, or [10–14]+[15 16 17]
    (rejected in analysis: glues 14 across the 325 ms pace change).
+
+
+#### Day 30 — T4 rounds 3-4: "yes merge 3-7 and build the 3:2" — zero straddles, and a new tool semantic
+
+- **The merge:** `--cuts 2,7,9,13,15` — [3-7] one beam group, 5:4 and 6:4 wholly
+  inside. The round-1 counting cut after 5 reversed (it was mid-run by pace — D68
+  itself refuses that seam).
+- **THE BUILD (notate_section.js, ~55 lines): under `--figures`/`--pattern` a hand
+  `--tuplet a-b@n:d` now OVERRIDES the fit's beat bracket.** Semantics: the window
+  is written as the hand says (explicit slots — a rest may sit between the notes,
+  unlike the day-23 consecutive-slot hand path, which is untouched for cluster_fit
+  clusters) · the beat(s) it touches lose their fit bracket · every other member of
+  those beats must sit ON the plain lattice (validated, refused with the member
+  named) · a window may not cross a beam seam (refused — it would recreate the
+  straddle) · pick-up members refused · positions NEVER move, only the writing.
+  The report now shows the WRITTEN page: overridden beats drop their fit bracket
+  and any straddle it caused; hand brackets join their group's line with a "hand
+  tuplet … replaces the fit's bracket on beat N" line.
+- **INERT GATE PASSED:** with the code in place, every stored command rebuilds the
+  section file BYTE-IDENTICAL (no existing cluster combines patTuplets with hand
+  tuplets — T1 cl-1's day-23 3:2 lives on the cluster_fit path, untouched).
+- **Applied:** `--tuplet 12-13@3:2 --tuplet 16-17@3:2`. T4 now = 6 groups
+  [1 2][3-7][8 9][10-13][14 15][16 17], brackets **5:4 · 6:4 · 5:4 · 3:2 · 3:2**,
+  ZERO straddles: [14 15] is a bare plain pair (no bracket touches it), [16 17] is
+  bracket = group exact. Two sextuplet rest-pairs became single plain 16th rests
+  (rest count 22 → 20). Ten batteries green (incl. the bracket-clears-beam check on
+  this file), `--validate` 24/25, layout audit exact (17 heads/stems/dots · 7
+  accents · mf/fff/f · 1 GC).
+- **What died with it:** the ratio tie and the near-ties (hand cuts — the pace rule
+  is out of the loop for T4); the note-7 pickup flag (the composer's own grouping
+  beams 7 backward into [3-7]); and — for every case seen so far — the day-28 A(a)
+  "scope the bracket to the figure" fix, which containment + the sub-beat override
+  make unnecessary. Rule candidates 10 (containment) and 11 (a bracket covers only
+  the notes that need it) logged in the ledger.
+- **Still open on T4:** the composer's look at the finished page; the fff-pair
+  dynamics call (D-log 10.2) unaddressed.

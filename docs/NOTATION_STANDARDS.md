@@ -29,6 +29,15 @@ changes and writes them on ONE grid, beams broken at the seams** — see princip
 below. It refuses to combine with `--pattern` (which it implies) or `--beamBreak`
 (the seams ARE the breaks — move one with `--cuts`). **`--ownGrids`** (with
 `--figures`) is the alternative: each group on its own grid, the 8g/8h reading.
+**`--tuplet a-b@n:d` on a `--figures`/`--pattern` cluster OVERRIDES the fit's
+beat bracket (day 30):** the window is written as the hand says, the beat's other
+members must sit ON the plain lattice and are written plain, the window may not
+cross a beam seam, and positions never move — only the writing. Exists because
+`fit()` brackets whole beats: where only one note of a beat is off the plain
+lattice (T4's endings — slot 2 of a 3:2 over the beat's last 8th), the whole-beat
+tuplet is an artifact and the small bracket is the honest one (ledger rule
+candidates 10–11: a bracket never crosses a beam-group boundary but may sit
+inside a wider phrase beam; a bracket covers only the notes that need it).
 
 ## The cluster standard
 

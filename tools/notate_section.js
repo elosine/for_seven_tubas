@@ -478,6 +478,19 @@ const { doc, warnings } = Extract.extract(score, {
     // brackets, and the seams arriving separately as beam breaks.
     const oneGrid = useFigures && !ownGrids;
     const usePattern = oneGrid || plainOnly || mods.some(([k]) => k === '--pattern');
+    // --tuplet a-b@n:d — parsed HERE (day 30) so the pattern path can honor it.
+    // Under --figures/--pattern a hand tuplet OVERRIDES the fit's beat bracket:
+    // fit() has no sub-beat vocabulary, so where only one note of a beat is off
+    // the plain lattice it brackets the whole beat (T4's ending 6:4 — notes 15
+    // and 16 sit ON the plain lattice; only 17 needs a 3:2 over the last 8th).
+    // The cluster_fit path below keeps the day-23 semantics unchanged.
+    const tuplets = [];
+    for (const val of modVals('tuplet')) {
+      const mm = val.match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
+      if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
+      tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
+    }
+    const handBrackets = [];   // day 30: what the hand wrote, for the report
     let patTuplets = null;   // k(member index) -> {group, num, den, startPos, slot}
     if (usePattern) {
       const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
@@ -519,6 +532,49 @@ const { doc, warnings } = Extract.extract(score, {
             text: b.tuplet + ':' + p2, valueDur: 16 / (4 / p2), beams: Math.log2(p2) });
         });
       }
+      // A HAND TUPLET OVERRIDES THE FIT'S BEAT (day 30 — T4's ending, "build
+      // the 3:2"). The window is written as the hand says; the beat(s) it
+      // touches lose their fit bracket; every OTHER member of those beats must
+      // sit ON the plain lattice and is written plain. Positions never move —
+      // only the writing. A window may not cross a beam seam (it would say
+      // "quicker" about two groups — the exact garble this exists to remove).
+      for (const t of tuplets) {
+        if (t.from <= pre.length) {
+          console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + ': hand tuplets cover main members only, not pick-ups'); process.exit(2);
+        }
+        // work in the unshifted frame (beat lines sit at multiples of 4 there)
+        const u = k => fit.grid[k] - shift;
+        const slotW = t.den / t.num;
+        const startU = Math.floor(u(t.from - 1) / t.den + 1e-9) * t.den;
+        if (oneGrid) for (const c of seg.cuts) {
+          const cc = c + pre.length;
+          if (t.from <= cc && cc < t.to) {
+            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': the window crosses the seam after note ' + cc + ' — a hand bracket must sit inside one beam group'); process.exit(2);
+          }
+        }
+        const p2 = t.num >= 4 ? 4 : 2;
+        const recs = new Map();
+        for (let k = t.from - 1; k <= t.to - 1; k++) {
+          const rel = u(k) - startU;
+          const slot = Math.round(rel / slotW);
+          if (slot < 0 || slot >= t.num || Math.abs(rel - slot * slotW) > 5e-3) {
+            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': member ' + (k + 1) + ' (grid ' + fit.grid[k] + ') is not on that lattice (window starts at slot ' + (startU + shift) + ')'); process.exit(2);
+          }
+          recs.set(k, { group: key + '-ht' + t.from, num: t.num, den: t.den, startPos: startU + shift, slot: slot,
+            text: t.num + ':' + t.den, valueDur: 16 / (t.den / p2), beams: Math.round(Math.log2(4 * p2 / t.den)) });
+        }
+        const b0 = Math.floor(startU / 4 + 1e-9), b1 = Math.floor((startU + t.den - 1e-6) / 4);
+        for (const k of [...patTuplets.keys()]) {
+          const kb = Math.floor(u(k) / 4 + 1e-9);
+          if (kb < b0 || kb > b1 || recs.has(k)) continue;
+          if (Math.abs(u(k) - Math.round(u(k))) > 5e-3) {
+            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': member ' + (k + 1) + ' shares beat ' + kb + ' but sits off the plain lattice (grid ' + fit.grid[k] + ') — cover it with its own --tuplet'); process.exit(2);
+          }
+          patTuplets.delete(k);
+        }
+        for (const [k, r] of recs) patTuplets.set(k, r);
+        handBrackets.push({ from: t.from - pre.length, to: t.to - pre.length, num: t.num, text: t.num + ':' + t.den, beats: [b0, b1] });
+      }
       console.log('    PATTERN (D63' + (plainOnly ? ', --plain: no tuplets' : '') + '): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
       if (plainOnly && !pf.coherent) console.log('    --plain: no plain 16th grid holds this gesture within a head — built as asked; the displacement above is the price of saying nothing about the pace');
     }
@@ -530,6 +586,25 @@ const { doc, warnings } = Extract.extract(score, {
     // about each group, and whether any bracket says it across a seam.
     if (oneGrid) {
       const gBase = (pickup && !onePastPickup) ? pickup : 0;
+      // day 30: hand tuplets replaced fit beats — the report shows the WRITTEN
+      // page, not the fit's internal choice. Overridden beats drop their fit
+      // bracket (and any straddle it caused); the hand brackets join their
+      // owning group's line.
+      if (bvg && handBrackets.length) {
+        const ovBeats = new Set();
+        for (const h of handBrackets) for (let b = h.beats[0]; b <= h.beats[1]; b++) ovBeats.add(b);
+        for (const g of bvg.groups) g.brackets = g.brackets.filter(br => !ovBeats.has(br.beat));
+        for (const h of handBrackets) {
+          const g = bvg.groups.find(x => x.from <= h.from && h.to <= x.to);
+          if (g) {
+            g.brackets.push({ beat: h.beats[0], tuplet: h.num, text: h.text, notes: [h.from, h.to],
+              covers: (h.from === g.from && h.to === g.to) ? 'exact' : 'part' });
+            g.brackets.sort((a, b) => a.notes[0] - b.notes[0]);
+          }
+        }
+        for (const g of bvg.groups) g.plain = g.brackets.length === 0;
+        bvg.straddles = bvg.straddles.filter(st => !ovBeats.has(st.beat));
+      }
       console.log('    ' + seg.figures.length + ' GROUPS on ONE grid (8i), beams broken after note ' +
         (seg.cuts.map(c => gBase + c).join(', ') || 'nothing') + ':  ' + seg.words);
       (bvg ? bvg.groups : []).forEach(g => console.log('    g' + g.group + ': notes ' + (gBase + g.from) + '-' + (gBase + g.to) +
@@ -540,6 +615,10 @@ const { doc, warnings } = Extract.extract(score, {
         console.log('    STRADDLE: the ' + st.text + ' on beat ' + st.beat + ' covers notes ' + (gBase + st.notes[0]) + '-' + (gBase + st.notes[1]) +
           ', across the seam after note ' + (gBase + st.seamAfter) + ' — the bracket says "quicker" about two different groups. ' +
           'FLAGGED, not fixed: move the seam (--cuts) or write it as --ownGrids');
+      for (const h of handBrackets)
+        console.log('    hand tuplet ' + h.text + ' over notes ' + (gBase + h.from) + '-' + (gBase + h.to) +
+          ' — replaces the fit\'s bracket on beat ' + (h.beats[0] === h.beats[1] ? h.beats[0] : h.beats.join('-')) +
+          '; that beat\'s other members are written plain');
       if (seg.single && seg.single.coherent === false)
         console.log('    ONE GRID IS OVER A HEAD (' + seg.single.heads.toFixed(1) + ') — the page cannot say the relation on one grid. ' +
           'By hand: --ownGrids, or split at a seam (--cuts) and build two clusters');
@@ -602,13 +681,8 @@ const { doc, warnings } = Extract.extract(score, {
     // --tuplet 10-11@3:2 : members 10..11 form a 3:2 tuplet (three in the
     // space of two units). Slots beyond the members become rests INSIDE the
     // bracket — composer, day 23: "one sixteenth rest, which is part of that
-    // bracket". Repeatable.
-    const tuplets = [];
-    for (const val of modVals('tuplet')) {
-      const mm = val.match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
-      if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
-      tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
-    }
+    // bracket". Repeatable. (Parsed above the pattern path since day 30; the
+    // cluster_fit consumers below are unchanged.)
     // --rest16 7 : the silence BEFORE member 7 is written as 16th rests, one per
     // slot (day 29, composer, on T2's lone last partial: "let's change that
     // eighth rest to two sixteenths"). Carried on the member's device; layout's

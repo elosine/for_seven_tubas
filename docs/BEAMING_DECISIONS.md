@@ -146,6 +146,13 @@ at ♩=115). Groups identical with tuplets off (cuts 2,6,9,11,13,15 both ways).*
 | 11.3 | notes 10–13 | **DECIDED: one phrase beam over all four, 5:4 and 6:4 wholly inside it** (`--cuts 2,5,7,9,13,15` — the cut after 11 dropped) | "ok a" | straddle #2 dissolved by containment (widening), where straddle #1 dissolved by identity (aligning) — the two directions of the same rule, one round apart. Only beat 7's straddle remains |
 | 11.2 | notes 10–13 (the second 5:4 + 6:4) | ~~OPEN — the question, not yet decided~~ *(→ 11.3)* | "the tension is between counting groups and phrase groups. …the second five four and six four, those are really a group of four notes. So if I group them by a five four beat and then a six four beat, it would look like one and three" | counting grouping here degenerates: the 5:4 holds ONE note (a beam group of one = flag, no beam). AI's offered resolution: **containment** — a bracket may sit strictly INSIDE a wider phrase beam; only the crossing garbles. Measured support for "four": internal gaps 241/236/197 ms, every pairwise ratio ≤ 1.22 < 1.25 — one pace pairwise; the 2+2 cut after 11 exists only through greedy band anchoring (band 0 anchored at 174 claims 197) |
 
+## D-log 11 (continued) · T4 rounds 3–4 — day 30: the merge and the sub-beat 3:2
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 11.4 | notes 3–7 (first 5:4 + 6:4) | **merged into ONE beam group**, both brackets wholly inside (`--cuts 2,7,9,13,15`) | "yes merge 3-7" | the round-1 cut after 5 (a counting cut, mid-run by pace — D68 itself refuses it) reversed once the principle was named; the pairwise chain 205·214·215·265 (adjacent ratios ≤ 1.23) reads as one phrase |
+| 11.5 | beats 5 and 7 (the two 6:4s) | **REWRITTEN as plain 16ths + a sub-beat 3:2** on the off-lattice note's 8th: `--tuplet 12-13@3:2 --tuplet 16-17@3:2`. Built this day: under `--figures`/`--pattern` a hand `--tuplet` now OVERRIDES the fit's beat bracket (window written as the hand says · the beat's other members must sit ON the plain lattice, written plain · a window may not cross a beam seam · positions never move, only the writing) | "build the 3:2" | **the 6:4s were per-beat-model artifacts** — notes 11/12 and 15/16 sit ON the plain lattice; only 13 and 17 are off it, each exactly slot 2 of a 3:2 over its beat's last 8th. After: **zero straddles in T4**, [14 15] a bare plain pair, [16 17] = bracket exact. Inert gate: unchanged commands rebuild byte-identical. **Rule candidate 10: a bracket covers only the notes that need it — where a beat's off-lattice notes fit a sub-beat window, the small bracket beats the whole-beat one** (this also retires the day-28 A(a) "scope the bracket to the figure" fix for every case seen so far) |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
@@ -189,3 +196,15 @@ else it cannot explain.
    5:4's two 16ths, over — ALL of them, unlike the plain one-rest overhang). Bracket
    = beam group is the ideal (the g3 split made the 3:2 exact). (7.1, 8.1, 8.2, and
    the third-to-last-note fix)
+10. **CONTAINMENT, not identity: a bracket must never cross a beam-group boundary,
+   but may sit wholly inside a wider phrase beam.** The two legal shapes are
+   bracket = group (identity, T3's ideal) and bracket ⊂ group (the phrase beam);
+   the straddle is the only garble. Named on T4, where the composer named the
+   axis: *"the tension is between counting groups and phrase groups."*
+   (11.1, 11.3, 11.4)
+11. **A bracket covers only the notes that NEED it.** Where a beat's off-lattice
+   notes fit a sub-beat window, the small bracket (plain 16ths + 3:2 on one 8th)
+   beats the whole-beat tuplet — the whole-beat 6:4 was a per-beat-model
+   artifact, ink claiming "quicker" about notes that sit on the plain lattice.
+   (11.5; enforced by the day-30 hand-tuplet override, which demands the beat's
+   other members BE on the plain lattice)
