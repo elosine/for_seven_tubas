@@ -1579,3 +1579,14 @@ becomes machinery only by verdict, with its two deltas named. Also built this
 sitting, from the composer's note-relative language ("below the NOTE"): the
 per-mark accent law — the day-31 dynamics law extended to accents, which
 resolved the last collision in the section.
+
+**Third/fourth sitting — the read that never ran.** 6b, the formal part-by-part
+verdict rounds, closed with a sentence: *"6b is done so cld 2 wrapped."* The
+ceremony was skipped because its function had already been served — three days
+of placement repair kept every figure under the composer's eye, and the
+approvals accreted through the dictations themselves. The read is not a ritual
+but an exposure condition; when exposure happens by other means, the ritual is
+redundant. (Contrast day 30, where the reads were the exposure.) Also this
+sitting: the composer's rule sketch stayed a diagnostic at the AI's
+recommendation and the composer's silence — the facing-bands line now prints on
+every build, machinery deferred to a section with nothing approved to disturb.

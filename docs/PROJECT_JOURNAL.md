@@ -10,90 +10,48 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 32 COLD START — read this block, then `docs/NOTATION_STANDARDS.md` (principle 6
-incl. the day-30 lines), then `docs/BEAMING_DECISIONS.md` § THE STANDING BUILD RECIPE
-(incl. Day-30 additions — the five checks), then go. The next chunk is 6b below (Opus) — CLOUD02-D's notation, on a section
-that is already at its playability floor and carries NO figure.**
+**DAY 34 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33,
+composer: "6b is done so cld 2 wrapped"). Next work: THE NEXT SECTION — a LONG
+TONE + DENSITY BUILD 2 — composed on the new save file `piece-s26`. One
+mechanical chunk is ready to run first: THE FOLD (below).**
 
 ### State in one paragraph
 
-**Day 30 closed THE CLOUD02-I MILESTONE: all ten parts read part-by-part with the
-composer, finalized, and FOLDED into `db1`** ("DENSITY BUILD 1 + CLOUD02-I — all
-parts figured (day 30)") — every note of 0–40.4 s carries a composer-approved figure.
-`db1-c2i-x01` is PRUNED (git keeps it); **`db1-all-x01` is deliberately KEPT — it is
-`test_pattern_fit`'s frozen validate golden (D65)**; the scan + bracket tests now read
-`db1`. `--validate` on the merged file = **37/40**; the three DIFFERs are ear-over-fit,
-each on the record (cl-1 T1's day-23 3:2 · cl-28 T2's no-brackets · cl-34 T7's rule-8
-plain). The 40.93 blast's ten ring bars are UNIFORM at the drawn brick's 1.010 s
-(`--ringFromBrick`, new — drawing only, D49/D51 intact); the three cuivre notes carry
-`cuivré` in solid black above the head (T8 at the tag row — its G4 cannot clear the
-lane line; D-log 22.3). Whole archive 2 hard (trance seams @560.63 T8 / @604.63 T6) + **24 soft**, parked.
+**Day 33 wrapped CLOUD02-D.** The reads never ran as ceremony — the composer
+lived with every figure through the three-day placement work and closed 6b by
+standing verdict. The page is LOCKED under: **THE BRACKET-ABOVE POLICY**
+(every bracket above its own staff, hugged, per-IR `--bracketsAbove`; a
+bracket belongs to the staff below it) · **THE PER-MARK ACCENT LAW** (head-side
+accents hug their own note — day-31 dyn law extended) · `--dynSide` dictation ·
+the hook⇔side battery invariant · **THE APPROVED-SPAN GATE mechanised**
+(test_layout proves fork t<42 ≡ db1 every run) · **FACING BANDS named by every
+build** (info line: T6/T7 · T8/T9 · quiet T4/T5 @34.3 — every day-31-33
+dictation landed in a facing band). Geometry guard: ZERO c2d findings; only
+the two pre-existing tier-3 items (T9 @36.87 · T10 @39.08, approved db1).
+**The facing-bands MOVER is deliberately NOT machinery** — adopt at a future
+section build if wanted; its two deltas (T9 accents below, T3 accents to beam
+side) must be named to the composer first. Ten batteries + 75 snapshots green;
+everything pushed.
 
-**Day 31 closed 6a — CLOUD02-D IS AT ITS FLOOR AND CARRIES NO FIGURE.** 110 notes,
-18 soft → **10, worst 20 %**, 0 hard; db1 re-extracted, `--validate` **33/36**.
-The section turned out to be ONE gesture, not nine problems: at 45.45 s all ten
-parts drop from D4/E4 into E2–F#3 inside 80 ms, so *who catches which* is a clean
-10×10 assignment. Solved jointly — **worst leap 57 % → 20 %**; the composer's two
-asks became 8 st and 9 st. Three things were built to do it (PLAN 8j): the
-**COLLAPSE pass** (minimax re-seating of a whole gesture — the greedy pass only
-accepts a FREE home, and at 45.5 nobody is free), the **SAME-SLOT bar** (two notes
-under 30 ms in one part cannot be written; `--apply` now proves the end state
-before writing), and **FROZEN figures** (a note inside any IR's `--cluster` cannot
-move — built after two of db1's forty were silently re-membered). db1's four
-clusters in 44.5–46.2 s were dropped: composer, *"those figures were made by a
-mistake… you can just disregard those figures entirely."* **db1 is 36 clusters,
-none past 40.4 s.** All pushed; tree clean.
+**The save-file bump (day 33):** `scores/piece-s26.json` = byte-faithful copy
+of `piece-s25-finished01` (fresh metadata; 4563 objects, 10 tracks; verified
+in the live app list). `piece-s25-finished01-work` is a STALE app working copy
+(12 h older than the archive; zero composer edits) — left alone; the app makes
+`piece-s26-work` on first open. **Compose the next section in `piece-s26`;
+the s25 archive is frozen as CLOUD02-D-era canon.**
 
-### Day 30's other product: the generator's rulebook (all in BEAMING_DECISIONS.md)
+### THE FOLD — the ready mechanical chunk (c2d fork → db1, Opus, one command)
 
-- **D-logs 10–22** — every verdict of the ten reads, composer's words verbatim.
-- **Rule candidates 8–12**: brackets where plain fails pervasively (7 data points) ·
-  CONTAINMENT (a bracket never crosses a beam-group boundary; may sit wholly inside a
-  wider phrase beam) · a bracket covers only the notes that NEED it (the sub-beat 3:2
-  frees plain halves) · ONE SUBDIVISION, ONE BRACKET (refines 11; sanctions the
-  same-subdivision straddle — call A(a) closed). **Extraction to standards still
-  DEFERRED by the composer.**
-- **THE FIVE-CHECK RECIPE** (§ Day-30 additions): rule-8 census → containment
-  (straddles RESOLVED at proposal time) → lattice audit (+ standing exceptions) →
-  recipe (through · rest16 · separators) → dynamics (day-24 rule + mf floor + the
-  two-band precedents). Ran cold on T5–T10; written to run cold on CLOUD02-D.
-- **Tool growth**: hand `--tuplet` OVERRIDES the fit's beat under `--figures`
-  (two-phase, union-validated; lattice + seam checks; positions never move) ·
-  `--ringFromBrick` · `device.ringSeconds` · registry `techText` (black,
-  head-anchored, lane-line fallback) · render per-item color.
-
-### OPEN AT SESSION END — day 33 (the bracket-above policy built; composer eye pass pending)
-
-**THE TASK: finish CLOUD02-D**'**s page so the composer can move on.** Day 33
-reopened the day-32 "spot fixes only" strategy ONE bounded time (composer:
-*"let's just have one more crack then at the vertical spacing rules… if we
-can't get to it in this go, then we'll just do it by eye"*) — and it landed.
-
-**DONE day 33 (all verified; RUNNING_LOG day 33 has the numbers):**
-- **Verdict "b" → THE BRACKET-ABOVE POLICY:** every bracket ABOVE its own
-  staff, always; a bracket belongs to the staff below it; hugged (no fixed
-  rows); hooks descend; per-IR (`ir.layoutPolicy`, `--bracketsAbove`) so
-  approved db1 untouched; dictated `--bracketSide` still wins; hook⇔side
-  invariant now a battery. T6/T7 bracket dictations retired.
-- **`--dynSide t@part:above|below` built** (one-shot chain dictation);
-  T6's fff @46.22 is ABOVE (+4.36) — the day-32 instruction done.
-- The day-32 stale-screenshot finding: hooks were already fixed; the
-  composer's page needed a hard reload. Verified in the live DOM twice.
-- Ten batteries + 75 snapshots green; approved span byte-identical to db1
-  (the t<42 gate caught and killed a stale-stem-tip bug on the way).
-
-**NEXT, in order (updated after the day-33 second sitting — dictations applied, page clean):**
-1. **The composer looks again** (hard reload). All three dictations applied;
-   per-mark accent law built; guard shows ZERO c2d findings. One flagged
-   side-effect for their eye: **T6 accent @45.17 re-hugged +5.14 → +3.14**
-   under the same law.
-2. **Two open questions from the rule evaluation** (RUNNING_LOG day 33,
-   second sitting): (a) did *"t8 and t9 Similar"* mean T9 accents should
-   also drop below (facing-band rule)? one flag if yes; (b) adopt the
-   FACING-BANDS rule as machinery at the fold, or keep dictation-only —
-   note it would also move T3 accents, which look good as-is.
-3. **6b proper:** the reads / verdict rounds on the figures, fold into db1.
-   Fold flag decision (--bracketsAbove on db1 or not) — NITS day 33.
+- The day-33 NITS flag question DISSOLVED: the approved-span gate proves
+  `--bracketsAbove` is a no-op on all approved material — folding WITH the
+  policy changes nothing the composer has seen.
+- Recipe: copy `provenance.build` from `notation/ir/db1-c2d-x01.ir.json`;
+  change `--id db1-c2d-x01` → `--id db1`, label → "DENSITY BUILD 1 + CLOUD02-I
+  + CLOUD02-D — all parts figured (day 33)"; run; then
+  `node tools/notate_section.js --prune db1-c2d-x01`; ten batteries.
+- Watch: test_pattern_fit expectations on db1 (clusters grow 36 → 49; the
+  validate golden `db1-all-x01` is frozen, untouched); the approved-span gate
+  and hook test skip the pruned fork automatically (existsSync-guarded).
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 
@@ -101,7 +59,9 @@ can't get to it in this go, then we'll just do it by eye"*) — and it landed.
 |---|---|---|---|---|
 | ~~5c/6~~ | ~~CLOUD02-I: the reads, the notation, the fold~~ **DONE day 30** (D-logs 10–22; validate 37/40; pushed) | — | — | — |
 | ~~6a~~ | ~~CLOUD02-D playability~~ **DONE day 31** — 18 soft → 10, worst 57 % → 20 %, 0 hard; 16 moves + bricks, 17 ledger lines; PLAN 8j; the collapse pass, the same-slot bar and frozen figures built | — | — | — |
-| **6b — NEXT** | CLOUD02-D notation — the FIVE-CHECK RECIPE runs cold (BEAMING_DECISIONS § STANDING BUILD RECIPE + day-30 additions; rule candidates 1–12; the T1–T10 reads as worked examples). Propose per part → composer verdicts by dictation → ledger rows → fold. **Standing instruction: FLAG anything the rules don't cover — never invent; a novel design tension goes to Fable or waits** | **Opus** (composer asked day 30; answer: yes — the proposals are now checklist execution; today's Fable moments were the NEW rules, which emerged from composer questions and get flagged regardless) | **YES — clear before it (6a just closed; this is the boundary)** | every CLOUD02-D note figured + approved; folded into db1; batteries green; pushed |
+| ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
+| **F — NEXT** | THE FOLD: c2d fork → db1 by the recipe above; prune the fork; batteries | **Opus** | **YES — clear now (section boundary; this is the prepared clear)** | db1 carries all 49 clusters; batteries green; pushed |
+| **N** | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | after F, stay cleared | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
@@ -1389,6 +1349,15 @@ can't get to it in this go, then we'll just do it by eye"*) — and it landed.
 
 ## §6 Human Notes
 
+- *(2026-08-24, day 33 — CURRENT)* **CLOUD02-D is wrapped and nothing is
+  owed.** The page is locked by your eye; the fold into db1 is one prepared
+  command (journal §2 → THE FOLD) and is the first chunk of the next session
+  (Opus). Your next composing happens in **`piece-s26`** (bumped from the
+  finished archive; open it in the app and it makes its own -work copy). The
+  facing-bands rule stays a diagnostic at your word — adopting it as a mover
+  is a future-section decision with two named deltas (T9, T3 accents).
+  *(Standing small calls, unchanged: `flagShortBarSeconds` 1.0 → 0.35? · the
+  cuivré MEDIUM gap · the GC-ball landing ear check in motion.)*
 - *(2026-08-23, day 30 — CURRENT)* **Nothing is owed; CLOUD02-I is yours and done.**
   Next sitting is CLOUD02-D with **Opus** (your call, confirmed): 6a = the nine soft
   decisions (presented to you, then applied), 6b = its notation by the recipe — Opus

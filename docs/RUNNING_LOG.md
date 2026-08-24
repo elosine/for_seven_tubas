@@ -11397,3 +11397,34 @@ BANDS named by the build** — an info line in the geometry guard; on c2d it
 prints T6/T7 44.5-45.7 · T8/T9 44.2-46.2 (every day-31-33 dictation landed in
 one of these) **and found a third nobody had measured: T4/T5 34.3-34.5** (in
 the approved endings, no collision, quiet). Ten batteries green; pushed.
+
+
+#### Day 33 (fourth sitting) — CLOUD02-D WRAPPED; the save files bumped; clear prepared
+
+**Composer:** *"6b is done so cld 2 wrapped, bump the save files in
+preparation for next section a long tone and another density build 2 Could we
+prep for clear, please?"* — 6b closed by STANDING VERDICT: the three-day
+placement work doubled as the read; every figure had the composer's eye on it
+for days, T1 was formally approved day 31, and the section is declared done.
+
+**The bump, measured before touching anything (the gitignored-files lesson):**
+`piece-s25-finished01-work` (the app's working copy, untracked) DIFFERS from
+the tracked archive by 173 objects — all endSeconds in the 36.2+ span. Metadata
++ mtimes settle the direction: -work was created-and-written-once Aug 23 10:22
+(the composer opening the app), the archive last amended by the day-31 tools
+at 22:26 and committed 22:29. **-work is STALE, holds zero composer edits, and
+was left alone.** `scores/piece-s26.json` created as a byte-faithful copy of
+the archive (fresh metadata only; 4563 objects · 10 tracks · content-identical
+verified) and confirmed FIRST in the live app's list. Next-section composing
+(the long tone + density build 2) happens there; s25-finished01 freezes as
+CLOUD02-D-era canon.
+
+**The fold (c2d fork → db1) is prepared, not run:** the approved-span gate
+dissolved the NITS flag question (--bracketsAbove proven a no-op on approved
+material), so the fold is one command with zero visual change to anything
+approved. Recipe + watch-items in journal §2 → THE FOLD; first Opus chunk
+after the clear.
+
+**Docs for the clear:** §2 rewritten for the day-34 cold start (state, the
+fold recipe, the next-section table) · §6 current note · PLAN 8j marked
+notation-done/wrapped · this entry. All pushed.
