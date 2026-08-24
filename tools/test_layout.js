@@ -507,6 +507,34 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   }
 }
 
+// ---- day 33: THE APPROVED-SPAN GATE (mechanised) ----
+// The trials fork rebuilds db1's whole command plus the new section, under
+// the bracket-above policy — so its 0-42 s span must lay out IDENTICALLY to
+// approved db1 (the policy is a proven no-op on classic stem-up stacks, and
+// nothing else may drift). Run by hand twice on day 33, it caught the
+// stale-stem-tip bug that had silently lifted six approved brackets 1.42 ss.
+// Any future pass that breaks the no-op fails here instead of on the page.
+{
+  const pF = path.join(ROOT, 'notation', 'ir', 'db1-c2d-x01.ir.json');
+  if (fs.existsSync(pF)) {
+    const sig = irX => {
+      const LX = Layout.layoutSection(JSON.parse(fs.readFileSync(irX, 'utf8')), G);
+      const rows = [];
+      for (const sy of LX.systems) for (const i of sy.items) {
+        const t = i.t !== undefined ? i.t : (i.t0 !== undefined ? i.t0 : (i.tips && i.tips[0] ? i.tips[0].t : null));
+        if (t == null || t >= 42) continue;
+        if (i.k === 'tuplet') rows.push('T' + sy.part + ' tup ' + i.text + ' ' + t.toFixed(2) + ' ' + i.ySs.toFixed(2) + ' ' + i.dir);
+        else if (i.k === 'beam' && i.tips && i.tips.length) rows.push('T' + sy.part + ' beam ' + i.tips[0].t.toFixed(2) + ' ' + i.tips[0].ySs.toFixed(2));
+        else if (i.k === 'glyph' && /^(artic|dyn)-/.test(String(i.g))) rows.push('T' + sy.part + ' ' + i.g + ' ' + t.toFixed(2) + ' ' + i.ySs.toFixed(2));
+      }
+      return rows.sort().join('|');
+    };
+    const a = sig(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'));
+    const b = sig(pF);
+    ok(a === b, 'approved-span gate: fork t<42 mirrors db1 (tuplets, beams, accents, dynamics)');
+  }
+}
+
 // ---- V1 [A21]: the ENGRAVING-OVERRIDE channel (tier-3 hands) ----
 // stemDir force: the synthDir pair beams UP by convention (B2 farthest);
 // an authored stemDir DOWN on one note forces the whole run down.

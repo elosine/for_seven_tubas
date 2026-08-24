@@ -1206,6 +1206,38 @@ try {
     }
   }
 
+  // ── FACING BANDS, NAMED (day 33, the composer's rule sketch kept as a
+  // DIAGNOSTIC): a band is FACING when an upper part's beams point down into
+  // it while the lower part's beams point up into it — both beam-stacks in
+  // one band. Measured on c2d: the two facing bands (T6/T7, T8/T9) are
+  // exactly where every placement dictation of days 31-33 landed. Printed as
+  // information, not a finding — the composer decides moves; the label says
+  // where clutter risk lives BEFORE the dictation rounds.
+  {
+    const pairs = new Map();
+    for (const sys of modelG.systems) {
+      for (const it of sys.items) {
+        if (it.k !== 'beam' || !it.tips || !it.tips.length) continue;
+        const x0 = Math.min(...it.tips.map(v => v.t)), x1 = Math.max(...it.tips.map(v => v.t));
+        const dn = it.tips[0].ySs < 0;
+        for (const sys2 of modelG.systems) {
+          if (sys2.part !== sys.part + 1) continue;
+          for (const it2 of sys2.items) {
+            if (it2.k !== 'beam' || !it2.tips || !it2.tips.length) continue;
+            if (!dn || it2.tips[0].ySs < 0) continue;      // facing = upper down, lower up
+            const y0 = Math.min(...it2.tips.map(v => v.t)), y1 = Math.max(...it2.tips.map(v => v.t));
+            const o0 = Math.max(x0, y0), o1 = Math.min(x1, y1);
+            if (o1 <= o0) continue;
+            const key = 'T' + (sys.part + 1) + '/T' + (sys.part + 2);
+            const cur = pairs.get(key) || [Infinity, -Infinity];
+            pairs.set(key, [Math.min(cur[0], o0), Math.max(cur[1], o1)]);
+          }
+        }
+      }
+    }
+    if (pairs.size) console.log('FACING BANDS (info): ' + [...pairs.entries()]
+      .map(([k, v]) => k + ' ' + v[0].toFixed(1) + '-' + v[1].toFixed(1) + ' s').join(' · '));
+  }
   if (findings.length) {
     console.log('GEOMETRY: ' + findings.length + ' finding(s) — the page has ink collisions:');
     findings.forEach(x => console.log('  !! ' + x));
