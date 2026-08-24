@@ -417,3 +417,14 @@ rendering-environment difference worth understanding).
   The repair pass uses it for row joints. THE CUIVRÉ LIFT ITSELF STAYS PARKED at
   the composer's word — when they say go, it is one line: the techText baseline
   gap 0.15 → gapMediumSs.**
+
+- *(day 33)* **db1 does not carry the bracket-above policy** — the fork does.
+  When CLOUD02-D folds into db1, decide: fold WITH `--bracketsAbove` (flips
+  db1's below-brackets everywhere — the approved pages change and need a
+  re-look) or keep db1 as-approved and the policy stays a per-section choice.
+  One flag on the fold command either way.
+- *(day 33)* `headTopYSs` on beam tips holds the PRE-LEVEL stem tip for
+  stem-up notes (stale after the stack clamp lowers a beam). The policy pass
+  now sidesteps it; the day-31 consumers read it only on the head side of
+  stem-down groups, where it is clean — but any FUTURE consumer on the beam
+  side will trip the same way the six lifted brackets did.

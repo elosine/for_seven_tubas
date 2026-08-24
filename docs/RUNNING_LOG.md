@@ -11202,3 +11202,107 @@ PRE-EXISTING in approved db1, filed to NOTATION_POLISH tier 3).
 **Process note the composer stated and the AI accepts:** the strategy is **spot
 fixes to get this looking right, then move on** — not systemic redesign. Filed
 verbatim to PAPER_NOTES (both sides).
+
+
+#### Day 33 — 2026-08-24 (Fable 5): the composer reopens the systemic pass; the hooks were already right and the screenshot was stale
+
+**Composer (verbatim, reopening what day 32 closed):** *"Before the bracket mix
+up, we were just about there… instead of making the small moves, the AI agent
+must have changed something in the system and made things worse and worse…
+I just wanna do what is expedient… But, actually, let's just have one more crack
+then at the vertical spacing rules. So you have dynamics. You have the brackets.
+You have accents. there should be a way to decide for each element if they're on
+top of the notation or below the notation. and to sort out any conflicts…
+brackets shouldn't be sitting on top of an accent or a accidental… I guess if we
+can't get to it in this go, then we'll just do it by eye."* Also: the 5:4/7:4
+in their screenshot point the wrong way AND sit *"further away than they need
+to be. There's plenty of space."* **This supersedes the day-32 "spot fixes
+only" strategy note: one more systemic attempt, fallback is by eye.**
+
+**FINDING 1 — the hooks are ALREADY RIGHT; the composer's screenshot is the
+pre-fix page.** Verified in the running app (fresh tab on :5200, DOM audit of
+the rendered SVG — the day-28 no-pane method): all 16 c2d brackets hook toward
+their own notes. T6 3:2 (above): hooks 558.7→564.2 px, descending from its
+line ✓ · T7 3:2 (below): 720.0→725.5, ascending ✓ · T7 5:4/7:4 (below):
+743.0→748.6, ascending ✓ · T8 6:4 (above): 766.5→772.1, descending ✓ ·
+T8 3:2/5:4 (below): 849.3→854.8, ascending ✓. The screenshot the composer sent
+shows T7's 5:4/7:4 hooks DESCENDING — exactly the inverted-flag bug fixed at
+the day-32 checkpoint. **The notation tab needs a hard reload** (the fix was a
+.js change; .js does not hot-reload). Also settled: layout's `dir` names the
+bracket's SIDE ('up' = above, hooks drawn descending), not the hook direction —
+the CLOUD02D_BRACKETS.md snippet's `hooks up/down` label misleads; renderer
+render.js:261 `dir === 'down' ? -1 : 1 // hooks point toward the notes`.
+
+**FINDING 2 — "too far" is real and is a missing pass: brackets never got
+hugging.** Day 31 built per-mark hugging for DYNAMICS; brackets still land on
+fixed deep rows. Current geometry: 9 of 16 brackets sit at ±~6 ss rows
+(T2 7:4/6:4 and T4 5:4 at +5.62 · T4/T8/T8/T10 at −6.06 · T7 5:4/7:4 at −6.12)
+while their hugged siblings sit at −3.20/+4.39 (T7 3:2, T9 3:2, T6 3:2). The
+composer's complaint IS the row model.
+
+**PROPOSED (awaiting the bracket-side verdict):** the four-rule vertical
+placement pass — R1 deterministic SIDE per element type (accents day-24 beam
+row · dynamics day-24/31 rules and designated the MOBILE element · brackets =
+the verdict) · R2 HUG everything incl. brackets (medium gap past own part's
+ink, stack notes→accents→bracket→dynamics, no fixed rows) · R3 CROSS-LANE
+resolution (move dynamics/accents only, brackets never move for a neighbour,
+unresolvable → flagged not squeezed) · R4 DICTATION LAST unchanged. Hooks
+derive from final side + a battery assertion so inversion cannot regress
+silently. Scope: this fork only; approved db1 stays byte-identical; unifying
+db1 under the policy filed to NITS.
+
+
+#### Day 33 — THE BRACKET-ABOVE POLICY BUILT: verdict "b", the one-more-crack pass lands green
+
+**The verdict:** options put as (a) beam side always / (b) above own staff
+always / (c) hug-only. AI recommended (b) — the only one that makes every
+inter-staff band single-owner (beam-side fails where T8 beams down meet T9
+beams up). Composer: **"b good."** The high-ledger question was asked and
+answered first (hug absorbs ledgers; overflow into the band is safe under (b)
+because the band's brackets always belong to the staff below; true conflicts
+flag, never auto-flip — "deterministic side + flag + your dictation beats the
+machine deciding").
+
+**Built:**
+- `layout.js` — THE BRACKET-ABOVE POLICY pass (runs after dictation, skips
+  dictated brackets): side = above for every tuplet, hooks descend, y = HUG —
+  medium/padding past the part's own ink (stem-up: the beam; stem-down: head
+  column INCL. ACCIDENTALS via new tip fields `accTopYSs`/`accBotYSs`; either:
+  the accent row when above), floored at the staff edge. Fixed rows are gone.
+- Scoping: `ir.layoutPolicy.bracketSide` (per-IR; schema gains the key as a
+  CLOSED enum) — `notate_section --bracketsAbove` writes it. **Approved db1
+  never sees the policy.**
+- `--dynSide t@part:above|below` on notate_section (global, repeatable) →
+  `device.chainSide`, obeyed by the one-shot chain placer OVER its room test.
+  T6's fff (wc-2022 @46.22) placed ABOVE (+4.36) — the composer's day-32
+  dictation, finally done.
+- `test_layout` — day-33 invariant: every tuplet of db1 + the fork hooks
+  toward its own staff (side ⇔ dir). The day-32 inversion can't regress.
+- Fork rebuilt; T6/T7's `--bracketSide` dictations RETIRED (the policy
+  expresses them); both `--articSide above` kept.
+
+**The bug the safety gate caught (keep this):** first build lifted SIX
+approved-span brackets 1.42 ss. Cause: `headTopYSs` stores the note-build ink
+top, which for stem-UP notes contains the PRE-LEVEL stem tip — stale once the
+stack clamp lowers the beam (T10 @32.93: tips 4.86 over a beam clamped to
+2.15). Fix: on stem-up groups the beam IS the outer ink; heads count only on
+stem-down; accidentals always. **The before/after gate against approved db1
+(t<42 layout comparison) is what caught it** — the exact day-24 lesson
+("a fix for one figure must be re-checked against every figure built under
+the same flag") mechanised.
+
+**Verified:** all 16 c2d brackets ABOVE own staff, hugged (T6 +3.62 … T7
++8.45 over its dictated accents), dir 'up' · approved span t<42 IDENTICAL to
+db1 · db1 geometry byte-identical (only the two inert new tip fields differ
+in serialization) · ten batteries green incl. the new invariant · 75
+snapshots green · LIVE APP DOM audit: all 16 numerals in their above bands,
+every hook rect starts at its line and descends. Schema round-trip: rebuild
+VALID vs source (validate-or-delete fired once mid-work on the unregistered
+`layoutPolicy` key and deleted the fork — restored from git, schema extended,
+rebuilt).
+
+**Cross-lane residuals, measured and OPEN for the composer (not squeezed):**
+T7 5:4/7:4 numerals vs T6 beam **−0.35 ss** · T9 3:2 vs T8 accent @45.15
+**−0.50 ss**. Movers if wanted: T7's accents (re-dictate) / T8's accents
+(`--articSide above`). The old T8-5:4-vs-T9-beam (0.20) DISSOLVED under the
+policy, as predicted.

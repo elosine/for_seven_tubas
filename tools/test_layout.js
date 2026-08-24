@@ -482,6 +482,31 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   ok(bad === 0, 'every bracket clears every beam it spans (' + bad + ' collisions)');
 }
 
+// ---- day 33: HOOKS FACE THEIR OWN STAFF (the inverted-flag regression) ----
+// Day 32: the dictated-side block wrote its draw flag backwards and T6/T7's
+// brackets pointed their hooks at the NEIGHBOURING part — the composer lost
+// the ability to tell who owned what ('I've lost confidence that the
+// brackets are being shown with the correct tuba part'). The invariant is
+// structural: an above-staff bracket is dir 'up' (hooks drawn descending
+// toward its notes), a below-staff bracket dir 'down' (ascending). Checked
+// on every tuplet of every part of both real files. Dictated sides remain
+// free — the invariant binds hooks to the SIDE, not the side to a rule.
+{
+  for (const name of ['db1', 'db1-c2d-x01']) {
+    const p = path.join(ROOT, 'notation', 'ir', name + '.ir.json');
+    if (!fs.existsSync(p)) continue;
+    const irH = JSON.parse(fs.readFileSync(p, 'utf8'));
+    const LH = Layout.layoutSection(irH, G);
+    let inv = 0, n = 0;
+    for (const sy of LH.systems) for (const i of sy.items) {
+      if (i.k !== 'tuplet') continue;
+      n++;
+      if ((i.ySs > 0 && i.dir !== 'up') || (i.ySs < 0 && i.dir !== 'down')) inv++;
+    }
+    ok(inv === 0, name + ': every bracket hooks toward its own staff (' + inv + ' of ' + n + ' inverted)');
+  }
+}
+
 // ---- V1 [A21]: the ENGRAVING-OVERRIDE channel (tier-3 hands) ----
 // stemDir force: the synthDir pair beams UP by convention (B2 farthest);
 // an authored stemDir DOWN on one note forces the whole run down.

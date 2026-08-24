@@ -62,45 +62,37 @@ none past 40.4 s.** All pushed; tree clean.
   `--ringFromBrick` · `device.ringSeconds` · registry `techText` (black,
   head-anchored, lane-line fallback) · render per-item color.
 
-### OPEN AT SESSION END — (mid-session checkpoint, day 32)
+### OPEN AT SESSION END — day 33 (the bracket-above policy built; composer eye pass pending)
 
-**THE TASK: finish CLOUD02-D's page so the composer can move on.** Not a system
-redesign — the composer stated the strategy and the AI accepted it: **spot fixes
-to get this looking right, then move on** (PAPER_NOTES day 32, verbatim both sides).
+**THE TASK: finish CLOUD02-D**'**s page so the composer can move on.** Day 33
+reopened the day-32 "spot fixes only" strategy ONE bounded time (composer:
+*"let's just have one more crack then at the vertical spacing rules… if we
+can't get to it in this go, then we'll just do it by eye"*) — and it landed.
 
-**READ FIRST after the clear:** `docs/CLOUD02D_BRACKETS.md` (which part owns which
-bracket, and why it was unreadable) + the last three RUNNING_LOG entries.
-
-**STATE.** `db1-c2d-x01` = "CLOUD02-D TRIALS (day 31)" in the picker; all 13
-gestures figured, T1 approved by the composer. Score server on :5200. Ten
-batteries + 75 snapshots green; tree clean; everything pushed.
-
-**DONE this checkpoint:** bracket ownership answered from the geometry (**all 16
-ARE on the right part** — the assignment was never wrong) · **hook direction
-un-inverted** (T6's 3:2 and T7's 5:4+7:4 had been pointing their hooks at the
-NEIGHBOURING part — that was why ownership was unreadable; all 16 verified).
+**DONE day 33 (all verified; RUNNING_LOG day 33 has the numbers):**
+- **Verdict "b" → THE BRACKET-ABOVE POLICY:** every bracket ABOVE its own
+  staff, always; a bracket belongs to the staff below it; hugged (no fixed
+  rows); hooks descend; per-IR (`ir.layoutPolicy`, `--bracketsAbove`) so
+  approved db1 untouched; dictated `--bracketSide` still wins; hook⇔side
+  invariant now a battery. T6/T7 bracket dictations retired.
+- **`--dynSide t@part:above|below` built** (one-shot chain dictation);
+  T6's fff @46.22 is ABOVE (+4.36) — the day-32 instruction done.
+- The day-32 stale-screenshot finding: hooks were already fixed; the
+  composer's page needed a hard reload. Verified in the live DOM twice.
+- Ten batteries + 75 snapshots green; approved span byte-identical to db1
+  (the t<42 gate caught and killed a stale-stem-tip bug on the way).
 
 **NEXT, in order:**
-
-1. **Move T6's fff above** (@46.18, currently −6.32; composer: *"lots of room"*).
-   Also clears half of the open T6-fff / T7-accent cross-lane clash (0.54 ss).
-2. **The bracket-side question — the composer must SEE the re-hooked page first**;
-   it may already be readable now that every bracket points at its own notes. If
-   not, the leading hypothesis is **every bracket on the same side of its own
-   staff, always** (likely the beam side, so a bracket is always adjacent to the
-   beam that owns it), moving dynamics/accents instead when the lane is tight.
-3. Then the reads / verdict rounds on the figures (the actual 6b thread), fold
-   into db1, ledger rows.
-
-**OPEN, measured, not decisions:** T8's 5:4 vs T9's beam, 0.20 ss cross-lane ·
-T9 @36.87 and T10 @39.08 (both **PRE-EXISTING** in approved db1 → NOTATION_POLISH
-tier 3, D18: filed, never surfaced mid-notation).
-
-**Dictation flags built day 32:** `--bracketSide above|below` and
-`--articSide above|below` — positional per `--cluster`, stated in ABSOLUTE terms
-(how the composer speaks), and they **RUN LAST**: a dictated side is a verdict and
-must not be overwritten by a heuristic. **The fork's full build command lives in
-`notation/ir/db1-c2d-x01.ir.json → provenance.build`** — copy it out, edit, re-run.
+1. **The composer LOOKS at the page** (hard reload, CTRL+F5). Two measured
+   cross-lane residuals await a verdict, not silently squeezed: **T7's
+   5:4/7:4 numerals graze T6's beam 0.35 ss** (movers: T7's accents
+   re-dictated, or accept) · **T9's 3:2 vs T8's accent @45.15, 0.50 ss**
+   (mover: T8 `--articSide above`, or accept).
+2. Remaining by-eye spot fixes via `--bracketSide`/`--articSide`/`--dynSide`
+   (all dictations run LAST; edit `provenance.build` and re-run).
+3. **6b proper:** the reads / verdict rounds on the figures, fold into db1.
+   Fold decision on the flag: WITH `--bracketsAbove` (db1's old pages change,
+   need a re-look) or without (policy stays per-section) — NITS day 33.
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 

@@ -97,6 +97,10 @@
     // caller without opts renders identically; the shell passes
     // container.json `engraving.layout` and edits there re-render everywhere.
     const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6, nhGapSs: 0.25 }, opts || {});
+    // PER-IR LAYOUT POLICY (day 33): a file can opt into placement rules the
+    // registry does not impose globally — approved files stay byte-identical.
+    // notate_section --bracketsAbove writes { bracketSide: 'above' }.
+    const POL = ir.layoutPolicy || {};
     const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});
     const nh = glyphs.notehead.filled;
     const nhHalfW = nh.wSs / 2;
@@ -627,8 +631,14 @@
                 const needBelow = chainN ? chainN * stackGap + chainH : 0;
                 const needAbove = chainN ? chainN * gapAbove + chainH : 0;
                 const roomBelow = CS.laneHalfSs + refBot0, roomAbove = CS.laneHalfSs - refTop0;
-                const chainAbove = CS.rule === 'sideWithRoom' && octShift === 0 && chainN > 0
-                  && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
+                // day 33: a DICTATED side (--dynSide → device.chainSide)
+                // overrides the room test — the test cannot see the
+                // neighbouring part's ink (THE CROSS-LANE BLIND SPOT, day 32),
+                // and the composer's placement is a verdict (T6's fff @46.18).
+                const chainAbove = dev.chainSide
+                  ? dev.chainSide === 'above'
+                  : CS.rule === 'sideWithRoom' && octShift === 0 && chainN > 0
+                    && needBelow > roomBelow + 1e-9 && roomAbove > roomBelow + 1e-9;
                 // A BEAMED NOTE WHOSE CHAIN FLIPS ABOVE HANDS ITS MARK TO THE GROUP
                 // (day 24, composer, on T5 32.18). There were two independent placers
                 // above the beam — the group's accent row, at one height for the whole
@@ -801,7 +811,15 @@
                 if (dev.beamGroup && beamGroups.has(dev.beamGroup)) {
                   const tps = beamGroups.get(dev.beamGroup).tips;
                   const tp = tps.length && Math.abs(tps[tps.length - 1].t - e.onset) < 1e-9 ? tps[tps.length - 1] : null;
-                  if (tp) { tp.headTopYSs = inkTopY; tp.headBotYSs = inkBotY; }
+                  if (tp) {
+                    tp.headTopYSs = inkTopY; tp.headBotYSs = inkBotY;
+                    // day 33: the accidental's ink, kept SEPARATE from
+                    // headTopYSs (whose consumers are approved as-is) — the
+                    // bracket-above policy must clear sharps ("brackets
+                    // shouldn't be sitting on top of an accent or a
+                    // accidental", composer day 33)
+                    if (accRel) { tp.accTopYSs = yDraw + accRel.accTopExt; tp.accBotYSs = yDraw - accRel.accBotExt; }
+                  }
                 }
                 if (accRel) {
                   items.push({ k: 'glyph', g: 'accidental-' + accRel.kind, t: e.onset, dxSs: headDx + accRel.dx, ySs: yDraw, align: accRel.align });
@@ -1258,6 +1276,51 @@
                 // are pointing in the right direction'.
                 st.bracketDirDraw = g.bracketSide === 'above' ? 'up' : 'down';
               }
+            }
+            // ── THE BRACKET-ABOVE POLICY (day 33, the composer's verdict:
+            // "b"). EVERY bracket sits ABOVE its own staff, always — on the
+            // page, ownership reads as "a bracket belongs to the staff
+            // directly below it", and no inter-staff band ever holds
+            // brackets from two parts (the day-32 T7/T8 unreadability: four
+            // brackets, two owners, one band). Replaces the day-31 room test
+            // for brackets, which produced 8 above / 8 below. The bracket
+            // HUGS its own group's ink — stem-up: the beam; stem-down: the
+            // head-column ink INCLUDING accidentals ("brackets shouldn't be
+            // sitting on top of an accent or a accidental", composer day
+            // 33); either: the accent row when it is above. Cleared by the
+            // bracket's own padding, floored at the staff edge — distance is
+            // never a fixed row (the "further away than they need to be"
+            // complaint WAS the row model). For a classic stem-up stack this
+            // reproduces the day-24 numbers exactly (beam · accents ·
+            // bracket at the same gaps), so approved-style figures do not
+            // move. Overflow past the lane edge is allowed and measured
+            // (tier-3), per the day-33 high-ledger discussion: the band
+            // above always belongs to THIS part's brackets. A dictated
+            // --bracketSide wins (it ran just above; skipped here). Scoped
+            // per-IR (ir.layoutPolicy.bracketSide) so approved db1 pages
+            // are byte-identical.
+            if (POL.bracketSide === 'above' && g.hasTuplet && !g.bracketSide) {
+              const TPa = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {});
+              let ext = 2;                                     // staff edge floor
+              if (g.dir === 'up') ext = Math.max(ext, yLevel); // beam above, stems reach it
+              for (const t of g.tips) {
+                // headTopYSs is the note-build ink top, which for a stem-UP
+                // note contains the PRE-LEVEL stem tip — stale once the
+                // stack clamp lowers the beam (measured: T10 @32.93 tips
+                // 4.86 over a beam clamped to 2.15, lifting six approved
+                // brackets 1.42 ss). On a stem-up group the BEAM is the
+                // outer ink (yLevel above); heads only count when they face
+                // up (stem-down). Accidentals are stem-free — always count.
+                if (g.dir !== "up" && t.headTopYSs != null) ext = Math.max(ext, t.headTopYSs);
+                if (t.accTopYSs != null) ext = Math.max(ext, t.accTopYSs);
+              }
+              if (g.artics && g.artics.length) {
+                const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
+                if (st.articY != null) { if (st.articY > 0) ext = Math.max(ext, st.articY + aH / 2); }
+                else if (st.articCentre != null && g.dir === 'up') ext = Math.max(ext, yLevel + st.articCentre + aH / 2);
+              }
+              st.bracketY = ext + TPa.paddingSs + TPa.hookLengthSs;
+              st.bracketDirDraw = 'up';
             }
           }
           for (const t of g.tips) {

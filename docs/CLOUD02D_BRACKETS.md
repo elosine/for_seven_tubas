@@ -1,69 +1,59 @@
 # CLOUD02-D — WHICH PART OWNS WHICH BRACKET
 
 > Written day 32 to answer the composer directly: *"can you tell which part the
-> brackets are assigned to?… I've lost confidence that the brackets are being
-> shown with the correct tuba part."* Generated from `db1-c2d-x01`'s laid-out
+> brackets are assigned to?"* — updated day 33 when the composer's verdict made
+> the leading hypothesis THE RULE. Generated from `db1-c2d-x01`'s laid-out
 > geometry, not by eye. Regenerate after any rebuild with the snippet at the end.
 
-## THE ANSWER: every bracket IS on its correct part
+## THE RULE (day 33, composer's verdict "b"): every bracket ABOVE its own staff, always
 
-All 16 brackets in 42.3–48.1 s belong to the part whose notes they cover — the
-assignment is correct in the data. **What is broken is that you cannot SEE it**,
-for two reasons, one of which is now fixed.
+**A bracket belongs to the staff directly below it.** No inter-staff band ever
+holds brackets from two parts, so ownership never depends on counting gaps or
+reading hooks. Implemented as `ir.layoutPolicy.bracketSide = 'above'`
+(`notate_section --bracketsAbove`), per-IR so approved files are untouched.
+The bracket HUGS its own ink — beam (stem-up), head column incl. accidentals
+(stem-down), the accent row when above — cleared by the bracket's padding;
+distance is never a fixed row. A dictated `--bracketSide` still wins per
+cluster. High-ledger gestures push their bracket higher and may overflow the
+lane edge — allowed, measured by the protrusion detector (tier-3), and safe:
+the band above always belongs to this part's brackets.
 
-## Reason 1 — hooks pointed the wrong way (FIXED day 32)
+Hooks always turn toward the bracket's own notes (above ⇒ descending) and the
+invariant is now a battery assertion in `test_layout` (day-32's inverted-flag
+bug can't return silently).
 
-A tuplet bracket's hooks turn **toward its own notes**. Two brackets pointed
-away, and both were ones placed by the new `--bracketSide` dictation: the flag
-that sets hook direction was written inverted. **T6's 3:2** (above its staff,
-hooks were ascending) and **T7's 5:4 + 7:4** (below its staff, hooks were
-descending) were pointing at the neighbouring part instead of their own.
-Fixed; **all 16 now verified hooking toward their own notes.**
+## The table (after the day-33 rebuild — all 16 ABOVE, hooks descending)
 
-That alone was making ownership unreadable: a bracket's hooks are the visual
-cue for which staff it belongs to.
+| part | brackets (t, y ss above own staff) |
+|---|---|
+| T2 | 7:4 @44.27 +5.62 · 6:4 @44.94 +5.62 |
+| T3 | 6:4 @43.98 +5.26 · 7:4 @45.12 +5.26 |
+| T4 | 3:2 @44.95 +5.12 · 5:4 @45.47 +5.62 |
+| T5 | 7:4 @45.10 +4.62 |
+| T6 | 3:2 @44.47 +3.62 |
+| T7 | 3:2 @43.59 +6.06 · 5:4 @44.65 +8.45 · 7:4 @45.18 +8.45 (over its dictated accent row) |
+| T8 | 3:2 @44.48 +5.62 · 6:4 @45.45 +5.12 · 5:4 @46.09 +4.12 |
+| T9 | 3:2 @44.89 +7.81 |
+| T10 | 3:2 @45.95 +6.62 |
 
-## Reason 2 — one gap can hold brackets from TWO parts (NOT fixed; the real problem)
+Retired with the rule: T6/T7's `--bracketSide` dictations (day 32 workarounds
+for the mixed-side regime); both `--articSide above` verdicts stand.
 
-A bracket drawn BELOW part N and a bracket drawn ABOVE part N+1 land in the
-**same visual gap**, with nothing but the hooks to say which is which:
+## Cross-lane residuals (measured day 33, for the composer's eye — not silently squeezed)
 
-| gap | brackets in it | owners |
-|---|---|---|
-| T1/T2 | 7:4 @44.27 · 6:4 @44.94 | T2, T2 |
-| T2/T3 | 6:4 @43.98 · 7:4 @45.12 | T3, T3 |
-| T3/T4 | 5:4 @45.47 | T4 |
-| T4/T5 | 3:2 @44.95 (T4's, below) · 7:4 @45.10 (T5's, above) | **T4 and T5** |
-| T5/T6 | 3:2 @44.47 | T6 |
-| **T7/T8** | 3:2 @43.59 · 5:4 @44.65 · 7:4 @45.18 (all T7's, below) · **6:4 @45.45 (T8's, above)** | **T7 and T8** |
-| T8/T9 | 3:2 @44.48 · 5:4 @46.09 | T8, T8 |
-| T9/T10 | 3:2 @44.89 | T9 |
-
-**The T7/T8 gap is the one the composer could not read**: four brackets, three
-of them T7's and one T8's, interleaved in one band. The 6:4 sits between T7's
-5:4 and 7:4 in time, so it reads as part of the same row.
-
-Current split: **8 of 16 brackets are drawn above their own staff, 8 below** —
-because the day-31 side-switching machinery puts each bracket wherever there is
-room. That machinery solved collisions and created this.
-
-## THE LEADING HYPOTHESIS for the next pass (untested — the composer's eye decides)
-
-**Put every bracket on the same side of its own staff, always** — most likely
-the beam side, so a bracket is always adjacent to the beam it belongs to, which
-is the strongest ownership cue available. Ownership then never depends on
-counting gaps. The cost is that collisions come back where the lane is tight,
-and those get solved by moving the OTHER furniture (dynamics/accents, which are
-per-note and far more mobile) rather than the brackets.
-
-This reverses the day-31 approach — that pass optimised for "no ink touches
-anything", and traded away the thing that actually matters on the page.
+- **T7's 5:4/7:4 numeral tops vs T6's beam: 0.35 ss of overlap.** T7's stack is
+  deep by its own dictations (beam 6.11 → accents ~7.2 → bracket 8.45) and T6's
+  beam hangs −4.86 into the same band. Movers available: T7's accents
+  (dictated above day 32) or acceptance.
+- **T9's 3:2 vs T8's accent @45.15: 0.50 ss.** T8's accent row rides its beam
+  side (below); T9's bracket hugs its own stack above. Mover: T8's accents
+  (`--articSide above`, undictated so far) or acceptance.
 
 ## Regenerate this table
 
 ```bash
 node -e "
-const fs=require('fs'),path=require('path'),ROOT='.';
+const fs=require('fs');
 const L=require('./notation/lib/layout.js');
 const G=JSON.parse(fs.readFileSync('./notation/lib/glyphs.json','utf8'));
 const C=JSON.parse(fs.readFileSync('./notation/registry/container.json','utf8'));
@@ -71,6 +61,9 @@ const ir=JSON.parse(fs.readFileSync('./notation/ir/db1-c2d-x01.ir.json','utf8'))
 for(const s of L.layoutSection(ir,G,(C.engraving&&C.engraving.layout)||{}).systems)
  for(const i of s.items) if(i.k==='tuplet'&&i.t0>=42.3&&i.t0<=48.1)
   console.log('T'+(s.part+1)+'  '+i.text+' @'+i.t0.toFixed(2)+'  y '+i.ySs.toFixed(2)
-   +'  '+(i.ySs>0?'ABOVE':'BELOW')+'  hooks '+i.dir
-   +'  -> appears in the T'+(i.ySs>0?s.part+'/T'+(s.part+1):(s.part+1)+'/T'+(s.part+2))+' gap');"
+   +'  '+(i.ySs>0?'ABOVE':'BELOW')+'  dir '+i.dir);"
 ```
+
+Note on `dir`: it names the bracket's SIDE, not the hook direction — `'up'` =
+bracket above, hooks drawn descending (render.js). The day-32 version of this
+snippet printed it as "hooks up/down", which misleads.

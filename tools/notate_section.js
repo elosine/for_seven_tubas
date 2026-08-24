@@ -201,6 +201,12 @@ const { doc, warnings } = Extract.extract(score, {
   date: new Date().toISOString().slice(0, 10),
   toolName: 'tools/notate_section.js (profile ' + profile + ')' + (flag('bricks') ? ' --bricks' : ''),
 });
+// --bracketsAbove (day 33, the composer's verdict "b"): every tuplet bracket
+// sits ABOVE its own staff, always — ownership on the page reads as "a
+// bracket belongs to the staff directly below it". Per-IR
+// (ir.layoutPolicy.bracketSide, read by layout.js) so approved files are
+// untouched; a dictated --bracketSide still wins per cluster.
+if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
 // --bricks (day 23, the composer's working loop — "bricks and the midi sound
 // all the way through"): every chunk stays UNRESOLVED, so the page shows the
 // parachute bricks everywhere and each note carries its technique's device;
@@ -988,6 +994,32 @@ const { doc, warnings } = Extract.extract(score, {
       console.log('  bare ' + label + ': ' + members.length + ' notes cleared to bricks (' +
         Object.keys(byPart).sort((a, b) => a - b).map(p => 'T' + (+p + 1) + ':' + byPart[p]).join(' ') + ')');
     });
+  }
+}
+// --dynSide t@part:above|below (day 33): DICTATE A ONE-SHOT MARK'S SIDE.
+// Composer, day 32: "move T6's fff above… lots of room" — that fff (46.18)
+// is a lone one-shot OUTSIDE any cluster, so the per-cluster --articSide
+// channel cannot reach it; its side came from the chain placer's room test,
+// which cannot see the neighbouring part's ink (THE CROSS-LANE BLIND SPOT).
+// Writes device.chainSide on the nearest event of that part; the chain
+// placer obeys it over the room test. A dictated side is a verdict — it
+// lives on the event, so no heuristic pass can overwrite it. Repeatable.
+{
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--dynSide') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([0-9.]+)@([0-9]+):(above|below)$/);
+    if (!m) { console.error('--dynSide needs t@part:above|below (e.g. --dynSide 46.18@5:above)'); process.exit(2); }
+    const t = parseFloat(m[1]), part = parseInt(m[2], 10), side = m[3];
+    const partOfEvent = new Map();
+    for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+    const cands = doc.events.filter(e => partOfEvent.get(e.id) === part && Math.abs(e.onset - t) <= 0.15)
+      .sort((a, b) => Math.abs(a.onset - t) - Math.abs(b.onset - t));
+    if (!cands.length) { console.error('--dynSide: no event within 0.15 s of ' + t + ' on part ' + part); process.exit(2); }
+    const e = cands[0];
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { chainSide: side });
+    else doc.overlays.push({ id: 'ov-dynside-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { chainSide: side } }, provenance: 'authored' });
+    console.log('  dynSide: ' + e.source.objectId + '@T' + (part + 1) + ' ' + e.onset.toFixed(2) + 's -> ' + side);
   }
 }
 // --ringFromBrick t0-t1 (day 30): UNIFORM WRITTEN RING LENGTH FROM THE DRAWN

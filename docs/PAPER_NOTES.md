@@ -1505,3 +1505,56 @@ composer for the same reason.)*
 **AI, verbatim, for the record:** the assignment was never wrong — all 16
 brackets always belonged to the part whose notes they cover. What failed was
 legibility, and legibility was never in any of the checks I built.
+
+---
+
+## Day 33 (2026-08-24) — the reopening, and the fix nobody could see
+
+**The composer reopens the systemic pass they had closed the day before —
+in the same breath as the distrust it caused (verbatim):** *"instead of making
+the small moves, the AI agent must have changed something in the system and
+made things worse and worse… this made it so I couldn't tell what to fix
+because the brackets were pointing in the wrong direction. So I just wanna do
+what is expedient."* — and then: *"actually, let's just have one more crack
+then at the vertical spacing rules… there should be a way to decide for each
+element if they're on top of the notation or below the notation. and to sort
+out any conflicts… I guess if we can't get to it in this go, then we'll just
+do it by eye."* The deliverable-vs-system tension (day 32's entry) is not a
+settled preference but an oscillation the composer manages: spot fixes when
+trust is low, one bounded systemic attempt when the by-eye cost looms larger —
+with an explicit exit ramp declared IN ADVANCE ("then we'll just do it by eye").
+
+**AI's finding this sitting: the fix was real and invisible.** The hook
+inversion had been fixed at the day-32 checkpoint and verified in layout data;
+this sitting verified it again in the running app's rendered SVG (DOM audit,
+all 16 hooks toward their own notes). The screenshot the composer sent as
+evidence of the problem was the PRE-FIX page — either taken before the fix or
+a cached tab (.js does not hot-reload). **"Verified" and "seen by the composer"
+are two different states, and trust is set by the second.** A correct fix that
+the composer has not seen behaves, in the collaboration, exactly like no fix:
+the composer narrated it as ongoing breakage. The verification surface has
+three layers here — layout data, rendered DOM, the composer's actual browser
+tab — and the day-32 checkpoint claim ("all 16 verified") was true on the
+first layer only. The house rule "a confidence claim must be verified in the
+running app" turns out to need one more clause: *and the composer's own view
+of it confirmed current*.
+
+**And the measured half of the complaint stands:** brackets sit "further away
+than they need to be" because day 31 built hugging for dynamics but never for
+brackets — 9 of 16 on fixed ±6 ss rows. The composer's eye correctly
+distinguished the fixed-row brackets from the hugged ones without knowing
+either mechanism existed.
+
+**Coda, same day — the reopened pass lands.** The composer granted one bounded
+retry with an exit ramp; the AI put ONE design question (bracket side, three
+options with the trade-offs) instead of building first; the verdict took two
+words ("b good"). The build then hit exactly the failure class that had burned
+day 31 — six approved-span brackets silently lifted 1.42 ss by a stale value —
+but this time a mechanised gate (before/after comparison against the approved
+file) caught it before any page was shown, and the fix was one scoping line.
+The contrast with day 31 is the point: same kind of bug, opposite outcome,
+and the difference is not care but MACHINERY — the approved page as a frozen
+oracle, checked on every build. Ten batteries, 75 snapshots, live-DOM audit;
+two residual cross-lane grazes (0.35 / 0.50 ss) surfaced to the composer as
+verdicts rather than resolved by heuristic — which is what "flag, never
+squeeze" looks like in practice.

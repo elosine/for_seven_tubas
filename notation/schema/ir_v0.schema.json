@@ -67,6 +67,17 @@
    "items": {
     "$ref": "#/definitions/overlay"
    }
+  },
+  "layoutPolicy": {
+   "type": "object",
+   "properties": {
+    "bracketSide": {
+     "enum": [
+      "above"
+     ]
+    }
+   },
+   "additionalProperties": false
   }
  },
  "definitions": {
