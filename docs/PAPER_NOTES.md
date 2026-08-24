@@ -1824,3 +1824,99 @@ decides what is true and writes the instructions; Opus = the execution sitting t
 runs them. The instructions themselves became the interface between the two — the
 ninth sitting's §2 block is written to be executable cold, which is the same property
 the composer demanded of checkpoints (D71).
+
+## Day 35, tenth sitting — THE AUTONOMOUS RUN HAPPENS, AND THE FINDING IS A MEASUREMENT, NOT A NOTATION (2026-08-24, Opus 5)
+
+The process inversion named in the ninth sitting was executed: one model planned, another
+ran the whole section unattended, flags listed rather than solved. **It worked, and the
+interesting result is not that the figures came out well — it is what the machine found
+before it drew anything.**
+
+### The pre-read measurement overturned the premise of the plan
+
+The plan framed this section as "materially the same kind of texture that took days 25–33
+of per-figure dictation on CLOUD02." The scan said otherwise: **12 gestures and 91 lone
+one-shots.** Only 38 of 129 notes belong to a multi-note gesture at all, and every gesture
+sits in the last six seconds of a twenty-five-second section. Before 73 s, every one of the
+ten parts is playing isolated one-shots.
+
+**So the density in a "density build" was never inside a part — it was across the ten
+parts.** 4→9→17→32→67 attacks per 5 s is ten tubas interleaving, not any tuba playing fast.
+The figure process, which operates *within* a part, therefore had almost nothing to do; the
+comparison to CLOUD02 (49 clusters over 456 events) was the wrong comparison, and nobody
+could have known that without running the measurement. *A whole planning sitting's framing
+was corrected by a single tool invocation that took under a second.*
+
+This is the argument for the pre-read as a genuine instrument rather than a checklist step.
+It was built (day 28, 8i) to answer "can this gesture be said on ONE grid?" It answered
+that too — 12 of 12, so nothing needed a hand, no `--cuts`, no `--ownGrids`, no
+`--paceRatio`; the pace-rule defaults took the entire section untouched. But its larger
+service here was telling the composer what their own material *is*.
+
+### The flagged risk that did not exist
+
+The ninth sitting named one first: a surge inside a figure has no precedent, and the eight
+(actually nine) surges would meet the figure process for the first time. The run's job was
+to look at all of them. **Measured: not one surge is inside a gesture, and no surge's drawn
+curve even reaches one** — closest approach `wc-1702` T6, whose curve ends 78.252 against a
+figure starting 78.420, 168 ms of clearance, confirmed on the rendered page.
+
+Worth keeping as a shape: **a correctly-identified risk that turns out to be absent is not
+a wasted flag.** It was cheap to state, cheap to check, and the check is what made "no
+collision" a fact instead of an assumption. The risk stays open for a future section.
+
+### THE ASSERT THAT WOULD HAVE LIED — and the general form of the error
+
+The instruction block said: assert **129/129 notehead + go line + brick**. After the figures
+were built, the go line read **91/129**, and a naive run would have reported a regression
+and gone hunting for a bug.
+
+There was no bug. `figures.cluster.goLine` is **`false`** in the registry: a cluster partial's
+head sits with its left edge on its own go time, so under the day-24 governing principle —
+*a go line marks displacement* — there is nothing to mark and the line is correctly removed.
+The 38 missing go lines were exactly the 38 cluster partials. Likewise the GC count fell by
+26, which is exactly the clustered staccatos minus the eleven clusters whose first partial
+is a staccato (`gc: "first"`).
+
+The assert was rewritten to measure the **law** instead of a **constant**:
+
+> go line on every non-cluster note **91/91** · on cluster partials **0/0** · GC on each
+> cluster's first partial **12/12** · on non-first partials **0/0** · notehead **129/129** ·
+> brick **129/129** — all PASS.
+
+**The general form: an invariant stated as a number is only valid until the page changes
+kind.** A count-based assert survives a rebuild and dies at a feature. This is the same
+family as the day-34 gate that "reported green while asserting nothing" and the day-35
+sixth-sitting guard that "passed for the wrong reason" — three separate instances now of a
+check whose failure mode is silence or a false alarm rather than a red light. The fix each
+time was the same move: **derive the expectation from the thing that decides it** (the
+picker, the material, the registry) rather than writing the number down.
+
+### Two smaller things the run corrected by measuring rather than trusting
+
+- The brief said **"8 surges + 1 plain ord"**; `wc-1624` carries `env: "surge"` and draws
+  curve + arrow like the rest. There is **no plain-ord note in this section at all**, and
+  the brief's stated expectation for that note ("goLine + nhUnit + dynMark, no gc") would
+  have been checked against a device that isn't there.
+- `--w0 55.9` was carried as a precaution. It was **necessary**: `wc-1624`'s brick sits at
+  x=56.25 but its notehead at **x=27.3**, because a surge unit hangs *before* its go time.
+  `--w0 56` would have counted the event and clipped its head off the page — an error that
+  passes every count-based check ever written.
+
+### What the machine declined to do, and why that is the right shape
+
+All 38 cluster partials came out with `dynMark: false` — a cluster suppresses the per-note
+band mark by design, because `--dyn`/`--accents` "stay the composer's" (NOTATION_STANDARDS,
+*Deriving cluster dynamics — captured, NOT wired*). So the twelve clusters have **no dynamic
+at all**, and that is the largest item on the fix list.
+
+The run did not invent them, and did not silently leave the gap either: it ran the registry's
+own `dynamicsRule` to **propose**, and reported that the rule **cannot explain three of the
+twelve** — taking the globally softest band as ambient makes cl-1 accent 4 of 5, cl-6 accent
+4 of 5, and cl-3 accent 5 of 6 (bands `mf f p f mf fff`; the lone `p` at position 3 drags the
+ambient down). The standard anticipated exactly this: *"A generated cluster should PROPOSE
+marks and say which partials it could not explain."*
+
+**The precedent check matters here too.** That db1 does the same thing — 264 of its 330
+cluster partials suppress the mark, the 66 that keep one being the composer's own choices —
+is what turns "the dynamics are missing" from a defect report into a correct handoff.

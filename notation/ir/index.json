@@ -50,6 +50,16 @@
     111
    ],
    "profile": "section1"
+  },
+  {
+   "id": "db2",
+   "label": "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s",
+   "score": "piece-s27",
+   "window": [
+    55.9,
+    81
+   ],
+   "profile": "section1"
   }
  ]
 }

@@ -12472,3 +12472,96 @@ similar content. Filed to PAPER_NOTES.
 **The Opus instruction block is in journal §2** (id/label proposed `db2` /
 "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", stated for veto). This sitting wrote:
 `scores/piece-s27.json` (92 bricks) + the ledger line + these docs. Nothing else.
+
+---
+
+#### Day 35 (tenth sitting, Opus 5) — THE DENSITY BUILD FIGURED: `db2` built, and the section turns out to be 91 one-shots and 12 small gestures
+
+*The authorized run: "have a go at notating the whole section for all ten tubas."
+Fable planned it (ninth sitting); this sitting executed under the settled standards,
+flags LISTED not solved.*
+
+**THE PAGE.** `db2` — "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", source `piece-s27`,
+window 55.9–81, parts 0-9, `--bricks --bracketsAbove`. **129 events · 45 chunks · VALID
+vs source · GEOMETRY clean.** Twelve `--cluster … --figures` appended. Eleven batteries
+green; `db1.ir.json` and `int2b1.ir.json` **md5-identical to HEAD**.
+
+**THE MEASUREMENT THAT REFRAMES THE SECTION — and it was not what the plan expected.**
+The pre-read scan says **12 gestures and 91 lone one-shots**. Only 38 of the 129 notes
+belong to a multi-note gesture at all, and every one of the twelve gestures lives in the
+last six seconds (73.2–80.1); before 73 s **every part is one-shots only**. *The density
+build's density is ACROSS the ten parts, not inside any one of them* — 4→9→17→32→67
+attacks per 5 s is ten tubas interleaving, not any tuba playing fast. The figure process
+therefore had far less to do than CLOUD02 (49 clusters over 456 events); the comparison
+that framed the plan was the wrong comparison.
+
+**ALL TWELVE SIT WITHIN A HEAD ON ONE GRID** (12 of 12) — so nothing wanted `--ownGrids`,
+and no gesture was cut by hand. `--paceRatio` and `--cuts` were never used: the pace-rule
+defaults took the whole section. **Every written value is a 16th — zero 32nds** (principle
+7 held with no intervention). **Only two brackets exist in the entire section:** cl-1's 5:4
+and cl-6's 3:2. Worst displacement anywhere is **1.0 heads** (cl-3), exactly on the D63
+line; ten of twelve are under 0.5.
+
+**THE NAMED FIRST DID NOT OCCUR.** A surge inside a figure has no precedent — the ninth
+sitting flagged it as the run's one visual risk. **Measured: none of the 9 surges is inside
+a gesture, and no surge's drawn curve even reaches one.** Closest approach is `wc-1702` T6,
+whose curve ends 78.252 against T6's figure starting 78.420 — **168 ms of clearance**, and
+the rendered page shows the green curve, its 90° peak-cut and its `ppp ——→ fff` sitting
+clear of the beam. *The risk was real to flag and simply is not present in this material;
+it stays open for a future section.*
+
+**TWO CORRECTIONS TO THE BRIEF, both found by measuring rather than trusting it.**
+1. **There are 9 surges, not "8 surge + 1 plain ord".** `wc-1624` (T10 @55.940, the note
+   that opens the section) carries `env: "surge"` and draws curve + arrow like the other
+   eight. Step 3's stated expectation for it — "plain ord: goLine + nhUnit + dynMark, no
+   gc" — was wrong; it draws the surge device. There is **no plain-ord note in this
+   section at all.**
+2. **The "129/129 go line" assert cannot survive the figures, and should not.** After the
+   clusters it reads 91/129, because `figures.cluster.goLine` is **`false` in the
+   registry** — a partial's head sits on its own go time, so the go-line-marks-displacement
+   law removes the line. The assert was restated to measure the law instead of a constant:
+   *go line on every non-cluster note 91/91 · on cluster partials 0/0 · GC on each cluster's
+   first partial 12/12 · on non-first partials 0/0* — all PASS, alongside notehead 129/129
+   and brick 129/129. **A count-based assert would have reported a regression here.**
+
+**VERIFIED IN THE RUNNING APP, off the rendered SVG (AI_METHODOLOGY).** Devices were read
+from `NotationLayout` *inside the page* — the same object the SVG paints from — and then
+cross-checked against actual DOM elements: T3's surge @62.33 draws brick (tooltip `E3 · ord
+· surge · … · wc-1630`), envelope path, go line, open head + ledger, arrow path, ppp/fff
+glyph groups, and **zero circles = no GC**, exactly the registry's `byEnv.surge`. Screenshots
+confirmed T6's surge/figure clearance, T1's straddle, the T1/T2 facing band and the section's
+first note.
+
+**`--w0 55.9` PROVED NECESSARY, not merely cautious.** In the frame, `wc-1624`'s brick sits
+at x=56.25 and its **notehead at x=27.3** — the surge unit hangs before its go time. A window
+at `--w0 56` would have clipped the head off the page while still counting the event.
+
+**WHAT WAS DELIBERATELY NOT DONE: the cluster dynamics.** All 38 partials carry
+`dynMark: false` — a cluster suppresses the band dynamic by design, and `--dyn`/`--accents`
+"stay the composer's" (NOTATION_STANDARDS, *Deriving cluster dynamics — captured, NOT
+wired*). So **the twelve clusters currently have no dynamic at all**, and total dyn glyphs
+fell 138 → 101. This is not an omission by accident: **db1 does the same thing** — 264 of
+its 330 cluster partials suppress the mark, and the 66 that keep one are the composer's own
+per-cluster choices. The registry rule was run to *propose* rather than apply, and it
+**cannot explain three of the twelve**: taking the globally softest band as ambient makes
+cl-1 accent 4 of 5, cl-6 accent 4 of 5, and cl-3 accent 5 of 6 (its bands run
+`mf f p f mf fff` — the lone `p` at position 3 drags the ambient down). Those three want
+the rule's "second ambient mid-cluster" clause or a hand. *(Precedent says a majority-
+accented cluster is not automatically wrong — the composer accepted exactly that on cl-2,
+`fff f fff f fff fff` → ambient `f`, accents 1,3,5,6.)*
+
+**FLAGS — the list for the Fable fix pass. Nothing here stopped the run.**
+
+| # | flag | where | what it is |
+|---|---|---|---|
+| 1 | **no dynamics on any cluster** | all 12 | 38 partials, `dynMark: false` by design. Proposal derived above; cl-1, cl-3, cl-6 are the ones the rule cannot explain. **The largest item.** |
+| 2 | **STRADDLE** | cl-1, T1 @78.48 | the 5:4 covers notes 3-4 across the seam after note 3 — visible on the page as a bracket floating over the beam break. D69 forbids exactly this. Fix = `--cuts` to move the seam, or `--ownGrids` |
+| 3 | **no clean seam** | cl-6, T6 @78.42 | the rule finds no legal cut; built as one group of 5 with a 3:2 on note 3. By ear if the composer disagrees |
+| 4 | **ratio tie** | cl-3, T2 @76.92 | the reading hangs on the 1.25 threshold; also the section's **worst displacement, 1.0 heads** — on the D63 line, one eye-call either way |
+| 5 | **NEAR-TIE note 3** | cl-1, T1 | note 3 could go either way (+0.35, the 408 ms gap after note 2) — built as chosen |
+| 6 | **`wc-1704`: fp with no ring bar** | T2 @76.917 | next attack is 466 ms away, inside the 0.5 s breath, so the bar is clamped to nothing. It is now cl-3's ringing downbeat and keeps its GC and `sfzp`, so it reads — but a fortepiano with no duration bar is worth the composer's eye |
+| 7 | **9 short-bar warnings** | fp across the section | 0.02–0.93 s bars, all "under 1 s, composer judgment". `ev-wc-1676` at **0.02 s** is effectively invisible |
+| 8 | **facing band T1/T2 78.5–79.0** | — | T1's beam sits below its staff while T2's bracket sits above its own; ~15 px apart at page scale, no overlap. The info line's whole purpose is to say this before dictation |
+
+**Written this sitting:** `notation/ir/db2.ir.json`, `notation/ir/index.json`, docs. No score
+was touched; playability was not re-run (figures move no notes).

@@ -8,18 +8,22 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35, later) THE DENSITY BUILD IS AT 56 — and it already
-exists: the GESTURE-2 x0.75 · Messiaen m6 (F) material** (marker @55.94, one group,
-129 notes 55.94–80.12 s, all ten tubas, 92 stacc + 28 fp + 8 surge + 1 ord — density
-4→9→17→32→67 attacks/5s, accelerating into the INT2 blasts). You designated it; the
-Fable planning sitting measured it, confirmed surge/fp handling from the registry, and
-ran playability: **0 hard, 0 soft — your instinct was right** — 92 bricks normalised
-to 50 ms (ledgered), nothing else touched. **NEXT: the OPUS NOTATION RUN — the whole
-section figured in one run** under the settled standards (instruction block in journal
-§2: build `db2` · `--w0 55.9` because your first note sits AT the marker · assert 129
-· scan · figures · flags listed not solved). Then your eye + a Fable fix pass if
-necessary. One named FIRST to watch: a surge inside a figure has no precedent —
-visual check at all 8.
+**NOW ► (2026-08-24, day 35, latest) THE DENSITY-BUILD PAGE IS FIGURED — `db2` is in
+the picker.** "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", 129 events, 12 figure clusters,
+VALID vs source, geometry clean, brackets-above from birth. **The scan changed the picture:
+the section is 12 small gestures and 91 lone one-shots** — only 38 of 129 notes are in a
+gesture at all, and all twelve sit in the last six seconds. *Your density is ACROSS the ten
+tubas, not inside any one of them.* All twelve fit on ONE grid within a notehead, so nothing
+needed a hand — no cuts, no own-grids. Two brackets in the whole section. **The surge-inside-
+a-figure risk never materialised** (closest approach 168 ms, checked on the page).
+
+**NEXT: your eye on the page, then a Fable fix pass over eight flags.** The big one: **the
+twelve clusters have no dynamics** — a cluster suppresses the per-note mark by design, and
+`--dyn`/`--accents` are yours to choose (db1 works the same way). A proposal is derived and
+waiting in the running log; it cannot explain three of the twelve. The other seven are small:
+one straddling bracket (T1 @78.48), one gesture with no clean seam (T6), one ratio tie (T2),
+a fortepiano whose duration bar has no room (T2 @76.92), nine short-bar warnings, and a
+T1/T2 clutter band at 78.5-79.0.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable

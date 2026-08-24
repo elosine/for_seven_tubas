@@ -10,76 +10,49 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT MID-SESSION CLEAR — day 35, tenth wrap, for an OPUS EXECUTION session
+### WHERE IT STANDS — day 35, tenth sitting DONE (the density-build page is figured)
 
-**THE TASK: NOTATE THE DENSITY BUILD SECTION (GESTURE-2 x0.75, 55.94-81 s) — the whole
-section, all ten tubas, in one run.** The composer authorized this shape explicitly:
-Fable planned and cleared it (ninth sitting); **Opus executes under the settled
-standards; flags are LISTED for a Fable fix pass, not agonized over.** If the composer
-opens with a different subject, run `/session-start` instead.
+**`db2` IS BUILT AND FIGURED.** "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", source
+`piece-s27`, window 55.9-81, all ten parts, `--bricks --bracketsAbove`. **129 events · 45
+chunks · VALID vs source · GEOMETRY clean · 12 clusters.** Eleven batteries green; `db1`
+and `int2b1` md5-identical to HEAD. Full account + the flags table: RUNNING_LOG, day 35
+tenth sitting.
 
-**Resume reads:**
-1. `docs/RUNNING_LOG.md` — the **day-35 ninth-sitting entry** (the analysis, the two
-   catches, the playability result — everything below is derived there).
-2. `docs/NOTATION_STANDARDS.md` — the settled figure rules; they are the law this run
-   executes under.
-3. Nothing else. db1/int2b1 are closed; do not re-open them.
+**THE SECTION IS NOT WHAT THE PLAN ASSUMED.** The scan found **12 gestures and 91 lone
+one-shots** — only 38 of 129 notes are in a multi-note gesture, and all twelve gestures sit
+in the last six seconds (73.2-80.1). Before 73 s every part is one-shots. *The density is
+ACROSS the ten parts, not inside any one of them.* All 12 fit within a head on ONE grid, so
+no `--ownGrids`, no `--cuts`, no `--paceRatio` — pace-rule defaults took the whole section.
+Two brackets exist in total (cl-1 5:4, cl-6 3:2); every written value is a 16th.
 
-**THE SECTION, measured (ninth sitting):** marker **"GESTURE-2 x0.75 · Messiaen m6 (F)"
-@55.94** · one group `grp-gest2-75-01` · **129 sounding notes 55.940-80.121 s** · 92
-staccato + 28 fp + 8 ord-surge + 1 plain ord (wc-1624 T10 @55.940, AT the marker) ·
-128 distinct onsets, one 2-note coincidence @78.819 · density 4→9→17→32→67 attacks
-per 5 s bin · **NO one-instant columns — notate_block has no work here; it is ALL
-figure process.** Playability DONE and applied: 0 hard, 0 soft, 92 bricks → 50 ms,
-ledgered; ord untouched (D9). No IR names s27, so no re-extract was owed.
+**THE NAMED FIRST DID NOT OCCUR** — no surge is inside a figure and no surge curve reaches
+one; closest is `wc-1702` T6 with **168 ms clearance**, verified on the rendered page. The
+risk stays open for a future section.
 
-**THE OPUS RUN, step by step:**
-1. **Build the page:** `node tools/notate_section.js --score piece-s27 --w0 55.9 --w1 81
-   --parts 0-9 --profile section1 --id db2 --bricks --bracketsAbove --label "DENSITY
-   BUILD (GESTURE-2 x0.75) — 56-81 s"` — **`--w0 55.9`, NOT 56**: wc-1624 starts at
-   exactly 55.940 and 56 would cut it; nothing lives in 53.045-55.94 so 55.9 is safe.
-   *(id/label were STATED FOR VETO in the ninth sitting and not vetoed; a rename is
-   proven twice, D70.)*
-2. **Assert completeness immediately:** 129 events, and the per-note check (seventh-
-   sitting style): 129/129 notehead + go line + brick. If the count is 128, the w0
-   boundary ate wc-1624 — stop and fix the window, not the extractor.
-3. **Verify the devices in the RUNNING APP off the rendered SVG** (AI_METHODOLOGY):
-   the 8 surges draw curve + peak-cut + go line + dyn pair with arrow (NO single dyn
-   mark — layout.js byEnv, resolved before technique); the 28 fp draw ring bar at
-   sample length + gc + sfzp; wc-1624 (plain ord) draws goLine + nhUnit + dynMark, no
-   gc, duration = drawn length.
-4. **The pre-read:** `node tools/pattern_analyze.js --ir db2 --scan 55.9-81` — one row
-   per gesture per part: fits, straddles, flags. This is the map for step 5.
-5. **The figures, per part:** `--cluster t0-t1@part --figures` per gesture from the
-   scan (pace-rule defaults; `--paceRatio`/`--cuts` only where the scan's flags force
-   a hand). The standards are registry data; brackets-above is on from birth. **32nds
-   are never wanted; played heads stay 16ths** (§2 hard-won list still applies).
-6. **The named FIRST — surge inside a figure has NO precedent** (all 11 approved db1
-   surges are in the unfigured opening, 2.00-28.87). The surge device draws per note
-   regardless of figures (D50); the risk is visual only. **At each of the 8 surges,
-   check the rendered page for beam/curve collision — FLAG, do not solve.** fp inside
-   figures IS approved precedent (db1 @30.00-31.40).
-7. **Flags → the fix-pass list:** straddles, ratio ties, no-clean-seam, FLOW, and any
-   surge-figure visual — one list at the end of the run log, for the Fable fix pass.
-   Do not stop the run for them.
-8. **Close:** eleven batteries green · `db1.ir.json` and `int2b1.ir.json`
-   byte-identical (nothing here touches them) · commit + push explicit paths
-   (`notation/ir/db2.ir.json`, docs). Playability re-run NOT needed — figures move no
-   notes.
+**TWO CORRECTIONS TO THE NINTH SITTING'S BRIEF, both measured:** (1) there are **9 surges,
+not 8 + 1 plain ord** — `wc-1624` carries `env: surge`, and this section has NO plain-ord
+note; (2) **the "129/129 go line" assert cannot survive figures and should not** —
+`figures.cluster.goLine` is `false` in the registry, so it reads 91/129. The assert was
+restated to measure the LAW (go line on non-cluster notes 91/91 · on partials 0/0 · GC on
+each cluster first partial 12/12 · on non-first 0/0 · notehead 129/129 · brick 129/129 —
+all PASS). **A count-based assert would have reported a regression here.**
 
-**Deliberately uncommitted at this clear: nothing** — the ninth sitting committed its
-own work (s27 bricks + ledger + docs). Gitignored and left alone, all pre-existing:
-`scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a
-source, D75) · `scores/versions/`. **`piece-s27-work.json` does not exist** — the
-composer has not opened s27 in the app; if it exists at resume, the composer was in
-the app in between, which is normal and not yours to commit.
+**`--w0 55.9` PROVED NECESSARY:** `wc-1624`'s brick sits at x=56.25 but its **notehead at
+x=27.3** (the surge unit hangs before its go time). `--w0 56` would have clipped the head
+off the page while still counting the event.
 
-**Waiting on the composer: nothing.** The run is authorized ("have a go at notating
-the whole section for all ten tubas"). After the run: their eye, then the Fable fix
-pass if necessary.
+**WAITING ON THE COMPOSER: their eye on the page.** Then the Fable fix pass over the eight
+flags — the largest of which is that **all 12 clusters have NO dynamics** (`dynMark: false`
+by design; `--dyn`/`--accents` stay the composer's, and db1 does the same — 264 of its 330
+partials suppress the mark). The registry rule was run to PROPOSE, and cannot explain three
+of the twelve (cl-1, cl-3, cl-6). The proposal is in the running log.
 
-**Chat format, standing:** succinct, chunked, short lines; answer the question that
-was asked (global CLAUDE.md § Chat responses; `reply-format-tldr-chunks` memory).
+**Deliberately uncommitted: nothing.** Gitignored and pre-existing, left alone:
+`scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a source,
+D75) · `scores/versions/`. `piece-s27-work.json` still does not exist.
+
+**Chat format, standing:** succinct, chunked, short lines; answer the question that was
+asked (global CLAUDE.md § Chat responses; `reply-format-tldr-chunks` memory).
 ---
 
 **DAY 35 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
@@ -167,8 +140,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~P~~ | ~~BUILD THE 81–111 PAGE~~ **DONE day 35 (Opus)** — **`int2b1` "INT2 BLASTS — 81-111 s"**; 7× `set_brick` to the dictated shortest rule then **11 notate_block runs: 8 built (47 ring bars), 3 verified-not-built**. Every dictated exception held with no code for it. Verified in the running app (14 bars at 84.3+2.5; 8 bars @4.995 reaching 110.621). Eleven batteries green; db1 byte-identical | — | — | — |
 | ~~STOP 2~~ | ~~the composer's eye on `int2b1`~~ **ANSWERED day 35, all three** — (1) the id/label `int2b1` / "INT2 BLASTS — 81-111 s" **stands**; (2) the T1 breath: *"shorten just the t1 long tone leave the others"* — applied, T1 now 3.075 s ending 98.960, proved and seen in the app; (3) the two spread clusters **stand as drawn** (free/spatial reading — the composer's own criterion was "a GC and a notehead", and 121/121 have one). **THE SECTION IS CLOSED** | — | — | — |
 | ~~DB2~~ | ~~THE DENSITY BUILD identified + cleared~~ **DONE day 35 (Fable, ninth sitting)** — it is the EXISTING GESTURE-2 x0.75 material (marker @55.94, `grp-gest2-75-01`, 129 notes 55.94-80.12, identical s26=s27, zero composer edits). Analysis + playability run + apply: 0 hard 0 soft, 92 bricks → 50 ms, ledgered. Two catches: wc-1624 sits AT 55.940 (build uses `--w0 55.9`); surge-inside-figure is a FIRST (visual verify point). Surge/fp handling confirmed from the registry + db1 precedent | — | — | — |
-| **DB2-N — NEXT** | **THE OPUS NOTATION RUN: figure the whole section, all ten parts, one run.** Instruction block at the top of §2 (build `db2` with `--w0 55.9` · assert 129 · verify devices in app · `--scan` · `--figures` per gesture · flag-don't-solve · batteries + byte-identical db1/int2b1). Flags → one list for the Fable fix pass | **Opus** | clear before it (this checkpoint IS the clear point) | page figured, flags listed, pushed |
-| DB2-FIX | The Fable fix pass over the flags list + the composer's eye on the page — only if necessary (composer's own framing) | Fable | after the Opus run wraps | composer accepts the page |
+| ~~DB2-N~~ | ~~THE OPUS NOTATION RUN~~ **DONE day 35 (Opus, tenth sitting)** — `db2` built and figured: 129 events, 12 clusters, VALID, geometry clean, brackets-above from birth. The scan reframed the section (**12 gestures, 91 lone one-shots**; density is ACROSS parts). Pace-rule defaults took all twelve — no `--cuts`, no `--ownGrids`. **The named FIRST did not occur** (no surge inside a figure; 168 ms closest). Two brief corrections measured (9 surges not 8+1; the go-line assert restated to the LAW). Eleven batteries green; db1/int2b1 md5-identical | — | — | — |
+| **DB2-FIX — NEXT** | **The composer's eye on `db2`, then the Fable fix pass over the EIGHT FLAGS** (table at the end of the day-35 tenth-sitting running-log entry). Largest by far: **all 12 clusters have no dynamics** — by design, `--dyn`/`--accents` are the composer's; the derived proposal is in the log and cannot explain cl-1, cl-3, cl-6. Then: cl-1 STRADDLE · cl-6 no-clean-seam · cl-3 ratio tie + worst 1.0 heads · cl-1 near-tie · `wc-1704` fp with no ring bar · 9 short-bar warnings · T1/T2 facing band 78.5-79.0 | **Fable** | clear before it (mode change: execution → judgment) | composer accepts the page |
 | F2 | **The fold of `int2b1` into `db1`** — NOT queued, needs the composer's say. A fold is a rename, proven twice (D70, days 30 and 34): re-run db1's own `provenance.build` under one id and prune the other. **Do not raise it unprompted** — db1 is approved and untouched, and there is no cost to leaving the two pages apart | Opus | — | composer asks for it || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
