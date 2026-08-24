@@ -10,6 +10,54 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### OPEN AT SESSION END — (mid-session checkpoint) day 35, for a FABLE session
+
+**The task for the next session, in one line: EVALUATE the process by which the 48.05
+long tone got notated today, and decide whether to build a generator for it.** The
+composer asked for this explicitly and wants Fable's judgment, not more execution.
+
+**Resume reads:**
+1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE LONG TONE AT 48.05
+   NOTATED"* (what was done, with the measurements) and *"THE PROCESS, WRITTEN DOWN FOR
+   EVALUATION"* (**the brief: seven steps, four traps, four mechanization candidates**).
+   The second is the actual input to this task.
+2. `docs/PROJECT_JOURNAL.md` §4 **D72** (device flag must turn its device on) and **D71**
+   (the clear cycle / model trigger) — both filed today.
+3. Only if the evaluation goes toward building: `tools/notate_section.js`
+   `--ringFromBrick` block (~line 1026) · `notation/lib/layout.js` ~line 317 (`if
+   (dev.ringBar)`) · `notation/registry/container.json` → `engraving.layout.devices`.
+
+**State: nothing is in flight and nothing is owed.** Both of today's chunks are
+finished, verified, committed and pushed; the tree is clean; ten batteries green.
+
+- **Chunk 1 — the clear cycle revised (D71).** `/resume` now reads all of §2 + `NOW ►` +
+  the checkpoint's `Resume reads:` list; `/checkpoint` writes that list and folded 7
+  steps to 4; the MODEL is now a clear trigger (clear before a Fable block; wrap on
+  Opus). Files: `.claude/commands/{checkpoint,resume}.md`, `docs/SESSION_HYGIENE.md`,
+  `CLAUDE.md`. *This checkpoint entry is the new format's first real use.*
+- **Chunk 2 — the 48.05 long tone notated** on all ten tubas: ring bars sized from the
+  4.410 s brick in `piece-s25-finished01` (`grp-octbb-ord-01`, 48.050→52.460). `db1`
+  rebuilt from its own `provenance.build` + `--ringFromBrick 48.0-48.1` — **db1 direct,
+  no fork**, matching the 41 s precedent already in that command. Proved: **3843→3853
+  page items, ADDED 10 / REMOVED 0 / CHANGED 0, warnings 22→22**; verified live — ten
+  bars, each pixel-identical in width to its brick.
+
+**Deliberately uncommitted: nothing.** `git status` is clean. (`notation/ir/index.json`
+was touched by the rebuild with line-ending churn only and was restored.)
+
+**Waiting on the composer (neither blocking):** (1) **the A♯ / B♭ spelling of the long
+tone** — the IR spells the ten pitches A♯ and the page draws ten sharps, but the marker
+and the composer both say "octaves Bb"; enharmonic spelling is their call, so it was
+flagged, not changed. (2) their eye on 48.05 on the `db1` page.
+
+**If the evaluation says BUILD:** the strongest candidate is (b) the device-gap assert
+(small, general, would have caught today's real bug), then (c) `prove_unmoved` — note it
+closes a real coverage hole, since a DIRECT db1 rebuild has no automatic guard at all
+(the day-34 approved-span gate wakes only when a fork exists). (a) the block generator is
+the biggest win but rests on n=2. Full argument in the RUNNING_LOG brief.
+
+---
+
 **DAY 35 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
 AND FOLDED (day 34): `db1` is now the single page and carries all 49 clusters,
 0–46.36 s, under the bracket-above policy; nothing mechanical is outstanding.
@@ -301,6 +349,33 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
    is invisible — the only proof a guard works is making it go red on purpose.*
 
 ## §4 Decisions
+
+- **D72** *(2026-08-24, day 35)* — **A DEVICE FLAG MUST TURN ITS DEVICE ON, NOT ONLY
+  SIZE IT.** `--ringFromBrick` wrote `device.ringSeconds` only; layout draws a ring bar
+  solely under `device.ringBar`, which the registry grants **fortepiano** and **cuivre**
+  but not **ord** (its day-24 provisional entry). So on the composer's ord long tone at
+  48.05 the flag would have written a 4.41 s length for a bar that is never drawn — and
+  the tool would have printed `10 ring bar(s) written from the drawn brick` over a blank
+  page. **Fixed at the FLAG** (it now writes `{ringSeconds, ringBar:true}`), because
+  naming a span in that flag IS the request for the bar. *Rejected:* adding `ringBar` to
+  the `ord` registry entry — global to every ord note in every IR (trance included), and
+  that entry is explicitly provisional, so it is a composer design call, not a side
+  effect of notating one section. **The general rule:** before writing a device field,
+  check that the technique's resolved device actually draws the thing — and never let a
+  success line describe an effect it did not verify.
+
+- **D71** *(2026-08-24, day 35)* — **THE MODEL IS A CLEAR TRIGGER, AND THE DYING SESSION
+  DOES THE REMEMBERING.** `/resume` read only the checkpoint entry — *"and nothing
+  older"*, by explicit rule — so the post-clear session never saw §2's standing blocks
+  (tool table, laws, NEXT STEPS) and kept coming back missing context; the composer had
+  fallen back to `/session-start` after every clear, paying full orientation each time.
+  **Now:** `/resume` reads ALL of §2 + `NOW ►` + a **`Resume reads:`** list the checkpoint
+  writes (the dying session is the only one that knows what else matters). And the
+  **MODEL joins subject and length as a reason to clear**: clear before any Fable block
+  however short the chat (Fable re-reads carried context against its own weekly credits);
+  clear lazily on Opus; **run either wrap on Opus** — it is mechanical work at the
+  expensive end of a session. *Rejected:* the leanest read-set (checkpoint entry only) —
+  the ~2k tokens it saved are what caused the loss.
 
 - **D70** *(2026-08-24, day 34)* — **A SECTION FOLDS INTO db1 *WITH* THE POLICY IT WAS
   BUILT UNDER, AND THE FOLD MUST BE PROVEN, NOT ARGUED.** CLOUD02-D was figured on a
@@ -1404,6 +1479,20 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
   sitting; V4/V5 exports trail until submission.
 
 ## §6 Human Notes
+
+- *(2026-08-24, day 35 — CURRENT)* **The long tone at 48 is written, and one small
+  call is yours.** All ten tubas now carry a ring bar over 48.05-52.46, its length
+  taken from the 4.410 s brick in the composer score exactly as you asked — the same
+  device as the 41 s blast. Nothing else on the page moved (measured: 10 items added,
+  0 removed, 0 changed). **The call:** the ten pitches are spelled **A♯**, so the page
+  draws ten sharp accidentals — but your marker and your words both say **"octaves
+  Bb"**. Say the word and they respell to B♭. *One thing you may want to know for the
+  Fable sitting:* the job needed a real fix, not just a flag — `ord` notes had no ring
+  bar in the device registry at all, so the tool would have reported success over a
+  blank page (D72). That near-miss is the strongest argument in the mechanization brief.
+  *(Standing small calls, unchanged: `flagShortBarSeconds` 1.0 → 0.35? · the cuivré
+  MEDIUM gap lift · the GC-ball landing ear check in motion. The facing-bands rule
+  stays a diagnostic at your word.)*
 
 - *(2026-08-24, day 34 — CURRENT)* **The fold is RUN and nothing is owed.**
   `db1` is now your single notation page: 49 clusters, 0-46.36 s, every part

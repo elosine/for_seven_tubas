@@ -8,7 +8,19 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 34) THE PIECE IS IN NOTATION, AND SECTION CLOUD02-D
+**NOW ► (2026-08-24, day 35) THE PIECE IS IN NOTATION; CLOUD02-D IS FOLDED AND
+THE 48 s LONG TONE IS WRITTEN.** `db1` now also carries the **octaves-Bb long
+tone at 48.05-52.46** — ring bars on all ten tubas, sized from the 4.410 s brick
+in the composer score (day 35; nothing else on the page moved, measured). One
+open call on it: the ten pitches are spelled **A♯** while the marker says
+**"octaves Bb"** — the composer's to decide. **Immediately next: a Fable session
+evaluates the day-35 notation process and decides whether to build a generator
+for this class of material** (the brief is the last day-35 RUNNING_LOG entry).
+Then: the NEXT SECTION — a long tone + density build 2 — composed by the
+composer in the app on `piece-s26`. Standing after that: the two trance seams
+(@560.63 T8, @604.63 T6); then PLAN 8 Penn State deliverables and the paper.
+
+**Previously (2026-08-24, day 34) ► THE PIECE IS IN NOTATION, AND SECTION CLOUD02-D
 IS FINISHED AND FOLDED.** `db1` is the single notation page — 49 figure
 clusters over 0-46.36 s, every part figured, under the bracket-above policy
 (journal §2 carries the tool table and the laws). Density build 1 + CLOUD02-I

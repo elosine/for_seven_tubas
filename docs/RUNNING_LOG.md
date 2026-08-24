@@ -11645,3 +11645,88 @@ the bar is new; everything else was already there.
 **A♯** in the IR (`step A, alter 1`) and the page draws ten sharp accidentals —
 but the composer's marker and their words both say **"octaves Bb"**. Enharmonic
 spelling is a composer call, so it is named, not changed.
+
+#### Day 35 — THE PROCESS, WRITTEN DOWN FOR EVALUATION (composer's ask: can this be a generator?)
+
+*Composer, right after the long tone landed: "I would like to get a Fable model to
+evaluate your process and to see if there is a way to mechanize it a little bit more to
+make a generator that's a little bit more efficient... if you need to make some notes
+about what you had to do and if you fell into any traps." This block is written FOR that
+evaluation — the seven steps as actually run, the four traps as actually hit, and four
+mechanization candidates offered as evidence, NOT as a decision.*
+
+**THE SEVEN STEPS, as actually run** (one instruction: "notate the long tone at 48"):
+
+1. **Find the material in the score save file.** `piece-s25-finished01.json` → markers in
+   35-60 s → `grp-octbb-ord-01` @48.05 → its 11 objects (10 notes + 1 handle), technique,
+   velocity, pitches, and **the brick** (`endSeconds - startSeconds` = 4.410, uniform).
+2. **Find how the ANALOGOUS thing is already notated.** The 41 s block (`grp-vert03-fp-01`)
+   in `db1.ir.json`: its ten events, and the overlays targeting them.
+3. **Find the MECHANISM that produced those overlays.** `grep ringSeconds` →
+   `notate_section.js --ringFromBrick`, whose comment quotes the composer's day-30
+   instruction for the 41 s block nearly verbatim.
+4. **Check the mechanism reaches THIS material.** It did not — see Trap 3.
+5. **Patch the mechanism** (flag, not registry — D72).
+6. **Rebuild** from the IR's own `provenance.build` + the one new flag, under `--id db1`.
+7. **Prove + verify:** whole-page item diff before/after → batteries → the running app.
+
+**THE FOUR TRAPS** (each one cost turns; each is a candidate for mechanization):
+
+- **T1 — THE WRONG PROBE, and it cost the most (~5 turns).** Hunting the ring bars in the
+  DOM I filtered on the registry's values, `fill=#111 opacity=0.65`, and got **zero** —
+  including at the composer-approved 41 s block. I began diagnosing a rendering bug that
+  did not exist. The page draws them at **opacity 1**. Tallying every rect by
+  fill/opacity/height found all ten instantly. **The rule that would have saved it:
+  when a known-good control also reads zero, doubt the probe before the work.** The
+  deeper cause: the registry value and the drawn value disagree and nothing reconciles
+  them, so any DOM probe written from the registry is wrong by construction.
+- **T2 — field-name guessing across two schemas.** Score objects use `startSeconds` /
+  `endSeconds`, markers use `time`, IR events use `onset` / `duration`. I filtered notes
+  by `.time` (empty result) and IR events by `.t` (`Infinity - -Infinity` range). Two
+  turns of shape discovery that a helper would make impossible.
+- **T3 — the tool's success line described an effect it had not verified.** `--ringFromBrick`
+  printed `10 ring bar(s) written from the drawn brick (4.41 s)` while writing only
+  LENGTHS; the bar needs `device.ringBar`, which `ord` does not have. **Had I trusted the
+  tool's own output I would have reported the job done over a blank page.** Only reading
+  `layout.js` line 317 (`if (dev.ringBar)`) exposed it. → D72.
+- **T4 — a near-miss on fork-vs-direct.** Journal §2 says the next section's notation
+  comes "via a new fork off db1", and I nearly built one. The right answer was **db1
+  directly**, because the precedent — `--ringFromBrick 40.9-41.0` for the 41 s block —
+  is already inside db1's own build command. Cheap to get wrong: a needless fork, or
+  worse, an unguarded direct edit. **Any generator must decide this explicitly.**
+
+*(Standing logistics, hit again: the Browser pane was not displayed, so no screenshot —
+the DOM audit is the fallback, per day 28.)*
+
+**FOUR MECHANIZATION CANDIDATES — evidence for Fable, not a plan:**
+
+- **(a) A BLOCK GENERATOR — the strongest case.** This class of material recurs and is
+  fully described by its score group: a struck-or-held block, one uniform brick, all ten
+  parts, one technique. Two instances are now notated by hand-assembled flags (VERT01-03
+  @40.93 day 30; octaves-Bb @48.05 today) and **INT2's blasts are the next material on
+  the planner**. Shape: `notate_block --score <s> --group <id>` → reads the group, derives
+  the brick, emits the right `notate_section` flags, refuses if the brick is not uniform.
+  Steps 1-3 and 6 of the seven collapse into one command. *Counter-argument Fable should
+  weigh:* n=2 instances, and the composer's own filter is "one robust build over a
+  fragile one" — a generator over two examples may encode accidents as rules.
+- **(b) A DEVICE-GAP ASSERT — the general form of T3, and the cheapest.** Before any tool
+  writes a device field, resolve the technique's device and assert the field it depends on
+  is actually on; refuse loudly otherwise. Turns a silent blank page into an error at the
+  command line. **This one is small, general, and would have caught today's real bug.**
+- **(c) THE "PROVE NOTHING MOVED" HARNESS — hand-written TWICE now.** Day 34 (the fold,
+  425 rows) and today (3843 items) both hand-rolled a before/after layout diff, because
+  the approved-span gate only compares a FORK against db1 and prints NOT APPLICABLE for a
+  direct rebuild. Shape: `prove_unmoved --before <ir> --after <ir> [--expect-added <k>]`,
+  reporting added/removed/changed by item and the warning delta. Today's ideal output is
+  exactly `ADDED 10 (all ringbar @48.05) / REMOVED 0 / CHANGED 0 / warnings 22→22`.
+  **Note the coverage hole it closes:** a direct db1 rebuild currently has NO automatic
+  guard at all — the day-34 gate wakes only when a fork exists.
+- **(d) A VERIFICATION QUERY for the DOM audit — the T1 fix.** A tiny helper that answers
+  "what did the page actually draw at time T, by kind" from the model rather than by
+  guessing SVG attributes, so the probe can never disagree with the renderer.
+
+**What I would NOT mechanize, and why it matters to the evaluation:** steps 2 and 5 —
+finding the analogous already-approved thing, and deciding where to fix a gap (flag vs
+registry vs material). Both were judgment calls with a rejected alternative on the record
+(D72), and both are where a wrong automation would do real damage. The mechanizable part
+is the *fetch-derive-emit-prove* spine; the *what should this look like* stays human.
