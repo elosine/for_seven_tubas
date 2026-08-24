@@ -11999,3 +11999,64 @@ files:
 - **No IR covers that region.** The db1 window ends at 55.94, so the machine refuses both of
   them by design (T4) and prints the two options. **That refusal is STOP 1: which save file,
   and one page or a new one, is the composer's call.**
+
+---
+
+#### Day 35 (fourth sitting, cont.) — WHICH FILE IS THE PIECE: the `-work` copy measured, and the day-33 diagnosis confirmed with numbers
+
+**Composer, naming the source for the new page:** *"the save file I... of the finished
+piece is this: piece-s25-finished01-work."*
+
+**It is not.** `piece-s25-finished01-work` is the app's live working copy, and it is
+**behind** the archive by the entire playability pass. Measured object by object rather
+than inferred:
+
+| | archive vs `-work` | archive vs `piece-s26` |
+|---|---|---|
+| identical objects | 4390 | **4563** |
+| differing | **173** | 0 |
+| only in one side | 0 / 0 | 0 / 0 |
+
+The 173 differences are **157 `endSeconds`** (brick lengths) and **28 `layer`** (part
+assignments) — which is exactly the shape of the playability process (day 25 `set_brick`
+normalisation + day 31 part moves). Direction confirmed by measurement, not by timestamp:
+in the archive, `grp-cloud02-i-01` has **one** distinct brick length (0.05 s); in `-work`
+it has **65** (0.069, 0.072, 0.065, 0.087 …). And 28 notes sit on different lanes
+(wc-1781: archive T1, `-work` T5). **The archive has the corrections; `-work` predates
+them.**
+
+**Why the file LOOKS newer, which is the trap.** Its internal `savedAt` is
+2026-08-23T14:22Z against the archive's 2026-08-20T22:45Z, so by the app's own stamp
+`-work` is three days ahead. The archive's stamp is old because the playability fixes were
+applied by TOOLS (`playability.js --apply`, `set_brick.js --apply`), which rewrite the
+score without touching `savedAt`. **So the newest-looking save file is the one missing the
+work.** This is the day-33 "stale `-work`" diagnosis — now with numbers behind it instead
+of a timestamp comparison, which is what had produced the "12 h older" framing that made
+it sound like a small drift.
+
+**Why the composer sees it at all:** `score/server.js` `listScores()` filters on nothing
+but `.json` and sorts by mtime, so the app's picker lists `-work` files beside real saves.
+`scores/*-work.json` is gitignored, so git never showed it either. **A file that is
+invisible to git and prominent in the UI is exactly the file that gets chosen by mistake.**
+
+**Nothing is at risk, and that is worth stating:** `-work` holds **zero** objects the
+others lack (same 4563 ids). Ignoring or deleting it loses nothing; the app remakes it on
+the next open.
+
+**DECIDED THIS SITTING — the new page comes from `piece-s26`.** The composer, asked which
+source: *"piece s twenty six."* Consistent with the day-33 intent (s25 frozen as the
+CLOUD02-D-era canon that db1's approved notation refers to; new composition grows in s26).
+Today the two are byte-identical in content, so nothing turns on it yet — it only matters
+once new material goes into s26, which is the point of having made it.
+
+**Also decided: option (a) — a NEW IR for 81-110 s**, not an extended db1 window. The
+argument the composer accepted: a new section gets its own page, db1 stays approved and
+untouched, and folding later is a rename that has already been proven twice (D70, day 34).
+
+**EXPECTATION SET BEFORE BUILDING, so the result is not read as a failure:** the 81-110
+window holds **13 groups**, of which the machine handles **two** — `grp-s009-817` @81.748
+(10 notes, 2.172 s brick, ord) and `grp-s005-958` @95.885 (7 notes, 3.435 s brick, ord).
+The other eleven are short blasts and clusters needing the figure process (pattern
+analyser + dictation rounds), which is the composer's job and a far bigger one. **The new
+page will therefore show two notated long tones and eleven groups as parachute bricks.
+That is correct output.**

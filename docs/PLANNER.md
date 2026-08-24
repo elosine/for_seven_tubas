@@ -8,27 +8,33 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35) THE PIECE IS IN NOTATION, AND THE NOTATION IS
-GETTING A MACHINE.** `db1` carries everything through 46.36 s plus the
-**octaves-Bb long tone at 48.05-52.46** (ring bars on all ten tubas, sized from
-the composer score's 4.410 s brick; nothing else moved, measured). **Immediately
-next: Opus builds `tools/notate_block.js`** — the long-tone / block generator —
-after a Fable session evaluated the day-35 notation process and reversed itself
-to YES on the evidence that long-tone material is real and recurring (**81-110 s
-next, and more after**). The machine reads a score group, derives the brick,
-refuses a non-uniform one, emits the flags, rebuilds and proves; the device-gap
-assert (D72) and the before/after `prove_unmoved` diff live inside it. It must
-reproduce the 41 s block and the 48.05 long tone EXACTLY before it touches new
-material. **Then it stops and asks the composer which save file holds the 81-110
-long tones**, runs, and stops again with the page ready for their eye — nothing
-folds into db1 unapproved. One open call carried forward: the ten pitches at
-48.05 are spelled **A♯** while the marker says **"octaves Bb"** — the composer's
-to decide. Standing after that: the next section proper (long tone + density
-build 2) on `piece-s26`; the two trance seams (@560.63 T8, @604.63 T6); then
-PLAN 8 Penn State deliverables and the paper.
+**NOW ► (2026-08-24, day 35) THE NOTATION HAS A MACHINE, AND THE NEXT PAGE IS
+UNBLOCKED.** `db1` carries everything through 46.36 s plus the octaves-Bb long
+tone at 48.05-52.46. **Built today: `tools/notate_block.js`**, the long-tone /
+block generator — reads a score group, derives the brick, refuses a non-uniform
+one, decides fork-vs-direct from the target page's window, rebuilds, and proves
+itself; the device-gap assert (D72) and the before/after layout diff live inside
+it, and it snapshots and byte-restores the page if any of that fails. **The
+golden passes: the machine-built page is item-for-item identical to the approved
+db1** — and it caught a real error in yesterday's proof shape on the way (D73:
+the claim is CONFINEMENT, not stillness). 44/44 new checks; eleven batteries
+green. **Immediately next: a NEW page for 81-110 s, extracted from `piece-s26`,
+with the two `ord` long tones notated into it by the machine** — `grp-s009-817`
+@81.748 (2.172 s brick) and `grp-s005-958` @95.885 (3.435 s). Expect eleven
+other groups in that window to stay parachute bricks: they are blasts and
+clusters needing the figure process, which is the composer's job. Then STOP for
+the composer's eye; nothing folds into db1 unapproved. **Two calls closed
+today:** the long tone is spelled **B flat** going forward and the drawn page is
+left as it is (D74), and **`-work` save files are never a source** — the one the
+composer first named is behind by the whole playability pass, measured (D75).
+Standing after that: the next section proper (long tone + density build 2) on
+`piece-s26`; the two trance seams (@560.63 T8, @604.63 T6); then PLAN 8 Penn
+State deliverables and the paper.
 
-**Previously (2026-08-24, day 35, earlier) ►** THE 48 s LONG TONE WAS WRITTEN and
-the clear cycle was revised (D71); `/resume` became `/postclear`.
+**Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
+the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
+session evaluated the notation process and reversed itself to YES on building
+the generator.
 
 **Previously (2026-08-24, day 34) ► THE PIECE IS IN NOTATION, AND SECTION CLOUD02-D
 IS FINISHED AND FOLDED.** `db1` is the single notation page — 49 figure
