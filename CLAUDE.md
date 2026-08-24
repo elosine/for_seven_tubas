@@ -33,7 +33,7 @@ plans around it** · no clear evidence means no diagnosis.
   between work chunks; the docs are the handoff, not the chat.
   **Two clear-boundaries, two cycles — and the model trigger** (§ The two
   boundaries): subject changed → `/session-end` · `/clear` · `/session-start`;
-  same task, long chat → `/checkpoint` · `/clear` · `/resume` (the cheap one);
+  same task, long chat → `/checkpoint` · `/clear` · `/postclear` (the cheap one);
   **Fable block ahead → wrap on Opus · `/clear` · resume on Fable**
 - Working preferences & session routines: piece #3's `docs/HOW_WE_WORK.md` and
   `docs/SESSION_PROTOCOL.md` apply unchanged (registered as an additional working dir).

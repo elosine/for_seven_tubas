@@ -30,7 +30,7 @@ composer asked for this explicitly and wants Fable's judgment, not more executio
 **State: nothing is in flight and nothing is owed.** Both of today's chunks are
 finished, verified, committed and pushed; the tree is clean; ten batteries green.
 
-- **Chunk 1 — the clear cycle revised (D71).** `/resume` now reads all of §2 + `NOW ►` +
+- **Chunk 1 — the clear cycle revised (D71).** `/postclear` now reads all of §2 + `NOW ►` +
   the checkpoint's `Resume reads:` list; `/checkpoint` writes that list and folded 7
   steps to 4; the MODEL is now a clear trigger (clear before a Fable block; wrap on
   Opus). Files: `.claude/commands/{checkpoint,resume}.md`, `docs/SESSION_HYGIENE.md`,
@@ -365,11 +365,11 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
   success line describe an effect it did not verify.
 
 - **D71** *(2026-08-24, day 35)* — **THE MODEL IS A CLEAR TRIGGER, AND THE DYING SESSION
-  DOES THE REMEMBERING.** `/resume` read only the checkpoint entry — *"and nothing
+  DOES THE REMEMBERING.** `/postclear` read only the checkpoint entry — *"and nothing
   older"*, by explicit rule — so the post-clear session never saw §2's standing blocks
   (tool table, laws, NEXT STEPS) and kept coming back missing context; the composer had
   fallen back to `/session-start` after every clear, paying full orientation each time.
-  **Now:** `/resume` reads ALL of §2 + `NOW ►` + a **`Resume reads:`** list the checkpoint
+  **Now:** `/postclear` reads ALL of §2 + `NOW ►` + a **`Resume reads:`** list the checkpoint
   writes (the dying session is the only one that knows what else matters). And the
   **MODEL joins subject and length as a reason to clear**: clear before any Fable block
   however short the chat (Fable re-reads carried context against its own weekly credits);

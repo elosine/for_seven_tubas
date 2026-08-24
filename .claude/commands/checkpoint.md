@@ -17,10 +17,10 @@ no promotion to §4, no §6 review, no tag).
 **The economics this serves (day 35): spend tokens on the DYING session, save
 them on the FRESH one.** This session's context is already paid for; the next
 session starts from zero and may be Fable. So the checkpoint does the
-remembering, and `/resume` only reads. **If the next block is Fable and you are
+remembering, and `/postclear` only reads. **If the next block is Fable and you are
 not already on Opus, run this wrap on Opus** (`/model` first) — it is
 mechanical work at the long, expensive end of a session; then `/clear`, switch
-to Fable, `/resume`.
+to Fable, `/postclear`.
 
 Do these in order, then say plainly that it is safe to `/clear`.
 
@@ -28,7 +28,7 @@ Do these in order, then say plainly that it is safe to `/clear`.
    in chat → `docs/PROJECT_JOURNAL.md` §2 (or §4 if it is a real decision),
    `docs/PLAN.md` statuses, `docs/RUNNING_LOG.md`. Then refresh
    `docs/PLANNER.md`'s **`NOW ►`** line — one line: where the piece actually
-   stands and what is immediately next; `/resume` reads it, and it went six
+   stands and what is immediately next; `/postclear` reads it, and it went six
    days and two morphs stale once. If journaling happened as the work happened
    — the standing rule — this step is a check, not a writing session.
 
@@ -59,4 +59,4 @@ Do these in order, then say plainly that it is safe to `/clear`.
    unrecoverable.
 
 4. **Say it plainly:** what was committed, what was left, that it is safe to
-   `/clear` and then `/resume` — and **which model to resume on**.
+   `/clear` and then `/postclear` — and **which model to resume on**.

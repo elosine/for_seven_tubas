@@ -2,7 +2,10 @@
 description: Pick up the same task after a mid-chunk clear — read §2 + the checkpoint's read-list, restate the next step, start
 ---
 
-# Resume (postclear)
+# Postclear — resume the same task after a mid-chunk clear
+
+*(Named `postclear`, not `resume`: Claude Code has a built-in `/resume` that wins
+the slash-command picker. Renamed day 35, 2026-08-24.)*
 
 **Use after `/clear` when the task did not change** — you checkpointed, cleared,
 and are carrying on with the same work. This is deliberately much cheaper than

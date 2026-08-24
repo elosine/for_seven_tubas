@@ -11730,3 +11730,44 @@ finding the analogous already-approved thing, and deciding where to fix a gap (f
 registry vs material). Both were judgment calls with a rejected alternative on the record
 (D72), and both are where a wrong automation would do real damage. The mechanizable part
 is the *fetch-derive-emit-prove* spine; the *what should this look like* stays human.
+
+---
+
+#### Day 35 — 2026-08-24 (Opus 5): `/resume` renamed `/postclear` — the built-in was eating it
+
+**Composer:** *"the custom resume skill that we just made is being eaten by the Claude one.
+Can we find ours and give it a new name?"*
+
+**What was wrong.** Claude Code ships a built-in `/resume` (resume a previous
+conversation). Our day-35 command lived at `.claude/commands/resume.md`, and the built-in
+won the slash-command picker — so the cheap inner cycle was unreachable by name the day
+after it was written.
+
+**The rename: `/postclear`.** Rejected alternatives and why:
+
+- `/pickup` — shortest, but reads as a generic verb and does not announce itself as
+  `/checkpoint`'s other half.
+- `/reprise` — musical and memorable, but "reprise" already means something specific about
+  score material in these docs; ambiguity we do not need in a composition repo.
+- `/resume-work` — closest to muscle memory, and **the trap**: you still type `/res` and the
+  built-in still surfaces first. It would have reproduced the exact failure.
+
+`/postclear` wins on three counts: the file already titled itself "Resume (postclear)"; it
+pairs with `/checkpoint` as a stated before/after set; and `/po` reaches it uniquely with no
+built-in in the way. *(The word was the composer's own, day 15: "can we have a preclear and
+a postclear protocol" — so the naming closes a loop rather than inventing a term.)*
+
+**What changed.** `git mv .claude/commands/resume.md → postclear.md`, plus 17 references
+across `.claude/commands/checkpoint.md` (4), `CLAUDE.md` (1), `docs/SESSION_HYGIENE.md` (9),
+`docs/PROJECT_JOURNAL.md` (3). **RUNNING_LOG's six earlier `/resume` mentions were left
+verbatim** — they are the record of the day-35 revision as it was made, and this entry is
+the pointer that supersedes them. The dead name is evidence, not a typo to sweep.
+
+**Verified, not assumed:** the skill registry re-scanned after the `git mv` and now lists
+`postclear` with `resume` gone — confirmed in this session, not inferred from the filename.
+
+**The general lesson, worth a line for the paper:** a custom slash command competes in a
+namespace we do not own and that grows without notice. Name project commands for the
+*moment they belong to* (`postclear`, `checkpoint`, `session-end`) rather than for the
+generic verb (`resume`, `start`, `save`) — the specific name is both collision-resistant
+and self-documenting about when to run it.
