@@ -10,246 +10,70 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 28 COLD START (fourth clear → Fable does THE READS) — read this block, then
-`docs/NOTATION_STANDARDS.md` principle 6 (rewritten under D69 — it is the writing rule
-now), then go. The next step is a CONVERSATION, not a build. (Days 23–24 are compressed
-below.)**
+**DAY 31 COLD START — read this block, then `docs/NOTATION_STANDARDS.md` (principle 6
+incl. the day-30 lines), then `docs/BEAMING_DECISIONS.md` § THE STANDING BUILD RECIPE
+(incl. Day-30 additions — the five checks), then go. The next chunk is 6a below (Opus).**
 
 ### State in one paragraph
 
-**Day 28, fourth sitting: PLAN 8i IS BUILT, VERIFIED AND PUSHED — the composer's page
-is now what the tool writes by default.** `--figures` means the groups from 8h on ONE
-grid with the beams broken at the seams (D69, *the bracket is the message*);
-`--ownGrids` is the old per-figure reading, kept as the by-hand alternative and proved
-byte-identical to `t1-figures2`. **`t1-final` — built with no `--cuts` and no
-`--beamBreak` — is IR-identical to the hand-typed `t1-hybrid2` on every drawn field**
-(the one difference is the new `device.figure` annotation, which draws nothing), and
-the DOM audit at :5210 shows the same 21 polygons, six primary beams over 1–2, 3–5,
-6–7, 8–10, 11–14, 15–16, and the three texts `7:4 6:4 7:4`. The five scratch entries
-are pruned; **`t1-final` is alone in the picker for T1.** Ten batteries green
-(`test_pattern_fit` 61 → 80 checks), `--validate` still 24/25. **THE TWO FINDINGS THAT
-CHANGE WHAT 5c LOOKS LIKE, both from the new `--scan`: (1) all fifteen gestures of
-CLOUD02-I fit ONE grid inside a head — nothing in this section needs `--ownGrids`;
-(2) FIVE of them carry a bracket that STRADDLES a seam** (T2 @38.60, T4 @36.20 with
-three, T9 @36.33, T9 @37.39, T10 @38.69), so design call A(a)'s watch item is real in a
-third of the section and comes to the composer part by part. *(Below: the third
-sitting's picture of the verdict, still the reason for all of this.)*
+**Day 30 closed THE CLOUD02-I MILESTONE: all ten parts read part-by-part with the
+composer, finalized, and FOLDED into `db1`** ("DENSITY BUILD 1 + CLOUD02-I — all
+parts figured (day 30)") — every note of 0–40.4 s carries a composer-approved figure.
+`db1-c2i-x01` is PRUNED (git keeps it); **`db1-all-x01` is deliberately KEPT — it is
+`test_pattern_fit`'s frozen validate golden (D65)**; the scan + bracket tests now read
+`db1`. `--validate` on the merged file = **37/40**; the three DIFFERs are ear-over-fit,
+each on the record (cl-1 T1's day-23 3:2 · cl-28 T2's no-brackets · cl-34 T7's rule-8
+plain). The 40.93 blast's ten ring bars are UNIFORM at the drawn brick's 1.010 s
+(`--ringFromBrick`, new — drawing only, D49/D51 intact); the three cuivre notes carry
+`cuivré` in solid black above the head (T8 at the tag row — its G4 cannot clear the
+lane line; D-log 22.3). Whole archive still 2 hard (trance seams @560.63 T8 /
+@604.63 T6) + 32 soft, parked. All pushed; tree clean.
 
-**Day 28, third sitting: THE VERDICT ON THE WRITING — "I would like the tuplet
-brackets." T1's final is `t1-hybrid2`** (ONE grid, the composer's six groups as beam
-groups, 7:4 · 6:4 · 7:4), NOT `t1-figures2`. **D69**: a pace change must be SAID on the
-page; the bracket on the quick group is the message, and own grids with plain 16ths
-make the values lie against the spacing. 8h's grouping stands; 8g's writing falls.
-Design calls answered: **A(a)** bracket scope stays per beat, straddles get a flag ·
-**B(a)** one grid per gesture, FLOW stays a flag.
+### Day 30's other product: the generator's rulebook (all in BEAMING_DECISIONS.md)
 
-**Day 28, second sitting: PLAN 8h IS BUILT, VERIFIED AND PUSHED.** The seam test in
-`pattern_fit.segment()` is now TWO-SIDED (D68 — *the seam is the slower gap; the
-boundary note goes with the quick side*), and on T1 the legal set is exactly the
-composer's five cuts `2,5,7,10,14`, all five taken. With it came the **RATIO TIE**
-flag (T1's 7-vs-8 flips at pace ratio 1.272), the **NO CLEAN SEAM** flag (T7 @36.19),
-**`--cuts a,b,c`** on both tools, and the **FLOW** flag (adjacent figures at 2:1 / 3:2
-could share one grid — report only). Ten batteries green (`test_pattern_fit` 40 → 61),
-`--validate` still 24/25, **`t1-figures2` built and DOM-audited** — same heads and the
-same six primary beams as `t1-hybrid2`, differing only by three tuplet brackets.
-**THE ONE FINDING THAT CHANGES SOMETHING: the day-27 claim "not one figure in CLOUD02-I
-needs a tuplet" is FALSE under the corrected rule — three figures need one** (T7 @36.19
-notes 1–6 · T7 @39.51 notes 5–8 · T8 @37.14 notes 4–7). The old rule cut more (60
-figures against 55) and short figures fit for free; worst displacement nonetheless
-improved 1.00 → 0.93 heads. **So the tuplet-vs-dotted question is live again in three
-places, and it belongs to the reads.** *(The paragraph below is day 27's picture of 8g,
-still accurate as a description of what exists.)*
-
-**Day 27 ended with PLAN 8g (FIGURE SEAMS) BUILT, VERIFIED AND PUSHED.**
-The analyser now cuts a gesture into FIGURES and fits each one alone
-(`pattern_fit.segment()`), reports them **in words first**, and `notate_section`
-can build them (`--cluster … --figures`). On T1 it finds SIX figures with **no
-tuplet anywhere** and nothing past 0.2 heads, against the one-grid reading's three
-tuplet beats at 0.7 heads. **It keeps three of the composer's four day-26 cuts (5,
-8, 14), flags note 11 as a near-tie exactly as the composer did, and makes one cut
-they did not — after note 3 — which removes the quintuplet from their figure 1.**
-The day's finding (D67): the cost model PLAN 8g specified provably CANNOT reproduce
-the composer's reading for any CUT_COST; what was missing was the composer's own
-day-26 method — **a cut may only land where the pace changes** — plus a
-figure-length term. That rule also makes no-shatter structural instead of tuned.
-Ten batteries green (`test_pattern_fit` 6 → 40 checks), `--validate` still 24/25,
-verified in the running app.
-
-**The standing picture, unchanged this session.** Density build 1 (0–34.6 s) is
-finished and promoted (`notation/ir/db1.ir.json`, 25 clusters, top of the picker; its
-`provenance.build` rebuilds it). CLOUD02-I (36.19–40.42 s) has been through the
-playability process — 12 redistribution part-moves, 159 staccato bricks at 50 ms, 13
-ledger lines, 0 hard / 0 soft, no note removed and no time or pitch changed — and db1
-was re-extracted from the amended archive (456 events, 131 chunks, VALID). The trials
-fork **`db1-c2i-x01`** sits under experiments with its CLOUD02-I span **BARE**
-(`--bare 36.19-40.33`): bricks only, so the material can be read. **CLOUD02-I is still
-not notated.** Whole archive still shows 2 hard (the trance seams @560.63 T8 /
-@604.63 T6) and 32 soft, all parked. All pushed; working tree clean.
+- **D-logs 10–22** — every verdict of the ten reads, composer's words verbatim.
+- **Rule candidates 8–12**: brackets where plain fails pervasively (7 data points) ·
+  CONTAINMENT (a bracket never crosses a beam-group boundary; may sit wholly inside a
+  wider phrase beam) · a bracket covers only the notes that NEED it (the sub-beat 3:2
+  frees plain halves) · ONE SUBDIVISION, ONE BRACKET (refines 11; sanctions the
+  same-subdivision straddle — call A(a) closed). **Extraction to standards still
+  DEFERRED by the composer.**
+- **THE FIVE-CHECK RECIPE** (§ Day-30 additions): rule-8 census → containment
+  (straddles RESOLVED at proposal time) → lattice audit (+ standing exceptions) →
+  recipe (through · rest16 · separators) → dynamics (day-24 rule + mf floor + the
+  two-band precedents). Ran cold on T5–T10; written to run cold on CLOUD02-D.
+- **Tool growth**: hand `--tuplet` OVERRIDES the fit's beat under `--figures`
+  (two-phase, union-validated; lattice + seam checks; positions never move) ·
+  `--ringFromBrick` · `device.ringSeconds` · registry `techText` (black,
+  head-anchored, lane-line fallback) · render per-item color.
 
 ### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
 
 | # | step | model | clear? | done = |
 |---|---|---|---|---|
-| ~~1~~ | ~~PART 3 — analysis of CLOUD02-I in shapes, then STOP AND TALK~~ **T1 DONE day 26** | — | — | — |
-| ~~2~~ | ~~8g — FIGURE SEAMS: build the segmenter~~ **DONE day 27** — built, verified in the app, pushed; the finding is D67 | — | — | — |
-| ~~3~~ | ~~THE COMPOSER'S EYE ON THE SEGMENTATION~~ **DONE day 28** — verdict: grouping instinct right, two cuts one note off (after 2 not 3, after 7 not 8), both from the same one-sided rule; beaming of `t1-hybrid2` approved as is. *(old row kept for the record:)* THE COMPOSER'S EYE ON THE SEGMENTATION — 15 minutes, before any more parts. Open the picker: **`t1-figures`** (8g AFTER — six figures, no tuplet) against **`t1-onegrid`** (8g BEFORE — one grid, 7:4·6:4·7:4). Three questions: (a) is six figures right, or is the cut after **note 3** one too many — the tool's one disagreement with your day-26 five? (b) **note 11** is flagged as a near-tie, as you called it — which side does it belong on? (c) do three 2-note "pair" figures read as fragmented on the page? | **Fable** | **YES — clear before it** (execution → conversation) | a verdict on the cut set; if the cuts want to move, the dial is `--paceRatio` (or say the boundary and it moves) |
-| ~~4 = A+B~~ | ~~PLAN 8h — THE SEAM IS THE SLOWER GAP~~ **DONE day 28 (second sitting)** — all ten spec items built and verified, pushed; the decision is D68, the trail is RUNNING_LOG day 28. Two things to carry forward: the tuplet re-measurement came back **3, not 0**, and a new PICKUP flag appeared on T1's note 8. | — | — | — |
-| ~~5a~~ | ~~T1's final, by eye~~ **DONE day 28 (third sitting): `t1-hybrid2` — the brackets. D69.** | — | — | — |
-| ~~5b~~ | ~~PLAN 8i — THE BRACKET IS THE MESSAGE~~ **DONE day 28 (fourth sitting)** — all nine items built and verified in the app, pushed. `t1-final` IR-identical to `t1-hybrid2`, alone in the picker; `--ownGrids` byte-identical to `t1-figures2`; batteries green, `--validate` 24/25. The scan table is in RUNNING_LOG. | — | — | — |
-| ~~5c~~ | ~~THE READS~~ **DONE day 30 — all ten parts read, finalized, folded into db1 (D-logs 10–22); the reads also produced rule candidates 8–12 and the five-check generator recipe.** *(old row kept for the record:)* THE READS: T2–T10 by hand against the 8i report, one part per sitting. For each part: `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span 36.19-40.42` — the writing on ONE grid comes FIRST now, group by group with its brackets; own grids print last as the alternative. Composer validates the "one cluster per part, several groups" expectation and says whether the brackets are the ones they want. **The scan has already narrowed what to watch:** a gesture over a head — **none in this section, all 15 fit** · a **STRADDLING bracket — five, named** (T2 @38.60, T4 @36.20 ×3, T9 @36.33, T9 @37.39, T10 @38.69): call A(a) is now live, and the fix (bracket scoped to the figure, a change to `fit()`) is built only if the composer wants it · **FLOW** lines they want taken (by hand, `--tuplet a-b@3:2`) · **ratio ties** on five gestures. The dotted-16th question is not urgent — brackets are welcome. | **Fable** | **YES — clear before it** (execution → conversation) | every part has its read; the tool changes it shows a need for are listed |
-| ~~6~~ | ~~NOTATE CLOUD02-I~~ **DONE day 30 — folded into db1, validate 37/40 (three ear-over-fit DIFFERs on the record), pushed** | — | — | — |
+| ~~5c/6~~ | ~~CLOUD02-I: the reads, the notation, the fold~~ **DONE day 30** (D-logs 10–22; validate 37/40; pushed) | — | — | — |
 | **6a — NEXT** | CLOUD02-D playability — `node tools/playability.js --score piece-s25-finished01 --section CLOUD02-D --brick 0.05` (dry-run stands: 18 soft → 9; two real asks T6 @45.51, T7 @45.47); present the nine, composer decides → `--apply` → re-extract db1 (its provenance.build) → ledger | **Opus** (the nine are the COMPOSER's decisions — Opus presents and applies) | **YES — clear before it (the CLOUD02-I milestone just closed; this is the boundary)** | the nine decided + ledgered; db1 re-extracted, 0 hard; pushed |
 | 6b | CLOUD02-D notation — the FIVE-CHECK RECIPE runs cold (BEAMING_DECISIONS § STANDING BUILD RECIPE + day-30 additions; rule candidates 1–12; the T1–T10 reads as worked examples). Propose per part → composer verdicts by dictation → ledger rows → fold. **Standing instruction: FLAG anything the rules don't cover — never invent; a novel design tension goes to Fable or waits** | **Opus** (composer asked day 30; answer: yes — the proposals are now checklist execution; today's Fable moments were the NEW rules, which emerged from composer questions and get flagged regardless) | checkpoint/clear mid-way as needed | every CLOUD02-D note figured + approved; folded into db1; batteries green; pushed |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
-**DAY 30 UPDATE (this session): T4 read is FOUR ROUNDS IN, all three straddles
-RESOLVED, awaiting the composer's look at the finished page.** Round 1: proposal
-by rule-candidate-8 measurement (plain 6/17 over a head → brackets; D-log 10).
-Round 2: composer's bracket-aligned first stretch + THE COUNTING-VS-PHRASE
-QUESTION named; AI answered CONTAINMENT (a bracket never crosses a beam boundary
-but may sit inside a wider phrase beam — rule cand. 10; PAPER_NOTES day 30).
-Round 3: "ok a" — [10-13] one phrase beam. Round 4: "yes merge 3-7 and build the
-3:2" — **notate_section gained the hand-tuplet override** (under `--figures` a
-hand `--tuplet` replaces the fit's beat bracket; lattice + seam validation; inert
-gate byte-identical) and T4 became 6 groups, brackets 5:4 · 6:4 · 5:4 · 3:2 ·
-3:2, **zero straddles** — the two 6:4s were per-beat artifacts (only notes 13/17
-off-lattice; rule cand. 11). The day-28 A(a) fix is retired for every case seen.
-Ledger D-log 11 complete; batteries green each round; `--validate` 24/25.
-**CLOUD02-I IS DONE AND FOLDED (D-logs 12, 15, 20, 21, 22) — the milestone.**
-All ten parts final ("cld 1 done"); every remaining flag settled by acceptance
-(T9g2's straddle stays · T7g1 stays plain · pickups unapplied · near-ties as
-chosen). **The fold: `db1` = "DENSITY BUILD 1 + CLOUD02-I — all parts figured
-(day 30)"; `db1-c2i-x01` PRUNED; `db1-all-x01` KEPT (test_pattern_fit's frozen
-validate golden, D65); scan + bracket tests re-pointed to db1. `--validate` on
-the merged file = 37/40** (the three DIFFERs all ear-over-fit, on the record:
-cl-1 · cl-28 · cl-34). **The two closing marks: the 40.93 blast's ten ring bars
-uniform at the DRAWN BRICK's 1.010 s** (`--ringFromBrick`, new — reads the
-score's endSeconds−startSeconds; drawing only) **and `cuivré` text on T1/T4/T8**
-(registry `cuivre.techText`; the day-24 open item closes — text confirmed
-right, `+` is hand-stopping). Ten batteries green; all pushed. Day-30 rules for
-the generator: candidates 8–12 + the five-check recipe (ledger).
-
-**CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
-**T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.
-**Next concrete step: T4.** The loop that worked for T2/T3: (1) `node
-tools/pattern_analyze.js --ir db1-c2i-x01 --part 3 --span 36.19-40.42` (0-INDEXED:
-T4 = part 3); (2) build the proposal INTO the section file per the ledger's STANDING
-BUILD RECIPE + mf-floor dynamics — choose brackets vs plain by rule candidate 8
-(brackets where plain fails pervasively; measure both, report both); (3) composer
-adjusts by dictation, each change a ledger row; (4) "done" → next part. **T4 is the
-straddle-heavy part: scan says 17 notes, 7 groups, 3 STRADDLES, 2 ratio ties —
-expect --cuts work and the A(a) discussion.** Beam vocabulary all built: through ·
-rest16 · beamOver/overLeft (both tuplet-aware) · bracket ends at content · bracket
-gap hGapSs · ESC frees focus. Ledger = BEAMING_DECISIONS.md (D-logs 1–9, rule
-candidates 1–9; extraction still deferred). Dynamics = day-24 rule + mf floor.
-Model for T4: Fable (verdict conversation). *(The paragraphs below are the earlier
-day-29 pictures, kept for the trail.)*
-
-**Right now (updated late day 29): THE SECTION FILE IS `db1-c2i-x01`** — T1 + T2
-FINAL (T2 declared done; T1 rebeamed per the recipe, brackets kept), **T3 proposed
-and awaiting the composer's look** (plain per the standing direction, but EIGHT of 17
-notes sit 1.4–1.8 heads off vs 1.00 bracketed — the flag is D-log 6.3), T4–T10 bare
-per part. All t1-*/t2-* scratch pages pruned (git keeps them). The ledger
-(BEAMING_DECISIONS.md) has D-logs 1–6; rules extraction still deferred. Next: the
-composer's T3 verdict → then T4…T10 one at a time, notated straight into the section
-file per the standing recipe + mf-floor dynamics. *(The paragraph below is the
-mid-day picture, kept for the trail.)*
-
-**Right now (updated mid-day 29):** the reads changed shape. T2's read produced
-`t2-composer` ("T2 read E") through five verdict rounds — **the composer has more T2
-remarks coming; that file is where they land.** A BEAMING-DECISIONS LEDGER now runs
-(`docs/BEAMING_DECISIONS.md` — rule extraction deferred, log everything); its D-log 4
-recipe (through · rest16 inside groups · separator rests keep value) was applied to
-db1's ending figures T1–T10 and **PROMOTED into db1** (day 29). The standing build
-recipe section of the ledger governs every new figure built from here. After T2's
-remaining remarks: T3's read, then onward per part; step 6 (notating into
-`db1-c2i-x01`) applies the recipe. `docs/research/beaming_standards.md` is the
-engraving reference behind it all.
-
-### Day 28 — THE WRITING, settled (third sitting — read before touching `--figures`)
-
-- **T1's final = `t1-hybrid2`. "No. I would like the tuplet brackets."** The composer's
-  principle: *there should be some communication to the performer if there is a speed
-  change* — two 16ths far apart then three close together must not all read as plain
-  16ths; the 7:4 on the quick three is appropriate. **D69.** 8h's groups stand; 8g's
-  own-grids writing falls. `t1-figures2` (the AI's lean) is rejected.
-- **Two design calls answered:** **A(a)** — bracket scope stays PER BEAT (fit()'s model);
-  on T1 the tuplet beats and the groups coincide; a bracket straddling a seam gets a
-  FLAG (8i builds it) and is fixed only if it appears in the reads and the composer
-  wants it. **B(a)** — ONE grid per gesture with the fit's brackets; FLOW stays a flag
-  (the cleaner pairwise 3:2 for figures 1+2 is on offer, by hand, not the default).
-- **The measurement changes:** "figures needing a tuplet" is no longer a score (it
-  measured how finely the material was cut). 8i's `--scan` counts **gestures whose ONE
-  grid is within a head** — the ones over are the by-hand cases for the reads.
-- **The picker after 8i:** `t1-final` alone (built from the rule, proven IR-identical
-  to hybrid2); the five scratch entries pruned.
-
-### Day 28 — THE SEAM RULE, settled and built (second sitting — read before touching the segmenter)
-
-- **T1 verdict (composer, by ear): groups are [1,2]+[3,4,5] · [6,7]+[8,9,10] · [11–14] ·
-  [15,16]** — cuts after 2,5,7,10,14 (the day-27 tool had 3,5,8,10,14). Second 2+3 said
-  tentatively ("sounds more like"). **The corrected rule now produces exactly this set
-  on its own** — `t1-figures2` needed no `--cuts`.
-- **THE RULE, now in the code (D68):** *the seam is the slower gap; the boundary note
-  goes with the quick side.* A seam is a gap not quicker than either neighbour and a
-  pace change from at least one (banded local max; Lerdahl & Jackendoff GPR 2b). D67's
-  one-sided test was the whole defect.
-- **One number was corrected in the build.** The 7-vs-8 flip is **304/239 = 1.272**
-  (the seam against the shortest gap of the band it joins), not 304/242 = 1.256 (the
-  seam against its right neighbour) — `paceBands` is greedy from each band's own
-  shortest. Measured by bisection. Same conclusion, right arithmetic.
-- **The tuplet claim died.** "Not one figure in CLOUD02-I needs a tuplet" was true of
-  the OLD rule only. Under D68: **3 figures need one** — T7 @36.19 (notes 1–6, 0.9
-  heads), T7 @39.51 (notes 5–8, 0.6), T8 @37.14 (notes 4–7, 0.9). 55 figures now
-  against 60 before; worst displacement 1.00 → 0.93 heads. The dotted-vs-tuplet
-  deferral from day 26 comes due in those three places.
-- **Flow, now a printed flag (report only, nothing built):** T1 figures 1+2 could share
-  ONE grid at 239 ms — `16th 16th | 3:2 [16th 16th 16th]`, worst 5 ms = **0.17 heads**
-  (the day-28 estimate was 0.10). Figures 5+6 also stand at 3:2 but at 1.13 heads. The
-  writing path for a chosen case is still `--tuplet a-b@3:2` by hand; `fit()` cannot
-  find sub-beat tuplets and was not touched.
-- **New flag on T1, for the composer not the tool:** with figure 4 starting at note 8,
-  note 8 is flagged as a possible PICKUP into it (242 ms before note 9, 42 ms off the
-  grid of the rest). Flagged, never applied.
-- **Scope (composer):** no universal protocol; improve and get closer; what does not
-  generalize is by ear. `--cuts a,b,c` is now the "by ear" escape on both tools.
-- **Picker holds** `t1-onegrid · t1-hybrid · t1-hybrid2 (composer's groups, ONE grid —
-  BEAMING APPROVED as is) · t1-figures (day-27 cuts) · t1-figures2 (8h — composer's
-  groups, each on its own grid)`. All scratch; **prune all but the chosen one** when
-  T1's final is picked in step 5: `node tools/notate_section.js --prune <id>`.
-- **Logistics:** screenshots need the Browser pane open on the composer's side (it was
-  open this sitting and they work); DOM audit works without it.
-
-### The tools you will use (all verified day 24; **day 30: `db1-c2i-x01` is FOLDED and PRUNED — read `--ir db1` wherever a row below says the fork**)
+### The tools you will use (all verified day 24; **day 30: the c2i fork is FOLDED into `db1` and pruned — these rows now read `--ir db1`**)
 
 | to… | run |
 |---|---|
 | see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick `db1` (hard-reload after any `.js` change; data files hot-reload) |
-| **read a part (8i — this is the report the reads use)** | `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span t0-t1` (**N is ZERO-indexed: T1 = `--part 0`, T2 = `--part 1` …** — day 29 tripped on this) — breath seams, then per gesture: the pace families and the groups in words ("even even · pair · short long"), then **THE WRITING, ONE GRID** (the fit, then one line per group with its bracket — `7:4 [16th 16th 16th]` or plain), then **FLAGS** (STRADDLES first, then ratio tie / no clean seam / cuts by hand / near-ties / pickups), then **FLOW**, then cut alternatives, and **each group on its OWN grid LAST** as the by-hand alternative, with the dotted reading where a group carries its own tuplet |
-| **scan a whole section (8i — the pre-read measurement)** | `node tools/pattern_analyze.js --ir db1-c2i-x01 --scan 36.19-40.42` — one row per gesture, every part: groups, one-grid unit and heads, its brackets, and the flags that need a hand. **Answers "can this gesture be said on ONE grid?"** — which replaced "how many figures need a tuplet" (that only measured how finely the material had been cut). *Measured on CLOUD02-I: 15 of 15 within a head, 5 straddles, 1 no-clean-seam, 5 ratio ties* |
+| **read a part (8i — this is the report the reads use)** | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` (**N is ZERO-indexed: T1 = `--part 0`, T2 = `--part 1` …** — day 29 tripped on this) — breath seams, then per gesture: the pace families and the groups in words ("even even · pair · short long"), then **THE WRITING, ONE GRID** (the fit, then one line per group with its bracket — `7:4 [16th 16th 16th]` or plain), then **FLAGS** (STRADDLES first, then ratio tie / no clean seam / cuts by hand / near-ties / pickups), then **FLOW**, then cut alternatives, and **each group on its OWN grid LAST** as the by-hand alternative, with the dotted reading where a group carries its own tuplet |
+| **scan a whole section (8i — the pre-read measurement)** | `node tools/pattern_analyze.js --ir db1 --scan 36.19-40.42` — one row per gesture, every part: groups, one-grid unit and heads, its brackets, and the flags that need a hand. **Answers "can this gesture be said on ONE grid?"** — which replaced "how many figures need a tuplet" (that only measured how finely the material had been cut). *Measured on CLOUD02-I: 15 of 15 within a head, 5 straddles, 1 no-clean-seam, 5 ratio ties* |
 | move a figure boundary | `--paceRatio <r>` (default 1.25) — how far apart two gaps must be to count as different PACES, which is what decides where a cut may land. `99` = one pace, no legal cut, the whole gesture as one group. Now on **both** tools (positional after `--cluster … --figures` on `notate_section`; plain flag on `pattern_analyze`) |
 | **name the boundaries by hand (8h)** | `--cuts 2,5,7,10,14` — "cut after note 2, after note 5, …", numbered from 1 inside the gesture. The pace rule steps aside entirely. Positional after `--cluster … --figures` on `notate_section` (refused without `--figures`); a plain flag on `pattern_analyze` (refused when the span holds more than one gesture, and refused with `--scan`). A cut that would leave a one-note figure is refused with the reason |
 | check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: **`--figures` (8i: the groups from the pace rule on ONE grid, beams broken at the seams, brackets from the fit — the default and what the composer chose)** · **`--ownGrids`** (with `--figures`: the 8g/8h reading, each group on its own grid, no relation printed) · `--cuts a,b,c` · `--paceRatio r` · `--pattern` (one grid, no seams — implied by `--figures`, refused with it) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` (several groups on ONE tempo — refused with `--figures`, which makes its own breaks) · `--noGoLine` |
-| see T1 on the page | the picker's experiments hold **`t1-final`** alone — the composer's six groups on ONE grid, 7:4 · 6:4 · 7:4, built from the rule with no `--cuts` and no `--beamBreak`, and proved IR-identical to the hand-typed `t1-hybrid2`. The five scratch entries were pruned day 28; git keeps them (`t1-onegrid t1-figures t1-hybrid t1-hybrid2 t1-figures2`). Prune with `node tools/notate_section.js --prune <id>` |
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score) |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
 | batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |
-
-### PLAN 8f — where it stands (detail in PLAN.md 8f/8g; trails in RUNNING_LOG days 25–27)
-
-**Day 25's THE PLAYABILITY PROCESS** (`docs/PLAYABILITY_MODEL.md`) governs: "it feels
-very dense" meant UNPLAYABLE, not too-much — evaluate for playability, fix by
-redistribution, report audibility as a flag only. Thinning stayed research.
-Parts 1 (archive amended + ledgered), 2 (`playability.js`, 22 assertions, D64/D65),
-**8g** (the segmenter, D67), **8h** (the two-sided seam rule, D68) and **8i** (the
-composer's page as the default build, D69) are all DONE. **Part 3 (the per-part reads)
-is done for T1 — final `t1-final`, built from the rule; T2–T10 are step 5c and are the
-next thing that happens.**
 
 ### Things to know before building anything (hard-won, day 24)
 
@@ -268,111 +92,45 @@ next thing that happens.**
   eye on both sides of it; 1.2 heads was accepted once (T1's 3:2). Don't fight
   over 0.2 of a head.
 
-### Open after 8i (day 28) — in-flight, none blocking
-
-- **THE STRADDLE FIX IS UNBUILT, and the reads will meet it five times.** Design call
-  A(a) kept the bracket scope PER BEAT and said "flag it; fix only if one appears and
-  the composer wants it". The scan says it appears in **T2 @38.60 · T4 @36.20 (three) ·
-  T9 @36.33 · T9 @37.39 · T10 @38.69**. The fix would be a bracket scoped to the FIGURE
-  rather than the beat — a change to `fit()`'s per-beat tuplet model, which nothing has
-  touched since D63. Not started, deliberately: it is the composer's call, part by part.
-  The by-hand escapes that exist today are moving the seam (`--cuts`) or `--ownGrids`.
-- **The dotted-16th writing path is STILL NOT BUILT.** Under D69 it is less urgent —
-  brackets are welcome now, so a tuplet is not a thing to be avoided — but it is still
-  the only reading `dottedReading()` can offer and not write. Needs `noteUnits 1.5` in
-  `layout.js`. Small build, not started, deliberately not guessed at.
-- **FLOW is a flag with no builder** (composer's call B(a)). Where the composer takes
-  one, the page is written by hand with `--tuplet a-b@3:2` on a shared grid; `fit()`
-  cannot find sub-beat tuplets and was left untouched by 8g/8h/8i. On CLOUD02-I the
-  report offers a FLOW pair on twelve of the fifteen gestures.
-- **Five gestures hang on the pace threshold** (RATIO TIE: T1 @36.22, T3 @36.33,
-  T4 @36.20, T6 @37.70, T7 @36.19). The report prints the exact flip ratio and the whole
-  alternative reading for each; the composer's verdict settles them, not more tuning.
-- **T3 @36.33 sits at exactly 1.00 heads on one grid** — on the dissonance line, not
-  over it, so nothing flags it. Worth the composer's eye when T3 is read. (T9 @37.39 is
-  next at 0.99.)
-
 ### Open, not blocking
 
-- `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3); ~~cuivré text mark~~
-  *(CLOSED day 30 — techText built)*; the `analyzer`'s per-beat tuplet model cannot
-  place a tuplet across a beat line (T1's 3:2 straddles one — left as built;
-  the day-30 hand-tuplet override now covers the sub-beat cases).
-- `export_midi --ir` still un-built (NITS); G2/G3 formally unclosed on paper.
+- the dotted-16th writing path is still unbuilt (less urgent under D69 — brackets are
+  welcome; `dottedReading()` can offer it, nothing can write it; needs `noteUnits 1.5`
+  in layout.js) · FLOW is a flag with no builder (take one by hand: `--tuplet a-b@3:2`)
+- `flagShortBarSeconds` 1.0 → 0.35? (21 flags vs 3) · the cuivré MEDIUM vertical gap
+  (NITS day 30 — composer deferred: a midway constant between tight 0.15 and the
+  standard, then raise the marks; T8's fallback survives)
+- `export_midi --ir` unbuilt (NITS) · G2/G3 formally unclosed on paper · notate_section
+  prints a figures cluster's NEAR-TIE/PATTERN lines above its own header (NITS, cosmetic)
 
 ---
 
-- **Day 28, fourth sitting (Opus 5):** **PLAN 8i BUILT** — `--figures` is now the
-  groups on ONE grid with the beams broken at the seams (D69), `--ownGrids` the
-  alternative; `bracketsVsGroups()` + the STRADDLE flag; the report flipped (one-grid
-  writing first, own grids last); **`--scan`** as the pre-read measurement. **`t1-final`
-  is IR-identical to the hand-typed `t1-hybrid2` on every drawn field and alone in the
-  picker; `--ownGrids` is byte-identical to `t1-figures2`.** Ten batteries green
-  (`test_pattern_fit` 61 → 80), `--validate` 24/25, DOM-audited at :5210. **The scan
-  found what the reads have to deal with: 15 of 15 gestures fit one grid inside a head
-  (nothing needs `--ownGrids`), and FIVE carry a straddling bracket** — call A(a)'s
-  watch item is real. Fixed on the way, unasked: `--pattern --pickup` had been placing
-  the pick-up on the grid it was about to overwrite.
-- **Day 28, third sitting (Fable 5):** THE VERDICT ON THE WRITING — *"I would like the
-  tuplet brackets"*: T1's final is `t1-hybrid2`, not `t1-figures2`; **D69** (a pace
-  change must be said on the page — the bracket is the message); 8h's grouping stands,
-  8g's own-grids writing falls; A(a)/B(a) answered; **PLAN 8i** specified for Opus.
-- **Day 28 (2026-08-23, Claude Code / Fable 5 then Opus 5):** THE T1 VERDICT (by ear:
-  cuts after 2,5,7,10,14) exposed the day-27 seam test as ONE-SIDED, and **PLAN 8h was
-  specified and built the same day** — two-sided legality (**D68**, *the seam is the
-  slower gap*), the RATIO TIE and NO CLEAN SEAM flags, `--cuts` by hand on both tools,
-  and the FLOW flag (report only). T1's legal set is now exactly the composer's five,
-  all taken. `test_pattern_fit` 40 → 61 checks, `--validate` 24/25, `t1-figures2`
-  DOM-audited against `t1-hybrid2` (identical heads and beams; the difference is three
-  brackets). **The day-27 claim "no figure in CLOUD02-I needs a tuplet" did not survive
-  the re-measurement — three do**, because the old rule over-cut (60 figures against
-  55) and short figures fit for free.
-- **Day 27 (2026-08-23, Claude Code / Opus 5):** PLAN 8g FIGURE SEAMS BUILT —
-  `pattern_fit.segment()` (a gesture cut into figures, each fitted alone) · the
-  words-first report · `--figures` + `--paceRatio` on `notate_section` · `gridId` as
-  the grid domain in layout · `test_pattern_fit` 6 → 40 checks. **D67:** the cost
-  model the plan specified provably could not reproduce the composer's reading; the
-  rule that works came from their own day-26 method — a cut lands where the PACE
-  CHANGES — which also makes no-shatter structural. T1 = six figures, NO tuplet
-  anywhere; **not one figure in CLOUD02-I needs a tuplet** once cuts land at pace
-  changes. Verified in the app; `t1-figures` / `t1-onegrid` left in the picker for
-  the composer's eye.
-- **Day 26:** `--bare` (a span cleared to bricks, figures guarded) · Part 3 on T1 — one
-  cluster + one one-shot, the single grid's failure, the composer's reframe (D66) · PLAN
-  8g approved · paper structure stored.
-- **Day 25:** THE PLAYABILITY PROCESS — CLOUD02-I passes with 12 part moves and no
-  removals, applied to the archive and ledgered (13 lines), bricks 50 ms, db1
-  re-extracted; the process made a tool (`playability.js`, D64, D65); THE RHYTHM made
-  standing.
-- **Day 24 (2026-08-22, one long day, Claude Code / Opus 5 + Fable 5):** density
-  build 1 figured for all ten parts, 25 clusters · the standards written down
-  (NOTATION_STANDARDS.md) and made registry data · five design principles
-  locked after a consistency review (D58–D62: go line = displacement · left edge
-  = the moment · GC lands on the lane edge · rests left-edge + split at the
-  beat · clusters are "go, then count") · D63 PATTERN BEFORE GRID, the pattern
-  analyser built and validated 23/25 · three SCORE EDITS (part moves) · per-part
-  solo on the notation page · the beam figure retired into the cluster · the
-  T10 32nds replaced by a 3:2 · db1 promoted, the command stored in the file.
-- **Day 23:** T1 figured note by note (D52–D57): the one-shot vocabulary, the
-  first cluster, beamlets, the 3:2 tuplet to the composer's LilyPond standard.
-
-- **Day 22 (three sittings):** 8b machinery (sonify_core → export_midi +
-  live MIDI, hot reload, NOTATION_WORKFLOW.md) · THE COLLAPSE (the app IS
-  the presentation score) · THE SURGE DEVICE on the real F#1 · wc-23
-  designed element by element (go line, nh-unit, ring bar, sfzp) · **D49
-  the IR is authoritative for sound** + ARCHIVE_AMENDMENTS · D50 device
-  membership is registry data · D51 a fixed one-shot's length is its
-  sample length.
-- **Day 21:** plan interrogation (D46–D48) · V0/G0 + V1/G1 closed · V2
-  (transport, animobj, the five ports) · V3 (notate_section loop) — the
-  pre-notation critical path code-complete · trance section finished.
-- **Days 19-20:** notation architecture A–D built end to end (D44, D45);
-  Penn State deliverables preplanned (PLAN 8a).
-- **Days 18-19:** trance section via console scripts (D41); 2ae/2af; E1+E1b
-  (D43); notation architecture confirmed (four strata).
-- **Days 12-17:** morphs (2v, D24-26) · texture sandbox (2x, D33) · cluster
-  sandbox (2p) · density pipeline (2t, D19-23) · collision avoidance (2r,
-  D17) · 2ab panel snapshots + 2ac multitempo rig · piece assembly.
+- **Day 30 (2026-08-23, Claude Code / Fable 5, one session):** THE CLOUD02-I MILESTONE —
+  T4–T10 proposed by the five-check recipe and finalized through dictation rounds
+  (T4 four rounds; T5–T10 accepted with refinements); the COUNTING-VS-PHRASE axis named
+  by the composer and answered with CONTAINMENT (rules 10–12, A(a) closed); the hand-
+  tuplet override built (sub-beat brackets); the section FOLDED into db1, fork pruned
+  (validate golden kept); blast bars uniformed from the drawn brick; cuivré placed by
+  dictation. Ten batteries green throughout; D-logs 10–22; PAPER_NOTES carries both
+  sides verbatim.
+- **Day 29:** T2 read (five verdict rounds) · T3 read (the tuplet version wins by
+  engagement) · the BEAMING-DECISIONS ledger started (D-logs 1–9, rule candidates 1–9) ·
+  beam vocabulary completed (through/rest16/over/overLeft tuplet-aware · bracket ends
+  at content · hGapSs · ESC) · db1 rebeam promoted.
+- **Day 28 (four sittings):** the T1 verdict → D68 two-sided seam rule (8h) → D69 the
+  bracket is the message (8i built; t1-final IR-identical to the composer's page;
+  --scan; five straddles forewarned).
+- **Day 27:** PLAN 8g figure seams built; D67 (a cut lands where the pace changes).
+- **Day 26:** --bare · Part 3 on T1 · D66 (players read patterns) · 8g approved.
+- **Day 25:** THE PLAYABILITY PROCESS (D64, D65) — CLOUD02-I passes with 12 part moves.
+- **Day 24:** density build 1 figured (25 clusters) · NOTATION_STANDARDS.md · D58–D63.
+- **Day 23:** T1 figured note by note (D52–D57).
+- **Day 22 (three sittings):** 8b machinery · THE COLLAPSE · the surge device · D49–D51.
+- **Day 21:** V0–V3 closed — the pre-notation critical path; trance section finished.
+- **Days 19-20:** notation architecture A–D (D44, D45); Penn State deliverables (8a).
+- **Days 18-19:** trance section via console scripts (D41); E1+E1b (D43).
+- **Days 12-17:** morphs (2v) · texture sandbox (2x) · cluster sandbox (2p) · density
+  pipeline (2t) · collision avoidance (2r) · piece assembly.
 
 ## §3 Principles
 
@@ -1448,6 +1206,13 @@ next thing that happens.**
 
 ## §5 Done
 
+- **2026-08-23 (day 30) — THE CLOUD02-I MILESTONE (PLAN 8f done):** all ten parts read
+  with the composer, finalized, and folded into `db1` — every note of 0–40.4 s carries
+  a composer-approved figure. With it: rule candidates 8–12 + the five-check generator
+  recipe (BEAMING_DECISIONS D-logs 10–22), the hand-tuplet override (sub-beat
+  brackets), `--ringFromBrick` (the blast's ten bars uniform at the drawn 1.010 s),
+  and the cuivré mark placed by dictation. Validate 37/40, the three DIFFERs
+  ear-over-fit on the record.
 - 2026-08-23 (day 26) — `--bare` on notate_section; CLOUD02-I trials fork reads as bricks; Part 3 opened on T1; D66; PLAN 8g approved.
 - 2026-08-23 (day 27) — PLAN 8g FIGURE SEAMS built and verified: `segment()`, the words-first report, `--figures`/`--paceRatio`, `gridId` as the grid domain; D67 (a cut lands where the pace changes); T1 reads as six figures with no tuplet.
 - 2026-08-23 (day 25) — THE PLAYABILITY PROCESS run on CLOUD02-I and made a tool (PLAN 8f parts 1–2).
@@ -1576,7 +1341,15 @@ next thing that happens.**
 
 ## §6 Human Notes
 
-- *(2026-08-23, day 28 fourth sitting — CURRENT)* **8i is built; the reads are yours,
+- *(2026-08-23, day 30 — CURRENT)* **Nothing is owed; CLOUD02-I is yours and done.**
+  Next sitting is CLOUD02-D with **Opus** (your call, confirmed): 6a = the nine soft
+  decisions (presented to you, then applied), 6b = its notation by the recipe — Opus
+  is instructed to flag anything rules 1–12 don't cover rather than invent. **One
+  deferred item of yours on file (NITS):** the cuivré marks want a MEDIUM vertical
+  gap (between the 0.15 minimum and the standard) and a lift to it — parked at your
+  word. *(Standing from day 24: `flagShortBarSeconds` 1.0 → 0.35? and the GC-ball
+  landing ear check in motion — both still open.)*
+- *(2026-08-23, day 28 fourth sitting)* **8i is built; the reads are yours,
   and the scan has already done the looking-for-you.** `t1-final` is alone in the picker
   and is the page you approved, rebuilt from the rule. For T2–T10, one part per sitting:
   `node tools/pattern_analyze.js --ir db1-c2i-x01 --part N --span 36.19-40.42` — the

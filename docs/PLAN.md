@@ -1823,7 +1823,7 @@ while building the real score.
   session), plus one open question: whether the three cuivre notes want a
   cuivré text mark, since the technique is currently invisible on the page.
 
-- **8f — CLOUD02-I, 36.0–40.4 s (the next section)** — `doing (day 28: the T1 verdict is in and it found a defect in the seam rule — 8h fixes it; Part 3 resumes for T2–T10 AFTER 8h, against the corrected report — journal §2)`. **Day 25
+- **8f — CLOUD02-I, 36.0–40.4 s** — `done 2026-08-23 (day 30)` — all ten parts read part-by-part, finalized and FOLDED into db1; the reads produced rule candidates 8–12, the five-check generator recipe, the hand-tuplet override, --ringFromBrick and the cuivré mark (BEAMING_DECISIONS D-logs 10–22; validate 37/40 with three ear-over-fit DIFFERs on the record). **Day 25
   reframed it:** the composer's *"it feels very dense"* meant UNPLAYABLE, not too-much —
   *"this process is strictly for playability… the smear or audibility is of secondary
   concern."* The section passes playability with 12 part moves and no removals (OR);
