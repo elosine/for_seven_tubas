@@ -1911,11 +1911,38 @@ band mark by design, because `--dyn`/`--accents` "stay the composer's" (NOTATION
 at all**, and that is the largest item on the fix list.
 
 The run did not invent them, and did not silently leave the gap either: it ran the registry's
-own `dynamicsRule` to **propose**, and reported that the rule **cannot explain three of the
-twelve** — taking the globally softest band as ambient makes cl-1 accent 4 of 5, cl-6 accent
-4 of 5, and cl-3 accent 5 of 6 (bands `mf f p f mf fff`; the lone `p` at position 3 drags the
-ambient down). The standard anticipated exactly this: *"A generated cluster should PROPOSE
-marks and say which partials it could not explain."*
+own `dynamicsRule` to **propose**, and classified every proposal by confidence. The standard
+anticipated exactly this: *"A generated cluster should PROPOSE marks and say which partials
+it could not explain."*
+
+### The first classification was wrong, and the standard's own worked example was what caught it
+
+The first pass called **three of the twelve** unexplainable — cl-1, cl-3 and cl-6 — using
+**"the rule accents a majority of the partials"** as the failure signal. That reasoning is
+seductive: the rule exists because *"there is no engraved mark meaning slightly softer"*, so
+its stated purpose is to mark the few loud ones against a soft ambient. If most partials come
+out accented, the rule looks inverted.
+
+**It is not inverted, and the document containing the rule already said so.** The composer's
+own approved cl-2 on db1 is `fff f fff f fff fff` → ambient `f`, accents 1,3,5,6 — **four of
+six accented, and accepted as exact.** A majority of accents is simply what a mostly-loud
+cluster looks like. The invented criterion would have flagged the calibration case itself.
+
+The standards do carry a real confidence criterion, stated plainly two lines below the rule:
+*"reliable for a two-band cluster, a starting point for a three-band one, never the last
+word."* **Band count, not accent count.** Reclassified on that basis: ten of the twelve sit
+at one or two bands and can be applied from the rule; **cl-1 (3 bands) is a starting point;
+cl-3 alone is the outlier at 4 bands** — its lone `p` at position 3 drags the ambient down
+and accents five of six, and the rule was never measured against a four-band cluster at all.
+
+**The methodological point is not "the AI made an error and fixed it."** It is that the
+error was of a specific and recurring kind: *inventing a plausible criterion when a measured
+one already existed in the governing document.* The invented one was defensible from first
+principles and gave a wrong answer on 5 of 12 clusters. The recorded one was calibrated
+against two real clusters the composer had judged. **Where a standard has been calibrated,
+reasoning from its purpose is strictly worse than reading its calibration** — the same
+lesson, in the opposite direction, as the day-35 sixth-sitting guard that "passed for the
+wrong reason."
 
 **The precedent check matters here too.** That db1 does the same thing — 264 of its 330
 cluster partials suppress the mark, the 66 that keep one being the composer's own choices —

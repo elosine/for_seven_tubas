@@ -20,7 +20,7 @@ a-figure risk never materialised** (closest approach 168 ms, checked on the page
 **NEXT: your eye on the page, then a Fable fix pass over eight flags.** The big one: **the
 twelve clusters have no dynamics** — a cluster suppresses the per-note mark by design, and
 `--dyn`/`--accents` are yours to choose (db1 works the same way). A proposal is derived and
-waiting in the running log; it cannot explain three of the twelve. The other seven are small:
+waiting in the running log — it covers **ten of the twelve** confidently; two (T1 @78.48, T2 @76.92) need your ear. The other seven flags are small:
 one straddling bracket (T1 @78.48), one gesture with no clean seam (T6), one ratio tie (T2),
 a fortepiano whose duration bar has no room (T2 @76.92), nine short-bar warnings, and a
 T1/T2 clutter band at 78.5-79.0.

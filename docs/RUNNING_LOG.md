@@ -12542,19 +12542,42 @@ at `--w0 56` would have clipped the head off the page while still counting the e
 wired*). So **the twelve clusters currently have no dynamic at all**, and total dyn glyphs
 fell 138 → 101. This is not an omission by accident: **db1 does the same thing** — 264 of
 its 330 cluster partials suppress the mark, and the 66 that keep one are the composer's own
-per-cluster choices. The registry rule was run to *propose* rather than apply, and it
-**cannot explain three of the twelve**: taking the globally softest band as ambient makes
-cl-1 accent 4 of 5, cl-6 accent 4 of 5, and cl-3 accent 5 of 6 (its bands run
-`mf f p f mf fff` — the lone `p` at position 3 drags the ambient down). Those three want
-the rule's "second ambient mid-cluster" clause or a hand. *(Precedent says a majority-
-accented cluster is not automatically wrong — the composer accepted exactly that on cl-2,
-`fff f fff f fff fff` → ambient `f`, accents 1,3,5,6.)*
+per-cluster choices. The registry rule was run to **propose** rather than apply, and its output is classified
+below by **the standards' own calibration — band count** (*"reliable for a two-band
+cluster, a starting point for a three-band one, never the last word"*). **Ten of the twelve
+are inside that calibrated range**; two are not.
+
+| cluster | where | bands | proposal (NOT applied) | confidence |
+|---|---|---|---|---|
+| `cl-1` | T1 @78.48 | f f f fff mf | `--dyn 1:mf --accents 1,2,3,4` | **a starting point only** — 3 bands |
+| `cl-2` | T2 @75.53 | mf f f | `--dyn 1:mf --accents 2,3` | reliable — 2 bands, the calibrated case |
+| `cl-3` | T2 @76.92 | mf f p f mf fff | `--dyn 1:p --accents 1,2,4,5,6` | **beyond anything measured** — 4 bands |
+| `cl-4` | T3 @73.25 | mf f | `--dyn 1:mf --accents 2` | reliable — 2 bands, the calibrated case |
+| `cl-5` | T3 @77.91 | f mf | `--dyn 1:mf --accents 1` | reliable — 2 bands, the calibrated case |
+| `cl-6` | T6 @78.42 | f f f mf f | `--dyn 1:mf --accents 1,2,3,5` | reliable — 2 bands, the calibrated case |
+| `cl-7` | T7 @77.79 | mf fff | `--dyn 1:mf --accents 2` | reliable — 2 bands, the calibrated case |
+| `cl-8` | T7 @79.69 | f mf | `--dyn 1:mf --accents 1` | reliable — 2 bands, the calibrated case |
+| `cl-9` | T8 @78.73 | f f mf | `--dyn 1:mf --accents 1,2` | reliable — 2 bands, the calibrated case |
+| `cl-10` | T9 @79.10 | f f | `--dyn 1:f` | reliable — one band |
+| `cl-11` | T10 @74.98 | f f mf | `--dyn 1:mf --accents 1,2` | reliable — 2 bands, the calibrated case |
+| `cl-12` | T10 @77.36 | f f mf | `--dyn 1:mf --accents 1,2` | reliable — 2 bands, the calibrated case |
+
+**A CORRECTION MADE WITHIN THIS SITTING, because the composer plans on it.** The first pass
+at this classification called **three** clusters unexplainable (cl-1, cl-3, cl-6), using
+*majority-accented* as the failure signal. **That criterion is wrong, and the standards'
+own worked example disproves it:** the composer's approved db1 cl-2 is `fff f fff f fff fff`
+→ ambient `f`, accents 1,3,5,6 — **four of six accented, and accepted**. A majority of
+accents is the normal shape when most partials are loud; it is not evidence the rule failed.
+Under band count, **cl-6 is a clean two-band cluster** and only **cl-1 (3 bands) and cl-3
+(4 bands)** sit outside the calibration. cl-3 is the genuine outlier: its lone `p` at
+position 3 drags the ambient down to `p` and accents five of six. *The rule was never
+measured against a four-band cluster at all.*
 
 **FLAGS — the list for the Fable fix pass. Nothing here stopped the run.**
 
 | # | flag | where | what it is |
 |---|---|---|---|
-| 1 | **no dynamics on any cluster** | all 12 | 38 partials, `dynMark: false` by design. Proposal derived above; cl-1, cl-3, cl-6 are the ones the rule cannot explain. **The largest item.** |
+| 1 | **no dynamics on any cluster** | all 12 | 38 partials, `dynMark: false` by design. Proposal table derived above: **10 of 12 are inside the standards' calibration** (1-2 bands) and can be applied from the rule; **cl-1 (3 bands) and cl-3 (4 bands) are not** — cl-3 is the genuine outlier (a lone `p` drags its ambient down). **The largest item.** |
 | 2 | **STRADDLE** | cl-1, T1 @78.48 | the 5:4 covers notes 3-4 across the seam after note 3 — visible on the page as a bracket floating over the beam break. D69 forbids exactly this. Fix = `--cuts` to move the seam, or `--ownGrids` |
 | 3 | **no clean seam** | cl-6, T6 @78.42 | the rule finds no legal cut; built as one group of 5 with a 3:2 on note 3. By ear if the composer disagrees |
 | 4 | **ratio tie** | cl-3, T2 @76.92 | the reading hangs on the 1.25 threshold; also the section's **worst displacement, 1.0 heads** — on the D63 line, one eye-call either way |
