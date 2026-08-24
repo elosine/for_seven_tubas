@@ -1054,9 +1054,17 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
         }
         const secs = +(src.endSeconds - src.startSeconds).toFixed(4);
         lens.add(secs);
+        // ringBar TOO (day 35): ringSeconds only SIZES a bar — layout draws one
+        // only under dev.ringBar, which byTechnique gives fortepiano/cuivre but NOT
+        // ord (its registry entry is the day-24 provisional one). The composer's
+        // long tone at 48.05 is ord on all ten parts, so the flag wrote a length for
+        // a bar that was never drawn. Naming a span in --ringFromBrick IS the ask for
+        // the bar, so the flag now writes both. No-op where byTechnique already says
+        // true (the 40.93 fp blast is byte-identical apart from the added field).
+        const ring = { ringSeconds: secs, ringBar: true };
         const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
-        if (existing) existing.value.device = Object.assign({}, existing.value.device, { ringSeconds: secs });
-        else doc.overlays.push({ id: 'ov-ring-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { ringSeconds: secs } }, provenance: 'authored' });
+        if (existing) existing.value.device = Object.assign({}, existing.value.device, ring);
+        else doc.overlays.push({ id: 'ov-ring-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: Object.assign({}, ring) }, provenance: 'authored' });
       }
       console.log('  ringFromBrick ' + sp[0] + '-' + sp[1] + ': ' + members.length + ' ring bar(s) written from the drawn brick (' +
         [...lens].map(x => x.toFixed(2) + ' s').join(', ') + ')' + (lens.size > 1 ? '  [NOTE: the bricks themselves differ]' : ''));

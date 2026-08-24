@@ -11567,3 +11567,81 @@ steps folded 7→4, Opus-wrap rule) · `.claude/commands/resume.md` (rewritten �
 full-§2 read-set) · `docs/SESSION_HYGIENE.md` (§ two boundaries: the model
 trigger + day-35 revision note; § model strategy: the mid-switch-to-Fable cost
 caveat) · `CLAUDE.md` (boundary pointer). Docs only; no batteries implicated.
+
+#### Day 35 (second sitting, Opus 5) — THE LONG TONE AT 48.05 NOTATED: the brick becomes the bar, and `ord` had no bar to size
+
+**The composer's ask (voice):** *"The long tone [at] forty eight seconds is
+similar to the block at forty one. Please derive the duration from the brick in
+the finished s twenty five piece in the composer score, that save file. And
+then I think we have all the cuivré and other things already in place in forty
+one. Go ahead and notate that full note for all ten tubas."*
+
+**What the material is.** `grp-octbb-ord-01`, marker *"octaves Bb ord blast"* at
+**48.05 s**: ten waveCurves, all `ord`, vel 112, drawn **48.050 → 52.460 = a
+4.410 s brick**, uniform across all ten. Octaves of Bb — 58 on T1-T3, 46 on
+T4-T6, 34 on T7-T10. It was already extracted into db1 (the window is
+`--w0 0 --w1 55.94`), as ten `ord-sustained` chunks — but carried **zero
+overlays**: unnotated.
+
+**The mechanism already existed and was built for this exact sentence.**
+`--ringFromBrick t0-t1` (day 30) writes `device.ringSeconds` from the source
+object's drawn length; its code comment quotes the composer's day-30
+instruction about the 41 s block almost word for word. `ord` is already in its
+`RING_TECHS`. db1's own build already carries `--ringFromBrick 40.9-41.0`, so
+this is a db1 build-command addition, **not a fork** — the same file, one more
+flag.
+
+**THE FINDING that made it more than one flag.** `ringSeconds` only *sizes* a
+bar; layout draws one only under `dev.ringBar`. The device registry
+(`notation/registry/container.json`, and layout's matching default) gives
+`ringBar: true` to **fortepiano** and **cuivre** — which is why the 41 s blast
+has bars — but `ord` is `{goLine, nhUnit, dynMark:'band'}`, the **day-24
+provisional entry, with no `ringBar`**. So on the ord long tone the flag would
+have written a 4.41 s length for a bar that is never drawn: green output, blank
+page. **Fixed at the flag, not the registry** — `--ringFromBrick` now writes
+`{ringSeconds, ringBar: true}`, because naming a span in that flag IS the ask
+for the bar. *Rejected:* adding `ringBar: true` to the `ord` registry entry —
+that is global (every ord note in every IR, trance included) and `ord`'s entry
+is explicitly provisional, so it is the composer's design call, not a
+side effect of one section. No-op where byTechnique already says true: the
+40.93 blast's ten overlays gain the field and render identically.
+
+**Built:** db1 rebuilt from its own `provenance.build` + `--ringFromBrick
+48.0-48.1`. Tool line: `ringFromBrick 48-48.1: 10 ring bar(s) written from the
+drawn brick (4.41 s)`. **456 events · 127 chunks · VALID vs source** —
+unchanged. Geometry: the two pre-existing tier-3 items only (T9 @36.87,
+T10 @39.08); **zero new findings.**
+
+**PROVED, not asserted — the whole page diffed item by item** (before vs after,
+laid out through the app's own module with the app's own registry opts, as
+`notation.html` composes them):
+
+- **3843 items before → 3853 after. ADDED 10. REMOVED 0. CHANGED 0.**
+- every added row is a ringbar `t0=48.05 t1=52.46` on T1…T10 — nothing else.
+- **warnings 22 before, 22 after**, no delta. (The breath rule stays silent
+  because these are the last events in the window: no next attack, infinite
+  room.)
+- `dx0Ss = 0` on all ten — matching the 41 s bars exactly; only two bars in the
+  whole piece carry a left shortening.
+
+**VERIFIED IN THE RUNNING APP** (score server :5200, db1, window 47.8 +5.0 s):
+**ten ring bars, one per tuba, each 1089.3 px wide — pixel-identical to all ten
+bricks (1089.3).** The bar spans exactly the drawn brick, which is the whole
+instruction. Bar height 5.69 px vs brick 8.53 px = **0.667**, the registry's
+2/3 spec. The 41 s block still draws its ten bars unchanged.
+*Method note:* the Browser pane was NOT displayed, so no screenshot — the DOM
+audit stands in, per the day-28 logistics note. **A wrong filter cost several
+turns:** ring bars were searched by `fill=#111 opacity=0.65` (the registry
+values) and came back zero even at the composer-approved 41 s block; the page
+renders them at **opacity 1**. Tallying every rect by fill/opacity/height found
+them at once. *Lesson: when a known-good control also reads zero, doubt the
+probe before the work.*
+
+**The long tone now draws, per tuba:** brick · go line · **open notehead** ·
+accidental · `f` dynamic · ledgers where needed · **the 4.41 s ring bar**. Only
+the bar is new; everything else was already there.
+
+**FLAGGED TO THE COMPOSER, not decided:** the ten pitches are spelled
+**A♯** in the IR (`step A, alter 1`) and the page draws ten sharp accidentals —
+but the composer's marker and their words both say **"octaves Bb"**. Enharmonic
+spelling is a composer call, so it is named, not changed.

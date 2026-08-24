@@ -25,7 +25,7 @@
   "date": "2026-08-24",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 --parts 0-9 --profile section1 --id db1 --bricks --label \"DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts figured (day 33)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --beamThrough 1,2 --rest16 2 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --beamThrough 1 --rest16 3,4,5 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --beamThrough 1 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --beamThrough 1 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --beamThrough 1 --rest16 2 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --beamThrough 1 --rest16 3,4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --beamThrough 1 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5 --beamThrough 1 --rest16 5 --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --beamOverLeft 4 --beamOver 5 --dyn 1:mf --accents 2,3,5,12,15,17 --cluster 36.20-40.33@3 --figures --cuts 2,7,9,13,15 --beamThrough 1,2,3,4,5,6 --rest16 9 --tuplet 12-13@3:2 --tuplet 16-17@3:2 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12 --cluster 36.45-40.29@4 --figures --beamThrough 1,2,3,4,5,6 --rest16 6 --dyn 1:mf,3,6 --accents 2,14,16 --cluster 36.91-37.13@5 --dyn 1:f --cluster 37.69-40.19@5 --figures --beamThrough 1,2,3,4 --dyn 1:mf --accents 2,7,8,9,11 --cluster 36.19-37.69@6 --figures --plain --beamThrough 1 --rest16 2,6 --dyn 1:f,4 --cluster 38.32-40.29@6 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,4,6,7,8 --cluster 36.30-40.30@7 --figures --beamThrough 1,2,3,4,5,6 --tuplet 4-5@3:2 --dyn 1:mf --accents 1,2,5,9,11,12,13,14,15,16 --cluster 36.32-36.87@8 --figures --beamThrough 1,2 --dyn 1:mf --accents 4 --cluster 37.38-40.33@8 --figures --beamThrough 1,2,3,4 --rest16 2 --dyn 1:mf --accents 8,9,11,13 --cluster 36.31-38.06@9 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,3,6 --cluster 38.69-40.23@9 --figures --beamThrough 1,2,3 --rest16 8 --dyn 1:mf,3,7 --ringFromBrick 40.9-41.0 --cluster 44.68-46.36@0 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,5,7 --accents 6 --cluster 44.26-46.30@1 --figures --cuts 7 --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3 --cluster 43.01-43.38@2 --figures --beamThrough 1 --dyn 1 --cluster 43.97-46.25@2 --figures --cuts 7 --beamThrough 1,2 --dyn 1 --accents 3,5 --cluster 43.91-46.23@3 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1 --accents 9 --cluster 43.36-43.83@4 --figures --beamThrough 1 --dyn 1 --accents 2 --cluster 44.54-46.20@4 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,3,7 --cluster 42.37-43.47@5 --figures --beamThrough 1 --rest16 4 --dyn 1 --cluster 44.46-45.73@5 --figures --beamThrough 1,2 --beamOverLeft 2 --tuplet 1-2@3:2 --dyn 1 --accents 4 --articSide above --cluster 43.58-46.22@6 --figures --beamThrough 1,2 --beamOverLeft 2 --rest16 5,11 --dyn 1 --accents 9,11 --articSide below --cluster 44.15-46.22@7 --figures --beamThrough 1,2,3 --tuplet 2-3@3:2 --dyn 1,4 --accents 5,6,7,8,11 --articSide above --cluster 43.62-46.19@8 --figures --beamThrough 1,2,3,4 --beamOverLeft 2,3,4 --tuplet 6-7@3:2 --rest16 11 --dyn 1,6 --accents 2,4 --cluster 44.68-46.19@9 --figures --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3,4 --bracketsAbove --dynSide 46.18@5:above"
+  "build": "node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 55.94 --parts 0-9 --profile section1 --id db1 --bricks --label \"DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts figured (day 33)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --beamThrough 1,2 --rest16 2 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --beamThrough 1 --rest16 3,4,5 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --beamThrough 1 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --beamThrough 1 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --beamThrough 1 --rest16 2 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --beamThrough 1 --rest16 3,4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --beamThrough 1 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5 --beamThrough 1 --rest16 5 --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --beamOverLeft 4 --beamOver 5 --dyn 1:mf --accents 2,3,5,12,15,17 --cluster 36.20-40.33@3 --figures --cuts 2,7,9,13,15 --beamThrough 1,2,3,4,5,6 --rest16 9 --tuplet 12-13@3:2 --tuplet 16-17@3:2 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12 --cluster 36.45-40.29@4 --figures --beamThrough 1,2,3,4,5,6 --rest16 6 --dyn 1:mf,3,6 --accents 2,14,16 --cluster 36.91-37.13@5 --dyn 1:f --cluster 37.69-40.19@5 --figures --beamThrough 1,2,3,4 --dyn 1:mf --accents 2,7,8,9,11 --cluster 36.19-37.69@6 --figures --plain --beamThrough 1 --rest16 2,6 --dyn 1:f,4 --cluster 38.32-40.29@6 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,4,6,7,8 --cluster 36.30-40.30@7 --figures --beamThrough 1,2,3,4,5,6 --tuplet 4-5@3:2 --dyn 1:mf --accents 1,2,5,9,11,12,13,14,15,16 --cluster 36.32-36.87@8 --figures --beamThrough 1,2 --dyn 1:mf --accents 4 --cluster 37.38-40.33@8 --figures --beamThrough 1,2,3,4 --rest16 2 --dyn 1:mf --accents 8,9,11,13 --cluster 36.31-38.06@9 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,3,6 --cluster 38.69-40.23@9 --figures --beamThrough 1,2,3 --rest16 8 --dyn 1:mf,3,7 --ringFromBrick 40.9-41.0 --cluster 44.68-46.36@0 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,5,7 --accents 6 --cluster 44.26-46.30@1 --figures --cuts 7 --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3 --cluster 43.01-43.38@2 --figures --beamThrough 1 --dyn 1 --cluster 43.97-46.25@2 --figures --cuts 7 --beamThrough 1,2 --dyn 1 --accents 3,5 --cluster 43.91-46.23@3 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1 --accents 9 --cluster 43.36-43.83@4 --figures --beamThrough 1 --dyn 1 --accents 2 --cluster 44.54-46.20@4 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,3,7 --cluster 42.37-43.47@5 --figures --beamThrough 1 --rest16 4 --dyn 1 --cluster 44.46-45.73@5 --figures --beamThrough 1,2 --beamOverLeft 2 --tuplet 1-2@3:2 --dyn 1 --accents 4 --articSide above --cluster 43.58-46.22@6 --figures --beamThrough 1,2 --beamOverLeft 2 --rest16 5,11 --dyn 1 --accents 9,11 --articSide below --cluster 44.15-46.22@7 --figures --beamThrough 1,2,3 --tuplet 2-3@3:2 --dyn 1,4 --accents 5,6,7,8,11 --articSide above --cluster 43.62-46.19@8 --figures --beamThrough 1,2,3,4 --beamOverLeft 2,3,4 --tuplet 6-7@3:2 --rest16 11 --dyn 1,6 --accents 2,4 --cluster 44.68-46.19@9 --figures --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3,4 --bracketsAbove --dynSide 46.18@5:above --ringFromBrick 48.0-48.1"
  },
  "events": [
   {
@@ -25396,7 +25396,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25409,7 +25410,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25422,7 +25424,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25435,7 +25438,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25448,7 +25452,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25461,7 +25466,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25474,7 +25480,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25487,7 +25494,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25500,7 +25508,8 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
     }
    },
    "provenance": "authored"
@@ -25513,7 +25522,148 @@
    },
    "value": {
     "device": {
-     "ringSeconds": 1.01
+     "ringSeconds": 1.01,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1620",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1620"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1619",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1619"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1618",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1618"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1617",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1617"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1616",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1616"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1615",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1615"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1614",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1614"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1613",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1613"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1612",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1612"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-ring-ev-wc-1611",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1611"
+   },
+   "value": {
+    "device": {
+     "ringSeconds": 4.41,
+     "ringBar": true
     }
    },
    "provenance": "authored"
