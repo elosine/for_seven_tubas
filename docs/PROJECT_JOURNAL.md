@@ -10,11 +10,27 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — day 35, SIXTH wrap. THE INT2 BLASTS PAGE EXISTS AND IS WAITING ON THE COMPOSER'S EYE.
+### OPEN AT SESSION END — day 35, EIGHTH wrap. THE SECTION IS BUILT AND THE SAVE FILE IS BUMPED. The composer is switching models to PREP THE DENSITY BUILD.
 
-**STOP 2 IS THE STATE. Nothing is blocked on the AI.** `int2b1` — "INT2 BLASTS —
-81-111 s" — is built, proven, committed and pushed. **Eleven of the thirteen groups in
-81-110 are machine-generated.** The next move is the composer looking at it.
+**`piece-s27` is the live save file** — bumped from `piece-s26` (4563/4563 objects
+identical, fresh metadata only, confirmed first in the app's picker). **Compose the
+density build there.** `piece-s26` is now frozen as the INT2-blasts-era canon that
+`int2b1` refers to, exactly as `piece-s25-finished01` is frozen for `db1`.
+
+**THE ONE THING TO PUT IN FRONT OF THE COMPOSER BEFORE ANYTHING ELSE.** They declared
+81-110 *"done, fully notated"* on the strength of everything being included. **Inclusion
+is true and measured: 121 score notes, 121 page events, 0 missing.** But rhythmic
+notation is a separate property and **25 of those notes do not have it** —
+`grp-cg001-886` and `grp-cg007-989`, 25 notes on 25 distinct onsets across
+88.62-105.00 s, drawn as individual heads with no beams, no grid, no figures.
+`int2b1` has **0 figures / 0 beams / 0 tuplets**; `db1` has **49 / 207 / 48**.
+**For the eleven blast columns that is correct and final** (a chord struck at one instant
+has no rhythm to write). **For the two spread gestures it is an open question the
+composer has not actually answered** — free/spatial reading is a legitimate choice and
+may be exactly what they want. If it is, the section is finished. If not, the figure
+process is still owed on those two. *Stated, not acted on.*
+
+
 
 **Resume reads:**
 1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE COMPOSER DICTATES ELEVEN

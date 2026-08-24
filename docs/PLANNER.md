@@ -8,18 +8,17 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35) THE INT2 BLASTS PAGE IS BUILT AND WAITING ON YOUR EYE.**
-You dictated eleven blast columns from memory and every exception you named was already
-true in the score's own grouping — nothing needed regrouping. The machine was amended
-once (staccato is legal in a block, because the registry already draws it whole) and
-then generated **eleven of the thirteen groups** in 81-110 s. **Look at `int2b1` —
-"INT2 BLASTS — 81-111 s"** in the notation app; try 84.3 +2.5 s (a mixed column: one
-cuivré bar, nine bare staccato heads) and 105.3 +6 s (your extend — eight bars reaching
-110.621). **Three things are owed back from you:** (1) keep or change the page's name;
-(2) **the T1 breath question at 95.89** — that long tone is written to 99.32 and T1
-attacks again at 99.46, only 0.14 s later: shorten the column, move the 99.46 staccato,
-or accept it as written; (3) whether the two spread clusters (88.62, 98.99) get the
-figure process next. Nothing has been folded into `db1`.
+**NOW ► (2026-08-24, day 35) THE INT2 BLASTS SECTION IS BUILT; `piece-s27` IS THE LIVE
+SAVE FILE.** All eleven blast columns you dictated are notated on `int2b1` (81-111 s),
+your T1 breath fix is in, and the save file is bumped — **compose the density build in
+`piece-s27`**. **One thing to decide before you call 81-110 finished:** everything from
+the composer score IS on the page (121 of 121 notes), but the two spread clusters at
+**88.62** and **98.99** — 25 notes on 25 different onsets — are drawn as individual
+noteheads with **no beams, no rhythmic grouping**. The eleven blast columns don't need
+any (a chord struck at once has no rhythm). Those two gestures might: on `db1`, the same
+kind of material took 49 figures. **If you want them read freely/spatially as they
+stand, the section is done. If you want them read rhythmically, that's the figure
+process.** Nothing has been folded into `db1`.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
