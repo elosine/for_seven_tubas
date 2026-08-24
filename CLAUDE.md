@@ -21,6 +21,10 @@ plans around it** · no clear evidence means no diagnosis.
 
 - **What now / what next (composer's working view):** `docs/PLANNER.md` —
   Section-1 containers, materials, open questions; raw notes append at bottom
+- **Which save file is which:** `docs/SAVE_FILES.md` — the `piece-sNN` chain,
+  which frozen save each notation page reads, the bump protocol. **AI keeps it
+  current at every bump and new page, and names files by exact filename /
+  picker label in chat** (day 35, composer's ask)
 - **Automatic filing contract:** `docs/TAXONOMY.md` — when the composer builds
   variants and chooses keepers, AI files voicings/articulation-sets/
   realizations into `bank/blast_taxonomy.json` WITHOUT being asked
@@ -89,8 +93,9 @@ after a clear, and it must say what is next, with what model, right now.
 ## Apps
 
 - **Composer score:** `node score/server.js` → http://localhost:5200/composer.html
-  (7 tracks, Tuba 1–7; saving protocol = piece #3's D8: canonical `scores/7tubas.json`,
-  CTRL+S versions capped 20 gitignored, 5 s autosave)
+  (7 tracks, Tuba 1–7; D8 mechanics — CTRL+S versions capped 20 gitignored, 5 s
+  autosave — but the canonical file is NOT `7tubas.json` (a day-1 stub): the piece
+  lives in the `piece-sNN` chain, current one named in `docs/SAVE_FILES.md`)
 - **Notation workshop:** same score server → http://localhost:5200/notation/app/notation.html
   (tier-2 experiment loop: `docs/NOTATION_WORKFLOW.md` — read it before notation work)
   **The settled figure rules: `docs/NOTATION_STANDARDS.md` — read before drawing

@@ -12691,3 +12691,47 @@ exceptions) · `notation/ir/db2.ir.json` (rebuilt; provenance carries the new
 command) · docs (this entry; BEAMING_DECISIONS D-log 23 + recipe update;
 NOTATION_STANDARDS cluster rows; registry `_note` prose; journal §2; PLANNER).
 No score touched; playability not re-run (writing only, no note moved).
+
+#### Day 35 (twelfth sitting, Fable 5) — THE SAVE-FILE MAP: the composer could not tell the files apart, and the answer becomes a standing doc
+
+**The composer, verbatim (voice, with the notation picker on screen):** *"Please help
+me understand the way the save files are meant to work. Where is the full score so
+far? I couldn't find it up to this point, including the long tones we did… Part of
+the problem is that you call it in the chat one thing, or maybe it's just an
+abbreviation. In any case, I can't figure out which save file is which. AI can name
+them. I just need to know what they're called and how to find them."*
+
+**The confusion is structural, not a lapse — three causes, all measured:**
+1. **`scores/` holds ~270 files** (app list: 268), of which exactly THREE are the
+   piece's current chain tail — everything else is sandbox experiments, auditions,
+   and takes from days 10-20. The haystack is real.
+2. **Two file KINDS share the word "file":** score saves (`piece-sNN`, the data,
+   composer app) vs notation pages (IR ids in the picker, drawings of one window
+   of one FROZEN save). The picker the composer screenshotted shows only the
+   second kind — the full score was never going to be in it.
+3. **The pages deliberately name three different saves** (db1 → piece-s25-finished01
+   · int2b1 → piece-s26 · db2 → piece-s27, verified from provenance) — correct by
+   design (a page names the save that was current at its build; bumps freeze the
+   old file), but illegible without the map in hand.
+
+**Where "the full score" actually is:** as DATA, `piece-s27` (everything, 4563
+objects, trance included). As NOTATION, no single page — `db1` (0-55.94) + `db2`
+(55.9-81) + `int2b1` (81-111) tile it. **The long tones the composer looked for are
+on `int2b1`, behind the label "INT2 BLASTS — 81-111 s"** — the 48 s long tone is on
+`db1`. A single combined page = a future fold (F2/D70) or export (PLAN 8), on ask.
+
+**BUILT: `docs/SAVE_FILES.md`** — the chain table (which save is current, which are
+frozen canon, which page reads which), the two-kinds distinction, the bump protocol
+(the twice-practiced day-33/day-35 pattern), and "how to find things". **Standing
+rule written into it and CLAUDE.md: the AI updates the map at every bump and every
+new page without being asked, and names files by exact filename / picker label on
+first mention in chat.**
+
+**CLAUDE.md corrected while there:** its D8 line still called `scores/7tubas.json`
+the canonical save — a 1 KB day-1 stub the lineage never used (verified: untouched
+since 8/10). It now points at the `piece-sNN` chain via SAVE_FILES.md. *(A cold
+session following the old line would have opened an empty piece.)*
+
+**Not done, deliberately:** no picker relabeling (the composer approved the current
+labels at STOP 2), no fold proposal pushed — the fold is offered as an option in
+chat now that the composer has felt the cost of three tiles, and stays their call.

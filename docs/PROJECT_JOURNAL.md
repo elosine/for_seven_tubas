@@ -81,6 +81,12 @@ so its row wants re-deriving before any apply.
 `scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a source,
 D75) · `scores/versions/`. `piece-s27-work.json` still does not exist.
 
+**THE SAVE-FILE MAP (day 35, twelfth sitting): `docs/SAVE_FILES.md`.** Current
+save = **`piece-s27`**; db1/db2/int2b1 read three FROZEN saves by design; the
+full score exists as data in s27 and as three tiling pages, not one. **Keep the
+map current at every bump/new page; name files by exact filename or picker
+label in chat** (also in CLAUDE.md now; its stale `7tubas.json` line fixed).
+
 **Chat format, standing:** succinct, chunked, short lines; answer the question that was
 asked (global CLAUDE.md § Chat responses; `reply-format-tldr-chunks` memory).
 ---

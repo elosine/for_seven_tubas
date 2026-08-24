@@ -1997,3 +1997,30 @@ conversion left exactly two 8th rests on the page — inside cl-6's 3:2 bracket,
 where the rest is the bracket's own slot arithmetic (rule candidate 7, day 29).
 The generalization respected a two-day-old boundary the composer never mentioned
 in the dictation, and the sitting flagged them rather than converting them.
+
+## Day 35, twelfth sitting — "I can't figure out which save file is which": naming legibility as an interface failure
+
+*(Short; bears on the collaboration-interface thread.)*
+
+After thirty-five days the file system was correct and the composer could not read
+it. **Composer, verbatim:** *"Part of the problem is that you call it in the chat
+one thing, or maybe it's just an abbreviation. In any case, I can't figure out
+which save file is which. AI can name them. I just need to know what they're called
+and how to find them."*
+
+Every individual naming decision had been sound and journaled: saves bump and
+freeze per era; a notation page permanently names the frozen save it was drawn
+from; ids are short (`db2`, `int2b1`) because they are typed into commands. The
+system was self-consistent — **and its legibility lived entirely in the AI's
+context, which the composer clears daily by design.** The cost-hygiene practice
+(clear early, clear often) that makes the collaboration affordable is exactly what
+makes chat-established nicknames worthless: any name that exists only in
+conversation is erased on schedule.
+
+The composer's proposed division of labour is worth quoting for the paper because
+it concedes naming authority while demanding an index: **"AI can name them. I just
+need to know what they're called."** The fix was not renaming anything — it was a
+standing MAP (`docs/SAVE_FILES.md`) plus a chat rule (exact filename or picker
+label on first mention). Same lesson as the running log itself, applied to
+nomenclature: **if the chat is not a record, then a name that lives only in the
+chat is not a name.**
