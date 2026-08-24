@@ -17,6 +17,7 @@
 
 ## Hand-filed
 
+- `db1` · T10 @ 39.08–39.21 s — the sanctioned 6:4 (D-log 20) passes 0.22 ss under cl-36b's beam — pre-existing in the day-30 approved page, surfaced day 31 by the extended geometry guard; fix via stack/registry (tier 3)
 - `db1` · T9 @ 36.87 s — the 6:4 bracket line crosses its own group's accent glyph (76 ms x-overlap, 0.2 ss) — pre-existing in the day-30 approved material, surfaced day 31 by the new notate_section geometry guard; fix via the stack (tier 3)
 
 ## Auto-detected (tools/protrusion_detect.js appends below; do not edit by hand)*

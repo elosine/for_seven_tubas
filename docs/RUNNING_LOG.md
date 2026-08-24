@@ -10950,3 +10950,57 @@ clean); flagged here, not decisions.
 
 Ten batteries green; `db1-c2d-x01` VALID vs source, in the picker as
 "CLOUD02-D TRIALS (day 31)". T1 (cl-37) untouched.
+
+
+#### Day 31 — the screenshot round: beams in the staff, zero stems, brackets on beams
+
+**Composer (with screenshot):** *"Beams are going into the staff and there end up
+being note heads with zero stems. And then also brackets are colliding with
+beams. Let's see if we can resolve those two issues. And then I'll look and see
+if there's any more."*
+
+**Measured (cl-38a, T2):** beam clamped to **−2.15/−1.34** — ON the bottom staff
+line and INSIDE the staff; stems **0.03** (heads on the beam) and **−0.47**
+(head PAST the beam, inverted); T3's 7:4 line at −4.64 crossing cl-40b's beam
+band (−4.05…−4.86).
+
+**Root cause: the vertical budget.** Below a stem-down beam, head (2.6) + stem
+(1) + accent row (1.29) + bracket (1.65) + dyn row (1.42) = **7.97 ss > the
+6.51 lane half** — it cannot fit. The day-24 stack clamp "lowers the beam so the
+stack fits inside the lane", which for stem-down means RAISING it — with no
+floor, it shoved the beam into the staff and past two heads. (M1 made it worse
+by routing marks into the stack: taller stack, harder shove.)
+
+**Fixes (layout.js):**
+1. **The dyn row of a stem-DOWN group moves to the HEAD side** (above the
+   staff/heads) — the mirror of the day-22 column standard; accents + bracket
+   stay with the beam, and the beam-side budget (2.6+1+1.29+1.65+cap 0.45 =
+   6.45 ≤ 6.51) fits exactly — which is what the per-note lowering formula
+   always guaranteed. Tips now carry their head-side ink extent
+   (head + accidental + dot) so the row clears the tallest member.
+2. **THE FLOOR: the stack clamp may pull a beam toward the staff, but never
+   past a head** — the nearest head on the beam side keeps `minBeamStemSs`
+   (1.0) of stem. *Second look, worth keeping:* an earlier draft also floored
+   at the staff edge (2.5), and that silently LIFTED three approved day-29/30
+   beams (cl-25a, cl-32a, cl-21a: 2.15 → 2.50) — the composer had ACCEPTED
+   2.15-with-secondary-inside-the-staff on those pages (long stems, heads far
+   away). So the staff edge is NOT a bound; heads-vs-beam is the whole rule.
+   Clause dropped; approved values restored exactly (2.15 ✓ ×3).
+
+**After:** cl-38a at −3.61 (head-clear), all stems ≥ 0.8 ss, both T2 brackets
+on ONE line at −6.10, T3's at −6.60 — 1.74 ss clear of cl-40b's beam; dyn rows
+above the heads (T2 f at +5.36, T3 mf at +3.86). **The whole section: no beam
+past a head, no short/inverted stem, no bracket within 0.4 ss of a beam.**
+Ten batteries green; all approved-page snapshots green; db1's old material
+byte-identical (verified against a git-HEAD build of layout.js).
+
+**The guard grew the two checks that would have caught the screenshot** (stem
+length/inversion · bracket-vs-beam distance). On the approved material it
+surfaced exactly two pre-existing grazes — T9 @36.87 (bracket×accent, filed
+earlier today) and **T10 @39.08 (the D-log 20 bracket 0.22 ss under cl-36b's
+beam)** — both verified pre-existing at git HEAD, both in NOTATION_POLISH
+(tier 3, D18: filed, not surfaced).
+
+**Visible change for the composer's next look:** on stem-down gestures the
+band marks now sit ABOVE the staff (T1's stem-up gestures and everything
+before 40.4 s are untouched).

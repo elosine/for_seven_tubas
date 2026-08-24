@@ -794,6 +794,13 @@
                   items.push({ k: 'dot', t: e.onset, dxSs: headDx, ySs: yDot });
                   inkTopY = Math.max(inkTopY, yDot + rDot); inkBotY = Math.min(inkBotY, yDot - rDot);
                 }
+                // day 31: the head-side dyn row (stem-down groups) needs each
+                // member's head-side ink extent — head + accidental + dot
+                if (dev.beamGroup && beamGroups.has(dev.beamGroup)) {
+                  const tps = beamGroups.get(dev.beamGroup).tips;
+                  const tp = tps.length && Math.abs(tps[tps.length - 1].t - e.onset) < 1e-9 ? tps[tps.length - 1] : null;
+                  if (tp) { tp.headTopYSs = inkTopY; tp.headBotYSs = inkBotY; }
+                }
                 if (accRel) {
                   items.push({ k: 'glyph', g: 'accidental-' + accRel.kind, t: e.onset, dxSs: headDx + accRel.dx, ySs: yDraw, align: accRel.align });
                   leftEdgeDx = Math.min(leftEdgeDx, headDx + accRel.dx - accRel.anchorX);
@@ -1067,12 +1074,47 @@
               const capAbove = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
               st.bracketLine = h + TPg.paddingSs + TPg.hookLengthSs; h = st.bracketLine + capAbove;
             }
-            if (g.dyns && g.dyns.length) {
+            // THE DYN ROW SIDE (day 31, the vertical budget): on a stem-DOWN
+            // group the beam-side column cannot hold head + stem + accents +
+            // bracket + dynamics inside the lane half (measured on T2:
+            // 2.6 + 1 + 1.29 + 1.65 + 1.42 = 7.97 > 6.51 — the old clamp made
+            // room by shoving the beam INTO the staff, which is what the
+            // composer saw: beams on the staff lines, heads with no stems).
+            // So for dir-down groups the dynamics row moves to the HEAD side
+            // (above the staff/heads — the mirror of the day-22 column
+            // standard, which stacks chrome on the head side where there is
+            // room). Accents and brackets stay with the beam. Stem-up groups
+            // are unchanged (day-24 approved).
+            if (g.dyns && g.dyns.length && g.dir === 'up') {
               const dH = Math.max(...g.dyns.map(d => d.hSs));
               st.dynCentre = h + gapD + dH / 2; h = h + gapD + dH;
             }
             g.stack = st;
+            // THE FLOOR (day 31): the stack clamp may pull the beam toward the
+            // staff to fit the lane, but never (a) inside the staff band, and
+            // never (b) past a head so far that its stem inverts or vanishes —
+            // the nearest head on the beam side keeps at least minStemSs of
+            // stem. Measured failure: cl-38a clamped to -2.15 (staff bottom
+            // line -2), stems 0.03 and -0.47. When floor and lane fight, the
+            // floor wins and the stack overflows toward the lane edge —
+            // protrusion is tier-3, staff invasion is not.
             if (h > 0) { const lim = CSg.laneHalfSs - h; yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim); }
+            {
+              // (day 31, second look: an earlier draft also floored at the staff
+              // edge, but the APPROVED day-29/30 pages already compress stem-up
+              // beams to 2.15 with the secondary dipping inside the staff — the
+              // composer accepted that look, so the staff edge is not a bound.
+              // What was actually broken on T2 was heads AT and PAST the beam:
+              // the head clause below is the whole rule.)
+              const minStem = o.minBeamStemSs != null ? o.minBeamStemSs : 1.0;
+              if (g.dir === 'up') {
+                const hiHead = Math.max(...g.tips.map(t => t.stem ? t.stem.yA : -Infinity));
+                if (isFinite(hiHead)) yLevel = Math.max(yLevel, hiHead + minStem);
+              } else {
+                const loHead = Math.min(...g.tips.map(t => t.stem ? t.stem.yA : Infinity));
+                if (isFinite(loHead)) yLevel = Math.min(yLevel, loHead - minStem);
+              }
+            }
           }
           for (const t of g.tips) {
             if (Math.abs(t.ySs - yLevel) > 1e-9 && t.stem) t.stem.yB = yLevel;
@@ -1240,9 +1282,20 @@
         // line, centred on its head column — consecutive dynamics read as a
         // phrase, not as per-note chrome. Above the accents when both exist.
         if (g.dyns && g.dyns.length) {
-          const base = g.tips[0].ySs;
-          const y = g.dir === 'up' ? base + g.stack.dynCentre : base - g.stack.dynCentre;
-          for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
+          if (g.dir === 'up') {
+            const base = g.tips[0].ySs;
+            const y = base + g.stack.dynCentre;
+            for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
+          } else {
+            // stem-down: ONE row above the group's head-side ink (day 31 — the
+            // beam side has no room; see the stack note above). Clears the
+            // tallest member head (+dot/accidental) and the staff top.
+            const gapD2 = o.stackGapSs != null ? o.stackGapSs : 0.45;
+            const dH = Math.max(...g.dyns.map(d => d.hSs));
+            const headTop = Math.max(2, ...g.tips.map(t => t.headTopYSs != null ? t.headTopYSs : -Infinity));
+            const y = headTop + gapD2 + dH / 2;
+            for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
+          }
         }
       }
       // RESTS (day 23, composer: "let's put in any rests that are necessary...

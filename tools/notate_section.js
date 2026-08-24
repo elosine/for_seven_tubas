@@ -1096,6 +1096,23 @@ try {
           + ': bracket ' + T.text + ' collides with ' + g.g + ' (x ' + Math.round(ox * 1000) + ' ms, y ' + oy.toFixed(2) + ' ss)');
       }
     }
+    // stems: never inverted, never vanishing (day 31, the composer's
+    // screenshot: the old stack clamp pushed a beam past its heads — stems of
+    // 0.03 and -0.47 ss). The floor in layout.js prevents it; this proves it.
+    for (const it of sys.items) {
+      if (it.k !== 'stem') continue;
+      const len = it.attach === 'up' ? (it.yB - it.yA) : (it.yA - it.yB);
+      if (len < 0.75) findings.push(P + ' @' + it.t.toFixed(2) + ': stem ' + (len < 0 ? 'INVERTED' : 'only ' + len.toFixed(2) + ' ss'));
+    }
+    // a bracket line grazing or crossing ANY beam of the part (day 31)
+    const beamsG = sys.items.filter(i => i.k === 'beam' && i.tips && i.tips.length);
+    for (const T of tups) for (const b of beamsG) {
+      const bx0 = Math.min(...b.tips.map(x => x.t)), bx1 = Math.max(...b.tips.map(x => x.t));
+      const ox = Math.min(T.x1, bx1) - Math.max(T.x0, bx0);
+      const oy = Math.abs(T.ySs - b.tips[0].ySs);
+      if (ox > 0.01 && oy < 0.4) findings.push(P + ' @' + Math.max(T.x0, bx0).toFixed(2)
+        + ': bracket ' + T.text + ' within ' + oy.toFixed(2) + ' ss of beam ' + (b.group || ''));
+    }
     // one stem side per cluster
     const sides = new Map();
     for (const i of sys.items) if (i.k === 'beam' && i.tips && i.tips.length && i.group) {
