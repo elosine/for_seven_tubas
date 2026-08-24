@@ -10861,3 +10861,92 @@ T8 n1+n4, T9 n3+n9, T10 n1 — all FLAGGED, never applied (principle 8).
 
 Browser pane still not displayed → no screenshot; the fork is in the picker as
 **"CLOUD02-D TRIALS (day 31)"**.
+
+
+#### Day 31 — the composer's eye finds the section garbled; TWO MACHINE BUGS, measured and fixed (Fable pass)
+
+**Composer (verbatim, switching to Fable):** *"there's a bunch of mistakes,
+collisions, and I'm not sure the beam groupings are correct… there's a lot of
+bracket and dynamic clashes, and it doesn't look like the… we wrote a rule about
+the extending, uh, tuplet brackets. It looks like some of them aren't following
+that rule. They're extending into each other. …can you try to have it pass and
+see if you can't just pick up all the issues and redo two through ten? T one is
+good."*
+
+**MEASURED FIRST** (scratch `geo_audit.js` — layout model at zoom scale, boxes
+for brackets/dyn/accents/beams; then `bracket_audit.js` — ground truth from the
+overlays). Drawn-ink findings on `db1-c2d-x01`:
+
+- **4 bracket×dynamic collisions** — T2 f@44.27, T6 f@44.47, T7 mf@43.59,
+  T3 mf@45.76: the mark's box crossing the tuplet line at ±6.06 ss.
+- **2 gestures with beams on BOTH sides** — T3 cl-40 (group a stem-up +4.86,
+  b/c stem-down −4.86, its two brackets on OPPOSITE sides of one gesture);
+  T7 cl-46 (a down, b up).
+- Bracket chains abutting (7:4|6:4 at one height, ~12 px daylight at zoom).
+- The 5 straddles shipped as "sanctioned" — the composer's "extending into
+  each other".
+
+**ROOT CAUSES — both new to this section, THE FIRST MATERIAL WITH STEM-DOWN
+BEAMS** (the D4/E4 register; everything approved before was stem-up, which is
+why day 24's collision unification never met either bug):
+
+1. **The mark placer was one-sided.** Day 24 ("only ever ONE placer up there")
+   routes a beamed note's mark to the group's stacked dyn row when the chain
+   flips ABOVE — the stem-up case. On a stem-DOWN beamed note the below-chain
+   IS the beam side, so the per-note chain walked past the beam and set the
+   mark in the bracket's band. Instrumented proof: cl-38a stack
+   `{articCentre 0.87, bracketLine 2.49}` with **dyns 0** — the group row never
+   received the marks. **FIX (layout.js): `markToGroup` is now symmetric** —
+   a beamed note whose chain lands on the beam side hands its mark to the
+   group row, whichever side that is (`stemDir === 'up' ? chainAbove :
+   !chainAbove`).
+2. **Stem side was chosen per BEAM GROUP** (farthest-note rule per group), so
+   one cluster's groups flipped sides the moment the register crossed the
+   middle line — mid-gesture side changes that read as wrong groupings.
+   **FIX (layout.js): ONE SIDE PER GESTURE** — the farthest note of the whole
+   CLUSTER picks the side; every group in it follows; per-item `stemDir`
+   overrides still win.
+
+**Both fixes are provable no-ops on approved material: all 75 snapshots green,
+ten batteries green.** (The one thing the new guard found in old material —
+T9 @36.87, a bracket line crossing its own accent by 76 ms — is pre-existing
+in approved db1, filed to NOTATION_POLISH as tier 3, D18: not surfaced.)
+
+**THE MACHINE NOW GUARDS ITSELF (fix-the-machine, part 2):** `notate_section`
+grew a **GEOMETRY GUARD** that lays out the finished IR and measures the ink
+the composer measures — bracket×bracket overlap, bracket line/numeral vs
+dyn/accent boxes at zoom scale, and stem sides per cluster — printing loud
+`!!` findings before READY (never blocking). CLOUD02-D's four collisions were
+invisible to the build and cost a composer round trip; they can't ship silent
+again.
+
+**THE STRADDLES RESOLVED AT PROPOSAL TIME (redo of the day-31 morning misstep —
+"sanctioned" was misapplied; day-30 addition 2 says RESOLVED, not shipped):**
+
+- **T2 (cl-38): RESOLVED by the phrase beam** — `--cuts 7`, groups [1-7][8,9].
+  The fragile seam after 5 (ratio tie to 1.259) is pairwise ONE PACE across the
+  boundary (200 vs 243 = 1.215 ≤ 1.25), exactly rule 10's widening case; both
+  brackets now sit wholly inside g1. Dynamics re-derived: dyn 1, accents 3
+  (unchanged numbers, new grouping).
+- **T3 (cl-40): half resolved, half sanctioned** — `--cuts 7`, groups
+  [1-7][8-10]. The seam after 2 was pairwise 381 vs 392 = **1.03** — one pace,
+  merged; the 6:4 is contained. The 7:4 still spans the seam after 7 (311 vs
+  172 = 1.81, a real seam) with off-lattice members on BOTH sides — the exact
+  D-log 20 shape, kept deliberately. Dynamics re-derived for the new groups:
+  dyn 1, accents 3,5 (was 1,3,8).
+- **T4 (cl-41): stands as the ONE OPEN CALL** — the 3:2 across the seam after 4
+  (pairwise 1.32 > 1.25 refuses the merge; the sub-beat window would leave a
+  one-note bracket; both worse). Flagged since the morning pass; the composer
+  decides.
+- **T8 (cl-47): kept** — both sides off-lattice, the sanctioned shape.
+- T9's straddle was already resolved by the day-30 hand-tuplet shrink.
+
+**Census after: 5 straddles → 3** (T3 + T8 sanctioned by rule 12's
+configuration, T4 the open call). **Drawn-ink collisions: 0** in 42.3–48.1
+(geo audit classes C/D/E all empty; protrusion_detect: nothing in the window).
+One-note brackets remain by the standing exception (T7 5:4 on n5, T8 5:4 on
+n11, T10 3:2 on n6 — one off-lattice note, no den-2 window; ink verified
+clean); flagged here, not decisions.
+
+Ten batteries green; `db1-c2d-x01` VALID vs source, in the picker as
+"CLOUD02-D TRIALS (day 31)". T1 (cl-37) untouched.

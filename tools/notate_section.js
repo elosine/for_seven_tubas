@@ -1049,6 +1049,71 @@ manifest.irs = manifest.irs.filter(e => e.id !== id);
 manifest.irs.push({ id, label, score: scoreName, window: [w0, w1], profile, exp: flag('exp') || undefined });
 writeManifest(manifest);
 
+// ── THE GEOMETRY GUARD (day 31) ──────────────────────────────────────────────
+// Lay the finished IR out and measure the ink the composer measures: tuplet
+// brackets vs dynamic/accent glyphs, bracket vs bracket, and stem sides within
+// one cluster. CLOUD02-D shipped with four bracket×dynamic collisions and two
+// gestures whose beams flipped sides mid-cluster — all invisible to the build,
+// found by the composer's eye. The build now measures its own page; a finding
+// prints loudly (never blocks — the composer may be mid-iteration).
+try {
+  const LayoutG = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+  const GG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
+  const CG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const EL = (CG.engraving && CG.engraving.layout) || {};
+  const TPg = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7, hGapSs: 0.35, numeralGapPerCharSs: 0.88 }, EL.tuplet || {});
+  const ssPxZ = 7.9 * 2, pxSecZ = 2 * (1920 - 48) / 12;   // zoom-working scale
+  const secOfSsG = ss => ss * ssPxZ / pxSecZ;
+  const modelG = LayoutG.layoutSection(doc, GG, EL);
+  const findings = [];
+  for (const sys of modelG.systems) {
+    const P = 'T' + (sys.part + 1);
+    const tups = sys.items.filter(i => i.k === 'tuplet').map(i => ({
+      ...i,
+      x0: i.t0 + secOfSsG(TPg.hGapSs),
+      x1: i.dx1Ss != null ? i.t1 + secOfSsG(i.dx1Ss) : i.t1 - secOfSsG(TPg.hGapSs),
+    }));
+    // bracket vs bracket on one lane
+    for (let a = 0; a < tups.length; a++) for (let b = a + 1; b < tups.length; b++) {
+      const ov = Math.min(tups[a].x1, tups[b].x1) - Math.max(tups[a].x0, tups[b].x0);
+      if (ov > 0.002) findings.push(P + ' @' + Math.max(tups[a].x0, tups[b].x0).toFixed(2)
+        + ': brackets ' + tups[a].text + ' and ' + tups[b].text + ' OVERLAP by ' + Math.round(ov * 1000) + ' ms');
+    }
+    // bracket line/numeral vs dyn + accent glyph boxes
+    const glyphsG = sys.items.filter(i => i.k === 'glyph' && (String(i.g).startsWith('dyn-') || String(i.g).startsWith('artic-')))
+      .map(i => {
+        const key = String(i.g).replace(/^dyn-/, '').replace(/^artic-/, '');
+        const gm = String(i.g).startsWith('dyn-') ? (GG.dynamic[key] || { wSs: 1.4, hSs: 1 }) : (GG.articulation[key] || { wSs: 1.5, hSs: 0.84 });
+        return { g: i.g, t: i.t, ySs: i.ySs, hw: secOfSsG(gm.wSs / 2), hh: gm.hSs / 2 };
+      });
+    for (const T of tups) {
+      const capUp = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
+      const lineY0 = T.ySs - (T.dir === 'down' ? capUp : 0.1), lineY1 = T.ySs + (T.dir === 'down' ? 0.1 : capUp);
+      for (const g of glyphsG) {
+        const ox = Math.min(T.x1, g.t + g.hw) - Math.max(T.x0, g.t - g.hw);
+        const oy = Math.min(lineY1, g.ySs + g.hh) - Math.max(lineY0, g.ySs - g.hh);
+        if (ox > 0.002 && oy > 0.05) findings.push(P + ' @' + g.t.toFixed(2)
+          + ': bracket ' + T.text + ' collides with ' + g.g + ' (x ' + Math.round(ox * 1000) + ' ms, y ' + oy.toFixed(2) + ' ss)');
+      }
+    }
+    // one stem side per cluster
+    const sides = new Map();
+    for (const i of sys.items) if (i.k === 'beam' && i.tips && i.tips.length && i.group) {
+      const cid = String(i.group).replace(/[a-z]$|-b\d.*$|-stub$/g, '');
+      if (!sides.has(cid)) sides.set(cid, new Set());
+      sides.get(cid).add(i.tips[0].ySs >= 0 ? 'up' : 'down');
+    }
+    for (const [cid, dirs] of sides) if (dirs.size > 1)
+      findings.push(P + ' ' + cid + ': beams on BOTH sides of one cluster');
+  }
+  if (findings.length) {
+    console.log('GEOMETRY: ' + findings.length + ' finding(s) — the page has ink collisions:');
+    findings.forEach(x => console.log('  !! ' + x));
+  } else {
+    console.log('GEOMETRY: clean (brackets, dynamics, accents, stem sides)');
+  }
+} catch (e) { console.log('GEOMETRY: check skipped (' + (e && e.message) + ')'); }
+
 const byStrategy = {};
 for (const c of doc.chunks) byStrategy[c.strategy] = (byStrategy[c.strategy] || 0) + 1;
 console.log('READY: ' + id + ' — ' + doc.events.length + ' events, ' + doc.chunks.length + ' chunks ' +

@@ -199,18 +199,30 @@
     // per-item stemDir override still wins for that note.
     const groupDir = new Map();
     {
+      // ONE SIDE PER GESTURE (day 31). The farthest-note rule used to run per
+      // BEAM GROUP, so one cluster's groups could flip sides mid-gesture the
+      // moment the register crossed the middle line (CLOUD02-D, the first
+      // material to do so: T3's cl-40 drew group a stem-up and groups b/c
+      // stem-down, its two brackets on OPPOSITE sides of one gesture; T7 the
+      // same). A gesture is read as one thing — its seams are beam breaks,
+      // not side changes — so the farthest note of the whole CLUSTER picks
+      // the side and every group in it follows. Per-item engraving overrides
+      // (engS.stemDir) still win per note, unchanged.
       const th = 2 + ((glyphs.standards.ottava && glyphs.standards.ottava.ledgerLineThreshold) || 3);
-      const far = new Map();   // group -> {y, dir}
+      const far = new Map();    // gesture key -> {y}
+      const gkOf = new Map();   // beamGroup -> gesture key
       for (const e of ir.events) {
         const d = deviceOf(e);
         if (!d.beamGroup || d.nhStem !== 'beam') continue;
+        const gk = d.clusterId || d.beamGroup;
+        gkOf.set(d.beamGroup, gk);
         let y = staffPosBass(spelledOf(e));
         while (y > th) y -= 3.5;
         while (y < -th) y += 3.5;
-        const cur = far.get(d.beamGroup);
-        if (!cur || Math.abs(y) > Math.abs(cur.y) + 1e-9 || (Math.abs(Math.abs(y) - Math.abs(cur.y)) <= 1e-9 && y < cur.y)) far.set(d.beamGroup, { y });
+        const cur = far.get(gk);
+        if (!cur || Math.abs(y) > Math.abs(cur.y) + 1e-9 || (Math.abs(Math.abs(y) - Math.abs(cur.y)) <= 1e-9 && y < cur.y)) far.set(gk, { y });
       }
-      for (const [k, v] of far) groupDir.set(k, v.y > 0 ? 'down' : 'up');
+      for (const [bg, gk] of gkOf) groupDir.set(bg, far.get(gk).y > 0 ? 'down' : 'up');
     }
 
     // frameParts (day 22, the collapse): when given, EVERY listed lane gets
@@ -626,7 +638,16 @@
                 // and lowers the beam to fit both inside the lane, which is the
                 // stackBelow order (articulation inside, dynamic outside) applied above
                 // the staff. So there is only ever ONE placer up there now.
-                const markToGroup = markAboveBeam || !!(markG && chainAbove && dev.nhStem === 'beam');
+                // ...and the MIRROR (day 31, CLOUD02-D — the first material with
+                // stem-DOWN beams): on a stem-down beamed note the below-chain IS
+                // the beam side, so the old rule left a second placer down there —
+                // the per-note chain walked past the beam and put the mark in the
+                // bracket's band (measured: T2 44.27, T6 44.47, T7 43.59, T3 45.76,
+                // all f/mf boxes crossing the tuplet line at -6.06). One placer per
+                // side, both sides: a beamed note whose chain would land on the
+                // beam side hands its mark to the group row, whichever side that is.
+                const markToGroup = markAboveBeam || !!(markG && dev.nhStem === 'beam'
+                  && (stemDir === 'up' ? chainAbove : !chainAbove));
 
                 if (stemKind) {
                   const yStart = yDraw - att.dy;

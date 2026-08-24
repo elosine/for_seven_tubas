@@ -17,7 +17,7 @@
 
 ## Hand-filed
 
-*(empty)*
+- `db1` · T9 @ 36.87 s — the 6:4 bracket line crosses its own group's accent glyph (76 ms x-overlap, 0.2 ss) — pre-existing in the day-30 approved material, surfaced day 31 by the new notate_section geometry guard; fix via the stack (tier 3)
 
 ## Auto-detected (tools/protrusion_detect.js appends below; do not edit by hand)*
 
