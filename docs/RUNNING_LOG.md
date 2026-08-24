@@ -10409,3 +10409,35 @@ call, analysis logged here):
 - **NITS:** notate_section prints a figures cluster's NEAR-TIE/PATTERN lines
   above that cluster's own header (they land visually at the tail of the previous
   cluster's block — pre-existing print-order quirk, cosmetic only).
+
+
+#### Day 30 — T5 T6 DONE · T7-T10 proposed: the whole section now carries figures
+
+- **T5 and T6 FINAL** ("t5 and t6 good", D-log 15). The mid-group fall-back mark
+  (T5's f at 6) is confirmed by acceptance; T6's ratio tie stays pair+five.
+- **T7-T10 proposed in one pass (cl-34-40, D-logs 16-19)** through the five
+  checks. The section's firsts, all in this batch: **the first PLAIN verdict by
+  census** (T7 g1 — 1/6 over at 1.10, the T2 profile; the page prints "ONE GRID
+  IS OVER A HEAD (1.1)" as its honest cost) · **the first ALL-PLAIN fit** (T10
+  g1 — no tuplet anywhere, brackets = plain at 0.93) · **the first same-beat
+  double hand-window** (T9 g1: the straddling 6:4 → 3:2+3:2, bracket = pair —
+  which found a sequencing bug in the day-30 override: each window validated the
+  beat's leftovers before the OTHER window was known; the pass is now two-phase,
+  validating against the union. T4 never hit it because its windows sat in
+  different beats).
+- **Straddle ledger for the batch:** T9 g1 dissolved (rule 11) · T10 g2
+  dissolved (rule 11, one leading bracket rest) · T8's beat-1 artifact fixed
+  (6:4 → hand 3:2 over 4-5, note 4 on-lattice at slot 0) · **T9 g2's 5:4
+  SURVIVES every check** — no sub-beat window (4.8 off every den-2 lattice),
+  widening fails pairwise (451/205/359/244/194), aligning is pace-illegal and
+  breaks the long-short parallel. Flagged to the composer as the first genuine
+  A(a) residue; that gesture also sits at worst 0.99-1.0 heads, ON the
+  dissonance line (the day-28 watch item).
+- **Verified:** ten batteries green, `--validate` 24/25, layout audits parts 6-9
+  exact — brackets [3:2 3:2] / [5:4 3:2 6:4 3:2 5:4] / [3:2 3:2 5:4 5:4 7:4] /
+  [3:2 3:2] (+ cl-25's old tail 3:2 outside the span), dynamics and accents per
+  the derivations. Label: "CLOUD02-I — T1-T6 FINAL + T7-T10 PROPOSED (day 30)".
+- **Every note of CLOUD02-I now carries a figure.** Open for the composer across
+  the four parts: T9 g2's straddle · T7 g1's ratio tie (three pairs past 1.257)
+  + the plain-vs-one-3:2 choice · nine pickup flags (T7: 1, 5 · T8: 1, 4 ·
+  T9 g2: 1, 4 · T10: 1, 4, 5) · near-ties (T8: 7, 11 · T9 g2: 9 · T10 g1: 2).

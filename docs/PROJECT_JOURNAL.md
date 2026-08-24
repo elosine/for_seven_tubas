@@ -115,15 +115,18 @@ gate byte-identical) and T4 became 6 groups, brackets 5:4 · 6:4 · 5:4 · 3:2 �
 3:2, **zero straddles** — the two 6:4s were per-beat artifacts (only notes 13/17
 off-lattice; rule cand. 11). The day-28 A(a) fix is retired for every case seen.
 Ledger D-log 11 complete; batteries green each round; `--validate` 24/25.
-**T4 went FINAL ("t4 all good", D-log 12 — the two-band dynamics precedent
-confirmed). T5 + T6 are PROPOSED (cl-31, cl-32/33 + T6's lone one-shot un-bared),
-built through the new five-check generator checklist** (recipe § Day-30
-additions: rule-8 census · containment, straddles resolved at proposal · rule-11
-lattice audit + exceptions · extended dynamics · pickups flagged) — both
-bracket-pervasive by census, zero straddles, lattice clean. **Awaiting the
-composer: T5's two pickup flags (notes 3, 7) + the f-fall-back-at-6 dynamics
-call · T6's ratio tie (cut after 4 flips at 1.248).** D-logs 13–14. Then T7–T10
-by the same loop.
+**T1–T6 are FINAL (D-logs 12, 15) and T7–T10 are PROPOSED (cl-34–40, D-logs
+16–19) — every note of CLOUD02-I now carries a figure.** The five-check
+checklist ran the whole batch; its firsts: T7g1 = first PLAIN verdict by census
+(1/6 over, T2 profile) · T10g1 = first all-plain fit · T9g1 = first same-beat
+double hand-window (3:2+3:2, bracket = pair — found + fixed a sequencing bug:
+the override validates against the UNION of windows now). T8's beat-1 artifact
+rewritten (6:4 → hand 3:2 on 4-5). **Open for the composer: T9g2's 5:4 straddle
+(survives every check — accept / name a cut / ownGrids; that gesture sits AT
+1.0 heads) · T7g1's ratio tie + plain-vs-3:2 choice · nine pickup flags
+(T7: 1, 5 · T8: 1, 4 · T9g2: 1, 4 · T10: 1, 4, 5) · near-ties (T8: 7, 11 ·
+T9g2: 9 · T10g1: 2).** Verdicts → D-log rows → section audit → db1 fold-in
+(step 6's close: rebuild, `--validate`, push).
 
 **CHECKPOINT (day 29 end-of-chat, mid-task — read this first after the clear):**
 **T1 T2 T3 ARE FINAL in `db1-c2i-x01`** ("CLOUD02-I — T1 T2 T3 FINAL"); T4–T10 bare.

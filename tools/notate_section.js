@@ -538,12 +538,16 @@ const { doc, warnings } = Extract.extract(score, {
       // sit ON the plain lattice and is written plain. Positions never move —
       // only the writing. A window may not cross a beam seam (it would say
       // "quicker" about two groups — the exact garble this exists to remove).
+      // Two phases, because two windows may share one beat (T9's four-note
+      // gesture — both 3:2s live in beat 0): first every window's records are
+      // built, then the touched beats' leftover members are validated against
+      // the UNION of hand-covered members.
+      const u = k => fit.grid[k] - shift;   // unshifted frame: beat lines at multiples of 4
+      const allRecs = new Map(), touched = new Set();
       for (const t of tuplets) {
         if (t.from <= pre.length) {
           console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + ': hand tuplets cover main members only, not pick-ups'); process.exit(2);
         }
-        // work in the unshifted frame (beat lines sit at multiples of 4 there)
-        const u = k => fit.grid[k] - shift;
         const slotW = t.den / t.num;
         const startU = Math.floor(u(t.from - 1) / t.den + 1e-9) * t.den;
         if (oneGrid) for (const c of seg.cuts) {
@@ -553,27 +557,29 @@ const { doc, warnings } = Extract.extract(score, {
           }
         }
         const p2 = t.num >= 4 ? 4 : 2;
-        const recs = new Map();
         for (let k = t.from - 1; k <= t.to - 1; k++) {
           const rel = u(k) - startU;
           const slot = Math.round(rel / slotW);
           if (slot < 0 || slot >= t.num || Math.abs(rel - slot * slotW) > 5e-3) {
             console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': member ' + (k + 1) + ' (grid ' + fit.grid[k] + ') is not on that lattice (window starts at slot ' + (startU + shift) + ')'); process.exit(2);
           }
-          recs.set(k, { group: key + '-ht' + t.from, num: t.num, den: t.den, startPos: startU + shift, slot: slot,
+          allRecs.set(k, { group: key + '-ht' + t.from, num: t.num, den: t.den, startPos: startU + shift, slot: slot,
             text: t.num + ':' + t.den, valueDur: 16 / (t.den / p2), beams: Math.round(Math.log2(4 * p2 / t.den)) });
         }
         const b0 = Math.floor(startU / 4 + 1e-9), b1 = Math.floor((startU + t.den - 1e-6) / 4);
+        for (let b = b0; b <= b1; b++) touched.add(b);
+        handBrackets.push({ from: t.from - pre.length, to: t.to - pre.length, num: t.num, text: t.num + ':' + t.den, beats: [b0, b1] });
+      }
+      if (tuplets.length) {
         for (const k of [...patTuplets.keys()]) {
           const kb = Math.floor(u(k) / 4 + 1e-9);
-          if (kb < b0 || kb > b1 || recs.has(k)) continue;
+          if (!touched.has(kb) || allRecs.has(k)) continue;
           if (Math.abs(u(k) - Math.round(u(k))) > 5e-3) {
-            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': member ' + (k + 1) + ' shares beat ' + kb + ' but sits off the plain lattice (grid ' + fit.grid[k] + ') — cover it with its own --tuplet'); process.exit(2);
+            console.error('--cluster ' + label + ' --tuplet: member ' + (k + 1) + ' shares beat ' + kb + ' with a hand tuplet but sits off the plain lattice (grid ' + fit.grid[k] + ') — cover it with its own --tuplet'); process.exit(2);
           }
           patTuplets.delete(k);
         }
-        for (const [k, r] of recs) patTuplets.set(k, r);
-        handBrackets.push({ from: t.from - pre.length, to: t.to - pre.length, num: t.num, text: t.num + ':' + t.den, beats: [b0, b1] });
+        for (const [k, r] of allRecs) patTuplets.set(k, r);
       }
       console.log('    PATTERN (D63' + (plainOnly ? ', --plain: no tuplets' : '') + '): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
       if (plainOnly && !pf.coherent) console.log('    --plain: no plain 16th grid holds this gesture within a head — built as asked; the displacement above is the price of saying nothing about the pace');

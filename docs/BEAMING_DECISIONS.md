@@ -192,6 +192,26 @@ note ppp = below floor, unmarked) · a 12-note gesture @37.70, four groups
 | 14.5 | dynamics | ambient mf@1 · accents 2, 7, 8, 9, 11 · note 5 (p) below floor · no two-band jumps |
 | 14.6 | OPEN for the composer | **RATIO TIE: the cut after 4 flips at pace ratio 1.248** — under it the seam moves to after 5 ([3 4 5] + [6-10]); the even run's own spread is 166/133 = 1.248, exactly at the line · near-tie note 2 |
 
+## D-log 15 · T5 and T6 DONE — day 30
+
+Composer: *"t5 and t6 good."* Both FINAL as proposed (cl-31, cl-32/33 + the lone
+one-shot). Settled by the acceptance: T5's two pickup flags stay unapplied · the
+f fall-back marked MID-GROUP at the shift point (T5 note 6) is accepted — second
+confirmation after T4, the mid-group placement now confirmed too · T6's ratio
+tie stays as built (pair + five evens, not triple + four).
+
+## D-logs 16–19 · T7–T10 AI-PROPOSED (cl-34–40) — day 30, the five checks on the last four parts
+
+| log | part / gesture | census (rule 8) | containment + lattice | dynamics | OPEN for the composer |
+|---|---|---|---|---|---|
+| 16.1 | **T7 g1** (cl-34, 6n, the NO-CLEAN-SEAM gesture) | brackets 0.90 vs plain 1.10 with **1/6 over → PLAIN** — **the first plain verdict by census** (T2's profile); the page prints its honest cost ("ONE GRID IS OVER A HEAD (1.1)") | one group (no legal seam); the fit's 3:2 dropped with the plain verdict | 1:f · mf fall-back on 4 (mid-group shift point, T4/T5 precedent) · notes 3, 6 below floor | RATIO TIE: past paceRatio 1.257 three pairs appear ([1,2][3,4][5,6]) · PICKUP flag note 1 (0.7 without vs 0.9 with) · the bracketed alternative (0.90, one 3:2) is one word away |
+| 16.2 | **T7 g2** (cl-35, 8n) | 0.93 vs 1.53 (**4/8 over**) → brackets | two even beat-3:2s (honest-triplet exception), both ⊂ their groups; the parallel shape `short short long ×2` preserved | 1:mf · accents 1,4,6,7,8 (the three fff's are LONE spikes → accents, not marks) | PICKUP flag note 5 |
+| 17 | **T8** (cl-36, 16n, one gesture, six groups) | 0.90 vs 1.57 (**8/16 over**) → brackets | **one rule-11 artifact fixed: beat 1's 6:4 → hand 3:2 over notes 4-5** (note 4 sits ON the lattice at slot 0); beat 2's 6:4 kept (both notes off, two windows would be more ink — T4-beat-2 exception); 5:4/3:2/5:4 kept (no windows) · zero straddles | 1:mf · accents 1,2,5,9,11,12,13,14,15,16 (ten — the material is f-heavy) · note 8 (vel 26!) below floor | near-ties notes 7, 11 · PICKUP flags notes 1, 4 |
+| 18.1 | **T9 g1** (cl-37, 4n) | 0.70 vs 1.20 (**2/4 over**) → brackets | **the straddling whole-beat 6:4 DISSOLVED into two sub-beat 3:2s (bracket = pair, twice)** — T4's ending pattern; first same-beat double window (found and fixed a sequencing bug in the override: validation now runs against the UNION of hand windows) | 1:mf (members 1, 3 below floor) · accent 4 | — |
+| 18.2 | **T9 g2** (cl-38, 13n) | 0.99 vs 1.60 (**6/13 over**) → brackets — worst sits AT the 1.0 line (the day-28 watch item) | **THE ONE SURVIVING STRADDLE: beat 1's 5:4 covers notes 3-4 across the seam after 3.** Checklist exhausted: no sub-beat window (4.8 is on no den-2 lattice) · widening [1-6] fails pairwise (gaps 451/205/359/244/194) · aligning (cut after 4) is illegal under the pace rule and breaks the `long short · long short` parallel | 1:mf (member 1 below floor) · accents 8,9,11,13 · rest16 2 | **the straddle — genuinely yours**: accept, or name a cut, or --ownGrids · PICKUP flags notes 1, 4 · near-tie note 9 |
+| 19.1 | **T10 g1** (cl-39, 7n) | brackets = plain 0.93 (identical — **the section's first ALL-PLAIN fit**, no tuplet anywhere) | two groups, plain 16ths throughout | 1:mf · accents 1,3,6 | PICKUP flags notes 1, 4 · near-tie note 2 |
+| 19.2 | **T10 g2** (cl-40, 8n) | 0.80 vs 1.40 (2/8 over — exactly the bracketed notes) → brackets | **straddling 6:4 DISSOLVED into two sub-beat 3:2s** (bracket = pair; the second window carries a leading bracket rest) | 1:mf · **f run [3-6] = sustained one-band shift → band mark at 3 (group start)** · mf fall-back at 7 (mid-group shift point) · members 1, 2 below floor · rest16 8 | PICKUP flag note 5 |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
