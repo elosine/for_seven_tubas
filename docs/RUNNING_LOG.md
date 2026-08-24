@@ -10303,3 +10303,39 @@ ONE group, 5:4 and 6:4 inside it. The same choice recurs at beat 7 (straddle #3,
 notes 14–17), but there the gaps are 249 | 300 | 174 — NOT one pace — so the
 phrase-of-four has no measurement support and the options are bracket-aligned
 [15 16 17] (breaking the [14 15] pair) or acceptance.
+
+
+#### Day 30 — T4 round 2: "ok a" — the phrase beam lands; the principle's two directions, one round apart
+
+Composer took (a): notes 10–13 as ONE beam, 5:4 + 6:4 wholly inside (`--cuts
+2,5,7,9,13,15`). **Straddle #2 dissolved by WIDENING (containment) where straddle #1
+dissolved by ALIGNING (identity) — the same rule from both ends, one round apart.**
+Only beat 7's straddle remains. Batteries green, `--validate` 24/25, D-log 11.3.
+
+Two questions posed with the principle, answered in chat (both are the composer's
+call, analysis logged here):
+
+1. **[3–7] one beam?** The pairwise-pace argument that carried (a) extends here:
+   gaps 205 · 214 · 215 · 265 ms, adjacent ratios 1.04 / 1.005 / 1.233 — all under
+   1.25, one chain. And the round-1 cut after note 5 is MID-RUN (D68 itself refuses
+   it: the 215 seam has a slower right neighbour) — it marks a pace change that is
+   not there; it was a counting cut. AI recommends merging; difference from 10–13
+   stated honestly: no degeneracy pressure here (both groups are proper and
+   bracket-aligned), so it is purely "what does a break mean" — pace (merge) vs
+   count (keep). Both containment-legal.
+
+2. **The ending ([14 15] into the last 6:4).** THE FINDING: **the final 6:4 is a
+   per-beat-model artifact — notes 15 (grid 28) and 16 (grid 30) sit ON the plain
+   16th lattice; only note 17 (31.333) is off it.** Same at beat 5: 11 (20) and 12
+   (22) plain, only 13 (23.333) off. Both off-lattice notes are exactly slot 2 of a
+   3:2 over the beat's last 8th — the sub-beat 3:2 T1's cl-1 (`--tuplet 10-11@3:2`)
+   and T3's g4 already use. **The principled rewrite: 14, 15 stay a regular pair;
+   3:2 over [16 17] only** — bracket = pair (identity), straddle #3 gone, the
+   composer's pairs survive, zero displacement change (positions identical).
+   NOT currently expressible: under `--figures` the fit owns the beat tuplets and
+   cannot choose plain-beat + sub-beat bracket (`fit()` has no sub-beat vocabulary
+   — known limit since 8g). Small build if wanted: a per-beat plain override on
+   `--figures` (e.g. `--beatPlain 5,7`) composing with the existing repeatable
+   `--tuplet`; the day-28 A(a) "scope the bracket to the figure" fix would then be
+   unnecessary for this section. Interim: accept straddle #3, or [10–14]+[15 16 17]
+   (rejected in analysis: glues 14 across the 325 ms pace change).
