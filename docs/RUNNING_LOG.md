@@ -11033,3 +11033,61 @@ approved db1 the same 17 pre-existing accidental/dot items and nothing new.
 
 The parked cuivré lift (NITS day 30) now has its constant waiting —
 `gapMediumSs` — and stays parked at the composer's word. Ten batteries green.
+
+
+#### Day 31/32 — the composer's second look: three placements, dictated and built
+
+**Composer (verbatim):** *"just tuba seven and potentially tuba eight. So
+brackets in tuba seven, five four, and seven four are too far down. There's
+plenty of room above. and then the dynamics in tuba eight are too far up.
+There's plenty of room below, like, the fff could be down near the staff, and
+the mf can reach down closer to that notehead. There's lots of space. tuba
+nine. There's just a clash between the f and the three two bracket. You could
+probably just lower the dynamic below the bracket altogether. Everything else
+looks much better."*
+
+**The T7/T8 pair was ONE collision seen from both sides:** T7's brackets had
+flipped to the head side at −7.26 (past its lane bottom) while T8's marks
+floated at +5.36/+6.36 (its lane top) — the screenshot's "5:4mf" jam is T7's
+bracket meeting T8's mark ACROSS the lane boundary. The two instructions
+relieve the boundary from both directions.
+
+**Three rules, from the dictation (layout.js + registry):**
+
+1. **THE BRACKET-SIDE RULE** — a repaired group's bracket goes to the head
+   side only when the whole bracket FITS INSIDE the lane there; otherwise it
+   returns to the BEAM side (its engraving home), allowed to overflow the
+   lane edge by up to `bracketOverflowMaxSs` (0.3 new registry constant, 1.3)
+   — the gap plus the neighbour's usually-empty margin. Only past that does
+   it stay head-side. The measured spread the constant separates: **T7
+   beam-side overflow 1.25 → goes UP** (the composer's ask) · **T2 1.39 →
+   stays head-side** (the look the composer just approved) · **T9 1.75 →
+   stays head-side snug under the staff** (the composer fixed its DYN, not
+   its bracket). 1.25 vs 1.39 is a 0.14 window — a data knob, honestly noted.
+2. **PER-MARK HUGGING** — head-side dynamics leave the one-row-per-group
+   model: each mark clears ITS OWN column's ink (that member's head + dot +
+   accidental) by the medium gap, floored at the staff edge. T8: fff
+   **+6.36 → +2.79** ("down near the staff") · mf **+5.36 → +4.71** ("closer
+   to that notehead"). The day-24 one-row rule survives on the BEAM side,
+   where the row hangs off the beam — on the head side the heads differ
+   wildly in height and the row floated over the low columns.
+3. **THE MARK-CLEARS-THE-BRACKET POST-PASS** — after all brackets exist, any
+   dynamic whose ink overlaps a bracket's band on its part moves just OUTSIDE
+   the bracket (medium gap past its outer edge) — the "simple detection and
+   placement rules" the composer asked for, catching every placer (chain,
+   row, per-mark) at once. T9's f: **−2.94 → −4.44**, below the bracket
+   altogether, as dictated. *(First build missed it: the f's centre sits 9 ms
+   left of the bracket's span — the x-test now carries a 0.05 s margin for
+   the mark's own ink width.)*
+
+**Verified:** T7 brackets at +7.31 hooks-up with their beam · T8 fff/mf as
+above · T9 f below the bracket · T2/T3/T4/T5 untouched from the look the
+composer approved (T2's f mark did move 5.36 → 2.79 under rule 2 — same
+medicine as T8's fff, flagged here for the composer's eye). Ten batteries
+green; 75 snapshots green; approved db1 identical (17 protrusion items, same
+list). **The protrusion detector crashed on the fork and got fixed** — a beam
+item carries no t/t0 (only tips); latent since V3, first hit the moment a
+beam first crossed the lane line; it now takes its first tip's time. Its
+fresh verdict on the fork: T7's two brackets cross the top edge by ~9.5 px —
+THE COMPOSER'S OWN PLACEMENT, correctly on the tier-3 record — plus a 0.8 px
+graze by T9's beams. Nothing else.

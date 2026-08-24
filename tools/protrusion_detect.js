@@ -63,7 +63,9 @@ for (const id of ids) {
       const top = e.y + e.r, bot = e.y - e.r;
       const over = Math.max(top - HALF, -bot - HALF, 0);
       if (over <= GAP) continue;             // inside lane or absorbed by the gap
-      const t = it.t !== undefined ? it.t : it.t0;
+      // a beam item carries neither t nor t0 — its time is its first tip's
+      // (latent since V3; first hit day 31, when a beam first crossed the line)
+      const t = it.t !== undefined ? it.t : (it.t0 !== undefined ? it.t0 : (it.tips && it.tips.length ? it.tips[0].t : 0));
       const key = Math.floor(t || 0);
       const px = ((over - GAP) * ssPx);
       const prev = worst.get(key);

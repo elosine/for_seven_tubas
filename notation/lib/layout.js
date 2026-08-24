@@ -1162,18 +1162,47 @@
                 let usedBeam = 0, usedHead = 0;
                 const sgn = g.dir === 'up' ? 1 : -1;      // beam side points this way
                 for (const r of rows) {
+                  // THE BRACKET'S SIDE (day 31, composer on T7: "brackets…
+                  // are too far down. There's plenty of room above"): the
+                  // head side only when the whole bracket FITS INSIDE the
+                  // lane there; otherwise back to the BEAM side — its
+                  // engraving home — which may overflow the lane edge by up
+                  // to bracketOverflowMaxSs (the gap plus the neighbour's
+                  // usually-empty margin; the protrusion detector still
+                  // measures it). Only past that does it stay head-side
+                  // (T9), and colliding marks move instead (the post-pass).
+                  if (r.kind === 'bracket') {
+                    const headOuter = Math.abs(headIn) + usedHead + r.need;
+                    const beamOuter = Math.abs(yLevel) + usedBeam + r.need;
+                    const maxOver = o.bracketOverflowMaxSs != null ? o.bracketOverflowMaxSs : 1.3;
+                    const toHead = headOuter <= lane + 1e-9
+                      || (beamOuter > lane + maxOver + 1e-9 && headOuter <= beamOuter);
+                    if (toHead) {
+                      const y0 = headIn - sgn * usedHead;
+                      st.bracketY = y0 - sgn * r.lineOff;
+                      st.bracketDirDraw = g.dir === 'up' ? 'down' : 'up';
+                      usedHead += r.need;
+                    } else {
+                      const y0 = sgn * (Math.abs(yLevel) + usedBeam);
+                      st.bracketY = y0 + sgn * r.lineOff;
+                      st.bracketDirDraw = g.dir;
+                      usedBeam += r.need;
+                    }
+                    continue;
+                  }
+                  // DYN MARKS leave the row logic entirely (day 31, composer
+                  // on T8: "the fff could be down near the staff, and the mf
+                  // can reach down closer to that notehead") — placed
+                  // per-mark against their own column, below.
+                  if (r.kind === 'dyn') { st.dynPerMark = true; continue; }
                   const beamBase = Math.abs(yLevel) + usedBeam;
                   if (beamBase + r.need <= lane + 1e-9) {  // fits on the beam side
                     const y0 = sgn * beamBase;
-                    if (r.kind === 'artic') st.articY = y0 + sgn * r.centreOff;
-                    if (r.kind === 'bracket') { st.bracketY = y0 + sgn * r.lineOff; st.bracketDirDraw = g.dir; }
-                    if (r.kind === 'dyn') st.dynY = y0 + sgn * r.centreOff;
+                    st.articY = y0 + sgn * r.centreOff;
                     usedBeam += r.need;
                   } else {                                  // flips to the head side
-                    const y0 = headIn - sgn * usedHead;     // head side points the other way
-                    if (r.kind === 'artic') st.articY = y0 - sgn * r.centreOff;
-                    if (r.kind === 'bracket') { st.bracketY = y0 - sgn * r.lineOff; st.bracketDirDraw = g.dir === 'up' ? 'down' : 'up'; }
-                    if (r.kind === 'dyn') st.dynY = y0 - sgn * r.centreOff;
+                    const y0 = headIn - sgn * usedHead;
+                    st.articY = y0 - sgn * r.centreOff;
                     usedHead += r.need;
                   }
                 }
@@ -1348,20 +1377,30 @@
         // line, centred on its head column — consecutive dynamics read as a
         // phrase, not as per-note chrome. Above the accents when both exist.
         if (g.dyns && g.dyns.length) {
-          if (g.stack.dynY != null) {
+          if (g.stack.dynPerMark || (g.dir !== 'up' && g.stack.dynY == null)) {
+            // PER-MARK HUGGING (day 31, composer on T8: "the fff could be down
+            // near the staff, and the mf can reach down closer to that
+            // notehead. There's lots of space."): a head-side mark clears ITS
+            // OWN column's ink (that member's head + dot + accidental) by the
+            // medium gap — never a group-wide row floated at the tallest
+            // head, and never inside the staff. The old one-row rule kept
+            // marks "reading as a phrase" (day 24) on the BEAM side, where
+            // the row hangs off the beam — on the head side the heads are at
+            // wildly different heights and the row floated over low columns.
+            const gapM2 = o.gapMediumSs != null ? o.gapMediumSs : 0.3;
+            for (const d of g.dyns) {
+              const tip = g.tips.find(t => Math.abs(t.t - d.t) < 1e-6);
+              const colInk = g.dir === 'up'
+                ? Math.min(-2, tip && tip.headBotYSs != null ? tip.headBotYSs : Infinity)
+                : Math.max(2, tip && tip.headTopYSs != null ? tip.headTopYSs : -Infinity);
+              const y = g.dir === 'up' ? colInk - gapM2 - d.hSs / 2 : colInk + gapM2 + d.hSs / 2;
+              items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
+            }
+          } else if (g.stack.dynY != null) {
             for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: g.stack.dynY, align: 'center' });
-          } else if (g.dir === 'up') {
+          } else {
             const base = g.tips[0].ySs;
             const y = base + g.stack.dynCentre;
-            for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
-          } else {
-            // stem-down: ONE row above the group's head-side ink (day 31 — the
-            // beam side has no room; see the stack note above). Clears the
-            // tallest member head (+dot/accidental) and the staff top.
-            const gapD2 = o.stackGapSs != null ? o.stackGapSs : 0.45;
-            const dH = Math.max(...g.dyns.map(d => d.hSs));
-            const headTop = Math.max(2, ...g.tips.map(t => t.headTopYSs != null ? t.headTopYSs : -Infinity));
-            const y = headTop + gapD2 + dH / 2;
             for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
           }
         }
@@ -1499,6 +1538,42 @@
           if (t >= w0 - 1e-9 && t <= w1 + 1e-9)
             items.push({ k: 'rest', dur: spec.dur, dotted: spec.dotted || undefined, t, dxSs: 0, cluster: cid, units: R });
           n += R;
+        }
+      }
+      // ── THE MARK-CLEARS-THE-BRACKET POST-PASS (day 31, composer on T9:
+      // "There's just a clash between the f and the 3:2 bracket. You could
+      // probably just lower the dynamic below the bracket altogether.") A
+      // dynamic can reach a bracket's band from several placers (the per-note
+      // chain, the group row, per-mark hugging), and the brackets are only
+      // known once the cluster walk is done — so the fix is a detection-and-
+      // placement rule at the end, exactly as the composer framed it: any
+      // dynamic whose box overlaps a tuplet bracket's ink on this part is
+      // moved just OUTSIDE the bracket (the medium gap past its outer edge),
+      // on the bracket's own side.
+      {
+        const gapMp = o.gapMediumSs != null ? o.gapMediumSs : 0.3;
+        const TPp = Object.assign({ numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
+        const capP = TPp.numeralSizeSs * TPp.numeralCapFactor - TPp.numeralBaselineBelowSs;
+        const brs = items.filter(i => i.k === 'tuplet');
+        if (brs.length) for (const it of items) {
+          if (!(it.k === 'glyph' && /^dyn-/.test(String(it.g)))) continue;
+          const key = String(it.g).slice(4);
+          const gm = (glyphs.dynamic || {})[key] || { hSs: 1 };
+          for (const b of brs) {
+            // the mark's centre is a TIME; its ink is ~0.4 ss wide either side,
+            // which at working zoom is ~0.02 s — test with a 0.05 s margin so a
+            // mark grazing the hook from just outside the span still counts
+            if (it.t < b.t0 - 0.05 || it.t > b.t1 + 0.05) continue;
+            // the bracket's ink band: line ± (numeral on its numeral side, hook toward the notes)
+            const bandLo = b.ySs - (b.dir === 'down' ? capP : 0.75);
+            const bandHi = b.ySs + (b.dir === 'down' ? 0.75 : capP);
+            const mLo = it.ySs - gm.hSs / 2, mHi = it.ySs + gm.hSs / 2;
+            if (mHi < bandLo - 1e-9 || mLo > bandHi + 1e-9) continue;   // clear already
+            // outside = away from the staff, past the bracket's outer edge
+            it.ySs = b.ySs >= 0
+              ? bandHi + gapMp + gm.hSs / 2
+              : bandLo - gapMp - gm.hSs / 2;
+          }
         }
       }
       return { part, items };
