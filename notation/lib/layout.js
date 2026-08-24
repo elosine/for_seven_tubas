@@ -725,6 +725,8 @@
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
                     if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     if (dev.tupletGroup) grp.hasTuplet = true;
+                    if (dev.bracketSide) grp.bracketSide = dev.bracketSide;   // day 31, dictated
+                    if (dev.articSide) grp.articSide = dev.articSide;
                     if (dev.clusterId) grp.clusterId = dev.clusterId;
                     // THE GRID DOMAIN, which is not always the cluster (8g,
                     // day 27): --figures gives each figure its OWN unit, so
@@ -1090,6 +1092,7 @@
               st.dynCentre = h + gapD + dH / 2; h = h + gapD + dH;
             }
             g.stack = st;
+
             // THE FLOOR (day 31): the stack clamp may pull the beam toward the
             // staff to fit the lane, but never (a) inside the staff band, and
             // never (b) past a head so far that its stem inverts or vanishes —
@@ -1207,6 +1210,46 @@
                   }
                 }
                 st.repaired = true;
+              }
+            }
+            // ── DICTATED SIDES (day 31, the composer placing T6 and T7 by ear).
+            // The automatic room test is a heuristic still being calibrated by
+            // the composer's eye; --bracketSide/--articSide let a verdict be
+            // stated per cluster in ABSOLUTE terms (above/below the staff),
+            // which is how the composer speaks. Rows are then stacked in the
+            // day-24 order outward from whatever that side already holds —
+            // and on the head side that INCLUDES the per-mark dynamics, which
+            // is the clash the composer flagged on T6's f.
+            if (g.bracketSide || g.articSide) {
+              const gapMd = o.gapMediumSs != null ? o.gapMediumSs : 0.3;
+              const TPd = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
+              const capD = TPd.numeralSizeSs * TPd.numeralCapFactor - TPd.numeralBaselineBelowSs;
+              const beamSideIsAbove = g.dir === 'up';
+              // what each side already holds, as an outward extent
+              const dynTops = (g.dyns || []).map(d => {
+                const tip = g.tips.find(t => Math.abs(t.t - d.t) < 1e-6);
+                const col = g.dir === 'up'
+                  ? (tip && tip.headBotYSs != null ? tip.headBotYSs : -2)
+                  : (tip && tip.headTopYSs != null ? tip.headTopYSs : 2);
+                return g.dir === 'up' ? col - gapMd - d.hSs : col + gapMd + d.hSs;
+              });
+              const headEdge = g.dir === 'up'
+                ? Math.min(-2, ...g.tips.map(t => t.headBotYSs != null ? t.headBotYSs : Infinity), ...dynTops)
+                : Math.max(2, ...g.tips.map(t => t.headTopYSs != null ? t.headTopYSs : -Infinity), ...dynTops);
+              const used = { above: beamSideIsAbove ? Math.abs(yLevel) : Math.abs(headEdge),
+                             below: beamSideIsAbove ? Math.abs(headEdge) : Math.abs(yLevel) };
+              const put = (side, need) => { const base = used[side]; used[side] = base + need; return base; };
+              // day-24 order: accents nearest the notes, then the bracket
+              if (g.artics && g.artics.length && g.articSide) {
+                const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
+                const base = put(g.articSide, gapMd + aH);
+                st.articY = (g.articSide === 'above' ? 1 : -1) * (base + gapMd + aH / 2);
+              }
+              if (g.hasTuplet && g.bracketSide) {
+                const base = put(g.bracketSide, TPd.paddingSs + TPd.hookLengthSs + capD);
+                st.bracketY = (g.bracketSide === 'above' ? 1 : -1) * (base + TPd.paddingSs + TPd.hookLengthSs);
+                // hooks point toward the notes: down for an above bracket
+                st.bracketDirDraw = g.bracketSide === 'above' ? 'down' : 'up';
               }
             }
           }

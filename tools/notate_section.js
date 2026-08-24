@@ -83,6 +83,14 @@
 //                            before position 0 (negative slots). The GC and go line move
 //                            to the first member AFTER the pick-up — the downbeat.
 //   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
+//   --bracketSide above|below  put this cluster's tuplet brackets on that side of
+//                            the staff, overriding the automatic room test (day 31,
+//                            composer dictating T6/T7: "move the 3:2 bracket up to
+//                            the top", "the accents… are just too far down").
+//   --articSide above|below  the same for the cluster's accents. Both are
+//                            ABSOLUTE (above/below the staff), which is how the
+//                            composer speaks — not beam-side/head-side, which flips
+//                            meaning with the stem direction.
 //   --beamThrough 2          beam group N keeps its secondary beam unbroken across rests
 //   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
 //   --prune <id>             remove an IR + its picker entry (git keeps history)
@@ -215,7 +223,7 @@ const { doc, warnings } = Extract.extract(score, {
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
   const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids', '--plain']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--beamOver', '--beamOverLeft']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--beamOver', '--beamOverLeft', '--bracketSide', '--articSide']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -675,6 +683,10 @@ const { doc, warnings } = Extract.extract(score, {
     for (const b of figBreaks) breaks.add(b);   // 8i: --figures' seams ARE the breaks
     // --beamThrough 2 : beam group #2 (1-based) keeps its secondary beam
     // unbroken across rests — composer, day 23, on the second figure.
+    const sideArg = (n) => { const v = modVals(n)[0]; if (!v) return null;
+      if (v !== 'above' && v !== 'below') throw new Error('--' + n + ' takes "above" or "below", got "' + v + '"');
+      return v; };
+    const bracketSide = sideArg('bracketSide'), articSide = sideArg('articSide');
     const through = listArg('beamThrough');
     // --beamOver 1,2 : beam group #N (1-based) extends its beams one slot past
     // its last note, over the first 16th rest that follows (day 29, composer).
@@ -817,6 +829,8 @@ const { doc, warnings } = Extract.extract(score, {
         dev.noteBeams = rings ? 1 : beamsFor(durUnits[k], pm ? pm.sub : null);   // a ringing note takes the primary beam only
       }
       if (tuplets.length || (patTuplets && patTuplets.size) || ptp) dev.beamHasTuplet = true;
+      if (bracketSide) dev.bracketSide = bracketSide;
+      if (articSide) dev.articSide = articSide;
       if (through.has(sub + 1)) dev.beamThrough = true;
       if (over.has(sub + 1)) dev.beamOverRest = true;
       if (overL.has(sub + 1)) dev.beamOverLeft = true;
@@ -1123,6 +1137,43 @@ try {
     for (const [cid, dirs] of sides) if (dirs.size > 1)
       findings.push(P + ' ' + cid + ': beams on BOTH sides of one cluster');
   }
+  // ── CROSS-LANE (day 31): the protrusion detector asks "does this ink leave
+  // its lane?"; nobody asked "do TWO PARTS' ink meet in the band between
+  // them?". Once furniture started switching sides by room, that became the
+  // live question — T6's dynamics and T7's accents landed 0.54 ss into each
+  // other in the shared band, invisible to every existing check.
+  {
+    const lanesG = CG.realizations['video-jury'].lanes;
+    const ssG = CG.staff.staffHeightPx / 4;
+    const lanePx = (CG.frame.heightPx - lanesG.padTopPx - lanesG.padBotPx - lanesG.gapPx * 9) / 10;
+    const PITCH = (lanePx + lanesG.gapPx) / ssG;     // lane-to-lane, in ss
+    const boxes = [];
+    for (const sys of modelG.systems) {
+      const c = sys.part * PITCH;
+      for (const it of sys.items) {
+        const t = it.t !== undefined ? it.t : (it.t0 !== undefined ? it.t0 : (it.tips && it.tips[0] ? it.tips[0].t : null));
+        if (t == null) continue;
+        let lo, hi, x0 = t, x1 = t, name;
+        if (it.k === 'tuplet') { lo = it.ySs - 0.75; hi = it.ySs + 0.75; x0 = it.t0; x1 = it.t1; name = 'bracket ' + it.text; }
+        else if (it.k === 'glyph' && /^artic-/.test(String(it.g))) { lo = it.ySs - 0.42; hi = it.ySs + 0.42; x0 = t - 0.03; x1 = t + 0.03; name = 'accent'; }
+        else if (it.k === 'glyph' && /^dyn-/.test(String(it.g))) { const gm = GG.dynamic[String(it.g).slice(4)] || { hSs: 1 }; lo = it.ySs - gm.hSs / 2; hi = it.ySs + gm.hSs / 2; x0 = t - 0.04; x1 = t + 0.04; name = String(it.g); }
+        else if (it.k === 'beam' && it.tips && it.tips.length) { lo = it.tips[0].ySs - 0.3; hi = it.tips[0].ySs + 0.3; x0 = Math.min(...it.tips.map(v => v.t)); x1 = Math.max(...it.tips.map(v => v.t)); name = 'beam'; }
+        else continue;
+        boxes.push({ part: sys.part, name, x0, x1, lo: c - hi, hi: c - lo });
+      }
+    }
+    boxes.sort((a, b) => a.x0 - b.x0);
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = i + 1; j < boxes.length && boxes[j].x0 < boxes[i].x1; j++) {
+        const A = boxes[i], B = boxes[j];
+        if (Math.abs(A.part - B.part) !== 1) continue;
+        const oy = Math.min(A.hi, B.hi) - Math.max(A.lo, B.lo);
+        if (oy > 0) findings.push('T' + (A.part + 1) + ' ' + A.name + ' @' + A.x0.toFixed(2)
+          + ' meets T' + (B.part + 1) + ' ' + B.name + ' in the band between them (' + oy.toFixed(2) + ' ss)');
+      }
+    }
+  }
+
   if (findings.length) {
     console.log('GEOMETRY: ' + findings.length + ' finding(s) — the page has ink collisions:');
     findings.forEach(x => console.log('  !! ' + x));

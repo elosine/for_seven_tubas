@@ -11091,3 +11091,64 @@ beam first crossed the lane line; it now takes its first tip's time. Its
 fresh verdict on the fork: T7's two brackets cross the top edge by ~9.5 px —
 THE COMPOSER'S OWN PLACEMENT, correctly on the tier-3 record — plus a 0.8 px
 graze by T9's beams. Nothing else.
+
+
+#### Day 32 — T6 and T7 placed by dictation; --bracketSide/--articSide built; THE CROSS-LANE BLIND SPOT
+
+**Composer, two messages:** *"T6 44.48 Can you move the 3:2 bracket up? to the
+top. and then just make sure there is the f marking dynamic. Just make sure
+there's no clash with that one. at the top. of the first partial. and then there
+is an accent at 45.2. I'm not sure if that is meant to be with T6 or T7. But if
+it's T6, then that could be moved up above the staff as well. There's room."* ·
+*"Then T7, the accents starting on 45.68. They're just too far down. So if you
+can move those up. There's two of them. The second one is on 46.24."*
+
+**The 45.17 accent is T6's** (cl-45 member 4; T7's two are at 45.65 and 46.21).
+
+**BUILT: `--bracketSide above|below` and `--articSide above|below`** — positional
+per-cluster modifiers on `notate_section`, stated in ABSOLUTE terms because that
+is how the composer speaks ("up", "above the staff"), not beam-side/head-side,
+whose meaning flips with the stem direction. They override the automatic room
+test, which is still a heuristic under calibration. Rows stack in the day-24
+order (accents nearest the notes, then bracket) outward from whatever that side
+already holds — **and on the head side that includes the per-mark dynamics**,
+which is exactly the clash the composer told me to watch on T6's f.
+
+*Build slip worth keeping:* the dictated-side block first ran BEFORE the repair
+pass, which then overwrote it — T6 moved, T7 did not. **A dictated side is a
+verdict and must run LAST**, after every heuristic. Moved; both then took.
+
+**T6 (cl-45), as asked:** 3:2 bracket **−6.06 → +4.39** (above, hooks down
+toward the notes) · accent **−5.73 → +5.14** (above the staff) · the f stays at
++2.79 and the bracket's hook bottoms at 3.69 — **0.41 ss of daylight**, verified.
+
+**T7 (cl-46) — the instruction diagnosed, not just obeyed.** First reading was
+"the accents are far from their notes", but the approved material says otherwise:
+accents there sit 6–11.6 ss from their own noteheads (they ride a row at the
+beam, Gould alignment, day 24). So "too far down" meant **the wrong side** — the
+repair pass had flipped them to the head side. Put back on the beam side at
+**+6.83**. That collided with T7's own brackets at 7.31; pushing the brackets
+further out would have put them 0.22 ss from T6's beam, so **the brackets took
+the side T6 had just vacated** (`--bracketSide below`, now −5.87, INSIDE T7's
+lane and 1.4 ss shallower than the −7.26 the composer objected to).
+**T6 going up and T7 filling the band it left is one coherent allocation** —
+each inter-lane band used by one part.
+
+**THE CROSS-LANE BLIND SPOT (the real finding).** Every existing check asks
+"does this ink leave its lane?" (protrusion_detect) or "do two things collide
+within one part?" (the geometry guard). **Nobody asked whether TWO PARTS' ink
+meets in the band between them** — which is precisely what side-switching
+furniture makes possible. Measured on the fork:
+
+- **T6's fff @46.18 meets T7's accent, 0.54 ss** — a DIRECT consequence of the
+  T7 request: T7's accents cannot fit inside its lane on the beam side (highest
+  head 3.5 + 2.5 stem = beam 6.11, + gap + accent = 7.14 > 6.51), so they
+  overflow ~0.6 into the band where T6's lone one-shot fff sits.
+- **T8's 5:4 bracket meets T9's beam, 0.20 ss** (T9's beam runs 0.1 past its own
+  lane half).
+
+**Added to the geometry guard**, so it is measured on every build from here.
+Both are ON THE RECORD FOR THE COMPOSER, not silently patched: the first is the
+cost of the placement they just asked for, and the fix is a judgment call
+between moving T6's fff above (its upper band is empty at that instant) or
+accepting the touch. Ten batteries green; 75 snapshots green.
