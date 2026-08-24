@@ -8,28 +8,18 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35) THE NOTATION HAS A MACHINE, AND THE NEXT PAGE IS
-UNBLOCKED.** `db1` carries everything through 46.36 s plus the octaves-Bb long
-tone at 48.05-52.46. **Built today: `tools/notate_block.js`**, the long-tone /
-block generator — reads a score group, derives the brick, refuses a non-uniform
-one, decides fork-vs-direct from the target page's window, rebuilds, and proves
-itself; the device-gap assert (D72) and the before/after layout diff live inside
-it, and it snapshots and byte-restores the page if any of that fails. **The
-golden passes: the machine-built page is item-for-item identical to the approved
-db1** — and it caught a real error in yesterday's proof shape on the way (D73:
-the claim is CONFINEMENT, not stillness). 44/44 new checks; eleven batteries
-green. **Immediately next: a NEW page for 81-110 s, extracted from `piece-s26`,
-with the two `ord` long tones notated into it by the machine** — `grp-s009-817`
-@81.748 (2.172 s brick) and `grp-s005-958` @95.885 (3.435 s). Expect eleven
-other groups in that window to stay parachute bricks: they are blasts and
-clusters needing the figure process, which is the composer's job. Then STOP for
-the composer's eye; nothing folds into db1 unapproved. **Two calls closed
-today:** the long tone is spelled **B flat** going forward and the drawn page is
-left as it is (D74), and **`-work` save files are never a source** — the one the
-composer first named is behind by the whole playability pass, measured (D75).
-Standing after that: the next section proper (long tone + density build 2) on
-`piece-s26`; the two trance seams (@560.63 T8, @604.63 T6); then PLAN 8 Penn
-State deliverables and the paper.
+**NOW ► (2026-08-24, day 35) THE INT2 BLASTS PAGE IS BUILT AND WAITING ON YOUR EYE.**
+You dictated eleven blast columns from memory and every exception you named was already
+true in the score's own grouping — nothing needed regrouping. The machine was amended
+once (staccato is legal in a block, because the registry already draws it whole) and
+then generated **eleven of the thirteen groups** in 81-110 s. **Look at `int2b1` —
+"INT2 BLASTS — 81-111 s"** in the notation app; try 84.3 +2.5 s (a mixed column: one
+cuivré bar, nine bare staccato heads) and 105.3 +6 s (your extend — eight bars reaching
+110.621). **Three things are owed back from you:** (1) keep or change the page's name;
+(2) **the T1 breath question at 95.89** — that long tone is written to 99.32 and T1
+attacks again at 99.46, only 0.14 s later: shorten the column, move the 99.46 staccato,
+or accept it as written; (3) whether the two spread clusters (88.62, 98.99) get the
+figure process next. Nothing has been folded into `db1`.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
