@@ -12338,3 +12338,53 @@ What actually separates the two remaining clusters is not their ink but their TI
 against one onset for every blast column. **A chord struck at one instant has no rhythm
 to notate; a gesture spread across four seconds does.** That is the whole of what the
 figure process is for, and it is the whole of what is left in 81–110.
+
+---
+
+#### Day 35 (eighth sitting, Opus 5) — THE SAVE FILE BUMPED to `piece-s27`; and what "fully notated" does and does not cover
+
+*Composer: "if everything is included, then that section is done. fully notated. Let's go
+ahead and bump the save files. and then I'll switch models and prep for the density build
+before that."*
+
+**THE BUMP — `scores/piece-s27.json`**, byte-faithful copy of `piece-s26`, fresh metadata
+only. Verified object-by-object rather than by size: **4563 identical · 0 differing · 0
+only in source · 0 only in copy · 10 tracks**; `nextId`, `viewport`, `databases`, `assets`,
+`version`, `layoutVersion` all carried; only the `created`/`modified` stamp differs.
+**Confirmed FIRST in the live app's picker** (`/api/composer/list`, 268 saves, mtime order).
+
+**The loose-file check ran BEFORE anything was written** (the D75 lesson, and CLAUDE.md's
+standing instruction about gitignored files): **`piece-s26-work.json` does not exist** —
+the composer has never opened s26 in the app. Confirmed independently by metadata: s26's
+`created` and `modified` are byte-identical across **all three** commits that touched it,
+so nothing but the tools has written that file. *(`piece-s25-finished01-work` is still
+there, still stale, still harmless — D75.)*
+
+`piece-s26` now freezes as the INT2-blasts-era canon that `int2b1` refers to; new
+composition (the density build) goes in `piece-s27`. Same pattern as day 33, where `db1`
+kept pointing at `piece-s25-finished01`. **The IRs were NOT bumped** — an IR names its
+source score, and both existing pages point at scores that will not change again.
+
+**WHAT WAS FLAGGED BACK, because the composer is about to plan on it.** They inferred
+*"everything is included → fully notated"*. Inclusion was measured and is true (121/121).
+**Rhythmic notation is a separate property, and 25 of those 121 notes do not have it:**
+
+| | `int2b1` | `db1` (the approved comparison) |
+|---|---|---|
+| `--cluster` figures | **0** | 49 |
+| beams | **0** | 207 |
+| tuplets | **0** | 48 |
+| rests | **0** | 261 |
+
+For the eleven blast columns that is **correct and final** — a chord struck at one instant
+has no rhythm to write. But `grp-cg001-886` and `grp-cg007-989` are **25 notes on 25
+distinct onsets across 88.62-105.00 s**, and they carry heads, stems, flags, dots, go
+lines and GCs **with no beaming, no grid and no rhythmic reading**. On db1, materially
+identical material (CLOUD02-I/D) took days 25-33 and 49 figures.
+
+**This is a genuine composer call, not an error, which is why it was stated and not
+acted on.** Spread material left as individual heads at their true onsets IS a legitimate
+notation — free/spatial reading, which is what the page currently says. If that is the
+intent, the section is finished as it stands. If those two gestures should read
+rhythmically like CLOUD02, the figure process is still owed. **The AI does not get to
+decide which, and "the section is done" reads differently depending on the answer.**
