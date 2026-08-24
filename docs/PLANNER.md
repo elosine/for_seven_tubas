@@ -8,17 +8,15 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35) THE INT2 BLASTS SECTION IS BUILT; `piece-s27` IS THE LIVE
-SAVE FILE.** All eleven blast columns you dictated are notated on `int2b1` (81-111 s),
-your T1 breath fix is in, and the save file is bumped — **compose the density build in
-`piece-s27`**. **One thing to decide before you call 81-110 finished:** everything from
-the composer score IS on the page (121 of 121 notes), but the two spread clusters at
-**88.62** and **98.99** — 25 notes on 25 different onsets — are drawn as individual
-noteheads with **no beams, no rhythmic grouping**. The eleven blast columns don't need
-any (a chord struck at once has no rhythm). Those two gestures might: on `db1`, the same
-kind of material took 49 figures. **If you want them read freely/spatially as they
-stand, the section is done. If you want them read rhythmically, that's the figure
-process.** Nothing has been folded into `db1`.
+**NOW ► (2026-08-24, day 35) THE INT2 BLASTS SECTION IS DONE — 81-111 s, notated,
+verified, and CLOSED BY YOUR OWN CRITERION.** You set the test — *"if everything has its
+own GC and notehead, then we're done"* — and it is met: **121 of 121 notes draw a
+notehead, a go line and a brick; nothing you composed is unrepresented** (the 23 without
+a GC are all ord, which by registry design has no impact marker). All eleven blast
+columns you dictated are on `int2b1`, your T1 breath fix is in, and the two spread
+clusters stand as free/spatial reading. **`piece-s27` is the live save file — compose
+the density build there.** `piece-s26` is frozen as the canon `int2b1` refers to.
+Nothing has been folded into `db1`, and nothing will be without your say.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable

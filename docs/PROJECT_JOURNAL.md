@@ -10,103 +10,82 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — day 35, EIGHTH wrap. THE SECTION IS BUILT AND THE SAVE FILE IS BUMPED. The composer is switching models to PREP THE DENSITY BUILD.
+### OPEN AT SESSION END — (mid-session checkpoint) day 35, NINTH wrap, for a FABLE session
 
-**`piece-s27` is the live save file** — bumped from `piece-s26` (4563/4563 objects
-identical, fresh metadata only, confirmed first in the app's picker). **Compose the
-density build there.** `piece-s26` is now frozen as the INT2-blasts-era canon that
-`int2b1` refers to, exactly as `piece-s25-finished01` is frozen for `db1`.
+**THE INT2 BLASTS SECTION IS DONE AND CLOSED. Nothing is blocked, nothing is owed by the
+AI.** The composer is switching models to **prep the DENSITY BUILD**, composed in
+`piece-s27`. If they open with a different subject, run `/session-start`, not
+`/postclear`.
 
-**THE ONE THING TO PUT IN FRONT OF THE COMPOSER BEFORE ANYTHING ELSE.** They declared
-81-110 *"done, fully notated"* on the strength of everything being included. **Inclusion
-is true and measured: 121 score notes, 121 page events, 0 missing.** But rhythmic
-notation is a separate property and **25 of those notes do not have it** —
-`grp-cg001-886` and `grp-cg007-989`, 25 notes on 25 distinct onsets across
-88.62-105.00 s, drawn as individual heads with no beams, no grid, no figures.
-`int2b1` has **0 figures / 0 beams / 0 tuplets**; `db1` has **49 / 207 / 48**.
-**For the eleven blast columns that is correct and final** (a chord struck at one instant
-has no rhythm to write). **For the two spread gestures it is an open question the
-composer has not actually answered** — free/spatial reading is a legitimate choice and
-may be exactly what they want. If it is, the section is finished. If not, the figure
-process is still owed on those two. *Stated, not acted on.*
-
-
+**THE NEXT CONCRETE STEP, as an instruction.** Do not build anything. **Ask the composer
+what the density build is to be, and run measurements on request** — this is their
+design work, in the app, on `piece-s27`. The AI's job here is the density pipeline and
+measurements, not construction. *(Precedent for what that looked like last time: DENSITY
+BUILD 1, running log day 24.)*
 
 **Resume reads:**
-1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE COMPOSER DICTATES ELEVEN
-   BLAST COLUMNS FROM MEMORY"* (the measurement table, the verdict, the amendment spec)
-   and *"M2 BUILT AND THE INT2 BLASTS PAGE MADE"* (what shipped, the regression the
-   battery caught, the app verification, the one open warning).
+1. `docs/RUNNING_LOG.md` — the **last four day-35 entries** (fifth through eighth
+   sitting): the blast-column dictation and verdict · M2 + the page build · the T1
+   breath + the completeness proof · the bump + the simple answer.
 2. `docs/PROJECT_JOURNAL.md` §4 **D73** (proof = confinement, not stillness) and **D75**
-   (a save file is identified by content, never timestamp; `-work` is never a source).
-3. **Only if building:** the tool-table rows for `notate_block` and `set_brick` (§2).
-4. Nothing else. The generator's design is closed.
+   (a save file is identified by content, never timestamp).
+3. `docs/NITS.md` — the **last two entries** (day 35 sixth sitting), only if
+   `notate_block` or `prove_unmoved` is going to be touched.
+4. Nothing else. **Do not re-open the 81-110 notation.** It is closed — see below.
 
-**THE THREE THINGS OWED BY THE COMPOSER — all of them names or musical calls, none of
-them derivations:**
+**CLOSED BY THE COMPOSER — do not re-ask, do not re-litigate:**
+- **81-111 s is DONE.** They set the criterion themselves: *"I just want to know if
+  something I composed in the composer score is not yet represented in the notated
+  version… if everything has its own GC and notehead, then we're done."* **Measured:
+  121 / 121 notes draw a notehead, a go line and a parachute brick. Nothing is
+  unrepresented.** The 23 without a GC are all `ord`, and `byTechnique.ord` has no `gc`
+  by design — a GC is an *impact* marker and a sustained note is not struck.
+- **The two spread clusters** (`grp-cg001-886` @88.62, `grp-cg007-989` @98.99 — 25 notes
+  on 25 onsets) **stand as drawn**: individual noteheads at their true onsets, no beams,
+  no figures. The AI raised rhythmic figuring twice; the composer's criterion answers it
+  and their patience ran out on the second ask (*"I've already spent too long on this"*).
+  **Free/spatial reading is the decision. Leave it.**
+- **`piece-s27` is the live save file** (bumped this session from `piece-s26`; 4563/4563
+  objects identical, fresh metadata only, confirmed first in the app picker).
+  `piece-s26` freezes as the INT2-blasts-era canon `int2b1` refers to.
+- **Nothing has been folded into `db1`**, and the fold is NOT queued — it needs the
+  composer's say.
 
-1. **Veto or keep the page's name.** It was theirs to give and they had said "good to
-   run", so it was taken from their own vocabulary: id `int2b1`, label **"INT2 BLASTS —
-   81-111 s"** (PLANNER line 134 — *"INT2 blasts" is final, composer 2026-08-14*; and
-   81.73 is their own noted cursor time from placing this material). **A rename is
-   proven twice (D70) — say the word and it costs nothing.**
-2. ~~THE T1 BREATH QUESTION~~ **ANSWERED — do not re-ask.** *"shorten just the t1 long
-   tone leave the others in the column."* Applied: T1's 95.885 tone is now **3.075 s**,
-   ending **98.960** — exactly one 0.5 s breath before its 99.46 attack; the other six
-   keep 3.435 s. `set_brick --part N` was built for it. Proved (CHANGED 2, both on
-   ev-wc-2132; warnings 1 → 0) and seen in the app. **This is the one edit in the
-   section that changes what is HEARD** — an ord note's drawn length is its duration
-   (D9). *Consequence filed to NITS: that column is now deliberately uneven, so
-   `notate_block` would refuse to rebuild it afresh and its "normalise them first"
-   advice is wrong for this case.*
-3. **The two spread clusters** — `grp-cg001-886` @88.616 and `grp-cg007-989` @98.988.
-   Multi-onset gestures; they need the figure process (pattern analyser + dictation
-   rounds), which is composer work. Do they go next, or does something else?
+**THE PAGE, by name:** `notation/ir/int2b1.ir.json` — *"INT2 BLASTS — 81-111 s"*, source
+`piece-s26`, 121 events, 53 chunks, `--bricks --bracketsAbove`. Eight blast columns carry
+machine-written ring bars (47 bars); three all-staccato columns were verified and
+deliberately not written to. **To look at it:** `node score/server.js` → the notation app
+→ pick *INT2 BLASTS — 81-111 s*.
 
-**WHAT THE PAGE HOLDS — measured for the composer's own question, day 35 seventh
-sitting: NOTHING WAS LEFT OUT.** 121 sounding notes in `piece-s26` between 81 and 111 s;
-**121 events on the page; 0 missing, 0 extra, 0 ungrouped** (all 121 sit in the 13
-groups). 8 columns built (47 ring bars) + 3 verified-not-built (all staccato, which
-draws itself — the small filled head, the 16th flag and the dot ARE the notation, the
-day-23 standard). The four long tones the composer called *"separate"* (T6 @90.519 ·
-T7 @94.627 · T4 @98.988 · T10 @103.096) kept their **own** sample-length bars and were
-untouched — the score's own grouping was the exclusion syntax, and no code was written
-for it. **The parachute brick, go line and GC stay on FINISHED material too** — they do
-not mark what is undone: int2b1's 86.58 column renders `10x brick, 10x goline, 10x gc,
-10x ringbar`, item-for-item the same as db1's APPROVED 40.93 blast. **What separates the
-two remaining clusters is onset count, not ink** — cg001 has 14 notes on 14 onsets and
-cg007 11 on 11, against ONE onset for every blast column. A chord struck at one instant
-has no rhythm to notate; a gesture spread over four seconds does.
+**Built this session, by path:**
+- `tools/notate_block.js` — amended: a block may be MIXED (RING = fp/cuivre/ord take the
+  written bar · SELF-DRAWING = staccato left alone, the registry draws it whole · unknown
+  technique still refuses); all-staccato blocks are **verified, not built**; the
+  ask-assertion splits; **"a block is ONE INSTANT" is now asserted** (it never was — the
+  159-note cloud had only ever been refused for its technique).
+- `tools/set_brick.js` — `--technique any|a,b` · `--part N` (zero-indexed) · `--why` ·
+  and the *"sound is unaffected"* line is **measured, not recited** (false for the ord
+  family, whose IR duration IS the drawn length, D9).
+- `tools/test_notate_block.js` — **64/64** (was 44); the golden still proves the
+  machine-built page item-for-item identical to the approved `db1`.
 
-**To look at it:** `node score/server.js` → http://localhost:5200/notation/app/notation.html
-→ pick **INT2 BLASTS — 81-111 s**. Worth a look at 84.3 +2.5 s (a mixed column: one
-cuivré bar, nine bare staccato heads) and 105.3 +6 s (the dictated extend, eight bars
-reaching 110.621).
+**Verified at close:** eleven batteries green · `db1.ir.json` byte-identical · playability
+unchanged across all eight score edits (hard 2 → 2, soft 24 → 24) · the page checked in
+the RUNNING APP off the rendered SVG, not the model.
 
-**DECIDED — do not re-ask:**
-- **Source save file: `piece-s26`** (not `-work`, which is behind by the whole
-  playability pass — D75; not the s25 archive, which is frozen as CLOUD02-D-era canon).
-- **Option (a): a NEW IR** for 81-111. db1 stays approved and untouched. **Nothing has
-  been folded into db1 and nothing will be without approval.**
-- **B flat** is the long-tone spelling going forward; the 48.05 page keeps its sharps
-  (D74). CLOSED.
-- The eleven columns' written lengths, by the composer's dictated shortest rule:
-  86.58→0.99 · 90.98→0.40 · 94.95→0.41 · 101.6→0.40 · 102.42→0.35 · 104.17→0.41 ·
-  and 105.64→**4.995**, the dictated EXTEND (105.626 + 4.995 = **110.621**, their
-  "110.62"). Applied to `piece-s26` and ledgered.
+**Deliberately uncommitted: nothing.** `git status --short` is clean. Gitignored and
+left alone, all pre-existing and none of it a source: `scores/gen-aud-0[1-5].json`
+(day-19 audition dumps) · `scores/piece-s25-finished01-work.json` (the app's stale
+working copy — **never a source**, D75) · `scores/versions/` (the CTRL+S ring, capped 20).
+**`piece-s26-work.json` does not exist** — the composer has never opened s26 in the app.
 
-**Verified at close:** eleven batteries green · `test_notate_block` **64/64** (was 44),
-**golden still item-for-item identical to the approved db1** · `db1.ir.json`
-byte-identical · playability **hard 2 → 2 · soft 24 → 24** across all seven score edits ·
-**nothing is heard differently** (every note moved is a fixed one-shot, D51; the six ord
-notes at 105.63 were already 4.995) · and the page checked in the RUNNING APP, measured
-off the rendered SVG: 14 ring bars in 84.3 +2.5 s, 8 bars of 4.995 s reaching 110.621.
-
-**Deliberately uncommitted: nothing.** `git status --short` is clean.
+**Waiting on the composer:** nothing. The next move is theirs — what the density build is.
 
 **Chat format, standing:** the composer is mildly dyslexic. Succinct language, clear
-spatial division between chunks, short lines, one idea per chunk. In global `CLAUDE.md`
-§ Chat responses and the `reply-format-tldr-chunks` memory.
+spatial division between chunks, short lines, one idea per chunk. **And answer the
+question that was asked** — this session cost them time by answering a sharper question
+than the one posed, twice in a row. In global `CLAUDE.md` § Chat responses and the
+`reply-format-tldr-chunks` memory.
 
 ---
 
@@ -193,8 +172,9 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~fifth sitting~~ | ~~THE BLAST-COLUMN EVALUATION~~ **DONE day 35 (Fable)** — 11 dictated columns measured in `piece-s26`; every named exception already true in the grouping; verdict = YES, one narrowing of one refusal. Full table + spec: running log, fifth sitting | — | — | — |
 | ~~M2~~ | ~~AMEND `notate_block` for mixed/all-staccato blocks~~ **DONE day 35 (Opus)** — ring vs self-drawing partition; `spanFor` wanted-set = ring only; all-staccato → VERIFY not build; ask-assertion split; unknown technique still refused. **Battery 64/64** (was 44), golden still identical to db1. Also caught a regression the spec did not foresee: **"a block is one instant" was never asserted** — the 159-note cloud (uniform brick, 153 onsets over 4.1 s) had only ever been refused for its technique. Threshold now derived from the material. `set_brick --technique any` + `--why` + the sound line MEASURED (false for the ord family, D9) | — | — | — |
 | ~~P~~ | ~~BUILD THE 81–111 PAGE~~ **DONE day 35 (Opus)** — **`int2b1` "INT2 BLASTS — 81-111 s"**; 7× `set_brick` to the dictated shortest rule then **11 notate_block runs: 8 built (47 ring bars), 3 verified-not-built**. Every dictated exception held with no code for it. Verified in the running app (14 bars at 84.3+2.5; 8 bars @4.995 reaching 110.621). Eleven batteries green; db1 byte-identical | — | — | — |
-| **STOP 2 — NOW** | **THE COMPOSER'S EYE ON `int2b1`.** `node score/server.js` → notation app → pick **INT2 BLASTS — 81-111 s**. **Nothing folds into db1 without their approval.** Three things owed back from them: **(1)** veto or keep the id/label `int2b1` (a rename is proven twice, D70); **(2)** the **T1 breath question at 95.89** — the long tone is written to 99.32 and T1 attacks again at 99.46, 0.14 s against the 0.5 s standard: shorten the column, move the 99.46 staccato, or accept as written; **(3)** whether the two spread clusters (cg001 @88.616, cg007 @98.988) get the figure process next | Fable (verdicts) | clear before the next build | composer has looked and answered |
-| N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
+| ~~STOP 2~~ | ~~the composer's eye on `int2b1`~~ **ANSWERED day 35, all three** — (1) the id/label `int2b1` / "INT2 BLASTS — 81-111 s" **stands**; (2) the T1 breath: *"shorten just the t1 long tone leave the others"* — applied, T1 now 3.075 s ending 98.960, proved and seen in the app; (3) the two spread clusters **stand as drawn** (free/spatial reading — the composer's own criterion was "a GC and a notehead", and 121/121 have one). **THE SECTION IS CLOSED** | — | — | — |
+| **DB2 — NEXT** | **THE DENSITY BUILD, on `piece-s27`.** Composer's design work, in the app. **The AI does NOT build here** — it runs the density pipeline and measurements ON REQUEST, as it did for DENSITY BUILD 1 (running log day 24). Open by asking what the build is to be; do not propose a plan unasked. Notation comes later, via a new IR off `piece-s27` (`--bracketsAbove` from birth, day 33) | **Fable** for design/verdicts · Opus for pipeline runs | this checkpoint IS the clear point | section material exists in `piece-s27` |
+| F2 | **The fold of `int2b1` into `db1`** — NOT queued, needs the composer's say. A fold is a rename, proven twice (D70, days 30 and 34): re-run db1's own `provenance.build` under one id and prune the other. **Do not raise it unprompted** — db1 is approved and untouched, and there is no cost to leaving the two pages apart | Opus | — | composer asks for it || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
