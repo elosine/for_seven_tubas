@@ -10441,3 +10441,21 @@ call, analysis logged here):
   the four parts: T9 g2's straddle · T7 g1's ratio tie (three pairs past 1.257)
   + the plain-vs-one-3:2 choice · nine pickup flags (T7: 1, 5 · T8: 1, 4 ·
   T9 g2: 1, 4 · T10: 1, 4, 5) · near-ties (T8: 7, 11 · T9 g2: 9 · T10 g1: 2).
+
+
+#### Day 30 — the composer refines rule 11: one subdivision, one bracket (T9 g1 · T10 g2)
+
+Composer: *"t9 all 3:2s in the beginning meant to be about the same? then if yes
+6:4 1 bracket"* — then *"same with the 2 3:2s in t10."* Measured before applying:
+yes — in both gestures the two 3:2 windows sit on ONE lattice (sextuplet slot
+width 112 ms / 103 ms uniform within each gesture). Both rebuilt with the fit's
+single 6:4; beam pairs stay; batteries green, `--validate` 24/25.
+
+**What this teaches (rule candidate 12, ledger):** the bracket's unit is the
+SUBDIVISION RUN, not the beam group. My containment-driven dissolution
+(D-logs 18.1/19.2 as first built) fragmented one true subdivision into two
+windows to buy bracket = pair — ink, not information. Rule 11's shrink is for
+freeing PLAIN halves (T4's ending — that was a false-claim removal); where both
+halves need the lattice, one bracket says it once, ACROSS the seam, and that
+straddle is sanctioned — call A(a) answered for the same-subdivision case. The
+flag stays as information.

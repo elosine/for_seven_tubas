@@ -212,6 +212,26 @@ tie stays as built (pair + five evens, not triple + four).
 | 19.1 | **T10 g1** (cl-39, 7n) | brackets = plain 0.93 (identical — **the section's first ALL-PLAIN fit**, no tuplet anywhere) | two groups, plain 16ths throughout | 1:mf · accents 1,3,6 | PICKUP flags notes 1, 4 · near-tie note 2 |
 | 19.2 | **T10 g2** (cl-40, 8n) | 0.80 vs 1.40 (2/8 over — exactly the bracketed notes) → brackets | **straddling 6:4 DISSOLVED into two sub-beat 3:2s** (bracket = pair; the second window carries a leading bracket rest) | 1:mf · **f run [3-6] = sustained one-band shift → band mark at 3 (group start)** · mf fall-back at 7 (mid-group shift point) · members 1, 2 below floor · rest16 8 | PICKUP flag note 5 |
 
+## D-log 20 · T9 g1 + T10 g2: ONE SUBDIVISION, ONE BRACKET — day 30
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 20.1 | T9 g1 (cl-37), the four-note opener | the two sub-beat 3:2s **replaced by the fit's single 6:4 over the beat** | "t9 all 3:2s in the beginning meant to be about the same? then if yes 6:4 1 bracket" | verified before applying: both windows sit on the SAME lattice (sextuplet of ♩=89, slot width 112 ms in each) — the answer to the question is yes, so the composer's rule fires. Beam pairs [1 2][3 4] stay; the bracket now spans the seam — SANCTIONED (see the A(a) note below) |
+| 20.2 | T10 g2 (cl-40), notes 1–4 | same — one 6:4 | "same with the 2 3:2s in t10" | identical configuration (two 3:2-of-8th windows, one lattice, ♩=97) |
+
+**Rule candidate 12 — the unit of the bracket is the SUBDIVISION RUN, not the beam
+group.** Where adjacent groups genuinely share one tuplet lattice, ONE bracket over
+the run beats per-group fragments — fragmenting one subdivision into two windows
+to satisfy bracket = group is ink, not information. This REFINES rule 11: the
+sub-beat shrink applies where it FREES A PLAIN HALF (T4's beat 7: [28,30) held no
+off-lattice note, so [14 15] became a bare pair — that shrink removed a false
+sextuplet claim); it does NOT apply where both halves need the lattice (T9 g1,
+T10 g2: an off-lattice note in each half — the whole beat is genuinely sextuplet,
+and one bracket says it once). **And it answers call A(a) for the same-subdivision
+case: a bracket across a beam seam is sanctioned when the subdivision truly spans
+the seam** — the STRADDLE flag stays as information, not as a defect. (20.1, 20.2;
+contrast 11.5 and 18.1-as-first-built.)
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

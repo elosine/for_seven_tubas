@@ -1441,3 +1441,16 @@ and phrase coincide the composer aligns them without comment; where they diverge
 the system's two grouping vocabularies become visible and get named. The notation
 system did not remove the grouping problem; it split it into two legible layers
 that can now disagree in public.
+
+**Day 30, the counter-refinement (T9/T10).** The AI's containment rule, applied
+mechanically, dissolved every whole-beat bracket over two pairs into per-pair
+3:2s — bracket = group, tidy. The composer, looking at the page: *"all 3:2s in
+the beginning meant to be about the same? then if yes 6:4 1 bracket."* The
+criterion is not alignment but SAMENESS: the bracket's message is the
+subdivision, and saying one subdivision twice is saying it wrong. The AI's rule
+survived contact with four parts and was refined by the fifth — the bracket
+belongs to the subdivision run, the beam to the phrase, and they need not share
+edges (the sanctioned straddle). Note the shape of the exchange: the composer
+asked a QUESTION about the material ("meant to be about the same?"), the AI
+verified it numerically (one lattice, 112 ms slots in both windows), and only
+then did the instruction fire — the criterion is empirical, not stylistic.
