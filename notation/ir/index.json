@@ -40,6 +40,16 @@
     55.94
    ],
    "profile": "section1"
+  },
+  {
+   "id": "int2b1",
+   "label": "INT2 BLASTS — 81-111 s",
+   "score": "piece-s26",
+   "window": [
+    81,
+    111
+   ],
+   "profile": "section1"
   }
  ]
 }
