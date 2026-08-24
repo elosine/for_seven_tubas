@@ -11771,3 +11771,111 @@ namespace we do not own and that grows without notice. Name project commands for
 *moment they belong to* (`postclear`, `checkpoint`, `session-end`) rather than for the
 generic verb (`resume`, `start`, `save`) — the specific name is both collision-resistant
 and self-documenting about when to run it.
+
+---
+
+#### Day 35 (third sitting, Fable 5) — THE MECHANIZATION VERDICT, AND THE AI REVERSING ITSELF ON ONE FACT
+
+*This is the evaluation the day-35 checkpoint was written for: Fable reading the
+seven-step brief and deciding whether to build a generator. It took two turns, and the
+turn between them is the interesting part — the composer supplied one fact and the
+verdict flipped. Both sides verbatim, per the standing paper instruction.*
+
+**FABLE'S FIRST VERDICT (defer the generator):**
+
+> **(a) The block generator — NOT YET, with a named trigger.**
+> The honest accounting: the seven steps minus the traps are fast. The traps were the
+> cost, and (b)+(c) remove the two expensive ones. What's left for a generator to save is
+> a jq query, a subtraction, and appending one flag to a known command — minutes of AI
+> time, not composer time. n=2, and the third instance doesn't exist yet. If the next long
+> tone (in `piece-s26`) is staggered, mixed-technique, or swells into the density build —
+> all musically plausible — the generator built today encodes the wrong invariant.
+> **The trigger:** when the next long-tone material exists in `piece-s26`, look at its
+> actual shape. If it fits the block class (one group, uniform brick, one technique),
+> build `notate_block` then, with n=3 in hand.
+
+It also said BUILD on **(b)** the device-gap assert and **(c)** `prove_unmoved`, and
+**SKIP** on **(d)** the DOM verification helper, for a reason worth keeping:
+
+> A helper that answers "what did the page draw" *from the model* verifies the model
+> against itself — it destroys the independence that makes the DOM audit worth anything.
+> The actual fix for T1 is a method, already logged: tally every element first, filter
+> second, and doubt the probe when a known-good control reads zero. **The lesson is the
+> tool.**
+
+**THE COMPOSER'S REPLY — one fact, and the verdict flips (voice):**
+
+> *"A long tone section is coming up soon. Or several of them. So that's why I want to do
+> this. So is it that you need an actual example to run it on? Because I can provide that.
+> But let's build the machine so that Opus can run it for the long tones beginning at
+> eighty-one seconds and running to one-ten. So this is also partly cost-benefit. Just let
+> me know when you think one more time before doing anything — in other words, is it worth
+> building the machine?"*
+
+**FABLE'S REVERSAL, verbatim:**
+
+> **Verdict, rethought: YES — build the machine now.** Two facts changed my answer from
+> last turn: **The material is real.** 81–110 s, and more sections after. That kills the
+> "n=2, don't encode accidents" objection. **Opus will run it.** A machine turns
+> Fable-grade judgment into a command Opus can't get wrong — the day-35 traps become
+> refusals. That *is* your cost-benefit.
+
+**Why this reversal is worth the ink** — the first verdict was not wrong on its evidence.
+It was reasoning from n=2 with no third instance in sight, and under the composer's own
+standing filter ("one robust build over a fragile one"), deferring was correct. The
+composer did not argue the reasoning; they supplied the missing fact — that the material
+exists and recurs — and the same reasoning produced the opposite answer. **The AI's job in
+the exchange was to state its evidence clearly enough that one fact could overturn it.**
+A verdict that had been argued instead of evidenced would have needed a fight to move.
+
+**Second reversal inside the same answer, quieter but real:** candidates (b) and (c) were
+scoped as *standalone tools* in the first verdict, and folded into the machine in the
+second — *"the two guards go INSIDE it, not alongside"*. Once the generator is being built,
+a separate assert and a separate prover are two more things to remember to run; inside the
+one command they are unskippable. This is the same D72 lesson at a different altitude: do
+not let a correct check live somewhere it can be forgotten.
+
+**THE MACHINE, as specified for Opus:**
+
+- **`notate_block --score <save> --group <id>`** — reads the score group, derives the
+  brick, **refuses if the brick is not uniform**, emits the right `notate_section` flags,
+  rebuilds, proves.
+- **The device-gap assert lives inside it** (D72's general rule): before writing a device
+  field, resolve the technique's device and refuse loudly if the field it depends on is
+  off. Never a success line over a blank page.
+- **`prove_unmoved` lives inside it** — the before/after whole-page item diff, hand-rolled
+  twice already (day 34: 425 rows; day 35: 3843 items). Prints `ADDED n / REMOVED 0 /
+  CHANGED 0` and the warning delta on every run. **It closes a real hole:** a DIRECT db1
+  rebuild has no automatic guard at all — the day-34 approved-span gate wakes only when a
+  fork exists, and T4's precedent says long-tone additions go into db1 directly.
+- **The fork-vs-direct rule is encoded, not left to judgement** (T4 was a near-miss):
+  span already inside db1's window → direct, like 48.05; a new span like 81–110 → fork,
+  gated from birth by the day-34 machinery.
+- **Goldens first:** the machine must reproduce the 41 s block and the 48.05 long tone
+  **exactly** before it is allowed near new material. The two hand-built instances are the
+  spec and the test suite — which is the whole reason n=2 was enough to build FROM even
+  when it was not enough to build ON.
+
+**THE TWO STOP POINTS, written down so they do not depend on a model remembering them:**
+after the machine is built and green, Opus **stops and asks for the 81–110 material**
+(which save file); after the machine runs on it, Opus **stops with the page ready for the
+composer's eye** — nothing folds into db1 without approval.
+
+**What Fable would still NOT mechanize, unchanged from the brief:** finding the analogous
+already-approved thing (step 2) and deciding where to fix a gap (step 5, flag vs registry
+vs material). The *fetch-derive-emit-prove* spine is the machine; the *what should this
+look like* stays human.
+
+**Also filed this sitting — a chat-format preference, and it is not cosmetic.** The
+composer: *"could you give me your response in more succinct language, please, with clear
+spatial division in the chat — I think that I am mildly dyslexic. And if you could add a
+note to the CLAUDE.md."* Added to the global `CLAUDE.md` § Chat responses (succinct
+language · clear spatial division · short lines · one idea per chunk) and appended as the
+**why** to the existing `reply-format-tldr-chunks` memory, which had recorded the rule
+without its reason. *Worth a paper line: the reply-density rule had been in force since
+day ~28 on the evidence of the composer saying "too dense"; the actual cause surfaced
+seven days later. The behaviour was right long before the reason was known — but only the
+reason makes it generalize to formats nobody has complained about yet.*
+
+**Still open, one word whenever the composer likes:** **A♯ or B♭** for the ten long-tone
+pitches at 48.05.

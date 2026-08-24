@@ -10,51 +10,75 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — (mid-session checkpoint) day 35, for a FABLE session
+### OPEN AT SESSION END — (mid-session checkpoint) day 35, third wrap, for an OPUS BUILD session
 
-**The task for the next session, in one line: EVALUATE the process by which the 48.05
-long tone got notated today, and decide whether to build a generator for it.** The
-composer asked for this explicitly and wants Fable's judgment, not more execution.
+**The task for the next session, in one line: BUILD `tools/notate_block.js` — the long-tone
+/ block generator — to the spec in today's RUNNING_LOG verdict entry, goldens first.**
+The evaluation is DONE and the answer was YES (Fable, this sitting). Nothing is left to
+decide; the next session builds.
 
 **Resume reads:**
-1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE LONG TONE AT 48.05
-   NOTATED"* (what was done, with the measurements) and *"THE PROCESS, WRITTEN DOWN FOR
-   EVALUATION"* (**the brief: seven steps, four traps, four mechanization candidates**).
-   The second is the actual input to this task.
-2. `docs/PROJECT_JOURNAL.md` §4 **D72** (device flag must turn its device on) and **D71**
-   (the clear cycle / model trigger) — both filed today.
-3. Only if the evaluation goes toward building: `tools/notate_section.js`
-   `--ringFromBrick` block (~line 1026) · `notation/lib/layout.js` ~line 317 (`if
-   (dev.ringBar)`) · `notation/registry/container.json` → `engraving.layout.devices`.
+1. `docs/RUNNING_LOG.md` — the LAST entry, *"THE MECHANIZATION VERDICT, AND THE AI
+   REVERSING ITSELF ON ONE FACT"*. **Its "THE MACHINE, as specified for Opus" block is the
+   build spec** — read it as the instruction, not as history. The entry two above it,
+   *"THE PROCESS, WRITTEN DOWN FOR EVALUATION"*, is the seven steps / four traps the
+   machine is meant to absorb; read it for the traps (T1–T4), which are the refusals.
+2. `docs/PROJECT_JOURNAL.md` §4 **D72** (a device flag must turn its device on — this is
+   the device-gap assert, in decision form).
+3. The code the machine wraps: `tools/notate_section.js` `--ringFromBrick` block (~line
+   1026) · `notation/lib/layout.js` ~line 317 (`if (dev.ringBar)`) ·
+   `notation/registry/container.json` → `engraving.layout.devices`.
+4. Nothing else. Do not re-open the four-candidate evaluation — it is closed.
 
-**State: nothing is in flight and nothing is owed.** Both of today's chunks are
-finished, verified, committed and pushed; the tree is clean; ten batteries green.
+**THE NEXT CONCRETE STEP, as an instruction:** write `tools/notate_block.js --score <save>
+--group <id>`, which reads the score group, derives the brick, **refuses if the brick is
+not uniform**, emits the `notate_section` flags, rebuilds the IR, and proves the result —
+with the **device-gap assert** and **`prove_unmoved`** built IN, not alongside. Encode the
+**fork-vs-direct rule** (span inside db1's existing window → direct, as at 48.05; a new
+span such as 81–110 → fork off db1, `--bracketsAbove` from birth, gated by the day-34
+machinery). **Goldens first: the machine must reproduce the 41 s block
+(`grp-vert03-fp-01`, `--ringFromBrick 40.9-41.0`) and the 48.05 long tone
+(`grp-octbb-ord-01`, `--ringFromBrick 48.0-48.1`) EXACTLY before it touches new material.**
+Those two hand-built instances are the spec and the test suite. Then ten batteries, commit,
+push.
 
-- **Chunk 1 — the clear cycle revised (D71).** `/postclear` now reads all of §2 + `NOW ►` +
-  the checkpoint's `Resume reads:` list; `/checkpoint` writes that list and folded 7
-  steps to 4; the MODEL is now a clear trigger (clear before a Fable block; wrap on
-  Opus). Files: `.claude/commands/{checkpoint,resume}.md`, `docs/SESSION_HYGIENE.md`,
-  `CLAUDE.md`. *This checkpoint entry is the new format's first real use.*
-- **Chunk 2 — the 48.05 long tone notated** on all ten tubas: ring bars sized from the
-  4.410 s brick in `piece-s25-finished01` (`grp-octbb-ord-01`, 48.050→52.460). `db1`
-  rebuilt from its own `provenance.build` + `--ringFromBrick 48.0-48.1` — **db1 direct,
-  no fork**, matching the 41 s precedent already in that command. Proved: **3843→3853
-  page items, ADDED 10 / REMOVED 0 / CHANGED 0, warnings 22→22**; verified live — ten
-  bars, each pixel-identical in width to its brick.
+**THE TWO STOP POINTS — the composer was promised these, in writing, this sitting:**
+- **STOP 1 — after the machine is built and green:** ask the composer which save file holds
+  the **81–110 s long-tone material**. Do not guess a save file, and do not run the machine
+  on anything until they name it. (`piece-s26` is where the next section is being composed,
+  but the composer has not said the long tones are in it yet.)
+- **STOP 2 — after the machine runs on that material:** stop with the page ready for the
+  composer's eye. **Nothing folds into db1 without their approval.**
 
-**Deliberately uncommitted: nothing.** `git status` is clean. (`notation/ir/index.json`
-was touched by the rebuild with line-ending churn only and was restored.)
+**State: nothing is in flight and nothing is owed.** The tree is clean; everything from
+today's three sittings is committed and pushed; ten batteries were green at the last build.
 
-**Waiting on the composer (neither blocking):** (1) **the A♯ / B♭ spelling of the long
-tone** — the IR spells the ten pitches A♯ and the page draws ten sharps, but the marker
-and the composer both say "octaves Bb"; enharmonic spelling is their call, so it was
-flagged, not changed. (2) their eye on 48.05 on the `db1` page.
+- **Sitting 1 — the clear cycle revised (D71)** and `/resume` renamed `/postclear`.
+- **Sitting 2 — the 48.05 long tone notated** on all ten tubas (ring bars from the 4.410 s
+  brick; 3843→3853 items, ADDED 10 / REMOVED 0 / CHANGED 0; verified live). D72 came out
+  of it.
+- **Sitting 3 (this one) — the evaluation.** Fable read the seven-step brief, first said
+  *defer the generator* (n=2), then **reversed to BUILD** when the composer supplied the
+  fact it had named as load-bearing: the material is real and recurring (81–110 s, and more
+  after), and Opus will be the one running it. The two guards were folded INSIDE the
+  machine rather than left standalone. The DOM-verification helper was **rejected on
+  principle** — verifying the model from the model destroys the audit's independence; that
+  lesson stays a habit, not code. Both verdicts and the reversal are verbatim in
+  RUNNING_LOG and PAPER_NOTES.
 
-**If the evaluation says BUILD:** the strongest candidate is (b) the device-gap assert
-(small, general, would have caught today's real bug), then (c) `prove_unmoved` — note it
-closes a real coverage hole, since a DIRECT db1 rebuild has no automatic guard at all
-(the day-34 approved-span gate wakes only when a fork exists). (a) the block generator is
-the biggest win but rests on n=2. Full argument in the RUNNING_LOG brief.
+**Deliberately uncommitted: nothing.** `git status --short` is clean at this checkpoint.
+
+**Waiting on the composer (neither blocking the build):**
+1. **The A♯ / B♭ spelling** of the ten long-tone pitches at 48.05 — the IR spells A♯ and
+   the page draws ten sharps; the marker and the composer both say "octaves Bb". Asked
+   twice now, not yet answered. Enharmonic spelling is their call.
+2. **Which save file holds the 81–110 s long tones** — this is STOP 1 above; the material
+   may not be saved in the app yet.
+
+**Also filed this sitting, outside the piece:** a chat-format preference — the composer is
+mildly dyslexic and asked for succinct language with clear spatial division. Added to
+global `CLAUDE.md` § Chat responses and to the `reply-format-tldr-chunks` memory. **Format
+replies accordingly: short lines, one idea per chunk, visible separation between chunks.**
 
 ---
 
@@ -136,7 +160,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
 | ~~F~~ | ~~THE FOLD~~ **DONE day 34** — db1 carries all 49 clusters (0–46.36 s, policy on); fork pruned; 425 approved rows proven unmoved; batteries green; pushed | — | — | — |
 | ~~G~~ | ~~Wake the approved-span gate~~ **DONE day 34** — both guards discover `db1-*` forks from the picker; boundary derived (re-derived 42.37 / 425 rows on the reconstructed day-33 world); fires red on real drift; missing fork file fails loudly; prints NOT APPLICABLE when there is no fork | — | — | — |
-| **N — NEXT** | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
+| **M — NEXT (day 35 verdict)** | BUILD `tools/notate_block.js` — the long-tone / block generator: reads a score group, derives the brick, refuses non-uniform, emits the `notate_section` flags, rebuilds, and proves — with the **device-gap assert** (D72) and **`prove_unmoved`** built IN, not alongside. Goldens first (41 s block + 48.05 long tone reproduced EXACTLY). **STOP 1:** ask which save file holds the 81–110 s long tones. **STOP 2:** page ready for the composer's eye; nothing folds into db1 unapproved | Opus (written spec) | resume on Opus after this checkpoint | goldens reproduce · batteries green · 81–110 notated and shown |
+| N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 

@@ -1590,3 +1590,80 @@ redundant. (Contrast day 30, where the reads were the exposure.) Also this
 sitting: the composer's rule sketch stayed a diagnostic at the AI's
 recommendation and the composer's silence — the facing-bands line now prints on
 every build, machinery deferred to a section with nothing approved to disturb.
+
+---
+
+## Day 35 — THE VERDICT THAT FLIPPED ON ONE FACT (2026-08-24, Fable 5)
+
+*The composer asked a Fable session to evaluate the process by which a long tone had been
+notated, and to decide whether to build a generator for it. The answer arrived twice, and
+the pair is the artefact.*
+
+**First verdict — defer.** Fable reviewed four mechanization candidates, said BUILD on two
+small guards, SKIP on a verification helper, and **NOT YET** on the generator itself:
+
+> The honest accounting: the seven steps minus the traps are fast. The traps were the
+> cost, and (b)+(c) remove the two expensive ones. What's left for a generator to save is
+> a jq query, a subtraction, and appending one flag to a known command — minutes of AI
+> time, not composer time. n=2, and the third instance doesn't exist yet. If the next long
+> tone is staggered, mixed-technique, or swells into the density build — all musically
+> plausible — the generator built today encodes the wrong invariant.
+
+It attached a **trigger** rather than a soft no: build it when a third instance exists and
+its shape can be seen. Under the composer's own standing filter — *one robust build over a
+fragile one* — this was the correct reading of the evidence available.
+
+**The composer did not argue. They supplied the missing fact:**
+
+> *"A long tone section is coming up soon. Or several of them. So that's why I want to do
+> this… let's build the machine so that Opus can run it for the long tones beginning at
+> eighty-one seconds and running to one-ten. So this is also partly cost-benefit."*
+
+**Second verdict — build, and the reasoning is unchanged:**
+
+> **YES — build the machine now.** Two facts changed my answer from last turn: **The
+> material is real.** 81–110 s, and more sections after. That kills the "n=2, don't encode
+> accidents" objection. **Opus will run it.** A machine turns Fable-grade judgment into a
+> command Opus can't get wrong — the day-35 traps become refusals. That *is* your
+> cost-benefit.
+
+**Why the pair matters more than either verdict.** The reversal cost one turn and no
+argument, because the first verdict had named the exact fact that would overturn it —
+*does a third instance exist, and what shape is it?* The composer answered that question
+and the same reasoning ran to the opposite conclusion. **An AI verdict's quality is not
+only whether it was right; it is whether it exposed its own load-bearing assumption
+plainly enough that one sentence from the human could move it.** A verdict argued rather
+than evidenced would have required a fight, or worse, would have quietly won.
+
+Note also what the composer's fact actually was. Not *"you're wrong"* and not a new
+musical argument — it was **information about the future of the piece that only the
+composer could hold.** The division of labour the whole process keeps rediscovering: the
+AI can measure the past (two instances, seven steps, four traps) and the composer knows
+what is coming.
+
+**A second, quieter reversal inside the same answer.** The two guards had been scoped as
+standalone tools in verdict one, and became components of the machine in verdict two —
+*"the two guards go INSIDE it, not alongside."* Once a generator exists, a separate assert
+and a separate prover are two things a future session must remember to run. This is D72's
+lesson at a different altitude: **a correct check that lives where it can be forgotten is
+not yet a check.**
+
+**And a rejection worth preserving,** because it draws a line about what verification is.
+On a proposed helper that would answer "what did the page draw at time T" from the layout
+model instead of from the DOM:
+
+> A helper that answers "what did the page draw" *from the model* verifies the model
+> against itself — it destroys the independence that makes the DOM audit worth anything.
+> The actual fix is a method, already logged: tally every element first, filter second,
+> and doubt the probe when a known-good control reads zero. **The lesson is the tool.**
+
+Not every hard-won lesson wants to become code. Some want to stay a habit, because
+encoding them would collapse the very gap that made them informative.
+
+**Postscript, filed the same sitting, on how long a reason can lag a rule.** The composer
+asked for shorter replies with clearer spatial division and gave the reason: *"I think
+that I am mildly dyslexic."* The reply-density rule had been in force since roughly day 28
+— adopted from the evidence of the composer saying an analysis was too dense, and honoured
+since. The behaviour was right for seven days before its cause was known. But only the
+cause makes it generalise: knowing *why* extends the rule to formats nobody has complained
+about yet, which the empirical version could never do.
