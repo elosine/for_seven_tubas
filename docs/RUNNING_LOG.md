@@ -11364,3 +11364,36 @@ test on a NON-facing band; the composer just called the page good, so the
 rule must not touch it unbidden). Recommendation on record: keep the page
 as dictated; adopt the facing rule at the fold only if the composer wants
 it, with those two deltas named.
+
+
+#### Day 33 (third sitting) — q1 locked; the machinery question answered; two guards adopted
+
+**Composer:** *"q1 yes the accents in t8 on top like it is now; What is the
+fallout from two if adopting as machinery now? Is it feasible? So whatever you
+did this pass was good. if anything useful to adopt as maschinary?"*
+
+**q1:** "t8 and t9 Similar" meant T8's accents on top — which is the page as
+it stands. T9 stays. **The CLOUD02-D page is LOCKED by the composer's eye.**
+
+**q2 (fallout of adopting FACING-BANDS as a mover now), on the record:**
+feasible — cleanest not as cross-part surgery in layout.js but as a BUILD-TIME
+auto-dictation writer in notate_section (the guard already sees all parts; it
+would write the same articSide/dynSide dictations a composer would, visibly,
+into the IR). But adopting NOW re-opens a page just locked: the clean regime
+(facing→head side, else→day-24 beam side) moves T9's accents below AND returns
+T3's accents to the beam side — both against the approved look, which grew
+from dictations + repair history no from-scratch rule reproduces. Same class
+as the day-31 failure: machinery conforming a good page to a rule.
+**Recommendation stated: arm it for the NEXT section / the fold, where it runs
+cold on unapproved material.**
+
+**q3 (what of this pass is machinery):** already permanent — the bracket-above
+policy (+hug), the per-mark accent law, --dynSide, the hook⇔side battery, the
+cross-lane guard. Adopted THIS sitting (both invisible on the page): (1) **THE
+APPROVED-SPAN GATE mechanised** — test_layout now proves the fork's t<42 lays
+out identically to db1 (tuplets, beams, accents, dynamics); the check that
+caught the stale-stem-tip bug by hand now runs on every battery. (2) **FACING
+BANDS named by the build** — an info line in the geometry guard; on c2d it
+prints T6/T7 44.5-45.7 · T8/T9 44.2-46.2 (every day-31-33 dictation landed in
+one of these) **and found a third nobody had measured: T4/T5 34.3-34.5** (in
+the approved endings, no collision, quiet). Ten batteries green; pushed.
