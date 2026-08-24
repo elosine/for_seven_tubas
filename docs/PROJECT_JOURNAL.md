@@ -34,23 +34,33 @@ them derivations:**
    81-111 s"** (PLANNER line 134 — *"INT2 blasts" is final, composer 2026-08-14*; and
    81.73 is their own noted cursor time from placing this material). **A rename is
    proven twice (D70) — say the word and it costs nothing.**
-2. **THE T1 BREATH QUESTION AT 95.89.** The long tone is written to **99.32**; T1
-   attacks again at **99.46**. That is **0.14 s** against the 0.5 s breath standard.
-   The page says "drawn as asked" and it is right — the composer's own
-   shortest-in-the-stack rule produced it. It is a **notation/breath** question, NOT a
-   playability conflict (that model is attack-to-attack and reports none; 51/51 pass).
-   **Three ways out, all theirs:** shorten that column · move the 99.46 staccato ·
-   accept as written. **Deliberately not fixed.**
+2. ~~THE T1 BREATH QUESTION~~ **ANSWERED — do not re-ask.** *"shorten just the t1 long
+   tone leave the others in the column."* Applied: T1's 95.885 tone is now **3.075 s**,
+   ending **98.960** — exactly one 0.5 s breath before its 99.46 attack; the other six
+   keep 3.435 s. `set_brick --part N` was built for it. Proved (CHANGED 2, both on
+   ev-wc-2132; warnings 1 → 0) and seen in the app. **This is the one edit in the
+   section that changes what is HEARD** — an ord note's drawn length is its duration
+   (D9). *Consequence filed to NITS: that column is now deliberately uneven, so
+   `notate_block` would refuse to rebuild it afresh and its "normalise them first"
+   advice is wrong for this case.*
 3. **The two spread clusters** — `grp-cg001-886` @88.616 and `grp-cg007-989` @98.988.
    Multi-onset gestures; they need the figure process (pattern analyser + dictation
    rounds), which is composer work. Do they go next, or does something else?
 
-**WHAT THE PAGE HOLDS — so it is not misread.** 8 columns built (47 ring bars) + 3
-verified-not-built (all staccato, which draws itself: the small filled head, the 16th
-flag and the dot ARE the notation — no duration ink, the day-23 standard). The four
-long tones the composer called *"separate"* (T6 @90.519 · T7 @94.627 · T4 @98.988 ·
-T10 @103.096) kept their **own** sample-length bars and were untouched — the score's
-own grouping was the exclusion syntax, and no code was written for it.
+**WHAT THE PAGE HOLDS — measured for the composer's own question, day 35 seventh
+sitting: NOTHING WAS LEFT OUT.** 121 sounding notes in `piece-s26` between 81 and 111 s;
+**121 events on the page; 0 missing, 0 extra, 0 ungrouped** (all 121 sit in the 13
+groups). 8 columns built (47 ring bars) + 3 verified-not-built (all staccato, which
+draws itself — the small filled head, the 16th flag and the dot ARE the notation, the
+day-23 standard). The four long tones the composer called *"separate"* (T6 @90.519 ·
+T7 @94.627 · T4 @98.988 · T10 @103.096) kept their **own** sample-length bars and were
+untouched — the score's own grouping was the exclusion syntax, and no code was written
+for it. **The parachute brick, go line and GC stay on FINISHED material too** — they do
+not mark what is undone: int2b1's 86.58 column renders `10x brick, 10x goline, 10x gc,
+10x ringbar`, item-for-item the same as db1's APPROVED 40.93 blast. **What separates the
+two remaining clusters is onset count, not ink** — cg001 has 14 notes on 14 onsets and
+cg007 11 on 11, against ONE onset for every blast column. A chord struck at one instant
+has no rhythm to notate; a gesture spread over four seconds does.
 
 **To look at it:** `node score/server.js` → http://localhost:5200/notation/app/notation.html
 → pick **INT2 BLASTS — 81-111 s**. Worth a look at 84.3 +2.5 s (a mixed column: one
