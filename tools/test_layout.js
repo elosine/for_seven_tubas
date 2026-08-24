@@ -482,6 +482,26 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   ok(bad === 0, 'every bracket clears every beam it spans (' + bad + ' collisions)');
 }
 
+// ---- day 34: DISCOVER THE db1 FORKS FROM THE PICKER (step G) ----
+// Day 33 hardcoded 'db1-c2d-x01' in both guards below. When that fork was
+// folded into db1 and pruned (day 34), both went existsSync-silent and the
+// battery still printed GREEN — a guard that looks alive and protects nothing.
+// The forks are now read from the picker index, so the NEXT section's fork is
+// gated from birth with nobody remembering to edit this file. 'db1-all-x01' is
+// excluded: it is the frozen validate golden, not a policy fork.
+const FORK_IDS = (() => {
+  const idxP = path.join(ROOT, 'notation', 'ir', 'index.json');
+  if (!fs.existsSync(idxP)) return [];
+  const idx = JSON.parse(fs.readFileSync(idxP, 'utf8'));
+  return (idx.irs || []).map(r => r.id)
+    .filter(id => /^db1-/.test(id) && id !== 'db1-all-x01');
+})();
+// a picker entry whose IR file is gone is a broken picker, not a reason to skip
+for (const id of FORK_IDS) {
+  ok(fs.existsSync(path.join(ROOT, 'notation', 'ir', id + '.ir.json')),
+    'picker lists db1 fork ' + id + ' but its IR file is missing');
+}
+
 // ---- day 33: HOOKS FACE THEIR OWN STAFF (the inverted-flag regression) ----
 // Day 32: the dictated-side block wrote its draw flag backwards and T6/T7's
 // brackets pointed their hooks at the NEIGHBOURING part — the composer lost
@@ -492,7 +512,7 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
 // on every tuplet of every part of both real files. Dictated sides remain
 // free — the invariant binds hooks to the SIDE, not the side to a rule.
 {
-  for (const name of ['db1', 'db1-c2d-x01']) {
+  for (const name of ['db1'].concat(FORK_IDS)) {
     const p = path.join(ROOT, 'notation', 'ir', name + '.ir.json');
     if (!fs.existsSync(p)) continue;
     const irH = JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -507,31 +527,50 @@ eq(Lf.systems[0].items.filter(i => i.k === 'glyph' && i.g === 'flag-up16').lengt
   }
 }
 
-// ---- day 33: THE APPROVED-SPAN GATE (mechanised) ----
-// The trials fork rebuilds db1's whole command plus the new section, under
-// the bracket-above policy — so its 0-42 s span must lay out IDENTICALLY to
-// approved db1 (the policy is a proven no-op on classic stem-up stacks, and
-// nothing else may drift). Run by hand twice on day 33, it caught the
-// stale-stem-tip bug that had silently lifted six approved brackets 1.42 ss.
-// Any future pass that breaks the no-op fails here instead of on the page.
+// ---- day 33: THE APPROVED-SPAN GATE (mechanised) · day 34: generalised ----
+// A trials fork rebuilds db1's whole command plus the new section, under the
+// bracket-above policy — so the span BEFORE its first new figure must lay out
+// IDENTICALLY to approved db1 (the policy is a proven no-op on classic stem-up
+// stacks, and nothing else may drift). Run by hand twice on day 33, it caught
+// the stale-stem-tip bug that had silently lifted six approved brackets 1.42 ss;
+// on day 34 it proved the fold moved none of 425 approved rows.
+// The boundary is DERIVED, not hardcoded: day 33's literal 42 was CLOUD02-D's
+// number (its figures start at 42.37) and would silently under-cover the next
+// section, whose approved material now runs to 46.36 s.
 {
-  const pF = path.join(ROOT, 'notation', 'ir', 'db1-c2d-x01.ir.json');
-  if (fs.existsSync(pF)) {
-    const sig = irX => {
-      const LX = Layout.layoutSection(JSON.parse(fs.readFileSync(irX, 'utf8')), G);
+  const irP = id => path.join(ROOT, 'notation', 'ir', id + '.ir.json');
+  const clusterSpecs = f => {
+    const b = ((JSON.parse(fs.readFileSync(f, 'utf8')).provenance) || {}).build || '';
+    return (b.match(/--cluster [\d.]+-[\d.]+@\d+/g) || []).map(x => x.slice(10));
+  };
+  const forks = FORK_IDS.filter(id => fs.existsSync(irP(id)));
+  if (!forks.length) {
+    console.log('approved-span gate: NOT APPLICABLE — no db1 fork in the picker');
+  }
+  for (const id of forks) {
+    // everything before the first cluster the fork ADDS OR CHANGES is material
+    // the composer already approved on db1, and must be untouched
+    const A = clusterSpecs(irP('db1')), B = clusterSpecs(irP(id));
+    const sa = new Set(A), sb = new Set(B);
+    const diff = B.filter(x => !sa.has(x)).concat(A.filter(x => !sb.has(x)));
+    const bound = diff.length ? Math.min.apply(null, diff.map(x => parseFloat(x))) : Infinity;
+    const sig = f => {
+      const LX = Layout.layoutSection(JSON.parse(fs.readFileSync(f, 'utf8')), G);
       const rows = [];
       for (const sy of LX.systems) for (const i of sy.items) {
         const t = i.t !== undefined ? i.t : (i.t0 !== undefined ? i.t0 : (i.tips && i.tips[0] ? i.tips[0].t : null));
-        if (t == null || t >= 42) continue;
+        if (t == null || t >= bound) continue;
         if (i.k === 'tuplet') rows.push('T' + sy.part + ' tup ' + i.text + ' ' + t.toFixed(2) + ' ' + i.ySs.toFixed(2) + ' ' + i.dir);
         else if (i.k === 'beam' && i.tips && i.tips.length) rows.push('T' + sy.part + ' beam ' + i.tips[0].t.toFixed(2) + ' ' + i.tips[0].ySs.toFixed(2));
         else if (i.k === 'glyph' && /^(artic|dyn)-/.test(String(i.g))) rows.push('T' + sy.part + ' ' + i.g + ' ' + t.toFixed(2) + ' ' + i.ySs.toFixed(2));
       }
-      return rows.sort().join('|');
+      return rows.sort();
     };
-    const a = sig(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'));
-    const b = sig(pF);
-    ok(a === b, 'approved-span gate: fork t<42 mirrors db1 (tuplets, beams, accents, dynamics)');
+    const a = sig(irP('db1')), b = sig(irP(id));
+    const where = bound === Infinity ? 'the whole page' : 't<' + bound.toFixed(2);
+    ok(a.join('|') === b.join('|'),
+      'approved-span gate: ' + id + ' mirrors db1 over ' + where +
+      ' (' + a.length + ' vs ' + b.length + ' rows: tuplets, beams, accents, dynamics)');
   }
 }
 

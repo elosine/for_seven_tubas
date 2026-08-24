@@ -23,9 +23,10 @@ standing verdict. The page is LOCKED under: **THE BRACKET-ABOVE POLICY**
 (every bracket above its own staff, hugged, per-IR `--bracketsAbove`; a
 bracket belongs to the staff below it) · **THE PER-MARK ACCENT LAW** (head-side
 accents hug their own note — day-31 dyn law extended) · `--dynSide` dictation ·
-the hook⇔side battery invariant · **THE APPROVED-SPAN GATE** (it did its job —
-it caught the stale-stem-tip bug, and on day 34 proved the fold moved nothing;
-**it is now DORMANT and reports green**, see NITS day 34 / step G) · **FACING BANDS named by every
+the hook⇔side battery invariant · **THE APPROVED-SPAN GATE** (caught the
+stale-stem-tip bug day 33; proved the fold moved nothing day 34; **day 34 it
+discovers its fork from the picker and derives its own boundary**, so the next
+section's fork is gated from birth) · **FACING BANDS named by every
 build** (info line: T6/T7 · T8/T9 · quiet T4/T5 @34.3 — every day-31-33
 dictation landed in a facing band). Geometry guard: ZERO c2d findings; only
 the two pre-existing tier-3 items (T9 @36.87 · T10 @39.08, approved db1).
@@ -68,7 +69,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~6a~~ | ~~CLOUD02-D playability~~ **DONE day 31** — 18 soft → 10, worst 57 % → 20 %, 0 hard; 16 moves + bricks, 17 ledger lines; PLAN 8j; the collapse pass, the same-slot bar and frozen figures built | — | — | — |
 | ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
 | ~~F~~ | ~~THE FOLD~~ **DONE day 34** — db1 carries all 49 clusters (0–46.36 s, policy on); fork pruned; 425 approved rows proven unmoved; batteries green; pushed | — | — | — |
-| **G — small, optional** | Wake the approved-span gate: discover the fork from the picker index instead of the hardcoded `db1-c2d-x01` (NITS day 34). Do it BEFORE the next section's first fork | Opus | no (small) | gate + hook test fail loudly when a `db1-*` fork drifts |
+| ~~G~~ | ~~Wake the approved-span gate~~ **DONE day 34** — both guards discover `db1-*` forks from the picker; boundary derived (re-derived 42.37 / 425 rows on the reconstructed day-33 world); fires red on real drift; missing fork file fails loudly; prints NOT APPLICABLE when there is no fork | — | — | — |
 | **N — NEXT** | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |

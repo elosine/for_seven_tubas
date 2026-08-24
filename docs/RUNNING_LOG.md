@@ -11475,3 +11475,48 @@ reports green** — a guard that looks alive and protects nothing. It matters at
 next section, whose forks come off db1 with `--bracketsAbove` from birth. Filed to
 NITS with the fix sketch (discover the fork from the picker index); NOT edited,
 because test machinery changes get proposed first.
+
+#### Day 34 (second sitting) — STEP G: the approved-span gate woken and generalised
+
+**Composer:** *"g good"* — the guard that protected the fold got fixed before
+the next section's first fork, which is the only moment it is cheap to do.
+
+**Two changes, both in `tools/test_layout.js`:**
+
+1. **Fork discovery replaces the hardcoded id.** Both day-33 guards (the
+   hook⇔staff invariant and the approved-span gate) named `db1-c2d-x01`
+   literally and were `existsSync`-guarded, so pruning the fork silenced them
+   while the battery still printed GREEN. They now read the picker
+   (`notation/ir/index.json`), taking every `db1-*` id except the frozen
+   validate golden `db1-all-x01`. The next section's fork is gated from birth
+   with nobody remembering to edit the test.
+2. **The approved boundary is DERIVED, not hardcoded.** Day 33's literal `42`
+   was CLOUD02-D's number (its figures start at 42.37). Left alone it would
+   have *silently under-covered* the next section, whose approved material now
+   runs to 46.36 s — the guard would have "passed" while ignoring 4.4 s of
+   approved page. The gate now computes the boundary as the min start of any
+   cluster the fork **adds or changes** vs db1 (a changed cluster counts, so a
+   rebuilt figure pulls the boundary back to itself). No fork diff at all ⇒
+   boundary `Infinity` ⇒ the whole page must match.
+
+**Verified by reconstructing the day-33 world from git** (old db1 + the fork +
+old picker restored from `HEAD~1`), because `ok()` prints only on failure — a
+passing gate proves nothing you can see:
+
+- **It FIRES.** Forcing `stemDir: down` on one beamed event at **t=31.55**,
+  deep inside approved material, turned it red:
+  `FAIL approved-span gate: db1-c2d-x01 mirrors db1 over t<42.37 (425 vs 425 rows…)`
+- **The derived boundary reproduces the hand measurement exactly** — `t<42.37`
+  and **425 rows**, the same numbers measured by hand during the fold. The
+  generalisation did not change what the guard covers, only how it finds it.
+- **Clean fork ⇒ GREEN**, so the red came from the perturbation alone.
+- **A picker entry whose IR file is missing now FAILS LOUDLY**
+  (`FAIL picker lists db1 fork db1-c2d-x01 but its IR file is missing`) —
+  that was the exact silent-skip shape of the day-33 hole.
+- **With no fork present it prints `approved-span gate: NOT APPLICABLE — no db1
+  fork in the picker`.** A green battery can no longer imply coverage it does
+  not have. *That line is the whole lesson of the morning: the failure was never
+  a wrong assertion, it was an assertion that stopped existing without saying so.*
+
+Ten batteries green; `--prove-red` harness still works. Day-34 state restored
+(db1 49 clusters, no fork in the picker); only `test_layout.js` changed.

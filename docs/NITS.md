@@ -432,13 +432,18 @@ rendering-environment difference worth understanding).
   stem-down groups, where it is clean — but any FUTURE consumer on the beam
   side will trip the same way the six lifted brackets did.
 
-- *(day 34)* **THE APPROVED-SPAN GATE IS NOW DORMANT AND REPORTS GREEN.**
-  `tools/test_layout.js:518` hardcodes the fork id `db1-c2d-x01`; it is
-  `existsSync`-guarded, so with the fork pruned the assertion silently does not
-  run — the battery still prints GREEN. A guard that looks alive and protects
-  nothing is worse than no guard, and it matters at the NEXT section, whose forks
-  come off db1 with `--bracketsAbove` from birth. **Fix (small):** discover the
-  fork from `notation/ir/index.json` — any id matching `db1-*` that is not `db1`
-  or the frozen golden `db1-all-x01` — and gate that against db1, failing loudly
-  if no fork exists AND a `db1-*` id is in the picker. Same for the hook test,
-  which is guarded the same way. Not done: test machinery gets proposed first.
+- *(day 34)* ~~**THE APPROVED-SPAN GATE IS NOW DORMANT AND REPORTS GREEN**~~
+  **— CLOSED same day (step G).** Both guards now discover db1's forks from
+  `notation/ir/index.json` (`db1-*`, minus the frozen golden `db1-all-x01`)
+  instead of naming `db1-c2d-x01`, so the next section's fork is gated from
+  birth with nobody editing the test. Three paths verified by reconstructing
+  the day-33 world from git: (1) the gate FIRES on a real drift — a forced
+  stem at t=31.55 turned it red; (2) a clean fork is GREEN; (3) a picker entry
+  whose IR file is missing now FAILS LOUDLY instead of skipping. With no fork
+  present it prints **"NOT APPLICABLE — no db1 fork in the picker"**, so a
+  green battery can never again imply coverage it does not have.
+  **Also generalised: the approved boundary is DERIVED, not hardcoded** — the
+  min start of any cluster the fork adds or changes. Day 33's literal `42` was
+  CLOUD02-D's number; the gate re-derived it as **42.37** on the reconstructed
+  world (425 rows, matching the hand measurement), and will move itself to the
+  next section's boundary automatically.
