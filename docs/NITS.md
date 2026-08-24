@@ -400,3 +400,13 @@ rendering-environment difference worth understanding).
   `RUNNING_LOG.md`.
 
 - **notate_section report order (day 30):** a figures cluster prints its NEAR-TIE and PATTERN (D63) advisory lines BEFORE its own `cluster cl-N:` header, so they read as the tail of the previous cluster's block (seen cl-32/cl-33). Cosmetic; the lines belong to the cluster that follows them.
+
+- **Cuivré vertical spacing wants a MEDIUM (day 30, composer — deferred on purpose):**
+  the marks currently sit at the MINIMUM gap (tightGapSs 0.15 ss) above the head
+  (D-log 22.3); the composer wants "a midway between our standard vertical spacing
+  and the current spacing, the minimum… and then just move these cuivrés up" —
+  i.e. define a medium vertical-gap constant (between 0.15 and whichever constant
+  counts as "standard" — candidates: nhGapSs 0.25, stackGapSs) and raise the
+  cuivré baselines to it. Code: the techText block in `notation/lib/layout.js`
+  (inside the nh-unit); the lane-line clearance test should keep T8 at its tag-row
+  fallback. One constant + one line once "standard" is named.
