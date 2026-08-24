@@ -10,91 +10,73 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — (mid-session checkpoint) day 35, fourth wrap, for a FABLE session
+### OPEN AT SESSION END — day 35, SIXTH wrap. THE INT2 BLASTS PAGE EXISTS AND IS WAITING ON THE COMPOSER'S EYE.
 
-**The composer is going to Fable for ANALYSIS — subject not yet named.** If what they open
-with is a different subject, run `/session-start`, not `/postclear`. What follows is the
-state to hold either way.
-
-**THE BUILD TASK IS DONE AND THE NEXT STEP IS UNBLOCKED.** `tools/notate_block.js` — the
-long-tone / block generator — is built, green, committed and pushed. Both composer answers
-that were blocking it have been given.
+**STOP 2 IS THE STATE. Nothing is blocked on the AI.** `int2b1` — "INT2 BLASTS —
+81-111 s" — is built, proven, committed and pushed. **Eleven of the thirteen groups in
+81-110 are machine-generated.** The next move is the composer looking at it.
 
 **Resume reads:**
-1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE BLOCK GENERATOR BUILT, and
-   the golden immediately proved the day-35 proof shape wrong"* (what the machine is, what
-   the golden caught, the four traps as refusals) and *"WHICH FILE IS THE PIECE"* (the
-   `-work` measurement and the two composer decisions).
-2. `docs/PROJECT_JOURNAL.md` §4 **D73** (proof = confinement, not stillness), **D74** (B
-   flat going forward; the drawn page left alone), **D75** (a save file is identified by
-   content, never timestamp; `-work` is never a source).
-3. **Only if the next step is being executed:** the tool table rows for `notate_block`
-   (§2 above) — the command, its refusals, and `--list`.
-4. Nothing else. The generator's design is closed; do not re-open the four-candidate
-   evaluation or the confinement decision.
+1. `docs/RUNNING_LOG.md` — the LAST TWO day-35 entries: *"THE COMPOSER DICTATES ELEVEN
+   BLAST COLUMNS FROM MEMORY"* (the measurement table, the verdict, the amendment spec)
+   and *"M2 BUILT AND THE INT2 BLASTS PAGE MADE"* (what shipped, the regression the
+   battery caught, the app verification, the one open warning).
+2. `docs/PROJECT_JOURNAL.md` §4 **D73** (proof = confinement, not stillness) and **D75**
+   (a save file is identified by content, never timestamp; `-work` is never a source).
+3. **Only if building:** the tool-table rows for `notate_block` and `set_brick` (§2).
+4. Nothing else. The generator's design is closed.
 
-**SUPERSEDED (fifth sitting, same day):** the Fable analysis ran — the composer dictated
-11 blast columns; verdict YES with one refusal-narrowing. The step below is replaced by
-**M2 then P in the NEXT STEPS table** (amend `notate_block` for staccato-in-a-block; then
-7× `set_brick` + the page at **--w1 111** + 11 `notate_block` runs; expect **11 of 13**
-groups machine-generated, not 2). Spec + measurements: running log, fifth sitting.
+**THE THREE THINGS OWED BY THE COMPOSER — all of them names or musical calls, none of
+them derivations:**
 
-**THE NEXT CONCRETE STEP, as an instruction.** ~~Make the new page for 81-110 s and notate
-its two long tones into it:~~ *(superseded — see above)*
+1. **Veto or keep the page's name.** It was theirs to give and they had said "good to
+   run", so it was taken from their own vocabulary: id `int2b1`, label **"INT2 BLASTS —
+   81-111 s"** (PLANNER line 134 — *"INT2 blasts" is final, composer 2026-08-14*; and
+   81.73 is their own noted cursor time from placing this material). **A rename is
+   proven twice (D70) — say the word and it costs nothing.**
+2. **THE T1 BREATH QUESTION AT 95.89.** The long tone is written to **99.32**; T1
+   attacks again at **99.46**. That is **0.14 s** against the 0.5 s breath standard.
+   The page says "drawn as asked" and it is right — the composer's own
+   shortest-in-the-stack rule produced it. It is a **notation/breath** question, NOT a
+   playability conflict (that model is attack-to-attack and reports none; 51/51 pass).
+   **Three ways out, all theirs:** shorten that column · move the 99.46 staccato ·
+   accept as written. **Deliberately not fixed.**
+3. **The two spread clusters** — `grp-cg001-886` @88.616 and `grp-cg007-989` @98.988.
+   Multi-onset gestures; they need the figure process (pattern analyser + dictation
+   rounds), which is composer work. Do they go next, or does something else?
 
-```
-node tools/notate_section.js --score piece-s26 --w0 81 --w1 110 --parts 0-9 \
-  --profile section1 --id <new-id> --bricks --bracketsAbove --label "INT2 81-110"
-node tools/notate_block.js --score piece-s26 --group grp-s009-817 --ir <new-id> --apply
-node tools/notate_block.js --score piece-s26 --group grp-s005-958 --ir <new-id> --apply
-```
+**WHAT THE PAGE HOLDS — so it is not misread.** 8 columns built (47 ring bars) + 3
+verified-not-built (all staccato, which draws itself: the small filled head, the 16th
+flag and the dot ARE the notation — no duration ink, the day-23 standard). The four
+long tones the composer called *"separate"* (T6 @90.519 · T7 @94.627 · T4 @98.988 ·
+T10 @103.096) kept their **own** sample-length bars and were untouched — the score's
+own grouping was the exclusion syntax, and no code was written for it.
 
-Then ten batteries + `test_notate_block`, then **STOP** with the page ready for the
-composer's eye. **Nothing folds into db1 without their approval.** *(Pick the `<new-id>`
-and confirm the label with the composer — those are names, not derivations. `--bracketsAbove`
-is the standing policy for anything built from birth, day 33.)*
+**To look at it:** `node score/server.js` → http://localhost:5200/notation/app/notation.html
+→ pick **INT2 BLASTS — 81-111 s**. Worth a look at 84.3 +2.5 s (a mixed column: one
+cuivré bar, nine bare staccato heads) and 105.3 +6 s (the dictated extend, eight bars
+reaching 110.621).
 
-**DECIDED BY THE COMPOSER THIS SITTING — do not re-ask:**
-- **Source save file: `piece-s26`.** Not `piece-s25-finished01-work`, which they first named
-  and which is measurably behind by the whole playability pass (D75). Not the s25 archive
-  either — s26 is where new composition grows, by the day-33 intent.
-- **Option (a): a NEW IR for 81-110**, not an extended db1 window. db1 stays approved and
-  untouched; folding later is a rename already proven twice (D70).
-- **B flat** is the long-tone spelling going forward; **the 48.05 page is left as drawn**
-  (ten sharps). D74. This question is CLOSED — it had been open two sittings.
+**DECIDED — do not re-ask:**
+- **Source save file: `piece-s26`** (not `-work`, which is behind by the whole
+  playability pass — D75; not the s25 archive, which is frozen as CLOUD02-D-era canon).
+- **Option (a): a NEW IR** for 81-111. db1 stays approved and untouched. **Nothing has
+  been folded into db1 and nothing will be without approval.**
+- **B flat** is the long-tone spelling going forward; the 48.05 page keeps its sharps
+  (D74). CLOSED.
+- The eleven columns' written lengths, by the composer's dictated shortest rule:
+  86.58→0.99 · 90.98→0.40 · 94.95→0.41 · 101.6→0.40 · 102.42→0.35 · 104.17→0.41 ·
+  and 105.64→**4.995**, the dictated EXTEND (105.626 + 4.995 = **110.621**, their
+  "110.62"). Applied to `piece-s26` and ledgered.
 
-**EXPECT THIS, so the output is not read as a failure:** the 81-110 window holds **13
-groups**; the machine handles **two** — `grp-s009-817` @81.748 (10 notes, 2.172 s, ord) and
-`grp-s005-958` @95.885 (7 notes, 3.435 s, ord). The other eleven are short blasts and
-clusters needing the figure process (pattern analyser + dictation rounds), which is the
-composer's job. **The new page will show two notated long tones and eleven groups as
-parachute bricks. That is correct.**
-
-**What was built this sitting, by path:**
-- `tools/notate_block.js` — the machine (reads a group, derives the brick, decides
-  fork-vs-direct from the target IR's window, emits `--ringFromBrick`, rebuilds from the
-  IR's own `provenance.build`, asserts and proves; snapshots and byte-restores on any
-  failure; idempotent).
-- `notation/lib/device_check.js` — the device-gap assert. **Its dependency table is DERIVED
-  from `layout.js` by brace-matching**, not hardcoded; finds 41 dependent fields where the
-  D72 bug showed one.
-- `notation/lib/prove_unmoved.js` — the before/after layout diff + `confine()`.
-- `tools/prove_unmoved.js` — thin CLI, for comparing a page against a version of itself
-  from git (day 34's fold case).
-- `tools/test_notate_block.js` — **44/44**, including the golden: strip both
-  `--ringFromBrick` flags out of db1's build command, let the machine put them back,
-  require the page to be item-for-item identical to the approved db1. **It passes.**
-
-**Verified at close:** 44/44 new checks · ten standing batteries green (now eleven with
-`test_notate_block`) · `db1.ir.json` byte-identical to its pre-session state · no stray
-picker entry · `notation/ir/index.json` restored after its usual line-ending churn.
+**Verified at close:** eleven batteries green · `test_notate_block` **64/64** (was 44),
+**golden still item-for-item identical to the approved db1** · `db1.ir.json`
+byte-identical · playability **hard 2 → 2 · soft 24 → 24** across all seven score edits ·
+**nothing is heard differently** (every note moved is a fixed one-shot, D51; the six ord
+notes at 105.63 were already 4.995) · and the page checked in the RUNNING APP, measured
+off the rendered SVG: 14 ring bars in 84.3 +2.5 s, 8 bars of 4.995 s reaching 110.621.
 
 **Deliberately uncommitted: nothing.** `git status --short` is clean.
-*(`scores/piece-s25-finished01-work.json` is gitignored and always will be — it is the
-app's live working copy, currently stale, and is NEVER a source. See D75.)*
-
-**Waiting on the composer:** only the `<new-id>` and label for the new page — names, not
-derivations. Nothing else is owed.
 
 **Chat format, standing:** the composer is mildly dyslexic. Succinct language, clear
 spatial division between chunks, short lines, one idea per chunk. In global `CLAUDE.md`
@@ -183,8 +165,9 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~M~~ | ~~BUILD the block generator~~ **DONE day 35** — `tools/notate_block.js` + `notation/lib/{device_check,prove_unmoved}.js` + `tools/prove_unmoved.js` (CLI) + `tools/test_notate_block.js`. **GOLDEN PASSES: the machine-built page is item-for-item identical to the approved db1** (warnings 22 = 22); 44/44 new checks; ten batteries green; db1 byte-identical. The golden caught a real error in the day-35 brief → **D73** (the proof is CONFINEMENT, not stillness). All four traps are refusals | — | — | — |
 | ~~STOP 1~~ | ~~which save file, new IR vs extended window~~ **ANSWERED day 35** — source is **`piece-s26`** (NOT `-work`, which is behind by the whole playability pass — D75); option **(a) a NEW IR** for 81–110, db1 left approved and untouched | — | — | — |
 | ~~fifth sitting~~ | ~~THE BLAST-COLUMN EVALUATION~~ **DONE day 35 (Fable)** — 11 dictated columns measured in `piece-s26`; every named exception already true in the grouping; verdict = YES, one narrowing of one refusal. Full table + spec: running log, fifth sitting | — | — | — |
-| **M2 — NEXT** | AMEND `notate_block` per the fifth-sitting spec (running log): staccato legal in a block (draws itself — registry dotted 16th, no bar); `spanFor` wanted-set = ring members only; emit `--ringFromBrick` only when ring members exist; all-staccato block = verify-don't-build; ask-assertion split (ring: n/n bars = brick · staccato: nh-unit, zero bars); unknown technique still refused; `set_brick --technique any`. Extend `test_notate_block` (golden untouched; add a mixed and an all-staccato case from s26) | Opus (written spec) | **clear before it** (Fable analysis done — this is the boundary) | battery green incl. new cases; db1 untouched |
-| **P** | BUILD THE 81–111 PAGE: 7× `set_brick` on `piece-s26` (86.58→0.99 · 90.98→0.40 · 94.95→0.41 · 101.6→0.40 · 102.42→0.35 · 104.17→0.41 · 105.64→4.995 — dictated shortest rule; 105.64 is the dictated EXTEND to 110.62), then `notate_section --score piece-s26 --w0 81 --w1 111 --parts 0-9 --profile section1 --id <new-id> --bricks --bracketsAbove --label "INT2 81-111"` (**w1 111, not 110** — the 105.63 ring runs to 110.621), then `notate_block` on all 11 columns. **Expect 11 of 13 groups machine-generated; only cg001 @88.616 + cg007 @98.988 (spread clusters, figure process) stay composer work.** Batteries, then **STOP 2: the composer's eye; nothing folds into db1 unapproved.** Owed from them first: the `<new-id>` and label (names, not derivations) | Opus (written spec) | no (same task as M2) | the page exists, 11 columns drawn, composer has looked |
+| ~~M2~~ | ~~AMEND `notate_block` for mixed/all-staccato blocks~~ **DONE day 35 (Opus)** — ring vs self-drawing partition; `spanFor` wanted-set = ring only; all-staccato → VERIFY not build; ask-assertion split; unknown technique still refused. **Battery 64/64** (was 44), golden still identical to db1. Also caught a regression the spec did not foresee: **"a block is one instant" was never asserted** — the 159-note cloud (uniform brick, 153 onsets over 4.1 s) had only ever been refused for its technique. Threshold now derived from the material. `set_brick --technique any` + `--why` + the sound line MEASURED (false for the ord family, D9) | — | — | — |
+| ~~P~~ | ~~BUILD THE 81–111 PAGE~~ **DONE day 35 (Opus)** — **`int2b1` "INT2 BLASTS — 81-111 s"**; 7× `set_brick` to the dictated shortest rule then **11 notate_block runs: 8 built (47 ring bars), 3 verified-not-built**. Every dictated exception held with no code for it. Verified in the running app (14 bars at 84.3+2.5; 8 bars @4.995 reaching 110.621). Eleven batteries green; db1 byte-identical | — | — | — |
+| **STOP 2 — NOW** | **THE COMPOSER'S EYE ON `int2b1`.** `node score/server.js` → notation app → pick **INT2 BLASTS — 81-111 s**. **Nothing folds into db1 without their approval.** Three things owed back from them: **(1)** veto or keep the id/label `int2b1` (a rename is proven twice, D70); **(2)** the **T1 breath question at 95.89** — the long tone is written to 99.32 and T1 attacks again at 99.46, 0.14 s against the 0.5 s standard: shorten the column, move the 99.46 staccato, or accept as written; **(3)** whether the two spread clusters (cg001 @88.616, cg007 @98.988) get the figure process next | Fable (verdicts) | clear before the next build | composer has looked and answered |
 | N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
@@ -203,7 +186,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
 | **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score). **Day 31:** step **2b · COLLAPSE** re-seats a whole gesture when nobody is free (`--noCollapse` off); notes inside any IR's `--cluster` are **FROZEN** and the report says how many (`--refigure` lifts it, and the figures then need rebuilding); "UNRESOLVED" reads **"AT THE FLOOR"** once a gesture has been re-seated |
-| **notate a BLOCK (day 35 — the generator)** | `node tools/notate_block.js --score <save> --group <id> [--ir db1] [--apply]` — a block = one instant, one uniform drawn brick, every part (a struck blast or a held long tone). Reads the group, derives the brick, decides **fork-vs-direct from the target IR window** (refuses with both commands printed when the block is outside it), emits `--ringFromBrick`, rebuilds from the IR own `provenance.build`, then **asserts and proves**: the device-gap assert (D72) + confinement (D73 — everything that moved belongs to this block, nothing else on the page did) + the bars measured against the brick. **Snapshots the IR and byte-restores it if any of that fails.** Idempotent |
+| **notate a BLOCK (day 35 — the generator)** | `node tools/notate_block.js --score <save> --group <id> [--ir db1] [--apply]` — a block = ONE INSTANT and ONE uniform drawn brick (a struck blast or a held long tone). **Day 35 fifth/sixth sitting:** a block may be MIXED — RING members (fp/cuivre/ord) take the written bar, SELF-DRAWING members (staccato) are left alone because the registry already draws them whole; an unknown technique still REFUSES. A block with no ring members is **VERIFIED, not built** (heads present, zero bars, nothing written). **"One instant" is now asserted**: attacks spread wider than the notes are long are refused as a gesture, with a pointer to `pattern_analyze`. Reads the group, derives the brick, decides **fork-vs-direct from the target IR window** (refuses with both commands printed when the block is outside it), emits `--ringFromBrick`, rebuilds from the IR own `provenance.build`, then **asserts and proves**: the device-gap assert (D72) + confinement (D73 — everything that moved belongs to this block, nothing else on the page did) + the bars measured against the brick. **Snapshots the IR and byte-restores it if any of that fails.** Idempotent |
+| **normalise a whole COLUMN's written lengths** | `node tools/set_brick.js --score <save> --group <id> --brick <s> --technique any --why "<reason>" [--apply]` — **`--technique any`** (or `a,b`) is day 35: the composer's blast columns are MIXED, and their instruction is about the column, not a technique. `--why` puts the real reason in the ARCHIVE_AMENDMENTS line. **The "sound is unaffected" line is MEASURED, not recited** — true for a fixed one-shot (D51, sample length), FALSE for the ORD family, whose IR duration IS the drawn length (D9) |
 | **find the blocks in a score** | `node tools/notate_block.js --score <save> --list` — every group with its shape; the ones marked `BLOCK` are what the generator handles. This is step 1 of the old seven-step hand process |
 | **prove a page did not move** | `node tools/prove_unmoved.js --before <path> --after <ir-id\|path> [--expect-added N]` — the day-34 fold case: compare a page against a version of itself from git or an archive. `notate_block` calls the same library internally, so a generated rebuild proves itself without anyone remembering this |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |

@@ -1761,3 +1761,48 @@ decide, the settled registry turned out to already hold the decision, and the am
 a narrowing with the unknown-technique case still refused. A refusal that names its
 question gets answered; a refusal that just says no gets deleted. That is the difference
 between guardrails that accumulate knowledge and guardrails that accumulate exceptions.
+
+---
+
+## Day 35, sixth sitting — the guard that passed for the wrong reason
+
+**The amendment was a narrowing of one refusal, and the battery found something nobody
+had specified.** `notate_block` had always defined a block as *one instant, one uniform
+brick* — the phrase is in its own `--list` header. Only half of that was ever enforced.
+The 159-note CLOUD02-I cloud has a **perfectly uniform 0.05 s brick** and **153 distinct
+onsets spread over 4.138 s**, and the tool had refused it every time — for its
+**technique**, because staccato had no ring bar. The moment staccato became legal, the
+cloud sailed into the new verify path and passed.
+
+**The generalisation worth keeping: a guard that passes for the wrong reason is
+indistinguishable from a guard that works, right up until you change something next to
+it.** The refusal had never been wrong, so nothing pointed at it. It was load-bearing by
+accident, and the only thing that revealed it was a test that asserted the *reason* —
+"refused for being spread, not for its technique" — rather than the exit code. This is
+the same shape as the day-34 approved-span gate, which reported green while asserting
+nothing after its fork was pruned. Twice now in three days, in the same codebase: **the
+failure mode is not a guard that breaks, it is a guard whose reason has quietly moved.**
+
+**The fix took its threshold from the material rather than picking one.** A constant
+would have needed defending forever; instead: *if the attacks are spread wider than the
+notes are long, they cannot be one struck sonority*. It scales itself, and it explains
+itself in the refusal text. Same instinct as deriving the device-dependency table from
+`layout.js` instead of hardcoding the D72 pair — **prefer the rule that can still be
+right about cases nobody has seen.**
+
+**A second, smaller instance the same sitting.** `set_brick` had always printed *"sound
+is unaffected — D51: a fixed one-shot lasts its sample length"*. True — for staccato,
+cuivré and fortepiano. The new `--technique any` made the tool able to reach the ORD
+family for the first time, **whose IR duration IS the drawn length (D9)**. One flag
+turned a standing true sentence into a claim that could be false, in a line that gets
+pasted into the amendments ledger. It is now measured per run. **Widening a tool's reach
+does not just add cases; it can silently invalidate the sentences the tool was already
+saying about itself.**
+
+**And D73 arrived inside a single block for the first time.** `grp-s018-1056` came out
+**ADDED 6 / CHANGED 2** — six ord notes with no `ringBar` to size, two cuivré already
+drawing one. Until now the two diff shapes had only ever appeared in *different* blocks,
+which is precisely what made "ADDED n / CHANGED 0" look like a plausible success
+condition when the proof was hand-rolled. One command, one column, both shapes at once.
+**The counting proof would have refused the composer's own instruction here** — not in
+some hypothetical future case, but in the eleventh of eleven columns they dictated.

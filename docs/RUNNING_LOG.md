@@ -12156,3 +12156,117 @@ machine was built from.
 the 81–111 page. **Stated for veto, not asked:** 86.58 → 0.99 and 101.6 → 0.40 apply
 the dictated shortest rule to the two ragged columns of the FIRST list, which the
 dictation covered only by "same thing."
+
+---
+
+#### Day 35 (sixth sitting, Opus 5) — M2 BUILT AND THE INT2 BLASTS PAGE MADE: eleven columns, eight built and three verified
+
+*Composer: "good to run" — M2 then P, as specced in the fifth sitting.*
+
+**M2 — the amendment, and the regression it uncovered.**
+
+The spec was a narrowing of one refusal. It landed as written, plus one thing nobody
+had asked for and the battery found:
+
+- **`notate_block` partitions** RING (fortepiano/cuivre/ord) from SELF-DRAWING
+  (staccato); an unknown technique still refuses, so the T3 trap stays shut. Measured
+  first, on the real material at 94.942 T1: brick · goline · gc · notehead(0.844) ·
+  stem · flag-down16 · dot · accidental · dyn — **and no ringbar**. The registry had
+  already answered the question the refusal was asking.
+- **`spanFor`'s wanted-set is the ring members only.** Before, it demanded the span
+  select *every* note in the block, which refused every mixed column outright.
+- **No ring members → VERIFY, don't build.** It lays the page out and reads back, per
+  member, that a head is drawn and no bar is — then writes nothing. Saying "done"
+  without looking would have been the T3 trap wearing the other hat.
+- **The ask-assertion splits in two.** Ring: n/n carry one bar equal to the drawn
+  brick. Self-drawing: heads present, zero bars, **and zero items moved by the
+  rebuild**. A single combined count would pass a mixed column whose staccato notes
+  had quietly grown bars.
+
+**THE REGRESSION THE BATTERY CAUGHT — "a block is one instant" was never asserted.**
+`grp-cloud02-i-01` is a 159-note cloud with a **perfectly uniform 0.05 s brick** and
+**153 distinct onsets over 4.138 s**. It had only ever been turned away for its
+*technique*; the moment staccato became legal it sailed straight into verify mode and
+passed. Half the tool's own definition ("BLOCK = one instant, one uniform brick") had
+been enforced by accident. **The threshold is taken from the material, not picked:** if
+the attacks are spread wider than the notes are long, they cannot be one struck
+sonority — refuse, and point at `pattern_analyze`. *This is the same lesson as the
+golden, one turn down: a guard that passes for the wrong reason is indistinguishable
+from a guard that works, until you change something next to it.*
+
+**`set_brick`:** `--technique any|a,b` (the composer's columns are mixed and their
+instruction is about the column, not a technique); `--why` so the ARCHIVE_AMENDMENTS
+line states the real reason instead of reciting day 25's; and **the "sound is
+unaffected" line is now MEASURED, not recited** — true for a fixed one-shot (D51,
+sample length), **false for the ORD family, whose IR duration IS the drawn length
+(D9)**. With `--technique any` able to reach ord for the first time, that line was one
+run away from being a false claim in a ledger.
+
+**Battery 64/64** (was 44), golden still item-for-item identical to db1. Section 7 runs
+on a **self-contained temp fixture**, not on whichever save file happens to have been
+normalised — a battery that depended on that edit would pass or fail on the state of a
+file it does not own.
+
+---
+
+**P — the page. `int2b1`, "INT2 BLASTS — 81-111 s".** *(The id and label were the
+composer's to name and they had said "good to run"; both are chosen from the composer's
+own vocabulary — PLANNER line 134, **"INT2 blasts" is final (composer 2026-08-14)** —
+and 81.73 is their own noted cursor time from placing this material. **A rename is
+proven twice (D70); say the word.**)*
+
+**Seven `set_brick` runs to the dictated shortest rule**, then eleven `notate_block`
+runs. Playability **hard 2 → 2 · soft 24 → 24** on every one, and **nothing is heard
+differently**: every note moved is a fixed one-shot, and the six ord notes at 105.63
+were already 4.995 s.
+
+| column | machine | result |
+|---|---|---|
+| 81.748 | built | 10 ord bars @ 2.172 s — **ADDED 10** |
+| 84.608 | built | 1 cuivre bar @ 0.35 · 9 staccato left alone |
+| 85.377 | built | 3 cuivre bars @ 0.35 · 3 staccato left alone · **3 warnings GONE** |
+| 86.580 | built | 10 fp/cuivre bars @ 0.99 — CHANGED 9 |
+| 90.976 | built | 2 cuivre bars @ 0.40 · 6 staccato left alone |
+| 94.942 | **verified** | 9/9 heads, 0 bars — nothing to write |
+| 95.885 | built | 7 ord bars @ 3.435 — ADDED 7 |
+| 101.621 | **verified** | 10/10 heads, 0 bars |
+| 102.441 | built | 2 cuivre bars @ 0.35 · 8 staccato left alone |
+| 104.183 | **verified** | 8/8 heads, 0 bars |
+| 105.626 | built | 8 bars @ 4.995 — **ADDED 6 / CHANGED 2** |
+
+**EVERY DICTATED EXCEPTION HELD WITHOUT A LINE OF CODE FOR IT.** The four long tones the
+composer called *"separate"* — T6 @90.519, T7 @94.627, T4 @98.988, T10 @103.096 — are
+cg001/cg007 members, and they kept their **own** sample-length bars (1.87, 1.43, 1.43,
+1.87 s) while the columns beside them went uniform. The score's own grouping was the
+exclusion syntax.
+
+**D73 INSIDE A SINGLE BLOCK, for the first time.** `grp-s018-1056` came out **ADDED 6 /
+CHANGED 2**: the six ord notes had no `ringBar` to size, the two cuivre already drew
+one. Until now the two diff shapes had only ever been seen in *different* blocks (the
+48.05 long tone vs the 40.93 blast) — which is what made "ADDED n / CHANGED 0" look like
+a candidate success condition in the first place. One command, one column, both shapes.
+**A count would have refused the composer's own instruction here.**
+
+**VERIFIED IN THE RUNNING APP** (AI_METHODOLOGY: a confidence claim must be, because the
+composer plans around it). Picked `int2b1` in the notation app and measured the rendered
+SVG, not the model:
+- window 84.3 +2.5 s → **exactly 14 black ring-bar rects**: 1 at 84.608, 3 at 85.377,
+  10 at 86.58. The nine staccato notes at 84.608 draw **none**. (Not 23.)
+- window 105.3 +6 s → **8 bars, every one 4.995 s, on 8 staves**, starting 105.626.
+  **105.626 + 4.995 = 110.621 — the composer's 110.62.** T3 and T4, which had been cut
+  to their sample length, now reach it with the other six.
+
+**ONE WARNING, DELIBERATELY LEFT FOR THE COMPOSER'S EYE — a real musical question, not
+a defect.** On **T1**, the 95.885 long tone is written to **99.32**, and **T1 attacks
+again at 99.46** — **0.14 s** against the 0.5 s breath standard. The page says *"drawn
+as asked"*, which is correct: the composer's shortest-in-the-stack rule produced it. It
+is a **notation/breath** question, not a playability conflict — the playability model is
+attack-to-attack and reports none (51/51 pass). **Three ways out, all composer calls:**
+shorten that column, move the 99.46 staccato, or accept it as written. *Not fixed,
+because which one is a musical decision.*
+
+**Eleven batteries green · `db1.ir.json` byte-identical · nothing folded into db1.**
+
+**11 of 13 groups in 81–110 are now machine-generated.** The two that remain are the
+spread clusters `grp-cg001-886` @88.616 and `grp-cg007-989` @98.988 — multi-onset
+gestures needing the figure process, which is the composer's job.
