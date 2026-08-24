@@ -40,6 +40,12 @@ function extent(it) {
   if (it.k === 'stem') return { y: (Math.abs(it.yA) > Math.abs(it.yB) ? it.yA : it.yB), r: 0 };
   if (it.k === 'text') return { y: it.ySs, r: 0.7 };
   if (it.k === 'beam') return it.tips && it.tips.length ? { y: it.tips[0].ySs, r: 0.5 } : null;
+  // day 31: brackets and the dyn/accent glyph rows were invisible to this
+  // detector — the CLOUD02-D repair pass moves them to whichever side has
+  // room, so their lane-edge behaviour must be measured, not assumed.
+  if (it.k === 'tuplet') return { y: it.ySs, r: 0.9 };   // line + hook/numeral either way
+  if (it.k === 'glyph' && /^dyn-/.test(String(it.g))) { const gm = G.dynamic[String(it.g).slice(4)]; return { y: it.ySs, r: gm ? gm.hSs / 2 : 0.5 }; }
+  if (it.k === 'glyph' && /^artic-/.test(String(it.g))) { const gm = G.articulation[String(it.g).slice(6)]; return { y: it.ySs, r: gm ? gm.hSs / 2 : 0.42 }; }
   return null;
 }
 

@@ -1099,20 +1099,85 @@
             // floor wins and the stack overflows toward the lane edge —
             // protrusion is tier-3, staff invasion is not.
             if (h > 0) { const lim = CSg.laneHalfSs - h; yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim); }
+            // ── THE WIDE-REGISTER REPAIR PASS (day 31, composer with the
+            // screenshots: "there needs to be a set of rules that lets the
+            // beams and the stems be long enough and is able to switch sides
+            // with brackets or accents and might even have brackets and
+            // accents be on opposite sides"). The classic layout above welds
+            // all furniture to the beam side and, when a gesture's register is
+            // wide, the lane cannot hold head + stem + accents + bracket +
+            // dynamics on one side — the clamp then shortened stems into
+            // nothing and slid beams over noteheads. The repair extends the
+            // day-22 sideWithRoom principle (the one-shot chain already
+            // switches sides by room) to beamed-group furniture:
+            //
+            //   RULE 1  the beam sits beyond the farthest head on its side by
+            //           beamStemSs (2.5 — just under 2.61, the smallest stem
+            //           on any APPROVED page, so the trigger provably never
+            //           fires on approved material; measured day 31).
+            //   RULE 2  furniture rows keep the day-24 order (accents ·
+            //           bracket · dynamics, outward) and fill the BEAM side
+            //           while rows fit inside the lane; a row that does not
+            //           fit flips to the HEAD side, stacked outward from the
+            //           gesture's measured head ink (never inside the staff).
+            //   RULE 3  a flipped bracket draws with its hooks toward the
+            //           notes (the side flip flips the hook direction).
+            //
+            // The pass runs ONLY when the classic result leaves a stem under
+            // beamStemSs — approved pages never trigger and are untouched.
             {
-              // (day 31, second look: an earlier draft also floored at the staff
-              // edge, but the APPROVED day-29/30 pages already compress stem-up
-              // beams to 2.15 with the secondary dipping inside the staff — the
-              // composer accepted that look, so the staff edge is not a bound.
-              // What was actually broken on T2 was heads AT and PAST the beam:
-              // the head clause below is the whole rule.)
-              const minStem = o.minBeamStemSs != null ? o.minBeamStemSs : 1.0;
-              if (g.dir === 'up') {
-                const hiHead = Math.max(...g.tips.map(t => t.stem ? t.stem.yA : -Infinity));
-                if (isFinite(hiHead)) yLevel = Math.max(yLevel, hiHead + minStem);
-              } else {
-                const loHead = Math.min(...g.tips.map(t => t.stem ? t.stem.yA : Infinity));
-                if (isFinite(loHead)) yLevel = Math.min(yLevel, loHead - minStem);
+              const stemPref = o.beamStemSs != null ? o.beamStemSs : 2.5;
+              // row joints in the repair stack use THE MEDIUM GAP (day 31,
+              // composer named the three-tier system: 0.15 tight · 0.30
+              // medium · 0.45 standard; registry gapMediumSs) — the repair is
+              // where vertical room is scarce, and it never fires on approved
+              // pages, so the classic 0.45 stacks stay as approved.
+              const gapM = o.gapMediumSs != null ? o.gapMediumSs : 0.3;
+              const yAs = g.tips.filter(t => t.stem).map(t => t.stem.yA);
+              const worst = yAs.length ? (g.dir === 'up'
+                ? yLevel - Math.max(...yAs) : Math.min(...yAs) - yLevel) : Infinity;
+              if (worst < stemPref - 1e-9) {
+                // RULE 1 — the beam clears every head
+                yLevel = g.dir === 'up'
+                  ? Math.max(yLevel, Math.max(...yAs) + stemPref)
+                  : Math.min(yLevel, Math.min(...yAs) - stemPref);
+                // measured head-side ink extent (head + accidental + dot),
+                // never inside the staff band
+                const headIn = g.dir === 'up'
+                  ? Math.min(-2, ...g.tips.map(t => t.headBotYSs != null ? t.headBotYSs : Infinity))
+                  : Math.max(2, ...g.tips.map(t => t.headTopYSs != null ? t.headTopYSs : -Infinity));
+                // RULE 2 — assign rows to sides by room
+                const lane = CSg.laneHalfSs;
+                const capAbove = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
+                const rows = [];
+                if (g.artics && g.artics.length) {
+                  const aH = Math.max(...g.artics.map(a => (glyphs.articulation[a.kind] || { hSs: 0 }).hSs));
+                  rows.push({ kind: 'artic', need: gapM + aH, centreOff: gapM + aH / 2 });
+                }
+                if (g.hasTuplet) rows.push({ kind: 'bracket', need: TPg.paddingSs + TPg.hookLengthSs + capAbove, lineOff: TPg.paddingSs + TPg.hookLengthSs });
+                if (g.dyns && g.dyns.length) {
+                  const dH = Math.max(...g.dyns.map(d => d.hSs));
+                  rows.push({ kind: 'dyn', need: gapM + dH, centreOff: gapM + dH / 2 });
+                }
+                let usedBeam = 0, usedHead = 0;
+                const sgn = g.dir === 'up' ? 1 : -1;      // beam side points this way
+                for (const r of rows) {
+                  const beamBase = Math.abs(yLevel) + usedBeam;
+                  if (beamBase + r.need <= lane + 1e-9) {  // fits on the beam side
+                    const y0 = sgn * beamBase;
+                    if (r.kind === 'artic') st.articY = y0 + sgn * r.centreOff;
+                    if (r.kind === 'bracket') { st.bracketY = y0 + sgn * r.lineOff; st.bracketDirDraw = g.dir; }
+                    if (r.kind === 'dyn') st.dynY = y0 + sgn * r.centreOff;
+                    usedBeam += r.need;
+                  } else {                                  // flips to the head side
+                    const y0 = headIn - sgn * usedHead;     // head side points the other way
+                    if (r.kind === 'artic') st.articY = y0 - sgn * r.centreOff;
+                    if (r.kind === 'bracket') { st.bracketY = y0 - sgn * r.lineOff; st.bracketDirDraw = g.dir === 'up' ? 'down' : 'up'; }
+                    if (r.kind === 'dyn') st.dynY = y0 - sgn * r.centreOff;
+                    usedHead += r.need;
+                  }
+                }
+                st.repaired = true;
               }
             }
           }
@@ -1274,7 +1339,8 @@
           for (const a of g.artics) {
             const aG = glyphs.articulation && glyphs.articulation[a.kind];
             if (!aG) { warnings.push('articulation "' + a.kind + '" has no glyph — not drawn'); continue; }
-            const y = g.dir === 'up' ? beamTop + g.stack.articCentre : beamTop - g.stack.articCentre;
+            const y = g.stack.articY != null ? g.stack.articY
+              : (g.dir === 'up' ? beamTop + g.stack.articCentre : beamTop - g.stack.articCentre);
             items.push({ k: 'glyph', g: 'artic-' + a.kind, t: a.t, dxSs: a.dxSs, ySs: y, align: 'center' });
           }
         }
@@ -1282,7 +1348,9 @@
         // line, centred on its head column — consecutive dynamics read as a
         // phrase, not as per-note chrome. Above the accents when both exist.
         if (g.dyns && g.dyns.length) {
-          if (g.dir === 'up') {
+          if (g.stack.dynY != null) {
+            for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: g.stack.dynY, align: 'center' });
+          } else if (g.dir === 'up') {
             const base = g.tips[0].ySs;
             const y = base + g.stack.dynCentre;
             for (const d of g.dyns) items.push({ k: 'glyph', g: 'dyn-' + d.key, t: d.t, dxSs: d.dxSs, ySs: y, align: 'center' });
@@ -1357,8 +1425,13 @@
           if (!own) for (const gg of beamGroups.values()) if (gg.gridId === cid && gg.hasTuplet) { own = gg; break; }
           const beamTop = own ? own.tips[0].ySs : (beamGroups.size ? [...beamGroups.values()][0].tips[0].ySs : 5.22);
           const lineOff = own && own.stack && own.stack.bracketLine != null ? own.stack.bracketLine : (TP.paddingSs + TP.hookLengthSs);
-          const yB = tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff);
-          items.push({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: tp.dir, text: tp.text || (tp.num + ':' + tp.den), group: tk });
+          // day 31: a repaired group states the bracket's ABSOLUTE line and the
+          // hook direction (a flipped bracket hooks toward the notes)
+          const rep = own && own.stack && own.stack.bracketY != null;
+          const yB = rep ? own.stack.bracketY
+            : (tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff));
+          const dDraw = rep ? own.stack.bracketDirDraw : tp.dir;
+          items.push({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: dDraw, text: tp.text || (tp.num + ':' + tp.den), group: tk });
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;

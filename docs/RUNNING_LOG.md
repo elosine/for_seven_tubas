@@ -11004,3 +11004,32 @@ beam)** — both verified pre-existing at git HEAD, both in NOTATION_POLISH
 **Visible change for the composer's next look:** on stem-down gestures the
 band marks now sit ABOVE the staff (T1's stem-up gestures and everything
 before 40.4 s are untouched).
+
+
+#### Day 31 — THE MEDIUM GAP is named (composer, mid-repair-review)
+
+**Composer:** *"Just to say, there is also the smaller vertical gap which we use
+for the staccato dot. And there was meant to be a medium one too between the
+two. which we haven't come up with, but we can."*
+
+Inventory of the registry answered it: the three-tier system was already
+half-latent — **0.15 `tightGapSs`** (day 23, the dot + dyn-stem standard) ·
+**0.45 `stackGapSs`** (session 77) · and an unnamed **0.3** living since day 23
+as `chainAboveGapSs`, the under-flag special case. The medium tier is the
+midpoint, and one corner of the machine had already found the number.
+
+**Named: `gapMediumSs: 0.3`** (registry, with the composer's words in the note).
+**Used: the day-31 repair pass's row joints** (accents/dyn rows in the flipped
+stacks) — the one place vertical room is scarce, and it never fires on approved
+pages, so every approved 0.45 stack is untouched. Measured effect on the
+repaired parts: outer ink down 0.15–0.30 ss (T3 7.40 → 7.10 by the halo
+measure).
+
+**And the protrusion detector's blind spot, closed:** `extent()` never modelled
+tuplet brackets or dyn/accent glyphs — precisely the ink the repair pass now
+moves. Extended (bracket r 0.9 either side of the line; dyn/artic by glyph
+half-height). Verdict on the fork: **zero lane crossings in 42–48.1**; on
+approved db1 the same 17 pre-existing accidental/dot items and nothing new.
+
+The parked cuivré lift (NITS day 30) now has its constant waiting —
+`gapMediumSs` — and stays parked at the composer's word. Ten batteries green.

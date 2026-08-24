@@ -410,3 +410,10 @@ rendering-environment difference worth understanding).
   cuivré baselines to it. Code: the techText block in `notation/lib/layout.js`
   (inside the nh-unit); the lane-line clearance test should keep T8 at its tag-row
   fallback. One constant + one line once "standard" is named.
+  **Day 31 UPDATE: the constant now EXISTS — `gapMediumSs: 0.3` (registry), named
+  when the composer restated the three-tier system during the CLOUD02-D vertical-
+  column work ("there was meant to be a medium one too between the two"); 0.30 is
+  the midpoint and the value the under-flag chain already used (chainAboveGapSs).
+  The repair pass uses it for row joints. THE CUIVRÉ LIFT ITSELF STAYS PARKED at
+  the composer's word — when they say go, it is one line: the techText baseline
+  gap 0.15 → gapMediumSs.**
