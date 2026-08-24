@@ -138,6 +138,13 @@ at ♩=115). Groups identical with tuplets off (cuts 2,6,9,11,13,15 both ways).*
 | 10.2 | dynamics | ambient mf; accents on the seven above-ambient f's; **fff pair [14 15]** = beam-group start two bands up → member 14 marked fff (T1 member-15 precedent), member 16 marked f on the fall-back, 17 unmarked | the rule's least-certain output — flagged |
 | 10.3 | OPEN for the read | **three straddles** (6:4 over 6–7, 11–13, 15–17 — call A(a) live) · ratio tie (cut after 2 vs after 4, flips at 1.230) · near-ties notes 6, 9, 11 · note 7 possible pickup into g3 | composer's verdicts become rows here |
 
+## D-log 11 · T4 read, first round — day 30: bracket-aligned groups on the first stretch; THE COUNTING-VS-PHRASE QUESTION named
+
+| # | place | decision | composer's words | notes |
+|---|---|---|---|---|
+| 11.1 | T4 first stretch (notes 3–9) | regrouped to the BRACKETS: [3 4 5] = the 5:4's own beam group · [6 7] = the 6:4's own · [8 r r 9] = the four 16th slots as their own (`--cuts 2,5,7,9,…`) | "starting with the five four let's group each together. So the five four is its own beaming group. Six four is its own beaming group and the four remaining… four sixteenths are its own beaming group" | bracket = beam group (rule cand. 9's ideal) chosen by the composer unprompted; **straddle #1 dissolved by the regrouping** — the seam moved to the bracket edge. The old pace-rule cuts 6 and 9 → 5, 7, 9 |
+| 11.2 | notes 10–13 (the second 5:4 + 6:4) | **OPEN — the question, not yet decided** | "the tension is between counting groups and phrase groups. …the second five four and six four, those are really a group of four notes. So if I group them by a five four beat and then a six four beat, it would look like one and three" | counting grouping here degenerates: the 5:4 holds ONE note (a beam group of one = flag, no beam). AI's offered resolution: **containment** — a bracket may sit strictly INSIDE a wider phrase beam; only the crossing garbles. Measured support for "four": internal gaps 241/236/197 ms, every pairwise ratio ≤ 1.22 < 1.25 — one pace pairwise; the 2+2 cut after 11 exists only through greedy band anchoring (band 0 anchored at 174 claims 197) |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)

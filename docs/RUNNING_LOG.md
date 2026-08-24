@@ -10268,3 +10268,38 @@ the seam after 11 · 6:4 on beat 7 = notes 15–17 over the seam after 15) — c
 A(a) live for the first time · the RATIO TIE (cut after 2 dissolves below
 paceRatio 1.230 → first group becomes [1–4]) · near-ties on notes 6, 9, 11 ·
 note 7 flagged as a possible PICKUP into group 3 · the fff-pair dynamics call.
+
+
+#### Day 30 — T4 read, first round: the brackets become the groups; the counting-vs-phrase tension gets its name
+
+Composer, on the page: *"starting with the five four let's group each together. So
+the five four is its own beaming group. Six four is its own beaming group and the
+four remaining… four sixteenths are its own beaming group."* Applied as hand cuts
+(`--cuts 2,5,7,9,11,13,15`): first stretch now [1 2] · [3 4 5] · [6 7] · [8 r r 9]
+— **bracket = beam group, and straddle #1 dissolved by the regrouping** (the seam
+moved to the bracket's edge; nothing was "fixed" in the tool). Eight groups, through
+on all; batteries green, `--validate` 24/25. Ledger D-log 11.
+
+Then the question (D-log 11.2, verbatim in the ledger): *"the tension is between
+counting groups and phrase groups… the second five four and six four, those are
+really a group of four notes. So if I group them by a five four beat and then a six
+four beat, it would look like one and three. Do you have any insight on this?"*
+
+**The AI's answer — containment, not identity:** beams carry PHRASE (D62), brackets
+carry COUNTING (D69); T3's "bracket = beam group" ideal (rule cand. 9) is the
+special case where the two coincide. The rule that generalises: **a bracket must
+not CROSS a beam-group boundary, but it may sit strictly INSIDE a wider beam
+group** — the straddle is the only garble. So the choice at each spot is
+bracket-aligned groups (shrink the beam to the count — what the composer just did
+on the first stretch) or a phrase beam swallowing the brackets whole (widen the
+beam past the count). For 10–13 the counting grouping also degenerates — the 5:4
+holds one note, and a beam group of one is a flag, not a beam (the segmenter's own
+MIN_FIGURE_NOTES floor). **And the measurement sides with the composer's four:**
+internal gaps 241/236/197 ms — every pairwise ratio ≤ 1.22, under the 1.25
+same-pace criterion — so the pace rule's own 2+2 (cut after 11) exists only through
+greedy band anchoring (band 0's 174 ms anchor claims the 197). Engraving precedent
+for two brackets under one beam is standard (Gould). Recommendation: beam 10–13 as
+ONE group, 5:4 and 6:4 inside it. The same choice recurs at beat 7 (straddle #3,
+notes 14–17), but there the gaps are 249 | 300 | 174 — NOT one pace — so the
+phrase-of-four has no measurement support and the options are bracket-aligned
+[15 16 17] (breaking the [14 15] pair) or acceptance.

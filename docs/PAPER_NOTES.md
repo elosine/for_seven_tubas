@@ -1400,3 +1400,44 @@ only the AI's is the question the discussion has to settle. *(AI's lean, stated 
 the discussion so it can be wrong on the record: the bracket is the message when a
 pace change falls INSIDE a beam group; when the pace change IS the beam break, the
 break is the message and the bracket is noise.)*
+
+---
+
+## Day 30 — T4: the composer names the axis ("counting groups and phrase groups"); the AI answers with containment
+
+**The composer, mid-read, unprompted and verbatim:** *"it looks like the tension is
+between counting groups and phrase groups. Like, for example, the second five four
+and six four, those are really a group of four notes. So if I group them by a five
+four beat and then a six four beat, it would look like one and three. Do you have
+any insight on this?"*
+
+This names, in two sentences, the axis the whole T4 straddle problem lives on — and
+it is the composer's own D62 semantics surfacing: beams were assigned PHRASE, rests
+the beat, the GC the launch; D69 later gave brackets the COUNTING message. Two
+marks, two jobs — and T4 is the part where the jobs part ways (T1/T3's seams
+happened to fall on beats, so identity looked like the rule).
+
+**The AI's answer, verbatim (stated as a rule candidate, not a decision):** "The
+rule that reconciles counting and phrase: a bracket must not CROSS a beam-group
+boundary — but it may sit strictly INSIDE a larger beam group. Containment, not
+identity. Bracket = beam group (T3's ideal) is the tightest case of containment;
+the phrase-beam-of-four with two brackets inside is the looser case, equally clean.
+What is forbidden is only the overlap — the straddle. The beam is free to say
+phrase; the brackets keep saying the count; neither lies."
+
+**And the measurement that sides with the composer's ear:** the four notes (10–13)
+have internal gaps 241 / 236 / 197 ms — every pairwise ratio ≤ 1.22, inside the
+1.25 same-pace criterion. The tool's 2+2 (cut after 11) exists only because greedy
+band anchoring lets the 174 ms anchor claim the 197 while 236 starts a new band —
+the third instance of a part's read finding the rule rather than the page (T1: the
+one-sided seam; T2: the ratio is not one number; T4: banding vs pairwise pace).
+Also structural, independent of taste: the counting grouping at the second 5:4
+degenerates to a one-note "group" — a flag, not a beam — the very thing
+MIN_FIGURE_NOTES exists to forbid.
+
+**For the paper:** the composer's first-stretch dictation ("the five four is its own
+beaming group…") and the 10–13 hesitation are ONE event seen twice — where bracket
+and phrase coincide the composer aligns them without comment; where they diverge
+the system's two grouping vocabularies become visible and get named. The notation
+system did not remove the grouping problem; it split it into two legible layers
+that can now disagree in public.
