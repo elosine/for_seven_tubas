@@ -12060,3 +12060,99 @@ The other eleven are short blasts and clusters needing the figure process (patte
 analyser + dictation rounds), which is the composer's job and a far bigger one. **The new
 page will therefore show two notated long tones and eleven groups as parachute bricks.
 That is correct output.**
+
+---
+
+#### Day 35 (fifth sitting, Fable 5) — THE COMPOSER DICTATES ELEVEN BLAST COLUMNS FROM MEMORY, AND THE SCORE CONFIRMS EVERY EXCEPTION
+
+**The ask (composer, dictating times from the composer score, s26):** *"these were unison
+blasts... can you look at them and then tell me if we can adapt the machine so it can
+generate these as well?"* — seven plain columns (81.73 · 84.6 · 85.36 · 86.58 · 95.87 ·
+101.6 · 105.6), then four with exceptions (90.98 · 94.95 · 102.42 · 104.17), each
+exception named from memory: which tuba is out, what nearby long tone is *"separate...
+not part of that unison chord blast."* The duration rule, dictated: *"find the shortest
+duration in that stack and then make that the duration of the blast for everyone with the
+exceptions I listed"* — except 105.64, where T3/T4 are to be **extended** to *"the full
+extended duration that all the rest of the tubas have, the one that extends to 110.62."*
+(*"quiver ray"* in the transcript = **cuivré**.)
+
+**MEASURED FIRST — and the dictation checks out to the hundredth of a second.** Every
+named exception is ALREADY TRUE in the score's own grouping; nothing needs regrouping:
+
+| dictated | group | notes | techniques | bricks | the named exceptions, verified |
+|---|---|---|---|---|---|
+| 81.73 | `grp-s009-817` | 10 | ord | uniform 2.172 | — (planned long tone) |
+| 84.6 | `grp-s035-846` | 10 | 9 stacc + 1 cuivre | uniform 0.35 | — |
+| 85.36 | `grp-s047-853` | 6 | 3 cuivre + 3 stacc | uniform 0.35 | T1–T4 not in the material |
+| 86.58 | `grp-s010-865` | 10 | 8 fp + 2 cuivre | 0.99–1.97 | — |
+| 90.98 | `grp-s017-909` | 8 | 6 stacc + 2 cuivre | 0.40–1.25 | no T1 (empty ✓); T6 long tone @90.519 is in `grp-cg001-886` ✓ |
+| 94.95 | `grp-s008-949` | 9 | staccato | 0.41–0.51 | no T7 — its long tone @94.627 is in cg001 ✓ ("the other nine" ✓) |
+| 95.87 | `grp-s005-958` | 7 | ord | uniform 3.435 | no T4 — "creeps in with its own at 99" = @98.988 in `grp-cg007-989` ✓ (also no T7 — still holding to 96.057 ✓ — and no T9) |
+| 101.6 | `grp-s032-1016` | 10 | staccato | 0.40–0.53 | — |
+| 102.42 | `grp-s023-1024` | 10 | 8 stacc + 2 cuivre | 0.35–1.28 | "the tuba ten block at 103.07" = T10 fp @103.096, in cg007, NOT in this group ✓ |
+| 104.17 | `grp-s008-1041` | 8 | staccato | 0.41–0.51 | no T10 (holding 103.096→104.966 ✓) · no T4 (own blast @104.409, in cg007 ✓) |
+| 105.64 | `grp-s018-1056` | 8 | 6 ord + 2 cuivre | 1.12 / 1.25 / 4.995 | no T1/T2 (empty ✓); T5–T10 all end **110.621** ✓; T3/T4 cuivre short = sample lengths ✓ |
+
+**THE VERDICT: YES — one amendment to `notate_block`, and it is a narrowing of one
+refusal, not a new machine.** The evaluation that gets there, mechanism by mechanism:
+
+- **The exclusions cost nothing.** The machine reads a GROUP; a block was never required
+  to fill all ten parts (6- and 7-note groups already list as BLOCK). The composer's
+  grouping already excludes every part they named. Zero code.
+- **The duration rule costs nothing.** `set_brick --group --brick <s>` is the dictated
+  rule made explicit and ledgered; the machine's non-uniform refusal already prints that
+  command. Values, derived by the composer's shortest rule: 86.58 → **0.99** · 90.98 →
+  **0.40** · 94.95 → **0.41** · 101.6 → **0.40** · 102.42 → **0.35** · 104.17 → **0.41**;
+  and 105.64 → **4.995** (the dictated EXTEND: 105.626 + 4.995 = 110.621, the composer's
+  110.62). Checked: extending T3/T4 to 110.62 collides with nothing (their next attack is
+  ≥113.54). One convenience: `set_brick` filters ONE technique per run (default
+  staccato), so mixed columns take two runs — add `--technique any`.
+- **THE FINDING OF THE SITTING: a staccato blast draws itself.** `layout.js` draws every
+  un-figured event's full registry device (line ~360, no cluster gate): staccato = small
+  filled head + 16th flag + dot — **no duration ink, by the settled day-23 standard**.
+  That is the approved CLOUD02 look. So the machine's day-35 refusal — *"decide what
+  those parts should draw before running this"* — is ANSWERED BY THE REGISTRY: staccato
+  in a block draws its dotted 16th and takes no bar. The refusal was right to exist (T3:
+  don't silently skip) and is now right to narrow (skipping staccato is the standard,
+  not an accident).
+- **`--ringFromBrick` already does the right thing on a mixed column** — notate_section
+  filters the span to fortepiano/cuivre/ord (line ~1047), so the flag reaches exactly
+  the cuivre members and no staccato. No notate_section change.
+- **Span collisions: none.** Checked every column's tenth-of-a-second against its
+  neighbours — the near misses (T6 @90.519 vs the 90.976 column; T10 @103.096 vs the
+  102.441 column) all fall outside the tenth. `spanFor` re-verifies mechanically at
+  build time anyway.
+- **What set_brick does NOT do (D51, stated so nobody expects otherwise):** IR event
+  duration = SAMPLE length, so normalizing score bricks changes the notation page only
+  through `--ringFromBrick` (which reads the score brick at build time). For pure-staccato
+  columns the normalization is a composer-score + playability truth fix; the notation
+  page never drew staccato length ink in the first place.
+
+**THE AMENDMENT SPEC (for an Opus session; notate_block.js only):**
+1. Partition block notes into RING members (fp/cuivre/ord) and STACCATO members. Any
+   OTHER technique still refuses (the T3 trap stays for the unknown).
+2. `spanFor`'s wanted-set = the ring members only (today it demands the span select ALL
+   notes, which fails every mixed column).
+3. Emit `--ringFromBrick` only when ring members exist. All-staccato block → nothing to
+   emit: the machine VERIFIES instead of builds (brick uniform in the score; each
+   staccato member's nh-unit present on the laid-out page; zero ringbar items on them;
+   page otherwise unmoved).
+4. The ask-assertion becomes the split: ring members n/n carry one bar = the drawn
+   brick; staccato members carry head+flag+dot and NO bar. Confinement (D73) unchanged.
+5. `set_brick --technique any` (or comma list). Everything else stands.
+
+**Window correction to the planned step P:** `--w1 110` → **`--w1 111`** — the 105.63
+column's written ring runs to 110.621, past the planned page edge.
+
+**THE EXPECTATION REVISED — the headline number.** The fourth-sitting expectation was
+"2 long tones notated, 11 groups as parachute bricks." After this amendment: **11 of the
+13 groups in 81–110 are machine-generated**; only the two spread cluster gestures
+(`grp-cg001-886` @88.616, `grp-cg007-989` @98.988 — multi-onset, the figure process)
+remain composer work. The composer's day-35 recurrence claim — the fact that reversed
+the Fable verdict — has now materialized as nine more instances beyond the n=2 the
+machine was built from.
+
+**Still owed by the composer (names, not derivations):** the `<new-id>` and label for
+the 81–111 page. **Stated for veto, not asked:** 86.58 → 0.99 and 101.6 → 0.40 apply
+the dictated shortest rule to the two ragged columns of the FIRST list, which the
+dictation covered only by "same thing."

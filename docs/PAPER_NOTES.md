@@ -1727,3 +1727,37 @@ The hand-written version would have been correct on the day it was written and s
 stale afterwards. **Both moves in this sitting are the same move: prefer the mechanism that
 can still be right about cases nobody has seen yet over the rule read off the case in
 hand.**
+
+---
+
+## Day 35, fifth sitting — the recurrence claim pays out, and a refusal is answered rather than removed
+
+**The composer dictated eleven blast columns from memory — times to the hundredth, which
+tuba is out of which chord, which nearby long tone is "separate... not part of that unison
+chord blast" — and the score confirmed every exception exactly.** T6's long tone at 90.5,
+T7's at 94.62, T4 "creeping in with its own at 99," T10's block at 103.07: each one is
+already in a DIFFERENT group in the score's own data. Nothing needed regrouping. Two things
+worth the paper's attention there. First, the composer's working memory of a 600-second
+piece is at the resolution the tools operate at; the dictation was not a request to find
+things, it was a request to CHECK them, and the check came back clean. Second, the
+grouping the composer made while composing — months of panel edits — already encodes the
+musical statement ("this chord is these players") precisely enough that the machine needs
+no exclusion syntax at all. The exceptions cost zero code because the composer had already
+paid for them at composition time.
+
+**The recurrence argument materialized.** The generator was built from n=2 over a Fable
+verdict that two instances were thin evidence — reversed only by the composer's fact that
+the material recurs (they had composed it; the AI could not know it). One sitting later the
+composer named NINE more instances. The epistemics worth keeping: the reversal was not
+Fable deferring to seniority, it was new information from the only person who had it, and
+the information was checkable — today it was checked.
+
+**The machine's refusal was answered, not overridden — the AI's framing, verbatim:** "the
+machine's day-35 refusal — 'decide what those parts should draw before running this' — is
+ANSWERED BY THE REGISTRY: staccato in a block draws its dotted 16th and takes no bar. The
+refusal was right to exist (T3: don't silently skip) and is now right to narrow (skipping
+staccato is the standard, not an accident)." The refusal's design brief said WHAT to
+decide, the settled registry turned out to already hold the decision, and the amendment is
+a narrowing with the unknown-technique case still refused. A refusal that names its
+question gets answered; a refusal that just says no gets deleted. That is the difference
+between guardrails that accumulate knowledge and guardrails that accumulate exceptions.

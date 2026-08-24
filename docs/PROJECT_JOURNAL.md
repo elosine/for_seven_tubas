@@ -33,8 +33,14 @@ that were blocking it have been given.
 4. Nothing else. The generator's design is closed; do not re-open the four-candidate
    evaluation or the confinement decision.
 
-**THE NEXT CONCRETE STEP, as an instruction.** Make the new page for 81-110 s and notate
-its two long tones into it:
+**SUPERSEDED (fifth sitting, same day):** the Fable analysis ran — the composer dictated
+11 blast columns; verdict YES with one refusal-narrowing. The step below is replaced by
+**M2 then P in the NEXT STEPS table** (amend `notate_block` for staccato-in-a-block; then
+7× `set_brick` + the page at **--w1 111** + 11 `notate_block` runs; expect **11 of 13**
+groups machine-generated, not 2). Spec + measurements: running log, fifth sitting.
+
+**THE NEXT CONCRETE STEP, as an instruction.** ~~Make the new page for 81-110 s and notate
+its two long tones into it:~~ *(superseded — see above)*
 
 ```
 node tools/notate_section.js --score piece-s26 --w0 81 --w1 110 --parts 0-9 \
@@ -176,7 +182,9 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~G~~ | ~~Wake the approved-span gate~~ **DONE day 34** — both guards discover `db1-*` forks from the picker; boundary derived (re-derived 42.37 / 425 rows on the reconstructed day-33 world); fires red on real drift; missing fork file fails loudly; prints NOT APPLICABLE when there is no fork | — | — | — |
 | ~~M~~ | ~~BUILD the block generator~~ **DONE day 35** — `tools/notate_block.js` + `notation/lib/{device_check,prove_unmoved}.js` + `tools/prove_unmoved.js` (CLI) + `tools/test_notate_block.js`. **GOLDEN PASSES: the machine-built page is item-for-item identical to the approved db1** (warnings 22 = 22); 44/44 new checks; ten batteries green; db1 byte-identical. The golden caught a real error in the day-35 brief → **D73** (the proof is CONFINEMENT, not stillness). All four traps are refusals | — | — | — |
 | ~~STOP 1~~ | ~~which save file, new IR vs extended window~~ **ANSWERED day 35** — source is **`piece-s26`** (NOT `-work`, which is behind by the whole playability pass — D75); option **(a) a NEW IR** for 81–110, db1 left approved and untouched | — | — | — |
-| **P — NEXT** | BUILD THE 81–110 PAGE: `notate_section --score piece-s26 --w0 81 --w1 110 --parts 0-9 --profile section1 --id <new-id> --bricks --bracketsAbove --label "INT2 81-110"`, then `notate_block --score piece-s26 --group grp-s009-817 --ir <new-id> --apply` and the same for `grp-s005-958`. **Expect 2 long tones notated + 11 groups as parachute bricks** — the rest need the figure process, which is the composer's. Batteries, then **STOP 2: the composer's eye; nothing folds into db1 unapproved.** Owed from them first: the `<new-id>` and label (names, not derivations) | Opus (written spec) | clear before it if the Fable analysis ran long | the page exists, both long tones drawn, composer has looked |
+| ~~fifth sitting~~ | ~~THE BLAST-COLUMN EVALUATION~~ **DONE day 35 (Fable)** — 11 dictated columns measured in `piece-s26`; every named exception already true in the grouping; verdict = YES, one narrowing of one refusal. Full table + spec: running log, fifth sitting | — | — | — |
+| **M2 — NEXT** | AMEND `notate_block` per the fifth-sitting spec (running log): staccato legal in a block (draws itself — registry dotted 16th, no bar); `spanFor` wanted-set = ring members only; emit `--ringFromBrick` only when ring members exist; all-staccato block = verify-don't-build; ask-assertion split (ring: n/n bars = brick · staccato: nh-unit, zero bars); unknown technique still refused; `set_brick --technique any`. Extend `test_notate_block` (golden untouched; add a mixed and an all-staccato case from s26) | Opus (written spec) | **clear before it** (Fable analysis done — this is the boundary) | battery green incl. new cases; db1 untouched |
+| **P** | BUILD THE 81–111 PAGE: 7× `set_brick` on `piece-s26` (86.58→0.99 · 90.98→0.40 · 94.95→0.41 · 101.6→0.40 · 102.42→0.35 · 104.17→0.41 · 105.64→4.995 — dictated shortest rule; 105.64 is the dictated EXTEND to 110.62), then `notate_section --score piece-s26 --w0 81 --w1 111 --parts 0-9 --profile section1 --id <new-id> --bricks --bracketsAbove --label "INT2 81-111"` (**w1 111, not 110** — the 105.63 ring runs to 110.621), then `notate_block` on all 11 columns. **Expect 11 of 13 groups machine-generated; only cg001 @88.616 + cg007 @98.988 (spread clusters, figure process) stay composer work.** Batteries, then **STOP 2: the composer's eye; nothing folds into db1 unapproved.** Owed from them first: the `<new-id>` and label (names, not derivations) | Opus (written spec) | no (same task as M2) | the page exists, 11 columns drawn, composer has looked |
 | N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
