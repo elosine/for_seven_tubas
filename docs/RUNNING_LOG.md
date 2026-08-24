@@ -10685,3 +10685,179 @@ the same ear-over-fit ones on the record: cl-1, cl-28, cl-34). Whole archive
 
 **PLAN 6a is DONE.** CLOUD02-D: 0 hard, 10 soft, worst 20 %, and no note in it
 carries a figure — 6b starts from a clean page.
+
+
+#### Day 31 — 6b opens: the CLOUD02-D scan, and T1 proposed
+
+**THE PRE-READ MEASUREMENT** (`pattern_analyze --ir db1 --scan 42.38-48.04`):
+**13 gestures, 110 notes** (99 in gestures + 11 lone one-shots).
+
+- **ALL THIRTEEN sit within a head on one grid** — worst **1.00 (T1 @44.69)**,
+  exactly on the line, then T5 @44.55 at 0.98 and T9 @43.63 at 0.97.
+  **So nothing in this section needs `--ownGrids` either.** (CLOUD02-I: 15 of 15,
+  worst 1.00 at T3 @36.33 — the same picture.)
+- **5 straddles** — T2 @44.27, T3 @43.98 (two), T4 @43.92, T8 @44.16, T9 @43.63.
+  Same count as CLOUD02-I, but they mean something different now: **rule cand. 12
+  (D-log 20) sanctions a straddle where the subdivision genuinely spans the seam**,
+  and rule cand. 10 says resolve the rest AT PROPOSAL TIME. So they are work for
+  the proposals, not open flags for the composer.
+- **NO CLEAN SEAM: 0** — better than CLOUD02-I, which had one (T7 @36.19, by ear).
+- **3 ratio ties** — T2 @44.27, T8 @44.16, T9 @43.63.
+
+**The section's shape is simpler than CLOUD02-I**: each part is essentially ONE
+gesture of 6–11 notes plus a few lone one-shots, where CLOUD02-I ran 15–20-note
+gestures across 4 s. Brackets by the fit: T1 and T3's opener plain; T6 @42.38
+plain; the rest carry one to three.
+
+**Fork created: `db1-c2d-x01` — "CLOUD02-D TRIALS (day 31)"** (db1's 36 clusters +
+the new ones as they are proposed). No `--bare` was needed: the four accidental
+figures are gone, so CLOUD02-D's notes were already plain.
+
+**T1 PROPOSED (cl-37, 9 notes 44.68–46.36), the five checks:**
+
+1. **Rule-8 census** — the fit finds **no tuplet at all** (unit 151 ms, ♩=99,
+   grid 0,1,2,3,5,7,9,10,11, worst 30 ms = **1.00 heads**). Nothing to bracket;
+   plain is not a choice here, it is what the material is. Rule 8's "plain where
+   it nearly holds" with the T2 precedent (1 note at 1.2 → plain).
+2. **Containment** — no brackets, so no straddle. Confirmed by the scan.
+3. **Lattice audit** — no fit tuplet beats; nothing to audit.
+4. **Recipe** — 3 groups **1-4 | 5-6 | 7-9**, *short short long · pair · even even*;
+   secondaries solid on all three (`--beamThrough 1,2,3`); group 2's single empty
+   slot is one 16th rest (not a `--rest16` case, which wants ≥2); the empty slots
+   at 4 and 8 are separator rests in the open.
+5. **Dynamics** — bands are **f p f f | mf f | f mf p**. Three bands, and `p` is
+   below the mf floor so members 2 and 9 get nothing and no flag. Ambient `f` at
+   member 1; the level shifts at group 2's start → second ambient **`mf` at 5**
+   (its own band); member 6 is a **lone one-band spike → accent, never a mark**
+   (day-30 addition 4); group 3 starts back at f → third ambient **`f` at 7**;
+   member 8 is mf, BELOW its ambient, so nothing (there is no "slightly softer"
+   mark — the rule's own rationale). **Proposal: `--dyn 1,5,7 --accents 6`.**
+
+**Verified in the IR after building**: three beam groups cl-37a/b/c at
+beamPos 0,1,2,3 | 5,7 | 9,10,11, `beamThrough` true on all three, `dynMark:band`
+on 1/5/7, `nhArtic:accent` on 6. VALID vs source.
+
+**FLAGGED, not decided** — (a) **two near-tie boundaries**: note 4 and note 6 each
+"could go either way", costing only +0.33 and +0.43 to move; (b) **two FLOW lines**
+(groups 1+2 and 2+3 could share one grid at 2:1) — **both go OVER a head** (1.77
+and 1.57), so not recommended, but they are the composer's to take by hand;
+(c) the gesture's 1.00 heads is exactly the threshold, the same place T3 @36.33
+sat in CLOUD02-I.
+
+*Build slip worth keeping: the first build used `--cluster 44.69-…` and silently
+took **8** notes, not 9 — the gesture's first note is at 44.688. Caught by
+comparing the build's note count against the read's. Spans must be cut BELOW the
+first onset.* **Logistics: the Browser pane is not displayed, so no screenshot
+this sitting** (same as day 28); the IR audit needs no pane and was done.
+
+
+#### Day 31 — T1 verdict, and ALL OF CLOUD02-D proposed (cl-37…cl-49)
+
+**T1 VERDICT (composer, dictated):** *"The only change is the third figure and the
+fourth figure extend the double beam over the first sixteenth node rest. And then
+did you only do t one? If that's the case, go ahead and do the whole thing,
+please. and I'll look at it all at once."*
+
+Read as: the composer counts the **lone one-shot @44.19 as figure 1**, so "third
+and fourth" = **groups 2 and 3**. Built `--beamOverLeft 2,3`; the report says
+*"beams reach left over the rest before group(s) 2,3"* — verified as described.
+Everything else in the T1 proposal stands as built: three groups, plain 16ths,
+no brackets, `--dyn 1,5,7 --accents 6`.
+
+**THE DYNAMICS PROCEDURE IS NOW VALIDATED** — T1 was accepted with only a beam
+change, which confirms the reading used to derive it (and rules OUT the literal
+day-24 "one dynamic at the softer level" for a multi-group cluster, which would
+have given ambient mf + five accents on T1):
+
+> at each **beam-group start**, if that member's band is ≥ the mf floor and differs
+> from the running ambient, it takes a band mark and becomes the ambient · every
+> member **above** the current ambient takes an accent · members at or below the
+> ambient take nothing (there is no engraved "slightly softer") · below-floor
+> members (p/ppp) take nothing and are not flagged · a **lone one-band spike** is
+> an accent, never a mark (day-30 addition 4).
+
+**BEAM-OVER-LEFT EXTRAPOLATED, and flagged as such.** The composer said it of T1;
+it is applied to **every group in the section preceded by a real 16th rest**
+(≥1 full slot). Three gestures have leading silences that are TUPLET FRACTIONS —
+T2 g2 (0.33), T3b g2/g3 (0.33/0.14), T8 g2/g3 (0.67/0.33) — where there is no
+16th rest to reach over, so they are left alone. *(Day-29 D-log 4 precedent:
+AI-extrapolated, awaiting the composer's eye.)*
+
+**THE LATTICE AUDIT (check 3) — three whole-beat tuplets were artifacts, shrunk
+by the hand override; the rest are standing exceptions:**
+
+| where | fit gave | audit | action |
+|---|---|---|---|
+| T6b beat 0 | 6:4 notes 1-3 | only note 2 (1.333) off-lattice; [2,4) holds note 3 ON it | **`--tuplet 1-2@3:2`** — frees a plain half (rule 11) |
+| T8 beat 0 | 6:4 notes 1-3 | only note 3 (3.333) off; [0,2) holds note 1 ON it | **`--tuplet 2-3@3:2`** — frees a plain half |
+| T9 beat 2 | 6:4 notes 5-7 | only note 7 (11.333) off; [8,10) holds note 5 ON it | **`--tuplet 6-7@3:2`** — frees a plain half **AND RESOLVES T9's STRADDLE** (the bracket now sits wholly inside group 3) |
+| T2 b0 · T3b b1 · T5b b1 · T7 b3 | 7:4 | — | **standing exception: a 7:4 never reduces** |
+| T4 b3 · T7 b2 · T8 b3 | 5:4, one off-lattice note | fits no den-2 window | **standing exception** (T4 note 10 / T5 note 7 precedent) |
+| T7 beat 0 | 3:2 notes 1-2 | note 2 off, note 1 on | kept — the shrink would leave a ONE-NOTE bracket, and here bracket = beam group, rule 9's ideal |
+
+**THE FIVE STRADDLES, resolved at proposal time (rule 10) — four sanctioned, ONE
+OPEN.** The test used: *are there off-lattice notes on BOTH sides of the seam?*
+If yes the subdivision genuinely spans the seam and **rule cand. 12 sanctions it**
+(D-log 20); if the off-lattice notes are all on one side, rule 11 shrinks it.
+
+- **T2 (cl-38)** 6:4 notes 4-6, seam after 5 — note 4 (4.667) off in g1, note 6
+  (7.333) off in g2 → **SANCTIONED**
+- **T3 (cl-40)** 6:4 notes 1-4, seam after 2 — note 2 off in g1, notes 3+4 off in
+  g2 → **SANCTIONED**; 7:4 notes 5-9, seam after 7 — notes 6,7 off in g2, notes
+  8,9 off in g3 → **SANCTIONED**
+- **T8 (cl-47)** 6:4 notes 7-10, seam after 9 — note 8 off in g2, note 10 off in
+  g3 → **SANCTIONED**
+- **T9 (cl-48)** — **RESOLVED** by the shrink above; no straddle remains
+- **T4 (cl-41)** 3:2 on beat 2, notes 4-5, seam after 4 — **THE ONE THE RULES DO
+  NOT SETTLE, FLAGGED PER THE STANDING INSTRUCTION.** Note 4 sits at slot 8, ON
+  the plain lattice, so the bracket makes a false "quicker" claim about it (rule
+  11 would shrink) — but the only smaller window holds note 5 ALONE, and a
+  one-note bracket is worse. Rule 12's sanction does not apply (only one side is
+  off-lattice). Rule 10's phrase-widening is not preferred either: the pairwise
+  ratio across the seam is 335/253 = **1.32 > 1.25**, so the notes are not one
+  pace. Three readings exist and the choice is the composer's: **(a)** keep the
+  straddling 3:2 as built · **(b)** `--cuts 2` — merge groups 2+3 so the bracket
+  sits inside one phrase beam (containment satisfied, but against the pace
+  evidence) · **(c)** a one-note 3:2 on note 5 alone.
+
+**BUILT: 13 clusters, cl-37…cl-49, into `db1-c2d-x01`** — VALID vs source, 456
+events, 127 chunks. Ten batteries green. Straddle census on the fork: **8 total,
+of which 3 are pre-existing CLOUD02-I** (cl-33, cl-34, cl-36 — on the record from
+day 30) **and 5 are CLOUD02-D**, four sanctioned + T4's open one.
+
+**Per-part, as built:**
+
+| part | gesture(s) | groups | brackets | dyn / accents |
+|---|---|---|---|---|
+| T1 | 44.68 (9) | 3 · short short long · pair · even even | none | 1,5,7 / 6 |
+| T2 | 44.26 (9) | 3 · short long short short · pair · pair | 7:4 + 6:4 | 1 / 3 |
+| T3 | 43.01 (2) · 43.97 (10) | 1 · 3 | — · 6:4 + 7:4 | 1 · 1,3,8 |
+| T4 | 43.91 (9) | 3 · pair · pair · short long short long | 3:2 + 5:4 | 1 / 9 |
+| T5 | 43.36 (2) · 44.54 (8) | 1 · 3 | — · 7:4 | 1/2 · 1,3,7 |
+| T6 | 42.37 (4) · 44.46 (7) | 1 · 2 | — · 3:2 (shrunk) | 1 · 1/4 |
+| T7 | 43.58 (11) | 2 · pair · a nine | 3:2 · 5:4 · 7:4 | 1 / 9,11 |
+| T8 | 44.15 (11) | 3 · even even · a six · pair | 3:2 (shrunk) · 6:4 · 5:4 | 1,4 / 5,6,7,8,11 |
+| T9 | 43.62 (11) | 4 · pair · even even · even even · short long | 3:2 (shrunk) | 1,6 / 2,4 |
+| T10 | 44.68 (6) | 2 · long short long · pair | 3:2 | 1 / 3,4 |
+
+**THREE DYNAMICS CALLS THE PROCEDURE COULD NOT FULLY EXPLAIN** (day-24: *"a
+generated cluster should PROPOSE marks and say which partials it could not
+explain"*):
+1. **T8 g2** — the group starts mf and four of its six members are f or above, so
+   the procedure yields `mf` + **five accents in a row** (5,6,7,8,11). Mechanically
+   correct ("state the soft level once, mark the loud ones") but heavy on the page.
+   The alternative is ambient **f** at m4 with an accent only on m7 (the lone fff).
+2. **T5b m7** — the fall-back from fff to mf has no group start to land on, so the
+   mark is placed at the shift point (day-30 addition 4's "else the shift point,
+   flagged").
+3. **T7 m9** — a LONE **two**-band spike (mf→fff). The rules cover a lone ONE-band
+   spike (accent) and a two-band jump arriving AS A PAIR at a group start (mark);
+   a lone two-band spike is neither. Written as an accent.
+
+Also carried forward as information, not decisions: **3 ratio ties** (T2 cut-after-5
+holds only to 1.259 · T8 cut-after-3 to 1.262 · T9 cut-after-8 to 1.281) · **near-ties**
+on T1 n3, T3b n7, T6b n5 · **pickup flags** on T3b n8, T4 n5, T5b n6, T6a n1, T6b n1+n4,
+T8 n1+n4, T9 n3+n9, T10 n1 — all FLAGGED, never applied (principle 8).
+
+Browser pane still not displayed → no screenshot; the fork is in the picker as
+**"CLOUD02-D TRIALS (day 31)"**.
