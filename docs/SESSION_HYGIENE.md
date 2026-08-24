@@ -27,7 +27,7 @@ Treating them as one thing is what makes clearing feel expensive.
 | What changed | the **subject** — done with this, on to that | **nothing** — same task, the chat just got long |
 | Before | `/session-end` | `/checkpoint` |
 | After | `/session-start` | `/resume` |
-| Costs | full closure + full orientation | a commit + a §2 entry; two short reads |
+| Costs | full closure + full orientation | a commit + a §2 entry; §2 + the read-list back |
 
 **Why they are not the same command.** `/session-start` is built for a new day:
 it plays back *last session*, asks *"what would you like to work on today?"* and
@@ -42,6 +42,20 @@ concrete step from the checkpoint alone, the checkpoint was bad — and the
 recovery is `/session-start`, not re-deriving the plan from the code. Re-deriving
 is the expensive failure this whole cycle exists to prevent.
 
+**The MODEL is the third trigger (added day 35).** Fable has its own weekly
+credit balance, and every Fable turn re-reads the whole carried context — so a
+Fable block should open on a fresh, minimal context, even when the chat is not
+long and the subject has not changed.
+
+- **Clear before any Fable block:** `/checkpoint` · `/clear` · switch to
+  Fable · `/resume`.
+- **On Opus, clear lazily** — Opus tolerates carried context at far lower
+  cost; clear at milestones and mode changes as before, not on a timer.
+- **Run the wrap on Opus.** Either wrap — `/checkpoint` or `/session-end` —
+  is mechanical work at the long, expensive end of a session. On Fable when
+  the boundary arrives: switch to Opus, wrap, `/clear`, switch to Fable,
+  `/resume` (or `/session-start` if the subject changed).
+
 Procedures live in the commands themselves — `.claude/commands/checkpoint.md`
 and `.claude/commands/resume.md`, which are canonical for their steps so there is
 no second copy to drift.
@@ -51,6 +65,14 @@ postclear protocol, or is that essentially the same as session end and session
 start?" Answer: the preclear half already existed as prose — piece #3's
 `SESSION_PROTOCOL.md` § Pre-Compaction Checkpoint — but had no command and was
 named for its trigger rather than its use. The postclear half did not exist.)*
+
+*(Revised 2026-08-24, day 35: `/resume` read only the checkpoint entry — "and
+nothing older", by explicit rule — and the post-clear agent kept coming back
+missing context, so the composer had fallen back to `/session-start` after
+every clear, paying full orientation each time. `/resume` now reads all of §2
+plus a `Resume reads:` list the checkpoint writes; and the model trigger above
+was added. The principle: spend tokens on the dying session, save them on the
+fresh one.)*
 
 ## The routine
 
@@ -70,7 +92,8 @@ named for its trigger rather than its use. The postclear half did not exist.)*
 **And the cheap inner cycle, when the task has NOT changed:**
 work → `/checkpoint` → `/clear` → `/resume` → work. Use it freely — it is the
 one that makes a long task affordable, because it resets the carried context
-without paying for closure and re-orientation.
+without paying for closure and re-orientation. It is also the mandatory
+on-ramp to a Fable block (the model trigger, above), however short the chat.
 
 *Skip `/session-start` for genuine one-offs* (a typo, a quick question) — the
 orientation costs tokens and an exchange, and is worth it for a sandbox build or
@@ -114,9 +137,12 @@ turn where the plan is already on paper.** Concretely:
   running batteries, building to a written spec, doc updates. Opus executes a written
   plan well; the failure mode is not execution but *deciding* an open design point
   mid-build — so the plan entry must close the data shapes (the caveat below).
-- **Mid-session switches are safe: the transcript carries over.** The risk is context
-  LENGTH, not the switch — the early chat gets summarised and keeps conclusions, not the
-  trail. RUNNING_LOG is the trail; write to it before switching, not after.
+- **Mid-session switches are safe for continuity — the transcript carries over — but
+  switching TO Fable mid-session carries the whole transcript into Fable's per-turn
+  re-read.** Prefer the clear boundary: wrap on Opus, `/clear`, `/resume` on Fable
+  (§ The two boundaries, the model trigger). The other risk is context LENGTH — the
+  early chat gets summarised and keeps conclusions, not the trail. RUNNING_LOG is the
+  trail; write to it before switching, not after.
 - **`/clear` between milestones** (the composer's practice) is the right boundary; it
   makes the docs the handoff. The test before clearing: could a cold model execute the
   next step from journal §2 alone? If not, the §2 block is not finished.

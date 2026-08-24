@@ -31,9 +31,10 @@ plans around it** · no clear evidence means no diagnosis.
 - **Composer's verbatim thinking:** `docs/COMPOSER_LOG.md`
 - **Session hygiene, cost, model strategy:** `docs/SESSION_HYGIENE.md` — clear
   between work chunks; the docs are the handoff, not the chat.
-  **Two clear-boundaries, two cycles** (§ The two boundaries):
-  subject changed → `/session-end` · `/clear` · `/session-start`;
-  same task, long chat → `/checkpoint` · `/clear` · `/resume` (the cheap one)
+  **Two clear-boundaries, two cycles — and the model trigger** (§ The two
+  boundaries): subject changed → `/session-end` · `/clear` · `/session-start`;
+  same task, long chat → `/checkpoint` · `/clear` · `/resume` (the cheap one);
+  **Fable block ahead → wrap on Opus · `/clear` · resume on Fable**
 - Working preferences & session routines: piece #3's `docs/HOW_WE_WORK.md` and
   `docs/SESSION_PROTOCOL.md` apply unchanged (registered as an additional working dir).
 

@@ -11520,3 +11520,50 @@ passing gate proves nothing you can see:
 
 Ten batteries green; `--prove-red` harness still works. Day-34 state restored
 (db1 49 clusters, no fork in the picker); only `test_layout.js` changed.
+
+#### Day 35 — 2026-08-24 (Fable 5): the clear cycle revised — `/resume` read too little, and the model boundary named
+
+**The composer's ask, verbatim (voice):** *"I want to revise the midsection
+wrap … clear and resume. I'm clearing quite often, so I want to develop a more
+efficient sequence … I have abandoned the old resume and used session start
+because it seemed to me at least anecdotally that the post clear agent seemed
+to be missing a lot of context. Keep in mind I'm doing these frequent clears
+to save fable credits. If I'm continuing on with Opus five, I probably won't
+clear that often. But anytime I want to start something that involves fable or
+a lot of fable work, then I'll do clears before."*
+
+**The diagnosis (AI):** `/resume` was designed to read ONLY the `(mid-session
+checkpoint)` §2 entry + PLANNER `NOW ►` — *"and nothing older"*, by explicit
+rule. So the post-clear agent never saw §2's standing blocks (the tool table,
+the laws, "Things to know before building anything", NEXT STEPS · MODEL ·
+CLEAR) or the task's spec in PLAN/NOTATION_STANDARDS, unless the one
+checkpoint entry restated them — which one entry cannot. And the checkpoint
+had no slot to say "read these." The composer's workaround — `/session-start`
+after every clear — over-corrected: full PLAN.md (~2,200 lines) +
+HOW_WE_WORK + the agenda ceremony, most of it wrong ten minutes into the same
+task. The context loss and the over-payment were the same bug seen from two
+sides: the read-set was fixed, when it needed to be chosen by the session that
+had the context.
+
+**Decided (composer: "yes a and b pls"):**
+
+1. **`/resume` reads all of §2** (~160 lines — it IS the curated cold-start
+   block) + `NOW ►` + a new **`Resume reads:` list** the checkpoint writes:
+   the dying session names the exact extra docs/sections, because it is the
+   only session that knows. *Rejected:* keeping the leanest read-set
+   (checkpoint entry only) — the ~2k-token saving is what caused the loss.
+2. **The MODEL joins subject and length as a clear trigger:** clear before
+   any Fable block (Fable re-reads carried context against a weekly credit
+   balance), even when the chat is short; on Opus clear lazily (milestones,
+   as before). And **run the wrap on Opus** when a Fable block is coming —
+   the wrap is mechanical work at the expensive end of a session:
+   `/model` Opus → `/checkpoint` → `/clear` → `/model` Fable → `/resume`.
+
+**The principle, written into checkpoint.md:** spend tokens on the dying
+session, save them on the fresh one — the fresh one may be Fable.
+
+**Files:** `.claude/commands/checkpoint.md` (rewritten — `Resume reads:` slot,
+steps folded 7→4, Opus-wrap rule) · `.claude/commands/resume.md` (rewritten —
+full-§2 read-set) · `docs/SESSION_HYGIENE.md` (§ two boundaries: the model
+trigger + day-35 revision note; § model strategy: the mid-switch-to-Fable cost
+caveat) · `CLAUDE.md` (boundary pointer). Docs only; no batteries implicated.
