@@ -10,9 +10,10 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 31 COLD START — read this block, then `docs/NOTATION_STANDARDS.md` (principle 6
+**DAY 32 COLD START — read this block, then `docs/NOTATION_STANDARDS.md` (principle 6
 incl. the day-30 lines), then `docs/BEAMING_DECISIONS.md` § THE STANDING BUILD RECIPE
-(incl. Day-30 additions — the five checks), then go. The next chunk is 6a below (Opus).**
+(incl. Day-30 additions — the five checks), then go. The next chunk is 6b below (Opus) — CLOUD02-D's notation, on a section
+that is already at its playability floor and carries NO figure.**
 
 ### State in one paragraph
 
@@ -26,8 +27,22 @@ each on the record (cl-1 T1's day-23 3:2 · cl-28 T2's no-brackets · cl-34 T7's
 plain). The 40.93 blast's ten ring bars are UNIFORM at the drawn brick's 1.010 s
 (`--ringFromBrick`, new — drawing only, D49/D51 intact); the three cuivre notes carry
 `cuivré` in solid black above the head (T8 at the tag row — its G4 cannot clear the
-lane line; D-log 22.3). Whole archive still 2 hard (trance seams @560.63 T8 /
-@604.63 T6) + 32 soft, parked. All pushed; tree clean.
+lane line; D-log 22.3). Whole archive 2 hard (trance seams @560.63 T8 / @604.63 T6) + **24 soft**, parked.
+
+**Day 31 closed 6a — CLOUD02-D IS AT ITS FLOOR AND CARRIES NO FIGURE.** 110 notes,
+18 soft → **10, worst 20 %**, 0 hard; db1 re-extracted, `--validate` **33/36**.
+The section turned out to be ONE gesture, not nine problems: at 45.45 s all ten
+parts drop from D4/E4 into E2–F#3 inside 80 ms, so *who catches which* is a clean
+10×10 assignment. Solved jointly — **worst leap 57 % → 20 %**; the composer's two
+asks became 8 st and 9 st. Three things were built to do it (PLAN 8j): the
+**COLLAPSE pass** (minimax re-seating of a whole gesture — the greedy pass only
+accepts a FREE home, and at 45.5 nobody is free), the **SAME-SLOT bar** (two notes
+under 30 ms in one part cannot be written; `--apply` now proves the end state
+before writing), and **FROZEN figures** (a note inside any IR's `--cluster` cannot
+move — built after two of db1's forty were silently re-membered). db1's four
+clusters in 44.5–46.2 s were dropped: composer, *"those figures were made by a
+mistake… you can just disregard those figures entirely."* **db1 is 36 clusters,
+none past 40.4 s.** All pushed; tree clean.
 
 ### Day 30's other product: the generator's rulebook (all in BEAMING_DECISIONS.md)
 
@@ -52,8 +67,8 @@ lane line; D-log 22.3). Whole archive still 2 hard (trance seams @560.63 T8 /
 | # | step | model | clear? | done = |
 |---|---|---|---|---|
 | ~~5c/6~~ | ~~CLOUD02-I: the reads, the notation, the fold~~ **DONE day 30** (D-logs 10–22; validate 37/40; pushed) | — | — | — |
-| **6a — NEXT** | CLOUD02-D playability — `node tools/playability.js --score piece-s25-finished01 --section CLOUD02-D --brick 0.05` (dry-run stands: 18 soft → 9; two real asks T6 @45.51, T7 @45.47); present the nine, composer decides → `--apply` → re-extract db1 (its provenance.build) → ledger | **Opus** (the nine are the COMPOSER's decisions — Opus presents and applies) | **YES — clear before it (the CLOUD02-I milestone just closed; this is the boundary)** | the nine decided + ledgered; db1 re-extracted, 0 hard; pushed |
-| 6b | CLOUD02-D notation — the FIVE-CHECK RECIPE runs cold (BEAMING_DECISIONS § STANDING BUILD RECIPE + day-30 additions; rule candidates 1–12; the T1–T10 reads as worked examples). Propose per part → composer verdicts by dictation → ledger rows → fold. **Standing instruction: FLAG anything the rules don't cover — never invent; a novel design tension goes to Fable or waits** | **Opus** (composer asked day 30; answer: yes — the proposals are now checklist execution; today's Fable moments were the NEW rules, which emerged from composer questions and get flagged regardless) | checkpoint/clear mid-way as needed | every CLOUD02-D note figured + approved; folded into db1; batteries green; pushed |
+| ~~6a~~ | ~~CLOUD02-D playability~~ **DONE day 31** — 18 soft → 10, worst 57 % → 20 %, 0 hard; 16 moves + bricks, 17 ledger lines; PLAN 8j; the collapse pass, the same-slot bar and frozen figures built | — | — | — |
+| **6b — NEXT** | CLOUD02-D notation — the FIVE-CHECK RECIPE runs cold (BEAMING_DECISIONS § STANDING BUILD RECIPE + day-30 additions; rule candidates 1–12; the T1–T10 reads as worked examples). Propose per part → composer verdicts by dictation → ledger rows → fold. **Standing instruction: FLAG anything the rules don't cover — never invent; a novel design tension goes to Fable or waits** | **Opus** (composer asked day 30; answer: yes — the proposals are now checklist execution; today's Fable moments were the NEW rules, which emerged from composer questions and get flagged regardless) | **YES — clear before it (6a just closed; this is the boundary)** | every CLOUD02-D note figured + approved; folded into db1; batteries green; pushed |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
@@ -70,7 +85,7 @@ lane line; D-log 22.3). Whole archive still 2 hard (trance seams @560.63 T8 /
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: **`--figures` (8i: the groups from the pace rule on ONE grid, beams broken at the seams, brackets from the fit — the default and what the composer chose)** · **`--ownGrids`** (with `--figures`: the 8g/8h reading, each group on its own grid, no relation printed) · `--cuts a,b,c` · `--paceRatio r` · `--pattern` (one grid, no seams — implied by `--figures`, refused with it) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` (several groups on ONE tempo — refused with `--figures`, which makes its own breaks) · `--noGoLine` |
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
-| **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score) |
+| **run the playability process on a section** | `node tools/playability.js --score piece-s25-finished01 --section <MARKER LABEL> --brick 0.05` (dry run; `--apply` makes the moves, normalises bricks, appends the ledger lines and prints the re-extract command; `--listen` writes a before/after score). **Day 31:** step **2b · COLLAPSE** re-seats a whole gesture when nobody is free (`--noCollapse` off); notes inside any IR's `--cluster` are **FROZEN** and the report says how many (`--refigure` lifts it, and the figures then need rebuilding); "UNRESOLVED" reads **"AT THE FLOOR"** once a gesture has been re-seated |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
 | batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability` — all green at close |

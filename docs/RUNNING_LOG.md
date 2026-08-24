@@ -10509,3 +10509,179 @@ would have touched the line; with the top margin it falls back to the tag row,
 which is precisely "copy tuba eight". Measured after: T1/T4 at baseline 4.09
 left-aligned to their heads; T8 at the tag row (dx 0, y 3.5); all three black.
 Layout-time only — no IR rebuild; hard reload shows it. Batteries green.
+
+
+#### Day 31 — 6a: the CLOUD02-D dry run, and THE COLLAPSE IS AN ASSIGNMENT PROBLEM
+
+**Dry run reproduces the day-25 prediction exactly.** `playability.js --section
+CLOUD02-D --brick 0.05`: 110 notes, 42.38–48.05 s. **0 hard, 18 soft → 8 moved,
+9 left.** Breath fine on every part (every run inside the dials). Audibility
+info: 27.7 attacks/s, 66 of 109 attacks inside the 30 ms fusion window,
+sounding count max 25 / mean 10.9.
+
+The nine, banded for the composer: **1–2 % (3 notes: T1@46.22 1 ms, T5@45.80
+2 ms, T8@45.45 4 ms — inside the model's own noise) · 17–20 % (4 notes) · the
+two real asks: T7@45.47 F#3→D#2 43 % short, T6@45.51 D4→E2 22 st in 136 ms,
+57 % short — the piece's worst leap.**
+
+**Composer's question (verbatim): "for the two band three ones. Can we swap
+anywhere? so that another tuba player maybe doesn't need to leap quite as quick
+or quite as far."** That question is what found the following.
+
+**THE FINDING — the nine are not nine problems, they are ONE.** Printing
+45.00–45.70 s shows it: at 45.27–45.38 the ensemble sits high (F#3 G#3 D4 E4 C4
+G3 F#3 D4), and at 45.447–45.526 **all ten parts drop into E2–F#3** — a
+full-ensemble collapse inside 80 ms. The flags are the consequence of the
+gesture, not scattered accidents. Every part has **exactly one** note before the
+drop and **exactly one** landing note, which makes the moment a clean **10×10
+assignment problem**, not a sequence of local fixes.
+
+**Solved by brute force** (all 3,628,800 permutations; cost = the worse of the
+two adjacencies, pre→landing and landing→post; verified afterwards by re-flagging
+the whole score):
+
+| | worst shortfall | tight of 10 | CLOUD02-D total |
+|---|---|---|---|
+| as it stands (after the tool's 8 moves) | **57 %** | 6 | 0 hard, 9 soft |
+| the floor (9 notes change hands) | **20 %** | 6 | 0 hard, 10 soft |
+
+**Both Band-3 asks vanish.** Nobody leaps more than 21 st, nobody is more than
+20 % short; the spread flattens to one even band (6 %, 19 %, 19 %, 20 %, 20 %,
+20 %). Price: one new flag downstream (T2@45.75 F2→C#4, 19 %) and T5@45.80 goes
+1 %→4 %, so the count rises 9→10. **Sound is bit-identical** — only `layer`
+changes, exactly the operation the tool already performs 8 times.
+
+**The frontier** (best worst-shortfall for K notes changing hands): 0→57 % ·
+**2→43 %** (T3 takes E2, T6 takes D#3) · **3→32 %** · **4→24 %** · **5→21 %** ·
+7→20 %. So most of the benefit is bought by three or four moves; the last 4
+points cost five more.
+
+**WHY THE TOOL COULD NOT SEE THIS — a real limit, worth keeping.**
+`redistribute()` is greedy and one note at a time, and its acceptance test is
+*"the receiving part must come out **FREE** against both new neighbours"*
+(`homeFor`). At 45.5 **no part is free for anybody** — the whole ensemble is
+mid-leap — so it correctly gives up on all nine. But a *joint* reassignment,
+which it never considers, flattens 57 % to 20 %. The greedy-free test is the
+blind spot; minimax assignment is a different algorithm. **Not yet built into
+the tool — this run was a scratch script.**
+
+Nothing written; `--apply` not run. The nine are with the composer.
+
+
+#### Day 31 — the collapse pass built, and THE FIGURES-VS-PLAYABILITY COLLISION
+
+**Built** (composer: *"take the floor, and build it into the tool"*). In
+`notation/lib/playability.js`: `pairCost` (tightness as a fraction, one scalar
+for both soft clauses, Infinity on overlap) · `seatCost` · `minimaxAssign`
+(exact branch-and-bound; ties break fewest-tight → fewest-moves → lowest-sum) ·
+`collapsePass` (clusters what the greedy pass could not place into gestures
+within 0.12 s, re-seats each as a PERMUTATION so per-part note counts are
+preserved). Runs by default; `--noCollapse` turns it off. New report step
+**2b · COLLAPSE**, and the old "UNRESOLVED — no part can take these" becomes
+"AT THE FLOOR" once a gesture has been re-seated. `test_playability` **22 → 51
+checks**, on a second frozen golden `tools/fixtures/cloud02d-collapse.json`
+(CLOUD02-D 42.0–48.5 cut BEFORE any apply).
+
+The tool found the floor at **8** reseats, not the 9 my scratch script used —
+the fewest-moves tie-break. Same worst (20 %), same resulting flags.
+
+**TWO THINGS BIT, both worth keeping.**
+
+**1 · THE SAME-SLOT RULE (a notation fact the playability model cannot see).**
+`--apply` died half-way: `move_object.js` **REFUSED** wc-1991 → T1 because T1
+still held wc-1990, 21 ms away. Two notes under 30 ms apart in ONE part cannot
+be written — extraction sidelines same-onset notes, they cannot share a grid
+slot. `pairTier()` knows nothing about this: a 21 ms gap reads to it as merely
+`soft`. Two fixes: (a) `seatCost` now returns **Infinity** for a seat within
+`COLLAPSE.sameSlot` of a neighbour — a bar, not a penalty; (b) a collapse is a
+PERMUTATION and move_object moves one note at a time, so going round a cycle
+ALWAYS finds the destination still held by a note that is itself leaving. That
+transient is not what the guard protects against, so `--apply` now **proves the
+end state before touching the file**, forces only past notes that are leaving
+in the same batch, and **re-asks the guard's own question of the file on disk**
+afterwards. (Verified: the same-slot bar changed no seating here — the floor was
+already clean, the collision was purely transient.)
+
+**2 · THE COLLISION — moves re-member figures the composer already approved.**
+db1 spans **0–55.94 s**, not 0–40.4 (§2's "every note of 0–40.4 is figured"
+is about which notes carry figures, NOT the extraction window — checking this
+before running the re-extract is what caught the rest). **Four of the day-24
+twenty-five sit inside CLOUD02-D** — a fact already on the record at
+RUNNING_LOG "db1 already spans 0–55.94 … incl. four in 44.5–46.2 s, CLOUD02-D".
+
+A figure is `--cluster t0-t1@part`: **the notes of that part in that span**.
+Move a note across parts and the figure silently re-members itself. Measured
+against `git show HEAD` — **2 of db1's 40 were disturbed, both T7**:
+
+- **cl-17** (44.54–44.73@T7, two 16ths ♩=82.4, accent 2, `p`) — lost wc-1958
+  (D4 @44.725) to a **greedy** move. 2 notes → 1. The re-extract **failed loudly**
+  (`NO metric fit within 30 ms`, exit 2, nothing written).
+- **cl-19** (45.47–46.22@T7, four 16ths ♩=80.9, accents 2+4, `mf`) — lost
+  wc-1991 (D#2 @45.471) and **gained** wc-1993 (A2 @45.486) from a **collapse**
+  move. Still 4 notes, **still fits** — it would have gone on rendering, silently
+  wrong. *This is the day-24 lesson firing again: "a fix for one figure must be
+  re-checked against every figure built under the same flag."*
+
+**Fix built:** every note inside a figure of any IR built from this score is
+**FROZEN by default** (the tool reads `provenance.build` from `notation/ir/*.ir.json`
+and resolves the `--cluster` args itself); `--refigure` lifts it. The report now
+prints the frozen count and which parts were pinned in a gesture. Score and
+ledger were reverted with `git checkout --` before any of this landed.
+
+**THE TRADE, measured (all four policies):**
+
+| policy | worst | soft | anything over 25 % |
+|---|---|---|---|
+| all 40 figures protected | **43 %** | 10 | T7@44.73 37 % · T7@45.47 43 % · T6@45.52 32 % |
+| free cl-17 only | 43 % | 9 | T7@45.47 43 % · T6@45.52 32 % |
+| free cl-19 only | 37 % | 11 | T7@44.73 37 % |
+| **free both T7 figures** | **20 %** | 10 | none |
+| no protection at all | 20 % | 10 | none |
+
+**Freeing those two T7 figures buys the ENTIRE floor** — identical to no
+protection at all, so the other 38 figures are irrelevant to the decision. Both
+sit at 44.5–46.2 s, i.e. inside CLOUD02-D, which **6b is about to figure anyway**.
+Put to the composer as their call; nothing applied while it is open.
+
+
+#### Day 31 — the collision dissolves: the four CLOUD02-D figures were an accident
+
+**Composer, asked to choose between their figures and the floor:** *"So sorry. I
+forgot to mention those figures were made by a mistake if I understand correctly.
+These are the already notated figures. in cloud two. You can just disregard those
+figures entirely."*
+
+So the four were never deliberate CLOUD02-D notation — they are leftovers of the
+day-24 sweep, whose window (0–55.94) overshot the material actually being figured.
+**All four dropped from db1's build**, not just the two T7 ones that collided:
+
+    --cluster 45.27-46.22@3 --clusterTol 0.03 --dyn 1,2,3,4,5           (cl-9,  T4, 5 notes)
+    --cluster 44.54-44.73@6 --clusterTol 0.03 --dyn 1:p --accents 2     (cl-17, T7, 2 notes)
+    --cluster 45.17-45.33@6 --clusterTol 0.03 --dyn 1:mf                (cl-18, T7, 2 notes)
+    --cluster 45.47-46.22@6 --clusterTol 0.03 --dyn 1:mf --accents 2,4  (cl-19, T7, 4 notes)
+
+**db1 is now 36 clusters, all at or before 40.4 s** — the extraction window still
+spans 0–55.94, but nothing past 40.4 carries a figure, which is what §2 always
+said in words. Checked first: `test_pattern_fit` validates against the frozen
+golden `db1-all-x01`, not `db1`, and its `--scan` is 36.19–40.42 — so dropping
+these touches neither.
+
+**APPLIED, and the floor stands.** With CLOUD02-D free: **0 of 110 notes frozen**,
+`57 % → 20 %`, 8 greedy moves + 8 reseats, bricks to 50 ms (61 changed), 17
+ledger lines. The two the composer asked about are gone as leaps: **T6 D4→E2
+(22 st) is now D4→F#3 (8 st)**; **T7 F#3→D#2 (15 st) is now F#3→A2 (9 st)**.
+Nobody is over 20 % short.
+
+*(One move differs from the unprotected trial: `wc-1931` T6 → **T9**, not T10.
+Correct, and a sign the freeze works — db1's 231 already-figured notes at
+0–40.4 s can no longer move, which changes the greedy pass's "fewest notes"
+tie-break across the whole archive. Only in-window moves are ever applied.)*
+
+**VERIFIED after:** db1 re-extracted, VALID vs source, 456 events · 127 chunks ·
+`--validate` **33 of 36** (the four dropped all agreed, so the three DIFFERs are
+the same ear-over-fit ones on the record: cl-1, cl-28, cl-34). Whole archive
+**2 hard** (the two trance seams @560.63 T8 / @604.63 T6, untouched — step 7)
+**+ 24 soft**, down from 32. Ten batteries green; `test_playability` 51 checks.
+
+**PLAN 6a is DONE.** CLOUD02-D: 0 hard, 10 soft, worst 20 %, and no note in it
+carries a figure — 6b starts from a clean page.

@@ -1721,7 +1721,7 @@ notation act, when the piece calls for it: **the actual PARTS notation
 first**, then its layout into the study score; requirements harvested
 while building the real score.
 
-## 8. PENN STATE DELIVERABLES BUILD — `doing 2026-08-20 (day 21) → DENSITY BUILD 1 FIGURED AND PROMOTED 2026-08-23 (8e); 8f = CLOUD02-I next → 8c note-by-note notation running since day 22: V0 done + G0 CLOSED (frame · no header · staff 31.6 · budget A · Crimson · PP-3; provisional data deferred per the composer's decide-vs-defer filter); V1 BUILT same day (coords lane flexibility + zoomCfg · engraving registry + override channel + staff-off · gutter · the two windows in notation.html, verified live) — **G1 CLOSED same day** (composer: "it looks good... the zoom view is comfortable"; right-edge finding answered with the system terminal barline, registry data). **V2 BUILT same day** (transport.js = the D47 clock interface, audio-slaving, injectable timebase · animobj.js = the state(t)→SVG contract + all FIVE ports incl. motive pie, determinism battery w/ stateful prove-red · shell: overlay loop, play/SPACE, click-to-seek, hard-cut turns; drawOverlayFrame(t) exposed = V4's export entry). **G2 = composer + the Reaper render, pending — that sitting also decides system-turn behavior + the C/D time-scale re-look.** **V3 BUILT + RUN same day** (notate_section.js one-command loop: extract → validate-or-delete → manifest → picker; two piece windows extracted — piece-open-01 + piece-trance-w1, all five animated objects live on them; half-open window bug fixed both sides per the A3 ownership law; NOTATION_POLISH.md ledger created; protrusion detector filed its first 24 real items). **G3 = composer runs the loop once (one prompt); can share the G2 sitting.** The pre-notation critical path (V0→V3) is CODE-COMPLETE — V4/V5 (exports) may trail until submission; part-by-part notation can begin after G2/G3`
+## 8. PENN STATE DELIVERABLES BUILD — `doing 2026-08-20 (day 21) → DENSITY BUILD 1 FIGURED AND PROMOTED 2026-08-23 (8e); 8f CLOUD02-I DONE day 30; 8j CLOUD02-D playability DONE day 31, its notation next → 8c note-by-note notation running since day 22: V0 done + G0 CLOSED (frame · no header · staff 31.6 · budget A · Crimson · PP-3; provisional data deferred per the composer's decide-vs-defer filter); V1 BUILT same day (coords lane flexibility + zoomCfg · engraving registry + override channel + staff-off · gutter · the two windows in notation.html, verified live) — **G1 CLOSED same day** (composer: "it looks good... the zoom view is comfortable"; right-edge finding answered with the system terminal barline, registry data). **V2 BUILT same day** (transport.js = the D47 clock interface, audio-slaving, injectable timebase · animobj.js = the state(t)→SVG contract + all FIVE ports incl. motive pie, determinism battery w/ stateful prove-red · shell: overlay loop, play/SPACE, click-to-seek, hard-cut turns; drawOverlayFrame(t) exposed = V4's export entry). **G2 = composer + the Reaper render, pending — that sitting also decides system-turn behavior + the C/D time-scale re-look.** **V3 BUILT + RUN same day** (notate_section.js one-command loop: extract → validate-or-delete → manifest → picker; two piece windows extracted — piece-open-01 + piece-trance-w1, all five animated objects live on them; half-open window bug fixed both sides per the A3 ownership law; NOTATION_POLISH.md ledger created; protrusion detector filed its first 24 real items). **G3 = composer runs the loop once (one prompt); can share the G2 sitting.** The pre-notation critical path (V0→V3) is CODE-COMPLETE — V4/V5 (exports) may trail until submission; part-by-part notation can begin after G2/G3`
 
 - **8a — Deliverables container + exports** — `planned` — the three Penn State
   deliverables (MIDI recording · 1920×1080 screen-following video · PDF full
@@ -2126,6 +2126,39 @@ while building the real score.
   `fit()`'s per-beat tuplet model) — watch for straddles in the reads, build only if one
   appears and the composer wants it fixed · pairwise shared grids at a clean ratio (FLOW
   as a builder) — FLOW stays a flag, taken by hand with `--tuplet a-b@3:2` where wanted.
+
+- **8j — CLOUD02-D, 42.4–48.1 s** — playability `done 2026-08-23 (day 31)`,
+  notation `todo` (= §2's 6b). **The section is at its floor and carries no figure,
+  so 6b starts from a clean page.** 110 notes, 0 hard, 18 soft → **10 soft, worst
+  20 %**; 8 greedy moves + 8 reseats + bricks to 50 ms, 17 ledger lines; db1
+  re-extracted, `--validate` 33/36. Whole archive back to 2 hard (the trance
+  seams) + 24 soft.
+  **What the section turned out to be:** the flags were not nine problems but ONE —
+  at 45.45 s all ten parts drop from the D4/E4 register into E2–F#3 inside 80 ms,
+  a full-ensemble collapse. Because every part has exactly one note before the drop
+  and exactly one landing note, *who catches which* is a clean 10×10 assignment.
+  Solved jointly: **worst leap 57 % → 20 % short**; the composer's two asks
+  (T6 D4→E2 22 st in 136 ms · T7 F#3→D#2 15 st in 141 ms) became **D4→F#3 8 st**
+  and **F#3→A2 9 st**.
+  **Tool growth it forced** (all in `notation/lib/playability.js` + `tools/playability.js`,
+  `test_playability` 22 → 51 checks, second golden `fixtures/cloud02d-collapse.json`):
+  - **the COLLAPSE pass** — `pairCost`/`seatCost`/`minimaxAssign`/`collapsePass`;
+    exact minimax by branch and bound, re-seats a gesture as a PERMUTATION so per-part
+    note counts hold. Default on, `--noCollapse` off. It exists because
+    `redistribute()` is greedy and only accepts a home where the note comes out FREE —
+    and at 45.5 nobody is free, so it gave up on all nine.
+  - **the SAME-SLOT bar** — two notes under 30 ms apart in ONE part cannot be written
+    (extraction cannot give them one grid slot). Invisible to `pairTier()`, so it is
+    Infinity in `seatCost`; and since a re-seating is a permutation, `--apply` now
+    proves the end state before writing, forces only past notes leaving in the same
+    batch, and re-asks the guard of the file on disk.
+  - **FROZEN figures** — every note inside a `--cluster` of any IR built from this
+    score is unmovable by default (`--refigure` lifts it). Built after two of db1's
+    forty were silently re-membered; see the day-31 RUNNING_LOG.
+  **Also settled day 31:** the four clusters db1 carried in 44.5–46.2 s were leftovers
+  of the day-24 sweep's over-wide window, not deliberate CLOUD02-D notation — composer:
+  *"those figures were made by a mistake… you can just disregard those figures
+  entirely."* Dropped; db1 is 36 clusters, none past 40.4 s.
 
 ## Parking lot
 

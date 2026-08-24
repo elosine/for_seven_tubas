@@ -159,5 +159,115 @@ console.log('\n7 · breath and audibility report');
   ok('  sounding count well past the mass boundary', a.soundingMax > 15, 'max ' + a.soundingMax);
 }
 
+// ── 8 · the COLLAPSE pass (day 31) ───────────────────────────────────────────
+// The second golden: CLOUD02-D 42.0–48.5 s as it stood BEFORE the process ran on
+// it. At 45.45 s all ten parts drop from the D4/E4 register into E2–F#3 inside
+// 80 ms, so the greedy pass — which only accepts a home where the note comes out
+// FREE — correctly places none of them. The joint re-seating takes the worst leap
+// from 57 % short (T6 D4→E2, 22 st in 136 ms) to 20 %.
+console.log('\n8 · the collapse pass: a gesture where nobody is free');
+const cd = P.noteEvents(JSON.parse(fs.readFileSync(
+  path.join(ROOT, 'tools', 'fixtures', 'cloud02d-collapse.json'), 'utf8')).objects);
+const worstOf = fl => fl.length ? Math.max(...fl.map(x => (x.need - x.attack) / x.need)) : 0;
+{
+  eq('  120 notes', cd.length, 120);
+  eq('  18 flags before, none hard', P.flags(cd).filter(x => x.tier !== 'hard').length, 18);
+
+  const off = P.redistribute(cd, { collapse: false });
+  eq('  greedy alone leaves 9', off.unresolved.length, 9);
+  eq('  greedy alone leaves a 57% leap', Math.round(worstOf(off.unresolved) * 100), 57);
+
+  const on = P.redistribute(cd);
+  const g = (on.collapses || []).find(c => c.applied);
+  ok('  the collapse pass finds exactly one gesture to re-seat',
+    (on.collapses || []).filter(c => c.applied).length === 1,
+    'applied: ' + (on.collapses || []).filter(c => c.applied).map(c => c.at.toFixed(2)).join(','));
+  eq('  it is the 45.45 s drop', g && +g.at.toFixed(2), 45.45);
+  eq('  all ten parts are in it', g && g.parts, 10);
+  eq('  worst leap 57% before', Math.round(g.worstBefore * 100), 57);
+  eq('  worst leap 20% after', Math.round(g.worstAfter * 100), 20);
+  eq('  the archive floor: 20%', Math.round(worstOf(on.unresolved) * 100), 20);
+
+  // THE TRADE, asserted so it cannot regress silently: minimax lowers the worst
+  // and may RAISE the count. The composer chose this on day 31 ("take the floor").
+  ok('  it lowers the worst and may raise the count — the trade, on purpose',
+    worstOf(on.unresolved) < worstOf(off.unresolved) && on.unresolved.length >= off.unresolved.length,
+    off.unresolved.length + ' -> ' + on.unresolved.length + ' flags');
+  eq('  no hard pair is created', on.unresolved.filter(x => x.tier === 'hard').length, 0);
+
+  // the same contract the greedy pass is held to
+  const by = new Map(cd.map(n => [n.id, n]));
+  const tampered = [];
+  let moved = 0;
+  for (const n of on.notes) {
+    const o = by.get(n.id);
+    if (!o) { tampered.push(n.id + ' is not in the input'); continue; }
+    if (n.layer !== o.layer) moved++;
+    for (const k of ['startSeconds', 'endSeconds', 'sonifyNote', 'recVel', 'technique', 'groupId']) {
+      if (n[k] !== o[k]) tampered.push(n.id + '.' + k);
+    }
+  }
+  eq('  no note added or removed', on.notes.length, cd.length);
+  ok('  re-seating changes nothing but layer', tampered.length === 0, tampered.slice(0, 5).join('; '));
+  eq('  every reported move really moved', moved, new Set(on.moves.map(m => m.id)).size);
+
+  // a re-seat is a PERMUTATION: the gesture's parts keep their note counts
+  const count = (set, lo, hi) => {
+    const c = new Array(P.PARTS).fill(0);
+    for (const n of set) if (n.startSeconds >= lo && n.startSeconds <= hi) c[n.layer]++;
+    return c.join(',');
+  };
+  eq('  the gesture is a permutation — every part keeps its note count',
+    count(on.notes, g.span[0], g.span[1]), count(cd, g.span[0], g.span[1]));
+
+  const a = P.redistribute(cd).moves.map(m => m.id + '>' + m.to).join(',');
+  const b = P.redistribute(cd).moves.map(m => m.id + '>' + m.to).join(',');
+  ok('  deterministic', a === b);
+}
+
+// ── 9 · the collapse pass keeps out of the way ───────────────────────────────
+console.log('\n9 · the collapse pass does not fire where the greedy pass already wins');
+{
+  const r2 = P.redistribute(notes);   // CLOUD02-I: greedy clears it to 0
+  eq('  CLOUD02-I still clears to 0', r2.unresolved.length, 0);
+  eq('  and no gesture was re-seated', (r2.collapses || []).filter(c => c.applied).length, 0);
+  ok('  no collapse moves in the golden case', !r2.moves.some(m => m.which === 'collapse'));
+}
+
+// ── 10 · minimaxAssign is a minimax, not a min-sum ───────────────────────────
+// Built by hand so the right answer is not in question. Min-SUM would take the
+// diagonal (0 + 0 + 9 = 9, worst 9); minimax must refuse the 9 and take a
+// seating whose worst is 3 even though its total is larger.
+console.log('\n10 · minimaxAssign flattens the worst, it does not minimise the total');
+{
+  const m = [[0, 3, 2], [0, 3, 2], [9, 3, 2]];
+  const best = P.minimaxAssign(m);
+  const chosen = best.perm.map((j, i) => m[i][j]);
+  eq('  worst is 3, not 9', Math.max(...chosen), 3);
+  ok('  it is a permutation', new Set(best.perm).size === 3, JSON.stringify(best.perm));
+  const blocked = P.minimaxAssign([[Infinity, Infinity], [Infinity, Infinity]]);
+  eq('  no seating at all returns null', blocked, null);
+  const tie = P.minimaxAssign([[0, 0], [0, 0]]);
+  eq('  equal seatings prefer nobody moving', tie.moves, 0);
+}
+
+// ── 11 · the same-slot rule bars a seating outright (day 31) ─────────────────
+// Learned by having --apply refused: two notes under 30 ms apart in ONE part
+// cannot be written, because extraction cannot give them the same grid slot.
+// That is invisible to pairTier() — a 20 ms gap is merely 'soft' to it — so the
+// bar has to live in seatCost, and it has to be Infinity, not a big number.
+console.log('\n11 · the same-slot rule is a bar, not a penalty');
+{
+  const at = (t, midi) => ({ id: 'x' + t, startSeconds: t, endSeconds: t + 0.005, sonifyNote: midi, layer: 0 });
+  const n = at(1.000, 60);
+  eq('  a 20 ms neighbour before is barred', P.seatCost(at(0.980, 60), n, null), Infinity);
+  eq('  a 20 ms neighbour after is barred', P.seatCost(null, n, at(1.020, 60)), Infinity);
+  ok('  a 200 ms neighbour is merely scored', isFinite(P.seatCost(at(0.800, 60), n, null)));
+  ok('  pairTier alone would have called the 20 ms one soft, not impossible',
+    P.pairTier(at(0.980, 60), n) === 'soft');
+  ok('  and minimaxAssign refuses to seat into a bar',
+    P.minimaxAssign([[Infinity, 0.5], [0.5, Infinity]]).perm.join() === '1,0');
+}
+
 console.log('\n' + (fail ? 'FAILED ' + fail + ' of ' + (pass + fail) : 'ALL ' + pass + ' PASS'));
 process.exit(fail ? 1 : 0);

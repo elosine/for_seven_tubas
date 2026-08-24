@@ -59,7 +59,7 @@ const dials = {
 
 if (!scoreName || (!section && (w0arg == null || w1arg == null))) {
   console.error('usage: playability.js --score <name> (--section <marker label> | --w0 <s> --w1 <s>)');
-  console.error('       [--brick 0.05] [--apply] [--listen] [--catchGap .5 --fullGap 1 --maxRunCatch 5 --maxRunFull 10]');
+  console.error('       [--brick 0.05] [--apply] [--listen] [--noCollapse] [--refigure] [--catchGap .5 --fullGap 1 --maxRunCatch 5 --maxRunFull 10]');
   process.exit(2);
 }
 
@@ -112,22 +112,94 @@ for (const f of before) {
     + (f.tier === 'hard' ? '  · brick overlaps by ' + Math.round(f.overlap * 1000) + ' ms' : ''));
 }
 
+// ── FROZEN: notes the composer has already figured ───────────────────────────
+// Day 31, learned by breaking it. A figure in an IR is `--cluster t0-t1@part`:
+// the notes of THAT part in THAT span. Move a note across parts and the figure
+// silently re-members itself — a different set of notes under a reading the
+// composer approved. It happened to two of db1's forty (T7's 44.54-44.73 lost a
+// note and stopped fitting at all; T7's 45.47-46.22 swapped D#2 for A2 and would
+// have gone on fitting, unnoticed). So every note inside an approved figure is
+// frozen unless --refigure says otherwise, and the report says how many.
+const irDir = path.join(ROOT, 'notation', 'ir');
+const frozen = new Set();
+const figureSrc = [];
+if (!has('refigure') && fs.existsSync(irDir)) {
+  for (const nm of fs.readdirSync(irDir).filter(n => n.endsWith('.ir.json'))) {
+    let ir; try { ir = JSON.parse(fs.readFileSync(path.join(irDir, nm), 'utf8')); } catch { continue; }
+    const build = (ir.provenance || {}).build || '';
+    if (!build.includes('--score ' + scoreName)) continue;
+    const cls = build.match(/--cluster \S+/g) || [];
+    let n = 0;
+    for (const c of cls) {
+      const [span, part] = c.replace('--cluster ', '').split('@');
+      const [a, b] = span.split('-').map(Number);
+      for (const o of all) {
+        if (o.layer === +part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9) {
+          frozen.add(o.id); n++;
+        }
+      }
+    }
+    if (cls.length) figureSrc.push(nm.replace('.ir.json', '') + ' (' + cls.length + ' figures, ' + n + ' notes)');
+  }
+}
+const frozenHere = inWindow.filter(o => frozen.has(o.id)).length;
+if (figureSrc.length) {
+  console.log('\n   FROZEN — already figured, so not free to move: ' + frozenHere + ' of '
+    + inWindow.length + ' notes in this window');
+  figureSrc.forEach(x => console.log('     ' + x));
+  console.log('     (--refigure lifts this and re-opens them; the figures would then need rebuilding)');
+} else if (has('refigure')) {
+  console.log('\n   --refigure: approved figures are NOT protected this run');
+}
+
 // ── 2 redistribute ───────────────────────────────────────────────────────────
 // Run on the whole score so a receiving part is checked against ALL its notes,
 // then keep only the moves that touch this window.
-const red = P.redistribute(all);
+const red = P.redistribute(all, { collapse: has('noCollapse') ? false : undefined, frozen });
 const moves = red.moves.filter(m => ids.has(m.id));
+const oneAtATime = moves.filter(m => m.which !== 'collapse');
+const reseats = moves.filter(m => m.which === 'collapse');
 console.log('\n2 · REDISTRIBUTE — move tight notes to parts with room (no removals, no time or pitch change)');
-if (!moves.length) console.log('  nothing to move.');
-for (const m of moves) {
+if (!oneAtATime.length) console.log('  nothing one part can take on its own.');
+for (const m of oneAtATime) {
   console.log('  ' + m.id.padEnd(9) + T(m.from) + ' → ' + T(m.to).padEnd(4)
     + ' @' + m.at.toFixed(2) + '  ' + pn(m.midi)
     + '  (' + m.tier + ' pair with ' + m.pairWith + ', ' + m.which + '-note pass'
     + ', ' + Math.round(m.attack * 1000) + ' vs ' + Math.round(m.need * 1000) + ' ms)');
 }
+
+// ── 2b collapse ──────────────────────────────────────────────────────────────
+// Where the greedy pass gives up because NOBODY is free, the gesture is re-seated
+// as a whole: who catches which note is chosen jointly, to flatten the worst leap.
+const gestures = (red.collapses || []).filter(c => c.at >= w0 - 1 && c.at < w1 + 1);
+if (gestures.length) {
+  console.log('\n2b · COLLAPSE — gestures where nobody was free, re-seated as a whole'
+    + (has('noCollapse') ? ' (DISABLED by --noCollapse)' : ''));
+  for (const c of gestures) {
+    const head = '  @' + c.at.toFixed(2) + '  ' + c.parts + ' parts, ' + c.flags + ' flag'
+      + (c.flags === 1 ? '' : 's');
+    if (!c.applied) { console.log(head + '  — left alone: ' + c.reason); continue; }
+    console.log(head + '  — worst leap ' + Math.round(c.worstBefore * 100) + '% → '
+      + Math.round(c.worstAfter * 100) + '% short, ' + c.tightBefore + ' → ' + c.tightAfter
+      + ' tight, ' + c.reseats + ' notes change hands');
+    if (c.excluded.length) console.log('      sat out (two notes in the gesture): '
+      + c.excluded.map(p => T(p)).join(' '));
+    if ((c.frozen || []).length) console.log('      pinned (already figured): '
+      + c.frozen.map(p => T(p)).join(' '));
+    for (const m of reseats.filter(x => Math.abs(x.gesture - c.at) < 1e-9)) {
+      console.log('      ' + m.id.padEnd(9) + T(m.from) + ' → ' + T(m.to).padEnd(4)
+        + ' @' + m.at.toFixed(2) + '  ' + pn(m.midi)
+        + (m.need != null ? '  (now ' + Math.round(m.attack * 1000) + ' vs '
+          + Math.round(m.need * 1000) + ' ms — ' + m.tier + ')' : ''));
+    }
+  }
+}
+const reseated = gestures.some(c => c.applied);
 const stillStuck = red.unresolved.filter(f => ids.has(f.b.id) || ids.has(f.a.id));
 if (stillStuck.length) {
-  console.log('  UNRESOLVED — no part can take these; the composer decides (accept, or change the music):');
+  console.log('  ' + (reseated
+    ? 'AT THE FLOOR — no seating of these gestures does better; the composer decides (accept, or change the music):'
+    : 'UNRESOLVED — no part can take these; the composer decides (accept, or change the music):'));
   for (const f of stillStuck) {
     console.log('    ' + f.tier + ' ' + T(f.part) + '@' + f.b.startSeconds.toFixed(2)
       + '  ' + pn(f.a.sonifyNote) + '→' + pn(f.b.sonifyNote)
@@ -240,13 +312,65 @@ if (!APPLY) {
 if (!moves.length && brick == null) { console.log('\nnothing to apply.'); process.exit(0); }
 
 console.log('\n--- APPLYING ---');
+// A collapse is a PERMUTATION and move_object.js moves one note at a time, so
+// going round a cycle always finds the destination still held by a note that is
+// itself about to leave. Day 31: that transient tripped move_object's same-slot
+// guard and stopped --apply half-way through. The guard is right about the thing
+// it guards — a part left holding two notes 30 ms apart cannot be written — but
+// it is asking about a state this batch never ends in. So: prove the END state
+// first, force only past notes that are leaving in this same batch, and re-ask
+// the guard's own question of the file on disk afterwards.
+const SLOT = P.COLLAPSE.sameSlot;
+const sameSlotFaults = (set) => {
+  const bad = [];
+  P.byPart(set).forEach((p, part) => {
+    for (let i = 1; i < p.length; i++) {
+      if (p[i].startSeconds - p[i - 1].startSeconds <= SLOT + 1e-9)
+        bad.push(T(part) + ' ' + p[i - 1].id + '/' + p[i].id + ' @' + p[i].startSeconds.toFixed(3));
+    }
+  });
+  return bad;
+};
+{
+  const wouldBe = all.map(o => {
+    const m = moves.find(x => x.id === o.id);
+    return m ? { ...o, layer: m.to } : o;
+  });
+  const faults = sameSlotFaults(wouldBe);
+  if (faults.length) {
+    console.error('  REFUSED, nothing applied — the end state would be unwritable:');
+    faults.forEach(b => console.error('    ' + b));
+    process.exit(1);
+  }
+  console.log('  end state checked before touching the file: no same-slot fault');
+}
+
+const batch = new Set(moves.map(m => m.id));
+const live = () => P.noteEvents(JSON.parse(fs.readFileSync(file, 'utf8')).objects || []);
 for (const m of moves) {
-  const out = execFileSync('node', [path.join(ROOT, 'tools', 'move_object.js'),
-    '--score', scoreName, '--object', m.id, '--toPart', String(m.to), '--apply'],
-    { encoding: 'utf8', cwd: ROOT });
+  const clash = live().filter(o => o.layer === m.to && o.id !== m.id
+    && Math.abs(o.startSeconds - m.at) <= SLOT);
+  const staying = clash.filter(o => !batch.has(o.id));
+  if (staying.length) {
+    console.error('  STOPPED at ' + m.id + ': ' + T(m.to) + ' holds '
+      + staying.map(o => o.id + '@' + o.startSeconds.toFixed(3)).join(', ')
+      + ', which is not moving. Earlier moves stand; git checkout is the undo.');
+    process.exit(1);
+  }
+  const args = [path.join(ROOT, 'tools', 'move_object.js'),
+    '--score', scoreName, '--object', m.id, '--toPart', String(m.to), '--apply'];
+  if (clash.length) args.push('--force');
+  const out = execFileSync('node', args, { encoding: 'utf8', cwd: ROOT });
   const line = out.split('\n').find(l => l.startsWith('| '));
-  console.log('  moved ' + m.id + ' ' + T(m.from) + ' -> ' + T(m.to));
+  console.log('  moved ' + m.id + ' ' + T(m.from) + ' -> ' + T(m.to)
+    + (clash.length ? '   (forced past ' + clash.map(o => o.id).join(', ')
+      + ' — leaving in this batch)' : ''));
   m.ledger = line;
+}
+{
+  const faults = sameSlotFaults(live());
+  console.log('  same-slot re-asked of the file on disk: '
+    + (faults.length ? 'FAILED — ' + faults.join('; ') : 'clean'));
 }
 if (brick != null) {
   const grp = [...new Set(brickTargets.map(o => o.groupId).filter(Boolean))];
@@ -265,10 +389,20 @@ console.log('  re-audited from disk: ' + check.filter(f => f.tier === 'hard').le
 
 const ledgerFile = path.join(ROOT, 'docs', 'ARCHIVE_AMENDMENTS.md');
 const why = 'THE PLAYABILITY PROCESS (`tools/playability.js --section ' + (section || w0 + '-' + w1) + '`)';
+const reasonFor = (m) => {
+  if (m.which !== 'collapse') {
+    return why + ': ' + m.tier + ' re-attack ' + Math.round(m.attack * 1000) + ' ms vs '
+      + Math.round(m.need * 1000) + ' needed, pair with ' + m.pairWith + ' (' + m.which + '-note pass)';
+  }
+  const g = (red.collapses || []).find(c => Math.abs(c.at - m.gesture) < 1e-9) || {};
+  return why + ': joint re-seating of the ' + m.gesture.toFixed(2) + ' s collapse ('
+    + g.parts + ' parts, worst leap ' + Math.round(g.worstBefore * 100) + '% → '
+    + Math.round(g.worstAfter * 100) + '% short) — this part now takes ' + pn(m.midi)
+    + (m.need != null ? ' after ' + m.pairWith + ', ' + Math.round(m.attack * 1000) + ' ms vs '
+      + Math.round(m.need * 1000) + ' needed' : '');
+};
 const lines = moves.map(m => (m.ledger || '').replace(
-  'composer instruction (compositional move, not a correction)',
-  why + ': ' + m.tier + ' re-attack ' + Math.round(m.attack * 1000) + ' ms vs '
-  + Math.round(m.need * 1000) + ' needed, pair with ' + m.pairWith + ' (' + m.which + '-note pass)'
+  'composer instruction (compositional move, not a correction)', reasonFor(m)
 ).replace('| — |', '| window re-audited from disk after applying: '
   + check.filter(f => f.tier === 'hard').length + ' hard, ' + check.filter(f => f.tier === 'soft').length + ' soft |')
   .replace('SCORE EDIT (archive) |', 'SCORE EDIT (archive) — applied |'));

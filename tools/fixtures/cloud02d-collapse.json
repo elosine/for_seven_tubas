@@ -1,0 +1,4205 @@
+{
+ "note": "CLOUD02-D 42.0-48.5 s of piece-s25-finished01, cut day 31 BEFORE the playability process was applied. The frozen golden for the COLLAPSE pass: at 45.45 s all ten parts drop from the D4/E4 register into E2-F#3 inside 80 ms and nobody is free.",
+ "objects": [
+  {
+   "id": "wc-1611",
+   "type": "waveCurve",
+   "layer": 9,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 34,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1612",
+   "type": "waveCurve",
+   "layer": 8,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 34,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1613",
+   "type": "waveCurve",
+   "layer": 7,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 34,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1614",
+   "type": "waveCurve",
+   "layer": 6,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 34,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1615",
+   "type": "waveCurve",
+   "layer": 5,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1616",
+   "type": "waveCurve",
+   "layer": 4,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1617",
+   "type": "waveCurve",
+   "layer": 3,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1618",
+   "type": "waveCurve",
+   "layer": 2,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1619",
+   "type": "waveCurve",
+   "layer": 1,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1620",
+   "type": "waveCurve",
+   "layer": 0,
+   "startSeconds": 48.05,
+   "endSeconds": 52.46,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#607D8B",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "octaves Bb ord",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "ord",
+   "sonifyMode": "plain",
+   "recVel": 112,
+   "groupId": "grp-octbb-ord-01"
+  },
+  {
+   "id": "wc-1917",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.384,
+   "endSeconds": 42.469,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 83
+  },
+  {
+   "id": "wc-1918",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.387,
+   "endSeconds": 42.441,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 73
+  },
+  {
+   "id": "wc-1919",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.536,
+   "endSeconds": 42.608,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 33,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 57
+  },
+  {
+   "id": "wc-1920",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.57,
+   "endSeconds": 42.747,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 41,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 59
+  },
+  {
+   "id": "wc-1921",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.725,
+   "endSeconds": 42.776,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 83
+  },
+  {
+   "id": "wc-1922",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 42.984,
+   "endSeconds": 43.034,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 93
+  },
+  {
+   "id": "wc-1923",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.009,
+   "endSeconds": 43.068,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 3.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 3.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 35,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 48
+  },
+  {
+   "id": "wc-1924",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.022,
+   "endSeconds": 43.072,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 81
+  },
+  {
+   "id": "wc-1925",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.171,
+   "endSeconds": 43.271,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 107
+  },
+  {
+   "id": "wc-1926",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.214,
+   "endSeconds": 43.275,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 95
+  },
+  {
+   "id": "wc-1927",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.366,
+   "endSeconds": 43.427,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 89
+  },
+  {
+   "id": "wc-1928",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.367,
+   "endSeconds": 43.438,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 77
+  },
+  {
+   "id": "wc-1929",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.464,
+   "endSeconds": 43.514,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 37,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 85
+  },
+  {
+   "id": "wc-1930",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.594,
+   "endSeconds": 43.644,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 91
+  },
+  {
+   "id": "wc-1931",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.633,
+   "endSeconds": 43.683,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 50,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 79
+  },
+  {
+   "id": "wc-1932",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.645,
+   "endSeconds": 43.764,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 59
+  },
+  {
+   "id": "wc-1933",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.732,
+   "endSeconds": 43.782,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 49,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 104
+  },
+  {
+   "id": "wc-1934",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.777,
+   "endSeconds": 43.851,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 48,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 119
+  },
+  {
+   "id": "wc-1935",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.82,
+   "endSeconds": 43.87,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 104
+  },
+  {
+   "id": "wc-1936",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.841,
+   "endSeconds": 43.917,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 45,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 108
+  },
+  {
+   "id": "wc-1937",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.917,
+   "endSeconds": 43.984,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 52,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 105
+  },
+  {
+   "id": "wc-1938",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.941,
+   "endSeconds": 43.991,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 57,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 94
+  },
+  {
+   "id": "wc-1939",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 43.977,
+   "endSeconds": 44.099,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 40,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 99
+  },
+  {
+   "id": "wc-1940",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.15,
+   "endSeconds": 44.261,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 90
+  },
+  {
+   "id": "wc-1941",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.161,
+   "endSeconds": 44.211,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 122
+  },
+  {
+   "id": "wc-1942",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.188,
+   "endSeconds": 44.284,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 59,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 98
+  },
+  {
+   "id": "wc-1943",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.202,
+   "endSeconds": 44.259,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 65,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 112
+  },
+  {
+   "id": "wc-1944",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.272,
+   "endSeconds": 44.336,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 102
+  },
+  {
+   "id": "wc-1945",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.358,
+   "endSeconds": 44.408,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 41,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 65
+  },
+  {
+   "id": "wc-1946",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.36,
+   "endSeconds": 44.416,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 37,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 99
+  },
+  {
+   "id": "wc-1947",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.403,
+   "endSeconds": 44.494,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 36,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 117
+  },
+  {
+   "id": "wc-1948",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.465,
+   "endSeconds": 44.517,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 95
+  },
+  {
+   "id": "wc-1949",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.469,
+   "endSeconds": 44.536,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 48,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 88
+  },
+  {
+   "id": "wc-1950",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.474,
+   "endSeconds": 44.583,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 109
+  },
+  {
+   "id": "wc-1951",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.543,
+   "endSeconds": 44.593,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 43,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 68
+  },
+  {
+   "id": "wc-1952",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.548,
+   "endSeconds": 44.634,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 111
+  },
+  {
+   "id": "wc-1953",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.612,
+   "endSeconds": 44.672,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 42,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 97
+  },
+  {
+   "id": "wc-1954",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.686,
+   "endSeconds": 44.736,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 91
+  },
+  {
+   "id": "wc-1955",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.688,
+   "endSeconds": 44.748,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 107
+  },
+  {
+   "id": "wc-1956",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.69,
+   "endSeconds": 44.759,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 61,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 106
+  },
+  {
+   "id": "wc-1957",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.692,
+   "endSeconds": 44.742,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 93
+  },
+  {
+   "id": "wc-1958",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.725,
+   "endSeconds": 44.775,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 62,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 107
+  },
+  {
+   "id": "wc-1959",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.75,
+   "endSeconds": 44.841,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 50,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 112
+  },
+  {
+   "id": "wc-1960",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.815,
+   "endSeconds": 44.865,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 104
+  },
+  {
+   "id": "wc-1961",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.829,
+   "endSeconds": 44.917,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 52,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 68
+  },
+  {
+   "id": "wc-1962",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.854,
+   "endSeconds": 44.904,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 93
+  },
+  {
+   "id": "wc-1963",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.871,
+   "endSeconds": 44.945,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 53,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 123
+  },
+  {
+   "id": "wc-1964",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.875,
+   "endSeconds": 44.962,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 106
+  },
+  {
+   "id": "wc-1965",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.943,
+   "endSeconds": 44.993,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 61,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 104
+  },
+  {
+   "id": "wc-1966",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.944,
+   "endSeconds": 45.002,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 97
+  },
+  {
+   "id": "wc-1967",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.954,
+   "endSeconds": 45.004,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 63,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 100
+  },
+  {
+   "id": "wc-1968",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.956,
+   "endSeconds": 45.014,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 60,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 94
+  },
+  {
+   "id": "wc-1969",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 44.962,
+   "endSeconds": 45.012,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 102
+  },
+  {
+   "id": "wc-1970",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.004,
+   "endSeconds": 45.054,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 65,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 87
+  },
+  {
+   "id": "wc-1971",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.067,
+   "endSeconds": 45.162,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 112
+  },
+  {
+   "id": "wc-1972",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.07,
+   "endSeconds": 45.12,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 57,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 96
+  },
+  {
+   "id": "wc-1973",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.102,
+   "endSeconds": 45.152,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 111
+  },
+  {
+   "id": "wc-1974",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.131,
+   "endSeconds": 45.205,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 59,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 121
+  },
+  {
+   "id": "wc-1975",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.142,
+   "endSeconds": 45.204,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 57,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 103
+  },
+  {
+   "id": "wc-1976",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.147,
+   "endSeconds": 45.197,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 56,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 111
+  },
+  {
+   "id": "wc-1977",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.171,
+   "endSeconds": 45.255,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 10,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 10,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 127
+  },
+  {
+   "id": "wc-1978",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.173,
+   "endSeconds": 45.223,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 86
+  },
+  {
+   "id": "wc-1979",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.183,
+   "endSeconds": 45.271,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 53,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 103
+  },
+  {
+   "id": "wc-1980",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.267,
+   "endSeconds": 45.317,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 56,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 114
+  },
+  {
+   "id": "wc-1981",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.27,
+   "endSeconds": 45.32,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 62,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 110
+  },
+  {
+   "id": "wc-1982",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.275,
+   "endSeconds": 45.325,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 97
+  },
+  {
+   "id": "wc-1983",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.276,
+   "endSeconds": 45.376,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 64,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 110
+  },
+  {
+   "id": "wc-1984",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.278,
+   "endSeconds": 45.328,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 60,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 110
+  },
+  {
+   "id": "wc-1985",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.313,
+   "endSeconds": 45.373,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 125
+  },
+  {
+   "id": "wc-1986",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.33,
+   "endSeconds": 45.38,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 88
+  },
+  {
+   "id": "wc-1987",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.377,
+   "endSeconds": 45.427,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 62,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 58
+  },
+  {
+   "id": "wc-1988",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.447,
+   "endSeconds": 45.497,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 48,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 98
+  },
+  {
+   "id": "wc-1989",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.448,
+   "endSeconds": 45.498,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 122
+  },
+  {
+   "id": "wc-1990",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.45,
+   "endSeconds": 45.501,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 125
+  },
+  {
+   "id": "wc-1991",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.471,
+   "endSeconds": 45.521,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 39,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 93
+  },
+  {
+   "id": "wc-1992",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.484,
+   "endSeconds": 45.534,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 44,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 118
+  },
+  {
+   "id": "wc-1993",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.486,
+   "endSeconds": 45.536,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 45,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 64
+  },
+  {
+   "id": "wc-1994",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.513,
+   "endSeconds": 45.579,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 41,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 105
+  },
+  {
+   "id": "wc-1995",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.513,
+   "endSeconds": 45.563,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 40,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 99
+  },
+  {
+   "id": "wc-1996",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.522,
+   "endSeconds": 45.605,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 106
+  },
+  {
+   "id": "wc-1997",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.526,
+   "endSeconds": 45.576,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 109
+  },
+  {
+   "id": "wc-1998",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.654,
+   "endSeconds": 45.729,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 45,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 119
+  },
+  {
+   "id": "wc-1999",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.657,
+   "endSeconds": 45.707,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 43,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 112
+  },
+  {
+   "id": "wc-2000",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.716,
+   "endSeconds": 45.766,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 47,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 76
+  },
+  {
+   "id": "wc-2001",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.747,
+   "endSeconds": 45.797,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 42,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 104
+  },
+  {
+   "id": "wc-2002",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.753,
+   "endSeconds": 45.809,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 61,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 106
+  },
+  {
+   "id": "wc-2003",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.755,
+   "endSeconds": 45.805,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 72
+  },
+  {
+   "id": "wc-2004",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.758,
+   "endSeconds": 45.808,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 46,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 100
+  },
+  {
+   "id": "wc-2005",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.767,
+   "endSeconds": 45.817,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 43,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 91
+  },
+  {
+   "id": "wc-2006",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.774,
+   "endSeconds": 45.824,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 49,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 84
+  },
+  {
+   "id": "wc-2007",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.798,
+   "endSeconds": 45.848,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 60,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 123
+  },
+  {
+   "id": "wc-2008",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.806,
+   "endSeconds": 45.856,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 3.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 3.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 56,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 48
+  },
+  {
+   "id": "wc-2009",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.844,
+   "endSeconds": 45.944,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 89
+  },
+  {
+   "id": "wc-2010",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.936,
+   "endSeconds": 46.145,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.1,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.1,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 53,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 78
+  },
+  {
+   "id": "wc-2011",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.946,
+   "endSeconds": 46.008,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 61,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 81
+  },
+  {
+   "id": "wc-2012",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.96,
+   "endSeconds": 46.031,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 62,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 85
+  },
+  {
+   "id": "wc-2013",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 45.996,
+   "endSeconds": 46.084,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 84
+  },
+  {
+   "id": "wc-2014",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.077,
+   "endSeconds": 46.143,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 8.6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 8.6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 51,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 109
+  },
+  {
+   "id": "wc-2015",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.083,
+   "endSeconds": 46.161,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 55
+  },
+  {
+   "id": "wc-2016",
+   "type": "waveCurve",
+   "layer": 9,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.182,
+   "endSeconds": 46.234,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 65,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 99
+  },
+  {
+   "id": "wc-2017",
+   "type": "waveCurve",
+   "layer": 8,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.182,
+   "endSeconds": 46.232,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.4,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.4,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 64,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 94
+  },
+  {
+   "id": "wc-2018",
+   "type": "waveCurve",
+   "layer": 4,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.193,
+   "endSeconds": 46.3,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 7.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 7.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 62,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 99
+  },
+  {
+   "id": "wc-2019",
+   "type": "waveCurve",
+   "layer": 7,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.212,
+   "endSeconds": 46.43,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.3,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.3,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 58,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 118
+  },
+  {
+   "id": "wc-2020",
+   "type": "waveCurve",
+   "layer": 6,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.213,
+   "endSeconds": 46.434,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 54,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 114
+  },
+  {
+   "id": "wc-2021",
+   "type": "waveCurve",
+   "layer": 3,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.217,
+   "endSeconds": 46.4,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 9.7,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 9.7,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 60,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 123
+  },
+  {
+   "id": "wc-2022",
+   "type": "waveCurve",
+   "layer": 5,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.219,
+   "endSeconds": 46.349,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 10,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 10,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 59,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 127
+  },
+  {
+   "id": "wc-2023",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.223,
+   "endSeconds": 46.273,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6.2,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6.2,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 79
+  },
+  {
+   "id": "wc-2024",
+   "type": "waveCurve",
+   "layer": 2,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.243,
+   "endSeconds": 46.293,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 5.8,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 5.8,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 64,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 74
+  },
+  {
+   "id": "wc-2025",
+   "type": "waveCurve",
+   "layer": 1,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.292,
+   "endSeconds": 46.418,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 6,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 6,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 50,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 76
+  },
+  {
+   "id": "wc-2026",
+   "type": "waveCurve",
+   "layer": 0,
+   "groupId": "grp-cloud02-d-01",
+   "startSeconds": 46.354,
+   "endSeconds": 46.439,
+   "nodes": [
+    {
+     "pos": 0,
+     "y": 4.5,
+     "smooth": 0.25
+    },
+    {
+     "pos": 1,
+     "y": 4.5,
+     "smooth": 0.25
+    }
+   ],
+   "segments": [
+    {
+     "model": "power",
+     "slope": 0
+    }
+   ],
+   "color": "#5E8C7A",
+   "fillMode": "bottom",
+   "opacity": 0.55,
+   "performanceNotes": "CLOUD02-D",
+   "properties": {},
+   "sonifyNote": 55,
+   "technique": "staccato",
+   "sonifyMode": "plain",
+   "recVel": 57
+  }
+ ]
+}
