@@ -12388,3 +12388,26 @@ notation — free/spatial reading, which is what the page currently says. If tha
 intent, the section is finished as it stands. If those two gestures should read
 rhythmically like CLOUD02, the figure process is still owed. **The AI does not get to
 decide which, and "the section is done" reads differently depending on the answer.**
+
+**ANSWERED SIMPLY, same sitting — the composer's actual question, which the AI had
+over-complicated.** *"I just want to know if something I composed in the composer score
+is not yet represented in the notated version… if everything has its own GC and notehead,
+then we're done."* Measured per note, not per event:
+
+| of the 121 notes in 81-111 s | drawn |
+|---|---|
+| notehead | **121 / 121** |
+| go line | **121 / 121** |
+| parachute brick | **121 / 121** |
+| GC | 98 / 121 |
+
+**Nothing is unrepresented. The list they asked for is EMPTY.** The 23 without a GC are
+**all ord**, and that is the registry's design, not an omission — `byTechnique.ord` has
+`goLine + nhUnit + dynMark` and no `gc`, because a GC is an *impact* marker and a
+sustained note is not struck. Every one of those 23 still draws a notehead and a go line.
+
+*Process note worth keeping:* the composer asked a yes/no question twice and got a
+distinction about rhythmic figuring both times. The distinction was real and is on the
+record above, but it was not what was asked, and the second answer cost them time they
+said they did not have: *"Let's see if we can't keep this very simple… I've already spent
+too long on this."* **The measurement they wanted took one script and four numbers.**
