@@ -21,6 +21,27 @@
 // day-35 evaluation and stay human here. The machine is the
 // fetch-derive-emit-prove spine.
 //
+// DAY 35, FIFTH SITTING — A BLOCK MAY BE MIXED, AND STACCATO DRAWS ITSELF.
+// The composer dictated eleven blast columns at 81-110 s. Most are staccato,
+// some mix staccato with cuivre, three are staccato throughout. The original
+// build REFUSED any technique without a ring bar ("decide what those parts
+// should draw before running this"), which was right as a T3 guard and wrong
+// as a permanent answer: the registry HAD already decided. byTechnique.staccato
+// is the small filled head + 16th flag + dot and NO duration ink — the settled
+// day-23 standard and the approved CLOUD02 look. Measured on the real material
+// (94.942 T1): brick, goline, gc, notehead(0.844), stem, flag-down16, dot,
+// accidental, dyn — and no ringbar, which is the point.
+//
+// So a block's notes are PARTITIONED, not required to be one technique:
+//   RING members (fortepiano/cuivre/ord) take --ringFromBrick, one written
+//     length from the drawn brick;
+//   SELF-DRAWING members (staccato) are left alone, because the registry
+//     already draws them completely;
+//   anything else still REFUSES — the T3 trap stays shut for the unknown.
+// A block with no ring members has nothing to write, so the tool VERIFIES
+// instead of building: it proves on the laid-out page that every member draws
+// its head and that none of them carries a bar, and writes nothing.
+//
 // THE FOUR TRAPS, AS REFUSALS:
 //   T1 (the wrong probe)      — proof comes from layout.js itself via
 //                               prove_unmoved, never from guessed SVG attributes.
@@ -61,6 +82,35 @@ const LAYOUT_OPTS = Object.assign(
   { m4AttackLines: false, frameParts: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
   (CONTAINER.engraving && CONTAINER.engraving.layout) || {});
 const layoutOf = ir => Layout.layoutSection(JSON.parse(JSON.stringify(ir)), GLYPHS, LAYOUT_OPTS);
+
+// WHAT A NOTE ACTUALLY DRAWS, read off the laid-out page rather than assumed —
+// the T1 discipline applied to the ask itself. Bars, bricks and stems carry an
+// `ev`; the NOTEHEAD DOES NOT (the nh-unit emits the glyph without one), so a
+// head is matched by part and onset instead. Part comes from the score object's
+// own layer, never from the item, because layout items do not carry a part —
+// the system does, and a block is simultaneous, so onset alone would count
+// every other tuba's head as well.
+function pageFacts(model, irDoc, notes) {
+  const byObj = new Map((irDoc.events || []).filter(e => e.source).map(e => [e.source.objectId, e]));
+  const recs = notes.map(n => {
+    const e = byObj.get(n.id);
+    return {
+      obj: n.id, part: n.layer, tech: n.technique, ev: e ? e.id : null,
+      onset: e ? e.onset : n.startSeconds, heads: 0, bars: [], brick: false, missing: !e
+    };
+  });
+  const byEv = new Map(recs.filter(r => r.ev).map(r => [r.ev, r]));
+  for (const s of model.systems) for (const it of s.items) {
+    const r = it.ev ? byEv.get(it.ev) : null;
+    if (r) {
+      if (it.k === 'ringbar') r.bars.push(+(it.t1 - it.t0).toFixed(4));
+      if (it.k === 'brick') r.brick = true;
+    }
+    if (it.k === 'glyph' && /^notehead/.test(it.g || ''))
+      for (const rr of recs) if (rr.part === s.part && Math.abs(it.t - rr.onset) < 1e-6) rr.heads++;
+  }
+  return recs;
+}
 
 // ---------------------------------------------------------------------------
 // T2 answer: ONE place that knows the field names of all three schemas.
@@ -155,6 +205,11 @@ function fmtT(x) {
   const s = String(+(+x).toFixed(4));
   return s.indexOf('.') < 0 ? s + '.0' : s;
 }
+//
+// The wanted set is the block's RING members only, never all of its notes: a
+// mixed column (9 staccato + 1 cuivre at 84.6) is selected correctly by a span
+// that picks up exactly its one cuivre note, because that is all the flag can
+// reach. Demanding the span select every note would refuse every mixed column.
 function spanFor(onsets, ir, groupObjectIds) {
   const lo = Math.min(...onsets), hi = Math.max(...onsets);
   const natural = [Math.floor(lo * 10) / 10, +(Math.floor(lo * 10) / 10 + 0.1).toFixed(4)];
@@ -236,17 +291,48 @@ if (bricks.length !== 1)
     '  node tools/set_brick.js --score ' + scoreName + ' --group ' + groupId + ' --brick 0.05 --apply');
 const brick = bricks[0];
 const onsets = [...new Set(block.notes.map(n => n.startSeconds))];
+// A BLOCK IS ONE INSTANT — and until day 35 that half of the definition was
+// never asserted. The all-staccato refusal happened to cover the case: the
+// 159-note CLOUD02-I cloud has a perfectly uniform 0.05 s brick and 153 distinct
+// onsets over 4.1 s, and it was turned away for its technique, not for being a
+// cloud. Widening the technique rule uncovered it. The threshold is taken from
+// the MATERIAL rather than picked: if the attacks are spread wider than the
+// notes are long, they cannot be heard as one struck sonority.
+const spread = +(Math.max(...onsets) - Math.min(...onsets)).toFixed(4);
+if (spread > brick + 1e-9)
+  die('REFUSED: this is not a block — the attacks are spread over ' + spread + ' s (' +
+    onsets.length + ' distinct onsets) but each note is only ' + brick + ' s long.\n' +
+    'Notes further apart than they are long are a GESTURE, not a struck chord, and a\n' +
+    'gesture is notated by the figure process, not by one written length:\n' +
+    '  node tools/pattern_analyze.js --ir ' + irId + ' --part <0-9> --span ' +
+    Math.min(...onsets).toFixed(2) + '-' + (Math.max(...onsets) + brick).toFixed(2) + '\n' +
+    'Run --list: a group is marked BLOCK only when it is one instant AND one brick.');
 if (onsets.length !== 1)
-  console.log('  NOTE: the notes are not struck together (' + onsets.length +
-    ' distinct onsets) — the ring span will cover them all.');
+  console.log('  NOTE: struck within ' + spread + ' s rather than exactly together (' +
+    onsets.length + ' onsets, inside the ' + brick + ' s brick) — the ring span covers them all.');
+// ---- THE PARTITION (day 35, fifth sitting) --------------------------------
+// RING members take a written bar from the brick. SELF-DRAWING members are
+// complete without one — the registry draws staccato's dotted 16th and gives it
+// no duration ink on purpose (the day-23 standard). Anything else is unknown,
+// and an unknown technique is exactly what T3 exists to stop: --ringFromBrick
+// would skip it in silence and the success line would still say "done".
 const RING_TECHS = new Set(['fortepiano', 'cuivre', 'ord']);
-const nonRing = block.notes.filter(n => !RING_TECHS.has(n.technique));
-if (nonRing.length)
-  die('REFUSED: ' + nonRing.length + ' note(s) carry a technique with no ring bar (' +
-    [...new Set(nonRing.map(n => n.technique))].join(', ') + ').\n' +
-    '--ringFromBrick only reaches ' + [...RING_TECHS].join('/') + ', so those notes would be\n' +
-    'silently skipped — the exact shape of the day-35 T3 trap. Decide what those parts\n' +
-    'should draw before running this.');
+const SELF_DRAWING = new Set(['staccato']);
+const ringNotes = block.notes.filter(n => RING_TECHS.has(n.technique));
+const selfNotes = block.notes.filter(n => SELF_DRAWING.has(n.technique));
+const unknown = block.notes.filter(n => !RING_TECHS.has(n.technique) && !SELF_DRAWING.has(n.technique));
+if (unknown.length)
+  die('REFUSED: ' + unknown.length + ' note(s) carry a technique this tool has no rule for (' +
+    [...new Set(unknown.map(n => n.technique))].join(', ') + ').\n' +
+    '--ringFromBrick reaches ' + [...RING_TECHS].join('/') + ' and nothing else, and ' +
+    [...SELF_DRAWING].join('/') + ' is\n' +
+    'the only technique known to draw itself completely from the registry. Anything outside\n' +
+    'those two lists would be silently skipped — the day-35 T3 trap. Decide what those parts\n' +
+    'should draw, and add the technique to one of the two lists in this file.');
+console.log('  split   ' + ringNotes.length + ' ring (' +
+  ([...new Set(ringNotes.map(n => n.technique))].join('/') || '-') + ') + ' +
+  selfNotes.length + ' self-drawing (' +
+  ([...new Set(selfNotes.map(n => n.technique))].join('/') || '-') + ')');
 
 // ---- the target IR --------------------------------------------------------
 const irPath = path.join(ROOT, 'notation', 'ir', irId + '.ir.json');
@@ -291,12 +377,50 @@ console.log('  own build command of ' + irId + ' and rebuild under --id ' + irId
 console.log('  Precedent: db1 already carries --ringFromBrick for the 41 s block. A fork here');
 console.log('  would be a needless page; an unguarded hand edit would be worse. Day-35 T4.');
 
-// ---- the flags ------------------------------------------------------------
+// ---- NOTHING TO WRITE: verify the page instead of building it -------------
+// A block of nothing but self-drawing notes is already correct on the page —
+// there is no flag to add. Saying "done" without looking would be the T3 trap
+// wearing the other hat, so this looks: it lays the page out and reads back,
+// per member, that a head is drawn and that no bar is.
 const objIds = block.notes.map(n => n.id);
-const sp = spanFor(onsets, ir, objIds);
+if (!ringNotes.length) {
+  console.log('\nNOTHING TO WRITE — every note in this block draws itself.');
+  console.log('  ' + [...new Set(selfNotes.map(n => n.technique))].join('/') +
+    ' carries no duration ink by the settled standard (the small filled head, the 16th');
+  console.log('  flag and the dot ARE the notation), so --ringFromBrick has nothing to reach.');
+  console.log('  This run therefore VERIFIES the page as it stands and writes nothing.');
+  const facts = pageFacts(layoutOf(ir), ir, block.notes);
+  const missing = facts.filter(f => f.missing);
+  if (missing.length)
+    die('REFUSED: ' + missing.length + ' of this block\'s notes are not in ' + irId + ' at all (' +
+      missing.slice(0, 4).map(f => f.obj).join(', ') + ').\n' +
+      'A page cannot draw material it never extracted — check the window and --parts.');
+  console.log('\nVERIFY — read off the laid-out page (T1), not assumed');
+  facts.forEach(f => console.log('    T' + String(f.part + 1).padEnd(3) + f.tech.padEnd(11) +
+    ' heads ' + f.heads + '   bars ' + f.bars.length +
+    (f.brick ? '   parachute brick (un-figured)' : '   figured')));
+  const noHead = facts.filter(f => f.heads === 0), withBar = facts.filter(f => f.bars.length);
+  console.log('    ' + (facts.length - noHead.length) + '/' + facts.length +
+    ' notes draw a notehead; ' + withBar.length + ' carry a ring bar (expected 0)');
+  if (noHead.length || withBar.length) {
+    console.error('\nREFUSED — ' + (noHead.length
+      ? noHead.length + ' note(s) draw no notehead at all'
+      : withBar.length + ' note(s) carry a ring bar they should not') +
+      '.\nNothing was written; the page is as it was.\n');
+    process.exit(5);
+  }
+  console.log('\nVERIFIED. ' + irId + ' already draws this block correctly; nothing written,');
+  console.log('and nothing needed writing. Brick ' + brick + ' s is the score\'s truth for');
+  console.log('playability and for sound — it was never ink on this page (D51).\n');
+  process.exit(0);
+}
+
+// ---- the flags ------------------------------------------------------------
+const ringObjIds = ringNotes.map(n => n.id);
+const sp = spanFor([...new Set(ringNotes.map(n => n.startSeconds))], ir, ringObjIds);
 if (sp.bad)
-  die('REFUSED: no ring span selects exactly this block.\n' +
-    '  wanted ' + objIds.length + ' notes (' + objIds.slice(0, 4).join(', ') + (objIds.length > 4 ? ', ...' : '') + ')\n' +
+  die('REFUSED: no ring span selects exactly this block\'s ringing notes.\n' +
+    '  wanted ' + ringObjIds.length + ' notes (' + ringObjIds.slice(0, 4).join(', ') + (ringObjIds.length > 4 ? ', ...' : '') + ')\n' +
     '  a span around ' + t + ' s selects ' + sp.bad.length + ' (' + sp.bad.slice(0, 6).join(', ') + ')\n' +
     'Another ringing gesture sits within the same tenth of a second. Widening or narrowing\n' +
     'the span would notate the wrong notes, so this one needs a hand.');
@@ -304,7 +428,11 @@ const spanArg = fmtT(sp.span[0]) + '-' + fmtT(sp.span[1]);
 const newFlags = ['--ringFromBrick', spanArg];
 console.log('\nFLAGS   ' + newFlags.join(' ') + (sp.tightened ? '   (tightened to clear a neighbour)' : ''));
 console.log('        -> device.ringSeconds ' + brick + ' s + device.ringBar on ' +
-  block.notes.length + ' events (D72: the flag turns the device on, not only sizes it).');
+  ringNotes.length + ' ring event(s) (D72: the flag turns the device on, not only sizes it).');
+if (selfNotes.length)
+  console.log('        -> the ' + selfNotes.length + ' ' + [...new Set(selfNotes.map(n => n.technique))].join('/') +
+    ' note(s) are untouched: notate_section filters the span to ' + [...RING_TECHS].join('/') +
+    ',\n           and the registry already draws them whole.');
 
 // Compared by VALUE, not by string: "48.0-48.1" and "48-48.1" are the same
 // span, and a formatting difference must not make the tool rebuild a page that
@@ -374,29 +502,53 @@ console.log(Prove.summarise(d));
 const outside = Prove.confine(d, blockEventIds);
 console.log(Prove.summariseConfined(d, outside));
 
-// and the thing actually asked for: each note now carries ONE bar, one brick long
-const bars = [];
-for (const s of afterModel.systems) for (const it of s.items)
-  if (it.k === 'ringbar' && blockEventIds.has(it.ev)) bars.push(it);
-const lens = [...new Set(bars.map(b => +(b.t1 - b.t0).toFixed(4)))];
-console.log('    the ask: ' + bars.length + '/' + block.notes.length + ' notes carry a ring bar, length ' +
-  lens.map(x => x + ' s').join(', ') + (lens.length === 1 && Math.abs(lens[0] - brick) < 1e-6
+// AND THE THING ACTUALLY ASKED FOR, measured on both halves of the block. The
+// claim is no longer one sentence about "the notes" but one about each kind:
+// the ring members carry ONE bar of exactly the drawn brick, and the
+// self-drawing members carry a head and NO bar. A single combined count would
+// pass a mixed column in which the staccato notes had quietly grown bars.
+const factsAfter = pageFacts(afterModel, after, block.notes);
+const ringFacts = factsAfter.filter(f => RING_TECHS.has(f.tech));
+const selfFacts = factsAfter.filter(f => SELF_DRAWING.has(f.tech));
+const lens = [...new Set(ringFacts.flatMap(f => f.bars))];
+const withOneBar = ringFacts.filter(f => f.bars.length === 1).length;
+console.log('    the ask, ring: ' + withOneBar + '/' + ringFacts.length +
+  ' notes carry one ring bar, length ' + (lens.map(x => x + ' s').join(', ') || '-') +
+  (lens.length === 1 && Math.abs(lens[0] - brick) < 1e-6
     ? '   <- the drawn brick, uniform' : '   <- DOES NOT MATCH THE BRICK ' + brick + ' s'));
+const ringRight = ringFacts.length > 0 && withOneBar === ringFacts.length &&
+  lens.length === 1 && Math.abs(lens[0] - brick) < 1e-6;
 
-const barsRight = bars.length === block.notes.length && lens.length === 1 && Math.abs(lens[0] - brick) < 1e-6;
-if (outside.total || d.removed.length || gaps.gaps.length || !barsRight) {
+let selfRight = true;
+if (selfFacts.length) {
+  const headed = selfFacts.filter(f => f.heads > 0).length;
+  const barred = selfFacts.filter(f => f.bars.length).length;
+  // the flag has no business touching them at all, so say so from the diff too
+  const selfEv = new Set(selfFacts.map(f => f.ev));
+  const touched = d.added.concat(d.removed).filter(r => selfEv.has(r.ev)).length +
+    d.changed.filter(c => selfEv.has(c.ev)).length;
+  console.log('    the ask, self-drawing: ' + headed + '/' + selfFacts.length +
+    ' draw a notehead, ' + barred + ' carry a bar (expected 0), ' +
+    touched + ' item(s) moved by this rebuild (expected 0)');
+  selfRight = headed === selfFacts.length && barred === 0 && touched === 0;
+}
+
+if (outside.total || d.removed.length || gaps.gaps.length || !ringRight || !selfRight) {
   fs.writeFileSync(irPath, irBytes);
   console.error('\nREFUSED — ' + (gaps.gaps.length ? 'a device field asks for something that is never drawn'
     : outside.total ? 'the rebuild moved ink OUTSIDE this block'
       : d.removed.length ? 'the rebuild REMOVED something'
-        : 'the ring bars did not come out as the drawn brick') + '.');
+        : !ringRight ? 'the ring bars did not come out as the drawn brick'
+          : 'the self-drawing notes did not come out whole and bar-free') + '.');
   console.error(irId + ' has been RESTORED from the snapshot; nothing changed on disk.\n');
   process.exit(4);
 }
 
 const addedN = d.added.length, changedN = d.changed.length;
-console.log('\nDONE. ' + block.notes.length + ' ring bars of ' + brick + ' s on ' + irId +
-  ' (' + addedN + ' added, ' + changedN + ' resized); nothing else on the page moved.');
+console.log('\nDONE. ' + ringFacts.length + ' ring bars of ' + brick + ' s on ' + irId +
+  ' (' + addedN + ' added, ' + changedN + ' resized)' +
+  (selfFacts.length ? ' + ' + selfFacts.length + ' self-drawing note(s) left alone' : '') +
+  '; nothing else on the page moved.');
 console.log('Look at it: node score/server.js -> http://localhost:5200/notation/app/notation.html');
 console.log('            pick ' + irId + ', window ' + Math.max(0, t - 0.3).toFixed(1) +
   ' +' + (brick + 1).toFixed(1) + ' s\n');

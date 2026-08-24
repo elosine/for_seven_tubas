@@ -39,12 +39,24 @@ const group = arg('group');
 const w0 = arg('w0') != null ? parseFloat(arg('w0')) : null;
 const w1 = arg('w1') != null ? parseFloat(arg('w1')) : null;
 const brick = parseFloat(arg('brick', '0.05'));
+// --technique: one name, a comma list, or `any` (day 35, fifth sitting). The
+// composer's blast columns are MIXED — 8 staccato + 2 cuivre at 102.44, 6 ord +
+// 2 cuivre at 105.63 — and their instruction is about the column, not about a
+// technique: "find the shortest duration in that stack and then make that the
+// duration of the blast for everyone". One technique per run made that two runs
+// and an easy way to normalise half a chord.
 const technique = arg('technique', 'staccato');
+const TECHS = technique === 'any' ? null : new Set(technique.split(',').map(s => s.trim()));
+// --why: the ledger line states WHY the drawn lengths changed, and the reason is
+// not always day 25's. ARCHIVE_AMENDMENTS is the record of deliberate edits to a
+// frozen file; a wrong rationale in it is worse than a terse one.
+const WHY_DEFAULT = 'composer instruction: "these should all be staccatos… some of the bricks are longer, that must have been from my playing" — and an over-long brick reads as a HARD playability conflict when the attack gap is comfortable';
+const why = arg('why', WHY_DEFAULT);
 const META_LAYER = 10;
 
 if (!scoreName || (!group && (w0 == null || w1 == null)) || !(brick > 0)) {
   console.error('usage: set_brick.js --score <name> (--group <id> | --w0 <s> --w1 <s>)'
-    + ' [--brick 0.05] [--technique staccato] [--apply]');
+    + ' [--brick 0.05] [--technique staccato|a,b|any] [--why "<reason>"] [--apply]');
   process.exit(2);
 }
 
@@ -54,14 +66,15 @@ const score = JSON.parse(raw);
 
 const targets = (score.objects || []).filter(o =>
   o.type === 'waveCurve' && o.layer < META_LAYER && o.sonifyNote != null
-  && (o.technique || 'staccato') === technique
+  && (TECHS === null || TECHS.has(o.technique || 'staccato'))
   && (group ? o.groupId === group : (o.startSeconds >= w0 && o.startSeconds < w1)));
 
 if (!targets.length) { console.error('no ' + technique + ' notes matched'); process.exit(1); }
 
 const lens = targets.map(o => o.endSeconds - o.startSeconds);
 const changed = targets.filter(o => Math.abs((o.endSeconds - o.startSeconds) - brick) > 1e-6);
-console.log(scoreName + ' · ' + (group || w0 + '–' + w1 + ' s') + ' · ' + technique);
+console.log(scoreName + ' · ' + (group || w0 + '–' + w1 + ' s') + ' · ' + technique +
+  (TECHS === null ? ' (' + [...new Set(targets.map(o => o.technique || 'staccato'))].join(', ') + ')' : ''));
 console.log('  ' + targets.length + ' notes, written length '
   + (Math.min(...lens) * 1000).toFixed(0) + '–' + (Math.max(...lens) * 1000).toFixed(0) + ' ms'
   + '  ->  ' + (brick * 1000).toFixed(0) + ' ms on all of them (' + changed.length + ' change)');
@@ -89,7 +102,24 @@ const before = census(o => o.endSeconds);
 const after = census(o => o.startSeconds + brick);
 console.log('  whole score: hard ' + before.hard + ' -> ' + after.hard
   + ' · soft ' + before.soft + ' -> ' + after.soft);
-console.log('  (sound is unaffected — D51: a fixed one-shot lasts its sample length, carried by the IR)');
+// SOUND: true for a fixed one-shot, FALSE for ord — and with --technique any
+// this run can reach both, so the line is MEASURED rather than recited. D51 makes
+// a fixed one-shot's IR duration its sample length (staccato/cuivre/fortepiano —
+// extract_core reads the sample table), while the ORD family takes its real drawn
+// duration (D9). Re-drawing an ord brick therefore changes what is heard.
+const ORD_FAMILY = targets.filter(o => !['staccato', 'cuivre', 'fortepiano'].includes(o.technique || 'staccato'));
+// counted BEFORE the mutation below, which would otherwise make every one of
+// them look unchanged and turn the ledger line into a false claim
+const ORD_MOVED = ORD_FAMILY.filter(o => Math.abs((o.endSeconds - o.startSeconds) - brick) > 1e-6).length;
+if (!ORD_FAMILY.length) {
+  console.log('  (sound is unaffected — D51: a fixed one-shot lasts its sample length, carried by the IR)');
+} else {
+  console.log('  SOUND: ' + ORD_FAMILY.length + ' note(s) are ORD-family (' +
+    [...new Set(ORD_FAMILY.map(o => o.technique))].join(', ') + '), whose IR duration IS the drawn');
+  console.log('         length (D9) — ' + (ORD_MOVED
+    ? ORD_MOVED + ' of them CHANGE LENGTH, so this run changes what is heard.'
+    : 'none of them changes length here, so nothing is heard differently.'));
+}
 
 if (!flag('apply')) {
   console.log('\nDRY RUN — nothing written. Add --apply.');
@@ -112,5 +142,9 @@ console.log('ledger line for docs/ARCHIVE_AMENDMENTS.md:');
 console.log('| ' + new Date().toISOString().slice(0, 10) + ' | `' + (group || w0 + '–' + w1 + ' s') + '` ('
   + targets.length + ' ' + technique + ' notes) | written lengths '
   + (Math.min(...lens) * 1000).toFixed(0) + '–' + (Math.max(...lens) * 1000).toFixed(0)
-  + ' ms (played) | all ' + (brick * 1000).toFixed(0) + ' ms | composer instruction: "these should all be staccatos… some of the bricks are longer, that must have been from my playing" — and an over-long brick reads as a HARD playability conflict when the attack gap is comfortable | hard '
-  + before.hard + ' -> ' + after.hard + ' on the whole score; sound unchanged (D51, IR carries duration) | SCORE EDIT (archive) — applied |');
+  + ' ms (played) | all ' + (brick * 1000).toFixed(0) + ' ms | ' + why + ' | hard '
+  + before.hard + ' -> ' + after.hard + ' on the whole score; '
+  + (ORD_MOVED
+    ? 'SOUND CHANGES on ' + ORD_MOVED + ' ord-family note(s) (D9: their IR duration is the drawn length)'
+    : 'sound unchanged (D51, IR carries duration)')
+  + ' | SCORE EDIT (archive) — applied |');

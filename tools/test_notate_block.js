@@ -125,13 +125,39 @@ console.log('\n3. reading the block — the three schemas, one place (day-35 T2)
 console.log('\n4. the refusals');
 // ---------------------------------------------------------------------------
 {
+  // THE ONE-INSTANT HALF OF THE DEFINITION, now asserted in its own right.
+  // This cloud has a perfectly uniform 0.05 s brick and 153 onsets over 4.1 s.
+  // Until day 35 it was turned away for its TECHNIQUE — accidental cover that
+  // disappeared the moment staccato became legal in a block.
   const r = run([NB, '--score', SCORE, '--group', 'grp-cloud02-i-01']);
-  ok(r.code === 2 && /NOT UNIFORM|REFUSED/.test(r.out),
-    'a non-block group (159 staccato notes) is REFUSED, not notated', 'exit ' + r.code);
+  ok(r.code === 2 && /this is not a block/.test(r.out),
+    'a 159-note CLOUD is REFUSED for being spread, not for its technique', 'exit ' + r.code);
+  ok(/spread over 4\.138 s.*153 distinct onsets/s.test(r.out) && /pattern_analyze/.test(r.out),
+    'and the refusal measures the spread and points at the figure process', r.out.slice(-400));
 
+  // DAY 35, FIFTH SITTING — this case CHANGED SIDES, and deliberately.
+  // grp-s035-846 (9 staccato + 1 cuivre) was the original build's example of the
+  // T3 refusal: a technique with no ring bar. The composer then dictated eleven
+  // such columns, and the registry turned out to have answered the question the
+  // refusal was asking — staccato's dotted 16th IS its notation. So a MIXED block
+  // is now legal, and what must still be refused is a technique on NEITHER list.
   const r2 = run([NB, '--score', SCORE, '--group', 'grp-s035-846']);
-  ok(r2.code === 2 && /no ring bar/.test(r2.out),
-    'a uniform block whose technique has no ring bar is REFUSED (day-35 T3 shape)', 'exit ' + r2.code);
+  ok(r2.code !== 2 || !/no ring bar/.test(r2.out),
+    'a MIXED block (9 staccato + 1 cuivre) is no longer refused for the staccato', 'exit ' + r2.code);
+  ok(/split   1 ring \(cuivre\) \+ 9 self-drawing \(staccato\)/.test(r2.out),
+    'and it partitions into 1 ring + 9 self-drawing', r2.out.slice(0, 600));
+
+  // the T3 trap itself, still shut: a technique on neither list
+  {
+    const tmpScore = 'nb-tech-tmp';
+    const s = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+    s.objects.forEach(o => { if (o.groupId === 'grp-s035-846' && o.technique === 'staccato') o.technique = 'flutter'; });
+    fs.writeFileSync(path.join(ROOT, 'scores', tmpScore + '.json'), JSON.stringify(s, null, 1));
+    const rT = run([NB, '--score', tmpScore, '--group', 'grp-s035-846']);
+    ok(rT.code === 2 && /no rule for/.test(rT.out) && /flutter/.test(rT.out),
+      'an UNKNOWN technique is still REFUSED — the T3 trap stays shut', 'exit ' + rT.code);
+    fs.unlinkSync(path.join(ROOT, 'scores', tmpScore + '.json'));
+  }
 
   const r3 = run([NB, '--score', SCORE, '--group', 'grp-s009-817']);
   ok(r3.code === 3 && /OUTSIDE THE WINDOW/.test(r3.out),
@@ -197,7 +223,7 @@ console.log('\n5. THE GOLDEN — the machine must rebuild the two approved pages
     ok(g1.code === 0, 'the machine notates the 41 s blast into the twin', g1.out.slice(-800));
     ok(/OUTSIDE the target: added 0 \/ changed 0 \/ removed 0/.test(g1.out),
       'CONFINED: nothing outside the 41 s block moved');
-    ok(/10\/10 notes carry a ring bar, length 1\.01 s.*uniform/.test(g1.out),
+    ok(/the ask, ring: 10\/10 notes carry one ring bar, length 1\.01 s.*uniform/.test(g1.out),
       'and all ten bars come out at the drawn brick, 1.01 s uniform');
     ok(/no orphaned device fields/.test(g1.out), 'device-gap assert clean on the rebuilt page');
 
@@ -207,7 +233,7 @@ console.log('\n5. THE GOLDEN — the machine must rebuild the two approved pages
       'the ord long tone ADDS ten bars (its registry entry has no ringBar) — D72 in the diff');
     ok(/OUTSIDE the target: added 0 \/ changed 0 \/ removed 0/.test(g2.out),
       'CONFINED: nothing outside the 48.05 block moved');
-    ok(/10\/10 notes carry a ring bar, length 4\.41 s.*uniform/.test(g2.out),
+    ok(/the ask, ring: 10\/10 notes carry one ring bar, length 4\.41 s.*uniform/.test(g2.out),
       'and all ten bars come out at the drawn brick, 4.41 s uniform');
 
     // THE GOLDEN ASSERTION
@@ -240,6 +266,87 @@ console.log('\n6. the snapshot restores a page that cannot prove itself');
     ok(after === snapshot, 'and the IR file is byte-restored from the snapshot — nothing half-written');
     fs.writeFileSync(goldenPath, before);
   } else ok(false, 'twin page missing, snapshot test skipped');
+}
+
+// ---------------------------------------------------------------------------
+console.log('\n7. THE BLAST COLUMNS — mixed blocks and all-staccato blocks (day 35, fifth sitting)');
+// ---------------------------------------------------------------------------
+// Self-contained on purpose: a TEMP FIXTURE score, not whichever save file
+// happens to have been normalised. The composer's eleven columns live in
+// piece-s26 and get their bricks normalised as part of building that page; a
+// battery that depended on that edit would pass or fail on the state of a file
+// it does not own.
+{
+  const TMP_SCORE = 'nb-blast-tmp';
+  const TWIN = 'nb-blast-ir-tmp';
+  const tmpScorePath = path.join(ROOT, 'scores', TMP_SCORE + '.json');
+  const twinPath = path.join(ROOT, 'notation', 'ir', TWIN + '.ir.json');
+  const s = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+
+  // the raw column is ragged (0.41-0.51 s), which is the refusal below;
+  // normalise a COPY to the composer's shortest-in-the-stack rule, 0.41
+  const RAGGED = 'grp-s008-949';
+  const rawLens = new Set(s.objects.filter(o => o.groupId === RAGGED && o.sonifyNote != null)
+    .map(o => +(o.endSeconds - o.startSeconds).toFixed(4)));
+  ok(rawLens.size > 1, 'fixture: the all-staccato column starts ragged (' + [...rawLens].join(', ') + ' s)');
+
+  const rRag = run([NB, '--score', SCORE, '--group', RAGGED]);
+  ok(rRag.code === 2 && /NOT UNIFORM/.test(rRag.out) && /set_brick\.js/.test(rRag.out),
+    'a ragged column is REFUSED and told to normalise first — WHICH length is a composer call',
+    'exit ' + rRag.code);
+
+  s.objects.forEach(o => {
+    if (o.groupId === RAGGED && o.sonifyNote != null) o.endSeconds = +(o.startSeconds + 0.41).toFixed(3);
+  });
+  fs.writeFileSync(tmpScorePath, JSON.stringify(s, null, 1));
+
+  const built = run([NS, '--score', TMP_SCORE, '--w0', '81', '--w1', '111', '--parts', '0-9',
+    '--profile', 'section1', '--id', TWIN, '--bricks', '--bracketsAbove', '--label', 'blast battery fixture']);
+  ok(built.code === 0 && fs.existsSync(twinPath), 'a fixture page over 81-111 builds', built.out.slice(-300));
+
+  if (fs.existsSync(twinPath)) {
+    // (a) ALL-STACCATO -> VERIFY, not build. Nothing to write, and it says so
+    //     only after looking at the laid-out page.
+    const v = run([NB, '--score', TMP_SCORE, '--group', RAGGED, '--ir', TWIN, '--apply']);
+    const beforeBytes = fs.readFileSync(twinPath, 'utf8');
+    ok(v.code === 0 && /NOTHING TO WRITE/.test(v.out),
+      'an ALL-STACCATO block writes nothing and verifies instead', 'exit ' + v.code + '\n' + v.out.slice(-500));
+    ok(/9\/9 notes draw a notehead; 0 carry a ring bar/.test(v.out),
+      'and it PROVES the page: 9/9 heads drawn, 0 ring bars', v.out.slice(-500));
+    ok(/parachute brick/.test(v.out), 'each member is reported as an un-figured parachute brick');
+    ok(fs.readFileSync(twinPath, 'utf8') === beforeBytes, 'the IR file is untouched by a verify run');
+
+    // (b) MIXED -> the cuivre gets the bar, the staccato is left alone
+    const m = run([NB, '--score', TMP_SCORE, '--group', 'grp-s035-846', '--ir', TWIN, '--apply']);
+    ok(m.code === 0, 'a MIXED block (1 cuivre + 9 staccato) builds', m.out.slice(-700));
+    ok(/the ask, ring: 1\/1 notes carry one ring bar, length 0\.35 s.*uniform/.test(m.out),
+      'the one cuivre note gets a 0.35 s bar — the drawn brick');
+    ok(/the ask, self-drawing: 9\/9 draw a notehead, 0 carry a bar \(expected 0\), 0 item\(s\) moved/.test(m.out),
+      'and the nine staccato notes draw their heads, carry no bar, and DID NOT MOVE', m.out.slice(-700));
+    ok(/OUTSIDE the target: added 0 \/ changed 0 \/ removed 0/.test(m.out),
+      'CONFINED: nothing outside the mixed block moved');
+
+    // (c) D73 IN THE NEW MATERIAL: the same instruction, two diff shapes.
+    //     cuivre already draws a bar at the sample length -> CHANGED.
+    //     ord has no ringBar in the registry -> ADDED.
+    ok(/ADDED 0 \/ REMOVED 0 \/ CHANGED 1/.test(m.out),
+      'D73 again: on cuivre the flag CHANGES an existing bar (sample length -> brick)', m.out.slice(-700));
+    const o = run([NB, '--score', TMP_SCORE, '--group', 'grp-s009-817', '--ir', TWIN, '--apply']);
+    ok(o.code === 0 && /ADDED 10 \/ REMOVED 0 \/ CHANGED 0/.test(o.out),
+      'and on ord the SAME flag ADDS ten — which is why the proof is confinement, not a count',
+      o.out.slice(-700));
+    ok(/10\/10 notes carry one ring bar, length 2\.172 s.*uniform/.test(o.out),
+      'the 81.75 long tone comes out at its 2.172 s brick, uniform');
+
+    // (d) idempotent on a mixed block
+    const m2 = run([NB, '--score', TMP_SCORE, '--group', 'grp-s035-846', '--ir', TWIN, '--apply']);
+    ok(m2.code === 0 && /ALREADY DONE/.test(m2.out), 'a mixed block is idempotent — re-running is a no-op');
+  }
+
+  const p = run([NS, '--prune', TWIN]);
+  ok(!fs.existsSync(twinPath), 'the fixture page is pruned', p.out.slice(-200));
+  if (fs.existsSync(tmpScorePath)) fs.unlinkSync(tmpScorePath);
+  ok(!fs.existsSync(tmpScorePath), 'and the fixture score is removed (never a picker entry)');
 }
 
 // ---------------------------------------------------------------------------
