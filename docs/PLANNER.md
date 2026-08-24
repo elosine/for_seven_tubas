@@ -8,16 +8,24 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-20) NOTATION ARCHITECTURE COMPLETE (phases A-D in one
-sitting) — and the plan is back to the PIECE.** Next session, your own
-ordering: (1) the phase-shifting sitting (2ad — zero code, your ear on
-SMEAR/RAIN/GALLOP), building structures with it · (2) finish the piece,
-from the beginning (trance → assembly; Penn State Sept 4) · (3) if time,
-the density-build experiments (E0/E2) · (4) then the actual notation —
-PARTS FIRST, laid into the study score. The performance runtime is now a
-SEPARATE FUTURE PROJECT (D45 — "the whole performance side needs a
-rethink"). Notation app: /notation/app/notation.html · ε proofs await your
-eye: notation/app/proof-s1-apex-e20/e30/m4.svg.
+**NOW ► (2026-08-24, day 34) THE PIECE IS IN NOTATION, AND SECTION CLOUD02-D
+IS FINISHED AND FOLDED.** `db1` is the single notation page — 49 figure
+clusters over 0-46.36 s, every part figured, under the bracket-above policy
+(journal §2 carries the tool table and the laws). Density build 1 + CLOUD02-I
++ CLOUD02-D are all on it. **Immediately next: the NEXT SECTION — a long tone
++ density build 2 — composed by you in the app on the save file `piece-s26`**
+(bumped day 33 from the frozen `piece-s25-finished01` archive). AI runs the
+density pipeline and measurements on request; notation comes later via a new
+fork off db1, built with `--bracketsAbove` from birth and gated automatically
+(day-34 step G). Standing after that: the two trance seams (@560.63 T8,
+@604.63 T6) through `playability.js`; then PLAN 8 Penn State deliverables
+(exports V4/V5) and the paper's first pass.
+
+**Previously (2026-08-20) ►** NOTATION ARCHITECTURE COMPLETE (phases A-D in one
+sitting) — the plan returned to the PIECE; the performance runtime became a
+SEPARATE FUTURE PROJECT (D45). *(Superseded: its ordering put "the actual
+notation" fourth and in the future; notation has been the whole job since
+day 21.)*
 
 **Previously (2026-08-19) ►** NOTATION PHASE A complete — gate items now in journal §2.**
 Architecture doc + IR schema v0 + validator + three hand-worked chunks from

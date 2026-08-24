@@ -10,12 +10,30 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-**DAY 34 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
+**DAY 35 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
 AND FOLDED (day 34): `db1` is now the single page and carries all 49 clusters,
-0–46.36 s, under the bracket-above policy. Next work: THE NEXT SECTION — a LONG
-TONE + DENSITY BUILD 2 — composed on the save file `piece-s26`.**
+0–46.36 s, under the bracket-above policy; nothing mechanical is outstanding.
+**Next work is the composer's: THE NEXT SECTION — a LONG TONE + DENSITY BUILD 2
+— composed in the app on the save file `piece-s26`. Open with Fable; the AI's
+job is density-pipeline runs and measurements on request, not building.**
 
 ### State in one paragraph
+
+**Day 34 (one session, Claude Code / Opus) — two mechanical chunks, both
+verified, both pushed.** THE FOLD ran: `db1` is the single page again (49
+clusters, 0-46.36 s, `--bracketsAbove`, 456 events, VALID vs source), the
+`db1-c2d-x01` fork pruned, geometry unchanged (the two known tier-3 items, zero
+new). **425 approved layout rows proven identical before and after** — the claim
+the composer plans around, measured against a git-restored day-33 db1 because
+the batteries could not say it (the gate had `existsSync`-skipped itself). Then
+STEP G woke that gate: both day-33 guards now discover `db1-*` forks from the
+picker instead of naming one, and the approved boundary is DERIVED (min start of
+any cluster the fork adds or changes) instead of the hardcoded `42` — which was
+CLOUD02-D's number and would have silently under-covered the next section by
+4.4 s. Verified by rebuilding the day-33 world from git: fires red on a forced
+stem at t=31.55, re-derives `t<42.37` over the same 425 rows, fails loudly on a
+missing fork file, prints NOT APPLICABLE when there is no fork. D70; principle
+11. Ten batteries green.
 
 **Day 33 wrapped CLOUD02-D.** The reads never ran as ceremony — the composer
 lived with every figure through the three-day placement work and closed 6b by
@@ -269,7 +287,36 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
    Always re-extract one already-ported glyph in the same run: a
    byte-identical path is the proof the pipeline is the same one.
 
+11. **A GUARD MUST ANNOUNCE WHEN IT IS NOT RUNNING, AND MUST DERIVE ITS OWN
+   SCOPE.** (day 34) The approved-span gate named its target file literally
+   (`db1-c2d-x01`) and was `existsSync`-guarded, so folding-and-pruning the fork
+   silenced it **while the battery kept printing GREEN** — the failure was never a
+   wrong assertion, it was an assertion that stopped existing without saying so.
+   Its span was hardcoded too (`t < 42`), which was one section's number: woken
+   as-was it would have "passed" while ignoring 4.4 s of approved page. Both
+   halves generalise: a guard **discovers** what to check (here, from the picker
+   index) and **derives** how much to check (the min start of any figure the fork
+   adds or changes), and prints `NOT APPLICABLE` when there is nothing to check.
+   *Corollary for verification: `ok()` prints only on failure, so a passing guard
+   is invisible — the only proof a guard works is making it go red on purpose.*
+
 ## §4 Decisions
+
+- **D70** *(2026-08-24, day 34)* — **A SECTION FOLDS INTO db1 *WITH* THE POLICY IT WAS
+  BUILT UNDER, AND THE FOLD MUST BE PROVEN, NOT ARGUED.** CLOUD02-D was figured on a
+  fork carrying `--bracketsAbove --articSide --dynSide`; db1 carried none of them. Day 33
+  left the choice open in NITS: fold WITH the policy (feared to flip db1's below-brackets
+  everywhere, forcing a re-look at approved pages) or keep db1 as-approved and let the
+  policy stay per-section. **Folded WITH it.** *Why:* the feared re-look does not exist,
+  and that is a measurement, not a judgement — **425 approved layout rows (tuplets, beams,
+  accents, dynamics below the fork's first new figure) are IDENTICAL before and after.**
+  The policy is a no-op on classic stem-up stacks; the composer's page did not move.
+  *What it rejects:* per-section policy flags — one page under two engraving regimes would
+  make "which section is this bracket obeying?" a question the composer has to ask, which
+  is the same confusion the bracket-above policy was adopted to end. *The general form:*
+  a fold is a rename, not a rebuild — the fork already IS db1 plus the new section, so the
+  only question a fold can raise is whether the rebuild disturbed approved material, and
+  that question has a number.
 
 - **D69** *(2026-08-23, day 28, third sitting)* — **THE BRACKET IS THE MESSAGE: A PACE
   CHANGE MUST BE SAID ON THE PAGE.** The composer's groups (8h) are the unit of
@@ -1358,10 +1405,28 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 
 ## §6 Human Notes
 
-- *(2026-08-24, day 33 — CURRENT)* **CLOUD02-D is wrapped and nothing is
-  owed.** The page is locked by your eye; the fold into db1 is one prepared
-  command (journal §2 → THE FOLD) and is the first chunk of the next session
-  (Opus). Your next composing happens in **`piece-s26`** (bumped from the
+- *(2026-08-24, day 34 — CURRENT)* **The fold is RUN and nothing is owed.**
+  `db1` is now your single notation page: 49 clusters, 0-46.36 s, every part
+  figured, under the bracket-above policy — density build 1 + CLOUD02-I +
+  CLOUD02-D all on it, the trials fork gone from the picker. Nothing you
+  approved moved (425 layout rows measured identical), so there is no re-look
+  owed on any earlier page. **Your next composing is the new section — a long
+  tone + density build 2 — in the app on `piece-s26`.** Open it and go; ask
+  for density/measurement runs whenever you want them, and notation comes
+  later off a fresh fork.
+  *Two small things you may want to look at when convenient, neither blocking:*
+  the folded `db1` page itself (nothing should look different below 42 s — that
+  is the claim), and the two long-standing tier-3 geometry items that survive on
+  it (T9 @36.87 bracket/accent, T10 @39.08 bracket/beam), which you approved
+  under db1 previously.
+  *(Standing small calls, unchanged: `flagShortBarSeconds` 1.0 → 0.35? · the
+  cuivré MEDIUM gap lift · the GC-ball landing ear check in motion. The
+  facing-bands rule stays a diagnostic at your word — adopting it as a mover is
+  a future-section decision with two named deltas, T9 and T3 accents.)*
+
+- *(2026-08-24, day 33)* **CLOUD02-D is wrapped and nothing is owed.** The
+  page is locked by your eye; ~~the fold into db1 is one prepared command and
+  is the first chunk of the next session~~ *(RUN day 34 — see the note above)*. Your next composing happens in **`piece-s26`** (bumped from the
   finished archive; open it in the app and it makes its own -work copy). The
   facing-bands rule stays a diagnostic at your word — adopting it as a mover
   is a future-section decision with two named deltas (T9, T3 accents).
