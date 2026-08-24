@@ -10226,3 +10226,45 @@ t four."*
 - Journal §2 carries the checkpoint block: next step T4 (part 3, the straddle-heavy
   one — 3 straddles, 2 ratio ties in the scan), the working loop, the vocabulary
   list. Chat clears after this; /resume reads §2.
+
+
+#### Day 30 (2026-08-23, new session after the clear) — T4 PROPOSED: the first rule-candidate-8 verdict called by measurement
+
+The checkpoint loop, step 1–2, executed as written. `pattern_analyze --part 3`:
+T4 = ONE gesture, 17 notes 36.201–40.328 (no breath seam anywhere), seven groups
+`pair · even even even · short long · pair · pair · pair · pair` (cuts 2,6,9,11,13,15).
+
+**The rule-candidate-8 census (measured through the same `fit()` both writings use):**
+- **brackets** (♩=115): worst **0.90 heads**, 0 notes over a head, 8 over half
+- **plain** (♩=119): worst **1.83 heads**, **SIX of 17 notes over a full head**
+  (1.03–1.83), 10 over half — the T3 profile (8 of 17), not the T2 profile (1 of 15)
+- the groups are IDENTICAL with tuplets off (same six cuts) — second datum that the
+  pace rule is robust to the writing, same as T3.
+
+**So the proposal is the BRACKETED build** — plain fails pervasively; the bracket is
+the message. Built into `db1-c2i-x01` (cl-30, label "…T4 PROPOSED (day 30); T5-T10
+bare", part-3 `--bare` removed): `--cluster 36.20-40.33@3 --figures --beamThrough
+1,2,3,4,5,6,7 --rest16 9 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12`. Recipe items:
+through everywhere; the ONE ≥2-slot within-group silence outside a bracket (before
+note 9, plain beat 3) split to two 16th rests; separator rests inside brackets left
+to the brackets (rule cand. 9); no overhangs.
+
+**Dynamics derivation (day-24 rule + mf floor):** bands f mf mf f mf f · mf f f ·
+f mf · f mf · fff fff · f mf → ambient mf at member 1; accents on the seven
+above-ambient f's (1,4,6,8,9,10,12); **the fff pair [14 15] is a beam-group start
+two bands up → member 14 gets its own band mark (fff), per T1's member-15
+precedent; group 7 falls back → member 16 marked f; 17 (mf) unmarked below it.**
+Flagged to the composer as the rule's least-certain output.
+
+**Verified:** ten batteries green (incl. test_layout's bracket-clears-beam on this
+file), `--validate` 24/25, layout audit part 3 in span = 17 heads · 17 stems · 17
+dots · 5 brackets (5:4 · 6:4 · 5:4 · 6:4 · 6:4) · 7 accents · dyn-mf@36.20 +
+dyn-fff@39.60 + dyn-f@40.15 · 22 rests · 1 GC. Browser pane not displayed this
+sitting — no screenshot; DOM/layout audit needs none (day-28 logistics note).
+
+**What waits on the composer (the read):** the THREE STRADDLES the scan promised
+(6:4 on beat 2 = notes 6–7 over the seam after 6 · 6:4 on beat 5 = notes 11–13 over
+the seam after 11 · 6:4 on beat 7 = notes 15–17 over the seam after 15) — call
+A(a) live for the first time · the RATIO TIE (cut after 2 dissolves below
+paceRatio 1.230 → first group becomes [1–4]) · near-ties on notes 6, 9, 11 ·
+note 7 flagged as a possible PICKUP into group 3 · the fff-pair dynamics call.

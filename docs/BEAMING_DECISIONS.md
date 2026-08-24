@@ -124,6 +124,20 @@ the plain writing fails PERVASIVELY** (T3 plain: eight of 17 notes at 1.4–1.8 
 **and is noise where plain nearly holds** (T2 plain: one note at 1.2). The section
 file is `db1-c2i-x01` = T1 T2 T3 FINAL; `t3-tuplets` pruned (git keeps it).
 
+## D-log 10 · T4 AI-PROPOSED, awaiting the look — day 30
+
+*Built into `db1-c2i-x01` (cl-30) per the standing recipe. The first part where rule
+candidate 8 was applied BY MEASUREMENT before proposing: plain puts SIX of 17 notes
+over a full head (1.03–1.83, worst 1.83) vs brackets' 0.90 worst with none over —
+the T3 profile, so the proposal is the BRACKETED build (5:4 · 6:4 · 5:4 · 6:4 · 6:4
+at ♩=115). Groups identical with tuplets off (cuts 2,6,9,11,13,15 both ways).*
+
+| # | place | decision | notes |
+|---|---|---|---|
+| 10.1 | T4 CLOUD02-I | proposed `--figures --beamThrough 1..7 --rest16 9 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12` | recipe: through everywhere; the one ≥2-slot within-group silence outside a bracket (before note 9) split; bracket-internal rests untouched (rule cand. 9); no overhangs |
+| 10.2 | dynamics | ambient mf; accents on the seven above-ambient f's; **fff pair [14 15]** = beam-group start two bands up → member 14 marked fff (T1 member-15 precedent), member 16 marked f on the fall-back, 17 unmarked | the rule's least-certain output — flagged |
+| 10.3 | OPEN for the read | **three straddles** (6:4 over 6–7, 11–13, 15–17 — call A(a) live) · ratio tie (cut after 2 vs after 4, flips at 1.230) · near-ties notes 6, 9, 11 · note 7 possible pickup into g3 | composer's verdicts become rows here |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
