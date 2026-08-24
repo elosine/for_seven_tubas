@@ -10,7 +10,33 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### WHERE IT STANDS — day 35, tenth sitting DONE (the density-build page is figured)
+### WHERE IT STANDS — day 35, eleventh sitting DONE (DB2-FIX round 1 applied)
+
+**DB2-FIX ROUND 1 IS ON THE PAGE (eleventh sitting, Fable).** The composer's first
+verdict on `db2`, dictated and applied: **(1) full double beams across every beam
+group** (beamlet stubs 25 → 0) and **(2) every rest a 16th, one per slot** (free
+8th rests → 0; the two left are cl-6's 3:2 bracket slots, the bracket's own
+arithmetic) — both generalized as GLOBAL BUILD FLAGS `--beamsThrough --rests16`
+on `notate_section` (default OFF; db1's provenance reproduces its approved
+beamlet-era writing — the golden proves it), with the composer's forecast
+exceptions `--beamlets N` / `--restFit N` built. **The day-29 STANDING BUILD
+RECIPE already said this in prose and the tenth-sitting build skipped it — the
+rule now lives on the command line** (D-log 23). **(3) cl-3 rewritten by
+dictation:** the fp `wc-1704` DETACHED (no beam, no stem; open head + sfzp + GC +
+go line — the registry one-shot), cluster = the five heads from 77.383 as ONE
+group (`--pattern`, `--noGc wc-1710`; worst displacement 0.9 heads, was 1.0;
+ratio-tie flag mooted). Diff proven CONFINED to the dictation; eleven batteries
+green; db1/int2b1 md5-identical; verified in the app (screenshots + DOM audit).
+Full account: RUNNING_LOG day 35 eleventh sitting.
+
+**REMAINING FLAGS: #1 cluster dynamics (proposal table stands, NO verdict yet) ·
+#2 cl-1 straddle · #3 cl-6 no-clean-seam · #5 cl-1 near-tie · #7 nine short fp
+bars · #8 T1/T2 facing band (info) · new/small: cl-6's two bracket-internal 8th
+rests (slot-value by rule — say the word for 16ths).**
+
+---
+
+### The tenth-sitting record (superseded where the above says so)
 
 **`db2` IS BUILT AND FIGURED.** "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", source
 `piece-s27`, window 55.9-81, all ten parts, `--bricks --bracketsAbove`. **129 events · 45
@@ -41,11 +67,15 @@ all PASS). **A count-based assert would have reported a regression here.**
 x=27.3** (the surge unit hangs before its go time). `--w0 56` would have clipped the head
 off the page while still counting the event.
 
-**WAITING ON THE COMPOSER: their eye on the page.** Then the Fable fix pass over the eight
-flags — the largest of which is that **all 12 clusters have NO dynamics** (`dynMark: false`
-by design; `--dyn`/`--accents` stay the composer's, and db1 does the same — 264 of its 330
-partials suppress the mark). The registry rule was run to PROPOSE, not apply.
-**The proposal table is in the running log**, classified by the standards' own calibration (band count): **10 of 12 are inside it** (1-2 bands) and can be applied from the rule; **cl-1 (3 bands) and cl-3 (4 bands) are not.**
+**~~WAITING ON THE COMPOSER~~ — the eye arrived; round 1 applied (see the block
+above).** Still open from this list: the dynamics. **All 12 clusters have NO
+dynamics** (`dynMark: false` by design; `--dyn`/`--accents` stay the composer's, and
+db1 does the same — 264 of its 330 partials suppress the mark). The registry rule was
+run to PROPOSE, not apply. **The proposal table is in the running log (tenth
+sitting)**, classified by the standards' own calibration (band count): **10 of 12 are
+inside it** (1-2 bands) and can be applied from the rule; **cl-1 (3 bands) and cl-3
+(4 bands) are not** — and cl-3 is now FIVE members (its fp detached, day 35 round 1),
+so its row wants re-deriving before any apply.
 
 **Deliberately uncommitted: nothing.** Gitignored and pre-existing, left alone:
 `scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a source,
@@ -141,7 +171,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~STOP 2~~ | ~~the composer's eye on `int2b1`~~ **ANSWERED day 35, all three** — (1) the id/label `int2b1` / "INT2 BLASTS — 81-111 s" **stands**; (2) the T1 breath: *"shorten just the t1 long tone leave the others"* — applied, T1 now 3.075 s ending 98.960, proved and seen in the app; (3) the two spread clusters **stand as drawn** (free/spatial reading — the composer's own criterion was "a GC and a notehead", and 121/121 have one). **THE SECTION IS CLOSED** | — | — | — |
 | ~~DB2~~ | ~~THE DENSITY BUILD identified + cleared~~ **DONE day 35 (Fable, ninth sitting)** — it is the EXISTING GESTURE-2 x0.75 material (marker @55.94, `grp-gest2-75-01`, 129 notes 55.94-80.12, identical s26=s27, zero composer edits). Analysis + playability run + apply: 0 hard 0 soft, 92 bricks → 50 ms, ledgered. Two catches: wc-1624 sits AT 55.940 (build uses `--w0 55.9`); surge-inside-figure is a FIRST (visual verify point). Surge/fp handling confirmed from the registry + db1 precedent | — | — | — |
 | ~~DB2-N~~ | ~~THE OPUS NOTATION RUN~~ **DONE day 35 (Opus, tenth sitting)** — `db2` built and figured: 129 events, 12 clusters, VALID, geometry clean, brackets-above from birth. The scan reframed the section (**12 gestures, 91 lone one-shots**; density is ACROSS parts). Pace-rule defaults took all twelve — no `--cuts`, no `--ownGrids`. **The named FIRST did not occur** (no surge inside a figure; 168 ms closest). Two brief corrections measured (9 surges not 8+1; the go-line assert restated to the LAW). Eleven batteries green; db1/int2b1 md5-identical | — | — | — |
-| **DB2-FIX — NEXT** | **The composer's eye on `db2`, then the Fable fix pass over the EIGHT FLAGS** (table at the end of the day-35 tenth-sitting running-log entry). Largest by far: **all 12 clusters have no dynamics** — by design, `--dyn`/`--accents` are the composer's; the **derived proposal table is in the log**, classified by band count — **10 of 12 inside the standards' calibration** and applicable from the rule, **cl-1 (3 bands) and cl-3 (4 bands) outside it.** Then: cl-1 STRADDLE · cl-6 no-clean-seam · cl-3 ratio tie + worst 1.0 heads · cl-1 near-tie · `wc-1704` fp with no ring bar · 9 short-bar warnings · T1/T2 facing band 78.5-79.0 | **Fable** | clear before it (mode change: execution → judgment) | composer accepts the page |
+| **DB2-FIX — IN PROGRESS (round 1 DONE day 35, eleventh sitting)** | ~~Double beams across · all rests 16ths · cl-3 fp detached + five-group~~ — **dictated and applied; generalized as `--beamsThrough --rests16` build flags (D-log 23); flags #4 and #6 closed.** REMAINING: **#1 cluster dynamics** — proposal table in the tenth-sitting log (10 of 12 in calibration; cl-1 outside; **cl-3's row stale, re-derive on its new 5 members**), NO verdict yet · #2 cl-1 STRADDLE · #3 cl-6 no-clean-seam · #5 cl-1 near-tie · #7 nine short fp bars · #8 T1/T2 facing band (info) · cl-6's two bracket-internal 8th rests (slot-value by rule) | **Fable** (dictation rounds) | no — same task | composer accepts the page |
 | F2 | **The fold of `int2b1` into `db1`** — NOT queued, needs the composer's say. A fold is a rename, proven twice (D70, days 30 and 34): re-run db1's own `provenance.build` under one id and prune the other. **Do not raise it unprompted** — db1 is approved and untouched, and there is no cost to leaving the two pages apart | Opus | — | composer asks for it || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |

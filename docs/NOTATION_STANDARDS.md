@@ -47,7 +47,7 @@ inside a wider phrase beam; a bracket covers only the notes that need it).
 | GC on the **first partial only** | "the GC only on the first one, so it launches the whole cluster" | `figures.cluster.gc: "first"` |
 | Every partial's **notehead LEFT EDGE sits on its own go time** | "the left edge of the note head should line up with all the go times… because of the scrolling person" | `figures.cluster.nhAnchor: "leftEdge"` |
 | Filled head at the cell scale, staccato dot at the tight gap | (day 23, wc-29) | `figures.cluster.nhHead/nhHeadScale 0.844/nhDot/nhDotGapSs 0.15` |
-| Every partial a **16th**; gaps are rests; second beam level = **beamlets** (stub right on a note with no 16th neighbour) | "a short beam where the sixteenth note beam is, not something that connects" | `notate_section` written values; `layout.js` beamlet rule; `engraving.layout.beamStubSs 1.0` |
+| Every partial a **16th**; gaps are rests; **second beam level SOLID through the group's rests** (day 35 — every new build carries `--beamsThrough`; the day-23 beamlet writing is the per-group exception `--beamlets N`, and db1 reproduces it from its own command) | day 23: "a short beam where the sixteenth note beam is, not something that connects" → day 35: "when sixteenth notes are all beamed together like this, go ahead and use full double beams… there may be occasions to use the beamlets" | `notate_section --beamsThrough` / `--beamlets N`; `layout.js` beamlet rule stays for the exception; `engraving.layout.beamStubSs 1.0`; D-log 23.1 |
 | `--beamThrough N` keeps group N's second beam solid across its rests | "they can all be beamed together, it's fine" (figure 2, day 23) | per-cluster modifier |
 | Several beam groups may share one tempo | "the first group of notes and then the second group, but conceptually keep the same tempo" | `--beamBreak n` |
 | **Dynamics = ambient + deviation**: one mark on a chosen member, **accents on the members louder than it** | "loud, slightly softer, loud, slightly softer, loud loud" → `--dyn 1:f --accents 1,3,5,6` | `figures.cluster.dynamics`; DYNAMICS_FRAMEWORK.md |
@@ -170,6 +170,17 @@ that fits inside is taken — dotted values still allowed where they do not
 cross. Registry `figures.cluster.restsSplitAtBeat`. Measured on T3's cluster
 before the change: beats 2, 3 and 4 each fell inside a rest symbol, so the
 player counted through three invisible downbeats in a row.
+
+**ALL RESTS ARE 16THS, one per slot (day 35 — D-log 23.2).** Every new cluster
+build carries `--rests16`: every silence is written as 16th rests, one per
+empty slot (which satisfies D62 trivially — every beat inside a gap starts a
+rest). The composer chose the default by correction frequency: *"I'd rather
+have rests all sixteenths, and then I can correct and say, no, that should be
+an eighth rest. That's less frequent."* The correction is `--restFit N` (the
+silence before member N back to longest-fit). **Tuplet-internal slot rests are
+exempt** — they are the bracket's own arithmetic and keep the slot value
+(rule candidate 7). db1 predates the flag and keeps its approved longest-fit
+rests from its own command.
 
 **Vertical placement is LilyPond's own, per glyph** (`glyphs.rest.*.topSs`,
 placed top-left by `stamps.rest`). Roughly centred on the middle line, with the

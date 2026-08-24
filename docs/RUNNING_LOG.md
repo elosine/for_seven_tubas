@@ -12588,3 +12588,106 @@ measured against a four-band cluster at all.*
 
 **Written this sitting:** `notation/ir/db2.ir.json`, `notation/ir/index.json`, docs. No score
 was touched; playability was not re-run (figures move no notes).
+
+#### Day 35 (eleventh sitting, Fable 5) — DB2-FIX round 1: the recipe becomes flags — double beams across, all rests 16ths, and the cl-3 fortepiano detached
+
+**The composer's dictation (voice), on seeing `db2`:** *"The main thing to fix is
+the double beams. Instead of using the beamlets… when sixteenth notes are all
+beamed together like this, go ahead and use full double beams. There may be
+occasions to use the beamlets… And convert all the eighth rests into sixteenth
+rests. And if you can generalize this on some level into a rule, that's fine.
+I think I'd rather have rests all sixteenths, and then I can correct and say,
+no, that should be an eighth rest. That's less frequent… You don't have to
+change the groupings. The groupings are fine. The only other section to fix is
+T2 at seventy six point nine three… that forte piano — let's not beam it with
+the rest of the group, and no stem. Just sforzando piano with the white
+notehead, no stem. You can leave the GC there. And then the beam grouping will
+be from the note at seventy seven point three nine five [77.383 measured —
+wc-1710], five note heads altogether."*
+
+**THE FINDING THAT REFRAMES THE FIX: the rule already existed, as prose, and
+the build had not applied it.** BEAMING_DECISIONS' STANDING BUILD RECIPE
+(day 29) already says *"secondaries solid (`--beamThrough` every group) ·
+within-group silences of ≥2 slots as 16th rests"* — extracted from six ledger
+rows (1.5, 1.8, 2.2, 3.1, 3.3–3.5). The tenth sitting's db2 build ran bare
+`--figures` defaults and the recipe stayed in the doc. **A rule that lives in
+prose is a rule a build can skip; this sitting put it on the command line.**
+
+**BUILT — two global flags on `notate_section`, with the exceptions the
+composer forecast** (both default OFF; an approved page rebuilt from its own
+provenance must reproduce itself, so db1 keeps the beamlet-era writing its
+command describes — the notate_block golden still passes, proving that):
+
+- `--beamsThrough` — every beam group's secondary beam runs unbroken across
+  its rests (day-29 `--beamThrough N` made the rule). Positional exception
+  `--beamlets N` restores the day-23 broken-level writing for one group.
+- `--rests16` — every silence written as 16th rests, one per slot (day-29
+  `--rest16 N` made the rule). Positional exception `--restFit N` = the
+  composer's correction path ("no, that should be an eighth rest").
+- Baked per event at build time (`dev.beamThrough` / `dev.rest16Before`);
+  layout.js untouched. Exception flags refuse without their global.
+
+**One clause of the recipe is SUPERSEDED by the dictation:** "separator rests
+keep their value" (rule candidate 3's second half). The composer chose the
+default by correction frequency — all 16ths, name the 8th when wanted.
+**Tuplet-internal rests are NOT touched:** they are the bracket's own slot
+value (recipe + rule candidate 7), which is why two 8th rests remain (below).
+
+**REBUILT `db2` from its own provenance + the two flags + the cl-3 rewrite:**
+`--cluster 76.767-79.161@1 --figures` → `--cluster 77.383-79.011@1 --pattern`
+(the dictated single group of five — `--pattern` IS "no seams", so the old
+ratio-tie flag is mooted by dictation, not re-derived) + `--noGc wc-1710` (the
+five-group's first partial takes no second GC; the gesture still launches from
+the fortepiano's — "you can leave the GC there"). wc-1704 now sits in no
+cluster, so it resolves as a standard one-shot fp from the registry:
+open head · sfzp · GC · go line · NO stem (the fp entry has no stem field) —
+its head now hangs before the go time like every other fp on the page, where
+as a cluster member it sat left-edge-on-go. New five-note fit: unit 200 ms,
+grid 0,2,4,6,8, max err 28 ms = **0.9 heads worst (was 1.0 on the old
+six-member grid)**, no tuplet.
+
+**MEASURED, page-level (layout items, before → after):**
+- **beam stubs 25 → 0.** Sixteen beamlet stubs removed outright, the rest
+  paired into extended runs (groups renamed `-b2-stub` → `-b2`).
+- **rests 16×16th + 7×8th → 21×16th + 2×8th.** Every free 8th rest converted.
+  **The two survivors are cl-6's 3:2 bracket slots** (T6 @78.968 and @79.333)
+  — the bracket's own arithmetic, not free silences; flagged to the composer
+  rather than falsified.
+- **Diff CONFINED (prove_unmoved lib, full row audit):** ADDED 2 (wc-1704's
+  go line · one T6 16th rest), REMOVED 18 (16 stubs · wc-1704's stem · old
+  cl-3 primary beam + one old-grid 8th rest), CHANGED 25 (beam runs extended ·
+  rests 8th→16th · wc-1704's column ink — head/ledgers/accidental left, sfzp
+  from the group row to its own spot · the five cl-3 stems re-levelled
+  5.615 → 5.888 once the fp's tip left the group). **Nothing outside the
+  dictation moved. warnings 10 = 10.**
+- **129 events · 45 chunks · VALID vs source · GEOMETRY clean.** Eleven
+  batteries green (incl. the db1 golden). `db1.ir.json` and `int2b1.ir.json`
+  **md5-identical** before/after.
+
+**VERIFIED IN THE RUNNING APP** (:5200, db2, windows 76.6+3.0 and 78.2+2.2,
+DOM audit + screenshots): T2's five stems all meet a full double beam spanning
+77.38–79.01; at the fp column — open head on three ledgers, sfzp above, GC
+disc, dashed go line, **no stem, no beam reach**; T1/T3/T6/T8/T10 groups all
+double-beamed through their 16th rests; cl-6's second beam breaks only around
+its ring member (primary-only, the standard) with the 3:2 carrying its two
+8th-rest slots. *Probe lesson re-learned: two DOM sweeps read zero because the
+y-band clipped the target — the go line was found the moment the band widened.
+When a known-good control also reads zero, doubt the probe (day-35 T1, again).*
+
+**FLAGS TABLE after this sitting** (from the tenth sitting's eight):
+- ~~#4 cl-3 ratio tie / worst displacement~~ — **mooted by dictation** (single
+  group of five; worst now 0.9 heads).
+- ~~#6 wc-1704 fp with no ring bar~~ — **resolved by dictation** (stemless
+  detached one-shot; the bar stays breath-clamped as before).
+- **Open: #1 cluster dynamics** (proposal table stands, no verdict yet) ·
+  **#2 cl-1 STRADDLE** (5:4 across the seam — still on the page) · **#3 cl-6
+  no-clean-seam** (stands as built) · **#5 cl-1 near-tie** (built as chosen) ·
+  **#7 nine short fp bars** · **#8 T1/T2 facing band** (info) · *new, small:*
+  **cl-6's two bracket-internal 8th rests** — slot-value by rule; say the word
+  if they should read as 16ths anyway.
+
+**Files:** `tools/notate_section.js` (two global flags + two positional
+exceptions) · `notation/ir/db2.ir.json` (rebuilt; provenance carries the new
+command) · docs (this entry; BEAMING_DECISIONS D-log 23 + recipe update;
+NOTATION_STANDARDS cluster rows; registry `_note` prose; journal §2; PLANNER).
+No score touched; playability not re-run (writing only, no note moved).

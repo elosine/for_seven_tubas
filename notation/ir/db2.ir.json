@@ -25,7 +25,7 @@
   "date": "2026-08-24",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s27 --w0 55.9 --w1 81 --parts 0-9 --profile section1 --id db2 --bricks --bracketsAbove --label \"DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s\" --cluster 78.332-80.094@0 --figures --cluster 75.382-76.53@1 --figures --cluster 76.767-79.161@1 --figures --cluster 73.098-73.859@2 --figures --cluster 77.757-78.425@2 --figures --cluster 78.27-79.966@5 --figures --cluster 77.638-78.26@6 --figures --cluster 79.536-80.115@6 --figures --cluster 78.582-79.499@7 --figures --cluster 78.954-79.638@8 --figures --cluster 74.831-75.781@9 --figures --cluster 77.209-78.363@9 --figures"
+  "build": "node tools/notate_section.js --score piece-s27 --w0 55.9 --w1 81 --parts 0-9 --profile section1 --id db2 --bricks --bracketsAbove --beamsThrough --rests16 --label \"DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s\" --cluster 78.332-80.094@0 --figures --cluster 75.382-76.53@1 --figures --cluster 77.383-79.011@1 --pattern --cluster 73.098-73.859@2 --figures --cluster 77.757-78.425@2 --figures --cluster 78.27-79.966@5 --figures --cluster 77.638-78.26@6 --figures --cluster 79.536-80.115@6 --figures --cluster 78.582-79.499@7 --figures --cluster 78.954-79.638@8 --figures --cluster 74.831-75.781@9 --figures --cluster 77.209-78.363@9 --figures --noGc wc-1710"
  },
  "events": [
   {
@@ -4413,6 +4413,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -4420,7 +4421,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4447,6 +4449,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -4454,7 +4457,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4481,6 +4485,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -4494,7 +4499,8 @@
      "tupletText": "5:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4521,6 +4527,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 2,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -4534,7 +4541,8 @@
      "tupletText": "5:4",
      "tupletValue": 16,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4561,6 +4569,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 2,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -4568,7 +4577,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4595,13 +4605,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4628,13 +4640,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4661,41 +4675,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-cl-3-ev-wc-1704",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-1704"
-   },
-   "value": {
-    "device": {
-     "goLine": false,
-     "gc": true,
-     "dynBesideStem": false,
-     "nhUnit": true,
-     "nhStem": "beam",
-     "nhAnchor": "leftEdge",
-     "beamGroup": "cl-3a",
-     "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 0,
-     "beamLevels": 2,
-     "beamSubdivision": 4,
-     "figure": 1,
-     "dynAboveBeam": true,
-     "noteUnits": 1,
-     "noteBeams": 1
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4717,18 +4705,19 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-3a",
      "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 3,
+     "beamUnit": 0.20000000000000007,
+     "beamPos": 0,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4750,18 +4739,19 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-3a",
      "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 6,
+     "beamUnit": 0.20000000000000007,
+     "beamPos": 2,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4783,18 +4773,19 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-3a",
      "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 8,
+     "beamUnit": 0.20000000000000007,
+     "beamPos": 4,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4816,18 +4807,19 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-3a",
      "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 11,
+     "beamUnit": 0.20000000000000007,
+     "beamPos": 6,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4849,18 +4841,19 @@
      "nhAnchor": "leftEdge",
      "beamGroup": "cl-3a",
      "clusterId": "cl-3",
-     "beamUnit": 0.15100000000000002,
-     "beamPos": 14,
+     "beamUnit": 0.20000000000000007,
+     "beamPos": 8,
      "beamLevels": 2,
      "beamSubdivision": 4,
-     "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4887,13 +4880,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4920,13 +4915,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4953,13 +4950,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -4986,13 +4985,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5019,6 +5020,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -5026,7 +5028,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5053,6 +5056,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -5060,7 +5064,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5087,6 +5092,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -5100,7 +5106,8 @@
      "tupletText": "3:2",
      "tupletValue": 8,
      "noteBeams": 1,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5127,6 +5134,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -5134,7 +5142,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5161,6 +5170,7 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
@@ -5168,7 +5178,8 @@
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
      "noteBeams": 2,
-     "beamHasTuplet": true
+     "beamHasTuplet": true,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5195,13 +5206,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5228,13 +5241,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5261,13 +5276,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5294,13 +5311,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5327,13 +5346,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5360,13 +5381,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5393,13 +5416,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5426,13 +5451,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5459,13 +5486,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5492,13 +5521,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5525,13 +5556,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5558,13 +5591,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5591,13 +5626,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5624,13 +5661,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"
@@ -5657,13 +5696,15 @@
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,
+     "rest16Before": true,
      "ringBar": false,
      "nhHead": "filled",
      "nhHeadScale": 0.844,
      "nhDot": true,
      "nhDotGapSs": 0.15,
      "noteUnits": 1,
-     "noteBeams": 2
+     "noteBeams": 2,
+     "beamThrough": true
     }
    },
    "provenance": "authored"

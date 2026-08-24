@@ -229,7 +229,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
   // accents and a tuplet over members it did not have. A modifier before any
   // --cluster is an error, not a default.
   const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids', '--plain']);
-  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--beamOver', '--beamOverLeft', '--bracketSide', '--articSide']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--restFit', '--beamlets', '--beamOver', '--beamOverLeft', '--bracketSide', '--articSide']);
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     const a = process.argv[i];
@@ -259,6 +259,25 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
   // Without this a span in an all-parts file claims all ten lanes at once.
   const partOfEvent = new Map();
   for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+  // THE DAY-35 CLUSTER-WRITING DEFAULTS (global, db2 onward — the composer, on
+  // db2: "when sixteenth notes are all beamed together like this, go ahead and
+  // use full double beams... get rid of the beamlets", and "I'd rather have
+  // rests all sixteenths, and then I can correct and say no, that should be an
+  // eighth rest"). Both are FLAGS, not silent defaults, because an approved
+  // page rebuilt from its own provenance must reproduce itself — db1 predates
+  // this and keeps the beamlet-era writing its command describes.
+  //   --beamsThrough : every beam group's secondary beam runs unbroken across
+  //                    its rests (day-29 --beamThrough N, made the rule).
+  //                    Exception: --beamlets N (positional) — group N breaks
+  //                    its second level at rests again, beamlets and all.
+  //   --rests16      : every silence written as 16th rests, one per slot
+  //                    (day-29 --rest16 N, made the rule). Exception:
+  //                    --restFit N (positional) — the silence BEFORE member N
+  //                    goes back to the longest value that fits.
+  const allThrough = flag('beamsThrough');
+  const allRests16 = flag('rests16');
+  if (allThrough) console.log('  --beamsThrough: second beams run through rests on every beam group');
+  if (allRests16) console.log('  --rests16: every silence written as 16th rests, one per slot');
   spans.forEach(({ sp, mods }, n) => {
     const key = 'cl-' + (n + 1);
     const modVals = name => mods.filter(([k]) => k === '--' + name).map(([, v]) => v);
@@ -694,6 +713,12 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       return v; };
     const bracketSide = sideArg('bracketSide'), articSide = sideArg('articSide');
     const through = listArg('beamThrough');
+    // --beamlets 2 : under the global --beamsThrough, beam group #N goes back
+    // to the day-23 writing — second level broken at rests, beamlets on the
+    // lone 16ths ("there may be occasions to use the beamlets").
+    const beamlets = listArg('beamlets');
+    if (beamlets.size && !allThrough) { console.error('--cluster ' + label + ' --beamlets: only meaningful under the global --beamsThrough — without it every group already breaks its second beam at rests'); process.exit(2); }
+    if (beamlets.size) console.log('    beamlet-era second beam kept on group(s) ' + [...beamlets].join(','));
     // --beamOver 1,2 : beam group #N (1-based) extends its beams one slot past
     // its last note, over the first 16th rest that follows (day 29, composer).
     const over = listArg('beamOver');
@@ -717,6 +742,15 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --rest16 ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
     }
     if (rest16.size) console.log('    16th rests before member(s) ' + [...rest16].join(','));
+    // --restFit 4 : under the global --rests16, the silence BEFORE member N is
+    // written as the longest value that fits again — the composer's forecast
+    // correction path ("I can correct and say no, that should be an eighth rest").
+    const restFit = listArg('restFit');
+    if (restFit.size && !allRests16) { console.error('--cluster ' + label + ' --restFit: only meaningful under the global --rests16 — without it every rest is longest-fit already'); process.exit(2); }
+    for (const r of restFit) {
+      if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --restFit ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
+    }
+    if (restFit.size) console.log('    longest-fit rests kept before member(s) ' + [...restFit].join(','));
     const anyArtic = accentAt.size ? 'accent' : null;
     if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(','));
     if (dynAt.size) console.log('    dynamics: ' + [...dynAt].map(([n, m]) => n + ':' + m).join(' '));
@@ -799,7 +833,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       // whole cluster otherwise.
       if (pm) { dev.gridId = pm.gridId; dev.figure = pm.figure; }
       else if (oneGrid) dev.figure = sub + 1;
-      if (rest16.has(k + 1)) dev.rest16Before = true;   // day 29: the silence before this member as 16th rests
+      if (rest16.has(k + 1) || (allRests16 && !restFit.has(k + 1))) dev.rest16Before = true;   // day 29 per member; day 35 the rule (--rests16), --restFit the correction
       if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
       if (rings) {
         // head, ring bar and dynamic come from its technique entry; the mark
@@ -837,7 +871,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       if (tuplets.length || (patTuplets && patTuplets.size) || ptp) dev.beamHasTuplet = true;
       if (bracketSide) dev.bracketSide = bracketSide;
       if (articSide) dev.articSide = articSide;
-      if (through.has(sub + 1)) dev.beamThrough = true;
+      if (through.has(sub + 1) || (allThrough && !beamlets.has(sub + 1))) dev.beamThrough = true;   // day 23 per group; day 35 the rule (--beamsThrough), --beamlets the exception
       if (over.has(sub + 1)) dev.beamOverRest = true;
       if (overL.has(sub + 1)) dev.beamOverLeft = true;
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';

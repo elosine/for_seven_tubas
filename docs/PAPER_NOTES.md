@@ -1947,3 +1947,53 @@ wrong reason."
 **The precedent check matters here too.** That db1 does the same thing — 264 of its 330
 cluster partials suppress the mark, the 66 that keep one being the composer's own choices —
 is what turns "the dynamics are missing" from a defect report into a correct handoff.
+
+## Day 35, eleventh sitting — the ledger completes its arc: decision rows → prose recipe → a build that skipped the prose → flags
+
+*(DB2-FIX round 1. Bears on the paper's rule-extraction thread: what it takes for a
+composer's repeated verdict to become machinery, and where each intermediate form failed.)*
+
+The double-beam story ran the full pipeline the BEAMING_DECISIONS ledger was built to
+run, and the pipeline leaked once in the middle:
+
+1. **Day 23, the standard:** beamlets — the composer, then: *"a short beam where the
+   sixteenth note beam is, not something that connects."*
+2. **Day 29, six ledger rows** (D-logs 1.5, 1.8, 2.2, 3.1, 3.3-3.5): *"solid double
+   beams all the way through"*, again and again, per figure. Extracted into the
+   STANDING BUILD RECIPE — as **prose**: "secondaries solid (`--beamThrough` every
+   group) · within-group silences of ≥2 slots as 16th rests."
+3. **Day 35, tenth sitting:** a fresh section built by a fresh session — **bare
+   `--figures` defaults. The recipe stayed in the doc.** Nothing was wrong in any
+   battery; the page simply reverted to the day-23 writing, because the day-23
+   writing is what the CODE still said and the recipe lived one document away.
+4. **Day 35, eleventh sitting — the composer, seeing beamlets again:** *"when
+   sixteenth notes are all beamed together like this, go ahead and use full double
+   beams… get rid of the beamlets… And if you can generalize this on some level
+   into a rule, that's fine."*
+5. **The fix put the rule on the command line** (`--beamsThrough --rests16`, global
+   flags recorded in every build's provenance), not in a doc and not as a silent
+   code default — a silent default would have changed what db1's own build command
+   reproduces, and the golden exists precisely to refuse that.
+
+**The AI's framing at the moment of discovery (verbatim from the session):** "the
+day-29 STANDING BUILD RECIPE already said 'secondaries solid, within-group silences
+as 16ths' — and the tenth sitting's build didn't apply it… Today's dictation is the
+recipe restated and, now, mechanized as flags instead of prose someone must
+remember." And in the log: **"A rule that lives in prose is a rule a build can
+skip; this sitting put it on the command line."**
+
+**The composer's design principle, stated in the dictation itself, is about
+correction frequency, and it is quotable:** *"I'd rather have rests all sixteenths,
+and then I can correct and say, no, that should be an eighth rest. That's less
+frequent."* The default is chosen to minimize how often the composer must speak —
+not by engraving doctrine (Gould would keep the 8th), not by information content,
+but by **which exception costs fewer future dictations**. This supersedes a
+ledger-extracted rule candidate (no. 3, "a rest between gestures keeps its largest
+value") that had been derived from the composer's own day-29 verdicts — the
+composer's rule about rules beat the rule.
+
+**One boundary held without being restated:** tuplet-internal rests. The all-16ths
+conversion left exactly two 8th rests on the page — inside cl-6's 3:2 bracket,
+where the rest is the bracket's own slot arithmetic (rule candidate 7, day 29).
+The generalization respected a two-day-old boundary the composer never mentioned
+in the dictation, and the sitting flagged them rather than converting them.

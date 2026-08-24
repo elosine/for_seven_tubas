@@ -259,6 +259,17 @@ rule-8 plain verdict).
 | 22.2 | the three cuivre notes (T1 T4 T8 @40.93) | **`cuivré` text above each** (registry `byTechnique.cuivre.techText`; layout draws it at the tag row) | "the only thing to add is the quivere… I think it's just with text, but let's double check that" | double-checked: yes, text — the day-24 open item said "text mark", and engraving practice agrees (cuivré/brassy is a text instruction; the `+` sign is hand-stopping, a different device). The registry field is general: any technique can carry a text |
 | 22.3 | the cuivré placement, refined | **left-justified with the NOTEHEAD's left edge, baseline the tight gap (0.15 ss — the staccato's minimum) above the head, SOLID BLACK (`#000`, not the muted text gray); where head-top + gap + em + gap runs past the lane line, the tag-row placement stands** | "left justified with the left of the notehead and above it… the same spacing as the staccato, the minimum vertical spacing. Except leave tuba eight, and copy tuba eight for any that can't go above the notehead. And… make it solid black instead of gray" | measured: T1/T4 (D4/D♯4, head +3.5) fit above (baseline 4.09); **T8 (G4, head +5.0) misses by the top gap — its text would kiss the lane line (6.50 vs 6.51 without the margin)** — so it keeps the tag row exactly as the composer left it. Render gained per-item `color`; layout knows the em as size × 1.3 (mirrors `engraving.render.textScale`) |
 
+## D-log 23 · db2, whole section + cl-3 — day 35: THE RECIPE BECOMES FLAGS
+
+*The composer's first look at `db2` (tenth-sitting build, bare `--figures`
+defaults — the recipe below had NOT been applied). Round 1 of DB2-FIX.*
+
+| # | place | decision | composer's words | measured signals |
+|---|---|---|---|---|
+| 23.1 | every beam group, whole section | **secondaries SOLID across rests, as the DEFAULT** — new global `--beamsThrough` on the build command; `--beamlets N` the per-group exception | "when sixteenth notes are all beamed together like this, go ahead and use full double beams… there may be occasions to use the beamlets" | promotes rule cand. 2 / recipe item 1 from prose to code. Beam stubs on the page 25 → 0; the only second-level breaks left are around ring members (cl-6's fp, primary-only by the day-24 standard) |
+| 23.2 | every rest, whole section | **ALL rests 16th, one per slot, as the DEFAULT** — new global `--rests16`; `--restFit N` the correction path | "convert all the eighth rests into sixteenth rests… I'd rather have rests all sixteenths, and then I can correct and say, no, that should be an eighth rest. That's less frequent" | supersedes the "separator rests keep their value" clause (cand. 3's second half) — the default chosen by CORRECTION FREQUENCY. Free 8th rests 5 → 0; the two 8ths left are cl-6's 3:2 bracket slots (bracket arithmetic, cand. 7 — untouched) |
+| 23.3 | cl-3, T2 @76.92 | **the fortepiano (wc-1704) DETACHED: no beam, no stem, open head + sfzp + GC kept; the cluster is the five heads from 77.383 as ONE group** (`--cluster 77.383-79.011@1 --pattern` + `--noGc wc-1710` — no second GC; the gesture still launches from the fp's) | "let's not beam it with the rest of the group, and no stem. Just sforzando piano with the white notehead, no stem. You can leave the GC there. And then the beam grouping will be from the note at 77.395 [77.383], five note heads altogether" | the fp reverts to its registry one-shot (which has no stem field): head hangs before go + go line, like every fp on the page. New 5-note fit: unit 200 ms, worst 0.9 heads (was 1.0); the tenth sitting's ratio-tie flag mooted by dictation |
+
 ## THE STANDING BUILD RECIPE (day 29, composer: "incorporate as much as possible the beaming rules in that [notating] process")
 
 Until rules are extracted, every NEW figure built (CLOUD02-I notating and onward)
@@ -268,6 +279,15 @@ rests keep their value · overhang only where the composer says the group claims
 time · tuplet-internal rests belong to the bracket.** Deviations happen only at the
 composer's word, and each one gets a ledger row. *(D-log 4 was promoted into `db1`
 on day 29 — composer: "That's all good. You can go ahead and promote that one.")*
+
+**DAY 35 (D-log 23): the recipe's first two items are FLAGS now, and the third is
+superseded.** The db2 build had skipped this recipe (prose is skippable); every new
+cluster build carries **`--beamsThrough --rests16`** on its command — the beam and
+rest defaults live in `provenance.build`, not in anyone's memory. ALL rests are
+16ths (separator rests included — the composer: correction to an 8th is the rarer
+event, so `--restFit N` is the correction, not the default). Tuplet-internal rests
+still belong to the bracket. db1 predates the flags and reproduces its approved
+beamlet-era writing from its own command.
 **Dynamics (added later on day 29):** the day-24 dynamicsRule proposes marks per
 cluster, **with mf as CLOUD02-I's floor** — below-mf bands are unmarked and
 unflagged (D-log 5.1); accents mark above-ambient partials; the AI names anything
@@ -313,9 +333,13 @@ else it cannot explain.
    the group owns; no overhang when the group ends on a note; a separator rest stays
    in the open. (1.5, 1.6, 2.3, 2.4)
 2. **Solid double beams within a group; the secondary tells pair-width** — through =
-   tight, stubs = open. (1.5, 1.8, 2.2)
+   tight, stubs = open. (1.5, 1.8, 2.2) **PROMOTED day 35 (D-log 23.1):** through is
+   the default (`--beamsThrough`); stubs by exception (`--beamlets N`).
 3. **A rest inside a gesture is written in the pulse that continues** (16ths); a rest
-   between gestures keeps its largest value. (1.4 vs 2.4)
+   between gestures keeps its largest value. (1.4 vs 2.4) **First half PROMOTED,
+   second half SUPERSEDED day 35 (D-log 23.2):** every rest is a 16th (`--rests16`);
+   an 8th is the named correction (`--restFit N`) — the composer chose the default
+   by correction frequency.
 4. **Brackets are out; breaks and spacing say the pace** — at least in this material.
    D69's writing clause needs a rewrite when rules are extracted: the bracket is the
    message only when a pace change falls INSIDE a beam group. (1.3, 1.7)

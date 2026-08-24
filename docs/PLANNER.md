@@ -8,22 +8,23 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35, latest) THE DENSITY-BUILD PAGE IS FIGURED — `db2` is in
-the picker.** "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", 129 events, 12 figure clusters,
-VALID vs source, geometry clean, brackets-above from birth. **The scan changed the picture:
-the section is 12 small gestures and 91 lone one-shots** — only 38 of 129 notes are in a
-gesture at all, and all twelve sit in the last six seconds. *Your density is ACROSS the ten
-tubas, not inside any one of them.* All twelve fit on ONE grid within a notehead, so nothing
-needed a hand — no cuts, no own-grids. Two brackets in the whole section. **The surge-inside-
-a-figure risk never materialised** (closest approach 168 ms, checked on the page).
+**NOW ► (2026-08-24, day 35, latest) DB2-FIX ROUND 1 IS ON THE PAGE.** Your dictation
+applied: **full double beams across every group** (beamlets gone — 25 stubs → 0),
+**every rest a 16th** (the two 8ths left are inside cl-6's 3:2 bracket — its own
+arithmetic; say the word for 16ths), and **the T2 fortepiano detached** — white
+notehead, no stem, sfzp, GC kept, the five heads from 77.38 beamed as one group.
+Generalized as build flags (`--beamsThrough --rests16`, exceptions `--beamlets N` /
+`--restFit N`) so every future section carries the rule on its command; db1 keeps its
+approved writing. Nothing outside the dictation moved (proven item-by-item); eleven
+batteries green.
 
-**NEXT: your eye on the page, then a Fable fix pass over eight flags.** The big one: **the
-twelve clusters have no dynamics** — a cluster suppresses the per-note mark by design, and
-`--dyn`/`--accents` are yours to choose (db1 works the same way). A proposal is derived and
-waiting in the running log — it covers **ten of the twelve** confidently; two (T1 @78.48, T2 @76.92) need your ear. The other seven flags are small:
-one straddling bracket (T1 @78.48), one gesture with no clean seam (T6), one ratio tie (T2),
-a fortepiano whose duration bar has no room (T2 @76.92), nine short-bar warnings, and a
-T1/T2 clutter band at 78.5-79.0.
+**NEXT: the remaining flags, biggest first — the cluster DYNAMICS verdict.** The
+twelve clusters still have no dynamics (by design — `--dyn`/`--accents` are yours).
+The proposal table waits in the running log (tenth sitting): **ten of twelve
+confident**; T1 @78.48 needs your ear (3 bands), and T2 @76.92's row needs
+re-deriving now that its fp is detached (5 members). Then the small ones: the
+straddling 5:4 (T1 @78.48), cl-6's no-clean-seam (T6), cl-1's near-tie, nine short
+fp bars, the T1/T2 clutter band 78.5-79.0 (info).
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
