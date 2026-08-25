@@ -2453,3 +2453,65 @@ Part I's heart in four words**, and Reich is already in this piece's process rec
 stochastic program output (the ST works). If true and sourced (check *Formalized
 Music*; James Harley's *Xenakis: His Life in Music*), the meta-shape/hand split
 has a precedent inside Xenakis's own practice. Verify before use.
+
+---
+
+## Day 36 — PART II NARRATIVE, the composer narrows the story (2026-08-25, verbatim)
+
+*Same sitting, after Part I settled. Their words:*
+
+> "I think the story for part 2 is comming up with the subjective sliders and
+> then working out the components that would achieve these effects, I may
+> reference the acoustic work of alvin lucier and the group itineraire. and then
+> some of this process: The morphs in the piece are your performances — not
+> generated presets. Your own played and tuned takes (the "actuals," e.g.
+> JYBloom001) were saved whole and placed into the score as-is."
+
+**The story as given:** subjective sliders conceived FIRST → the components
+worked out to achieve those effects → (reference points: Alvin Lucier's acoustic
+work; the group L'Itinéraire) → the played-takes process (the actuals placed
+whole).
+
+**Mapping to the record:** the "subjective sliders" are the day-10 arc — the
+composer's category vocabulary from listening (smoothness, shimmer, beating
+character; "spread, not voice count, is the smoothness dial"), the morph dials
+(span / duration / attack / release), dynamics riding every model. The
+"components" are the measurement chain: the quarter-tone patch disqualified,
+pitch bend measured in (D26), E4's clean negative closing the timing route, E6's
+predictive detuning-beating result. The actuals process: RUNNING_LOG days 13–15,
+ACT-BLOOM-01 "JYBloom001" placed whole (day 14).
+
+**References to source when writing (not yet researched):** Alvin Lucier
+(beating/interference as the material — the sweep-oscillator pieces) and
+L'Itinéraire (instrumental re-synthesis of acoustic phenomena). A citation pass
+like the Ferneyhough one can be run on request.
+
+### AI's story draft for Part II (verbatim from chat — NOT yet approved)
+
+> **1 · The sliders came first.**
+> I didn't start from notes or from machinery.
+> I described the sound as feelings on dials: how smooth, how much shimmer, how
+> fast it beats, how it blooms open and closes back.
+> Subjective sliders — targets for the ear, before any mechanism existed.
+>
+> **2 · Then the components that could move them.**
+> For each slider, find the physical thing that actually produces the effect.
+> The quarter-tone patch measured out as a fraud (+23¢ low, +57¢ high) — pitch
+> bend measured true and became the vehicle.
+> Timing tricks failed cleanly and closed that door; real detuning worked — two
+> tubas slightly apart making beats, and the numbers predicted the sound before
+> we heard it.
+> (Reference point: Lucier's beating pieces, and L'Itinéraire's instrumental
+> acoustics — composers who made interference itself the material.)
+>
+> **3 · Then I played it.**
+> The finished morphs aren't presets.
+> I tuned and performed the takes myself — the actuals, JYBloom001 — and those
+> performances were saved whole and placed into the score.
+> The machine defined the space; a performance chose the point in it.
+>
+> **Candidate close (AI's suggestion, take or leave):**
+> The subjective slider survives all the way to the printed page: the
+> performance notes tell the player the notated object IS the percept — "a
+> glissando in beating speed" — and "pitch variation is simply the catalyst."
+> The section ends where it began: the effect is the material.
