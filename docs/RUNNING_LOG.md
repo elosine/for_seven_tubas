@@ -13302,3 +13302,84 @@ fit it. **Its real home is the untimed prefatory gutter — `prefatory.gutterPx 
 already exists in the registry and is almost exactly the block's width — but the live
 view does not pass `gutterPx` to the renderer** (the same line-386 gap as the
 `engraving` bug). Worth fixing before this templates to the other nine parts.
+
+### THE BEATING DATA — journalled at the composer's ask (day 35)
+
+*Composer: "I can maybe add something in the performance score about the beating
+frequency, but I don't think the two tuba players will be able to hear each other
+immediately, so I'll cross that bridge later when I'm making the parts. But if you
+could just journal this data."*
+
+**THE PAIR IS A MIRROR.** T1 and T2 are both F2 (MIDI 41). They start in unison and
+open symmetrically — T1 bends UP, T2 bends DOWN by the same amount:
+
+| | T1 | T2 |
+|---|---|---|
+| lowest | **F2 +0.0 c** | **F2 −20.5 c** |
+| highest | **F2 +20.4 c** (t=178.41) | **F2 +0.0 c** |
+
+```
+ after entry     T1        T2      spread
+   + 0 s       +0.0c     +0.0c      0.0c   (unison)
+   +10 s       +2.1c     −1.4c      3.6c
+   +20 s       +7.6c     −6.6c     14.2c
+   +30 s      +14.6c    −13.5c     28.2c
+   +35 s      +18.7c    −17.5c     36.2c
+```
+
+**MAX SPREAD BETWEEN THE PAIR: 40.9 cents = 0.409 semitone.** (One voice alone spans
+only 20.4 c — the pair spans twice that, which is the number that matters for beating.)
+
+**BEATING AT MAX SPREAD — the whole point of the section:**
+
+F2 = 87.307 Hz · T1 rises to 88.342 Hz · T2 falls to 86.279 Hz → **2.06 Hz, a beat
+every 0.485 s.**
+
+Recomputed at the same 40.9 c spread for all five pairs, **including the one added
+this day**:
+
+| pair | base | beating at max spread |
+|---|---|---|
+| T1/T2 | F2 | **2.06 Hz** |
+| T3/T4 | A#2 | 2.75 Hz |
+| T5/T6 | D#3 | 3.68 Hz |
+| T7/T8 | G#3 | 4.91 Hz |
+| **T9/T10 (added day 35)** | **C#4** | **6.55 Hz** |
+
+**This confirms the recipe's own forecast** — `bank/morph_recipes.json` slot C says
+*"faster in the higher pairs (2.6 / 3.5 / 4.6 / 6.2 Hz at full separation), so the
+texture opens upward."* Slightly under those numbers because the placed render reaches
+40.9 c rather than the full nominal separation, but **the ratio holds exactly: the same
+interval beats faster the higher it sits.**
+
+**A CONSEQUENCE OF GOING TO TEN PARTS, worth the composer's eye later:** the new
+T9/T10 pair lands at **6.55 Hz — the fastest in the section, and fast enough to read as
+roughness rather than as a pulse.** The four original pairs span 2.06–4.91 Hz, which
+are all countable; 6.55 is over the edge.
+
+**THE OPEN QUESTION THE COMPOSER PARKED:** *"I don't think the two tuba players will
+be able to hear each other immediately"* — the beating is a two-player phenomenon and
+the parts are separated on stage. **Deferred to the parts pass**, not solved here.
+
+**THE PITCH FIGURE IS ON THE PAGE.** Composer: *"both the small black note heads.
+Let's have the f two and then F Quarter Sharp and then just a line between them.
+That'll be the gliss line. Standard spacing between note head and gliss line. And then
+let's make the gliss line about the diameter of two regular half note white notes."*
+
+**The composer chose the quarter-tone approximation KNOWING it rounds up** — T1's
+sounding top is F2 **+20.4 c**, which by nearest-quarter-tone is still F2. Writing
+**F2 → F¼♯** is a decision to show the gesture rather than the measurement. Recorded
+here because it is a compositional choice, not a rounding.
+
+Built from real glyph metrics, no invented numbers: heads are `notehead.filled` at the
+house `nhHeadScale` **0.844**; the gliss line is **`notehead.open.wSs × 2 = 2.2144 ss`**
+— literally two half-note diameters; the standard **0.45** spacer sits head-to-line
+both sides; the accidental takes the house **`accGap` 0.25**. Chain, right to left from
+the go line: `head · 0.45 · glissLine 2.2144 · 0.45 · quarterSharp · 0.25 · head ·
+0.45 · GO LINE` — so the pitch figure ends flush with the dynamic figure below it.
+
+**VERIFIED IN THE APP** (ssPx 8.83, go line x 76.4, zero console errors, zero mirrored
+transforms): clef 4.8 · head1 centre **28.0** · gliss line **35.8→55.4, 19.6 px =
+2.22 ss** · quarter-sharp centre **61.0** · head2 centre **68.6** · fff on the row
+below. Heads at **ySs −2.5** — the space below the bottom line, which is where F2
+belongs in bass clef.

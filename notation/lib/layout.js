@@ -170,7 +170,8 @@
       // and stop a MEDIUM spacer short of the go line. Anchored at the go
       // time in ss offsets, so it does not stretch with the time zoom.
       if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
-        headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff' }); continue;
+        headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
+          spelled: (ov.value && ov.value.spelled) || { step: 'F', alter: 0, octave: 2 } }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
         const e = evById.get(tgt.event);
@@ -289,6 +290,24 @@
         const arrR = markC - mg.wSs / 2 - A.gapSs;
         const arrL = arrR - A.lenSs;
         const cirC = arrL - A.gapSs - HD.circleDiaSs / 2;
+        // THE PITCH FIGURE (day 35, composer): two SMALL BLACK noteheads — the
+        // section's lowest and highest, to the closest quarter tone — with a
+        // gliss line between them. Standard spacing head-to-line; the line's
+        // length is the diameter of TWO regular half-note (white) heads.
+        const HEAD = glyphs.notehead.filled, OPEN = glyphs.notehead.open;
+        const hs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
+        const hw = HEAD.wSs * hs;
+        const glissLen = OPEN.wSs * 2;                       // "two regular half note white notes"
+        const acc = glyphs.accidental.quarterSharp;
+        const h2R = -A.gapSs, h2L = h2R - hw;                // ends where the dynamic row ends
+        const accR = h2L - (o.accGap || 0.25), accL = accR - acc.wSs;
+        const glR = accL - A.gapSs, glL = glR - glissLen;
+        const h1R = glL - A.gapSs, h1L = h1R - hw;
+        const yP = staffPosBass(h.spelled);
+        items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
+        items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
+        items.push({ k: 'glyph', g: 'accidental-quarterSharp', t: h.t, dxSs: accL + acc.wSs / 2, ySs: yP, align: 'center' });
+        items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h2L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
         items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });
         items.push({ k: 'glyph', g: 'dyn-' + h.endMark, t: h.t, dxSs: markC, ySs: y, align: 'center' });

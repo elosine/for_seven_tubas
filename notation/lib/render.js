@@ -235,6 +235,14 @@
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
             }
           }
+        } else if (it.k === 'glissline') {
+          // the gliss line between the section's two pitches (day 35): a plain
+          // rule at stem thickness, its length the diameter of TWO regular
+          // half-note heads, a standard spacer clear of each head
+          if (!inWin(it.t)) continue;
+          const gy = Y(it.ySs), gt = it.thickSs * ssPx;
+          parts.push('<rect x="' + X(it.t, it.dx0Ss).toFixed(2) + '" y="' + (gy - gt / 2).toFixed(2) +
+            '" width="' + ((it.dx1Ss - it.dx0Ss) * ssPx).toFixed(2) + '" height="' + gt.toFixed(2) + '"/>');
         } else if (it.k === 'niente') {
           // the NIENTE CIRCLE (day 35). No LilyPond glyph exists for it — in
           // LilyPond the circled tip is DRAWN — so it is drawn here: an open
