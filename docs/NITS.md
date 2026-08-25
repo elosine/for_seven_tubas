@@ -478,3 +478,14 @@ rendering-environment difference worth understanding).
   `--group <id>`) flag so a per-part score edit can state the right claim
   instead of a human reading the rows and deciding. Every future breath fix
   hits this.
+
+- **DB2 section (56-81 s): some VERTICAL OBJECT PLACEMENT wants adjusting**
+  *(day 35, fifteenth sitting — the composer, deferring: "some vertical object
+  placement needs to be adjusted for this section. we will fix later at the
+  polish.")* Which objects was not specified — the composer had just been
+  looking at the dynamics/accents application on MAIN DRAFT, windows 56-81, so
+  the likely candidates are the new mark/accent rows and their neighbours; ask
+  for the specific spots when the polish pass opens. Joins the section flags
+  already parked for that pass: cl-50/cl-52 dynamics by ear, the cl-50
+  STRADDLE, cl-55 no-clean-seam, the T1 near-tie, nine short fp bars, the
+  T1/T2 facing band, cl-55 bracket-internal 8th rests.

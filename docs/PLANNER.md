@@ -8,7 +8,17 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35, latest) ONE PAGE: the picker's main section is just
+**NOW ► (2026-08-24, day 35, latest) DB3 IS OPEN — the final density build.**
+Marker "DB3-m3F — density-build": 160 notes, 113.0–135.8 s, all ten tubas entering
+in a stagger (T1 at 113 down to T10 at 120). **The performability pass is done and
+applied:** the section was already clean (0 hard, 0 soft — nothing needed moving),
+every part is inside the breath dials, and the 143 staccato written lengths were
+normalised to the 50 ms brick (sound unchanged). DB2 (56–81) is **parked for the
+polish** with your vertical-placement note filed. **Next: the notation run for
+113–136 on MAIN DRAFT** — instructions staged for an Opus session; the double-beam
+and 16th-rest rules carry over automatically.
+
+**Previously (same day) ► ONE PAGE: the picker's main section is just
 "MAIN DRAFT — all notation so far (0-111 s)".** Your mandate ("just keep one in the
 main section… keeps accumulating") ran the same hour: the three section pages merged
 into one, proven item-for-item identical tile by tile, `db2`/`int2b1` retired,

@@ -12837,3 +12837,54 @@ its accent AND the mf; the marks are on screen.
 **Still for the composer's eye (unchanged flags):** cl-50 and cl-52 dynamics by
 ear · cl-1-era STRADDLE (T1 @78.48 5:4) · cl-55 no-clean-seam · cl-50 near-tie ·
 nine short fp bars · T1/T2 facing band · cl-55's two bracket-internal 8th rests.
+
+#### Day 35 (fifteenth sitting, Fable 5) — DB2 parked for the polish; THE FINAL DENSITY BUILD (DB3) opened and its playability pass run
+
+**The composer:** *"Could you make a note — some vertical object placement needs to
+be adjusted for this section. We will fix later at the polish. Let's move on to the
+final density build starting at around one hundred and twelve. So let's do the
+performability pass."*
+
+**DB2 status: PARKED AT THE POLISH, composer's word.** The vertical-placement note
+is in NITS (which objects unspecified — ask at the polish; the dynamics/accent rows
+had just gone on). The section's open flags ride along there (cl-50/cl-52 by ear,
+straddle, no-clean-seam, near-tie, short bars, facing band, bracket 8ths).
+
+**THE SECTION, identified and measured:** marker @113.54 **"DB3-m3F —
+density-build"**, group `grp-db3-m3f-01` — **160 notes, 113.00–135.77 s, all ten
+parts** (15–17 each), 143 staccato + 10 fortepiano + 7 ord. Entries STAGGER down the
+ensemble: T1 in at 113.0, T2 114.3, T3 115.2 … T10 120.1 — the density is ACROSS
+the parts again, DB2's shape. Neighbours clean: S018 ends 110.62, ACT-BLOOM starts
+141.39.
+
+**The DB2 boundary lesson recurred and was caught by measurement: `wc-2361` sits at
+113.000, HALF A SECOND BEFORE its own marker** — a marker-window run (playability
+`--section` = marker to next marker) would have missed the section's opening note.
+The pass ran on the explicit window **112.9–136.5** instead.
+
+**THE PLAYABILITY PASS (D64/D65), dry then applied:**
+- **AUDIT: 0 hard, 0 soft — clean before anything was done.** No redistribution
+  wanted (step 2 empty). Frozen figures in window: 0 of 160.
+- **BRICKS applied: 143 staccato writes 330–500 ms → 50 ms** (sound unaffected —
+  D51, the IR carries duration). Re-audited FROM DISK after writing: 0 hard, 0 soft.
+  Ledger line appended to ARCHIVE_AMENDMENTS.
+- **BREATH: every part inside the dials** (worst catch-gap 2.3 s of 5; worst
+  no-full-breath 7.5 s of 10 — the runs reach back across 111 into the blasts,
+  which is why per-part counts exceed the window's 160).
+- **AUDIBILITY (info):** 7.2 attacks/s; 60 of 159 attacks within 30 ms of the
+  previous (one impulse to the ear); sounding max 10, mean 3 — a mass by DB 042.
+  Stated, not acted on.
+- **Autosave-race guard checked first** (the `autosave-overwrites-loaded-score`
+  memory): `piece-s27-work.json` does not exist and s27's mtime was the ninth
+  sitting's apply — no app session could clobber the write.
+
+**MAIN DRAFT PROVEN UNTOUCHED, not assumed:** all 143 changed objects sit ≥113.0,
+outside the page's [0,111] window — and the notate_block golden (which rebuilds
+MAIN DRAFT from its own provenance against the NOW-EDITED score and diffs against
+the file) ran after the apply: **65/65.** No re-extract needed.
+
+**NEXT — DB3-N, the notation run (Opus, clear before it; instructions in §2):**
+extend MAIN DRAFT's window to 136.5 (label → "0-136 s"), scan 113-136, figure the
+gestures under the settled standards. **The day-35 beam/rest rule needs NO new
+flags: the merged command's `--beamsThrough 55.9- --rests16 55.9-` are open-ended
+and cover DB3 from birth** — the scoped-global design paying out one section later.
