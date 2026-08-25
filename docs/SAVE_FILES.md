@@ -103,3 +103,13 @@ At a section wrap, when you say "bump":
   window: 0–56 opening · 56–81 density build 2 · 81–111 blasts + long tones.
 - **"Which save is safe to touch?"** → only `piece-s27`. Everything
   else in the chain is frozen canon; `-work` files are the app's own.
+
+---
+
+## THE EXPERIMENT PAGE (day 35)
+
+**`MORPH x01 — BLOOM T1 (the reference)`** — internal id `morph-x01`, source
+`piece-s27`. **Its own file; MAIN DRAFT is never touched by it** (proven at every
+step: 0 added, 0 removed, 0 changed). It is the reference for the morph-section
+notation vocabulary — see `docs/MORPH_NOTATION.md`, and regenerate it with
+`tools/notate_morph.js`. Safe to overwrite.

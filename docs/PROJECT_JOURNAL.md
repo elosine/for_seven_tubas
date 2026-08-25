@@ -10,7 +10,55 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### WHERE IT STANDS — day 35, sixteenth sitting DONE (DB3 IS NOTATED)
+### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus). THE MORPH NOTATION EXISTS.
+
+**Three things shipped today, all pushed.** (1) **DB3 NOTATED** — MAIN DRAFT reads
+**0-136 s**, 23 clusters with their dynamics in one build. (2) **THE MORPHS GO TO TEN
+PARTS** — all three beds re-rendered and placed, MAIN DRAFT extended to **0-496 s**
+with the morphs as bricks. (3) **THE MORPH NOTATION VOCABULARY** — designed live with
+the composer, piece by piece, and handed off as a tool + a doc.
+
+**READ `docs/MORPH_NOTATION.md` BEFORE ANY MORPH WORK.** It is the settled vocabulary,
+why each number is what it is, and where the template stops. The tool is
+**`tools/notate_morph.js`** (`--group <id> --part <0-9> --id <ir> [--apply]`; dry-run
+by default). Run over BLOOM part 0 it **reproduces the composer-approved page exactly**.
+
+**THE REFERENCE PAGE IS `morph-x01`** in the picker — BLOOM T1. It carries: normal
+staff + bass clef · a header (two small black heads **F2 · gliss line · F¼♯**, and
+below on the house `dynY` row a **drawn niente circle · arrow · fff**) · **13 go
+lines**, one per breath, **no onset noteheads** · **two interpolated curves**,
+brightOrange gliss in the TOP half and limeGreen crescendo in the BOTTOM, filled, no
+borders, each normalised to fill its half · **two meters, no dots**.
+
+**THE FINDING THAT CHANGES THE PLAN — the template only fits BLOOM.** Measured over
+all ten parts of all three morphs:
+
+| morph | gliss range | direction reversals | verdict |
+|---|---|---|---|
+| **BLOOM** | 20 c every part | **0** | one clean arc — **fits** |
+| **CONVERGE** | 182-366 c | 12-38 | **an OSCILLATION — the tool REFUSES** |
+| **BALANCE** | **0 c every part** | 0 | **no glissando at all** |
+
+CONVERGE swings up to 3.5 semitones reversing up to 38 times; the best single smooth
+curve has a **237-cent** worst case, so the tool refuses above 25 c (half a quarter
+tone — past that the drawn line puts the player in the *wrong quarter tone*).
+**BALANCE has no pitch bend anywhere: its top half would be empty.** Both need a
+composer decision before anything is drawn.
+
+**A CORRECTION ON THE RECORD:** an earlier note said "CONVERGE reaches ±67 cents".
+That was a per-tone peak, **not** the section range, which is ±180 c. The table in
+`MORPH_NOTATION.md` is the one to trust.
+
+**THE BEATING DATA IS JOURNALLED** at the composer's ask (RUNNING_LOG, "THE BEATING
+DATA"): each pair is a mirror, max spread **40.9 cents**, beating **2.06 Hz (T1/T2)
+→ 6.55 Hz (T9/T10)**. The composer wants a beating indicator in the PARTS eventually
+— filed in PLANNER, with their own doubt that the two players can hear each other.
+
+**Deliberately uncommitted: nothing.** Working tree clean at close.
+
+---
+
+### The sixteenth-sitting record — DB3 NOTATED (still current for MAIN DRAFT)
 
 **MAIN DRAFT NOW READS 0–136 s.** The final density build is figured. The page is
 **"MAIN DRAFT — all notation so far (0-136 s)"** (internal id `db1`, source
@@ -257,6 +305,10 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **DB3 — OPEN (playability DONE)** | **The final density build: marker @113.54 "DB3-m3F — density-build", `grp-db3-m3f-01`, 160 notes 113.00-135.77, all ten parts staggered T1→T10** (143 stacc + 10 fp + 7 ord). Playability applied: **0 hard 0 soft (clean from the start, no moves); 143 bricks → 50 ms; breath inside dials; audibility info 7.2 att/s, max 10 sounding.** `wc-2361` sits at 113.000, BEFORE the 113.54 marker → windows must use `--w0 112.9` (the wc-1624 lesson again). MAIN DRAFT proven untouched (golden 65/65 after the score edit) | — | — | — |
 | ~~DB3-N~~ | ~~The Opus notation run~~ **DONE day 35 (Opus, sixteenth sitting)** — MAIN DRAFT is **"all notation so far (0-136 s)"**: window widened, **23 clusters `cl-62`–`cl-84` built WITH their dynamics in one build**. **866 events · VALID · geometry zero new.** The scan was the cleanest yet (**23 gestures, all one grid within a head; 0 straddles, 0 ties, 0 brackets — DB3 needs no tuplet**). `--validate` **81/84**, the three DIFFERS proven pre-existing. Tile-proof: **1263 added rows all ≥112.9, 0 removed, only the staff window bound changed.** Eleven batteries green; verified in the app | — | — | — |
 | **DB3-EYE — NEXT (composer)** | **The eye on DB3.** Five 3-band clusters are PROPOSALS per the registry's own confidence note (**g3 T1 @134.14 · g6 T2 @134.14 · g7 T3 @131.97 · g8 T4 @131.70 · g9 T4 @133.15**); **the member-2 mark** (g4 T2 @131.60, g18 T8 @133.13) is an AI reading where "dynamic on the first sounding note" met "below-floor members get nothing" — **a new rule-collision DB2 never hit**; new facing band **T7/T8 133.1–133.5**. Full list: RUNNING_LOG sixteenth sitting | Fable | yes — clear before it | composer's verdicts applied |
+| ~~MORPHS-10~~ | ~~The morphs to ten parts~~ **DONE day 35** — all three beds re-rendered and placed in `piece-s27` (BLOOM 106→133, CONVERGE 108→167, BALANCE 110→137 tones), MAIN DRAFT extended to **0-496 s** with them as bricks, MIDI verified on T9/T10. **BLOOM was a clean addition (106 of 106 survived); CONVERGE and BALANCE re-rendered** — the pair's insertion point renumbers the voices | — | — | — |
+| ~~MORPH-NOTATION~~ | ~~The morph notation vocabulary~~ **DONE day 35** — designed live, piece by piece; **`tools/notate_morph.js` + `docs/MORPH_NOTATION.md`**; reference page `morph-x01` (BLOOM T1) reproduces from the tool exactly | — | — | — |
+| **MORPH-T2 — NEXT** | **BLOOM T2, the descending mirror.** `node tools/notate_morph.js --group grp-act-bloom-01-01 --part 1 --id morph-b-t2 --apply`. Dry run already verified: 21 anchors, max 0.728 c, **quarterFlat** — it proves the direction handling. **Then T3-T10 are mechanical.** Read `docs/MORPH_NOTATION.md` first | **Opus** | **yes — clear before it** (execution against a settled design) | ten BLOOM pages, composer's eye on T2 |
+| **MORPH-STOP — composer** | **CONVERGE and BALANCE are BLOCKED on decisions, not on work.** CONVERGE's gliss is an oscillation (182-366 c, 12-38 reversals) the one-curve template refuses; BALANCE has **no pitch bend at all**, so its top half is empty. **Ask what each should carry before drawing** | Fable | — | a reading for each |
 | ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
