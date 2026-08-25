@@ -8,15 +8,30 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35, latest) DB3 IS OPEN — the final density build.**
-Marker "DB3-m3F — density-build": 160 notes, 113.0–135.8 s, all ten tubas entering
-in a stagger (T1 at 113 down to T10 at 120). **The performability pass is done and
-applied:** the section was already clean (0 hard, 0 soft — nothing needed moving),
-every part is inside the breath dials, and the 143 staccato written lengths were
-normalised to the 50 ms brick (sound unchanged). DB2 (56–81) is **parked for the
-polish** with your vertical-placement note filed. **Next: the notation run for
-113–136 on MAIN DRAFT** — instructions staged for an Opus session; the double-beam
-and 16th-rest rules carry over automatically.
+**NOW ► (2026-08-24, day 35, latest) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
+The final density build is on the page: **23 clusters (`cl-62`-`cl-84`), built WITH
+their dynamics in one build** — 23 marks, 18 accents. **866 events, VALID, geometry
+zero new.** The scan was the cleanest any section has returned: **23 gestures, all on
+one grid within a head, no straddles, no ties, NO BRACKETS — DB3 wants no tuplet
+anywhere.** Proven: nothing on [0,111) moved (1263 added rows all at/after 112.9,
+zero removed). Eleven batteries green; seen in the app.
+
+**The section's form, found by measuring:** ten parts enter staggered (T1@113.0 down
+to T10@120.1) and play **lone one-shots only for ~17 s**; then **every one of the 23
+gestures lands in the last six seconds (129.8-135.3)**, their units all **215-245 ms**.
+Ten independent voices converge on a common pace at the end. All 17 ringing notes
+(10 fp + 7 surge) sit in the stagger; every gesture is pure staccato.
+
+**YOUR EYE, when you want it (DB3-EYE):**
+- **Five 3-band clusters are PROPOSALS, not verdicts** (the rule is only reliable at
+  1-2 bands): **T1 @134.14 · T2 @134.14 · T3 @131.97 · T4 @131.70 · T4 @133.15**
+- **Two clusters take their mark on member 2, not member 1** (T2 @131.60, T8 @133.13)
+  — their first note is below the mf floor, so "dynamic on the first sounding note"
+  and "below-floor gets nothing" collided. **That is my reading, not your rule** —
+  the alternative is to leave those two clusters with no stated level at all
+- **New facing band T7/T8 133.1-133.5** (clutter risk, named before dictation)
+
+**DB2 (56-81) stays parked for the polish** with your vertical-placement note filed.
 
 **Previously (same day) ► ONE PAGE: the picker's main section is just
 "MAIN DRAFT — all notation so far (0-111 s)".** Your mandate ("just keep one in the

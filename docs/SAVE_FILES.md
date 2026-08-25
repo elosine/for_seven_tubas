@@ -15,7 +15,7 @@
 
 **`piece-s27`** — open it in the **composer app** (:5200/composer.html).
 Everything new goes here. It contains the WHOLE piece so far as data:
-4563 objects, 10 tracks — the 0–111 s arc AND the trance section (~500 s+).
+4563 objects, 10 tracks — the 0–136 s arc AND the trance section (~500 s+).
 
 ---
 
@@ -38,7 +38,7 @@ auditions, and section takes. **The piece is only the `piece-sNN` chain.**
 | `piece-s01` … `piece-s25` | frozen | the assembly era (days 13–20) | — |
 | `piece-s25-finished01` | **frozen canon** | CLOUD02-D done (day 33) | — (its material lives on in MAIN DRAFT via s27's identical tile) |
 | `piece-s26` | **frozen canon** | INT2 blasts done (day 35) | — (same) |
-| `piece-s27` | **CURRENT — compose here** | (open) | **MAIN DRAFT** (0–111 s) |
+| `piece-s27` | **CURRENT — compose here** | (open) | **MAIN DRAFT** (0–136 s) |
 
 **`-work` files** (`piece-s25-finished01-work` etc.): the composer app's own
 autosave working copies. **Never a source for anything** (D75 — one is stale
@@ -57,12 +57,13 @@ ignore it. (CLAUDE.md's pointer to it is corrected to point here.)
 
 **The main section of the picker holds exactly ONE entry:**
 
-# → **MAIN DRAFT — all notation so far (0-111 s)**
+# → **MAIN DRAFT — all notation so far (0-136 s)**
 
 That page (internal id `db1`, source `piece-s27`) carries EVERYTHING notated:
 the opening density build + both clouds + the 48 s long tone (0–56), the
-gesture-2 density build being fix-passed now (56–81), and the INT2 blasts +
-long tones (81–111). To see a section, pick MAIN DRAFT and set the window
+gesture-2 density build parked for the polish (56–81), the INT2 blasts +
+long tones (81–111), and **the final density build DB3 (113–136, day 35
+sixteenth sitting)**. To see a section, pick MAIN DRAFT and set the window
 seconds. **New sections are appended to this same page; the label's window
 number updates as it grows.** The merge was proven tile-by-tile: every drawn
 item identical to the three pages it replaced.

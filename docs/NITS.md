@@ -489,3 +489,26 @@ rendering-environment difference worth understanding).
   already parked for that pass: cl-50/cl-52 dynamics by ear, the cl-50
   STRADDLE, cl-55 no-clean-seam, the T1 near-tie, nine short fp bars, the
   T1/T2 facing band, cl-55 bracket-internal 8th rests.
+
+- **The FACING-BANDS info line now reports page-spanning ranges** *(day 35,
+  sixteenth sitting)* — with DB3 on, `notate_section` prints `T1/T2 78.5-135.0 s`
+  and `T4/T5 34.3-135.0 s`. Detection joins bands across the whole page, so on a
+  136 s page the "band" is most of the piece and the line stops telling the
+  composer *where* the clutter risk is. It was genuinely useful at 46 s (every
+  day-31/33 dictation landed in one). **Cosmetic, not blocking** — the real
+  finding this sitting, `T7/T8 133.1-133.5`, still printed correctly. *Fix:* cap
+  a band's span, or split on gaps longer than a few seconds.
+
+- **`prove_unmoved --expect-added N` counts PAGE ITEMS, not events** *(day 35,
+  sixteenth sitting)* — DB3's 160 new events produced **1365 added layout rows**,
+  so `--expect-added 160` printed `EXPECTED 160 added, got 1365` and **NOT CLEAN**
+  on a perfectly correct build. The flag's unit is undocumented and the failure
+  reads like a real regression. *Fix:* rename to `--expect-added-rows`, or accept
+  `--expect-added-events N` and convert. Pairs with the `--confine` nit above.
+
+- **A WINDOW WIDENING cannot be proven by `confine()`** *(day 35, sixteenth
+  sitting)* — `confine()` attributes rows by `r.ev`, and **732 of DB3's 1365 added
+  rows are glyphs with `ev: null`**; they would all report as "outside the target"
+  though every one sits at t≥113. **For a widening, prove by TIME** (every added
+  row's `t` ≥ the boundary) and treat the ten `staff t1` changes as window
+  furniture. Worth a helper so the next section does not re-derive it.

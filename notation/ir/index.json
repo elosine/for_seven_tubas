@@ -55,11 +55,11 @@
   },
   {
    "id": "db1",
-   "label": "MAIN DRAFT — all notation so far (0-111 s)",
+   "label": "MAIN DRAFT — all notation so far (0-136 s)",
    "score": "piece-s27",
    "window": [
     0,
-    111
+    136.5
    ],
    "profile": "section1"
   }

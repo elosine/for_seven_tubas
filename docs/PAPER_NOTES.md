@@ -2051,3 +2051,46 @@ to rules, once granted, is expected to STAY granted — asking again reads as th
 system forgetting its own constitution. *(The chat-hygiene corollary from the
 twelfth sitting applies here too: the constitution must live in the docs, because
 the chat that granted it is erased on schedule.)*
+
+---
+
+## A PROOF THAT RETURNS ZERO BECAUSE IT WAS FED THE WRONG SHAPE (day 35, sixteenth sitting)
+
+**The incident.** Proving that widening MAIN DRAFT's window from 111 s to 136.5 s
+moved nothing already on the page, the AI called the project's own confinement
+library directly:
+
+```
+const d = P.diff(beforeIrJson, afterIrJson);
+const out = P.confine(d, db3EventIds);
+// -> OUTSIDE the target: added 0, removed 0, changed 0
+```
+
+**A clean pass. And entirely false.** `flatten()` reads `model.systems[].items[]`;
+it had been handed a raw IR, found no `systems`, and diffed two empty lists. The
+same comparison done correctly reported 1365 added rows and 10 changed.
+
+**Why it is worth writing down.** The failure mode is not "the tool was wrong" —
+the tool was fine. It is that **the shape of a passing result and the shape of a
+vacuous result are identical.** `0 / 0 / 0` is what you hope to see. Nothing in the
+output distinguishes *nothing moved* from *nothing was compared*. The AI caught it
+only because it had just seen the CLI report 1365 on the same pair of files and the
+numbers disagreed — a cross-check that existed by accident, not by design.
+
+**The AI's own words in the moment, verbatim:** *"A zero from a wrongly-fed proof is
+worth nothing — checking the signature before trusting it."* And in the log: *"A
+proof that returns zero because it was fed the wrong shape is worse than no proof."*
+
+**Connects to the project's standing rule** (AI_METHODOLOGY): *a confidence claim
+must be verified in the running app, because the composer plans around it.* This is
+the same rule one level down — **a confidence claim must be verified against a
+second, independently-derived number, because the AI plans around it.** The golden
+that caught the day-35 brief error (D73) worked for the same reason: it compared
+against something built a different way.
+
+**The generalisable lesson for the paper:** an assertion library used by an agent
+needs to distinguish *satisfied* from *inapplicable*. The `test_layout` battery
+already learned this once — day 34's approved-span gate had `existsSync`-skipped
+itself and **reported green while asserting nothing**, which is why it now prints
+**NOT APPLICABLE** out loud. Two independent occurrences of one failure mode, four
+sittings apart, in the same codebase: **silence and success must not look alike.**

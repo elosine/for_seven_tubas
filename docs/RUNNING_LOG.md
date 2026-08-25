@@ -12888,3 +12888,150 @@ extend MAIN DRAFT's window to 136.5 (label → "0-136 s"), scan 113-136, figure 
 gestures under the settled standards. **The day-35 beam/rest rule needs NO new
 flags: the merged command's `--beamsThrough 55.9- --rests16 55.9-` are open-ended
 and cover DB3 from birth** — the scoped-global design paying out one section later.
+
+---
+
+## Day 35 — sixteenth sitting (Opus): DB3-N, the notation run — the window, the proof, the pre-read
+
+**THE WINDOW IS OPEN.** MAIN DRAFT rebuilt from its own `provenance.build` with the
+only two changes the plan named: `--w1 111` → `--w1 136.5` and the label →
+**"MAIN DRAFT — all notation so far (0-136 s)"**. No other flag moved. **866 events
+= 706 + 160 exactly · 277 chunks · VALID vs source.** Geometry: the same two
+pre-existing tier-3 items (T9 @36.87 · T10 @39.08) — **zero new findings.**
+
+**The scoped-global design paid out, as forecast.** `--beamsThrough 55.9-` and
+`--rests16 55.9-` are open-ended, so DB3 inherited the day-35 beam/rest rule with
+**no new flags on the command line.** The forecast in the fifteenth sitting's entry
+was correct and is now measured, not predicted.
+
+**THE TILE-PROOF — [0,111) did not move.** Ran `prove_unmoved`, then proved the
+real claim by hand because the CLI's `--expect-added` counts *page items*, not
+events, and its 1365-vs-160 mismatch reads as a failure when it is a unit error:
+
+- **1365 added layout rows · every one carries a time field · every one at/after 112.9** (zero before)
+- **0 removed**
+- **10 changed — all ten are `staff t1: 111 -> 136.5`**, the window bound. Window
+  furniture, definitionally window-shaped (the fold's own exclusion, day 35 thirteenth).
+
+**A dead end worth keeping: `confine()` cannot carry this proof.** It attributes
+rows by `r.ev`, and **732 of the 1365 added rows are glyphs with `ev: null`** — they
+would be reported as "outside the target" though every one sits at t≥113. Worse, the
+first attempt fed `P.diff()` **raw IR** instead of a built layout; `flatten()` reads
+`model.systems[].items[]`, found nothing, and returned **a clean 0/0/0 — a false
+pass.** The correct shape is `Layout.layoutSection(ir, GLYPHS, OPTS)` first (what
+`tools/prove_unmoved.js` does at its `lay()` helper). *A proof that returns zero
+because it was fed the wrong shape is worse than no proof* — it is the exact failure
+the AI_METHODOLOGY confidence rule exists to prevent. **For a window WIDENING, prove
+by TIME (every added row's t ≥ the boundary), not by event-id confinement.**
+
+**THE PRE-READ — `pattern_analyze --ir db1 --scan 112.9-136.5`:**
+
+**23 gestures · one grid WITHIN a head: 23 · OVER a head: 0 · straddles 0 ·
+no-clean-seam 0 · ratio ties 0 · brackets 0.** The cleanest scan any section has
+returned. Every gesture is plain 16ths on one grid; **DB3 wants no tuplet anywhere**
+(DB2 had two brackets; CLOUD02-I had five straddles).
+
+**DB2'S SHAPE RECURS, LARGER.** 160 notes = **~97 lone one-shots + 63 notes in 23
+small gestures** (2–6 members). Ten parts enter staggered T1@113.0 → T10@120.1 and
+play *one-shots only* for the first ~17 s. **The density is ACROSS the parts, not
+inside any one of them** — the same finding as DB2, now at twice the scale.
+
+**THE CONVERGENCE, and it is the section's form.** Every one of the 23 gestures sits
+in the last six seconds: **129.83–135.29.** And their units cluster hard —
+**215–245 ms across all ten parts.** Ten independent staggered voices arrive at a
+common pace at the end. Nobody wrote that as a rule; it is in the material.
+
+**THE NAMED FIRST DID NOT OCCUR — again, and cleanly.** All 17 ringing members (10
+fp + 7 ord/surge) live in **113.000–128.271**, the stagger; every gesture is **pure
+staccato**. No fp and no surge is inside a figure, so the DB2 hand-case does not
+arise. **Clearance measured with duration, not onset: the last ringing note
+(`ev-wc-2405`, T8 ord/surge) ENDS at 129.711; the first gesture (T9) begins at
+129.830 — 119 ms.** Tighter than DB2's 168 ms and still clean. *The risk stays open
+for a future section; it has now declined to occur twice.*
+
+**Ringing members by part** (o = ord/surge, f = fortepiano): T1 o@113.0 f@120.7
+f@126.7 · T2 f@121.8 o@128.1 · T3 f@115.2 o@121.2 · T4 f@116.3 f@122.3 · T5 o@125.7 ·
+T6 f@117.4 f@123.2 f@125.3 · T7 o@118.3 · T8 f@123.9 o@128.3 · T10 o@124.4. **T9 has
+none** — it is the one all-staccato part, and it also owns the largest gesture
+(6 notes @131.99) and the earliest one (@129.83).
+
+**`wc-2522` is NOT a note.** The group holds 161 waveCurves, but one sits on **layer
+10 — beyond the ten tracks** (113.54–135.766, twelve nodes rising y 1.2 → 9.5): the
+composer's **density-shape curve** for the section. `--parts 0-9` excludes it. The
+160-note count in §2 is correct; the 161 is the curve.
+
+
+**THE FIGURES ARE ON THE PAGE — 23 clusters, built and verified.** `cl-62`–`cl-84`
+appended to MAIN DRAFT's command. **866 events · 277 chunks · VALID vs source ·
+geometry STILL only the two pre-existing tier-3 items (T9 @36.87 · T10 @39.08) —
+zero new findings from 23 new clusters carrying 23 marks and 18 accents.**
+
+**Every fit came back `[no tuplet]`, max err 0–18 ms, every written value a 16th.**
+Largest error is `cl-64` (T1 @134.144) at 18 ms = 0.6 heads — inside the one-notehead
+threshold the composer has an eye on both sides of. **DB3 needs no tuplet vocabulary
+at all**, the first section of which that is true.
+
+**THE ANALYSER INDEPENDENTLY REPRODUCES ALL 23.** `--validate` went **58/61 → 81/84**:
+the three DIFFERS (`cl-1` T1 @31.55, `cl-24` T2 @38.60, `cl-30` T7 @36.19) are the
+SAME three as before this sitting — measured, not assumed, by validating a temp copy
+of the pre-DB3 IR. **84−61 = 23 added; 81−58 = 23 agreeing.** *(§2's tool-table row
+still says "24/25 — cl-1 only". That was true on day 24 at 25 clusters; `cl-24` and
+`cl-30` arrived later. Row corrected.)*
+
+**THE DYNAMICS WENT ON IN THE SAME BUILD, not a second pass.** The fourteenth
+sitting's lesson (D-log 23: an established rule that lives only in prose gets
+skipped) argued for deriving the marks *before* the build rather than figuring first
+and marking later as DB2 did. Full stack applied: day-24 rule + day-29 mf floor +
+day-30 refinements. **23 marks · 18 accents · 6 below-floor members unmarked.**
+
+**A CORRECTION MADE MID-DERIVATION, and it is the substantive one.** The first pass
+read the mf floor literally — ambient = the softest band, and if that band is below
+mf, no mark. That left **six clusters carrying accents but NO stated level.** It
+contradicts the framework's own premise: *every one-shot in this piece resets the
+dynamic, so nothing is "prevailing"* (NOTATION_STANDARDS, "Dynamics on a pickup").
+A cluster with accents and no ambient states nothing to deviate from. **The reading
+adopted: the ambient is the softest band AT OR ABOVE the floor; below-floor members
+get nothing (no mark, no accent, no flag).**
+
+**NEW CASE the DB2 pass never hit — FLAGGED, not settled: two clusters take their
+mark on member 2.** `g4` T2 @131.600 `[p mf]` and `g18` T8 @133.130 `[p f]` have a
+**below-floor FIRST member**. "The dynamic goes on the first sounding note" and
+"below-floor members get nothing" collide, so the mark moved to the first member at
+or above the floor → `--dyn 2:mf` and `--dyn 2:f`. DB2's `cl-52` only ever had a
+below-floor *interior* member. **This is an AI reading of two rules meeting, not a
+composer verdict.**
+
+**PROOF — nothing on [0,111) moved, across the WHOLE sitting:** 1263 added layout
+rows, **every one at/after 112.9 (zero before)** · **0 removed** · 10 changed, all
+ten the `staff t1: 111 -> 136.5` window bound.
+
+**VERIFIED IN THE RUNNING APP** (not inferred from the build log):
+- picker reads **"MAIN DRAFT — all notation so far (0-136 s)"**; header `866 events · 277 chunks`
+- **131.5–135.7** (the convergence): clusters beamed with **full double beams**, 16th
+  rests, `mf`/`f` marks and accents on all ten staves — the day-35 rule inherited
+  with no new flags, as forecast
+- **112.8–121.8** (the stagger): the marker label `DB3-m3F — density-build` draws;
+  T1@113.0 and T3@121.17 surges draw their green swell with **`ppp → fff`**; the fp
+  notes draw `sfzp` + open head + ring bar
+- **LAYOUT AUDIT, exact:** 18 accents drawn = the 18 derived, **each on the derived
+  member** (checked member-by-member across all ten parts). 127 dynamic glyphs =
+  **97 one-shots + 23 cluster ambients + 7 surge `ppp→fff` PAIRS** — the 7 extra are
+  the surge device drawing two marks each, which is why the count is not 120.
+
+**Eleven batteries green** (snapshots 75/75 · pattern_fit 85 checks · playability
+51/51 · notate_block 65/65 · midiplayer 30/0).
+
+**FLAGS — LISTED, NOT SOLVED (for the composer's eye):**
+1. **Five 3-band clusters are PROPOSALS, not verdicts** — the registry's own
+   `_confidence` says the rule is reliable at 1–2 bands and only *a starting point*
+   at 3: **g3 T1 @134.144 · g6 T2 @134.144 · g7 T3 @131.971 · g8 T4 @131.701 ·
+   g9 T4 @133.153.** (DB2's analogue: cl-50 and cl-52.)
+2. **The member-2 mark** (g4 T2, g18 T8) — the new rule-collision case above.
+3. **Six below-floor members carry nothing**, all `p`: g3 T1 m2 · g4 T2 m1 ·
+   g6 T2 m3 · g8 T4 m2 · g9 T4 m3 · g18 T8 m1.
+4. **A NEW facing band: T7/T8 133.1–133.5 s** — the build's info line; clutter risk
+   named BEFORE any dictation, per the day-33 practice.
+5. The facing-bands line now reports page-spanning ranges (T1/T2 78.5–135.0,
+   T4/T5 34.3–135.0) because detection joins across the whole page. **Cosmetic —
+   NITS**; it was readable when the page was 46 s long.
+

@@ -5,7 +5,7 @@
   "score": "piece-s27",
   "window": [
    0,
-   111
+   136.5
   ],
   "parts": [
    0,
@@ -25,7 +25,7 @@
   "date": "2026-08-25",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-s27 --w0 0 --w1 111 --parts 0-9 --profile section1 --id db1 --bricks --bracketsAbove --beamsThrough 55.9- --rests16 55.9- --label \"MAIN DRAFT — all notation so far (0-111 s)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --beamThrough 1,2 --rest16 2 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --beamThrough 1 --rest16 3,4,5 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --beamThrough 1 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --beamThrough 1 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --beamThrough 1 --rest16 2 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --beamThrough 1 --rest16 3,4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --beamThrough 1 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5 --beamThrough 1 --rest16 5 --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --beamOverLeft 4 --beamOver 5 --dyn 1:mf --accents 2,3,5,12,15,17 --cluster 36.20-40.33@3 --figures --cuts 2,7,9,13,15 --beamThrough 1,2,3,4,5,6 --rest16 9 --tuplet 12-13@3:2 --tuplet 16-17@3:2 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12 --cluster 36.45-40.29@4 --figures --beamThrough 1,2,3,4,5,6 --rest16 6 --dyn 1:mf,3,6 --accents 2,14,16 --cluster 36.91-37.13@5 --dyn 1:f --cluster 37.69-40.19@5 --figures --beamThrough 1,2,3,4 --dyn 1:mf --accents 2,7,8,9,11 --cluster 36.19-37.69@6 --figures --plain --beamThrough 1 --rest16 2,6 --dyn 1:f,4 --cluster 38.32-40.29@6 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,4,6,7,8 --cluster 36.30-40.30@7 --figures --beamThrough 1,2,3,4,5,6 --tuplet 4-5@3:2 --dyn 1:mf --accents 1,2,5,9,11,12,13,14,15,16 --cluster 36.32-36.87@8 --figures --beamThrough 1,2 --dyn 1:mf --accents 4 --cluster 37.38-40.33@8 --figures --beamThrough 1,2,3,4 --rest16 2 --dyn 1:mf --accents 8,9,11,13 --cluster 36.31-38.06@9 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,3,6 --cluster 38.69-40.23@9 --figures --beamThrough 1,2,3 --rest16 8 --dyn 1:mf,3,7 --ringFromBrick 40.9-41.0 --cluster 44.68-46.36@0 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,5,7 --accents 6 --cluster 44.26-46.30@1 --figures --cuts 7 --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3 --cluster 43.01-43.38@2 --figures --beamThrough 1 --dyn 1 --cluster 43.97-46.25@2 --figures --cuts 7 --beamThrough 1,2 --dyn 1 --accents 3,5 --cluster 43.91-46.23@3 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1 --accents 9 --cluster 43.36-43.83@4 --figures --beamThrough 1 --dyn 1 --accents 2 --cluster 44.54-46.20@4 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,3,7 --cluster 42.37-43.47@5 --figures --beamThrough 1 --rest16 4 --dyn 1 --cluster 44.46-45.73@5 --figures --beamThrough 1,2 --beamOverLeft 2 --tuplet 1-2@3:2 --dyn 1 --accents 4 --articSide above --cluster 43.58-46.22@6 --figures --beamThrough 1,2 --beamOverLeft 2 --rest16 5,11 --dyn 1 --accents 9,11 --articSide below --cluster 44.15-46.22@7 --figures --beamThrough 1,2,3 --tuplet 2-3@3:2 --dyn 1,4 --accents 5,6,7,8,11 --articSide above --cluster 43.62-46.19@8 --figures --beamThrough 1,2,3,4 --beamOverLeft 2,3,4 --tuplet 6-7@3:2 --rest16 11 --dyn 1,6 --accents 2,4 --cluster 44.68-46.19@9 --figures --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3,4 --bracketsAbove --dynSide 46.18@5:above --ringFromBrick 48.0-48.1 --cluster 78.332-80.094@0 --figures --dyn 1:mf --accents 1,2,3,4 --cluster 75.382-76.53@1 --figures --dyn 1:mf --accents 2,3 --cluster 77.383-79.011@1 --pattern --dyn 1:mf --accents 1,3,5 --cluster 73.098-73.859@2 --figures --dyn 1:mf --accents 2 --cluster 77.757-78.425@2 --figures --dyn 1:mf --accents 1 --cluster 78.27-79.966@5 --figures --dyn 1:mf --accents 1,2,3,5 --cluster 77.638-78.26@6 --figures --dyn 1:mf --accents 2 --cluster 79.536-80.115@6 --figures --dyn 1:mf --accents 1 --cluster 78.582-79.499@7 --figures --dyn 1:mf --accents 1,2 --cluster 78.954-79.638@8 --figures --dyn 1:f --cluster 74.831-75.781@9 --figures --dyn 1:mf --accents 1,2 --cluster 77.209-78.363@9 --figures --dyn 1:mf --accents 1,2 --noGc wc-1710 --ringFromBrick 81.7-81.8 --ringFromBrick 84.6-84.7 --ringFromBrick 85.3-85.4 --ringFromBrick 86.5-86.6 --ringFromBrick 90.9-91.0 --ringFromBrick 95.8-95.9 --ringFromBrick 102.4-102.5 --ringFromBrick 105.6-105.7"
+  "build": "node tools/notate_section.js --score piece-s27 --w0 0 --w1 136.5 --parts 0-9 --profile section1 --id db1 --bricks --bracketsAbove --beamsThrough 55.9- --rests16 55.9- --label \"MAIN DRAFT — all notation so far (0-136 s)\" --cluster 31.49-34.6@0 --clusterTol 0.05 --beamBreak 3,6,9 --beamThrough 1,2,3,4 --beamOver 1,2 --tuplet 10-11@3:2 --accents 4,7,8,12 --dyn 1,9 --cluster 31.17-31.40@1 --clusterTol 0.03 --pickup 1 --dyn 1:f --cluster 32.55-34.52@1 --clusterTol 0.03 --beamBreak 4 --dyn 1:f --accents 1,3,5,6 --beamThrough 1,2 --rest16 2 --cluster 29.92-31.97@2 --clusterTol 0.03 --pickup 1 --dyn 1:mf --accents 1,3,4 --beamThrough 1 --rest16 3,4,5 --cluster 33.85-34.52@2 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --beamThrough 1 --cluster 30.39-30.80@3 --clusterTol 0.03 --pickup 1 --dyn 1:mf --cluster 33.13-33.69@3 --clusterTol 0.03 --dyn 1:f --accents 2 --beamThrough 1 --cluster 34.32-34.51@3 --clusterTol 0.03 --dyn 1:fff --cluster 31.04-31.43@4 --clusterTol 0.03 --dyn 1:mf --accents 2 --cluster 32.17-32.74@4 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 34.13-34.57@4 --clusterTol 0.03 --dyn 1:mf --accents 1,3 --cluster 33.26-33.91@5 --clusterTol 0.03 --pickup 1 --dyn 1:f --accents 3 --cluster 31.66-32.06@6 --clusterTol 0.03 --dyn 1:mf --cluster 32.61-33.00@6 --clusterTol 0.03 --dyn 1:mf --accents 1 --cluster 33.58-34.56@6 --clusterTol 0.03 --dyn 1:f --accents 2,3 --beamThrough 1 --rest16 2 --cluster 31.17-31.36@7 --clusterTol 0.03 --dyn 1:f --cluster 31.76-32.84@7 --clusterTol 0.03 --dyn 1:f --accents 4 --beamThrough 1 --rest16 3,4 --cluster 33.88-34.61@7 --clusterTol 0.03 --dyn 1:mf --accents 2,3 --beamThrough 1 --cluster 33.07-33.36@8 --clusterTol 0.03 --dyn 1:f --cluster 32.13-32.73@9 --clusterTol 0.03 --dyn 1:f --cluster 32.93-34.56@9 --clusterTol 0.03 --pattern --dyn 1:mf --accents 2,3,5 --beamThrough 1 --rest16 5 --cluster 36.21-39.62@0 --figures --beamThrough 1,2,3,4,5,6 --dyn 1:mf,15 --accents 3,6,8,9,12 --cluster 36.18-38.20@1 --pattern --beamBreak 4,7 --rest16 4,7 --beamThrough 1,2 --beamOver 1,2 --dyn 1:mf --accents 1 --cluster 38.50-40.40@1 --plain --beamBreak 5,7 --beamThrough 1,2,3 --beamOver 2 --dyn 1 --accents 5,6 --cluster 36.32-40.32@2 --figures --cuts 3,6,8,10,12,14 --rest16 8 --beamThrough 1,2,3,4,5,6,7 --beamOverLeft 4 --beamOver 5 --dyn 1:mf --accents 2,3,5,12,15,17 --cluster 36.20-40.33@3 --figures --cuts 2,7,9,13,15 --beamThrough 1,2,3,4,5,6 --rest16 9 --tuplet 12-13@3:2 --tuplet 16-17@3:2 --dyn 1:mf,14,16 --accents 1,4,6,8,9,10,12 --cluster 36.45-40.29@4 --figures --beamThrough 1,2,3,4,5,6 --rest16 6 --dyn 1:mf,3,6 --accents 2,14,16 --cluster 36.91-37.13@5 --dyn 1:f --cluster 37.69-40.19@5 --figures --beamThrough 1,2,3,4 --dyn 1:mf --accents 2,7,8,9,11 --cluster 36.19-37.69@6 --figures --plain --beamThrough 1 --rest16 2,6 --dyn 1:f,4 --cluster 38.32-40.29@6 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,4,6,7,8 --cluster 36.30-40.30@7 --figures --beamThrough 1,2,3,4,5,6 --tuplet 4-5@3:2 --dyn 1:mf --accents 1,2,5,9,11,12,13,14,15,16 --cluster 36.32-36.87@8 --figures --beamThrough 1,2 --dyn 1:mf --accents 4 --cluster 37.38-40.33@8 --figures --beamThrough 1,2,3,4 --rest16 2 --dyn 1:mf --accents 8,9,11,13 --cluster 36.31-38.06@9 --figures --beamThrough 1,2 --dyn 1:mf --accents 1,3,6 --cluster 38.69-40.23@9 --figures --beamThrough 1,2,3 --rest16 8 --dyn 1:mf,3,7 --ringFromBrick 40.9-41.0 --cluster 44.68-46.36@0 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,5,7 --accents 6 --cluster 44.26-46.30@1 --figures --cuts 7 --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3 --cluster 43.01-43.38@2 --figures --beamThrough 1 --dyn 1 --cluster 43.97-46.25@2 --figures --cuts 7 --beamThrough 1,2 --dyn 1 --accents 3,5 --cluster 43.91-46.23@3 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1 --accents 9 --cluster 43.36-43.83@4 --figures --beamThrough 1 --dyn 1 --accents 2 --cluster 44.54-46.20@4 --figures --beamThrough 1,2,3 --beamOverLeft 2,3 --dyn 1,3,7 --cluster 42.37-43.47@5 --figures --beamThrough 1 --rest16 4 --dyn 1 --cluster 44.46-45.73@5 --figures --beamThrough 1,2 --beamOverLeft 2 --tuplet 1-2@3:2 --dyn 1 --accents 4 --articSide above --cluster 43.58-46.22@6 --figures --beamThrough 1,2 --beamOverLeft 2 --rest16 5,11 --dyn 1 --accents 9,11 --articSide below --cluster 44.15-46.22@7 --figures --beamThrough 1,2,3 --tuplet 2-3@3:2 --dyn 1,4 --accents 5,6,7,8,11 --articSide above --cluster 43.62-46.19@8 --figures --beamThrough 1,2,3,4 --beamOverLeft 2,3,4 --tuplet 6-7@3:2 --rest16 11 --dyn 1,6 --accents 2,4 --cluster 44.68-46.19@9 --figures --beamThrough 1,2 --beamOverLeft 2 --dyn 1 --accents 3,4 --bracketsAbove --dynSide 46.18@5:above --ringFromBrick 48.0-48.1 --cluster 78.332-80.094@0 --figures --dyn 1:mf --accents 1,2,3,4 --cluster 75.382-76.53@1 --figures --dyn 1:mf --accents 2,3 --cluster 77.383-79.011@1 --pattern --dyn 1:mf --accents 1,3,5 --cluster 73.098-73.859@2 --figures --dyn 1:mf --accents 2 --cluster 77.757-78.425@2 --figures --dyn 1:mf --accents 1 --cluster 78.27-79.966@5 --figures --dyn 1:mf --accents 1,2,3,5 --cluster 77.638-78.26@6 --figures --dyn 1:mf --accents 2 --cluster 79.536-80.115@6 --figures --dyn 1:mf --accents 1 --cluster 78.582-79.499@7 --figures --dyn 1:mf --accents 1,2 --cluster 78.954-79.638@8 --figures --dyn 1:f --cluster 74.831-75.781@9 --figures --dyn 1:mf --accents 1,2 --cluster 77.209-78.363@9 --figures --dyn 1:mf --accents 1,2 --noGc wc-1710 --ringFromBrick 81.7-81.8 --ringFromBrick 84.6-84.7 --ringFromBrick 85.3-85.4 --ringFromBrick 86.5-86.6 --ringFromBrick 90.9-91.0 --ringFromBrick 95.8-95.9 --ringFromBrick 102.4-102.5 --ringFromBrick 105.6-105.7 --cluster 131.709-132.664@0 --figures --dyn 1:mf --accents 1 --cluster 133.164-133.634@0 --figures --dyn 1:mf --cluster 134.144-135.074@0 --figures --dyn 1:f --accents 3 --cluster 131.600-132.087@1 --figures --dyn 2:mf --cluster 133.164-133.624@1 --figures --dyn 1:mf --accents 2 --cluster 134.144-135.034@1 --figures --dyn 1:mf --accents 1 --cluster 131.971-133.741@2 --figures --dyn 1:mf --accents 1,2,4 --cluster 131.701-132.632@3 --figures --dyn 1:mf --accents 1 --cluster 133.153-134.093@3 --figures --dyn 1:f --accents 1 --cluster 134.654-135.094@3 --figures --dyn 1:mf --cluster 133.013-133.483@4 --figures --dyn 1:mf --accents 1 --cluster 134.013-134.973@4 --figures --dyn 1:mf --accents 3 --cluster 132.521-132.977@5 --figures --dyn 1:mf --accents 2 --cluster 134.017-134.487@5 --figures --dyn 1:f --cluster 132.556-133.466@6 --figures --dyn 1:f --cluster 134.486-134.916@6 --figures --dyn 1:f --accents 1 --cluster 132.081-132.565@7 --figures --dyn 1:fff --cluster 133.130-133.620@7 --figures --dyn 2:f --cluster 134.700-135.170@7 --figures --dyn 1:f --cluster 129.834-130.782@8 --figures --dyn 1:mf --accents 2,3 --cluster 131.992-134.309@8 --figures --dyn 1:mf --accents 5 --cluster 134.836-135.286@8 --figures --dyn 1:f --cluster 132.841-134.231@9 --figures --dyn 1:mf --accents 2,3"
  },
  "events": [
   {
@@ -16933,6 +16933,4094 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
+  },
+  {
+   "id": "ev-wc-2361",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2361"
+   },
+   "onset": 113,
+   "duration": 4.1200000000000045,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0047,
+     0.0095,
+     0.0143,
+     0.0192,
+     0.0242,
+     0.0293,
+     0.0344,
+     0.0396,
+     0.0449,
+     0.0503,
+     0.0557,
+     0.0612,
+     0.0668,
+     0.0725,
+     0.0782,
+     0.0841,
+     0.09,
+     0.096,
+     0.1021,
+     0.1082,
+     0.1145,
+     0.1209,
+     0.1273,
+     0.1339,
+     0.1405,
+     0.1472,
+     0.1541,
+     0.161,
+     0.168,
+     0.1751,
+     0.1824,
+     0.1897,
+     0.1971,
+     0.2047,
+     0.2123,
+     0.2201,
+     0.228,
+     0.236,
+     0.2441,
+     0.2523,
+     0.2606,
+     0.2691,
+     0.2777,
+     0.2864,
+     0.2952,
+     0.3042,
+     0.3132,
+     0.3225,
+     0.3318,
+     0.3413,
+     0.3509,
+     0.3607,
+     0.3706,
+     0.3806,
+     0.3908,
+     0.4011,
+     0.4116,
+     0.4222,
+     0.433,
+     0.444,
+     0.4551,
+     0.4663,
+     0.4777,
+     0.4893,
+     0.5011,
+     0.513,
+     0.5251,
+     0.5374,
+     0.5498,
+     0.5624,
+     0.5752,
+     0.5882,
+     0.6014,
+     0.6147,
+     0.6283,
+     0.642,
+     0.656,
+     0.6701,
+     0.6845,
+     0.699,
+     0.7138,
+     0.7288,
+     0.744,
+     0.7594,
+     0.775,
+     0.7909,
+     0.807,
+     0.8233,
+     0.8399,
+     0.8567,
+     0.8737,
+     0.891,
+     0.9085,
+     0.9263,
+     0.9443,
+     0.9626,
+     0.9812,
+     1,
+     0.5,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2362",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2362"
+   },
+   "onset": 114.329,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 32,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 62
+  },
+  {
+   "id": "ev-wc-2363",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2363"
+   },
+   "onset": 115.173,
+   "duration": 1.76,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 71
+  },
+  {
+   "id": "ev-wc-2364",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2364"
+   },
+   "onset": 116.279,
+   "duration": 1.42,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2365",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2365"
+   },
+   "onset": 116.845,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 81
+  },
+  {
+   "id": "ev-wc-2366",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2366"
+   },
+   "onset": 117.379,
+   "duration": 1.66,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 80
+  },
+  {
+   "id": "ev-wc-2367",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2367"
+   },
+   "onset": 118.25,
+   "duration": 4.349999999999994,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0047,
+     0.0095,
+     0.0143,
+     0.0192,
+     0.0242,
+     0.0293,
+     0.0344,
+     0.0396,
+     0.0449,
+     0.0503,
+     0.0557,
+     0.0612,
+     0.0668,
+     0.0725,
+     0.0782,
+     0.0841,
+     0.09,
+     0.096,
+     0.1021,
+     0.1082,
+     0.1145,
+     0.1209,
+     0.1273,
+     0.1339,
+     0.1405,
+     0.1472,
+     0.1541,
+     0.161,
+     0.168,
+     0.1751,
+     0.1824,
+     0.1897,
+     0.1971,
+     0.2047,
+     0.2123,
+     0.2201,
+     0.228,
+     0.236,
+     0.2441,
+     0.2523,
+     0.2606,
+     0.2691,
+     0.2777,
+     0.2864,
+     0.2952,
+     0.3042,
+     0.3132,
+     0.3225,
+     0.3318,
+     0.3413,
+     0.3509,
+     0.3607,
+     0.3706,
+     0.3806,
+     0.3908,
+     0.4011,
+     0.4116,
+     0.4222,
+     0.433,
+     0.444,
+     0.4551,
+     0.4663,
+     0.4777,
+     0.4893,
+     0.5011,
+     0.513,
+     0.5251,
+     0.5374,
+     0.5498,
+     0.5624,
+     0.5752,
+     0.5882,
+     0.6014,
+     0.6147,
+     0.6283,
+     0.642,
+     0.656,
+     0.6701,
+     0.6845,
+     0.699,
+     0.7138,
+     0.7288,
+     0.744,
+     0.7594,
+     0.775,
+     0.7909,
+     0.807,
+     0.8233,
+     0.8399,
+     0.8567,
+     0.8737,
+     0.891,
+     0.9085,
+     0.9263,
+     0.9443,
+     0.9626,
+     0.9812,
+     1,
+     0.5,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2368",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2368"
+   },
+   "onset": 118.842,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 72
+  },
+  {
+   "id": "ev-wc-2369",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2369"
+   },
+   "onset": 119.532,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 82
+  },
+  {
+   "id": "ev-wc-2370",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2370"
+   },
+   "onset": 120.145,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 47
+  },
+  {
+   "id": "ev-wc-2371",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2371"
+   },
+   "onset": 120.707,
+   "duration": 1.68,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 86
+  },
+  {
+   "id": "ev-wc-2372",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2372"
+   },
+   "onset": 121.171,
+   "duration": 2.839999999999989,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0047,
+     0.0095,
+     0.0143,
+     0.0192,
+     0.0242,
+     0.0293,
+     0.0344,
+     0.0396,
+     0.0449,
+     0.0503,
+     0.0557,
+     0.0612,
+     0.0668,
+     0.0725,
+     0.0782,
+     0.0841,
+     0.09,
+     0.096,
+     0.1021,
+     0.1082,
+     0.1145,
+     0.1209,
+     0.1273,
+     0.1339,
+     0.1405,
+     0.1472,
+     0.1541,
+     0.161,
+     0.168,
+     0.1751,
+     0.1824,
+     0.1897,
+     0.1971,
+     0.2047,
+     0.2123,
+     0.2201,
+     0.228,
+     0.236,
+     0.2441,
+     0.2523,
+     0.2606,
+     0.2691,
+     0.2777,
+     0.2864,
+     0.2952,
+     0.3042,
+     0.3132,
+     0.3225,
+     0.3318,
+     0.3413,
+     0.3509,
+     0.3607,
+     0.3706,
+     0.3806,
+     0.3908,
+     0.4011,
+     0.4116,
+     0.4222,
+     0.433,
+     0.444,
+     0.4551,
+     0.4663,
+     0.4777,
+     0.4893,
+     0.5011,
+     0.513,
+     0.5251,
+     0.5374,
+     0.5498,
+     0.5624,
+     0.5752,
+     0.5882,
+     0.6014,
+     0.6147,
+     0.6283,
+     0.642,
+     0.656,
+     0.6701,
+     0.6845,
+     0.699,
+     0.7138,
+     0.7288,
+     0.744,
+     0.7594,
+     0.775,
+     0.7909,
+     0.807,
+     0.8233,
+     0.8399,
+     0.8567,
+     0.8737,
+     0.891,
+     0.9085,
+     0.9263,
+     0.9443,
+     0.9626,
+     0.9812,
+     1,
+     0.5,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2373",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2373"
+   },
+   "onset": 121.834,
+   "duration": 1.68,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 47
+  },
+  {
+   "id": "ev-wc-2374",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2374"
+   },
+   "onset": 122.304,
+   "duration": 1.46,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 51
+  },
+  {
+   "id": "ev-wc-2375",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2375"
+   },
+   "onset": 122.773,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 80
+  },
+  {
+   "id": "ev-wc-2376",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2376"
+   },
+   "onset": 123.188,
+   "duration": 1.77,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 68
+  },
+  {
+   "id": "ev-wc-2377",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2377"
+   },
+   "onset": 123.577,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 90
+  },
+  {
+   "id": "ev-wc-2378",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2378"
+   },
+   "onset": 123.932,
+   "duration": 1.4,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 59
+  },
+  {
+   "id": "ev-wc-2379",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2379"
+   },
+   "onset": 124.41,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 83
+  },
+  {
+   "id": "ev-wc-2380",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2380"
+   },
+   "onset": 124.415,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 70
+  },
+  {
+   "id": "ev-wc-2381",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2381"
+   },
+   "onset": 124.431,
+   "duration": 1.5900000000000034,
+   "pitch": {
+    "midi": 43,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0048,
+     0.0096,
+     0.0145,
+     0.0195,
+     0.0245,
+     0.0297,
+     0.0349,
+     0.0401,
+     0.0455,
+     0.0509,
+     0.0564,
+     0.062,
+     0.0677,
+     0.0735,
+     0.0793,
+     0.0852,
+     0.0912,
+     0.0973,
+     0.1035,
+     0.1098,
+     0.1162,
+     0.1226,
+     0.1292,
+     0.1358,
+     0.1426,
+     0.1494,
+     0.1564,
+     0.1634,
+     0.1706,
+     0.1778,
+     0.1852,
+     0.1926,
+     0.2002,
+     0.2079,
+     0.2157,
+     0.2236,
+     0.2316,
+     0.2398,
+     0.248,
+     0.2564,
+     0.2649,
+     0.2735,
+     0.2823,
+     0.2912,
+     0.3002,
+     0.3093,
+     0.3186,
+     0.328,
+     0.3376,
+     0.3472,
+     0.3571,
+     0.367,
+     0.3772,
+     0.3874,
+     0.3978,
+     0.4084,
+     0.4191,
+     0.43,
+     0.441,
+     0.4522,
+     0.4636,
+     0.4751,
+     0.4868,
+     0.4986,
+     0.5107,
+     0.5229,
+     0.5353,
+     0.5478,
+     0.5606,
+     0.5735,
+     0.5866,
+     0.5999,
+     0.6135,
+     0.6272,
+     0.6411,
+     0.6552,
+     0.6695,
+     0.684,
+     0.6987,
+     0.7137,
+     0.7289,
+     0.7442,
+     0.7598,
+     0.7757,
+     0.7918,
+     0.8081,
+     0.8246,
+     0.8414,
+     0.8584,
+     0.8757,
+     0.8932,
+     0.911,
+     0.929,
+     0.9473,
+     0.9659,
+     0.9847,
+     0.9375,
+     0.625,
+     0.3125,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2382",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2382"
+   },
+   "onset": 124.993,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 71
+  },
+  {
+   "id": "ev-wc-2383",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2383"
+   },
+   "onset": 124.996,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 84
+  },
+  {
+   "id": "ev-wc-2384",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2384"
+   },
+   "onset": 125.005,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 63
+  },
+  {
+   "id": "ev-wc-2385",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2385"
+   },
+   "onset": 125.327,
+   "duration": 1.88,
+   "pitch": {
+    "midi": 51,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-2386",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2386"
+   },
+   "onset": 125.332,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 89
+  },
+  {
+   "id": "ev-wc-2387",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2387"
+   },
+   "onset": 125.335,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 90
+  },
+  {
+   "id": "ev-wc-2388",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2388"
+   },
+   "onset": 125.336,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2389",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2389"
+   },
+   "onset": 125.668,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 86
+  },
+  {
+   "id": "ev-wc-2390",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2390"
+   },
+   "onset": 125.671,
+   "duration": 2.0799999999999983,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0053,
+     0.0106,
+     0.016,
+     0.0216,
+     0.0272,
+     0.0329,
+     0.0387,
+     0.0445,
+     0.0505,
+     0.0566,
+     0.0628,
+     0.069,
+     0.0754,
+     0.0819,
+     0.0884,
+     0.0951,
+     0.1019,
+     0.1088,
+     0.1158,
+     0.1229,
+     0.1302,
+     0.1375,
+     0.145,
+     0.1526,
+     0.1603,
+     0.1682,
+     0.1761,
+     0.1842,
+     0.1924,
+     0.2008,
+     0.2093,
+     0.2179,
+     0.2267,
+     0.2356,
+     0.2446,
+     0.2538,
+     0.2631,
+     0.2726,
+     0.2823,
+     0.2921,
+     0.302,
+     0.3121,
+     0.3224,
+     0.3329,
+     0.3435,
+     0.3543,
+     0.3652,
+     0.3763,
+     0.3877,
+     0.3991,
+     0.4108,
+     0.4227,
+     0.4347,
+     0.447,
+     0.4594,
+     0.4721,
+     0.4849,
+     0.498,
+     0.5112,
+     0.5247,
+     0.5384,
+     0.5523,
+     0.5665,
+     0.5808,
+     0.5954,
+     0.6103,
+     0.6253,
+     0.6407,
+     0.6562,
+     0.672,
+     0.6881,
+     0.7044,
+     0.721,
+     0.7378,
+     0.755,
+     0.7723,
+     0.79,
+     0.808,
+     0.8262,
+     0.8448,
+     0.8636,
+     0.8828,
+     0.9022,
+     0.922,
+     0.942,
+     0.9624,
+     0.9832,
+     0.9836,
+     0.9016,
+     0.8197,
+     0.7377,
+     0.6557,
+     0.5738,
+     0.4918,
+     0.4098,
+     0.3279,
+     0.2459,
+     0.1639,
+     0.082,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2391",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2391"
+   },
+   "onset": 125.951,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 66
+  },
+  {
+   "id": "ev-wc-2392",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2392"
+   },
+   "onset": 126.215,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2393",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2393"
+   },
+   "onset": 126.493,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2394",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2394"
+   },
+   "onset": 126.5,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2395",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2395"
+   },
+   "onset": 126.703,
+   "duration": 1.51,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "fortepiano",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75
+  },
+  {
+   "id": "ev-wc-2396",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2396"
+   },
+   "onset": 126.94,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2397",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2397"
+   },
+   "onset": 127.179,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2398",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2398"
+   },
+   "onset": 127.184,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 54
+  },
+  {
+   "id": "ev-wc-2399",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2399"
+   },
+   "onset": 127.351,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2400",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2400"
+   },
+   "onset": 127.585,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2401",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2401"
+   },
+   "onset": 127.768,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 39,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2402",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2402"
+   },
+   "onset": 128.038,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 81
+  },
+  {
+   "id": "ev-wc-2403",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2403"
+   },
+   "onset": 128.121,
+   "duration": 1.299999999999983,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0048,
+     0.0097,
+     0.0146,
+     0.0196,
+     0.0247,
+     0.0299,
+     0.0351,
+     0.0405,
+     0.0459,
+     0.0513,
+     0.0569,
+     0.0625,
+     0.0682,
+     0.0741,
+     0.0799,
+     0.0859,
+     0.092,
+     0.0981,
+     0.1044,
+     0.1107,
+     0.1171,
+     0.1237,
+     0.1303,
+     0.137,
+     0.1438,
+     0.1507,
+     0.1577,
+     0.1649,
+     0.1721,
+     0.1794,
+     0.1868,
+     0.1944,
+     0.202,
+     0.2098,
+     0.2177,
+     0.2257,
+     0.2338,
+     0.242,
+     0.2504,
+     0.2589,
+     0.2675,
+     0.2762,
+     0.2851,
+     0.294,
+     0.3032,
+     0.3124,
+     0.3218,
+     0.3313,
+     0.341,
+     0.3508,
+     0.3608,
+     0.3709,
+     0.3811,
+     0.3915,
+     0.402,
+     0.4127,
+     0.4236,
+     0.4346,
+     0.4458,
+     0.4572,
+     0.4687,
+     0.4803,
+     0.4922,
+     0.5042,
+     0.5164,
+     0.5288,
+     0.5414,
+     0.5541,
+     0.5671,
+     0.5802,
+     0.5935,
+     0.607,
+     0.6207,
+     0.6346,
+     0.6487,
+     0.6631,
+     0.6776,
+     0.6924,
+     0.7073,
+     0.7225,
+     0.7379,
+     0.7535,
+     0.7694,
+     0.7855,
+     0.8018,
+     0.8184,
+     0.8352,
+     0.8523,
+     0.8696,
+     0.8871,
+     0.905,
+     0.923,
+     0.9414,
+     0.96,
+     0.9789,
+     0.9981,
+     0.7692,
+     0.5128,
+     0.2564,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2404",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2404"
+   },
+   "onset": 128.258,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2405",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2405"
+   },
+   "onset": 128.271,
+   "duration": 1.4400000000000261,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "env": "surge",
+   "level": {
+    "samples": [
+     0,
+     0.0051,
+     0.0103,
+     0.0155,
+     0.0208,
+     0.0263,
+     0.0318,
+     0.0373,
+     0.043,
+     0.0488,
+     0.0546,
+     0.0606,
+     0.0666,
+     0.0727,
+     0.079,
+     0.0853,
+     0.0917,
+     0.0982,
+     0.1048,
+     0.1116,
+     0.1184,
+     0.1253,
+     0.1324,
+     0.1395,
+     0.1468,
+     0.1541,
+     0.1616,
+     0.1692,
+     0.177,
+     0.1848,
+     0.1928,
+     0.2009,
+     0.2091,
+     0.2174,
+     0.2259,
+     0.2345,
+     0.2432,
+     0.2521,
+     0.2611,
+     0.2703,
+     0.2796,
+     0.289,
+     0.2986,
+     0.3083,
+     0.3182,
+     0.3283,
+     0.3385,
+     0.3488,
+     0.3593,
+     0.37,
+     0.3809,
+     0.3919,
+     0.4031,
+     0.4144,
+     0.426,
+     0.4377,
+     0.4496,
+     0.4617,
+     0.4739,
+     0.4864,
+     0.4991,
+     0.5119,
+     0.525,
+     0.5382,
+     0.5517,
+     0.5654,
+     0.5792,
+     0.5933,
+     0.6077,
+     0.6222,
+     0.637,
+     0.652,
+     0.6672,
+     0.6827,
+     0.6984,
+     0.7144,
+     0.7306,
+     0.747,
+     0.7637,
+     0.7807,
+     0.7979,
+     0.8154,
+     0.8332,
+     0.8513,
+     0.8696,
+     0.8882,
+     0.9071,
+     0.9263,
+     0.9458,
+     0.9656,
+     0.9857,
+     0.9677,
+     0.8602,
+     0.7527,
+     0.6452,
+     0.5376,
+     0.4301,
+     0.3226,
+     0.2151,
+     0.1075,
+     0
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-2406",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2406"
+   },
+   "onset": 128.273,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 76
+  },
+  {
+   "id": "ev-wc-2407",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2407"
+   },
+   "onset": 128.413,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2408",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2408"
+   },
+   "onset": 128.615,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 83
+  },
+  {
+   "id": "ev-wc-2409",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2409"
+   },
+   "onset": 128.621,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 66
+  },
+  {
+   "id": "ev-wc-2410",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2410"
+   },
+   "onset": 128.622,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 80
+  },
+  {
+   "id": "ev-wc-2411",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2411"
+   },
+   "onset": 128.778,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 76
+  },
+  {
+   "id": "ev-wc-2412",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2412"
+   },
+   "onset": 129.044,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 95
+  },
+  {
+   "id": "ev-wc-2413",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2413"
+   },
+   "onset": 129.188,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2414",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2414"
+   },
+   "onset": 129.383,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 51,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2415",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2415"
+   },
+   "onset": 129.553,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2416",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2416"
+   },
+   "onset": 129.717,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2417",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2417"
+   },
+   "onset": 129.727,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65
+  },
+  {
+   "id": "ev-wc-2418",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2418"
+   },
+   "onset": 129.834,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2419",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2419"
+   },
+   "onset": 129.837,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2420",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2420"
+   },
+   "onset": 130.049,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 89
+  },
+  {
+   "id": "ev-wc-2421",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2421"
+   },
+   "onset": 130.05,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2422",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2422"
+   },
+   "onset": 130.052,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2423",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2423"
+   },
+   "onset": 130.176,
+   "duration": 0.37,
+   "pitch": {
+    "midi": 35,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 107
+  },
+  {
+   "id": "ev-wc-2424",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2424"
+   },
+   "onset": 130.177,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 33,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-2425",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2425"
+   },
+   "onset": 130.332,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-2426",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2426"
+   },
+   "onset": 130.336,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2427",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2427"
+   },
+   "onset": 130.533,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2428",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2428"
+   },
+   "onset": 130.535,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2429",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2429"
+   },
+   "onset": 130.657,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2430",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2430"
+   },
+   "onset": 130.658,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2431",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2431"
+   },
+   "onset": 130.66,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 87
+  },
+  {
+   "id": "ev-wc-2432",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2432"
+   },
+   "onset": 130.774,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2433",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2433"
+   },
+   "onset": 130.782,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2434",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2434"
+   },
+   "onset": 130.785,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2435",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2435"
+   },
+   "onset": 130.96,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2436",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2436"
+   },
+   "onset": 130.974,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2437",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2437"
+   },
+   "onset": 131.08,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 82
+  },
+  {
+   "id": "ev-wc-2438",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2438"
+   },
+   "onset": 131.161,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 59
+  },
+  {
+   "id": "ev-wc-2439",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2439"
+   },
+   "onset": 131.227,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-2440",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2440"
+   },
+   "onset": 131.3,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2441",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2441"
+   },
+   "onset": 131.329,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 55
+  },
+  {
+   "id": "ev-wc-2442",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2442"
+   },
+   "onset": 131.42,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 118
+  },
+  {
+   "id": "ev-wc-2443",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2443"
+   },
+   "onset": 131.432,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2444",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2444"
+   },
+   "onset": 131.559,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 43,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-2445",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2445"
+   },
+   "onset": 131.6,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 47
+  },
+  {
+   "id": "ev-wc-2446",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2446"
+   },
+   "onset": 131.701,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2447",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2447"
+   },
+   "onset": 131.709,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2448",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2448"
+   },
+   "onset": 131.819,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2449",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2449"
+   },
+   "onset": 131.971,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2450",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2450"
+   },
+   "onset": 131.978,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2451",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2451"
+   },
+   "onset": 131.979,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2452",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2452"
+   },
+   "onset": 131.988,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2453",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2453"
+   },
+   "onset": 131.992,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2454",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2454"
+   },
+   "onset": 132.081,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2455",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2455"
+   },
+   "onset": 132.087,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-2456",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2456"
+   },
+   "onset": 132.192,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65
+  },
+  {
+   "id": "ev-wc-2457",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2457"
+   },
+   "onset": 132.194,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2458",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2458"
+   },
+   "onset": 132.331,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 43,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2459",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2459"
+   },
+   "onset": 132.429,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-2460",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2460"
+   },
+   "onset": 132.431,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2461",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2461"
+   },
+   "onset": 132.488,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75
+  },
+  {
+   "id": "ev-wc-2462",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2462"
+   },
+   "onset": 132.521,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 76
+  },
+  {
+   "id": "ev-wc-2463",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2463"
+   },
+   "onset": 132.556,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2464",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2464"
+   },
+   "onset": 132.565,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2465",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2465"
+   },
+   "onset": 132.614,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2466",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2466"
+   },
+   "onset": 132.632,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2467",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2467"
+   },
+   "onset": 132.664,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2468",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2468"
+   },
+   "onset": 132.841,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-2469",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2469"
+   },
+   "onset": 132.861,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2470",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2470"
+   },
+   "onset": 132.909,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2471",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2471"
+   },
+   "onset": 132.977,
+   "duration": 0.33,
+   "pitch": {
+    "midi": 37,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2472",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2472"
+   },
+   "onset": 133.013,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-2473",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2473"
+   },
+   "onset": 133.016,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2474",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2474"
+   },
+   "onset": 133.13,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 31,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 1
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 73
+  },
+  {
+   "id": "ev-wc-2475",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2475"
+   },
+   "onset": 133.153,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2476",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2476"
+   },
+   "onset": 133.164,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2477",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2477"
+   },
+   "onset": 133.164,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97
+  },
+  {
+   "id": "ev-wc-2478",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2478"
+   },
+   "onset": 133.301,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2479",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2479"
+   },
+   "onset": 133.321,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2480",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2480"
+   },
+   "onset": 133.389,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2481",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2481"
+   },
+   "onset": 133.466,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2482",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2482"
+   },
+   "onset": 133.483,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 84
+  },
+  {
+   "id": "ev-wc-2483",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2483"
+   },
+   "onset": 133.497,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 54
+  },
+  {
+   "id": "ev-wc-2484",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2484"
+   },
+   "onset": 133.603,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 51,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2485",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2485"
+   },
+   "onset": 133.62,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2486",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2486"
+   },
+   "onset": 133.624,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2487",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2487"
+   },
+   "onset": 133.634,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2488",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2488"
+   },
+   "onset": 133.741,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2489",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2489"
+   },
+   "onset": 133.801,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2490",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2490"
+   },
+   "onset": 133.849,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2491",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2491"
+   },
+   "onset": 133.976,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2492",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2492"
+   },
+   "onset": 134.013,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 51,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2493",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2493"
+   },
+   "onset": 134.017,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2494",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2494"
+   },
+   "onset": 134.093,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 56
+  },
+  {
+   "id": "ev-wc-2495",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2495"
+   },
+   "onset": 134.144,
+   "duration": 0.46,
+   "pitch": {
+    "midi": 51,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2496",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2496"
+   },
+   "onset": 134.144,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2497",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2497"
+   },
+   "onset": 134.18,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 81
+  },
+  {
+   "id": "ev-wc-2498",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2498"
+   },
+   "onset": 134.231,
+   "duration": 0.5,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2499",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2499"
+   },
+   "onset": 134.241,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 81
+  },
+  {
+   "id": "ev-wc-2500",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2500"
+   },
+   "onset": 134.309,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 43,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2501",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2501"
+   },
+   "onset": 134.486,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2502",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2502"
+   },
+   "onset": 134.487,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2503",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2503"
+   },
+   "onset": 134.503,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 90
+  },
+  {
+   "id": "ev-wc-2504",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2504"
+   },
+   "onset": 134.584,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2505",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2505"
+   },
+   "onset": 134.634,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 58
+  },
+  {
+   "id": "ev-wc-2506",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2506"
+   },
+   "onset": 134.654,
+   "duration": 0.41,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2507",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2507"
+   },
+   "onset": 134.7,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2508",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2508"
+   },
+   "onset": 134.751,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 49,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2509",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2509"
+   },
+   "onset": 134.761,
+   "duration": 0.43,
+   "pitch": {
+    "midi": 45,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2510",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2510"
+   },
+   "onset": 134.836,
+   "duration": 0.42,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2511",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2511"
+   },
+   "onset": 134.916,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-2512",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2512"
+   },
+   "onset": 134.973,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 44,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2513",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2513"
+   },
+   "onset": 134.997,
+   "duration": 0.49,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 102
+  },
+  {
+   "id": "ev-wc-2514",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2514"
+   },
+   "onset": 135.034,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 47,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 67
+  },
+  {
+   "id": "ev-wc-2515",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2515"
+   },
+   "onset": 135.074,
+   "duration": 0.44,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2516",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2516"
+   },
+   "onset": 135.094,
+   "duration": 0.4,
+   "pitch": {
+    "midi": 57,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2517",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2517"
+   },
+   "onset": 135.17,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2518",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2518"
+   },
+   "onset": 135.261,
+   "duration": 0.47,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-2519",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2519"
+   },
+   "onset": 135.271,
+   "duration": 0.45,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2520",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-2520"
+   },
+   "onset": 135.286,
+   "duration": 0.48,
+   "pitch": {
+    "midi": 60,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "staccato",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
   }
  ],
  "chunks": [
@@ -17278,12 +21366,94 @@
    "part": 0,
    "span": [
     104.183,
-    111
+    113
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2183"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-2361",
+   "part": 0,
+   "span": [
+    113,
+    120.707
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2361"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-2371",
+   "part": 0,
+   "span": [
+    120.707,
+    125.668
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2371",
+    "ev-wc-2380"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-2389",
+   "part": 0,
+   "span": [
+    125.668,
+    131.709
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2389",
+    "ev-wc-2395",
+    "ev-wc-2408",
+    "ev-wc-2417",
+    "ev-wc-2426",
+    "ev-wc-2435"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-2447",
+   "part": 0,
+   "span": [
+    131.709,
+    135.074
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2447",
+    "ev-wc-2457",
+    "ev-wc-2467",
+    "ev-wc-2476",
+    "ev-wc-2487",
+    "ev-wc-2495",
+    "ev-wc-2505"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-0-wc-2515",
+   "part": 0,
+   "span": [
+    135.074,
+    136.5
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2515"
    ],
    "provenance": "derived"
   },
@@ -17579,7 +21749,7 @@
    "part": 1,
    "span": [
     99.957,
-    111
+    114.329
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
@@ -17589,6 +21759,100 @@
     "ev-wc-2171",
     "ev-wc-2147",
     "ev-wc-2182"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2362",
+   "part": 1,
+   "span": [
+    114.329,
+    121.834
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2362"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2373",
+   "part": 1,
+   "span": [
+    121.834,
+    124.996
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2373"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2383",
+   "part": 1,
+   "span": [
+    124.996,
+    128.121
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2383",
+    "ev-wc-2394"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2403",
+   "part": 1,
+   "span": [
+    128.121,
+    129.837
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2403"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2419",
+   "part": 1,
+   "span": [
+    129.837,
+    132.087
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2419",
+    "ev-wc-2428",
+    "ev-wc-2437",
+    "ev-wc-2445"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-1-wc-2455",
+   "part": 1,
+   "span": [
+    132.087,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2455",
+    "ev-wc-2465",
+    "ev-wc-2477",
+    "ev-wc-2486",
+    "ev-wc-2496",
+    "ev-wc-2504",
+    "ev-wc-2514"
    ],
    "provenance": "derived"
   },
@@ -17967,7 +22231,7 @@
    "part": 2,
    "span": [
     100.235,
-    111
+    115.173
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
@@ -17978,6 +22242,88 @@
     "ev-wc-2181",
     "ev-wc-2149",
     "ev-wc-2195"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-2363",
+   "part": 2,
+   "span": [
+    115.173,
+    121.171
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2363"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-2372",
+   "part": 2,
+   "span": [
+    121.171,
+    124.993
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2372"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-2382",
+   "part": 2,
+   "span": [
+    124.993,
+    128.258
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2382",
+    "ev-wc-2393"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-2404",
+   "part": 2,
+   "span": [
+    128.258,
+    132.431
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2404",
+    "ev-wc-2414",
+    "ev-wc-2422",
+    "ev-wc-2431",
+    "ev-wc-2439",
+    "ev-wc-2449"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-2460",
+   "part": 2,
+   "span": [
+    132.431,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2460",
+    "ev-wc-2469",
+    "ev-wc-2478",
+    "ev-wc-2488",
+    "ev-wc-2499",
+    "ev-wc-2508",
+    "ev-wc-2519"
    ],
    "provenance": "derived"
   },
@@ -18336,13 +22682,94 @@
    "part": 3,
    "span": [
     104.409,
-    111
+    116.279
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2148",
     "ev-wc-2194"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-2364",
+   "part": 3,
+   "span": [
+    116.279,
+    122.304
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2364"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-2374",
+   "part": 3,
+   "span": [
+    122.304,
+    125.332
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2374"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-2386",
+   "part": 3,
+   "span": [
+    125.332,
+    127.179
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2386"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-2397",
+   "part": 3,
+   "span": [
+    127.179,
+    132.192
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2397",
+    "ev-wc-2406",
+    "ev-wc-2415",
+    "ev-wc-2427",
+    "ev-wc-2438",
+    "ev-wc-2446"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-3-wc-2456",
+   "part": 3,
+   "span": [
+    132.192,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2456",
+    "ev-wc-2466",
+    "ev-wc-2475",
+    "ev-wc-2484",
+    "ev-wc-2494",
+    "ev-wc-2506",
+    "ev-wc-2516"
    ],
    "provenance": "derived"
   },
@@ -18671,7 +23098,7 @@
    "part": 4,
    "span": [
     100.588,
-    111
+    116.845
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
@@ -18681,6 +23108,113 @@
     "ev-wc-2168",
     "ev-wc-2180",
     "ev-wc-2193"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2365",
+   "part": 4,
+   "span": [
+    116.845,
+    122.773
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2365"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2375",
+   "part": 4,
+   "span": [
+    122.773,
+    125.005
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2375"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2384",
+   "part": 4,
+   "span": [
+    125.005,
+    125.671
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2384"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2390",
+   "part": 4,
+   "span": [
+    125.671,
+    128.038
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2390"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2402",
+   "part": 4,
+   "span": [
+    128.038,
+    131.988
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2402",
+    "ev-wc-2412",
+    "ev-wc-2421",
+    "ev-wc-2432",
+    "ev-wc-2442"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2452",
+   "part": 4,
+   "span": [
+    131.988,
+    134.973
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2452",
+    "ev-wc-2461",
+    "ev-wc-2472",
+    "ev-wc-2482",
+    "ev-wc-2492",
+    "ev-wc-2503"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-4-wc-2512",
+   "part": 4,
+   "span": [
+    134.973,
+    136.5
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2512"
    ],
    "provenance": "derived"
   },
@@ -19071,13 +23605,93 @@
    "part": 5,
    "span": [
     104.183,
-    111
+    117.379
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2179",
     "ev-wc-2192"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2366",
+   "part": 5,
+   "span": [
+    117.379,
+    123.188
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2366"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2376",
+   "part": 5,
+   "span": [
+    123.188,
+    125.327
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2376"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2385",
+   "part": 5,
+   "span": [
+    125.327,
+    127.585
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2385"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2400",
+   "part": 5,
+   "span": [
+    127.585,
+    132.977
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2400",
+    "ev-wc-2410",
+    "ev-wc-2416",
+    "ev-wc-2429",
+    "ev-wc-2441",
+    "ev-wc-2450",
+    "ev-wc-2462"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2471",
+   "part": 5,
+   "span": [
+    132.977,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2471",
+    "ev-wc-2483",
+    "ev-wc-2493",
+    "ev-wc-2502",
+    "ev-wc-2513"
    ],
    "provenance": "derived"
   },
@@ -19428,13 +24042,54 @@
    "part": 6,
    "span": [
     104.183,
-    111
+    118.25
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2178",
     "ev-wc-2191"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-2367",
+   "part": 6,
+   "span": [
+    118.25,
+    123.577
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2367"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-6-wc-2377",
+   "part": 6,
+   "span": [
+    123.577,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2377",
+    "ev-wc-2387",
+    "ev-wc-2398",
+    "ev-wc-2411",
+    "ev-wc-2420",
+    "ev-wc-2430",
+    "ev-wc-2440",
+    "ev-wc-2451",
+    "ev-wc-2463",
+    "ev-wc-2473",
+    "ev-wc-2481",
+    "ev-wc-2491",
+    "ev-wc-2501",
+    "ev-wc-2511"
    ],
    "provenance": "derived"
   },
@@ -19829,13 +24484,119 @@
    "part": 7,
    "span": [
     104.183,
-    111
+    118.842
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2177",
     "ev-wc-2190"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2368",
+   "part": 7,
+   "span": [
+    118.842,
+    123.932
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2368"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2378",
+   "part": 7,
+   "span": [
+    123.932,
+    125.951
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2378"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2391",
+   "part": 7,
+   "span": [
+    125.951,
+    128.271
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2391",
+    "ev-wc-2399"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2405",
+   "part": 7,
+   "span": [
+    128.271,
+    130.176
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2405"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2423",
+   "part": 7,
+   "span": [
+    130.176,
+    132.081
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2423",
+    "ev-wc-2434",
+    "ev-wc-2444"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2454",
+   "part": 7,
+   "span": [
+    132.081,
+    135.17
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2454",
+    "ev-wc-2464",
+    "ev-wc-2474",
+    "ev-wc-2485",
+    "ev-wc-2497",
+    "ev-wc-2507"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-7-wc-2517",
+   "part": 7,
+   "span": [
+    135.17,
+    136.5
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2517"
    ],
    "provenance": "derived"
   },
@@ -20164,13 +24925,95 @@
    "part": 8,
    "span": [
     104.183,
-    111
+    119.532
    ],
    "class": "density-cloud-note",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2176",
     "ev-wc-2189"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-2369",
+   "part": 8,
+   "span": [
+    119.532,
+    124.41
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2369"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-2379",
+   "part": 8,
+   "span": [
+    124.41,
+    126.94
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2379",
+    "ev-wc-2388"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-2396",
+   "part": 8,
+   "span": [
+    126.94,
+    131.992
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2396",
+    "ev-wc-2409",
+    "ev-wc-2418",
+    "ev-wc-2425",
+    "ev-wc-2433",
+    "ev-wc-2443"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-2453",
+   "part": 8,
+   "span": [
+    131.992,
+    132.909
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2453",
+    "ev-wc-2459"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-8-wc-2470",
+   "part": 8,
+   "span": [
+    132.909,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2470",
+    "ev-wc-2480",
+    "ev-wc-2490",
+    "ev-wc-2500",
+    "ev-wc-2510",
+    "ev-wc-2520"
    ],
    "provenance": "derived"
   },
@@ -20558,12 +25401,93 @@
    "part": 9,
    "span": [
     105.626,
-    111
+    120.145
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2188"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-2370",
+   "part": 9,
+   "span": [
+    120.145,
+    124.431
+   ],
+   "class": "fixed-oneshot",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2370"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-2381",
+   "part": 9,
+   "span": [
+    124.431,
+    126.215
+   ],
+   "class": "drawn-crescendo-curve",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2381"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-2392",
+   "part": 9,
+   "span": [
+    126.215,
+    128.413
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2392",
+    "ev-wc-2401"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-2407",
+   "part": 9,
+   "span": [
+    128.413,
+    132.841
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2407",
+    "ev-wc-2413",
+    "ev-wc-2424",
+    "ev-wc-2436",
+    "ev-wc-2448",
+    "ev-wc-2458"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-9-wc-2468",
+   "part": 9,
+   "span": [
+    132.841,
+    136.5
+   ],
+   "class": "density-cloud-note",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2468",
+    "ev-wc-2479",
+    "ev-wc-2489",
+    "ev-wc-2498",
+    "ev-wc-2509",
+    "ev-wc-2518"
    ],
    "provenance": "derived"
   }
@@ -34444,6 +39368,2273 @@
      "clusterId": "cl-61",
      "beamUnit": 0.21000000000000008,
      "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-62-ev-wc-2447",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2447"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-62a",
+     "clusterId": "cl-62",
+     "beamUnit": 0.2400000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-62-ev-wc-2457",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2457"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-62a",
+     "clusterId": "cl-62",
+     "beamUnit": 0.2400000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-62-ev-wc-2467",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2467"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-62a",
+     "clusterId": "cl-62",
+     "beamUnit": 0.2400000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-63-ev-wc-2476",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2476"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-63a",
+     "clusterId": "cl-63",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-63-ev-wc-2487",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2487"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-63a",
+     "clusterId": "cl-63",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-64-ev-wc-2495",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2495"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-64a",
+     "clusterId": "cl-64",
+     "beamUnit": 0.2360000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-64-ev-wc-2505",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2505"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-64a",
+     "clusterId": "cl-64",
+     "beamUnit": 0.2360000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-64-ev-wc-2515",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2515"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-64a",
+     "clusterId": "cl-64",
+     "beamUnit": 0.2360000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-65-ev-wc-2445",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2445"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-65a",
+     "clusterId": "cl-65",
+     "beamUnit": 0.2430000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-65-ev-wc-2455",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2455"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-65a",
+     "clusterId": "cl-65",
+     "beamUnit": 0.2430000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-66-ev-wc-2477",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2477"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-66a",
+     "clusterId": "cl-66",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-66-ev-wc-2486",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2486"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-66a",
+     "clusterId": "cl-66",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-67-ev-wc-2496",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2496"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-67a",
+     "clusterId": "cl-67",
+     "beamUnit": 0.2220000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-67-ev-wc-2504",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2504"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-67a",
+     "clusterId": "cl-67",
+     "beamUnit": 0.2220000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-67-ev-wc-2514",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2514"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-67a",
+     "clusterId": "cl-67",
+     "beamUnit": 0.2220000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-68-ev-wc-2449",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2449"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-68a",
+     "clusterId": "cl-68",
+     "beamUnit": 0.2230000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-68-ev-wc-2460",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2460"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-68a",
+     "clusterId": "cl-68",
+     "beamUnit": 0.2230000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-68-ev-wc-2469",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2469"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-68a",
+     "clusterId": "cl-68",
+     "beamUnit": 0.2230000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-68-ev-wc-2478",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2478"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-68a",
+     "clusterId": "cl-68",
+     "beamUnit": 0.2230000000000001,
+     "beamPos": 6,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-68-ev-wc-2488",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2488"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-68a",
+     "clusterId": "cl-68",
+     "beamUnit": 0.2230000000000001,
+     "beamPos": 8,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-69-ev-wc-2446",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2446"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-69a",
+     "clusterId": "cl-69",
+     "beamUnit": 0.2370000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-69-ev-wc-2456",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2456"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-69a",
+     "clusterId": "cl-69",
+     "beamUnit": 0.2370000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-69-ev-wc-2466",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2466"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-69a",
+     "clusterId": "cl-69",
+     "beamUnit": 0.2370000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-70-ev-wc-2475",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2475"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-70a",
+     "clusterId": "cl-70",
+     "beamUnit": 0.2320000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-70-ev-wc-2484",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2484"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-70a",
+     "clusterId": "cl-70",
+     "beamUnit": 0.2320000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-70-ev-wc-2494",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2494"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-70a",
+     "clusterId": "cl-70",
+     "beamUnit": 0.2320000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-71-ev-wc-2506",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2506"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-71a",
+     "clusterId": "cl-71",
+     "beamUnit": 0.22000000000000008,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-71-ev-wc-2516",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2516"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-71a",
+     "clusterId": "cl-71",
+     "beamUnit": 0.22000000000000008,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-72-ev-wc-2472",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2472"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-72a",
+     "clusterId": "cl-72",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-72-ev-wc-2482",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2482"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-72a",
+     "clusterId": "cl-72",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-73-ev-wc-2492",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2492"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-73a",
+     "clusterId": "cl-73",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-73-ev-wc-2503",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2503"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-73a",
+     "clusterId": "cl-73",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-73-ev-wc-2512",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2512"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-73a",
+     "clusterId": "cl-73",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-74-ev-wc-2462",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2462"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-74a",
+     "clusterId": "cl-74",
+     "beamUnit": 0.2280000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-74-ev-wc-2471",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2471"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-74a",
+     "clusterId": "cl-74",
+     "beamUnit": 0.2280000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-75-ev-wc-2493",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2493"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-75a",
+     "clusterId": "cl-75",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-75-ev-wc-2502",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2502"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-75a",
+     "clusterId": "cl-75",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-76-ev-wc-2463",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2463"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-76a",
+     "clusterId": "cl-76",
+     "beamUnit": 0.2280000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-76-ev-wc-2473",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2473"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-76a",
+     "clusterId": "cl-76",
+     "beamUnit": 0.2280000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-76-ev-wc-2481",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2481"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-76a",
+     "clusterId": "cl-76",
+     "beamUnit": 0.2280000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-77-ev-wc-2501",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2501"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-77a",
+     "clusterId": "cl-77",
+     "beamUnit": 0.21500000000000008,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-77-ev-wc-2511",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2511"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-77a",
+     "clusterId": "cl-77",
+     "beamUnit": 0.21500000000000008,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-78-ev-wc-2454",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2454"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "fff",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-78a",
+     "clusterId": "cl-78",
+     "beamUnit": 0.2420000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-78-ev-wc-2464",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2464"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-78a",
+     "clusterId": "cl-78",
+     "beamUnit": 0.2420000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-79-ev-wc-2474",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2474"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-79a",
+     "clusterId": "cl-79",
+     "beamUnit": 0.2450000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-79-ev-wc-2485",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2485"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-79a",
+     "clusterId": "cl-79",
+     "beamUnit": 0.2450000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-80-ev-wc-2507",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2507"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-80a",
+     "clusterId": "cl-80",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-80-ev-wc-2517",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2517"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-80a",
+     "clusterId": "cl-80",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-81-ev-wc-2418",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2418"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-81a",
+     "clusterId": "cl-81",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-81-ev-wc-2425",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2425"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-81a",
+     "clusterId": "cl-81",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-81-ev-wc-2433",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2433"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-81a",
+     "clusterId": "cl-81",
+     "beamUnit": 0.2410000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2453",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2453"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2459",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2459"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2470",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2470"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2480",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2480"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 6,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2490",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2490"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 8,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-82-ev-wc-2500",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2500"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-82a",
+     "clusterId": "cl-82",
+     "beamUnit": 0.2300000000000001,
+     "beamPos": 10,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-83-ev-wc-2510",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2510"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "f",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-83a",
+     "clusterId": "cl-83",
+     "beamUnit": 0.2250000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-83-ev-wc-2520",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2520"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-83a",
+     "clusterId": "cl-83",
+     "beamUnit": 0.2250000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-84-ev-wc-2468",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2468"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": true,
+     "dynBesideStem": false,
+     "dynMark": "mf",
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-84a",
+     "clusterId": "cl-84",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 0,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-84-ev-wc-2479",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2479"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-84a",
+     "clusterId": "cl-84",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 2,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-84-ev-wc-2489",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2489"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-84a",
+     "clusterId": "cl-84",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 4,
+     "beamLevels": 2,
+     "beamSubdivision": 4,
+     "figure": 1,
+     "rest16Before": true,
+     "ringBar": false,
+     "nhHead": "filled",
+     "nhHeadScale": 0.844,
+     "nhDot": true,
+     "nhDotGapSs": 0.15,
+     "noteUnits": 1,
+     "noteBeams": 2,
+     "beamThrough": true,
+     "nhArtic": "accent",
+     "beamHasArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-cl-84-ev-wc-2498",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2498"
+   },
+   "value": {
+    "device": {
+     "goLine": false,
+     "gc": false,
+     "dynBesideStem": false,
+     "dynMark": false,
+     "nhUnit": true,
+     "nhStem": "beam",
+     "nhAnchor": "leftEdge",
+     "beamGroup": "cl-84a",
+     "clusterId": "cl-84",
+     "beamUnit": 0.2350000000000001,
+     "beamPos": 6,
      "beamLevels": 2,
      "beamSubdivision": 4,
      "figure": 1,

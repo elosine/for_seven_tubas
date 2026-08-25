@@ -10,7 +10,52 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### WHERE IT STANDS — day 35, thirteenth sitting DONE (ONE PAGE: MAIN DRAFT)
+### WHERE IT STANDS — day 35, sixteenth sitting DONE (DB3 IS NOTATED)
+
+**MAIN DRAFT NOW READS 0–136 s.** The final density build is figured. The page is
+**"MAIN DRAFT — all notation so far (0-136 s)"** (internal id `db1`, source
+`piece-s27`) — **866 events · 277 chunks · VALID vs source · geometry zero new**
+(still only the two pre-existing tier-3 items, T9 @36.87 · T10 @39.08).
+
+**23 clusters `cl-62`–`cl-84`, built WITH their dynamics in ONE build** — not
+figures-then-marks-later as DB2 did, because the fourteenth sitting's lesson (D-log
+23) is that an established rule living only in prose gets skipped. 23 marks · 18
+accents · 6 below-floor members unmarked.
+
+**THE SCAN WAS THE CLEANEST ANY SECTION HAS RETURNED:** 23 gestures, **all on one
+grid within a head · 0 straddles · 0 no-clean-seam · 0 ratio ties · 0 brackets.**
+**DB3 needs no tuplet vocabulary at all.** Every fit `[no tuplet]`, max err 0–18 ms,
+every written value a 16th.
+
+**THE SECTION'S FORM, found by measuring:** 160 notes = **~97 lone one-shots + 63
+notes in 23 gestures.** Ten parts enter staggered (T1@113.0 → T10@120.1) and play
+one-shots only for ~17 s; **every one of the 23 gestures sits in the last six
+seconds (129.83–135.29)**, and their units cluster at **215–245 ms across all ten
+parts.** Ten independent voices converge on a common pace at the end. *The density
+is ACROSS the parts, not inside any one — DB2's shape at twice the scale.*
+
+**The scoped-global design paid out one section later, as forecast:**
+`--beamsThrough 55.9- --rests16 55.9-` are open-ended, so **DB3 inherited the
+day-35 beam/rest rule with NO new flags.**
+
+**All 17 ringing members (10 fp + 7 ord/surge) live in 113.0–128.3; every gesture is
+pure staccato.** The named surge-inside-a-figure FIRST **did not occur — again.**
+Measured with duration, not onset: the last ringing note (`ev-wc-2405`, T8) ENDS at
+129.711, the first gesture begins at 129.830 — **119 ms** (DB2's was 168).
+
+**PROVEN, not assumed: nothing on [0,111) moved.** 1263 added layout rows, **every
+one at/after 112.9** · **0 removed** · 10 changed, all ten the `staff t1` window
+bound. `--validate` **81/84** — the three DIFFERS proven to pre-date the sitting.
+**Eleven batteries green.** Verified in the running app at 131.5–135.7 and
+112.8–121.8. Full account: RUNNING_LOG day 35, sixteenth sitting.
+
+**WAITING ON THE COMPOSER — DB3-EYE** (see the NEXT STEPS row): five 3-band clusters
+are proposals; **the member-2 mark is an AI reading of two rules colliding**, new in
+DB3; a new facing band T7/T8 133.1–133.5.
+
+---
+
+### The thirteenth-sitting record — ONE PAGE: MAIN DRAFT (still current; the page now reads 0-136 s)
 
 **THE PICKER IS ONE PAGE NOW — the composer's mandate, verbatim: *"just keep one in
 the main section… all the notation we've built so far and just keeps accumulating
@@ -210,7 +255,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~DB2-N~~ | ~~THE OPUS NOTATION RUN~~ **DONE day 35 (Opus, tenth sitting)** — `db2` built and figured: 129 events, 12 clusters, VALID, geometry clean, brackets-above from birth. The scan reframed the section (**12 gestures, 91 lone one-shots**; density is ACROSS parts). Pace-rule defaults took all twelve — no `--cuts`, no `--ownGrids`. **The named FIRST did not occur** (no surge inside a figure; 168 ms closest). Two brief corrections measured (9 surges not 8+1; the go-line assert restated to the LAW). Eleven batteries green; db1/int2b1 md5-identical | — | — | — |
 | ~~DB2-FIX~~ | **PARKED AT THE POLISH (day 35, fifteenth sitting — composer: "we'll fix later at the polish").** Rounds 1-2 applied (beams/rests/cl-3 rewrite; dynamics from the established stack — 12 marks + 23 accents, proven confined). Parked for the polish pass: **vertical object placement (NITS, objects unspecified — ask)** · cl-50/cl-52 dynamics by ear · cl-50 STRADDLE · cl-55 no-clean-seam · T1 near-tie · nine short fp bars · T1/T2 facing band · cl-55's bracket-internal 8ths | — | — | polish pass opens |
 | **DB3 — OPEN (playability DONE)** | **The final density build: marker @113.54 "DB3-m3F — density-build", `grp-db3-m3f-01`, 160 notes 113.00-135.77, all ten parts staggered T1→T10** (143 stacc + 10 fp + 7 ord). Playability applied: **0 hard 0 soft (clean from the start, no moves); 143 bricks → 50 ms; breath inside dials; audibility info 7.2 att/s, max 10 sounding.** `wc-2361` sits at 113.000, BEFORE the 113.54 marker → windows must use `--w0 112.9` (the wc-1624 lesson again). MAIN DRAFT proven untouched (golden 65/65 after the score edit) | — | — | — |
-| **DB3-N — NEXT** | **The Opus notation run:** rebuild MAIN DRAFT from its own `provenance.build` with `--w1 136.5` and label `"MAIN DRAFT — all notation so far (0-136 s)"` (no other command change — **the scoped `--beamsThrough 55.9- --rests16 55.9-` already cover DB3**); then `pattern_analyze --ir db1 --scan 112.9-136.5` (pre-read: gestures vs one-shots, one-grid fit, straddles/ties); then `--cluster … --figures` per gesture under the standards; flags LISTED not solved; verify in the app; eleven batteries; tile-proof [0,111) unchanged | **Opus** | **yes — clear before it** (execution block; these instructions are the handoff) | page figured, VALID, geometry clean |
+| ~~DB3-N~~ | ~~The Opus notation run~~ **DONE day 35 (Opus, sixteenth sitting)** — MAIN DRAFT is **"all notation so far (0-136 s)"**: window widened, **23 clusters `cl-62`–`cl-84` built WITH their dynamics in one build**. **866 events · VALID · geometry zero new.** The scan was the cleanest yet (**23 gestures, all one grid within a head; 0 straddles, 0 ties, 0 brackets — DB3 needs no tuplet**). `--validate` **81/84**, the three DIFFERS proven pre-existing. Tile-proof: **1263 added rows all ≥112.9, 0 removed, only the staff window bound changed.** Eleven batteries green; verified in the app | — | — | — |
+| **DB3-EYE — NEXT (composer)** | **The eye on DB3.** Five 3-band clusters are PROPOSALS per the registry's own confidence note (**g3 T1 @134.14 · g6 T2 @134.14 · g7 T3 @131.97 · g8 T4 @131.70 · g9 T4 @133.15**); **the member-2 mark** (g4 T2 @131.60, g18 T8 @133.13) is an AI reading where "dynamic on the first sounding note" met "below-floor members get nothing" — **a new rule-collision DB2 never hit**; new facing band **T7/T8 133.1–133.5**. Full list: RUNNING_LOG sixteenth sitting | Fable | yes — clear before it | composer's verdicts applied |
 | ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
@@ -224,7 +270,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **scan a whole section (8i — the pre-read measurement)** | `node tools/pattern_analyze.js --ir db1 --scan 36.19-40.42` — one row per gesture, every part: groups, one-grid unit and heads, its brackets, and the flags that need a hand. **Answers "can this gesture be said on ONE grid?"** — which replaced "how many figures need a tuplet" (that only measured how finely the material had been cut). *Measured on CLOUD02-I: 15 of 15 within a head, 5 straddles, 1 no-clean-seam, 5 ratio ties* |
 | move a figure boundary | `--paceRatio <r>` (default 1.25) — how far apart two gaps must be to count as different PACES, which is what decides where a cut may land. `99` = one pace, no legal cut, the whole gesture as one group. Now on **both** tools (positional after `--cluster … --figures` on `notate_section`; plain flag on `pattern_analyze`) |
 | **name the boundaries by hand (8h)** | `--cuts 2,5,7,10,14` — "cut after note 2, after note 5, …", numbered from 1 inside the gesture. The pace rule steps aside entirely. Positional after `--cluster … --figures` on `notate_section` (refused without `--figures`); a plain flag on `pattern_analyze` (refused when the span holds more than one gesture, and refused with `--scan`). A cut that would leave a one-note figure is refused with the reason |
-| check the analyser still reproduces the composer's 25 figures | `node tools/pattern_analyze.js --ir db1 --validate` (**24/25** — cl-1 only; cl-25 stopped being an exception when T10 was rebuilt from the analyser on day 24, commit 2e06665) |
+| check the analyser still reproduces the composer's figures | `node tools/pattern_analyze.js --ir db1 --validate` (**81/84 as of day 35 sixteenth sitting** — three DIFFERS, all long-standing: `cl-1` T1 @31.55 · `cl-24` T2 @38.60 · `cl-30` T7 @36.19. **All 23 DB3 clusters agree.** *The old "24/25 — cl-1 only" was day 24's number at 25 clusters; cl-24/cl-30 arrived later.* To prove a DIFFERS pre-dates your change, copy the before-IR to `notation/ir/zzcheck.ir.json`, validate that, and delete it — do NOT name it `db1-*`, which the approved-span gate would discover as a fork) |
 | build a figure | `--cluster t0-t1@part` on `tools/notate_section.js`, modifiers POSITIONAL after it: **`--figures` (8i: the groups from the pace rule on ONE grid, beams broken at the seams, brackets from the fit — the default and what the composer chose)** · **`--ownGrids`** (with `--figures`: the 8g/8h reading, each group on its own grid, no relation printed) · `--cuts a,b,c` · `--paceRatio r` · `--pattern` (one grid, no seams — implied by `--figures`, refused with it) · `--pickup N` · `--dyn 1:mf` · `--accents 1,3` · `--beamBreak n` (several groups on ONE tempo — refused with `--figures`, which makes its own breaks) · `--noGoLine` |
 | **clear a span to bricks** (day 26) | `--bare t0-t1[@part]` on `notate_section.js` — every drawn device element off, brick stays; `@part` optional; errors if a note in the span already carries a figure. The trials fork carries `--bare 36.19-40.33`; **narrow it (or add `@part`) as each part gets figured** |
 | rebuild the whole file | copy `provenance.build` out of `db1.ir.json` and run it; append new `--cluster …` groups to the end |
