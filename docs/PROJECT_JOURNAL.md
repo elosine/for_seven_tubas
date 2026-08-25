@@ -10,6 +10,17 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### WHERE IT STANDS — day 36 (Claude Code / Fable): THE PAPER'S FIRST PASS
+
+**`docs/PAPER_OUTLINE.md` is built and waits on the composer's topic pass.** Five
+sections (Kobayashi bookends + one per piece section: Section 1 · the morphs · the
+trance); per part a narrative sketch, topics to pick from, data on hand, and
+where-the-material-lives tables; cross-cutting threads parked for a home decision.
+The composer reviews and picks topics per section; those get expanded next.
+Full account: RUNNING_LOG day 36. **Everything below (the piece state) is unchanged.**
+
+---
+
 ### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus)
 
 **THE PIECE HAS A TITLE: "Bloom — Convergence — Balance", for Tuba Ensemble.**
@@ -381,7 +392,9 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **TRANCE-EYE — NEXT (composer)** | **Review `TRANCE A4 — 500-751 s`.** Quarter notes, 8 tempo bar lines, surges on the end crescendos, no text. The composer has not seen any of day 35's output yet | Fable | yes | verdicts |
 | **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the eye approves, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
 | **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
-| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
+| **PAPER-TOPICS — WAITING (composer)** | Review **`docs/PAPER_OUTLINE.md`** (built day 36): pick the topics per internal section + decide homes for the cross-cutting threads | — | — | topic picks |
+| **PAPER-EXPAND** | Expand the chosen topics into each section's deep narrative, from the sources named in the outline's tables | Fable | yes | draft prose per section |
+| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column | — | — | — |
 
 ### The tools you will use (all verified day 24; **day 30: the c2i fork is FOLDED into `db1` and pruned — these rows now read `--ir db1`**)
 

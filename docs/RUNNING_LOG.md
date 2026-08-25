@@ -13598,3 +13598,47 @@ Without the floor a transitional passage gets a tempo it has not got.
   and the tempo marks remain. **The score's markers are untouched** - they are rehearsal
   scaffolding and stay where the composer works.
 - **The bouncing ball stays**: 3130 GC objects.
+
+## Day 36 (2026-08-25, Fable 5) — THE PAPER'S FIRST PASS BEGINS: the material organized, topics outlined
+
+**The composer's ask, opening the paper work (their structure, verbatim in intent):**
+five sections — intro + conclusion bookends carrying the Kobayashi framing, three
+middle sections, one per section of the piece, each a narrative + process + experiments
+of how that section was created. First move: review all notes and data, organize them
+into the sections, then a very-high-level topic outline per internal section —
+*"I'll review and determine what to talk about."* This executes step 1–2 of the day-26
+dictation (PAPER_NOTES § THE PAPER'S STRUCTURE); selection (step 3) is the composer's.
+
+**Built: `docs/PAPER_OUTLINE.md`.** Per internal part: a narrative sketch, a topic
+list to pick from, the data on hand (the numbers the paper could print), and a
+where-the-material-lives table. Plus bookend candidates and a cross-cutting parking
+list (threads that need a home decision: collaboration patterns, proxy metrics,
+verification-effort placement, the notation system as possibly its own paper,
+process economics, the record itself as method).
+
+**The mapping decision, and why:** the three internal sections map to the piece as
+**PART I = Section 1 (0–136 s) · PART II = the morphs BLOOM/CONVERGENCE/BALANCE
+(141–496 s) · PART III = the trance section (500–751 s)** — the day-26 "three parts
+of the piece" read against the day-35 title decision and journal §2's current spans.
+
+**Two filing calls worth recording (they shape the narrative):**
+- **The notation story splits by where it actually happened:** the ARCHITECTURE
+  (IR, extract→layout→render→splice, phases A–D) was built on the TRANCE section as
+  its testbed → filed PART III; the FIGURE VOCABULARY (one-shot unit, pace rule,
+  brackets, dynamics — days 22–33) was built on Section 1's material → filed PART I.
+  Morph notation (curves, displacement maps) → PART II.
+- **The morphing-chords origin stays a hinge:** chosen as INT2 material (PART I's
+  menu), grown into the piece's center and title (PART II's opening topic). Both
+  sections may mention it; PART II owns the story.
+
+**What was reviewed to build this:** PAPER_NOTES.md in full · PLANNER.md in full ·
+journal §2 · heading maps of RUNNING_LOG (days 10–35) and COMPOSER_LOG (08-10 → day
+28) · headers of the topic docs (CURVE_DATABASE, PHASE_SHIFTING, GESTURES,
+MORPH_NOTATION, RISSET_RECIPES, SHAPE_LESSONS, DYNAMICS_FRAMEWORK, ENGINE_FRAMEWORK,
+AUTOMATION_EVAL, REMOTE_AUDITION). Days 1–9 have no RUNNING_LOG (it starts day 10);
+their record is COMPOSER_LOG 08-10→08-13 — the outline's Part I tables point there.
+
+**Deliberately NOT done:** no topic selection, no prose expansion, no trimming —
+the composer said they will choose; an outline that pre-selects would defeat the
+review. Also not done: no Penn State call-for-presentations cross-check (the PDFs
+sit in docs/) — that is a framing question for after the composer's topic pass.
