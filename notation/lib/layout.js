@@ -177,6 +177,7 @@
       // time in ss offsets, so it does not stretch with the time zoom.
       if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
         headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
+          acc: (ov.value && ov.value.acc !== undefined) ? ov.value.acc : 'quarterSharp',
           spelled: (ov.value && ov.value.spelled) || { step: 'F', alter: 0, octave: 2 } }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
@@ -306,7 +307,10 @@
         const hs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
         const hw = HEAD.wSs * hs;
         const glissLen = OPEN.wSs * 2;                       // "two regular half note white notes"
-        const acc = glyphs.accidental.quarterSharp;
+        // the header's accidental follows the gliss DIRECTION — quarterSharp
+        // rising, quarterFlat falling; null when the gliss is a single pitch
+        const accKey = h.acc;
+        const acc = accKey ? glyphs.accidental[accKey] : { wSs: 0 };
         const h2R = -A.gapSs, h2L = h2R - hw;                // ends where the dynamic row ends
         const accR = h2L - (o.accGap || 0.25), accL = accR - acc.wSs;
         const glR = accL - A.gapSs, glL = glR - glissLen;
@@ -314,7 +318,7 @@
         const yP = staffPosBass(h.spelled);
         items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
-        items.push({ k: 'glyph', g: 'accidental-quarterSharp', t: h.t, dxSs: accL + acc.wSs / 2, ySs: yP, align: 'center' });
+        if (accKey) items.push({ k: 'glyph', g: 'accidental-' + accKey, t: h.t, dxSs: accL + acc.wSs / 2, ySs: yP, align: 'center' });
         items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h2L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
         items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });

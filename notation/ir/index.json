@@ -65,11 +65,11 @@
   },
   {
    "id": "morph-x01",
-   "label": "MORPH x01 — go line only (experiment)",
+   "label": "MORPH x01 — BLOOM T1 (the reference)",
    "score": "piece-s27",
    "window": [
-    137.5,
-    252
+    137.49,
+    251.37
    ],
    "profile": "section1"
   }

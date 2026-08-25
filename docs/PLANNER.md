@@ -8,6 +8,19 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
+**PARKED FOR THE PARTS — a beating-frequency indicator (composer, day 35).**
+*"For the parts, I might try to come up with something that also indicates beating
+frequency. Some indicator."* Not designed yet; the idea is the composer's and the
+form is open. **The data is measured and journalled** (RUNNING_LOG, day 35, "THE
+BEATING DATA"): each pair is a mirror, max spread 40.9 cents, and the beating runs
+**2.06 Hz (T1/T2, F2) · 2.75 · 3.68 · 4.91 · 6.55 Hz (T9/T10, C#4)** — faster the
+higher the pair sits. Two things to carry into that design:
+- **the new T9/T10 pair beats at 6.55 Hz**, fast enough to read as roughness rather
+  than a countable pulse; the original four are all 2-4.9 Hz
+- the composer's own doubt, in their words: *"I don't think the two tuba players will
+  be able to hear each other immediately, so I'll cross that bridge later when I'm
+  making the parts."*
+
 **NOW ► (2026-08-24, day 35, latest) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
 The final density build is on the page: **23 clusters (`cl-62`-`cl-84`), built WITH
 their dynamics in one build** — 23 marks, 18 accents. **866 events, VALID, geometry

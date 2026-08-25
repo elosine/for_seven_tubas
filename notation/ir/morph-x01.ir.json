@@ -1,22 +1,22 @@
 {
  "irVersion": "0.1",
  "id": "morph-x01",
- "label": "MORPH x01 — go line only (experiment)",
+ "label": "MORPH x01 — BLOOM T1 (the reference)",
  "source": {
   "score": "piece-s27",
   "window": [
-   137.5,
-   252
+   137.49,
+   251.37
   ],
   "parts": [
    0
   ]
  },
  "provenance": {
-  "createdBy": "scratchpad/make_morph_x01.js (day 35)",
+  "createdBy": "tools/notate_morph.js",
   "date": "2026-08-24",
-  "notes": "EXPERIMENT FILE - safe to overwrite. The morph notation, built piece by piece in the real app at the composer direction. MAIN DRAFT (db1) is not touched by it. Staff and clef are the normal ones; the header contributes only the two figures.",
-  "build": "node scratchpad/make_morph_x01.js <repo>"
+  "notes": "The morph-section template (day 35). See docs/MORPH_NOTATION.md.",
+  "build": "node tools/notate_morph.js --group grp-act-bloom-01-01 --part 0 --id morph-x01 --score piece-s27 --label \"MORPH x01 — BLOOM T1 (the reference)\" --apply"
  },
  "events": [
   {
@@ -460,7 +460,8 @@
     "t": 141.386
    },
    "value": {
-    "endMark": "fff"
+    "endMark": "fff",
+    "acc": "quarterSharp"
    },
    "provenance": "authored"
   },
@@ -878,7 +879,7 @@
      0.00199,
      0
     ],
-    "fit": "21 anchors off the sounding bend, Catmull-Rom over the whole morph"
+    "fit": "21 anchors off the sounding bend, Catmull-Rom; max 0.767 c, rms 0.196 c"
    },
    "provenance": "authored"
   },
@@ -1296,7 +1297,7 @@
      0.04983,
      0.04348
     ],
-    "fit": "13 anchors off the sounding level, Catmull-Rom over the whole morph"
+    "fit": "13 anchors off the sounding level, Catmull-Rom; max 0.252, rms 0.041"
    },
    "provenance": "authored"
   },
