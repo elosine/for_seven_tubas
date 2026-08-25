@@ -2594,3 +2594,113 @@ when writing.)*
 > **Candidate close (AI's suggestion, take or leave):**
 > The proof is on the page: TRANCE A4, one long accelerando, 75 to 120 —
 > the chosen states, written down for humans to re-perform.
+
+---
+
+## Day 36 — WRITING STRATEGIES, the AI's proposals (2026-08-25, verbatim from chat — NOT yet approved)
+
+*Composer's ask: "can you propose some writing strategies just some summaries of
+the processes and I'll push in with questions." Filed clear-safe before the
+composer's reaction, per the day-36 pattern. The composer's questions and verdict
+go BELOW this block when they come.*
+
+### The framing the proposals rest on
+
+The three stories are settled (Parts I/II/III above). What is NOT settled is the
+RATIO: each part has a 4–6 beat story and roughly ten processes behind it in the
+outline's topic inventory. Every one of them is real, documented, and has numbers.
+They cannot all be narrated. So "writing strategy" here means: **the device that
+decides which processes enter the prose, and in what shape.**
+
+Two independent choices, not one. Pick one from each level; they compose.
+
+### LEVEL 1 — ALLOCATION (how much process gets in, and where)
+
+**A · THE SPECIMEN.** One process per part told end to end at full resolution.
+Everything else in the inventory compresses to a claim carrying a measurement —
+one or two sentences, no narrative. Part I already designates its specimen (DB3).
+Part II's would be the measurement chain (quarter-tone patch disqualified → bend
+measured → E4 negative → E6 predictive). Part III's is named by the composer
+already (the U). Each part then reads: story arc → one deep dive → an evidence
+paragraph.
+*Buys:* the reader believes the method is real, because they watched one run.
+*Costs:* the placement crisis, the bracket-is-the-message, the guard that passed
+for the wrong reason — all become one-liners or vanish.
+
+**B · TWO TRACKS.** Main line is the settled story, told as a story, short. Every
+other process becomes a fixed-form card outside the narrative — same four fields
+each time (what was wanted / what was built / what it cost / what it taught),
+~150–200 words. Twenty-odd cards across the paper.
+*Buys:* nothing gets cut; the reader can skim or dive; the cards are nearly
+already written (the running log is in this form).
+*Costs:* cards read as an appendix; the argument and the evidence live apart.
+
+**C · THE LOG.** Chronological. The days ARE the sections. The form of the paper
+is the form of the record.
+*Buys:* the sequence — which the project's own methodology says is the thing worth
+more than a tidy summary of conclusions.
+*Costs:* the argument has to be excavated by the reader; Part I/II/III braid
+together in time and would stop being separable.
+
+### LEVEL 2 — MICRO-FORM (the shape of any single process paragraph)
+
+**D · THE REVERSAL.** Every process is told as: what was believed → what broke it
+→ what replaced it. The dead ends are the load-bearing structure, not the
+apology. The archive is unusually rich in these (a verdict flipped on one fact;
+a metric measuring the tool's own parameter; a proof that returned zero because it
+was fed the wrong shape).
+*Costs:* becomes a parade of gotchas if unbroken; not every process was a reversal,
+and forcing one is a lie.
+
+**E · THE DIAL.** Every process is told as: subjective want → the component that
+moves it → the measurement that confirms it. This is Part II's native shape — the
+composer just described it that way — and it generalizes: Part I is Xenakis shape
+→ hand-played MIDI → 54.5→22 attacks/s; Part III is a property wanted → an
+experiment → drift-per-attack as the dial.
+*Buys:* the three parts rhyme; the paper reads as one argument instead of three
+histories.
+*Costs:* procrustean where the history didn't work that way.
+
+**F · THE DIALOGUE.** Both voices on the page, verbatim — the composer's words and
+the AI's, as captured. The material for this exists and exists nowhere else.
+*Buys:* it is the only form that shows HOW the decisions were made rather than
+reporting them.
+*Costs:* it makes AI the subject of every part, which the intro explicitly says it
+is not.
+
+### Heard side by side (same process, DB3's apex, three micro-forms)
+
+> **D (reversal):** The distribution said the apex was a flurry of individual
+> attacks. It wasn't playable, and when it was made playable it stopped being an
+> apex. What the hand had actually played there was chords.
+>
+> **E (dial):** I wanted the peak to read as arrival, not as speed. The component
+> was attack clumping; the measurement was the drop from 54.5 to 22 attacks per
+> second with 91 notes deleted, all of them at the apex — denser on paper, less
+> arrival in the ear.
+>
+> **F (dialogue):** *AI:* "the apex is the densest region, so thin it evenly."
+> *Composer:* "the apex was not a flurry, it was chords."
+
+### THE THREE FORKS (the AI's read on what actually decides the rest)
+
+1. **Target format.** A 20-minute symposium talk, a written paper, or both from
+   one source? A talk can only carry one specimen per part (A). A paper can carry
+   B. This changes the allocation choice outright and nothing else can be settled
+   before it.
+2. **Where the AI subplot lives.** Three live options, three different papers:
+   (i) named once in the intro as the affordability condition, then invisible;
+   (ii) contained to Part III, where the composer already put it;
+   (iii) a running second track through all three parts (which is what the
+   verbatim capture has been collecting for).
+3. **Voice.** First person singular throughout — the drafts' current voice, and
+   the one that makes the story-telling work — versus a two-voice text where the
+   AI is quoted. Fork 3 is nearly decided by fork 2.
+
+### The AI's own recommendation, if asked
+
+**A + D, with E reserved for Part II** — specimen allocation, reversal micro-form,
+and let Part II keep the dial shape the composer already named for it, since the
+dial IS Part II's argument. The three parts then differ in HOW they tell process,
+which is honest: Part I discovered by failing, Part II by measuring, Part III by
+listening.
