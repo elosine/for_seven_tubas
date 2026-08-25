@@ -179,6 +179,7 @@
         headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
           acc: (ov.value && ov.value.acc !== undefined) ? ov.value.acc : 'quarterSharp',
           accOn: (ov.value && ov.value.accOn) || 'high',
+          oneHead: !!(ov.value && ov.value.oneHead),
           spelled: (ov.value && ov.value.spelled) || { step: 'F', alter: 0, octave: 2 } }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
@@ -318,8 +319,12 @@
         const glR = accL - A.gapSs, glL = glR - glissLen;
         const h1R = glL - A.gapSs, h1L = h1R - hw;
         const yP = staffPosBass(h.spelled);
-        items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
-        items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
+        // ONE head where the section has no glissando (BALANCE): a second head
+        // and a gliss line would assert a motion that does not happen (day 35)
+        if (!h.oneHead) {
+          items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
+          items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
+        }
         // the accidental sits before whichever head is the altered one: the HIGH
         // (right) head when the part rises, the LOW (left) head when it falls
         if (accKey) {

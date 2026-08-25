@@ -54,6 +54,16 @@
    "exp": true
   },
   {
+   "id": "morph-x01",
+   "label": "MORPH x01 — BLOOM T1 (the reference)",
+   "score": "piece-s27",
+   "window": [
+    137.49,
+    251.37
+   ],
+   "profile": "section1"
+  },
+  {
    "id": "db1",
    "label": "MAIN DRAFT — all notation so far (0-496 s)",
    "score": "piece-s27",
@@ -64,12 +74,32 @@
    "profile": "section1"
   },
   {
-   "id": "morph-x01",
-   "label": "MORPH x01 — BLOOM T1 (the reference)",
+   "id": "morph-bloom",
+   "label": "MORPH 1 — BLOOM (all ten)",
    "score": "piece-s27",
    "window": [
     137.49,
-    251.37
+    260.03
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "morph-converge",
+   "label": "MORPH 2 — CONVERGENCE (all ten)",
+   "score": "piece-s27",
+   "window": [
+    255.66,
+    383.91
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "morph-balance",
+   "label": "MORPH 3 — BALANCE (all ten)",
+   "score": "piece-s27",
+   "window": [
+    382.78,
+    497.27
    ],
    "profile": "section1"
   }

@@ -113,3 +113,20 @@ At a section wrap, when you say "bump":
 step: 0 added, 0 removed, 0 changed). It is the reference for the morph-section
 notation vocabulary — see `docs/MORPH_NOTATION.md`, and regenerate it with
 `tools/notate_morph.js`. Safe to overwrite.
+
+---
+
+## THE MORPH PAGES (day 35) — one page per section, all ten parts
+
+| picker label | id | span |
+|---|---|---|
+| **MORPH 1 — BLOOM (all ten)** | `morph-bloom` | 137.5–260.0 s |
+| **MORPH 2 — CONVERGENCE (all ten)** | `morph-converge` | 255.7–383.9 s |
+| **MORPH 3 — BALANCE (all ten)** | `morph-balance` | 382.8–497.3 s |
+
+One page per section rather than thirty per-part pages — the whole ensemble is the
+point in these sections. Regenerate any of them with `tools/notate_morph.js`; the
+command is in each page's `provenance.build`. See `docs/MORPH_NOTATION.md`.
+
+**`morph-x01` remains as BLOOM T1 alone** — the reference the vocabulary was designed
+against. Safe to overwrite.
