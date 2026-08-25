@@ -13,7 +13,7 @@
 
 ## THE ONE FILE YOU COMPOSE IN, RIGHT NOW
 
-**`piece-s27`** — open it in the **composer app** (:5200/composer.html).
+**`piece-s28`** — open it in the **composer app** (:5200/composer.html).
 Everything new goes here. It contains the WHOLE piece so far as data:
 4563 objects, 10 tracks — the 0–136 s arc AND the trance section (~500 s+).
 
@@ -38,12 +38,13 @@ auditions, and section takes. **The piece is only the `piece-sNN` chain.**
 | `piece-s01` … `piece-s25` | frozen | the assembly era (days 13–20) | — |
 | `piece-s25-finished01` | **frozen canon** | CLOUD02-D done (day 33) | — (its material lives on in MAIN DRAFT via s27's identical tile) |
 | `piece-s26` | **frozen canon** | INT2 blasts done (day 35) | — (same) |
-| `piece-s27` | **CURRENT — compose here** | (open) | **MAIN DRAFT** (0–496 s) |
+| `piece-s27` | **frozen canon** | the morphs went to TEN parts; CONVERGE target fixed; the morph notation designed and folded (day 35) | — |
+| `piece-s28` | **CURRENT — compose here** | (open) | **MAIN DRAFT** (0–496 s) + the three morph pages |
 
 **`-work` files** (`piece-s25-finished01-work` etc.): the composer app's own
 autosave working copies. **Never a source for anything** (D75 — one is stale
-on disk and stays; harmless). The app makes `piece-s27-work` by itself when
-you first edit s27.
+on disk and stays; harmless). The app makes `piece-s28-work` by itself when
+you first edit s28.
 
 **`7tubas.json`**: a 1 KB stub from day 1. The lineage never used it —
 ignore it. (CLAUDE.md's pointer to it is corrected to point here.)
@@ -59,7 +60,7 @@ ignore it. (CLAUDE.md's pointer to it is corrected to point here.)
 
 # → **MAIN DRAFT — all notation so far (0-496 s)**
 
-That page (internal id `db1`, source `piece-s27`) carries EVERYTHING notated:
+That page (internal id `db1`, source `piece-s28`) carries EVERYTHING notated:
 the opening density build + both clouds + the 48 s long tone (0–56), the
 gesture-2 density build parked for the polish (56–81), the INT2 blasts +
 long tones (81–111), **the final density build DB3 (113–136, day 35
@@ -130,3 +131,11 @@ command is in each page's `provenance.build`. See `docs/MORPH_NOTATION.md`.
 
 **`morph-x01` remains as BLOOM T1 alone** — the reference the vocabulary was designed
 against. Safe to overwrite.
+
+**Day 35 bump:** `piece-s28` is an object-for-object copy of `piece-s27` (4645
+objects, verified identical), with fresh metadata. **s27 is frozen as the era in
+which the three morph sections went to ten parts, CONVERGE's target array was fixed,
+and the morph notation was designed and folded into MAIN DRAFT.** MAIN DRAFT and the
+three morph pages now read **s28**; `morph-x01` still reads s27 and is left there —
+it is the frozen T1 design reference, and the two files are identical anyway.
+**Compose the trance work in `piece-s28`.**

@@ -3,7 +3,7 @@
  "id": "morph-balance",
  "label": "MORPH 3 — BALANCE (all ten)",
  "source": {
-  "score": "piece-s27",
+  "score": "piece-s28",
   "window": [
    382.78,
    497.27
@@ -25,13 +25,13 @@
   "createdBy": "tools/notate_morph.js",
   "date": "2026-08-24",
   "notes": "The morph-section template (day 35). See docs/MORPH_NOTATION.md.",
-  "build": "node tools/notate_morph.js --group grp-act-balance-01-01 --part all --id morph-balance --score piece-s27 --label \"MORPH 3 — BALANCE (all ten)\" --apply"
+  "build": "node tools/notate_morph.js --group grp-act-balance-01-01 --part all --id morph-balance --score piece-s28 --label \"MORPH 3 — BALANCE (all ten)\" --apply"
  },
  "events": [
   {
    "id": "ev-wc-6488",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6488"
    },
    "onset": 386.681,
@@ -50,7 +50,7 @@
   {
    "id": "ev-wc-6507",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6507"
    },
    "onset": 396.814,
@@ -69,7 +69,7 @@
   {
    "id": "ev-wc-6517",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6517"
    },
    "onset": 405.043,
@@ -88,7 +88,7 @@
   {
    "id": "ev-wc-6530",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6530"
    },
    "onset": 415.423,
@@ -107,7 +107,7 @@
   {
    "id": "ev-wc-6541",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6541"
    },
    "onset": 425.113,
@@ -126,7 +126,7 @@
   {
    "id": "ev-wc-6551",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6551"
    },
    "onset": 431.92,
@@ -145,7 +145,7 @@
   {
    "id": "ev-wc-6565",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6565"
    },
    "onset": 441.456,
@@ -164,7 +164,7 @@
   {
    "id": "ev-wc-6576",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6576"
    },
    "onset": 451.115,
@@ -183,7 +183,7 @@
   {
    "id": "ev-wc-6586",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6586"
    },
    "onset": 458.706,
@@ -202,7 +202,7 @@
   {
    "id": "ev-wc-6595",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6595"
    },
    "onset": 465.489,
@@ -221,7 +221,7 @@
   {
    "id": "ev-wc-6603",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6603"
    },
    "onset": 472.21,
@@ -240,7 +240,7 @@
   {
    "id": "ev-wc-6614",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6614"
    },
    "onset": 479.551,
@@ -259,7 +259,7 @@
   {
    "id": "ev-wc-6623",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6623"
    },
    "onset": 486.8,
@@ -278,7 +278,7 @@
   {
    "id": "ev-wc-6489",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6489"
    },
    "onset": 386.681,
@@ -297,7 +297,7 @@
   {
    "id": "ev-wc-6500",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6500"
    },
    "onset": 393.133,
@@ -316,7 +316,7 @@
   {
    "id": "ev-wc-6508",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6508"
    },
    "onset": 398.771,
@@ -335,7 +335,7 @@
   {
    "id": "ev-wc-6518",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6518"
    },
    "onset": 405.437,
@@ -354,7 +354,7 @@
   {
    "id": "ev-wc-6526",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6526"
    },
    "onset": 412.251,
@@ -373,7 +373,7 @@
   {
    "id": "ev-wc-6533",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6533"
    },
    "onset": 418.085,
@@ -392,7 +392,7 @@
   {
    "id": "ev-wc-6540",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6540"
    },
    "onset": 424.118,
@@ -411,7 +411,7 @@
   {
    "id": "ev-wc-6553",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6553"
    },
    "onset": 433.066,
@@ -430,7 +430,7 @@
   {
    "id": "ev-wc-6562",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6562"
    },
    "onset": 440.646,
@@ -449,7 +449,7 @@
   {
    "id": "ev-wc-6572",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6572"
    },
    "onset": 447.312,
@@ -468,7 +468,7 @@
   {
    "id": "ev-wc-6578",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6578"
    },
    "onset": 453.024,
@@ -487,7 +487,7 @@
   {
    "id": "ev-wc-6588",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6588"
    },
    "onset": 459.796,
@@ -506,7 +506,7 @@
   {
    "id": "ev-wc-6599",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6599"
    },
    "onset": 467.529,
@@ -525,7 +525,7 @@
   {
    "id": "ev-wc-6606",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6606"
    },
    "onset": 474.347,
@@ -544,7 +544,7 @@
   {
    "id": "ev-wc-6615",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6615"
    },
    "onset": 480.996,
@@ -563,7 +563,7 @@
   {
    "id": "ev-wc-6624",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6624"
    },
    "onset": 487.508,
@@ -582,7 +582,7 @@
   {
    "id": "ev-wc-6490",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6490"
    },
    "onset": 386.681,
@@ -601,7 +601,7 @@
   {
    "id": "ev-wc-6505",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6505"
    },
    "onset": 395.072,
@@ -620,7 +620,7 @@
   {
    "id": "ev-wc-6515",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6515"
    },
    "onset": 404.356,
@@ -639,7 +639,7 @@
   {
    "id": "ev-wc-6525",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6525"
    },
    "onset": 412.217,
@@ -658,7 +658,7 @@
   {
    "id": "ev-wc-6537",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6537"
    },
    "onset": 421.884,
@@ -677,7 +677,7 @@
   {
    "id": "ev-wc-6548",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6548"
    },
    "onset": 429.191,
@@ -696,7 +696,7 @@
   {
    "id": "ev-wc-6558",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6558"
    },
    "onset": 437.899,
@@ -715,7 +715,7 @@
   {
    "id": "ev-wc-6571",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6571"
    },
    "onset": 447.011,
@@ -734,7 +734,7 @@
   {
    "id": "ev-wc-6582",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6582"
    },
    "onset": 454.897,
@@ -753,7 +753,7 @@
   {
    "id": "ev-wc-6591",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6591"
    },
    "onset": 461.687,
@@ -772,7 +772,7 @@
   {
    "id": "ev-wc-6601",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6601"
    },
    "onset": 469.31,
@@ -791,7 +791,7 @@
   {
    "id": "ev-wc-6611",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6611"
    },
    "onset": 476.301,
@@ -810,7 +810,7 @@
   {
    "id": "ev-wc-6620",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6620"
    },
    "onset": 483.446,
@@ -829,7 +829,7 @@
   {
    "id": "ev-wc-6491",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6491"
    },
    "onset": 386.681,
@@ -848,7 +848,7 @@
   {
    "id": "ev-wc-6506",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6506"
    },
    "onset": 395.165,
@@ -867,7 +867,7 @@
   {
    "id": "ev-wc-6516",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6516"
    },
    "onset": 404.997,
@@ -886,7 +886,7 @@
   {
    "id": "ev-wc-6529",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6529"
    },
    "onset": 415.2,
@@ -905,7 +905,7 @@
   {
    "id": "ev-wc-6539",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6539"
    },
    "onset": 422.638,
@@ -924,7 +924,7 @@
   {
    "id": "ev-wc-6547",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6547"
    },
    "onset": 428.618,
@@ -943,7 +943,7 @@
   {
    "id": "ev-wc-6557",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6557"
    },
    "onset": 435.48,
@@ -962,7 +962,7 @@
   {
    "id": "ev-wc-6566",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6566"
    },
    "onset": 442.782,
@@ -981,7 +981,7 @@
   {
    "id": "ev-wc-6577",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6577"
    },
    "onset": 451.333,
@@ -1000,7 +1000,7 @@
   {
    "id": "ev-wc-6587",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6587"
    },
    "onset": 459.155,
@@ -1019,7 +1019,7 @@
   {
    "id": "ev-wc-6596",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6596"
    },
    "onset": 465.862,
@@ -1038,7 +1038,7 @@
   {
    "id": "ev-wc-6610",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6610"
    },
    "onset": 475.601,
@@ -1057,7 +1057,7 @@
   {
    "id": "ev-wc-6619",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6619"
    },
    "onset": 483.012,
@@ -1076,7 +1076,7 @@
   {
    "id": "ev-wc-6492",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6492"
    },
    "onset": 386.681,
@@ -1095,7 +1095,7 @@
   {
    "id": "ev-wc-6499",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6499"
    },
    "onset": 392.871,
@@ -1114,7 +1114,7 @@
   {
    "id": "ev-wc-6511",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6511"
    },
    "onset": 401.247,
@@ -1133,7 +1133,7 @@
   {
    "id": "ev-wc-6523",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6523"
    },
    "onset": 411.058,
@@ -1152,7 +1152,7 @@
   {
    "id": "ev-wc-6532",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6532"
    },
    "onset": 417.253,
@@ -1171,7 +1171,7 @@
   {
    "id": "ev-wc-6542",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6542"
    },
    "onset": 425.216,
@@ -1190,7 +1190,7 @@
   {
    "id": "ev-wc-6552",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6552"
    },
    "onset": 432.302,
@@ -1209,7 +1209,7 @@
   {
    "id": "ev-wc-6564",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6564"
    },
    "onset": 441.315,
@@ -1228,7 +1228,7 @@
   {
    "id": "ev-wc-6574",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6574"
    },
    "onset": 449.379,
@@ -1247,7 +1247,7 @@
   {
    "id": "ev-wc-6583",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6583"
    },
    "onset": 455.067,
@@ -1266,7 +1266,7 @@
   {
    "id": "ev-wc-6590",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6590"
    },
    "onset": 460.843,
@@ -1285,7 +1285,7 @@
   {
    "id": "ev-wc-6600",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6600"
    },
    "onset": 468.767,
@@ -1304,7 +1304,7 @@
   {
    "id": "ev-wc-6608",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6608"
    },
    "onset": 474.885,
@@ -1323,7 +1323,7 @@
   {
    "id": "ev-wc-6617",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6617"
    },
    "onset": 482.372,
@@ -1342,7 +1342,7 @@
   {
    "id": "ev-wc-6493",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6493"
    },
    "onset": 386.681,
@@ -1361,7 +1361,7 @@
   {
    "id": "ev-wc-6504",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6504"
    },
    "onset": 394.536,
@@ -1380,7 +1380,7 @@
   {
    "id": "ev-wc-6513",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6513"
    },
    "onset": 403.317,
@@ -1399,7 +1399,7 @@
   {
    "id": "ev-wc-6524",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6524"
    },
    "onset": 412.104,
@@ -1418,7 +1418,7 @@
   {
    "id": "ev-wc-6538",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6538"
    },
    "onset": 422.294,
@@ -1437,7 +1437,7 @@
   {
    "id": "ev-wc-6549",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6549"
    },
    "onset": 429.394,
@@ -1456,7 +1456,7 @@
   {
    "id": "ev-wc-6561",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6561"
    },
    "onset": 439.875,
@@ -1475,7 +1475,7 @@
   {
    "id": "ev-wc-6573",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6573"
    },
    "onset": 447.495,
@@ -1494,7 +1494,7 @@
   {
    "id": "ev-wc-6581",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6581"
    },
    "onset": 454.549,
@@ -1513,7 +1513,7 @@
   {
    "id": "ev-wc-6589",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6589"
    },
    "onset": 460.54,
@@ -1532,7 +1532,7 @@
   {
    "id": "ev-wc-6597",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6597"
    },
    "onset": 466.759,
@@ -1551,7 +1551,7 @@
   {
    "id": "ev-wc-6609",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6609"
    },
    "onset": 475.49,
@@ -1570,7 +1570,7 @@
   {
    "id": "ev-wc-6621",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6621"
    },
    "onset": 484.002,
@@ -1589,7 +1589,7 @@
   {
    "id": "ev-wc-6494",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6494"
    },
    "onset": 386.681,
@@ -1608,7 +1608,7 @@
   {
    "id": "ev-wc-6503",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6503"
    },
    "onset": 394.237,
@@ -1627,7 +1627,7 @@
   {
    "id": "ev-wc-6514",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6514"
    },
    "onset": 403.992,
@@ -1646,7 +1646,7 @@
   {
    "id": "ev-wc-6521",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6521"
    },
    "onset": 410.142,
@@ -1665,7 +1665,7 @@
   {
    "id": "ev-wc-6531",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6531"
    },
    "onset": 416.079,
@@ -1684,7 +1684,7 @@
   {
    "id": "ev-wc-6544",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6544"
    },
    "onset": 425.738,
@@ -1703,7 +1703,7 @@
   {
    "id": "ev-wc-6550",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6550"
    },
    "onset": 431.285,
@@ -1722,7 +1722,7 @@
   {
    "id": "ev-wc-6560",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6560"
    },
    "onset": 439.468,
@@ -1741,7 +1741,7 @@
   {
    "id": "ev-wc-6568",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6568"
    },
    "onset": 445.207,
@@ -1760,7 +1760,7 @@
   {
    "id": "ev-wc-6584",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6584"
    },
    "onset": 455.468,
@@ -1779,7 +1779,7 @@
   {
    "id": "ev-wc-6594",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6594"
    },
    "onset": 464.321,
@@ -1798,7 +1798,7 @@
   {
    "id": "ev-wc-6602",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6602"
    },
    "onset": 470.039,
@@ -1817,7 +1817,7 @@
   {
    "id": "ev-wc-6612",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6612"
    },
    "onset": 478.66,
@@ -1836,7 +1836,7 @@
   {
    "id": "ev-wc-6622",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6622"
    },
    "onset": 485.43,
@@ -1855,7 +1855,7 @@
   {
    "id": "ev-wc-6495",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6495"
    },
    "onset": 386.681,
@@ -1874,7 +1874,7 @@
   {
    "id": "ev-wc-6501",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6501"
    },
    "onset": 393.737,
@@ -1893,7 +1893,7 @@
   {
    "id": "ev-wc-6509",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6509"
    },
    "onset": 399.054,
@@ -1912,7 +1912,7 @@
   {
    "id": "ev-wc-6520",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6520"
    },
    "onset": 407.947,
@@ -1931,7 +1931,7 @@
   {
    "id": "ev-wc-6528",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6528"
    },
    "onset": 413.688,
@@ -1950,7 +1950,7 @@
   {
    "id": "ev-wc-6535",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6535"
    },
    "onset": 419.928,
@@ -1969,7 +1969,7 @@
   {
    "id": "ev-wc-6546",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6546"
    },
    "onset": 428.208,
@@ -1988,7 +1988,7 @@
   {
    "id": "ev-wc-6555",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6555"
    },
    "onset": 433.91,
@@ -2007,7 +2007,7 @@
   {
    "id": "ev-wc-6567",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6567"
    },
    "onset": 443.387,
@@ -2026,7 +2026,7 @@
   {
    "id": "ev-wc-6575",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6575"
    },
    "onset": 449.518,
@@ -2045,7 +2045,7 @@
   {
    "id": "ev-wc-6585",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6585"
    },
    "onset": 458.695,
@@ -2064,7 +2064,7 @@
   {
    "id": "ev-wc-6598",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6598"
    },
    "onset": 467.152,
@@ -2083,7 +2083,7 @@
   {
    "id": "ev-wc-6607",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6607"
    },
    "onset": 474.75,
@@ -2102,7 +2102,7 @@
   {
    "id": "ev-wc-6618",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6618"
    },
    "onset": 483.004,
@@ -2121,7 +2121,7 @@
   {
    "id": "ev-wc-6496",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6496"
    },
    "onset": 386.681,
@@ -2140,7 +2140,7 @@
   {
    "id": "ev-wc-6502",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6502"
    },
    "onset": 393.761,
@@ -2159,7 +2159,7 @@
   {
    "id": "ev-wc-6512",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6512"
    },
    "onset": 401.561,
@@ -2178,7 +2178,7 @@
   {
    "id": "ev-wc-6522",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6522"
    },
    "onset": 410.782,
@@ -2197,7 +2197,7 @@
   {
    "id": "ev-wc-6536",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6536"
    },
    "onset": 421.019,
@@ -2216,7 +2216,7 @@
   {
    "id": "ev-wc-6545",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6545"
    },
    "onset": 427.793,
@@ -2235,7 +2235,7 @@
   {
    "id": "ev-wc-6556",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6556"
    },
    "onset": 434.792,
@@ -2254,7 +2254,7 @@
   {
    "id": "ev-wc-6563",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6563"
    },
    "onset": 441.183,
@@ -2273,7 +2273,7 @@
   {
    "id": "ev-wc-6570",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6570"
    },
    "onset": 446.9,
@@ -2292,7 +2292,7 @@
   {
    "id": "ev-wc-6580",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6580"
    },
    "onset": 454.238,
@@ -2311,7 +2311,7 @@
   {
    "id": "ev-wc-6593",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6593"
    },
    "onset": 463.67,
@@ -2330,7 +2330,7 @@
   {
    "id": "ev-wc-6605",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6605"
    },
    "onset": 473.14,
@@ -2349,7 +2349,7 @@
   {
    "id": "ev-wc-6616",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6616"
    },
    "onset": 481.169,
@@ -2368,7 +2368,7 @@
   {
    "id": "ev-wc-6497",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6497"
    },
    "onset": 386.681,
@@ -2387,7 +2387,7 @@
   {
    "id": "ev-wc-6498",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6498"
    },
    "onset": 392.136,
@@ -2406,7 +2406,7 @@
   {
    "id": "ev-wc-6510",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6510"
    },
    "onset": 399.14,
@@ -2425,7 +2425,7 @@
   {
    "id": "ev-wc-6519",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6519"
    },
    "onset": 406.098,
@@ -2444,7 +2444,7 @@
   {
    "id": "ev-wc-6527",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6527"
    },
    "onset": 413.348,
@@ -2463,7 +2463,7 @@
   {
    "id": "ev-wc-6534",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6534"
    },
    "onset": 419.016,
@@ -2482,7 +2482,7 @@
   {
    "id": "ev-wc-6543",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6543"
    },
    "onset": 425.513,
@@ -2501,7 +2501,7 @@
   {
    "id": "ev-wc-6554",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6554"
    },
    "onset": 433.536,
@@ -2520,7 +2520,7 @@
   {
    "id": "ev-wc-6559",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6559"
    },
    "onset": 438.953,
@@ -2539,7 +2539,7 @@
   {
    "id": "ev-wc-6569",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6569"
    },
    "onset": 445.821,
@@ -2558,7 +2558,7 @@
   {
    "id": "ev-wc-6579",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6579"
    },
    "onset": 453.32,
@@ -2577,7 +2577,7 @@
   {
    "id": "ev-wc-6592",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6592"
    },
    "onset": 463.102,
@@ -2596,7 +2596,7 @@
   {
    "id": "ev-wc-6604",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6604"
    },
    "onset": 472.428,
@@ -2615,7 +2615,7 @@
   {
    "id": "ev-wc-6613",
    "source": {
-    "score": "piece-s27",
+    "score": "piece-s28",
     "objectId": "wc-6613"
    },
    "onset": 478.925,

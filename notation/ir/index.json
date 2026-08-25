@@ -64,19 +64,9 @@
    "profile": "section1"
   },
   {
-   "id": "db1",
-   "label": "MAIN DRAFT — all notation so far (0-496 s)",
-   "score": "piece-s27",
-   "window": [
-    0,
-    496.5
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "morph-bloom",
    "label": "MORPH 1 — BLOOM (all ten)",
-   "score": "piece-s27",
+   "score": "piece-s28",
    "window": [
     137.49,
     260.03
@@ -86,7 +76,7 @@
   {
    "id": "morph-converge",
    "label": "MORPH 2 — CONVERGENCE (all ten)",
-   "score": "piece-s27",
+   "score": "piece-s28",
    "window": [
     255.66,
     383.91
@@ -96,10 +86,20 @@
   {
    "id": "morph-balance",
    "label": "MORPH 3 — BALANCE (all ten)",
-   "score": "piece-s27",
+   "score": "piece-s28",
    "window": [
     382.78,
     497.27
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "db1",
+   "label": "MAIN DRAFT — all notation so far (0-496 s)",
+   "score": "piece-s28",
+   "window": [
+    0,
+    496.5
    ],
    "profile": "section1"
   }
