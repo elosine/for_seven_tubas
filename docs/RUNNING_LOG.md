@@ -13154,3 +13154,106 @@ added cuivre in `docs/plans/MORPH_SECTION.md` are **not in the score at all** �
 bed is there alone, with T9/T10 previously held free for exactly those impacts.
 **Going to ten parts spends the two players the impact plan reserved** — named here
 because it is a form decision, not a detail.
+
+---
+
+## Day 35 — eighteenth sitting (Opus): THE MORPH NOTATION BEGINS — `morph-x01`
+
+**The composer's method, verbatim:** *"Let's do piece by piece in the actual notation
+score. on its own experimental safe file."* So: no more standalone SVG proofs — the
+real app, one element at a time, on **`morph-x01`**, which MAIN DRAFT never touches.
+
+**THE REFERENCES, all four found rather than guessed:**
+- **Font** — *"something like console pro, but not console"* = **CRIMSON PRO**, already
+  vendored and `@font-face`'d in `notation.html` (regular + italic).
+- **The arrow** — already existed: `dynArrow`, day 22, logged as *"the hairpin
+  replacement (composer: 'this is new')"*.
+- **The colours** — piece #1 names them: **`brightOrange` = `#F04B00`** is its
+  GLISSANDO colour, `limeGreen` its CRESCENDO colour. That is why the composer's 5:20
+  screenshot looks green and the 3:37 curves look orange: two different objects.
+- **`morphBend` IS IN CENTS** — `bend14(cents)` in `sonify_core.js`, ±199 c range.
+
+**THE MATERIAL DOES NOT MATCH THE MENTAL MODEL, and measuring said so.** The composer:
+*"I thought each of these bricks were one gliss, one breath, and one crescendo all
+together the same amount."* Measured on T1/BLOOM's 13 bricks:
+
+- **breaths ARE near-constant** — 0.649–0.829 s, mean **0.739**
+- **durations are not** — 6.08–9.99 s
+- **the gliss is not** — **+0.1 to +6.8 c per brick, and it REVERSES** (bricks 6, 7, 8, 12, 13 descend)
+- **the crescendo is not** — bricks 8 and 12 *de*crescendo
+
+**The gliss is ONE CONTINUOUS ARC ACROSS ALL 13 BRICKS, not one gliss per brick.**
+0 → 20.4 c by brick 5, back to 0 by brick 9, out again to 8 and back. Each brick
+carries a slice, which is why brick 1 is only **1.1 cents**. **Total excursion across
+the whole morph: 20 cents — a fifth of a semitone.**
+
+**Apex measured: t = 178.41 s, 20.4 c, inside brick 5 — 37.0 s after T1 enters.**
+**The crescendo peak is NOT the same moment: t = 187.82 s, 9.4 s later.** Correlation
+of bend against level over the whole morph **r = 0.78** — in tandem, not locked.
+
+**THE QUARTER-TONE PROBLEM, named early because it changes the drawing.** The
+composer asked for the two pitches at *"the closest quarter tone approximation"*.
+A quarter tone is 50 c; BLOOM's whole gliss is 20.4 c. **Every one of T1's 13 onsets
+rounds to F2, and the section block's two noteheads are both F2.** CONVERGE (±67 c)
+will show quarter-tone motion; **BLOOM collapses.** Flagged, not solved.
+
+### What is on `morph-x01` now
+
+**Step 1 — clef + go line, nothing else.** Composer: *"No staff. Nothing else."*
+Three existing mechanisms did it with almost no new code:
+- **staff off** — the V1 sectional-staff overlay `{kind:'staff', value:'off'}`, built
+  long ago and never used until now
+- **everything else off** — a per-event `engraving` overlay `device:{}`, the documented
+  per-note override
+- **the brick** was the one thing with no off-switch — it is pushed in the same loop as
+  the go line. Added **`device.brick:false`**, opt-in; undefined keeps the brick, so
+  every existing page is unchanged.
+
+Audited live: **2 layout items — `clef` t=139, `goline` t=141.386 (dashed 5,4).** Zero warnings.
+
+**Step 2 — the glissando curve.** Composer: *"a smooth curve all the way up with the
+approximate slope as close as you can get it… Players aren't going to be able to make
+small adjustments in pitch."*
+
+**Fit: `c(t) = 20.384 × (t/37.02)^1.64` cents**, least-squares over the sounding bend.
+**Max deviation 0.59 c · rms 0.24 c · 1.2 % of a quarter tone.** The sounding curve was
+already near-monotonic, so smoothing costs essentially nothing — the interpolation is
+honest, not a simplification.
+
+Built as a new **`gliss` overlay → `glisscurve` layout item → renderer**, styled from
+the registry. **Verified live: the orange path spans y 24→77 in a lane of 24→130 —
+53 px of 106, precisely the top half**, as dictated.
+
+**Step 3 — filled, then no border.** *"Could you fill the curve"* then *"no border at
+top please"* — which **reproduces the composer's own day-22 verdict on the env curve
+("no outline to curve" → fill-only)**. Both curves now read the same way. The stroke is
+GUARDED, not merely zeroed, so no zero-width path is emitted.
+
+**Step 4 — its own curve follower.** *"just the top half bright orange and then
+everything else the same as the existing one."* Added **`glissMeter`**: `curveMeter`'s
+mechanism and **every one of its numbers** (wPx 8 · gapPx 3 · fillOpacity 0.3 ·
+outlineWPx 1.5 · outlineOpacity 0.8), confined to the top half, colour swapped to
+`#F04B00`. Verified by driving the renderer directly at three times: **outline y 24→77
+(the top half), fill grows from the midpoint 77 upward, reaching the full 53 px at the
+apex.** One instance collected from the overlay (`part 0, 141.386→178.41, 161 samples`).
+
+### A REAL BUG FOUND ON THE WAY — the registry does not reach the live page
+
+The fill would not appear, and it was not caching. **`notation.html` line 386 (the LIVE
+view) does not pass `engraving` to `renderSection`; line 462 (the export path) does.**
+So the live page runs on **render.js's code defaults** and ignores `engraving.render`
+entirely. The `glissCurve` entry written to the registry was invisible to the app.
+
+**Fixed the way the file itself prescribes** — its own comment says *"code defaults =
+the census values, so a caller without opts renders identically"* — by putting
+`glissCurve` in the code defaults beside `envCurve`, and setting the registry to match.
+**The latent trap remains for every other look number: change `engraving.render` and
+the live page will not move.** Filed to NITS.
+
+**PROVEN AT EVERY STEP: MAIN DRAFT rendered under old vs new `layout.js` — 0 added,
+0 removed, 0 changed.** Ten batteries green throughout.
+
+**Still open on this file:** the bottom half (the crescendo, limeGreen, one curve per
+breath with its own two dynamics), the white fp noteheads at each onset, the section
+notation block, and the expanded dynamic ladder (dal niente · pppp … ffff — `pppp` and
+`ffff` have no single glyph and must be tiled from `p`/`f`).

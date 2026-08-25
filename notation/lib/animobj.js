@@ -110,6 +110,30 @@
       '" r="' + (st.radiusSs * s.ssPx).toFixed(1) + '" fill="' + st.color + '" opacity="' + st.opacity + '"/>'];
   });
 
+  // glissMeter (day 35, composer: "give it its own curve follower, just the
+  // top half bright orange and then everything else the same as the existing
+  // one"): curveMeter's mechanism exactly — an outlined meter + fill riding a
+  // fixed offset LEFT of the cursor, fill height = the current drawn level —
+  // but confined to the TOP HALF of the lane, which is the glissando's half.
+  register('glissMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const yT = s.yTopPx, yMid = (s.yTopPx + s.yBotPx) / 2, H = yMid - yT;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + (yMid - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+    ];
+  });
+
   // envFollower: inst {t0, t1, nodes[{pos,lvl 0..1}], color}; dot riding
   // the META level envelope over the FULL parts area (like the overlay).
   register('envFollower', (inst, view, t, st) => {
@@ -211,6 +235,13 @@
         if (e && e.level && e.level.samples && e.level.samples.length >= 2) {
           out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, _src: 'ir-level' });
         }
+      }
+    }
+    // the glissando's own meter, one per `gliss` overlay (day 35)
+    for (const ov of ((ir && ir.overlays) || [])) {
+      const tg = ov.target || {};
+      if (ov.kind === 'gliss' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
+        out.push({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' });
       }
     }
     // notes whose device already visualizes progress (a drawn level curve →

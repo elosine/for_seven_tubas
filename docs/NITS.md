@@ -532,3 +532,18 @@ rendering-environment difference worth understanding).
   the bottom, so the re-render is the price. **Not a bug — but if lane-stable
   insertion is ever wanted, the engine would need a `lanes`-aware voice identity
   that does not key off sorted index.**
+
+- **THE REGISTRY'S `engraving.render` NEVER REACHES THE LIVE NOTATION PAGE**
+  *(day 35, eighteenth sitting — found while the gliss fill refused to appear)* —
+  `notation/app/notation.html` **line 386**, the live view, calls
+  `renderSection(model, view, glyphs, { markers, reshow, ownsEnd, hideBricks,
+  staffFull })` with **no `engraving` key**, so `render.js` falls back to its own
+  code defaults. **Line 462**, the export path, *does* pass
+  `engraving: C.engraving.render`. **Consequence: edit any look number in
+  `container.json → engraving.render` and the live page will not move, while the
+  export will — the two can silently disagree.** Worked around for `glissCurve` by
+  mirroring the value into render.js's code defaults (which is what the file's own
+  comment prescribes: *"code defaults = the census values, so a caller without opts
+  renders identically"*). *Fix:* pass `engraving` at line 386 too, then re-verify
+  every existing look number, since some code defaults may already have drifted from
+  the registry.

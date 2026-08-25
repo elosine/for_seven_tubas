@@ -31,6 +31,10 @@
       // "go line not visible" -> thicker/darker dashes, AI-intuited numbers).
       // Green = this piece's surge color (#2E7D32).
       envCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.3, color: '#2E7D32' },
+      // the morph glissando (day 35): brightOrange, TOP HALF of the lane, filled
+      // to the half-lane baseline. Code default = the census value, so the live
+      // view (which does not pass opts.engraving) and the export agree.
+      glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },
       // go line: near-black (composer, day 22 second note: "always black
       // gray" — the surge green was never meant for it); width/opacity/dash
       // = the retuned numbers, untouched
@@ -223,6 +227,37 @@
             if (EC.strokeWPx > 0 && EC.strokeOpacity > 0) {
               parts.push('<path d="' + line + '" fill="none" stroke="' + EC.color + '" stroke-width="' + EC.strokeWPx +
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
+            }
+          }
+        } else if (it.k === 'glisscurve') {
+          // THE MORPH GLISSANDO (day 35, composer): one smooth interpolated
+          // line for the whole section, brightOrange, taking PRECISELY the TOP
+          // HALF of the lane. The bottom half belongs to the crescendo.
+          if (it.t1 < w0 || it.t0 > w1) continue;
+          const GC2 = E.glissCurve;
+          const yT = sys.yTopPx, yMid = (sys.yTopPx + sys.yBotPx) / 2;
+          const n = it.samples.length, gp = [];
+          for (let i = 0; i < n; i++) {
+            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
+            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
+            gp.push([view.xOfSeconds(t), yMid - it.samples[i] * (yMid - yT)]);
+          }
+          if (gp.length >= 2) {
+            const line = gp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+            // the fill closes on the HALF-LANE baseline, not the lane floor —
+            // the glissando owns the top half only
+            if (GC2.fillOpacity > 0) {
+              parts.push('<path d="' + line +
+                ' L' + gp[gp.length - 1][0].toFixed(1) + ',' + yMid.toFixed(1) +
+                ' L' + gp[0][0].toFixed(1) + ',' + yMid.toFixed(1) + ' Z" fill="' + GC2.color +
+                '" fill-opacity="' + GC2.fillOpacity + '" stroke="none"/>');
+            }
+            // no border on top: fill-only unless a stroke is explicitly asked for
+            // (composer, day 35 — the same verdict the env curve got on day 22)
+            if (GC2.strokeWPx > 0 && GC2.strokeOpacity > 0) {
+              parts.push('<path d="' + line +
+                '" fill="none" stroke="' + GC2.color + '" stroke-width="' + GC2.strokeWPx +
+                '" stroke-opacity="' + GC2.strokeOpacity + '" stroke-linecap="round"/>');
             }
           }
         } else if (it.k === 'dynarrow') {

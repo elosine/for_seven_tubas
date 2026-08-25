@@ -147,12 +147,21 @@
     //   target:{part, span} } suppresses the staff lines in that span
     // ("not every page or every section will have staff").
     const staffOff = [];         // {part, span:[a,b]}
+    const glissCurves = [];      // {part, span:[a,b], samples:[0..1]} — top half of the lane
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
       if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
         staffOff.push({ part: tgt.part, span: tgt.span }); continue;
+      }
+      // day 35, the MORPH SECTION: the glissando reads as ONE smooth line over a
+      // whole section, in the TOP HALF of the lane (the crescendo takes the
+      // bottom half). Players cannot make small pitch adjustments, so the drawn
+      // line is an interpolated fit of the sounding bend, not its every wiggle.
+      // value: { samples:[0..1 ...], fit:'<the formula, for the record>' }
+      if (ov.kind === 'gliss' && tgt.part !== undefined && tgt.span && ov.value && ov.value.samples) {
+        glissCurves.push({ part: tgt.part, span: tgt.span, samples: ov.value.samples }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
         const e = evById.get(tgt.event);
@@ -254,6 +263,8 @@
       }
       if (cur < w1) items.push({ k: 'staff', t0: cur, t1: w1 });
       items.push({ k: 'clef', t: w0 });
+      for (const g of glissCurves) if (g.part === part)
+        items.push({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples });
       for (const d of dynTexts) if (d.part === part) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic });
       for (const ins of instrTexts) if (ins.parts.includes(part)) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: TS.instruction });
 
@@ -276,7 +287,12 @@
               + (e.env ? ' · ' + e.env : '') + (e.mode ? ' · ' + e.mode : '')
               + ' · ' + e.onset.toFixed(2) + '–' + (e.onset + e.duration).toFixed(2) + ' s'
               + ' · ' + c.class + ' / ' + c.strategy + ' · ' + (e.source && e.source.objectId || e.id);
-            items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id, tip });
+            // day 35: `device.brick:false` suppresses the parachute brick for
+            // one event — the morph-section experiments draw a go line with no
+            // brick under it. Absent/undefined keeps the brick, so every
+            // existing page is unchanged.
+            if (deviceOf(e).brick !== false)
+              items.push({ k: 'brick', t0: e.onset, t1: e.onset + e.duration, ySs, ev: e.id, tip });
             // THE SURGE/ENV-CURVE DEVICE (day 22, composer spec; ported from
             // piece #1's viola opening gesture — curve + dotted go line +
             // nh-unit + dynamic pair/arrow). Membership per deviceOf(e);
