@@ -59,8 +59,15 @@ function sampleFull(kind, n) {
   for (let i = 0; i <= n; i++) {
     const t = T_ENTRY + (i / n) * (T_END - T_ENTRY);
     const o = tones.find(x => t >= x.startSeconds && t <= x.endSeconds);
+    // PITCH IS note + bend, NOT the bend alone. The engine keeps morphBend
+    // inside its +/-199 c range by re-spelling: when a voice travels far, the
+    // note NUMBER shifts by a semitone and the bend re-centres by ~97 c the
+    // other way. The sounding pitch stays continuous (+/-3 c) but the bend
+    // series jumps. BLOOM never changes note, so fitting the bend worked there
+    // by luck; CONVERGE re-spells four times and fitting the bend alone gave a
+    // 90 c error no number of anchors could fix. (day 35)
     if (o) last = kind === 'bend'
-      ? Core.morphBendAt(o.morphBend, t - o.startSeconds)
+      ? o.sonifyNote * 100 + Core.morphBendAt(o.morphBend, t - o.startSeconds)
       : Core.evalWaveCurve(o, (t - o.startSeconds) / (o.endSeconds - o.startSeconds));
     out.push(last);
   }
@@ -92,9 +99,13 @@ function fitCurve(kind, N) {
   });
   const bestRms = Math.min(...trials.map(t => t.rms));
   const pick = trials.find(t => t.rms <= bestRms * 1.25);
-  const span = Math.max(...fine.map(Math.abs)) || 1;
+  // normalise against the curve's OWN min..max — the composer's rule: the
+  // bottom of the drawn curve is the lowest pitch reached in the section and
+  // the top is the highest, whatever the interval between them
+  const loV = Math.min(...fine), hiV = Math.max(...fine), spread = (hiV - loV) || 1;
+  const span = spread;
   const samples = [];
-  for (let i = 0; i <= N; i++) samples.push(+Math.max(0, Math.min(1, Math.abs(crom(pick.P, i / N)) / span)).toFixed(5));
+  for (let i = 0; i <= N; i++) samples.push(+Math.max(0, Math.min(1, (crom(pick.P, i / N) - loV) / spread)).toFixed(5));
   return { samples, anchors: pick.n, max: pick.max, rms: pick.rms, span, fine, trials };
 }
 
@@ -104,16 +115,24 @@ const L = fitCurve('level', NS);
 
 // ---------------------------------------------------------------- the two written pitches
 const baseMidi = tones[0].sonifyNote;
-const lo = Math.min(...G.fine), hi = Math.max(...G.fine);
-const extent = Math.abs(hi) >= Math.abs(lo) ? hi : lo;      // the signed excursion that dominates
-const dir = extent >= 0 ? 1 : -1;
+// G.fine is now absolute pitch in cents; the extremes ARE the section's two pitches
+const loC = Math.min(...G.fine), hiC = Math.max(...G.fine);
+const extent = hiC - loC;                                    // total displacement, always >= 0
+// which way does the part travel FROM its starting pitch? The header shows the
+// LOWEST pitch on the left and the HIGHEST on the right; the accidental belongs
+// on whichever of the two is not the starting note.
+const startC = G.fine[0];
+const dir = (hiC - startC) >= (startC - loC) ? 1 : -1;
 // THE COMPOSER'S RULE (day 35): the written figure shows the section's two
 // pitches to the closest QUARTER TONE — but a glissando smaller than half a
 // quarter tone would round to a single pitch and say nothing, so a non-zero
 // gliss is written as AT LEAST one quarter tone. That is a compositional
 // choice to show the gesture, not a rounding; see docs/MORPH_NOTATION.md.
-const qSteps = Math.max(Math.abs(extent) > 1 ? 1 : 0, Math.round(Math.abs(extent) / 50));
+const qSteps = Math.max(extent > 1 ? 1 : 0, Math.round(extent / 50));
 const accName = qSteps === 0 ? null : (dir > 0 ? 'quarterSharp' : 'quarterFlat');
+// dir > 0: the part rises, so the HIGH (right) head is the altered one
+// dir < 0: the part falls, so the LOW (left) head is the altered one
+const accOn = qSteps === 0 ? null : (dir > 0 ? 'high' : 'low');
 const NM = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const STEPS = { 0: ['C', 0], 1: ['C', 1], 2: ['D', 0], 3: ['D', 1], 4: ['E', 0], 5: ['F', 0],
                 6: ['F', 1], 7: ['G', 0], 8: ['G', 1], 9: ['A', 0], 10: ['A', 1], 11: ['B', 0] };
@@ -149,7 +168,7 @@ tones.forEach((o, i) => {
 const endMark = 'fff';                      // every morph peaks in the top band — see the doc
 overlays.unshift(
   { id: 'ov-header-' + ID, kind: 'header', target: { part: PART, t: T_ENTRY },
-    value: { endMark, acc: accName }, provenance: 'authored' },
+    value: { endMark, acc: accName, accOn }, provenance: 'authored' },
   { id: 'ov-gliss-' + ID, kind: 'gliss', target: { part: PART, span: [T_ENTRY, T_END] },
     value: { samples: G.samples,
       fit: G.anchors + ' anchors off the sounding bend, Catmull-Rom; max ' + G.max.toFixed(3)
@@ -184,14 +203,14 @@ console.log('');
 console.log(ir.label + '   (' + GROUP + ', part ' + PART + ' = T' + (PART + 1) + ')');
 console.log('  span      ' + T_ENTRY.toFixed(3) + ' -> ' + T_END.toFixed(3) + '   (' + secs.toFixed(1) + ' s, ' + tones.length + ' breaths)');
 console.log('  base      midi ' + baseMidi + ' = ' + NM[baseMidi % 12] + (Math.floor(baseMidi / 12) - 1));
-console.log('  gliss     ' + lo.toFixed(1) + ' .. ' + hi.toFixed(1) + ' cents   -> written as '
+console.log('  gliss     ' + (loC/100).toFixed(2) + ' .. ' + (hiC/100).toFixed(2) + ' midi  = ' + extent.toFixed(1) + ' cents total   -> written as '
   + (qSteps === 0 ? 'ONE pitch (no gliss)' : qSteps + ' quarter tone' + (qSteps > 1 ? 's' : '') + ' ' + (dir > 0 ? 'UP' : 'DOWN') + '  (' + accName + ')'));
 console.log('  gliss fit ' + G.anchors + ' anchors   max ' + G.max.toFixed(3) + ' c   rms ' + G.rms.toFixed(3) + ' c');
 console.log('  cresc     0 .. ' + Math.max(...L.fine).toFixed(3) + '   fit ' + L.anchors + ' anchors   max '
   + L.max.toFixed(3) + '   rms ' + L.rms.toFixed(3));
 console.log('  window    ' + W0 + ' - ' + W1);
-if (Math.abs(extent) < 25) console.log('  FLAG      the gliss is under half a quarter tone ('
-  + Math.abs(extent).toFixed(1) + ' c) — the written quarter tone is a CHOICE to show the gesture');
+if (extent > 1 && extent < 25) console.log('  FLAG      total displacement is under half a quarter tone ('
+  + extent.toFixed(1) + ' c) — the written quarter tone is a CHOICE to show the gesture');
 
 // ---------------------------------------------------------------- REFUSALS
 // The template draws ONE smooth interpolated curve. That is only honest when

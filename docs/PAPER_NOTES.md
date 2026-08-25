@@ -2094,3 +2094,65 @@ already learned this once — day 34's approved-span gate had `existsSync`-skipp
 itself and **reported green while asserting nothing**, which is why it now prints
 **NOT APPLICABLE** out loud. Two independent occurrences of one failure mode, four
 sittings apart, in the same codebase: **silence and success must not look alike.**
+
+---
+
+## THE GOVERNING PRINCIPLE OF THE TWO CURVES (composer, day 35) — VERBATIM
+
+*Captured at the composer's request: "you can journal that verbatim, please, for
+potentially the paper… Actually, you can capture this entire prompt for beta. I can
+maybe use some of that in the performance notes."*
+
+> "The principle of both... Curves is to trace the total amount of pitch displacement
+> and Dynamic level displacement. even though there are extreme cases of these two
+> things. for example. performing a glissando over a very short, a very small pitch
+> range over a very long time. they still are essentially the same as a more common
+> glissando or crescendo. They share the same principle. So this is in line with the
+> Kobayashi approach. Just to give the performer the tools they need to execute These
+> still standard in principle articulations. you can journal that verbatim, please,
+> for potentially the paper. practically for the score. The curve will describe the
+> total displacement regardless of how big or small. So the bottom of the glist curve
+> is the lowest note they'll hit in that section, and the highest point in the curve
+> is the highest pitch they'll hit in that section. And then we'll have to put in the
+> performance note, and practically speaking, they'll have to figure out in rehearsal
+> How to actually execute. these long glissandi and crescendos just like anything
+> else. people use beading... beeting to tune their guitars and other instruments all
+> the time. Actually, you can capture this entire prompt for beta. I can maybe use
+> some of that in the performance notes. So given this, tell me where we stand. Can we
+> just make the curves for all three parts? with this principle? Or is there something
+> I'm missing still?"
+
+### Why this matters to the argument
+
+**It settles a question the AI had been treating as a problem to solve.** For three
+sittings the AI kept flagging that BLOOM's glissando is only 20 cents — that the
+noteheads all round to the same pitch, that a quarter tone is a "compositional choice
+rather than a measurement", that the gesture might be too small to notate. The
+composer's answer dissolves the objection rather than answering it: **a 20-cent
+glissando over 108 seconds and a two-octave glissando over one second are the same
+articulation.** Scale is not category. The notation's job is not to prove the gesture
+is big enough to deserve a symbol; it is to give the player what they need to execute
+a standard articulation at an unusual scale.
+
+**The curve is a DISPLACEMENT MAP, not a pitch trace.** Bottom of the glissando curve
+= the lowest pitch reached in the section; top = the highest. The vertical axis is
+always fully used, whatever the interval — which is why both curves are normalised to
+their own extremes. The *amount* lives in the written pitches and the dynamics; the
+*curve* carries the shape.
+
+**The rehearsal-room argument, in the composer's own words:** *"people use beating to
+tune their guitars and other instruments all the time."* The 2–6.5 Hz beating this
+piece is built on is not an exotic perceptual demand — it is the everyday mechanism
+by which string players tune, running continuously for two minutes instead of ten
+seconds. **The technique is ordinary; only the duration is not.**
+
+**"The Kobayashi approach"** — the composer's own citation for the position that
+notation should supply executable tools rather thanprescribe a result.
+
+### For the performance notes
+
+The composer flagged this prompt as source material for the performance notes. The
+usable claims, in their order: (1) these are standard articulations at unusual scale;
+(2) the curve shows total displacement, its bottom and top being the lowest and
+highest pitches of the section; (3) execution is a rehearsal problem, as with any
+glissando or crescendo; (4) beating is a familiar tuning mechanism, here sustained.

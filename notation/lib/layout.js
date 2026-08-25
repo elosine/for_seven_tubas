@@ -178,6 +178,7 @@
       if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
         headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
           acc: (ov.value && ov.value.acc !== undefined) ? ov.value.acc : 'quarterSharp',
+          accOn: (ov.value && ov.value.accOn) || 'high',
           spelled: (ov.value && ov.value.spelled) || { step: 'F', alter: 0, octave: 2 } }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
@@ -312,13 +313,20 @@
         const accKey = h.acc;
         const acc = accKey ? glyphs.accidental[accKey] : { wSs: 0 };
         const h2R = -A.gapSs, h2L = h2R - hw;                // ends where the dynamic row ends
-        const accR = h2L - (o.accGap || 0.25), accL = accR - acc.wSs;
+        const lowSide = h.accOn === 'low';
+        const accR = lowSide ? h2L : h2L - (o.accGap || 0.25), accL = lowSide ? h2L : accR - acc.wSs;
         const glR = accL - A.gapSs, glL = glR - glissLen;
         const h1R = glL - A.gapSs, h1L = h1R - hw;
         const yP = staffPosBass(h.spelled);
         items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
-        if (accKey) items.push({ k: 'glyph', g: 'accidental-' + accKey, t: h.t, dxSs: accL + acc.wSs / 2, ySs: yP, align: 'center' });
+        // the accidental sits before whichever head is the altered one: the HIGH
+        // (right) head when the part rises, the LOW (left) head when it falls
+        if (accKey) {
+          const onLow = h.accOn === 'low';
+          const ax = onLow ? (h1L - (o.accGap || 0.25) - acc.wSs / 2) : (accL + acc.wSs / 2);
+          items.push({ k: 'glyph', g: 'accidental-' + accKey, t: h.t, dxSs: ax, ySs: yP, align: 'center' });
+        }
         items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h2L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
         items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });

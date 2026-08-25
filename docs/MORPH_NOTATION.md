@@ -113,45 +113,65 @@ its own output so it is never mistaken for arithmetic.
 
 ---
 
-## WHERE THE TEMPLATE STOPS — measured across all three morphs
+## THE GOVERNING PRINCIPLE (composer, day 35 — verbatim in PAPER_NOTES)
 
-The template draws ONE smooth curve. **It only fits BLOOM.**
+> *"The principle of both curves is to trace the total amount of pitch displacement
+> and dynamic level displacement… performing a glissando over a very small pitch range
+> over a very long time… they still are essentially the same as a more common
+> glissando or crescendo. They share the same principle… in line with the Kobayashi
+> approach. Just to give the performer the tools they need to execute these still
+> standard in principle articulations."*
 
-| morph | gliss range (all parts) | direction reversals | template? |
+**The curve is a DISPLACEMENT MAP, not a pitch trace.** Its bottom is the lowest pitch
+reached in the section, its top the highest — whatever the interval between them. Both
+curves are therefore normalised to their own extremes and always fill their half. The
+*amount* lives in the written pitches and the dynamics; the *curve* carries the shape.
+Execution is a rehearsal problem, as with any glissando. **Scale is not category.**
+
+This settles what the AI had been treating as a defect — that BLOOM's 20-cent gliss is
+"too small to notate". It is not a smaller kind of thing; it is the same thing, slower.
+
+---
+
+## ALL THREE SECTIONS WORK — measured after two AI bugs were fixed
+
+| morph | total displacement | fit (21 anchors) | template |
 |---|---|---|---|
-| **BLOOM** | **20 c** on every part | **0** | **YES — one clean arc** |
-| **CONVERGE** | **~130 c** | **1-6** | **probably — needs a look** |
-| **BALANCE** | **0 c on every part** | 0 | **no glissando at all** |
+| **BLOOM** | 20.4 c (T1) · 20.5 c (T2) | max **0.77 c** | **yes** |
+| **CONVERGE** | **99 c** = 2 quarter tones | max **9.4 c** | **yes** |
+| **BALANCE** | **0 c — no glissando** | — | **crescendo only** |
 
-**CONVERGE closes whole-tone pairs to unisons.** Its `target` is
-`[39,39,46,46,51,51,58,58,63,63]` — each pair meets in the middle. Measured on the
-placed data: every pair **opens at 200 cents and closes to 5-11 cents** around
-t≈295 s, the beating slowing from ~9-36 Hz to **0.24-1.93 Hz**. That is the section.
-
-> **A BUG THE AI SHIPPED AND THEN FOUND — read this before trusting any earlier
-> number for CONVERGE.** When the fifth pair was added on day 35, `source.midi` grew
-> from 8 entries to 10 but **`target.midi` was left at 8**. CONVERGE is the only
-> morph with a fixed-length target array (BLOOM's is `{cents, direction}`, BALANCE's
-> is `null`), so it was the only one that could break this way — and it did,
-> silently. Every voice was pulled toward the wrong destination and the bottom two
-> had none. **Shipped: 365 c range, 38 reversals. After extending the target to 10:
-> 129 c, 5 reversals — matching the original 8-voice render (130 c, 6).**
+> **TWO BUGS, BOTH THE AI'S, BOTH FOUND BY MEASURING RATHER THAN BY EYE.**
 >
-> Two earlier claims in this repo were made from the broken render and are WRONG:
-> *"CONVERGE is an oscillation, not a glissando"* and *"CONVERGE reaches ±180 c"*.
-> **The right numbers are ±65 c and 1-6 reversals.** The original running-log figure
-> of ±67 c was correct all along; the "correction on the record" that replaced it was
-> the error. **Lesson: when a measurement contradicts a design intent that is written
-> down — the recipe was labelled "whole-tone pairs closing to unison" — suspect the
-> measurement, or the thing being measured, before rewriting the intent.**
+> **1. The target array.** Adding the fifth pair grew `source.midi` to 10 but left
+> CONVERGE's `target.midi` at 8, so every voice was pulled to the wrong destination.
+> 365 c range / 38 reversals shipped; 129 c / 5 after the fix, matching the original.
+> CONVERGE was the only morph that could break this way — the others have no
+> fixed-length target.
+>
+> **2. Fitting the bend instead of the pitch.** `morphBend` is kept inside its ±199 c
+> range by RE-SPELLING: when a voice travels far the note number shifts a semitone and
+> the bend re-centres ~97 c the other way. **The sounding pitch stays continuous (±3 c)
+> while the bend series jumps.** BLOOM never changes note, so fitting the bend worked
+> there by luck; CONVERGE re-spells four times, and fitting the bend gave a **90-cent
+> error that no number of anchors could fix** — the tool was chasing a discontinuity
+> that does not exist in the sound. **Now it fits `sonifyNote * 100 + bend`.**
+> CONVERGE's error fell from 89.5 c to **9.4 c**.
+>
+> **Everything this repo said about CONVERGE before these fixes is void** — including
+> "an oscillation, not a glissando" and the refusal built into this tool. **CONVERGE is
+> a glissando: each whole-tone pair closes to a near-unison and re-opens, twice.**
 
-**BALANCE HAS NO PITCH BEND AT ALL — 0 cents on all ten parts**, and its `target` is
-`null`: nothing to morph toward. Ten static pitches (a B♭ major 9th over three
-octaves), each swelling, with `dyn.shape: "rotate"` moving the peak through the
-ensemble over ~68 s and arriving at the bass last. **There is also no beating** — its
-pairs are thirds, not detuned unisons. It is the consonant arrival. Its top half
-would be empty; ask the composer what it carries (leaving it empty is itself
-meaningful by then).
+**The accidental follows the direction of travel.** The header shows the lowest pitch
+left, the highest right; the altered head is whichever is NOT the starting note —
+`quarterSharp` on the right when the part rises, `quarterFlat` on the left when it
+falls. Verified: BLOOM T1 rising → quarterSharp; T2 falling → quarterFlat.
+
+**BALANCE has no glissando at all** (`target: null`, 0 c on every part). Ten static
+pitches — a B♭ major 9th over three octaves — each swelling, with `dyn.shape:"rotate"`
+moving the peak through the ensemble over ~68 s, arriving at the bass last. **No
+beating either**: its pairs are thirds, not detuned unisons. It is the consonant
+arrival. Its top half is empty, and by then that absence reads as information.
 
 ## THE ORDER TO BUILD IN
 

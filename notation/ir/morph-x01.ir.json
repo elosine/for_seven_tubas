@@ -461,7 +461,8 @@
    },
    "value": {
     "endMark": "fff",
-    "acc": "quarterSharp"
+    "acc": "quarterSharp",
+    "accOn": "high"
    },
    "provenance": "authored"
   },
