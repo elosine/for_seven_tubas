@@ -1333,7 +1333,7 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
+     "onsetHead": false,
      "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
@@ -1357,7 +1357,7 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
+     "onsetHead": false,
      "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
@@ -1381,7 +1381,7 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
+     "onsetHead": false,
      "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
@@ -1405,7 +1405,7 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
+     "onsetHead": false,
      "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
@@ -1429,8 +1429,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1453,8 +1453,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1477,8 +1477,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1501,8 +1501,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1525,8 +1525,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1549,8 +1549,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1573,8 +1573,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,
@@ -1597,8 +1597,8 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
-     "onsetAcc": "quarterSharp",
+     "onsetHead": false,
+     "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
      "gc": false,

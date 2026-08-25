@@ -13486,3 +13486,23 @@ Absent = every kind as before, so no existing page changes. morph-x01 collects
 half) — both spanning entry to the morph's end; **13 go lines** (29.7 … 804.9);
 **15 noteheads** (13 onsets + the header's two); **9 quarter-sharps** (8 descent
 onsets + the header's).
+
+**THE ONSET HEADS CAME OFF AGAIN — the whole idea was tried and dropped in one
+sitting, and that is worth keeping.** Built (13 go lines + 13 left-aligned heads,
+stepping F2 → F¼♯ at the destination), then trimmed to 12 (*"at the beginning of the
+morph, we don't need that extra notehead"* — the header's pair already sits at the
+entry), then **removed entirely**: *"let's get rid of all the note heads except for
+the header ones. we'll just keep the go line."*
+
+**Why it is the right call, in the material's own terms:** T1's whole glissando is
+**20.4 cents**. Every onset head therefore showed the *same written pitch* — F2 five
+times, then F¼♯ eight times — while the orange curve already says continuously where
+the gliss has got to. **The heads repeated the curve at lower resolution.** The go
+line alone carries what the head was actually for: *breathe and re-attack here.*
+
+`onsetHead` / `onsetAcc` stay built as device flags, unused — a section whose gliss
+crosses several quarter tones (CONVERGE reaches ±67 c) may well want them back.
+
+**Now on the page:** header (clef · F2 · gliss line · F¼♯ · `○ ——▶ fff`) · **13 go
+lines** · two full-span interpolated curves · two meters. **Verified: 2 noteheads, 1
+accidental, 13 go lines, both curves x 29.7→853.8 in their own halves.**
