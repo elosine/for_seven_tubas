@@ -8,6 +8,9 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
+**THE TITLE (composer, day 35): "Bloom - Convergence - Balance", for Tuba Ensemble.**
+The three morph sections are the title.
+
 **PARKED FOR THE PARTS — a beating-frequency indicator (composer, day 35).**
 *"For the parts, I might try to come up with something that also indicates beating
 frequency. Some indicator."* Not designed yet; the idea is the composer's and the

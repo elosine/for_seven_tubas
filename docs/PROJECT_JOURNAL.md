@@ -10,6 +10,18 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### THE TITLE (composer, day 35)
+
+# **Bloom — Convergence — Balance**
+## *for Tuba Ensemble*
+
+**The three morph sections ARE the title.** `ACT-BLOOM-01` · `ACT-CONVERGE-01` ·
+`ACT-BALANCE-01`, 141–496 s. Whatever else the piece contains, its name says the
+morphs are the argument — worth remembering when weighing how much of the 15-minute
+Penn State ceiling they get.
+
+---
+
 ### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus). THE MORPH NOTATION EXISTS.
 
 **Three things shipped today, all pushed.** (1) **DB3 NOTATED** — MAIN DRAFT reads
