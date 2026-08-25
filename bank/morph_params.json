@@ -16,7 +16,7 @@
   "C": "composer 2026-08-16: 'very interesting'. KEEPER, usable in the piece.",
   "D": "composer 2026-08-16: 'very interesting'. KEEPER, usable in the piece."
  },
- "rev": 6,
+ "rev": 7,
  "active": "C",
  "autoplay": false,
  "variants": {
@@ -776,6 +776,8 @@
    },
    "target": {
     "midi": [
+     39,
+     39,
      46,
      46,
      51,
@@ -816,7 +818,7 @@
      "order": "low-first"
     }
    },
-   "label": "TEN-PART CONVERGE — five whole-tone pairs (adds D2/E2 at the BOTTOM; whole texture re-renders)"
+   "label": "TEN-PART CONVERGE — five whole-tone pairs closing to unisons (targets extended to 10)"
   },
   "Q": {
    "model": "M6",

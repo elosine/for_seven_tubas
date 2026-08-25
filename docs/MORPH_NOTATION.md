@@ -120,26 +120,38 @@ The template draws ONE smooth curve. **It only fits BLOOM.**
 | morph | gliss range (all parts) | direction reversals | template? |
 |---|---|---|---|
 | **BLOOM** | **20 c** on every part | **0** | **YES — one clean arc** |
-| **CONVERGE** | 182–366 c | 12–38 | **NO — refused** |
+| **CONVERGE** | **~130 c** | **1-6** | **probably — needs a look** |
 | **BALANCE** | **0 c on every part** | 0 | **no glissando at all** |
 
-**CONVERGE is an OSCILLATION, not a glissando.** Up to 3½ semitones, reversing
-direction up to 38 times in 118 s. Asked for one smooth curve, the best available has
-a **237-cent** worst-case error. The tool **refuses** above 25 c — half a quarter
-tone, past which the drawn line puts the player in the *wrong quarter tone*. CONVERGE
-needs its own reading and the composer's eye on what that oscillation should look
-like.
+**CONVERGE closes whole-tone pairs to unisons.** Its `target` is
+`[39,39,46,46,51,51,58,58,63,63]` — each pair meets in the middle. Measured on the
+placed data: every pair **opens at 200 cents and closes to 5-11 cents** around
+t≈295 s, the beating slowing from ~9-36 Hz to **0.24-1.93 Hz**. That is the section.
 
-**BALANCE HAS NO PITCH BEND AT ALL — 0 cents on all ten parts.** Its top half would be
-empty and its header would show one pitch, not two. The tool says so rather than
-drawing an empty half. Ask what the top half carries there — it may simply be a
-crescendo-only section.
+> **A BUG THE AI SHIPPED AND THEN FOUND — read this before trusting any earlier
+> number for CONVERGE.** When the fifth pair was added on day 35, `source.midi` grew
+> from 8 entries to 10 but **`target.midi` was left at 8**. CONVERGE is the only
+> morph with a fixed-length target array (BLOOM's is `{cents, direction}`, BALANCE's
+> is `null`), so it was the only one that could break this way — and it did,
+> silently. Every voice was pulled toward the wrong destination and the bottom two
+> had none. **Shipped: 365 c range, 38 reversals. After extending the target to 10:
+> 129 c, 5 reversals — matching the original 8-voice render (130 c, 6).**
+>
+> Two earlier claims in this repo were made from the broken render and are WRONG:
+> *"CONVERGE is an oscillation, not a glissando"* and *"CONVERGE reaches ±180 c"*.
+> **The right numbers are ±65 c and 1-6 reversals.** The original running-log figure
+> of ±67 c was correct all along; the "correction on the record" that replaced it was
+> the error. **Lesson: when a measurement contradicts a design intent that is written
+> down — the recipe was labelled "whole-tone pairs closing to unison" — suspect the
+> measurement, or the thing being measured, before rewriting the intent.**
 
-> **A correction on the record:** an earlier running-log note said *"CONVERGE reaches
-> ±67 cents and will show quarter-tone motion."* **That was a per-tone peak, not the
-> section range.** The section range is ±180 c. This table is the number to trust.
-
----
+**BALANCE HAS NO PITCH BEND AT ALL — 0 cents on all ten parts**, and its `target` is
+`null`: nothing to morph toward. Ten static pitches (a B♭ major 9th over three
+octaves), each swelling, with `dyn.shape: "rotate"` moving the peak through the
+ensemble over ~68 s and arriving at the bass last. **There is also no beating** — its
+pairs are thirds, not detuned unisons. It is the consonant arrival. Its top half
+would be empty; ask the composer what it carries (leaving it empty is itself
+meaningful by then).
 
 ## THE ORDER TO BUILD IN
 
