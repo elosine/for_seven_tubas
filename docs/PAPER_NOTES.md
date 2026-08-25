@@ -2327,43 +2327,67 @@ reads as musical where the distribution did not.
 
 ### THE SETTLED STORY OF PART I (day 36 — expand from here)
 
-*The AI's telling, approved by the composer with their two additions folded in.
-Beat 5 is the heart of the section.*
+*The AI's chat telling, preserved WORD FOR WORD below — the composer re-pasted
+it to confirm the record against a clear. The composer's two additions and their
+verdict are quoted verbatim earlier in this entry; annotations sit AFTER the
+story, outside the verbatim block. Beat 5 is the heart of the section.*
 
-**1 · The want.** A detour becomes a piece: sound-mass music for tubas.
-Xenakis — Metastaseis, Pithoprakta — is the world I want to stand in.
+> Here's Part I told as a story — your beats, in order:
+>
+> **1 · The want.**
+> A detour becomes a piece: sound-mass music for tubas.
+> Xenakis — Metastaseis, Pithoprakta — is the world I want to stand in.
+>
+> **2 · The dead end.**
+> I did what that frame says to do: generate.
+> Poisson clouds and their cousins, tweaked and re-tweaked.
+> Every version was correct. None of it sounded musical.
+> (Ferneyhough aside goes here — his LISP generation didn't sound like music
+> either; he demoted the computer to a notation-database lookup. Same wall,
+> decades earlier.)
+>
+> **3 · The turn.**
+> Stop generating the notes. Perform them.
+> I played the material in by hand as MIDI — a practice I'd already tested in
+> the two-piano/two-percussion piece and the sampled ostinato playing.
+> The hands know something the distribution doesn't.
+>
+> **4 · The process.**
+> What it takes to turn a hand-played take into music for ten tubas:
+> capture → analyze → spread over the players → make it playable → make
+> siblings → choose by ear.
+> DB3 told in full as the specimen — it's already written up with its numbers.
+>
+> **5 · The headline.**
+> Xenakis-style meta-shapes, filled with live human performance.
+> The architecture is drawn; the interior is played.
+> (You named this split on day 1 without knowing it — the Gehry/CATIA
+> dictations: freehand shape, engineered realization.)
+>
+> **6 · Why it works.**
+> What the hand supplies that Poisson can't:
+> attacks that clump like gestures — "the apex was not a flurry, it was
+> chords";
+> phrasing seams the ear can actually find;
+> dynamics that are a performance, not numbers.
+> Statistically similar. Musically different.
+>
+> Close of the section: the Kobayashi echo. The fix was never a better
+> algorithm — more effort inside the received frame. It was splitting the
+> problem: keep the algorithmic shape, replace the grain source. Part I is the
+> thesis's first demonstration.
 
-**2 · The dead end.** I did what that frame says to do: generate. Poisson clouds
-and their cousins, tweaked and re-tweaked. Every version was correct. None of it
-sounded musical. *(Ferneyhough aside here — see the research block below for what
-is actually citable.)*
+**Annotations (outside the verbatim story):**
 
-**3 · The turn.** Stop generating the notes. Perform them. I played the material
-in by hand as MIDI — a practice already proven in the two-piano/two-percussion
-piece and the sampled ostinato playing. **The composer's ground for the turn, in
-their words: they had discovered in their improvisation work — multi-part
-overdubbing — that their realtime improvisation satisfyingly creates the feel,
-flow and motion of a musical shape/image, even one with fine detail and
-complexity.** The hands know something the distribution doesn't.
-
-**4 · The process.** What it takes to turn a hand-played take into music for ten
-tubas: capture → analyze → spread over the players → make it playable → make
-siblings → choose by ear. DB3 told in full as the specimen.
-
-**5 · THE HEADLINE — the heart of the section.** Xenakis-style meta-shapes,
-filled with live human performance. The architecture is drawn; the interior is
-played. **The Gehry/CATIA framing is the correct one** (composer's confirmation —
-the day-1 dictations: freehand shape, engineered realization).
-
-**6 · Why it works.** What the hand supplies that Poisson can't: attacks that
-clump like gestures ("the apex was not a flurry, it was chords"); phrasing seams
-the ear can actually find; dynamics that are a performance, not numbers.
-Statistically similar. Musically different.
-
-**Close of the section:** the Kobayashi echo. The fix was never a better
-algorithm — more effort inside the received frame. It was splitting the problem:
-keep the algorithmic SHAPE, replace the GRAIN SOURCE. Part I is the thesis's
-first demonstration.
+- **Beat 3 carries the composer's addition** (their words quoted in full above):
+  the improvisation / multi-part-overdubbing discovery — realtime improvisation
+  satisfyingly creates the feel, flow and motion of a musical shape/image, even
+  one with fine detail and complexity.
+- **Beat 5 is the heart of the section** (composer's verdict, quoted above);
+  the Gehry/CATIA framing is confirmed as the correct frame.
+- **Beat 2's Ferneyhough aside states the anecdote AS REMEMBERED.** The day-36
+  research block below records what is actually citable; check the wording
+  against Feller 2004 / the Andreyev interview before print.
 
 **OPEN (composer to place):** where the dens/DH listening ladders live in this
 story — (a) their own beat between 2 and 3, "the dead end paid rent anyway"
