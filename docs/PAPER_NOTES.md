@@ -2218,3 +2218,64 @@ applies to BLOOM and CONVERGE. It does not apply to BALANCE**, which has no
 glissando, no detuning and therefore no beating — its pairs sit a third to a fourth
 apart and never move. **The performance note must say which sections it governs**, or
 a player will go looking in BALANCE for a beat that is not there.
+
+---
+
+## PERFORMANCE NOTES, SECOND PASS (composer, day 35 — verbatim)
+
+> "You are trying to perform a glissando of beating speed together with your partner.
+> And pitch variation is simply the catalyst. You'll use very small and smooth
+> variations of pitch to achieve a glissando or a rising or a speeding up and slowing
+> down of beating speed. At its fastest, the beating will turn into a timbre, a
+> roughness. You can use the demo recording to get a sense of how the arc sounds."
+
+### THE INVERSION — this is the important sentence
+
+**"Pitch variation is simply the catalyst."**
+
+Everything in the notation had been built as though pitch were the object: a
+glissando curve, two written pitches, a quarter-tone approximation. The composer
+here states the opposite. **The performed object is the beating glissando; the pitch
+change is only the means of producing it.** The player is not trying to arrive at
+F¼♯ — they are trying to make the beat rate slide, and moving the pitch is how.
+
+That reverses the usual dependency of Western notation, where pitch is the primary
+datum and everything audible follows from it. Here **an interference pattern between
+two players is the notated object**, and each player's own pitch is instrumental to
+it — literally a catalyst, present in the mechanism and absent from the result.
+
+**It also explains why the 20-cent glissando was never really the problem.** The AI
+spent three sittings worrying that 20 cents was too small to notate or to hear. It is
+too small to hear *as pitch*. It is not remotely too small to hear as **2 Hz of
+beating turning into silence** — which is what it produces, and what the player is
+actually asked to control.
+
+### AND IT SETTLES THE 36 Hz PROBLEM — by absorbing it
+
+The AI had flagged that CONVERGE's top pair reaches **36 Hz** at its widest and that
+"marking 36 Hz would be true and useless", because above ~20 Hz beating stops being
+countable. The composer does not treat that as a limit to design around:
+
+> *"At its fastest, the beating will turn into a timbre, a roughness."*
+
+**The uncountable end is not a failure of the indication; it is a described
+musical state.** The section therefore travels through THREE perceptual regimes, and
+the notation should probably name them rather than give a number throughout:
+
+| beating | what it is to the ear | where |
+|---|---|---|
+| **0 – ~1 Hz** | separate pulses, countable | CONVERGE at its closings; BLOOM at its unisons |
+| **~1 – 20 Hz** | flutter, a rate | most of both sections |
+| **above ~20 Hz** | **timbre — roughness** | CONVERGE's wide end (up to 36 Hz) |
+
+**The indication at the fast end should say ROUGHNESS, not a figure.** That is the
+composer's own word, and it is the honest description of what the player will hear.
+
+### THE DEMO RECORDING BECOMES PART OF THE APPARATUS
+
+> *"You can use the demo recording to get a sense of how the arc sounds."*
+
+The score is not being asked to carry the whole instruction. **A recording is cited
+in the performance notes as a legitimate reference for a gesture that is hard to
+describe** — consistent with the Kobayashi position already recorded: supply the
+performer with the tools to execute, by whatever means works.

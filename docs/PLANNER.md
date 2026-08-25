@@ -11,6 +11,26 @@
 **THE TITLE (composer, day 35): "Bloom - Convergence - Balance", for Tuba Ensemble.**
 The three morph sections are the title.
 
+**COMPOSER'S NOTE TO SELF (day 35): MAKE INDIVIDUAL PAIR RECORDINGS for each of the
+beating sections.** *"Just a note to myself to make individual pair recordings for
+each of the beating sections."* The performance notes now cite a demo recording as a
+reference for the gesture, so the recordings are part of the apparatus, not an extra.
+
+**The beating sections are BLOOM and CONVERGENCE only — BALANCE has no beating**
+(its pairs sit a third to a fourth apart and never move). So the list is **ten
+recordings**, five pairs x two sections:
+
+| | BLOOM (unison opening out) | CONVERGENCE (whole tone closing) |
+|---|---|---|
+| T1/T2 | 0 -> 2.0 Hz | 9.0 -> 0.24 Hz |
+| T3/T4 | 0 -> 2.6 Hz | 13.5 -> 0.72 Hz |
+| T5/T6 | 0 -> 3.3 Hz | 18.0 -> 0.77 Hz |
+| T7/T8 | 0 -> 4.3 Hz | 26.9 -> 0.93 Hz |
+| T9/T10 | 0 -> 5.4 Hz | 36.0 -> 1.93 Hz |
+
+**T9/T10 in CONVERGENCE is the one to record first** — at 36 Hz it is the pair that
+demonstrates the roughness regime, which no number on the page can convey.
+
 **PARKED FOR THE PARTS — a beating-frequency indicator (composer, day 35).**
 *"For the parts, I might try to come up with something that also indicates beating
 frequency. Some indicator."* Not designed yet; the idea is the composer's and the
