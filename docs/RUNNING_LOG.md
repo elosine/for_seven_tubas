@@ -13383,3 +13383,63 @@ transforms): clef 4.8 · head1 centre **28.0** · gliss line **35.8→55.4, 19.6
 2.22 ss** · quarter-sharp centre **61.0** · head2 centre **68.6** · fff on the row
 below. Heads at **ySs −2.5** — the space below the bottom line, which is where F2
 belongs in bass clef.
+
+**THE CRESCENDO IS ON THE PAGE — the glissando's twin, bottom half, limeGreen.**
+Composer: *"one curve like the glissando curve, but also interpolated… its own curve
+follower… the lime green."*
+
+**THE POWER-CURVE MODEL FAILED HERE, and that is the finding.** The glissando fitted
+`c(t) = 20.384·(t/37.02)^1.64` to **0.59 c**. The same treatment on the level gives
+**max deviation 0.428 — useless.** Why: **over the same 37 s the crescendo is an ARCH,
+not a rise.** It climbs to **0.92 near t+28 s and falls back to 0.54** by the gliss
+apex. A monotone power curve cannot say that, and a beta arch
+(`2.446·x^1.5·(1−x)^0.4`, rms 0.059) is better but **forces the tail to zero** — wrong,
+because 178.41 is the *glissando's* apex, not the crescendo's end.
+
+**So the crescendo is INTERPOLATED, which is the composer's own word.** Nine anchors
+taken off the sounding level, Catmull-Rom between them:
+
+```
+0 · 0.0615 · 0.2671 · 0.482 · 0.7028 · 0.8657 · 0.92 · 0.8124 · 0.5401
+```
+
+**rms 0.037**, and it tracks the real shape everywhere (0.92/0.92 at the peak,
+0.89/0.89 and 0.81/0.81 coming down). Anchor counts 5/7/9/11/13 were all measured; **9
+is the minimum that captures the arch** (rms 0.047 → 0.037 → 0.038 — it stops improving).
+
+**The 0.24 point deviations ARE the per-breath resets being smoothed away** — a tone
+ending at 0.87 while the next starts at 0.64 — which is the entire purpose of
+interpolating. Stated so it is not later misread as fitting error.
+
+**TWO CURVES, TWO METERS, mirrored.** `cresccurve` mirrors `glisscurve` exactly
+(overlay → item → renderer, filled at 0.22, **no border**, styled from the registry AND
+the render code defaults). `crescMeter` mirrors `glissMeter`: `curveMeter`'s mechanism
+and every one of its numbers (8/3/0.3/1.5/0.8), confined to the **bottom** half,
+limeGreen.
+
+**VERIFIED IN THE APP** (lane 24–130, midpoint 77): orange fill **24→77**, lime fill
+**81.2→130**, **zero stroked curves**. The lime stops at 81.2 rather than 77 because
+the crescendo peaks at **0.92, not 1.0** — the curve is honest about not reaching the
+top. Meter geometry driven directly: outline **77→130** (the bottom half), fill grows
+UP from the lane floor, reaching y 81.4 at the arch peak and **falling back to 101.4**
+by the end — the descent is drawn, not just the rise.
+
+**MEASURED FOR THE COMPOSER'S QUESTION, "do all three morphs go to full volume?" —
+NO, and there is variety BETWEEN morphs but almost none WITHIN one:**
+
+| morph | peak | per part |
+|---|---|---|
+| CONVERGE | **0.900** | T1–T10 all 0.90 |
+| BLOOM | **0.920** | T1–T10 all 0.92 |
+| BALANCE | **0.950** | all 0.95 except **T6 at 0.93** |
+
+All three start from true **niente (0.000)**. The ceiling is a **recipe parameter, not
+a per-voice one** — `dyn.base + dyn.amount` = 0.5+0.42, 0.5+0.40, 0.55+0.40 exactly.
+The `spread` dial staggers *when* each voice peaks, not *how high*. **T6 in BALANCE is
+the only voice in the whole section that differs from its neighbours.**
+
+**A CONSEQUENCE FOR THE NOTATION, flagged:** under the expanded ladder the top band is
+0.90–1.00, so **0.90 / 0.92 / 0.95 all read `ffff`** — every section would be written
+`niente ——▶ ffff`, identical. If the three morphs are meant to *look* different in the
+score, either the ladder needs finer resolution at the top or the ceilings need to be
+further apart in the data.

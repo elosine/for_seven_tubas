@@ -134,6 +134,28 @@
     ];
   });
 
+  // crescMeter (day 35): the glissMeter's twin — the same curveMeter
+  // mechanism and numbers, confined to the BOTTOM HALF of the lane, which is
+  // the crescendo's half, and coloured limeGreen.
+  register('crescMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const yMid = (s.yTopPx + s.yBotPx) / 2, yB = s.yBotPx, H = yB - yMid;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + yMid.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+    ];
+  });
+
   // envFollower: inst {t0, t1, nodes[{pos,lvl 0..1}], color}; dot riding
   // the META level envelope over the FULL parts area (like the overlay).
   register('envFollower', (inst, view, t, st) => {
@@ -242,6 +264,9 @@
       const tg = ov.target || {};
       if (ov.kind === 'gliss' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
         out.push({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' });
+      }
+      if (ov.kind === 'cresc' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
+        out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-cresc' });
       }
     }
     // notes whose device already visualizes progress (a drawn level curve →

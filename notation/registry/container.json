@@ -351,6 +351,13 @@
     "headSs": 0.45,
     "thickSs": 0.13,
     "_note": "day 35, composer: the section figure is niente circle - arrow - fff, sitting UNDER the staff at the house `dynY` row 'just like all the other dynamics', ending one standard spacer before the go line. NO LilyPond niente glyph exists (checked ours and piece #1's) - in LilyPond the circled tip is DRAWN - so the circle is drawn: diameter = the measured height of the `m` in mf (0.4695 ss; mp and mf agree to the digit), stroked at the arrow's thickness, centred on the arrow's axis. The mark and arrow are ORDINARY items (glyph + dynarrow), so they are drawn by the identical code path as every other dynamic."
+   },
+   "crescCurve": {
+    "color": "#99FF00",
+    "strokeWPx": 0,
+    "strokeOpacity": 0,
+    "fillOpacity": 0.22,
+    "_note": "day 35, composer: the crescendo is the glissando's twin - ONE interpolated curve for the whole section, limeGreen (#99FF00 = piece #1's crescendo colour), taking the BOTTOM HALF of the lane. Filled, no border, same as its twin."
    }
   }
  },
@@ -437,6 +444,15 @@
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
    "_note": "day 35, composer: 'give it its own curve follower, just the top half bright orange and then everything else the same as the existing one'. curveMeter's mechanism and every number, confined to the TOP HALF of the lane (the glissando's half) and coloured brightOrange #F04B00."
+  },
+  "crescMeter": {
+   "wPx": 8,
+   "gapPx": 3,
+   "color": "#99FF00",
+   "fillOpacity": 0.3,
+   "outlineWPx": 1.5,
+   "outlineOpacity": 0.8,
+   "_note": "day 35: the glissMeter's twin. curveMeter's mechanism and every number, confined to the BOTTOM HALF of the lane (the crescendo's half), limeGreen #99FF00."
   }
  }
 }

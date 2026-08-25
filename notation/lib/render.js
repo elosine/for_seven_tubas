@@ -35,6 +35,9 @@
       // to the half-lane baseline. Code default = the census value, so the live
       // view (which does not pass opts.engraving) and the export agree.
       glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },
+      // the crescendo: the glissando's twin in the bottom half, limeGreen
+      // (#99FF00 — piece #1's crescendo colour, and p2's staff-1 green)
+      crescCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#99FF00' },
       // the morph SECTION HEADER (day 35). circleDiaSs = the measured height of
       // the `m` in mf (0.4695 ss — mp and mf agree); spacer = the 0.45 house
       // standard; medium = gapMediumSs. dynBelowSs mirrors dynY's 2.6 ss
@@ -255,6 +258,31 @@
           parts.push('<circle cx="' + X(it.t, it.dxSs).toFixed(2) + '" cy="' + Y(it.ySs).toFixed(2) +
             '" r="' + r.toFixed(2) + '" fill="none" stroke="' + o.ink +
             '" stroke-width="' + (it.thickSs * ssPx).toFixed(2) + '"/>');
+        } else if (it.k === 'cresccurve') {
+          // THE CRESCENDO (day 35, composer): the glissando's twin — one
+          // interpolated curve for the whole section, limeGreen, taking the
+          // BOTTOM HALF of the lane. Filled, no border, like its twin.
+          if (it.t1 < w0 || it.t0 > w1) continue;
+          const CC = E.crescCurve;
+          const yB = sys.yBotPx, yMid2 = (sys.yTopPx + sys.yBotPx) / 2;
+          const n2 = it.samples.length, cp = [];
+          for (let i = 0; i < n2; i++) {
+            const t = it.t0 + (it.t1 - it.t0) * (i / (n2 - 1));
+            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
+            cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yMid2)]);
+          }
+          if (cp.length >= 2) {
+            const cline = cp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+            if (CC.fillOpacity > 0) {
+              parts.push('<path d="' + cline + ' L' + cp[cp.length - 1][0].toFixed(1) + ',' + yB.toFixed(1) +
+                ' L' + cp[0][0].toFixed(1) + ',' + yB.toFixed(1) + ' Z" fill="' + CC.color +
+                '" fill-opacity="' + CC.fillOpacity + '" stroke="none"/>');
+            }
+            if (CC.strokeWPx > 0 && CC.strokeOpacity > 0) {
+              parts.push('<path d="' + cline + '" fill="none" stroke="' + CC.color +
+                '" stroke-width="' + CC.strokeWPx + '" stroke-opacity="' + CC.strokeOpacity + '"/>');
+            }
+          }
         } else if (it.k === 'glisscurve') {
           // THE MORPH GLISSANDO (day 35, composer): one smooth interpolated
           // line for the whole section, brightOrange, taking PRECISELY the TOP
