@@ -361,6 +361,25 @@
               items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: !!dev.cut });
             }
             if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
+            // THE ONSET HEAD (day 35, the morph section): a small black
+            // notehead LEFT-ALIGNED to the go line — the same rule the
+            // clusters use, "every partial's notehead left edge sits on its
+            // own go time". Its pitch is the QUARTER-TONE APPROXIMATION of the
+            // written glissando at that onset, which only steps when the
+            // gliss actually reaches the next quarter tone (composer: "the
+            // pitch won't change... until they actually reached the
+            // destination pitch"). `onsetAcc` names the accidental, if any.
+            if (dev.onsetHead) {
+              const ohs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
+              const ohw = glyphs.notehead.filled.wSs * ohs;
+              const oy = staffPosBass(spelledOf(e));
+              if (dev.onsetAcc) {
+                const ag = glyphs.accidental[dev.onsetAcc];
+                if (ag) items.push({ k: 'glyph', g: 'accidental-' + dev.onsetAcc, t: e.onset,
+                  dxSs: -(o.accGap || 0.25) - ag.wSs / 2, ySs: oy, align: 'center' });
+              }
+              items.push({ k: 'glyph', g: 'notehead', t: e.onset, dxSs: ohw / 2, ySs: oy, align: 'center', scale: ohs });
+            }
             // THE GC OBJECT (wc-29, day 23 — composer: "when I say GC, that is
             // the whole thing"): the static arc + impact marker are page ink
             // (render.js draws them from notation/lib/gc.js; the ball is

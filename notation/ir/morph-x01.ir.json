@@ -6,16 +6,16 @@
   "score": "piece-s27",
   "window": [
    137.5,
-   181
+   250
   ],
   "parts": [
    0
   ]
  },
  "provenance": {
-  "createdBy": "scratchpad/make_morph_x01.js (day 35, eighteenth sitting)",
+  "createdBy": "scratchpad/make_morph_x01.js (day 35)",
   "date": "2026-08-24",
-  "notes": "EXPERIMENT FILE — safe to overwrite. The composer asked to build the morph notation piece by piece in the real notation app: step 1 is the bass clef in the margin and ONE go line at T1 BLOOM entry, no staff, nothing else. MAIN DRAFT (db1) is not touched by this file.",
+  "notes": "EXPERIMENT FILE - safe to overwrite. The morph notation, built piece by piece in the real app at the composer direction. MAIN DRAFT (db1) is not touched by it. Staff and clef are the normal ones; the header contributes only the two figures.",
   "build": "node scratchpad/make_morph_x01.js <repo>"
  },
  "events": [
@@ -37,11 +37,239 @@
    },
    "technique": "ord",
    "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6202",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6202"
+   },
+   "onset": 149.432,
+   "duration": 7.5660000000000025,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6211",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6211"
+   },
+   "onset": 157.663,
+   "duration": 7.139999999999986,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6221",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6221"
+   },
+   "onset": 165.614,
+   "duration": 9,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6232",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6232"
+   },
+   "onset": 175.313,
+   "duration": 6.188000000000017,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6240",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6240"
+   },
+   "onset": 182.29,
+   "duration": 8.02000000000001,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6253",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6253"
+   },
+   "onset": 191.055,
+   "duration": 7.111999999999995,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6262",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6262"
+   },
+   "onset": 198.976,
+   "duration": 9.985000000000014,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6273",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6273"
+   },
+   "onset": 209.646,
+   "duration": 6.657000000000011,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6283",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6283"
+   },
+   "onset": 216.952,
+   "duration": 6.081999999999994,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6290",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6290"
+   },
+   "onset": 223.759,
+   "duration": 8.838000000000022,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6301",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6301"
+   },
+   "onset": 233.426,
+   "duration": 8.75,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
+  },
+  {
+   "id": "ev-wc-6312",
+   "source": {
+    "score": "piece-s27",
+    "objectId": "wc-6312"
+   },
+   "onset": 242.968,
+   "duration": 6.404000000000025,
+   "pitch": {
+    "midi": 41,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived"
   }
  ],
  "chunks": [
   {
-   "id": "ch-morph-x01",
+   "id": "ch-morph-x01-1",
    "part": 0,
    "span": [
     141.386,
@@ -51,6 +279,174 @@
    "strategy": "unresolved",
    "events": [
     "ev-wc-6188"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-2",
+   "part": 0,
+   "span": [
+    149.432,
+    156.998
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6202"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-3",
+   "part": 0,
+   "span": [
+    157.663,
+    164.803
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6211"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-4",
+   "part": 0,
+   "span": [
+    165.614,
+    174.614
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6221"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-5",
+   "part": 0,
+   "span": [
+    175.313,
+    181.501
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6232"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-6",
+   "part": 0,
+   "span": [
+    182.29,
+    190.31
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6240"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-7",
+   "part": 0,
+   "span": [
+    191.055,
+    198.167
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6253"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-8",
+   "part": 0,
+   "span": [
+    198.976,
+    208.961
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6262"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-9",
+   "part": 0,
+   "span": [
+    209.646,
+    216.303
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6273"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-10",
+   "part": 0,
+   "span": [
+    216.952,
+    223.034
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6283"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-11",
+   "part": 0,
+   "span": [
+    223.759,
+    232.597
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6290"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-12",
+   "part": 0,
+   "span": [
+    233.426,
+    242.176
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6301"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-morph-x01-13",
+   "part": 0,
+   "span": [
+    242.968,
+    249.372
+   ],
+   "class": "morph-tone",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-6312"
    ],
    "provenance": "derived"
   }
@@ -425,7 +821,7 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-dev-morph-x01",
+   "id": "ov-dev-morph-x01-1",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-6188"
@@ -433,6 +829,296 @@
    "value": {
     "device": {
      "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": null,
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-2",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6202"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": null,
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-3",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6211"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": null,
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-4",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6221"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": null,
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-5",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6232"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": null,
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-6",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6240"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-7",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6253"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-8",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6262"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-9",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6273"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-10",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6283"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-11",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6290"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-12",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6301"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
+     "brick": false,
+     "nhUnit": false,
+     "gc": false,
+     "ringBar": false,
+     "curve": false,
+     "cut": false,
+     "dynPair": false,
+     "dynMark": false,
+     "techText": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-dev-morph-x01-13",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-6312"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "onsetHead": true,
+     "onsetAcc": "quarterSharp",
      "brick": false,
      "nhUnit": false,
      "gc": false,
