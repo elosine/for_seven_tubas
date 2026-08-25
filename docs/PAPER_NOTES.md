@@ -2156,3 +2156,65 @@ usable claims, in their order: (1) these are standard articulations at unusual s
 (2) the curve shows total displacement, its bottom and top being the lowest and
 highest pitches of the section; (3) execution is a rehearsal problem, as with any
 glissando or crescendo; (4) beating is a familiar tuning mechanism, here sustained.
+
+---
+
+## FOR THE PERFORMANCE NOTES — the composer's text (day 35, verbatim)
+
+> "The section is asking for glissandos that travel a very short pitch distance over a
+> long span of time. However, in principle, these are still the same as any other
+> glissando you might play. You can train yourself to hear the beating with your
+> partner. For example, people use beating to tune guitars and other instruments all
+> the time. In rehearsal, you can work as a pair and listen for really a glissando in
+> beating speed. And we will indicate approximately how fast the beating will be at the
+> top and bottom of every glissando."
+
+*(Dictated; "missondos"/"beading" transcribed as glissandos/beating.)*
+
+**The phrase to keep is "a glissando in beating speed."** It renames the task: the
+player is not asked to hear a 20-cent pitch change — which is near the limit of what
+anyone can judge alone — but to hear a beat rate slide from one speed to another,
+which is an ordinary and robust perception. **The unmeasurable is restated as the
+measurable.** That is the whole solution to the section's performance problem, in six
+words.
+
+**It also commits the score to a new indication** — the beating rate at both ends of
+every glissando. The numbers exist; see the table below.
+
+### THE DATA THE INDICATION NEEDS (measured day 35)
+
+**BLOOM — pairs start in unison and open:**
+
+| pair | widest | beating there | narrowest | beating |
+|---|---|---|---|---|
+| T1/T2 | 40 c | **2.0 Hz** | 0 c | 0 (unison) |
+| T3/T4 | 39 c | 2.6 Hz | 0 c | 0 |
+| T5/T6 | 37 c | 3.3 Hz | 0 c | 0 |
+| T7/T8 | 36 c | 4.3 Hz | 0 c | 0 |
+| T9/T10 | 34 c | **5.4 Hz** | 0 c | 0 |
+
+**CONVERGE — pairs start a whole tone apart and close, twice:**
+
+| pair | widest | beating there | narrowest | beating |
+|---|---|---|---|---|
+| T1/T2 | 200 c | **9.0 Hz** | 5 c | **0.24 Hz** |
+| T3/T4 | 200 c | 13.5 Hz | 11 c | 0.72 Hz |
+| T5/T6 | 200 c | 18.0 Hz | 9 c | 0.77 Hz |
+| T7/T8 | 200 c | 26.9 Hz | 7 c | 0.93 Hz |
+| T9/T10 | 200 c | **36.0 Hz** | 11 c | 1.93 Hz |
+
+**A caution for whoever writes the indication.** At the wide end of CONVERGE the
+figures are 9–36 Hz, and **above roughly 20 Hz beating stops being countable and
+becomes timbre** — T9/T10's 36 Hz is not a rate anybody can hear as pulses. The
+useful indication is at the NARROW end (0.24–1.93 Hz, all easily countable) and
+through the approach. **Marking "36 Hz" would be true and useless.** BLOOM has the
+opposite property: every one of its rates (0–5.4 Hz) is countable, which is what makes
+its tiny glissando trainable at all.
+
+### AND A LIMIT ON THE TEXT'S SCOPE
+
+The note says *"work as a pair… listen for a glissando in beating speed."* **That
+applies to BLOOM and CONVERGE. It does not apply to BALANCE**, which has no
+glissando, no detuning and therefore no beating — its pairs sit a third to a fourth
+apart and never move. **The performance note must say which sections it governs**, or
+a player will go looking in BALANCE for a beat that is not there.

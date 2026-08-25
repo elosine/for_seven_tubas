@@ -173,6 +173,42 @@ moving the peak through the ensemble over ~68 s, arriving at the bass last. **No
 beating either**: its pairs are thirds, not detuned unisons. It is the consonant
 arrival. Its top half is empty, and by then that absence reads as information.
 
+## THE PAIRS ARE CONSECUTIVE — confirmed by measurement
+
+**T1/T2 · T3/T4 · T5/T6 · T7/T8 · T9/T10**, in all three sections. Verified not by
+reading the chord but by correlating each pair's displacement over the whole span:
+
+| section | pairs | interval travel | mirror correlation |
+|---|---|---|---|
+| **BLOOM** | unisons | 0 c → ~40 c | **r = −0.75 to −0.99** |
+| **CONVERGE** | whole tones | 200 c → 5-11 c | **r = −0.98 on all five** |
+| **BALANCE** | thirds/fourths | fixed, no travel | r = 0 — nothing moves |
+
+**In BLOOM and CONVERGE the pairs are real**: strongly negative correlation means the
+two players mirror each other, one rising as the other falls. That is what makes them
+a pair and what produces the beating.
+
+**In BALANCE they are pairs only by adjacency.** The consecutive intervals there are
+400 · 400 · 500 · 200 · 300 cents — not a consistent relationship — and nothing moves,
+so there is no partner to beat against. **Anything the score says about "your partner"
+must exclude BALANCE.**
+
+---
+
+## THE BEATING INDICATION (composer, day 35 — committed, not yet built)
+
+The score will state **approximately how fast the beating is at the top and bottom of
+every glissando**. The measured figures are in PAPER_NOTES ("FOR THE PERFORMANCE
+NOTES"). Two things for whoever builds it:
+
+- **BLOOM's rates are all countable** (0 → 2.0-5.4 Hz), which is exactly what makes a
+  20-cent glissando trainable — the player tracks a beat rate, not a pitch.
+- **CONVERGE's wide end is not.** 9 Hz at the bottom pair up to **36 Hz** at the top;
+  above ~20 Hz beating is timbre, not pulse. The indication earns its place at the
+  NARROW end (0.24-1.93 Hz) and through the approach.
+
+---
+
 ## THE ORDER TO BUILD IN
 
 1. **BLOOM T2** — the mirror; its gliss descends, so it proves the direction handling
