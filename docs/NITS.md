@@ -512,3 +512,23 @@ rendering-environment difference worth understanding).
   though every one sits at t≥113. **For a widening, prove by TIME** (every added
   row's `t` ≥ the boundary) and treat the ten `staff t1` changes as window
   furniture. Worth a helper so the next section does not re-derive it.
+
+- **THE GLISSANDO HAS NO NOTATION DEVICE** *(day 35, seventeenth sitting — blocking
+  for the morph section, not for anything notated so far)* — there is **no `gliss`
+  anywhere in `notation/registry/container.json`**. The morph bed's pitch bend
+  (`morphBend`, in cents) is a **MIDI-only object**: it sounds, and the page cannot
+  say it. The three morphs are on MAIN DRAFT as **bricks**, which is honest but says
+  nothing about the one thing being performed. **A notated morph section needs a
+  gliss device built first** — its own sitting, and the composer should be asked what
+  the glissando should look like before anything is drawn (the bend is continuous, in
+  cents, and can be tiny — 20 c in BLOOM — or nearly a semitone, 67 c in CONVERGE).
+
+- **CONVERGE cannot gain a fifth pair without re-rendering the whole morph**
+  *(day 35, seventeenth sitting)* — `target.direction: "alternate"` pairs voices by
+  **adjacent index in the sorted chord**, so inserting below index 0 renumbers every
+  voice and `staggerOrder` / `voiceProgress` / `dynLevel` all shift with it.
+  Measured: bottom insert keeps **8 of 108** original tones; a (deliberately
+  out-of-range) top insert keeps **86 of 108**. CONVERGE's only in-range room is at
+  the bottom, so the re-render is the price. **Not a bug — but if lane-stable
+  insertion is ever wanted, the engine would need a `lanes`-aware voice identity
+  that does not key off sorted index.**

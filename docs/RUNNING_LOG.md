@@ -13035,3 +13035,122 @@ ten the `staff t1: 111 -> 136.5` window bound.
    T4/T5 34.3–135.0) because detection joins across the whole page. **Cosmetic —
    NITS**; it was readable when the page was 46 s long.
 
+
+---
+
+## Day 35 — seventeenth sitting (Opus): THE MORPHS GO TO TEN PARTS
+
+**The composer's ask:** *"generate one more pair so I can use all ten parts… I presume
+that if we did add a fifth pair, it would be just stack one more fourth, one more
+fifth, and then one more third."* Answered, decided, built and placed.
+
+**THE PITCH LOGIC, read out of the score first** (the composer asked what it was):
+- **BLOOM** F2 A#2 D#3 G#3 — **stacked perfect fourths**, four unison pairs
+- **CONVERGE** A2 B2 D3 E3 · A3 B3 D4 E4 — **{A B D E} repeated an octave up**; that
+  set is a **chain of fifths D–A–E–B**; pairs are major 2nds
+- **BALANCE** Bb1 D2 F2 A2 C3 F3 Bb3 D4 — **stacked thirds = a Bb major 9th**, upper
+  three restating the triad; pairs are major 3rds
+- **The through-line: the pair interval opens by a whole tone each morph — unison →
+  major 2nd → major 3rd — while the stacking contracts, fourths → fifths → thirds.**
+  Consonance arrives last, which matches the composer's day-15 note about wanting the
+  last morph to *"release on the consonant."*
+
+**`morphBend` IS IN CENTS, not semitones** — `bend14(cents)` in `sonify_core.js`,
+±199 c range. So BLOOM's ±20 c is fine beating and CONVERGE's ±67 c is two-thirds of
+a semitone. Worth stating because ±67 read as semitones would have looked like melody.
+
+**THE ENGINE IS PURE AND RUNS IN NODE** (`score/public/morph.js` says so at the top),
+so this was done headless — no panel clicking. `provenance.resolvedParams` on each
+`bank/actuals/ACT-*.json` carries the exact params of the placed render.
+
+**GOLDEN FIRST — the engine reproduces what is already in the score.** Before
+changing anything: re-render each actual from its own resolvedParams and compare to
+the live objects. **BLOOM 106/106 and CONVERGE 108/108 identical (onsets, pitches,
+bend arrays).** BALANCE **109 of 110** — one divergence, and it is a real discovery:
+**T2's final tone ends at 495.270 live but 496.599 rendered, 1.329 s short.** That is
+a **hand-trim by the composer on the last note of the whole morph section** (the
+day-15 "release on the consonant" note). **Preserved explicitly in the rebuild.**
+
+**THE RANGE DECIDED THE PITCHES.** `ord` is **MIDI 30–65** (`TECHNIQUES` in morph.js).
+The composer's instinct — one more fourth / fifth / third on top — works for BLOOM
+and fails for the other two:
+
+| morph | added | why there |
+|---|---|---|
+| **BLOOM** | **61, 61** (C#4) on top | the next stacked fourth; comfortably in range |
+| **CONVERGE** | **38, 40** (D2/E2) at the BOTTOM | upward would be A4/B4 = **4–6 semitones over the ceiling** |
+| **BALANCE** | **60, 65** (C4/F4) | upward thirds would need 69; every other position **collides at a semitone** with an existing voice (bottom A1 vs Bb1; middle Bb2 vs A2) |
+
+**THE PAIRING IS BY ADJACENT INDEX IN THE SORTED CHORD** — `target.direction:
+"alternate"` bends even indices up and odd down. **So WHERE the pair is inserted
+decides whether the existing texture survives**, and this was measured, not assumed:
+
+| morph | existing tones surviving identical | verdict |
+|---|---|---|
+| **BLOOM** | **106 of 106** | **PRESERVED** — a clean addition, 27 new tones on T9/T10 only |
+| **CONVERGE** | **8 of 108** | **RE-RENDERED** — the whole texture is new |
+| **BALANCE** | **72 of 110** | **RE-RENDERED in part**; the **top two pairs re-form**: what was one pair (Bb3,D4) is now **(Bb3,C4) + (D4,F4)** |
+
+**The cause was isolated by experiment, not inferred.** Re-rendering CONVERGE with a
+hypothetical TOP pair (66,68 — deliberately out of range, for diagnosis only) kept
+**86 of 108**; the in-range BOTTOM pair keeps **8**. **It is the lane shift, not the
+voice count** — inserting below index 0 renumbers every voice, and `staggerOrder`,
+`voiceProgress` and `dynLevel` all key off the index. **CONVERGE cannot have a fifth
+pair without a full re-render: its only in-range room is at the bottom.**
+
+**PLACED IN `piece-s27`.** Old lane-0–9 tones spliced out, new ones in; the layer-10
+shape curve and the marker preserved in each group (2 non-lane objects each).
+Autosave-race guard checked first — `piece-s27-work.json` does not exist. **Backup:
+both bank files and the score were clean at HEAD `3b47f09` before the write**, plus a
+byte copy in the scratchpad.
+
+- BLOOM **106 → 133** tones, 141.386–258.034
+- CONVERGE **108 → 167** tones, 259.556–380.533
+- BALANCE **110 → 137** tones, 386.681–**495.270** (2 tones clamped to hold the end)
+- **0 hard on all three**; pitches 41–61 / 38–64 / 34–65, all inside 30–65; no section overlaps
+- CONVERGE reports **REKEY 43** flags (technique changes) — info, not hard
+
+**THE PAGE NOW READS 0–496 s.** MAIN DRAFT rebuilt with `--w1 496.5`, label **"MAIN
+DRAFT — all notation so far (0-496 s)"**. **1303 events = 866 + 437 (133+167+137
+exactly) · 714 chunks · VALID vs source · geometry zero new.** The morphs land as
+**bricks** — which is the honest representation, see the gliss note below.
+
+**PROVEN: nothing before 141 s moved.** 1682 added layout rows, **every one at/after
+141.0** · **0 removed** · 10 changed, all ten the `staff t1: 136.5 -> 496.5` bound.
+
+**VERIFIED, both halves of the composer's ask:**
+- **BRICKS** — in the app at 142.0–164.0: header `db1 · 1303 events · 714 chunks`,
+  and **3 bricks on every one of the ten staves including p8/p9**, which carried
+  nothing in the morph section before
+- **MIDI** — `sonify_core.compileScore` run headless over the edited score:
+  **BLOOM T9 13 noteOn / T10 14 · CONVERGE T9 25 / T10 24 · BALANCE T9 13 / T10 14**,
+  each with a **bend stream** (the glissando): 71/81, 4816/5029, 26/28
+- **Twelve batteries green** (the eleven + `test_morph` 354/354)
+
+**A SECOND FALSE-CHECK CAUGHT THE SAME DAY.** The MIDI verification first printed
+`T9 0 T10 0 !! MISSING` on all three — because the test looked for port `'Tuba9'`
+while `compileScore` keys events on the instrument id `'tuba9'`. The counts were
+right there in the same line of output. **Same family as the morning's `confine()`
+false pass: the check was wrong, not the thing being checked** — and this time it
+failed loud rather than passing silent, which is the better direction to fail.
+
+**THE VARIANTS SLATE** — `bank/morph_params.json` slots **O / P / Q** (all 14 existing
+slots were taken; `variantKeys()` is `Object.keys().filter()`, fully dynamic, so new
+letters just work). `rev` **5 → 6** so the panel repolls. **The 8-voice keepers in
+A/C/D are untouched.**
+
+**THE GLISS HAS NO NOTATION, and that is the real gap.** There is **no `gliss`
+anywhere in `notation/registry/container.json`**. The pitch bend is a MIDI-only
+object today, so a notated morph section would say nothing about what is actually
+performed. Bricks are therefore the correct representation right now, not a
+placeholder for a figure pass. **Adding the fifth pair did not make the morph section
+notatable — it already was not.** A gliss device is unbuilt work, its own sitting.
+
+**Also confirmed while here:** the morph bed is **`ord` on every one of its tones**
+(324 before, 437 now) — **no cuivre, no stacc, no flutter, no mute.** Long tones,
+glissando, crescendo/decrescendo. That is the entire performed vocabulary, and it
+matches the composer's own understanding exactly. The impacts, attack profiles and
+added cuivre in `docs/plans/MORPH_SECTION.md` are **not in the score at all** — the
+bed is there alone, with T9/T10 previously held free for exactly those impacts.
+**Going to ten parts spends the two players the impact plan reserved** — named here
+because it is a form decision, not a detail.
