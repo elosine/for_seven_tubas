@@ -305,8 +305,12 @@
         // section's lowest and highest, to the closest quarter tone — with a
         // gliss line between them. Standard spacing head-to-line; the line's
         // length is the diameter of TWO regular half-note (white) heads.
-        const HEAD = glyphs.notehead.filled, OPEN = glyphs.notehead.open;
-        const hs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
+        // FULL-SIZE WHITE heads in the section header (composer, day 35) — the
+        // small black ones read as ordinary partials; these state the section's
+        // two pitches. Scale 1, and the spacing chain follows the wider glyph
+        // automatically because every offset below derives from `hw`.
+        const HEAD = glyphs.notehead.open, OPEN = glyphs.notehead.open;
+        const hs = 1;
         const hw = HEAD.wSs * hs;
         const glissLen = OPEN.wSs * 2;                       // "two regular half note white notes"
         // the header's accidental follows the gliss DIRECTION — quarterSharp
@@ -322,7 +326,7 @@
         // ONE head where the section has no glissando (BALANCE): a second head
         // and a gliss line would assert a motion that does not happen (day 35)
         if (!h.oneHead) {
-          items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
+          items.push({ k: 'glyph', g: 'notehead-open', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
           items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
         }
         // the accidental sits before whichever head is the altered one: the HIGH
@@ -332,7 +336,7 @@
           const ax = onLow ? (h1L - (o.accGap || 0.25) - acc.wSs / 2) : (accL + acc.wSs / 2);
           items.push({ k: 'glyph', g: 'accidental-' + accKey, t: h.t, dxSs: ax, ySs: yP, align: 'center' });
         }
-        items.push({ k: 'glyph', g: 'notehead', t: h.t, dxSs: h2L + hw / 2, ySs: yP, align: 'center', scale: hs });
+        items.push({ k: 'glyph', g: 'notehead-open', t: h.t, dxSs: h2L + hw / 2, ySs: yP, align: 'center', scale: hs });
         items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
         items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });
         items.push({ k: 'glyph', g: 'dyn-' + h.endMark, t: h.t, dxSs: markC, ySs: y, align: 'center' });

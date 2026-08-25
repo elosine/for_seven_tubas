@@ -1134,6 +1134,34 @@ if (flag('bricks')) {
 // version file is derived — the archive plus the composer's decisions (spans,
 // pickups, dynamics) — and those decisions ARE the argv. Store it, so the file
 // can say how to rebuild itself without the journal.
+// THE MORPH SECTIONS (day 35). `--morph <groupId>` folds a whole morph section's
+// notation into this page: the header (two written pitches + niente-arrow-fff),
+// the two interpolated curves, a go line at every breath and nothing else per
+// breath. One shared library computes it so the standalone pages and this page
+// cannot drift apart. See docs/MORPH_NOTATION.md.
+{
+  const MorphOv = require(path.join(ROOT, 'notation', 'lib', 'morph_overlays.js'));
+  const groups = [];
+  process.argv.forEach((a, i) => { if (a === '--morph' && process.argv[i + 1]) groups.push(process.argv[i + 1]); });
+  for (const gid of groups) {
+    const built = MorphOv.forGroup(score.objects || [], gid, parts, gid.replace('grp-act-', '').replace('-01-01', ''));
+    if (!built.length) { console.log('  --morph ' + gid + ': no tones in this score/parts — nothing folded'); continue; }
+    let dev = 0, other = 0;
+    for (const b of built) for (const ov of b.overlays) {
+      if (ov.kind === 'engraving') {
+        // an event may already carry a device overlay from an earlier flag; the
+        // morph settings win for its own events
+        const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === ov.target.event);
+        if (ex) Object.assign(ex.value.device, ov.value.device); else { doc.overlays.push(ov); }
+        dev++;
+      } else { doc.overlays.push(ov); other++; }
+    }
+    const g0 = built[0];
+    console.log('  --morph ' + gid + ': ' + built.length + ' parts, ' + dev + ' go-line events, ' + other
+      + ' curve/header overlays  (displacement ' + built.map(b => b.extent.toFixed(0)).join('/') + ' c)');
+  }
+}
+
 doc.provenance.build = 'node tools/notate_section.js ' + process.argv.slice(2).map(a => (/[\s"]/.test(a) ? JSON.stringify(a) : a)).join(' ');
 fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
 
