@@ -1309,7 +1309,7 @@
    "value": {
     "device": {
      "goLine": true,
-     "onsetHead": true,
+     "onsetHead": false,
      "onsetAcc": null,
      "brick": false,
      "nhUnit": false,
