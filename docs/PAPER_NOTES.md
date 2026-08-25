@@ -2279,3 +2279,153 @@ The score is not being asked to carry the whole instruction. **A recording is ci
 in the performance notes as a legitimate reference for a gesture that is hard to
 describe** — consistent with the Kobayashi position already recorded: supply the
 performer with the tools to execute, by whatever means works.
+
+---
+
+## Day 36 — PART I NARRATIVE, the composer narrows the story (2026-08-25, verbatim)
+
+*Shaping Part I in conversation, over the day-36 outline. Their words:*
+
+> "Keep how the piece started; next will be the deadend narrative, I tried a bunch
+> of xenakis like algorithms poisson et al and tweeked them but couldn't get them
+> to sound 'musical' (note for me: can reference ferneyhough antidote about lisp
+> generation not sounding like music and resolved to a notation db lookup); the
+> path to playing these in as midi and the process of developing these hand-played
+> into the dbs and clusters refer to ealier experimnets in 2perc2pno and sampled
+> ostinato playing; the headline here is xenakis style meta shapes and how we
+> filled those shapes with live human performance (the process) and insights in
+> how this works as satisifying musical material and why; lets try to tell the
+> narrative of this, like a story"
+
+**The story beats as given:** origin → algorithmic dead end (Poisson et al.,
+*"couldn't get them to sound 'musical'"*) → the turn to hand-played MIDI
+(precedent: piece #2's sampled-ostinato experiments) → developing the takes into
+the DBs and clusters (the process) → **THE HEADLINE: Xenakis-style meta-shapes
+filled with live human performance — and why that satisfies.**
+
+**Composer's to-do for the draft:** source the Ferneyhough anecdote — LISP
+generation not sounding like music; resolved to a notation-database lookup.
+
+**Already on record, belonging to this narrative:** the day-1 CATIA / Gehry-Xenakis
+dictations (COMPOSER_LOG 2026-08-10 — the meta-shape vs. engineered-interior split
+was named before the dead end resolved), and DB3's *"the apex was not a flurry, it
+was chords"* — the strongest existing evidence for WHY the hand-filled interior
+reads as musical where the distribution did not.
+
+**The composer's addition to beat 3 (same sitting, verbatim):**
+
+> "add I discovered in my improvisation work, multi part overdubbing, that my
+> realtime improvisation is able to satisfyingly create the feel, flow and motion
+> of a musical shape/image even something with fine detail and complexity"
+
+**The composer's verdict on the story (same sitting, verbatim):**
+
+> "5. will be the heart of this section and ty for the Gehry/CATIA reminder, this
+> is the correct framing. then overall for section 1 your outline with my
+> additions are good, make sure we have it documented verbatim somewhere and we'll
+> expand from there"
+
+### THE SETTLED STORY OF PART I (day 36 — expand from here)
+
+*The AI's telling, approved by the composer with their two additions folded in.
+Beat 5 is the heart of the section.*
+
+**1 · The want.** A detour becomes a piece: sound-mass music for tubas.
+Xenakis — Metastaseis, Pithoprakta — is the world I want to stand in.
+
+**2 · The dead end.** I did what that frame says to do: generate. Poisson clouds
+and their cousins, tweaked and re-tweaked. Every version was correct. None of it
+sounded musical. *(Ferneyhough aside here — see the research block below for what
+is actually citable.)*
+
+**3 · The turn.** Stop generating the notes. Perform them. I played the material
+in by hand as MIDI — a practice already proven in the two-piano/two-percussion
+piece and the sampled ostinato playing. **The composer's ground for the turn, in
+their words: they had discovered in their improvisation work — multi-part
+overdubbing — that their realtime improvisation satisfyingly creates the feel,
+flow and motion of a musical shape/image, even one with fine detail and
+complexity.** The hands know something the distribution doesn't.
+
+**4 · The process.** What it takes to turn a hand-played take into music for ten
+tubas: capture → analyze → spread over the players → make it playable → make
+siblings → choose by ear. DB3 told in full as the specimen.
+
+**5 · THE HEADLINE — the heart of the section.** Xenakis-style meta-shapes,
+filled with live human performance. The architecture is drawn; the interior is
+played. **The Gehry/CATIA framing is the correct one** (composer's confirmation —
+the day-1 dictations: freehand shape, engineered realization).
+
+**6 · Why it works.** What the hand supplies that Poisson can't: attacks that
+clump like gestures ("the apex was not a flurry, it was chords"); phrasing seams
+the ear can actually find; dynamics that are a performance, not numbers.
+Statistically similar. Musically different.
+
+**Close of the section:** the Kobayashi echo. The fix was never a better
+algorithm — more effort inside the received frame. It was splitting the problem:
+keep the algorithmic SHAPE, replace the GRAIN SOURCE. Part I is the thesis's
+first demonstration.
+
+**OPEN (composer to place):** where the dens/DH listening ladders live in this
+story — (a) their own beat between 2 and 3, "the dead end paid rent anyway"
+(the tweak rounds produced the perceptual laws); (b) folded into beat 4 as
+calibration; (c) cut from Part I.
+
+---
+
+## Day 36 — RESEARCH: the Ferneyhough aside, what is actually citable (2026-08-25)
+
+*The composer asked whether anything has been written about the remembered
+anecdote: Ferneyhough's LISP-based generation "not sounding like music," and his
+resolving to a notation-database lookup. Findings from a web pass:*
+
+**The remembered story is real practice, but the wording was not found verbatim
+in open sources.** What is documented, with citations:
+
+1. **Ross A. Feller, "e-sketches: Brian Ferneyhough's use of computer-assisted
+   compositional tools,"** in Patricia Hall & Friedemann Sallis (eds.), *A
+   Handbook to Twentieth-Century Musical Sketches* (Cambridge UP, 2004),
+   pp. 176–188. THE scholarly account of his computer tools. Documented facts:
+   computer-assisted work began 1980 at IRCAM; first "Random Funnel" work =
+   *La Chute d'Icare* (1988); first Finale work = *Bone Alphabet* (1991).
+   **Most likely home of the remembered anecdote — obtain before printing it.**
+2. **Feller, "Random Funnels in Brian Ferneyhough's Trittico per Gertrude
+   Stein,"** *Mitteilungen der Paul Sacher Stiftung* 10 (1997), pp. 32–38.
+   The Random Funnel is a FILTER — it constrains random input toward targets.
+   A selection device, not a music generator: the "demotion" in device form.
+3. **Mikhaïl Malt, "Brian Ferneyhough et l'aide informatique à l'écriture,"**
+   in Peter Szendy (ed.), *Brian Ferneyhough* (L'Harmattan, 1999), pp. 61–106.
+   Detailed study of PatchWork in the String Trio — the first work composed
+   entirely with computer assistance.
+4. **Ferneyhough's own workflow description, verbatim** (MakeMusic blog, Heath
+   Mathews, 2014-04-15): *"I have two screens. On one screen I have a music
+   calculation program, which is usually PatchWork GL or OpenMusic"* — he
+   *"calculate[s] rhythms, chords, and densities,"* ports to Finale, *"clean[s]
+   it up,"* *"add[s] a pitch layer."* **His own account: the computer is a
+   CALCULATOR feeding the notation environment where the composing happens.**
+   And PatchWork/OpenMusic ARE Lisp environments — the "LISP" memory matches
+   the tools.
+5. **Ferneyhough to James Boros (1990 interview), quotable:** *"In an important
+   sense, processes don't exist in order to generate music, they're there to
+   predispose one to approach the act of composition in a work-specific
+   fashion."* (Quoted in Robert Hasegawa, "Constraint Systems in Brian
+   Ferneyhough's Third String Quartet," 2016.) The stance that generation ≠
+   music, in his own words.
+6. **Samuel Andreyev's podcast interview with Ferneyhough** (Feb 2021, ~1h40)
+   exists and covers his working methods; no transcript reachable in this pass.
+   **If the composer's memory is from video, this is the likely source — worth
+   a re-listen before writing the aside.**
+7. **Survey source for 1–3:** Ian Pace, "Positions, Methodologies and Aesthetics
+   in the Published Discourse about Brian Ferneyhough: A Critical Study" (open
+   access, City University London). PDF obtained → `docs/research/`.
+
+**BONUS FIND — a second citable parallel for beat 5, from the Reich side:**
+**Kerry O'Brien, "'Machine Fantasies into Human Events',"** in *Rethinking Reich*
+(Oxford UP, 2019), pp. 323–344 — Reich abandoned his Phase Shifting Pulse Gate
+after two performances (1968–69) in favor of embodied performance. **The title is
+Part I's heart in four words**, and Reich is already in this piece's process record
+(the day-21 smear observation).
+
+**A lead, NOT yet verified:** Xenakis himself is documented as hand-correcting
+stochastic program output (the ST works). If true and sourced (check *Formalized
+Music*; James Harley's *Xenakis: His Life in Music*), the meta-shape/hand split
+has a precedent inside Xenakis's own practice. Verify before use.

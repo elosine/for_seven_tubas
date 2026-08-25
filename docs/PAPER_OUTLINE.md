@@ -29,18 +29,27 @@ selected items expanded into one coherent narrative.
 **Containers:** DB1 2.0–34.7 · INT1 36.2–52.5 · DB2 55.9–80.1 ·
 INT2 blasts + long tones 81–111 · DB3 113.5–135.8
 
-**Narrative sketch.** The piece began here as a detour (2026-08-10): the
-density buildup treated as a sui generis object, entered through Xenakis
-(Metastaseis / Pithoprakta — sound mass, the grain). Audition testbeds
-calibrated the material by ear, and the calibrations became encoded
-rules. Materials accumulated as a gesture bank and were assembled into
-alternating DB/INT containers. DB3 ran the six-pass method end to end.
-The section then hosted the longest process arc in the piece: the
-figure-notation vocabulary, built part by part with the composer's eye
-in the loop, hardening into rules that ran the last two builds
-autonomously.
+**THE STORY — SETTLED day 36** (verbatim capture + composer's additions:
+PAPER_NOTES § THE SETTLED STORY OF PART I. Expand from there.)
 
-## Topics — pick from these
+1. **The want** — the detour; Xenakis's world as the target
+2. **The dead end** — Poisson et al., tweaked; correct, never musical
+   *(Ferneyhough aside — citable trail in PAPER_NOTES day-36 research block)*
+3. **The turn** — perform the material in by hand (MIDI); grounded in the
+   composer's improvisation/overdubbing discovery: realtime improvisation
+   satisfyingly creates the feel, flow, motion of a shape — fine detail included
+4. **The process** — capture → analyze → distribute → playability → siblings →
+   ear; DB3 as the specimen
+5. **THE HEADLINE — the heart** — Xenakis-style meta-shapes filled with live
+   human performance; the Gehry/CATIA framing (day-1 dictations) is the frame
+6. **Why it works** — clumped attacks ("the apex was chords"), findable seams,
+   dynamics-as-performance; statistically similar, musically different
+- **Close** — the Kobayashi echo: keep the algorithmic SHAPE, replace the
+  GRAIN SOURCE
+- **OPEN (a/b/c):** where the dens/DH ladders sit — own beat ("the dead end
+  paid rent") · folded into the process beat · cut
+
+## Topics — the inventory behind the story (draw from these while expanding)
 
 - **The detour origin + the Xenakis entry point** — sound mass, grain,
   the CATIA division of labor, the reverse-engineering stance
