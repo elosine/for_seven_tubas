@@ -13506,3 +13506,95 @@ crosses several quarter tones (CONVERGE reaches ±67 c) may well want them back.
 **Now on the page:** header (clef · F2 · gliss line · F¼♯ · `○ ——▶ fff`) · **13 go
 lines** · two full-span interpolated curves · two meters. **Verified: 2 noteheads, 1
 accidental, 13 go lines, both curves x 29.7→853.8 in their own halves.**
+
+---
+
+## Day 35 - nineteenth sitting (Opus): the morphs finished and printable; the TRANCE section begun
+
+**THE MORPH HEADERS TAKE FULL-SIZE WHITE HEADS** (composer). `notehead.open` at scale
+1 instead of small black at 0.844; the spacing chain follows automatically because
+every offset derives from the glyph width. Verified: 40 open heads, 0 small black.
+
+**THE THREE MORPHS ARE FOLDED INTO MAIN DRAFT.** New `--morph <groupId>` on
+`notate_section.js`, so the fold lives on db1's own `provenance.build` and survives a
+rebuild. A shared `notation/lib/morph_overlays.js` computes the vocabulary once - **the
+standalone pages and MAIN DRAFT cannot drift apart.** MAIN DRAFT now carries 20 gliss
+curves, 30 crescendo curves, 20 gliss lines, 30 niente circles and go lines at every
+morph breath. **Confined: 0 added, 0 removed, 0 changed before 141 s.**
+
+**THE SCHEMA BIT TWICE, AND THE SECOND TIME NAMED THE PATTERN.** `header`/`gliss`/
+`cresc` were not in the overlay enum, so the first fold was REJECTED and
+**`db1.ir.json` was DELETED** - restored from a snapshot taken before the run. Then
+`tempo` did the same for the trance. This is precisely what the schema's own
+`_kindNote` records for `engraving` on day 23. Written in as `_kindNote3`: **the schema
+is a GATE ON THE FILE, not a description of the renderer.** `notate_morph.js` writes
+unvalidated, which is why three morph pages existed and passed nothing while the first
+validated fold failed - filed to NITS.
+
+**SAVE-FILE BUMP: `piece-s27` frozen, `piece-s28` current.** Object-for-object copy
+(4645, verified identical). Proven inert: **db1 under s27 vs s28 is 0/0/0.** Bumped
+before the trance work so the notated-morphs state is a clean boundary.
+**`test_notate_block` went red on the bump** - it hardcodes the score name and the
+block guard correctly refuses to mix scores. Not a regression; the fixture now carries
+a comment saying to bump it with the save file.
+
+### THE TRANCE SECTION
+
+**THE MATERIAL:** `grp-tranceA4-01`, **499.83 -> 751.42 s (251 s), 3212 notes, 115
+markers** - 3095 staccato, 79 ord, 30 fortepiano, 7 cuivre.
+
+**THE TWO OVERLAPS THE COMPOSER SAW ARE THE TWO THE PLAN ALREADY NAMED** (journal 2
+step 7, "the two trance seams @560.63 T8, @604.63 T6"). Measured across all ten parts:
+**exactly two overlaps in 3212 notes**, and the composer's own example turned out to be
+one of them:
+
+- **T8 @560.63** - `wc-ta4-749` ends 560.762 into a note starting 560.630 (132 ms).
+  Preceding section `27-sp30`.
+- **T6 @604.63** - `wc-ta4-1343` ends 604.677 into 604.630 (47 ms). Preceding section
+  **`MT B oct C#` - a MULTITEMPO section resolving into a unison**, exactly the case
+  the composer described.
+
+Both pruned by the composer's rule (**remove the last partial of the PRECEDING
+section**). Overlaps now **0**.
+
+**TWO 5-6 ms GAPS DELIBERATELY LEFT** (T3 @560.63, T10 @534.23). A note ending 5 ms
+before the next begins is a **clean seam, not a collision** - pruning it would leave a
+hole. Named here rather than silently kept.
+
+**THE SECTION IS ONE LONG ACCELERANDO - the finding that gives the bar lines.** Modal
+inter-onset interval per part, per structural stretch:
+
+**quarter = 75 -> 80 -> 87 -> 93.8 -> 100 -> 107.1 -> 113.2 -> 120**
+
+at 499.83 / 548.63 / 566.63 / 582.23 / 604.63 / 620.63 / 664.63 / 709.43, with
+multitempo and phase-shift passages between each arrival.
+
+**A UNISON TEST THAT NEEDED A FLOOR.** The first pass called 534.23 and 593.43 unison
+150 - both are multitempo. Cause: only two parts there had enough notes to measure, and
+those two agreed. **A stretch now needs SIX parts to agree before it earns a bar line.**
+Without the floor a transitional passage gets a tempo it has not got.
+
+**BUILT: `TRANCE A4 - 500-751 s` (`trance-a4`).** 3209 events, 216 chunks, VALID,
+**geometry clean**. New `--trance <groupId>` + `notation/lib/trance_overlays.js`:
+
+- **3109 QUARTER NOTES** - `nhStem:'plain'`, and the layout audit confirms **0 flag
+  glyphs on the page**. The staccato dot stays: it is articulation, not note value.
+- **53 held tones left exactly as they were** - and they turn out to BE the
+  fortepianos (521.03 and 522.63, all ten parts together), so the composer's *"just
+  like we've done before with fortepianos"* needed no work at all.
+- **47 end crescendos take the SURGE device** - curve + go line + nh-unit + the
+  **ppp -> arrow -> fff** pair, set as device fields so **the notation says surge
+  without the sounding envelope moving**. These are the SW1-SW5 swells (685-707), which
+  accumulate 2 / 4 / 6 / 8 / 10 parts; the last, 10 parts over 6.4 s, is the final
+  crescendo.
+- **BAR LINES at all 8 tempo changes**, a medium space (0.3 ss) left of the bar's
+  leftmost ink, with **the tempo to one decimal** stated once at the top. The quarter
+  note is DRAWN (notehead + stem), not typed - Crimson has no musical glyph and
+  everything else on the page comes from the glyph set.
+- **ALL TEXT GONE.** 72 beat numbers + 43 structural labels. The beat numbers left with
+  the IR, but **the six structural labels survived the first build because the APP
+  draws markers from the SCORE, not from the page** - so the IR now declares
+  `hideMarkers` and the renderer honours it. Verified in the app: only 10 part labels
+  and the tempo marks remain. **The score's markers are untouched** - they are rehearsal
+  scaffolding and stay where the composer works.
+- **The bouncing ball stays**: 3130 GC objects.

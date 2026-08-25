@@ -1162,6 +1162,32 @@ if (flag('bricks')) {
   }
 }
 
+// THE TRANCE SECTION (day 35). `--trance <groupId>` folds its notation in:
+// quarter notes (plain stems, no flags), the fortepianos left as held tones, a
+// bar line + tempo at every unison tempo change, and the surge device on the end
+// crescendos. See notation/lib/trance_overlays.js.
+{
+  const TranceOv = require(path.join(ROOT, 'notation', 'lib', 'trance_overlays.js'));
+  const tgroups = [];
+  process.argv.forEach((a, i) => { if (a === '--trance' && process.argv[i + 1]) tgroups.push(process.argv[i + 1]); });
+  for (const gid of tgroups) {
+    const b = TranceOv.build(score.objects || [], gid, parts, gid.replace('grp-', ''));
+    if (!b) { console.log('  --trance ' + gid + ': no tones in this score/parts'); continue; }
+    let merged = 0, added = 0;
+    for (const ov of b.overlays) {
+      if (ov.kind === 'engraving') {
+        const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === ov.target.event);
+        if (ex) { Object.assign(ex.value.device, ov.value.device); merged++; } else { doc.overlays.push(ov); added++; }
+      } else doc.overlays.push(ov);
+    }
+    console.log('  --trance ' + gid + ': ' + b.quarters + ' quarter notes, ' + b.held
+      + ' held tones left alone, ' + b.swells + ' end crescendos as surges');
+    console.log('     tempo bar lines (' + b.tempi.length + '): ' + b.tempi.map(t => t.bpm.toFixed(1)).join(' -> '));
+    doc.hideMarkers = true;      // the section's beat numbers and labels are not notation
+    console.log('     text suppressed: ' + b.beatMarks + ' beat numbers + ' + b.structural + ' structural labels (score untouched)');
+  }
+}
+
 doc.provenance.build = 'node tools/notate_section.js ' + process.argv.slice(2).map(a => (/[\s"]/.test(a) ? JSON.stringify(a) : a)).join(' ');
 fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
 

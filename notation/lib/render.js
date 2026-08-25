@@ -35,6 +35,8 @@
       // to the half-lane baseline. Code default = the census value, so the live
       // view (which does not pass opts.engraving) and the export agree.
       glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },
+      // the trance bar line + tempo mark (day 35)
+      barLine: { thickSs: 0.13, tempoYSs: 4.4, tempoSizeSs: 1.0, tempoHeadScale: 0.7, tempoStemSs: 2.1, tempoGapSs: 0.85 },
       // the crescendo: the glissando's twin in the bottom half, limeGreen
       // (#99FF00 — piece #1's crescendo colour, and p2's staff-1 green)
       crescCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#99FF00' },
@@ -238,6 +240,34 @@
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
             }
           }
+        } else if (it.k === 'barline') {
+          // THE TRANCE BAR LINE (day 35, composer): one at every new tempo,
+          // sitting a MEDIUM space left of the bar's leftmost ink so it never
+          // crowds the downbeat. Full staff height, stem thickness.
+          if (!inWin(it.t)) continue;
+          const BL = E.barLine;
+          const x = X(it.t, it.dxSs) - (BL.thickSs * ssPx) / 2;
+          parts.push('<rect x="' + x.toFixed(2) + '" y="' + Y(2).toFixed(2) +
+            '" width="' + (BL.thickSs * ssPx).toFixed(2) +
+            '" height="' + (Math.abs(Y(-2) - Y(2))).toFixed(2) + '"/>');
+        } else if (it.k === 'tempotext') {
+          // the tempo, stated once at the top of the system, one decimal place.
+          // The quarter note is DRAWN (small notehead + stem) rather than typed —
+          // Crimson has no musical glyph, and everything else on this page comes
+          // from the glyph set, so a typed character would be the odd one out.
+          if (!inWin(it.t)) continue;
+          const BL = E.barLine;
+          const tx = X(it.t, it.dxSs), ty = Y(BL.tempoYSs);
+          const ns = ssPx * BL.tempoHeadScale;
+          const nhq = glyphs.notehead.filled;
+          parts.push(Stamps.toSvg(Stamps.scaled(S.notehead(), BL.tempoHeadScale, BL.tempoHeadScale),
+            { xPx: tx, yPx: ty, ssPx, align: 'center' }));
+          const stemX = tx + (nhq.anchors.stemAttachUp.x - nhq.anchors.center.x) * ns;
+          parts.push('<rect x="' + (stemX - (BL.thickSs * ssPx) / 2).toFixed(2) + '" y="' + (ty - BL.tempoStemSs * ssPx).toFixed(2) +
+            '" width="' + (BL.thickSs * ssPx).toFixed(2) + '" height="' + (BL.tempoStemSs * ssPx).toFixed(2) + '"/>');
+          parts.push('<text x="' + (tx + BL.tempoGapSs * ssPx).toFixed(2) + '" y="' + ty.toFixed(2) +
+            '" font-size="' + (BL.tempoSizeSs * ssPx).toFixed(2) + '" font-family="' + E.fontFamily +
+            '" font-style="italic">= ' + esc(it.bpm.toFixed(1)) + '</text>');
         } else if (it.k === 'glissline') {
           // the gliss line between the section's two pitches (day 35): a plain
           // rule at stem thickness, its length the diameter of TWO regular
@@ -443,7 +473,7 @@
     }
 
     // read-through marker labels along the top (S1, not IR — passed in opts)
-    for (const mk of (opts && opts.markers) || []) {
+    for (const mk of ((model && model.hideMarkers) ? [] : ((opts && opts.markers) || []))) {
       if (!inWin(mk.time)) continue;
       parts.push('<text x="' + view.xOfSeconds(mk.time).toFixed(1) + '" y="12" font-size="10" font-family="sans-serif" fill="' + o.muted + '">' + esc(mk.label) + '</text>');
     }

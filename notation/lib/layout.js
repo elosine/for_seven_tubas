@@ -149,6 +149,7 @@
     const staffOff = [];         // {part, span:[a,b]}
     const glissCurves = [];      // {part, span:[a,b], samples:[0..1]} — top half of the lane
     const crescCurves = [];      // {part, span:[a,b], samples:[0..1]} — bottom half of the lane
+    const tempos = [];           // {t, bpm} — a bar line + a tempo mark
     const headers = [];          // {part, t, endMark} — the section header block
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
@@ -175,6 +176,12 @@
       // arrow · niente circle; the staff lines start 1 ss left of the circle
       // and stop a MEDIUM spacer short of the go line. Anchored at the go
       // time in ss offsets, so it does not stretch with the time zoom.
+      // day 35, THE TRANCE SECTION: a bar line at every new tempo, with the
+      // tempo stated at the top. value: { bpm }. The bar line goes on every
+      // part; the text only on the topmost, so it reads once per system.
+      if (ov.kind === 'tempo' && tgt.t !== undefined && ov.value && ov.value.bpm) {
+        tempos.push({ t: tgt.t, bpm: ov.value.bpm }); continue;
+      }
       if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
         headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
           acc: (ov.value && ov.value.acc !== undefined) ? ov.value.acc : 'quarterSharp',
@@ -286,6 +293,13 @@
         items.push({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples });
       for (const cc of crescCurves) if (cc.part === part)
         items.push({ k: 'cresccurve', t0: cc.span[0], t1: cc.span[1], samples: cc.samples });
+      // the bar line sits a MEDIUM space to the LEFT of the bar's leftmost ink
+      // (ledger, accidental or notehead — whichever comes first), so it never
+      // crowds the downbeat. The tempo text rides the topmost part only.
+      for (const tp of tempos) {
+        items.push({ k: 'barline', t: tp.t, dxSs: -(o.gapMediumSs || 0.3) });
+        if (part === (o.frameParts || ir.source.parts)[0]) items.push({ k: 'tempotext', t: tp.t, dxSs: -(o.gapMediumSs || 0.3), bpm: tp.bpm });
+      }
       for (const h of headers) if (h.part === part) {
         // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
         // sitting UNDER the staff where any other dynamic goes, and ENDING
@@ -1837,7 +1851,12 @@
       return { part, items };
     });
 
-    return { systems, window: [w0, w1], warnings };
+    // day 35: a page may declare that the score's working marks are not part of
+    // its notation. The trance section's beat numbers and structural labels are
+    // rehearsal scaffolding, not music (composer: "get rid of all the text
+    // there"), and the app draws markers from the SCORE, not from this IR — so
+    // the page has to say so and the renderer has to honour it.
+    return { systems, window: [w0, w1], warnings, hideMarkers: !!ir.hideMarkers };
   }
 
   return { layoutSection, deviceResolver, staffPosBass, ledgersFor, dotYFor, stemLenFor };

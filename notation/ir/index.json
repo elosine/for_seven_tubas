@@ -102,6 +102,16 @@
     496.5
    ],
    "profile": "section1"
+  },
+  {
+   "id": "trance-a4",
+   "label": "TRANCE A4 — 500-751 s",
+   "score": "piece-s28",
+   "window": [
+    499,
+    753
+   ],
+   "profile": "section1"
   }
  ]
 }

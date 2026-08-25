@@ -48,7 +48,10 @@ const NS = path.join(ROOT, 'tools', 'notate_section.js');
 // piece-s27 — whose [0,55.94] tile is byte-identical to piece-s25-finished01
 // (each bump copies byte-faithfully; edits landed only in later windows), so
 // the two replayed blocks read exactly as they did.
-const SCORE = 'piece-s27';
+// BUMP THIS WITH THE SAVE FILE. The block guard refuses to notate into an IR
+// extracted from a different score, so a bump leaves this battery red until
+// the name follows (day 35: s27 -> s28).
+const SCORE = 'piece-s28';
 const GOLDEN_ID = 'nb-golden-tmp';
 const goldenPath = path.join(ROOT, 'notation', 'ir', GOLDEN_ID + '.ir.json');
 
