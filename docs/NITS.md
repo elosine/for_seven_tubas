@@ -561,3 +561,15 @@ rendering-environment difference worth understanding).
   filled back when it was the only curve on the page and had nothing to be confused
   with. *If it ever needs fixing:* outline the gliss instead of filling it, and/or
   slope the header's gliss line to show direction before the curve does.
+
+- **`tools/notate_morph.js` WRITES ITS IR WITHOUT VALIDATING** *(day 35)* — every
+  other writer runs the schema check and REFUSES (and deletes) an invalid page.
+  notate_morph does not, which is why three morph pages existed having passed
+  nothing, while the first attempt to fold the same overlays into MAIN DRAFT was
+  rejected outright. *Fix:* call the same validator before writing.
+
+- **THE IR SCHEMA IS A GATE ON THE FILE, NOT A DESCRIPTION OF THE RENDERER**
+  *(day 35, hit twice in one sitting; day 23 records the same for `engraving`)* — a
+  new overlay kind that layout.js already understands will still be REJECTED, and the
+  page **DELETED on write**, until the enum in `notation/schema/ir_v0.schema.json`
+  lists it. **Add the kind in the same commit, and snapshot the IR before the build.**

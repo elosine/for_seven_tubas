@@ -10,6 +10,61 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus)
+
+**THE PIECE HAS A TITLE: "Bloom — Convergence — Balance", for Tuba Ensemble.**
+The three morph sections are the title.
+
+**THE MORPH SECTIONS ARE NOTATED, TEN PARTS EACH, AND FOLDED INTO MAIN DRAFT.**
+Picker: `MORPH 1 — BLOOM (all ten)` · `MORPH 2 — CONVERGENCE (all ten)` ·
+`MORPH 3 — BALANCE (all ten)`, plus MAIN DRAFT carrying all three.
+**READ `docs/MORPH_NOTATION.md` BEFORE ANY MORPH WORK** — the settled vocabulary and
+why each number is what it is. Tools: `tools/notate_morph.js` (standalone pages) and
+`notate_section.js --morph <groupId>` (the fold); they share
+`notation/lib/morph_overlays.js` so they cannot drift.
+
+**THE TRANCE SECTION IS BEGUN.** Page: **`TRANCE A4 — 500-751 s`** (`trance-a4`),
+3209 events, VALID, geometry clean. Built by `notate_section.js --trance
+grp-tranceA4-01` + `notation/lib/trance_overlays.js`. On it: **3109 quarter notes
+(0 flag glyphs)** · 53 held tones untouched (they ARE the fortepianos) · **47 end
+crescendos as surges** (ppp→arrow→fff) · **8 tempo bar lines** · **all text gone**
+(new `hideMarkers` flag — the app draws markers from the SCORE, not the page) ·
+3130 bouncing balls. **Full account: RUNNING_LOG, day 35 nineteenth sitting.**
+
+**THE SECTION IS ONE LONG ACCELERANDO** — that is what gives the bar lines:
+**♩ = 75 → 80 → 87 → 93.8 → 100 → 107.1 → 113.2 → 120** at 499.83 · 548.63 · 566.63 ·
+582.23 · 604.63 · 620.63 · 664.63 · 709.43, with multitempo and phase-shift passages
+between each arrival.
+
+**THE TWO TRANCE OVERLAPS ARE FIXED** — they were the two the plan already named
+(old step 7): T8 @560.63 and T6 @604.63, both pruned by the composer's rule (remove
+the PRECEDING section's last partial). **0 overlaps in 3212 notes.** Two 5-6 ms gaps
+deliberately LEFT as clean seams.
+
+**SAVE FILE: `piece-s28` is CURRENT** (s27 frozen; object-for-object copy, db1 proven
+0/0/0 across the bump). **`test_notate_block` hardcodes the score name — bump it with
+the save file** or it goes red.
+
+**WAITING ON THE COMPOSER:** the whole day's output is unreviewed — they said *"I'll
+review when I get back to my desktop."* Nothing is blocked on us.
+
+### THE TRAPS THIS DAY FOUND (read before building notation)
+
+1. **The IR SCHEMA is a GATE ON THE FILE, not a description of the renderer.** A new
+   overlay kind must be added to `notation/schema/ir_v0.schema.json` IN THE SAME
+   COMMIT, or the page is **rejected and DELETED on write**. It happened twice today
+   (`header`/`gliss`/`cresc`, then `tempo`) and once on day 23 (`engraving`).
+   **Snapshot the IR before any build that adds a kind.**
+2. **`tools/notate_morph.js` writes WITHOUT validating** — which is why three morph
+   pages existed having passed nothing while the first validated fold failed. NITS.
+3. **The live notation view does not pass the registry to the renderer**
+   (`notation.html` line 386 omits `engraving`; line 462 passes it). Change a look
+   number in `engraving.render` and the live page will not move. Mirror it into
+   render.js's code defaults. NITS.
+4. **`prove_unmoved --expect-added N` counts PAGE ITEMS, not events.** NITS.
+
+---
+
 ### THE TITLE (composer, day 35)
 
 # **Bloom — Convergence — Balance**
@@ -22,7 +77,7 @@ Penn State ceiling they get.
 
 ---
 
-### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus). THE MORPH NOTATION EXISTS.
+### The morph-notation record (day 35, superseded above where they differ)
 
 **Three things shipped today, all pushed.** (1) **DB3 NOTATED** — MAIN DRAFT reads
 **0-136 s**, 23 clusters with their dynamics in one build. (2) **THE MORPHS GO TO TEN
@@ -319,10 +374,13 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | **DB3-EYE — NEXT (composer)** | **The eye on DB3.** Five 3-band clusters are PROPOSALS per the registry's own confidence note (**g3 T1 @134.14 · g6 T2 @134.14 · g7 T3 @131.97 · g8 T4 @131.70 · g9 T4 @133.15**); **the member-2 mark** (g4 T2 @131.60, g18 T8 @133.13) is an AI reading where "dynamic on the first sounding note" met "below-floor members get nothing" — **a new rule-collision DB2 never hit**; new facing band **T7/T8 133.1–133.5**. Full list: RUNNING_LOG sixteenth sitting | Fable | yes — clear before it | composer's verdicts applied |
 | ~~MORPHS-10~~ | ~~The morphs to ten parts~~ **DONE day 35** — all three beds re-rendered and placed in `piece-s27` (BLOOM 106→133, CONVERGE 108→167, BALANCE 110→137 tones), MAIN DRAFT extended to **0-496 s** with them as bricks, MIDI verified on T9/T10. **BLOOM was a clean addition (106 of 106 survived); CONVERGE and BALANCE re-rendered** — the pair's insertion point renumbers the voices | — | — | — |
 | ~~MORPH-NOTATION~~ | ~~The morph notation vocabulary~~ **DONE day 35** — designed live, piece by piece; **`tools/notate_morph.js` + `docs/MORPH_NOTATION.md`**; reference page `morph-x01` (BLOOM T1) reproduces from the tool exactly | — | — | — |
-| **MORPH-T2 — NEXT** | **BLOOM T2, the descending mirror.** `node tools/notate_morph.js --group grp-act-bloom-01-01 --part 1 --id morph-b-t2 --apply`. Dry run already verified: 21 anchors, max 0.728 c, **quarterFlat** — it proves the direction handling. **Then T3-T10 are mechanical.** Read `docs/MORPH_NOTATION.md` first | **Opus** | **yes — clear before it** (execution against a settled design) | ten BLOOM pages, composer's eye on T2 |
-| **MORPH-STOP — composer** | **CONVERGE and BALANCE are BLOCKED on decisions, not on work.** CONVERGE's gliss is an oscillation (182-366 c, 12-38 reversals) the one-curve template refuses; BALANCE has **no pitch bend at all**, so its top half is empty. **Ask what each should carry before drawing** | Fable | — | a reading for each |
+
+
 | ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
-| 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
+| ~~7~~ | ~~The two trance seams~~ **DONE day 35** — both pruned by the composer's rule; 0 overlaps in 3212 notes |
+| **TRANCE-EYE — NEXT (composer)** | **Review `TRANCE A4 — 500-751 s`.** Quarter notes, 8 tempo bar lines, surges on the end crescendos, no text. The composer has not seen any of day 35's output yet | Fable | yes | verdicts |
+| **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the eye approves, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
+| **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
 ### The tools you will use (all verified day 24; **day 30: the c2i fork is FOLDED into `db1` and pruned — these rows now read `--ir db1`**)

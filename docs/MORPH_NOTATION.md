@@ -9,14 +9,20 @@
 ## THE TOOL
 
 ```
-node tools/notate_morph.js --group <groupId> --part <0-9> --id <ir-id> [--label "..."] [--apply]
+node tools/notate_morph.js --group <groupId> [--part <0-9>|all] --id <ir-id> [--label "..."] [--apply]
 ```
 
 Without `--apply` it prints what it would write and touches nothing. It **refuses**
 rather than producing a page it cannot honestly draw — see *Where the template stops*.
 
 Groups: `grp-act-bloom-01-01` · `grp-act-converge-01-01` · `grp-act-balance-01-01`.
-Parts are ZERO-indexed — **T1 = `--part 0`.**
+Parts are ZERO-indexed — **T1 = `--part 0`** — and **`--part` defaults to ALL TEN**,
+which is how the three section pages were made.
+
+**The three sections are also FOLDED INTO MAIN DRAFT** by
+`notate_section.js --morph <groupId>`, which shares
+`notation/lib/morph_overlays.js` with this tool so the two cannot drift apart. The
+fold therefore lives on db1's own `provenance.build` and survives a rebuild.
 
 ---
 
@@ -29,8 +35,10 @@ The **normal staff and the normal bass clef** — no special furniture. Then:
 At the section entry, placed in ss offsets from the go line so it never stretches
 with the time zoom.
 
-- two **small black noteheads** (`notehead.filled` at the house `nhHeadScale` 0.844)
-  — the section's two written pitches
+- two **FULL-SIZE WHITE noteheads** (`notehead.open` at scale 1) — the section's two
+  written pitches. *(These began as small black heads at 0.844; the composer changed
+  them on day 35 — the small ones read as ordinary partials. Every spacing offset
+  derives from the glyph width, so the chain followed automatically.)*
 - a **gliss line** between them, `notehead.open.wSs × 2 = 2.2144 ss` — literally two
   half-note diameters (the composer's measure). **0.45** standard spacer
   head-to-line both sides; house `accGap` 0.25 before the accidental

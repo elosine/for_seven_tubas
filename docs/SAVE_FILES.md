@@ -139,3 +139,13 @@ and the morph notation was designed and folded into MAIN DRAFT.** MAIN DRAFT and
 three morph pages now read **s28**; `morph-x01` still reads s27 and is left there —
 it is the frozen T1 design reference, and the two files are identical anyway.
 **Compose the trance work in `piece-s28`.**
+
+---
+
+## THE TRANCE PAGE (day 35)
+
+**`TRANCE A4 — 500-751 s`** — internal id `trance-a4`, source `piece-s28`. Quarter
+notes throughout, 8 tempo bar lines (the accelerando 75 -> 120), surges on the end
+crescendos, no text. Rebuild with the command in its own `provenance.build`
+(`notate_section.js ... --trance grp-tranceA4-01`). **Not yet folded into MAIN
+DRAFT** — that waits on the composer's eye.
