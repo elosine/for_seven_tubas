@@ -12792,3 +12792,48 @@ db2-era fix-pass material renders at 78.2 and the INT2 long tones at 84.
 **MAIN DRAFT** (full label on first mention); the accumulation contract is that new
 sections are appended to ITS build command and the label's window updated. SAVE_FILES
 map updated. DB2-FIX round 2 continues ON MAIN DRAFT (windows 56-81).
+
+#### Day 35 (fourteenth sitting, Fable 5) — "I thought we already established some guidelines for dynamics." We had. Applied.
+
+**The composer, verbatim:** *"I thought we already established some guidelines for
+dynamics."* — in response to the AI offering a/b/c choices about whether to apply
+the dynamics proposal. **The composer was right and the question was re-litigation:**
+the guidelines exist as a three-layer stack — day 24 (registry `dynamicsRule`: band
+from velocity, one ambient at the softer level, accents above it), day 29 (D-log 5.1:
+the mf FLOOR — below-mf bands unmarked and unflagged; part of the STANDING BUILD
+RECIPE), day 30 (rule 4: lone spike = accent never a mark; pair-jump at a group
+start takes a mark; fall-back marked at the return) — and the established PROCESS
+(CLOUD02-I, T4-T10) was: **the rule proposes ONTO THE PAGE, the composer's eye
+accepts or refines.** Asking permission in chat was not the process.
+
+**DERIVED from the recorded velocities (IR `vel`) and APPLIED to all twelve db2-era
+clusters on MAIN DRAFT** — the full stack, one row each; matches the tenth-sitting
+hand table on every comparable row:
+
+| cl | where | bands | applied | note |
+|---|---|---|---|---|
+| cl-50 | T1 @78.48 | f f f fff mf | `1:mf` acc 1,2,3,4 | **3 bands — starting point, for the ear** |
+| cl-51 | T2 @75.53 | mf f f | `1:mf` acc 2,3 | |
+| cl-52 | T2 @77.38 | f p f mf fff | `1:mf` acc 1,3,5 | **3 bands above floor — for the ear; the lone `p` is BELOW THE FLOOR → unmarked, unflagged (D-log 5.1).** Re-derived on 5 members (the fp detached); the old 6-member row (`1:p`, "4 bands beyond calibration") is retired — the floor was never applied to it |
+| cl-53..cl-58, cl-60, cl-61 | T3 T6 T7 T8 T10 | 2-band cases | `1:mf` + accents per rule | all reliable — the calibrated case |
+| cl-59 | T9 @79.10 | f f | `1:f` | one band, no accents |
+
+23 accents + 12 marks. **No pair-jump fired anywhere** (measured, not assumed).
+
+**A probe bug caught by the control, again:** the first derivation banded every
+cluster fff — the script read `o.velocity`, the score field is `recVel` and the IR
+event's is `vel`; undefined fell through the band table to its last row. The
+tenth-sitting table was the control that refused it. The fix reads the IR's own
+`vel` and REFUSES a missing one instead of banding it.
+
+**PROVEN:** windowed diff pre/post — **left tile [0,55.9) 0/0 · right tile [81,112)
+0/0 · mid tile +35 glyphs exactly (12 marks + 23 accents)**, stems/beams re-levelled
+only inside the accented clusters (28 stems, 20 beams, in place), changed parts =
+exactly the eight that carry clusters (T4/T5 untouched). GEOMETRY: zero new findings
+(the accent rows cleared every bracket). 706 events VALID; eleven batteries green.
+DOM-audited in the live app (pane hidden — day-28 fallback): cl-52 member 1 draws
+its accent AND the mf; the marks are on screen.
+
+**Still for the composer's eye (unchanged flags):** cl-50 and cl-52 dynamics by
+ear · cl-1-era STRADDLE (T1 @78.48 5:4) · cl-55 no-clean-seam · cl-50 near-tie ·
+nine short fp bars · T1/T2 facing band · cl-55's two bracket-internal 8th rests.

@@ -2024,3 +2024,30 @@ standing MAP (`docs/SAVE_FILES.md`) plus a chat rule (exact filename or picker
 label on first mention). Same lesson as the running log itself, applied to
 nomenclature: **if the chat is not a record, then a name that lives only in the
 chat is not a name.**
+
+## Day 35, fourteenth sitting — "I thought we already established some guidelines for dynamics."
+
+*(Bears on the delegation thread: what it sounds like when the composer holds the AI
+to a rule the AI itself maintains.)*
+
+The AI, having just finished the beam/rest fixes, offered the composer a three-way
+choice about the still-unmarked cluster dynamics: apply the reliable ten now / review
+all twelve first / defer. **The composer, verbatim:** *"I thought we already
+established some guidelines for dynamics."*
+
+They had — in three layers the AI itself had documented: the day-24 derivation rule
+(captured in the registry with a validation table), the day-29 mf floor (D-log 5.1,
+folded into the STANDING BUILD RECIPE), and the day-30 refinements (rule 4 of the
+generator checklist). And the working PROCESS was established too, on CLOUD02-I:
+the rule proposes onto the page; the composer's eye accepts or refines. The a/b/c
+question re-litigated a settled division of labour — the same failure shape as the
+skipped beam recipe three sittings earlier, but in the opposite direction: there the
+AI under-applied an established rule; here it under-trusted one.
+
+Sequence worth keeping for the paper: **the composer's posture toward the rule
+stack is possessive, not supervisory.** The reply was not "yes, apply them" (a
+permission) but a reminder that the permission structure already existed. Delegation
+to rules, once granted, is expected to STAY granted — asking again reads as the
+system forgetting its own constitution. *(The chat-hygiene corollary from the
+twelfth sitting applies here too: the constitution must live in the docs, because
+the chat that granted it is erased on schedule.)*

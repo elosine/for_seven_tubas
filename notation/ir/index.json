@@ -1,16 +1,6 @@
 {
  "irs": [
   {
-   "id": "db1",
-   "label": "MAIN DRAFT — all notation so far (0-111 s)",
-   "score": "piece-s27",
-   "window": [
-    0,
-    111
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "trance-section-01",
    "label": "trance-section-01",
    "exp": true
@@ -62,6 +52,16 @@
    ],
    "profile": "section1",
    "exp": true
+  },
+  {
+   "id": "db1",
+   "label": "MAIN DRAFT — all notation so far (0-111 s)",
+   "score": "piece-s27",
+   "window": [
+    0,
+    111
+   ],
+   "profile": "section1"
   }
  ]
 }

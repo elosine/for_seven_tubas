@@ -30,8 +30,14 @@ alone, everything else under "experiments"**. Verified in the live app at 78.2 a
 84. **In chat the page is always called MAIN DRAFT.** Full account: RUNNING_LOG
 day 35, thirteenth sitting.
 
-**DB2-FIX round 2 continues ON MAIN DRAFT** (same windows, 56-81): the dynamics
-verdict + the small flags, listed in the eleventh-sitting block below.
+**DB2-FIX round 2 (fourteenth sitting): THE DYNAMICS ARE APPLIED** — the composer:
+*"I thought we already established some guidelines for dynamics."* We had (day 24
+rule + day-29 mf floor + day-30 refinements; process = rule proposes onto the page,
+eye refines). All twelve clusters marked from the recorded velocities: 12 marks +
+23 accents, windowed-diff proven (+35 glyphs in the mid tile exactly, outer tiles
+0/0, geometry zero new). **cl-52's lone `p` is below the mf floor → unmarked by
+rule.** For the composer's ear: **cl-50 (T1 @78.48) and cl-52 (T2 @77.38)** — both
+3-band starting points. Remaining small flags in the eleventh-sitting block below.
 
 ---
 

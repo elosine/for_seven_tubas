@@ -26,13 +26,17 @@ Generalized as build flags (`--beamsThrough --rests16`, exceptions `--beamlets N
 approved writing. Nothing outside the dictation moved (proven item-by-item); eleven
 batteries green.
 
-**NEXT: the remaining flags, biggest first — the cluster DYNAMICS verdict.** The
-twelve clusters still have no dynamics (by design — `--dyn`/`--accents` are yours).
-The proposal table waits in the running log (tenth sitting): **ten of twelve
-confident**; T1 @78.48 needs your ear (3 bands), and T2 @76.92's row needs
-re-deriving now that its fp is detached (5 members). Then the small ones: the
-straddling 5:4 (T1 @78.48), cl-6's no-clean-seam (T6), cl-1's near-tie, nine short
-fp bars, the T1/T2 clutter band 78.5-79.0 (info).
+**THE DYNAMICS ARE ON THE PAGE (fourteenth sitting)** — you were right that the
+guidelines were established (day-24 rule + mf floor + day-30 refinements); they were
+applied to all twelve groups from your recorded velocities: 12 marks + 23 accents,
+proven to touch nothing outside those groups. **Two want your ear when you look:
+T1 @78.48 and T2 @77.38** (both 3-band cases — the rule's "starting point" zone).
+Note: T2 @77.38's single quiet note (`p`) is below the established mf floor, so by
+rule it carries no mark — say the word if you want that dip stated.
+
+**NEXT, when you have time: the small flags** — the straddling 5:4 (T1 @78.48), the
+no-clean-seam group (T6 @78.42), the T1 near-tie, nine short fp bars, the T1/T2
+clutter band 78.5-79.0 (info), and T6's two 8th rests inside its 3:2 bracket.
 
 **Previously (2026-08-24, day 35, earlier) ►** the 48 s long tone was written,
 the clear cycle was revised (D71), `/resume` became `/postclear`, and a Fable
