@@ -547,3 +547,17 @@ rendering-environment difference worth understanding).
   renders identically"*). *Fix:* pass `engraving` at line 386 too, then re-verify
   every existing look number, since some code defaults may already have drifted from
   the registry.
+
+- **WATCH, NOT A DEFECT: the two filled halves can be misread for each other**
+  *(day 35 — the composer read the gliss half as the crescendo and asked whether the
+  crescendo was inverted; it was not, and no change was made)* — in BLOOM the five
+  DESCENDING partners (T2 T4 T6 T8 T10) begin at their highest pitch, so their orange
+  curve starts at **full height**, and "full" reads at a glance as "loud". Verified
+  correct three ways: source data (all ten parts start at level 0.000), generated
+  samples (every cresc overlay `first 0.000`), rendered geometry (every lime curve
+  starts on its lane floor). **Kept here because if it caught the composer it can
+  catch a player.** The likely cause is that BOTH curves are filled, and a filled
+  shape reads as a QUANTITY while a glissando is a POSITION over time — the gliss was
+  filled back when it was the only curve on the page and had nothing to be confused
+  with. *If it ever needs fixing:* outline the gliss instead of filling it, and/or
+  slope the header's gliss line to show direction before the curve does.
