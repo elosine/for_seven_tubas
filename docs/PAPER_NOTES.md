@@ -2515,3 +2515,82 @@ like the Ferneyhough one can be run on request.
 > performance notes tell the player the notated object IS the percept — "a
 > glissando in beating speed" — and "pitch variation is simply the catalyst."
 > The section ends where it began: the effect is the material.
+
+---
+
+## Day 36 — PART III NARRATIVE, the composer narrows the story (2026-08-25, verbatim)
+
+*Same sitting, after Parts I and II. Their words:*
+
+> "i think the p3 story is the nature of these musical materials and how we were
+> able to experiment with them and discover their properties. the sub plot is how
+> ai can be used to create bespoke tools and generate the sounds of specific
+> moments of process driven music to quickly evaluate and choose materials and
+> then to be able to recreate those states with live performers (techniques like
+> seeding) . I'm thinking of the sequence where ai generated and shuffled and
+> ordered mathmatically complex phase shifting, but thats not how they sounded
+> and I reordered in turms of sounding complexity, the u shape."
+
+**The story as given:** MAIN PLOT — the nature of these musical materials;
+experimenting with them; discovering their properties. SUBPLOT — AI as the means:
+bespoke tools; generating the sound of specific moments of process-driven music
+for fast evaluate-and-choose; recreating chosen states with live performers
+(techniques like seeding). ANCHOR EXAMPLE — the phase-shifting complexity
+ordering: AI generated/shuffled/ordered by mathematical complexity, *"but thats
+not how they sounded"*; the composer reordered by SOUNDING complexity — the U
+shape.
+
+**Mapping to the record:** the anchor is the day-21 phase-complexity arc —
+`PHASE_COMPLEXITY.md` (wrong turns kept and labeled), PAPER_NOTES day-21 items
+5–6: the gap-CV scorer over 997 offsets; the inverted-U emerging unbid (pulse ~0,
+smear ~0, knotty cells between); the composer's ear verdict (*"there's definitely
+a U even in the series that you produced, to the ear"*) and their own re-ordering
+of the rungs (11-2-7-3-10-4-6, alternating high-low) — the discursive quality
+used AS material. "Machine proposes an order, the ear corrects it." Property
+discoveries: drift-per-attack as the governing dial; why two voices always
+gallop; smoothness is spread, not voice count; the beating regimes. Seeding /
+recreation: per-chunk seeds and variant families (ASSEMBLY_METHOD), deterministic
+generators, fixed-tempo assignment → notatable parts → TRANCE A4. *(Nuance for
+the expansion: the record has the computed order and the ear's U broadly agreeing
+while the computed LADDER failed the composer's want — square peg, round circle —
+and the re-ordering was the compositional act; reconcile from PHASE_COMPLEXITY.md
+when writing.)*
+
+### AI's story draft for Part III (verbatim from chat — NOT yet approved)
+
+> **1 · Materials with hidden properties.**
+> The section is built from process materials — a pulse that drifts, tempos in
+> ratio, textures that accrete.
+> Their scores are simple; their surfaces are not. You cannot read what they do
+> from the rule that makes them.
+> The only way to know them is to hear them.
+>
+> **2 · Experimenting to discover the properties.**
+> So the work became experiments: generate instances, listen, name what holds.
+> The properties arrived as findings — drift-per-attack is the governing dial;
+> two voices always gallop; smoothness is spread, not voice count; beating has
+> regimes.
+> The material's nature was discovered, not designed.
+>
+> **3 · The anchor: the U.**
+> AI generated and shuffled mathematically complex phase-shift patterns and
+> ordered them by computed complexity.
+> That's not how they sounded.
+> I reordered them by sounding complexity, and the shape was a U: the clean
+> pulse and the smooth smear are both simple to the ear; the knotty middle is
+> where the complexity lives.
+> Machine proposes an order; the ear corrects it — and the corrected order
+> became the material.
+>
+> **4 · The subplot: what AI was for.**
+> Bespoke tools stood up per question, thrown away after.
+> The sound of any specific moment of a process, generated in minutes —
+> evaluated, kept or discarded by ear.
+> And because everything is seeded and deterministic, a chosen state can be
+> recreated exactly: first by the machine, then by live performers, through the
+> notation.
+> Hear → choose → recreate: the loop that made process music composable by ear.
+>
+> **Candidate close (AI's suggestion, take or leave):**
+> The proof is on the page: TRANCE A4, one long accelerando, 75 to 120 —
+> the chosen states, written down for humans to re-perform.
