@@ -2704,3 +2704,48 @@ and let Part II keep the dial shape the composer already named for it, since the
 dial IS Part II's argument. The three parts then differ in HOW they tell process,
 which is honest: Part I discovered by failing, Part II by measuring, Part III by
 listening.
+
+---
+
+## Day 36 — THE COMPOSER'S OWN WRITING METHOD, logged for when writing time comes (2026-08-25, verbatim)
+
+*Logged at the composer's request as a **potential process note** — not adopted
+yet, to be picked up when they can dedicate time to writing. Their words:*
+
+> "approach like organizing a talk, have a central idea like a deck slide with a
+> few sub points; narrate into chat like you are giving a talk, use ai for real
+> time research and digging up facts; organize transcription, edit, prune; then
+> either edit as writing, our use as outline/notes and have another round of
+> giving a talk etc"
+
+**The loop, restated as steps:**
+
+1. **Frame the unit as a talk slide** — one central idea, a few sub-points.
+2. **Narrate it into chat** as if delivering it aloud.
+3. **AI runs alongside** — real-time research, fact-digging, citation checks,
+   *without breaking the narration.*
+4. **Take the transcript** — organize, edit, prune.
+5. **Then fork:** (a) edit the transcript directly into finished prose, or
+   (b) demote it to outline/notes and **give the talk again** against them.
+6. Repeat 5b until it's prose.
+
+**Annotations (outside the verbatim block):**
+
+- **It is already proven in this project.** The settled stories of Parts I, II and
+  III (day 36, above) came out of exactly this loop — the composer narrated the
+  beats in chat, the AI ran the Ferneyhough citation check in parallel, the chat
+  was captured verbatim and pruned. Step 5b has not been run yet on any of them.
+- **Maps onto the standard approaches** (day-36 writing-strategy synopsis):
+  step 1 is a *sentence-outline node*; step 2 is Elbow's generative freewriting
+  but spoken; step 4 is *reverse outlining* applied to a transcript; step 5b is
+  Elbow's "cooking" — successive drafts, each one discovering.
+- **What is genuinely new is step 3.** Flow drafting normally dies at the moment
+  you stop to look something up. Real-time research alongside the narration is
+  what removes that interruption cost — and it is the same affordability
+  argument the paper's intro makes about the apparatus.
+- **The speaking-not-typing choice is load-bearing**, not incidental: speech gets
+  past the internal editor that typing invites, and it forces the material into a
+  linear order — which is exactly what an idea cloud cannot do.
+- **Watch-point for step 4:** a talk transcript's connective tissue ("so, the
+  thing about this is…") reads fine aloud and badly on the page. The pruning pass
+  is not optional, and it is where the transcript becomes writing.
