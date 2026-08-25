@@ -1,6 +1,36 @@
 {
  "irs": [
   {
+   "id": "db1",
+   "label": "MAIN DRAFT — all notation so far (0-111 s)",
+   "score": "piece-s27",
+   "window": [
+    0,
+    111
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "trance-section-01",
+   "label": "trance-section-01",
+   "exp": true
+  },
+  {
+   "id": "section1-e20",
+   "label": "section1 · ε=20ms",
+   "exp": true
+  },
+  {
+   "id": "section1-e30",
+   "label": "section1 · ε=30ms",
+   "exp": true
+  },
+  {
+   "id": "morph-window-01",
+   "label": "morph-window-01 (follower/wedge)",
+   "exp": true
+  },
+  {
    "id": "piece-trance-w1",
    "label": "piece trance 500-530",
    "score": "piece-s25-finished01",
@@ -8,7 +38,8 @@
     500,
     530
    ],
-   "profile": "trance"
+   "profile": "trance",
+   "exp": true
   },
   {
    "id": "piece-open-01",
@@ -18,7 +49,8 @@
     0,
     40
    ],
-   "profile": "section1"
+   "profile": "section1",
+   "exp": true
   },
   {
    "id": "db1-all-x01",
@@ -30,36 +62,6 @@
    ],
    "profile": "section1",
    "exp": true
-  },
-  {
-   "id": "db1",
-   "label": "DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts figured (day 33)",
-   "score": "piece-s25-finished01",
-   "window": [
-    0,
-    55.94
-   ],
-   "profile": "section1"
-  },
-  {
-   "id": "int2b1",
-   "label": "INT2 BLASTS — 81-111 s",
-   "score": "piece-s26",
-   "window": [
-    81,
-    111
-   ],
-   "profile": "section1"
-  },
-  {
-   "id": "db2",
-   "label": "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s",
-   "score": "piece-s27",
-   "window": [
-    55.9,
-    81
-   ],
-   "profile": "section1"
   }
  ]
 }

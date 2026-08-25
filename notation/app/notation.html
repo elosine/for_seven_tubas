@@ -86,12 +86,11 @@
     <option value="tranceA002f">tranceA002f</option>
     <option value="piece-s23">piece-s23</option>
   </select></label>
-  <label id="irWrap">ir <select id="ir">
-    <option value="trance-section-01">trance-section-01</option>
-    <option value="section1-e20">section1 · ε=20ms</option>
-    <option value="section1-e30">section1 · ε=30ms</option>
-    <option value="morph-window-01">morph-window-01 (follower/wedge)</option>
-  </select></label>
+  <!-- day 35 (composer: "just keep one in the main section"): the picker is
+       manifest-driven — notation/ir/index.json lists MAIN DRAFT first and
+       everything else under the experiments group. Nothing is hardcoded here;
+       the old built-in four moved into the manifest as experiments. -->
+  <label id="irWrap">ir <select id="ir"></select></label>
   <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
   <label id="partsWrap">parts <select id="parts">
     <option value="all">all (T1–T10)</option>

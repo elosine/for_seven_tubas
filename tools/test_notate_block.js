@@ -44,7 +44,11 @@ const readIr = id => JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir'
 
 const NB = path.join(ROOT, 'tools', 'notate_block.js');
 const NS = path.join(ROOT, 'tools', 'notate_section.js');
-const SCORE = 'piece-s25-finished01';
+// day 35 (MAIN DRAFT): db1 is the accumulating 0-111 page and sources
+// piece-s27 — whose [0,55.94] tile is byte-identical to piece-s25-finished01
+// (each bump copies byte-faithfully; edits landed only in later windows), so
+// the two replayed blocks read exactly as they did.
+const SCORE = 'piece-s27';
 const GOLDEN_ID = 'nb-golden-tmp';
 const goldenPath = path.join(ROOT, 'notation', 'ir', GOLDEN_ID + '.ir.json');
 
@@ -159,11 +163,25 @@ console.log('\n4. the refusals');
     fs.unlinkSync(path.join(ROOT, 'scores', tmpScore + '.json'));
   }
 
-  const r3 = run([NB, '--score', SCORE, '--group', 'grp-s009-817']);
-  ok(r3.code === 3 && /OUTSIDE THE WINDOW/.test(r3.out),
-    'a block at 81.7 s is REFUSED against db1 (window ends 55.94) — T4, decided not guessed', 'exit ' + r3.code);
-  ok(/notate_section\.js --score .* --w0 81 --w1 \d+/.test(r3.out),
-    'and the refusal prints the exact command for the new-IR option');
+  // The window refusal (T4). db1 covers 0-111 since the MAIN DRAFT merge, so
+  // the 81.7 s block no longer sits outside it — the refusal is exercised on a
+  // synthesized twin whose window is clipped back to 55.94 (patched in BOTH
+  // places notate_block reads: the provenance argv and source.window).
+  {
+    const WTMP = 'nb-wtmp';
+    const wtmpPath = path.join(ROOT, 'notation', 'ir', WTMP + '.ir.json');
+    const doc = readIr('db1');
+    doc.id = WTMP;
+    doc.provenance.build = doc.provenance.build.replace(/--w1 \S+/, '--w1 55.94').replace('--id db1', '--id ' + WTMP);
+    if (doc.source) doc.source.window = [0, 55.94];
+    fs.writeFileSync(wtmpPath, JSON.stringify(doc, null, 1));
+    const r3 = run([NB, '--score', SCORE, '--group', 'grp-s009-817', '--ir', WTMP]);
+    fs.unlinkSync(wtmpPath);
+    ok(r3.code === 3 && /OUTSIDE THE WINDOW/.test(r3.out),
+      'a block at 81.7 s is REFUSED against a page whose window ends 55.94 — T4, decided not guessed', 'exit ' + r3.code);
+    ok(/notate_section\.js --score .* --w0 81 --w1 \d+/.test(r3.out),
+      'and the refusal prints the exact command for the new-IR option');
+  }
 
   const r4 = run([NB, '--score', SCORE, '--group', 'grp-nope-999']);
   ok(r4.code === 2 && /No group/.test(r4.out), 'an unknown group is refused with a pointer to --list');
@@ -177,10 +195,18 @@ console.log('\n5. THE GOLDEN — the machine must rebuild the two approved pages
 // ---------------------------------------------------------------------------
 {
   const db1 = readIr('db1');
+  // Strip ONLY the two blocks the machine replays (41 s blast, 48.05 long
+  // tone). Since the MAIN DRAFT merge (day 35) the command also carries the
+  // eight INT2 --ringFromBrick flags — those stay in the twin; this golden is
+  // about reproducing the two hand-approved instances, not about INT2.
   const stripped = db1.provenance.build
-    .replace(/ --ringFromBrick [0-9.]+-[0-9.]+/g, '')
+    .replace(/ --ringFromBrick 40\.9-41(\.0)?(?=\s|$)/, '')
+    .replace(/ --ringFromBrick 48(\.0)?-48\.1(?=\s|$)/, '')
     .replace('--id db1', '--id ' + GOLDEN_ID);
-  ok(!/--ringFromBrick/.test(stripped), 'both --ringFromBrick flags stripped from the twin command');
+  ok(!/--ringFromBrick 40\.9|--ringFromBrick 48/.test(stripped),
+    'the two replayed --ringFromBrick flags stripped from the twin command');
+  ok((stripped.match(/--ringFromBrick/g) || []).length === 8,
+    'and the eight INT2 --ringFromBrick flags stay in the twin (' + (stripped.match(/--ringFromBrick/g) || []).length + ')');
 
   // tokenise the same way notate_block does
   const argv = [];
@@ -281,7 +307,11 @@ console.log('\n7. THE BLAST COLUMNS — mixed blocks and all-staccato blocks (da
   const TWIN = 'nb-blast-ir-tmp';
   const tmpScorePath = path.join(ROOT, 'scores', TMP_SCORE + '.json');
   const twinPath = path.join(ROOT, 'notation', 'ir', TWIN + '.ir.json');
-  const s = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+  // The ragged original lives in the FROZEN ARCHIVE — piece-s27 carries this
+  // column already normalised (set_brick, day 35), which is exactly why the
+  // archive is the permanent fixture for the refusal: it never changes again.
+  const ARCHIVE = 'piece-s25-finished01';
+  const s = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', ARCHIVE + '.json'), 'utf8'));
 
   // the raw column is ragged (0.41-0.51 s), which is the refusal below;
   // normalise a COPY to the composer's shortest-in-the-stack rule, 0.41
@@ -290,7 +320,9 @@ console.log('\n7. THE BLAST COLUMNS — mixed blocks and all-staccato blocks (da
     .map(o => +(o.endSeconds - o.startSeconds).toFixed(4)));
   ok(rawLens.size > 1, 'fixture: the all-staccato column starts ragged (' + [...rawLens].join(', ') + ' s)');
 
-  const rRag = run([NB, '--score', SCORE, '--group', RAGGED]);
+  // brick uniformity is checked before any IR is read, so the archive score
+  // never trips the twin's score-match guard
+  const rRag = run([NB, '--score', ARCHIVE, '--group', RAGGED]);
   ok(rRag.code === 2 && /NOT UNIFORM/.test(rRag.out) && /set_brick\.js/.test(rRag.out),
     'a ragged column is REFUSED and told to normalise first — WHICH length is a composer call',
     'exit ' + rRag.code);

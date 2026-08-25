@@ -10,7 +10,32 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### WHERE IT STANDS — day 35, eleventh sitting DONE (DB2-FIX round 1 applied)
+### WHERE IT STANDS — day 35, thirteenth sitting DONE (ONE PAGE: MAIN DRAFT)
+
+**THE PICKER IS ONE PAGE NOW — the composer's mandate, verbatim: *"just keep one in
+the main section… all the notation we've built so far and just keeps accumulating
+it. The sort of main draft."*** The three tiles are MERGED: **"MAIN DRAFT — all
+notation so far (0-111 s)"** (internal id `db1`, source `piece-s27`, 706 events =
+456+129+121 exactly). One build command carries all three sections' provenance
+verbatim; the era boundary is expressed as **scoped globals `--beamsThrough 55.9-
+--rests16 55.9-`** (open-ended — future sections inherit the day-35 rule; db1's
+approved beamlet-era tiles untouched). **Proven tile-by-tile: 3833 + 1033 + 1043
+layout rows identical to the three pre-merge pages, zero extra, zero missing**
+(window furniture excluded as definitionally window-shaped). Eleven batteries green
+(test_notate_block 65/65 — SCORE now piece-s27, golden strips only the two replayed
+flags, window-refusal on a synthesized clipped twin, ragged fixture reads the frozen
+archive). `db2` and `int2b1` PRUNED; the picker is fully manifest-driven (the four
+day-1 hardcoded entries are manifest experiments now); **main section = MAIN DRAFT
+alone, everything else under "experiments"**. Verified in the live app at 78.2 and
+84. **In chat the page is always called MAIN DRAFT.** Full account: RUNNING_LOG
+day 35, thirteenth sitting.
+
+**DB2-FIX round 2 continues ON MAIN DRAFT** (same windows, 56-81): the dynamics
+verdict + the small flags, listed in the eleventh-sitting block below.
+
+---
+
+### The eleventh-sitting record (round 1 — still current except "the page" is now MAIN DRAFT)
 
 **DB2-FIX ROUND 1 IS ON THE PAGE (eleventh sitting, Fable).** The composer's first
 verdict on `db2`, dictated and applied: **(1) full double beams across every beam
@@ -81,11 +106,11 @@ so its row wants re-deriving before any apply.
 `scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a source,
 D75) · `scores/versions/`. `piece-s27-work.json` still does not exist.
 
-**THE SAVE-FILE MAP (day 35, twelfth sitting): `docs/SAVE_FILES.md`.** Current
-save = **`piece-s27`**; db1/db2/int2b1 read three FROZEN saves by design; the
-full score exists as data in s27 and as three tiling pages, not one. **Keep the
-map current at every bump/new page; name files by exact filename or picker
-label in chat** (also in CLAUDE.md now; its stale `7tubas.json` line fixed).
+**THE SAVE-FILE MAP (day 35, twelfth sitting; superseded on the notation side by
+the thirteenth): `docs/SAVE_FILES.md`.** Current save = **`piece-s27`**; the one
+notation page is **MAIN DRAFT** (see the block above). **Keep the map current at
+every bump/new section; name files by exact filename or picker label in chat**
+(also in CLAUDE.md now; its stale `7tubas.json` line fixed).
 
 **Chat format, standing:** succinct, chunked, short lines; answer the question that was
 asked (global CLAUDE.md § Chat responses; `reply-format-tldr-chunks` memory).
@@ -178,7 +203,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~DB2~~ | ~~THE DENSITY BUILD identified + cleared~~ **DONE day 35 (Fable, ninth sitting)** — it is the EXISTING GESTURE-2 x0.75 material (marker @55.94, `grp-gest2-75-01`, 129 notes 55.94-80.12, identical s26=s27, zero composer edits). Analysis + playability run + apply: 0 hard 0 soft, 92 bricks → 50 ms, ledgered. Two catches: wc-1624 sits AT 55.940 (build uses `--w0 55.9`); surge-inside-figure is a FIRST (visual verify point). Surge/fp handling confirmed from the registry + db1 precedent | — | — | — |
 | ~~DB2-N~~ | ~~THE OPUS NOTATION RUN~~ **DONE day 35 (Opus, tenth sitting)** — `db2` built and figured: 129 events, 12 clusters, VALID, geometry clean, brackets-above from birth. The scan reframed the section (**12 gestures, 91 lone one-shots**; density is ACROSS parts). Pace-rule defaults took all twelve — no `--cuts`, no `--ownGrids`. **The named FIRST did not occur** (no surge inside a figure; 168 ms closest). Two brief corrections measured (9 surges not 8+1; the go-line assert restated to the LAW). Eleven batteries green; db1/int2b1 md5-identical | — | — | — |
 | **DB2-FIX — IN PROGRESS (round 1 DONE day 35, eleventh sitting)** | ~~Double beams across · all rests 16ths · cl-3 fp detached + five-group~~ — **dictated and applied; generalized as `--beamsThrough --rests16` build flags (D-log 23); flags #4 and #6 closed.** REMAINING: **#1 cluster dynamics** — proposal table in the tenth-sitting log (10 of 12 in calibration; cl-1 outside; **cl-3's row stale, re-derive on its new 5 members**), NO verdict yet · #2 cl-1 STRADDLE · #3 cl-6 no-clean-seam · #5 cl-1 near-tie · #7 nine short fp bars · #8 T1/T2 facing band (info) · cl-6's two bracket-internal 8th rests (slot-value by rule) | **Fable** (dictation rounds) | no — same task | composer accepts the page |
-| F2 | **The fold of `int2b1` into `db1`** — NOT queued, needs the composer's say. A fold is a rename, proven twice (D70, days 30 and 34): re-run db1's own `provenance.build` under one id and prune the other. **Do not raise it unprompted** — db1 is approved and untouched, and there is no cost to leaving the two pages apart | Opus | — | composer asks for it || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
+| ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | 7 | The two trance seams (@560.63 T8, @604.63 T6) — `playability.js --w0 --w1` on each, apply | Opus | no (small) | whole archive 0 hard |
 | — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column, the paper's first pass (PAPER_NOTES "THE PAPER'S STRUCTURE") | — | — | — |
 
@@ -186,7 +211,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 
 | to… | run |
 |---|---|
-| see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick `db1` (hard-reload after any `.js` change; data files hot-reload) |
+| see the page | `node score/server.js` → http://localhost:5200/notation/app/notation.html → pick **MAIN DRAFT — all notation so far** (internal id `db1` — every `--ir db1` below still applies; hard-reload after any `.js` change; data files hot-reload) |
 | **read a part (8i — this is the report the reads use)** | `node tools/pattern_analyze.js --ir db1 --part N --span t0-t1` (**N is ZERO-indexed: T1 = `--part 0`, T2 = `--part 1` …** — day 29 tripped on this) — breath seams, then per gesture: the pace families and the groups in words ("even even · pair · short long"), then **THE WRITING, ONE GRID** (the fit, then one line per group with its bracket — `7:4 [16th 16th 16th]` or plain), then **FLAGS** (STRADDLES first, then ratio tie / no clean seam / cuts by hand / near-ties / pickups), then **FLOW**, then cut alternatives, and **each group on its OWN grid LAST** as the by-hand alternative, with the dotted reading where a group carries its own tuplet |
 | **scan a whole section (8i — the pre-read measurement)** | `node tools/pattern_analyze.js --ir db1 --scan 36.19-40.42` — one row per gesture, every part: groups, one-grid unit and heads, its brackets, and the flags that need a hand. **Answers "can this gesture be said on ONE grid?"** — which replaced "how many figures need a tuplet" (that only measured how finely the material had been cut). *Measured on CLOUD02-I: 15 of 15 within a head, 5 straddles, 1 no-clean-seam, 5 ratio ties* |
 | move a figure boundary | `--paceRatio <r>` (default 1.25) — how far apart two gaps must be to count as different PACES, which is what decides where a cut may land. `99` = one pace, no legal cut, the whole gesture as one group. Now on **both** tools (positional after `--cluster … --figures` on `notate_section`; plain flag on `pattern_analyze`) |

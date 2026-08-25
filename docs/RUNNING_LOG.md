@@ -12735,3 +12735,60 @@ session following the old line would have opened an empty piece.)*
 **Not done, deliberately:** no picker relabeling (the composer approved the current
 labels at STOP 2), no fold proposal pushed — the fold is offered as an option in
 chat now that the composer has felt the cost of three tiles, and stays their call.
+
+#### Day 35 (thirteenth sitting, Fable 5) — ONE PAGE: the three tiles merged into MAIN DRAFT at the composer's mandate
+
+**The composer, verbatim (voice):** *"This is still too confusing, and I don't really
+have time for this right now… I'm not talking at all about the composer score — the
+menu that I took a picture of. If we could just keep ONE in the main section, call it
+whatever you want, that has all the notation we've built so far and just keeps
+accumulating it. The sort of main draft, if you will. But in the chat, just refer to
+it by its full name, please. And then I suppose the experiments are showing me what
+you've just done. That's fine."*
+
+This overturns the F2 row's "no cost to leaving the pages apart" — the composer felt
+the cost (could not find the long tones behind the label "INT2 BLASTS"). The fold ran
+the same hour.
+
+**THE MERGE.** One build from `piece-s27` over `--w0 0 --w1 111` under `--id db1`,
+label **"MAIN DRAFT — all notation so far (0-111 s)"** — the three pages' own
+provenance sections carried VERBATIM (db1's 49 clusters first, so their keys stay
+cl-1..cl-49; db2's 12 become cl-50..cl-61; int2b1's eight `--ringFromBrick`
+windows). Sound because the save chain tiles exactly: s27's [0,55.94] is
+byte-identical to the s25 archive db1 read, its [81,111] identical to s26 (bump
+copies are verified object-by-object; edits landed only in later windows).
+
+**The era problem and its mechanism:** db1's tiles are approved beamlet-era writing;
+db2's tile carries the day-35 rule. Bare globals would have repainted db1 — so
+`--beamsThrough` / `--rests16` now take a TIME SCOPE, and the merged command says
+**`--beamsThrough 55.9- --rests16 55.9-`** (open-ended: future sections inherit the
+rule automatically; the era boundary is readable in the provenance).
+
+**PROVEN, tile by tile** (full-row layout comparison, window furniture — staff
+extent, clef anchor — excluded as definitionally window-shaped and counted
+separately): **db1 tile [0,55.9) 3833/3833 rows identical (strict) · db2 tile
+[55.9,81) 1033/1033 (cluster keys canonicalised, cl-3→cl-52) · int2b1 tile [81,111]
+1043/1043 (strict). Zero extra, zero missing.** 706 events = 456+129+121 exactly
+(wc-1624 measured in neither-double-counted). VALID vs source; GEOMETRY = the two
+known tier-3 items only; eleven batteries green.
+
+**THE PICKER (notation.html + index.json):** now fully manifest-driven — the four
+day-1 hardcoded entries moved into the manifest as experiments; `db2` and `int2b1`
+PRUNED (their content proven inside MAIN DRAFT); main section = **MAIN DRAFT alone**,
+everything else under "experiments". Verified in the live app: picker correct,
+MAIN DRAFT auto-selected (the saved db2 choice falls back to the first entry), the
+db2-era fix-pass material renders at 78.2 and the INT2 long tones at 84.
+
+**Tests that pinned the old world, fixed on their own terms:**
+- `test_notate_block` SCORE → `piece-s27` (tile-identity is why the replays read
+  the same) · the golden now strips ONLY the two replayed `--ringFromBrick` flags
+  and asserts the eight INT2 ones stay · the window-refusal case runs against a
+  synthesized twin clipped to 55.94 (patched in provenance argv AND source.window —
+  both places notate_block reads) · the ragged-column fixture reads the FROZEN
+  ARCHIVE `piece-s25-finished01`, where the raggedness permanently lives (s27 is
+  post-set_brick). **65/65** (was 64).
+
+**Standing naming rule (per the mandate):** in chat the page is called
+**MAIN DRAFT** (full label on first mention); the accumulation contract is that new
+sections are appended to ITS build command and the label's window updated. SAVE_FILES
+map updated. DB2-FIX round 2 continues ON MAIN DRAFT (windows 56-81).

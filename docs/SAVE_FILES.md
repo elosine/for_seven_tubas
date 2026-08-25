@@ -36,9 +36,9 @@ auditions, and section takes. **The piece is only the `piece-sNN` chain.**
 | file | status | era it froze | which notation page reads it |
 |---|---|---|---|
 | `piece-s01` … `piece-s25` | frozen | the assembly era (days 13–20) | — |
-| `piece-s25-finished01` | **frozen canon** | CLOUD02-D done (day 33) | **`db1`** (0–55.94 s) |
-| `piece-s26` | **frozen canon** | INT2 blasts done (day 35) | **`int2b1`** (81–111 s) |
-| `piece-s27` | **CURRENT — compose here** | (open) | **`db2`** (55.9–81 s) |
+| `piece-s25-finished01` | **frozen canon** | CLOUD02-D done (day 33) | — (its material lives on in MAIN DRAFT via s27's identical tile) |
+| `piece-s26` | **frozen canon** | INT2 blasts done (day 35) | — (same) |
+| `piece-s27` | **CURRENT — compose here** | (open) | **MAIN DRAFT** (0–111 s) |
 
 **`-work` files** (`piece-s25-finished01-work` etc.): the composer app's own
 autosave working copies. **Never a source for anything** (D75 — one is stale
@@ -50,19 +50,28 @@ ignore it. (CLAUDE.md's pointer to it is corrected to point here.)
 
 ---
 
-## THE NOTATION PAGES (what the picker's names mean)
+## THE NOTATION PAGES — ONE page (day 35, the composer's mandate)
 
-| picker label | id | window | source save | what's on it |
-|---|---|---|---|---|
-| DENSITY BUILD 1 + CLOUD02-I + CLOUD02-D — all parts figured (day 33) | `db1` | 0–55.94 s | piece-s25-finished01 | the APPROVED opening: density build 1, both clouds, **the 48 s long tone** (ten B♭ octaves, 4.41 s bars) |
-| DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s | `db2` | 55.9–81 s | piece-s27 | the current fix-pass page (12 clusters, 91 one-shots) |
-| INT2 BLASTS — 81-111 s | `int2b1` | 81–111 s | piece-s26 | **the blasts + THE LONG TONES section** — 11 struck columns with their ring bars, incl. the shortened T1 breath |
-| *(everything above db1 in the picker)* | — | — | — | older era/experiment pages: trance, section-1 trials, morphs, the day-1 opening |
-| db1 ALL PARTS x01 … *(under "experiments")* | `db1-all-x01` | — | — | stale day-23 fork, bricks only — ignore |
+> *"Just keep one in the main section… that has all the notation we've built
+> so far and just keeps accumulating it. The sort of main draft, if you will."*
 
-**There is NO single all-piece notation page yet.** The piece so far =
-`db1` + `db2` + `int2b1`, tiling 0–111 s continuously. One combined page is a
-FOLD (proven twice, D70) or an export (PLAN 8) — it happens when you ask.
+**The main section of the picker holds exactly ONE entry:**
+
+# → **MAIN DRAFT — all notation so far (0-111 s)**
+
+That page (internal id `db1`, source `piece-s27`) carries EVERYTHING notated:
+the opening density build + both clouds + the 48 s long tone (0–56), the
+gesture-2 density build being fix-passed now (56–81), and the INT2 blasts +
+long tones (81–111). To see a section, pick MAIN DRAFT and set the window
+seconds. **New sections are appended to this same page; the label's window
+number updates as it grows.** The merge was proven tile-by-tile: every drawn
+item identical to the three pages it replaced.
+
+**Everything else sits under the "experiments" heading** — old era pages
+(trance, section-1 trials, morphs, day-1 opening) and whatever working pages
+the AI is currently building. Working pages are named in chat by their full
+label. `db2` and `int2b1` no longer exist as separate pages (their content is
+inside MAIN DRAFT; git history keeps the files).
 
 ---
 
@@ -86,9 +95,8 @@ At a section wrap, when you say "bump":
 
 - **"I want to edit / hear the piece"** → composer app → `piece-s27`
   (in the app list the piece files sort near the top — newest first).
-- **"I want to see a section's notation"** → notation app picker →
-  `db1` (0–56) · `db2` (56–81) · `int2b1` (81–111), by the labels above.
-- **"Where are the long tones?"** → the 48 s one is on `db1`;
-  the 81–111 s section of them is on `int2b1` ("INT2 BLASTS").
+- **"I want to see ANY notation"** → notation app picker →
+  **MAIN DRAFT — all notation so far** (the only main entry), then set the
+  window: 0–56 opening · 56–81 density build 2 · 81–111 blasts + long tones.
 - **"Which save is safe to touch?"** → only `piece-s27`. Everything
   else in the chain is frozen canon; `-work` files are the app's own.

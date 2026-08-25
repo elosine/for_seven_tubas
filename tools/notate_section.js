@@ -274,15 +274,31 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
   //                    (day-29 --rest16 N, made the rule). Exception:
   //                    --restFit N (positional) — the silence BEFORE member N
   //                    goes back to the longest value that fits.
-  const allThrough = flag('beamsThrough');
-  const allRests16 = flag('rests16');
-  if (allThrough) console.log('  --beamsThrough: second beams run through rests on every beam group');
-  if (allRests16) console.log('  --rests16: every silence written as 16th rests, one per slot');
+  // Both flags optionally take a TIME SCOPE — `--beamsThrough 55.9-` (open end)
+  // or `--beamsThrough 55.9-81` — applying the rule only to clusters whose span
+  // STARTS inside it. This is how one accumulating page carries two eras: db1's
+  // approved beamlet-era clusters (before 55.9) keep their dictated writing,
+  // everything from the day-35 rule onward gets the defaults. Bare flag = all.
+  const scopedFlag = name => {
+    const i = process.argv.indexOf('--' + name);
+    if (i < 0) return null;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]*)$/);
+    if (!m) return { t0: -Infinity, t1: Infinity };
+    return { t0: parseFloat(m[1]), t1: m[2] === '' ? Infinity : parseFloat(m[2]) };
+  };
+  const allThrough = scopedFlag('beamsThrough');
+  const allRests16 = scopedFlag('rests16');
+  const scopeWord = s => !s ? '' : (s.t0 === -Infinity ? 'every beam group' : 'clusters starting in ' + s.t0 + '-' + (s.t1 === Infinity ? '' : s.t1) + ' s');
+  if (allThrough) console.log('  --beamsThrough: second beams run through rests on ' + scopeWord(allThrough));
+  if (allRests16) console.log('  --rests16: every silence as 16th rests, one per slot, on ' + scopeWord(allRests16));
   spans.forEach(({ sp, mods }, n) => {
     const key = 'cl-' + (n + 1);
     const modVals = name => mods.filter(([k]) => k === '--' + name).map(([, v]) => v);
     const TOL = parseFloat(modVals('clusterTol')[0] || '0.030');
     const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    // day-35 defaults apply to this cluster only if its span starts in scope
+    const inScope = s => !!s && sp[0] >= s.t0 - 1e-9 && sp[0] <= s.t1 + 1e-9;
+    const thruHere = inScope(allThrough), restsHere = inScope(allRests16);
     const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
       (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
     if (!members.length) { console.error('--cluster ' + label + ': no events in the span'); process.exit(2); }
@@ -717,7 +733,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
     // to the day-23 writing — second level broken at rests, beamlets on the
     // lone 16ths ("there may be occasions to use the beamlets").
     const beamlets = listArg('beamlets');
-    if (beamlets.size && !allThrough) { console.error('--cluster ' + label + ' --beamlets: only meaningful under the global --beamsThrough — without it every group already breaks its second beam at rests'); process.exit(2); }
+    if (beamlets.size && !thruHere) { console.error('--cluster ' + label + ' --beamlets: only meaningful where the global --beamsThrough covers this cluster — without it every group already breaks its second beam at rests'); process.exit(2); }
     if (beamlets.size) console.log('    beamlet-era second beam kept on group(s) ' + [...beamlets].join(','));
     // --beamOver 1,2 : beam group #N (1-based) extends its beams one slot past
     // its last note, over the first 16th rest that follows (day 29, composer).
@@ -746,7 +762,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
     // written as the longest value that fits again — the composer's forecast
     // correction path ("I can correct and say no, that should be an eighth rest").
     const restFit = listArg('restFit');
-    if (restFit.size && !allRests16) { console.error('--cluster ' + label + ' --restFit: only meaningful under the global --rests16 — without it every rest is longest-fit already'); process.exit(2); }
+    if (restFit.size && !restsHere) { console.error('--cluster ' + label + ' --restFit: only meaningful where the global --rests16 covers this cluster — without it every rest is longest-fit already'); process.exit(2); }
     for (const r of restFit) {
       if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --restFit ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
     }
@@ -833,7 +849,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       // whole cluster otherwise.
       if (pm) { dev.gridId = pm.gridId; dev.figure = pm.figure; }
       else if (oneGrid) dev.figure = sub + 1;
-      if (rest16.has(k + 1) || (allRests16 && !restFit.has(k + 1))) dev.rest16Before = true;   // day 29 per member; day 35 the rule (--rests16), --restFit the correction
+      if (rest16.has(k + 1) || (restsHere && !restFit.has(k + 1))) dev.rest16Before = true;   // day 29 per member; day 35 the rule (--rests16, scoped), --restFit the correction
       if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
       if (rings) {
         // head, ring bar and dynamic come from its technique entry; the mark
@@ -871,7 +887,7 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
       if (tuplets.length || (patTuplets && patTuplets.size) || ptp) dev.beamHasTuplet = true;
       if (bracketSide) dev.bracketSide = bracketSide;
       if (articSide) dev.articSide = articSide;
-      if (through.has(sub + 1) || (allThrough && !beamlets.has(sub + 1))) dev.beamThrough = true;   // day 23 per group; day 35 the rule (--beamsThrough), --beamlets the exception
+      if (through.has(sub + 1) || (thruHere && !beamlets.has(sub + 1))) dev.beamThrough = true;   // day 23 per group; day 35 the rule (--beamsThrough, scoped), --beamlets the exception
       if (over.has(sub + 1)) dev.beamOverRest = true;
       if (overL.has(sub + 1)) dev.beamOverLeft = true;
       if (accentAt.has(k + 1)) dev.nhArtic = 'accent';

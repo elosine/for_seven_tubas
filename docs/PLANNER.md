@@ -8,7 +8,15 @@
 > Engineering detail stays in PLAN.md (IDs referenced).
 > **View it collapsible: http://localhost:5200/planner.html** (score server).
 
-**NOW ► (2026-08-24, day 35, latest) DB2-FIX ROUND 1 IS ON THE PAGE.** Your dictation
+**NOW ► (2026-08-24, day 35, latest) ONE PAGE: the picker's main section is just
+"MAIN DRAFT — all notation so far (0-111 s)".** Your mandate ("just keep one in the
+main section… keeps accumulating") ran the same hour: the three section pages merged
+into one, proven item-for-item identical tile by tile, `db2`/`int2b1` retired,
+everything else under "experiments". To see any section: pick MAIN DRAFT, set the
+window (0–56 opening · 56–81 density build 2 · 81–111 blasts + long tones). New
+sections accumulate onto this same page. **Below, "the page" = MAIN DRAFT.**
+
+**Previously (same day) ► DB2-FIX ROUND 1 ON THE PAGE.** Your dictation
 applied: **full double beams across every group** (beamlets gone — 25 stubs → 0),
 **every rest a 16th** (the two 8ths left are inside cl-6's 3:2 bracket — its own
 arithmetic; say the word for 16ths), and **the T2 fortepiano detached** — white
