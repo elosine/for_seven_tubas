@@ -13443,3 +13443,46 @@ the only voice in the whole section that differs from its neighbours.**
 `niente ——▶ ffff`, identical. If the three morphs are meant to *look* different in the
 score, either the ladder needs finer resolution at the top or the ceilings need to be
 further apart in the data.
+
+**TUBA 1 / FIRST MORPH IS COMPLETE.** Composer: *"draw the two curves to the end and
+draw in the note heads. It looks like you already did the go lines."*
+
+**BOTH CURVES NOW RUN THE WHOLE MORPH — 141.386 → 249.372 (108 s).** Over that span
+**neither curve is monotonic**: the gliss arcs up to 20.4 c, back to 0, out to 8 and
+back; the level is a train of swells under one big arch. So **both are INTERPOLATED**
+now (the entry→apex power fit for the gliss no longer applies). Anchor counts were
+MEASURED across 9/13/17/21/25/29, not guessed:
+
+| curve | anchors | max dev | rms |
+|---|---|---|---|
+| **gliss** | **21** | 0.767 c | 0.196 c |
+| **crescendo** | **13** | 0.252 | 0.041 |
+
+21 is the knee for the bend (25 lowers rms 0.196→0.163 but raises max 0.77→0.95);
+13 is the knee for the level.
+
+**Both curves are normalised to their own peak**, so each fills its half completely —
+the composer's original rule, *"regardless of how much change, it will go the full
+track height."* (An earlier build left the crescendo at 0.92 of its half; normalising
+is what was actually asked for, and the amount now lives in the dynamics alone.)
+
+**"I WANT THE METERS. I DON'T WANT THE DOTS."** — a correction worth recording,
+because the AI had it backwards twice. When the composer first said *"its own curve
+follower… the same as the existing one"*, the AI read "the existing one" as
+`curveMeter` and built meters; the composer's screenshot then showed an orange box, a
+green box **and a blue-grey dot**, and the AI concluded from that image that the
+composer had meant the DOT all along and started converting the meters. **Wrong
+again — the blinking thing to remove was the DOT, and the meters were right.** The
+lesson: *the screenshot showed three objects and the AI guessed which one the words
+referred to instead of asking.*
+
+**Fix, opt-in:** an IR may now switch animated kinds OFF —
+`ir.animated = { curveFollower: false, envFollower: false, lineWedge: false }`.
+Absent = every kind as before, so no existing page changes. morph-x01 collects
+**exactly two animated objects: `glissMeter` and `crescMeter`** (was 74).
+
+**VERIFIED IN THE APP** (window 137.5–251.5): `13 events · 13 chunks`; orange fill
+**x 29.7→853.8, y 25→77** (top half), lime fill **x 29.7→853.8, y 77→130** (bottom
+half) — both spanning entry to the morph's end; **13 go lines** (29.7 … 804.9);
+**15 noteheads** (13 onsets + the header's two); **9 quarter-sharps** (8 descent
+onsets + the header's).

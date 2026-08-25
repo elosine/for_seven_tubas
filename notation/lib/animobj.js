@@ -228,6 +228,11 @@
   // visibility (opts.meta).
   function collect(ir, score, style, opts) {
     const O = opts || {};
+    // day 35: an IR may switch OFF animated kinds it does not want — the morph
+    // page wants its two METERS and none of the dots (composer: "I want the
+    // meters. I don't want the dots."). Opt-in: absent = every kind as before.
+    const offKinds = (ir && ir.animated) || {};
+    const kindOn = k => offKinds[k] !== false;
     const partList = O.parts || (ir && ir.source && ir.source.parts) || null;
     const allowed = partList ? new Set(partList) : null;   // null = unscoped
     const has = l => !allowed || allowed.has(l);
@@ -305,7 +310,7 @@
         out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
       }
     }
-    return out;
+    return out.filter(i => kindOn(i.kind));
   }
 
   // one frame: every active instance's state at t, plus the cursor.
