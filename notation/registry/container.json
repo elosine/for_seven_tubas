@@ -342,6 +342,15 @@
     "strokeOpacity": 0,
     "_note": "day 35, the morph section (composer): the glissando is ONE smooth interpolated line per section, brightOrange (#F04B00 = piece #1's `brightOrange`, its glissando colour), taking PRECISELY the TOP HALF of the lane; the crescendo takes the bottom half. Interpolated on purpose - 'players aren't going to be able to make small adjustments in pitch', so the drawn line is a fitted slope, not the sounding bend's every wiggle. Filled to the half-lane baseline (composer, day 35), the same read as the envelope curve. NO BORDER AT TOP (composer, day 35): fill only, no outline - the same verdict the env curve got on day 22.",
     "fillOpacity": 0.22
+   },
+   "sectionHead": {
+    "spacerSs": 0.45,
+    "mediumSs": 0.3,
+    "circleDiaSs": 0.4695,
+    "arrowLenSs": 2,
+    "headSs": 0.45,
+    "thickSs": 0.13,
+    "_note": "day 35, composer: the section figure is niente circle - arrow - fff, sitting UNDER the staff at the house `dynY` row 'just like all the other dynamics', ending one standard spacer before the go line. NO LilyPond niente glyph exists (checked ours and piece #1's) - in LilyPond the circled tip is DRAWN - so the circle is drawn: diameter = the measured height of the `m` in mf (0.4695 ss; mp and mf agree to the digit), stroked at the arrow's thickness, centred on the arrow's axis. The mark and arrow are ORDINARY items (glyph + dynarrow), so they are drawn by the identical code path as every other dynamic."
    }
   }
  },

@@ -5,7 +5,7 @@
  "source": {
   "score": "piece-s27",
   "window": [
-   139,
+   137.5,
    181
   ],
   "parts": [
@@ -56,6 +56,18 @@
   }
  ],
  "overlays": [
+  {
+   "id": "ov-header-morph-x01",
+   "kind": "header",
+   "target": {
+    "part": 0,
+    "t": 141.386
+   },
+   "value": {
+    "endMark": "fff"
+   },
+   "provenance": "authored"
+  },
   {
    "id": "ov-gliss-morph-x01",
    "kind": "gliss",
@@ -231,19 +243,6 @@
      1
     ],
     "fit": "c(t) = 20.384 * (t/37.02)^1.64 cents; max dev 0.59 c, rms 0.24 c"
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-staffoff-morph-x01",
-   "kind": "staff",
-   "value": "off",
-   "target": {
-    "part": 0,
-    "span": [
-     139,
-     181
-    ]
    },
    "provenance": "authored"
   },

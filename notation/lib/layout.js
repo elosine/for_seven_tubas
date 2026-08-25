@@ -148,6 +148,7 @@
     // ("not every page or every section will have staff").
     const staffOff = [];         // {part, span:[a,b]}
     const glissCurves = [];      // {part, span:[a,b], samples:[0..1]} — top half of the lane
+    const headers = [];          // {part, t, endMark} — the section header block
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
@@ -162,6 +163,14 @@
       // value: { samples:[0..1 ...], fit:'<the formula, for the record>' }
       if (ov.kind === 'gliss' && tgt.part !== undefined && tgt.span && ov.value && ov.value.samples) {
         glissCurves.push({ part: tgt.part, span: tgt.span, samples: ov.value.samples }); continue;
+      }
+      // day 35: THE SECTION HEADER for the morph sections. Dictated order,
+      // right-to-left from the go line: go line · standard spacer · fff ·
+      // arrow · niente circle; the staff lines start 1 ss left of the circle
+      // and stop a MEDIUM spacer short of the go line. Anchored at the go
+      // time in ss offsets, so it does not stretch with the time zoom.
+      if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
+        headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff' }); continue;
       }
       if (ov.kind === 'dynamic' && tgt.event) {
         const e = evById.get(tgt.event);
@@ -265,6 +274,25 @@
       items.push({ k: 'clef', t: w0 });
       for (const g of glissCurves) if (g.part === part)
         items.push({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples });
+      for (const h of headers) if (h.part === part) {
+        // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
+        // sitting UNDER the staff where any other dynamic goes, and ENDING
+        // just before the go line. Ordinary items — the mark is drawn by the
+        // same code path as every other dynamic, so it cannot come out mirrored.
+        const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
+        const HD = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});
+        // the dynamic row is the house one — `dynY`, the same number every
+        // other dynamic uses (ySs is inverted: negative is BELOW the staff)
+        const mg = (glyphs.dynamic || {})[h.endMark] || { wSs: 1.6279 };
+        const y = o.dynY;
+        const markC = -A.gapSs - mg.wSs / 2;                    // right edge one standard spacer before the go line
+        const arrR = markC - mg.wSs / 2 - A.gapSs;
+        const arrL = arrR - A.lenSs;
+        const cirC = arrL - A.gapSs - HD.circleDiaSs / 2;
+        items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
+        items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });
+        items.push({ k: 'glyph', g: 'dyn-' + h.endMark, t: h.t, dxSs: markC, ySs: y, align: 'center' });
+      }
       for (const d of dynTexts) if (d.part === part) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic });
       for (const ins of instrTexts) if (ins.parts.includes(part)) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: TS.instruction });
 

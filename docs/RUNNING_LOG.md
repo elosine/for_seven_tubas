@@ -13257,3 +13257,48 @@ the live page will not move.** Filed to NITS.
 breath with its own two dynamics), the white fp noteheads at each onset, the section
 notation block, and the expanded dynamic ladder (dal niente · pppp … ffff — `pppp` and
 `ffff` have no single glyph and must be tiled from `p`/`f`).
+
+**THE SECTION FIGURE — two corrections from the composer's eye, both real.**
+
+**(1) THE GLYPHS CAME OUT MIRRORED.** The first header drew its own staff, clef and
+`fff` with a raw `scale(ssPx, -ssPx)` path transform — copied from the standalone SVG
+proof, where the generator owned its own coordinate system. **`render.js` does not draw
+glyphs that way: it uses `Stamps.toSvg(...)`**, and the negative Y flipped both the
+bass clef and the `fff`. The composer saw it immediately (*"for some reason, it's in
+mirror"*). **Fix: stop hand-drawing. The header now emits ORDINARY layout items —
+`glyph g:'dyn-fff'` + `dynarrow` — the same two item kinds the surge's `dynPair`
+already uses, so the mark goes through the identical code path as every other dynamic
+and CANNOT come out mirrored.** Only the circle is new ink. Verified: **zero transforms
+with a negative scale component anywhere on the page.**
+
+**(2) THE SHORT HEADER STAFF IS GONE.** Composer: *"just the normal base cleft and the
+full staff line just like normal… then just insert that figure… where you would
+normally put the dynamic just under the staff line, just like all the other
+dynamics."* So the staff-off overlay was dropped, the window-edge clef restored, and
+the header stopped drawing furniture — it now contributes **only** the three-item
+figure. Simpler than what it replaced.
+
+**A SIGN ERROR CAUGHT BY MEASURING, NOT BY EYE.** The figure was placed at `ySs 4.6`,
+reasoned as "mirror `dynY`'s 2.6 ss on the under side". **`Y()` inverts — positive ySs
+goes UP** — so 4.6 put the figure *above* the staff. The DOM audit showed the figure at
+y 36 against staff lines at 58.9–94.2 and the error was obvious. **`dynY` (−4.6) is
+already the below-staff row**; the figure now uses that constant directly, which is
+also literally what the composer asked for ("just like all the other dynamics").
+
+**VERIFIED IN THE APP, every dictated relation measured** (ssPx 8.8, go line x 77.7):
+staff **5 lines, full width 0..870** · clef normal at the left edge · figure at
+**y 117.6, below the staff bottom 94.2** · **circle centred on the arrow's axis**
+(both 117.6) · circle r 2.07 px = **0.4695 ss**, the measured height of the `m` in
+`mf` · **fff right edge 73.8, go line 77.7 — a 0.44 ss gap, the 0.45 standard
+spacer** · **zero mirrored transforms**.
+
+**The niente circle is DRAWN, not a glyph** — checked our `glyphs.json` (13 dynamics,
+no niente) and piece #1's LilyPond: **LilyPond has no niente glyph either**, its
+`circled-tip` is drawn. So: an open circle, diameter = the `m`, stroked at the arrow's
+own thickness.
+
+**Still open:** the header sits in TIMED space, so the window had to start at 137.5 to
+fit it. **Its real home is the untimed prefatory gutter — `prefatory.gutterPx = 48`
+already exists in the registry and is almost exactly the block's width — but the live
+view does not pass `gutterPx` to the renderer** (the same line-386 gap as the
+`engraving` bug). Worth fixing before this templates to the other nine parts.

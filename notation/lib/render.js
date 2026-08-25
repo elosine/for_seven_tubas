@@ -35,6 +35,12 @@
       // to the half-lane baseline. Code default = the census value, so the live
       // view (which does not pass opts.engraving) and the export agree.
       glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },
+      // the morph SECTION HEADER (day 35). circleDiaSs = the measured height of
+      // the `m` in mf (0.4695 ss — mp and mf agree); spacer = the 0.45 house
+      // standard; medium = gapMediumSs. dynBelowSs mirrors dynY's 2.6 ss
+      // distance from the staff, on the under side.
+      sectionHead: { spacerSs: 0.45, mediumSs: 0.3, circleDiaSs: 0.4695,
+                     arrowLenSs: 2, headSs: 0.45, thickSs: 0.13, dynBelowSs: 4.6 },
       // go line: near-black (composer, day 22 second note: "always black
       // gray" — the surge green was never meant for it); width/opacity/dash
       // = the retuned numbers, untouched
@@ -229,6 +235,18 @@
                 '" stroke-opacity="' + EC.strokeOpacity + '"/>');
             }
           }
+        } else if (it.k === 'niente') {
+          // the NIENTE CIRCLE (day 35). No LilyPond glyph exists for it — in
+          // LilyPond the circled tip is DRAWN — so it is drawn here: an open
+          // circle the diameter of the `m` in mf (measured 0.4695 ss), stroked
+          // at the arrow's own thickness, sitting on the dynamic row.
+          if (!inWin(it.t)) continue;
+          // centred ON the arrow's axis, so the two read as one gesture
+          // (the composer's reference image: circle then hairpin, one line)
+          const r = it.diaSs * ssPx / 2;
+          parts.push('<circle cx="' + X(it.t, it.dxSs).toFixed(2) + '" cy="' + Y(it.ySs).toFixed(2) +
+            '" r="' + r.toFixed(2) + '" fill="none" stroke="' + o.ink +
+            '" stroke-width="' + (it.thickSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'glisscurve') {
           // THE MORPH GLISSANDO (day 35, composer): one smooth interpolated
           // line for the whole section, brightOrange, taking PRECISELY the TOP
