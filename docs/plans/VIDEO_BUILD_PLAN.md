@@ -71,12 +71,13 @@ straight frame-for-frame splice with the master WAV laid under it untouched.
 Nothing can be muxed until one master WAV exists, and it is also the only way to
 prove sync before spending hours on frames.
 
-- **0.1** `node tools/export_midi.js --score piece-final-draft-001` → `midi/`
+- ~~**0.1** export the MIDI~~ **DONE day 36** — `midi/piece-final-draft-001.mid`, **21 tracks (tempo + T1, T1b … T10, T10b)**, 4481 notes (matching the score and the page exactly), 25 755 CC, 4408 bends, 751.92 s. Read-back verified against the compiled events.
 - **0.2** *(composer)* Reaper render at **60 BPM**, one stereo WAV, no leading
   silence → `notation/audio/<scoreName>.wav`
-  - ⚠ **name it for the score the PAGE names.** `db1.source.score` is
-    `piece-s28`, so auto-detect looks for `piece-s28.wav`. Either name it that,
-    or rebuild db1 against `piece-final-draft-001` first. **Decide before rendering.**
+  - **SETTLED day 36:** `db1` was rebuilt against `piece-final-draft-001`, so the
+    MIDI, the page and the audio all name one save. **Save the render as
+    `notation/audio/piece-final-draft-001.wav`** and the `♪ render` button
+    finds it.
 - **0.3** verify: duration ≈ **751.42 s**, first attack at **2.00 s**, and the
   MIDI's own last event matches. One measurement, not a listen.
 - **0.4** **the sync proof**: open MAIN DRAFT in the app, hit `♪ render`, play.
@@ -94,8 +95,10 @@ prove sync before spending hours on frames.
 - **2.2 `tools/export_video.js`.** For each frame `k`: `t = k/fps` → layout +
   render → SVG (the pure dual-load modules, in Node) → `animobj.frameSvg(t)`
   overlay → rasterize → **pipe straight into ffmpeg's stdin.**
-  - ⚠ 751 s × 30 fps ≈ **22.5k frames per version**. Writing PNGs to disk would
-    cost ~100 GB across the renders. **Pipe; never stage frames.**
+  - 751 s × 30 fps ≈ **22.5k frames per version**, ~68k across the three renders.
+    *(Corrected: staged PNGs would be roughly **15–35 GB**, not the 100 GB first
+    quoted — line art compresses well. Still pipe: it avoids the disk churn and
+    the cleanup, and it is one command instead of two.)*
 - **2.3 Parameters:** `--ir db1 --view video|zoom --z 2 --fps N --t0 --t1
   --audio <wav> --out <mp4>`
 - **2.4 Prove it:** two runs byte-identical (determinism), and N spot frames
@@ -122,39 +125,30 @@ Duration equality across all four · A/V offset measured at start, middle and en
 
 ---
 
-## DECISIONS NEEDED
+## DECISIONS — ANSWERED (composer, day 36)
 
-**D1 · The zoom's pace — the only real design question.**
-`zoomCfg` divides the time span by Z, so at ×2 a close-up shows **~6 s per
-system instead of 12** and the cursor sweeps at **double the on-screen rate**.
-Cutting from V-MAIN to V-TOP therefore changes the visual pace as well as the
-scale.
+| | |
+|---|---|
+| **D1 · zoom pace** | **(a) accept it.** The close-ups run at ~6 s/system and sweep at 2× — what is already built, and it keeps the ink-to-spacing ratio honest |
+| **D2 · frame rate** | **30 fps** |
+| **D3 · time scale** | **one global 12 s** for all four outputs |
+| **D4 · on screen** | **META off, bricks off**, no solo dimming |
+| **D5 · the cut** | **randomized**, ~25–33 % of the running time in ~20–30 s segments, spaced out — built, see below |
+| **the score name** | **settled.** `db1` rebuilt against `piece-final-draft-001`; proven identical once the name is normalised away (4483 occurrences = one per event + header + provenance). MIDI, page and audio now all say one name |
 
-- **(a) Accept it — recommended.** It is what is already built, and it is
-  principled: magnifying the ink without also spreading the time would leave the
-  notes 2× bigger at unchanged spacing, which risks horizontal collisions in the
-  dense material (the density builds, the trance at ~2.5 attacks/s). Cutting to
-  a faster, closer view is also ordinary film grammar.
-- **(b) Keep 12 s/system in the close-ups** — same pace, cuts don't change
-  rhythm of motion. Needs a variant that magnifies vertically only, and the
-  collision risk has to be measured before committing.
+## THE CUT LIST — built (`tools/make_cut.js`, seed 11)
 
-**D2 · Frame rate** — 30 or 60 fps. 30 halves the render time and is standard
-for a score video; 60 makes the cursor visibly smoother. *Recommend 30.*
+`notation/video/cut-list.json` — **9 close-ups, 222.4 s = 29.6 % of the running
+time**, segments 22–27 s, wide stretches of 26–89 s between them. Opens wide for
+91 s and closes wide for 59 s, so the final crescendo stays on the full ensemble.
+TOP 5 / BOT 4, four in the first half and five in the second.
 
-**D3 · Time scale** — `width` is currently a live control (12 s). The registry
-holds `trance: 12, denseApex: 8` *per section*. One global value keeps the cut
-simple; per-section means the page rate changes mid-video. *Recommend one global
-12 s for all four outputs; revisit only if a section reads badly under motion.*
+**Seeded and reproducible** — `--seed N` re-rolls the whole thing in a second,
+`--frac`, `--min/--max`, `--gap`, `--lead/--tail` move the constraints. The file
+carries **frame indices as well as seconds**, because the splice is frame-for-frame.
 
-**D4 · What is on screen** — `META` overlay, `bricks`, part `solo` dimming.
-*Recommend: META off, bricks off, no solo — the clean presentation frame.*
-
-**D5 · The cut list** — which sections get a close-up, and top or bottom. I can
-propose a first pass from the section boundaries (the material moves between
-upper and lower parts in the morphs and the trance), for the composer to correct.
-
----
+Constraints applied: never three of the same close-up in a row · a minimum wide
+stretch between segments · nothing in the lead-in or the tail.
 
 ## RISKS, NAMED
 
