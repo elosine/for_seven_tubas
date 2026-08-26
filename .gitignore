@@ -31,3 +31,12 @@ research/audio/*.flac
 
 probes/_selftest_render.wav
 probes/last_bend_analysis.json
+
+# FONTS ARE NOT COMMITTED (day 36). This repo is PUBLIC, and a font file is
+# licensed SOFTWARE -- putting one here republishes it to the world, which no
+# desktop font licence permits (not even a purchased one: a desktop licence
+# covers installs, not redistribution). The printed score is unaffected --
+# typeset output contains no font and, in the US, typeface DESIGNS are not
+# copyrightable at all; only the font software is.
+# The cover face is Bitstream's EngraversGothic BT -- see docs/FONTS.md.
+fonts/
