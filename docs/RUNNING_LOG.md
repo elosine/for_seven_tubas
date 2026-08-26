@@ -13678,3 +13678,35 @@ Could you draw up a plan first... and please ask any clarifying questions."
 **Seven questions to the composer filed in the plan (Q-A…Q-G):** later tempo
 marks, the stub columns' written length, per-column vs shared duration, CB
 scope, f/ppp→fff per-part vs per-page, ball lane(s) + coverage, cuivré text.
+
+## Day 36 — TRANCE A4 plan v2: answers in, the per-part tempo map measured (Fable 5)
+
+**The composer's answers (A–G) reframed the tempo apparatus:** tempo is PER
+PART — each part marked with the tempo it plays IN even when not sounding
+every beat; ball per part at that tempo; bar+mark at every per-part change;
+every in-tempo note = black head + stem + staccato dot. Columns ring to
+next-attack-minus-breath (all of them); all five CB columns in; f and ppp->fff
+per part; ball off during columns/swells; cuivre text kept — **the day-35
+"no text" rule REDACTED (it meant the draft score's commentary only).**
+
+**The per-part tempo map measured from piece-s28 (plan v2 table is canonical):**
+- Opening pulse = two teams of five alternating on the 0.4 s grid: mark 150
+  every part.
+- Chord stream (base xN, P9/P10/P12) = 150, parts on random subsets — matches
+  ASSEMBLY_METHOD ("chord re-drawn every beat at 150").
+- Phase ramp = the day-21 performed ladder: PS1 87 / PS2 93.8 / PS3 100 /
+  PS4 107.1 / PS5 113.2 / PS6 120 — every part sd=0.000 steady, phase-spread.
+- Segment "27" uniform 80 all parts (closes the NITS watch: chosen as
+  multitempo, measures uniform — now notated at its measured 80).
+- TRUE multitempo, per-part lattices: MT B = 150·ri/14 (T6 128.6, T1 85.7,
+  T3/T8 75, T5 42.9, T4 32.1); seg "17" ≈ 20:18:15:11 @ 100 (100/90/75/55);
+  seg "32" partial (150/118.4/67.1 + varied) — varied parts get lattice-fit-
+  with-rests at build, flagged if no fit (RQ-2).
+- Column rejoin gaps measured per member (0.4–13.25 s) — exposes RQ-1:
+  per-member vs uniform bars, and two members with 0.4 s rejoin (negative
+  room under the breath rule).
+
+**Why per-part matters:** the old 8 marks were the agreement points of one
+derivation; the actual texture juxtaposes tempo SETS (the generator's units).
+The revision writes what each player does — 150 vs 32.1 in the same system at
+594.63 — which is the section's whole argument made legible.
