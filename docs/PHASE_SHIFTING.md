@@ -561,3 +561,14 @@ matter.** One variable per experiment; every cell measured before it ships.
 If E2 shows human error turns everything into rain, then E1's smear findings are
 interesting but unusable live, and E3 becomes the only route to smear. Run E1 and
 E2 together and the two answers arrive at once.
+
+## FOR THE NEXT PIECE — the accelerating phase shift (composer, day 36, 2026-08-26)
+
+**"try real phase shifting where one part accelerates against a steady part and
+then decelerates so like unison - 1 part accelerates, phase shift, - decelerate
+back to unison"** — filed in full, with why it is new and what it would need, in
+`docs/PLANNER.md` (raw notes, day 36). Short version: every phase relationship in
+`for seven tubas` is a STATIC OFFSET between two steady rates; nothing in it
+accelerates against anything. This is Reich's process with the return composed in.
+The E-series above asks the same family of questions of texture; this asks it of
+tempo, and E7 (perturbation) is its gate too.

@@ -446,3 +446,33 @@ rule) · ordinario blast** (+ cuivre via C key, + surge/G-convert).*
   deferred post-submission (D45). Capture + decision slate:
   `docs/plans/PENN_STATE_DELIVERABLES_PREPLAN.md`. Phase-shifting sitting is
   next; this work waits until the piece is done.
+
+- **2026-08-26 (day 36) — FOR THE NEXT PIECE, composer, verbatim:** *"try real
+  phase shifting where one part accelerates against a steady part and then
+  decelerates so like unison - 1 part accelerates, phase shift, - decelerate
+  back to unison"*. **The round trip is the idea**: unison → one part
+  accelerates away → the phase shift is the middle → that part decelerates back
+  → unison again. **This is Reich's process** (`Piano Phase`) but with the
+  return built in — Reich lets the shifting part run until it laps back into
+  unison; here the departure and the return are both *composed accelerandi in
+  one part against a steady other*, so the phase relationship is a shape with a
+  beginning, a peak and an end rather than a cycle.
+
+  **Why it is not what this piece does.** Every phase relationship in
+  `for seven tubas` is a STATIC OFFSET between two steady rates — the ladder
+  (PS1..PS6, 87 → 120 bpm) moves the whole ensemble together and the parts sit
+  at fixed fractions of a beat apart, and the multitempo lattices give each part
+  a different constant rate. Nothing in it accelerates *against* anything.
+  The day-36 trance measurement makes that explicit: every part is a single
+  steady stream with rests, all IOIs integer multiples of one step, sd = 0.000.
+  So this is genuinely new material, not a variation on what exists.
+
+  **What it would need, when the time comes:** a rate function per part rather
+  than a rate (the generator's `rate = B·ri/r1` is a constant); a decision about
+  whether the accelerating part's written tempo is *stated* (a printed
+  accelerando) or *implied* (the ball alone, at a changing period — the day-36
+  per-part apparatus already draws a per-lane ball at a per-lane rate, so the
+  machinery is closer than it looks); and E7's perturbation gate, because a
+  human accelerando against a steady partner is exactly where precision fails.
+  Related: `docs/PHASE_SHIFTING.md` E4 (category morphs) is the same question
+  asked of texture rather than of tempo.

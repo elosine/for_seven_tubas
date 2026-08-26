@@ -34,9 +34,18 @@ identity); **the BALL runs on the measured grid** so it lands on the notes —
 at 107.1 it would have walked 44 ms off them, over a notehead. One constant
 flips it: `PRINT_MEASURED` in `notation/lib/trance_overlays.js`.
 
-**Next concrete step:** the composer's eye on the rebuilt page
-(`TRANCE A4 — 500-751 s` in the picker), and the four-tempo answer. Then
-TRANCE-FOLD into MAIN DRAFT.
+**THE COMPOSER'S FIRST FOUR FIXES ARE IN (day 36, second pass):** the ball now
+runs the **two pulsed passages inside the columns** (521.83·522.23 and
+523.43–525.03, ten lanes, 150, no mark — +70 balls, 3556) · **every bar line
+clears its bar's leftmost ink** by a standard gap, ledger lines and accidentals
+included (159/159 at exactly 0.45 ss; 85 clear a ledger, 52 an accidental —
+before this, 111 of them had ink to their left) · **`wc-ta4-2080` moved T2 → T6**
+at 647.43, ledgered, CB1 now T1 T4 T6 T7 T10 and its ring unchanged at 2.30 s ·
+**the "pies" suppressed** — they were `lineWedge`, not `motivePie` (which has
+been off since day 24): 7 rings over the CB5 column, now 0.
+
+**Next concrete step:** the composer's eye on the page again, and the
+four-tempo answer (below). Then TRANCE-FOLD into MAIN DRAFT.
 
 **Resume reads:** RUNNING_LOG day 36 "TRANCE A4 REVISION: BUILT" (the full
 account, including four defects found and fixed, and what was decided beyond
@@ -435,6 +444,7 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~7~~ | ~~The two trance seams~~ **DONE day 35** — both pruned by the composer's rule; 0 overlaps in 3212 notes |
 | ~~TRANCE-EYE~~ | **ANSWERED day 36 — the eye became a REDIRECT:** toward `trance-section-01`'s look, per-part tempo apparatus, columns, fixes. All questions resolved across three rounds | — | — | — |
 | ~~TRANCE-REVISE~~ | ~~Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)~~ **DONE day 36 (Opus)** — trance_overlays rewritten · animobj preset passthrough · layout per-part bars + curveZero + the chunk tick on unresolved chunks · render one-decimal-where-fractional · schema `devices[].preset` (the gate's 4th bite). **3109 in-tempo · 70 column members / 10 columns · 159 per-part tempo marks · 3486 balls · 10 cresc · VALID.** §8 verified in the running app; MAIN DRAFT + 4 morph pages md5-identical; 11 batteries green (new checks in test_layout + test_animobj). **Four defects found and fixed**: 16 double balls at seams · 26 first/last notes with no ball · the tick never drawn on unresolved chunks · the schema gate | — | — | — |
+| ~~TRANCE-FIX-1~~ | ~~The composer's first four fixes~~ **DONE day 36 (Opus)** — ball on the two pulsed passages inside the columns (`ballSpans`, +70) · bar lines clear the bar's leftmost ink (a post-pass over the real item widths; 159/159 at 0.45 ss from the bar's RIGHT edge; 111 bars previously had ink to their left) · `wc-ta4-2080` moved T2→T6 at 647.43 (score edit, ledgered) · the rings suppressed (`animated.lineWedge/motivePie` — **the schema gate's FIFTH bite**: `animated` had never validated, because notate_morph writes unvalidated) | — | — | — |
 | **TRANCE-EYE-2 — NEXT (composer)** | **The eye on the rebuilt page** (`TRANCE A4 — 500-751 s`), **and one answer: the four tempo numbers** (PS2/PS3/PS4/PS5 — the page prints the authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4; `PRINT_MEASURED` flips it). Also for the eye: `brick:false` on the columns · the ~3.5 s ball gaps at burst-segment seams. Full account: RUNNING_LOG day 36 "BUILT" | Fable | yes — clear before it | composer's verdicts applied |
 | **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the revised page is approved, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
 | **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |

@@ -694,7 +694,27 @@ else if (JSON.stringify(JSON.parse(fs.readFileSync(SNAP, 'utf8'))) !== JSON.stri
   eq(s1.find(i => i.k === 'barline').t, 2.0, 1e-9, "per-part tempo: T2's bar sits at T2's moment");
   eq(s1.filter(i => i.k === 'tempotext').length, 1, 0, 'per-part tempo: the mark rides its OWN lane, not the topmost');
   eq(s1.find(i => i.k === 'tempotext').bpm, 93.8, 1e-9, 'per-part tempo: each lane states its own number');
-  eq(s0.find(i => i.k === 'barline').dxSs, -0.45, 1e-9, 'per-part tempo: the bar sits a STANDARD gap (stackGapSs) left of the onset');
+  // THE BAR CLEARS THE WHOLE BAR'S LEFTMOST INK (day 36, composer) — not the
+  // go time. `clearsSs` is the ink it cleared; the gap between them is the
+  // standard one, and it holds whatever the note happens to draw.
+  {
+    const b0 = s0.find(i => i.k === 'barline');
+    ok(b0.clearsSs !== undefined, 'bar clearance: the bar records the ink it cleared');
+    const halfBar = (((G.standards.stem || {}).thickness) || 0.13) / 2;   // dxSs is the bar's CENTRE
+    eq(b0.clearsSs - (b0.dxSs + halfBar), 0.45, 1e-9, 'bar clearance: the bar RIGHT EDGE is a standard gap from the leftmost ink');
+    eq(s0.find(i => i.k === 'tempotext').dxSs, b0.dxSs, 1e-9, 'bar clearance: the tempo mark rides its bar');
+    // nothing drawn at that moment may sit left of the bar
+    const leftmost = Math.min(...s0.filter(i => i.t !== undefined && Math.abs(i.t - b0.t) < 1e-9
+      && i.k !== 'barline' && i.k !== 'tempotext' && i.dxSs !== undefined).map(i => i.dxSs));
+    ok(b0.dxSs < leftmost, 'bar clearance: the bar is left of every item anchor at its moment');
+    // A LEDGERED, ALTERED note pushes the bar further left than a bare one.
+    const low = mk();
+    low.events[0].pitch = { midi: 30, spelled: sp('F', 1, 1) };     // F#1 — ledgers below + a sharp
+    const bl = Layout.layoutSection(low, G, { stackGapSs: 0.45, gapMediumSs: 0.3 })
+      .systems[0].items.find(i => i.k === 'barline');
+    ok(bl.clearsSs < b0.clearsSs - 0.2, 'bar clearance: ledger lines and an accidental move the bar further left');
+    eq(bl.clearsSs - (bl.dxSs + halfBar), 0.45, 1e-9, 'bar clearance: still exactly a standard gap on the wider bar');
+  }
   // a global tempo overlay (no part) keeps the day-35 behaviour
   const irG = mk(); irG.overlays = [{ id: 'ov-g', kind: 'tempo', target: { t: 1.0 }, value: { bpm: 80 }, provenance: 'authored' }];
   const LG = Layout.layoutSection(irG, G, { stackGapSs: 0.45, gapMediumSs: 0.3 });

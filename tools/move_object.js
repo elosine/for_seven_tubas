@@ -24,8 +24,9 @@
 //    onset, because extraction sidelines same-onset notes as splitters and
 //    the move would quietly change how the part reads. --force overrides.
 //  - refuses a no-op move.
-//  - rewrites with the file's own formatting (2-space + trailing newline),
-//    verified by round-trip, so the diff is the one field and nothing else.
+//  - rewrites with THE FILE'S OWN formatting — DISCOVERED by finding the
+//    serialisation that reproduces the file we read, never assumed — so the
+//    diff is the one field and nothing else. Refuses if it cannot find one.
 //  - git is the undo: `git checkout -- scores/<name>.json`.
 const fs = require('fs');
 const path = require('path');
@@ -94,10 +95,34 @@ if (!flag('apply')) {
 }
 
 obj.layer = toPart;
-const out = JSON.stringify(score, null, 2) + '\n';
-// the file's own formatting, proven: re-parsing the output must reproduce it
-if (JSON.stringify(JSON.parse(out), null, 2) + '\n' !== out) { console.error('formatting round-trip failed — not writing'); process.exit(1); }
+// THE FILE'S OWN FORMATTING, ACTUALLY PROVEN (day 36 fix). The old check
+// re-serialised the OUTPUT with the same formatter and compared it to itself,
+// which can only ever pass — it proved self-consistency, not fidelity. And the
+// hardcoded 2-space was wrong for the score chain, which the composer's app
+// writes MINIFIED: moving one note re-serialised the whole file and turned a
+// one-field edit into a 229,694-line diff (piece-s28, day 36). Archive rule 1
+// wants the diff to BE the one field, so the format is now DISCOVERED — the
+// serialisation that reproduces the file we actually read.
+const FORMATS = [
+  { name: 'minified',           f: o => JSON.stringify(o) },
+  { name: 'minified + newline', f: o => JSON.stringify(o) + '\n' },
+  { name: '2-space',            f: o => JSON.stringify(o, null, 2) },
+  { name: '2-space + newline',  f: o => JSON.stringify(o, null, 2) + '\n' },
+  { name: '1-space',            f: o => JSON.stringify(o, null, 1) },
+  { name: '1-space + newline',  f: o => JSON.stringify(o, null, 1) + '\n' },
+];
+const asRead = JSON.parse(raw);                 // the file as read, unmutated
+const fmt = FORMATS.find(c => c.f(asRead) === raw);
+if (!fmt && !flag('reformat')) {
+  console.error('formatting not recognised — NOT WRITING.\n' +
+    '  scores/' + scoreName + '.json does not reproduce under any known serialisation,\n' +
+    '  so writing it would reformat the whole file and bury the one-field edit.\n' +
+    '  --reformat writes 2-space anyway (and expect a whole-file diff).');
+  process.exit(1);
+}
+const out = fmt ? fmt.f(score) : JSON.stringify(score, null, 2) + '\n';
 fs.writeFileSync(file, out);
+console.log('  formatting preserved: ' + (fmt ? fmt.name : '2-space (FORCED by --reformat)'));
 console.log('\nAPPLIED to scores/' + scoreName + '.json (undo: git checkout -- scores/' + scoreName + '.json)');
 console.log('Re-extract any IR built from this score so the page and the sound follow.');
 console.log('ledger line for docs/ARCHIVE_AMENDMENTS.md:\n' + ledger);

@@ -13881,3 +13881,154 @@ the part's last onset.
 - **The day-35 "all text gone" phrasing**, redacted in PROJECT_JOURNAL §2 and
   SAVE_FILES: the rule was only ever the score's own working marks
   (`hideMarkers`), never notation text. Cuivré stays.
+
+## Day 36 — TRANCE A4: the composer's four fixes, applied (Opus)
+
+Composer, on the built page: *"a few fixes: there are 2 pulsed sections between
+long tone sections 521.83 and 523.4, these need the bouncing ball, no need for
+tempo marking I think they continue in 150; barlines need to clear the full
+notation including ledger lines and accidentals, so from left to right: barline
+- standard gap - left edge of left most item i.e. left edge of ledger line/left
+edge of accidental etc; at 647.41 move the long tone from T2 to T6; there are
+the animated pies showing up at certain points see image, please suppress
+these."*
+
+### 1 · THE BALL ON THE TWO PULSED PASSAGES
+
+The day-36 plan put the ball OFF across the whole VERT window [521.03, 529.03),
+but that window is not all columns — it holds **two pulsed passages between
+them**: 521.83 · 522.23, and 523.43 · 523.83 · 524.23 · 524.63 · 525.03. All
+seven are beats of the same 0.4 s / 150 grid the opening pulse runs on.
+
+`ballSpans` on a segment: a span where the ball runs and nothing is marked.
+**Deliberately NOT derived per part** — in passage A most lanes have exactly one
+note and **T10 has none at all**, and a lane still has to bounce through it. So
+the ball runs the whole span in all ten lanes, which is the established reading
+(*the ball shows the grid, the noteheads show your subset*). **+70 instances,
+3486 → 3556.** Verified: ten lanes bouncing on all seven beats; still zero balls
+on any column onset, in CB, or in the swells; still no lane holding two.
+
+### 2 · THE BAR LINE NOW CLEARS THE BAR'S LEFTMOST INK
+
+**The day-35 rule said this in words and the code never did it.** The comment
+above the emit read "a MEDIUM space to the LEFT of the bar's leftmost ink
+(ledger, accidental or notehead — whichever comes first)"; the code placed the
+bar a fixed gap left of the GO TIME. A ledger line runs wider than the head and
+an accidental sits further left again, so the bar cut through them.
+
+**Measured on the drawn output, T1's PS1 entry at 566.63 (sharp + ledger):**
+
+| | x, px |
+|---|---|
+| bar line, OLD rule (go − 0.45 ss) | 454.56 |
+| **the sharp's left edge** | **452.00** |
+| bar line, NEW | 448.27 |
+
+— the accidental stuck **2.56 px to the LEFT of the bar**. Now the bar's RIGHT
+EDGE sits exactly 0.45 ss (3.25 px) clear of it.
+
+Implemented as a pass at the END of the per-part item build — the only moment
+the real widths exist — over glyphs (notehead · accidental · articulation ·
+dynamic · flag), ledgers, dots, go lines and dyn arrows. **All 159 bars: gap
+exactly 0.45 ss, worst case 0.4500.** 85 bars clear a **ledger line**, 52 clear
+an **accidental**. Offsets now spread −0.52 to −1.38 ss where all 159 used to
+sit at −0.45; **111 of them had ink to their left before this.**
+
+*Two details worth keeping.* The gap is measured from the bar's RIGHT EDGE, not
+its centre — `dxSs` is the centre and render.js draws at `dx − thick/2`, so the
+half-thickness comes off too or the drawn gap is 0.385 ss, not 0.45. And the
+tempo mark rides its bar's x, checked: 0 of 159 disagree. The item records
+`clearsSs` — the ink it cleared — so the placement is assertable without
+re-deriving glyph widths next door.
+
+### 3 · THE 647.43 LONG TONE, T2 → T6
+
+`wc-ta4-2080` (ord, midi 65 = F4, 647.43→649.83, "CB1 base F4"), via
+`tools/move_object.js --apply`, ledgered in ARCHIVE_AMENDMENTS.
+Destination gaps **0.72 s before / 2.80 s after**, both over a breath.
+**CB1 now reads T1 T4 T6 T7 T10**, and its written ring re-derives **unchanged
+at 2.30 s** (the minimum next-attack gap is still 2.80 s, via T1 and now also
+T6). This is a SCORE edit, so the MIDI follows the notation.
+
+### 4 · THE PIES — and they were not the pies
+
+**`motivePie` has been `enabled: false` in the registry since day 24.** What was
+showing is **`lineWedge`** — a ring above a held note filling with its progress,
+`minHoldSeconds: 3` — and `arcPath()` draws both, so a wedge looks exactly like
+a pie. Measured in the running app against the real score: **40 lineWedge
+instances, of which 7 fall inside this page's window — all seven at 656.23, the
+CB5 column** (8.00 s, the only trance note over the 3 s threshold that is not
+already excluded for carrying a level curve). The other 33 are Section 1 and
+never render here.
+
+`ir.animated = { motivePie: false, lineWedge: false }` — the same opt-out the
+morph pages use. **After: 40 → 0.** motivePie was 0 either way; pinned off
+regardless, because the registry note explicitly says *"It remains the trance
+section's device; flip enabled there if wanted."*
+
+**What still animates on this page**, measured in the app after the fix:
+the ball (3556) · `curveMeter` (869 — the per-note level meters over the swells
+and columns; rectangles, not rings) · `crescMeter` (10 — the PH6 followers) ·
+**`envFollower` (1)** — one layer-10 META envelope dot riding the full parts
+area, which the META checkbox in the control bar toggles. Say if that one should
+go too.
+
+### THE SCHEMA GATE — A FIFTH TIME, and this one is the worst of them
+
+`doc.animated` was **REJECTED and the page DELETED on write**: the top-level
+node is `additionalProperties: false` and `animated` was not in it.
+
+**All three morph pages have carried `animated` since day 35 and none of them
+has ever passed validation** — `notate_morph.js` writes without validating
+(already a NITS item). So the property was legal in the renderer, in use in
+three shipped pages, and illegal in the file format, and nobody could know until
+a VALIDATED page tried to carry one. This is the exact shape of `_kindNote`
+(engraving), `_kindNote2` (gliss/cresc/header), `_kindNote3` (tempo) and this
+week's `devices[].preset` — **five for five.** Added in the same commit with the
+count recorded in the schema.
+
+*The lesson is now specific enough to act on: the unvalidated writer is not a
+cosmetic NITS. It is what lets a schema violation live in the repo for a day
+looking like working code.*
+
+### Guards updated
+
+`test_layout`'s per-part-tempo block asserted `dxSs === -0.45` — **the old rule,
+and it went red on the first run of the new one**, which is what it was for. It
+now asserts the rule instead of the number: the bar's right edge is a standard
+gap from `clearsSs`, the tempo mark rides its bar, nothing at that moment is
+left of the bar, and **a ledgered, altered note (F#1) pushes the bar measurably
+further left than a bare in-staff one** — with the gap still exactly 0.45.
+
+Eleven batteries green. MAIN DRAFT + all four morph pages md5-identical.
+
+### A fifth trap, caught by looking at the diff: `move_object.js` reformatted the whole score
+
+The move applied correctly and then **`git diff --stat` said 229,694 insertions,
+1 deletion.** `move_object.js` hardcodes `JSON.stringify(score, null, 2)`, and
+the `piece-sNN` chain is written **MINIFIED** by the composer's app — so moving
+one note re-serialised 2.25 MB and buried the one-field edit.
+
+**The guard that was supposed to prevent this could never fire.** It read:
+
+```
+if (JSON.stringify(JSON.parse(out), null, 2) + '\n' !== out) { ...refuse... }
+```
+
+— it re-serialises **its own output** with **its own formatter** and compares
+them. That is a tautology. It proved self-consistency and called it fidelity,
+while the tool's header advertised "the file's own formatting ... so the diff is
+the one field and nothing else".
+
+**Fixed by DISCOVERING the format** rather than assuming one: try each known
+serialisation against the file **as read**, use the one that reproduces it byte
+for byte, and REFUSE to write if none does (`--reformat` to override). Proven by
+round trip — `wc-ta4-2080` T6 → T2 → T6 leaves `piece-s28.json` **byte-identical**,
+and the standing diff is back to **1 insertion, 1 deletion**: `"layer":1` →
+`"layer":5`.
+
+*Worth keeping for the methodology: this is the second time today a check
+existed, read as if it were doing the job, and was doing nothing — the chunk
+tick that never reached an unresolved chunk, and now a round-trip that compared
+a value to itself. Both were found by MEASURING THE OUTPUT rather than by
+reading the code that claimed to guarantee it.*

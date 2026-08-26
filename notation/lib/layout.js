@@ -307,12 +307,17 @@
       // so the text cannot ride the topmost part alone.
       for (const tp of tempos) {
         if (tp.part !== undefined && tp.part !== part) continue;
-        const dx = tp.part !== undefined
+        // `autoClear` (day 36): a per-part bar is re-placed after the part's
+        // items exist, a standard gap left of the bar's actual leftmost ink —
+        // see the pass at the end of this callback. The dx below is only the
+        // fallback for a bar whose moment draws nothing.
+        const auto = tp.part !== undefined;
+        const dx = auto
           ? -(o.stackGapSs != null ? o.stackGapSs : 0.45)
           : -(o.gapMediumSs || 0.3);
-        items.push({ k: 'barline', t: tp.t, dxSs: dx });
-        if (tp.part !== undefined || part === (o.frameParts || ir.source.parts)[0])
-          items.push({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm });
+        items.push({ k: 'barline', t: tp.t, dxSs: dx, autoClear: auto });
+        if (auto || part === (o.frameParts || ir.source.parts)[0])
+          items.push({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm, autoClear: auto });
       }
       for (const h of headers) if (h.part === part) {
         // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
@@ -1882,6 +1887,66 @@
             it.ySs = b.ySs >= 0
               ? bandHi + gapMp + gm.hSs / 2
               : bandLo - gapMp - gm.hSs / 2;
+          }
+        }
+      }
+
+      // THE BAR LINE CLEARS THE WHOLE BAR'S LEFTMOST INK (day 36, composer:
+      // "barline - standard gap - left edge of left most item i.e. left edge
+      // of ledger line / left edge of accidental etc").
+      //
+      // The day-35 rule said this in words and the code never did it: the bar
+      // was placed a fixed gap left of the GO TIME, and a ledger line runs
+      // wider than the head while an accidental sits further left again, so a
+      // low or altered downbeat put ink through the bar. This pass runs AFTER
+      // the part's items exist — the only moment their real widths are known —
+      // and moves each bar (and its tempo mark, which rides the same x) to a
+      // standard gap left of the leftmost ink AT ITS OWN MOMENT.
+      {
+        const bars = items.filter(i => (i.k === 'barline' || i.k === 'tempotext') && i.autoClear);
+        if (bars.length) {
+          const lf = ((glyphs.standards.ledgerLine || {}).lengthFraction) || 0;
+          const wOf = g => {
+            if (g === 'notehead') return glyphs.notehead.filled.wSs;
+            if (g === 'notehead-open') return glyphs.notehead.open.wSs;
+            if (g.startsWith('accidental-')) return ((glyphs.accidental || {})[g.slice(11)] || {}).wSs || 0;
+            if (g.startsWith('dyn-')) return ((glyphs.dynamic || {})[g.slice(4)] || {}).wSs || 0;
+            if (g.startsWith('artic-')) return ((glyphs.articulation || {})[g.slice(6)] || {}).wSs || 0;
+            const fm = g.match(/^flag-(?:up|down)(\d+)$/);
+            if (fm) return ((glyphs.flag || {})['flag' + fm[1]] || {}).wSs || 0;
+            return 0;
+          };
+          // the left edge of one drawn item, in ss relative to its own moment
+          const leftOf = it => {
+            if (it.k === 'glyph') {
+              const w = wOf(it.g) * (it.scale != null ? it.scale : 1);
+              return it.align === 'center' ? it.dxSs - w / 2 : it.dxSs;
+            }
+            if (it.k === 'ledger') {
+              const w = (it.wSs || glyphs.notehead.filled.wSs) * (1 + 2 * lf);
+              return it.dxSs - w / 2;
+            }
+            if (it.k === 'dot' || it.k === 'goline') return it.dxSs != null ? it.dxSs : 0;
+            if (it.k === 'dynarrow') return it.dx0Ss;
+            return null;
+          };
+          // the bar's dxSs is its CENTRE (render.js draws it at dx − thick/2),
+          // and the composer's gap is between the BAR and the ink — so the
+          // half-thickness comes off too, or the drawn gap is 0.385 ss.
+          const gap = (o.stackGapSs != null ? o.stackGapSs : 0.45)
+            + (((glyphs.standards.stem || {}).thickness) || 0.13) / 2;
+          for (const b of bars) {
+            let min = null;
+            for (const it of items) {
+              if (it.t === undefined || Math.abs(it.t - b.t) > 1e-9) continue;
+              if (it.k === 'barline' || it.k === 'tempotext') continue;
+              const L = leftOf(it);
+              if (L != null && (min === null || L < min)) min = L;
+            }
+            // `clearsSs` records WHAT was cleared — the leftmost ink at this
+            // moment — so the placement can be asserted and debugged without
+            // re-deriving every glyph width next door.
+            if (min !== null) { b.clearsSs = min; b.dxSs = min - gap; }
           }
         }
       }

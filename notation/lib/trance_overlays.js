@@ -49,7 +49,17 @@
   // ---------------------------------------------------------------------
   const TEMPO_MAP = [
     { t0: 499.83, t1: 521.03, name: 'PULSE',    bpm: 150 },
-    { t0: 521.03, t1: 529.03, name: 'VERT',     ball: false, tempo: false },
+    // THE TWO PULSED PASSAGES INSIDE THE COLUMNS (day 36, composer: "there
+    // are 2 pulsed sections between long tone sections 521.83 and 523.4,
+    // these need the bouncing ball, no need for tempo marking I think they
+    // continue in 150"). So: ball ON across each passage, at 150, for EVERY
+    // lane — the ball shows the grid, the noteheads show your subset, exactly
+    // as in the opening pulse — and no bar line, because nobody changed
+    // tempo. `ballSpans` runs from the first beat to the last INCLUSIVE, and
+    // is not derived per part: passage A has only one note in most lanes and
+    // none at all in T10, and a lane still has to bounce through it.
+    { t0: 521.03, t1: 529.03, name: 'VERT',     ball: false, tempo: false,
+      ballSpans: [{ t0: 521.83, t1: 522.23, bpm: 150 }, { t0: 523.43, t1: 525.03, bpm: 150 }] },
     { t0: 529.03, t1: 534.23, name: 'seg32',    per: [102.6, 67.1, 110.5, 126.3, 150, null, 67.1, 110.5, 126.3, 118.4] },
     { t0: 534.23, t1: 535.83, name: 'base x4',  bpm: 150 },
     { t0: 535.83, t1: 545.83, name: 'seg17',    per: [100, 55, 55, 75, 75, 75, 55, 45.8, 55, 90] },
@@ -216,6 +226,15 @@
     const lastBpm = new Array(10).fill(null);
     for (const seg of TEMPO_MAP) {
       const row = { name: seg.name, t0: seg.t0, t1: seg.t1, per: new Array(10).fill(null) };
+      // a ball-only passage: no tempo derived, no mark, every lane bounces
+      for (const bs of seg.ballSpans || []) {
+        const step = 60 / bs.bpm;
+        const n = Math.round((bs.t1 - bs.t0) / step);
+        for (let L = 0; L < 10; L++)
+          for (let k = 0; k <= n; k++)
+            ballTicks.push({ part: L, at: +(bs.t0 + k * step).toFixed(4), step: +step.toFixed(4) });
+        row.ballOnly = (row.ballOnly || 0) + (n + 1) * 10;
+      }
       if (seg.tempo === false) { mapRows.push(row); continue; }
       for (let L = 0; L < 10; L++) {
         const authored = seg.bpm != null ? seg.bpm : (seg.per ? seg.per[L] : null);

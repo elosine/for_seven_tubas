@@ -1241,6 +1241,14 @@ if (flag('bricks')) {
       console.log('     ***** the AUTHORED value is what gets printed; flip PRINT_MEASURED in trance_overlays.js to change that *****');
     }
     doc.hideMarkers = true;      // the score's beat numbers and structural labels are working marks, not notation
+    // THE PIES OFF (day 36, composer: "there are the animated pies showing up
+    // at certain points ... please suppress these"). motivePie fills over a
+    // score GROUP's span — a gesture-grouping readout, not notation, and this
+    // page is one group 251 s long. lineWedge is the same class of thing (a
+    // progress ring over a held note) and the columns and swells are exactly
+    // the notes it lands on, so it goes with them; the trance page's own
+    // progress reading is the ball. Same opt-out the morph pages use.
+    doc.animated = Object.assign({}, doc.animated, { motivePie: false, lineWedge: false });
   }
 }
 

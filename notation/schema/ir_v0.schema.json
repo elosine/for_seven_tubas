@@ -82,6 +82,13 @@
   "hideMarkers": {
    "type": "boolean",
    "_note": "day 35: this page does not draw the score's markers. The trance section's beat numbers and structural labels are rehearsal scaffolding, not notation."
+  },
+  "animated": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "boolean"
+   },
+   "_note": "day 35 in the code, day 36 in this schema: a page may switch OFF animated object kinds it does not want (animobj.collect's kindOn filter) - the morph pages want their two meters and none of the dots, the trance page wants its ball and no progress rings over the long tones. FIFTH TIME THE GATE HAS BITTEN (see _kindNote..3 and devices[].preset): all three morph pages have carried `animated` since day 35 and NONE of them ever passed validation, because notate_morph.js writes without validating (NITS). The property was legal in the renderer and illegal in the file, and the first VALIDATED page to carry one was REJECTED and DELETED on write."
   }
  },
  "definitions": {
