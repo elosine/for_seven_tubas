@@ -428,6 +428,10 @@
         "type": "number",
         "minimum": 0
        },
+       "preset": {
+        "type": "object",
+        "_note": "day 36, THE PER-PART BALL: a chunk gc device may carry a GC preset — the trance revision tiles one ball per lane at each part's own tempo (preset.duration = that part's step, so the balls abut with no gap and no overlap). Without this property the node's additionalProperties:false REJECTED the page and ir_validate DELETED it on write — the fourth time the gate has bitten (see _kindNote..3)."
+       },
        "provenance": {
         "$ref": "#/definitions/nodeProv"
        }

@@ -44,12 +44,22 @@ higher the pair sits. Two things to carry into that design:
   be able to hear each other immediately, so I'll cross that bridge later when I'm
   making the parts."*
 
-**NOW ► (2026-08-25, day 36, latest) TRANCE A4 REVISION IS PLANNED AND WAITS ON OPUS.**
-The composer redirected the trance page (per-part tempo apparatus, single ball per
-lane at each part's own tempo, 40.92-style columns, swell/crescendo fixes) —
-**`docs/plans/TRANCE_A4_REVISION.md` v3 is FINAL, no open questions; implement from
-it on Opus after a clear.** Paper work also advanced (writing strategies + the
-composer's own talk-method logged in PAPER_NOTES). Previous state below.
+**NOW ► (2026-08-26, day 36, latest) TRANCE A4 REVISION IS BUILT — WAITING ON YOUR EYE.**
+`docs/plans/TRANCE_A4_REVISION.md` v3 implemented end to end. The page now carries
+a **per-part tempo apparatus**: 159 bar-line + ♩=N marks, each in one lane, wherever
+THAT part changes tempo (seg 32 shows eight different numbers at once; seg 17 shows
+ten). 3109 in-tempo notes as black head + stem + dot · 10 columns each on one written
+ring · **3486 ball instances, one per lane at that part's own step**, off through the
+columns and the swells · swells re-drawn from zero · 10 limeGreen PH6 crescendo
+curves. VALID; verified in the running app; MAIN DRAFT + morph pages untouched.
+
+**ONE ANSWER NEEDED: four tempo numbers.** The page prints the plan's
+**PS2 93.8 · PS3 100 · PS4 107.1 · PS5 113.2**; the material measures
+**93.6 · 100.2 · 106.8 · 113.4** (day 35's measurement rounded the gap to two
+decimals before inverting it). At PS4 the printed grid is 44 ms off the notes by the
+end — over one notehead. The ball already runs on the measured grid. One constant
+flips the printed value. Full account: RUNNING_LOG day 36 "TRANCE A4 REVISION: BUILT".
+Previous state below.
 
 **NOW ► (2026-08-24, day 35) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
 The final density build is on the page: **23 clusters (`cl-62`-`cl-84`), built WITH

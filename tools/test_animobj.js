@@ -230,6 +230,34 @@ for (const T of [12.5, 14.0, 17.3, 21.9]) {
   ok(a === b, 'determinism: cold-seek ' + T + ' === play-through ' + T);
 }
 
+// ---------- the chunk-device PRESET passthrough (day 36) ----------
+// The trance section's per-part ball is one gc instance per beat whose flight
+// time IS that part's step, so consecutive balls abut exactly. collect() has to
+// carry `preset` from the chunk device to the instance or every ball takes the
+// registry's 0.6 s and the lane double-balls (or gaps) at any tempo but 100.
+{
+  const irP = { chunks: [{ part: 2, devices: [
+    { kind: 'gc', at: 20.0, preset: { duration: 0.4 } },
+    { kind: 'gc', at: 20.4, preset: { duration: 0.4 } },
+    { kind: 'gc', at: 20.8 },                              // no preset — the registry default
+  ] }] };
+  const iP = Anim.collect(irP, null, ST).filter(i => i.kind === 'gc');
+  ok(iP.length === 3, 'preset passthrough: three chunk gc instances');
+  ok(iP[0].preset && iP[0].preset.duration === 0.4, 'preset passthrough: the device preset reaches the instance');
+  ok(iP[2].preset === undefined, 'preset passthrough: a device without a preset gets none (registry default stands)');
+  // and the physics that makes the tiling work: with duration = the step, the
+  // ball's descent (descentRatio 60) starts exactly where the previous one's
+  // ascent ends — one ball in the lane, always, never two
+  const P4 = GCm.params({ duration: 0.4 });
+  eq(P4.pre + P4.post, 0.4, 1e-12, 'preset passthrough: flight time = the step');
+  ok(GCm.heightFrac(P4, -P4.pre - 0.001) === null, 'preset passthrough: no ball before its own descent');
+  ok(GCm.heightFrac(P4, P4.post + 0.001) === null, 'preset passthrough: no ball after its own ascent');
+  const between = 20.4 - P4.pre;                       // the second ball starts falling
+  const firstStillUp = GCm.heightFrac(GCm.params({ duration: 0.4 }), between - 20.0);
+  ok(firstStillUp !== null && Math.abs(between - 20.0 - P4.post) < 1e-9,
+    'preset passthrough: ball 2 begins its descent exactly as ball 1 ends its ascent');
+}
+
 // ---------- transport (fake timebase — no real clock in tests) ----------
 let fake = 100;
 const tp = Transport.makeTransport({ timebase: { now: () => fake } });
@@ -255,4 +283,4 @@ if (process.argv.includes('--prove-red')) {
   process.exit(1);
 }
 if (failures) { console.error(`ANIMOBJ RED: ${failures} failure(s)`); process.exit(1); }
-console.log('ANIMOBJ GREEN: contract + 5 ports + transport + boundaries');
+console.log('ANIMOBJ GREEN: contract + 5 ports + transport + boundaries + preset passthrough');

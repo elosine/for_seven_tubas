@@ -13732,3 +13732,152 @@ The revision writes what each player does — 150 vs 32.1 in the same system at
   ~18 marks per part over 251 s. Never crowded.
 - Plan v3 (docs/plans/TRANCE_A4_REVISION.md) is FINAL — no open questions.
   Next: implement on Opus from the plan, cold-executable.
+
+## Day 36 — TRANCE A4 REVISION: BUILT (Opus, from the v3 plan)
+
+**Implemented `docs/plans/TRANCE_A4_REVISION.md` v3 end to end.** The page is
+rebuilt, VALID, verified in the running app. Files: `notation/lib/trance_overlays.js`
+(rewritten), `notation/lib/{layout,animobj,render}.js`, `tools/notate_section.js`,
+`notation/schema/ir_v0.schema.json`.
+
+**WHAT'S ON THE PAGE (all counted from the IR, all greps green):**
+3109 in-tempo notes · 70 column members on 10 columns · 30 swells · 159 per-part
+tempo marks · 3486 ball instances · 10 PH6 crescendo curves · 10 f marks ·
+40 dynamic pairs · **zero other dynamic marks anywhere**.
+
+**VERIFIED IN THE RUNNING APP** (localhost:5200, `TRANCE A4 — 500-751 s`):
+- page 1 — ten lanes each reading `= 150`
+- page 2 — `cuivré` ×4, the two in-tempo attacks at 517.83/519.43; **no tempo
+  mark**, because nobody changed tempo there
+- page 3 — `= 102.6 · 67.1 ×2 · 110.5 ×2 · 126.3 ×2 · 118.4` — the seg-32
+  lattice, **eight different numbers in eight lanes at once** — plus `cuivré` ×3
+  (the 527.43 column)
+- page 4 — seg 17: `100 · 55 ×4 · 75 ×3 · 45.8 · 90` = **ten parts, ten tempi**
+- page 5 — `= 80` ×10 (segment 27); page 8 — `= 93.8` ×10 (PS2)
+- page 9 — MT B: `85.7 · 107.1 ×2 · 75 ×2 · 32.1 · 42.9 ×2 · 128.6 · 64.3`
+- pages 13 and 16 — CB and the swells: **no tempo mark at all**, as specified
+- page 18 — `= 120` ×10 at the PH6 entry
+- **10 limeGreen (`#99FF00`) crescendo paths** rendering, one per lane
+- **the swell curves start at the floor**: first y == max y in the path, i.e.
+  drawn level 0. Before `curveZero` they began 0.2 up the band.
+- `NotationAnimObj.collect()` run inside the page: **3486 gc instances, 3486
+  carrying their preset**; scanned at 20 ms over mid-PULSE, PS1, PS4 and PH6 —
+  **no lane ever holds two balls**, coverage 100 % inside PS4 and PH6.
+
+**MAIN DRAFT + all four morph pages md5-identical to the pre-build baseline.
+Eleven batteries green** (two of them with new checks, below).
+
+### The traps this build found
+
+1. **THE SCHEMA GATE, a fourth time.** The plan's ball needs
+   `chunk.devices[].preset`, and that node is `additionalProperties: false` —
+   the page would have been REJECTED and DELETED on write. Added to the schema
+   in the same commit, with a `_note` recording the fourth bite. *The journal's
+   trap #1 paid for itself before a single line of overlay code ran.*
+2. **"A ball without an arc is a bug" — the day-23 rule — was about to be
+   re-broken.** The tick that gives a chunk-device ball its static ink is
+   emitted INSIDE layout.js's stream branch, and every chunk on this page is
+   `unresolved`. The plan said "chunk gc devices keep drawing the small tick";
+   they were drawing nothing. Moved the emission above the branch. The
+   composer's own reference page, `trance-section-01`, draws the tick under its
+   per-lane balls — so this restores the look that was asked for, it does not
+   invent one.
+3. **16 DOUBLE BALLS at segment seams.** Tiling at `duration = step` abuts
+   exactly *within* a segment, but at a seam the previous segment's step can be
+   longer than the distance to the next segment's first beat — worst T4 @603.96,
+   a 1.87 s step with 1.03 s of room. Fix: **each ball's flight is clamped to the
+   distance to the NEXT ball in its lane.** A run's last ball keeps its own step,
+   so the deliberate gaps stay gaps. Measured after: **0 overlaps.**
+4. **26 first/last notes of a segment had no ball under them.** The tick window
+   used a 1e-6 epsilon in BEAT units — 0.6 µs — while the phase ladder puts each
+   part's entry at its own fraction of a beat, so the first and last beats
+   rounded away. Tolerance is now `HEAD / step` (one notehead, 30 ms, expressed
+   in beats). After: **44 in-tempo notes have no ball, and every one is
+   intended** — 35 inside the VERT ball-off window, 6 in segments where the part
+   has fewer than two notes, 2 the seg-17 off-grid pair, 1 T6's lone note in
+   seg 32.
+5. **The day-35 "modal gap" reading of tempo was the wrong measurement, and the
+   plan already knew why.** A part sounding every OTHER beat of the 150 grid has
+   a modal gap of 0.8 s and reads as 75. The build takes the beat multiples `k`
+   from the AUTHORED step and least-squares the step against them, so a sparse
+   part keeps k = 0, 2, 4 and refines to 0.4. **This is what makes the plan's
+   RQ-2 answer — "the varied parts are single streams WITH RESTS" — mechanical
+   rather than a claim.** Measured: base x4, P9, P10 and P12's sparse parts all
+   sit on the 150 grid at **0 ms** error.
+6. **seg 17's T8 and T9 each carry ONE displaced note** — the residue of the
+   phase ladder. T8's is its FIRST note (0.764 s before a steady 1.309 chain);
+   anchoring the grid there would have thrown the ball off all seven notes after
+   it. The anchor is now the onset that puts the MOST of the stream on the grid.
+   The plan flagged T8; **T9 was not in the plan and is new** — its second note
+   is 0.145 s early.
+
+### THE ONE THING THAT NEEDS THE COMPOSER — four tempo numbers
+
+**The authored map and the score disagree in exactly four segments, and the
+authored numbers are a measurement artifact.** Day 35's `tempoOf()` rounded the
+inter-onset gap to **2 decimal places before inverting it**:
+
+| segment | printed now | the material | the authored grid drifts |
+|---|---|---|---|
+| PS2 | 93.8 | **93.6** | 22 ms by the end |
+| PS3 | 100 | **100.2** | 24 ms |
+| PS4 | 107.1 | **106.8** | 44 ms — **over one notehead at page scale** |
+| PS5 | 113.2 | **113.4** | 31 ms |
+| seg 17 T10 | 90 | 89.9 | 8 ms |
+
+*(0.641 s → rounded 0.64 → 60/0.64 = 93.75 → "93.8". Same for the other three.)*
+Every other number in the map — the two MT lattices included — agrees to a tenth.
+
+**The page currently prints the AUTHORED map**, because the plan calls it
+canonical and because "75 → 80 → 87 → 93.8 → 100 → 107.1 → 113.2 → 120" is
+recorded in the journal as the section's accelerando. **The BALL runs on the
+measured grid regardless** — its job is to land on the notes, and at 107.1 it
+would have walked 44 ms off them. So the mark and the bounce disagree by a third
+of a percent in four places. One constant flips it: `PRINT_MEASURED` in
+`notation/lib/trance_overlays.js`. **Composer's call.**
+
+### Also decided, not in the plan
+
+- **`brick: false` on the column members.** The plan lists the column device
+  precisely and does not mention the brick; leaving it would have drawn the
+  parachute brick AND the ring bar as two near-identical horizontal bars at the
+  same pitch height — at CB5 an 8.00 s brick under a 7.96 s ring. With in-tempo
+  notes and swells both carrying `brick: false`, the columns would also have been
+  the only bricks left on the page. Suppressed, for the composer's eye.
+- **The tempo mark prints "150", not "150.0".** The plan asks for one decimal
+  *where fractional*; render.js hardcoded `toFixed(1)`. One-line change, and the
+  only render.js touch.
+
+### Measured and left alone
+
+**Ball gaps at segment seams**, per the plan's own rule ("the ball runs from the
+part's first onset to its last onset in the segment"): about ten per lane over
+251 s, mostly under half a second, **the largest ~3.5 s** — T4 593.99→597.24,
+T5 617.32→620.37, T10 545.62→548.66, all in burst segments where a part plays two
+notes and then rests to the next section. Honest as drawn: a part with nothing to
+play has no tempo to bounce in. **If the composer wants the ball to bridge the
+seams instead, it is one line** — run the ticks to the segment end rather than to
+the part's last onset.
+
+### New guards
+
+- `test_animobj`: the **chunk-device preset passthrough** — the preset reaches
+  the instance, a device without one still takes the registry default, and the
+  physics that makes the tiling work (`pre + post == step`; ball 2 begins its
+  descent exactly as ball 1 ends its ascent).
+- `test_layout`: **per-part tempo** (one lane, its own moment, its own number,
+  at the `stackGapSs` gap) · a **global** tempo overlay still behaves as day 35
+  (bar on every part, text on the topmost, MEDIUM gap) · the **chunk tick on an
+  unresolved chunk** · **`curveZero`** on and, crucially, OFF by default so every
+  existing surge is untouched.
+
+### Closed by this build
+
+- **NITS "27 oct B is not multitempo"** (open since day 21) — closed by
+  notation, not by investigation: the section measures as all ten parts at
+  ♩=80 with **0 ms** grid error, and the page states 80 in all ten lanes. If the
+  six-stream reading is ever wanted the material must be regenerated; the
+  notation then follows from a `per:` row in `TEMPO_MAP`.
+- **The day-35 "all text gone" phrasing**, redacted in PROJECT_JOURNAL §2 and
+  SAVE_FILES: the rule was only ever the score's own working marks
+  (`hideMarkers`), never notation text. Cuivré stays.

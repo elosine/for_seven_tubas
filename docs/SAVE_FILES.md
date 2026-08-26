@@ -142,10 +142,35 @@ it is the frozen T1 design reference, and the two files are identical anyway.
 
 ---
 
-## THE TRANCE PAGE (day 35)
+## THE TRANCE PAGE (day 35; REVISED day 36)
 
-**`TRANCE A4 — 500-751 s`** — internal id `trance-a4`, source `piece-s28`. Quarter
-notes throughout, 8 tempo bar lines (the accelerando 75 -> 120), surges on the end
-crescendos, no text. Rebuild with the command in its own `provenance.build`
+**`TRANCE A4 — 500-751 s`** — internal id `trance-a4`, source `piece-s28`.
+Rebuild with the command in its own `provenance.build`
 (`notate_section.js ... --trance grp-tranceA4-01`). **Not yet folded into MAIN
 DRAFT** — that waits on the composer's eye.
+
+**Day 36 (the composer's redirect, `docs/plans/TRANCE_A4_REVISION.md` v3):**
+the page is now a **PER-PART tempo apparatus**.
+
+- **3109 in-tempo notes** — black head, plain stem, staccato dot, left edge on
+  the go time, no GC and no go line (the head is already on its moment)
+- **10 long-tone columns / 70 members**, each column on ONE written ring
+  (`ringSeconds` = the column's minimum next-attack gap less a 0.5 s breath):
+  0.30 · 0.30 · 0.30 · 0.70 · 1.10 · 2.30 · 1.10 · 2.70 · 0.70 · 7.96 s
+- **159 tempo marks, one lane at a time** — a bar line + ♩=N in a part's own
+  lane wherever THAT part changes tempo (T5 takes 13, T2/T4/T8/T9 take 17)
+- **3486 ball instances** — one per lane at that part's own step, tiled so the
+  lane always holds exactly one ball; OFF over [521.03, 529.03),
+  [647.43, 664.63) and [685.03, 709.43)
+- **dynamics stripped to three things**: `f` on each part's first note, the 30
+  swells' own ppp→fff pairs, and a pair at each part's PH6 entry
+- **30 swells** keep the surge device and gain `curveZero` — the drawn curve
+  starts at 0 instead of at the sounding floor (drawing only)
+- **10 PH6 crescendo curves**, limeGreen, bottom half of the lane, flat from
+  the `PS6 hold ff` knee
+- `hideMarkers: true` stays; **cuivré text is KEPT** (7 notes)
+
+**The map is AUTHORED** in `notation/lib/trance_overlays.js` and re-derived from
+the score at every build; mismatches print and nothing is silently substituted.
+**Four segments currently mismatch** — PS2 · PS3 · PS4 · PS5 — see the running
+log, day 36.

@@ -662,9 +662,67 @@ else if (JSON.stringify(JSON.parse(fs.readFileSync(SNAP, 'utf8'))) !== JSON.stri
   failures++; console.error('FAIL: layout snapshot drift — if intentional, --update and review');
 }
 
+// ---- THE TRANCE REVISION (day 36): per-part tempo · curveZero · the
+// ---- chunk-device tick on an UNRESOLVED chunk -----------------------
+{
+  const mk = () => ({
+    irVersion: '0.1', id: 'tr', source: { score: 'x', window: [0, 4], parts: [0, 1] },
+    provenance: { createdBy: 'test', date: 'x' },
+    events: [
+      { id: 'ev-a', onset: 1.0, duration: 0.1, pitch: { midi: 45, spelled: sp('A', 0, 2) }, technique: 'staccato', provenance: 'derived' },
+      { id: 'ev-b', onset: 2.0, duration: 1.0, pitch: { midi: 45, spelled: sp('A', 0, 2) }, technique: 'ord', provenance: 'derived',
+        level: { samples: [0.2, 0.4, 0.6, 0.9] } },
+    ],
+    chunks: [
+      { id: 'ch-0', part: 0, span: [0, 4], class: 'density-cloud-note', strategy: 'unresolved', events: ['ev-a'],
+        devices: [{ id: 'dev-t1', kind: 'gc', mode: 'landing', at: 1.0, preset: { duration: 0.4 }, provenance: 'derived' }],
+        provenance: 'derived' },
+      { id: 'ch-1', part: 1, span: [0, 4], class: 'density-cloud-note', strategy: 'unresolved', events: ['ev-b'], provenance: 'derived' },
+    ],
+    overlays: [
+      { id: 'ov-t0', kind: 'tempo', target: { t: 1.0, part: 0 }, value: { bpm: 150 }, provenance: 'authored' },
+      { id: 'ov-t1', kind: 'tempo', target: { t: 2.0, part: 1 }, value: { bpm: 93.8 }, provenance: 'authored' },
+    ],
+  });
+  const LT = Layout.layoutSection(mk(), G, { stackGapSs: 0.45, gapMediumSs: 0.3 });
+  const s0 = LT.systems[0].items, s1 = LT.systems[1].items;
+  // A PER-PART tempo lands in ONE lane, with its mark — not on every part,
+  // and not with the text riding the topmost lane alone.
+  eq(s0.filter(i => i.k === 'barline').length, 1, 0, 'per-part tempo: T1 gets its own bar line and no other');
+  eq(s1.filter(i => i.k === 'barline').length, 1, 0, 'per-part tempo: T2 gets its own bar line and no other');
+  eq(s0.find(i => i.k === 'barline').t, 1.0, 1e-9, "per-part tempo: T1's bar sits at T1's moment");
+  eq(s1.find(i => i.k === 'barline').t, 2.0, 1e-9, "per-part tempo: T2's bar sits at T2's moment");
+  eq(s1.filter(i => i.k === 'tempotext').length, 1, 0, 'per-part tempo: the mark rides its OWN lane, not the topmost');
+  eq(s1.find(i => i.k === 'tempotext').bpm, 93.8, 1e-9, 'per-part tempo: each lane states its own number');
+  eq(s0.find(i => i.k === 'barline').dxSs, -0.45, 1e-9, 'per-part tempo: the bar sits a STANDARD gap (stackGapSs) left of the onset');
+  // a global tempo overlay (no part) keeps the day-35 behaviour
+  const irG = mk(); irG.overlays = [{ id: 'ov-g', kind: 'tempo', target: { t: 1.0 }, value: { bpm: 80 }, provenance: 'authored' }];
+  const LG = Layout.layoutSection(irG, G, { stackGapSs: 0.45, gapMediumSs: 0.3 });
+  eq(LG.systems[0].items.filter(i => i.k === 'barline').length, 1, 0, 'global tempo: a bar on part 0');
+  eq(LG.systems[1].items.filter(i => i.k === 'barline').length, 1, 0, 'global tempo: a bar on part 1 too');
+  eq(LG.systems[1].items.filter(i => i.k === 'tempotext').length, 0, 0, 'global tempo: the mark stays on the topmost lane only');
+  eq(LG.systems[0].items.find(i => i.k === 'barline').dxSs, -0.3, 1e-9, 'global tempo: still the MEDIUM gap');
+  // THE CHUNK GC'S TICK now reaches an unresolved chunk — the ball has ink
+  eq(s0.filter(i => i.k === 'tick').length, 1, 0, 'chunk gc: an unresolved chunk draws its tick (no ball without ink)');
+  eq(s0.find(i => i.k === 'tick').t, 1.0, 1e-9, 'chunk gc: the tick is at the beat');
+  // CURVEZERO: the drawn curve starts at 0 and keeps its peak; sound untouched
+  const irC = mk();
+  irC.overlays.push({ id: 'ov-cz', kind: 'engraving', target: { event: 'ev-b' },
+    value: { device: { curve: true, cut: true, curveZero: true } }, provenance: 'authored' });
+  const EC = Layout.layoutSection(irC, G).systems[1].items.find(i => i.k === 'envcurve');
+  ok(!!EC, 'curveZero: the curve is still drawn');
+  eq(EC.samples[0], 0, 1e-9, 'curveZero: the drawn curve starts at 0, not at the sounding floor');
+  eq(EC.samples[EC.samples.length - 1], 0.9, 1e-9, 'curveZero: the peak is kept');
+  const irN = mk();
+  irN.overlays.push({ id: 'ov-cn', kind: 'engraving', target: { event: 'ev-b' },
+    value: { device: { curve: true, cut: true } }, provenance: 'authored' });
+  const EN = Layout.layoutSection(irN, G).systems[1].items.find(i => i.k === 'envcurve');
+  eq(EN.samples[0], 0.2, 1e-9, 'curveZero: OFF by default — every existing surge is untouched');
+}
+
 if (args.includes('--prove-red')) {
   if (failures > 0) { console.log('PROVE-RED OK'); process.exit(0); }
   console.error('PROVE-RED BROKEN'); process.exit(1);
 }
 if (failures) { console.error(`LAYOUT RED: ${failures} failure(s)`); process.exit(1); }
-console.log('LAYOUT GREEN: staff math + A3 census + beaming + parachute + section smoke + snapshot');
+console.log('LAYOUT GREEN: staff math + A3 census + beaming + parachute + section smoke + snapshot + per-part tempo/curveZero/chunk tick');

@@ -351,7 +351,19 @@ lengths in ONE play session, so a press-edge artifact can hit at most rung 1.
   render snapshot pins them; becomes real when shapes gain complexity
   (beam slants, double beams) at material time.
 
-## OPEN — the "27 oct B" section is not multitempo in the file (day 21, deferred)
+## CLOSED (day 36) — the "27 oct B" section is not multitempo in the file (day 21)
+
+**Closed by NOTATION, not by investigation.** The trance revision measured the
+section against `piece-s28` and it is **all ten parts at ♩=80, exactly** (grid
+error 0 ms across 548.63-560.63) — so the page states 80 in all ten lanes and
+the notation is right for the material that exists. Whether the uniform pulse
+was a deliberate simplification or a lost tempo map at the `aud-9` build step is
+still unknown; **if the composer ever wants the six-stream reading back, the
+material has to be regenerated, and the notation follows from the map** (add a
+`per:` row to `TEMPO_MAP` in `notation/lib/trance_overlays.js` and rebuild).
+The original note follows.
+
+### The original (day 21, deferred)
 
 **Composer: "That section definitely sounds like a multitempo... let's put it
 as a thing to investigate."** The section at ~48.8-60.8 s in `tranceA003*`

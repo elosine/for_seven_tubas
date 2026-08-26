@@ -1162,10 +1162,13 @@ if (flag('bricks')) {
   }
 }
 
-// THE TRANCE SECTION (day 35). `--trance <groupId>` folds its notation in:
-// quarter notes (plain stems, no flags), the fortepianos left as held tones, a
-// bar line + tempo at every unison tempo change, and the surge device on the end
-// crescendos. See notation/lib/trance_overlays.js.
+// THE TRANCE SECTION (day 35; REWRITTEN day 36 to the composer's redirect).
+// `--trance <groupId>` folds the section's notation in: every in-tempo note a
+// black head + plain stem + staccato dot, the ten long-tone columns on ONE
+// written ring each, dynamics stripped to f / the swell pairs / the PH6 pairs,
+// a bar line + ♩=N IN EACH PART'S OWN LANE wherever THAT part changes tempo,
+// one bouncing ball per lane at that part's tempo, and the PH6 crescendo
+// curve. See notation/lib/trance_overlays.js and docs/plans/TRANCE_A4_REVISION.md.
 {
   const TranceOv = require(path.join(ROOT, 'notation', 'lib', 'trance_overlays.js'));
   const tgroups = [];
@@ -1180,11 +1183,64 @@ if (flag('bricks')) {
         if (ex) { Object.assign(ex.value.device, ov.value.device); merged++; } else { doc.overlays.push(ov); added++; }
       } else doc.overlays.push(ov);
     }
-    console.log('  --trance ' + gid + ': ' + b.quarters + ' quarter notes, ' + b.held
-      + ' held tones left alone, ' + b.swells + ' end crescendos as surges');
-    console.log('     tempo bar lines (' + b.tempi.length + '): ' + b.tempi.map(t => t.bpm.toFixed(1)).join(' -> '));
-    doc.hideMarkers = true;      // the section's beat numbers and labels are not notation
-    console.log('     text suppressed: ' + b.beatMarks + ' beat numbers + ' + b.structural + ' structural labels (score untouched)');
+
+    // THE BALL, as chunk gc devices (day 36). One instance per beat of the
+    // part's own grid, `preset.duration` = that part's step, so consecutive
+    // balls abut exactly: one ball per lane, always in flight, landing on
+    // every beat. Each tick is hung on whichever of that part's chunks holds
+    // its moment — a chunk device belongs to a chunk, and animobj reads the
+    // part from the chunk it hangs on.
+    const chOf = new Map();
+    for (const c of doc.chunks) { if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
+    for (const [, list] of chOf) list.sort((a, x) => a.span[0] - x.span[0]);
+    let placed = 0, orphan = 0, n = 0;
+    for (const tk of b.ballTicks) {
+      const list = chOf.get(tk.part) || [];
+      let c = list.find(x => tk.at >= x.span[0] - 1e-6 && tk.at < x.span[1] + 1e-6);
+      if (!c) { // between two chunks: the nearest one that starts no later
+        for (const x of list) if (x.span[0] <= tk.at + 1e-6) c = x;
+        if (c) orphan++;
+      }
+      if (!c) { orphan++; continue; }
+      (c.devices = c.devices || []).push({
+        id: 'dev-' + gid.replace('grp-', '') + '-b' + tk.part + '-' + (n++),
+        kind: 'gc', mode: 'landing', at: tk.at,
+        preset: { duration: tk.step },
+        provenance: 'derived',
+      });
+      placed++;
+    }
+
+    console.log('  --trance ' + gid + ': ' + b.inTempo + ' in-tempo notes (black head + stem + dot), '
+      + b.columns + ' column members on ' + b.colRows.length + ' columns, ' + b.swells + ' swells');
+    console.log('     overlays: ' + added + ' new, ' + merged + ' merged into existing engraving overlays');
+    console.log('     tempo marks: ' + b.tempoMarks + ' per-part bar lines'
+      + (b.printMeasured ? '  [PRINTING THE MEASURED VALUES]' : '  [printing the AUTHORED map]'));
+    console.log('     ball: ' + placed + ' beat instances placed on chunk devices'
+      + (orphan ? ', ' + orphan + ' with no chunk to hang on' : ''));
+    console.log('     PH6: ' + b.cresc + ' crescendo curves, ' + b.pairs + ' ppp->fff pairs at the per-part entries');
+    console.log('     columns (onset · members · techniques · written ring):');
+    for (const c of b.colRows)
+      console.log('       ' + c.t.toFixed(2) + '  ' + String(c.n).padStart(2) + ' parts  '
+        + c.techs.join('+').padEnd(14) + ' ring ' + c.ring.toFixed(2) + ' s'
+        + (c.derived != null && Math.abs(c.derived - c.ring) > 0.005 ? '   [measured ' + c.derived.toFixed(2) + ']' : ''));
+    console.log('     THE PER-PART TEMPO MAP (blank = no mark here):');
+    for (const r of b.mapRows) {
+      if (!r.per.some(Boolean)) { console.log('       ' + r.name.padEnd(9) + ' ' + r.t0.toFixed(2) + '  —'); continue; }
+      console.log('       ' + r.name.padEnd(9) + ' ' + r.t0.toFixed(2) + '  '
+        + r.per.map((p, L) => 'T' + (L + 1) + '=' + (p ? (b.printMeasured ? p.measured : p.authored) : '·')).join(' '));
+    }
+    if (b.flags.length) { console.log('     FLAGS (' + b.flags.length + '):'); for (const f of b.flags) console.log('       · ' + f); }
+    if (b.mismatches.length) {
+      console.log('     ***** MISMATCH — the authored map vs the score (' + b.mismatches.length + ') *****');
+      for (const m of b.mismatches)
+        console.log('       ! ' + m.seg + (m.parts.length ? ' (' + (m.parts.length === 10 ? 'all ten parts' : m.parts.join(' ')) + ')' : '')
+          + ': authored ' + m.authored + ', measured ' + m.measured
+          + (m.driftMs != null ? '  — the authored grid is ' + m.driftMs + ' ms off the material by the end of the segment'
+             + (m.driftMs > 30 ? ' (over one notehead at page scale)' : ' (under one notehead)') : ''));
+      console.log('     ***** the AUTHORED value is what gets printed; flip PRINT_MEASURED in trance_overlays.js to change that *****');
+    }
+    doc.hideMarkers = true;      // the score's beat numbers and structural labels are working marks, not notation
   }
 }
 

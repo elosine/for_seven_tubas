@@ -10,32 +10,40 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — day 36 (mid-session checkpoint, Fable): TRANCE A4 REVISION READY TO IMPLEMENT
+### OPEN AT SESSION END — day 36 (Opus): TRANCE A4 REVISION IS BUILT — WAITING ON THE COMPOSER'S EYE
 
-**The task:** revise `TRANCE A4 — 500-751 s` (`trance-a4`) per the composer's
-day-36 redirect. **State: fully planned, zero open questions, nothing implemented
-yet.** The plan survived three rounds of composer answers (Q-A..G, RQ-1..2).
+**`docs/plans/TRANCE_A4_REVISION.md` v3 is IMPLEMENTED, steps 0→8.** The page
+is rebuilt, VALID, and verified in the running app.
 
-**The deliverable:** **`docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)** — the
-per-part tempo map (measured, canonical), the 10 columns with computed ring
-lengths, ball windows, per-part dynamics, swell/cresc fixes, code touchpoints,
-verify list.
+**ON THE PAGE:** 3109 in-tempo notes (black head + plain stem + staccato dot,
+left edge on the go time, no GC, no go line) · 70 column members on 10 columns,
+each column at ONE written ring · **159 per-part tempo marks** — a bar line +
+♩=N in a part's own lane wherever THAT part changes tempo · **3486 ball
+instances**, one per lane at that part's own step, tiled, off over the three
+specified windows · 30 swells with `curveZero` · 10 PH6 crescendo curves ·
+10 `f` marks + 40 pairs and **no other dynamic mark anywhere**.
+**MAIN DRAFT + all four morph pages md5-identical. Eleven batteries green.**
 
-**Next concrete step (Opus):** implement `docs/plans/TRANCE_A4_REVISION.md`
-top to bottom — steps 0→8 in order: baseline copy, rewrite
-`notation/lib/trance_overlays.js` (devices · columns · per-part authored tempo
-map · per-part beat-gc devices · cresc + pairs), the small `animobj.js` preset
-passthrough, the `layout.js` per-part barline/tempotext + `curveZero` remap,
-rebuild with the command in the plan, then the §8 verification in the running
-app (server may already be up on :5200).
+**THE ONE OPEN QUESTION — FOUR TEMPO NUMBERS.** The authored map and the score
+disagree in four segments, and the authored numbers are a day-35 rounding
+artifact (`tempoOf()` rounded the gap to 2 dp before inverting):
+**PS2 93.8 vs 93.6 · PS3 100 vs 100.2 · PS4 107.1 vs 106.8 · PS5 113.2 vs
+113.4** (plus seg-17 T10 90 vs 89.9). The page prints the AUTHORED value (the
+plan calls the map canonical, and that accelerando is recorded as the section's
+identity); **the BALL runs on the measured grid** so it lands on the notes —
+at 107.1 it would have walked 44 ms off them, over a notehead. One constant
+flips it: `PRINT_MEASURED` in `notation/lib/trance_overlays.js`.
 
-**Resume reads:** `docs/plans/TRANCE_A4_REVISION.md` (the whole file — it is
-the spec) · `docs/NOTATION_STANDARDS.md` (before drawing anything) ·
-`docs/MORPH_NOTATION.md` § cresc overlay (for §7's machinery). RUNNING_LOG
-day-36 entries only if a why is needed.
+**Next concrete step:** the composer's eye on the rebuilt page
+(`TRANCE A4 — 500-751 s` in the picker), and the four-tempo answer. Then
+TRANCE-FOLD into MAIN DRAFT.
 
-**Pending the composer:** nothing for this task. (Still parked elsewhere:
-DB3-EYE verdicts · PAPER topic picks.)
+**Resume reads:** RUNNING_LOG day 36 "TRANCE A4 REVISION: BUILT" (the full
+account, including four defects found and fixed, and what was decided beyond
+the plan) · `docs/plans/TRANCE_A4_REVISION.md` if the spec is in question.
+
+**Pending the composer:** the trance page's eye + the four tempo numbers.
+(Still parked elsewhere: DB3-EYE verdicts · PAPER topic picks.)
 
 **Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (modified) — the
 composer's own Reaper rack, mid-edit; not ours to commit.
@@ -70,9 +78,13 @@ why each number is what it is. Tools: `tools/notate_morph.js` (standalone pages)
 3209 events, VALID, geometry clean. Built by `notate_section.js --trance
 grp-tranceA4-01` + `notation/lib/trance_overlays.js`. On it: **3109 quarter notes
 (0 flag glyphs)** · 53 held tones untouched (they ARE the fortepianos) · **47 end
-crescendos as surges** (ppp→arrow→fff) · **8 tempo bar lines** · **all text gone**
-(new `hideMarkers` flag — the app draws markers from the SCORE, not the page) ·
-3130 bouncing balls. **Full account: RUNNING_LOG, day 35 nineteenth sitting.**
+crescendos as surges** (ppp→arrow→fff) · **8 tempo bar lines** · **the SCORE'S OWN
+COMMENTARY suppressed** — beat numbers and structural labels, via the new
+`hideMarkers` flag (the app draws markers from the SCORE, not the page). *Day 36
+REDACTION: this was recorded as "all text gone", which is wrong and cost a round —
+the rule was only ever about the score's working marks. **Notation text stays**,
+cuivré included.* · 3130 bouncing balls. **Full account: RUNNING_LOG, day 35
+nineteenth sitting. SUPERSEDED day 36 — see the trance revision.**
 
 **THE SECTION IS ONE LONG ACCELERANDO** — that is what gives the bar lines:
 **♩ = 75 → 80 → 87 → 93.8 → 100 → 107.1 → 113.2 → 120** at 499.83 · 548.63 · 566.63 ·
@@ -422,7 +434,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | ~~7~~ | ~~The two trance seams~~ **DONE day 35** — both pruned by the composer's rule; 0 overlaps in 3212 notes |
 | ~~TRANCE-EYE~~ | **ANSWERED day 36 — the eye became a REDIRECT:** toward `trance-section-01`'s look, per-part tempo apparatus, columns, fixes. All questions resolved across three rounds | — | — | — |
-| **TRANCE-REVISE — NEXT (Opus)** | **Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)** steps 0→8: trance_overlays rewrite · animobj preset passthrough · layout per-part bars + curveZero · rebuild · §8 verify in the app | Opus | yes — clear before it (checkpointed) | page rebuilt, §8 verified, composer's eye |
+| ~~TRANCE-REVISE~~ | ~~Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)~~ **DONE day 36 (Opus)** — trance_overlays rewritten · animobj preset passthrough · layout per-part bars + curveZero + the chunk tick on unresolved chunks · render one-decimal-where-fractional · schema `devices[].preset` (the gate's 4th bite). **3109 in-tempo · 70 column members / 10 columns · 159 per-part tempo marks · 3486 balls · 10 cresc · VALID.** §8 verified in the running app; MAIN DRAFT + 4 morph pages md5-identical; 11 batteries green (new checks in test_layout + test_animobj). **Four defects found and fixed**: 16 double balls at seams · 26 first/last notes with no ball · the tick never drawn on unresolved chunks · the schema gate | — | — | — |
+| **TRANCE-EYE-2 — NEXT (composer)** | **The eye on the rebuilt page** (`TRANCE A4 — 500-751 s`), **and one answer: the four tempo numbers** (PS2/PS3/PS4/PS5 — the page prints the authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4; `PRINT_MEASURED` flips it). Also for the eye: `brick:false` on the columns · the ~3.5 s ball gaps at burst-segment seams. Full account: RUNNING_LOG day 36 "BUILT" | Fable | yes — clear before it | composer's verdicts applied |
 | **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the revised page is approved, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
 | **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
 | **PAPER-TOPICS — WAITING (composer)** | Review **`docs/PAPER_OUTLINE.md`** (built day 36): pick the topics per internal section + decide homes for the cross-cutting threads | — | — | topic picks |

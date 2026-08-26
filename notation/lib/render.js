@@ -267,7 +267,11 @@
             '" width="' + (BL.thickSs * ssPx).toFixed(2) + '" height="' + (BL.tempoStemSs * ssPx).toFixed(2) + '"/>');
           parts.push('<text x="' + (tx + BL.tempoGapSs * ssPx).toFixed(2) + '" y="' + ty.toFixed(2) +
             '" font-size="' + (BL.tempoSizeSs * ssPx).toFixed(2) + '" font-family="' + E.fontFamily +
-            '" font-style="italic">= ' + esc(it.bpm.toFixed(1)) + '</text>');
+            // ONE DECIMAL WHERE FRACTIONAL (day 36): the per-part map holds
+            // both kinds — 150, 80, 120 are whole, 93.8 and 45.8 are not — and
+            // "150.0" states a precision the number does not have.
+            '" font-style="italic">= ' + esc(Math.abs(it.bpm - Math.round(it.bpm)) < 0.05
+              ? String(Math.round(it.bpm)) : it.bpm.toFixed(1)) + '</text>');
         } else if (it.k === 'glissline') {
           // the gliss line between the section's two pitches (day 35): a plain
           // rule at stem thickness, its length the diameter of TWO regular

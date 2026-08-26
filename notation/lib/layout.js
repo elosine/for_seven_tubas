@@ -179,8 +179,13 @@
       // day 35, THE TRANCE SECTION: a bar line at every new tempo, with the
       // tempo stated at the top. value: { bpm }. The bar line goes on every
       // part; the text only on the topmost, so it reads once per system.
+      // day 36, THE PER-PART TEMPO APPARATUS: the trance section's tempo is
+      // PER PART — each part marked with the tempo IT plays in, even where it
+      // does not sound every beat. A tempo overlay carrying `part` puts its
+      // bar line AND its ♩=N in that one lane; one carrying only `t` keeps
+      // the day-35 behaviour (a bar on every part, the text on the topmost).
       if (ov.kind === 'tempo' && tgt.t !== undefined && ov.value && ov.value.bpm) {
-        tempos.push({ t: tgt.t, bpm: ov.value.bpm }); continue;
+        tempos.push({ t: tgt.t, bpm: ov.value.bpm, part: tgt.part }); continue;
       }
       if (ov.kind === 'header' && tgt.part !== undefined && tgt.t !== undefined) {
         headers.push({ part: tgt.part, t: tgt.t, endMark: (ov.value && ov.value.endMark) || 'fff',
@@ -296,9 +301,18 @@
       // the bar line sits a MEDIUM space to the LEFT of the bar's leftmost ink
       // (ledger, accidental or notehead — whichever comes first), so it never
       // crowds the downbeat. The tempo text rides the topmost part only.
+      // A PER-PART tempo (day 36) sits a STANDARD gap (stackGapSs) left of
+      // that part's own first onset in the segment and takes its mark with
+      // it: ten lanes may state ten different tempi at ten different moments,
+      // so the text cannot ride the topmost part alone.
       for (const tp of tempos) {
-        items.push({ k: 'barline', t: tp.t, dxSs: -(o.gapMediumSs || 0.3) });
-        if (part === (o.frameParts || ir.source.parts)[0]) items.push({ k: 'tempotext', t: tp.t, dxSs: -(o.gapMediumSs || 0.3), bpm: tp.bpm });
+        if (tp.part !== undefined && tp.part !== part) continue;
+        const dx = tp.part !== undefined
+          ? -(o.stackGapSs != null ? o.stackGapSs : 0.45)
+          : -(o.gapMediumSs || 0.3);
+        items.push({ k: 'barline', t: tp.t, dxSs: dx });
+        if (tp.part !== undefined || part === (o.frameParts || ir.source.parts)[0])
+          items.push({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm });
       }
       for (const h of headers) if (h.part === part) {
         // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
@@ -365,6 +379,16 @@
         const NOTATED = c.class === 'trance-stream' || c.class === 'density-cloud-note';
         const isStream = NOTATED && c.strategy !== 'unresolved';
         const metric = isStream && c.strategy === 'simple-bar';
+        // THE CHUNK GC'S TICK — moved out of the stream branch, day 36. The
+        // day-23 rule is "a ball without an arc is a bug" (tools/notate_section
+        // --bricks deletes leftover chunk devices for exactly that reason), and
+        // it holds for the trance revision's per-part ball: its chunks are
+        // `unresolved`, so the tick never reached the page and every beat had a
+        // ball falling on nothing drawn. The tick IS the ball's static ink —
+        // the same one trance-section-01, the composer's reference page, draws
+        // under its own per-lane balls.
+        if (!isStream)
+          for (const d of c.devices || []) if (d.kind === 'gc') items.push({ k: 'tick', t: d.at, ySs: o.tickY });
         if (!isStream) {
           for (const e of evs) {
             const ySs = staffPosBass(spelledOf(e));
@@ -393,7 +417,20 @@
               // cut: a surge IS peak-cut — the notated back edge is a clean
               // 90° drop (composer, day 22); the sounding 2% release ramp
               // stays in the data, only the drawing squares it off
-              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, ev: e.id, cut: !!dev.cut });
+              //
+              // curveZero (day 36, the trance swells): the sounding envelope
+              // starts at its floor (0.2, not silence), so the drawn curve
+              // began with a STEP up and then swelled. Re-map it to start at
+              // 0 and keep its peak — v -> (v-min)*max/(max-min) — so the
+              // shape on the page is the shape of the swell. DRAWING ONLY,
+              // and opt-in per device, so the morph pages and MAIN DRAFT's
+              // surges are untouched.
+              let smp = e.level.samples;
+              if (dev.curveZero) {
+                const lo = Math.min(...smp), hi = Math.max(...smp);
+                if (hi > lo) smp = smp.map(v => +((v - lo) * hi / (hi - lo)).toFixed(5));
+              }
+              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: smp, ev: e.id, cut: !!dev.cut });
             }
             if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
             // THE ONSET HEAD (day 35, the morph section): a small black

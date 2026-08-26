@@ -246,7 +246,14 @@
     const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
-        if (d.kind === 'gc') out.push({ kind: 'gc', part: c.part, at: d.at, _src: 'ir-device' });
+        // day 36: a chunk gc device may carry its own PRESET — the trance
+        // section's per-part ball is one instance per beat with
+        // preset.duration = that part's step, so consecutive balls abut and
+        // the lane always has exactly one ball in flight. Without the
+        // passthrough every instance took the registry's 0.6 s and the balls
+        // overlapped (or gapped) wherever the part's tempo was not 100 bpm.
+        if (d.kind === 'gc') out.push(Object.assign({ kind: 'gc', part: c.part, at: d.at, _src: 'ir-device' },
+          d.preset ? { preset: d.preset } : {}));
       }
       if (devOf) for (const id of c.events || []) {
         const e = evById.get(id);
