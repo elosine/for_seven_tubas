@@ -94,21 +94,21 @@
    "profile": "section1"
   },
   {
-   "id": "db1",
-   "label": "MAIN DRAFT — all notation so far (0-496 s)",
-   "score": "piece-s28",
-   "window": [
-    0,
-    496.5
-   ],
-   "profile": "section1"
-  },
-  {
    "id": "trance-a4",
    "label": "TRANCE A4 — 500-751 s",
    "score": "piece-s28",
    "window": [
     499,
+    753
+   ],
+   "profile": "section1"
+  },
+  {
+   "id": "db1",
+   "label": "MAIN DRAFT — all notation so far (0-751 s)",
+   "score": "piece-s28",
+   "window": [
+    0,
     753
    ],
    "profile": "section1"

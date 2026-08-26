@@ -351,7 +351,12 @@
       overlays.push({
         id: 'ov-' + pfx + '-cresc-p' + L, kind: 'cresc',
         target: { part: L, span: [PH6.t0, PH6.t1] },
-        value: { samples: smp, fit: 'per-note level ramp y ' + y0 + '→' + y1 + ', normalised to start at 0; flat after the knee at ' + (knee != null ? knee.toFixed(2) : '?') + ' s' },
+        // fullHeight (day 36, composer: "the curve only reaches half track
+        // height, can you make the curve full track height"). The bottom-half
+        // default is a MORPH-page convention — there the glissando owns the
+        // top half. Nothing glissandos here, so the final crescendo gets the
+        // whole lane, and its animated meter follows it.
+        value: { samples: smp, fullHeight: true, fit: 'per-note level ramp y ' + y0 + '→' + y1 + ', normalised to start at 0; flat after the knee at ' + (knee != null ? knee.toFixed(2) : '?') + ' s' },
         provenance: 'authored',
       });
       crescN++;

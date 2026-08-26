@@ -168,8 +168,11 @@
       }
       // the CRESCENDO, the glissando's twin: one interpolated curve for the
       // whole section in the BOTTOM half of the lane, limeGreen (day 35)
+      // `fullHeight` (day 36): the curve takes the WHOLE lane instead of the
+      // bottom half. The half-lane is a morph-page convention — the glissando
+      // owns the top half there — and the trance section has no glissando.
       if (ov.kind === 'cresc' && tgt.part !== undefined && tgt.span && ov.value && ov.value.samples) {
-        crescCurves.push({ part: tgt.part, span: tgt.span, samples: ov.value.samples }); continue;
+        crescCurves.push({ part: tgt.part, span: tgt.span, samples: ov.value.samples, full: !!ov.value.fullHeight }); continue;
       }
       // day 35: THE SECTION HEADER for the morph sections. Dictated order,
       // right-to-left from the go line: go line · standard spacer · fff ·
@@ -297,7 +300,7 @@
       for (const g of glissCurves) if (g.part === part)
         items.push({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples });
       for (const cc of crescCurves) if (cc.part === part)
-        items.push({ k: 'cresccurve', t0: cc.span[0], t1: cc.span[1], samples: cc.samples });
+        items.push({ k: 'cresccurve', t0: cc.span[0], t1: cc.span[1], samples: cc.samples, full: cc.full });
       // the bar line sits a MEDIUM space to the LEFT of the bar's leftmost ink
       // (ledger, accidental or notehead — whichever comes first), so it never
       // crowds the downbeat. The tempo text rides the topmost part only.

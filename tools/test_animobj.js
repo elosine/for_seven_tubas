@@ -179,11 +179,36 @@ ok(hAt(13.7) > hAt(13.9), 'drop height grows with time-to-impact (readable traje
     const Layout2 = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
     const G2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
     const real = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'   /* day 25: the canonical section file (the T1 working file was pruned); strictly more coverage */), 'utf8'));
-    const balls = Anim.collect(real, null, ST, { parts: real.source.parts, deviceOf: Layout2.deviceResolver(real, (C.engraving || {}).layout || {}) }).filter(i => i.kind === 'gc');
-    const arcs = Layout2.layoutSection(real, G2, (C.engraving || {}).layout || {}).systems
-      .flatMap(sy => sy.items).filter(i => i.k === 'gc').map(i => +i.t.toFixed(6));
-    const missing = balls.map(b => +b.at.toFixed(6)).filter(t => !arcs.includes(t));
-    ok(missing.length === 0, 'every ball has an arc on the real working IR (' + balls.length + ' balls, ' + arcs.length + ' arcs; orphans: ' + JSON.stringify(missing) + ')');
+    // Day 36, WIDENED AND TIGHTENED. The rule is "no ball with nothing drawn
+    // under it", and there are now TWO forms of that ink: a per-note GC draws
+    // the ARC + impact marker, a chunk GC draws the TICK. The trance section's
+    // per-lane metronome ball is the second kind — 3556 of them — and giving
+    // each an arc would be 3556 polylines of ink nobody asked for. So accept
+    // either. Tightened at the same time: the old test compared times ACROSS
+    // ALL PARTS, so an arc in T7 could "cover" a ball in T3; it now matches
+    // part by part.
+    const LO2 = (C.engraving || {}).layout || {};
+    const balls = Anim.collect(real, null, ST, { parts: real.source.parts, deviceOf: Layout2.deviceResolver(real, LO2) }).filter(i => i.kind === 'gc');
+    const inkArc = new Map(), inkTick = new Map();
+    for (const sy of Layout2.layoutSection(real, G2, LO2).systems) {
+      for (const i of sy.items) {
+        if (i.k !== 'gc' && i.k !== 'tick') continue;
+        const m = i.k === 'gc' ? inkArc : inkTick;
+        if (!m.has(sy.part)) m.set(sy.part, new Set());
+        m.get(sy.part).add(+i.t.toFixed(6));
+      }
+    }
+    let nArc = 0, nTick = 0;
+    const missing = [];
+    for (const b of balls) {
+      const t = +b.at.toFixed(6);
+      if ((inkArc.get(b.part) || new Set()).has(t)) { nArc++; continue; }
+      if ((inkTick.get(b.part) || new Set()).has(t)) { nTick++; continue; }
+      if (missing.length < 12) missing.push('T' + (b.part + 1) + '@' + t);
+    }
+    ok(missing.length === 0, 'every ball has static ink under it, in its OWN lane, on the real working IR ('
+      + balls.length + ' balls = ' + nArc + ' with a GC arc + ' + nTick + ' with a chunk tick; orphans: '
+      + JSON.stringify(missing) + ')');
   }
   const none = Anim.collect(nir, null, ST, { parts: [0] }).filter(i => i.kind === 'gc');
   ok(none.length === 0, 'no resolver -> no per-note GCs (opt-in, nothing implicit)');

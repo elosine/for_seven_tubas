@@ -585,3 +585,12 @@ rendering-environment difference worth understanding).
   new overlay kind that layout.js already understands will still be REJECTED, and the
   page **DELETED on write**, until the enum in `notation/schema/ir_v0.schema.json`
   lists it. **Add the kind in the same commit, and snapshot the IR before the build.**
+
+## OPEN — tuplet bracket text has no window guard (day 36, cosmetic)
+
+`render.js` draws most item kinds behind an `inWin(it.t)` check; the tuplet
+bracket's `text` is emitted regardless. On MAIN DRAFT's 732–744 s page (deep in
+the trance, which carries no brackets at all) **50 bracket texts from Section 1
+are written into the SVG at x ≈ −49 000** in an 855-wide viewport — clipped, so
+nothing is visible and nothing is wrong on the page. It is wasted output only.
+Found while proving the trance fold clean. Not urgent.

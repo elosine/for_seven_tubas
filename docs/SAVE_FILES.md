@@ -13,11 +13,13 @@
 
 ## THE ONE FILE YOU COMPOSE IN, RIGHT NOW
 
-**`piece-s28`** — open it in the **composer app** (:5200/composer.html).
-Everything new goes here. It contains the WHOLE piece so far as data:
-4563 objects, 10 tracks — the 0–136 s arc AND the trance section (~500 s+).
+# → **`piece-final-draft-001`**
 
----
+**FINAL DRAFT 001 (day 36, 2026-08-26).** The whole piece in one file:
+Section 1 (2–135 s) · the three morph sections BLOOM / CONVERGENCE / BALANCE
+(141–495 s) · the trance (500–751 s). **4481 notes in 24 groups, 2.00–751.42 s.**
+Bumped from `piece-s28`, which is now frozen — verified object-for-object,
+**4643 objects, 0 differing**, metadata the only change.
 
 ## TWO KINDS OF FILES — don't mix them up
 
@@ -32,6 +34,10 @@ auditions, and section takes. **The piece is only the `piece-sNN` chain.**
 ---
 
 ## THE CHAIN (newest last — the piece proper)
+
+> **`piece-final-draft-001` is the newest** (day 36). `piece-s28` froze as the
+> era in which the trance section was notated — the per-part tempo apparatus —
+> and folded into MAIN DRAFT, taking the page to 0–751 s.
 
 | file | status | era it froze | which notation page reads it |
 |---|---|---|---|
@@ -58,7 +64,7 @@ ignore it. (CLAUDE.md's pointer to it is corrected to point here.)
 
 **The main section of the picker holds exactly ONE entry:**
 
-# → **MAIN DRAFT — all notation so far (0-496 s)**
+# → **MAIN DRAFT — all notation so far (0-751 s)**
 
 That page (internal id `db1`, source `piece-s28`) carries EVERYTHING notated:
 the opening density build + both clouds + the 48 s long tone (0–56), the
@@ -142,7 +148,15 @@ it is the frozen T1 design reference, and the two files are identical anyway.
 
 ---
 
-## THE TRANCE PAGE (day 35; REVISED day 36)
+## THE TRANCE PAGE (day 35; REVISED day 36; FOLDED day 36)
+
+> **FOLDED INTO MAIN DRAFT, day 36.** `db1` now carries the trance as well —
+> **4481 events, 906 chunks, 0–751 s**, which is every note in the piece. The
+> standalone `trance-a4` page is kept as the section's own working view.
+> Proven at the fold: **0 items added or removed before 496.5 s**, all 17 218
+> additions at or after it, warnings 32 → 32; the only change in the old span
+> was each part's staff line ending 496.5 → 753.
+
 
 **`TRANCE A4 — 500-751 s`** — internal id `trance-a4`, source `piece-s28`.
 Rebuild with the command in its own `provenance.build`

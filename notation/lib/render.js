@@ -296,14 +296,20 @@
           // THE CRESCENDO (day 35, composer): the glissando's twin — one
           // interpolated curve for the whole section, limeGreen, taking the
           // BOTTOM HALF of the lane. Filled, no border, like its twin.
+          // `full` (day 36, composer: "the curve only reaches half track
+          // height, can you make the curve full track height"): the half-lane
+          // above exists because on a MORPH page the glissando owns the top
+          // half. The trance section has no glissando, so its final crescendo
+          // takes the whole lane. Opt-in per overlay — morph pages unchanged.
           if (it.t1 < w0 || it.t0 > w1) continue;
           const CC = E.crescCurve;
-          const yB = sys.yBotPx, yMid2 = (sys.yTopPx + sys.yBotPx) / 2;
+          const yB = sys.yBotPx;
+          const yCeil = it.full ? sys.yTopPx : (sys.yTopPx + sys.yBotPx) / 2;
           const n2 = it.samples.length, cp = [];
           for (let i = 0; i < n2; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n2 - 1));
             if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yMid2)]);
+            cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yCeil)]);
           }
           if (cp.length >= 2) {
             const cline = cp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');

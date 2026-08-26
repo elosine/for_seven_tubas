@@ -201207,6 +201207,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.2→9.5, normalised to start at 0; flat after the knee at 746.43 s"
    },
    "provenance": "authored"
@@ -201625,6 +201626,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.22→9.5, normalised to start at 0; flat after the knee at 746.52 s"
    },
    "provenance": "authored"
@@ -202043,6 +202045,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.24→9.5, normalised to start at 0; flat after the knee at 746.61 s"
    },
    "provenance": "authored"
@@ -202461,6 +202464,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.25→9.5, normalised to start at 0; flat after the knee at 746.71 s"
    },
    "provenance": "authored"
@@ -202879,6 +202883,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.27→9.5, normalised to start at 0; flat after the knee at 746.30 s"
    },
    "provenance": "authored"
@@ -203297,6 +203302,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.29→9.5, normalised to start at 0; flat after the knee at 746.39 s"
    },
    "provenance": "authored"
@@ -203715,6 +203721,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.21→9.5, normalised to start at 0; flat after the knee at 746.48 s"
    },
    "provenance": "authored"
@@ -204133,6 +204140,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.23→9.5, normalised to start at 0; flat after the knee at 746.57 s"
    },
    "provenance": "authored"
@@ -204551,6 +204559,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.25→9.5, normalised to start at 0; flat after the knee at 746.66 s"
    },
    "provenance": "authored"
@@ -204969,6 +204978,7 @@
      1,
      1
     ],
+    "fullHeight": true,
     "fit": "per-note level ramp y 2.26→9.5, normalised to start at 0; flat after the knee at 746.76 s"
    },
    "provenance": "authored"

@@ -44,22 +44,21 @@ higher the pair sits. Two things to carry into that design:
   be able to hear each other immediately, so I'll cross that bridge later when I'm
   making the parts."*
 
-**NOW ► (2026-08-26, day 36, latest) TRANCE A4 REVISION IS BUILT — WAITING ON YOUR EYE.**
-`docs/plans/TRANCE_A4_REVISION.md` v3 implemented end to end. The page now carries
-a **per-part tempo apparatus**: 159 bar-line + ♩=N marks, each in one lane, wherever
-THAT part changes tempo (seg 32 shows eight different numbers at once; seg 17 shows
-ten). 3109 in-tempo notes as black head + stem + dot · 10 columns each on one written
-ring · **3486 ball instances, one per lane at that part's own step**, off through the
-columns and the swells · swells re-drawn from zero · 10 limeGreen PH6 crescendo
-curves. VALID; verified in the running app; MAIN DRAFT + morph pages untouched.
+**NOW ► (2026-08-26, day 36, latest) THE TRANCE IS DONE AND THE PIECE IS IN ONE FILE.**
+The final crescendo now takes the **full lane height** (it was inheriting the
+morph pages' half-lane, where the glissando owns the top). The trance is
+**FOLDED into MAIN DRAFT** — `db1` is now **0–751 s, 4481 events**, which is
+every note in the piece, proven with **0 items moved before 496.5 s**. New save
+**`piece-final-draft-001`** (4643 objects, 0 differing from `piece-s28`, which
+freezes). **All 24 groups present, 2.00–751.42 s** — inventory in RUNNING_LOG
+day 36. Eleven batteries green.
 
-**ONE ANSWER NEEDED: four tempo numbers.** The page prints the plan's
-**PS2 93.8 · PS3 100 · PS4 107.1 · PS5 113.2**; the material measures
-**93.6 · 100.2 · 106.8 · 113.4** (day 35's measurement rounded the gap to two
-decimals before inverting it). At PS4 the printed grid is 44 ms off the notes by the
-end — over one notehead. The ball already runs on the measured grid. One constant
-flips the printed value. Full account: RUNNING_LOG day 36 "TRANCE A4 REVISION: BUILT".
-Previous state below.
+**Print format decided: TABLOID LANDSCAPE 17 × 11** (supersedes PP-4's Letter
+landscape) — ~31 % bigger staves and 57 % more time per page. 16:9 is the video
+only. **Cover measured and built** from the Litany house style — title:name
+exactly 2:1, zero added tracking, `EngraversGothic BT`. Everything parked in
+`docs/PRINT_AND_COVER.md` and `print/cover/`; the print score is NOT being
+generated yet.
 
 **NOW ► (2026-08-24, day 35) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
 The final density build is on the page: **23 clusters (`cl-62`-`cl-84`), built WITH

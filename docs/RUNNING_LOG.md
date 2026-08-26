@@ -14032,3 +14032,122 @@ existed, read as if it were doing the job, and was doing nothing — the chunk
 tick that never reached an unresolved chunk, and now a round-trip that compared
 a value to itself. Both were found by MEASURING THE OUTPUT rather than by
 reading the code that claimed to guarantee it.*
+
+## Day 36 — THE TRANCE IS DONE, FOLDED, AND THE PIECE HAS A FINAL-DRAFT SAVE (Opus)
+
+Composer: *"the last fix is that the final pulsed crescendo, the curve only
+reaches half track height, can you make the curve full track height please, then
+it is good to go and can you fold it into the main draft score and then make a
+save file that is final draft 001, just check that all the sections are in."*
+
+### 1 · THE CRESCENDO NOW TAKES THE WHOLE LANE
+
+The PH6 curve was drawn `yB - sample * (yB - yMid)` — lane bottom to lane
+MIDDLE. **That half-lane is a MORPH-page convention**: there the glissando owns
+the top half and the crescendo the bottom (day 35, `docs/MORPH_NOTATION.md`).
+Nothing glissandos in the trance, so the ceiling was inherited and meaningless.
+
+`fullHeight` on the cresc overlay → `full` on the item → the curve uses
+`sys.yTopPx`. **Measured before 50.0 % of lane height, after 100.0 %.** The
+animated `crescMeter` follows the same flag, or the follower would have read
+half the level the page shows.
+
+Opt-in, so **all three morph pages are untouched** — checked: 30 cresc
+overlays across them, 0 with `fullHeight`, every item `full = false`.
+
+**Seen in the running app** at 732–744 s: ten limeGreen paths, each **95.9 px
+against a ~96 px lane**.
+
+### 2 · THE FOLD — MAIN DRAFT IS NOW THE WHOLE PIECE
+
+`db1` rebuilt by **replaying its own stored `provenance.build`** with three
+edits (window `496.5 → 753`, the label, and `--trance grp-tranceA4-01`
+appended) — never by retyping 789 arguments.
+
+**MAIN DRAFT — all notation so far (0-751 s): 4481 events, 906 chunks, VALID.**
+4481 is exactly the number of sounding notes in the score, so the page now
+carries every note in the piece.
+
+**The proof that nothing else moved** (`prove_unmoved` plus a per-part,
+per-kind, per-time bucket comparison):
+
+- **items added at t < 496.5 : 0**
+- items added at t ≥ 496.5 : 17 218
+- **items removed : 0**
+- warnings 32 → 32
+- the only change inside the old span: each part's staff line `t1 496.5 → 753`
+
+So the **2 geometry findings** the fold reported (`T9 @36.87` bracket 6:4 vs an
+accent; `T10 @39.08` bracket within 0.22 ss of a beam) are **pre-existing
+CLOUD02-I items, not the fold's** — identical items in that span implies
+identical geometry. Worth the composer's eye at the polish pass; they are not
+new and they are not the trance.
+
+### 3 · FINAL DRAFT 001
+
+`piece-s28` → **`piece-final-draft-001`**, by the `SAVE_FILES.md` bump: byte-
+faithful, fresh stamps only. **Verified 4643 objects, 0 differing**, everything
+outside `metadata` identical. Minified formatting preserved (the day-36
+`move_object` lesson — never assume 2-space on this chain).
+
+`piece-s28` freezes as that era's canon. **Notation pages are NOT bumped**
+(SAVE_FILES rule 3): `db1` and `trance-a4` keep naming `piece-s28`, the save
+they were drawn from, and `test_notate_block`'s hardcoded score name stays valid
+— all eleven batteries green without touching it.
+
+### 4 · ALL SECTIONS ARE IN — the inventory
+
+**24 groups, 4481 notes, 2.00 → 751.42 s**, no section missing:
+
+| span | what |
+|---|---|
+| 2.00–34.65 | `grp-g1-opening` |
+| 36.19–40.38 | `grp-cloud02-i-01` |
+| 40.93–41.94 | `grp-vert03-fp-01` |
+| 42.38–46.40 | `grp-cloud02-d-01` |
+| 48.05–52.46 | `grp-octbb-ord-01` |
+| 55.94–80.03 | `grp-gest2-75-01` (density build 2) |
+| 81.75–110.62 | the INT2 blasts — 13 small groups |
+| 113.00–135.34 | `grp-db3-m3f-01` (density build 3) |
+| 141.39–258.03 | `grp-act-bloom-01-01` |
+| 259.56–381.91 | `grp-act-converge-01-01` |
+| 386.68–495.27 | `grp-act-balance-01-01` |
+| 499.83–751.42 | `grp-tranceA4-01` |
+
+The only gaps are where the piece rests (135.3→141.4, 495.3→499.8).
+
+### THE GUARD THAT FIRED — and why it was right to stop and look
+
+`test_animobj` went **RED** on the fold: *"every ball has an arc on the real
+working IR (4085 balls, 529 arcs)"* — the day-23 rule, **"a ball without an arc
+is a bug."**
+
+It would have been easy to call the test stale and widen it. Measured instead,
+per part: **529 balls have a GC arc, 3556 have a chunk TICK, ZERO have nothing
+drawn.** The rule holds; its *encoding* predated chunk-device balls, which draw
+a tick rather than an arc — and giving 3556 metronome balls a 201-point arc each
+would be ink nobody asked for.
+
+So the guard was **widened to the rule and tightened at the same time**: accept
+an arc *or* a tick, and match **per part** — the old version compared times
+across all parts, so an arc in T7 could "cover" a ball in T3.
+
+**Then proved it can still fail.** First attempt was a dud: injecting a stray
+chunk gc device did NOT turn it red, because layout draws the tick from the
+*same* `c.devices` data — that case cannot orphan. The real test is removing the
+day-36 tick emission, and with it gone **both** guards fire:
+
+- `test_layout` — *"chunk gc: an unresolved chunk draws its tick: 0 vs 1"*
+- `test_animobj` — *"529 with a GC arc + 0 with a chunk tick; orphans: [T1@501.03, …]"*
+
+*Worth keeping: the first prove-red attempt passing was itself the information.
+It said the thing I was testing was structurally impossible, which sent me to
+the case that is actually reachable.*
+
+### Also checked, and not a defect
+
+Tuplet-bracket texts (`3:2` ×18, `7:4` ×9, `6:4` ×9, `5:4` ×14) appear in the
+SVG on the 732–744 s page of MAIN DRAFT, where the trance has no brackets at
+all. **All 50 sit at x ≈ −49 000 in an 855-wide viewport — zero inside.** They
+are Section-1 brackets emitted and then clipped: the tuplet text kind has no
+`inWin` guard where other kinds do. Harmless, pre-existing, filed to NITS.

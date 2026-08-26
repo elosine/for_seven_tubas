@@ -140,7 +140,11 @@
   register('crescMeter', (inst, view, t, st) => {
     if (t < inst.t0 || t > inst.t1) return [];
     const s = view.system(inst.part);
-    const yMid = (s.yTopPx + s.yBotPx) / 2, yB = s.yBotPx, H = yB - yMid;
+    // day 36: `full` follows the drawn curve. Where the crescendo takes the
+    // WHOLE lane (the trance section, which has no glissando above it), its
+    // meter has to as well, or the follower reads half the level the page
+    // shows. Absent = the morph pages' bottom half, unchanged.
+    const yMid = inst.full ? s.yTopPx : (s.yTopPx + s.yBotPx) / 2, yB = s.yBotPx, H = yB - yMid;
     const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
     const smp = inst.samples;
     const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
@@ -278,7 +282,8 @@
         out.push({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' });
       }
       if (ov.kind === 'cresc' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
-        out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-cresc' });
+        out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples,
+          full: !!ov.value.fullHeight, _src: 'ir-cresc' });
       }
     }
     // notes whose device already visualizes progress (a drawn level curve →

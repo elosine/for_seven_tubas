@@ -10,52 +10,49 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN AT SESSION END — day 36 (Opus): TRANCE A4 REVISION IS BUILT — WAITING ON THE COMPOSER'S EYE
+### OPEN AT SESSION END — day 36 (Opus): THE TRANCE IS CLOSED, THE PIECE IS IN ONE FILE
 
-**`docs/plans/TRANCE_A4_REVISION.md` v3 is IMPLEMENTED, steps 0→8.** The page
-is rebuilt, VALID, and verified in the running app.
+**THE TRANCE SECTION IS FINISHED AND FOLDED.** The composer's last fix — the
+final crescendo reaching only half the lane — is done: it was inheriting the
+MORPH pages' half-lane convention (there the glissando owns the top half), and
+nothing glissandos in the trance. `fullHeight` on the cresc overlay, opt-in, so
+all three morph pages are untouched. **50 % → 100 % of lane height, seen in the
+app: ten limeGreen curves at 95.9 px against a ~96 px lane.**
 
-**ON THE PAGE:** 3109 in-tempo notes (black head + plain stem + staccato dot,
-left edge on the go time, no GC, no go line) · 70 column members on 10 columns,
-each column at ONE written ring · **159 per-part tempo marks** — a bar line +
-♩=N in a part's own lane wherever THAT part changes tempo · **3486 ball
-instances**, one per lane at that part's own step, tiled, off over the three
-specified windows · 30 swells with `curveZero` · 10 PH6 crescendo curves ·
-10 `f` marks + 40 pairs and **no other dynamic mark anywhere**.
-**MAIN DRAFT + all four morph pages md5-identical. Eleven batteries green.**
+**MAIN DRAFT IS NOW THE WHOLE PIECE — `db1`, 0–751 s, 4481 events, 906 chunks,
+VALID.** 4481 is exactly the number of sounding notes in the score. Folded by
+replaying db1's own `provenance.build` with three edits, never by retyping.
+**Proven: 0 items added or removed before 496.5 s**, 17 218 additions all at or
+after it, warnings 32 → 32; the only change in the old span was each part's
+staff line ending 496.5 → 753. *So the 2 geometry findings it reports
+(`T9 @36.87`, `T10 @39.08`) are pre-existing CLOUD02-I items — for the polish
+pass, not the trance.*
 
-**THE ONE OPEN QUESTION — FOUR TEMPO NUMBERS.** The authored map and the score
-disagree in four segments, and the authored numbers are a day-35 rounding
-artifact (`tempoOf()` rounded the gap to 2 dp before inverting):
-**PS2 93.8 vs 93.6 · PS3 100 vs 100.2 · PS4 107.1 vs 106.8 · PS5 113.2 vs
-113.4** (plus seg-17 T10 90 vs 89.9). The page prints the AUTHORED value (the
-plan calls the map canonical, and that accelerando is recorded as the section's
-identity); **the BALL runs on the measured grid** so it lands on the notes —
-at 107.1 it would have walked 44 ms off them, over a notehead. One constant
-flips it: `PRINT_MEASURED` in `notation/lib/trance_overlays.js`.
+**NEW SAVE: `piece-final-draft-001`.** Bumped from `piece-s28` per SAVE_FILES —
+byte-faithful, **4643 objects, 0 differing**, metadata only. `piece-s28` freezes.
+Notation pages are NOT bumped (rule 3), so `db1`/`trance-a4` keep naming s28 and
+`test_notate_block` stays valid untouched.
 
-**THE COMPOSER'S FIRST FOUR FIXES ARE IN (day 36, second pass):** the ball now
-runs the **two pulsed passages inside the columns** (521.83·522.23 and
-523.43–525.03, ten lanes, 150, no mark — +70 balls, 3556) · **every bar line
-clears its bar's leftmost ink** by a standard gap, ledger lines and accidentals
-included (159/159 at exactly 0.45 ss; 85 clear a ledger, 52 an accidental —
-before this, 111 of them had ink to their left) · **`wc-ta4-2080` moved T2 → T6**
-at 647.43, ledgered, CB1 now T1 T4 T6 T7 T10 and its ring unchanged at 2.30 s ·
-**the "pies" suppressed** — they were `lineWedge`, not `motivePie` (which has
-been off since day 24): 7 rings over the CB5 column, now 0.
+**ALL SECTIONS CONFIRMED IN: 24 groups, 4481 notes, 2.00–751.42 s** — the full
+inventory is in RUNNING_LOG day 36. Gaps only where the piece rests.
 
-**Next concrete step:** the composer's eye on the page again, and the
-four-tempo answer (below). Then TRANCE-FOLD into MAIN DRAFT.
+**PRINT FORMAT DECIDED — TABLOID LANDSCAPE 17 × 11** (composer, day 36;
+supersedes PP-4's Letter landscape): ~31 % larger staves *and* 57 % more time
+per page. **16:9 is the VIDEO only** (PP-1). The cover is measured and built —
+`docs/PRINT_AND_COVER.md`, artwork in `print/cover/`, font in `docs/FONTS.md`.
+**The print score is deliberately NOT generated yet.**
 
-**Resume reads:** RUNNING_LOG day 36 "TRANCE A4 REVISION: BUILT" (the full
-account, including four defects found and fixed, and what was decided beyond
-the plan) · `docs/plans/TRANCE_A4_REVISION.md` if the spec is in question.
+**Next concrete step:** the composer's eye on MAIN DRAFT end to end. Still open
+from earlier: the four tempo numbers (PS2/PS3/PS4/PS5 — the page prints the
+authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4;
+`PRINT_MEASURED` in `trance_overlays.js` flips it).
 
-**Pending the composer:** the trance page's eye + the four tempo numbers.
-(Still parked elsewhere: DB3-EYE verdicts · PAPER topic picks.)
+**Pending the composer:** the four tempo numbers · DB3-EYE verdicts · PAPER
+topic picks · the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
 
-**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (modified) — the
-composer's own Reaper rack, mid-edit; not ours to commit.
+**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (the composer's Reaper
+rack, mid-edit) · `scores/Litany.pdf` (their 2003 score, copied in as the cover
+reference — say if it should be committed).
 
 ---
 
@@ -446,7 +443,8 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 | ~~TRANCE-REVISE~~ | ~~Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)~~ **DONE day 36 (Opus)** — trance_overlays rewritten · animobj preset passthrough · layout per-part bars + curveZero + the chunk tick on unresolved chunks · render one-decimal-where-fractional · schema `devices[].preset` (the gate's 4th bite). **3109 in-tempo · 70 column members / 10 columns · 159 per-part tempo marks · 3486 balls · 10 cresc · VALID.** §8 verified in the running app; MAIN DRAFT + 4 morph pages md5-identical; 11 batteries green (new checks in test_layout + test_animobj). **Four defects found and fixed**: 16 double balls at seams · 26 first/last notes with no ball · the tick never drawn on unresolved chunks · the schema gate | — | — | — |
 | ~~TRANCE-FIX-1~~ | ~~The composer's first four fixes~~ **DONE day 36 (Opus)** — ball on the two pulsed passages inside the columns (`ballSpans`, +70) · bar lines clear the bar's leftmost ink (a post-pass over the real item widths; 159/159 at 0.45 ss from the bar's RIGHT edge; 111 bars previously had ink to their left) · `wc-ta4-2080` moved T2→T6 at 647.43 (score edit, ledgered) · the rings suppressed (`animated.lineWedge/motivePie` — **the schema gate's FIFTH bite**: `animated` had never validated, because notate_morph writes unvalidated) | — | — | — |
 | **TRANCE-EYE-2 — NEXT (composer)** | **The eye on the rebuilt page** (`TRANCE A4 — 500-751 s`), **and one answer: the four tempo numbers** (PS2/PS3/PS4/PS5 — the page prints the authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4; `PRINT_MEASURED` flips it). Also for the eye: `brick:false` on the columns · the ~3.5 s ball gaps at burst-segment seams. Full account: RUNNING_LOG day 36 "BUILT" | Fable | yes — clear before it | composer's verdicts applied |
-| **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the revised page is approved, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
+| ~~TRANCE-FOLD~~ | ~~Fold the trance into MAIN DRAFT~~ **DONE day 36 (Opus)** — full-lane crescendo fix first (`fullHeight`, 50 %→100 %, morph pages untouched), then folded by replaying db1's own build command. **db1 = 0–751 s, 4481 events, 906 chunks, VALID**; 0 items moved before 496.5 s. New save **`piece-final-draft-001`** (4643 objects, 0 differing); s28 frozen. All 24 groups confirmed present, 2.00–751.42 s. `test_animobj`'s day-23 ball-has-ink guard fired and was widened to the RULE (arc **or** tick) and tightened to per-part — prove-red confirmed on both it and test_layout | — | — | — |
+| **PRINT-FORMAT** | ~~What paper~~ **DECIDED day 36: TABLOID LANDSCAPE 17 × 11**, superseding PP-4. Cover measured off Litany.pdf and built (`docs/PRINT_AND_COVER.md`, `print/cover/`). **Print score NOT generated yet — parked at the composer's ask** | — | — | when the composer is ready |
 | **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
 | **PAPER-TOPICS — WAITING (composer)** | Review **`docs/PAPER_OUTLINE.md`** (built day 36): pick the topics per internal section + decide homes for the cross-cutting threads | — | — | topic picks |
 | **PAPER-EXPAND** | Expand the chosen topics into each section's deep narrative, from the sources named in the outline's tables | Fable | yes | draft prose per section |
