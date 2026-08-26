@@ -13710,3 +13710,25 @@ per part; ball off during columns/swells; cuivre text kept — **the day-35
 derivation; the actual texture juxtaposes tempo SETS (the generator's units).
 The revision writes what each player does — 150 vs 32.1 in the same system at
 594.63 — which is the section's whole argument made legible.
+
+## Day 36 — TRANCE A4 plan v3 FINAL: RQ answers in, the varied parts resolve, room verified (Fable 5)
+
+- **RQ-1 = b:** uniform ring per column at (min member rejoin − breath).
+  Computed: VERT 0.30/0.30/0.30/0.70/1.10 · CB 2.30/1.10/2.70/0.70/7.96.
+- **517.83 & 519.43 reclassified by the composer:** not columns — regular
+  in-tempo pulsed notes (quarter + dot + ball; cuivré text as carried; no
+  dynamics). Ball-off window shrinks to [521.03, 529.03).
+- **RQ-2 dissolved by measurement:** every "varied" MT part is ONE stream
+  WITH RESTS — all IOIs integer multiples of one step (e.g. MTB T2:
+  0.56/1.12/1.68 = 1x/2x/3x of 0.56). No part changes tempo mid-segment
+  anywhere in the section. So the composer's "|112 o o |122 o o o" concern
+  reduces to one bar+mark per part per segment — membership is total.
+- **The lattices closed:** MTB = 150·ri/14, terms {12,10,8,7,6,4,3};
+  seg32 = 150·ri/38, terms {38,32,30,28,26,17}. Both match the generator's
+  rate = B*ri/r1 form. Two flags only: seg32 T6 (1 note, no tempo derivable),
+  seg17 T8 (standalone steady 45.8 outside the lattice).
+- **Room verified:** trance timeScale 12 s/system at 1920 px = 160 px/s;
+  tightest adjacent tempo changes 1.2 s (P10→MTB) ≈ 190 px vs ~35 px mark.
+  ~18 marks per part over 251 s. Never crowded.
+- Plan v3 (docs/plans/TRANCE_A4_REVISION.md) is FINAL — no open questions.
+  Next: implement on Opus from the plan, cold-executable.
