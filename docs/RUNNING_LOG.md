@@ -13642,3 +13642,39 @@ their record is COMPOSER_LOG 08-10→08-13 — the outline's Part I tables point
 the composer said they will choose; an outline that pre-selects would defeat the
 review. Also not done: no Penn State call-for-presentations cross-check (the PDFs
 sit in docs/) — that is a framing question for after the composer's topic pass.
+
+---
+
+## Day 36 — TRANCE A4 revision: the plan drawn up, the data measured (Fable 5)
+
+**The ask.** Composer redirects TRANCE A4 toward `trance-section-01`'s look
+("closer to what I want than what you put in the new draft"): drop the per-note
+GCs and go lines, single bouncing ball at beats, heads left-aligned on go time,
+bar+tempo at every change with the standard gap, first tempo 150 not 75,
+long-tone columns in the 40.92 MAIN DRAFT style, swell curves starting at 0,
+final section = pulse + long crescendo curve w/ follower + ppp→fff. Explicit
+process ask: "last time the agent tried this, they missed a lot of things.
+Could you draw up a plan first... and please ask any clarifying questions."
+
+**The plan:** `docs/plans/TRANCE_A4_REVISION.md`. Implement only from it.
+
+**Measurements that settle facts (verified against piece-s28):**
+- The opening (499.83–548.63) is TWO TEAMS OF FIVE alternating: every part at
+  0.8 s, composite grid 0.4 s = **150 bpm — the composer is right; the day-35
+  per-part modal (75) labeled the parts, not the pulse.**
+- From 548.63 on there is NO composite grid: all ten parts share one rate
+  (0.75→0.50 s, the marked 80→120) but are phase-spread. So only mark 1 changes.
+- The dictated long-tone times resolve to 7 data columns: 517.83, 519.43,
+  521.03, 522.63, 525.43, 526.23, 527.43 — all ON the 0.4 grid; mixed
+  ord/cuivre/fp; the first two are 0.20 s colEdit stubs (Q-B to composer).
+- CB block = five ord columns 647.43–656.23 (composer named only 647.41 — Q-D).
+- PH6 (709.43–751.42): all ten parts at 0.50 s, phase-spread, recVel FLAT 100 —
+  **the final crescendo lives in the per-note drawn level (y 2.2→9.5), not in
+  velocity.** Knee at marker "PS6 hold ff" 746.29.
+- Swell level data starts at y=2/10 — why the drawn curves start off the floor.
+- The "standard gap" the composer names for the bar line = stackGapSs 0.45
+  (the 0.15/0.30/0.45 ladder's largest, the dynamics/accents stack gap).
+
+**Seven questions to the composer filed in the plan (Q-A…Q-G):** later tempo
+marks, the stub columns' written length, per-column vs shared duration, CB
+scope, f/ppp→fff per-part vs per-page, ball lane(s) + coverage, cuivré text.
