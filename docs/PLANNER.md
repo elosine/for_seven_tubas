@@ -44,7 +44,14 @@ higher the pair sits. Two things to carry into that design:
   be able to hear each other immediately, so I'll cross that bridge later when I'm
   making the parts."*
 
-**NOW ► (2026-08-24, day 35, latest) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
+**NOW ► (2026-08-25, day 36, latest) TRANCE A4 REVISION IS PLANNED AND WAITS ON OPUS.**
+The composer redirected the trance page (per-part tempo apparatus, single ball per
+lane at each part's own tempo, 40.92-style columns, swell/crescendo fixes) —
+**`docs/plans/TRANCE_A4_REVISION.md` v3 is FINAL, no open questions; implement from
+it on Opus after a clear.** Paper work also advanced (writing strategies + the
+composer's own talk-method logged in PAPER_NOTES). Previous state below.
+
+**NOW ► (2026-08-24, day 35) DB3 IS NOTATED — MAIN DRAFT NOW READS 0-136 s.**
 The final density build is on the page: **23 clusters (`cl-62`-`cl-84`), built WITH
 their dynamics in one build** — 23 marks, 18 accents. **866 events, VALID, geometry
 zero new.** The scan was the cleanest any section has returned: **23 gestures, all on

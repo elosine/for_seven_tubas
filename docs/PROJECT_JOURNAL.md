@@ -10,6 +10,38 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### OPEN AT SESSION END — day 36 (mid-session checkpoint, Fable): TRANCE A4 REVISION READY TO IMPLEMENT
+
+**The task:** revise `TRANCE A4 — 500-751 s` (`trance-a4`) per the composer's
+day-36 redirect. **State: fully planned, zero open questions, nothing implemented
+yet.** The plan survived three rounds of composer answers (Q-A..G, RQ-1..2).
+
+**The deliverable:** **`docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)** — the
+per-part tempo map (measured, canonical), the 10 columns with computed ring
+lengths, ball windows, per-part dynamics, swell/cresc fixes, code touchpoints,
+verify list.
+
+**Next concrete step (Opus):** implement `docs/plans/TRANCE_A4_REVISION.md`
+top to bottom — steps 0→8 in order: baseline copy, rewrite
+`notation/lib/trance_overlays.js` (devices · columns · per-part authored tempo
+map · per-part beat-gc devices · cresc + pairs), the small `animobj.js` preset
+passthrough, the `layout.js` per-part barline/tempotext + `curveZero` remap,
+rebuild with the command in the plan, then the §8 verification in the running
+app (server may already be up on :5200).
+
+**Resume reads:** `docs/plans/TRANCE_A4_REVISION.md` (the whole file — it is
+the spec) · `docs/NOTATION_STANDARDS.md` (before drawing anything) ·
+`docs/MORPH_NOTATION.md` § cresc overlay (for §7's machinery). RUNNING_LOG
+day-36 entries only if a why is needed.
+
+**Pending the composer:** nothing for this task. (Still parked elsewhere:
+DB3-EYE verdicts · PAPER topic picks.)
+
+**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (modified) — the
+composer's own Reaper rack, mid-edit; not ours to commit.
+
+---
+
 ### WHERE IT STANDS — day 36 (Claude Code / Fable): THE PAPER'S FIRST PASS
 
 **`docs/PAPER_OUTLINE.md` is built and waits on the composer's topic pass.** Five
@@ -389,8 +421,9 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 
 | ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
 | ~~7~~ | ~~The two trance seams~~ **DONE day 35** — both pruned by the composer's rule; 0 overlaps in 3212 notes |
-| **TRANCE-EYE — NEXT (composer)** | **Review `TRANCE A4 — 500-751 s`.** Quarter notes, 8 tempo bar lines, surges on the end crescendos, no text. The composer has not seen any of day 35's output yet | Fable | yes | verdicts |
-| **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the eye approves, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
+| ~~TRANCE-EYE~~ | **ANSWERED day 36 — the eye became a REDIRECT:** toward `trance-section-01`'s look, per-part tempo apparatus, columns, fixes. All questions resolved across three rounds | — | — | — |
+| **TRANCE-REVISE — NEXT (Opus)** | **Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)** steps 0→8: trance_overlays rewrite · animobj preset passthrough · layout per-part bars + curveZero · rebuild · §8 verify in the app | Opus | yes — clear before it (checkpointed) | page rebuilt, §8 verified, composer's eye |
+| **TRANCE-FOLD** | Fold `--trance grp-tranceA4-01` into MAIN DRAFT once the revised page is approved, the same way the morphs went in | Opus | no | MAIN DRAFT 0-751 s |
 | **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
 | **PAPER-TOPICS — WAITING (composer)** | Review **`docs/PAPER_OUTLINE.md`** (built day 36): pick the topics per internal section + decide homes for the cross-cutting threads | — | — | topic picks |
 | **PAPER-EXPAND** | Expand the chosen topics into each section's deep narrative, from the sources named in the outline's tables | Fable | yes | draft prose per section |
