@@ -248,6 +248,22 @@
     // the go line. The resolver comes from the caller (layout.deviceResolver)
     // so this module keeps no second copy of the membership rules (D50).
     const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
+    // W1b (day 37, composer: "there is still bleed in the meters"): spans where
+    // a HALF-LANE section meter owns the part's lane — any gliss overlay, or a
+    // cresc overlay without fullHeight. Inside these, per-event curveMeters
+    // stand down (below); the trance's fullHeight crescendo is NOT in this map,
+    // so its per-event meters are untouched.
+    const halfLane = new Map();   // part -> [[t0,t1], ...]
+    for (const ov of ((ir && ir.overlays) || [])) {
+      const tg = ov.target || {};
+      if (tg.part === undefined || !tg.span) continue;
+      if (ov.kind === 'gliss' || (ov.kind === 'cresc' && !(ov.value && ov.value.fullHeight))) {
+        if (!halfLane.has(tg.part)) halfLane.set(tg.part, []);
+        halfLane.get(tg.part).push(tg.span);
+      }
+    }
+    const laneOwned = (part, a, b) =>
+      (halfLane.get(part) || []).some(s2 => a < s2[1] && b > s2[0]);
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
         // day 36: a chunk gc device may carry its own PRESET — the trance
@@ -267,10 +283,17 @@
           typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum
-      // 3 data — no side files, per the A21b strata rule)
+      // 3 data — no side files, per the A21b strata rule).
+      // W1b exception: curveMeter is FULL-LANE (piece #2's device), so where a
+      // morph section's half-lane meters own the lane it drew a THIRD meter at
+      // the same x whose green fill crossed the midline into the glissando's
+      // half whenever the event's level passed 0.5 — seen by the composer at
+      // t≈302 (T1's event ends 302.91: "then it just blinks off"). The note's
+      // own envcurve stays drawn; only the animated follower stands down.
       for (const id of c.events || []) {
         const e = evById.get(id);
         if (e && e.level && e.level.samples && e.level.samples.length >= 2) {
+          if (laneOwned(c.part, e.onset, e.onset + e.duration)) continue;
           out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, _src: 'ir-level' });
         }
       }

@@ -28,6 +28,25 @@ or part of the video rendering."*
 
 ---
 
+### W1b (day 37) — the bleed the eye caught AFTER all of the above: FIXED
+
+**Composer, day 37:** *"there is still bleed in the meters... green background in
+the orange meter or the white area of the orange meter... then it just blinks off
+[at 303.01]."*
+
+It was a THIRD meter: `curveMeter`, piece #2's per-event follower — same green,
+same x, but FULL-LANE, spawned by every event carrying a level curve (406 inside
+the morph sections). Its fill crossed the midline into the glissando's half
+whenever an event's level passed 0.5; the "blink" was T1's event ending at
+302.91. Fixed in `animobj.collect` with an ownership rule: where a half-lane
+section meter owns the lane, per-event full-lane meters stand down. The trance
+(fullHeight crescendo) keeps its curveMeters — probe at t=730 is byte-identical.
+Full account: RUNNING_LOG day 37. **The approved 2026-08-27 renders predate this
+fix and are archived as the submission fallback in
+`notation/video/approved/2026-08-27-submission/`.**
+
+---
+
 ### THE JUMP — measured, and it is the system turns
 
 `measure_meter_jump.js` computed every meter's drawn level at all **22 819**

@@ -10,8 +10,20 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 36: **THE VIDEO IS BUILT, RE-RENDERED AND VERIFIED.**
-### → W1 and W2 both closed; the only thing left is the composer's eye
+### OPEN — day 37: **V-CUT APPROVED BY THE COMPOSER'S EYE — PHASE 5 CLOSED 5/5.**
+### → the eye also caught W1b (a third meter bleeding green); FIXED; renders one fix behind
+
+**The approved video is ARCHIVED as the submission fallback:**
+`notation/video/approved/2026-08-27-submission/` — all five mp4s + cut list +
+README naming the revert commit (00c20c4). Render scripts never touch it.
+
+**W1b in one line:** piece #2's full-lane `curveMeter` was still spawning per
+leveled event inside the morph sections — a third green meter at the same x,
+crossing the midline into the glissando's half. Fixed in `animobj.collect`
+(ownership rule: half-lane section meters own the lane; per-event full-lane
+meters stand down there; the trance's fullHeight crescendo keeps its — t=730
+probe byte-identical). Proven at the composer's own timestamps; eleven batteries
+green. Full chain: RUNNING_LOG day 37.
 
 **Five outputs in `notation/video/renders/`** (gitignored; regenerable):
 
@@ -84,10 +96,14 @@ The check now reads the meter colour straight out of the finished mp4.
    TRANCE 2** plus one in the INT2 blasts, opens wide 85 s, closes wide 82 s.
    Seed 11's list is kept at `notation/video/probe/cut-list-seed11-backup.json`.
 
-**▶ THE ONLY THING OPEN: the composer watches `notation/video/renders/V-CUT.mp4`.**
-   PHASE 5's fifth criterion. Nothing downstream depends on it, and no tool can do
-   it. If something is wrong, the knobs are all one flag: `--fade N`,
-   `--fadeMode dip|cross`, `make_cut.js --seed N`, `fillOpacity` in the registry.
+4. **DONE — the composer's eye (day 37): "the cut looks good... keep it,
+   please."** PHASE 5 closed 5/5. The same look caught **W1b**, now fixed (above).
+
+**▶ NEXT — the composer's call: re-render with the W1b fix?** ~31 min, same two
+   scripts, nothing else changed. The archived approved copy stays the submission
+   fallback either way. **Opus for the render session; clear before it.** After
+   that: the print score (`docs/PRINT_AND_COVER.md`, Fable) and the paper
+   (`docs/PAPER_OUTLINE.md` — beats are being drafted on day 37, Fable).
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:

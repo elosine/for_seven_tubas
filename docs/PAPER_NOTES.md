@@ -2850,3 +2850,45 @@ the festival, on our own schedule). The intro outline built today serves all
 three, but the urgent distillation target is the abstract — the thesis, the
 method, one worked demonstration, in 300 words. Facts, links, and the
 2023/2025 selected-title lists: PENN_STATE_RESEARCH.md § the symposium side.
+
+## Day 37 — THE FIFTH CRITERION: what the eye caught that four measurements didn't
+
+**The composer, approving the video and filing a defect in the same breath
+(verbatim):** *"So the cut looks good. and we can keep that video... we can still
+use it for the submission. So keep it, please. there is still bleed in the
+meters... look at track four, which is clear... and then look at tracks one and
+two. There is green background in the orange meter or the white area of the
+orange meter... and you can see now the green background in tuba one has
+disappeared. Just earlier in the timeline, it was there in the orange, and then
+it just blinks off at this time."*
+
+Three observations, each load-bearing: a per-part comparison (T4 clean, T1/T2
+not), a location (inside the orange meter's white area), and a TIMESTAMP for a
+transient (303.01). That is a bug report of measurement quality, delivered as a
+look note — and it named a defect that had just survived four measured PHASE 5
+criteria, including the new animated-layer colour check written that same day to
+close the last proof gap.
+
+**Why the instruments missed it.** The day-36 jump measurement computed per-frame
+DELTAS of the two morph meters' fills — and its worst frame in the whole piece
+was at t=303.30, part 2: the exact neighbourhood of what the eye later reported.
+The instrument was pointed at the right place and measuring the wrong quantity —
+it tracked the meters that were SUPPOSED to be there, and the defect was a third
+meter that wasn't. The colour check likewise verified the intended meters'
+pixels. Nothing verified the ABSENCE of things not designed for the page.
+
+**The defect itself is an inheritance story** (for the lineage argument): the
+full-lane `curveMeter` is piece #2's device, correct wherever a part's lane is
+one dynamics space — the trance, where it was designed in. The day-35 morph
+pages split the lane into two half-height meters and switched off the *dots*
+(`curveFollower: false`) but not the *meter*, because in the trance the meter is
+wanted. The fix is an ownership rule, not a kill switch: where a half-lane
+section meter owns the lane, per-event full-lane meters stand down. The trance
+probe after the fix: 0 differing pixels of 2 073 600.
+
+**The sequence for the paper:** the eye's report arrived with its own controls
+(clean lane vs dirty lane, before vs after the blink); the diagnosis then ran
+through two wrong hypotheses — overlay flags, then out-of-range data, both
+measured innocent — before the third meter surfaced. The blink matched an event
+boundary to within a tenth of a second (302.91 vs "303.01"). The eye is not a
+softer criterion than the pixel checks; on this day it was the sharper one.

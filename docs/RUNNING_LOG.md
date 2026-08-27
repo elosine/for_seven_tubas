@@ -15238,3 +15238,70 @@ on day 36: V-CUT is first-generation and V-TOP/V-BOT are re-encodes of the zoom
 master. **Seed 71's boundaries are in the film.**
 
 **Everything is now closed except the composer's eye on V-CUT.**
+
+### day 37 (Fable) — THE COMPOSER'S EYE: V-CUT APPROVED — and it caught what four measured criteria didn't
+
+**Composer, verbatim:** *"So the cut looks good. and we can keep that video. And
+if we can't resolve any of these outstanding issues, we can still use it for the
+submission. So keep it, please."*
+
+**PHASE 5's fifth criterion is now closed** — with a caveat the eye found in the
+same breath: *"there is still bleed in the meters... green background in the
+orange meter or the white area of the orange meter... and then it just blinks off
+at this time [303.01]."* They also placed it correctly themselves: seen on the
+notation server, captured in the video too — the shared layer.
+
+**ARCHIVED FIRST, on the composer's instruction** ("keep it, please... make sure
+the current version of the notation engine and save score are archived"):
+
+- `notation/video/approved/2026-08-27-submission/` — all five mp4s + the seed-71
+  cut list + README. Gitignored except the README; render scripts never touch it.
+- Engine, registry, IR, score: all git-tracked and CLEAN at **00c20c4** = the
+  revert point. Any of today's changes reverts with one checkout.
+
+### W1b — the bleed was a THIRD METER
+
+The chase, in order, dead ends kept:
+
+1. **Overlay flags innocent.** All 60 gliss/cresc overlays half-lane; FULLHEIGHT
+   only on the trance final crescendo [709.43, 751.42] — exactly as designed.
+   Nothing ends near 303.
+2. **Overlay data innocent.** Every sample in [0, 1]; cresc levels at t=303 are
+   ≤ 1.000. The half-lane meters cannot cross the midline.
+3. **The culprit: `curveMeter`** — piece #2's per-event follower. Same green
+   (#99FF00), same x offset (w+gap left of cursor), but **FULL-LANE height**.
+   Every event carrying a level curve spawns one; **406 leveled events sit inside
+   the morph sections**. Fill top crosses the lane midline whenever the event's
+   level passes 0.5 — green inside the glissando's half, and inside the orange
+   box's white area. The morph pages had switched off the *dots*
+   (`ir.animated: curveFollower false`) but nobody switched off this.
+
+**The blink, matched to the data:** T1's leveled event ends at **302.91** — the
+composer saw the green vanish at 303.01. T2's runs to 305.14 (stays green ✓).
+T4's level at that instant put its fill top ~25 px lower than T1/T2's ~40 px —
+which is why T4 read as clean; its box OUTLINE carried the same green
+contamination all along (`#dd9328` where clean orange is `#f59365`).
+
+**The fix — an ownership rule in `animobj.collect`:** *where a half-lane section
+meter owns the lane, per-event full-lane meters stand down.* An event's
+curveMeter is dropped iff its span intersects, on its part, a gliss overlay or a
+cresc overlay WITHOUT fullHeight. The trance's crescendo is fullHeight, so the
+trance keeps every designed curveMeter. The note's own drawn envcurve is
+notation and stays.
+
+**Proven:**
+
+| probe | before → after |
+|---|---|
+| t=302.50 (CONVERGENCE) | 6 786 px changed; T1 box interior `#e1ffb3` (green) → `#ffffff` |
+| t=303.01 | 8 377 px changed |
+| t=450.00 (BALANCE — same defect class, no orange box to betray it) | 7 376 px changed |
+| **t=730.00 (TRANCE final crescendo)** | **0 of 2 073 600 — byte-identical** |
+
+**Verified in the running app** (fresh load of notation.html, db1, video view,
+`__notationFrame(302.5)`): the overlay DOM holds exactly **10 green fills,
+tallest 51 px** — the ten half-lane cresc meters — and zero full-lane greens.
+Eleven batteries green.
+
+**The renders on disk are now one fix behind** (the approved archive is the
+submission fallback regardless). A re-render is the composer's call.
