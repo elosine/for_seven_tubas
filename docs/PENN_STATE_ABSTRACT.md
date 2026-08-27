@@ -234,6 +234,179 @@ types is the wrong material for this slot.
 
 ---
 
+# ARC C — THE PHASE-SHIFTING NARRATIVE (composer's telling, day 37) + FACT CHECK
+
+> The composer told this arc in full and asked for (a) a fact check and (b) an
+> evaluation against the §7 five jobs. **Not yet pared down** — that edit is
+> deliberately deferred. Verbatim telling: `COMPOSER_LOG.md` day 37.
+
+## FACT CHECK — verified against the record
+
+### TRUE as told
+
+| claim | evidence |
+|---|---|
+| phase-shifting material built from **staccato tuba samples** | all 13 phase experiments = ten players on one C3; C3 staccato ring 0.42 s |
+| Reich's phase pieces as the point of departure | `PHASE_SHIFTING.md` researched Reich's actual rates; composer's own words: *"closer to the original Steve Reich music as a gradual process"* |
+| **AI built a complexity scorer**, surveyed a large number of states, ranked and auditioned them | `tools/score_offsets.js` — **997 offsets** at 98 BPM × 10 → **430 distinct audible patterns** → **12 rungs**, monotone score 0.00 → 1.25 |
+| **the composer reordered by ear** | revs 15 → 16 → 18; final keeper order **11-7-2-3-4-6** |
+| the states were **saved as a sequence** | **`phaseSeq-01`**, frozen into `live.saved[]` (rev 20) |
+| each part **locked to its own tempo** | `ASSIGN='fixed-tempo'` (day 19), verified to **0.094 ms** against each player's own grid |
+| **the tempo is shown even when a part is not playing** | `ballSpans` — the ball runs a span where nothing is marked. In one passage **T10 has no notes at all and still bounces**. **+70 instances, 3486 → 3556 balls.** The established reading: ***"the ball shows the grid, the noteheads show your subset."*** |
+
+### NEEDS CHANGING — four items
+
+**1 · "mathematical complexity" — tried, and abandoned.** The first three
+ladders *were* ranked by ratio/denominator complexity (Farey ladder, the
+mediant walk, the true sweep) and **they failed**: at unison every simple
+fraction q ≤ players yields evenly spaced pulses differing only in *count*, so
+*"denominator complexity collapses; the number is the wrong thing to rank"*
+(`PHASE_COMPLEXITY.md` §5). The scorer that worked measures **unevenness** —
+gap CV + 0.1 × stack-size std — a perceptual proxy, not a mathematical one.
+**The abandonment is a better story than the success.**
+
+**2 · The discovery is under-credited — it was the composer's.** The record
+attributes the turn to the composer's own Reich insight: the heterogeneous
+stepping, *"something very patterned that immediately resolves into something
+very smeary"*, is what **forced** the inverted-U theory. The scorer then
+**independently reproduced** it (smear and pulses both score ~0, knotty cells
+between) — which is what makes it a finding rather than a preference.
+
+**3 · "I leaned into the contradiction and kept my arc" — the record says
+something better.** The composer wanted a smooth ramp, heard the ladder, and
+said: *"I'm trying to cram a square peg into a round circle… by nature this is
+a DISCURSIVE process, and it's the dramatic changes — that's interesting."*
+Their chosen order **plays WITH the dramatic changes**, not against them —
+score path 0.77-0.34-0.00-0.58-0.05-0.09-0.29, alternating high-low, not a
+monotone rise. **The rising arc did not disappear; it MOVED AXIS — carried by
+the tempo ramp (87 → 120) while phase complexity zigzags underneath.**
+*This is the punchline of the whole arc and it is currently missing from the
+telling.*
+
+**4 · "this proved to be effective" — NOT VERIFIED. Cut or soften.** The
+**GC-ball landing ear check in motion has been a standing open item since day
+24** and was still open at day 35 (journal §6, five consecutive entries). No
+live players have read this notation. What IS true and provable: the device is
+built, the grid is drawn in every lane including silent ones, and fixed-tempo
+assignment is verified to 0.094 ms. **An unverified effectiveness claim in a
+submitted abstract is a real risk** — the repo's own standing law is that a
+confidence claim must be verified because the composer plans around it.
+
+### NEW REFERENCE — not in the project record
+
+**"James Tennis… having never written a note for percussion"** = **James
+Tenney, *Having Never Written a Note for Percussion* (1971)** — the piece title
+ran together in transcription. Tenney appears in this repo only via **Tenney &
+Polansky's temporal-gestalt boundary (1980)**, cited for grouping/segmentation,
+never for phase. **So this citation enters here for the first time.**
+
+*Aptness (AI read): strong, but the connection must be made explicit or it will
+read as a non-sequitur.* The piece is a single sustained roll with one long
+dynamic arc — **a simple monotonic process that yields rich, unpredicted
+perceptual phenomena** (beating, difference tones, room resonance). That is
+exactly the shape of the phase finding: step linearly, and the ear receives
+heterogeneous modes. **Verify the title, date and instrumentation before print.**
+
+## EVALUATION against the §7 five jobs
+
+| job | verdict |
+|---|---|
+| 1 · assertion → demonstration | **✓** concrete throughout |
+| 2 · report a FINDING | **✓✓ strong** — the inverted-U is the best finding in the project for this slot |
+| 3 · ONE material through §4→§5→§6 | **✓✓ the best in the project.** §4 = the samples, the scorer, the auditioning · §5 = the sequence, ear-chosen order, tempo ramp, stopwatch durations · §6 = locked tempo + the grid-showing ball. **Cleaner on §5 than ARC A, which is thin there.** |
+| 4 · attach to a finished artifact | **✗ the piece is never named.** Must add. |
+| 5 · EARN §8 (the ear redirects) | **✓✓✓ outstanding — the strongest instance in the whole project.** The machine produced a monotone order; the composer listened and overruled it; the material proved discursive; the order was rebuilt by ear. That *is* "bespoke tools to go where the ear wants to go," literally. |
+
+**Content checklist: 5 of 5 present** — named material · redirection by ear ·
+consequence for form · consequence for notation · verifiable specifics.
+
+**Verdict: ARC C beats both ARC A and ARC B on jobs 3 and 5.** ARC A remains
+stronger on job 4 (it names the piece) and is more compact. **If ARC C can be
+pared to ~96 words while keeping the ear-reversal and the axis-shift, it should
+be the one.**
+
+## THE ORDER — recommended, and it differs from the telling
+
+The telling is roughly chronological but buries the punchline. True sequence:
+
+1. **The interest** — Reich's phase pieces; a parallax texture
+2. **The expectation** — a straight line: unison → complexity → unison
+3. **The first attempt fails** — ranking by ratio complexity; the ladder zigzags
+4. **The composer's insight** — the heterogeneous stepping is the interesting
+   thing; both ends of the space are simple, complexity lives between
+5. **The machine** — 997 states surveyed, scored by unevenness, ranked, auditioned
+6. **The ear overrules** — *square peg, round circle*; the material is
+   discursive; the order is rebuilt to play WITH the drama
+7. **THE RESOLUTION — the arc moves axis**: the rise the composer wanted is
+   carried by tempo (87 → 120) while phase complexity zigzags beneath it
+8. **The notation** — every part locked to its own tempo, the ball showing the
+   grid even in silent lanes, so ten players hold ten tempi and stay locked
+
+**Beat 7 is the one to protect in the pare-down.** It resolves the
+contradiction set up in beat 2, and no other arc in the abstract has a
+resolution of that shape.
+
+## THE COMPOSER'S ADDITION (same sitting) — the notation became GENERATIVE
+
+*Composer, day 37:* the bouncing-ball structure with every part on a single
+pulse *"opened up a lot of possibilities"* — **tonality** (imposing blocks of
+tonality on segments, cross-shifting between chords) · **reorchestration** ·
+**sudden cross-cutting** (steady tempo → a brief phase-shifted passage → back).
+
+### Fact check — all three are TRUE and already in the record
+
+| affordance | evidence |
+|---|---|
+| **tonality blocks / cross-shifting chords** | the live rig's `pitch` dropdown (unison · octaves · fifths stack · cluster F–A) then **VERT01 species** sp01/08/27/30/33 as pitch sets; the assembly method's **pitch reservoirs**; the 15-set remap engine with pooled/literal |
+| **reorchestration** | the `pitchOrder` dropdown — ascending · shuffled · re-deal · random, permutation state live; and the measured principle that **the ring is per BODY, so a line can hop bodies** (8 lines of 132 redistribute over 10 players) |
+| **cross-cutting** | composer, day 17: *"it'll be pulsing along, and then all of a sudden, you'll hear a few seconds of a multitempo pattern, and then it'll go back to pulse"* — and **cross-cutting is the section's operative word in the outline: interruption, not transition** |
+
+### Why this addition matters more than it looks
+
+**It converts the notation from a SOLUTION into an AFFORDANCE.** As told
+before, beat 8 answered a problem — how do ten players hold ten tempi. With
+this addition, the device **gave back**: once every part is locked to a visible
+pulse and the grid is drawn even in silence, tonality, orchestration and abrupt
+tempo cross-cuts all become **free moves on top of a stable substrate**.
+
+**It also replaces the unverifiable ending.** *"This proved to be effective"*
+cannot be claimed (§ NEEDS CHANGING #4). ***"This opened up possibilities I
+could then compose with"* CAN** — the possibilities are in the piece, and each
+is evidenced above. **Recommend swapping one for the other.**
+
+### The structural consequence — a decision the composer should make
+
+The three-part decomposition of §3 is **linear**: make sounds · arrange them ·
+notate them. **This addition says part three fed BACK into parts one and two.**
+That is a loop, not a line.
+
+Two ways to read it, and it is the composer's call:
+
+- **(a) A complication.** It muddies the clean Kobayashi decomposition the
+  abstract sells in §3.
+- **(b) A finding — recommended.** The decomposition is not merely a division
+  of labour; **solving part three changed what parts one and two could do.**
+  That is a genuine methodological claim, it is evidenced, and it is more
+  interesting than the linear version. It also fits the piece's own history:
+  the same shape as the day-19 discovery that a generator choice silently
+  decides notatability — *there* the arrow ran generation → notation, **here it
+  runs notation → generation.** The two together say the relationship is
+  bidirectional.
+
+**Caution on scope:** stated fully this is probably a CONCLUSION-level point,
+not a 96-word one. In the abstract it likely earns **one clause**, not a beat.
+
+## FOR THE PARE-DOWN (deferred — noted only)
+
+- **Cut:** the Tenney reference (costly, needs unpacking — keep for the talk) ·
+  the wrong-turn history (mediant walk etc.) · *"having forgotten what these
+  phase shifting pieces actually sound like"* — honest and charming, but words
+- **Keep at all costs:** the ear-overrules-the-machine moment (job 5) · the
+  axis shift (beat 7) · one verifiable number
+- **Add:** the piece's name · a softened, provable version of "effective"
+
+---
+
 # THE 96 WORDS — two candidate arcs
 
 > Each traces ONE material through the full model: sound generation and

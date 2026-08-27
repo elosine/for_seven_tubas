@@ -848,6 +848,59 @@ routing and instrument rack now."
 *(→ Repo seeded from piece #3's stack: 7-track composer on :5200, sandbox on :4700,
 instruments skeleton with ports `Tuba1`…`Tuba7`. Sample library TBD → survey next.)*
 
+## 2026-08-27 (day 37) — THE PHASE-SHIFTING ARC, told for §7 (verbatim)
+
+*Told as a candidate for the abstract's §7 slot. Fact check, evaluation against
+the five jobs, and the recommended re-ordering: `docs/PENN_STATE_ABSTRACT.md`
+§ ARC C. Four corrections found; the two that matter are that the rising arc
+**moved to the tempo axis** rather than being imposed, and that "proved
+effective" is **not verified** — the GC-ball ear check has been open since day 24.*
+
+"I was interested in the parallax type of texture created in Steve Reich's face
+shifting pieces. we created phase shifting material using staccato tuba samples.
+I kept thinking having forgotten what these phase shifting pieces actually sound
+like. I kept thinking there was a linear development. that the material moved
+from unison towards rhythmic complexity and then back to unison in a straight
+line. However, we discovered which I was reminded of. like, James Tennis work.
+having never written a note for percussion. that as you step through the
+phasing, it shifts into different modes of varying degrees of rhythmic
+complexity. then I leaned into the contradiction and said I'd still want to hear
+a move towards complexity and then move away from it in this piece. using phase
+shifting. And then AI created an algorithm to assess which phase states had a
+greater mathematical complexity. and was able to survey a large number of phase
+states and then arrange them in mathematical complexity and then audition them
+for me. And then I arranged by ear the order. and then we save those phase states
+like a sequence. And then I addressed the issue of having an ensemble play in a
+tempo, but with each part being phase shifted from the other parts. And how do we
+create this rhythmically complex state consistently and accurately with live
+performers. And then we use the bouncing ball animations I had been using. We
+decided to keep each part locked in a tempo. and show the tempo even when they
+are not playing this way, they can all play together a phase shifted tempo or
+multitempo in multiple tempos and stay locked. in that texture. this proved to be
+effective."
+
+**The addition, same sitting (verbatim):**
+
+"And then let me also add in the notation part, we had the structure with the
+bouncing balls and everyone playing a single pulse. but then this opened up a lot
+of possibilities. like Tonality. I could impose... or I could impose blocks of
+tonality on segments to a cross shift between chords. could also reorchestrate. I
+could also have sudden cross cutting, like, shift from a steady tempo to a phase
+shifted tempo for a brief moment of time and then back to something else."
+
+*(→ The addition is the more consequential half: it turns the notation from a
+SOLUTION into an AFFORDANCE, and it gives the arc a provable ending to replace
+the unverifiable one. It also makes the §3 decomposition a LOOP rather than a
+line — part three fed back into parts one and two — which is the mirror image of
+the day-19 finding that a generator choice silently decides notatability. All
+three named affordances are already in the record: VERT01 species and pitch
+reservoirs; the `pitchOrder` permutations plus lines hopping bodies; and
+cross-cutting as the section's operative word since day 17. "James Tennis" =
+**James Tenney, *Having Never Written a Note for Percussion* (1971)** — a new
+citation, not previously in this repo.)*
+
+---
+
 ## 2026-08-27 (day 37) — THE ABSTRACT, the composer's own draft (typed, verbatim)
 
 *Written by the composer in response to the AI's DRAFT A. It supersedes it.
