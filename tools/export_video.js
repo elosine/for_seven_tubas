@@ -205,17 +205,39 @@ function overlaySvg(view, t) {
     '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '">' + inner + '</svg>';
 }
 
-// source-over, straight alpha, onto a copy of the cached page
+// source-over onto a copy of the cached page.
+//
+// THE OVERLAY IS PREMULTIPLIED, and this loop used to say "straight alpha".
+// MEASURED day 36 (post-clear): resvg returns premultiplied RGBA — a bare
+// <rect fill="#F04B00" opacity="0.3"/> comes back as RGB (72,23,0) A 76, the
+// colour already multiplied by its alpha. Doing `over*na + base*ia` on that
+// applies the alpha a SECOND time:  C·a·a + base·(1-a)  instead of
+// C·a + base·(1-a). Every TRANSLUCENT animated element therefore contributed
+// only `a` of its own colour and composited as a grey smudge — the morph
+// meters measured (198,157,139) where the app draws (248,173,139). That was
+// the composer's "strange shadow" in WISHLIST W1. Opaque elements took the
+// a===255 fast path and were always exact, which is why the magenta cursor
+// looked right and nothing else gave it away.
+//
+// Premultiplied source-over is `over + base*(1-a)` — no na term. Safe in a
+// Buffer: premultiplied RGB <= alpha, so over[i] + base[i]*(1-a) <= 255 and
+// nothing can wrap. The base is the page raster built with background:'white',
+// so its alpha is 255 everywhere (premultiplied == straight for it), and out's
+// alpha bytes are never written, so the buffer stays opaque RGBA for ffmpeg.
+//
+// NOTE the static page never went through here (it is one resvg pass with an
+// opaque background), which is why PHASE 5's --dumpPage pixel proof passed:
+// that proof covers the STATIC page only, not the animated layer.
 function composite(base, over) {
   const out = Buffer.from(base);
   for (let i = 0; i < out.length; i += 4) {
     const a = over[i + 3];
     if (a === 0) continue;
     if (a === 255) { out[i] = over[i]; out[i + 1] = over[i + 1]; out[i + 2] = over[i + 2]; continue; }
-    const na = a / 255, ia = 1 - na;
-    out[i] = over[i] * na + out[i] * ia;
-    out[i + 1] = over[i + 1] * na + out[i + 1] * ia;
-    out[i + 2] = over[i + 2] * na + out[i + 2] * ia;
+    const ia = 1 - a / 255;
+    out[i] = over[i] + out[i] * ia;
+    out[i + 1] = over[i + 1] + out[i + 1] * ia;
+    out[i + 2] = over[i + 2] + out[i + 2] * ia;
   }
   return out;
 }

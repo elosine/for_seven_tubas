@@ -10,7 +10,8 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 36 (Opus): **THE VIDEO IS BUILT.** PHASES 0–5 CLOSED
+### OPEN — day 36: **THE VIDEO IS BUILT.** PHASES 0–5 CLOSED
+### → but a COMPOSITOR BUG was found post-clear — **re-render required**
 
 **Five outputs in `notation/video/renders/`** (gitignored; regenerable):
 
@@ -41,54 +42,46 @@ measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
 **the four tempo numbers** — `PRINT_MEASURED = true`, so the accelerando now reads
 **♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**.
 
-**NEXT STEPS · MODEL · CLEAR** *(agreed with the composer at the day-36 clear —
-they asked "are you able to fix now, and work independently?" and we chose to do
-it on a fresh context, which is what WISHLIST.md was written to be the spec for)*
+**NEXT STEPS · MODEL · CLEAR** *(rewritten day 36 post-clear, after W1 steps 1
+and 2 came back and changed the picture)*
 
-**THE SEQUENCING CONSTRAINT, first, because it decides the plan.** The two wishes
-have very different blast radii:
+**THE FIVE RENDERS ON DISK ARE SUPERSEDED.** Not broken — watchable, and every
+PHASE 5 number still stands — but their ANIMATED layer is composited wrong
+(W1, below). A full re-render is now required no matter which look is picked, so
+the old "shadow first, fade second, then ONE re-render" ordering still holds and
+there is no longer any way to avoid the 31 minutes.
 
-- **the shadow fix touches the METERS, so it invalidates ALL FIVE renders** — the
-  morph meters are in V-MAIN, hence the zoom master, hence both crops, hence
-  V-CUT. ~24 min for the four plus 7 for the cut.
-- **the fade touches V-CUT ONLY.** ~7 min, other four untouched.
-
-**So: shadow first, fade second, then ONE full re-render.** Any other order
-renders twice.
-
-1. **W1's "jump" — measure it. NO composer input needed.** Compute every meter's
-   level at all 22 819 frames and find the discontinuities directly; no rendering.
-   Outcome is one of: the 401-sample quantisation is confirmed · it is somewhere
-   else · there is no data-level jump at all, in which case it is the cursor at
-   the 63 system turns, which is the design. **Opus.**
-2. **W1's shadow — build the THREE variants as still frames** (raise
-   `fillOpacity` · opaque backing rect · move the meters out of the banded half),
-   same `t`, no re-render. **Then STOP and show them.** *Which one is the
-   composer's look decision on their own piece — thirty seconds of their time
-   against a 31-minute re-render if it is guessed wrong. The standing
-   recommendation if they would rather not look: `fillOpacity` ≈ 0.85, least
-   invasive, keeps the meters where day 35 put them.*
-3. **Implement both wishes, then ONE full re-render, then re-run PHASE 5.**
-   `--fade <frames>` defaulting to **8, symmetric on both ends** (an asymmetric
-   fade reads as a mistake). **The trap: blend ACROSS the existing boundary, never
-   insert frames, or duration equality breaks.** **Opus.**
+1. **WAITING ON THE COMPOSER — pick the meter look.** Five stills at t = 200 s in
+   `scratchpad/shadow/SHADOW-COMPARE.png`; the choice and the reasoning are in
+   `docs/WISHLIST.md` W1 § WHAT IS STILL OPEN. Options: **FIXED-only** (no look
+   change — the compositor fix alone) · **A1 `fillOpacity` 0.60** *(recommended)* ·
+   **A2 0.85** · **B** white under the fill · **C** white under the box.
+   *Thirty seconds of their eye. Nothing else is blocked by it.*
+2. **W2's fade.** `--fade <frames>` defaulting to **8, symmetric on both ends**
+   (an asymmetric fade reads as a mistake). **The trap: blend ACROSS the existing
+   boundary, never insert frames, or duration equality breaks.** **Opus.**
+3. **Then ONE full re-render, then re-run PHASE 5.** `phase3.sh` then `phase4.sh`,
+   ~31 min. **Opus**, and a good clear point before it.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:
    **Fable if available, else Opus.**
 
-**Still true and independent of all of the above:** PHASE 5's fourth criterion is
-the composer's eye on V-CUT. Nothing downstream depends on it, but it is the one
-verification no tool can do.
+**Still true:** PHASE 5's fourth criterion is the composer's eye on V-CUT — but
+wait for the re-render, since the meters will look different.
 
-**`docs/WISHLIST.md` is open** (day 36, new): **W1** the morph meters’ shadow —
-one 0.3-alpha fill over a background that changes mid-meter, in the SHARED
-`animobj` layer, so it is on screen in the app too, not a video artifact; its
-“jump” is NOT confirmed, but every meter carries 401 samples over spans up to
-122.4 s = **one value per ~9 frames**. **W2** a short fade into the close-ups —
-one V-CUT re-render, ~7 min, the other four untouched. **Neither blocks anything.**
+**`docs/WISHLIST.md` W1 is ANSWERED** (day 36 post-clear). **The jump** is the
+**63 system turns** — 1866.8 px, 33 of them with a meter live on both sides, the
+hard-cut design; the data itself never moves more than **0.242 px in a frame**
+across all 22 819 frames, so the 401-sample quantisation is real and invisible.
+**The shadow** was a **compositor defect, now fixed**: `@resvg/resvg-js` returns
+**premultiplied** RGBA and `export_video.js composite()` treated it as straight,
+applying alpha twice, so every TRANSLUCENT animated element rendered as a grey
+smudge. Verified against the running app — the meters now match it to the unit.
+**PHASE 5's `--dumpPage` pixel proof covers the STATIC page only, which is why it
+passed.** **W2 (the fade) is untouched and still open.**
 
-**Pending the composer:** V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
+**Pending the composer:** **the meter look (W1 — five stills, see step 1)** · V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
 the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
 
 **Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` ·

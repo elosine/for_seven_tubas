@@ -14873,3 +14873,94 @@ are warm across a boundary, so a dissolve is a lerp between two frames already i
 hand — **~8 frames for "very quick and subtle", one V-CUT re-render at ~7 min;
 V-MAIN, the zoom master and the two crops untouched.** The one trap is PHASE 5's
 duration equality: blend ACROSS the existing boundary, never insert frames.
+
+---
+
+## day 36 (post-clear, Opus) — W1 ANSWERED, AND THE ANSWER OVERTURNS THE WISHLIST
+
+Ran WISHLIST steps 1 and 2 unattended on the composer's instruction: *"point me at
+docs/WISHLIST.md and I'll run steps 1 and 2 unattended — the jump measurement and
+the three shadow variants — and come back with a number and three images."*
+
+### STEP 1 · THE JUMP IS THE SYSTEM TURNS. The data is flat.
+
+`scratchpad/measure_meter_jump.js` computes every meter's drawn level at all
+**22 819** frames — the renders' exact grid (`phase3.sh --t1 760.63` × 30 fps;
+the first run stopped at `srcEnd` 753.0 s = 22 590 and was corrected).
+
+**60 meters (20 gliss, 40 cresc), 183 159 meter-frames measured:**
+
+| | |
+|---|---|
+| frames where the fill edge moves ≥ 0.25 px | **0** — 100 % of frames are under a quarter-pixel |
+| worst single frame, whole piece | **0.242 px**, crescMeter part 2, t = 303.30 s |
+| steepest sample-to-sample ramp | 2.098 px over 8.7 frames = 0.242 px/frame |
+| sharpest corner (slope change at a sample) | **0.0849 px/frame** |
+| overlapping meters (same part + kind) | **0** — nothing is drawn twice |
+
+**The 401-sample quantisation is REAL and HARMLESS.** It is 3.15–9.18 frames per
+authored value, exactly as predicted — but the levels move so slowly that the
+quantisation lands under a tenth of a pixel. It is not the jump and cannot be.
+
+**The jump is (B):** the meters ride a fixed offset left of the cursor, so at
+each system turn they teleport. **63 turns · largest x jump 1866.8 px of 1920 ·
+33 of those turns have a meter live on BOTH sides.** That is the hard-cut design,
+not a defect. *Outcome 3 of the three §2 named.*
+
+### STEP 2 · THE SHADOW IS THE VIDEO PIPELINE — a compositor bug, MEASURED
+
+**WISHLIST W1 says "NEITHER, and it will look the same in the app." That is
+wrong, and this is the day's finding.**
+
+Probed t = 200.0 s (page 16), part 2, and read the actual pixels down the meter
+column (x 1288–1293) against a ground-only column 12 px left:
+
+- ground under the gliss meter = `#fcd7c7` = exactly `#F04B00 @ 0.22` over white ✓
+- **meter interior = `#c69d8b` (198,157,139). Straight-alpha predicts (248,173,139).**
+
+Solving for the colour actually composited gives **(72, 22, 0) = `#F04B00` × 0.30**.
+The alpha is applied **twice**.
+
+**Root cause, verified directly** (`scratchpad/resvg_alpha_test.js`): a bare
+`<rect fill="#F04B00" opacity="0.3"/>` rasterized by `@resvg/resvg-js` returns
+**RGB (72, 23, 0), A 76 — PREMULTIPLIED.** `tools/export_video.js:209`
+`composite()` is commented *"source-over, straight alpha"* and does
+`out = over·na + base·ia`. With premultiplied input that computes
+
+> **`out = C·a·a + base·(1−a)`**  instead of  **`out = C·a + base·(1−a)`**
+
+so every **translucent** element in the ANIMATED overlay contributes only `a` of
+the colour it should. Opaque elements take the `a === 255` fast path and are
+exact — which is why the magenta cursor measures a perfect `#ff15a0` and why
+nothing looked obviously broken.
+
+**Verified in the running app** (the §2 law — the composer plans around this).
+Browser-composited, the identical SVG constructs give:
+
+| | app (browser) | video (exporter) | Δ |
+|---|---|---|---|
+| gliss meter over its curve | **(248, 173, 139)** | (198, 157, 139) | R −50 |
+| cresc meter over its curve | **(208, 255, 139)** | (177, 201, 139) | G −54 |
+
+`notation/app/notation.html:771` does `ov.innerHTML = svg` — the app injects the
+overlay into a DOM `<svg>` and the browser composites it natively. **There is no
+hand-rolled compositor in the app, so the bug is structurally impossible there.**
+
+**Why PHASE 5's pixel proof missed it.** §2 records the exporter as "proven
+pixel-for-pixel on two probe pages" via `--dumpPage N`. `--dumpPage` writes the
+**static page SVG only** — the static page is rasterized in ONE resvg pass with
+`background:'white'`, alpha 255 everywhere, so `composite()` never runs on it.
+**The proof never covered the animated layer.** That is exactly where the defect
+lives. Not a bad proof — a proof of a narrower claim than it was read as.
+
+### The shadow is therefore TWO things, and only one of them is a look decision
+
+1. **The compositor bug** — video-only, large, a straight defect, one line.
+2. **The ground-changes shadow** — real, small, and in the app too: the meter's
+   OWN curve fill sits behind it in the SAME colour (`glissCurve` `#F04B00 @0.22`
+   under `glissMeter` `#F04B00 @0.3`), so the bar reads darker over its own curve
+   than over paper. Corrected, that is (248,173,139) vs (245,201,179) — a warmer
+   deep orange in the lower part, not the grey smudge the video shows.
+
+**So the three variants must be judged against a FIXED compositor**, or the
+composer would be picking a look to cure an artifact that is about to disappear.

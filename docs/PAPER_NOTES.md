@@ -2749,3 +2749,68 @@ yet, to be picked up when they can dedicate time to writing. Their words:*
 - **Watch-point for step 4:** a talk transcript's connective tissue ("so, the
   thing about this is…") reads fine aloud and badly on the page. The pruning pass
   is not optional, and it is where the transcript becomes writing.
+
+## Day 36, post-clear — A PROOF THAT PASSED BECAUSE IT PROVED A NARROWER CLAIM THAN IT WAS READ AS
+
+*(Companion to "A PROOF THAT RETURNS ZERO BECAUSE IT WAS FED THE WRONG SHAPE",
+day 35. Same family, opposite failure: there the proof was silent; here it was
+loud, green, and correct — about something slightly smaller than what everyone
+took it to mean.)*
+
+**The claim in the journal.** §2 recorded, in bold: *"The Node exporter draws
+exactly what the app draws — proven pixel-for-pixel on two probe pages,
+re-proven after a refactor."* And PHASE 5 recorded **0 differing pixels of
+2 073 600**. Both true. Both verified. Neither covered the defect.
+
+**What the proof actually covered.** The proof ran through `--dumpPage N`, which
+writes the exporter's **static page SVG** so it can be rasterized and diffed
+against the same page pulled out of the running app. The static page is
+rasterized in ONE resvg pass with an opaque white background — alpha 255
+everywhere. The hand-written `composite()` function, where the defect lived,
+**never runs on that path at all.** The proof was of the *page*; it was read as a
+proof of the *frame*.
+
+**The defect.** `@resvg/resvg-js` returns premultiplied RGBA. `composite()` was
+commented "source-over, straight alpha" and did `over·na + base·ia`, applying the
+alpha a second time — `C·a·a + base·(1−a)`. Every translucent element of the
+animated layer therefore contributed only `a` of its own colour. Opaque elements
+took an `a === 255` fast path and were exact.
+
+**Why it survived a whole day of verification.** Three independent reasons, and
+each is worth its own sentence in the paper:
+
+1. **The proof's blind spot was structural, not careless.** Nobody skipped a
+   check. The check that existed was aimed at the layer where drift was expected
+   — the notation — and the animated overlay was assumed to inherit the result.
+2. **The failure was silent to the eye that was watching for it.** The one
+   translucent thing anyone looks at first is the cursor, and the cursor is
+   opaque. It rendered perfectly. The correct-looking element vouched for the
+   incorrect ones.
+3. **It was reported as a matter of taste.** The composer said *"the meters have
+   some strange shadow"* — the vocabulary of a look note, not a bug report. It
+   was filed to `WISHLIST.md`, the document explicitly reserved for *wants*, with
+   a header saying nothing in it blocks the piece. **A defect entered the ledger
+   through the door marked preference.**
+
+**And the first diagnosis was wrong in a specific, instructive way.** WISHLIST W1
+opened with *"The question they asked, answered first: NEITHER, and it will look
+the same in the app"* — a confident, well-argued, correctly-reasoned answer built
+on a real fact (the app and the exporter share `animobj.js`, so the exporter is
+not a second implementation). The reasoning was sound. **It was reasoning about
+the wrong stage of the pipeline**: the two share the SVG *generator* and differ in
+the *rasterizer and compositor*, which is precisely where the difference was.
+Sharing the code that produces the picture is not sharing the code that draws it.
+
+**What actually found it** was refusing to accept an explanation and reading the
+pixels: ground column vs meter column, solve for the composited colour, get
+(72, 22, 0), notice that is `#F04B00 × 0.30`, and then test the rasterizer
+directly with a four-pixel SVG. **Three measurements, none of them expensive.**
+The expensive thing had been the plausible story.
+
+**For the methodology section.** The repo's standing law is *"a confidence claim
+must be verified in the running app, because the composer plans around it."* This
+day sharpens it: **a verification is a claim about a path, and the claim it
+licenses is only as wide as the path it took.** When the journal writes down
+"proven pixel-for-pixel", it should write down **which pixels, produced by which
+code path** — or the next reader will spend a day trusting it. The fix to the
+process is one clause, not a new protocol: name the path in the proof.

@@ -20,73 +20,108 @@
 shadow. Sometimes they jump. I'm not sure if it's part of the main original score
 or part of the video rendering."*
 
-### The question they asked, answered first: NEITHER, and it will look the same in the app
+> **ANSWERED day 36 (post-clear), and the first answer below was WRONG.** It said
+> *"NEITHER, and it will look the same in the app."* **The shadow IS the video
+> rendering** — a compositor defect in `tools/export_video.js`, now fixed. **The
+> jump IS the system turns**, which is the design. Both measured. The only thing
+> still open is a small look choice, and it is at the bottom.
 
-The meters are drawn by **`notation/lib/animobj.js`**, which the live app and
-`tools/export_video.js` both call — the exporter is not a second implementation.
-Their *look* comes from `container.json → animated.glissMeter / .crescMeter`;
-their *levels* come from `ov.value.samples` on the IR. **So this is the shared
-animation layer, not the score data and not the video pipeline.** Whatever is
-seen in the video is on screen in the notation app at the same `t`.
+---
 
-### The shadow — SEEN, and explained
+### THE JUMP — measured, and it is the system turns
 
-Probed at **t = 200.0 s** (page 16, morph section) and cropped at 4× around the
-cursor, both meters are visible per lane:
-
-- **glissMeter** — `#F04B00` orange, the **top half** of the lane
-- **crescMeter** — `#99FF00` limeGreen, the **bottom half**
-
-Both are drawn as *outline box at full scale + fill rising from the bottom*, and
-**both fills are `fillOpacity: 0.3`**. A 30 %-alpha fill takes its apparent colour
-from whatever is behind it — and behind one meter the background **changes
-mid-meter**: the pale pink glissando band, the pale green crescendo band, the
-staff lines, and plain paper all pass behind the same 8 px column.
-
-**That is the shadow: one translucent bar reading as two or three different
-colours because the ground under it changes, not because anything is drawn
-twice.** In the probe the green meter is bright limeGreen over paper and turns
-grey-olive exactly where the pink gliss band sits behind it.
-
-**Reproduce:**
-
-```bash
-node tools/export_video.js --ir db1 --view video --probe 200.0 --probeDir /tmp/m
-```
-
-**Candidate fixes, cheapest first** — all are registry numbers, no code:
-
-1. raise `fillOpacity` toward 1.0 so the ground stops showing through
-2. give the meter an opaque backing rect (paper white) under the fill
-3. keep the meters out of the banded half of the lane
-
-### The jump — NOT confirmed, but there is a measured prime suspect
-
-No frame pair showing a jump has been captured, so this is a suspect list, not a
-diagnosis.
-
-**Measured, and the strongest candidate:** every meter carries **exactly 401
-samples**, whatever its span — and the morph spans run **42 to 122.4 seconds**.
+`measure_meter_jump.js` computed every meter's drawn level at all **22 819**
+frames (the renders' grid: `phase3.sh --t1 760.63` × 30 fps). **60 meters,
+183 159 meter-frames:**
 
 | | |
 |---|---|
-| samples per meter | **401**, fixed |
-| span | 42.0 – 122.4 s |
-| **samples per second** | **3.28 – 9.55** |
-| **seconds per sample** | up to **0.31 s** |
+| frames where the fill edge moves ≥ 0.25 px | **0** — every frame is under a quarter-pixel |
+| worst single frame in the piece | **0.242 px** (crescMeter part 2, t = 303.30 s) |
+| sharpest corner at a 401-sample boundary | **0.0849 px/frame** |
+| meters drawn twice (overlaps) | **0** |
 
-At 30 fps that is **one authored value every ~9 frames**. `glissMeter`/`crescMeter`
-do interpolate linearly between samples, so a smooth curve stays smooth — but any
-corner in the underlying curve is quantised to a 0.31 s grid, and a meter that
-changes level quickly would move in ~9-frame steps.
+**The 401-sample quantisation is real and harmless.** It is 3.15–9.18 frames per
+authored value exactly as predicted — but the levels move so slowly that the
+staircase lands under a tenth of a pixel. It cannot be seen.
 
-**The other candidate is not a defect:** the meters ride a fixed offset LEFT of
-the cursor, so at every **system turn** they jump to the new page's cursor
-position. There are 63 turns. That is the hard-cut design, not a bug — but it may
-be what was seen.
+**The jump is the x position.** The meters ride a fixed offset left of the cursor,
+so at each system turn they teleport: **63 turns · 1866.8 px of 1920 · 33 of them
+with a meter live on both sides.** That is the hard-cut design, not a defect.
+**Nothing to fix unless the composer wants the turns softened** — which is W2's
+question in a different place.
 
-**Next step if this is picked up:** capture a frame pair either side of a
-suspected jump, which settles which of the two it is in one measurement.
+---
+
+### THE SHADOW — a compositor bug, FIXED
+
+**`@resvg/resvg-js` returns PREMULTIPLIED RGBA.** A bare
+`<rect fill="#F04B00" opacity="0.3"/>` comes back as RGB (72, 23, 0), A 76 — the
+colour already multiplied by its alpha. `export_video.js` `composite()` was
+commented *"source-over, straight alpha"* and did `over·na + base·ia`, applying
+the alpha **a second time**:
+
+> `out = C·a·a + base·(1−a)`  instead of  `out = C·a + base·(1−a)`
+
+So every **translucent** element of the ANIMATED layer contributed only `a` of its
+own colour and composited as a grey smudge. Opaque elements took the `a === 255`
+fast path and were always exact — which is why the magenta cursor looked right and
+nothing else gave it away.
+
+**Verified against the running app:**
+
+| | app (browser) | video, before | video, after |
+|---|---|---|---|
+| gliss meter over its curve | (248, 173, 139) | (198, 157, 139) | **(248, 173, 139)** |
+| cresc meter over its curve | (208, 255, 139) | (177, 201, 139) | **(209, 255, 139)** |
+
+`notation/app/notation.html:771` does `ov.innerHTML = svg` — the app hands the
+overlay to the browser and has no hand-rolled compositor, so the bug was
+structurally impossible there. **The score was always right; the film was not.**
+
+**Why PHASE 5's pixel proof missed it.** The exporter was proven "pixel-for-pixel"
+with `--dumpPage`, which writes the **static page only**. The static page is one
+resvg pass with an opaque background, so `composite()` never runs on it. *The
+proof was sound; it covered a narrower claim than it was read as.*
+
+**Reach of the fix** (`--probe`, before vs after): **10 782 px of 2 073 600 at
+t = 200 s** (morph) and **2 624 px at t = 600 s** (trance), max channel delta 64.
+It corrects the animated layer across the WHOLE piece, notation untouched.
+Eleven batteries green.
+
+**Cost: it invalidates all five renders** — one full re-render, ~31 min.
+
+---
+
+### WHAT IS STILL OPEN — one small look choice
+
+With the compositor right, the bars are flat, true colour, and one thing still
+reads through them: **the staff lines and the lane midline.** (That, not "the pink
+gliss band", is the grey-olive that was reported — it is the green meter crossing
+the staff midline.) A meter's own curve fill sits behind it in the SAME colour, so
+that part adds warmth rather than a smudge.
+
+Five stills at t = 200 s, `scratchpad/shadow/SHADOW-COMPARE.png`, built by
+`build_variants.js` (patch → probe → restore, sources verified clean after):
+
+| | | |
+|---|---|---|
+| **A1** `fillOpacity` **0.60** | bar reads solid, lines just visible | registry only |
+| **A2** `fillOpacity` **0.85** | bar reads as ink, lines gone | registry only |
+| **B** opaque white under the FILL | fill is flat — but paler than the band around it | animobj |
+| **C** opaque white under the whole BOX | column cleared to paper — white notch where empty | animobj |
+
+**Recommendation: A1 (0.60).** It removes the staff lines from inside the bar and
+keeps the meter reading as an overlay. **B and C both make the bar paler than its
+own band, which inverts figure and ground** — they cure the shadow by making the
+instrument weaker than the thing it measures.
+
+**WISHLIST option 3 as originally written — "keep the meters out of the banded
+half" — is geometrically impossible and was replaced by B/C.** The glissando fill
+runs from its curve down to the lane midline and the crescendo fill from the lane
+floor up to its curve, so a meter's FILL always sits on its own band and its EMPTY
+part always sits on white. There is no unbanded half to move to; the only move is
+to take the band out from behind the meter, which is what B and C do.
 
 ---
 
