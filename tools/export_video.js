@@ -88,45 +88,76 @@ const Z = viewMode === 'zoom' ? (zoomZ || ((C.realizations || {})['zoom-working'
 const pages = Splice.planPages(ir, pageRules, pageSeconds);
 const srcEnd = ir.source.window[1];
 
-function viewFor(i) {
-  const p = pages[i];
-  const baseCfg = {
+function baseCfgFor(pageIdx) {
+  const p = pages[pageIdx];
+  return {
     widthPx: W, heightPx: H, window: [p.t0, p.t0 + pageSeconds],
     gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0, systems, ssPerSystem,
   };
-  const cfg = viewMode === 'zoom' ? Coords.zoomCfg(baseCfg, Z, p.t0) : baseCfg;
-  return Coords.makeView(cfg);
 }
+const pageContaining = t => {
+  let best = 0;
+  for (let i = 0; i < pages.length; i++) if (pages[i].t0 <= t) best = i; else break;
+  return best;
+};
 
-// THE PAGE-TURN SEQUENCE — notation.html drawOverlayFrame(): a page is held
-// until t reaches min(window[1], srcEnd), then hard-cuts to the next. Pages do
-// NOT tile at pageSeconds (planPages breaks on musical rules and the window is
-// a fixed span from p.t0), so the successor usually starts EARLIER than the
-// turn — which is what `reshow` re-draws. Building the spans here rather than
-// dividing t by pageSeconds is the difference between the video the composer
-// approved and a different one.
-const spans = [];
+// THE TURN SEQUENCE — from notation.html drawOverlayFrame(). A segment is held
+// until t reaches min(window[1], srcEnd) and then HARD-CUTS. The two modes turn
+// on different things, and getting this wrong is the difference between the film
+// the composer approved and a different one:
+//
+//   video — turn to the NEXT PAGE. Pages do NOT tile at pageSeconds: planPages
+//           breaks on musical rules and the window is a fixed span from p.t0, so
+//           a break that falls early makes the successor start BEFORE the turn,
+//           and that music appears on both pages. MEASURED on db1: 64 pages, and
+//           8 of the 63 gaps are short — 10.018, 10.642, 10.718, 10.802, 10.882,
+//           11.598, 11.982, 11.988 s — 7.37 s of overlap in total. Dividing t by
+//           pageSeconds is right for the first 55 pages and wrong for the rest,
+//           cumulatively, which is the worst way for it to be wrong.
+//
+//   zoom  — pageIdx never advances (`state.zoomT0 = w1`); the window steps by
+//           its own span, pageSeconds / Z = 6 s, CONTIGUOUSLY and with no regard
+//           for page boundaries. That is D1's "~6 s per system, sweeping at 2x".
+//
+// One deliberate departure, and the only one: in zoom the app leaves `pageIdx`
+// wherever video mode left it, so `reshow`/`ownsEnd` come from a stale page.
+// That is a UI artifact of ←/→ doubling as the zoom step, not a design — here
+// they come from the page CONTAINING each window's start.
+const segments = [];
 {
   let tCur = 0;
-  for (let i = 0; i < pages.length; i++) {
-    const w1 = pages[i].t0 + pageSeconds;
-    const end = Math.min(w1, srcEnd);
-    if (end <= tCur) continue;
-    spans.push({ page: i, t0: tCur, t1: end });
-    tCur = end;
+  if (viewMode === 'zoom') {
+    const probe = Coords.zoomCfg(baseCfgFor(0), Z, 0);
+    const span = probe.window[1] - probe.window[0];
+    for (let s = 0; tCur < srcEnd && s < 100000; s++) {
+      const pi = pageContaining(tCur);
+      const cfg = Coords.zoomCfg(baseCfgFor(pi), Z, tCur);
+      const end = Math.min(cfg.window[1], srcEnd);
+      segments.push({ t0: tCur, t1: end, view: Coords.makeView(cfg),
+        reshow: pages[pi].reshow, ownsEnd: end >= srcEnd - 1e-9 });
+      tCur = tCur + span;
+    }
+  } else {
+    for (let i = 0; i < pages.length; i++) {
+      const end = Math.min(pages[i].t0 + pageSeconds, srcEnd);
+      if (end <= tCur) continue;
+      segments.push({ t0: tCur, t1: end, view: Coords.makeView(baseCfgFor(i)),
+        reshow: pages[i].reshow, ownsEnd: i === pages.length - 1 });
+      tCur = end;
+    }
   }
 }
-const pieceEnd = spans.length ? spans[spans.length - 1].t1 : srcEnd;
-const pageAt = t => {
-  for (let i = 0; i < spans.length; i++) if (t < spans[i].t1) return spans[i].page;
-  return spans.length ? spans[spans.length - 1].page : 0;
+const pieceEnd = segments.length ? segments[segments.length - 1].t1 : srcEnd;
+const segAt = t => {
+  for (let i = 0; i < segments.length; i++) if (t < segments[i].t1) return i;
+  return Math.max(0, segments.length - 1);
 };
 
 // ---------------------------------------------------------------- static page
 function staticSvg(i) {
-  const p = pages[i], view = viewFor(i);
+  const seg = segments[i], view = seg.view;
   const svg = Render.renderSection(model, view, glyphs, {
-    reshow: p.reshow, ownsEnd: i === pages.length - 1,
+    reshow: seg.reshow, ownsEnd: seg.ownsEnd,
     engraving: (C.engraving && C.engraving.render) || {},
     hideBricks: true,          // D4: bricks off
   });
@@ -181,16 +212,16 @@ function composite(base, over) {
 }
 
 // ---------------------------------------------------------------- page cache
-let cachedIdx = -1, cachedPx = null, cachedView = null, pageRasters = 0;
+let cachedIdx = -1, cachedPx = null, pageRasters = 0;
 function pageFor(i) {
   if (i !== cachedIdx) {
     cachedPx = raster(staticSvg(i), 'white').px;
-    cachedIdx = i; cachedView = viewFor(i); pageRasters++;
+    cachedIdx = i; pageRasters++;
   }
-  return { px: cachedPx, view: cachedView };
+  return { px: cachedPx, view: segments[i].view };
 }
 function frameRGBA(t) {
-  const { px, view } = pageFor(pageAt(t));
+  const { px, view } = pageFor(segAt(t));
   const ov = raster(overlaySvg(view, t), null);
   return composite(px, ov.px);
 }
@@ -204,9 +235,10 @@ if (dumpPage != null) {
   const out = arg('dumpTo', path.join(probeDir, irId + '-page' + i + '.svg'));
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, staticSvg(i));
-  const p = pages[i];
-  console.log('page ' + i + '  window ' + p.t0.toFixed(2) + '–' + (p.t0 + pageSeconds).toFixed(2) +
-    ' s  reshow ' + (p.reshow ? p.reshow.length : 0) + '  -> ' + out);
+  const seg = segments[i];
+  console.log('segment ' + i + '  window ' + seg.view.window[0].toFixed(2) + '–' + seg.view.window[1].toFixed(2) +
+    ' s  held ' + seg.t0.toFixed(2) + '–' + seg.t1.toFixed(2) + ' s  reshow ' + (seg.reshow ? seg.reshow.length : 0) +
+    '  ownsEnd ' + seg.ownsEnd + '  -> ' + out);
   process.exit(0);
 }
 
@@ -225,7 +257,7 @@ if (probes.length) {
     } else {
       fs.writeFileSync(path.join(probeDir, name + '.rgba'), rgba);
     }
-    console.log('probe t=' + t.toFixed(3) + '  page ' + pageAt(t) + '  -> ' + name + (PNG ? '.png' : '.rgba'));
+    console.log('probe t=' + t.toFixed(3) + '  page ' + segAt(t) + '  -> ' + name + (PNG ? '.png' : '.rgba'));
   }
   console.log(pageRasters + ' page raster(s)');
   process.exit(0);
@@ -243,7 +275,7 @@ ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv42
 
 console.log('export_video: ' + irId + ' · ' + viewMode + (viewMode === 'zoom' ? ' x' + Z : '') +
   ' · ' + W + 'x' + outH + ' · ' + fps + ' fps');
-console.log('  ' + pages.length + ' pages, ' + spans.length + ' turn spans, material ends ' + srcEnd + ' s');
+console.log('  ' + pages.length + ' pages, ' + segments.length + ' turn segments, material ends ' + srcEnd + ' s');
 console.log('  frames ' + nFrames + '  (' + t0.toFixed(2) + '–' + t1.toFixed(2) + ' s)');
 
 const proc = spawn('ffmpeg', ff, { stdio: ['pipe', 'inherit', 'inherit'] });

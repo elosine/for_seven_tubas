@@ -14547,3 +14547,73 @@ riding left of the cursor.
   probe dirs). `cut-list.json` stays committed — it is small, seeded, reproducible.
 - **`--probe t1,t2,…`** writes single frames as PNG, and **`--dumpPage N`** writes
   one static page SVG. Both exist for verification, not for the render path.
+
+---
+
+## Day 36 — PHASE 3 setup: the zoom turn rule, a correction, and the crop line measured
+
+### CORRECTION to the 2.2 entry — the page overlap, actually counted
+
+The 2.2 commit says *"11.625 s of advance per 12 s window"*. **That number is an
+average over pages 43→59 and is not the rule.** Counted properly across db1:
+
+- **64 pages. 55 of the 63 gaps are exactly 12.000 s.**
+- **8 are short:** 10.018 · 10.642 · 10.718 · 10.802 · 10.882 · 11.598 · 11.982 ·
+  11.988 s — **7.37 s of overlap in total.**
+
+**The conclusion is unchanged and if anything sharper.** Dividing `t` by
+`pageSeconds` is *correct for 55 of 63 breaks and wrong for 8*, cumulatively —
+which is the worst way for it to be wrong, because the film would look right for
+minutes at a stretch and then be a second out with nothing to point at.
+
+Also measured and worth knowing: **`reshow` is empty on all 64 pages.** The
+overlap re-draws material by geometry, not by a reshow list.
+
+### THE ZOOM TURN IS A DIFFERENT RULE, and the first cut of the exporter had it wrong
+
+`notation.html`: in video the turn does `state.pageIdx++`; in zoom it does
+`state.zoomT0 = w1` and **`pageIdx` never advances at all.** So zoom steps by its
+own window CONTIGUOUSLY, ignoring page boundaries. The exporter had been reusing
+the page spans for both — it would have rendered the zoom master with the wrong
+window sequence entirely. Rewritten around a single `segments[]` list that each
+mode builds by its own rule.
+
+**The zoom window is 5.85 s, not 6.00.** `zoomCfg` scales the prefatory gutter by
+Z as well (`gutterPx: G * Z`, G = 48), so the music span is
+`(1920 − 2·48)/(2·(1920−48)/12)` = **5.85 s**. D1's "~6 s per system" is the
+approximation; 5.85 is the number.
+
+**One deliberate departure, documented in the tool:** the app leaves `pageIdx`
+stale in zoom, so `reshow`/`ownsEnd` come from whatever page video mode last
+showed — a UI artifact of ←/→ doubling as the zoom step. The exporter takes them
+from the page CONTAINING each window's start. With `reshow` empty everywhere this
+only affects `ownsEnd`, i.e. the terminal barline.
+
+### THE CROP LINE — the plan's assertion, verified rather than trusted
+
+Plan note 1 says the zoom master crops cleanly into T1–T5 and T6–T10. Measured on
+the actual zoom view (1920×**2160**):
+
+    T5   yTop  870.4   yBot 1076.0
+    T6   yTop 1084.0   yBot 1289.6
+
+**y = 1080 lands in the 8 px gap, 4 px of clearance either side.** So
+`crop=1920:1080:0:0` and `crop=1920:1080:0:1080` cut no lane. The plan was right;
+now it is checked.
+
+### `--t1 760.63` for every output
+
+Page 63's window is 748.63–760.63 and the material ends at 753. Probing past the
+end: at **752.5** and **756.0** the cursor and balls are present; at **761.9**
+magenta pixels = **0** — the cursor has left the frame. So 760.63 is where the
+sweep finishes exactly at the right edge, and 753→760.63 carries the final decay.
+All four outputs share it, which is PHASE 5's duration-equality requirement.
+
+*(The WAV runs to 762.000, so 1.37 s of its deliberate tail padding is dropped.
+Trimming later is free; extending is a re-render — hence rendering to the longer
+of the two defensible ends.)*
+
+### Regression after the segments rewrite
+
+Both probe pages re-dumped and re-diffed against the app: **still 0 differing
+pixels of 2 073 600, max channel delta 0.** The refactor did not move the picture.
