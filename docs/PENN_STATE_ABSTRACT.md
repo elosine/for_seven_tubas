@@ -589,6 +589,148 @@ states Gehry neutrally, beat 4 loses its charge.**
   one thing this beat could still absorb.**
 - a fuller CATIA explanation — the metaphor carries without the software history
 
+---
+
+# ★★ BEAT 2 — THE COMPOSER'S OWN TEXT, IN PROGRESS (day 37)
+
+> **This supersedes the AI's beat-2 draft above.** The composer restructured
+> beat 2 into four parts — **opening · assumption · reality · pivot** — which
+> collapses the AI's old beats 2/3/4/6/7 into one movement. All composer text
+> below is **VERBATIM**; copy-edits are logged, never applied.
+>
+> **AI PROCESS NOTE (own error, logged per the repo's dead-ends rule):** the AI
+> told the composer this text was "saved" across several turns while it was
+> still only in chat. It was not filed until the composer said *"put a pin in
+> 2."* **Nothing was lost, but the claim was false when made.** The chat is not
+> a record; say "filed" only after writing.
+
+## 1 · OPENING — the Gehry/CATIA transposition ✅ *(composer, verbatim)*
+
+> I thought about Frank Gary's work and the catia software that he developed. he
+> was able to take standard architectural shapes and bend them and control them
+> to a fine degree. creating extreme curves and intricate flowing shapes. My
+> thought was that I could move through the phase shifting states at a fine
+> resolution using AI tools with staccato tuba samples. and exercise this level
+> of fine control over these musical materials.
+
+*Why it works (AI): it frames Gehry as **fine control over continuous
+deformation**, which is a sharper setup than the AI's "division of labour"
+version — because fine resolution is exactly what phase refuses. **It also
+already contains the assumption**: "move through the states at a fine
+resolution" presumes a traversable continuum.*
+
+*Held for the revision pass, composer's instruction — **not acted on now**:
+"Frank Gary" → Gehry · "catia" → CATIA · the factual question of whether CATIA
+let Gehry **bend standard shapes** or **build curved forms standard methods
+could not rationalize**.*
+
+*Still missing (AI note): what the fine control was **for** — the shape wanted.
+That is the DESIRE, and beat 7's payoff depends on it being stated.*
+
+## 2 · ASSUMPTION ✅ *(composer, verbatim)*
+
+> my supposition was that the more mathematically complex the phase relationship
+> was between different parts, the more sonically complex the sound would be. So
+> I devised an experiment to be able to listen to Phase shifted parts. in
+> increasingly mathematically complex relationships.
+
+## 3 · REALITY, AND HOW WE SUSSED IT OUT
+
+### First ladder ✅ *(composer, verbatim)*
+
+> We initially built. twelve. phase relationships and after listening to them
+> realized that there were two components: how large the offset is between the
+> parts but also and how intricate the fraction is in the phase relationship.
+
+### 📌 Second ladder — **PINNED, composer: "put a pin in 2, we'll come back to it"**
+
+**The composer's draft sentence, verbatim — NOT yet resolved:**
+
+> secondly, we focused on varying how intricate the fraction is and learned that
+> while the fractions got more intricate, the quality of the sound didn't change
+> much.
+
+**⚠ THE OPEN PROBLEM — why it is pinned.** *That sentence is not supported by
+the record, and the unsupported idea originated with the AI, not the composer.*
+
+- The AI wrote, unprompted: *"the fractions got more intricate and the sound
+  didn't change much."* **This was an over-reach.** The composer reasonably
+  built on it.
+- **What the record says:** rev 11's group counts were **2/5/7/9/10/10/10** —
+  *"pulse fissions into figure into lump."* **Rungs 1–4 changed a great deal.**
+  Only rungs 5–7 shared a count, and those *"differ by GRID (12/17/never)."*
+- **Whether 5–7 actually sound alike was never answered.** It was posed as a
+  standing ear-question — *"if zone rungs 3-7 sound alike, complexity depth
+  saturates for the ear and we stop digging that axis"* — and the composer
+  moved on to catch the convergence error instead. **No verdict exists.**
+- Same failure class as *"this proved to be effective."*
+
+**The three ways out, for when the pin comes out:**
+
+- **(a) Use the finding that IS on the record at this juncture — recommended.**
+  ***"Number-distance is not sound-distance."*** Stated at exactly this point:
+  0.4167 vs 0.4142 — nearly identical as numbers — give *"12-grid figure vs
+  lump."* This is the real seed of everything downstream.
+- **(b) Keep the composer's idea, reframed honestly as an open question:** *"we
+  asked whether intricacy on its own stops changing the sound, and never settled
+  it on that ladder."* True, and legitimate — it just cannot be phrased as
+  something learned.
+- **(c) Go and answer it.** The ladder is still in git (rev 11); rungs 5–7 could
+  be auditioned and the question closed for real.
+
+**AI's draft under option (a), for reference:**
+
+> Secondly, we held the offset size steady and varied only how intricate the
+> fraction was. That ladder turned out to be flawed — it converged on a single
+> value instead of crossing the range I had been told it would cross, and I
+> caught that. But it surfaced the thing that mattered: number-distance is not
+> sound-distance. Two offsets nearly identical as numbers produce quite
+> different rhythms.
+
+### Third ladder — AI draft, awaiting the composer
+
+> Third, we built the sweep properly — every fraction between one-third and
+> one-half with a denominator of twelve or less, in order by size. This time it
+> did cross the whole range. And it still didn't climb. The number of distinct
+> attack points per cycle came out 2, 10, 9, 7, 10, 5, 8, 10, 3: a zigzag, not a
+> rise. The reason is plain once you see it. Moving evenly along the number line
+> does not move evenly through intricacy — simple fractions and intricate ones
+> sit side by side, with the simplest of all at either end. This was the first
+> ladder that did exactly what it promised, and it failed anyway. That made it
+> the useful one.
+
+## 4 · PIVOT — not yet drafted
+
+---
+
+## REFERENCE — the three ladders explained plainly (AI, day 37)
+
+*Written because the composer said they were having difficulty following the
+narrative. Kept for the revision pass.*
+
+| | what it was for | how it was built | what happened |
+|---|---|---|---|
+| **1** *(rev 10)* | first look — 12 phase relationships | 12 rungs spanning the offset range, fractions mostly simple | **A design flaw.** It walked offset SIZE while holding intricacy simple — moving one dial, labelling it the other. The composer named the two axes by ear |
+| **2** *(rev 11)* | freeze size, vary intricacy only | a narrow band (1/3→1/2), fractions built by combining neighbours — add tops, add bottoms: 1/2 & 1/3 → 2/5 → 3/7 → 4/9 → 5/12 → 7/17 | **A description error.** That procedure closes in on a point (~0.414) instead of crossing the band. Described as a walk to 1/3; never arrives. **Composer caught it** |
+| **3** *(rev 13)* | do the sweep properly | EVERY fraction in the band with denominator ≤ 12, ordered by size: 1/2 · 5/11 · 4/9 · 3/7 · 5/12 · 2/5 · 3/8 · 4/11 · 1/3 | **It worked as promised and still refused.** Attack points per cycle: 2·10·9·7·10·5·8·10·3 — a zigzag. Denominators in sweep order: 2,11,9,7,12,5,8,11,3 |
+
+**Why ladder 3 zigzags** — group count = min(10, denominator), and **the
+denominator jumps around as you move smoothly along the number line.** Simple
+and intricate fractions are neighbours; the simplest of all (1/2, 1/3) sit at
+the ends. **Ordering by size and ordering by intricacy are different
+orderings.**
+
+**The structural point:** ladders 1 and 2 failed because of OUR errors. **Ladder
+3 did exactly what it promised and failed anyway** — which is what makes it
+evidence about the material rather than about us.
+
+**Keep the two deaths separate:** ladder 3 kills *"you can SORT by arithmetic."*
+The theory later kills *"arithmetic IS complexity"* — because the denominator
+is not what the ear tracks. Two different findings; the section reads more
+clearly if they do not merge.
+
+---
+
 ### BEAT 2 — INVENTORY (source material for the draft above)
 
 **The ambition**
