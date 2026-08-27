@@ -547,7 +547,49 @@ pare-down, not now.*
 > Provenance is marked: **[C]** composer's own words · **[A]** AI's drafting ·
 > **[R]** verified from the project record.
 
-### BEAT 2 — THE INTENTION · what I set out to do, and with what
+### ★ BEAT 2 — DRAFT (day 37, AI selection from the inventory below)
+
+> *Composer: "the outline didn't help the way I thought it would. Can you do a
+> draft? and select the things that you think should be included."* Draft for
+> the composer to work from. **Evaluation length (~135 words), not pared.**
+
+> So I set out to make this material myself, and to find out whether bespoke AI
+> tools could let me work with it the way I had been working with everything else
+> in this piece. The material would be ten tuba players on a single staccato
+> note, each entering at a different offset — what became the last section of
+> *Bloom — Convergence — Balance*. The method already had a name I had been using
+> since the first day: Frank Gehry and CATIA. Gehry draws freehand — fluid,
+> continuous curves — and the engine underneath works out the structure that will
+> actually stand up. I wanted that same division of labour here: I would be
+> responsible for the shape, and the tools would work out the interior. What I
+> wanted from them was flexibility — to sculpt the material, to warp it into
+> bespoke versions, or to reach into the process, capture a particular state, and
+> keep it.
+
+**The one craft decision, stated so it can be overruled:** Gehry is described as
+**fluid and continuous** on purpose. That is what makes beat 4's *"more Picasso
+than Gehry"* land — the reversal needs smoothness to push against. **If beat 2
+states Gehry neutrally, beat 4 loses its charge.**
+
+**What was included, and why**
+- the ambition + the AI question **[C]** — the beat's premise
+- ten players, one staccato note, different offsets **[R]** — the concrete
+  grounding beat 1 does not carry
+- **the piece named** — this is the arc's only slot for §7's job 4
+- Gehry/CATIA as method, with the day-1 provenance **[C/R]**
+- all three flexibility verbs **[C]** — sculpt · warp · capture a state.
+  **"Capture a particular state" is deliberate foreshadowing**: it is literally
+  what `phaseSeq-01` turns out to be, so beat 2 plants what beats 5–6 pay off.
+
+**What was left out, and why** *(nothing deleted — all still in the inventory)*
+- **the Xenakis line** — belongs to the paper's introduction; here it would
+  crowd Gehry, and two big names in one beat blunts both
+- **"why it needed a bespoke apparatus at all"** — the gap flagged earlier. The
+  draft implies it rather than arguing it. **If you want it argued, that is the
+  one thing this beat could still absorb.**
+- a fuller CATIA explanation — the metaphor carries without the software history
+
+### BEAT 2 — INVENTORY (source material for the draft above)
 
 **The ambition**
 - recreate these effects for myself **[C]**
