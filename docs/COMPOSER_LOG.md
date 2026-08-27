@@ -848,6 +848,59 @@ routing and instrument rack now."
 *(→ Repo seeded from piece #3's stack: 7-track composer on :5200, sandbox on :4700,
 instruments skeleton with ports `Tuba1`…`Tuba7`. Sample library TBD → survey next.)*
 
+## 2026-08-27 (day 37) — **THE RESET: the paper is about the MATERIALS, and animated notation is the key** (verbatim)
+
+*Composer's own words, filed at their request — "so I can come back to it."
+**This supersedes the process-first framing** that the day-37 drafting had been
+building. The ladder-by-ladder detail is demoted to sub-story by this entry.*
+
+"Okay. I need to reset. could you, for now, just help me organize, and then I'll
+ask for focused analysis? I think this is becoming too sprawling. So, really,
+what is interesting, what I would like to share with the conference with my paper
+is these musical materials that sound really interesting and that were created in
+novel ways. So I find really compelling these passages where all ten tubas are
+playing the same tempo, but they're slightly offset. creating a really
+interesting texture. which hasn't really been heard in other music. The
+additional interesting musical aspects are the fact that you could hold this
+rhythmic... rhythmically generated texture and swim harmonies throughout it. have
+core changes flow through the rhythmic texture. Also, very interesting is
+immediate transitions. with the animated notation, you can jump into this phase
+shifted section and then for a brief moment of time and then quickly jump out of
+it, immediately jump out of it into a section that's in unison pulse or in
+multitempos. So the key here is probably the animated notation. It is interesting
+that I followed a process to come up with those particular patterns, and it's
+worth mentioning in the larger paper, but is really a sub story. So Morf section
+is similar. there are plenty of precedence in spectral music, in particular the
+acoustic music of Alvin Lucie. But with the animated notation, I'm able to push
+these... this musical material made out of acoustic beating to a more... a higher
+resolution, a more refined degree. And, again, the story is the use of the
+animated curves. And here is probably the closer analogy with the Frank Gary So
+while acoustic beating is an element in other work. here, I'm able to really
+shape it and sculpt it using the animated notation. Again, very interesting, but
+a sub story. Maybe a little less of a sub story, maybe more prime than the
+multitempo or phase shifting is the discovery of the effect of rebreath and
+creating a pattern of rebreathing that affects the way... the shape of the the
+formal shape of the beating patterns and how Crescendo creates interesting
+effects without even glissando. So in other words, that's the balance section
+where having the ensemble hold the cord and then just playing different patterns
+of volume changes the beating and texture of the cord."
+
+*Copy-edits noted, NOT applied: "core changes" → **chord changes** · "Alvin
+Lucie" → **Alvin Lucier** · "Frank Gary" → **Frank Gehry** · "Morf" → **morph**.*
+
+*(→ **Three things this changes.** (1) **The paper's subject is the MUSICAL
+MATERIALS**, not the process — the process is a sub-story throughout. (2)
+**ANIMATED NOTATION is the through-line**, named by the composer as "the key"
+and "the story" for two of the three materials. (3) **The Gehry analogy MOVES**
+— it belongs to the animated notation (shaping and sculpting beating), not to
+the phase-shifting process where day 37 had been placing it. Also new to the
+record here: **Alvin Lucier as the acoustic-beating precedent**, and the
+composer's ranking of the **balance/rebreath discovery as more prime** than the
+phase-shifting material. Scaffolding proposed in `PENN_STATE_ABSTRACT.md`
+§ THE RESET.)*
+
+---
+
 ## 2026-08-27 (day 37) — THE PHASE-SHIFTING ARC, told for §7 (verbatim)
 
 *Told as a candidate for the abstract's §7 slot. Fact check, evaluation against

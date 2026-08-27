@@ -12,6 +12,50 @@
 
 ---
 
+# ⭐ THE RESET (day 37) — the paper is about the MATERIALS
+
+> **Composer's reset, verbatim in `COMPOSER_LOG.md` day 37.** *"What I would
+> like to share with the conference … is these musical materials that sound
+> really interesting and that were created in novel ways."* **The process is a
+> sub-story.** **Animated notation is the key.** Everything below this section
+> predates the reset and is kept as source material, not as a plan.
+
+## Scaffolding — proposed
+
+**I · FRAME** — Kobayashi; a bespoke lens per material
+
+**II · THE ENABLER** — animated notation; what it makes possible that paper cannot
+
+**III · MATERIAL ONE — the offset texture**
+- ten tubas, one tempo, slightly offset
+- a texture not heard elsewhere
+- harmony swum through it; chord changes flowing
+- immediate cross-cuts — in, briefly, and straight out to unison or multitempo
+- *sub-story: how the patterns were found*
+
+**IV · MATERIAL TWO — sculpted beating**
+- precedent: spectral music, Alvin Lucier
+- animated curves → higher resolution, finer degree
+- **the Gehry analogy lands here** — shaping, not process
+- *sub-story: the morph machinery*
+
+**V · MATERIAL THREE — breath as form**
+- hold the chord, vary only the volume
+- rebreathing patterns shape the beating
+- crescendo without glissando
+- *(composer ranks this MORE prime than III)*
+
+**VI · CLOSE** — Kobayashi
+
+## Two open questions on the scaffolding
+
+1. **Order.** The composer ranks V above III in interest. Present in that order,
+   or keep piece order and flag V as the strongest?
+2. **Section II.** Animated notation as its own section up front, or revealed
+   through each material in turn?
+
+---
+
 # DRAFT B — THE COMPOSER'S OWN, day 37 (2026-08-27) — **VERBATIM, 204 words**
 
 > *Typed by the composer in full. Preserved exactly as written — including
