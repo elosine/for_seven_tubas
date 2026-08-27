@@ -10,8 +10,8 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 37: **V-CUT APPROVED BY THE COMPOSER'S EYE — PHASE 5 CLOSED 5/5.**
-### → the eye also caught W1b (a third meter bleeding green); FIXED; renders one fix behind
+### OPEN — day 37: **RE-RENDERED WITH THE W1b FIX — PHASE 5 RE-MEASURED, ALL GREEN BY SCRIPT.**
+### → open: the composer's eye on the NEW V-CUT (the morphs are what changed; approved archive stands as fallback)
 
 **The approved video is ARCHIVED as the submission fallback:**
 `notation/video/approved/2026-08-27-submission/` — all five mp4s + cut list +
@@ -25,22 +25,31 @@ meters stand down there; the trance's fullHeight crescendo keeps its — t=730
 probe byte-identical). Proven at the composer's own timestamps; eleven batteries
 green. Full chain: RUNNING_LOG day 37.
 
-**Five outputs in `notation/video/renders/`** (gitignored; regenerable):
+**Five outputs in `notation/video/renders/`** (gitignored; regenerable; sizes
+post-W1b — the dropped meters are ~1.5 MB of green ink each):
 
 | | | frames |
 |---|---|---|
-| **V-CUT** 1920×1080 | 67.5 MB | 22 819 |
-| V-MAIN 1920×1080 | 66.8 MB | 22 819 |
-| ZOOM MASTER 1920×2160 | 94.6 MB | 22 819 |
-| V-TOP / V-BOT 1920×1080 | 61.5 / 63.4 MB | 22 819 |
+| **V-CUT** 1920×1080 | 65.9 MB | 22 819 |
+| V-MAIN 1920×1080 | 65.4 MB | 22 819 |
+| ZOOM MASTER 1920×2160 | 90.1 MB | 22 819 |
+| V-TOP / V-BOT 1920×1080 | 59.2 / 61.5 MB | 22 819 |
 
-**The whole pipeline is ~31 minutes of compute.** Rebuild with
-`notation/video/renders/phase3.sh` then `phase4.sh`.
+**The whole pipeline is ~21.4 minutes of compute.** Rebuild with
+`notation/video/renders/phase3.sh` then `phase4.sh`; **measure it with
+`phase5.sh`** (+ `pxdiff.js`, `verify_film.js`, same dir — day 37: the checks
+were ad-hoc and the animated-layer probe survived only in a dead session's temp
+dir; now they are one command).
 
-**PHASE 5 passes on three of four criteria** — duration equality (all five at
-22 819 frames, container spread **0.325 ms**), A/V offset (`start_time 0.000000`
-on both streams of all five), spot frames vs the live app (**0 differing pixels of
-2 073 600**). **The fourth is the composer's eye and it is the one thing open.**
+**PHASE 5 on the CURRENT renders (day 37, by `phase5.sh`): every measured
+criterion passes** — duration equality (all five at 22 819 frames, video spread
+**0.325 ms**, audio identical), A/V offset (`start_time 0.000000` on both
+streams of all five), cut sources (expected **0.36–0.44 %** vs wrong **22–62 %**),
+animated layer (meter colours in the film inside the h.264 floor of the app's),
+and **W1b confirmed in the film itself**: vs the approved archive the three
+bleed frames differ (9.1k / 11.3k / 11.9k px) while the trance control at t=730
+is **0 of 2 073 600 — decode-identical**. The fix reached exactly the frames it
+should and no others. **Open: the composer's eye on the new V-CUT.**
 
 **The Node exporter draws exactly what the app draws** — `tools/export_video.js`,
 proven pixel-for-pixel on two probe pages, re-proven after a refactor.
@@ -57,10 +66,12 @@ measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
 **NEXT STEPS · MODEL · CLEAR** *(rewritten day 36 post-clear, after W1 steps 1
 and 2 came back and changed the picture)*
 
-**THE FIVE RENDERS ON DISK ARE CURRENT** — rebuilt 2026-08-27 in **21.1 min**
-(V-MAIN 5.8 · zoom 9.1 · crops ~1 · V-CUT 6.2) and carrying all four decisions:
-the compositor fix, the morph meters at **`fillOpacity` 0.60 (A1)**, the transition
-at **`--fade 5 --fadeMode cross`**, and the cut at **seed 71**.
+**THE FIVE RENDERS ON DISK ARE CURRENT** — rebuilt 2026-08-27 post-W1b in
+**21.4 min** (V-MAIN 5.8 · zoom 9.3 · crops ~1 · V-CUT 6.3) and carrying all
+five decisions: the compositor fix, the morph meters at **`fillOpacity` 0.60
+(A1)**, the transition at **`--fade 5 --fadeMode cross`**, the cut at **seed
+71**, and **W1b's ownership rule** (per-event full-lane meters stand down where
+a half-lane section meter owns the lane).
 
 **PHASE 5 re-run and now FOUR of five criteria pass by measurement** — one more
 than before, because the old proof had a gap:
@@ -99,18 +110,24 @@ The check now reads the meter colour straight out of the finished mp4.
 4. **DONE — the composer's eye (day 37): "the cut looks good... keep it,
    please."** PHASE 5 closed 5/5. The same look caught **W1b**, now fixed (above).
 
-**▶ NEXT — the composer's call: re-render with the W1b fix?** ~31 min, same two
-   scripts, nothing else changed. The archived approved copy stays the submission
-   fallback either way. **Opus for the render session; clear before it.** After
-   that: the print score (`docs/PRINT_AND_COVER.md`, Fable) and the paper
-   (`docs/PAPER_OUTLINE.md` — beats are being drafted on day 37, Fable).
+5. **DONE (day 37 post-clear) — the re-render with W1b.** 21.4 min; PHASE 5
+   re-measured by the new `phase5.sh`, every measured criterion green (table
+   above); the W1b removal and its confinement proven in the finished mp4s.
+
+**▶ NEXT — the composer WATCHES the new V-CUT.** What changed is the morphs:
+   the green full-lane bleed at ~300 s (CONVERGENCE, the blink at 303.01) and
+   ~450 s (BALANCE) is gone; the trance untouched. Composer action, no model.
+   If blessed, say whether the new set replaces the archive as the submission
+   copy. After the eye: the **print score** (`docs/PRINT_AND_COVER.md`,
+   **Fable**) and the **paper** (`docs/PAPER_OUTLINE.md`, **Fable**) — **clear
+   before either**.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:
    **Fable if available, else Opus.**
 
-**Still true:** PHASE 5's fourth criterion is the composer's eye on V-CUT — but
-wait for the re-render, since the meters will look different.
+**Still true:** the one open criterion is the composer's eye on the NEW V-CUT;
+the re-render is done, so nothing is waiting on compute.
 
 **`docs/WISHLIST.md` W1 is ANSWERED** (day 36 post-clear). **The jump** is the
 **63 system turns** — 1866.8 px, 33 of them with a meter live on both sides, the

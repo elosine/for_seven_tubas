@@ -15305,3 +15305,46 @@ Eleven batteries green.
 
 **The renders on disk are now one fix behind** (the approved archive is the
 submission fallback regardless). A re-render is the composer's call.
+
+### day 37 (Fable, post-clear) — THE RE-RENDER WITH W1b — AND PHASE 5 BECOMES A SCRIPT
+
+**Composer (via `/postclear`): "please re render with the fix."** The call §2 was
+waiting on. Same two scripts, nothing else changed.
+
+**Pipeline: 21.4 min** — V-MAIN 5.8 (65.5 fps) · zoom master 9.3 (41.0 fps) ·
+crops ~1 · V-CUT 6.3 (60.0 fps). All five at 22 819 frames.
+
+**PHASE 5 re-measured — every measured criterion passes on the new renders:**
+
+| criterion | result |
+|---|---|
+| duration equality | all five **22 819 frames**; video spread **0.325 ms**; audio identical at 760.618 s |
+| A/V offset | `start_time 0.000000` on both streams of all five |
+| cut sources | expected source **0.36–0.44 %**; wrong sources **22–62 %** (seed 71 in the film) |
+| animated layer | gliss **(245,126,71)** / cresc **(186,253,78)** in the film vs the app's (245,131,80) / (185,255,80) — inside the h.264 floor |
+| **W1b in the FILM** *(new)* | vs the approved archive: the three bleed frames DIFFER (t=302.50 **9 118 px** · t=303.01 **11 282** · t=450.00 **11 888**) and the trance control t=730.00 is **0 of 2 073 600** — decode-identical |
+
+**The W1b row is the film-side half of yesterday's proof.** Day 37's raster
+probes showed the meter leaving the *frames*; this shows the same change — and
+ONLY that change — in the *finished mp4s*: the diff vs the approved archive lands
+exactly on the bleed timestamps, and the trance (whose fullHeight crescendo keeps
+its designed curveMeter) decodes identical 231 s after the last content change.
+Confinement, measured in the deliverable itself.
+
+**And PHASE 5's measured criteria are now ONE SCRIPT** —
+`notation/video/renders/phase5.sh` + `pxdiff.js` + `verify_film.js`, beside the
+render scripts, run end-to-end from the repo copy before committing. **Why this
+got built without being asked:** the animated-layer probe existed only in a dead
+session's temp scratchpad and was recovered by luck (a `find` over old session
+dirs). That is D65's lesson wearing a different coat — a proof must not live
+where cleanup deletes it. Frames extract to `renders/phase5_frames/`, already
+covered by the `notation/video/**/*.png` gitignore. The W1b-vs-archive block is
+guarded on the archive existing, so the script outlives this particular day.
+
+**Numbers that moved with the fix** (for the record): V-CUT 67.5 → **65.9 MB**,
+V-MAIN 66.8 → **65.4 MB** — the dropped meters are ~1.5 MB of green ink each.
+
+**Open — the composer's eye on the NEW V-CUT.** What changed on screen is the
+morph sections: the green full-lane bleed at ~300 s (CONVERGENCE) and ~450 s
+(BALANCE) is gone; the trance is untouched. The approved archive stands as the
+submission fallback until the new one is blessed.
