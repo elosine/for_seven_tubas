@@ -396,6 +396,131 @@ Two ways to read it, and it is the composer's call:
 **Caution on scope:** stated fully this is probably a CONCLUSION-level point,
 not a 96-word one. In the abstract it likely earns **one clause**, not a beat.
 
+## ARC C — THE FULL TELLING, in the recommended order (~600 words)
+
+> **This is the EVALUATION version, not the abstract version.** Written so the
+> composer can read the arc straight through and decide whether it is the
+> direction. The §7 slot holds ~96 words; the pare-down comes after the
+> direction is settled. Voice is the composer's, tightened. **Every fact here
+> is verified** (see FACT CHECK above); the unverifiable "proved effective" is
+> gone, replaced by beat 9.
+
+### 1 · THE INTEREST
+
+> I was after the parallax texture in Steve Reich's phase-shifting pieces — the
+> way two identical lines drifting apart stop reading as two lines and start
+> reading as one shifting object. The last section of *Bloom — Convergence —
+> Balance* is built from it, using staccato tuba samples: ten players on one
+> pitch, each at a different offset.
+
+*Does: sets the reference, names the piece (job 4), names the material.*
+
+### 2 · THE EXPECTATION
+
+> I had forgotten what those pieces actually sound like. I assumed the
+> development was linear — that the material travels from unison out into
+> rhythmic complexity and then back to unison, in a straight line. That
+> assumption is what I set out to build.
+
+*Does: plants the wrong belief the arc will overturn. Beat 7 pays it off.*
+
+### 3 · THE FIRST ATTEMPT FAILS
+
+> The obvious way to rank phase states is arithmetic: 1/2 is simple, 5/12 is
+> complex. We built three ladders that way. None of them worked. At unison every
+> simple fraction produces evenly spaced pulses — they differ only in how many —
+> so the denominator collapses as a measure of anything you can hear. Ranked by
+> value, a ladder zigzags instead of climbing.
+
+*Does: the dead end. Replaces "mathematical complexity" as told — it was tried
+and abandoned, which is the better story.*
+
+### 4 · THE INSIGHT — mine, not the machine's
+
+> What I heard was that the stepping is heterogeneous: something very patterned
+> resolves immediately into something very smeary. It reminded me of James
+> Tenney's *Having Never Written a Note for Percussion*, where one long simple
+> process throws off perceptual detail nobody put there. And it forced the real
+> shape — both ends of this space are simple. A clean pulse is simple. A uniform
+> smear is simple. Complexity lives between them. A Reich-style progression
+> doesn't climb; it passes through complexity between two kinds of simplicity.
+
+*Does: the finding (job 2), correctly credited to the ear. **Tenney is the
+first cut candidate** — costly, and needs its connection spelled out.*
+
+### 5 · THE MACHINE
+
+> So we stopped measuring arithmetic and measured unevenness — how irregular the
+> gaps are, plus how uneven the stacks. AI wrote the scorer, surveyed 997 phase
+> states, found 430 distinct audible patterns, and returned twelve rungs
+> climbing monotonically from 0.00 to 1.25. It reproduced the inverted U on its
+> own: smear and pulses both near zero, the knotty cells between. That is what
+> turned my impression into a finding.
+
+*Does: the verifiable specifics, and the AI's actual role — it tested my
+hearing, it didn't replace it.*
+
+### 6 · THE EAR OVERRULES ★ (this is job 5)
+
+> Then I listened to the ladder and overruled it. I was cramming a square peg
+> into a round circle: by nature this is a discursive process, and it is the
+> dramatic changes that are interesting. I reordered the rungs by ear into a
+> sequence that plays with those changes rather than against them — high, then
+> low, then high again. The machine's monotone order was a hypothesis about
+> perception. My listening was the experiment, and it disagreed.
+
+*Does: **the load-bearing beat.** §8's thesis — "bespoke tools to go where the
+ear wants to go" — is only earned if this moment is in the abstract.*
+
+### 7 · THE ARC MOVES AXIS
+
+> I still wanted the rise. It didn't disappear — it moved. The climb is carried
+> by tempo, 87 to 120 across the sequence, while phase complexity zigzags
+> underneath. What I wanted and what the material wanted were never actually in
+> conflict. They needed different axes.
+
+*Does: resolves beat 2. **The punchline, and it was missing from the original
+telling.** No other candidate arc has a resolution of this shape.*
+
+### 8 · THE NOTATION
+
+> Then the performance problem: how do ten players hold ten phase-shifted tempi
+> accurately, live? We locked each part to a single tempo for the whole passage —
+> verified to within a tenth of a millisecond against that player's own grid —
+> and showed that tempo with a bouncing ball that runs even when the part is
+> silent. The ball shows the grid; the noteheads show your subset. In one
+> passage a player has no notes at all and still bounces.
+
+*Does: answers §6 with a provable claim. **Note what is absent: any assertion
+that it works in performance.** That remains untested.*
+
+### 9 · AND THEN IT GAVE BACK
+
+> That structure opened things I had not planned. With every part locked to a
+> visible pulse, I could impose blocks of tonality on segments and cross-shift
+> between chords; I could reorchestrate; I could cross-cut — drop out of steady
+> tempo into a phase-shifted passage for a few seconds, then back. The notation
+> stopped being the answer to a problem and became something to compose with.
+> Which means the three parts are not a line: solving the third changed what the
+> first two could do.
+
+*Does: replaces the unverifiable ending with a provable one, and delivers the
+LOOP point — the decomposition is bidirectional. Last sentence is the
+conclusion-level claim; **in the abstract it survives as a clause, or not at
+all.***
+
+### Reading notes
+
+- **~600 words against a 96-word slot.** Roughly beats 1, 6, 7, 8 survive a
+  pare-down; 3 and 5 compress to a clause each; 2 and 4 merge; 9 becomes a
+  final clause. Nothing needs to be invented to shrink it.
+- **Cut order if pressed:** Tenney (beat 4) → the ladder history (beat 3) →
+  the survey numbers (beat 5) → beat 9's last sentence.
+- **Never cut:** beat 6, beat 7.
+- **The four corrections are all absorbed** — ratio complexity as dead end
+  (3) · the insight credited to the ear (4) · the axis shift (7) · no
+  effectiveness claim (8, 9).
+
 ## FOR THE PARE-DOWN (deferred — noted only)
 
 - **Cut:** the Tenney reference (costly, needs unpacking — keep for the talk) ·
