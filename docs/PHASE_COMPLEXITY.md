@@ -146,6 +146,75 @@ out of the ladder.)
 composer's listen is the experiment. Disagreements (rungs that sound alike,
 or out of order) correct the weights and the scorer re-runs in minutes.
 
+## 7b. THE LANDSCAPE MEASURED (day 37) — the "inverted U" is NOT an arch
+
+> Run in answer to the composer's question while drafting the paper: *"is the
+> arch linear? simple → complex → back to simple evenly?"* **Answer: no.**
+> Script: `scratchpad/arch_shape.js`, reusing `score_offsets.js` math verbatim
+> (same N=10, 98 BPM, 25 ms fusion, same score). All 997 sweep points.
+
+**Mean score per offset band — the terrain is not a hump:**
+
+    0.00-0.05   0.308   (78 of 96 near-zero — the fusion block)
+    0.05-0.10   0.758   ← the peak
+    0.10-0.15   0.144   ← a trough
+    0.15-0.20   0.245
+    0.20-0.25   0.238
+    0.25-0.30   0.224
+    0.30-0.35   0.263
+    0.35-0.40   0.297
+    0.40-0.45   0.203
+    0.45-0.50   0.389
+
+**The simple states are isolated WELLS, not a region.** 117 of 997 score
+near-zero, and they sit at: the near-unison block (0.002–0.0405, where all ten
+attacks fall inside the 25 ms fusion window and read as ONE event) — then
+**0.10 · 0.20 · 0.30 · 0.40 · 0.50** and nothing else.
+
+### THE FINDING: the simple states are the fractions whose denominator DIVIDES THE PLAYER COUNT
+
+1/10, 1/5, 3/10, 2/5, 1/2 all score **exactly 0.000**. But **1/3 scores 0.047
+and 1/4 scores 0.050** — and their gap CV is **0.000**, perfectly even. Their
+entire score comes from **accents**: ten players over three slots is 3+3+4, over
+four slots is 3+3+2+2, so some attack points are thicker than others.
+
+**Ten divides evenly by 1, 2, 5, 10 — and those are exactly the offsets that
+score zero.** The simple states are a property of **the ensemble size**, not of
+the arithmetic. *Consequence for M1 (the roster-scaling mandate): change the
+number of players and the wells move.*
+
+### Density is NOT complexity — measured
+
+    groups   n     mean score
+      1      78     0.000      (everything fused: unison)
+      2      41     0.020
+      3      54     0.061
+      4      41     0.070
+      5      66     0.046
+      6      27     0.076
+      7      70     0.080
+      8      42     0.089
+      9      54     0.091
+     10     524     0.533   min 0.000  max 1.770
+
+**All the complexity lives at ten groups** — i.e. only once every player has a
+distinct attack point. And even there it spans the whole range: `f = 0.1` gives
+**ten attack points at gap CV 0.000, score 0.000** — maximum density, zero
+complexity. **Density and complexity are orthogonal, and this is the proof.**
+
+### Why this matters to the argument
+
+**The "both ends are simple" claim survives** — the two-pulse state and the
+even ten-attack smear both score 0.000. **But "simple → complex → simple" as a
+traversal does not.** The space is a terrain of narrow wells with high ground
+between them. Step through it and you fall in and out of simplicity repeatedly.
+
+**That is the mechanism behind the composer's own beat-1 description** —
+*"something very patterned immediately resolves into a timbral smear and then
+steps through a kaleidoscopic variety of rhythms."* The kaleidoscope is the
+well structure. **The material cross-cuts because the landscape is punctured,
+not because it is an arch traversed quickly.**
+
 ## 8. Open / next
 
 - The composer's listening verdicts on the rev-14 ladder (the experiment §7).
