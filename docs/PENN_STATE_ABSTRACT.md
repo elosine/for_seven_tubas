@@ -452,7 +452,101 @@ outline's beat 4.
 **Status of the Gehry/CATIA fragment above:** *"maybe that was #2, but let's
 just hang on to it, and we'll see."* — **held, unplaced.**
 
-### BEATS 2, 4–9 — awaiting the composer
+---
+
+## THE REORGANIZATION of beats 2–4 (day 37, at the composer's request)
+
+> *Composer: "I think I've confused things a bit. Maybe conflated two, three,
+> and four. Can you help me reorganize."* Proposal below; **not yet approved.**
+
+### The diagnosis — two real problems, both fixable
+
+**1 · The phenomenon is described TWICE.** The composer's revised beat 1 already
+says *"something very patterned immediately resolves into a timbral smear and
+then steps through a klidoscopic variety of rhythms."* The beat-3 raw material
+says the same thing again — *"the sound jumps around… rapidly cross cutting from
+one sound state to another."* One of them has to become something else.
+
+**2 · Beat 1 now contradicts the old beat 2.** The old beat 2 said *"I assumed
+the development was linear."* But beat 1 now states the kaleidoscopic truth up
+front — so the narrator already knows. As written, he cannot then forget it.
+
+**The fix for both:** beat 1 keeps the description (it is the better opening,
+and it is what the material IS). **The misconception is then made NARROWER and
+truer to the record: not "I forgot it is kaleidoscopic" but "I assumed the
+kaleidoscope could be sorted into a smooth ramp."** That is exactly what the
+record shows — the composer wanted a smooth ramp, and the material turned out
+to be discursive (*"square peg into a round circle"*).
+
+### THE KEY REALIZATION — Gehry and Picasso are not competing
+
+**They describe different things, so both survive.**
+
+- **Gehry/CATIA is the METHOD** — the composer draws the shape, the engine works
+  out the interior. It describes how the composer works. *(On record since
+  day 1.)*
+- **Picasso is the MATERIAL** — faceted, jump-cutting, refusing continuous
+  curvature. It describes how phase behaves.
+
+**And the tension between them is the spine of the whole arc:** a
+smooth-sculpting method meets a material that refuses smoothness. That collision
+is what produces the failure in beat 4 and the resolution in beat 7 (the arc
+moves to the tempo axis). **The composer's "maybe more Picasso than Gehry" is
+therefore not a replacement — it is the second half of a pair.**
+
+### BEAT 2 — THE INTENTION *(the held Gehry/CATIA fragment, placed)*
+
+> I set out to recreate these effects, and wondered whether I could use AI and
+> staccato tuba samples to sculpt very flexibly with this material — making
+> warped and bespoke versions of it, or capturing particular states at different
+> points in the process. This is the Gehry/CATIA division I had been working with
+> all along: I take responsibility for the shape, and the engine underneath works
+> out the interior that realizes it.
+
+*The fragment is now placed. Gehry enters here, as method.*
+
+### BEAT 3 — THE MISCONCEPTION *(narrowed)*
+
+> What I had forgotten was how this material behaves when you try to organize it.
+> I was picturing a smooth, linear development — the sound travelling from unison
+> out into rhythmic complexity and back again — and I assumed the phase states
+> could be ordered along that ramp. That is what I set out to build.
+
+*No longer contradicts beat 1: he knows what the material sounds like; what he
+misjudged was whether it could be SORTED.*
+
+### BEAT 4 — THE MATERIAL SAYS NO, TWICE *(old 3 + old 4, merged)*
+
+> It refused in two different ways. The first was arithmetic. The obvious way to
+> rank phase states is by the fractions — 1/2 simple, 5/12 complex — and we built
+> three ladders that way. None of them worked: at unison every simple fraction
+> produces evenly spaced pulses differing only in how many, so the denominator
+> collapses as a measure of anything you can hear. The second refusal went
+> deeper. The process is smooth and linear, but the sound is not — it jump-cuts
+> from one state to the next. This material is more Picasso than Gehry: faceted,
+> not curved. Both ends of the space are simple, the clean pulse and the uniform
+> smear alike, and all the complexity lives in between.
+
+*Merging old 3 and 4 is what removes the duplication — the two refusals are one
+beat because they are one event: the material resisting the ramp. **Picasso
+earns its place here**, at the point of failure, rather than as decoration.*
+
+### Consequence: TENNEY COMES OUT
+
+Beat 4 now carries **Picasso** as its figure. Adding **Tenney** as well puts two
+visual/musical references in one beat and dilutes both. **Recommend cutting
+Tenney from this arc entirely** — it was already the first pare-down candidate.
+Keep it for the talk.
+
+### What is unchanged
+
+Beats **5 → 9 stand as written** (the machine · the ear overrules · the arc
+moves axis · the notation · and then it gave back). The reorganization touches
+only 2–4. **Beat 7's payoff now lands harder**, because beat 3's misconception
+is narrower and more specific — the ramp — and beat 7 is exactly where the ramp
+reappears, on a different axis.
+
+### BEATS 5–9 — as previously drafted; awaiting the composer's rewrites
 
 ---
 
