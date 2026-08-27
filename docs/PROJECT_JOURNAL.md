@@ -55,11 +55,22 @@ there is no longer any way to avoid the 31 minutes.
    both morph meters; it is in `container.json` (with the why in each `_note`) and
    probe-verified. `curveMeter` stays at 0.3 on purpose. The six-way comparison is
    published as the Artifact **The Morph Meters**.
-2. **W2's fade.** `--fade <frames>` defaulting to **8, symmetric on both ends**
-   (an asymmetric fade reads as a mistake). **The trap: blend ACROSS the existing
-   boundary, never insert frames, or duration equality breaks.** **Opus.**
-3. **Then ONE full re-render, then re-run PHASE 5.** `phase3.sh` then `phase4.sh`,
-   ~31 min. **Opus**, and a good clear point before it.
+2. **DONE — W2's fade is built, and it is a DIP, not a cross-dissolve.**
+   `--fade <frames>` + `--fadeMode dip|cross`; `phase4.sh` passes
+   `--fade 8 --fadeMode dip`. **A cross-dissolve superimposes the two sources, and
+   here they are the same notation at two scales** — the mid frame carries two sets
+   of staff lines and TWO CURSORS. Measured on boundary f=2740 before any full
+   render (ink per px: cross stays 39→33 flat, dip cuts a clean V to 4.2). The dip
+   shows one source at a time. Window CENTRED on the boundary, so **no frame is
+   inserted or dropped** and duration equality holds. 18 interior boundaries.
+3. **NEXT — ONE full re-render, then re-run PHASE 5.** `phase3.sh` then
+   `phase4.sh`, ~31 min; both scripts already carry every setting. **Opus**, and a
+   good clear point before it. *Everything upstream is now decided and committed:
+   the compositor fix, A1 at 0.60, and the 8-frame dip.*
+   **One thing the composer may want to settle first:** the cut SHAPE (seed 11 —
+   9 close-ups, 29.6 %, 22–27 s segments). `node tools/make_cut.js --seed N`
+   re-rolls it in a second, and doing it now costs nothing; after the render it
+   costs another 7 minutes.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:

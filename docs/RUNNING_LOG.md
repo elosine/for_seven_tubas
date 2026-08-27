@@ -14990,3 +14990,50 @@ Meters**. Full-resolution stills also live in `notation/video/wishlist-w1/`
 like in my browser, or can I download it" — both, in the end.*
 
 **Still open:** W2's fade, then ONE full re-render (~31 min) and PHASE 5 again.
+
+### day 36 (post-clear) — W2: THE FADE IS A DIP, BECAUSE A CROSS-DISSOLVE FAILED
+
+Composer: *"so are we ready for w2 the fade"*. Built it — and the technique the
+plan named turned out to be the wrong one, caught on one boundary for about ten
+seconds of compute instead of after a 31-minute render.
+
+**What §2 said to build:** `--fade <frames>` defaulting to 8, symmetric on both
+ends, blending ACROSS the existing boundary so the frame count cannot move.
+All of that stands. What did not stand is *cross-dissolve*.
+
+**The failure, seen and then measured.** A cross-dissolve superimposes its two
+sources. Everywhere else that is the whole point. Here the two sources are **the
+same notation at two scales**, so the mid-dissolve frame carries two complete sets
+of staff lines, doubled noteheads, and — the thing that really breaks it — **TWO
+CURSORS**, because the wide and the zoomed playhead sit at different x. It reads
+as a double exposure, not a transition.
+
+Ink per pixel across the 13 frames around boundary f = 2740 (t = 91.33 s), the
+7th value being the cut frame:
+
+| | |
+|---|---|
+| **cross 8** | 39.1 39.1 38.9 37.9 37.3 36.6 **36.5** 35.5 34.0 33.6 32.9 32.8 32.8 |
+| **dip 8** | 39.1 39.1 34.1 24.7 14.7 5.4 **4.2** 12.3 20.3 28.5 32.5 32.5 32.5 |
+
+**The cross's flat line IS the double exposure** — total ink barely moves because
+both pictures are on screen at once. That one row is the whole argument.
+
+**The dip.** Pull the frame toward paper across the window: outgoing shot up to
+the cut, incoming shot from the cut on, **never both**. At 8 frames the deepest
+frame sits at 0.875, so the ink thins to about an eighth and comes back — no white
+flash. Cheaper too: one source per frame instead of two.
+
+**Default changed to `dip`** against the plan's `cross`, because the plan was
+written before anyone had looked at a frame. `--fadeMode cross` still exists.
+
+**Trap respected:** window CENTRED on the boundary, `[f - n/2, f + n/2)`, no frame
+inserted or dropped, duration equality untouched. Frame 0 and the extended final
+segment are not cuts; **18 interior boundaries** get a dip.
+
+**Four five-second clips of the same boundary** (hard · cross 8 · dip 8 · dip 5)
+in `notation/video/wishlist-w1/`, sent to the composer.
+
+**W1 and W2 are both closed.** Next is ONE full re-render (~31 min) and PHASE 5
+again. Open, and cheap only until that render: the cut SHAPE — seed 11 re-rolls
+in a second with `tools/make_cut.js --seed N`.

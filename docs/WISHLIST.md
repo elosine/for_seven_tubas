@@ -132,31 +132,57 @@ to take the band out from behind the meter, which is what B and C do.
 
 ---
 
-## W2 · A short fade on the cuts into the close-ups
+## W2 - A short fade on the cuts into the close-ups
 
 **Composer, day 36:** *"if we have time to re-render, let's build in some very
 quick and subtle transitions when they cut to the zoomed part. Maybe a short
 fade."*
 
-**Where:** the 9 close-up entries in `notation/video/cut-list.json` — and
-presumably their exits too, which is a question for whoever picks this up
-(*fade in only, or both ends?*).
+> **BUILT day 36 (post-clear), and a CROSS-DISSOLVE TURNED OUT TO BE THE WRONG
+> TECHNIQUE.** `--fade <frames>` and `--fadeMode dip|cross` on
+> `tools/export_video.js`; `phase4.sh` now passes `--fade 8 --fadeMode dip`.
+> **The open question in the original note - fade in only, or both ends? - is
+> answered: both.** An asymmetric fade reads as a mistake.
 
-**Current behaviour is deliberate:** PHASE 4.3 of the video plan says *"hard cuts,
-matching PP-3's hard-cut system turns. Crossfades only if asked."* **This is the
-ask.** It does not overturn a decision; it adds one.
+### Why not a cross-dissolve - measured, on one boundary, before any full render
 
-**How, and why it is cheap.** `export_video.js --cut` already composites each
-frame from two full RGBA buffers, so a cross-dissolve is a lerp between the two
-sources over N frames at each boundary — the wide frame and the cropped zoom
-frame are both already in hand at the same `t`. Roughly:
+A cross-dissolve superimposes the two sources. Everywhere else that is the point;
+here **the two sources are the same notation at two scales**, so the mid-dissolve
+frame carries two complete sets of staff lines, doubled noteheads, and - worst -
+**TWO CURSORS**, because the wide and zoomed playheads sit at different x.
 
-- both caches are warm across a boundary (that is what the per-mode caches are
-  for), so the only new cost is the blend
-- ~8 frames (0.27 s) reads as "very quick and subtle"; 15 (0.5 s) is a soft
-  dissolve
-- **cost: one re-render of V-CUT only, ~7 minutes.** V-MAIN, the zoom master and
-  the two crops are untouched — the fade lives in the cut alone.
+Measured at the first boundary (f = 2740, t = 91.33 s), ink per pixel across the
+window, where the 7th value is the cut frame:
 
-**Watch out for:** PHASE 5's duration equality. A dissolve must not change the
-frame count — blend *across* the existing boundary rather than inserting frames.
+| mode | ink across the 13 frames |
+|---|---|
+| **cross** | 39.1 39.1 38.9 37.9 37.3 36.6 **36.5** 35.5 34.0 33.6 32.9 32.8 32.8 |
+| **dip** | 39.1 39.1 34.1 24.7 14.7 5.4 **4.2** 12.3 20.3 28.5 32.5 32.5 32.5 |
+
+**The cross's flat line IS the double exposure** - total ink barely moves because
+both pictures are on screen at once. It never reads as a transition; it reads as
+one image sliding through another. The dip's clean V is one source at a time.
+
+### What the dip does
+
+Over the window the frame is pulled toward paper: the outgoing shot up to the cut,
+the incoming shot from the cut on, **never both**. It never reaches blank paper -
+at 8 frames the deepest frame sits at 0.875, so the ink thins to about an eighth
+and comes back. No white flash, no doubling, no split cursor. It is also *cheaper*
+than a cross, which has to render both sources for every blended frame.
+
+**The trap was respected:** the window is CENTRED on the existing boundary,
+`[f - n/2, f + n/2)`. **No frame is ever inserted or dropped**, so PHASE 5's
+duration equality is untouched. Frame 0 and the extended final segment are not
+cuts and get no transition - **18 interior boundaries** do.
+
+### The knob, and what is left to the composer
+
+`--fade 8` (0.27 s) is the default; `--fade 5` (0.17 s) is gentler; `--fade 0`
+restores hard cuts. Four five-second clips of the same boundary are in
+`notation/video/wishlist-w1/` - `boundary_fade0` (hard), `boundary_fade8`
+(the cross, to show why not), `boundary_dip8`, `boundary_dip5`.
+
+**Cost is now nil on its own** - the compositor fix and A1 already force a full
+re-render, so the fade rides along in the same ~31 minutes.
+

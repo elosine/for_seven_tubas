@@ -9,6 +9,8 @@
 //   node tools/export_video.js --ir db1 --view video --fps 30 \
 //        --audio notation/audio/piece-final-draft-001.wav --out out.mp4
 //        [--z 2] [--t0 S --t1 S] [--probe 703.5,710.2 --probeDir dir]
+//        [--cut notation/video/cut-list.json] [--fade 8] [--fadeMode dip|cross]
+//        (--fade 0 = hard cuts)
 //
 // THE PAGE CACHE (2.1's profile, and the whole reason this is fast): resvg
 // spends 131 ms parsing a 234 KB page SVG and 13 ms actually drawing it. The
@@ -45,6 +47,8 @@ const tEnd = arg('t1') != null ? parseFloat(arg('t1')) : null;
 const probes = (arg('probe', '') || '').split(',').filter(Boolean).map(Number);
 const probeDir = arg('probeDir', path.join(ROOT, 'notation', 'video', 'probe'));
 const dumpPage = arg('dumpPage');
+const fadeFrames = Math.max(0, Math.round(parseFloat(arg('fade', '8')) || 0));   // W2: 0 = hard cuts
+const fadeMode = arg('fadeMode', 'dip');                                        // dip | cross
 if (!outFile && !probes.length && dumpPage == null) {
   console.error('usage: export_video.js --ir <id> --view video|zoom --fps N --audio <wav> --out <mp4>');
   console.error('       (or --probe t1,t2,... --probeDir <dir> to write single frames instead)');
@@ -352,21 +356,93 @@ function srcAtFrame(k) {
   while (cutIdx > 0 && k < cutMap[cutIdx].f0) cutIdx--;
   return cutMap[cutIdx].src;
 }
-function cutFrame(k, t) {
-  // ABSOLUTE frame index — the cut list is indexed from t=0, while k counts from
-  // --t0. They are the same only for a full render; a partial one would take its
-  // sources from the wrong segments entirely.
-  const src = srcAtFrame(Math.round(t * fps));
+
+// ---------------------------------------------------------------- the fade
+// W2 (composer, day 36): "some very quick and subtle transitions when they cut
+// to the zoomed part. Maybe a short fade." PHASE 4.3 built hard cuts and said
+// "crossfades only if asked" — this IS the ask, so it adds a decision rather
+// than overturning one.
+//
+// THE TRAP, named in the plan: a dissolve must NOT change the frame count, or
+// PHASE 5's duration equality breaks. So it blends ACROSS the existing
+// boundary — the window is CENTRED on the cut frame, [f - n/2, f + n/2) — and
+// no frame is ever inserted or dropped. Both ends of every close-up get one:
+// an asymmetric fade reads as a mistake.
+//
+// Frame 0 is the start of the film, not a cut, and the extended final segment
+// is not one either, so only the interior boundaries dissolve.
+const blends = [];
+if (cutMap && fadeFrames > 0) {
+  const half = fadeFrames / 2;
+  for (let i = 1; i < cutMap.length; i++) {
+    const f = cutMap[i].f0;
+    // never spill past a neighbouring cut, and never before the first frame
+    const a = Math.max(Math.round(f - half), cutMap[i - 1].f0, 0);
+    const b = Math.min(Math.round(f + half), cutMap[i].f1);
+    if (b - a >= 2) blends.push({ a: a, b: b, f: f, from: cutMap[i - 1].src, to: cutMap[i].src });
+  }
+}
+let blendIdx = 0;
+function blendAt(k) {
+  while (blendIdx < blends.length && k >= blends[blendIdx].b) blendIdx++;
+  while (blendIdx > 0 && k < blends[blendIdx - 1].b) blendIdx--;
+  const w = blends[blendIdx];
+  return (w && k >= w.a && k < w.b) ? w : null;
+}
+function srcBuf(src, t) {
   if (src === 'V-MAIN') return frameRGBA(t, 'video');
   const full = frameRGBA(t, 'zoom');
   return cropRows(full, src === 'V-BOT' ? H : 0, H);   // the y=1080 gap, measured
+}
+// linear cross-dissolve; w is the weight of B. Both buffers are opaque RGBA, so
+// the alpha bytes lerp 255->255 and stay 255. +0.5 rounds instead of truncating,
+// which would bias every dissolve fractionally dark.
+function mix(A, B, w) {
+  const out = Buffer.allocUnsafe(A.length), v = 1 - w;
+  for (let i = 0; i < out.length; i++) out[i] = A[i] * v + B[i] * w + 0.5;
+  return out;
+}
+// DIP, and why it is the default. A cross-dissolve superimposes the two sources,
+// and here they are THE SAME NOTATION AT TWO SCALES — so the mid-dissolve frame
+// carries two complete sets of staff lines and, worst of all, TWO CURSORS, since
+// the wide and zoomed playheads sit at different x. Measured on the first
+// boundary (f=2740) before any full render: it reads as a double exposure, not a
+// transition. Dipping through paper instead shows only ONE source at a time, so
+// nothing ever doubles — the ink falls away and the new scale rises out of it.
+// It is also cheaper: one source per frame instead of two.
+//
+// The dip never reaches blank paper. Over an 8-frame window the deepest frame
+// sits at 0.875, so the notation thins to about an eighth of its ink and comes
+// back; there is no white flash.
+function toward(buf, wht) {
+  const out = Buffer.allocUnsafe(buf.length), v = 1 - wht, add = 255 * wht;
+  for (let i = 0; i < out.length; i++) out[i] = buf[i] * v + add + 0.5;
+  return out;
+}
+function cutFrame(k, t) {
+  // ABSOLUTE frame index — the cut list is indexed from t=0, while k counts from
+  // --t0. They are the same only for a full render; a partial one would take its
+  // sources from the wrong segments entirely. The blend windows are in the same
+  // absolute frames, so a partial render of one boundary transitions identically.
+  const kAbs = Math.round(t * fps);
+  const w = blendAt(kAbs);
+  if (!w) return srcBuf(srcAtFrame(kAbs), t);
+  if (fadeMode === 'dip') {
+    const half = Math.max(w.f - w.a, w.b - w.f);
+    const d = 1 - Math.abs(kAbs + 0.5 - w.f) / half;
+    // strictly one source per frame: the outgoing shot up to the cut, the
+    // incoming shot from the cut on. Nothing is ever superimposed.
+    return toward(srcBuf(kAbs + 0.5 < w.f ? w.from : w.to, t), Math.max(0, d));
+  }
+  // alpha hits exactly 0.5 at the cut frame, so the boundary is the midpoint
+  return mix(srcBuf(w.from, t), srcBuf(w.to, t), (kAbs - w.a + 0.5) / (w.b - w.a));
 }
 const ff = ['-y',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', W + 'x' + outH, '-r', String(fps), '-i', 'pipe:0'];
 if (audio) ff.push('-ss', String(t0), '-i', audio, '-c:a', 'aac', '-b:a', '256k', '-shortest');
 ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', outFile);
 
-console.log('export_video: ' + irId + ' · ' + (cutMap ? 'CUT (' + cutMap.length + ' segments, ' + segsOf('zoom').length + ' zoom segs)' : viewMode + (viewMode === 'zoom' ? ' x' + Z : '')) +
+console.log('export_video: ' + irId + ' · ' + (cutMap ? 'CUT (' + cutMap.length + ' segments, ' + segsOf('zoom').length + ' zoom segs, ' + (fadeFrames > 0 ? blends.length + ' x ' + fadeFrames + '-frame ' + fadeMode : 'hard cuts') + ')' : viewMode + (viewMode === 'zoom' ? ' x' + Z : '')) +
   ' · ' + W + 'x' + outH + ' · ' + fps + ' fps');
 console.log('  ' + pages.length + ' pages, ' + segments.length + ' turn segments, material ends ' + srcEnd + ' s');
 console.log('  frames ' + nFrames + '  (' + t0.toFixed(2) + '–' + t1.toFixed(2) + ' s)');
