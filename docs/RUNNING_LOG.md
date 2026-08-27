@@ -15195,3 +15195,46 @@ five renders (370 MB, gitignored, regenerable) are overwritten by design.
 
 **After it lands:** re-run PHASE 5 — duration equality, A/V offset, spot frames —
 and then the one check no tool can do, the composer's eye on V-CUT.
+
+### day 36 (post-clear) — THE RE-RENDER LANDED, AND PHASE 5 GAINED A CRITERION
+
+**All five outputs rebuilt in 21.1 minutes** — V-MAIN 5.8 · ZOOM MASTER 9.1 ·
+crops ~1 · V-CUT 6.2. Faster than the 31 min the first pass took (65.4 fps against
+the earlier run's rate). Exit 0 throughout.
+
+Carrying all four decisions: the compositor fix · meters at `fillOpacity` 0.60
+(A1) · `--fade 5 --fadeMode cross` · cut seed 71.
+
+**PHASE 5, re-run — and this time it covers the animated layer.**
+
+| criterion | result |
+|---|---|
+| duration equality | all five **22 819 frames**; video spread **0.325 ms**; audio identical at 760.618 s |
+| A/V offset | `start_time 0.000000` on **both streams of all five** |
+| cut sources | expected source matches to **0.52–0.79 %**, wrong sources differ by **23–62 %** |
+| **the ANIMATED layer (NEW)** | meter in the film **(245,126,69)** vs the app's **(245,131,80)** |
+| the composer's eye | **open** |
+
+**The new criterion is the point of this whole day.** The old one read "spot frames
+vs the live app" and ran through `--dumpPage`, which writes the **static page
+only** — and the static page never passes through `composite()`, which is where
+the premultiply bug lived. `scratchpad/verify_film.js` now finds the cursor in a
+frame pulled out of the finished mp4, steps 11 px left to the meter, and compares
+its colour against what the browser draws. **It reads (245,126,69) where the app
+draws (245,131,80); before the fix the same pixel was (198,157,139).** The 11-unit
+blue gap is h.264 chroma subsampling on an 8 px saturated column, not error — the
+red channel matches exactly and the crescendo meter matches to 2 units.
+
+**Cut-source check, with controls, at three probes:**
+
+| t | expected | vs V-MAIN | vs V-TOP | vs V-BOT |
+|---|---|---|---|---|
+| 120 s | V-MAIN (wide) | **0.79 %** | 22.82 % | 25.71 % |
+| 155 s | V-TOP (close-up 2) | 54.18 % | **0.58 %** | 55.04 % |
+| 250 s | V-BOT (close-up 3) | 61.89 % | 55.13 % | **0.52 %** |
+
+The sub-1 % residual is the PHASE 4 decision showing up in the numbers, exactly as
+on day 36: V-CUT is first-generation and V-TOP/V-BOT are re-encodes of the zoom
+master. **Seed 71's boundaries are in the film.**
+
+**Everything is now closed except the composer's eye on V-CUT.**

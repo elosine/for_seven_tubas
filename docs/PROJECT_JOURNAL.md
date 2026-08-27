@@ -10,17 +10,17 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 36: **THE VIDEO IS BUILT.** PHASES 0–5 CLOSED
-### → but a COMPOSITOR BUG was found post-clear — **re-render required**
+### OPEN — day 36: **THE VIDEO IS BUILT, RE-RENDERED AND VERIFIED.**
+### → W1 and W2 both closed; the only thing left is the composer's eye
 
 **Five outputs in `notation/video/renders/`** (gitignored; regenerable):
 
 | | | frames |
 |---|---|---|
-| **V-CUT** 1920×1080 | 68.8 MB | 22 819 |
-| V-MAIN 1920×1080 | 69.4 MB | 22 819 |
-| ZOOM MASTER 1920×2160 | 100.7 MB | 22 819 |
-| V-TOP / V-BOT 1920×1080 | 64.4 / 67.0 MB | 22 819 |
+| **V-CUT** 1920×1080 | 67.5 MB | 22 819 |
+| V-MAIN 1920×1080 | 66.8 MB | 22 819 |
+| ZOOM MASTER 1920×2160 | 94.6 MB | 22 819 |
+| V-TOP / V-BOT 1920×1080 | 61.5 / 63.4 MB | 22 819 |
 
 **The whole pipeline is ~31 minutes of compute.** Rebuild with
 `notation/video/renders/phase3.sh` then `phase4.sh`.
@@ -45,11 +45,26 @@ measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
 **NEXT STEPS · MODEL · CLEAR** *(rewritten day 36 post-clear, after W1 steps 1
 and 2 came back and changed the picture)*
 
-**THE FIVE RENDERS ON DISK ARE SUPERSEDED.** Not broken — watchable, and every
-PHASE 5 number still stands — but their ANIMATED layer is composited wrong
-(W1, below). A full re-render is now required no matter which look is picked, so
-the old "shadow first, fade second, then ONE re-render" ordering still holds and
-there is no longer any way to avoid the 31 minutes.
+**THE FIVE RENDERS ON DISK ARE CURRENT** — rebuilt 2026-08-27 in **21.1 min**
+(V-MAIN 5.8 · zoom 9.1 · crops ~1 · V-CUT 6.2) and carrying all four decisions:
+the compositor fix, the morph meters at **`fillOpacity` 0.60 (A1)**, the transition
+at **`--fade 5 --fadeMode cross`**, and the cut at **seed 71**.
+
+**PHASE 5 re-run and now FOUR of five criteria pass by measurement** — one more
+than before, because the old proof had a gap:
+
+| | |
+|---|---|
+| duration equality | all five **22 819 frames**, video spread **0.325 ms**, audio identical at 760.618 s |
+| A/V offset | `start_time 0.000000` on **both streams of all five** |
+| cut sources | V-CUT matches its expected source to **0.52–0.79 %** and the wrong ones by **23–62 %** (t = 120 wide, 155 V-TOP, 250 V-BOT) |
+| **the ANIMATED layer** *(new)* | meter in the film **(245,126,69)** vs the app's **(245,131,80)**; it was (198,157,139) before the fix |
+| the composer's eye | **OPEN — the only thing left** |
+
+**Why the fourth row is new.** The old criterion was "spot frames vs the live
+app", run through `--dumpPage`, which writes the **static page only** — and the
+static page never goes through `composite()`. That is exactly where the bug was.
+The check now reads the meter colour straight out of the finished mp4.
 
 1. **DONE — the meter look is A1.** The composer picked `fillOpacity` **0.60** on
    both morph meters; it is in `container.json` (with the why in each `_note`) and
@@ -63,14 +78,16 @@ there is no longer any way to avoid the 31 minutes.
    render (ink per px: cross stays 39→33 flat, dip cuts a clean V to 4.2). The dip
    shows one source at a time. Window CENTRED on the boundary, so **no frame is
    inserted or dropped** and duration equality holds. 18 interior boundaries.
-3. **NEXT — ONE full re-render, then re-run PHASE 5.** `phase3.sh` then
-   `phase4.sh`, ~31 min; both scripts already carry every setting. **Opus**, and a
-   good clear point before it. *Everything upstream is now decided and committed:
-   the compositor fix, A1 at 0.60, and the 8-frame dip.*
-   **One thing the composer may want to settle first:** the cut SHAPE (seed 11 —
-   9 close-ups, 29.6 %, 22–27 s segments). `node tools/make_cut.js --seed N`
-   re-rolls it in a second, and doing it now costs nothing; after the render it
-   costs another 7 minutes.
+3. **DONE — the re-render landed and PHASE 5 was re-run.** 21.1 min, all five
+   outputs, four of five criteria pass by measurement (table above). The cut is
+   **seed 71**: 9 close-ups, 30.2 %, **BLOOM 2 · CONVERGENCE 2 · BALANCE 2 ·
+   TRANCE 2** plus one in the INT2 blasts, opens wide 85 s, closes wide 82 s.
+   Seed 11's list is kept at `notation/video/probe/cut-list-seed11-backup.json`.
+
+**▶ THE ONLY THING OPEN: the composer watches `notation/video/renders/V-CUT.mp4`.**
+   PHASE 5's fifth criterion. Nothing downstream depends on it, and no tool can do
+   it. If something is wrong, the knobs are all one flag: `--fade N`,
+   `--fadeMode dip|cross`, `make_cut.js --seed N`, `fillOpacity` in the registry.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:
