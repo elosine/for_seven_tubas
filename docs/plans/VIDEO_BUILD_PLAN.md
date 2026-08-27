@@ -72,17 +72,11 @@ Nothing can be muxed until one master WAV exists, and it is also the only way to
 prove sync before spending hours on frames.
 
 - ~~**0.1** export the MIDI~~ **DONE day 36** — `midi/piece-final-draft-001.mid`, **21 tracks (tempo + T1, T1b … T10, T10b)**, 4481 notes (matching the score and the page exactly), 25 755 CC, 4408 bends, 751.92 s. Read-back verified against the compiled events.
-- **0.2** *(composer)* Reaper render at **60 BPM**, one stereo WAV, no leading
-  silence → `notation/audio/<scoreName>.wav`
-  - **SETTLED day 36:** `db1` was rebuilt against `piece-final-draft-001`, so the
-    MIDI, the page and the audio all name one save. **Save the render as
-    `notation/audio/piece-final-draft-001.wav`** and the `♪ render` button
-    finds it.
-- **0.3** verify: duration ≈ **751.42 s**, first attack at **2.00 s**, and the
-  MIDI's own last event matches. One measurement, not a listen.
-- **0.4** **the sync proof**: open MAIN DRAFT in the app, hit `♪ render`, play.
-  If the cursor tracks the sound here, every export inherits it. *Do this before
-  Phase 2 — it is cheap and it de-risks everything.*
+- ~~**0.2** Reaper render at 60 BPM~~ **DONE day 36** — `notation/audio/piece-final-draft-001.wav`, **2 ch / 48 000 Hz / 24-bit, 762.000 s**. Session at `TEMPO 60` with one envelope point; 20 MIDI items one per Tuba track, all `POSITION 0`. *The first render clipped (**Peak +4.2 dBFS, Clip >999**) because the pre-flight measured the trance crescendo — sustained loudness, not transient peak; master −6 → **−13.5** fixed it. Plain gain, no limiter: LRA 19.8 is the piece.*
+- ~~**0.3** verify duration / first attack~~ **DONE day 36** — measured off the PCM, not listened to: data 219 456 000 B → **762.000 s exactly**; **digital silence until 2.0319 s** against `db1`'s first onset **2.0000 s**. The **32 ms** is the sampler's leading transient, constant, not drift.
+- ~~**0.4** the sync proof~~ **DONE day 36** — composer, on MAIN DRAFT with the render attached: *"sync is very good"*. The auto-detect handshake is live (`GET /api/notation/renders` → the file; `db1.source.score` names the same save).
+
+**PHASE 0 IS CLOSED.**
 
 ## PHASE 1 · DECIDE — before building (see "Decisions" below)
 

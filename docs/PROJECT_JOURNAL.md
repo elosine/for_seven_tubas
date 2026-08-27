@@ -10,6 +10,51 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### OPEN — day 36 (Opus): PHASE 0 IS CLOSED · THE TEMPO NUMBERS ARE DECIDED
+
+**THE PIECE HAS AUDIO.** `notation/audio/piece-final-draft-001.wav` — 2 ch /
+48 000 Hz / 24-bit, **762.000 s exactly**, no clipping. Rendered from Reaper at
+**60 BPM** (the MIDI is 60 BPM / 960 PPQ, one beat = one second). WAVs there are
+gitignored. **Composer on MAIN DRAFT with it attached: *"sync is very good"*.**
+
+**0.3 is measured, not listened to:** the file is digital silence until
+**2.0319 s** and `db1`'s first onset is **2.0000 s** — the 32 ms is the
+sampler's leading transient, **constant, not drift**. All four PHASE 0 items done.
+
+**THE FOUR TEMPO NUMBERS ARE DECIDED** (composer: *"you can update the tempo
+numbers"*). `PRINT_MEASURED = true`. **The accelerando now reads
+♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120** — supersedes the
+authored 93.8/100/107.1/113.2 wherever this journal states it. Both pages
+rebuilt from their own `provenance.build`; **`db1` still 4481 events / 906
+chunks / 4358 overlays, VALID**, and the entire diff is **41 `bpm` values + the
+provenance date** — no event, chunk, or other overlay moved.
+
+**THE MORPH DOT IS OFF AGAIN.** `curveFollower` came back in MAIN DRAFT because
+`notate_section.js`'s `--morph` FOLD never wrote `doc.animated` — only its
+`--trance` block did. Fixed in the builder, so rebuilds carry it. *Pattern worth
+keeping: a per-page opt-out written by the standalone builder is invisible to the
+folding builder.*
+
+**`test_notate_block` was RED at HEAD** (15/65) for the reason §2 already named —
+it hardcoded `piece-s28` while `db1` names `piece-final-draft-001`. Bumped:
+**65 passed, 0 failed.** Batteries green: layout · animobj · render · multitempo · notate_block.
+
+**NEXT STEPS · MODEL · CLEAR**
+1. **PHASE 1 · DECIDE** — the video decisions in `docs/plans/VIDEO_BUILD_PLAN.md`.
+   Judgment work. **Clear first; Fable if available, else Opus.**
+2. **PHASE 2.1 · rasterizer proof** — one busy trance frame, SVG → PNG. Executing a
+   written plan: **Opus**, clear before it.
+
+**Pending the composer:** DB3-EYE verdicts · PAPER topic picks · the two cover
+nits (block sits high; subtitle at 0.65 may want 0.55). *(The four tempo numbers
+are OFF this list — decided day 36.)*
+
+**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (composer's rack) ·
+`reaper/Bloom-Convergence-Balance_demoRecording.rpp` (the session that produced
+the render) · `scores/Litany.pdf`. **Say if any should be committed.**
+
+---
+
 ### OPEN AT SESSION END — day 36 (Opus): THE TRANCE IS CLOSED, THE PIECE IS IN ONE FILE
 
 **THE TRANCE SECTION IS FINISHED AND FOLDED.** The composer's last fix — the
@@ -47,7 +92,7 @@ from earlier: the four tempo numbers (PS2/PS3/PS4/PS5 — the page prints the
 authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4;
 `PRINT_MEASURED` in `trance_overlays.js` flips it).
 
-**Pending the composer:** the four tempo numbers · DB3-EYE verdicts · PAPER
+**Pending the composer:** ~~the four tempo numbers~~ *(DECIDED day 36 — measured)* · DB3-EYE verdicts · PAPER
 topic picks · the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
 
 **Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (the composer's Reaper

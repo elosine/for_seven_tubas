@@ -1160,6 +1160,16 @@ if (flag('bricks')) {
     console.log('  --morph ' + gid + ': ' + built.length + ' parts, ' + dev + ' go-line events, ' + other
       + ' curve/header overlays  (displacement ' + built.map(b => b.extent.toFixed(0)).join('/') + ' c)');
   }
+  // THE DOT OFF (day 36 — the FOLD's regression, found on MAIN DRAFT).
+  // The standalone morph pages have carried curveFollower:false since day 35
+  // (notate_morph.js line 212; composer: "I want the meters. I don't want the
+  // dots.") but the fold never wrote it, so the dot came back the moment the
+  // morphs landed in MAIN DRAFT. curveFollower is pushed only for morphBend
+  // objects, so this switches off nothing outside the morph sections.
+  // NOT envFollower, which the morph pages also switch off: those pages are
+  // morph-only, this one is the whole piece, and envFollower is the layer-10
+  // META dot the composer may want elsewhere (it draws only with META on).
+  if (groups.length) doc.animated = Object.assign({}, doc.animated, { curveFollower: false });
 }
 
 // THE TRANCE SECTION (day 35; REWRITTEN day 36 to the composer's redirect).
@@ -1238,7 +1248,11 @@ if (flag('bricks')) {
           + ': authored ' + m.authored + ', measured ' + m.measured
           + (m.driftMs != null ? '  — the authored grid is ' + m.driftMs + ' ms off the material by the end of the segment'
              + (m.driftMs > 30 ? ' (over one notehead at page scale)' : ' (under one notehead)') : ''));
-      console.log('     ***** the AUTHORED value is what gets printed; flip PRINT_MEASURED in trance_overlays.js to change that *****');
+      // day 36: this line said AUTHORED unconditionally and kept saying it
+      // after the flip — a tool reporting the opposite of what it just wrote.
+      console.log(b.printMeasured
+        ? '     ***** the MEASURED value is what gets printed (PRINT_MEASURED = true) *****'
+        : '     ***** the AUTHORED value is what gets printed; flip PRINT_MEASURED in trance_overlays.js to change that *****');
     }
     doc.hideMarkers = true;      // the score's beat numbers and structural labels are working marks, not notation
     // THE PIES OFF (day 36, composer: "there are the animated pies showing up

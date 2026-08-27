@@ -22,7 +22,7 @@
  },
  "provenance": {
   "createdBy": "tools/notate_section.js (profile section1) --bricks",
-  "date": "2026-08-26",
+  "date": "2026-08-27",
   "tool": "tools/notate_section.js (profile section1) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
   "build": "node tools/notate_section.js --score piece-s28 --w0 499 --w1 753 --parts 0-9 --profile section1 --id trance-a4 --bricks --trance grp-tranceA4-01 --label \"TRANCE A4 — 500-751 s\""
@@ -199289,7 +199289,7 @@
     "part": 9
    },
    "value": {
-    "bpm": 90
+    "bpm": 89.9
    },
    "provenance": "authored"
   },
@@ -199889,7 +199889,7 @@
     "part": 0
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199901,7 +199901,7 @@
     "part": 1
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199913,7 +199913,7 @@
     "part": 2
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199925,7 +199925,7 @@
     "part": 3
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199937,7 +199937,7 @@
     "part": 4
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199949,7 +199949,7 @@
     "part": 5
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199961,7 +199961,7 @@
     "part": 6
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199973,7 +199973,7 @@
     "part": 7
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199985,7 +199985,7 @@
     "part": 8
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -199997,7 +199997,7 @@
     "part": 9
    },
    "value": {
-    "bpm": 93.8
+    "bpm": 93.6
    },
    "provenance": "authored"
   },
@@ -200213,7 +200213,7 @@
     "part": 0
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200225,7 +200225,7 @@
     "part": 1
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200237,7 +200237,7 @@
     "part": 2
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200249,7 +200249,7 @@
     "part": 3
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200261,7 +200261,7 @@
     "part": 4
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200273,7 +200273,7 @@
     "part": 5
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200285,7 +200285,7 @@
     "part": 6
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200297,7 +200297,7 @@
     "part": 7
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200309,7 +200309,7 @@
     "part": 8
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200321,7 +200321,7 @@
     "part": 9
    },
    "value": {
-    "bpm": 100
+    "bpm": 100.2
    },
    "provenance": "authored"
   },
@@ -200441,7 +200441,7 @@
     "part": 0
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200453,7 +200453,7 @@
     "part": 1
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200465,7 +200465,7 @@
     "part": 2
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200477,7 +200477,7 @@
     "part": 3
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200489,7 +200489,7 @@
     "part": 4
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200501,7 +200501,7 @@
     "part": 5
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200513,7 +200513,7 @@
     "part": 6
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200525,7 +200525,7 @@
     "part": 7
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200537,7 +200537,7 @@
     "part": 8
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200549,7 +200549,7 @@
     "part": 9
    },
    "value": {
-    "bpm": 107.1
+    "bpm": 106.8
    },
    "provenance": "authored"
   },
@@ -200561,7 +200561,7 @@
     "part": 0
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200573,7 +200573,7 @@
     "part": 1
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200585,7 +200585,7 @@
     "part": 2
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200597,7 +200597,7 @@
     "part": 3
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200609,7 +200609,7 @@
     "part": 4
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200621,7 +200621,7 @@
     "part": 5
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200633,7 +200633,7 @@
     "part": 6
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200645,7 +200645,7 @@
     "part": 7
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200657,7 +200657,7 @@
     "part": 8
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },
@@ -200669,7 +200669,7 @@
     "part": 9
    },
    "value": {
-    "bpm": 113.2
+    "bpm": 113.4
    },
    "provenance": "authored"
   },

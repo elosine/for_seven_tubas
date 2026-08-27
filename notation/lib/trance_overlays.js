@@ -38,7 +38,11 @@
   // four segments (PS2/PS3/PS4/PS5) and the build says so, loudly: day 35's
   // tempoOf() rounded the inter-onset gap to 2 dp BEFORE inverting it, which
   // is where 93.8 / 100 / 107.1 / 113.2 came from. See the MISMATCH block.
-  const PRINT_MEASURED = false;
+  // FLIPPED day 36 (composer: "you can update the tempo numbers"). The
+  // authored four are a rounding artifact, the ball has always run on the
+  // measured grid, and at PS4 the authored 107.1 walked 44 ms off the notes -
+  // over one notehead at page scale. Mark and bounce now agree.
+  const PRINT_MEASURED = true;
 
   // ---------------------------------------------------------------------
   // THE PER-PART TEMPO MAP (plan §"THE PER-PART TEMPO MAP", verbatim)

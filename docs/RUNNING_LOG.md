@@ -14151,3 +14151,231 @@ SVG on the 732–744 s page of MAIN DRAFT, where the trance has no brackets at
 all. **All 50 sit at x ≈ −49 000 in an 855-wide viewport — zero inside.** They
 are Section-1 brackets emitted and then clipped: the tuplet text kind has no
 `inWin` guard where other kinds do. Harmless, pre-existing, filed to NITS.
+
+---
+
+## Day 36 — PHASE 0.2 support: the Reaper import facts, and a trap in the rack
+
+**The composer asked how to set tempo and import the MIDI in Reaper.** That is
+PHASE 0.2 of `docs/plans/VIDEO_BUILD_PLAN.md` — the render that blocks the rest
+of the video build. The numbers that govern it, all from `tools/export_midi.js`:
+
+- **`midi/piece-final-draft-001.mid` is authored at 60 BPM / 960 PPQ** — one beat
+  = one second, one tick ≈ 1.04 ms. Track 0 is a conductor track carrying a
+  `0xFF 0x51` set-tempo at tick 0, so the map IS embedded.
+- **21 tracks:** tempo + T1, T1b … T10, T10b. The b-tracks are kept even when
+  empty so Reaper routing stays stable across exports.
+- **`reaper/Bloom-Convergence-Balance_demoRecording.rpp` is currently `TEMPO 120
+  4 4 0`** (line 69) — the Reaper default, and wrong for this file. At 120 every
+  duration is halved.
+
+### THE TRAP — the rack has 22 tuba tracks, not 20, and two pairs share a name
+
+Track order by `NAME` in the demo-recording project (and in `7_tubas_rack.rpp`
+identically — it is pre-existing, not something today introduced):
+
+    Tuba1/1b · 2/2b · 3/3b · 4/4b · 5/5b · 6/6b · 7/7b ·
+    Tuba8/8b · **Tuba8/8b again** · Tuba9/9b · Tuba10/10b · REC
+
+Two *distinct* tracks (GUIDs `{CC3799AF-…}` at line 9179 and `{96BA319D-…}` at
+line 10475) both read `Tuba8 SI2`; likewise the two `Tuba8b SI2`. **20 MIDI
+parts, 22 destination tracks.** Anything that maps the import positionally —
+"drop track N onto track N" — is correct through T8 and then silently one pair
+low from T9 on. Not touched: it is the composer's rack, and which of the two
+Tuba8 pairs is live is theirs to say.
+
+**Consequence for 0.2:** set the project tempo to 60 *manually* rather than
+relying on the import dialog honouring the embedded map, and check the T9/T10
+landing by ear or by name, not by position.
+
+---
+
+## Day 36 — PHASE 0.2 IS DONE: the render exists, and the clip that nearly shipped
+
+**`notation/audio/piece-final-draft-001.wav` — 219 456 690 bytes, no clipping.**
+The size is the proof of the bounds: 762.000 s × 48 000 Hz × 3 bytes × 2 ch =
+219 456 000, plus a 690-byte header. Exactly the custom range asked for.
+Rendered in **3:17 at 3.9× realtime**, full-speed offline — UVI Workstation
+streamed 20 tracks without a dropout, so 1x offline was never needed.
+
+### THE MEASUREMENT ERROR THAT COST A RENDER — sustained ≠ transient
+
+The pre-flight was: play the trance's final crescendo (~720 s, all ten at `fff`,
+the loudest-sounding moment in the piece), watch the master. It read **−7.4 dBFS
+with the master at −6**. AI's call, verbatim: *"You're clear — nothing to change.
+Render it. Even if some other moment is 6 dB louder than the trance crescendo, it
+lands at −1.4 and still doesn't clip."*
+
+**The first render came back Peak +4.2 dBFS, Clip >999.** Ten transient bands of
+red across the waveform — Section 1 and the morphs, plus one around 11:10–11:25.
+
+**The true peaks are 11.6 dB above the passage that was measured.** The reason is
+the distinction the pre-flight collapsed: the trance crescendo is *sustained*
+loud — ten parts holding — while the clipped hits are *simultaneous attacks*, ten
+parts landing on one instant. **Extrapolating a headroom budget from a sustained
+passage is measuring the wrong quantity.** LUFS-I was −14.8 and LRA **19.8**; a
+piece with 19.8 LU of range cannot have its peak inferred from any one passage.
+
+**Fix: master fader −6 → −13.5.** Plain gain, deliberately NOT a limiter — LRA
+19.8 is the composition, not a mixing problem. Second render: no clip.
+
+### The Reaper session, as it now stands
+
+- **`TEMPO 60 4 4 0`** and a tempo envelope with exactly one point, `PT 0.0 60.0`
+  — matching the file's 60 BPM / 960 PPQ, one beat = one second.
+- **20 MIDI items, one per Tuba track**, every one `POSITION 0` / `LENGTH 752`.
+- **The REC track is muted.** It carried `MAINSEND 1` *and* two `AUXRECV` from
+  tracks 0 and 1, so Tuba1/Tuba1b reached the master twice — about **+6 dB** over
+  the other nine — and it was armed with input monitoring (`REC 1 0 0 1`), open
+  to live-input bleed. One mute closed both.
+- **The duplicate Tuba8 pair: composer's, already handled.** It is real in
+  `7_tubas_rack.rpp` (23 tracks, two `Tuba8 SI2` and two `Tuba8b SI2` at track
+  level, distinct GUIDs) but they had removed it from the demo project before
+  importing — that file is 21 tracks, 20 tubas + REC, and the 20 items landed
+  1:1. *The earlier entry describing the demo project as carrying the duplicate
+  was reading the 13:20 copy; the composer saved at 13:57.*
+
+### The audio handshake is verified, not assumed
+
+`db1.ir.json` records `source.score: "piece-final-draft-001"`;
+`detectRender()` in `notation/app/notation.html` reads exactly that field and
+matches any `notation/audio/<name>.*`. The name on the save, the page and the WAV
+are one string, so the **`♪ render`** chip will appear on MAIN DRAFT.
+
+**Next: 0.4, the sync proof.**
+
+---
+
+## Day 36 — 0.4 SYNC PASSES · and the morph dot that came back with the fold
+
+**The sync proof is good.** Composer, on MAIN DRAFT with the render attached:
+*"sync is very good"*. **PHASE 0 is closed** — audio exists, the page's clock
+slaves to it, and the ball lands with the sound across 12½ minutes.
+
+### The dot: identified, and the regression's mechanism named
+
+Composer, same sitting: *"that little green ball in the morph section is still
+appearing we had suppressed it before but it is back, when a tuba is meant to be
+playing it flashes on could we suppress it please."*
+
+**It is `curveFollower`** — animobj.js: *"dot at the SOUNDING pitch height while
+the morph plays"*. Pushed only for `o.morphBend && o.layer <= 9`, so it exists in
+the morph sections and nowhere else, and it lives exactly as long as its object
+sounds. That is the "flashes on when a tuba is meant to be playing."
+
+**Why it came back — the fold dropped the switch.** The opt-out is the day-35
+`ir.animated` block (`animobj.collect`'s `kindOn` filter). The `animated` blocks
+across the pages say the whole story:
+
+| page | `animated` |
+|---|---|
+| `morph-bloom` / `-converge` / `-balance` / `-x01` | `curveFollower:false · envFollower:false · lineWedge:false` |
+| `trance-a4` | `motivePie:false · lineWedge:false` |
+| **`db1` (MAIN DRAFT)** | **`motivePie:false · lineWedge:false`** |
+
+`notate_morph.js` line 212 writes the morph opt-out on the STANDALONE pages.
+`notate_section.js` writes `doc.animated` **only in its `--trance` block** — the
+`--morph` fold block never wrote one. **So MAIN DRAFT inherited the trance page's
+two switches and none of the morph page's**, and the dot returned the moment the
+morphs were folded in. Nobody un-suppressed anything; the suppression simply had
+no path into the fold.
+
+*Worth keeping as a pattern: a per-page opt-out written by the standalone builder
+is invisible to the folding builder. The three morph pages and MAIN DRAFT drew
+the same music with different animation because the two tools wrote different
+metadata — the very drift `morph_overlays.js` was made to prevent, reappearing
+one level up, in the page envelope rather than the notation.*
+
+### The fix, and what was deliberately left alone
+
+- **`tools/notate_section.js`** — the `--morph` fold now writes
+  `{ curveFollower: false }`, guarded on `groups.length`.
+- **`notation/ir/db1.ir.json`** — patched in place so it takes effect without a
+  4481-event rebuild. **The diff is one line out of 414 699**; re-validated
+  **VALID, 4481 events / 906 chunks / 4358 overlays** — the same three numbers as
+  before. Confirmed served by the running server, not just on disk.
+- **`envFollower` deliberately NOT switched off**, though the morph pages do.
+  Those pages are morph-only; MAIN DRAFT is the whole piece, and `envFollower` is
+  the layer-10 META dot, which may be wanted elsewhere. It draws only with META
+  checked, so it was never what the composer was seeing.
+
+**The schema did not bite this time** (it has bitten five times — see the
+`_kindNote` trail). `animated` is declared `additionalProperties: {type: boolean}`,
+so any kind name is already legal in the file. No schema edit, no rejected write.
+
+---
+
+## Day 36 — the four tempo numbers decided · 0.3 measured · PHASE 0 CLOSED
+
+**Composer: *"you can update the tempo numbers."*** `PRINT_MEASURED` flipped to
+`true` in `notation/lib/trance_overlays.js`. **The page now prints what the
+material measures, and the mark agrees with the bounce for the first time.**
+
+**The accelerando's canonical reading changes** — anywhere the journal says
+`75 → 80 → 87 → 93.8 → 100 → 107.1 → 113.2 → 120`, it is now:
+
+> **♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**
+
+*Why measured wins: the authored four were a rounding artifact — day 35's
+`tempoOf()` rounded the inter-onset gap to 2 dp BEFORE inverting (0.641 s → 0.64
+→ 60/0.64 = 93.75 → "93.8"). The ball has always run on the measured grid, because
+its job is to land on notes; at the authored 107.1 it would have walked **44 ms**
+off them, over one notehead at page scale. The printed number was the only thing
+still disagreeing.*
+
+### The rebuild, and exactly what moved
+
+Both pages replayed from their own `provenance.build`. **`db1`: 4481 events, 906
+chunks, 4358 overlays, VALID** — the same three numbers as before the flip.
+
+**The whole diff against the pre-flip file is 180 lines, and every one is
+accounted for:**
+
+| change | count |
+|---|---|
+| `bpm` values on tempo overlays | **41** — 4 arrivals × 10 parts + seg17 T10 |
+| `provenance.date` | 1 |
+| `animated` key order / `hideMarkers` comma | cosmetic |
+
+**Not one event, chunk, or non-tempo overlay changed.** The 159 tempo overlays
+are otherwise untouched, and `93.8` / `113.2` / `90` now appear **zero** times
+(the surviving `100 ×1` and `107.1 ×2` are MT-lattice values, not arrivals).
+
+**The morph dot fix rode along correctly:** the rebuilt `db1` carries
+`animated: {curveFollower:false, motivePie:false, lineWedge:false}` **generated by
+the patched builder**, so the hand-patch is now redundant, which is what it was
+meant to become.
+
+### Two tools that were lying, one fixed here
+
+`notate_section.js` printed `***** the AUTHORED value is what gets printed *****`
+**unconditionally** — it kept saying AUTHORED after the flip, while line 1228 of
+the same function correctly printed `[PRINTING THE MEASURED VALUES]`. **A tool
+reporting the opposite of what it just wrote.** Now conditional on
+`b.printMeasured`. *(Same class as the day-35 label bugs: trust the data, measure
+the labels.)*
+
+### `test_notate_block` was red at HEAD, and §2 had already named the reason
+
+**15 of 65 failing** — and **not from today's work**: `git show HEAD:` confirms
+`db1.ir.json` has named `piece-final-draft-001` since the day-36 commit, while the
+test still hardcoded `const SCORE = 'piece-s28'`. §2's own warning: *"`test_notate_block`
+hardcodes the score name — bump it with the save file or it goes red."* Bumped.
+**65 passed, 0 failed.** Safe to bump: the test only READS `scores/<SCORE>.json`
+and writes to temp scores (`nb-blast-tmp`, `wtmp`), never to the named save.
+
+Batteries after: `test_layout` GREEN · `test_animobj` GREEN · `test_render` GREEN ·
+`test_multitempo` 90/90 · `test_notate_block` 65/65.
+
+### 0.3 — MEASURED, not listened to
+
+Read straight off the WAV's RIFF chunks and PCM frames:
+
+- **2 ch · 48 000 Hz · 24-bit**, data 219 456 000 bytes → **762.000 s exactly**
+- **the file is DIGITAL SILENCE until 2.0319 s**, graded thresholds agreeing
+  (1e-6 → 2.0326 · 1e-5 → 2.0395 · 1e-3 → 2.0668)
+- **`db1`'s first onset is 2.0000 s.** So the render begins **32 ms** after the
+  authored onset — **the sampler's leading transient, and CONSTANT, not drift.**
+  Independent confirmation of the composer's ear: *"sync is very good."*
+
+**PHASE 0 IS CLOSED.** 0.1 export · 0.2 render · 0.3 measurement · 0.4 the ear.

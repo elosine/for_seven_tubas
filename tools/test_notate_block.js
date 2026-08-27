@@ -51,7 +51,7 @@ const NS = path.join(ROOT, 'tools', 'notate_section.js');
 // BUMP THIS WITH THE SAVE FILE. The block guard refuses to notate into an IR
 // extracted from a different score, so a bump leaves this battery red until
 // the name follows (day 35: s27 -> s28).
-const SCORE = 'piece-s28';
+const SCORE = 'piece-final-draft-001';   // day 36: bumped with the save file (SAVE_FILES rule) — db1 names this one
 const GOLDEN_ID = 'nb-golden-tmp';
 const goldenPath = path.join(ROOT, 'notation', 'ir', GOLDEN_ID + '.ir.json');
 
