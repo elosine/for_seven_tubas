@@ -15151,3 +15151,47 @@ seed 11 and sent. **Awaiting the composer's pick.**
 *Note for the paper: the numbers were identical across every candidate by
 construction, so a table could not decide this. Drawing the same data against the
 piece's own sections turned an unrankable random choice into a stated trade-off.*
+
+### day 36 (post-clear) — SEED 71 CHOSEN, THE FULL RE-RENDER IS RUNNING
+
+**Composer: *"71"*.** `notation/video/cut-list.json` rebuilt with
+`tools/make_cut.js --seed 71`. Seed 11's list kept at
+`notation/video/probe/cut-list-seed11-backup.json` (gitignored) in case of regret.
+
+**Seed 71 as built — 9 close-ups, 227.3 s = 30.2 %:**
+
+| # | span | len | source | lands in |
+|---|---|---|---|---|
+| 1 | 1:24–1:51 | 26.7 | V-TOP | INT2 blasts |
+| 2 | 2:22–2:49 | 27.6 | V-TOP | BLOOM |
+| 3 | 3:55–4:20 | 24.9 | V-BOT | BLOOM + CONVERGENCE |
+| 4 | 4:46–5:06 | 20.1 | V-BOT | CONVERGENCE |
+| 5 | 5:35–6:00 | 25.3 | V-TOP | CONVERGENCE |
+| 6 | 6:26–6:52 | 27.0 | V-BOT | BALANCE |
+| 7 | 7:54–8:20 | 26.0 | V-BOT | BALANCE + TRANCE |
+| 8 | 9:31–9:57 | 25.4 | V-TOP | TRANCE |
+| 9 | 10:46–11:10 | 24.3 | V-TOP | TRANCE |
+
+**By midpoint: BLOOM 2 · CONVERGENCE 2 · BALANCE 2 · TRANCE 2**, plus one in the
+INT2 blasts. Opens wide 85 s, closes wide 82 s. Wide stretches 26–71 s.
+TOP 5 / BOT 4.
+
+**Checked before spending 31 minutes:** a 4-second partial render across the FIRST
+NEW boundary (f=2540, t=84.67) with `--fade 5 --fadeMode cross` — 19 segments,
+18 five-frame crosses, clean exit. Cheap insurance; the cut list is new and the
+fade mode changed since the last full render.
+
+**Everything upstream is now settled and committed:**
+
+| | |
+|---|---|
+| compositor premultiply fix | committed |
+| morph meters — A1, `fillOpacity` 0.60 | committed |
+| transition — `--fade 5 --fadeMode cross` | committed |
+| cut shape — seed 71 | committed |
+
+**Running:** `phase3.sh` then `phase4.sh`, ~31 min, all five outputs. The previous
+five renders (370 MB, gitignored, regenerable) are overwritten by design.
+
+**After it lands:** re-run PHASE 5 — duration equality, A/V offset, spot frames —
+and then the one check no tool can do, the composer's eye on V-CUT.
