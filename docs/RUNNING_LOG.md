@@ -14800,3 +14800,76 @@ A wrong-source bug could not hide in this measurement.
 Whole-pipeline cost, measured end to end: **~31 minutes of compute** — 6.3 (V-MAIN)
 + 10.2 (zoom master) + ~1 (the two crops) + 7.0 (V-CUT) + the audio render's 3:17.
 The first estimate in the plan was 68 000 frames and hours per version.
+
+---
+
+## Day 36 — the composer's wish list, and the morph meters half-diagnosed
+
+**Composer, after the video was built:** *"the meters in the morph sections have
+some strange shadow. Sometimes they jump. And if we have time to re-render, let's
+build in some very quick and subtle transitions when they cut to the zoomed part.
+maybe a short fade. but the video looks fine if we run out of time to fix. just
+make note of these things... I'm not sure if it's part of the main original score
+or part of the video rendering."*
+
+**Recorded to a new `docs/WISHLIST.md`, deliberately NOT to NITS** — NITS holds
+deferred *defects* and by its own header needs no composer decision to be
+recorded. These are *wants*, scheduled against time rather than correctness. NITS
+now points at it.
+
+### The question they actually asked has an answer, and it is "neither"
+
+**The meters are drawn by `notation/lib/animobj.js`, which the app and the
+exporter BOTH call.** Their look is `container.json` → `animated.glissMeter` /
+`.crescMeter`; their levels are `ov.value.samples` on the IR. So it is the shared
+animation layer — not the score data, and not the video pipeline. **Whatever is in
+the video is on screen in the notation app at the same `t`.** Worth answering
+first, because it decides where a future fix goes.
+
+### The shadow — SEEN, and it is not a drawing bug
+
+Probed at **t = 200.0 s**, cropped 4x around the cursor. Both morph meters are
+present per lane: **glissMeter `#F04B00` in the top half, crescMeter `#99FF00` in
+the bottom**, each an outline box at full scale plus a fill rising from the
+bottom, **both at `fillOpacity: 0.3`**.
+
+**A 30 %-alpha bar takes its colour from what is behind it, and behind these the
+background CHANGES MID-METER** — pale pink gliss band, pale green cresc band,
+staff lines, plain paper, all passing behind one 8 px column. In the probe the
+green meter is bright limeGreen over paper and turns **grey-olive exactly where
+the pink band sits behind it.**
+
+**So the "shadow" is one bar reading as two colours, not anything drawn twice.**
+Three candidate fixes, all registry numbers and no code: raise `fillOpacity`
+toward 1.0 · put an opaque paper-white backing rect under the fill · keep the
+meters out of the banded half.
+
+### The jump — NOT diagnosed, but there is a measured prime suspect
+
+No frame pair showing a jump was captured, so this stays a suspect list.
+*(AI_METHODOLOGY: no clear evidence, no diagnosis.)*
+
+**Measured:** every meter carries **exactly 401 samples regardless of span**, and
+the morph spans run **42.0 to 122.4 s**:
+
+| samples/meter | span | **samples per second** | **seconds per sample** |
+|---|---|---|---|
+| 401, fixed | 42.0–122.4 s | **3.28–9.55** | up to **0.31 s** |
+
+At 30 fps that is **one authored value every ~9 frames.** The meters DO
+interpolate linearly, so a smooth curve stays smooth — but any corner in the
+underlying curve is quantised onto a 0.31 s grid.
+
+**The other candidate is not a defect:** the meters ride a fixed offset left of
+the cursor, so they jump at every **system turn** — 63 of them. That is the
+hard-cut design. One frame pair either side of a suspected jump settles which it
+is, in one measurement.
+
+### W2, the fade, is an addition and not a reversal
+
+PHASE 4.3 says *"hard cuts... Crossfades only if asked."* **This is the ask.**
+`--cut` already composites each frame from two full RGBA buffers and both caches
+are warm across a boundary, so a dissolve is a lerp between two frames already in
+hand — **~8 frames for "very quick and subtle", one V-CUT re-render at ~7 min;
+V-MAIN, the zoom master and the two crops untouched.** The one trap is PHASE 5's
+duration equality: blend ACROSS the existing boundary, never insert frames.

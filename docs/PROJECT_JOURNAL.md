@@ -50,6 +50,13 @@ measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
    **paper** (`docs/PAPER_OUTLINE.md` waits on topic picks). Both are judgment
    work: **Fable if available, else Opus.**
 
+**`docs/WISHLIST.md` is open** (day 36, new): **W1** the morph meters’ shadow —
+one 0.3-alpha fill over a background that changes mid-meter, in the SHARED
+`animobj` layer, so it is on screen in the app too, not a video artifact; its
+“jump” is NOT confirmed, but every meter carries 401 samples over spans up to
+122.4 s = **one value per ~9 frames**. **W2** a short fade into the close-ups —
+one V-CUT re-render, ~7 min, the other four untouched. **Neither blocks anything.**
+
 **Pending the composer:** V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
 the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
 

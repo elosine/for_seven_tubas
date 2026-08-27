@@ -7,6 +7,9 @@
 > Format: one bullet, what it is, why it's deferred. Delete when fixed.
 > Nothing here should ever need a decision from the composer to be recorded — only
 > to be scheduled.
+>
+> **Wants, as opposed to defects, live in `docs/WISHLIST.md`** (day 36) — things
+> the composer has asked for that are scheduled against time, not correctness.
 
 ## Open
 
