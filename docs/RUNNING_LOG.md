@@ -14379,3 +14379,171 @@ Read straight off the WAV's RIFF chunks and PCM frames:
   Independent confirmation of the composer's ear: *"sync is very good."*
 
 **PHASE 0 IS CLOSED.** 0.1 export · 0.2 render · 0.3 measurement · 0.4 the ear.
+
+---
+
+## Day 36 — 2.1 THE RASTERIZER PROOF: **resvg wins**, and Chrome's default would have fringed every glyph
+
+**Method.** Two real frames pulled from the LIVE APP (not re-derived in Node — that
+is 2.2's job, and mixing them would have made a port bug look like a rasterizer
+bug), both from MAIN DRAFT in `view=video`, META off, bricks off (D4):
+
+- **frame A — page 60/64, 700.6–712.6 s**: the PH6 arrival, ten lanes of quarter
+  notes, 20 visible text elements (T1–T10 + `= 120` ×10), 234 KB of SVG
+- **frame B — page 44/64, 514.6–526.6 s**: **`cuivré` ×4** — the accented glyph
+  the plan named — 418 KB of SVG
+
+*Both were transported out of the browser through a throwaway localhost sink
+rather than through the model's context: 650 KB of SVG would have cost ~200k
+tokens to read and re-emit. Worth remembering as a technique.*
+
+Chrome is the app's own engine, so **Chrome ≡ the live app** here — the comparison
+is honestly "does resvg match the app", with Chrome standing in as the reference.
+
+### 1 · THE TRAP — headless Chrome subpixel-antialiases text by default
+
+The first Chrome raster put **orange/blue colour fringes on every glyph** — LCD
+subpixel AA, visible at 6× on both `T1` and `= 120`. resvg's greyscale AA was
+clean. **On 30 fps video those fringes would crawl frame to frame.**
+
+Fixed by `--disable-lcd-text --font-render-hinting=none
+--disable-font-subpixel-positioning`, after which the glyphs match. **But it is
+invisible unless you look at 6× — the aggregate pixel metric barely moved (6.66 %
+→ 6.67 % differing) because a luminance diff partly cancels colour fringing.**
+*The number would have passed this build. The picture is what caught it.*
+
+### 2 · FIDELITY — equivalent, resvg marginally heavier
+
+| region | differing px (>8/255) | mean abs Δ | resvg ink vs Chrome |
+|---|---|---|---|
+| frame A whole | 6.67 % | **1.31** | +9.2 % |
+| frame A · T1–T10 labels | 3.05 % | 0.63 | +4.4 % |
+| frame A · tempo marks | 8.78 % | 1.73 | +14.0 % |
+| frame B whole | 7.70 % | **1.47** | +13.1 % |
+| frame B · notation, no text | 7.77 % | 1.48 | +14.3 % |
+
+**Mean luminance difference is ~1.3–1.5 out of 255.** The extra resvg ink is
+*darker antialiasing on thin strokes*, not shifted or missing ink — confirmed by
+eye at 6× on sharps, noteheads, stems, ledgers and the `é`. Glyph shapes,
+positions and coverage agree.
+
+### 3 · SPEED — this is what decides it
+
+| | per frame | 22 500 frames | ×3 renders |
+|---|---|---|---|
+| **Chrome, process per frame** | **662 / 683 / 669 ms** | 4.2 h | **12.5 h** |
+| **resvg, in process** | **172.0 / 175.2 ms** | 65 min | **3.2 h** |
+
+A persistent Chrome driven over CDP would close much of that — **but it needs
+puppeteer or a hand-rolled CDP client, in a repo that has `package.json`: none and
+`node_modules`: empty.**
+
+### 4 · resvg's 172 ms is mostly avoidable — the 2.2 design falls out of the profile
+
+    parse 130.8 ms   render 13.1 ms   pngEncode 28.1 ms      (frame A)
+    parse 124.7 ms   render 19.4 ms   pngEncode 31.1 ms      (frame B)
+
+**Rendering is 13–19 ms. Parsing the SVG string is 76 % of the cost.** Two
+consequences for 2.2:
+
+1. **Don't encode PNG** — pipe `render().pixels` as raw RGBA into ffmpeg
+   (`-f rawvideo -pix_fmt rgba`). −28 ms/frame, and it is what the plan already
+   wanted for a different reason.
+2. **The static notation is IDENTICAL for all 360 frames of a 12 s page.** Only
+   `animobj.frameSvg(t)` changes. Rasterize each page's notation **once** (64
+   pages ≈ 11 s total) and composite the tiny overlay per frame — the 131 ms
+   parse collapses to ~1 ms. **This is the single biggest lever in Phase 2 and it
+   was not in the plan.**
+
+### 5 · THE FONT TRAP, recorded before it bites
+
+Windows has **`CrimsonPro-VariableFont_wght.ttf` installed system-wide**, family
+`Crimson Pro`. The app asks for **`Crimson Pro Light`** and supplies it itself via
+`@font-face` from `notation/app/fonts/CrimsonPro-Light.ttf`. **A rasterizer left to
+resolve by system font would silently pick the variable face at weight 400 instead
+of the static Light 300.** So: `loadSystemFonts: false` and the repo TTFs passed
+explicitly — which is how these runs were done.
+
+### VERDICT — **resvg** (`@resvg/resvg-js`)
+
+Equal fidelity, ~4× faster today and ~10× faster after the page-cache, no browser
+process, deterministic. **One thing for the composer: this would be the repo's
+FIRST dependency** — 2 packages, a prebuilt native binary, currently installed
+only in the scratchpad. Vendoring it (or adding a `package.json`) is a decision,
+not a detail.
+
+---
+
+## Day 36 — 2.2 `tools/export_video.js` — and the Node port is PIXEL-IDENTICAL to the app
+
+**`node tools/export_video.js --ir db1 --view video --fps 30 --audio <wav> --out <mp4>`**
+exists and works. Layout + render give the static page, `animobj.frameSvg(t)`
+gives the moving layer, the two are composited and piped as raw RGBA straight
+into ffmpeg's stdin. No staged PNGs.
+
+### THE PROOF THAT MATTERS — 0 differing pixels, twice
+
+The risk in this whole phase was that the Node path would draw *almost* what the
+composer approved on screen. So before rendering anything, both pages were pulled
+out of the RUNNING APP and rasterized beside the Node output through the same
+resvg with the same fonts:
+
+| page | window | differing pixels | max channel Δ |
+|---|---|---|---|
+| **59** — the PH6 arrival | 700.63–712.63 s | **0 of 2 073 600** | **0** |
+| **43** — `cuivré` ×4 | 514.63–526.63 s | **0 of 2 073 600** | **0** |
+
+**Pixel-for-pixel identical.** Not "close", not "within tolerance" — the same
+image. `--dumpPage N` was added to the tool so this check is repeatable, and it
+is 2.4's evidence, not a one-off.
+
+### THE PAGE-TURN RULE — the thing that would have silently produced a different film
+
+**Pages do NOT tile at 12 s.** `planPages` breaks on musical rules and the window
+is then a fixed `pageSeconds` span from `p.t0`, so page *n+1* usually starts
+EARLIER than page *n* ends — 16 pages apart, 44 → 60, is 186.0 s, i.e. **11.625 s
+of advance per 12 s window**. That overlap is what `p.reshow` re-draws.
+
+`notation.html drawOverlayFrame()` holds a page until `t` reaches
+`min(window[1], srcEnd)` and then hard-cuts. **So the exporter builds the turn
+spans by replaying that rule, not by dividing `t` by 12.** Dividing would have
+drifted a third of a second per page against the app — 64 pages of accumulating
+wrongness, and nothing would have looked obviously broken.
+
+### THE PAGE CACHE — 2.1's profile turned into the design
+
+2.1 measured resvg at 172 ms/frame of which **131 ms was parsing** the page SVG.
+The static page is constant for every frame of a page; only the overlay moves.
+So the page is rasterized ONCE and each frame composites a small overlay over the
+cached pixels (source-over, straight alpha, in JS).
+
+**Measured on a 20 s export, 700–720 s, crossing a page turn:**
+
+    600 frames · 3 page rasters · 57.5 fps · 0.2 min
+
+**57.5 fps is nearly 2× realtime.** Extrapolated to a full render:
+**22 500 frames ≈ 6.5 minutes** — against 2.1's un-cached resvg estimate of 65
+min and headless Chrome's 4.2 hours. **~39× faster than the Chrome route.**
+
+### The output, verified with ffprobe, and DETERMINISTIC
+
+`h264 1920×1080, 30/1 fps, nb_frames 600, duration 20.000000 s exactly`, audio
+`aac 48 000 Hz stereo`. **Two runs of the same span produced byte-identical mp4s
+(md5 `6457c291…` both times)** — 2.4's determinism criterion, met.
+
+A frame lifted back out of the mp4 shows all of it composited correctly: ten
+lanes, the `ppp → fff` surges, the PH6 bar lines with `♩ = 120` in every lane, the
+staccato quarters, the magenta cursor, the pink balls, the limeGreen curveMeters
+riding left of the cursor.
+
+### Also settled here
+
+- **The repo has its FIRST dependency** — `package.json` + `@resvg/resvg-js`.
+  Checked before doing it: **no no-dependency principle exists** in
+  PROJECT_JOURNAL, AI_METHODOLOGY or CLAUDE.md, and **`.gitignore` line 1 already
+  read `# Node (future)`** with `node_modules/` under it. The repo had been
+  waiting for this.
+- **`notation/video/**` renders are gitignored** (mp4/png/rgba + the test and
+  probe dirs). `cut-list.json` stays committed — it is small, seeded, reproducible.
+- **`--probe t1,t2,…`** writes single frames as PNG, and **`--dumpPage N`** writes
+  one static page SVG. Both exist for verification, not for the render path.

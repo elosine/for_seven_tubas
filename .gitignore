@@ -40,3 +40,11 @@ probes/last_bend_analysis.json
 # copyrightable at all; only the font software is.
 # The cover face is Bitstream's EngraversGothic BT -- see docs/FONTS.md.
 fonts/
+
+# Video renders — derivable from tools/export_video.js + the WAV, and huge.
+# notation/video/cut-list.json IS committed (small data, seeded, reproducible).
+notation/video/**/*.mp4
+notation/video/**/*.png
+notation/video/**/*.rgba
+notation/video/test/
+notation/video/probe/

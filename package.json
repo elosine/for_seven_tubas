@@ -1,0 +1,11 @@
+{
+  "name": "for-seven-tubas",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bloom — Convergence — Balance, for Tuba Ensemble. Composition system, notation engine and video exporter.",
+  "license": "SEE LICENSE IN LICENSE",
+  "_note": "The FIRST dependency in this repo (day 36). Everything else — score server, sandbox, notation engine, every tool — is dependency-free Node and stays that way. resvg is here because PHASE 2.1 measured it: it rasterizes a 1920x1080 notation frame in 172 ms against headless Chrome's 665 ms per process, at equal fidelity. See RUNNING_LOG day 36 for the proof.",
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
