@@ -848,6 +848,45 @@ routing and instrument rack now."
 *(→ Repo seeded from piece #3's stack: 7-track composer on :5200, sandbox on :4700,
 instruments skeleton with ports `Tuba1`…`Tuba7`. Sample library TBD → survey next.)*
 
+## 2026-08-27 (day 37) — **THE ABSTRACT'S FORMAT, dictated** (verbatim)
+
+*Composer: "Please document verbatim and no need for commentary or analysis at
+this time. This is just a dictation to plot the format of the abstract."
+**Filed as given; no evaluation.***
+
+"Introduction. will be naming passages specific. at three minutes and forty five
+seconds in BCB. B. Ten tubas are playing. in a complex rhythmic web, you are
+actually playing the same tempo Each part just rhythmically offset from the
+other. etcetera, etcetera. at two minutes and thirty seven seconds. There's an
+intricate counterpoint of acoustic beating. Created by pairs of tubas. very
+gradually navigating tiny Pitch intervals. described in sense. only describable
+in c e n t s. then it moves from the specific to the general. I created a
+animated notation system that uses simple animated devices as musical notation.
+and it runs in a web browser like a video game. So the video game is the metaphor
+here. These simple devices have been enabling. they have allowed me me to pursue
+and explore. interesting musical structures. A piece consists of three sections.
+The first has synacus like structures, clouds filled with are shaped using small
+musical grains. The second section pursues musical structures developed in the
+music of Alvin Lucie. using acoustic beating as the primary material. And then
+the third section, builds on the work of Steve Reich. and Conland Nantero.
+Employing. phase shifted pulses and simultaneous parts playing in multiple
+tempos. All these musical structures were enabled by the animated notation
+system, and remain in my estimation imminently playable. The animated notation
+system also allowed me to utilize these different musical techniques. the fine
+degree of control and refinement."
+
+*Proper nouns for the revision pass, NOT applied: "synacus" → **Xenakis** ·
+"Alvin Lucie" → **Alvin Lucier** · "Conland Nantero" → **Conlon Nancarrow** ·
+"imminently" → **eminently** · "described in sense" → **cents** (spelled aloud).*
+
+*New to the record here, recorded without comment: **Conlon Nancarrow** as a
+named precedent · the **video-game / web-browser** metaphor for the notation
+system · the three sections characterised as **Xenakis grains / Lucier beating /
+Reich + Nancarrow phase and multitempo** · two timestamped passages, **3:45**
+and **2:37**.*
+
+---
+
 ## 2026-08-27 (day 37) — **THE RESET: the paper is about the MATERIALS, and animated notation is the key** (verbatim)
 
 *Composer's own words, filed at their request — "so I can come back to it."

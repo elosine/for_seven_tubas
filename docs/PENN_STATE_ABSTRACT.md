@@ -12,7 +12,41 @@
 
 ---
 
-# ⭐⭐ DRAFT D — the live draft (day 37) — **294 words**
+# ⭐⭐⭐ THE FORMAT, AS DICTATED (day 37) — the current plan
+
+> **Composer's dictation, verbatim in `COMPOSER_LOG.md` day 37.** Filed at their
+> instruction with **no commentary or analysis**. This plots the abstract's
+> format and supersedes DRAFT D's arrangement below.
+
+**The shape, as dictated:**
+
+1. **Open on two specific passages, by timestamp**
+   - **3:45** — ten tubas in a complex rhythmic web; actually all one tempo,
+     each part rhythmically offset from the others
+   - **2:37** — an intricate counterpoint of acoustic beating, made by pairs of
+     tubas very gradually navigating tiny pitch intervals, only describable in
+     **cents**
+2. **Move from the specific to the general**
+3. **The system** — an animated notation system using simple animated devices as
+   musical notation, running in a web browser **like a video game**
+   *(the video game is the metaphor)*
+4. **The devices have been enabling** — they allowed the composer to pursue and
+   explore interesting musical structures
+5. **The three sections**
+   - **Xenakis**-like structures — clouds shaped using small musical grains
+   - **Alvin Lucier** — acoustic beating as the primary material
+   - **Steve Reich and Conlon Nancarrow** — phase-shifted pulses and
+     simultaneous parts in multiple tempos
+6. **All enabled by the system — and eminently playable**
+7. **And it allowed these techniques to be used with a fine degree of control
+   and refinement**
+
+*Proper nouns to fix at the revision pass: Xenakis · Lucier · Nancarrow ·
+eminently.*
+
+---
+
+# DRAFT D — superseded in arrangement by the dictation above (day 37) — **294 words**
 
 > **Frame D chosen by the composer:** demonstrate → puzzle → explain →
 > generalize. Kobayashi set aside for now (may or may not return; the frame does
