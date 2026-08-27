@@ -7,12 +7,76 @@
 > Facts + past selections: `docs/PENN_STATE_RESEARCH.md` § the symposium side.
 > Source outline: `docs/PAPER_OUTLINE.md` § INTRO.
 >
-> **Status: DRAFT A, day 37 (2026-08-27), awaiting the composer.**
+> **Status: DRAFT B is the live draft** — the composer's own, day 37. DRAFT A
+> (the AI's) is kept below it as a parts bin, not as a competitor.
 
 ---
 
-## DRAFT A — the Kobayashi opening (**277 words** measured; 284 if standalone
-## em-dashes are counted as tokens. Title adds 9. Room to grow ~15.)
+# DRAFT B — THE COMPOSER'S OWN, day 37 (2026-08-27) — **VERBATIM, 204 words**
+
+> *Typed by the composer in full. Preserved exactly as written — including
+> capitalisation and punctuation — per the repo's verbatim rule. Copy-edits are
+> listed below the text and have NOT been applied.*
+
+In 2001 Takeru Kobayashi revolutionized competitive eating. He didn't achieve
+this by eating vast amounts of food or by learning how to starve himself so he
+could eat a massive amount in one setting. Kobayashi was an engineer, so he
+reframed the problem: how to get heterogeneous food material down a narrow tube
+into a bag at the bottom. How would mister Kobayashi, break down composition?
+perhaps something like this: create compelling sounds, lay them out through
+time in a satisfying way. then inspire and empower performers to realize these
+sounds. Using bespoke AI tools, I was able to get to the heart of what I think
+makes an interesting sound. I was able to pursue many different sound
+generation techniques. and audition resultant sound to see which techniques
+were creating the sounds I imagined or leading me down an even better
+direction. I could quickly lay sounds out in various forms and hear which
+shapes suited the materials. I was then able to adapt my research in animated
+musical notation directly to the sounds and give performers the information
+they need to realize these specific sounds. This is an ear-led compositional
+process: using bespoke tools to go where the ear wants to go.
+
+## Why this is the better spine (AI note)
+
+**The three-part decomposition is the find.** *Create compelling sounds · lay
+them out through time in a satisfying way · inspire and empower performers to
+realize them.* It is Kobayashi's move performed on composition rather than
+merely cited, and the three "I was able to" sentences answer the three parts in
+order. It also maps onto the piece's own architecture and onto the paper's
+three-score architecture (composer score → notation score → performance score).
+**This replaces DRAFT A's six passes as the organising frame.**
+
+**"An ear-led compositional process: using bespoke tools to go where the ear
+wants to go."** — the thesis line the paper has been missing. Candidate for the
+paper's own closing sentence, not just the abstract's.
+
+## Copy-edits (NOT applied — composer's call)
+
+1. "in one setting" → **"in one sitting"**
+2. "How would mister Kobayashi, break down composition?" → **"How would Mr.
+   Kobayashi break down composition?"** (stray comma; capitalisation)
+3. "perhaps something like this:" → capitalise **"Perhaps"**
+4. "then inspire and empower" → capitalise **"Then"** (or join to the previous
+   sentence with a semicolon)
+5. "many different sound generation techniques. and audition resultant sound" →
+   **"…techniques, and audition the resultant sound"**
+
+## What the remaining ~96 words could buy
+
+Ranked by what the call and the past selections reward:
+
+1. **Name the piece** — *Bloom — Convergence — Balance*, tuba ensemble, ten
+   parts, 12.5 minutes. Reviewers reward a completed work. (~15 words)
+2. **One piece of hard evidence** — the DB3 arc is the strongest: an apex
+   demanding 54.5 attacks/s from an ensemble capable of 22; 134 unplayable
+   collisions to zero. Proves the method produced something real. (~35 words)
+3. **The migration** — the frame, adopted for the composer's problem, ended up
+   solving the performer's. The unplanned result. (~25 words)
+4. **A roadmap clause** — what the 25 minutes will actually cover. (~20 words)
+
+---
+
+## DRAFT A — the AI's version, superseded by B; kept as a parts bin
+## (**277 words** measured; title adds 9)
 
 **Composition by Kobayashi: bespoke frames for sui generis materials**
 

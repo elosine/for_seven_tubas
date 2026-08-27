@@ -848,6 +848,40 @@ routing and instrument rack now."
 *(→ Repo seeded from piece #3's stack: 7-track composer on :5200, sandbox on :4700,
 instruments skeleton with ports `Tuba1`…`Tuba7`. Sample library TBD → survey next.)*
 
+## 2026-08-27 (day 37) — THE ABSTRACT, the composer's own draft (typed, verbatim)
+
+*Written by the composer in response to the AI's DRAFT A. It supersedes it.
+Full text + analysis + copy-edits: `docs/PENN_STATE_ABSTRACT.md` DRAFT B.
+**204 words**, leaving 96 under the Penn State 300-word ceiling.*
+
+"In 2001 Takeru Kobayashi revolutionized competitive eating. He didn't achieve
+this by eating vast amounts of food or by learning how to starve himself so he
+could eat a massive amount in one setting. Kobayashi was an engineer, so he
+reframed the problem: how to get heterogeneous food material down a narrow tube
+into a bag at the bottom. How would mister Kobayashi, break down composition?
+perhaps something like this: create compelling sounds, lay them out through time
+in a satisfying way. then inspire and empower performers to realize these
+sounds. Using bespoke AI tools, I was able to get to the heart of what I think
+makes an interesting sound. I was able to pursue many different sound generation
+techniques. and audition resultant sound to see which techniques were creating
+the sounds I imagined or leading me down an even better direction. I could
+quickly lay sounds out in various forms and hear which shapes suited the
+materials. I was then able to adapt my research in animated musical notation
+directly to the sounds and give performers the information they need to realize
+these specific sounds. This is an ear-led compositional process: using bespoke
+tools to go where the ear wants to go."
+
+*(→ Two things the paper did not have before this: **the three-part
+decomposition** — create compelling sounds · lay them out through time · inspire
+and empower performers — which performs Kobayashi's move on composition instead
+of merely citing it and replaces the six-pass frame; and **the thesis line**,
+"an ear-led compositional process: using bespoke tools to go where the ear wants
+to go." Also a shift from the day-14 stance: AI is named openly in the second
+sentence of the argument — still not the headline, but no longer held at arm's
+length.)*
+
+---
+
 ## 2026-08-14 — The Kobayashi process, and how to treat AI in the paper (dictated)
 
 "I want to talk about Kobayashi and the hot dog solution. I want to find an
