@@ -281,7 +281,88 @@ end-to-end testbed. Notated on day 35 as one long accelerando.
 
 # THE BOOKENDS — Kobayashi framing
 
-## Intro candidates
+## INTRO — proposed outline (day 37, 2026-08-27; awaiting composer's edits)
+
+> Built from the Kobayashi sweep: COMPOSER_LOG day-14 dictation (the
+> origin) + day-1 Gehry/CATIA dictations · PAPER_NOTES thesis block,
+> day-18 entries, day-35 displacement-map principle. The five
+> first-pass candidate bullets are all absorbed below.
+> **First distillation target: the 300-word Penn State abstract, due
+> Sept 4 2026** — see PENN_STATE_RESEARCH.md § the symposium side.
+
+**The intro's job:** plant the frame → state the claim → why now →
+the method → the AI stance → the piece and the road map.
+
+1. **The record falls to a frame (the hook).** Coney Island 2001:
+   Kobayashi's debut roughly doubles the world record. He hadn't
+   out-eaten the field inside the received method; he decomposed the
+   problem — bun and sausage as one object, eaten as served — and
+   rebuilt it from parts. The record fell to a bespoke FRAME, not to
+   more effort inside the old one. *(One tight paragraph. FACT-CHECK
+   numbers and technique before print — same bar as the Ferneyhough
+   aside.)*
+2. **The claim, transposed.** A piece can be approached almost sui
+   generis: think about THIS piece's materials with a bespoke lens —
+   one that may well include traditional thinking — then build the
+   tools that make the lens workable. Explicitly NOT "inventing the
+   art of composition": the craft stands; the frame around each
+   material is what gets rebuilt. *(Day-14 dictation verbatim
+   available.)*
+3. **Why now: the cost collapse.** A custom apparatus for one esoteric
+   material used to cost more than the material was worth; that cost
+   has collapsed. AI is named here, once, precisely: the reason the
+   method is affordable, not the subject. *(Forward-pointer to 6.)*
+4. **The frame in one image: Gehry/CATIA.** Day-1 dictation, before
+   any material existed: the composer owns the freehand meta-shape; an
+   engine underneath works out the interior that realizes it. *"I'm
+   essentially doing Xenakis, but with animated notation that might
+   have more precision"* — plants the Xenakis lineage Part I inherits,
+   and the drawn-architecture / engineered-interior split the whole
+   piece keeps testing. Confirmed day 36 as "the correct framing."
+5. **The method, in six passes.** Conceive sui generis → sandbox →
+   explore/refine/document → fix gestures → assemble sonic shapes →
+   a SEPARATE notation pass. One sentence each; the parts carry the
+   demonstrations. Deferred notation as positive method, not delay:
+   nineteen days composed before a note of notation; notation later
+   becomes an empirical question about the material.
+6. **How AI is treated in this paper.** Not the headline. Two
+   commitments: show what it enabled (the fluidity that makes the
+   reframe practical rather than theoretical) · be transparent about
+   where it was used (tool building, take analysis, generation under
+   composer-specified rules, documentation) and where every musical
+   decision was made — the composer's ear, at every juncture.
+7. **The piece, and the road ahead.** Bloom — Convergence — Balance,
+   for tuba ensemble, three parts, ~12.5 minutes. One sentence per
+   part, each as a demonstration of the frame: I — the algorithmic
+   shape kept, the grain source replaced with live performance ·
+   II — a bespoke material outgrows its container and becomes the
+   piece's center and its title · III — a generator that existed as
+   shared understanding before existing as software. Then the paper's
+   shape: three parts, then the close.
+
+**Held OUT of the intro on purpose** (conclusion material per the
+first pass): the day-18 sharpening ("the frame that won was
+conversational, not instrumental"; disposable tools) · the three-piece
+lineage · the migration arc (see OPEN C).
+
+**OPEN — composer's calls on the intro:**
+
+- **A · title.** "Composition by Kobayashi" stands? Subtitle from the
+  six candidates in PAPER_NOTES (or none).
+- **B · the day-18 sharpened claim.** Tease it in the intro, or save
+  it whole for the conclusion? *(AI recommends: save — the intro says
+  "build the tools"; the conclusion earns "the tool was a
+  conversation.")*
+- **C · the migration line.** One forward-pointer sentence at the
+  intro's close — by the end, the frame had migrated from the
+  composer's problem to the performer's (the day-35 citation) — or
+  hold it entirely for the conclusion? *(AI recommends: one sentence
+  here; it tells the reader the frame is load-bearing, not
+  decorative.)*
+- **D · hook depth.** One paragraph on Kobayashi (recommended) vs a
+  fuller telling of the 2001 story.
+
+### Intro candidates (first pass — all absorbed into the outline above)
 
 - Takeru Kobayashi and the hot-dog solution: the record fell to a
   bespoke FRAME, not to more effort inside the received one

@@ -2814,3 +2814,39 @@ licenses is only as wide as the path it took.** When the journal writes down
 "proven pixel-for-pixel", it should write down **which pixels, produced by which
 code path** — or the next reader will spend a day trusting it. The fix to the
 process is one clause, not a new protocol: name the path in the proof.
+
+---
+
+## Day 37 (2026-08-27) — the Kobayashi sweep: the frame MIGRATED (AI observation, filed while building the intro outline)
+
+Swept every Kobayashi mention for the intro outline (COMPOSER_LOG day-1 and
+day-14 dictations; the thesis block, day-18 and day-35 entries here; the
+outline's bookends). One thing the collected set shows that no single entry
+says:
+
+**The frame entered as the composer's method and exited as the composer's
+performance philosophy.** Day 14: Kobayashi cited for the COMPOSER's problem —
+decompose the received compositional frame, build bespoke tools per material.
+Day 35, unprompted, over the morph curves: *"this is in line with the Kobayashi
+approach. Just to give the performer the tools they need to execute these still
+standard in principle articulations"* — the same citation now aimed at the
+PERFORMER's problem, and it dissolved an objection the AI had spent three
+sittings treating as a design flaw (the 20-cent glissando). The frame proved
+general enough to migrate on its own. **That migration — adopted for one
+problem, later load-bearing for another, re-cited by the composer without the
+AI raising it — is the strongest single piece of evidence that the frame is
+real and not a story retrofitted onto the process.** Candidate for the intro's
+closing line or the conclusion's (OPEN C in the outline).
+
+## Day 37 — the paper has THREE LIVES, and the first is 300 words (Penn State call, researched this day)
+
+The 2027 Penn State call for papers/presentations (posted 2026-08-01): **a
+submission is a 300-word abstract due Sept 4, 2026**; selection (notified by
+Oct 19) brings a **20–25-minute talk** in a 30-minute slot at the festival,
+March 18–20, 2027; **no proceedings are published** — past papers exist only as
+program listings (and the 2021 sessions as video). So the deliverable chain is:
+**abstract (now) → talk (March) → the full written paper** (unconstrained by
+the festival, on our own schedule). The intro outline built today serves all
+three, but the urgent distillation target is the abstract — the thesis, the
+method, one worked demonstration, in 300 words. Facts, links, and the
+2023/2025 selected-title lists: PENN_STATE_RESEARCH.md § the symposium side.

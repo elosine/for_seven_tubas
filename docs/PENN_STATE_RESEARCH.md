@@ -53,3 +53,78 @@ Symposium application (tuba/euphonium ensemble category, minimum 6 parts).*
 - https://arts.psu.edu/faculty/velvet-brown/
 - https://www.usm.edu/music/tubaeuphonium.php
 - https://arts.psu.edu/academics/school-of-music/music-ensembles
+
+---
+
+# The SYMPOSIUM side — the papers track (researched 2026-08-27, day 37)
+
+*The composer asked whether previously selected papers were published,
+and where to look. Answer: **no proceedings exist — papers are
+presented, not published.** What IS public, and the call the paper
+answers, below.*
+
+## The 2027 call for papers/presentations (posted 2026-08-01)
+
+- **Deadline: Friday September 4, 2026, 11:59 pm EST** — same day as
+  the scores deadline.
+- **A submission is a LINK to a 300-WORD ABSTRACT**, hosted online and
+  kept available until Nov 1, 2026; it must list the presentation's
+  technical requirements; supplemental-material links allowed.
+- **The talk: 20–25 minutes + questions; the slot never exceeds 30.**
+  Paper readings, PowerPoint, or other lecture formats.
+- Any topic related to contemporary music (theory, musicology,
+  composition, electronic music, interdisciplinary arts, philosophy…).
+  One paper per scholar. **Notification no later than October 19,
+  2026.** In-person attendance expected (March 18–20, 2027).
+- Call PDF: https://sites.psu.edu/pennstatecomposition/files/2026/08/Penn-State-2027-New-Music-Festival-and-Symposium-Call-for-Presentations-Announcement.pdf
+- Submission form: https://forms.gle/Feo1k4mLCWS5ZiCp9
+- **The odds, for context:** 2025 drew 608 score submissions but only
+  **28 paper proposals** (10 countries), of which 8 were programmed —
+  the paper track is far less crowded than the score track.
+
+## Where the past selections live (all linked from the archive page)
+
+Archive page: https://sites.psu.edu/pennstatecomposition/penn-state-international-new-music-festival-and-symposium/
+
+- **2025 (3rd):** 8 talks in two sessions — program PDF:
+  https://sites.psu.edu/pennstatecomposition/files/2025/03/March-2025-New-Music-Festival-and-Symposium.pdf
+  (+ digital program booklet on the archive page)
+- **2023 (2nd):** 13 talks in four sessions — program PDF:
+  https://sites.psu.edu/pennstatecomposition/files/2023/03/Mar-2023-New-Music-Festival-and-Symposium.pdf
+  (+ booklet + selections-announcement PDF)
+- **2021 (1st):** program booklet + **video recordings of all four
+  research sessions** on the archive page — the only place actual past
+  presentations can be watched.
+
+## The selected titles (extracted from the program PDFs)
+
+**2025:** Thomas B. Yee, *Fanfare for the Unreal Symphony: Modern
+Techniques of Retro 8-Bit Orchestration* · Yiheng Yvonne Wu, *How the
+Body Can Lead Transdisciplinary Musical Exploration* · Ralph Lewis,
+*Careful Forests: Structures and Indeterminate Interplay within Wendy
+Reid's Tree Pieces* · Kevin Su, *Orientalism, Self-Tokenization, and
+the Problematics of Describing "New Music"* · Eddie Jonathan Garcia
+Borbon, *Reconceptualizing the Sonic Object in Virtual Reality* ·
+SiHyun Uhm, *Illuminating Neural Pathways: Transforming Brain Activity
+into Generative Audio-Visual Experiences* · Han Hitchen, *Julius
+Eastman: The Connection between Music & Identity* · G. Blake
+Harrison-Lane, *From Max to the Web: Exploring RNBO's Interactive
+Music and Pedagogical Potential*
+
+**2023:** Scott Miller (Kate Soper semiotics) · Alex Apostolopoulos,
+*The Traveller's Dilemma — a composer's dilemma on the fundamentals of
+their creative practice* · **Christopher Chandler, *Algorithmic
+Composition and Generative Scores with the Generative Sound File
+Player*** · Smee Wong (Tan Dun) · Matthew Werley (Salzburg/ISCM) ·
+Patricio Molina (Arabic piano) · Sami Seif, *How time passes* · Ralph
+Lewis (community workshops) · Jay Rauch (cyberpunk composition) ·
+Logan Barrett (Sheila Chandra) · **Blake Harrison-Lane, *Towards A
+Cross-Domain Notation*** · Balakrishnan Raghavan (South Asian song) ·
+Hyun-Kyung Lee (Unsuk Chin)
+
+**Fit note (AI):** composer-built tools and processes with a
+demonstrable musical result are a RECURRING selected genre (Chandler
+2023; Harrison-Lane's notation-systems talks 2023 AND 2025; the VR /
+brain-AV / 8-bit talks 2025). A process paper on a piece submitted to
+the same festival's tuba/euphonium category sits squarely in the
+selected profile.

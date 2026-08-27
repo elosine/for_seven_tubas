@@ -14991,6 +14991,55 @@ like in my browser, or can I download it" — both, in the end.*
 
 **Still open:** W2's fade, then ONE full re-render (~31 min) and PHASE 5 again.
 
+---
+
+# Day 37 — 2026-08-27 — THE PAPER OPENS: the Kobayashi sweep, the intro outline, what the Penn State call actually asks for
+
+*(Claude Code / Fable 5. The composer opened the session naming the paper as the
+work; the video thread — W2 fade → re-render → PHASE 5 — stays parked where day
+36 left it.)*
+
+## The sweep
+
+Every Kobayashi mention collected and read in context, one repo, nothing
+missing: COMPOSER_LOG day-14 dictation (the origin — the two goals: show the
+fluidity AI enabled, keep transparency about its use) and the day-1
+Gehry/CATIA + Gehry/Xenakis dictations; PAPER_NOTES' thesis block, the day-18
+"the tool that worked was not a tool" pair, the day-35 displacement-map
+principle (the composer's own Kobayashi citation); PAPER_OUTLINE's bookends;
+MORPH_NOTATION's performance-notes echo.
+
+## Built
+
+- **PAPER_OUTLINE.md § INTRO — proposed outline (day 37):** seven beats
+  (hook → claim → why-now → Gehry/CATIA → six passes → AI stance → piece +
+  road map), the five first-pass candidate bullets absorbed, three items
+  deliberately held back for the conclusion, and four OPEN calls for the
+  composer (A title · B where the day-18 sharpening lives · C the migration
+  line · D hook depth).
+- **PAPER_NOTES.md day-37:** the migration observation — the Kobayashi frame
+  entered as composition method (day 14) and exited as the composer's own
+  performance philosophy (day 35, cited unprompted); strongest evidence the
+  frame is real, candidate close for intro or conclusion.
+
+## Penn State: what the "paper" materially is (composer asked; researched)
+
+- **No proceedings exist.** The symposium presents papers, never publishes
+  them. The public record per edition: program PDFs (titles/presenters),
+  digital booklets, and — 2021 only — video recordings of all four research
+  sessions, on the archive page.
+- **The 2027 call (posted 2026-08-01): a 300-WORD ABSTRACT due Sept 4,
+  2026** (hosted link, alive until Nov 1, technical requirements listed);
+  20–25-minute talk in a 30-minute slot; notification by Oct 19, 2026;
+  in-person March 18–20, 2027.
+- **Consequence for the plan:** the paper's first deliverable is the abstract,
+  in eight days — not a manuscript. The full paper stays on our own schedule.
+- **The odds:** 2025 drew 608 score submissions vs **28 paper proposals**
+  (8 programmed) — the papers track is far less crowded, and composer-built
+  tools/processes are a recurring selected genre (Chandler 2023;
+  Harrison-Lane 2023 and 2025). Full lists + links:
+  PENN_STATE_RESEARCH.md § the symposium side.
+
 ### day 36 (post-clear) — W2: THE FADE IS A DIP, BECAUSE A CROSS-DISSOLVE FAILED
 
 Composer: *"so are we ready for w2 the fade"*. Built it — and the technique the
