@@ -15086,3 +15086,23 @@ in `notation/video/wishlist-w1/`, sent to the composer.
 **W1 and W2 are both closed.** Next is ONE full re-render (~31 min) and PHASE 5
 again. Open, and cheap only until that render: the cut SHAPE — seed 11 re-rolls
 in a second with `tools/make_cut.js --seed N`.
+
+### day 36 (post-clear) — THE CUT SHAPE IS SETTLED: seed 11 stays
+
+**Composer, on being offered a re-roll before the render: *"this seed is fine"*.**
+
+So `notation/video/cut-list.json` is final as built: **seed 11 · 9 close-ups ·
+222.4 s = 29.6 % of the running time · segments 22–27 s · wide stretches 26–89 s ·
+TOP 5 / BOT 4 · opens wide 91 s, closes wide 68.1 s.** No re-roll.
+
+This was the last cheap moment for it — `tools/make_cut.js --seed N` re-rolls in a
+second before the render and costs another 7 minutes after it. Offered, declined,
+closed.
+
+**Also this sitting:** the composer picked the **cross-dissolve** ("the 2nd video
+is good") — the option the AI had argued against on the evidence of a still frame
+and the flat ink curve. Told them plainly which one it was and why it had been
+flagged, and said so without relitigating: *a frozen midpoint overstates it, and
+their eye on the moving image is the better evidence for a look question about
+their own piece.* Awaiting the one-word go before flipping `phase4.sh` back to
+`--fadeMode cross`.
