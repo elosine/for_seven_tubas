@@ -12,7 +12,93 @@
 
 ---
 
-# ⭐⭐⭐⭐ DRAFT E — THE COMPOSER'S FULL ABSTRACT (day 37) — **the live draft**
+# ✅ DRAFT F — THE COMPOSER'S EDIT (day 37) — **THE CURRENT ABSTRACT**
+
+> The composer's own pass over the copy-edit. **This is the live text.**
+> DRAFT E below is kept as the source it came from.
+
+**Counts, measured:**
+
+| | words |
+|---|---|
+| **BODY — the abstract proper** | **289** ✅ under 300 |
+| title | 8 |
+| trailing (link placeholder + technical requirements) | 17 |
+| body + title | 297 |
+| everything | 314 |
+
+*The composer's note — "the additional words are from the youtube links and tech
+requirements" — is confirmed: **the abstract itself is 289.** The call asks for
+the technical requirements to be **included in the document**, and they are
+plainly not prose, so the 300 cap applies to the body.*
+
+**Bloom - Convergence - Balance for Tuba Ensemble**
+
+> At time 10:15 in the piece, Bloom - Convergence - Balance, ten tubas are
+> playing octaves in a complex rhythmic web. A few moments later they snap to a
+> crisp unison in an instant. Beginning at 4:33, the same ten tubas quietly
+> intone a hollow-sounding chord which, over the next twenty seconds, transforms
+> into a kinetic pulsing texture bearing more similarity to a jet engine than a
+> brass choir. In the first example, all ten players are in fact playing the same
+> steady tempo, but each stream of pulses is slightly out of phase with the
+> others. In the second example, pairs of performers create fields of acoustic
+> beating by slowly and slightly detuning from each other, like slowly tuning a
+> guitar but in reverse. How is the ensemble executing these unlikely scenarios?
+> They are playing from an animated notation system that uses simple animations
+> like bouncing balls and curve tracers as musical notation. The score plays like
+> a video game, allowing performers to realize feats such as rapidly switching to
+> precise tempos, playing gradual crescendos that slowly unwind and creating
+> complex micro-counterpoint with no unifying pulse. These animations have
+> enabled me, the composer, to pursue novel and difficult-to-control musical
+> forces with subtlety and fluidity. This composition has three sections. The
+> first section deploys Xenakis-style clouds of staccato tuba sound grains in
+> flowing shapes. The middle section streams fields of acoustic beating (à la
+> Alvin Lucier) using micro-glissandos, staggered articulations and crescendos.
+> The final section builds on the work of Steve Reich and Conlon Nancarrow,
+> producing textures from streams of phase-shifted pulses and multiple
+> simultaneous tempos. This paper will outline how this piece was created, how
+> the animated notation was refined and how aural experimentation uncovered
+> musically interesting structures.
+
+*Placeholder for time marked youtube links*
+
+*Technical requirements: Laptop with presentation software and audio and video
+playback.*
+
+## What the composer took, and what they kept
+
+**Accepted:** hollow-sounding · the commas around "over the next twenty
+seconds" · first/second **example** made consistent · "video game, allowing" ·
+difficult-to-control · **à la** with accents · micro-glissandos · "Nancarrow,
+producing" · **simultaneous** (the one outright typo) · and the second title
+line dropped.
+
+**Kept deliberately** — all style, none of them errors: "At time 10:15" · "in an
+instant" after *snap* · "than a brass choir" · the doubled *slowly* · the
+animations/notation repetition · **no serial commas** (a consistent convention) ·
+"me, the composer" · "This composition / this piece" · "staccato tuba sound
+grains" · "streams fields" · hyphens rather than em-dashes in the title.
+
+## Still open — one real item, three small
+
+1. **The list-1 parsing snag, unaddressed.** *"…playing gradual crescendos that
+   slowly unwind and creating complex micro-counterpoint…"* — the relative
+   clause lets a reader momentarily attach *and creating* to *unwind*, as though
+   the crescendos were doing the creating. **This is a parsing defect, not a
+   comma preference.** Fixable without adding a serial comma: *"…crescendos that
+   slowly unwind, and complex micro-counterpoint with no unifying pulse"* —
+   drops the third gerund and the ambiguity with it. **11 words of headroom
+   available.**
+2. **Title now reads as the piece, not the paper** — "for Tuba Ensemble" names
+   the work; the notation system was dropped from it. Deliberate?
+3. **Em-dashes** — every other document in this repo writes *Bloom — Convergence
+   — Balance*. The abstract uses hyphens. Worth matching before submission.
+4. **10:15 and 4:33 still unconfirmed** — both land in the right sections, but
+   the previous pair were placeholders.
+
+---
+
+# DRAFT E — the source DRAFT F was edited from (day 37)
 
 > Written by the composer on frame D, following their dictated format.
 > **Supersedes DRAFT D and everything below it.**
