@@ -98,6 +98,142 @@ three rather than elaborating §4.
 
 ---
 
+# HELD CRITIQUE — indexed by section, to be woven in per container
+
+> Day 37. The composer's instruction: *"hang on to the above, and we'll weave
+> it in when we discuss the particular sections."* Delivered as one block
+> originally, which was too dense to act on; re-filed here **by container** so
+> each note surfaces when that section is being edited. **Nothing here is a
+> decision — these are open observations awaiting the composer's per-section
+> pass.**
+
+## Structural verdict — no changes needed
+
+The skeleton is sound and should not be rearranged. §1→§2→§3 is analogy → the
+*mechanism* of the analogy → transposition, which is the right order; §2 is
+what makes it work, because it extracts Kobayashi's move rather than merely
+citing him. §4→§5→§6 answering §3 in order is satisfying. §7 before §8 is
+correct — the example earns the thesis; reversed, the thesis would read as a
+preamble to a digression.
+
+## THE ONE REAL GAP (applies across §4/§5/§6)
+
+**The abstract reports CAPABILITY, not FINDINGS.** Three times: *"I was able
+to…" · "I could quickly…" · "I was then able to…"* A reviewer choosing 8 from
+28 asks *what will I know at minute 25 that I didn't at minute 0?* — and the
+current answer is "that this workflow works," which is thinner than what the
+project actually holds. Available findings not yet used: the glissando whose
+perceptual object is beating rather than pitch · notatability conferred by a
+generator choice · hand-played material statistically similar to generated but
+musically different, with a reason.
+
+## §1 + §2 + §3 — the framing
+
+- **Proportion.** 96 words of framing against 99 words of work — nearly half
+  the abstract is the analogy. (NEXUS, a comparable abstract, spends ~15%.)
+  **Adding the §7 arc resolves this by itself**: 96 framing / ~195 work.
+  No trim needed if the arc lands.
+- **§3's decomposition risks reading as a truism.** *Make sounds · arrange them
+  · notate them* is, stated plainly, what every composer does. What makes it
+  Kobayashi-ish is that each part is **separately re-engineered**, and part
+  three is **DEFERRED ENTIRELY** until one and two are done. **The deferral is
+  the radical move and it is currently unstated.** Concrete version available:
+  nineteen days of composing preceded the first notated pitch.
+
+## §4 — create compelling sounds
+
+- **The AI risk.** *"Using bespoke AI tools, I was able to get to the heart of
+  what I think makes an interesting sound"* can be read fast, in 2026, as *AI
+  found the sounds*. §8 fixes it ("ear-led"), but 130 words later — a long
+  window in which the reader fills the gap with their own assumption.
+- **The composer's own day-14 position was transparency about BOTH where AI was
+  used AND where the decisions were made.** The draft currently has the first
+  half without the second, which is a weaker position than either naming it
+  fully or not naming it at all. Cheapest fix is a few words here, not a new
+  section.
+
+## §5 — lay them out through time
+
+One sentence, asserted not shown. The thinnest container. **The §7 arc must
+carry this part** or the three-part promise stays unfulfilled.
+
+## §6 — empower the performers
+
+- Also asserted, not shown.
+- **Animated notation is undersold.** It is one subordinate clause, but it is
+  the most *demonstrable* thing in the project — visual, a live research area
+  (TENOR exists for it), and a moving score on a screen is what an audience
+  remembers from a 25-minute talk.
+
+## §7 — the empty slot
+
+Carries the entire evidentiary burden; see § "WHAT §7 MUST DO" below.
+
+## §8 — the thesis
+
+Strong; keep as the closing line. Note it is doing double duty — it is also the
+abstract's only answer to the AI question (see §4).
+
+## Cross-cutting — not yet placed anywhere
+
+1. **No roadmap.** Both model abstracts state what the talk will cover; this
+   one does not. Reviewers of a 25-minute slot want to know how the time is
+   spent, and whether there will be audio, score, or video.
+2. **No evidence the work is FINISHED.** Nothing says complete, performable,
+   ten parts, 12.5 minutes. At a festival this matters — it separates a
+   completed work from a research prototype. *(ARC A fixes this by naming the
+   piece.)*
+3. **No counterfactual.** Why couldn't this be done with existing tools?
+   Reviewers at a new-music symposium have built tools themselves.
+4. **No transferability claim.** Why a listener should care — implicitly "you
+   could work this way too," never said. May be too salesy; noted, not urged.
+5. **The migration** — the frame, adopted for the composer's problem, ended up
+   solving the performer's. Currently unplaced; strong candidate for the paper's
+   close if not the abstract's.
+
+---
+
+# WHAT §7 MUST DO — the empty container's job
+
+> Written day 37 at the composer's request, before choosing its content.
+> **§7 carries the entire evidentiary burden of the abstract**: §1–§3 are
+> analogy, §4–§6 are method stated in general terms, §8 is a thesis. §7 is the
+> only place where anything concrete happens.
+
+## Its five jobs
+
+1. **Turn assertion into demonstration.** Everything before §7 is a claim.
+2. **Report a FINDING, not a capability** — something learned, that was not
+   known before starting. This is the gap named above.
+3. **Run ONE material through all three parts** (§4→§5→§6). One material, not
+   several: what needs proving is that these are one *process*, not three
+   separate activities. An example that only illustrates §4 leaves the
+   decomposition unvalidated.
+4. **Attach the method to a finished artifact** — name the piece, so the
+   reviewer knows a real work exists.
+5. **EARN §8.** The thesis says the ear leads. §7 must contain the moment where
+   **listening actually redirected the plan** — otherwise "ear-led" is a slogan
+   rather than a report.
+
+## The content types it needs
+
+- **One named material** — not a survey
+- **A moment of redirection by ear** — the plan changed because of what was
+  heard *(this is job 5, and it is the one most easily left out)*
+- **A consequence for form** — how it got laid out in time (answers §5)
+- **A consequence for notation** — what the performers were handed (answers §6)
+- **One verifiable specific** — a number or physical fact that proves it real
+
+## What §7 should NOT be
+
+- a summary of the piece · a list of techniques · more than one material ·
+  an elaboration of §4 alone
+
+**Use this as a test.** Any candidate arc that cannot supply all five content
+types is the wrong material for this slot.
+
+---
+
 # THE 96 WORDS — two candidate arcs
 
 > Each traces ONE material through the full model: sound generation and
