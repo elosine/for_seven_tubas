@@ -412,6 +412,25 @@ not a 96-word one. In the abstract it likely earns **one clause**, not a beat.
 
 *Copy-edit noted, NOT applied: "klidoscopic" → **kaleidoscopic** (transcription).*
 
+### FRAGMENT — the Gehry/CATIA metaphor · *"might play into two"* · UNPLACED
+
+> *Composer, same sitting: "This is neither here nor there. Let's just capture a
+> bit. because I forgot about maybe trying to use that Frank Gary metaphor. It
+> might play into two. Again, just capture. I don't need feedback just yet."*
+> **Captured verbatim, not placed, not evaluated.**
+
+> Frank Gary, c i t a, metaphor. I set out to recreate these effects. and
+> wondered if I could use AI and staccato tuba samples. and sculpt very flexibly
+> with these materials. create warped and bespoke versions of these materials or
+> capture certain states at different points in the process.
+
+*Copy-edits noted, NOT applied: "Frank Gary" → **Frank Gehry** · "c i t a" →
+**CATIA** (spelled aloud in dictation).*
+
+*Cross-reference for later, no action: the Gehry/CATIA framing is already on
+record from day 1 (`COMPOSER_LOG.md` 2026-08-10) and is beat 4 of the INTRO
+outline in `PAPER_OUTLINE.md`.*
+
 ### BEATS 2–9 — awaiting the composer
 
 ---
