@@ -98,24 +98,52 @@ prove sync before spending hours on frames.
 - **2.4 Prove it:** two runs byte-identical (determinism), and N spot frames
   compared against the live app at the same `t`.
 
-## PHASE 3 · THE THREE RENDERS
+## PHASE 3 · THE THREE RENDERS — **DONE day 36**
 
-- **V-MAIN** — `--view video` → 1920×1080
-- **ZOOM MASTER** — `--view zoom --z 2` → 1920×2160
-- **V-TOP / V-BOT** — two ffmpeg crops of the master, in one pass
+All at 30 fps, t1 = 760.63 s, 22 819 frames each. `notation/video/renders/`.
 
-## PHASE 4 · THE CUT
+- ~~**V-MAIN**~~ 1920×1080 · 69.4 MB · **6.3 min at 60.0 fps** · 64 page rasters
+- ~~**ZOOM MASTER**~~ 1920×2160 · 100.7 MB · **10.2 min at 37.2 fps** · 129 rasters
+- ~~**V-TOP / V-BOT**~~ · two ffmpeg crops of the master in one pass. The crop line
+  was MEASURED, not trusted: T5 ends at y=1076.0 and T6 starts at y=1084.0, so
+  y=1080 sits in the 8 px gap with 4 px clearance either side. Confirmed by eye —
+  V-TOP is T1–T5 complete, V-BOT is T6–T10 complete.
 
-- **4.1** the composer's cut list — a small data file, `[{t0, t1, src}]`, times
-  in seconds
-- **4.2** assemble by frame index from the finished renders; **audio comes from
-  the master WAV untouched**, so V-CUT cannot drift
-- **4.3** hard cuts, matching PP-3's hard-cut system turns. Crossfades only if asked.
+## PHASE 4 · THE CUT — **DONE day 36**
 
-## PHASE 5 · VERIFY
+- ~~**4.1** the cut list~~ — `notation/video/cut-list.json`, seed 11
+- ~~**4.2** assemble~~ — **RENDERED, not spliced.** `export_video.js --cut`. The
+  plan's "assemble from the finished renders" was a cost assumption from when a
+  render was believed to take hours; it takes six minutes. Splicing would have made
+  the close-ups THIRD generation (V-TOP/V-BOT are already a re-encode of the zoom
+  master), and a 19-branch trim/concat filtergraph buffers gigabytes waiting its
+  turn. **Content unchanged** — same list, same frame indices, same master WAV
+  laid under it untouched, so V-CUT still cannot drift.
+- ~~**4.3** hard cuts~~ — as specified; no crossfades.
+- **V-CUT** 1920×1080 · 68.8 MB · **7.0 min at 54.2 fps** · 101 page rasters
+  (64 video pages + the ~37 zoom segments the nine close-ups touch, so all 19 mode
+  switches were free). The cut list ended at frame 22 558 and the render at 22 819,
+  so the final wide V-MAIN segment was extended by 261 frames (8.70 s) — it closes
+  wide for 68.1 s instead of 59.
 
-Duration equality across all four · A/V offset measured at start, middle and end
-· spot frames vs the live app · the composer's eye.
+## PHASE 5 · VERIFY — **3 of 4 DONE day 36; the fourth is the composer**
+
+- ~~duration equality~~ — all five: **22 819 frames**, container durations within
+  **0.325 ms** (a hundredth of a frame), audio identical at 760.618 s
+- ~~A/V offset~~ — `start_time 0.000000` on **both streams of all five files**; the
+  audio is one WAV at `-ss 0`, so this is structural
+- ~~spot frames vs the live app~~ — **0 differing pixels of 2 073 600** on both probe
+  pages, re-checked after the segments rewrite
+- **the composer's eye** — open
+
+**Cut-source check, with a control.** At t=50 s the V-CUT frame is **bit-identical**
+to V-MAIN. At t=100/230 s it differs from V-TOP/V-BOT by **0.234 % / 0.704 %** —
+which is not error but the PHASE 4 decision showing up in the numbers, since V-CUT
+is first-generation and those two are second. Against the WRONG source the same
+frames differ by **18.5 % / 62.6 %**.
+
+**Whole pipeline, measured: ~31 minutes of compute** — 6.3 (V-MAIN) + 10.2 (zoom)
++ ~1 (crops) + 7.0 (V-CUT) + 3:17 (the Reaper audio render).
 
 ---
 

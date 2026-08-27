@@ -10,6 +10,55 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+### OPEN — day 36 (Opus): **THE VIDEO IS BUILT.** PHASES 0–5 CLOSED
+
+**Five outputs in `notation/video/renders/`** (gitignored; regenerable):
+
+| | | frames |
+|---|---|---|
+| **V-CUT** 1920×1080 | 68.8 MB | 22 819 |
+| V-MAIN 1920×1080 | 69.4 MB | 22 819 |
+| ZOOM MASTER 1920×2160 | 100.7 MB | 22 819 |
+| V-TOP / V-BOT 1920×1080 | 64.4 / 67.0 MB | 22 819 |
+
+**The whole pipeline is ~31 minutes of compute.** Rebuild with
+`notation/video/renders/phase3.sh` then `phase4.sh`.
+
+**PHASE 5 passes on three of four criteria** — duration equality (all five at
+22 819 frames, container spread **0.325 ms**), A/V offset (`start_time 0.000000`
+on both streams of all five), spot frames vs the live app (**0 differing pixels of
+2 073 600**). **The fourth is the composer's eye and it is the one thing open.**
+
+**The Node exporter draws exactly what the app draws** — `tools/export_video.js`,
+proven pixel-for-pixel on two probe pages, re-proven after a refactor.
+`--dumpPage N` repeats the check.
+
+**The repo now has ONE dependency**: `package.json` + `@resvg/resvg-js`, chosen by
+measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
+`npm install` before running the exporter.
+
+**Also closed today:** PHASE 0 (the Reaper render, sync proven and measured) and
+**the four tempo numbers** — `PRINT_MEASURED = true`, so the accelerando now reads
+**♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**.
+
+**NEXT STEPS · MODEL · CLEAR**
+1. **Watch V-CUT** — PHASE 5's last criterion. Nothing else is worth doing first.
+2. **THIS IS THE CLEAR POINT** the composer named ("clear when video is done").
+   `/session-end` · `/clear`.
+3. After that, the open work is the **print score** (tabloid landscape 17 × 11,
+   deliberately not generated yet — `docs/PRINT_AND_COVER.md`) and the
+   **paper** (`docs/PAPER_OUTLINE.md` waits on topic picks). Both are judgment
+   work: **Fable if available, else Opus.**
+
+**Pending the composer:** V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
+the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
+
+**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` ·
+`reaper/Bloom-Convergence-Balance_demoRecording.rpp` (the session that produced
+the render) · `scores/Litany.pdf`. **Say if any should be committed.**
+
+---
+
 ### OPEN — day 36 (Opus): PHASE 0 IS CLOSED · THE TEMPO NUMBERS ARE DECIDED
 
 **THE PIECE HAS AUDIO.** `notation/audio/piece-final-draft-001.wav` — 2 ch /

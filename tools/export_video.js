@@ -84,7 +84,11 @@ if (lanes.sparseCapPx && lanePx > lanes.sparseCapPx) {
 }
 const systems = Coords.systemsForParts(FRAME_PARTS, { topPad, botPad, gap, weights: lanes.weights });
 const ssPerSystem = lanePx / (((C.staff && C.staff.staffHeightPx) || 31.6) / 4);
-const Z = viewMode === 'zoom' ? (zoomZ || ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2) : 1;
+// Z is the ZOOM FACTOR, not a mode flag. It was gated on viewMode==='zoom',
+// which made a CUT render its V-TOP/V-BOT halves from an UNZOOMED 1080-tall
+// frame — 63 zoom segments instead of 129, and the close-ups would have been
+// the top half of the wide shot. Caught by a dry run before any pixels.
+const Z = zoomZ || ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
 const pages = Splice.planPages(ir, pageRules, pageSeconds);
 const srcEnd = ir.source.window[1];
 
@@ -123,17 +127,17 @@ const pageContaining = t => {
 // wherever video mode left it, so `reshow`/`ownsEnd` come from a stale page.
 // That is a UI artifact of ←/→ doubling as the zoom step, not a design — here
 // they come from the page CONTAINING each window's start.
-const segments = [];
-{
+function buildSegments(mode) {
+  const out = [];
   let tCur = 0;
-  if (viewMode === 'zoom') {
+  if (mode === 'zoom') {
     const probe = Coords.zoomCfg(baseCfgFor(0), Z, 0);
     const span = probe.window[1] - probe.window[0];
     for (let s = 0; tCur < srcEnd && s < 100000; s++) {
       const pi = pageContaining(tCur);
       const cfg = Coords.zoomCfg(baseCfgFor(pi), Z, tCur);
       const end = Math.min(cfg.window[1], srcEnd);
-      segments.push({ t0: tCur, t1: end, view: Coords.makeView(cfg),
+      out.push({ t0: tCur, t1: end, view: Coords.makeView(cfg),
         reshow: pages[pi].reshow, ownsEnd: end >= srcEnd - 1e-9 });
       tCur = tCur + span;
     }
@@ -141,21 +145,26 @@ const segments = [];
     for (let i = 0; i < pages.length; i++) {
       const end = Math.min(pages[i].t0 + pageSeconds, srcEnd);
       if (end <= tCur) continue;
-      segments.push({ t0: tCur, t1: end, view: Coords.makeView(baseCfgFor(i)),
+      out.push({ t0: tCur, t1: end, view: Coords.makeView(baseCfgFor(i)),
         reshow: pages[i].reshow, ownsEnd: i === pages.length - 1 });
       tCur = end;
     }
   }
+  return out;
 }
+const SEGS = { video: buildSegments('video'), zoom: null };
+const segsOf = m => (m === 'zoom' ? (SEGS.zoom || (SEGS.zoom = buildSegments('zoom'))) : SEGS.video);
+const segments = segsOf(viewMode);
 const pieceEnd = segments.length ? segments[segments.length - 1].t1 : srcEnd;
-const segAt = t => {
-  for (let i = 0; i < segments.length; i++) if (t < segments[i].t1) return i;
-  return Math.max(0, segments.length - 1);
+const segAtIn = (list, t) => {
+  for (let i = 0; i < list.length; i++) if (t < list[i].t1) return i;
+  return Math.max(0, list.length - 1);
 };
+const segAt = t => segAtIn(segments, t);
 
 // ---------------------------------------------------------------- static page
-function staticSvg(i) {
-  const seg = segments[i], view = seg.view;
+function staticSvg(i, list) {
+  const seg = (list || segments)[i], view = seg.view;
   const svg = Render.renderSection(model, view, glyphs, {
     reshow: seg.reshow, ownsEnd: seg.ownsEnd,
     engraving: (C.engraving && C.engraving.render) || {},
@@ -212,18 +221,27 @@ function composite(base, over) {
 }
 
 // ---------------------------------------------------------------- page cache
-let cachedIdx = -1, cachedPx = null, pageRasters = 0;
-function pageFor(i) {
-  if (i !== cachedIdx) {
-    cachedPx = raster(staticSvg(i), 'white').px;
-    cachedIdx = i; pageRasters++;
-  }
-  return { px: cachedPx, view: segments[i].view };
+// One cache PER MODE: a cut alternates between the video page and the zoom
+// segment, and a single slot would re-rasterize on every switch. Two slots cost
+// 8.3 MB + 16.6 MB and make the 19 switches of a cut free.
+let pageRasters = 0;
+const CACHE = { video: { idx: -1, px: null }, zoom: { idx: -1, px: null } };
+function pageFor(i, mode) {
+  const c = CACHE[mode], list = segsOf(mode);
+  if (i !== c.idx) { c.px = raster(staticSvg(i, list), 'white').px; c.idx = i; pageRasters++; }
+  return { px: c.px, view: list[i].view };
 }
-function frameRGBA(t) {
-  const { px, view } = pageFor(segAt(t));
+function frameRGBA(t, mode) {
+  const m = mode || viewMode;
+  const list = segsOf(m);
+  const { px, view } = pageFor(segAtIn(list, t), m);
   const ov = raster(overlaySvg(view, t), null);
   return composite(px, ov.px);
+}
+// take rows [y0, y0+h) out of a W-wide RGBA buffer — the zoom master's halves
+function cropRows(px, y0, h) {
+  const rowBytes = W * 4;
+  return px.subarray(y0 * rowBytes, (y0 + h) * rowBytes);
 }
 
 // ---------------------------------------------------------------- dump mode
@@ -263,17 +281,70 @@ if (probes.length) {
   process.exit(0);
 }
 
-// ---------------------------------------------------------------- ffmpeg
+// ---------------------------------------------------------------- the cut
+// PHASE 4. The plan said "assemble by frame index from the FINISHED renders",
+// which was a cost assumption from when a render was thought to take hours.
+// It takes six minutes, so the cut is RENDERED, not spliced: every frame is
+// first-generation. Splicing would have made the close-ups THIRD generation
+// (V-TOP/V-BOT are already a re-encode of the zoom master), and a 19-branch
+// trim/concat filtergraph buffers gigabytes waiting for its turn.
+// Nothing about the CONTENT changes — same cut list, same frame indices, same
+// master WAV laid under it untouched, so V-CUT still cannot drift.
+let cutMap = null;   // frame index -> 'V-MAIN' | 'V-TOP' | 'V-BOT'
+const cutPath = arg('cut');
+if (cutPath) {
+  const cl = JSON.parse(fs.readFileSync(path.isAbsolute(cutPath) ? cutPath : path.join(ROOT, cutPath), 'utf8'));
+  if (cl.fps !== fps) console.log('  !! cut list is ' + cl.fps + ' fps and this render is ' + fps);
+  cutMap = cl.timeline.slice();
+  for (let i = 1; i < cutMap.length; i++) {
+    if (cutMap[i].f0 !== cutMap[i - 1].f1) throw new Error('cut list is not contiguous at entry ' + i);
+  }
+}
+
 const t0 = tStart != null ? tStart : 0;
 const t1 = tEnd != null ? tEnd : pieceEnd;
 const nFrames = Math.round((t1 - t0) * fps);
-const outH = viewMode === 'zoom' ? H * Z : H;
+const outH = cutMap ? H : (viewMode === 'zoom' ? H * Z : H);
+
+if (cutMap) {
+  // The cut list was built against the material end (751.92 s); this render
+  // runs to the page sweep's end. Rather than leave the tail unassigned, the
+  // FINAL entry is extended — it is a wide V-MAIN shot, and D5's shape is
+  // "closes wide so the final crescendo stays on the full ensemble".
+  // Compare against the ABSOLUTE end frame, not nFrames: for a partial render
+  // (--t0 88 --t1 95) nFrames is 210 and extending the last segment to 210 would
+  // destroy the map. Both branches are about the FULL timeline.
+  const endFrame = Math.round(t1 * fps);
+  const last = cutMap[cutMap.length - 1];
+  if (last.f1 < endFrame) {
+    console.log('  cut list ends at frame ' + last.f1 + ', render ends at ' + endFrame + ' — extending the final ' +
+      last.src + ' segment by ' + (endFrame - last.f1) + ' frames (' + ((endFrame - last.f1) / fps).toFixed(2) + ' s)');
+    last.f1 = endFrame;
+  } else if (last.f1 > endFrame) {
+    console.log('  cut list runs past the render end (' + last.f1 + ' > ' + endFrame + ') — the tail is simply not reached');
+  }
+}
+let cutIdx = 0;
+function srcAtFrame(k) {
+  while (cutIdx < cutMap.length - 1 && k >= cutMap[cutIdx].f1) cutIdx++;
+  while (cutIdx > 0 && k < cutMap[cutIdx].f0) cutIdx--;
+  return cutMap[cutIdx].src;
+}
+function cutFrame(k, t) {
+  // ABSOLUTE frame index — the cut list is indexed from t=0, while k counts from
+  // --t0. They are the same only for a full render; a partial one would take its
+  // sources from the wrong segments entirely.
+  const src = srcAtFrame(Math.round(t * fps));
+  if (src === 'V-MAIN') return frameRGBA(t, 'video');
+  const full = frameRGBA(t, 'zoom');
+  return cropRows(full, src === 'V-BOT' ? H : 0, H);   // the y=1080 gap, measured
+}
 const ff = ['-y',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', W + 'x' + outH, '-r', String(fps), '-i', 'pipe:0'];
 if (audio) ff.push('-ss', String(t0), '-i', audio, '-c:a', 'aac', '-b:a', '256k', '-shortest');
 ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', outFile);
 
-console.log('export_video: ' + irId + ' · ' + viewMode + (viewMode === 'zoom' ? ' x' + Z : '') +
+console.log('export_video: ' + irId + ' · ' + (cutMap ? 'CUT (' + cutMap.length + ' segments, ' + segsOf('zoom').length + ' zoom segs)' : viewMode + (viewMode === 'zoom' ? ' x' + Z : '')) +
   ' · ' + W + 'x' + outH + ' · ' + fps + ' fps');
 console.log('  ' + pages.length + ' pages, ' + segments.length + ' turn segments, material ends ' + srcEnd + ' s');
 console.log('  frames ' + nFrames + '  (' + t0.toFixed(2) + '–' + t1.toFixed(2) + ' s)');
@@ -287,7 +358,7 @@ const started = Date.now();
 function pump() {
   while (k < nFrames) {
     const t = t0 + k / fps;
-    const buf = frameRGBA(t);
+    const buf = cutMap ? cutFrame(k, t) : frameRGBA(t);
     k++;
     if (k % (fps * 30) === 0 || k === nFrames) {
       const el = (Date.now() - started) / 1000;

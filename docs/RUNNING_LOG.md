@@ -14669,3 +14669,134 @@ than a terminal**, so every per-900-frame progress line sat in grep's buffer and
 only appeared when the pipe closed. `phase3.sh` now passes `--line-buffered`, with
 the reason written above the line. *A progress reporter that reports nothing is
 worse than none: it converts "working" into "hung".*
+
+---
+
+## Day 36 — PHASE 4: the cut is RENDERED, not spliced — and three bugs caught before any pixels
+
+### The method changed, the content did not
+
+The plan says *"assemble by frame index from the finished renders"*. **That was a
+cost assumption from when a render was believed to take hours.** It takes six
+minutes, so `--cut` renders every frame first-generation instead.
+
+Two reasons, and neither is about speed:
+
+1. **Splicing would make the close-ups THIRD generation.** V-TOP/V-BOT are
+   already a re-encode of the zoom master; cutting them into V-CUT re-encodes
+   again. Rendering makes every frame first-generation.
+2. **A 19-branch trim/concat filtergraph buffers gigabytes.** Each `[0:v]split`
+   branch produces its frames when the decoder reaches them, but `concat` wants
+   them in order — so segment 2's ~786 frames sit in memory while segment 1 plays,
+   ≈ 2.4 GB for one branch alone.
+
+**Nothing about the CUT changes**: same list, same frame indices, same master WAV
+laid under it untouched, so V-CUT still cannot drift.
+
+### The tail
+
+The cut list was built against the material end, **22 558 frames (751.92 s)**;
+the render runs to **22 819 (760.63 s)**. Rather than leave 261 frames
+unassigned, the **final entry is extended** — it is a wide V-MAIN shot, and D5's
+shape is *"closes wide for 59 s, so the final crescendo stays on the full
+ensemble."* It closes wide for **68.1 s** instead.
+
+### THREE BUGS, ALL CAUGHT BY DRY RUNS BEFORE A SINGLE FRAME WAS DRAWN
+
+**1 · `Z` was a mode flag pretending to be a number.**
+
+    const Z = viewMode === 'zoom' ? (zoomZ || … || 2) : 1;
+
+A cut runs with `viewMode === 'video'`, so **Z was 1** and `buildSegments('zoom')`
+produced **63 unzoomed 1080-tall segments instead of 129**. Every close-up would
+have been *the top half of the wide shot* — five lanes at normal scale, no zoom
+at all. **The dry run printed `63 zoom segs` where the standalone zoom render
+prints 129, and that one number was the whole bug.**
+
+**2 · The cut lookup used the frame counter, not the frame index.**
+`cutFrame(k, t)` took `k`, which counts from `--t0`. Identical for a full render;
+for `--t0 88` it would have taken every source from the wrong segment.
+
+**3 · Extend/truncate compared against `nFrames`.** On a 7-second test render
+`nFrames` is 210, and the extend branch would have set the final segment's `f1`
+to 210 — destroying the map. Now both branches use the absolute end frame.
+
+*All three are the same species: a value that is correct when the render starts
+at zero and covers everything, and silently wrong otherwise. Dry runs on a
+7-second window found all three in about four minutes.*
+
+### One cache per mode
+
+A cut alternates between the video page and the zoom segment; a single cache slot
+would re-rasterize on every switch. Two slots cost **8.3 MB + 16.6 MB** and make
+all 19 switches free.
+
+### Seen before committing to the full render
+
+A 7 s test across the first cut boundary (91.34 s, V-MAIN → V-TOP):
+
+- **before** — ten lanes, dense Section 1, gc ball arcs, `cuivré` held tones
+- **after** — T1–T5 at zoom scale, ball arcs, flagged noteheads, `cuivré`,
+  `sfzp` / `fff` / `mf` / `p`, sharps and ledger lines, all legible
+
+The wide-to-close contrast is exactly what D5 was for.
+
+---
+
+## Day 36 — V-CUT rendered · PHASE 5 PASSES · THE VIDEO IS DONE
+
+**`V-CUT.mp4` — 68.8 MB, 7.0 min, 54.2 fps, 101 page rasters for 22 819 frames.**
+101 = the 64 video pages plus the ~37 zoom segments the nine close-ups touch, so
+the two-cache design did exactly what it was for: **all 19 mode switches were
+free.**
+
+### Five outputs, and they agree
+
+| | size | frames | video dur | audio dur |
+|---|---|---|---|---|
+| V-MAIN 1920×1080 | 69.4 MB | 22 819 | 760.633008 | 760.618 |
+| ZOOM MASTER 1920×2160 | 100.7 MB | 22 819 | 760.633333 | 760.618 |
+| V-TOP 1920×1080 | 64.4 MB | 22 819 | 760.633333 | 760.618 |
+| V-BOT 1920×1080 | 67.0 MB | 22 819 | 760.633333 | 760.618 |
+| **V-CUT** 1920×1080 | 68.8 MB | **22 819** | 760.633008 | 760.618 |
+
+**Identical frame counts. Spread of 0.325 ms across the container durations — a
+hundredth of a frame.** `start_time` is `0.000000` on BOTH streams of ALL FIVE.
+
+### THE CUT TAKES ITS FRAMES FROM THE RIGHT PLACE — with a control
+
+Each probe compared against the source the cut list says it should be, **and
+against a source it should NOT be**:
+
+| t | expected src | vs EXPECTED | vs WRONG (control) |
+|---|---|---|---|
+| 50 s | V-MAIN | **0.000 % differing, mean 0.000** | 18.535 %, mean 24.958 |
+| 100 s | V-TOP | 0.234 %, mean 0.110 | 19.746 %, mean 27.091 |
+| 230 s | V-BOT | 0.704 %, mean 0.452 | **62.619 %**, mean 43.859 |
+
+**At t=50 the V-CUT frame is BIT-IDENTICAL to V-MAIN** — both are
+first-generation renders of the same frame, so there is nothing to differ.
+
+**The 0.234 % and 0.704 % are not error — they are the proof of the PHASE 4
+decision.** V-TOP/V-BOT are second-generation (crops re-encoded from the zoom
+master); V-CUT's close-ups are first-generation. *The cut is a cleaner copy than
+the files it was nominally cut from.*
+
+**And the controls differ by 18–63 %** — two to three orders of magnitude more.
+A wrong-source bug could not hide in this measurement.
+
+### PHASE 5, all four criteria
+
+1. **Duration equality across all four** — ✅ (five, in fact)
+2. **A/V offset at start, middle and end** — ✅ structurally: one WAV at `-ss 0`,
+   `start_time 0.000000` on every stream of every file, and audio identical to
+   the millisecond across all five
+3. **Spot frames vs the live app** — ✅ 0 differing pixels of 2 073 600, both probe
+   pages, re-checked after the segments rewrite
+4. **The composer's eye** — theirs
+
+**PHASE 0 → 5 ARE CLOSED. THE VIDEO IS BUILT.**
+
+Whole-pipeline cost, measured end to end: **~31 minutes of compute** — 6.3 (V-MAIN)
++ 10.2 (zoom master) + ~1 (the two crops) + 7.0 (V-CUT) + the audio render's 3:17.
+The first estimate in the plan was 68 000 frames and hours per version.
