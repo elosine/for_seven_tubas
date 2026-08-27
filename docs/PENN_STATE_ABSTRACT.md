@@ -12,7 +12,125 @@
 
 ---
 
-# ⭐⭐⭐ THE FORMAT, AS DICTATED (day 37) — the current plan
+# ⭐⭐⭐⭐ DRAFT E — THE COMPOSER'S FULL ABSTRACT (day 37) — **the live draft**
+
+> Written by the composer on frame D, following their dictated format.
+> **Supersedes DRAFT D and everything below it.**
+> **VERBATIM: 293 words. COPY-EDITED: 277 words** (both under the 300 cap;
+> the edit returns 16 words of headroom). Title adds 13.
+
+## E-verbatim — the composer's text, unaltered
+
+**Bloom - Convergence - Balance for Tuba Ensemble and Computer Animated Notation System**
+**Bloom - Convergence - Balance for Tuba Ensemble**
+
+> At time 10:15 in the piece, Bloom - Convergence - Balance, ten tubas are
+> playing octaves in a complex rhythmic web. A few moments later they snap to a
+> crisp unison in an instant. Beginning at 4:33, the same ten tubas quietly
+> intone a hollow sounding chord which over the next twenty seconds transforms
+> into a kinetic pulsing texture bearing more similarity to a jet engine than a
+> brass choir. In the first instance, all ten players are in fact playing the
+> same steady tempo, but each stream of pulses is slightly out of phase with the
+> others. In the second example, pairs of performers create fields of acoustic
+> beating by slowly and slightly detuning from each other, like slowly tuning a
+> guitar but in reverse. How is the ensemble executing these unlikely scenarios?
+> They are playing from an animated notation system that uses simple animations
+> like bouncing balls and curve tracers as musical notation. The score plays like
+> a video game allowing performers to realize feats such as rapidly switching to
+> precise tempos, playing gradual crescendos that slowly unwind and creating
+> complex micro-counterpoint with no unifying pulse. These animations have
+> enabled me, the composer, to pursue novel and difficult to control musical
+> forces with subtlety and fluidity. This composition has three sections. The
+> first section deploys Xenakis-style clouds of staccato tuba sound grains in
+> flowing shapes. The middle section streams fields of acoustic beating (a la
+> Alvin Lucier) using micro glissandos, staggered articulations and crescendos.
+> The final section builds on the work of Steve Reich and Conlon Nancarrow
+> producing textures from streams of phase-shifted pulses and multiple
+> simultaneously tempos. This paper will outline how this piece was created, how
+> the animated notation was refined and how aural experimentation uncovered
+> musically interesting structures.
+
+*Placeholder for time-marked YouTube links*
+*Technical requirements: Laptop with presentation software and audio and video playback.*
+
+## E-edited — copy-edit pass (277 words)
+
+> At 10:15 in *Bloom — Convergence — Balance*, ten tubas are playing octaves in
+> a complex rhythmic web. A few moments later they snap to a crisp unison.
+> Beginning at 4:33, the same ten tubas quietly intone a hollow-sounding chord
+> which, over the next twenty seconds, transforms into a kinetic pulsing texture
+> bearing more similarity to a jet engine than to a brass choir. In the first
+> instance, all ten players are in fact playing the same steady tempo, but each
+> stream of pulses is slightly out of phase with the others. In the second, pairs
+> of performers create fields of acoustic beating by gradually detuning from each
+> other — like tuning a guitar in reverse. How is the ensemble executing these
+> unlikely scenarios? They are reading from an animated notation system in which
+> simple devices such as bouncing balls and curve tracers serve as the notation.
+> The score plays like a video game, allowing performers to realize feats such as
+> switching rapidly between precise tempos, playing gradual crescendos that
+> slowly unwind, and creating complex micro-counterpoint with no unifying pulse.
+> These animations have enabled me to pursue novel and difficult-to-control
+> musical forces with subtlety and fluidity. The composition has three sections.
+> The first deploys Xenakis-style clouds of staccato tuba grains in flowing
+> shapes. The middle section builds fields of acoustic beating, after Alvin
+> Lucier, using micro-glissandos, staggered articulations, and crescendos. The
+> final section builds on the work of Steve Reich and Conlon Nancarrow, producing
+> textures from streams of phase-shifted pulses and multiple simultaneous tempos.
+> This paper will outline how the piece was created, how the animated notation
+> was refined, and how aural experimentation uncovered musically interesting
+> structures.
+
+## The edits
+
+**Outright errors — should change**
+1. "multiple **simultaneously** tempos" → **simultaneous**
+2. "hollow sounding" → **hollow-sounding** *(compound adjective)*
+3. "difficult to control musical forces" → **difficult-to-control**
+4. "micro glissandos" → **micro-glissandos**
+5. "**a la**" → **after** *(or "à la" with the accent — "a la" unaccented is wrong)*
+6. Missing comma before a participial clause: "Nancarrow**,** producing" ·
+   "video game**,** allowing"
+7. Missing commas around the interrupter: "which**,** over the next twenty
+   seconds**,** transforms"
+
+**Consistency**
+8. Piece title uses hyphens; **the established title takes em-dashes** —
+   *Bloom — Convergence — Balance*. Italicise on first mention.
+9. "the first **instance**" … "the second **example**" → make both the same word
+10. Serial commas: the abstract uses none, then would benefit from them in three
+    lists. Pick one convention. *(Edited version adds them.)*
+
+**Tightening — optional, but they buy the 16 words**
+11. "snap to a crisp unison **in an instant**" — "snap" already means this
+12. "**slowly** and slightly detuning … like **slowly** tuning a guitar" —
+    *slowly* twice in one sentence
+13. "an animated notation system that uses simple **animations** … as musical
+    **notation**" — *animat-* and *notation* each doubled in one sentence
+14. "enabled **me, the composer,** to pursue" — the reader knows who is writing
+15. "**This** paper will outline how **this** piece" → *the* piece
+16. "staccato tuba sound grains" — four-noun stack; *staccato tuba grains* reads
+    cleaner
+17. "The middle section **streams** fields" — *streams* as a verb sits oddly
+    beside "streams of phase-shifted pulses" later; *builds* used instead
+
+## Open questions for the composer
+
+- **Two title lines are present.** Is the first the paper title and the second
+  the piece's scoring line, or are these alternatives? Also: **"Computer
+  Animated"** → *Computer-Animated*, if kept.
+- **The paper title is currently the piece's title.** It names the work but not
+  the argument. Worth considering whether the talk wants its own title.
+- **Are 10:15 and 4:33 confirmed, or estimates?** Both land in the correct
+  sections (10:15 is inside the trance span 8:20–12:31; 4:33 is inside the morph
+  span 2:21–8:16), so they are at least plausible — but the previous pair were
+  placeholders, so this is worth confirming by listening.
+- **Technical requirements could be more specific.** The call asks for them
+  explicitly; "projector/HDMI, stereo audio playback, presenter's own laptop"
+  answers it more completely than "laptop with presentation software."
+
+---
+
+# THE FORMAT, AS DICTATED (day 37) — the plan DRAFT E was written from
 
 > **Composer's dictation, verbatim in `COMPOSER_LOG.md` day 37.** Filed at their
 > instruction with **no commentary or analysis**. This plots the abstract's
