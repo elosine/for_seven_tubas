@@ -12,6 +12,82 @@
 
 ---
 
+# ⭐⭐ DRAFT D — the live draft (day 37) — **294 words**
+
+> **Frame D chosen by the composer:** demonstrate → puzzle → explain →
+> generalize. Kobayashi set aside for now (may or may not return; the frame does
+> not need him). Supersedes DRAFT A and DRAFT B.
+>
+> **The composer's craft objection, and it is correct:** *"d works best in a
+> talk because I play a sound and propose a puzzle… can't do that in an
+> abstract."* **Two answers, both used below.** (1) **Invert the order** — in
+> the room the SOUND creates curiosity and the puzzle names it; on paper the
+> **novelty claim** creates curiosity and the puzzle explains it. Talk = sound
+> then puzzle. Abstract = claim then reason. (2) **The call permits supplemental
+> links** — so the recording can be attached, and the abstract's last paragraph
+> promises the demonstration rather than attempting it.
+
+**Title candidates:** *The Ball Shows the Grid: Animated Notation and Textures
+That Cannot Be Written* · *Ten Tubas, One Tempo, Ten Offsets* · *Textures That
+Cannot Be Written*
+*(Avoid "ten tempi" — this material is ONE tempo at ten offsets; the multitempo
+material is a different passage.)*
+
+> In one passage of *Bloom — Convergence — Balance*, ten tuba players hold a
+> single tempo while each sits at a different phase offset from the others. What
+> they produce is not a chord and not a rhythm but one object made of ten
+> displaced pulses — a texture I have not encountered elsewhere.
+>
+> Phasing has been compositional material since the 1960s and the idea here is
+> simple, so the interesting question is why the sound is unfamiliar. The answer
+> is that it cannot be written down. Ten independent offsets, held accurately,
+> for minutes at a stretch, is not something a page can ask a player to do.
+>
+> This talk is about the device that asks it: an animated score in which each
+> performer watches their own pulse, drawn as a bouncing ball that keeps marking
+> time even where the part is silent. The ball shows the grid; the noteheads
+> show your subset of it.
+>
+> The device is small; what it opened is not. Because every part is locked to a
+> visible pulse, harmony can move through the texture independently of the
+> rhythm — chords flow while the pattern holds. The ensemble can cut into the
+> phase texture for a few seconds and straight back out, with no transition. The
+> same principle applied to sustained tones lets acoustic beating be shaped
+> rather than merely set in motion, at a resolution Lucier and the spectralists
+> could not specify. Applied to breath, it makes patterns of re-articulation a
+> formal device: the ensemble holds one chord, and dynamics alone reshape its
+> beating, without changing pitch.
+>
+> I will play these passages and show the notation that produces them. The
+> argument underneath is that the notation stopped describing the music and
+> began deciding what music was available to write.
+
+## How it maps to D
+
+| ¶ | D's step | on paper |
+|---|---|---|
+| 1 | the sound | **described + claimed novel** (the demo becomes a supplemental link) |
+| 2 | the puzzle | why is a simple idea unfamiliar? |
+| 3 | the answer + the device | it cannot be notated — here is what asks it |
+| 4 | what came through | three materials, in the composer's own order of interest |
+| 5 | the generalization | notation stopped describing and began deciding |
+
+## ⚠ To verify before submission
+
+- **"a texture I have not encountered elsewhere"** — this is the load-bearing
+  novelty claim and it is currently unverified. *Not encountered* is honest and
+  defensible; *does not exist* would not be. **Keep the first-person hedge.**
+- **"Lucier and the spectralists could not specify"** — a claim about other
+  people's music, in a room that knows this repertoire. **Needs checking against
+  actual Lucier practice before print** (*Still and Moving Lines* specifies
+  beating quite precisely in its own way). Softer fallback: *"could set in
+  motion but not shape."*
+- **"since the 1960s"** — Reich's phase pieces are 1965–67. Fine.
+- The **balance mechanism** — stated as the composer stated it (dynamics reshape
+  the beating). Worth one sentence of physical explanation in the talk.
+
+---
+
 # ⭐ THE RESET (day 37) — the paper is about the MATERIALS
 
 > **Composer's reset, verbatim in `COMPOSER_LOG.md` day 37.** *"What I would
