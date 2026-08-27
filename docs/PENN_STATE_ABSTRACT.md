@@ -396,6 +396,26 @@ Two ways to read it, and it is the composer's call:
 **Caution on scope:** stated fully this is probably a CONCLUSION-level point,
 not a 96-word one. In the abstract it likely earns **one clause**, not a beat.
 
+## ARC C — THE COMPOSER'S REVISIONS, beat by beat (day 37, IN PROGRESS)
+
+> The composer is rewriting the nine beats in their own words, one at a time.
+> **Instruction: "just for keeping, no analysis yet."** Captured verbatim as
+> received; no evaluation, no edits applied. Analysis resumes only when asked.
+> These supersede the AI's versions further below as they arrive.
+
+### BEAT 1 — revised by the composer ✅
+
+> I've long been fascinated with the special musical material Steve Reich
+> developed in his phase shifting pieces. In these pieces. something very
+> patterned immediately resolves into a timbral smear and then steps through a
+> klidoscopic variety of rhythms.
+
+*Copy-edit noted, NOT applied: "klidoscopic" → **kaleidoscopic** (transcription).*
+
+### BEATS 2–9 — awaiting the composer
+
+---
+
 ## ARC C — THE FULL TELLING, in the recommended order (~600 words)
 
 > **This is the EVALUATION version, not the abstract version.** Written so the
