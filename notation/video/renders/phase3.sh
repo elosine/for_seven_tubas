@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# NOTE: grep needs --line-buffered here. Writing to a FILE (background task)
+# it block-buffers, so the per-900-frame progress lines vanish until the pipe
+# closes and the render looks stalled when it is not. Cost a check-in on day 36.
 # PHASE 3 — the three renders (V-MAIN, ZOOM MASTER, and the two crops of it).
 # t1 = 760.63 = page 63's window end: the cursor finishes its sweep exactly at
 # the right edge, and 753->760.63 carries the final decay. All outputs share it,
@@ -11,11 +14,11 @@ OUT=notation/video/renders
 
 echo "=== V-MAIN ==="
 node tools/export_video.js --ir db1 --view video --fps 30 --t1 $T1 \
-  --audio "$WAV" --out "$OUT/V-MAIN.mp4" 2>&1 | grep -E "^export_video|^  [0-9]+/|^done|^  [0-9]+ pages"
+  --audio "$WAV" --out "$OUT/V-MAIN.mp4" 2>&1 | grep --line-buffered -E "^export_video|^  [0-9]+/|^done|^  [0-9]+ pages"
 
 echo "=== ZOOM MASTER ==="
 node tools/export_video.js --ir db1 --view zoom --z 2 --fps 30 --t1 $T1 \
-  --audio "$WAV" --out "$OUT/ZOOM-MASTER.mp4" 2>&1 | grep -E "^export_video|^  [0-9]+/|^done|^  [0-9]+ pages"
+  --audio "$WAV" --out "$OUT/ZOOM-MASTER.mp4" 2>&1 | grep --line-buffered -E "^export_video|^  [0-9]+/|^done|^  [0-9]+ pages"
 
 echo "=== V-TOP / V-BOT — two crops, one pass ==="
 ffmpeg -y -v error -i "$OUT/ZOOM-MASTER.mp4" \

@@ -14617,3 +14617,55 @@ of the two defensible ends.)*
 
 Both probe pages re-dumped and re-diffed against the app: **still 0 differing
 pixels of 2 073 600, max channel delta 0.** The refactor did not move the picture.
+
+---
+
+## Day 36 — PHASE 3 DONE: all four renders exist, and PHASE 5's measurements pass
+
+**~17 minutes of compute for the whole set.**
+
+| output | size | render | throughput | page rasters |
+|---|---|---|---|---|
+| **V-MAIN** 1920×1080 | 69.4 MB | **6.3 min** | 60.0 fps | **64** for 22 819 frames |
+| **ZOOM MASTER** 1920×2160 | 100.7 MB | **10.2 min** | 37.2 fps | **129** for 22 819 frames |
+| **V-TOP** 1920×1080 | 64.4 MB | (crop) | — | — |
+| **V-BOT** 1920×1080 | 67.0 MB | (crop) | — | — |
+
+The page cache held: **64 rasters for 22 819 video frames**, 129 for the zoom
+(129 segments × 5.85 s = 754 s, as it should be). 2.1's estimate was ~6.5 min for
+a full render; V-MAIN came in at 6.3.
+
+### PHASE 5, three of four criteria, measured
+
+**Duration equality.** All four: **22 819 frames, 30/1 fps**. Container durations
+760.633008 (V-MAIN) vs 760.633333 (the other three) — **Δ 0.325 ms, a hundredth
+of a frame**, which is mp4 timestamp rounding, not drift. Audio identical across
+all four: `aac 48 000 Hz stereo, 760.618000 s` (15 ms short of the video because
+an AAC frame is 1024 samples = 21.3 ms and the encoder lands on a frame boundary;
+sub-frame at 30 fps).
+
+**A/V offset.** `start_time` is **0.000000 for BOTH streams in all four files** —
+there is no offset baked into any container. The audio came from the one WAV with
+`-ss 0` and the video from t=0, so this is structural, not lucky.
+
+**The crops are the right halves, verified twice.** Geometry said y=1080 lands in
+the 8 px gap (T5 ends 1076.0, T6 starts 1084.0). Pixels agree: V-TOP against the
+master's rows 0–1079 differs on **0.084 %** of pixels (mean 0.113/255), V-BOT
+against rows 1080–2159 on **0.183 %** (mean 0.190) — h264→h264 generational
+noise. A wrong crop offset would differ by whole displaced lanes, not 0.1 %.
+**Looked at as well: V-TOP is T1–T5 with T5 complete, V-BOT is T6–T10 with T10
+complete. No lane is cut.**
+
+**Spot frames vs the live app** were already settled in 2.2 — 0 differing pixels
+of 2 073 600 on both probe pages.
+
+**The fourth criterion is the composer's eye, and that is theirs.**
+
+### A small tool defect, found by it looking broken
+
+The composer checked in because the render *seemed* stalled. It was not — V-MAIN
+had finished 6.3 min in. **`grep` block-buffers when its stdout is a FILE rather
+than a terminal**, so every per-900-frame progress line sat in grep's buffer and
+only appeared when the pipe closed. `phase3.sh` now passes `--line-buffered`, with
+the reason written above the line. *A progress reporter that reports nothing is
+worse than none: it converts "working" into "hung".*
