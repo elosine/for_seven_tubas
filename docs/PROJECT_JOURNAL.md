@@ -41,14 +41,45 @@ measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
 **the four tempo numbers** — `PRINT_MEASURED = true`, so the accelerando now reads
 **♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**.
 
-**NEXT STEPS · MODEL · CLEAR**
-1. **Watch V-CUT** — PHASE 5's last criterion. Nothing else is worth doing first.
-2. **THIS IS THE CLEAR POINT** the composer named ("clear when video is done").
-   `/session-end` · `/clear`.
-3. After that, the open work is the **print score** (tabloid landscape 17 × 11,
-   deliberately not generated yet — `docs/PRINT_AND_COVER.md`) and the
-   **paper** (`docs/PAPER_OUTLINE.md` waits on topic picks). Both are judgment
-   work: **Fable if available, else Opus.**
+**NEXT STEPS · MODEL · CLEAR** *(agreed with the composer at the day-36 clear —
+they asked "are you able to fix now, and work independently?" and we chose to do
+it on a fresh context, which is what WISHLIST.md was written to be the spec for)*
+
+**THE SEQUENCING CONSTRAINT, first, because it decides the plan.** The two wishes
+have very different blast radii:
+
+- **the shadow fix touches the METERS, so it invalidates ALL FIVE renders** — the
+  morph meters are in V-MAIN, hence the zoom master, hence both crops, hence
+  V-CUT. ~24 min for the four plus 7 for the cut.
+- **the fade touches V-CUT ONLY.** ~7 min, other four untouched.
+
+**So: shadow first, fade second, then ONE full re-render.** Any other order
+renders twice.
+
+1. **W1's "jump" — measure it. NO composer input needed.** Compute every meter's
+   level at all 22 819 frames and find the discontinuities directly; no rendering.
+   Outcome is one of: the 401-sample quantisation is confirmed · it is somewhere
+   else · there is no data-level jump at all, in which case it is the cursor at
+   the 63 system turns, which is the design. **Opus.**
+2. **W1's shadow — build the THREE variants as still frames** (raise
+   `fillOpacity` · opaque backing rect · move the meters out of the banded half),
+   same `t`, no re-render. **Then STOP and show them.** *Which one is the
+   composer's look decision on their own piece — thirty seconds of their time
+   against a 31-minute re-render if it is guessed wrong. The standing
+   recommendation if they would rather not look: `fillOpacity` ≈ 0.85, least
+   invasive, keeps the meters where day 35 put them.*
+3. **Implement both wishes, then ONE full re-render, then re-run PHASE 5.**
+   `--fade <frames>` defaulting to **8, symmetric on both ends** (an asymmetric
+   fade reads as a mistake). **The trap: blend ACROSS the existing boundary, never
+   insert frames, or duration equality breaks.** **Opus.**
+4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
+   generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
+   (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:
+   **Fable if available, else Opus.**
+
+**Still true and independent of all of the above:** PHASE 5's fourth criterion is
+the composer's eye on V-CUT. Nothing downstream depends on it, but it is the one
+verification no tool can do.
 
 **`docs/WISHLIST.md` is open** (day 36, new): **W1** the morph meters’ shadow —
 one 0.3-alpha fill over a background that changes mid-meter, in the SHARED
