@@ -597,3 +597,13 @@ the trance, which carries no brackets at all) **50 bracket texts from Section 1
 are written into the SVG at x ≈ −49 000** in an 855-wide viewport — clipped, so
 nothing is visible and nothing is wrong on the page. It is wasted output only.
 Found while proving the trance fold clean. Not urgent.
+
+## OPEN — shell scripts have no eol guard (day 37, latent)
+
+The repo has no `.gitattributes`, and this machine's git runs `autocrlf=true` —
+so `phase3/4/5.sh` are LF in the working copy (they run) but a FRESH CLONE would
+smudge them to CRLF, and Git Bash rejects CRLF scripts (`'\r': command not
+found`). Harmless on this machine, where the working copies were written LF and
+never re-checked-out. The fix when wanted: a one-line `.gitattributes`
+(`*.sh text eol=lf`) plus `git add --renormalize`. Not urgent — single-machine
+repo; noted so a future clone failure has its answer waiting.
