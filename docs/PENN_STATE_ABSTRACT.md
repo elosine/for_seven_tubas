@@ -431,7 +431,28 @@ not a 96-word one. In the abstract it likely earns **one clause**, not a beat.
 record from day 1 (`COMPOSER_LOG.md` 2026-08-10) and is beat 4 of the INTRO
 outline in `PAPER_OUTLINE.md`.*
 
-### BEATS 2–9 — awaiting the composer
+### BEAT 3 — raw material from the composer · **REWRITE DEFERRED, TOGETHER**
+
+> *Composer: "Let's do a rewrite together later. It's not immediately clear to
+> me how this should be rewritten."* **Captured verbatim; no rewrite attempted,
+> no analysis. Bring this back when the composer opens it.**
+
+> I had forgotten that the phase shifting process is a smooth process, linear
+> process, but the sound jumps around and states rapidly changing, rapidly cross
+> cutting from one sound state to another. maybe more Picasso than . G e h r e y.
+
+*Copy-edit noted, NOT applied: "G e h r e y" → **Gehry** (spelled aloud;
+correct spelling is G-e-h-r-y).*
+
+**Live question the composer raised, left open:** whether the visual-art
+metaphor for THIS material is Gehry or **Picasso**. Not to be resolved by the
+AI — flagged because it bears on the unplaced fragment above and on the INTRO
+outline's beat 4.
+
+**Status of the Gehry/CATIA fragment above:** *"maybe that was #2, but let's
+just hang on to it, and we'll see."* — **held, unplaced.**
+
+### BEATS 2, 4–9 — awaiting the composer
 
 ---
 
