@@ -97,149 +97,47 @@ the render) · `scores/Litany.pdf`. **Say if any should be committed.**
 
 ---
 
-### OPEN — day 36 (Opus): PHASE 0 IS CLOSED · THE TEMPO NUMBERS ARE DECIDED
 
-**THE PIECE HAS AUDIO.** `notation/audio/piece-final-draft-001.wav` — 2 ch /
-48 000 Hz / 24-bit, **762.000 s exactly**, no clipping. Rendered from Reaper at
-**60 BPM** (the MIDI is 60 BPM / 960 PPQ, one beat = one second). WAVs there are
-gitignored. **Composer on MAIN DRAFT with it attached: *"sync is very good"*.**
+### THE SESSION RECORD — one line each (trimmed day 36; full accounts in `docs/RUNNING_LOG.md`)
 
-**0.3 is measured, not listened to:** the file is digital silence until
-**2.0319 s** and `db1`'s first onset is **2.0000 s** — the 32 ms is the
-sampler's leading transient, **constant, not drift**. All four PHASE 0 items done.
+Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
-**THE FOUR TEMPO NUMBERS ARE DECIDED** (composer: *"you can update the tempo
-numbers"*). `PRINT_MEASURED = true`. **The accelerando now reads
-♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120** — supersedes the
-authored 93.8/100/107.1/113.2 wherever this journal states it. Both pages
-rebuilt from their own `provenance.build`; **`db1` still 4481 events / 906
-chunks / 4358 overlays, VALID**, and the entire diff is **41 `bpm` values + the
-provenance date** — no event, chunk, or other overlay moved.
+- **day 36 (Opus) — THE VIDEO.** PHASE 0–5 closed: Reaper render at 60 BPM, sync
+  proven and measured, `tools/export_video.js` built and proven pixel-identical to
+  the app, five renders, V-CUT. The repo's first dependency (`@resvg/resvg-js`,
+  chosen by measurement). `docs/WISHLIST.md` opened.
+- **day 36 (Opus) — THE FOUR TEMPO NUMBERS.** `PRINT_MEASURED = true`; the
+  accelerando is **♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**. The
+  authored 93.8/100/107.1/113.2 were a rounding artifact.
+- **day 36 (Opus) — THE TRANCE CLOSED, THE PIECE IN ONE FILE.** `db1` = **0–751 s,
+  4481 events, 906 chunks, VALID** — every sounding note. Save
+  **`piece-final-draft-001`** (`piece-s28` frozen). All **24 groups, 2.00–751.42 s**.
+- **day 36 (Fable) — the paper's first pass.** `docs/PAPER_OUTLINE.md` built; five
+  sections; **waits on the composer's topic picks**.
+- **day 36 — PRINT FORMAT: TABLOID LANDSCAPE 17 × 11** (supersedes PP-4's Letter).
+  ~31 % larger staves *and* 57 % more time per page. **16:9 is the VIDEO only.**
+  Cover measured and built — `docs/PRINT_AND_COVER.md`, `print/cover/`,
+  `docs/FONTS.md`. **The print score is deliberately NOT generated yet.**
+- **day 35 — THE TITLE: "Bloom — Convergence — Balance", for Tuba Ensemble.** The
+  three morph sections are the title.
+- **day 35 — the three morph sections notated, ten parts each, folded into MAIN
+  DRAFT.** **READ `docs/MORPH_NOTATION.md` BEFORE ANY MORPH WORK.** Tools:
+  `tools/notate_morph.js` (standalone) and `notate_section.js --morph <groupId>`
+  (the fold), sharing `notation/lib/morph_overlays.js` so they cannot drift.
+- **day 35 — the trance section is ONE LONG ACCELERANDO**, bar lines at
+  499.83 · 548.63 · 566.63 · 582.23 · 604.63 · 620.63 · 664.63 · 709.43, with
+  multitempo and phase-shift passages between arrivals. `trance-a4` = 3209 events,
+  VALID; **3109 quarter notes, 0 flag glyphs**; 53 held tones ARE the fortepianos;
+  47 end crescendos as surges; **the score's own working marks suppressed via
+  `hideMarkers`** — *notation text STAYS, cuivré included.*
+- **day 34 — the fold.** `db1` became the one page the composer reads.
+- **days 21–30 — Section 1 notated** (DB1/DB2/DB3, clusters, figures, the tuplet
+  vocabulary, the parachute bricks, the GC ball). `docs/NOTATION_STANDARDS.md` is
+  the settled figure law; `docs/NOTATION_WORKFLOW.md` is the tier-2 loop.
 
-**THE MORPH DOT IS OFF AGAIN.** `curveFollower` came back in MAIN DRAFT because
-`notate_section.js`'s `--morph` FOLD never wrote `doc.animated` — only its
-`--trance` block did. Fixed in the builder, so rebuilds carry it. *Pattern worth
-keeping: a per-page opt-out written by the standalone builder is invisible to the
-folding builder.*
+*Everything above this line that is older than the OPEN entry is history, not
+instruction. The instructions are the four reference blocks that follow.*
 
-**`test_notate_block` was RED at HEAD** (15/65) for the reason §2 already named —
-it hardcoded `piece-s28` while `db1` names `piece-final-draft-001`. Bumped:
-**65 passed, 0 failed.** Batteries green: layout · animobj · render · multitempo · notate_block.
-
-**NEXT STEPS · MODEL · CLEAR**
-1. **PHASE 1 · DECIDE** — the video decisions in `docs/plans/VIDEO_BUILD_PLAN.md`.
-   Judgment work. **Clear first; Fable if available, else Opus.**
-2. **PHASE 2.1 · rasterizer proof** — one busy trance frame, SVG → PNG. Executing a
-   written plan: **Opus**, clear before it.
-
-**Pending the composer:** DB3-EYE verdicts · PAPER topic picks · the two cover
-nits (block sits high; subtitle at 0.65 may want 0.55). *(The four tempo numbers
-are OFF this list — decided day 36.)*
-
-**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (composer's rack) ·
-`reaper/Bloom-Convergence-Balance_demoRecording.rpp` (the session that produced
-the render) · `scores/Litany.pdf`. **Say if any should be committed.**
-
----
-
-### OPEN AT SESSION END — day 36 (Opus): THE TRANCE IS CLOSED, THE PIECE IS IN ONE FILE
-
-**THE TRANCE SECTION IS FINISHED AND FOLDED.** The composer's last fix — the
-final crescendo reaching only half the lane — is done: it was inheriting the
-MORPH pages' half-lane convention (there the glissando owns the top half), and
-nothing glissandos in the trance. `fullHeight` on the cresc overlay, opt-in, so
-all three morph pages are untouched. **50 % → 100 % of lane height, seen in the
-app: ten limeGreen curves at 95.9 px against a ~96 px lane.**
-
-**MAIN DRAFT IS NOW THE WHOLE PIECE — `db1`, 0–751 s, 4481 events, 906 chunks,
-VALID.** 4481 is exactly the number of sounding notes in the score. Folded by
-replaying db1's own `provenance.build` with three edits, never by retyping.
-**Proven: 0 items added or removed before 496.5 s**, 17 218 additions all at or
-after it, warnings 32 → 32; the only change in the old span was each part's
-staff line ending 496.5 → 753. *So the 2 geometry findings it reports
-(`T9 @36.87`, `T10 @39.08`) are pre-existing CLOUD02-I items — for the polish
-pass, not the trance.*
-
-**NEW SAVE: `piece-final-draft-001`.** Bumped from `piece-s28` per SAVE_FILES —
-byte-faithful, **4643 objects, 0 differing**, metadata only. `piece-s28` freezes.
-Notation pages are NOT bumped (rule 3), so `db1`/`trance-a4` keep naming s28 and
-`test_notate_block` stays valid untouched.
-
-**ALL SECTIONS CONFIRMED IN: 24 groups, 4481 notes, 2.00–751.42 s** — the full
-inventory is in RUNNING_LOG day 36. Gaps only where the piece rests.
-
-**PRINT FORMAT DECIDED — TABLOID LANDSCAPE 17 × 11** (composer, day 36;
-supersedes PP-4's Letter landscape): ~31 % larger staves *and* 57 % more time
-per page. **16:9 is the VIDEO only** (PP-1). The cover is measured and built —
-`docs/PRINT_AND_COVER.md`, artwork in `print/cover/`, font in `docs/FONTS.md`.
-**The print score is deliberately NOT generated yet.**
-
-**Next concrete step:** the composer's eye on MAIN DRAFT end to end. Still open
-from earlier: the four tempo numbers (PS2/PS3/PS4/PS5 — the page prints the
-authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4;
-`PRINT_MEASURED` in `trance_overlays.js` flips it).
-
-**Pending the composer:** ~~the four tempo numbers~~ *(DECIDED day 36 — measured)* · DB3-EYE verdicts · PAPER
-topic picks · the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
-
-**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` (the composer's Reaper
-rack, mid-edit) · `scores/Litany.pdf` (their 2003 score, copied in as the cover
-reference — say if it should be committed).
-
----
-
-### WHERE IT STANDS — day 36 (Claude Code / Fable): THE PAPER'S FIRST PASS
-
-**`docs/PAPER_OUTLINE.md` is built and waits on the composer's topic pass.** Five
-sections (Kobayashi bookends + one per piece section: Section 1 · the morphs · the
-trance); per part a narrative sketch, topics to pick from, data on hand, and
-where-the-material-lives tables; cross-cutting threads parked for a home decision.
-The composer reviews and picks topics per section; those get expanded next.
-Full account: RUNNING_LOG day 36. **Everything below (the piece state) is unchanged.**
-
----
-
-### WHERE IT STANDS — day 35 CLOSE (Claude Code / Opus)
-
-**THE PIECE HAS A TITLE: "Bloom — Convergence — Balance", for Tuba Ensemble.**
-The three morph sections are the title.
-
-**THE MORPH SECTIONS ARE NOTATED, TEN PARTS EACH, AND FOLDED INTO MAIN DRAFT.**
-Picker: `MORPH 1 — BLOOM (all ten)` · `MORPH 2 — CONVERGENCE (all ten)` ·
-`MORPH 3 — BALANCE (all ten)`, plus MAIN DRAFT carrying all three.
-**READ `docs/MORPH_NOTATION.md` BEFORE ANY MORPH WORK** — the settled vocabulary and
-why each number is what it is. Tools: `tools/notate_morph.js` (standalone pages) and
-`notate_section.js --morph <groupId>` (the fold); they share
-`notation/lib/morph_overlays.js` so they cannot drift.
-
-**THE TRANCE SECTION IS BEGUN.** Page: **`TRANCE A4 — 500-751 s`** (`trance-a4`),
-3209 events, VALID, geometry clean. Built by `notate_section.js --trance
-grp-tranceA4-01` + `notation/lib/trance_overlays.js`. On it: **3109 quarter notes
-(0 flag glyphs)** · 53 held tones untouched (they ARE the fortepianos) · **47 end
-crescendos as surges** (ppp→arrow→fff) · **8 tempo bar lines** · **the SCORE'S OWN
-COMMENTARY suppressed** — beat numbers and structural labels, via the new
-`hideMarkers` flag (the app draws markers from the SCORE, not the page). *Day 36
-REDACTION: this was recorded as "all text gone", which is wrong and cost a round —
-the rule was only ever about the score's working marks. **Notation text stays**,
-cuivré included.* · 3130 bouncing balls. **Full account: RUNNING_LOG, day 35
-nineteenth sitting. SUPERSEDED day 36 — see the trance revision.**
-
-**THE SECTION IS ONE LONG ACCELERANDO** — that is what gives the bar lines:
-**♩ = 75 → 80 → 87 → 93.8 → 100 → 107.1 → 113.2 → 120** at 499.83 · 548.63 · 566.63 ·
-582.23 · 604.63 · 620.63 · 664.63 · 709.43, with multitempo and phase-shift passages
-between each arrival.
-
-**THE TWO TRANCE OVERLAPS ARE FIXED** — they were the two the plan already named
-(old step 7): T8 @560.63 and T6 @604.63, both pruned by the composer's rule (remove
-the PRECEDING section's last partial). **0 overlaps in 3212 notes.** Two 5-6 ms gaps
-deliberately LEFT as clean seams.
-
-**SAVE FILE: `piece-s28` is CURRENT** (s27 frozen; object-for-object copy, db1 proven
-0/0/0 across the bump). **`test_notate_block` hardcodes the score name — bump it with
-the save file** or it goes red.
-
-**WAITING ON THE COMPOSER:** the whole day's output is unreviewed — they said *"I'll
-review when I get back to my desktop."* Nothing is blocked on us.
 
 ### THE TRAPS THIS DAY FOUND (read before building notation)
 
@@ -258,330 +156,6 @@ review when I get back to my desktop."* Nothing is blocked on us.
 
 ---
 
-### THE TITLE (composer, day 35)
-
-# **Bloom — Convergence — Balance**
-## *for Tuba Ensemble*
-
-**The three morph sections ARE the title.** `ACT-BLOOM-01` · `ACT-CONVERGE-01` ·
-`ACT-BALANCE-01`, 141–496 s. Whatever else the piece contains, its name says the
-morphs are the argument — worth remembering when weighing how much of the 15-minute
-Penn State ceiling they get.
-
----
-
-### The morph-notation record (day 35, superseded above where they differ)
-
-**Three things shipped today, all pushed.** (1) **DB3 NOTATED** — MAIN DRAFT reads
-**0-136 s**, 23 clusters with their dynamics in one build. (2) **THE MORPHS GO TO TEN
-PARTS** — all three beds re-rendered and placed, MAIN DRAFT extended to **0-496 s**
-with the morphs as bricks. (3) **THE MORPH NOTATION VOCABULARY** — designed live with
-the composer, piece by piece, and handed off as a tool + a doc.
-
-**READ `docs/MORPH_NOTATION.md` BEFORE ANY MORPH WORK.** It is the settled vocabulary,
-why each number is what it is, and where the template stops. The tool is
-**`tools/notate_morph.js`** (`--group <id> --part <0-9> --id <ir> [--apply]`; dry-run
-by default). Run over BLOOM part 0 it **reproduces the composer-approved page exactly**.
-
-**THE REFERENCE PAGE IS `morph-x01`** in the picker — BLOOM T1. It carries: normal
-staff + bass clef · a header (two small black heads **F2 · gliss line · F¼♯**, and
-below on the house `dynY` row a **drawn niente circle · arrow · fff**) · **13 go
-lines**, one per breath, **no onset noteheads** · **two interpolated curves**,
-brightOrange gliss in the TOP half and limeGreen crescendo in the BOTTOM, filled, no
-borders, each normalised to fill its half · **two meters, no dots**.
-
-**THE FINDING THAT CHANGES THE PLAN — the template only fits BLOOM.** Measured over
-all ten parts of all three morphs:
-
-| morph | gliss range | direction reversals | verdict |
-|---|---|---|---|
-| **BLOOM** | 20 c every part | **0** | one clean arc — **fits** |
-| **CONVERGE** | 182-366 c | 12-38 | **an OSCILLATION — the tool REFUSES** |
-| **BALANCE** | **0 c every part** | 0 | **no glissando at all** |
-
-CONVERGE swings up to 3.5 semitones reversing up to 38 times; the best single smooth
-curve has a **237-cent** worst case, so the tool refuses above 25 c (half a quarter
-tone — past that the drawn line puts the player in the *wrong quarter tone*).
-**BALANCE has no pitch bend anywhere: its top half would be empty.** Both need a
-composer decision before anything is drawn.
-
-**A CORRECTION ON THE RECORD:** an earlier note said "CONVERGE reaches ±67 cents".
-That was a per-tone peak, **not** the section range, which is ±180 c. The table in
-`MORPH_NOTATION.md` is the one to trust.
-
-**THE BEATING DATA IS JOURNALLED** at the composer's ask (RUNNING_LOG, "THE BEATING
-DATA"): each pair is a mirror, max spread **40.9 cents**, beating **2.06 Hz (T1/T2)
-→ 6.55 Hz (T9/T10)**. The composer wants a beating indicator in the PARTS eventually
-— filed in PLANNER, with their own doubt that the two players can hear each other.
-
-**Deliberately uncommitted: nothing.** Working tree clean at close.
-
----
-
-### The sixteenth-sitting record — DB3 NOTATED (still current for MAIN DRAFT)
-
-**MAIN DRAFT NOW READS 0–136 s.** The final density build is figured. The page is
-**"MAIN DRAFT — all notation so far (0-136 s)"** (internal id `db1`, source
-`piece-s27`) — **866 events · 277 chunks · VALID vs source · geometry zero new**
-(still only the two pre-existing tier-3 items, T9 @36.87 · T10 @39.08).
-
-**23 clusters `cl-62`–`cl-84`, built WITH their dynamics in ONE build** — not
-figures-then-marks-later as DB2 did, because the fourteenth sitting's lesson (D-log
-23) is that an established rule living only in prose gets skipped. 23 marks · 18
-accents · 6 below-floor members unmarked.
-
-**THE SCAN WAS THE CLEANEST ANY SECTION HAS RETURNED:** 23 gestures, **all on one
-grid within a head · 0 straddles · 0 no-clean-seam · 0 ratio ties · 0 brackets.**
-**DB3 needs no tuplet vocabulary at all.** Every fit `[no tuplet]`, max err 0–18 ms,
-every written value a 16th.
-
-**THE SECTION'S FORM, found by measuring:** 160 notes = **~97 lone one-shots + 63
-notes in 23 gestures.** Ten parts enter staggered (T1@113.0 → T10@120.1) and play
-one-shots only for ~17 s; **every one of the 23 gestures sits in the last six
-seconds (129.83–135.29)**, and their units cluster at **215–245 ms across all ten
-parts.** Ten independent voices converge on a common pace at the end. *The density
-is ACROSS the parts, not inside any one — DB2's shape at twice the scale.*
-
-**The scoped-global design paid out one section later, as forecast:**
-`--beamsThrough 55.9- --rests16 55.9-` are open-ended, so **DB3 inherited the
-day-35 beam/rest rule with NO new flags.**
-
-**All 17 ringing members (10 fp + 7 ord/surge) live in 113.0–128.3; every gesture is
-pure staccato.** The named surge-inside-a-figure FIRST **did not occur — again.**
-Measured with duration, not onset: the last ringing note (`ev-wc-2405`, T8) ENDS at
-129.711, the first gesture begins at 129.830 — **119 ms** (DB2's was 168).
-
-**PROVEN, not assumed: nothing on [0,111) moved.** 1263 added layout rows, **every
-one at/after 112.9** · **0 removed** · 10 changed, all ten the `staff t1` window
-bound. `--validate` **81/84** — the three DIFFERS proven to pre-date the sitting.
-**Eleven batteries green.** Verified in the running app at 131.5–135.7 and
-112.8–121.8. Full account: RUNNING_LOG day 35, sixteenth sitting.
-
-**WAITING ON THE COMPOSER — DB3-EYE** (see the NEXT STEPS row): five 3-band clusters
-are proposals; **the member-2 mark is an AI reading of two rules colliding**, new in
-DB3; a new facing band T7/T8 133.1–133.5.
-
----
-
-### The thirteenth-sitting record — ONE PAGE: MAIN DRAFT (still current; the page now reads 0-136 s)
-
-**THE PICKER IS ONE PAGE NOW — the composer's mandate, verbatim: *"just keep one in
-the main section… all the notation we've built so far and just keeps accumulating
-it. The sort of main draft."*** The three tiles are MERGED: **"MAIN DRAFT — all
-notation so far (0-111 s)"** (internal id `db1`, source `piece-s27`, 706 events =
-456+129+121 exactly). One build command carries all three sections' provenance
-verbatim; the era boundary is expressed as **scoped globals `--beamsThrough 55.9-
---rests16 55.9-`** (open-ended — future sections inherit the day-35 rule; db1's
-approved beamlet-era tiles untouched). **Proven tile-by-tile: 3833 + 1033 + 1043
-layout rows identical to the three pre-merge pages, zero extra, zero missing**
-(window furniture excluded as definitionally window-shaped). Eleven batteries green
-(test_notate_block 65/65 — SCORE now piece-s27, golden strips only the two replayed
-flags, window-refusal on a synthesized clipped twin, ragged fixture reads the frozen
-archive). `db2` and `int2b1` PRUNED; the picker is fully manifest-driven (the four
-day-1 hardcoded entries are manifest experiments now); **main section = MAIN DRAFT
-alone, everything else under "experiments"**. Verified in the live app at 78.2 and
-84. **In chat the page is always called MAIN DRAFT.** Full account: RUNNING_LOG
-day 35, thirteenth sitting.
-
-**DB2-FIX round 2 (fourteenth sitting): THE DYNAMICS ARE APPLIED** — the composer:
-*"I thought we already established some guidelines for dynamics."* We had (day 24
-rule + day-29 mf floor + day-30 refinements; process = rule proposes onto the page,
-eye refines). All twelve clusters marked from the recorded velocities: 12 marks +
-23 accents, windowed-diff proven (+35 glyphs in the mid tile exactly, outer tiles
-0/0, geometry zero new). **cl-52's lone `p` is below the mf floor → unmarked by
-rule.** For the composer's ear: **cl-50 (T1 @78.48) and cl-52 (T2 @77.38)** — both
-3-band starting points. Remaining small flags in the eleventh-sitting block below.
-
----
-
-### The eleventh-sitting record (round 1 — still current except "the page" is now MAIN DRAFT)
-
-**DB2-FIX ROUND 1 IS ON THE PAGE (eleventh sitting, Fable).** The composer's first
-verdict on `db2`, dictated and applied: **(1) full double beams across every beam
-group** (beamlet stubs 25 → 0) and **(2) every rest a 16th, one per slot** (free
-8th rests → 0; the two left are cl-6's 3:2 bracket slots, the bracket's own
-arithmetic) — both generalized as GLOBAL BUILD FLAGS `--beamsThrough --rests16`
-on `notate_section` (default OFF; db1's provenance reproduces its approved
-beamlet-era writing — the golden proves it), with the composer's forecast
-exceptions `--beamlets N` / `--restFit N` built. **The day-29 STANDING BUILD
-RECIPE already said this in prose and the tenth-sitting build skipped it — the
-rule now lives on the command line** (D-log 23). **(3) cl-3 rewritten by
-dictation:** the fp `wc-1704` DETACHED (no beam, no stem; open head + sfzp + GC +
-go line — the registry one-shot), cluster = the five heads from 77.383 as ONE
-group (`--pattern`, `--noGc wc-1710`; worst displacement 0.9 heads, was 1.0;
-ratio-tie flag mooted). Diff proven CONFINED to the dictation; eleven batteries
-green; db1/int2b1 md5-identical; verified in the app (screenshots + DOM audit).
-Full account: RUNNING_LOG day 35 eleventh sitting.
-
-**REMAINING FLAGS: #1 cluster dynamics (proposal table stands, NO verdict yet) ·
-#2 cl-1 straddle · #3 cl-6 no-clean-seam · #5 cl-1 near-tie · #7 nine short fp
-bars · #8 T1/T2 facing band (info) · new/small: cl-6's two bracket-internal 8th
-rests (slot-value by rule — say the word for 16ths).**
-
----
-
-### The tenth-sitting record (superseded where the above says so)
-
-**`db2` IS BUILT AND FIGURED.** "DENSITY BUILD (GESTURE-2 x0.75) — 56-81 s", source
-`piece-s27`, window 55.9-81, all ten parts, `--bricks --bracketsAbove`. **129 events · 45
-chunks · VALID vs source · GEOMETRY clean · 12 clusters.** Eleven batteries green; `db1`
-and `int2b1` md5-identical to HEAD. Full account + the flags table: RUNNING_LOG, day 35
-tenth sitting.
-
-**THE SECTION IS NOT WHAT THE PLAN ASSUMED.** The scan found **12 gestures and 91 lone
-one-shots** — only 38 of 129 notes are in a multi-note gesture, and all twelve gestures sit
-in the last six seconds (73.2-80.1). Before 73 s every part is one-shots. *The density is
-ACROSS the ten parts, not inside any one of them.* All 12 fit within a head on ONE grid, so
-no `--ownGrids`, no `--cuts`, no `--paceRatio` — pace-rule defaults took the whole section.
-Two brackets exist in total (cl-1 5:4, cl-6 3:2); every written value is a 16th.
-
-**THE NAMED FIRST DID NOT OCCUR** — no surge is inside a figure and no surge curve reaches
-one; closest is `wc-1702` T6 with **168 ms clearance**, verified on the rendered page. The
-risk stays open for a future section.
-
-**TWO CORRECTIONS TO THE NINTH SITTING'S BRIEF, both measured:** (1) there are **9 surges,
-not 8 + 1 plain ord** — `wc-1624` carries `env: surge`, and this section has NO plain-ord
-note; (2) **the "129/129 go line" assert cannot survive figures and should not** —
-`figures.cluster.goLine` is `false` in the registry, so it reads 91/129. The assert was
-restated to measure the LAW (go line on non-cluster notes 91/91 · on partials 0/0 · GC on
-each cluster first partial 12/12 · on non-first 0/0 · notehead 129/129 · brick 129/129 —
-all PASS). **A count-based assert would have reported a regression here.**
-
-**`--w0 55.9` PROVED NECESSARY:** `wc-1624`'s brick sits at x=56.25 but its **notehead at
-x=27.3** (the surge unit hangs before its go time). `--w0 56` would have clipped the head
-off the page while still counting the event.
-
-**~~WAITING ON THE COMPOSER~~ — the eye arrived; round 1 applied (see the block
-above).** Still open from this list: the dynamics. **All 12 clusters have NO
-dynamics** (`dynMark: false` by design; `--dyn`/`--accents` stay the composer's, and
-db1 does the same — 264 of its 330 partials suppress the mark). The registry rule was
-run to PROPOSE, not apply. **The proposal table is in the running log (tenth
-sitting)**, classified by the standards' own calibration (band count): **10 of 12 are
-inside it** (1-2 bands) and can be applied from the rule; **cl-1 (3 bands) and cl-3
-(4 bands) are not** — and cl-3 is now FIVE members (its fp detached, day 35 round 1),
-so its row wants re-deriving before any apply.
-
-**Deliberately uncommitted: nothing.** Gitignored and pre-existing, left alone:
-`scores/gen-aud-0[1-5].json` · `scores/piece-s25-finished01-work.json` (never a source,
-D75) · `scores/versions/`. `piece-s27-work.json` still does not exist.
-
-**THE SAVE-FILE MAP (day 35, twelfth sitting; superseded on the notation side by
-the thirteenth): `docs/SAVE_FILES.md`.** Current save = **`piece-s27`**; the one
-notation page is **MAIN DRAFT** (see the block above). **Keep the map current at
-every bump/new section; name files by exact filename or picker label in chat**
-(also in CLAUDE.md now; its stale `7tubas.json` line fixed).
-
-**Chat format, standing:** succinct, chunked, short lines; answer the question that was
-asked (global CLAUDE.md § Chat responses; `reply-format-tldr-chunks` memory).
----
-
-**DAY 35 COLD START — read this block, then go. CLOUD02-D IS WRAPPED (day 33)
-AND FOLDED (day 34): `db1` is now the single page and carries all 49 clusters,
-0–46.36 s, under the bracket-above policy; nothing mechanical is outstanding.
-**Next work is the composer's: THE NEXT SECTION — a LONG TONE + DENSITY BUILD 2
-— composed in the app on the save file `piece-s26`. Open with Fable; the AI's
-job is density-pipeline runs and measurements on request, not building.**
-
-### State in one paragraph
-
-**Day 34 (one session, Claude Code / Opus) — two mechanical chunks, both
-verified, both pushed.** THE FOLD ran: `db1` is the single page again (49
-clusters, 0-46.36 s, `--bracketsAbove`, 456 events, VALID vs source), the
-`db1-c2d-x01` fork pruned, geometry unchanged (the two known tier-3 items, zero
-new). **425 approved layout rows proven identical before and after** — the claim
-the composer plans around, measured against a git-restored day-33 db1 because
-the batteries could not say it (the gate had `existsSync`-skipped itself). Then
-STEP G woke that gate: both day-33 guards now discover `db1-*` forks from the
-picker instead of naming one, and the approved boundary is DERIVED (min start of
-any cluster the fork adds or changes) instead of the hardcoded `42` — which was
-CLOUD02-D's number and would have silently under-covered the next section by
-4.4 s. Verified by rebuilding the day-33 world from git: fires red on a forced
-stem at t=31.55, re-derives `t<42.37` over the same 425 rows, fails loudly on a
-missing fork file, prints NOT APPLICABLE when there is no fork. D70; principle
-11. Ten batteries green.
-
-**Day 33 wrapped CLOUD02-D.** The reads never ran as ceremony — the composer
-lived with every figure through the three-day placement work and closed 6b by
-standing verdict. The page is LOCKED under: **THE BRACKET-ABOVE POLICY**
-(every bracket above its own staff, hugged, per-IR `--bracketsAbove`; a
-bracket belongs to the staff below it) · **THE PER-MARK ACCENT LAW** (head-side
-accents hug their own note — day-31 dyn law extended) · `--dynSide` dictation ·
-the hook⇔side battery invariant · **THE APPROVED-SPAN GATE** (caught the
-stale-stem-tip bug day 33; proved the fold moved nothing day 34; **day 34 it
-discovers its fork from the picker and derives its own boundary**, so the next
-section's fork is gated from birth) · **FACING BANDS named by every
-build** (info line: T6/T7 · T8/T9 · quiet T4/T5 @34.3 — every day-31-33
-dictation landed in a facing band). Geometry guard: ZERO c2d findings; only
-the two pre-existing tier-3 items (T9 @36.87 · T10 @39.08, approved db1).
-**The facing-bands MOVER is deliberately NOT machinery** — adopt at a future
-section build if wanted; its two deltas (T9 accents below, T3 accents to beam
-side) must be named to the composer first. Ten batteries + 75 snapshots green;
-everything pushed.
-
-**The save-file bump (day 33):** `scores/piece-s26.json` = byte-faithful copy
-of `piece-s25-finished01` (fresh metadata; 4563 objects, 10 tracks; verified
-in the live app list). `piece-s25-finished01-work` is a STALE app working copy
-(12 h older than the archive; zero composer edits) — left alone; the app makes
-`piece-s26-work` on first open. **Compose the next section in `piece-s26`;
-the s25 archive is frozen as CLOUD02-D-era canon.**
-
-### THE FOLD — DONE (day 34, one sitting)
-
-`db1` rebuilt from the fork's own command under `--id db1`; fork pruned. **456
-events · 127 chunks · VALID vs source · 49 clusters · `--bracketsAbove` on.**
-Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
-**zero new c2d findings.** Ten batteries green.
-
-- **Where CLOUD02-D sits: 42.37–46.36 s** — all 13 new clusters above t=42,
-  which is why the gate's threshold is 42 and why it covered 100 % of approved
-  material. db1's earlier 36 = 25 density-build-1 (29.92–34.6) + 11 CLOUD02-I
-  (36.19–40.42).
-- **The claim, measured not inferred:** 425 approved layout rows (tuplets,
-  beams, accents, dynamics below t=42) **IDENTICAL** between the day-33 db1 and
-  the folded db1. Nothing the composer approved moved. *(The batteries could not
-  say this — the gate `existsSync`-skipped itself once the fork was gone.)*
-- **CARRIED FORWARD → NITS (day 34):** that gate now hardcodes a pruned fork id
-  and therefore **reports green while asserting nothing**. Fix it before the next
-  section's fork, or the next `--bracketsAbove` build has no guard at all.
-
-### NEXT STEPS · MODEL · CLEAR — the running thread (keep current; CLAUDE.md § THE RHYTHM)
-
-| # | step | model | clear? | done = |
-|---|---|---|---|---|
-| ~~5c/6~~ | ~~CLOUD02-I: the reads, the notation, the fold~~ **DONE day 30** (D-logs 10–22; validate 37/40; pushed) | — | — | — |
-| ~~6a~~ | ~~CLOUD02-D playability~~ **DONE day 31** — 18 soft → 10, worst 57 % → 20 %, 0 hard; 16 moves + bricks, 17 ledger lines; PLAN 8j; the collapse pass, the same-slot bar and frozen figures built | — | — | — |
-| ~~6b~~ | ~~CLOUD02-D notation~~ **DONE day 33** — placement locked by eye (bracket-above policy + per-mark laws + dictations); figures approved by the composer's standing verdict; guard zero findings | — | — | — |
-| ~~F~~ | ~~THE FOLD~~ **DONE day 34** — db1 carries all 49 clusters (0–46.36 s, policy on); fork pruned; 425 approved rows proven unmoved; batteries green; pushed | — | — | — |
-| ~~G~~ | ~~Wake the approved-span gate~~ **DONE day 34** — both guards discover `db1-*` forks from the picker; boundary derived (re-derived 42.37 / 425 rows on the reconstructed day-33 world); fires red on real drift; missing fork file fails loudly; prints NOT APPLICABLE when there is no fork | — | — | — |
-| ~~M~~ | ~~BUILD the block generator~~ **DONE day 35** — `tools/notate_block.js` + `notation/lib/{device_check,prove_unmoved}.js` + `tools/prove_unmoved.js` (CLI) + `tools/test_notate_block.js`. **GOLDEN PASSES: the machine-built page is item-for-item identical to the approved db1** (warnings 22 = 22); 44/44 new checks; ten batteries green; db1 byte-identical. The golden caught a real error in the day-35 brief → **D73** (the proof is CONFINEMENT, not stillness). All four traps are refusals | — | — | — |
-| ~~STOP 1~~ | ~~which save file, new IR vs extended window~~ **ANSWERED day 35** — source is **`piece-s26`** (NOT `-work`, which is behind by the whole playability pass — D75); option **(a) a NEW IR** for 81–110, db1 left approved and untouched | — | — | — |
-| ~~fifth sitting~~ | ~~THE BLAST-COLUMN EVALUATION~~ **DONE day 35 (Fable)** — 11 dictated columns measured in `piece-s26`; every named exception already true in the grouping; verdict = YES, one narrowing of one refusal. Full table + spec: running log, fifth sitting | — | — | — |
-| ~~M2~~ | ~~AMEND `notate_block` for mixed/all-staccato blocks~~ **DONE day 35 (Opus)** — ring vs self-drawing partition; `spanFor` wanted-set = ring only; all-staccato → VERIFY not build; ask-assertion split; unknown technique still refused. **Battery 64/64** (was 44), golden still identical to db1. Also caught a regression the spec did not foresee: **"a block is one instant" was never asserted** — the 159-note cloud (uniform brick, 153 onsets over 4.1 s) had only ever been refused for its technique. Threshold now derived from the material. `set_brick --technique any` + `--why` + the sound line MEASURED (false for the ord family, D9) | — | — | — |
-| ~~P~~ | ~~BUILD THE 81–111 PAGE~~ **DONE day 35 (Opus)** — **`int2b1` "INT2 BLASTS — 81-111 s"**; 7× `set_brick` to the dictated shortest rule then **11 notate_block runs: 8 built (47 ring bars), 3 verified-not-built**. Every dictated exception held with no code for it. Verified in the running app (14 bars at 84.3+2.5; 8 bars @4.995 reaching 110.621). Eleven batteries green; db1 byte-identical | — | — | — |
-| ~~STOP 2~~ | ~~the composer's eye on `int2b1`~~ **ANSWERED day 35, all three** — (1) the id/label `int2b1` / "INT2 BLASTS — 81-111 s" **stands**; (2) the T1 breath: *"shorten just the t1 long tone leave the others"* — applied, T1 now 3.075 s ending 98.960, proved and seen in the app; (3) the two spread clusters **stand as drawn** (free/spatial reading — the composer's own criterion was "a GC and a notehead", and 121/121 have one). **THE SECTION IS CLOSED** | — | — | — |
-| ~~DB2~~ | ~~THE DENSITY BUILD identified + cleared~~ **DONE day 35 (Fable, ninth sitting)** — it is the EXISTING GESTURE-2 x0.75 material (marker @55.94, `grp-gest2-75-01`, 129 notes 55.94-80.12, identical s26=s27, zero composer edits). Analysis + playability run + apply: 0 hard 0 soft, 92 bricks → 50 ms, ledgered. Two catches: wc-1624 sits AT 55.940 (build uses `--w0 55.9`); surge-inside-figure is a FIRST (visual verify point). Surge/fp handling confirmed from the registry + db1 precedent | — | — | — |
-| ~~DB2-N~~ | ~~THE OPUS NOTATION RUN~~ **DONE day 35 (Opus, tenth sitting)** — `db2` built and figured: 129 events, 12 clusters, VALID, geometry clean, brackets-above from birth. The scan reframed the section (**12 gestures, 91 lone one-shots**; density is ACROSS parts). Pace-rule defaults took all twelve — no `--cuts`, no `--ownGrids`. **The named FIRST did not occur** (no surge inside a figure; 168 ms closest). Two brief corrections measured (9 surges not 8+1; the go-line assert restated to the LAW). Eleven batteries green; db1/int2b1 md5-identical | — | — | — |
-| ~~DB2-FIX~~ | **PARKED AT THE POLISH (day 35, fifteenth sitting — composer: "we'll fix later at the polish").** Rounds 1-2 applied (beams/rests/cl-3 rewrite; dynamics from the established stack — 12 marks + 23 accents, proven confined). Parked for the polish pass: **vertical object placement (NITS, objects unspecified — ask)** · cl-50/cl-52 dynamics by ear · cl-50 STRADDLE · cl-55 no-clean-seam · T1 near-tie · nine short fp bars · T1/T2 facing band · cl-55's bracket-internal 8ths | — | — | polish pass opens |
-| **DB3 — OPEN (playability DONE)** | **The final density build: marker @113.54 "DB3-m3F — density-build", `grp-db3-m3f-01`, 160 notes 113.00-135.77, all ten parts staggered T1→T10** (143 stacc + 10 fp + 7 ord). Playability applied: **0 hard 0 soft (clean from the start, no moves); 143 bricks → 50 ms; breath inside dials; audibility info 7.2 att/s, max 10 sounding.** `wc-2361` sits at 113.000, BEFORE the 113.54 marker → windows must use `--w0 112.9` (the wc-1624 lesson again). MAIN DRAFT proven untouched (golden 65/65 after the score edit) | — | — | — |
-| ~~DB3-N~~ | ~~The Opus notation run~~ **DONE day 35 (Opus, sixteenth sitting)** — MAIN DRAFT is **"all notation so far (0-136 s)"**: window widened, **23 clusters `cl-62`–`cl-84` built WITH their dynamics in one build**. **866 events · VALID · geometry zero new.** The scan was the cleanest yet (**23 gestures, all one grid within a head; 0 straddles, 0 ties, 0 brackets — DB3 needs no tuplet**). `--validate` **81/84**, the three DIFFERS proven pre-existing. Tile-proof: **1263 added rows all ≥112.9, 0 removed, only the staff window bound changed.** Eleven batteries green; verified in the app | — | — | — |
-| **DB3-EYE — NEXT (composer)** | **The eye on DB3.** Five 3-band clusters are PROPOSALS per the registry's own confidence note (**g3 T1 @134.14 · g6 T2 @134.14 · g7 T3 @131.97 · g8 T4 @131.70 · g9 T4 @133.15**); **the member-2 mark** (g4 T2 @131.60, g18 T8 @133.13) is an AI reading where "dynamic on the first sounding note" met "below-floor members get nothing" — **a new rule-collision DB2 never hit**; new facing band **T7/T8 133.1–133.5**. Full list: RUNNING_LOG sixteenth sitting | Fable | yes — clear before it | composer's verdicts applied |
-| ~~MORPHS-10~~ | ~~The morphs to ten parts~~ **DONE day 35** — all three beds re-rendered and placed in `piece-s27` (BLOOM 106→133, CONVERGE 108→167, BALANCE 110→137 tones), MAIN DRAFT extended to **0-496 s** with them as bricks, MIDI verified on T9/T10. **BLOOM was a clean addition (106 of 106 survived); CONVERGE and BALANCE re-rendered** — the pair's insertion point renumbers the voices | — | — | — |
-| ~~MORPH-NOTATION~~ | ~~The morph notation vocabulary~~ **DONE day 35** — designed live, piece by piece; **`tools/notate_morph.js` + `docs/MORPH_NOTATION.md`**; reference page `morph-x01` (BLOOM T1) reproduces from the tool exactly | — | — | — |
-
-
-| ~~F2~~ | ~~The fold of `int2b1`/`db2` into one page~~ **DONE day 35 (thirteenth sitting) — the composer mandated it** (*"just keep one in the main section… keeps accumulating"*): **MAIN DRAFT — all notation so far (0-111 s)**, tile-proven identical (3833+1033+1043 rows), scoped-global era boundary, both pages pruned, picker manifest-driven | — | — | — || N | NEXT SECTION opens: the LONG TONE + DENSITY BUILD 2 on `piece-s26` — composer composes in the app; AI runs the density pipeline / measurements on request; notation later via new forks off db1 (`--bracketsAbove` from birth; facing-bands line tells the composer where clutter risk is BEFORE dictation) | Fable for design/verdicts · Opus for pipeline runs | clear before it (section boundary) | section material exists in `piece-s26` |
-| ~~7~~ | ~~The two trance seams~~ **DONE day 35** — both pruned by the composer's rule; 0 overlaps in 3212 notes |
-| ~~TRANCE-EYE~~ | **ANSWERED day 36 — the eye became a REDIRECT:** toward `trance-section-01`'s look, per-part tempo apparatus, columns, fixes. All questions resolved across three rounds | — | — | — |
-| ~~TRANCE-REVISE~~ | ~~Implement `docs/plans/TRANCE_A4_REVISION.md` (v3 FINAL)~~ **DONE day 36 (Opus)** — trance_overlays rewritten · animobj preset passthrough · layout per-part bars + curveZero + the chunk tick on unresolved chunks · render one-decimal-where-fractional · schema `devices[].preset` (the gate's 4th bite). **3109 in-tempo · 70 column members / 10 columns · 159 per-part tempo marks · 3486 balls · 10 cresc · VALID.** §8 verified in the running app; MAIN DRAFT + 4 morph pages md5-identical; 11 batteries green (new checks in test_layout + test_animobj). **Four defects found and fixed**: 16 double balls at seams · 26 first/last notes with no ball · the tick never drawn on unresolved chunks · the schema gate | — | — | — |
-| ~~TRANCE-FIX-1~~ | ~~The composer's first four fixes~~ **DONE day 36 (Opus)** — ball on the two pulsed passages inside the columns (`ballSpans`, +70) · bar lines clear the bar's leftmost ink (a post-pass over the real item widths; 159/159 at 0.45 ss from the bar's RIGHT edge; 111 bars previously had ink to their left) · `wc-ta4-2080` moved T2→T6 at 647.43 (score edit, ledgered) · the rings suppressed (`animated.lineWedge/motivePie` — **the schema gate's FIFTH bite**: `animated` had never validated, because notate_morph writes unvalidated) | — | — | — |
-| **TRANCE-EYE-2 — NEXT (composer)** | **The eye on the rebuilt page** (`TRANCE A4 — 500-751 s`), **and one answer: the four tempo numbers** (PS2/PS3/PS4/PS5 — the page prints the authored 93.8/100/107.1/113.2, the material measures 93.6/100.2/106.8/113.4; `PRINT_MEASURED` flips it). Also for the eye: `brick:false` on the columns · the ~3.5 s ball gaps at burst-segment seams. Full account: RUNNING_LOG day 36 "BUILT" | Fable | yes — clear before it | composer's verdicts applied |
-| ~~TRANCE-FOLD~~ | ~~Fold the trance into MAIN DRAFT~~ **DONE day 36 (Opus)** — full-lane crescendo fix first (`fullHeight`, 50 %→100 %, morph pages untouched), then folded by replaying db1's own build command. **db1 = 0–751 s, 4481 events, 906 chunks, VALID**; 0 items moved before 496.5 s. New save **`piece-final-draft-001`** (4643 objects, 0 differing); s28 frozen. All 24 groups confirmed present, 2.00–751.42 s. `test_animobj`'s day-23 ball-has-ink guard fired and was widened to the RULE (arc **or** tick) and tightened to per-part — prove-red confirmed on both it and test_layout | — | — | — |
-| **VIDEO — NEXT (plan drawn, day 36)** | **`docs/plans/VIDEO_BUILD_PLAN.md`** — four outputs (V-MAIN all ten parts · V-TOP T1-T5 · V-BOT T6-T10 · V-CUT). **Two facts make it cheap: the ×2 zoom page is 1920x2160, so the top half IS T1-T5 and the bottom half IS T6-T10 — one render, two ffmpeg crops; and every view is drawn from one transport t with `attachAudio(el,0)`, so all four are frame-synchronous and the cut cannot drift.** Phase 0 (audio) blocks everything: no piece MIDI export and no render exist yet. The real build is the V4 frame exporter; the rasterizer is undecided and font fidelity decides it. **D1 is the one design question: the zoom halves the time span, so close-ups sweep at 2x** | Opus for the exporter · Fable for D1-D5 | yes — clear before it | V-MAIN/TOP/BOT/CUT rendered and synced |
-| **PRINT-FORMAT** | ~~What paper~~ **DECIDED day 36: TABLOID LANDSCAPE 17 × 11**, superseding PP-4. Cover measured off Litany.pdf and built (`docs/PRINT_AND_COVER.md`, `print/cover/`). **Print score NOT generated yet — parked at the composer's ask** | — | — | when the composer is ready |
-| **MORPH-PARTS** | The composer's beating-frequency indicator + the ten pair recordings (PLANNER carries the table) | Fable | yes | design |
-| **PAPER-TOPICS — WAITING (composer)** | Review **`docs/PAPER_OUTLINE.md`** (built day 36): pick the topics per internal section + decide homes for the cross-cutting threads | — | — | topic picks |
-| **PAPER-EXPAND** | Expand the chosen topics into each section's deep narrative, from the sources named in the outline's tables | Fable | yes | draft prose per section |
-| — | Further out: PLAN 8 (Penn State deliverables, exports V4/V5), the tubist questions (PLAYABILITY_MODEL § Open), the breath rule as an auditor column | — | — | — |
 
 ### The tools you will use (all verified day 24; **day 30: the c2i fork is FOLDED into `db1` and pruned — these rows now read `--ir db1`**)
 
@@ -796,6 +370,48 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
    is invisible — the only proof a guard works is making it go red on purpose.*
 
 ## §4 Decisions
+
+- **D76** *(2026-08-26, day 36)* — **THE PRINTED TEMPO IS THE MEASURED ONE, AND THE
+  AUTHORED FOUR WERE A ROUNDING ARTIFACT.** `PRINT_MEASURED = true`. The accelerando now
+  reads **♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**, superseding the
+  authored 93.8/100/107.1/113.2 wherever this journal states them. **Why:** day 35's
+  `tempoOf()` rounded the inter-onset gap to 2 dp BEFORE inverting it — 0.641 s → 0.64 →
+  60/0.64 = 93.75 → "93.8" — so the authored numbers were an artifact of the measurement,
+  not of the material. **The ball had always run on the measured grid** (its job is to land
+  on notes); at the authored 107.1 the mark was **44 ms** off the material by the end of
+  PS4, over one notehead at page scale. The printed number was the last thing still
+  disagreeing with the bounce. **Rejected:** keeping the authored map because "the plan is
+  the spec" — the plan recorded a measurement, and the measurement was wrong. **Proven:**
+  `db1` rebuilt from its own `provenance.build`, unchanged at 4481 events / 906 chunks /
+  4358 overlays, and the entire diff is **41 `bpm` values plus the provenance date**.
+
+- **D77** *(2026-08-26, day 36)* — **THE RASTERIZER IS resvg, CHOSEN BY MEASUREMENT — AND
+  THE REPO TAKES ITS FIRST DEPENDENCY.** `package.json` + `@resvg/resvg-js`. **Why:** two
+  real frames pulled from the running app were rasterized through resvg and headless
+  Chrome. **Fidelity is equivalent** — mean abs luminance delta 1.31–1.47 of 255, glyph
+  shapes, positions and coverage (the accented `é` included) agree; resvg lays ~9–13 % more
+  ink, which is darker antialiasing on thin strokes, not displaced ink. **Speed decides
+  it:** Chrome **662/683/669 ms per process** against resvg's **172/175 ms in process** —
+  4.2 h vs 65 min for 22 500 frames. **Rejected:** a persistent Chrome over CDP, which
+  needs puppeteer or a hand-rolled client. **The trap this proof existed to catch:** default
+  headless Chrome subpixel-antialiases text, putting orange/blue colour fringes on every
+  glyph, which would crawl at 30 fps — and **the aggregate pixel metric did not catch it**
+  (6.66 % → 6.67 %); the 6× crop did. **On the dependency:** checked before doing it — no
+  no-dependency principle exists in PROJECT_JOURNAL, AI_METHODOLOGY or CLAUDE.md, and
+  `.gitignore` line 1 already read `# Node (future)` with `node_modules/` under it.
+
+- **D78** *(2026-08-26, day 36)* — **THE CUT IS RENDERED, NOT SPLICED.** `export_video.js
+  --cut` draws every frame of V-CUT rather than assembling it from the finished renders.
+  **Why the plan said otherwise:** PHASE 4.2's "assemble by frame index from the finished
+  renders" was a cost assumption from when a render was believed to take hours. It takes
+  **6.3 minutes.** **Two reasons, neither about speed:** splicing would make the close-ups
+  **third generation** (V-TOP/V-BOT are already a re-encode of the zoom master), and a
+  19-branch trim/concat filtergraph buffers gigabytes — one branch's ~786 frames sit in
+  memory while another plays, ≈ 2.4 GB. **Nothing about the CUT changes** — same list, same
+  frame indices, same master WAV laid under it untouched, so V-CUT still cannot drift.
+  **Proven:** at t=50 s the V-CUT frame is **bit-identical** to V-MAIN; at t=100/230 s it
+  differs from V-TOP/V-BOT by 0.234 %/0.704 % *because it is the cleaner copy*, while
+  differing from the WRONG source by 18.5 %/62.6 %.
 
 - **D75** *(2026-08-24, day 35)* — **THE SAVE FILE IS IDENTIFIED BY ITS CONTENT, NEVER BY
   ITS TIMESTAMP — AND `-work` IS NOT THE PIECE.** Asked which save file the new page should
@@ -1845,6 +1461,17 @@ Geometry: the two pre-existing tier-3 items only (T9 @36.87 · T10 @39.08) —
 
 ## §5 Done
 
+- **2026-08-26 (day 36) — THE VIDEO MILESTONE (VIDEO_BUILD_PLAN phases 0–5):** the piece
+  has audio and four films. `notation/audio/piece-final-draft-001.wav` (2 ch / 48 kHz /
+  24-bit, **762.000 s**, digital silence until 2.0319 s against `db1`'s first onset of
+  2.0000 s — a constant 32 ms sampler attack, not drift). `tools/export_video.js`, **proven
+  pixel-for-pixel identical to the live app** (0 differing pixels of 2 073 600, two probe
+  pages, re-proven after a refactor). **V-MAIN · ZOOM MASTER · V-TOP · V-BOT · V-CUT**, all
+  **22 819 frames**, container durations within **0.325 ms**, `start_time 0.000000` on
+  every stream. **~31 minutes of compute for the whole pipeline**, against a plan that
+  opened by estimating hours per version. D76 (the tempo numbers), D77 (resvg + the first
+  dependency), D78 (the cut is rendered). PHASE 5's fourth criterion — the composer's eye —
+  is the one thing open.
 - **2026-08-23 (day 30) — THE CLOUD02-I MILESTONE (PLAN 8f done):** all ten parts read
   with the composer, finalized, and folded into `db1` — every note of 0–40.4 s carries
   a composer-approved figure. With it: rule candidates 8–12 + the five-check generator
