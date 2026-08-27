@@ -15106,3 +15106,48 @@ flagged, and said so without relitigating: *a frozen midpoint overstates it, and
 their eye on the moving image is the better evidence for a look question about
 their own piece.* Awaiting the one-word go before flipping `phase4.sh` back to
 `--fadeMode cross`.
+
+### day 36 (post-clear) — CORRECTION: the seed IS being re-rolled, and the fade is CROSS 5
+
+**Composer: *"Optional, and only cheap right now: re-roll the cut shape. lets do
+this too, cross 5 good"*.** This reverses the entry above it — *"this seed is
+fine"* — one message later. Both are recorded rather than one edited away, because
+the offer was live and the reversal is the composer using it.
+
+**THE FADE: `--fade 5 --fadeMode cross`.** The composer watched all four clips and
+picked the second, which was the CROSS-DISSOLVE — the option the AI had argued
+against. Told them plainly which one it was and that its mid frame doubles the
+staff lines and splits the cursor, then did not relitigate: *a frozen midpoint
+overstates it, and their eye on the moving image is the better evidence for a look
+question about their own piece.* They confirmed and took the shorter window, which
+halves the span where the doubling shows. `phase4.sh` updated. `dip` remains.
+
+**THE CUT: six seeds drawn, then a search.** Numbers alone do not distinguish
+seeds — every one meets D5 by construction (9–10 close-ups, 29–31 %, 20–30 s).
+What differs is WHERE they land, so the comparison was drawn as timelines against
+the piece's own section map (`make_cut.js` already carries it).
+
+**The finding that mattered.** Counting close-ups per title section:
+
+| seed | BLOOM | CONVERGENCE | BALANCE | TRANCE |
+|---|---|---|---|---|
+| **11 (current)** | 2 | **1** | 2 | 3 |
+| 12 | 1 | 2 | 1 | 3 |
+| 13 | 2 | 1 | 2 | 3 |
+| 14 | 1 | 2 | 2 | 3 |
+| 15 | 3 | 2 | 1 | 3 |
+| 16 | 2 | 1 | 1 | 3 |
+
+**The piece is NAMED after the first three, and no random seed balanced them.**
+Scanned seeds 1–160: **zero** give 2/2/2/3. The arithmetic says why — 9 close-ups,
+one almost always lands before BLOOM (LEAD is 40 s), and the trance takes 3 as its
+proportional share, leaving 5 for three sections. **2/2/2 across the title
+sections and a proportionally covered trance cannot both hold at 9 close-ups.**
+
+Dropping the trance constraint: **13 of 160 seeds give 2/2/2**, all with trance 2.
+The four with a balanced TOP/BOT split — **71, 77, 143, 150** — were drawn against
+seed 11 and sent. **Awaiting the composer's pick.**
+
+*Note for the paper: the numbers were identical across every candidate by
+construction, so a table could not decide this. Drawing the same data against the
+piece's own sections turned an unrankable random choice into a stated trade-off.*
