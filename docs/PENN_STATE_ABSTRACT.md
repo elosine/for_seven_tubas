@@ -531,12 +531,100 @@ misjudged was whether it could be SORTED.*
 beat because they are one event: the material resisting the ramp. **Picasso
 earns its place here**, at the point of failure, rather than as decoration.*
 
-### Consequence: TENNEY COMES OUT
+### ~~Consequence: TENNEY COMES OUT~~ — **REVERSED by the composer, day 37**
 
-Beat 4 now carries **Picasso** as its figure. Adding **Tenney** as well puts two
-visual/musical references in one beat and dilutes both. **Recommend cutting
-Tenney from this arc entirely** — it was already the first pare-down candidate.
-Keep it for the talk.
+*The AI recommended cutting Tenney (two figures in one beat). **Composer: "Put
+tenny back. Don't take anything out."** Tenney is restored to beat 4 and
+nothing is being removed at this stage — selection happens later, at the
+pare-down, not now.*
+
+---
+
+## INVENTORIES — what can go in beats 2, 3, 4
+
+> *Composer's instruction, day 37: bullets only, nothing removed. **This is a
+> MENU, not a selection** — narrative text gets organised from it afterwards.*
+> Provenance is marked: **[C]** composer's own words · **[A]** AI's drafting ·
+> **[R]** verified from the project record.
+
+### BEAT 2 — THE INTENTION · what I set out to do, and with what
+
+**The ambition**
+- recreate these effects for myself **[C]**
+- the question that opened it: could AI and **staccato tuba samples** do it **[C]**
+- why it needed a bespoke apparatus at all *(unstated so far — a gap)* **[A]**
+
+**The Gehry/CATIA division — the METHOD**
+- Frank Gehry / CATIA as the working metaphor **[C]**
+- the composer owns the meta-shape; the engine works out the interior **[R]**
+- on record since day 1, before any of this material existed **[R]**
+- *"I'm essentially doing Xenakis, but with animated notation that might have
+  more precision"* **[R]**
+
+**The kind of control wanted**
+- sculpt very flexibly with the material **[C]**
+- create **warped and bespoke versions** of it **[C]**
+- or **capture particular states** at different points in the process **[C]**
+- ten players, one pitch, each at a different offset **[R]**
+
+### BEAT 3 — THE MISCONCEPTION · the stale memory
+
+**The admission**
+- I had forgotten what these pieces actually sound like **[C]**
+- more precisely: forgotten how the material behaves **when you try to organize
+  it** **[A — the narrowing that resolves the contradiction]**
+
+**The assumed shape**
+- a smooth, linear development **[C]**
+- unison → rhythmic complexity → back to unison, in a straight line **[C]**
+- the operative assumption: **the phase states could be ordered along that
+  ramp** **[A/R]**
+- and that is what I set out to build **[A]**
+
+**Optional framing**
+- the ramp is a *Gehry* assumption — smooth, continuous, sculptable **[A]**
+  *(sets up beat 4's reversal; only works if Gehry is established in beat 2)*
+
+### BEAT 4 — THE MATERIAL SAYS NO · both refusals, and the theory
+
+**Refusal 1 — the arithmetic**
+- the obvious ranking is by fraction: 1/2 simple, 5/12 complex **[A]**
+- three ladders built that way **[R]** — first-pass 12 rungs · the mediant walk ·
+  the true sweep
+- the composer caught a real error in one: the mediant walk **converges** to
+  ~0.414, it does not sweep **[R]**
+- none of them worked **[R]**
+- at unison every simple fraction gives **evenly spaced pulses differing only in
+  count** **[R]**
+- **the denominator collapses as a measure of anything audible** **[R]**
+- ranked by value, a ladder **zigzags instead of climbing** **[R]**
+
+**Refusal 2 — the perception**
+- the process is smooth and linear, **but the sound is not** **[C]**
+- it jump-cuts: states rapidly changing, rapidly cross-cutting **[C]**
+- **more Picasso than Gehry** — faceted, not curved **[C]**
+- something very patterned resolves immediately into something very smeary **[C/R]**
+
+**The Tenney parallel** *(restored)*
+- James Tenney, ***Having Never Written a Note for Percussion*** (1971) **[C]**
+- one long simple process throws off perceptual detail nobody put there **[A]**
+- the shape of the finding: step linearly, receive heterogeneity **[A]**
+- ⚠ **verify title, date, instrumentation before print** — new citation, not
+  previously in this repo **[A]**
+
+**The theory that survived**
+- **both ends of the space are simple** — the clean pulse AND the uniform
+  smear **[R]**
+- complexity lives between them **[R]**
+- a Reich-style progression **doesn't climb; it passes through complexity
+  between two kinds of simplicity** **[R]**
+- the inverted U **[R]**
+- credit: this was the **composer's** insight, and it forced the theory **[R]**
+
+**Note on load:** beat 4 now carries two refusals, two figures (Picasso,
+Tenney) and a theory. **Nothing removed per instruction** — but flagging that it
+may want splitting into 4 (the refusals) and 4b (the theory) when the narrative
+text is organised. Composer's call, not taken.
 
 ### What is unchanged
 
