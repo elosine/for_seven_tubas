@@ -35,6 +35,144 @@ musical notation directly to the sounds and give performers the information
 they need to realize these specific sounds. This is an ear-led compositional
 process: using bespoke tools to go where the ear wants to go.
 
+---
+
+# DRAFT B, BROKEN OUT — the same 204 words, sectioned
+
+> **Every word below is the composer's, unaltered and in original order.** The
+> only thing added is the § headings, which name what each section DOES. Split
+> at sentence boundaries; nothing rewritten, nothing reordered, nothing
+> dropped. Reassembled, this is byte-identical to DRAFT B above.
+> **The insertion point for the 96 words is § 7 — after the three parts have
+> been claimed in general and before the thesis lands.**
+
+### § 1 — DISCUSS KOBAYASHI: what he did *not* do
+
+> In 2001 Takeru Kobayashi revolutionized competitive eating. He didn't achieve
+> this by eating vast amounts of food or by learning how to starve himself so he
+> could eat a massive amount in one setting.
+
+### § 2 — THE REFRAME: the problem restated as engineering
+
+> Kobayashi was an engineer, so he reframed the problem: how to get
+> heterogeneous food material down a narrow tube into a bag at the bottom.
+
+### § 3 — TRANSPOSE THE QUESTION: composition, decomposed in three
+
+> How would mister Kobayashi, break down composition? perhaps something like
+> this: create compelling sounds, lay them out through time in a satisfying way.
+> then inspire and empower performers to realize these sounds.
+
+*(This is the spine. Everything after it answers these three in order.)*
+
+### § 4 — PART ONE AT WORK: create compelling sounds
+
+> Using bespoke AI tools, I was able to get to the heart of what I think makes
+> an interesting sound. I was able to pursue many different sound generation
+> techniques. and audition resultant sound to see which techniques were creating
+> the sounds I imagined or leading me down an even better direction.
+
+### § 5 — PART TWO AT WORK: lay them out through time
+
+> I could quickly lay sounds out in various forms and hear which shapes suited
+> the materials.
+
+### § 6 — PART THREE AT WORK: empower the performers
+
+> I was then able to adapt my research in animated musical notation directly to
+> the sounds and give performers the information they need to realize these
+> specific sounds.
+
+### § 7 — [ THE 96 WORDS GO HERE — one material traced through §4→§5→§6 ]
+
+### § 8 — THE THESIS
+
+> This is an ear-led compositional process: using bespoke tools to go where the
+> ear wants to go.
+
+**What the break-out exposes.** §4 gets three sentences, §5 gets one, §6 gets
+one. The three-part promise of §3 is answered unevenly — laying out through
+time and empowering performers are asserted, not shown. **That is precisely
+what the 96 words should repair**, which is why the arc below runs through all
+three rather than elaborating §4.
+
+---
+
+# THE 96 WORDS — two candidate arcs
+
+> Each traces ONE material through the full model: sound generation and
+> audition (§4) → laid out through time (§5) → realized as notation (§6).
+> Both are written to sit in § 7, immediately before the thesis line.
+> **Pick one — they are alternatives, not a pair.**
+
+## ARC A — THE MORPH · *recommended* (**92 words** measured → total **296**)
+
+> One material, carried the whole way. The center of *Bloom — Convergence —
+> Balance*, for tuba ensemble, began as a harmonically morphing crescendo.
+> Auditioning reframed it: the object was not pitch sweeping but beating. The
+> form followed the reframe — five mirrored pairs, each pair a beating rate,
+> with played impacts punched through the bed. So did the notation: curves
+> tracing total displacement rather than pitch, and one instruction to the
+> players — a glissando in beating speed. That glissando is twenty cents wide:
+> unhearable as pitch, ordinary as a beat rate.
+
+*Trimmed from a 98-word version by cutting the quarter-tone measurement
+(the patch proved non-uniform, so bend became the vehicle) — supporting
+evidence for the talk, not load-bearing for the arc. **The recovered words
+went to naming the piece**, which DRAFT B never does.*
+
+**Why this one.** It is the title material — *Bloom — Convergence — Balance*
+names these three sections, so the arc names the piece without spending words
+on a description. **And the reframe inside it is Kobayashi's own move
+happening again, one level down:** the received frame says a glissando is a
+pitch change; reframed, the perceptual object is a beat rate, and a gesture
+that was impossible at 20 cents becomes trivial. The abstract's thesis recurs
+fractally in its example. It also lands hardest on §6 — the weakest-evidenced
+of the three parts — because it ends on an instruction *to a performer*.
+
+*Verified numbers:* BLOOM's glissando = **20 cents**; its beating rates are all
+countable (**0 → 2.0–5.4 Hz**); the quarter-tone patch measured **+23 ¢ at F2 →
++57 ¢ at C4** (non-uniform); bend measured **±1.99 st, linear**.
+
+## ARC B — THE MULTITEMPO / TRANCE (**93 words** measured → total **297**)
+
+> One material, carried the whole way. The last section of *Bloom —
+> Convergence — Balance* is a pulsed field, specified by talking, not by
+> building — the generator existed as shared understanding before it existed as
+> software. I auditioned ladders of its material, reordering them by ear when
+> the machine's ranking proved wrong. Form came from performance: I played the
+> section's shape live, and its stopwatch log became the durations. The
+> notation was settled before it was drawn — one generative choice, a single
+> steady pulse per player, made metric notation possible at all.
+
+**Why you might prefer it.** It carries the single most striking finding in the
+project: **a decision made inside the generator, for musical reasons, silently
+determined what could later be notated** — notation as a third term in the
+system rather than a downstream stage. It also states the AI relationship
+without naming AI ("specified by talking… shared understanding before
+software"), which some reviewers will find more interesting than the tool
+itself. **Its weakness:** the notation payoff is an enabling claim rather than
+a visible artifact — it tells rather than shows, where ARC A ends on something
+a player is handed.
+
+*Verified numbers:* fixed-tempo assignment verified to **0.094 ms** against each
+player's own grid; the notated section is one long accelerando **♩ = 75 → 120**
+with 8 tempo bar lines, **3109 quarter notes and zero flag glyphs**.
+
+## The recommendation, plainly
+
+**Take ARC A.** It names the piece, it makes the abstract's own argument recur
+inside its example, and it repairs §6. **Then keep ARC B's finding for the
+talk** — it is a strong 3-minute moment in the 25, and it belongs in the paper's
+Part III regardless.
+
+*(If you want both in the abstract: ARC A as written, plus ARC B compressed to
+one sentence — "and elsewhere in the piece, a choice made inside a generator,
+for purely musical reasons, silently decided what could later be notated at
+all." That is 27 words and would put the total at ~325 — over. Not recommended.)*
+
+---
+
 ## Why this is the better spine (AI note)
 
 **The three-part decomposition is the find.** *Create compelling sounds · lay
