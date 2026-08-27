@@ -440,19 +440,19 @@
    "wPx": 8,
    "gapPx": 3,
    "color": "#F04B00",
-   "fillOpacity": 0.3,
+   "fillOpacity": 0.6,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
-   "_note": "day 35, composer: 'give it its own curve follower, just the top half bright orange and then everything else the same as the existing one'. curveMeter's mechanism and every number, confined to the TOP HALF of the lane (the glissando's half) and coloured brightOrange #F04B00."
+   "_note": "day 35, composer: 'give it its own curve follower, just the top half bright orange and then everything else the same as the existing one'. curveMeter's mechanism and every number, confined to the TOP HALF of the lane (the glissando's half) and coloured brightOrange #F04B00. fillOpacity 0.3 -> 0.60 on day 36 post-clear, the composer's pick of variant A1: once the exporter's premultiplied-alpha bug was fixed, the shadow still left inside the bar was the STAFF LINES reading through a 30% fill. 0.60 suppresses them and still reads as an overlay rather than as ink; 0.85 read as ink, and a white backing made the bar paler than its own band. See docs/WISHLIST.md W1."
   },
   "crescMeter": {
    "wPx": 8,
    "gapPx": 3,
    "color": "#99FF00",
-   "fillOpacity": 0.3,
+   "fillOpacity": 0.6,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
-   "_note": "day 35: the glissMeter's twin. curveMeter's mechanism and every number, confined to the BOTTOM HALF of the lane (the crescendo's half), limeGreen #99FF00."
+   "_note": "day 35: the glissMeter's twin. curveMeter's mechanism and every number, confined to the BOTTOM HALF of the lane (the crescendo's half), limeGreen #99FF00. fillOpacity 0.3 -> 0.60 on day 36 post-clear, the composer's pick of variant A1: once the exporter's premultiplied-alpha bug was fixed, the shadow still left inside the bar was the STAFF LINES reading through a 30% fill. 0.60 suppresses them and still reads as an overlay rather than as ink; 0.85 read as ink, and a white backing made the bar paler than its own band. See docs/WISHLIST.md W1."
   }
  }
 }

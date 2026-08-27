@@ -14964,3 +14964,29 @@ lives. Not a bad proof — a proof of a narrower claim than it was read as.
 
 **So the three variants must be judged against a FIXED compositor**, or the
 composer would be picking a look to cure an artifact that is about to disappear.
+
+### day 36 (post-clear) — THE DECISION: A1
+
+**Composer, on seeing the six panels: *"lets go with a1"*.**
+
+`animated.glissMeter.fillOpacity` and `animated.crescMeter.fillOpacity`
+**0.3 → 0.60**, two lines in `notation/registry/container.json`, with the reason
+appended to each `_note` so nobody has to come back here to find out why.
+
+**Verified, not assumed.** Probe at t = 200 s from the live registry: the gliss
+bar interior reads `#f4834f` = (244,131,79) against a predicted (245,131,80), and
+the cresc bar `#b9ff4f` = (185,255,79) against (185,255,80). Rounding, nothing else.
+
+**`curveMeter` deliberately left at 0.3.** It was not one of the variants the
+composer looked at, and with the compositor fixed it now renders at 0.3 exactly as
+the app draws it. Changing it would have been a decision nobody made.
+
+**Eleven batteries green after the registry change.**
+
+**Built for the decision:** a comparison page — six renderings at three crop
+levels, hold-to-flip against a reference, published as the Artifact **The Morph
+Meters**. Full-resolution stills also live in `notation/video/wishlist-w1/`
+(gitignored, regenerable). *The composer asked to see the panel "larger format,
+like in my browser, or can I download it" — both, in the end.*
+
+**Still open:** W2's fade, then ONE full re-render (~31 min) and PHASE 5 again.

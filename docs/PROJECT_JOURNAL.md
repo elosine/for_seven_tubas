@@ -51,12 +51,10 @@ PHASE 5 number still stands — but their ANIMATED layer is composited wrong
 the old "shadow first, fade second, then ONE re-render" ordering still holds and
 there is no longer any way to avoid the 31 minutes.
 
-1. **WAITING ON THE COMPOSER — pick the meter look.** Five stills at t = 200 s in
-   `scratchpad/shadow/SHADOW-COMPARE.png`; the choice and the reasoning are in
-   `docs/WISHLIST.md` W1 § WHAT IS STILL OPEN. Options: **FIXED-only** (no look
-   change — the compositor fix alone) · **A1 `fillOpacity` 0.60** *(recommended)* ·
-   **A2 0.85** · **B** white under the fill · **C** white under the box.
-   *Thirty seconds of their eye. Nothing else is blocked by it.*
+1. **DONE — the meter look is A1.** The composer picked `fillOpacity` **0.60** on
+   both morph meters; it is in `container.json` (with the why in each `_note`) and
+   probe-verified. `curveMeter` stays at 0.3 on purpose. The six-way comparison is
+   published as the Artifact **The Morph Meters**.
 2. **W2's fade.** `--fade <frames>` defaulting to **8, symmetric on both ends**
    (an asymmetric fade reads as a mistake). **The trap: blend ACROSS the existing
    boundary, never insert frames, or duration equality breaks.** **Opus.**
@@ -81,7 +79,7 @@ smudge. Verified against the running app — the meters now match it to the unit
 **PHASE 5's `--dumpPage` pixel proof covers the STATIC page only, which is why it
 passed.** **W2 (the fade) is untouched and still open.**
 
-**Pending the composer:** **the meter look (W1 — five stills, see step 1)** · V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
+**Pending the composer:** V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
 the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
 
 **Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` ·

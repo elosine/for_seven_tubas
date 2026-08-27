@@ -93,7 +93,14 @@ Eleven batteries green.
 
 ---
 
-### WHAT IS STILL OPEN — one small look choice
+### DECIDED — A1, `fillOpacity` 0.60 (composer, day 36 post-clear)
+
+> **"lets go with a1".** Both morph meters are now `fillOpacity` **0.60** in
+> `notation/registry/container.json`, with the reason recorded in each `_note`.
+> Verified by probe: the gliss bar reads `#f4834f` (244,131,79) against a
+> predicted (245,131,80). **`curveMeter` deliberately stays at 0.3** — it was not
+> one of the variants, and at 0.3 it now matches the app. Eleven batteries green.
+> The six-way comparison is published as the Artifact **The Morph Meters**.
 
 With the compositor right, the bars are flat, true colour, and one thing still
 reads through them: **the staff lines and the lane midline.** (That, not "the pink
@@ -111,7 +118,7 @@ Five stills at t = 200 s, `scratchpad/shadow/SHADOW-COMPARE.png`, built by
 | **B** opaque white under the FILL | fill is flat — but paler than the band around it | animobj |
 | **C** opaque white under the whole BOX | column cleared to paper — white notch where empty | animobj |
 
-**Recommendation: A1 (0.60).** It removes the staff lines from inside the bar and
+**Why A1 was the recommendation, and the pick.** It removes the staff lines from inside the bar and
 keeps the meter reading as an overlay. **B and C both make the bar paler than its
 own band, which inverts figure and ground** — they cure the shadow by making the
 instrument weaker than the thing it measures.
