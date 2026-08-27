@@ -18,6 +18,34 @@
 > instruction with **no commentary or analysis**. This plots the abstract's
 > format and supersedes DRAFT D's arrangement below.
 
+## 📋 COMPOSER'S OPEN TASK — find the specific passages
+
+> **The timestamps in the dictation (3:45, 2:37) are PLACEHOLDERS — invented on
+> the spot, not looked up.** *(Composer, day 37: "Those were made up. I'm just
+> giving myself a note, a to do.")* **The real ones are to be chosen by the
+> composer, by listening.** This is theirs, not the AI's — recorded so it is not
+> lost and so nobody later mistakes the placeholders for measurements.
+
+**Two passages wanted:**
+
+1. **The phase web** — ten tubas, one tempo, each part rhythmically offset
+2. **The beating counterpoint** — pairs of tubas navigating tiny pitch
+   intervals, only describable in cents
+
+**Where to look** *(section spans from the journal, to narrow the listening)*:
+
+| section | seconds | m:ss | holds |
+|---|---|---|---|
+| density builds ⇄ intermittents | 0–136 | 0:00–2:16 | Xenakis-like grains |
+| BLOOM · CONVERGENCE · BALANCE | 141–496 | 2:21–8:16 | **the beating — passage 2 is in here** |
+| trance | 500–751 | 8:20–12:31 | **phase + multitempo — passage 1 is in here** |
+
+*Note: **BALANCE has no beating** (PLANNER: "the beating sections are BLOOM and
+CONVERGENCE only"), so passage 2 sits in BLOOM or CONVERGENCE, not the last
+third of the morph span.*
+
+---
+
 **The shape, as dictated:**
 
 1. **Open on two specific passages, by timestamp**
