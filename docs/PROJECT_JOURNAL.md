@@ -12,7 +12,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN — day 37: **THE VIDEO IS DONE. PHASE 5 CLOSED 5/5 WITH NO CAVEAT.**
 ### → the post-W1b renders are APPROVED and have REPLACED the archive as the submission copy
-### → NOW ON: the print score (`docs/PRINT_AND_COVER.md`)
+### → the PRINT SCORE now generates (68 pages, 3 s) — open: density · colour · staff size
 
 **The approved video IS the submission copy:**
 `notation/video/approved/2026-08-27-submission/` — the five POST-W1b mp4s
@@ -125,12 +125,28 @@ The check now reads the meter colour straight out of the finished mp4.
    `phase5.sh`'s archive block inverted to a drift check (all four probes must
    now read 0.00 %) and re-run green. **THE VIDEO IS FINISHED.**
 
-**▶ NEXT — THE PRINT SCORE.** `docs/PRINT_AND_COVER.md`; tabloid landscape
-   17 × 11 (day 36 decision, supersedes PP-4's Letter); deliberately not
-   generated until now. **Fable** — it is judgment work (page turns, system
-   breaks, what a player reads). After it: the **paper**
-   (`docs/PAPER_OUTLINE.md`, **Fable**, and note a second agent is actively
-   drafting there — coordinate before editing that file).
+7. **DONE (day 37) — THE PRINT SCORE GENERATES.** `tools/export_print.js` —
+   **68 tabloid pages in 3 SECONDS**, vector, MediaBox [0 0 1224 792], zero
+   raster images, Crimson Pro embedded. Chrome headless does the PDF, so the
+   repo still has exactly ONE dependency. The engine needed no print code: the
+   layout model is in staff-space units, so print is the same model at a
+   different view. `notation/lib/static_page.js` now holds the one definition of
+   the page and **`export_video.js` draws through it — proven inert, all 64
+   static SVGs byte-identical, 11 batteries green.**
+   Draft: `print/score/BCB-score-DRAFT.pdf` (gitignored; 3 s to rebuild).
+
+**▶ NEXT — THREE COMPOSER CALLS ON THE PRINT SCORE**, all measured, none decided;
+   full detail in `docs/PRINT_AND_COVER.md` §4:
+   **(a) DENSITY** — default 11.41 s/page = 67 pages (holds the video's approved
+   density); 15 → 51 pp, 20 → 38 pp. A four-density true-size proof was rendered
+   for the eye. **(b) COLOUR OR GREYSCALE** — the page is NOT black-and-white:
+   195 magenta elements on a dense page, and the magenta is the GC arc, whose
+   *ball does not print* because it is animated. **(c) STAFF SIZE** — 7.04 mm now
+   (`--margin` is the lever). All three are cheap: the score re-renders in 3 s.
+   After that: the **paper** (`docs/PAPER_OUTLINE.md`, **Fable** — note a second
+   agent is actively drafting there, so coordinate before editing that file).
+
+**Not built, not needed for the submission:** ten single-player PARTS.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:

@@ -32,6 +32,7 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
 const Render = require(path.join(ROOT, 'notation', 'lib', 'render.js'));
 const Splice = require(path.join(ROOT, 'notation', 'lib', 'splice.js'));
 const AnimObj = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
+const StaticPage = require(path.join(ROOT, 'notation', 'lib', 'static_page.js'));
 const { Resvg } = require('@resvg/resvg-js');
 
 // ---------------------------------------------------------------- args
@@ -167,24 +168,15 @@ const segAtIn = (list, t) => {
 const segAt = t => segAtIn(segments, t);
 
 // ---------------------------------------------------------------- static page
+// The page itself lives in notation/lib/static_page.js so the PRINT exporter
+// draws the identical page (day 37). Proven: all 64 db1 static SVGs are
+// byte-identical across this change.
 function staticSvg(i, list) {
-  const seg = (list || segments)[i], view = seg.view;
-  const svg = Render.renderSection(model, view, glyphs, {
+  const seg = (list || segments)[i];
+  return StaticPage.staticPageSvg({
+    model, view: seg.view, glyphs, C, srcEnd,
     reshow: seg.reshow, ownsEnd: seg.ownsEnd,
-    engraving: (C.engraving && C.engraving.render) || {},
-    hideBricks: true,          // D4: bricks off
   });
-  // the system TERMINAL barline, exactly as notation.html appends it
-  const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
-  let endBar = '';
-  if (eb && view.systems.length) {
-    const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
-    const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
-    endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
-      '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
-  }
-  // NO metaOverlaySvg: D4 says META off, and the app returns '' for it then.
-  return svg.replace('</svg>', endBar + '</svg>');
 }
 
 // ---------------------------------------------------------------- rasterizer

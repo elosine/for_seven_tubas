@@ -1,8 +1,21 @@
 # PRINT FORMAT AND COVER — decided day 36 (2026-08-26)
 
-Parked deliberately: **the print score is not being generated yet.** This file
-holds everything measured and decided so it does not have to be rediscovered.
+**BUILT day 37** — `tools/export_print.js`. The whole score is **68 tabloid pages
+in 3 seconds**, vector, verified MediaBox [0 0 1224 792] with zero raster images.
+This file holds the format decisions; the build trail is RUNNING_LOG day 37.
 The font itself is a separate doc — `docs/FONTS.md`.
+
+    node tools/export_print.js --cover on --out print/score/BCB-score-DRAFT.pdf
+
+**Because it is 3 seconds, iterate by RE-RENDERING, never by patching a page.**
+Flags: `--sec` (seconds per page = density), `--pages a-b`, `--at <second>`,
+`--margin`, `--ruler/--marks/--cover on|off`, `--htmlOnly`.
+
+**The engine needed no print code.** `Layout.layoutSection` is in staff-space
+units and `Coords.makeView` maps it to any canvas, so print is the same model at
+a different view. Deriving print geometry from the SAME `container.json` lane
+proportions the video uses reproduces §1's table without either being typed in:
+lane **26.6 mm** vs the 26.7 measured below, staff **8.18 mm** vs "~8 mm".
 
 ---
 
@@ -83,8 +96,55 @@ sidesteps font embedding entirely.
 
 ## 4 · Still open
 
+**Cover** *(unchanged from day 36)*
+
 - The block sits **high** with empty space below — faithful to the reference,
   but the Litany cover had a diagram filling its lower half and ours does not.
   Dropping it to optical centre is one constant (`$FirstFrac`).
 - **"for Tuba Ensemble" at 0.65** is nearly as wide as "Convergence" and can
   read as a fourth title line; 0.5–0.55 subordinates it more.
+
+**Score — the composer's three calls (day 37, all measured, none decided)**
+
+1. **DENSITY.** Default is 11.41 s/page = **67 pages**, chosen to hold the
+   density the composer already approved on screen (the video lays down a fixed
+   number of staff-spaces per second; print holds that constant, so a printed
+   bar looks like the filmed bar, only larger). Measured alternatives:
+
+   | s/page | pages | page-gaps duplicating music | total repeated |
+   |---|---|---|---|
+   | 9 | 86 | 16 of 85 | 15.8 s |
+   | **11.41** *(default)* | **67** | 12 of 66 | 11.6 s |
+   | 15 | 51 | 9 of 50 | 6.6 s |
+   | 20 | 38 | 5 of 37 | 6.1 s |
+
+   *The duplication is inherited from the film, not a defect:* a page's window is
+   a fixed span from its `t0` while `planPages` breaks on musical rules, so an
+   early break puts a little music on both pages — worst case 1.9 s, read twice
+   at a page turn. Removing it means letting px/s vary page to page.
+
+2. **COLOUR OR GREYSCALE.** The page is not black-and-white. On a dense page the
+   ink is **195 magenta elements** (`rgb(255,21,160)`) to 37 grey and 5 green.
+   The magenta is the **GC object**, ported whole from piece #1 on the composer's
+   instruction (*"the same colors, the same lines"*). On paper its arc and impact
+   marker print but **the ball does not — it is animated** — so the page shows a
+   trajectory without the thing that travels it. In greyscale the magenta and the
+   grey ring bars land at similar values.
+
+3. **STAFF SIZE.** Currently **7.04 mm**, not §1's 8.18 mm: the ruler strip, the
+   folio strip and 0.5 in margins are the difference (§1's figure assumed a
+   near-full-bleed 267 mm). 7 mm is a normal full-score staff (≈ rastral 4).
+   `--margin` is the lever.
+
+## 5 · What print adds that the video has not got
+
+| | |
+|---|---|
+| **time ruler** | the film has a moving cursor; paper does not, and this is proportional notation. Ticks every second, numbered every five, sharing the music view's x-mapping so a tick and the note under it cannot disagree |
+| **section marks** | derived from the score's `ACT-` markers — BLOOM 141.39 · CONVERGENCE 259.56 · BALANCE 386.68 · TRANCE 499.83 — never the raw working marks, which is what `ir.hideMarkers` suppresses. The printed word is the TITLE's ("CONVERGENCE"), not the score's tag ("ACT-CONVERGE-01") |
+| **folios** | page number and the page's time span |
+| **cover** | `--cover on` prepends the approved `cover-D-tabloid-landscape-1line.svg` rather than inventing a second title page |
+
+**Not built, and not needed for the submission: PARTS.** This is the full score.
+Extracting ten single-player parts is a separate job (`frameParts` already
+selects lanes, so the machinery exists).

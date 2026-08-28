@@ -15389,3 +15389,110 @@ knowing before anyone panics at it again.
 
 **Next: the print score** (`docs/PRINT_AND_COVER.md`) — the composer's call in the
 same breath.
+
+### day 37 (Fable, post-clear) — THE PRINT SCORE GENERATOR — 68 TABLOID PAGES IN 3 SECONDS
+
+**Composer:** *"lets work on the print score."* Format was decided day 36
+(`docs/PRINT_AND_COVER.md`: TABLOID LANDSCAPE 17 x 11) and nothing was built.
+
+**The finding that made this small: the engine was already resolution-independent.**
+`Layout.layoutSection` returns a model in STAFF-SPACE units and `Coords.makeView`
+maps it onto a canvas, so a print page is **the same model at a different view**,
+not a second engine. No layout code was written. What print needed was a canvas
+size, a page plan, and furniture.
+
+**Proof of that claim, measured before any building:** deriving print geometry
+from the SAME `container.json` lane proportions the video uses reproduces
+PRINT_AND_COVER's day-36 numbers **without either being typed in** — lane
+**26.6 mm** against the doc's 26.7, staff **8.18 mm** against its "~8 mm rastral
+3". The day-36 arithmetic and the engine agree.
+
+**Built:**
+
+- **`notation/lib/static_page.js`** — ONE definition of "the notation page with
+  no animated layer". `staticSvg()` had been private to `export_video.js`, so the
+  print score would have been a second hand-copy of six decisions (D4 bricks off,
+  D4 META off, the terminal barline, the engraving registry). Precedent:
+  `morph_overlays.js`. **`export_video.js` now draws through it, and that is
+  PROVEN INERT: all 64 db1 static page SVGs are byte-identical across the change**
+  (content-only md5 `0619d854bc0ad3b7361a04f3db077ac3` before and after), eleven
+  batteries green. The approved film is untouched.
+- **`tools/export_print.js`** — paginated vector PDF. `--sec` density, `--pages`,
+  `--at <second>`, `--margin`, `--ruler/--marks/--cover`, `--htmlOnly`.
+
+**PDF path: Chrome headless `--print-to-pdf`. No new dependency — the repo still
+has exactly one (resvg, D77).** Measured, not assumed: **MediaBox [0 0 1224 792]**
+= a true 17 x 11 in, **zero raster images**, Crimson Pro embedded as `FontFile2`,
+real path operators in the content streams.
+
+**THE WHOLE SCORE IS 3 SECONDS.** 68 pages (cover + 67), 3.8 MB. Against the
+video's 21.4 minutes, print is free — which changes how it should be worked:
+**iterate the print score by re-rendering it, never by patching one page.**
+
+**Two bugs, both caught by LOOKING, neither by reading:**
+
+1. **The music filled 75 % of the page.** An SVG's `width`/`height` attributes are
+   **unitless = CSS px**, while all page geometry was in points (1 pt = 1.333 px);
+   pt-measured furniture (the folio) spanned the block correctly and the music did
+   not, which is what made it visible. Whole tool moved to a **px basis at 96/in**;
+   `@page` still carries the physical size in inches, so the PDF is a true 17 x 11
+   either way. *This is principle 8's rung 1 again — payload right, presentation
+   wrong — and a screenshot found it in one look.*
+2. **A silent no-op edit.** A multi-line CSS replacement matched nothing and was
+   applied without an assert, leaving the file referencing two variables that had
+   just been renamed. Re-done with `assert a in s` on all five substitutions.
+   *AI_METHODOLOGY rule 3: never silently discard — including in my own tooling.*
+
+**And one claim I made from a screenshot and then withdrew:** the tuplet bracket
+numbers looked BLUE in the downscaled PNG. Measured, the page contains no blue at
+all. **Reported as a measurement instead of an impression** — the small-image read
+was wrong.
+
+**What print adds that the video does not have, and why:**
+
+| | |
+|---|---|
+| **time ruler** | the video has a moving cursor; paper does not, and this is proportional notation. Ticks every second, numbered every five, sharing the music view's x-mapping so a tick and the note under it cannot disagree |
+| **section marks** | derived from the score's own `ACT-` markers — **BLOOM@141.39 · CONVERGENCE@259.56 · BALANCE@386.68 · TRANCE@499.83** — never the raw working marks ("S009 ch03 V2"), which is exactly what `ir.hideMarkers` exists to suppress. The trance has no ACT- marker, so it is found as the first purely-numeric bar mark after the last ACT-, and it is REPORTED, not silent |
+| **folios** | page number + the page's time span |
+| **cover** | `--cover on` prepends the already-approved `cover-D-tabloid-landscape-1line.svg` rather than making a second title page |
+
+The score's internal tag is `ACT-CONVERGE-01`; the printed mark says
+**CONVERGENCE**, because the title is the three sections (day 35). Anything
+unmapped prints its own tag rather than being dropped.
+
+**MEASURED, for the composer's two open calls:**
+
+| s/page | pages | page-gaps that DUPLICATE music | total repeated |
+|---|---|---|---|
+| 9 | 86 | 16 of 85 | 15.8 s |
+| **11.41** *(default = the video's approved density)* | **67** | 12 of 66 | 11.6 s |
+| 15 | 51 | 9 of 50 | 6.6 s |
+| 20 | 38 | 5 of 37 | 6.1 s |
+
+*The duplication is inherited, not a defect:* a page's window is a fixed span from
+its `t0` while `planPages` breaks on musical rules, so a break that falls early
+makes the next page start before the turn and that music appears on both. In the
+film it is invisible (a hard cut); on paper it is a few seconds read twice at a
+page turn, worst case **1.9 s**. Left as-is because it matches the approved film
+exactly; the alternative (window = to the next page's `t0`) removes duplication
+but makes px/s vary page to page.
+
+**THE COLOUR FINDING — this is the one that needs the composer.** The static page
+is not black-and-white. On the dense CLOUD02 page the ink tallies **195 magenta
+elements** (`rgb(255,21,160)`) against 37 grey and 5 green. The magenta is the
+**GC object** — piece #1's ball trajectory, ported whole on the composer's
+instruction (*"the same colors, the same lines"*, day 23). On paper the arc and
+impact marker print; **the ball, being animated, does not.** So a printed page
+carries the trajectory without the thing that travels it. Plus green crescendo
+wedges (`#2E7D32` @ 0.3), orange/green morph overlays, and coloured tempo marks in
+the trance. **In greyscale the magenta and the grey ring bars land at similar
+values.** Not decided here.
+
+**Staff came out 7.04 mm, not the doc's 8.18 mm** — the ruler strip, folio strip
+and 0.5 in margins are the difference; the doc's figure assumed a near-full-bleed
+267 mm. 7 mm is a normal full-score staff (≈ rastral 4). `--margin` is the lever.
+
+**Open for the composer:** density · colour vs greyscale · staff size/margins.
+Draft at the default density: `print/score/BCB-score-DRAFT.pdf` (gitignored,
+3 s to rebuild). Four-density true-size proof rendered for the eye.

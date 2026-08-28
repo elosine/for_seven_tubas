@@ -48,3 +48,8 @@ notation/video/**/*.png
 notation/video/**/*.rgba
 notation/video/test/
 notation/video/probe/
+
+# Print score — derivable from tools/export_print.js in ~3 s, and large.
+# print/cover/ IS committed (the SVG sources and the generator).
+print/score/*.pdf
+print/score/*.__print.html
