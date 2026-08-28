@@ -10,196 +10,91 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 37: **THE VIDEO IS DONE. PHASE 5 CLOSED 5/5 WITH NO CAVEAT.**
-### → the post-W1b renders are APPROVED and have REPLACED the archive as the submission copy
-### → the PRINT SCORE now generates (68 pages, 3 s) — open: density · colour · staff size
+### LAST SESSION — day 37 (2026-08-27, Claude Code / **Fable 5**, post-clear)
 
-**The approved video IS the submission copy:**
-`notation/video/approved/2026-08-27-submission/` — the five POST-W1b mp4s
-(byte-identical to `renders/`, `cmp`-verified) + cut list + README. Revert point
-**`b4b7cb4`**, and that is measured: the only change since it under `tools/`,
-`notation/{lib,registry,ir,app,audio}` or `scores/` is an unrelated new paper
-tool, so the renders reproduce from either commit. Render scripts never touch it.
+**THE VIDEO IS FINISHED AND THE PRINT SCORE NOW GENERATES.** Two deliverables closed
+in one session.
 
-**W1b in one line:** piece #2's full-lane `curveMeter` was still spawning per
-leveled event inside the morph sections — a third green meter at the same x,
-crossing the midline into the glissando's half. Fixed in `animobj.collect`
-(ownership rule: half-lane section meters own the lane; per-event full-lane
-meters stand down there; the trance's fullHeight crescendo keeps its — t=730
-probe byte-identical). Proven at the composer's own timestamps; eleven batteries
-green. Full chain: RUNNING_LOG day 37.
+- **The video is DONE — PHASE 5 closed 5/5 with no caveat**, the first time that is
+  true. Re-rendered with the W1b fix (21.4 min), the composer approved the new cut
+  (*"video good, good to replace"*), and the five post-W1b files **replaced** the
+  archive as the submission copy (`cmp`-verified byte-identical).
+- **`phase5.sh` written** — the measured criteria in one command, and its
+  archive-comparison block **inverted** once the archive was replaced (it had proved
+  the W1b removal; the same four probes must now read 0.00 %). Re-run green.
+- **The print score exists** — `tools/export_print.js`, **68 tabloid pages in 3
+  seconds**, vector, true 17 × 11. The engine needed no print code (D79).
+  `notation/lib/static_page.js` now holds the one definition of the page and the
+  video draws through it, proven byte-identical.
+- **Composer's two calls taken:** the page-edge bar line removed (D79), and the
+  score **prints in COLOUR** (D80).
+- **Corrections issued this session, both mine:** the GC arc survives greyscale
+  fine (81 vs the ring bars' 51 — I had said they were similar), and `--margin` is
+  **not** a staff-size lever (whole range 0.4 mm). Both in D80.
 
-**Five outputs in `notation/video/renders/`** (gitignored; regenerable; sizes
-post-W1b — the dropped meters are ~1.5 MB of green ink each):
+### NEXT UP
 
-| | | frames |
-|---|---|---|
-| **V-CUT** 1920×1080 | 65.9 MB | 22 819 |
-| V-MAIN 1920×1080 | 65.4 MB | 22 819 |
-| ZOOM MASTER 1920×2160 | 90.1 MB | 22 819 |
-| V-TOP / V-BOT 1920×1080 | 59.2 / 61.5 MB | 22 819 |
+1. **Performance Instructions** — the front matter, and the largest remaining gap:
+   nobody can read this score cold. Proportional time with a printed second-ruler ·
+   the GC arc **whose ball does not print, because it is animated** · ring bars ·
+   cuivré/fortepiano · the figure-and-bracket vocabulary (D66/D69, *the bracket is
+   the message*) · the beating pairs. Draw on `docs/NOTATION_STANDARDS.md`, the
+   D-log, and the demo recordings the composer called *part of the apparatus*.
+   **Writing, not tooling — Fable. Clear before it.**
+2. **Polish proof of score** — the tier-3 pass, now on paper at true size.
+3. **Rehearsal Score Build · Performance Score Build** — blocked only on the
+   composer saying what separates them (see Open questions).
+4. **The paper** — `docs/PAPER_OUTLINE.md`, **Fable**. **A second agent is actively
+   drafting there; coordinate before editing that file.**
 
-**The whole pipeline is ~21.4 minutes of compute.** Rebuild with
-`notation/video/renders/phase3.sh` then `phase4.sh`; **measure it with
-`phase5.sh`** (+ `pxdiff.js`, `verify_film.js`, same dir — day 37: the checks
-were ad-hoc and the animated-layer probe survived only in a dead session's temp
-dir; now they are one command).
+*(All four are to-dos in `docs/PLANNER.md` under "TO-DO — THE SCORE ON PAPER".)*
 
-**PHASE 5 on the CURRENT renders (day 37, by `phase5.sh`): every measured
-criterion passes** — duration equality (all five at 22 819 frames, video spread
-**0.325 ms**, audio identical), A/V offset (`start_time 0.000000` on both
-streams of all five), cut sources (expected **0.36–0.44 %** vs wrong **22–62 %**),
-animated layer (meter colours in the film inside the h.264 floor of the app's),
-and **W1b confirmed in the film itself**: vs the approved archive the three
-bleed frames differ (9.1k / 11.3k / 11.9k px) while the trance control at t=730
-is **0 of 2 073 600 — decode-identical**. The fix reached exactly the frames it
-should and no others. **And the composer's eye is now CLOSED on the fixed film** — *"video good, good
-to replace"* — so PHASE 5 passes 5/5 with no outstanding caveat, the first time
-that has been true.
+### OPEN AT SESSION END — in-flight, written for a cold reader
 
-**The Node exporter draws exactly what the app draws** — `tools/export_video.js`,
-proven pixel-for-pixel on two probe pages, re-proven after a refactor.
-`--dumpPage N` repeats the check.
+- **Density is decided-by-default, not decided.** 11.41 s/page = 66 pages, which
+  holds the video's approved density exactly (5.06 staff-heights per second in both
+  media). 15 s/page → 51 pages is the only live alternative; **20 is out by
+  measurement** (0.41 mm of white between the closest noteheads). Nothing blocks —
+  if the composer says nothing, 11.41 stands. Re-render is 3 s.
+- **The final barline sits at `srcEnd` 753, which is 1.29 s after the last sounding
+  event (751.707).** Kept there so print and film agree about where the piece ends;
+  the composer was offered the alternative and has not answered. One-line change.
+- **Everything is pushed.** Deliberately uncommitted, unchanged all session:
+  `reaper/7_tubas_rack.rpp` · `reaper/Bloom-Convergence-Balance_demoRecording.rpp` ·
+  `scores/Litany.pdf`. **Say if any should be committed.**
 
-**The repo now has ONE dependency**: `package.json` + `@resvg/resvg-js`, chosen by
-measurement in 2.1 (172 ms/frame vs headless Chrome's 665 ms, equal fidelity).
-`npm install` before running the exporter.
+### OPEN QUESTIONS
 
-**Also closed today:** PHASE 0 (the Reaper render, sync proven and measured) and
-**the four tempo numbers** — `PRINT_MEASURED = true`, so the accelerando now reads
-**♩ = 75 → 80 → 87 → 93.6 → 100.2 → 106.8 → 113.4 → 120**.
+- **What separates a REHEARSAL score from a PERFORMANCE score?** The composer named
+  both as separate builds; density, page turns, how much apparatus each carries, and
+  whether either is the conductor's copy are **not decided and not assumed**.
+- Density (above) · the final-barline position (above).
+- Longer-standing: DB3-EYE verdicts · PAPER topic picks · the two cover nits (block
+  sits high; subtitle at 0.65 may want 0.55).
 
-**NEXT STEPS · MODEL · CLEAR** *(rewritten day 36 post-clear, after W1 steps 1
-and 2 came back and changed the picture)*
+### BLOCKERS
 
-**THE FIVE RENDERS ON DISK ARE CURRENT** — rebuilt 2026-08-27 post-W1b in
-**21.4 min** (V-MAIN 5.8 · zoom 9.3 · crops ~1 · V-CUT 6.3) and carrying all
-five decisions: the compositor fix, the morph meters at **`fillOpacity` 0.60
-(A1)**, the transition at **`--fade 5 --fadeMode cross`**, the cut at **seed
-71**, and **W1b's ownership rule** (per-event full-lane meters stand down where
-a half-lane section meter owns the lane).
+None.
 
-**PHASE 5 re-run and now FOUR of five criteria pass by measurement** — one more
-than before, because the old proof had a gap:
+### THE DELIVERABLES, AS THEY STAND
 
 | | |
 |---|---|
-| duration equality | all five **22 819 frames**, video spread **0.325 ms**, audio identical at 760.618 s |
-| A/V offset | `start_time 0.000000` on **both streams of all five** |
-| cut sources | V-CUT matches its expected source to **0.52–0.79 %** and the wrong ones by **23–62 %** (t = 120 wide, 155 V-TOP, 250 V-BOT) |
-| **the ANIMATED layer** *(new)* | meter in the film **(245,126,69)** vs the app's **(245,131,80)**; it was (198,157,139) before the fix |
-| the composer's eye | **OPEN — the only thing left** |
-
-**Why the fourth row is new.** The old criterion was "spot frames vs the live
-app", run through `--dumpPage`, which writes the **static page only** — and the
-static page never goes through `composite()`. That is exactly where the bug was.
-The check now reads the meter colour straight out of the finished mp4.
-
-1. **DONE — the meter look is A1.** The composer picked `fillOpacity` **0.60** on
-   both morph meters; it is in `container.json` (with the why in each `_note`) and
-   probe-verified. `curveMeter` stays at 0.3 on purpose. The six-way comparison is
-   published as the Artifact **The Morph Meters**.
-2. **DONE — W2's fade is built, and it is a DIP, not a cross-dissolve.**
-   `--fade <frames>` + `--fadeMode dip|cross`; `phase4.sh` passes
-   `--fade 8 --fadeMode dip`. **A cross-dissolve superimposes the two sources, and
-   here they are the same notation at two scales** — the mid frame carries two sets
-   of staff lines and TWO CURSORS. Measured on boundary f=2740 before any full
-   render (ink per px: cross stays 39→33 flat, dip cuts a clean V to 4.2). The dip
-   shows one source at a time. Window CENTRED on the boundary, so **no frame is
-   inserted or dropped** and duration equality holds. 18 interior boundaries.
-3. **DONE — the re-render landed and PHASE 5 was re-run.** 21.1 min, all five
-   outputs, four of five criteria pass by measurement (table above). The cut is
-   **seed 71**: 9 close-ups, 30.2 %, **BLOOM 2 · CONVERGENCE 2 · BALANCE 2 ·
-   TRANCE 2** plus one in the INT2 blasts, opens wide 85 s, closes wide 82 s.
-   Seed 11's list is kept at `notation/video/probe/cut-list-seed11-backup.json`.
-
-4. **DONE — the composer's eye (day 37): "the cut looks good... keep it,
-   please."** PHASE 5 closed 5/5. The same look caught **W1b**, now fixed (above).
-
-5. **DONE (day 37 post-clear) — the re-render with W1b.** 21.4 min; PHASE 5
-   re-measured by the new `phase5.sh`, every measured criterion green (table
-   above); the W1b removal and its confinement proven in the finished mp4s.
-
-6. **DONE (day 37) — the composer approved the new cut and the archive was
-   REPLACED.** *"video good, good to replace."* PHASE 5 closed 5/5, no caveat.
-   `phase5.sh`'s archive block inverted to a drift check (all four probes must
-   now read 0.00 %) and re-run green. **THE VIDEO IS FINISHED.**
-
-7. **DONE (day 37) — THE PRINT SCORE GENERATES.** `tools/export_print.js` —
-   **68 tabloid pages in 3 SECONDS**, vector, MediaBox [0 0 1224 792], zero
-   raster images, Crimson Pro embedded. Chrome headless does the PDF, so the
-   repo still has exactly ONE dependency. The engine needed no print code: the
-   layout model is in staff-space units, so print is the same model at a
-   different view. `notation/lib/static_page.js` now holds the one definition of
-   the page and **`export_video.js` draws through it — proven inert, all 64
-   static SVGs byte-identical, 11 batteries green.**
-   Draft: `print/score/BCB-score-DRAFT.pdf` (gitignored; 3 s to rebuild).
-
-8. **DONE (day 37) — the edge bar is gone.** The composer saw a bar line at the
-   right of every page: it was the `systemEndBar`'s right-edge fallback, correct
-   in the film (the frame edge IS the system end) and wrong on paper. `edgeBar`
-   option; print passes false. **The trap:** without the fallback the score had NO
-   final barline — the last window ended at 752.92 against srcEnd 753 — so the
-   last page now stretches to reach it. 0 bars on pages 1/30/66, 1 on page 67.
-   Video re-proven byte-identical.
-9. **DONE (day 37) — the re-render chain is safe.** **`bash print/score/build.sh
-   [--rebuild-ir] [--sec N]`.** The gap it closes: **print is drawn from the IR,
-   not the save file**, so editing the score and re-running the exporter renders
-   the OLD notation silently. `--rebuild-ir` rebuilds db1 from its own
-   `provenance.build` and snapshots the IR first (TRAPS #1). A staleness notice
-   fires when the save is newer than the IR — worded as a hint, citing D75, and
-   proven by making it go red.
-
-**▶ NEXT — THREE COMPOSER CALLS ON THE PRINT SCORE**, all measured, none decided;
-   full detail in `docs/PRINT_AND_COVER.md` §4:
-   **(a) DENSITY** — default 11.41 s/page = 67 pages (holds the video's approved
-   density); 15 → 51 pp, 20 → 38 pp. A four-density true-size proof was rendered
-   for the eye. **(b) COLOUR OR GREYSCALE** — the page is NOT black-and-white:
-   195 magenta elements on a dense page, and the magenta is the GC arc, whose
-   *ball does not print* because it is animated. **(c) STAFF SIZE** — 7.04 mm now
-   (`--margin` is the lever). All three are cheap: the score re-renders in 3 s.
-   After that: the **paper** (`docs/PAPER_OUTLINE.md`, **Fable** — note a second
-   agent is actively drafting there, so coordinate before editing that file).
-
-**Four to-dos on the score-as-paper are now in `docs/PLANNER.md`** (composer,
-day 37): **Polish proof of score · Performance Instructions · Rehearsal Score
-Build · Performance Score Build.** What distinguishes the rehearsal build from
-the performance build is NOT decided and is not assumed there.
-
-**Not built, not needed for the submission:** ten single-player PARTS.
-4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
-   generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
-   (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:
-   **Fable if available, else Opus.**
-
-**Still true:** the one open criterion is the composer's eye on the NEW V-CUT;
-the re-render is done, so nothing is waiting on compute.
-
-**`docs/WISHLIST.md` W1 is ANSWERED** (day 36 post-clear). **The jump** is the
-**63 system turns** — 1866.8 px, 33 of them with a meter live on both sides, the
-hard-cut design; the data itself never moves more than **0.242 px in a frame**
-across all 22 819 frames, so the 401-sample quantisation is real and invisible.
-**The shadow** was a **compositor defect, now fixed**: `@resvg/resvg-js` returns
-**premultiplied** RGBA and `export_video.js composite()` treated it as straight,
-applying alpha twice, so every TRANSLUCENT animated element rendered as a grey
-smudge. Verified against the running app — the meters now match it to the unit.
-**PHASE 5's `--dumpPage` pixel proof covers the STATIC page only, which is why it
-passed.** **W2 (the fade) is untouched and still open.**
-
-**Pending the composer:** V-CUT's look · DB3-EYE verdicts · PAPER topic picks ·
-the two cover nits (block sits high; subtitle at 0.65 may want 0.55).
-
-**Deliberately uncommitted:** `reaper/7_tubas_rack.rpp` ·
-`reaper/Bloom-Convergence-Balance_demoRecording.rpp` (the session that produced
-the render) · `scores/Litany.pdf`. **Say if any should be committed.**
-
----
-
+| **VIDEO — DONE, APPROVED, ARCHIVED** | `notation/video/approved/2026-08-27-submission/` — five post-W1b mp4s, 22 819 frames each, + cut list + README. Revert point **`b4b7cb4`** (measured: nothing on the render path changed since). Rebuild: `phase3.sh` → `phase4.sh` (~21.4 min); measure: `phase5.sh` |
+| **PRINT SCORE — GENERATES** | `bash print/score/build.sh [--rebuild-ir] [--sec N]` → `print/score/BCB-score-DRAFT.pdf`, 68 pages, 3 s, gitignored. **Print is drawn from the IR, not the save file — `--rebuild-ir` is the step that is easy to miss** |
+| **COVER** | `print/cover/` — built day 36, `--cover on` prepends it |
+| **PARTS** | not built, not needed for the submission |
 
 ### THE SESSION RECORD — one line each (trimmed day 36; full accounts in `docs/RUNNING_LOG.md`)
 
 Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
+- **day 37 (Fable) — THE VIDEO CLOSED AND THE SCORE ON PAPER.** PHASE 5 5/5, the
+  post-W1b renders approved and swapped into the archive as the submission copy;
+  `phase5.sh` written and its archive block inverted to a drift check. **The print
+  score built** — 68 tabloid pages in 3 s, vector (D79); page-edge bar removed;
+  **colour chosen** (D80). Staff size shown to be a consequence of the format, not
+  a choice. Four score-on-paper to-dos filed to PLANNER.
 - **day 36 (Opus) — THE VIDEO.** PHASE 0–5 closed: Reaper render at 60 BPM, sync
   proven and measured, `tools/export_video.js` built and proven pixel-identical to
   the app, five renders, V-CUT. The repo's first dependency (`@resvg/resvg-js`,
@@ -468,6 +363,68 @@ instruction. The instructions are the four reference blocks that follow.*
    is invisible — the only proof a guard works is making it go red on purpose.*
 
 ## §4 Decisions
+
+- **D80** *(2026-08-27, day 37)* — **THE SCORE PRINTS IN COLOUR — AND THE STAFF SIZE WAS
+  NEVER A DECISION.** Composer, asked directly: **"color"**. The overlay palette stays
+  exactly as approved on screen and no greyscale variant is built. **Why the question was
+  worth asking:** the printed page is not black-and-white, and on a morph page it is
+  *entirely* colour — those pages carry **no noteheads at all**, the notation IS two
+  half-lane bands (orange glissando above, green crescendo below). Measured luminance on
+  white paper: ink 17 · ring bars 51 · **GC arc 81** · glissando band 105 · muted 138 ·
+  **crescendo 209–215 against paper 255**. So a B/W photocopy keeps everything except the
+  crescendo layer, which all but vanishes — *recorded as a consequence for whoever
+  duplicates the score, not as a reopening.* **A claim withdrawn:** the AI had said the
+  magenta and the ring bars land at similar greys; they do not (81 vs 51), and the GC arc
+  is not the casualty. **Rejected:** a print-only darkening of the crescendo fills to make
+  one greyscale-safe score — offered, and the composer chose colour outright.
+  **The second half of this entry is the correction that matters more.** The AI called
+  `--margin` "the lever" for staff size. **It is not.** Measured across margins: 0.5 in →
+  **7.04 mm**, 0.4 → 7.19, 0.35 → 7.26, 0.3 → 7.33, and with the ruler and marks strips
+  removed entirely at 0.4 in → **7.43 mm**. The entire adjustable range is **0.4 mm**.
+  `PRINT_AND_COVER` §1's 8.18 mm is reachable only at essentially zero margin. **Ten parts
+  on eleven inches fixes the staff at ~7 mm** — a normal full-score size (≈ rastral 4);
+  a larger staff needs larger paper or two systems of five and double the pages.
+  *The general form:* a number that follows from a settled format is a CONSEQUENCE, and
+  presenting it as a knob invites the composer to spend attention on a choice that does
+  not exist. **What IS a free parameter is the horizontal axis** — because the notation is
+  proportional, x is time, so seconds-per-page is chosen by nobody unless someone chooses
+  it. Default holds the video's approved density exactly (5.06 staff-heights per second in
+  both media), giving 66 pages; 15 s/page gives 51. **20 s/page is out by measurement:**
+  the tightest adjacent onsets in the piece are 110 ms apart, which at that density leaves
+  **0.41 mm of white between two 1.83 mm noteheads**, before accidentals.
+
+- **D79** *(2026-08-27, day 37)* — **THE PRINT SCORE IS A REALIZATION, NOT A SECOND
+  ENGINE — AND A PAGE EDGE IS NOT A MUSICAL EVENT.** `tools/export_print.js`: the whole
+  score, 68 tabloid pages, **in 3 seconds**, vector. **Why it is small:** the engine was
+  already resolution-independent — `Layout.layoutSection` returns a model in STAFF-SPACE
+  units and `Coords.makeView` maps it to any canvas, so print is the same model at a
+  different view. **No layout code was written.** Proven before building: deriving print
+  geometry from the SAME `container.json` lane proportions the video uses reproduces
+  `PRINT_AND_COVER` §1's day-36 numbers without either being typed in (lane 26.6 mm vs
+  26.7, staff 8.18 mm vs "~8 mm"). **`notation/lib/static_page.js`** now holds the ONE
+  definition of the page — `staticSvg()` had been private to `export_video.js`, so print
+  would have been a second hand-copy of six decisions (D4 bricks off, D4 META off, the
+  terminal barline, the engraving registry); precedent is `morph_overlays.js`.
+  **`export_video.js` draws through it, PROVEN INERT: all 64 static SVGs byte-identical**
+  (`0619d854…`), eleven batteries green — re-proven a second time after the `edgeBar`
+  edit touched a shared line. **The composer's finding:** *"there is what looks like a bar
+  line at the right of every page."* It was the `systemEndBar`'s right-edge fallback —
+  **correct in the film**, where the frame edge IS the end of the visible system, and
+  wrong on paper, where it reads as a double bar 66 times. Fixed with an `edgeBar` option
+  (default true = the film's behaviour; print passes false). **The trap inside the fix,
+  found by measuring:** without the fallback the score had **no final barline at all** —
+  the last window ended at 752.92 against `srcEnd` 753 — so the last page now stretches to
+  reach it (11.49 s vs 11.41, a 0.7 % spacing difference on one page). Verified by
+  counting: 0 bars on pages 1/30/66, exactly 1 on page 67. **PDF via Chrome headless, so
+  the repo still has exactly ONE dependency (D77)** — measured: MediaBox [0 0 1224 792],
+  zero raster images, fonts embedded as `FontFile2`. **And the silent-wrong-output path
+  this closed:** the print score is drawn from the **IR**, not the save file, so editing
+  the score and re-running the exporter renders the OLD notation with no error of any
+  kind. `print/score/build.sh [--rebuild-ir]` names the middle step and rebuilds db1 from
+  its own `provenance.build`, snapshotting the IR first (TRAPS #1). A staleness notice
+  fires when the save is newer — worded as a hint and citing **D75** (a timestamp is not
+  evidence of currency), and **proven by making it go red on purpose** (§3 principle 11).
+
 
 - **D76** *(2026-08-26, day 36)* — **THE PRINTED TEMPO IS THE MEASURED ONE, AND THE
   AUTHORED FOUR WERE A ROUNDING ARTIFACT.** `PRINT_MEASURED = true`. The accelerando now
@@ -1704,6 +1661,29 @@ instruction. The instructions are the four reference blocks that follow.*
   sitting; V4/V5 exports trail until submission.
 
 ## §6 Human Notes
+
+- *(2026-08-27, day 37 — CURRENT)* **Both big deliverables are in hand, and nothing
+  is owed.** The **video is finished** — you approved the fixed cut, and those five
+  files are now the submission copy in
+  `notation/video/approved/2026-08-27-submission/`; the older bleed version is gone
+  and will not be picked up by mistake. The **print score generates in 3 seconds**:
+  `bash print/score/build.sh`. **The one thing to carry in your head about it:** the
+  print score is drawn from the IR, not from your save file — so if you change the
+  score, run `bash print/score/build.sh --rebuild-ir`, or you will get the old
+  notation with no warning. The tool now says so when it spots a newer save file.
+  **Two things I told you this session that were wrong, and are corrected in D80:**
+  the GC arcs survive black-and-white perfectly well (I said they wouldn't), and
+  `--margin` does **not** meaningfully change staff size — ten parts on eleven inches
+  fix it at ~7 mm, which is a normal full-score staff. There is no knob there and no
+  decision for you.
+  **Two small calls of yours are open, neither blocking:** whether 66 pages is more
+  than you want (15 s/page gives 51 — same size notes, packed closer in time), and
+  whether the final barline should sit where the piece's clock ends (753) or where
+  the last sound is (751.7). Say nothing and both stay as they are.
+  **One thing only you can answer, for later:** what makes a *rehearsal* score
+  different from a *performance* score. I have not assumed anything.
+  *(Standing small calls, unchanged: `flagShortBarSeconds` 1.0 → 0.35? · the cuivré
+  MEDIUM gap lift · the GC-ball landing ear check in motion.)*
 
 - *(2026-08-24, day 35 — CURRENT)* **The long tone at 48 is written, and one small
   call is yours.** All ten tubas now carry a ring bar over 48.05-52.46, its length

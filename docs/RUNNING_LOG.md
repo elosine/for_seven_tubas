@@ -15616,3 +15616,25 @@ lever I called it.** Measured across margins: 0.5 in → 7.04 mm, 0.4 → 7.19,
 fixes the staff at ~7 mm** — which is a normal full-score size (≈ rastral 4).
 A bigger staff needs bigger paper or two systems of five per page, i.e. double
 the pages. Not a knob; a consequence.
+
+### day 37 (Fable) — SESSION END
+
+Wrapped per `SESSION_PROTOCOL.md`. **Two deliverables closed in one session: the
+video (approved, archived as the submission copy) and the print score (generates
+in 3 s).** D79 and D80 written to §4; §2 rewritten in the session-end form;
+PLAN.md item 8 updated — **V5 (PDF export) is DONE, so both exports are now
+closed** and the remaining score-on-paper work is authoring, not tooling.
+
+**One deviation from the protocol, deliberately:** step 6 says `git add -A`.
+This repo's CLAUDE.md overrides it — explicit paths only, because a second agent
+is working in this same tree (and was, all session, on the paper drafts). `-A`
+would have swept their half-finished work into this commit.
+
+**Housekeeping:** removed a stray 395 KB file named `nul` at the repo root — my
+own, created by passing `--out /dev/null` on Windows, where Node writes a real
+file of that name rather than discarding. Untracked, checked before deleting.
+*Worth knowing: `/dev/null` is not a sink in this environment.*
+
+**Nothing owed, no blockers.** Deliberately uncommitted and untouched all
+session: `reaper/7_tubas_rack.rpp`, `reaper/Bloom-Convergence-Balance_demoRecording.rpp`,
+`scores/Litany.pdf`.
