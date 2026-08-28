@@ -106,7 +106,14 @@ sidesteps font embedding entirely.
 
 **Score — the composer's three calls (day 37, all measured, none decided)**
 
-1. **DENSITY.** Default is 11.41 s/page = **67 pages**, chosen to hold the
+1. **DENSITY — the one genuinely open item, and it has a defensible default
+   already in place.** This is the HORIZONTAL axis, and it exists as a separate
+   question only because the notation is proportional: **x is time**, so how many
+   seconds go across a page is a free parameter that the paper size does not
+   determine. Staff size (vertical) is settled by the format; time-per-page is
+   not the same axis.
+
+   Default is 11.41 s/page = **67 pages**, chosen to hold the
    density the composer already approved on screen (the video lays down a fixed
    number of staff-spaces per second; print holds that constant, so a printed
    bar looks like the filmed bar, only larger). Measured alternatives:
@@ -123,7 +130,15 @@ sidesteps font embedding entirely.
    early break puts a little music on both pages — worst case 1.9 s, read twice
    at a page turn. Removing it means letting px/s vary page to page.
 
-2. **COLOUR OR GREYSCALE.** The page is not black-and-white. On a dense page the
+2. **COLOUR — DECIDED (composer, day 37): "color".** The score prints in
+   colour; the overlay palette stays exactly as the composer approved on screen,
+   and no print-only greyscale variant is built. *One practical consequence to
+   know, not a reopening:* a black-and-white photocopy of the score loses the
+   crescendo layer (it sits at grey 209–215 against paper 255) while everything
+   else survives — so B/W duplicates are not a substitute for the colour score.
+
+   *The measurement that informed it, kept for the record.* The page is not
+   black-and-white. On a dense page the
    ink is **195 magenta elements** (`rgb(255,21,160)`) to 37 grey and 5 green.
    The magenta is the **GC object**, ported whole from piece #1 on the composer's
    instruction (*"the same colors, the same lines"*). On paper its arc and impact
@@ -131,10 +146,14 @@ sidesteps font embedding entirely.
    trajectory without the thing that travels it. In greyscale the magenta and the
    grey ring bars land at similar values.
 
-3. **STAFF SIZE.** Currently **7.04 mm**, not §1's 8.18 mm: the ruler strip, the
-   folio strip and 0.5 in margins are the difference (§1's figure assumed a
-   near-full-bleed 267 mm). 7 mm is a normal full-score staff (≈ rastral 4).
-   `--margin` is the lever.
+3. **STAFF SIZE — NOT A DECISION.** Measured day 37 across margins: 0.5 in →
+   **7.04 mm**, 0.4 → 7.19, 0.35 → 7.26, 0.3 → 7.33, and with the ruler and marks
+   strips removed entirely at 0.4 in → **7.43 mm**. The whole adjustable range is
+   **0.4 mm**, so `--margin` is not the lever an earlier note called it. §1's
+   8.18 mm is only reachable at essentially zero margin. **Ten parts on 11 inches
+   fixes the staff at ~7 mm** — a normal full-score size (≈ rastral 4). A larger
+   staff needs larger paper, or two systems of five per page and double the
+   pages. It is a consequence of the settled format, not a knob.
 
 ## 5 · What print adds that the video has not got
 
