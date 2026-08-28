@@ -15559,3 +15559,60 @@ Two things built so it cannot bite:
 of score · Performance Instructions · Rehearsal Score Build · Performance Score
 Build*. What separates a rehearsal build from a performance build was **not
 assumed**; it is recorded as undecided.
+
+### day 37 (Fable) — THE TWO PRINT DECISIONS, MEASURED — AND ONE OF THEM ISN'T A DECISION
+
+Composer: *"what is the tradeoff for 1; 2. what decision is needed here?"*
+
+**COLOUR — what greyscale actually costs.** Luminance of every colour on the
+page (Rec.709, composited onto white paper at 255):
+
+| element | colour | grey | survives B/W? |
+|---|---|---|---|
+| noteheads, stems, beams, text | `#111` | **17** | yes |
+| ring bars | `#333` | **51** | yes |
+| **GC arc + impact dot** | `rgb(255,21,160)` | **81** | **yes** |
+| morph glissando band | `#F04B00` | **105** | yes, weaker |
+| part labels, ruler, folio | `#8a8a8a` | **138** | yes |
+| crescendo wedge | `#2E7D32` @0.3 | **209** | **barely** |
+| morph crescendo band | `#99FF00` | **215** | **barely** |
+
+**A CORRECTION.** I told the composer *"in greyscale the magenta and the grey
+ring bars land at similar values."* **That is wrong** — 81 against 51, thirty
+levels apart and plainly distinguishable. The GC arc is not the casualty.
+**The crescendo layers are**, at 209/215 against paper 255.
+
+**Verified by rendering, not by the arithmetic** — a CONVERGENCE page (t=300) in
+colour and through `grayscale(1)`. The morph page has **no noteheads at all**:
+the two overlay bands ARE the notation there — orange glissando owning the top
+half-lane, green crescendo the bottom. In grey the glissando holds and the
+crescendo washes out to nearly paper. **But position still disambiguates them**
+(the half-lane ownership rule W1b enforced), so the page is degraded, not
+ambiguous.
+
+**The third option, which is the one to recommend:** darken the crescendo fills
+FOR PRINT ONLY so they land ~150–180 instead of 215. One score that reads in
+colour and survives a photocopy, and it cannot touch the approved film.
+
+**DENSITY — the real number.** Tightest adjacent onsets within one part anywhere
+in the piece: **110 ms** (4471 gaps; 1st percentile 170 ms). Notehead is
+**1.83 mm** wide at this staff size.
+
+| s/page | pages | tightest pair | white between heads |
+|---|---|---|---|
+| 9 | 84 | 4.97 mm = 2.72 heads | 3.14 mm |
+| **11.41** *(default)* | **66** | 3.92 mm = 2.14 heads | 2.09 mm |
+| 15 | 51 | 2.98 mm = 1.63 heads | 1.15 mm |
+| 20 | 38 | 2.24 mm = **1.22 heads** | **0.41 mm** |
+
+**20 s/page is out by measurement** — 0.41 mm of white between the closest two
+noteheads, before accidentals. The live range is 11.41–15.
+
+**A SECOND CORRECTION: staff size is NOT a decision, and `--margin` is NOT the
+lever I called it.** Measured across margins: 0.5 in → 7.04 mm, 0.4 → 7.19,
+0.35 → 7.26, 0.3 → 7.33; with the ruler and marks strips off entirely at 0.4 in
+→ **7.43 mm**. So the whole adjustable range is **0.4 mm**. PRINT_AND_COVER's
+8.18 mm is only reachable at essentially zero margin. **Ten parts on 11 inches
+fixes the staff at ~7 mm** — which is a normal full-score size (≈ rastral 4).
+A bigger staff needs bigger paper or two systems of five per page, i.e. double
+the pages. Not a knob; a consequence.
