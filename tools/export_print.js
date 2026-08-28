@@ -131,6 +131,29 @@ const defaultSec = blockW / (videoDensitySsPerSec * ssPx);
 const pageSeconds = secArg != null ? parseFloat(secArg) : defaultSec;
 if (!(pageSeconds > 0)) { console.error('--sec must be positive'); process.exit(2); }
 
+// ------------------------------------------------- IR-vs-score staleness HINT
+// The print score is drawn from the IR, not from the save file. So editing the
+// score and re-running THIS tool renders the OLD notation, silently. That is the
+// failure this notice exists to prevent.
+//
+// It is a HINT, not a verdict, and deliberately so: D75 records that a save
+// file's timestamp is NOT evidence of its currency (a `-work` copy was three
+// days NEWER than the archive and missing an entire playability pass). A newer
+// mtime here means "check", never "stale".
+try {
+  const irPath = path.join(ROOT, 'notation', 'ir', irId + '.ir.json');
+  const scPath = path.join(ROOT, 'scores', ir.source.score + '.json');
+  if (fs.existsSync(scPath)) {
+    const irM = fs.statSync(irPath).mtimeMs, scM = fs.statSync(scPath).mtimeMs;
+    if (scM > irM) {
+      console.log('  ! NOTE  ' + ir.source.score + '.json is NEWER than ' + irId + '.ir.json.');
+      console.log('          The print score is drawn from the IR, so score edits do not appear');
+      console.log('          until the IR is rebuilt:   bash print/score/build.sh --rebuild-ir');
+      console.log('          (a timestamp is a hint, not proof — D75. Rebuild to be sure.)');
+    }
+  }
+} catch (e) { /* a missing score is not an error; marks just go quiet */ }
+
 // ---------------------------------------------------------------- pages
 const pages = Splice.planPages(ir, pageRules, pageSeconds);
 let sel = pages.map((_, i) => i);
@@ -151,9 +174,17 @@ if (pagesArg) {
 }
 
 function viewFor(i) {
+  // THE LAST PAGE REACHES THE PIECE'S END. Measured day 37: with the default
+  // density the last window ended at 752.92 against srcEnd 753, so the true
+  // final barline fell 0.08 s outside the page and the score would have ended
+  // with no final bar once the right-edge bar was removed. The last page's
+  // window is therefore stretched to srcEnd — 11.49 s instead of 11.41, a 0.7 %
+  // spacing difference on one page, in exchange for a correct final barline.
+  const isLast = i === pages.length - 1;
+  const w1 = isLast ? Math.max(pages[i].t0 + pageSeconds, srcEnd) : pages[i].t0 + pageSeconds;
   return Coords.makeView({
     widthPx: blockW, heightPx: blockH,
-    window: [pages[i].t0, pages[i].t0 + pageSeconds],
+    window: [pages[i].t0, w1],
     gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0,
     systems, ssPerSystem,
   });
@@ -266,8 +297,11 @@ function buildHtml() {
     const svg = StaticPage.staticPageSvg({
       model, view, glyphs, C, srcEnd,
       reshow: pages[i].reshow, ownsEnd: i === pages.length - 1,
+      // composer, day 37: no bar line at the right of every page. On paper the
+      // page edge is not a musical event; the bar draws only at the true end.
+      edgeBar: false,
     });
-    const t0 = pages[i].t0, t1 = Math.min(t0 + pageSeconds, srcEnd);
+    const t0 = pages[i].t0, t1 = Math.min(view.window[1], srcEnd);
     out.push('<div class="page">');
     if (headerPx) out.push('<div class="hdr">' + rulerSvg(view) + '</div>');
     out.push('<div class="mus">' + svg + '</div>');

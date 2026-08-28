@@ -135,6 +135,21 @@ The check now reads the meter colour straight out of the finished mp4.
    static SVGs byte-identical, 11 batteries green.**
    Draft: `print/score/BCB-score-DRAFT.pdf` (gitignored; 3 s to rebuild).
 
+8. **DONE (day 37) — the edge bar is gone.** The composer saw a bar line at the
+   right of every page: it was the `systemEndBar`'s right-edge fallback, correct
+   in the film (the frame edge IS the system end) and wrong on paper. `edgeBar`
+   option; print passes false. **The trap:** without the fallback the score had NO
+   final barline — the last window ended at 752.92 against srcEnd 753 — so the
+   last page now stretches to reach it. 0 bars on pages 1/30/66, 1 on page 67.
+   Video re-proven byte-identical.
+9. **DONE (day 37) — the re-render chain is safe.** **`bash print/score/build.sh
+   [--rebuild-ir] [--sec N]`.** The gap it closes: **print is drawn from the IR,
+   not the save file**, so editing the score and re-running the exporter renders
+   the OLD notation silently. `--rebuild-ir` rebuilds db1 from its own
+   `provenance.build` and snapshots the IR first (TRAPS #1). A staleness notice
+   fires when the save is newer than the IR — worded as a hint, citing D75, and
+   proven by making it go red.
+
 **▶ NEXT — THREE COMPOSER CALLS ON THE PRINT SCORE**, all measured, none decided;
    full detail in `docs/PRINT_AND_COVER.md` §4:
    **(a) DENSITY** — default 11.41 s/page = 67 pages (holds the video's approved
@@ -145,6 +160,11 @@ The check now reads the meter colour straight out of the finished mp4.
    (`--margin` is the lever). All three are cheap: the score re-renders in 3 s.
    After that: the **paper** (`docs/PAPER_OUTLINE.md`, **Fable** — note a second
    agent is actively drafting there, so coordinate before editing that file).
+
+**Four to-dos on the score-as-paper are now in `docs/PLANNER.md`** (composer,
+day 37): **Polish proof of score · Performance Instructions · Rehearsal Score
+Build · Performance Score Build.** What distinguishes the rehearsal build from
+the performance build is NOT decided and is not assumed there.
 
 **Not built, not needed for the submission:** ten single-player PARTS.
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not

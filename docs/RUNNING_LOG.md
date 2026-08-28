@@ -15496,3 +15496,66 @@ and 0.5 in margins are the difference; the doc's figure assumed a near-full-blee
 **Open for the composer:** density · colour vs greyscale · staff size/margins.
 Draft at the default density: `print/score/BCB-score-DRAFT.pdf` (gitignored,
 3 s to rebuild). Four-density true-size proof rendered for the eye.
+
+### day 37 (Fable, post-clear) — THE EDGE BAR REMOVED, AND THE RE-RENDER CHAIN MADE SAFE
+
+**Composer, on the first print proof:** *"there is what looks like a bar line at
+the right of every page, can we get rid of it? otherwise looks good."*
+
+**It was the `systemEndBar`, and it was correct behaviour in the wrong medium.**
+`staticPageSvg` draws the terminal bar at the piece's end if that falls inside the
+window, and **otherwise at the right edge** — because in the FILM the frame edge
+IS the end of the visible system. On paper a page edge is not a musical event, so
+the same rule prints what reads as a double bar 66 times.
+
+**Fixed with an `edgeBar` option** (default true = the video's behaviour; print
+passes false), so the bar draws only where the piece actually ends.
+
+**The trap inside the fix, found by measuring rather than assuming:** with the
+right-edge fallback removed the score would have had **no final barline at all**.
+The last page's window ended at **752.92** against `srcEnd` **753** — the true end
+fell 0.08 s outside the last page. So the last page's window is stretched to reach
+`srcEnd` (11.49 s instead of 11.41, a 0.7 % spacing difference on one page) and the
+final bar lands. **Verified by counting the bar rect per page: 0 on pages 1, 30 and
+66; exactly 1 on page 67.**
+
+**The video is untouched, and that needed proving** — the edit changed a shared
+line (`<` became `<=` on the end-in-window test). **All 64 static SVGs re-dumped
+and byte-identical** (`0619d854bc0ad3b7361a04f3db077ac3`), eleven batteries green.
+
+**Left alone, and said out loud:** the final bar sits at `srcEnd` 753, which is
+**1.29 s after the last sounding event** (751.707). Kept there because it is what
+the IR declares and what the film used — print and film should not disagree about
+where the piece ends. Moving it to the last sound is a one-line change if the
+composer prefers it.
+
+### The second question: "if I change the score, is it clear how to re-render?"
+
+**It was NOT clear, and the gap was real: the print score is drawn from the IR,
+not from the save file.** Editing the score and re-running `export_print` renders
+the OLD notation, with no error of any kind — a silent-wrong-output path, which is
+the worst kind.
+
+Two things built so it cannot bite:
+
+- **`print/score/build.sh`** — the chain in one command, with the middle step
+  named: `--rebuild-ir` rebuilds `db1` from the IR's **own** `provenance.build`
+  (the method the journal's tool table specifies, so it cannot drift from how the
+  page was actually made) and **snapshots the IR first**, because a rejected build
+  DELETES the page (TRAPS #1). Flags pass through: `--sec 15`, `--margin 0.4`.
+- **A staleness NOTICE in `export_print`** when the save file is newer than the
+  IR. Deliberately worded as a hint, not a verdict, and it cites **D75** in the
+  output: a save file's timestamp is not evidence of its currency — that is
+  exactly how `-work` (three days newer, an entire playability pass behind) got
+  chosen once already.
+  **Proven by making it go red on purpose** (§3 principle 11): `touch` the score →
+  the notice fires; `touch` the IR → it clears; `git status` clean both times, so
+  only mtimes moved and no content did.
+
+**Both PDFs re-verified after the change:** score 68 pages, proof 4 pages, both
+`MediaBox [0 0 1224 792]`, zero raster images.
+
+**Four to-dos added to `docs/PLANNER.md` at the composer's ask** — *Polish proof
+of score · Performance Instructions · Rehearsal Score Build · Performance Score
+Build*. What separates a rehearsal build from a performance build was **not
+assumed**; it is recorded as undecided.

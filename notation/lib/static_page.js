@@ -32,6 +32,14 @@
   //   ownsEnd  true if this page carries the end of the piece
   //   markers  optional read-through labels; omit for the video (D4: META off)
   //   append   optional SVG injected just before </svg> (print furniture)
+  //   edgeBar  default TRUE = the video's behaviour: when the piece's end is not
+  //            in this window, the terminal bar still draws at the RIGHT EDGE,
+  //            because in the film that edge IS the end of the visible system.
+  //            PRINT passes false (day 37, composer: "there is what looks like a
+  //            bar line at the right of every page, can we get rid of it?") — on
+  //            paper a page edge is not a musical event, and a bar there reads
+  //            as a real double bar. With it false the bar draws ONLY where the
+  //            piece actually ends.
   function staticPageSvg(o) {
     const C = o.C || {};
     const view = o.view;
@@ -47,10 +55,12 @@
 
     // the system TERMINAL barline, exactly as notation.html appends it
     const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
+    const edgeBar = o.edgeBar !== false;
     let endBar = '';
-    if (eb && view.systems.length) {
+    const endInWindow = o.srcEnd > view.window[0] && o.srcEnd <= view.window[1];
+    if (eb && view.systems.length && (endInWindow || edgeBar)) {
       const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
-      const xEnd = (o.srcEnd > view.window[0] && o.srcEnd < view.window[1]) ? view.xOfSeconds(o.srcEnd) : view.widthPx;
+      const xEnd = endInWindow ? view.xOfSeconds(o.srcEnd) : view.widthPx;
       endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
         '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
     }

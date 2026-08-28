@@ -44,6 +44,36 @@ higher the pair sits. Two things to carry into that design:
   be able to hear each other immediately, so I'll cross that bridge later when I'm
   making the parts."*
 
+## TO-DO — THE SCORE ON PAPER (composer, day 37)
+
+Added at the composer's ask, after the print generator landed. The generator is
+`tools/export_print.js` and the whole score re-renders in **3 seconds**, so every
+item below is cheap to iterate — re-render, look, adjust.
+
+- [ ] **Polish proof of score** — the tier-3 fine-tooth pass, now on paper rather
+      than on screen: collisions, ledger creep between lanes, crowding, page-turn
+      placement, anything the eye catches at true size. *(This is PP's TIER 3,
+      which was always planned as an explicit phase at the end.)* Open questions
+      already measured and waiting here: **density** (11.41 s/page = 67 pp default;
+      15 → 51; 20 → 38), **colour vs greyscale** (the GC arcs are ~195 magenta
+      elements on a dense page, and the ball does not print), **staff size**
+      (7.04 mm now; `--margin` is the lever). See `docs/PRINT_AND_COVER.md` §4.
+- [ ] **Performance Instructions** — the front matter. This score cannot be read
+      cold: proportional time with a printed second-ruler, the GC arc whose ball
+      is animated and therefore absent on paper, the ring bars, the cuivré and
+      fortepiano marks, the figure/bracket vocabulary (D66/D69 — the bracket IS
+      the message), and the beating pairs. Material already exists to draw on:
+      `docs/NOTATION_STANDARDS.md`, the D-log, and the demo recordings the
+      composer noted on day 35 as *part of the apparatus, not an extra*.
+- [ ] **Rehearsal Score Build** — what the ensemble reads to learn the piece.
+- [ ] **Performance Score Build** — what is used in performance.
+
+*The last two are listed separately because the composer named them separately;
+what distinguishes them — density, page turns, how much apparatus each carries,
+whether either is the conductor's copy — is not decided and is not assumed here.*
+**Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
+and are not needed for the submission.
+
 **NOW ► (2026-08-26, day 36, latest) THE TRANCE IS DONE AND THE PIECE IS IN ONE FILE.**
 The final crescendo now takes the **full lane height** (it was inheriting the
 morph pages' half-lane, where the glissando owns the top). The trance is
