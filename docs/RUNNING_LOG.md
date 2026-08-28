@@ -15348,3 +15348,44 @@ V-MAIN 66.8 → **65.4 MB** — the dropped meters are ~1.5 MB of green ink each
 morph sections: the green full-lane bleed at ~300 s (CONVERGENCE) and ~450 s
 (BALANCE) is gone; the trance is untouched. The approved archive stands as the
 submission fallback until the new one is blessed.
+
+### day 37 (Fable, post-clear) — THE COMPOSER'S EYE ON THE NEW CUT: APPROVED, AND THE ARCHIVE REPLACED
+
+**Composer, verbatim:** *"video good, good to replace then lets work on the print
+score."*
+
+**PHASE 5 is closed 5/5 with no outstanding caveat** — the first time that is
+true. The day-37 morning approval carried one ("there is still bleed in the
+meters"); W1b removed it, and this approval is on the fixed film.
+
+**The five post-W1b renders REPLACED the pre-W1b set** in
+`notation/video/approved/2026-08-27-submission/`, verified byte-identical to
+`renders/` by `cmp` on all five. Sizes fell as expected (V-CUT 67.5 → 65.9 MB,
+ZOOM 94.6 → 90.1) — the dropped meters were real ink. README rewritten: it now
+describes the approved set rather than a fallback-with-a-known-defect.
+
+**The revert point is `b4b7cb4`, and that is MEASURED.** Between it and now, the
+only change under `tools/ notation/{lib,registry,ir,app,audio} scores/` is the
+addition of `tools/arch_shape.js` — the other agent's paper-measurement tool,
+which no render path touches. **So the renders reproduce from either commit**, and
+the README says so rather than naming a commit on faith.
+
+**`phase5.sh`'s archive block INVERTED, deliberately.** It existed to prove the
+W1b removal: the three bleed frames had to DIFFER from the archive and the trance
+control had to be identical. Once the new set replaced the archive, that
+expectation became false — the same four probes must now all read **0.00 %**.
+Left as-was, the script would have printed four rows under a comment asserting
+the opposite. **Rewritten and re-run: all four 0.00 %.** It is now a
+drift check with a real job — *a non-zero row means something was re-rendered and
+never re-approved*. (§3 principle 11: a guard must not quietly stop asserting what
+it says it asserts.)
+
+**Note for whoever reads the git log:** a second agent was committing paper drafts
+into this tree throughout. `git log -1` reads as THEIR work and the reflog's last
+eight entries are all theirs; this session's two commits are ancestors of HEAD
+(`git merge-base --is-ancestor 58194ad HEAD` passes). Nothing was lost — but the
+tree's HEAD is not a reliable signal of what this session did, which is worth
+knowing before anyone panics at it again.
+
+**Next: the print score** (`docs/PRINT_AND_COVER.md`) — the composer's call in the
+same breath.

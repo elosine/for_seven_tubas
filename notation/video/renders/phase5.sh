@@ -10,9 +10,13 @@
 # 4 animated layer     meter colour read out of the finished mp4 (verify_film.js);
 #                      --dumpPage proves the STATIC page only — the premultiply
 #                      bug lived in composite(), which statics never touch
-# W1b (conditional)    new V-MAIN vs the approved 2026-08-27 archive at the
-#                      day-37 probe times: the three meter-bleed frames DIFFER,
-#                      the trance control at t=730 is identical (confinement)
+# A  (conditional)    renders/ vs the approved archive at four probe times.
+#                      Day 37 used this to PROVE the W1b removal (bleed frames
+#                      differed, trance control identical). The composer then
+#                      approved the new set and it REPLACED the archive, so the
+#                      expectation inverted: all four must now be IDENTICAL.
+#                      A non-zero row means something was re-rendered and never
+#                      re-approved -- which is the whole point of keeping it.
 # 5 the composer's eye — not a script.
 set -e
 cd "$(dirname "$0")/../../.."
@@ -47,13 +51,15 @@ for t in 120 155 250; do
 done
 
 if [ -d "$A" ]; then
-  echo "=== W1b: new V-MAIN vs approved archive (bleed frames differ; t=730 identical) ==="
+  echo "=== A: renders/ vs approved archive (ALL FOUR must read 0.00 %) ==="
   for t in 302.50 303.01 450.00 730.00; do
     X $t "$R/V-MAIN.mp4" "new-$t"
     X $t "$A/V-MAIN.mp4" "old-$t"
     echo -n "t=$t:  "
     node "$R/pxdiff.js" "$F/new-$t.png" "$F/old-$t.png"
   done
+  echo "  (the two probes at ~303 and ~450 are the old W1b bleed frames; t=730 the"
+  echo "   trance control. Non-zero => renders/ has drifted from the approved copy.)"
 fi
 
 echo "=== 4: animated layer (meter colour in the film vs the app) ==="

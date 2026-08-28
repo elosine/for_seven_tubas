@@ -10,12 +10,16 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### OPEN — day 37: **RE-RENDERED WITH THE W1b FIX — PHASE 5 RE-MEASURED, ALL GREEN BY SCRIPT.**
-### → open: the composer's eye on the NEW V-CUT (the morphs are what changed; approved archive stands as fallback)
+### OPEN — day 37: **THE VIDEO IS DONE. PHASE 5 CLOSED 5/5 WITH NO CAVEAT.**
+### → the post-W1b renders are APPROVED and have REPLACED the archive as the submission copy
+### → NOW ON: the print score (`docs/PRINT_AND_COVER.md`)
 
-**The approved video is ARCHIVED as the submission fallback:**
-`notation/video/approved/2026-08-27-submission/` — all five mp4s + cut list +
-README naming the revert commit (00c20c4). Render scripts never touch it.
+**The approved video IS the submission copy:**
+`notation/video/approved/2026-08-27-submission/` — the five POST-W1b mp4s
+(byte-identical to `renders/`, `cmp`-verified) + cut list + README. Revert point
+**`b4b7cb4`**, and that is measured: the only change since it under `tools/`,
+`notation/{lib,registry,ir,app,audio}` or `scores/` is an unrelated new paper
+tool, so the renders reproduce from either commit. Render scripts never touch it.
 
 **W1b in one line:** piece #2's full-lane `curveMeter` was still spawning per
 leveled event inside the morph sections — a third green meter at the same x,
@@ -49,7 +53,9 @@ animated layer (meter colours in the film inside the h.264 floor of the app's),
 and **W1b confirmed in the film itself**: vs the approved archive the three
 bleed frames differ (9.1k / 11.3k / 11.9k px) while the trance control at t=730
 is **0 of 2 073 600 — decode-identical**. The fix reached exactly the frames it
-should and no others. **Open: the composer's eye on the new V-CUT.**
+should and no others. **And the composer's eye is now CLOSED on the fixed film** — *"video good, good
+to replace"* — so PHASE 5 passes 5/5 with no outstanding caveat, the first time
+that has been true.
 
 **The Node exporter draws exactly what the app draws** — `tools/export_video.js`,
 proven pixel-for-pixel on two probe pages, re-proven after a refactor.
@@ -114,13 +120,17 @@ The check now reads the meter colour straight out of the finished mp4.
    re-measured by the new `phase5.sh`, every measured criterion green (table
    above); the W1b removal and its confinement proven in the finished mp4s.
 
-**▶ NEXT — the composer WATCHES the new V-CUT.** What changed is the morphs:
-   the green full-lane bleed at ~300 s (CONVERGENCE, the blink at 303.01) and
-   ~450 s (BALANCE) is gone; the trance untouched. Composer action, no model.
-   If blessed, say whether the new set replaces the archive as the submission
-   copy. After the eye: the **print score** (`docs/PRINT_AND_COVER.md`,
-   **Fable**) and the **paper** (`docs/PAPER_OUTLINE.md`, **Fable**) — **clear
-   before either**.
+6. **DONE (day 37) — the composer approved the new cut and the archive was
+   REPLACED.** *"video good, good to replace."* PHASE 5 closed 5/5, no caveat.
+   `phase5.sh`'s archive block inverted to a drift check (all four probes must
+   now read 0.00 %) and re-run green. **THE VIDEO IS FINISHED.**
+
+**▶ NEXT — THE PRINT SCORE.** `docs/PRINT_AND_COVER.md`; tabloid landscape
+   17 × 11 (day 36 decision, supersedes PP-4's Letter); deliberately not
+   generated until now. **Fable** — it is judgment work (page turns, system
+   breaks, what a player reads). After it: the **paper**
+   (`docs/PAPER_OUTLINE.md`, **Fable**, and note a second agent is actively
+   drafting there — coordinate before editing that file).
 4. **Only then:** the **print score** (tabloid landscape 17 × 11, deliberately not
    generated yet — `docs/PRINT_AND_COVER.md`) and the **paper**
    (`docs/PAPER_OUTLINE.md` waits on topic picks). Both judgment work:

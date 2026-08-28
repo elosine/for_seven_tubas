@@ -1,33 +1,58 @@
-# APPROVED 2026-08-27 — the submission fallback
+# APPROVED 2026-08-27 — THE SUBMISSION COPY
 
-**Composer, day 37 (2026-08-27), on V-CUT:** *"the cut looks good. and we can
-keep that video. And if we can't resolve any of these outstanding issues, we can
-still use it for the submission. So keep it, please."*
+**Composer, day 37, on the first cut:** *"the cut looks good. and we can keep
+that video."* — and, after the W1b re-render: **"video good, good to replace."**
 
-That closes PHASE 5's fifth criterion (the composer's eye), with one caveat the
-composer named at the same time: the meters still show a green bleed (W1b, see
-RUNNING_LOG day 37). This copy exists so later fixes can never cost the piece
-its submittable video.
+So this folder holds the **post-W1b** renders, and PHASE 5 is closed 5/5 with no
+outstanding caveat. (The earlier pre-W1b set that briefly lived here was the
+fallback for exactly the defect that is now fixed; it was replaced on the
+composer's instruction, not deleted by accident.)
 
 ## What these five files are
 
-The 2026-08-27 re-render: all five outputs, 22 819 frames each, carrying
-- the compositor premultiply fix
-- morph meters at fillOpacity 0.60 (A1)
-- transitions --fade 5 --fadeMode cross
-- cut seed 71 (2/2/2 across BLOOM · CONVERGENCE · BALANCE, +2 trance)
-- audio notation/audio/piece-final-draft-001.wav
+All five outputs, **22 819 frames each**, carrying
 
-`cut-list-seed71.json` is the exact cut list used.
+- the compositor premultiply fix (resvg returns premultiplied RGBA)
+- morph meters at `fillOpacity` 0.60 (A1)
+- transitions `--fade 5 --fadeMode cross`
+- cut **seed 71** (2/2/2 across BLOOM · CONVERGENCE · BALANCE, +2 trance)
+- **W1b's ownership rule** — where a half-lane section meter owns the lane,
+  per-event full-lane `curveMeter`s stand down. This is what removed the green
+  bleed at ~300 s and ~450 s. The trance's fullHeight crescendo keeps its meters.
+- audio `notation/audio/piece-final-draft-001.wav`
 
-## The revert point for everything else
+`cut-list-seed71.json` is the exact cut list, and is byte-identical to the
+committed `notation/video/cut-list.json`.
 
-Engine, registry, IR and score are git-tracked and were CLEAN at commit
+| | | frames |
+|---|---|---|
+| V-CUT 1920×1080 | 65.9 MB | 22 819 |
+| V-MAIN 1920×1080 | 65.4 MB | 22 819 |
+| ZOOM MASTER 1920×2160 | 90.1 MB | 22 819 |
+| V-TOP / V-BOT 1920×1080 | 59.2 / 61.5 MB | 22 819 |
 
-    00c20c4
+## Measured, not asserted
 
-To reproduce these renders exactly: check out that commit, `npm install`, then
-`notation/video/renders/phase3.sh` + `phase4.sh`.
+`notation/video/renders/phase5.sh` re-runs every measured criterion in one
+command: duration equality, A/V offset, cut sources, and the **animated layer**
+read straight out of the finished mp4 (`--dumpPage` proves the STATIC page only,
+which is how the compositor bug once passed). It also checks that
+`renders/` still matches THIS folder — if it does not, something was re-rendered
+and never re-approved.
+
+## The revert point
+
+The W1b fix landed in
+
+    b4b7cb4
+
+**Verified, not assumed:** between `b4b7cb4` and the commit that replaced these
+files, the only change under `tools/ notation/{lib,registry,ir,app,audio} scores/`
+is the addition of `tools/arch_shape.js` — an unrelated paper-measurement tool
+that no render path touches. **So these renders reproduce from either commit.**
+
+To reproduce: check out `b4b7cb4`, `npm install`, then
+`notation/video/renders/phase3.sh` + `phase4.sh` (~21.4 min).
 
 **Do not delete this folder without the composer's say-so.** The render scripts
 write to `renders/`, never here.
