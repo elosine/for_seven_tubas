@@ -15638,3 +15638,143 @@ file of that name rather than discarding. Untracked, checked before deleting.
 **Nothing owed, no blockers.** Deliberately uncommitted and untouched all
 session: `reaper/7_tubas_rack.rpp`, `reaper/Bloom-Convergence-Balance_demoRecording.rpp`,
 `scores/Litany.pdf`.
+
+## day 38 (2026-08-28, Fable) — THE REMAINING ARCHITECTURE: workflow adopted, scope stated
+
+**The composer redirected day 38 from Performance Instructions to architecture
+planning** — a requirements-first process, in their words: scenarios → mental
+models → AI evaluation (what was left out) → vet/expand/deepen → AI drafts
+architecture → composer review → implementation plan.
+
+**Workflow adopted (5 phases), with the AI's additions accepted:** PHASE 0 FRAME
+(scope + prior-art inventory) · 1 GATHER (scenarios, mental models, evaluation,
+vet loop) · 2 HARDEN (classify must/should/could × decided/open/EMPIRICAL ·
+empirical gates — some requirements are questions a probe must answer · adversarial
+pass — walk each scenario asking what breaks it · freeze with stable IDs) ·
+3 ARCHITECTURE (draft with alternatives-and-rejected · SCENARIO REPLAY — every
+scenario walked through the design · review · risk spikes) · 4 PLAN (phased into
+PLAN.md, per-phase verification in the running app, model/clear map).
+
+**Scope, named by the composer (verbatim in COMPOSER_LOG day 38):** composer
+module DONE · presentation score DONE (video + print) · remaining = **six areas**:
+
+1. **Ensemble rehearsal module** — conductor-led; podium tablet/laptop (+ maybe
+   large monitor, or paper score); rehearsal numbers — conductor hits rh# / enters
+   a time and every player's score jumps there; conductor start/stop; players can
+   scroll but (maybe) no play controls.
+2. **Sectional / small-group rehearsal module** — needs discussion.
+3. **Individual rehearsal module.**
+4. **Network communication layer** — *"reliable and robust… the right structure to
+   support all my pieces past and future, think massive multi player game engine."*
+5. **Portal structure on the share** — *"landing page and room sign up is too
+   clunky"* — login and get-to-your-score must be easy.
+6. **Performance module** — what the ensemble uses in the actual performance; vet
+   hardest, look for existing models.
+
+**Cross-cutting:** minimal per-scenario interfaces — *"just the things that people
+need"* — aligned to the machine (tablet = finger swipes, laptop = mouse + keys).
+**May reach back into the clock and animation engine.**
+
+**Doc opened: `docs/ARCHITECTURE.md`** — requirements → design → plan in one doc.
+**Inventory begun** per the composer's pointer: string quartet repo (*"the most
+complete verson of these things"*) + 2p2p repo, read-only.
+
+**Inventory DONE (same sitting)** — full record in `docs/ARCHITECTURE.md` §0b.
+Headlines: piece #1 is a complete deployed prior generation (Hetzner VPS,
+Socket.IO rooms, server-authoritative clock, leader-gated transport, JWT
+sessions, performance ceremony, 16-section technical manual = its feature spec).
+Piece #2 formalized the three-scores split and the pre-baked O(1) lookup rule.
+**Piece #4 has ZERO network code** — the rehearsal/performance side here is
+greenfield with #1 as reference. Pain points carried into requirements: no
+conductor ROLE (leader = any socket) · no shared rehearsal numbers (markers are
+per-device localStorage) · hand-built per-piece portal/landing · codes typed by
+hand · app-specific protocol duplicated per repo · Apr-2026 502 incident, uptime
+monitoring never finished. Prior-art study queue: Ableton Link, game netcode,
+NTP, QLab/SMPTE, forScore/Newzik, WebRTC-vs-WebSocket.
+
+**ENS scenario captured (same sitting)** — the full-ensemble rehearsal
+walkthrough, verbatim in COMPOSER_LOG, structured in ARCHITECTURE.md §1a.
+Load-bearing new requirements: late-joiner lands IN SYNC mid-play · one stand
+can play LOCALLY while the room is stopped (the "can I hear T4" move) ·
+annotations follow the PLAYER across modules (ends localStorage-per-device) ·
+finger-first annotation, no stylus assumption · paper→digital annotation
+transfer path for the conductor · conductor zero-extra-taps orientation (rh# +
+timecode always visible) · PER-SCENARIO FRONTENDS with shared services
+(composer's call, AI agreed + refined: thin shells, one shared core) · transport
+rights = per-module policy (sectional democratic, ensemble conductor-only).
+
+**ENS iteration 2 (same sitting) — five calls settled by the composer:**
+(1) network posture: INTERNET ASSUMED, LAN BACKUP — dead-room rig (machine +
+tethered phone serving wifi LAN) configured ONCE, then every rehearsal proceeds
+as normal; possibility, not the center of the build. (2) **ALL ANNOTATION MARKS
+PRIVATE** — players mark their own score, con's marks are notes to self; the
+tablet-dictation idea dropped as "too bespoke"; the model is "mimic the paper
+score", scribble in margin or over notation, finger-first. (3) audio in
+rehearsal: leaning NO (con prepares at home); revisit only if trivial.
+(4) phones: too small as a score, fine as a conductor remote. (5) rh numbers:
+architecture first, data later. **Philosophy stated, filed to PAPER_NOTES:**
+"lean simple to use not feature rich but robust and can do all the main
+functions really well" + the piece-#1 interruption-proofing "probably
+overwrought… but that was for performance" reversal → the bar SPLITS by
+scenario (rehearsal recovers in seconds; performance is the hard case).
+Three threads opened at the composer's ask: practice-speed use scenarios ·
+podium recommendation (three conductor setups) · likely-failure vet. AI
+analysis in chat + ARCHITECTURE.md §1a iteration 2.
+
+**ENS iteration 3 (same sitting) — four adoptions + the coverage check.**
+Composer adopted all four: STANDING ROOMS (login → your part, no per-rehearsal
+codes) · "AGAIN" + PRE-ROLL as core transport primitives · SPEED AS PRESETS
+(50/70/85/100, visible when ≠100%) · THE OFFLINE FLOOR (a loaded stand is fully
+functional solo, offline) — all hard requirements now. Composer then asked "is
+this well vetted?" → AI ran a coverage pass and surfaced **the one big gap: the
+piece's own mandates M1/M2** (flexible roster — 12–20 players on 10 parts,
+day-of part assignment, doubling, euphonium family adaptation) which the
+scenario's fixed-roster assumption ignored; plus four structural additions:
+stands ALWAYS follow the room (no opt-out in ensemble) · the controller shows
+live position (the paper-conductor's reference) · annotations anchor to
+(part, score-TIME), never page coordinates, so they survive re-layout, and
+persist server-side with backup · LAN mode requires auth that works without
+internet. Verdict given: ENS ~90% for the flow described; close after the
+M1/M2 discussion; controls + annotation UX deliberately deferred to their own
+sessions; Phase 2c adversarial pass still to come.
+
+**ENS iteration 4 (same sitting) — M1/M2 REFRAMED; the paper-parts assignment
+model; loop rescinded.** The composer resolved the M1/M2 gap by moving both
+mandates OUT of the runtime: **pre-registration, no drop-ins** (off-rehearsal
+enrollment process for new players) · **per-ensemble TAILORING at composition
+time** — accepted piece → offer a custom-size version (e.g. 14 with 3
+euphoniums); regenerable sections rescramble to N parts, transpositions BAKED
+IN, all mods + registration complete before first rehearsal · **no midflight
+changes** (if one is unavoidable: the same off-rehearsal process) ·
+**day-of assignment = option (a)**: con assigns from the controller *"like
+handing out paper parts"*; a mid-rehearsal change is the same gesture
+("collecting their paper part and issuing a new part"). **PLAN §3 M1/M2 as
+runtime features are SUPERSEDED by this** (formal §4/PLAN annotation at session
+end). Runtime keeps only: the assignment UI + per-player part binding.
+**Looping RESCINDED globally** — "not too fussed about any looping… problematic
+in 1st version"; the "again" primitive + re-hitting the rh# cover the repeat
+move. **Wake lock adopted.** The four structural additions stand unopposed.
+AI answer to the composer's pipeline question logged in ARCHITECTURE §1a it.4:
+JSON-through is real (save → IR → every surface); the cost of tailoring lives
+in re-notating RESCRAMBLED sections (the hand decisions), not in plumbing;
+transposed/doubled parts are mechanical; the unbuilt PARTS deliverable becomes
+the stand's part view — a live view of the IR, not pre-built PDFs.
+
+### day 38 (Fable) — SESSION END
+
+Wrapped at the composer's break, mid-Phase-1. **The composer's parting comment
+opens next session: THE ZOOM GAP** — the display-flip clarification "revealed
+big gap, con will need to zoom in at will like I can in composer score"; full
+score is followable while conducting but detail needs a click. **Proposal on
+the table (composer's): click a part → the composer-score zoom view · click
+again → toggle off · on a phone, 10 toggle buttons.** To settle next session,
+plus the pending local-play nod — then ENS closes.
+
+Session shape: architecture requirements phase opened and ENS vetted through
+four iterations in one sitting (workflow → inventory → scenario → answers →
+coverage check → M1/M2 reframe → adoptions → zoom gap). Files this session:
+ARCHITECTURE.md (new) · COMPOSER_LOG · RUNNING_LOG · PAPER_NOTES (two entries)
+· PROJECT_JOURNAL §2 rewritten for resume. Committed and pushed at wrap;
+explicit paths only (second agent active in tree on the paper drafts); the
+three deliberately-uncommitted files untouched again
+(reaper/7_tubas_rack.rpp · Bloom-…_demoRecording.rpp · scores/Litany.pdf).

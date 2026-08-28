@@ -2892,3 +2892,51 @@ through two wrong hypotheses — overlay flags, then out-of-range data, both
 measured innocent — before the third meter surfaced. The blink matched an event
 boundary to within a tenth of a second (302.91 vs "303.01"). The eye is not a
 softer criterion than the pixel checks; on this day it was the sharper one.
+
+## Day 38 — the design philosophy for the performance apparatus, stated; and a reversal about interruption-proofing
+
+**The composer, naming the governing aesthetic for the whole rehearsal/
+performance/network build (verbatim):** *"I think the philosophy is lean simple
+to use not feature rich but robust and can do all the main functions really
+well."* Stated while declining, for now, every parked extra (synced demo audio,
+rehearsal logging): *"maybe, but lets see how all the main stuff rolls out
+first."*
+
+**And a self-reversal about piece #1's engineering, in passing:** *"last score
+we spent a lot of time trying to prevent any interruption, probably overrought,
+but that was for performance, so in rehearsal probably greater tollerance for
+interruptions."* — The prior piece's sync machinery (heartbeat 500 ms, locked
+playback, emergency menus) was built to a performance bar and applied
+everywhere; the new architecture splits the bar by scenario: rehearsal recovers
+in seconds, performance is the hard case. For the lineage argument: the third
+system is being DE-engineered by scenario — requirements are being subtracted
+per room, not accumulated.
+
+*(AI note, same exchange: the composer's "all marks private" call — players
+mark their own scores, the conductor's marks are notes to self — deleted the
+entire shared-annotation problem space in one sentence: no visibility scopes,
+no broadcast layer, no permission model. The strongest instance yet of the
+philosophy doing design work.)*
+
+## Day 38 — M1/M2 migrate upstream: a runtime mandate absorbed by the pipeline
+
+Day-1 mandates M1 (on-the-fly part multiplication "at rehearsal time") and M2
+(real-time family transposition) were written as RUNTIME features. Designing the
+rehearsal module against them, the composer moved both out of the runtime
+entirely: *"if they accept my piece than I'll offer to taylor to custom size
+ensemble… I'll regenerate a new version of the piece that has newly generated
+parts when possible… but before 1st rehearsal, all mods done and all players
+registered."* Transpositions BAKED IN; pre-registration, no drop-ins; and the
+assignment moment is deliberately modeled on paper practice: *"con assigns
+players parts like handing out paper parts. if a change is necessary mid
+flight, they just do the same process, like collecting their paper part and
+issuing a new part."*
+
+For the argument: the second de-engineering move in one day (after the
+robustness-bar split). A capability the system was mandated to perform LIVE is
+absorbed by the composition pipeline as a REGENERATION, because the pipeline is
+cheap (the whole piece re-renders in seconds) — the runtime keeps only an
+assignment gesture copied from paper. Live flexibility is traded away
+knowingly; the flexible thing is the PIECE, not the app. Also lived-experience
+pruning: looping rescinded entirely — *"looping was problmatic in 1st verson"* —
+the repeat move is the conductor hitting the mark again.

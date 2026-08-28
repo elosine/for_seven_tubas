@@ -2310,3 +2310,161 @@ day 28, third entry.)*
 *(Design calls put to the composer — A: bracket scope per beat (a) or per figure (b);
 B: one grid per gesture with the fit's brackets (a) or pairwise clean-ratio grids (b):)*
 *"Aa, Ba"* → PLAN 8i.
+
+### Day 38 — THE REMAINING ARCHITECTURE: the process, then the scope (2026-08-28, typed)
+
+*(Session opened not with Performance Instructions but with a redirect: plan the
+remaining architecture. First, the process the composer wants:)*
+
+*"I want to develop a plan for the remaining architecture for this piece; the process
+I would like to follow is to develop and discuss the requirements thoroughly. I want
+to vet the requirements rigorously so we know we have the right architecture and the
+correct implementation plan; I'll start with scenarios, then I'll list the mental
+models of the things we need to concider, then I'll get you to evaluate the
+scenarios, the requirements I thought of and see what we left out, then we'll vet the
+list again and discuss other areas that might need concideration or the current list
+and see if we need to expand those or deepen those; once we are satisified with the
+requirements, I'll get you to draft an architecture design, I'll look at it, then
+once that is settled, we'll draw up a plan for implementation"*
+
+*(Workflow agreed — 5 phases, AI's additions accepted: empirical gates, adversarial
+pass, scenario replay, risk spikes. Then the scope and first scenarios:)*
+
+*"scenarios first; We have the composer module, that is done; we have the
+presentation score, that is done, we made a video and print score etc; I would like a
+ensemble rehearsal module; this is a rehearsal with the whole ensemble led by the
+conductor; we'll flesh out all the various scenarios in more detail but the gist is
+conductor at the podium, may have a large monitor or may just be using a paper score,
+they have a tablet or laptop, score will have rehearsal numbers conductor can hit a
+rh# button or enter a time and ensemble's scores will jump to that time, conductor
+can start/stop score etc... ensemble can scroll through score but don't have play
+controls(maybe) there are more things to concider but this it the general gist of
+this module; there is the sectional or small group rehearsal module, and we should
+discuss this to see what this module needs; then there is the individual rehearsal
+module; I also want to really vet and nail down the network communication layer, get
+this really reliable and robust and the right structure to support all my pieces past
+and future, think massive multi player game engine; I want to nail down the portal
+structure on my share; currently landing page and room sign up is too clunky and I
+want ways for people to login and easily get to the score for rehearsing; then there
+is the performance module, what the ensemble will use for the actual performance; I
+want to really vet this one with different scenarios and see if there are exsisting
+models; for all I want a much better interface that has just the things that people
+need for a particular scenario, simple minimal, very ease to understand, intutitive
+and alligned with machine, so tablet favors finger swipes, laptop mouse and keys
+etc.; this may impact current design of preexsisting modules, like the clock and
+animation engine etc. ; before we develop requirements you can look at the string
+quartet and 2 piano 2 perc repos to see what was done before, the str qtr has the
+most complete verson of these things"*
+
+### Day 38 — ENS scenario: the full-ensemble rehearsal, walked through (typed)
+
+*"ok. performers pf and conductor con show up to rehearsal hall, pf can load score
+independantly scroll around practice passages independantly, they use swipe to swipe
+through their part (lets really vet the controls across modules at its own session
+I'll just mention a few things along the way) they can play with animation ; con
+comes says lets start at x either rehearsal number or time code, con score should
+have easy to view time code, so he flips through score or flips through paper score
+and can see immediately where he is and how to give instructions, so screen based
+needs to have clear rehearsal numbers and time markings without being obtrusive to
+notation, what i'd like to avoid is conductor haveing extra steps, flips through
+score then have to click or tap to see where they are; conductor hits rehearsal #
+and everyone s score snaps, I don't want too elaborate login handshake sync etc.
+people show up log into score, con snaps everyone logged in, someone forgot to login
+in everyone is playing, they login and their score appears in progress in sync with
+everyone; con stops points at tuba 4 can I hear this passage, t4 can swipe to
+passage, press play and play for cond, con then hits a timecode, play, everyones
+score plays; this is a separate thing but like the controls deserves its own convo;
+a robust, easy, useful annotation system like writing, current has too many tools
+and too clunky; con says too sharp t7, t7 can quickly scribble using finger or
+stylus (dont assume everyone has stylus) downward arrow, this arrow follows t7
+through all his modules, sectional, individual practice etc; con same,probably is
+using laptop monitor or paper score, but via touch screen can annotate main score
+somehow, lets discuss this more as there could be multiple scenarios; I find with
+last one tried to accomodate too many features and got to complex/hard to use,
+simple universal functions, maybe like preview version also plays on tablet, they
+click on the notation area in tablet and a text box appears in large monitor desktop
+version and they type or something else; and then a simple offline process if con
+takes pencil notes in paper score, a easy process to transfer annotations to digital
+score; anything else to consider in the rehearsal hall full ensemble scenario?; I
+also think, but am open to pushback, that each scenario/module should have its own
+frontend, iow the functionality should be for that scenario and not carry over all
+the behaviors even the ones that wont be used in the scenario, but there needs to be
+cross scenario things like annotations; some of the back end can be similar or use
+the same architecture but like in small group rehearsals, it might be good to have
+all players be able to start/stop group score, but not in ensemble"*
+
+### Day 38 — ENS iteration 2: answers on room physics, speed, podium, failure, philosophy (typed)
+
+*"room phys: can we consider both options, I'm gonna think that most have good wifi,
+but if rehearsing in an old room, can set up a machine with teathered phone and serve
+through wifi lan I think opt 2 will be rare so worth having the possibility but not
+centering the build around it — yes different practice speeds, but as an overall
+aesthetic, all interactions should be intutive and simple, and lets further run the
+applicaple scenarios, iow talk through when different speeds would be useful and how
+they are employed in rehearsal — the podium, i will take your evaluation on this, and
+recommendation. I want to accomodate different needs, so maybe conductor is not good
+with tech and is using paper score, then they will have remote control so to speak a
+tablet or phone so they can use the paper score and then start stop, jump score
+easily, the annotation dictation is probably too 'bespoke' just need to find a simple
+way to mimic the paper score and all performers need to scribble a note in the margin
+or over a piece of notation; scenario 2 con has large wide screen monitor displaying
+score, but not touch screen, they can use mouse keyboard or a remote control tablet
+to interact or maybe to simplify, large screen for display, remote control for all
+interaction, i guess the con is the conductor will have to have access to multiple
+devices, so maybe a fall back controls from display machine; low budget version, con
+has a single chromebook to conduct from. — rh num, yes once we establish the
+architecture, we can populate any missing data — failure: lets vet this more, last
+score we spent a lot of time trying to prevent any interruption, probably overrought,
+but that was for performance, so in rehearsal probably greater tollerance for
+interruptions, but we should talk about the most likely ones and what is reasonable
+mitagation — parked not proposed, maybe , but lets see how all the main stuff rolls
+out first; I think the philosophy is lean simple to use not feature rich but robust
+and can do all the main functions really well — A) internet assumed but with lan back
+up so if they know they will be rehearsing in a dead room, they can set up lan once
+and all subsequent rehearsals will preceed as normal. B) leaning towards no audio,
+but if it is easy add, might concider it, I dont think it is common in rehearsal, con
+will prepare at home, maybe use audio, but rarely in rehearsal C) no all marks
+private, it is up to individual players to mark in their own score, and con are notes
+to themselves D) phones too small — lets continue to iterate rehearsal scenario, make
+sure we have the right model, and make sure we have taken everything into account"*
+
+### Day 38 — ENS iteration 3: four adoptions, and the vet question (typed)
+
+*"a y; b y; c y; d y; is this well vetted, do we have most if not all the
+requirements for rehearsal?"* — standing rooms · "again"+pre-roll · speed
+presets · the offline floor, all adopted in one line. The vet question is the
+1d gate being invoked on the first scenario.
+
+### Day 38 — ENS iteration 4: pre-registration, per-ensemble tailoring, parts like paper (typed)
+
+*"good catch, I think we should assume preregistration and no drop ins, and if there
+are an off rehearsal process for enrolling new players; the 14 to 10 problem is a
+separate thing; I think it will go like this if they accept my piece than I'll offer
+to taylor to custom size ensemble say 14 and 3 are euphoniums; I'll regenerate a new
+version of the piece that has newly generated parts when possible, so pulsed section
+might rescramble for 14 parts and produce 14 new parts, but before 1st rehearsal ,
+all mods done and all players registered; however this brings up a good point, does
+there need to be a pipeline to master score to parts, my intution is that it all
+lives in the json so if I modify that, then it is an easy flow, but if this is a lot
+of new builds, than i can restrict to 10 parts and tell additional players to double
+and transpose themselves; so in this scenario, the new score is reproduced with the
+different parts and transpositions baked in, pre registration so player 13 is
+assigned, at rehearsal, just login, no midflight changes, or if there ends up needing
+to be one, then an off rehearsal process of registering etc; my feeling is a for day
+of assignment; irl at some point at the beginning of the first rehearsal or at an
+admin meeting, paper parts are handed out, this will be similar, con assigns players
+parts like handing out paper parts. if a change is necessary mid flight, they just do
+the same process, like collecting their paper part and issuing a new part —
+clarify please?: Display role can flip full-score ↔ single part (the "watch T4"
+move) — not too fussed about any looping actually, so recinding my earlier ok; not
+that hard for con to hit rh#6 again to restart; and looping was problmatic in 1st
+verson — wake lock good — did I respond adequately to everything?"*
+
+### Day 38 — session close: THE ZOOM GAP, queued as next session's opener (typed)
+
+*"need to break so document, comitt and push everything please but include this
+comment for comment next session; your clarification revealed big gap, con will need
+to zoom in at will like I can in composer score, the full score too small, can follow
+while conducting but if they need to see details will need to click to zoom, I would
+propose something like click part they get the same zoom view I had click again
+toggle off, or on phone 10 toggle buttons will address next session"*

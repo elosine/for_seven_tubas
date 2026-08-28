@@ -10,67 +10,65 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 37 (2026-08-27, Claude Code / **Fable 5**, post-clear)
+### LAST SESSION — day 38 (2026-08-28, Claude Code / **Fable 5**)
 
-**THE VIDEO IS FINISHED AND THE PRINT SCORE NOW GENERATES.** Two deliverables closed
-in one session.
+**THE REMAINING ARCHITECTURE — requirements phase opened.** All conversation
+and docs, no code. **`docs/ARCHITECTURE.md` is the working doc** — workflow,
+scope, prior-art inventory, and the ENS scenario through four iterations.
+Composer verbatim in COMPOSER_LOG day 38; the sequence in RUNNING_LOG day 38.
 
-- **The video is DONE — PHASE 5 closed 5/5 with no caveat**, the first time that is
-  true. Re-rendered with the W1b fix (21.4 min), the composer approved the new cut
-  (*"video good, good to replace"*), and the five post-W1b files **replaced** the
-  archive as the submission copy (`cmp`-verified byte-identical).
-- **`phase5.sh` written** — the measured criteria in one command, and its
-  archive-comparison block **inverted** once the archive was replaced (it had proved
-  the W1b removal; the same four probes must now read 0.00 %). Re-run green.
-- **The print score exists** — `tools/export_print.js`, **68 tabloid pages in 3
-  seconds**, vector, true 17 × 11. The engine needed no print code (D79).
-  `notation/lib/static_page.js` now holds the one definition of the page and the
-  video draws through it, proven byte-identical.
-- **Composer's two calls taken:** the page-edge bar line removed (D79), and the
-  score **prints in COLOUR** (D80).
-- **Corrections issued this session, both mine:** the GC arc survives greyscale
-  fine (81 vs the ring bars' 51 — I had said they were similar), and `--margin` is
-  **not** a staff-size lever (whole range 0.4 mm). Both in D80.
+- **5-phase workflow adopted** (FRAME → GATHER → HARDEN → ARCHITECTURE → PLAN);
+  scope = six areas: ensemble / sectional / individual rehearsal · network
+  layer ("massive multiplayer game engine") · portal · performance module;
+  **per-scenario minimal frontends over ONE shared core**.
+- **Inventory:** piece #1 = complete deployed prior generation (Socket.IO
+  rooms, server-authoritative clock, leader-gating, performance ceremony, live
+  on the Hetzner share). **#4 has zero network code.** The notation engine is
+  external-clock-ready (pure drawAtTime — the video proved it).
+- **ENS (full-ensemble rehearsal) nearly closed.** Philosophy (PAPER_NOTES):
+  *"lean simple to use not feature rich but robust."* Settled: all marks
+  PRIVATE · internet assumed + LAN-once backup · STANDING rooms (login → your
+  part, no codes) · "again" + pre-roll · speed presets 50/70/85/100 · offline
+  floor (a loaded stand works solo) · wake lock · **NO looping (rescinded —
+  "problematic in 1st version")** · podium = DISPLAY/CONTROL as roles (paper +
+  phone remote · monitor + tablet · single Chromebook all work) · **M1/M2
+  REFRAMED upstream: per-ensemble tailoring at composition time, transpositions
+  baked in, pre-registration, "con assigns parts like handing out paper
+  parts"** — supersedes PLAN §3 M1/M2 as runtime features (formal §4 promotion
+  pending).
 
 ### NEXT UP
 
-1. **Performance Instructions** — the front matter, and the largest remaining gap:
-   nobody can read this score cold. Proportional time with a printed second-ruler ·
-   the GC arc **whose ball does not print, because it is animated** · ring bars ·
-   cuivré/fortepiano · the figure-and-bracket vocabulary (D66/D69, *the bracket is
-   the message*) · the beating pairs. Draw on `docs/NOTATION_STANDARDS.md`, the
-   D-log, and the demo recordings the composer called *part of the apparatus*.
-   **Writing, not tooling — Fable. Clear before it.**
-2. **Polish proof of score** — the tier-3 pass, now on paper at true size.
-3. **Rehearsal Score Build · Performance Score Build** — blocked only on the
-   composer saying what separates them (see Open questions).
-4. **The paper** — `docs/PAPER_OUTLINE.md`, **Fable**. **A second agent is actively
-   drafting there; coordinate before editing that file.**
+1. **THE ZOOM THREAD — the composer's parting instruction, FIRST next
+   session:** the display clarification *"revealed big gap — con will need to
+   zoom in at will like I can in composer score."* Proposal on the table:
+   click a part → the composer-score zoom view · click again → off · on a
+   phone, 10 toggle buttons. Settle it, get the pending local-play nod
+   (stands: no room transport; local play while the room is stopped), then
+   **declare ENS closed**.
+2. **Sectional scenario** (AI read going in: ENS minus con, democratic
+   transport, subset roster) → **individual scenario** → the composer's
+   **mental-models list** → Phase 1c evaluation.
+3. Deferred by design: the CONTROLS session · the ANNOTATION-UX session.
+4. Score-on-paper thread parked, unchanged (Performance Instructions · polish
+   proof · rehearsal/performance builds — PLANNER).
 
-*(All four are to-dos in `docs/PLANNER.md` under "TO-DO — THE SCORE ON PAPER".)*
+**Model: Fable for all of Phase 1–2** (requirements judgment; no builds).
+No clear mid-gathering; clear at the requirements freeze (2d).
 
-### OPEN AT SESSION END — in-flight, written for a cold reader
+### OPEN AT SESSION END
 
-- **Density is decided-by-default, not decided.** 11.41 s/page = 66 pages, which
-  holds the video's approved density exactly (5.06 staff-heights per second in both
-  media). 15 s/page → 51 pages is the only live alternative; **20 is out by
-  measurement** (0.41 mm of white between the closest noteheads). Nothing blocks —
-  if the composer says nothing, 11.41 stands. Re-render is 3 s.
-- **The final barline sits at `srcEnd` 753, which is 1.29 s after the last sounding
-  event (751.707).** Kept there so print and film agree about where the piece ends;
-  the composer was offered the alternative and has not answered. One-line change.
-- **Everything is pushed.** Deliberately uncommitted, unchanged all session:
-  `reaper/7_tubas_rack.rpp` · `reaper/Bloom-Convergence-Balance_demoRecording.rpp` ·
-  `scores/Litany.pdf`. **Say if any should be committed.**
+- ENS is one exchange from closed: the zoom proposal + the local-play nod.
+- M1/M2 supersession recorded (RUNNING_LOG / ARCHITECTURE) but not yet promoted
+  to §4 / PLAN §3 annotation — do at a wrap.
+- Deliberately uncommitted, unchanged all session: `reaper/7_tubas_rack.rpp` ·
+  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` · `scores/Litany.pdf`.
 
 ### OPEN QUESTIONS
 
-- **What separates a REHEARSAL score from a PERFORMANCE score?** The composer named
-  both as separate builds; density, page turns, how much apparatus each carries, and
-  whether either is the conductor's copy are **not decided and not assumed**.
-- Density (above) · the final-barline position (above).
-- Longer-standing: DB3-EYE verdicts · PAPER topic picks · the two cover nits (block
-  sits high; subtitle at 0.65 may want 0.55).
+- Rehearsal-vs-performance score separation (partly absorbed into the
+  architecture thread) · density 11.41 stands by default · final barline 753 ·
+  the two cover nits · PAPER topic picks · DB3-EYE verdicts.
 
 ### BLOCKERS
 
