@@ -53,13 +53,16 @@ it and announces the position before doing anything.
    *☑ Detour (approved, day 39): session system made portable — five
    user-level skills in `~/.claude/skills/` (incl. new `/running-order`) +
    global CLAUDE.md section; RUNNING_LOG day 39 has the account.*
-2. ► **CLEAR** (subject change: architecture → submission prep) — the step-1
-   wrap doubled as the boundary wrap (§2 current, committed+pushed); safe to
-   `/clear`, reopen with `/session-start`, **stay on Fable** for step 3.
-3. **PROOFREAD LOOP** (Fable) — composer proofreads the print score;
+2. ☑ **CLEAR** (done 2026-08-29 — cleared and reopened on Fable via
+   `/session-start`; boundary wrap was step 1's).
+3. ► **PROOFREAD LOOP** (Fable) — composer proofreads the print score;
    corrections logged to a ledger as dictated; AI applies; print
    re-renders (`build.sh --rebuild-ir`, 3 s) per round. = PLANNER
    "Polish proof". Open density/barline calls land here too.
+   **The ledger is BUILT: `docs/PROOFREAD_LEDGER.md`** (day 39) — part-by-part
+   sweep via zoom view · items LOGGED → APPLIED → GOOD/RETRY · POSITION block
+   = cold pickup after any interruption. **Log every dictated item there the
+   moment it is said.**
 4. **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
    recordings ("part of the apparatus").

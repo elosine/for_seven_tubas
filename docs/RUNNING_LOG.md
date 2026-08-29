@@ -15842,3 +15842,35 @@ as adopted). D81 (M1/M2 upstream) promoted to §4 at this wrap; PLAN §3
 annotated; ARCHITECTURE.md carries iteration 5 + the CLOSED status. ENS is
 the first scenario through the whole loop: walkthrough → four iterations →
 coverage check → closure, all requirements-level, zero code.
+
+### day 39 — step 3 opened: the PROOFREAD LEDGER built to the composer's spec
+
+Post-clear reopen on Fable; running order marks updated (1–2 ☑, ► 3). The
+composer specified the proofread workflow before dictating anything — the
+key requirement being **interruptibility at every point** (they are
+multitasking; *"let's say I get interrupted at any point in this process…
+you can say exactly what's been done and where to pick up"*):
+
+- part-by-part sweep through the **zoom view**, dictating corrections
+  piecemeal ("move the cuivré text up at 3.29 s"-style)
+- after ~a dozen: *"go ahead and make those changes"* → batch apply
+- then on request: the list of timecodes + what changed, reviewed one by
+  one, **good / try again** per item — a review stopped at 2 of 12 must
+  lose nothing
+
+**Built: `docs/PROOFREAD_LEDGER.md`** — the tracking database. Design:
+
+- **Markdown, not JSON** — dozens of items, human-scanned, git-diffed;
+  same reasoning as the beaming-decisions ledger.
+- **Item lifecycle** `LOGGED → APPLIED (batch N) → GOOD ✓ / RETRY ↻ →
+  re-APPLIED` (+ `DROPPED`); verdicts recorded per item the moment they
+  are said, so interruption mid-review is exactly recoverable.
+- **`said` verbatim + `read as` interpretation per item** — dictation
+  ambiguity surfaces as a `?` resolved at apply time, never by
+  interrupting the composer's collection flow.
+- **POSITION block at top** = the cold-resume anchor (sweep position ·
+  batch state · pick-up line), updated every interaction — journal-§2
+  logic applied at task scale.
+- **Apply rule carried in the doc:** fixes land at the durable layer
+  (registry / tools / save / build args) so `--rebuild-ir` reproduces
+  them; never hand-edit IR a rebuild would overwrite.
