@@ -2468,3 +2468,27 @@ to zoom in at will like I can in composer score, the full score too small, can f
 while conducting but if they need to see details will need to click to zoom, I would
 propose something like click part they get the same zoom view I had click again
 toggle off, or on phone 10 toggle buttons will address next session"*
+
+### Day 39 — the RUNNING ORDER spec (2026-08-29, dictated)
+
+*"The purpose is for me to be able to focus on one thing at a time, and then
+when done with one section, have AI be able to tell me what's next, and where
+we are in the session's activities. But also, I want to be able to have AI
+monitor and reorganize when it seems useful to do so — the running order —
+but on my approval. And then I want it to survive clear."*
+
+And the portability ask that followed: make it *"a workflow or a thing I can
+communicate to another session… an entity where I can say a list of things
+and then have them collect it and manage it in the same running order way"*
+— plus make the session skills teachable to other conversations, *"part of
+my just overall Claude documents so all new agents get this information."*
+*(→ five user-level skills + the global CLAUDE.md section; the build account
+is in RUNNING_LOG day 39.)*
+
+### Day 39 — ENS closed: zoom a, local play yes; "closed" defined (2026-08-29, dictated)
+
+*"Zoom — a; local play yes. And for ensemble, closed means we've worked out
+all the requirements, but have yet to draw up the plan. And the way we're
+continuing this project is we'll develop the requirements for all the
+scenarios and then write up all the plans. Is that correct? But after the
+confirmation, we can move on to the next thing in my current running order."*

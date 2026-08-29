@@ -19,8 +19,12 @@
 - **PHASE 4 — PLAN**: 4a phased into PLAN.md with per-phase verification in the
   running app · 4b model/clear map.
 
-**Status: PHASE 1 GATHER — 0a/0b done; ENS scenario captured (day 38); more
-scenarios + mental models next.**
+**Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED at requirements level
+(day 39). Next: sectional + individual scenarios + the composer's mental
+models + 1c evaluation — RESUMES AFTER the submission arc (day-39 running
+order, journal §2). "Closed" = requirements settled, plan NOT drawn
+(composer's definition, day 39): all scenarios gather first, then Phases
+2–4; the 2c adversarial pass re-tests ENS with everything else.**
 
 ## 0a · Scope (composer, day 38)
 
@@ -370,14 +374,37 @@ real work where they rescramble — per-section, known in advance, composer-side
   the room is stopped** (which is also what the "can I hear T4" moment and
   pre-rehearsal practice use). Room playing → stands only follow.
 
-**Open (ENS) — THE ZOOM THREAD, first item next session (composer, at the
-day-38 close):** the display-flip clarification *"revealed big gap"* — **con
-needs zoom-at-will, like the composer score's zoom.** Full score works for
-following while conducting; seeing detail needs a click. Proposal on the table
-(composer's): **click a part → the same zoom view as the composer score ·
-click again → toggle off · on a phone, 10 toggle buttons.** Settle this next
-session, together with the pending local-play nod (stands: no room transport;
-local play while the room is stopped) — then ENS closes.
+#### ENS — iteration 5 (day 39, 2026-08-29): the zoom ruling + local play — **ENS CLOSED**
+
+**ZOOM ADOPTED (composer: "zoom -a")** — the day-38 proposal plus the role
+refinement:
+
+- Click a part → the composer-score zoom view; click again → full score.
+- **One part at a time**: clicking another part switches directly; clicking
+  the active part returns to full score. Multi-part side-by-side zoom
+  REJECTED — more layout machinery and no rehearsal moment needs it.
+- **Zoom is view state of the DISPLAY role, commanded from wherever control
+  lives**: the remote (tablet or phone) carries 10 part buttons; a
+  touch/mouse display clicks the part directly; the paper-con setup has no
+  display, so no zoom surface exists there.
+- **Display-local** — stands never see it. **Follows the room clock** —
+  works stopped or playing (the "watch T4's passage" move).
+- This retires the iteration-3 candidate "display flips full-score ↔ one
+  part" — same feature, now settled.
+
+**LOCAL PLAY ADOPTED (composer: "local play yes")** — stands have no room
+transport; a stand plays locally whenever the room is stopped; the moment
+the room plays, stands only follow.
+
+**A/B-LOOP CANDIDATE DEAD** — looping was rescinded globally in iteration 4;
+the never-confirmed room-level A/B loop dies with it, no decision owed.
+
+**ENS CLOSED (day 39, → D82).** The composer's definition, recorded:
+*"closed means we've worked out all the requirements, but have yet to draw
+up the plan"* — and the project flow confirmed in the same breath:
+**requirements for ALL scenarios first, then the plans** (the Phase 1→4
+order as adopted). M1/M2 supersession promoted to journal §4 as **D81** at
+this wrap; PLAN §3 annotated.
 
 ## 2 · DESIGN
 

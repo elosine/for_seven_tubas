@@ -75,6 +75,14 @@ composer → notation → performance architecture.)*
   from the 10 for whoever shows up).
 - **M2 — Family adaptation.** Real-time transposition + octave/tessitura adaptation
   so ANY part is readable by ANY tuba/euphonium family member.
+
+  > **M1/M2 SUPERSEDED AS RUNTIME FEATURES (days 38–39 → journal §4 D81).**
+  > Both resolve UPSTREAM: per-ensemble tailoring at composition time
+  > (regenerable sections rescramble to N parts, transpositions baked in),
+  > pre-registration, no drop-ins; day-of assignment = con assigns parts from
+  > the controller *"like handing out paper parts."* What remains runtime:
+  > the assignment UI + per-player part binding — nothing generates or
+  > transposes live. See ARCHITECTURE.md ENS iterations 4–5.
 - **M3 — Env-release notation devices** (see P3): reliably variable release
   vocabulary; scrolling curves won't serve releases.
 - **M4 — Rapid-staccato notation** *(composer 2026-08-13)*: attacks = vertical

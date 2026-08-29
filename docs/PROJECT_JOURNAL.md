@@ -10,58 +10,76 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 38 (2026-08-28, Claude Code / **Fable 5**)
+### LAST SESSION — day 39 (2026-08-29, Claude Code / **Fable 5**) — IN PROGRESS
 
-**THE REMAINING ARCHITECTURE — requirements phase opened.** All conversation
-and docs, no code. **`docs/ARCHITECTURE.md` is the working doc** — workflow,
-scope, prior-art inventory, and the ENS scenario through four iterations.
-Composer verbatim in COMPOSER_LOG day 38; the sequence in RUNNING_LOG day 38.
+- **The RUNNING ORDER became a first-class device** (composer spec: one step
+  at a time · position announced at every wrap · reorg on approval only ·
+  survives clear) — and the whole session system was made **PORTABLE**: five
+  user-level skills in `~/.claude/skills/` (session-start · session-end ·
+  checkpoint · postclear · **running-order**, new) + a "Session system"
+  section in the global `~/.claude/CLAUDE.md`. Music repos untouched;
+  project-level procedures still win here. Account: RUNNING_LOG day 39.
+- **ENS CLOSED at requirements level (D82):** zoom = one part at a time, a
+  DISPLAY view state commanded from wherever control lives; local play on
+  stands only while the room is stopped; A/B-loop candidate dead. *"Closed"
+  = requirements settled, plan NOT drawn* — all scenarios gather first, then
+  Phases 2–4.
+- **D81 promoted:** M1/M2 resolved upstream (composition-time tailoring,
+  baked transpositions, con assigns parts like paper); PLAN §3 annotated.
 
-- **5-phase workflow adopted** (FRAME → GATHER → HARDEN → ARCHITECTURE → PLAN);
-  scope = six areas: ensemble / sectional / individual rehearsal · network
-  layer ("massive multiplayer game engine") · portal · performance module;
-  **per-scenario minimal frontends over ONE shared core**.
-- **Inventory:** piece #1 = complete deployed prior generation (Socket.IO
-  rooms, server-authoritative clock, leader-gating, performance ceremony, live
-  on the Hetzner share). **#4 has zero network code.** The notation engine is
-  external-clock-ready (pure drawAtTime — the video proved it).
-- **ENS (full-ensemble rehearsal) nearly closed.** Philosophy (PAPER_NOTES):
-  *"lean simple to use not feature rich but robust."* Settled: all marks
-  PRIVATE · internet assumed + LAN-once backup · STANDING rooms (login → your
-  part, no codes) · "again" + pre-roll · speed presets 50/70/85/100 · offline
-  floor (a loaded stand works solo) · wake lock · **NO looping (rescinded —
-  "problematic in 1st version")** · podium = DISPLAY/CONTROL as roles (paper +
-  phone remote · monitor + tablet · single Chromebook all work) · **M1/M2
-  REFRAMED upstream: per-ensemble tailoring at composition time, transpositions
-  baked in, pre-registration, "con assigns parts like handing out paper
-  parts"** — supersedes PLAN §3 M1/M2 as runtime features (formal §4 promotion
-  pending).
+### NEXT UP — day 39 RUNNING ORDER (composer-approved agenda, 2026-08-29)
 
-### NEXT UP
+**The arc: close ENS → submission cleanups → archive point.** Penn State
+deadline **Sept 4**. Architecture gathering (sectional · individual · mental
+models · 1c) RESUMES AFTER the submission arc — deferred by the composer
+day 39, not dropped.
 
-1. **THE ZOOM THREAD — the composer's parting instruction, FIRST next
-   session:** the display clarification *"revealed big gap — con will need to
-   zoom in at will like I can in composer score."* Proposal on the table:
-   click a part → the composer-score zoom view · click again → off · on a
-   phone, 10 toggle buttons. Settle it, get the pending local-play nod
-   (stands: no room transport; local play while the room is stopped), then
-   **declare ENS closed**.
-2. **Sectional scenario** (AI read going in: ENS minus con, democratic
-   transport, subset roster) → **individual scenario** → the composer's
-   **mental-models list** → Phase 1c evaluation.
-3. Deferred by design: the CONTROLS session · the ANNOTATION-UX session.
-4. Score-on-paper thread parked, unchanged (Performance Instructions · polish
-   proof · rehearsal/performance builds — PLANNER).
+**HOW THIS LIST WORKS (composer requirement, day 39):** the composer focuses
+on ONE step at a time — **► marks the active step; ☑ marks done** (update the
+marks the moment a step wraps, not later). **At every step wrap the AI states:
+what finished · what's next · where we are in the order.** The AI monitors the
+order and PROPOSES reorganizations when useful — **changes land only on
+composer approval**; the version in this doc is always the approved one. This
+block is the live position and survives every clear — a post-clear model reads
+it and announces the position before doing anything.
 
-**Model: Fable for all of Phase 1–2** (requirements judgment; no builds).
-No clear mid-gathering; clear at the requirements freeze (2d).
+1. ☑ **ENS CLOSE** (done 2026-08-29 → D81, D82) — settle the ZOOM thread (composer's proposal:
+   click a part → composer-score zoom view · click again → off · phone:
+   10 toggle buttons) + the local-play nod (stands: no room transport;
+   local play while the room is stopped) + formally kill the A/B-loop
+   candidate (looping rescinded globally, iteration 4) → mark ENS CLOSED
+   in ARCHITECTURE.md. **Wrap:** promote M1/M2 supersession to §4 + PLAN
+   §3 annotation · RUNNING_LOG · commit+push.
+   *☑ Detour (approved, day 39): session system made portable — five
+   user-level skills in `~/.claude/skills/` (incl. new `/running-order`) +
+   global CLAUDE.md section; RUNNING_LOG day 39 has the account.*
+2. ► **CLEAR** (subject change: architecture → submission prep) — the step-1
+   wrap doubled as the boundary wrap (§2 current, committed+pushed); safe to
+   `/clear`, reopen with `/session-start`, **stay on Fable** for step 3.
+3. **PROOFREAD LOOP** (Fable) — composer proofreads the print score;
+   corrections logged to a ledger as dictated; AI applies; print
+   re-renders (`build.sh --rebuild-ir`, 3 s) per round. = PLANNER
+   "Polish proof". Open density/barline calls land here too.
+4. **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
+   the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
+   recordings ("part of the apparatus").
+5. **ABSTRACT** — verify status (composer believes done); finish if not.
+6. **FINAL RENDERS** (Opus fine — written commands) — video `phase3.sh →
+   phase4.sh` (~21 min) + `phase5.sh` measure · print `--rebuild-ir` ·
+   NEW dated archive folder (never overwrite `2026-08-27-submission`).
+7. **SUBMISSION PACKAGE + ARCHIVE POINT** (Fable for the organizing
+   decisions) — collect what Penn State needs · SAVE_FILES.md current ·
+   git tag at the submission state · **the gitignored deliverables
+   (approved mp4s, print PDF, save-version chain) need an explicit
+   archive decision — a git tag alone does not capture them.**
+
+Parked past submission: rehearsal/performance score builds (PLANNER) ·
+CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-- ENS is one exchange from closed: the zoom proposal + the local-play nod.
-- M1/M2 supersession recorded (RUNNING_LOG / ARCHITECTURE) but not yet promoted
-  to §4 / PLAN §3 annotation — do at a wrap.
-- Deliberately uncommitted, unchanged all session: `reaper/7_tubas_rack.rpp` ·
+- *(day 39: both former items DONE — ENS closed (D82), M1/M2 promoted (D81).)*
+- Deliberately uncommitted, unchanged: `reaper/7_tubas_rack.rpp` ·
   `reaper/Bloom-Convergence-Balance_demoRecording.rpp` · `scores/Litany.pdf`.
 
 ### OPEN QUESTIONS
@@ -87,6 +105,12 @@ None.
 
 Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
+- **day 38 (Fable) — THE REMAINING ARCHITECTURE opened.** 5-phase workflow
+  (FRAME→GATHER→HARDEN→ARCHITECTURE→PLAN); six areas; prior-art inventory
+  (piece #1 = the deployed generation; #4 has zero network code; notation
+  engine external-clock-ready); ENS vetted through four iterations to
+  near-close; philosophy *"lean simple… robust"*; podium = DISPLAY/CONTROL
+  roles; M1/M2 reframed upstream. ARCHITECTURE.md born.
 - **day 37 (Fable) — THE VIDEO CLOSED AND THE SCORE ON PAPER.** PHASE 5 5/5, the
   post-W1b renders approved and swapped into the archive as the submission copy;
   `phase5.sh` written and its archive block inverted to a drift check. **The print
@@ -362,6 +386,27 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D82** *(2026-08-29, day 39)* — **ENS CLOSED AT REQUIREMENTS LEVEL — zoom one-part-at-a-
+  time as DISPLAY view state; local play only while the room is stopped.** Zoom (composer:
+  "zoom -a"): click a part → the composer-score zoom view, click again → back; one part at
+  a time (**multi-part rejected** — extra layout machinery, no rehearsal moment needs it);
+  commanded from wherever control lives (remote carries 10 part buttons, touch/mouse
+  displays click directly, paper-con has no display); display-local; follows the room
+  clock. Local play: stands have no room transport, play locally only while the room is
+  stopped, follow when it plays. A/B-loop candidate died with iteration 4's global looping
+  rescind. **"Closed" defined by the composer: requirements settled, plan NOT drawn** —
+  all scenarios gather first, then Phases 2–4; the 2c adversarial pass re-tests ENS.
+  Full record: ARCHITECTURE.md ENS iteration 5.
+- **D81** *(2026-08-28→29, days 38–39; promoted at the day-39 wrap)* — **M1/M2 RESOLVED
+  UPSTREAM, NOT AS RUNTIME FEATURES.** Per-ensemble tailoring at COMPOSITION time
+  (regenerable sections rescramble to N parts; transpositions baked in), pre-registration
+  with no drop-ins, day-of assignment by the conductor *"like handing out paper parts"*;
+  a mid-flight change repeats the same gesture. Runtime keeps only the assignment UI +
+  per-player part binding — nothing generates parts live, nothing transposes live.
+  **Rejected:** M1/M2 as live rehearsal-time features (PLAN §3's original reading — now
+  annotated there). **Why:** the rehearsal module is where they would have bitten, and the
+  composition-time path is cheaper, safer, and matches how paper ensembles actually work.
+  Fallback stands: stay at 10 parts, extra players double/transpose themselves.
 - **D80** *(2026-08-27, day 37)* — **THE SCORE PRINTS IN COLOUR — AND THE STAFF SIZE WAS
   NEVER A DECISION.** Composer, asked directly: **"color"**. The overlay palette stays
   exactly as approved on screen and no greyscale variant is built. **Why the question was

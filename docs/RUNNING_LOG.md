@@ -15778,3 +15778,67 @@ ARCHITECTURE.md (new) · COMPOSER_LOG · RUNNING_LOG · PAPER_NOTES (two entries
 explicit paths only (second agent active in tree on the paper drafts); the
 three deliberately-uncommitted files untouched again
 (reaper/7_tubas_rack.rpp · Bloom-…_demoRecording.rpp · scores/Litany.pdf).
+
+## day 39 (2026-08-29, Fable) — the RUNNING ORDER as a device, and the session system made portable
+
+**The session agenda (composer):** close ENS → submission cleanups (proofread
+loop · performance notes · abstract check · final renders) → submission
+package + ARCHIVE POINT. Full running order in journal §2. Penn State deadline
+Sept 4.
+
+**THE RUNNING ORDER became a first-class device (composer requirement, stated
+in their words):** *"the purpose is for me to be able to focus on one thing at
+a time… have AI be able to tell me what's next and where we are in the
+session's activities… have AI monitor and reorganize when it seems useful to
+do so, but on my approval. And then I want it to survive clear."* Wired into
+journal §2 as a HOW-THIS-LIST-WORKS block: ► active step · ☑ done, marks
+updated at the wrap · wrap announcement = finished/next/position · reorg
+proposals land only on approval · post-clear models announce position first.
+
+**DETOUR (approved, inside step 1): the session system made PORTABLE.** The
+composer reported another conversation "just jumped right into work" on
+/session-start. Diagnosis: the skills were thin pointers into repo docs —
+session-start/end lived in piece #2's repo, checkpoint/postclear in this one,
+NOTHING at user level, and all four reference docs/ files foreign projects
+don't have. Built:
+
+- **Five user-level skills, `~/.claude/skills/`** — session-start ·
+  session-end · checkpoint · postclear · **running-order (new)**. Each defers
+  to the project's own `docs/SESSION_PROTOCOL.md` when present (music repos
+  unchanged — project-level wins); otherwise carries the full embedded
+  procedure and **bootstraps a skeleton `docs/PROJECT_JOURNAL.md`** (§1–§6)
+  so durable state has a home anywhere.
+- **`~/.claude/CLAUDE.md` gained a "Session system" section** — every new
+  agent on this machine now learns the five skills, the journal-is-the-record
+  rule, and never-jump-straight-into-work, without invoking anything.
+- **Handover for a flubbed session:** just say `/session-start` again (the
+  user-level skill now exists everywhere); the SKILL.md files double as
+  paste-able docs for conversations that cannot see this machine.
+- **No music-repo files were edited** — zero risk to the existing machinery.
+
+**Why it's in this piece's log:** the running-order concept was invented here,
+for this session's submission arc, and generalized on the spot — the same
+composing-drives-tool-building pattern as the rest of the lineage, applied to
+the working method itself.
+
+### day 39 — ENS CLOSED (zoom a · local play yes · A/B-loop dead) → D81, D82
+
+Rulings, composer verbatim: **"zoom -a; local play yes."**
+
+- **Zoom** = the day-38 proposal + the role refinement: view state of the
+  DISPLAY, commanded from wherever control lives (remote = 10 part buttons;
+  touch/mouse display = click the part); ONE part at a time (multi-part
+  rejected — nothing needs it); display-local; follows the room clock. Also
+  retires the iteration-3 "full-score ↔ one part" candidate — same feature.
+- **Local play** = stands never drive the room; local playback only while
+  the room is stopped; follow when it plays.
+- **A/B loop** dies under iteration 4's global looping rescind — no
+  decision owed.
+
+The composer also pinned the term: *"closed means we've worked out all the
+requirements, but have yet to draw up the plan"* — and confirmed the
+project flow: **requirements for ALL scenarios, then the plans** (Phase 1→4
+as adopted). D81 (M1/M2 upstream) promoted to §4 at this wrap; PLAN §3
+annotated; ARCHITECTURE.md carries iteration 5 + the CLOSED status. ENS is
+the first scenario through the whole loop: walkthrough → four iterations →
+coverage check → closure, all requirements-level, zero code.
