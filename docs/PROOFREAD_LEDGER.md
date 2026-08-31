@@ -18,11 +18,11 @@
   #4 went RETRY (opacity was the wrong diagnosis) and is **re-APPLIED as
   batch 2**: standdown at the final cresc + frames hug fills, verified
   numerically in node AND the live page; eleven batteries green.
-- **PICK UP HERE → #4 needs the composer's LOOK after the SECOND apply**
-  (congruence root-cause fix + THE TUBE restored on all four meter kinds —
-  see the item). Spots: ~70–76 s · ~695 · ~730 · morph ~302 unchanged;
-  hard-reload first — animobj/layout/render are code. After that verdict the
-  sweep resumes (composer decides: T1 past 140 s, or T2).
+- **ALL FOUR ITEMS CLOSED: #1 KEEP · #2 GOOD ✓ · #3 GOOD ✓ · #4 GOOD ✓**
+  (day 40). **PICK UP HERE → the SWEEP itself, which is PARTIAL:** T1 done
+  0 → 140 s only; T1 past 140 s and T2–T10 unswept. Composer decides where
+  the sweep resumes — or whether the running order jumps to renders first
+  (video re-render owes the meter fixes; the print PDF is already current).
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 
@@ -195,7 +195,7 @@ a part is only ✓ when the composer says they're done with it.)*
   recurs.
 
 
-### #4 · GLOBAL (all curve followers outside the morph sections) · re-APPLIED (batch 2, day 40)
+### #4 · GLOBAL (all curve followers outside the morph sections) · GOOD ✓ (composer, day 40 — after the congruence root-cause fix + THE TUBE)
 - said: "the curve followers at the end starting around 685 — none of these
   were fixed from the morph section. There's the additional shadow behind
   the actual curve follower. We got rid of those in the morph section but
@@ -310,10 +310,8 @@ a part is only ✓ when the composer says they're done with it.)*
   under it is ~48 ms older; on a steep rise that slope is 1–3 px). Statics
   untouched: snapshots 75/75 byte-stable, print PDF unaffected. Eleven
   batteries green.
-- verdict: *(pending — composer look, hard reload first: ~70–76 s density
-  build · ~695 swells · ~730 final cresc · ~302 morph unchanged. If the eye
-  still catches the 1–3 px stand-off slope, the one-line option is to sample
-  the level at the bar's own x instead of the cursor's now.)*
+- verdict: **GOOD ✓** — composer, day 40: *"ok thats fixed ty."* The 1–3 px
+  stand-off slope option was offered and not taken — the current look stands.
 
 <!-- ITEM FORMAT — one chunk per item, statuses in the heading line:
 

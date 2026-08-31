@@ -16165,3 +16165,15 @@ that into 1–3 px of slope). The new PERMANENT test_animobj section asserts
 data congruence (57 meters, 0 diverging, 0 orphans) and tube-everywhere
 (four kinds, full scale each). **Snapshots 75/75 byte-stable — the printed
 page did not move.** Eleven batteries green.
+
+
+**10 · #4 CLOSED — "ok thats fixed ty." Batch 2's verdict makes it four for
+four:** #1 KEEP · #2 GOOD · #3 GOOD · #4 GOOD. The stand-off-slope option
+(sample at the bar's own x) was offered and not taken. Cleanup done with the
+verdict: the stale `db1.ir.json.bak` (build-script snapshot, fully redundant
+— its content is the committed pre-batch-1 IR) deleted. **The print PDF is
+already current** — batch 1 rebuilt it, and everything since (congruence fix,
+tube) is animated-layer only, PROVEN static-identical by the byte-stable
+snapshot battery. **The video is the stale deliverable** — it owes the
+curveMeter opacity, the standdown, the congruence fix, and the tube; that is
+running-order step 6's ~21 min phase3→phase4 + phase5 measure.
