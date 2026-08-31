@@ -53,3 +53,5 @@ notation/video/probe/
 # print/cover/ IS committed (the SVG sources and the generator).
 print/score/*.pdf
 print/score/*.__print.html
+# day 40: demo-video build outputs (mp4s already covered; tmp/ pngs+font+intermediates)
+notation/video/renders/demos/

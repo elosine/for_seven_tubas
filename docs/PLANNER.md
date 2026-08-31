@@ -74,7 +74,18 @@ whether either is the conductor's copy — is not decided and is not assumed her
 **Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
 and are not needed for the submission.
 
-**NOW ► (2026-08-26, day 36, latest) THE TRANCE IS DONE AND THE PIECE IS IN ONE FILE.**
+**NOW ► (2026-08-31, day 40, latest) SUBMISSION ARC: proofread CLOSED · video RE-RENDERED and measured · PERFORMANCE NOTES mid-build.**
+All four proofread items closed GOOD (cuivré medium gap · cl-50 dynamics · the
+meter congruence root-cause fix + THE TUBE restored, with a permanent battery).
+The five renders are fresh with the meter fixes (phase5: morph probes 0.00%,
+t=730 = the fix itself; archive folder still pending approval-to-supersede).
+Performance Instructions page exists (docs/notation_instructions/) with five
+sections; the five per-pair DEMO VIDEOS are built and approved (awaiting
+YouTube URLs only). Remaining: more device sections by dictation · the
+composer's edit pass · abstract check · archive + submission package.
+**Penn State deadline Sept 4.**
+
+**NOW ► (2026-08-26, day 36) THE TRANCE IS DONE AND THE PIECE IS IN ONE FILE.**
 The final crescendo now takes the **full lane height** (it was inheriting the
 morph pages' half-lane, where the glissando owns the top). The trance is
 **FOLDED into MAIN DRAFT** — `db1` is now **0–751 s, 4481 events**, which is

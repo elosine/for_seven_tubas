@@ -85,31 +85,78 @@ it and announces the position before doing anything.
    (approved mp4s, print PDF, save-version chain) need an explicit
    archive decision — a git tag alone does not capture them.**
 
-### NEXT STEPS · MODEL · CLEAR (day 40, 2026-08-31 — proofread CLOSED)
+### NEXT STEPS · MODEL · CLEAR (day 40 checkpoint — cleared mid-step-4)
 
-1. ► **PERFORMANCE NOTES** (Fable — judgment + the composer's voice) —
-   running-order step 4, ACTIVE. Sources: NOTATION_STANDARDS · the D-log ·
-   demo recordings. The video render runs in the background meanwhile.
-   *(The approved order said clear at the step-3→4 boundary; the composer
-   moved straight on in-session — checkpoint if the chat grows heavy.)*
-2. **PHASE 5 MEASURE when the render lands** (~21 min from start) — verify
-   the five mp4s (duration equality, drift check), then a look-check of the
-   fixed meters in V-MAIN. **Opus fine** (written command).
-3. **ABSTRACT check** (step 5, Fable) · then **step 6 remainder**: NEW dated
-   archive folder + SAVE_FILES current · **step 7 SUBMISSION PACKAGE**
-   (Fable). Clear at the notes → abstract boundary if the chat is heavy.
+1. ► **STEP 4 CONTINUES on Fable** (dictation + verdicts): YouTube URLs into
+   the link slots · more device sections by dictation · the composer's
+   C1–C4 edit pass. `/postclear` reads PERFORMANCE_NOTES.md and goes.
+2. **STEP 5 ABSTRACT check** (Fable, quick — composer believes it is done).
+3. **STEP 6 remainder** — the NEW dated archive folder decision (supersede
+   `2026-08-27-submission` with the re-measured renders) + SAVE_FILES
+   current · **STEP 7 SUBMISSION PACKAGE + archive point** (Fable for the
+   organizing decisions; the gitignored deliverables — approved mp4s, print
+   PDF, save chain, now demo mp4s/WAVs — need the explicit archive call).
+   **Deadline Sept 4.** Clear again at the step-4 → step-5 boundary if heavy.
 
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 40, 2026-08-31 — batch 1 APPLIED; proofread loop still open at step 3,
-now awaiting the composer's verdicts)**
+**(day 40, 2026-08-31 — MID-SESSION CHECKPOINT, running-order step 4
+PERFORMANCE NOTES active)**
 
-**POST-CLEAR MODEL: read this block, then `docs/PROOFREAD_LEDGER.md`. Do NOT
-re-read the day-28/29 beaming logs, do NOT re-measure the figures, do NOT
-re-scan the score.** The ledger's POSITION block is the live anchor.
+**POST-CLEAR MODEL: read this block, then `docs/PERFORMANCE_NOTES.md` (its
+POSITION block + the C-items + the DEMO VIDEOS block). That ledger is the
+live anchor for step 4. Do NOT re-read the proofread ledger (closed), the
+beaming logs, or the morph docs.**
+
+- **THE TASK:** running-order **step 4 — Performance Instructions** (the
+  front matter), built by dictation on the mock page
+  `docs/notation_instructions/index.html` (served at
+  http://localhost:5200/docs/notation_instructions/index.html; SQ-style).
+- **STATE:** five sections live — intro · Animated Conduction Tools (2
+  captured examples) · Curve-Based Crescendo · Notated Clusters · Acoustic
+  Beating (measured beating chart GOOD ✓ · demos paragraph + 5 link slots ·
+  Notation block + T7 breath-curve image). **C1–C4 await the composer's
+  end-of-pass verdicts** (their call: "keep things as is for now, edit pass
+  at the end"). Images come from `tools/capture_lane.js` (v3.1: zoom
+  geometry, only-lane; regen commands sit as comments beside each <img>).
+- **THE DEMO VIDEOS ARE BUILT AND APPROVED** ("ok those are good ty"):
+  `notation/video/renders/demos/demo-{T1T2..T9T10}.mp4`, 4:52–5:00 each,
+  rebuilt by `notation/video/renders/demos.sh all` in ~90 s (playbacks
+  cached in demos/tmp/). Statics = sustained max from
+  `notation/audio/demo-heldmax.wav` (option b; generator
+  `tools/gen_demo_heldmax_midi.js`). **Awaiting ONLY the five YouTube URLs.**
+- **ALSO DONE THIS SESSION (earlier):** proofread step 3 CLOSED (4/4 GOOD;
+  meter congruence root-cause fix + THE TUBE, permanent battery in
+  test_animobj) · the piece video re-rendered with the fixes + phase5
+  measured (morph probes 0.00%, t=730 delta = the fix; NEW ARCHIVE FOLDER
+  STILL PENDING composer approval to supersede `2026-08-27-submission`).
+- **NEXT CONCRETE STEP (instruction):** when the composer returns with the
+  five YouTube URLs, replace the five `<em>link to follow</em>` items in
+  the demos <ul> of `docs/notation_instructions/index.html` with links,
+  commit, push. If they return with dictation instead, continue Part C in
+  `docs/PERFORMANCE_NOTES.md` (log as said, capture_lane for images). If
+  they call the edit pass, walk C1→C4 verdicts in the ledger.
+- **Resume reads: `docs/PERFORMANCE_NOTES.md` (all of it), nothing else
+  beyond §2.** (RUNNING_LOG day-40 entries 1–26 are the full account if a
+  specific question arises — not required reading.)
+- **Decisions pending the composer:** YouTube URLs · C1–C4 verdicts + the
+  held-back gliss sub-block (C1) · which further device sections the notes
+  get (trance/accelerando · cuivré · dynamics system · GC balls · setup ·
+  print matters) · the step-6 archive folder + step-7 gitignored-deliverables
+  archive decision (now including demo WAVs + mp4s).
+- **Deliberately uncommitted (git status at checkpoint):**
+  - `reaper/7_tubas_rack.rpp` (M) — composer's live session (demo imports
+    etc.); theirs, never staged by AI.
+  - `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) — composer's
+    demo-recording session; theirs.
+  - `scores/Litany.pdf` (??) — composer's reference PDF at the scores root;
+    theirs to keep or move.
+  - `notation/video/renders/demos/` — now gitignored (build outputs:
+    mp4s + tmp cache); `notation/audio/demo-*.wav|.mid`-rendered WAVs
+    already ignored. The .mid IS committed.
 
 - **Where we are:** running order step **3 PROOFREAD LOOP**, active. The
   composer swept **T1 only, 0 → 140 s**, then ended the sitting. **T2–T10,
