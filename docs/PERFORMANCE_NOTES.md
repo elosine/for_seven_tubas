@@ -328,8 +328,10 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   fallback = crop the existing full-frame video + insert sound.
 - **c)** label on image · 10 s statics (also covers the 0.2 Hz nadir: two
   full cycles at 10 s).
-- **e) OPEN** — composer listening to the nadir points first. Measured:
-  T1+T2 0.24 Hz @291 s (4:51) · T3+T4 0.73 @299 (4:59) · T5+T6 0.80 @295
-  (4:55) · T7+T8 1.15 @293 (4:53) · T9+T10 1.93 @298 (4:58); highs all at
-  259.6 s (4:20): 9/13/18/27/36 Hz.
+- **e) RESOLVED (composer, day 40): MINIMUMS OUT.** *"Let's just leave out
+  the minimums. We'll just show the maximums. they don't stay down there
+  long enough. and it's too precise. I think it's fine for them to just go
+  down to approximately unison."* Convergence segment = the HIGH static only
+  (at the section start, 259.6 s); no nadir statics. The nadir table stays
+  above for the record (chart data), not for the videos.
 
