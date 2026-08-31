@@ -117,8 +117,12 @@ Eleven batteries green.
 > **"lets go with a1".** Both morph meters are now `fillOpacity` **0.60** in
 > `notation/registry/container.json`, with the reason recorded in each `_note`.
 > Verified by probe: the gliss bar reads `#f4834f` (244,131,79) against a
-> predicted (245,131,80). **`curveMeter` deliberately stays at 0.3** — it was not
-> one of the variants, and at 0.3 it now matches the app. Eleven batteries green.
+> predicted (245,131,80). ~~**`curveMeter` deliberately stays at 0.3** — it was not
+> one of the variants, and at 0.3 it now matches the app.~~ **SUPERSEDED day 39**
+> (PROOFREAD_LEDGER #4): the composer proofread the print score and saw the shadow
+> still behind every NON-morph curve follower — the density builds, the ~685 s
+> crescendo, the few at the beginning. Same mechanism, same cure: `curveMeter`
+> `fillOpacity` **0.3 → 0.6**, parity with the two morph meters. Eleven batteries green.
 > The six-way comparison is published as the Artifact **The Morph Meters**.
 
 With the compositor right, the bars are flat, true colour, and one thing still

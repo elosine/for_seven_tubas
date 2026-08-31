@@ -14,13 +14,14 @@
   sitting there (day 39, mid-session checkpoint). Parts T2–T10 unswept, and
   T1 past 140 s unswept — **the sweep is PARTIAL, not finished.**
 - **Parts done:** none of 10 complete (T1 partial to 140 s)
-- **Batch state:** batch 1 = **3 items, all LOGGED with cold-executable
-  APPLY SPECs, none applied yet** (#2 cuivré gap · #3 T1 78.49 dynamics ·
-  #4 curveMeter shadow). #1 resolved KEEP, no work owed.
-- **PICK UP HERE → APPLY BATCH 1.** Do the three APPLY SPEC blocks below,
-  re-render, then give the composer the timecode list for review. Only
-  after that does the sweep resume (composer decides: continue T1 past
-  140 s, or move to T2).
+- **Batch state:** batch 1 = **3 items, ALL APPLIED and re-rendered**
+  (2026-08-31): #2 cuivré gap · #3 T1 78.49 dynamics · #4 curveMeter
+  shadow. Eleven batteries green; the print PDF is fresh (68 pp).
+  #1 resolved KEEP, no work owed.
+- **PICK UP HERE → REVIEW BATCH 1.** The timecode list has gone to the
+  composer; each item wants a verdict, **GOOD ✓ or RETRY ↻**, recorded here
+  as it is said. Only after that does the sweep resume (composer decides:
+  continue T1 past 140 s, or move to T2).
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 
@@ -115,7 +116,7 @@ a part is only ✓ when the composer says they're done with it.)*
 - verdict: **KEEP the beaming** — composer, day 39: "keep the beaming."
   No change made; the record (D69 grouping + Aa bracket scope) stands.
 
-### #2 · ALL parts, every cuivré text · LOGGED (batch 1)
+### #2 · ALL parts, every cuivré text · APPLIED (batch 1)
 - said: "move, or make all the cuivrés — the text — have the medium gap
   instead of the smallest gap, between them and the next thing, which is
   probably the notehead"
@@ -134,8 +135,22 @@ a part is only ✓ when the composer says they're done with it.)*
   baseline gap 0.15 → gapMediumSs."* The composer has now said go.
   Keep the lane-line clearance test so **T8 stays on its tag-row fallback**.
   After: re-render + spot-check a cuivré in each affected part.
+- **done (2026-08-31):** `notation/lib/layout.js`, the techText block inside
+  the nh-unit — the local constant went `tightGapSs` 0.15 → `gapMediumSs` 0.3
+  (variable renamed `tight` → `gapM`, matching the repo's other medium-gap
+  sites). BOTH the baseline gap above the head and the lane-line clearance
+  test now use the medium gap, which is what the code comment always claimed
+  (*"clears the lane line by the same gap"*) — and it is the safe direction,
+  since a stricter test can only send a mark DOWN to the tag row, never into
+  a collision.
+- **measured (before vs after, by running `layoutSection` under both versions
+  of the file):** **22 cuivré marks in the whole score · 20 raised by exactly
+  +0.15 ss · 2 unchanged on the tag-row fallback (T8 @40.934 — the known case
+  — and T1 @86.58, already there before) · ZERO flipped to the fallback.**
+  That last number was the real risk of moving both gaps at once; it did not
+  happen. Eleven batteries green.
 
-### #3 · T1 @ 78.49 (cluster 78.332–80.094@0) · LOGGED (batch 1)
+### #3 · T1 @ 78.49 (cluster 78.332–80.094@0) · APPLIED (batch 1)
 - said: "change the dynamics: f at start, mark the last partial mf, no
   accents. We're bumping the dynamic rule because most of them are louder —
   take the louder version as the base, use a quieter marking for the one
@@ -152,6 +167,14 @@ a part is only ✓ when the composer says they're done with it.)*
   f-base + mf-on-5 says the same thing with two marks instead of five.
   **Edit `provenance.build` INSIDE `notation/ir/db1.ir.json`**, then
   `bash print/score/build.sh --rebuild-ir` (the rebuild re-runs that string).
+- **done (2026-08-31):** build args rewritten exactly as specced; rebuilt.
+  **Proven by an overlay diff of the IR before vs after: 4358 overlays both
+  times, exactly 5 replaced, every one of them `cl-50`** — nothing else on
+  the page moved. Note 1 (`ev-wc-1726`, 78.482) `dynMark` mf → **f**, accent
+  dropped · notes 2–4 (78.819 · 79.227 · 79.639) accents dropped · note 5
+  (`ev-wc-1750`, 79.944) gains `dynMark` **mf**. The stray
+  `beamHasArtic: accent` on the beam group is gone too, so the figure now
+  carries zero accent ink. Two marks where there were five.
 - rule stated by the composer (capture, don't generalize yet): **the
   ambient dynamic should be the MAJORITY loudness** — when most notes are
   loud, base = the louder dynamic, mark the softer exception; and a softer
@@ -160,7 +183,7 @@ a part is only ✓ when the composer says they're done with it.)*
   recurs.
 
 
-### #4 · GLOBAL (all curve followers outside the morph sections) · LOGGED (batch 1)
+### #4 · GLOBAL (all curve followers outside the morph sections) · APPLIED (batch 1)
 - said: "the curve followers at the end starting around 685 — none of these
   were fixed from the morph section. There's the additional shadow behind
   the actual curve follower. We got rid of those in the morph section but
@@ -195,7 +218,18 @@ a part is only ✓ when the composer says they're done with it.)*
   A1). **Also amend `docs/WISHLIST.md` W1**, which currently reads
   *"curveMeter deliberately stays at 0.3"* — that line is now superseded and
   would otherwise contradict the registry.
-- verdict: *(pending — apply with batch 1)*
+- **done (2026-08-31):** `notation/registry/container.json` →
+  `animated.curveMeter.fillOpacity` **0.3 → 0.6**, with a dated `_noteDay39`
+  recording the reason. Verified in the parsed registry: `curveMeter` 0.6 ·
+  `glissMeter` 0.6 · `crescMeter` 0.6 — the three now agree, which was the
+  whole point. **`docs/WISHLIST.md` W1 amended**: its *"curveMeter
+  deliberately stays at 0.3"* sentence struck through and marked SUPERSEDED
+  day 39, with the reason, so the doc cannot contradict the registry.
+  *(Registry key is `crescMeter`, not `cresMeter` as this ledger wrote it on
+  day 39 — cosmetic, noted so a later read does not go hunting.)*
+- **NOT VISIBLE IN THE PRINT PDF** — animated layer only. It lands in the app
+  view now and in the video at running-order step 6.
+- verdict: *(pending — composer review)*
 
 <!-- ITEM FORMAT — one chunk per item, statuses in the heading line:
 

@@ -15939,3 +15939,70 @@ by the checkpoint every item carries a **cold-executable APPLY SPEC** —
 the cuivré lift is one named line, the dynamics change is a measured
 five-note edit to `provenance.build`, the shadow is one registry number.
 Nothing about batch 1 needs this conversation.
+
+
+---
+
+## day 40 (2026-08-31, Opus) — BATCH 1 APPLIED: the proofread loop's first round trip
+
+*(Running-order step 3 PROOFREAD LOOP, still active. Post-clear pickup — the
+checkpoint's three APPLY SPECs were executed cold, exactly as written, with no
+re-derivation and no re-reading of the day-28/29 beaming record. The specs held:
+that is the first real test of the checkpoint format, and it passed.)*
+
+**1 · The cuivré lift (#2) — one line, and the risk was in the second use.**
+`notation/lib/layout.js`, techText block inside the nh-unit: the local constant
+went `tightGapSs` 0.15 → `gapMediumSs` 0.3. The subtlety NITS did not spell out
+is that `tight` was used **twice** — once as the baseline gap above the notehead,
+once inside the lane-line clearance test. Changing the single `const` moves both.
+That is the right reading, because the code comment already asserted the symmetry
+(*"clears the lane line by the same gap"*), and it is the **safe** direction: a
+stricter test can only push a mark DOWN to the tag row, never into a collision.
+But it could have demoted borderline marks the composer expected to see raised,
+so it was **measured, not assumed** — `layoutSection` run under both versions of
+the file: **22 cuivré marks in the score · 20 raised by exactly +0.15 ss · 2
+already on the tag-row fallback and unchanged (T8 @40.934, the known case, and
+T1 @86.58) · ZERO flipped.** Variable renamed `tight` → `gapM` to match the
+repo's other medium-gap sites, so the name no longer lies about the value.
+
+**2 · The dynamics change (#3) proved itself by confinement.** `cl-50`'s build
+args in `db1.ir.json`'s `provenance.build`: `--dyn 1:mf --accents 1,2,3,4` →
+`--dyn 1:f,5:mf`. Rebuilt, then diffed the IR before vs after: **only the
+`overlays` array differs — 4358 overlays both times, exactly 5 replaced, all
+five `cl-50`.** Note 1 mf → **f** with its accent gone; notes 2–4 lose accents;
+note 5 gains **mf**; the beam group's stray `beamHasArtic: accent` goes with
+them, so the figure carries zero accent ink. *Five marks became two and the
+music did not move* — which is the composer's rule (majority loudness as the
+base) doing exactly what they said it would.
+
+**3 · The shadow (#4) was one number, as diagnosed.**
+`animated.curveMeter.fillOpacity` 0.3 → 0.6 in `container.json`, with a dated
+`_noteDay39`. Registry now reads `curveMeter` 0.6 · `glissMeter` 0.6 ·
+`crescMeter` 0.6 — the three finally agree. `docs/WISHLIST.md` W1's *"curveMeter
+deliberately stays at 0.3"* struck through and marked SUPERSEDED, so the doc
+cannot contradict the registry. **Animated layer only — not in the print PDF**,
+which is worth saying plainly in the review, because the composer is reviewing a
+PDF and would otherwise look for a change that is not there. It lands in the
+video at running-order step 6.
+
+**4 · What the rebuild reported, and what was NOT a regression.** `build.sh
+--rebuild-ir`: db1 = 4481 events, 906 chunks, **VALID**, 68 tabloid pages, 3.8 MB.
+GEOMETRY printed **2 findings** — T9 @36.87 (bracket 6:4 × artic-accent) and
+T10 @39.08 (bracket 0.22 ss under cl-36b's beam). **Both pre-existing tier-3,
+on record** in `NOTATION_POLISH.md` and `CLOUD02D_BRACKETS.md`, composer-approved
+in approved db1 material. Checked before reporting rather than after — the
+temptation with a clean-looking build is to read "2 findings" as damage you just
+did. The tempo MISMATCH block is likewise the known day-36 rounding artifact
+(PRINT_MEASURED = true; the measured value is what prints).
+
+**Eleven batteries green** — layout · render · animobj · splice · snapshots ·
+coords · stamps · pattern_fit · midiplayer · playability · notate_block.
+
+**Method note for the paper.** Two of the three items were verified by
+*differencing the artifact against itself* — the layout model run under two
+versions of one file, and the IR diffed across the rebuild — rather than by
+looking at the PDF. Neither check needed the composer's eye, and both produced a
+number the review can be argued from ("20 of 22 raised, none demoted"; "5 of 4358
+overlays changed, all cl-50"). The composer's eye is then spent on the question
+only it can answer — *is that the right look* — instead of on *did the change
+land where I asked*.

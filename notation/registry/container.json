@@ -388,9 +388,10 @@
    "wPx": 8,
    "gapPx": 3,
    "color": "#99FF00",
-   "fillOpacity": 0.3,
+   "fillOpacity": 0.6,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
+   "_noteDay39": "day 39 (PROOFREAD_LEDGER #4), composer: the shadow behind the curve follower was fixed in the morph section and nowhere else. fillOpacity 0.3 -> 0.6 for PARITY with glissMeter and cresMeter, which took variant A1 on day 36 — the residual shadow is the STAFF LINES reading through a 30% fill. Animated layer only (app + video); the print PDF is unaffected. Supersedes the WISHLIST W1 line that said curveMeter deliberately stays at 0.3.",
    "_note": "day 22, composer: the piece #2 curve follower — 8 px meter riding 3 px left of the cursor, fill height = current drawn level; limeGreen rgb(153,255,0) = p2's staff-1 green"
   },
   "gc": {

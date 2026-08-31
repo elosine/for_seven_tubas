@@ -63,10 +63,11 @@ it and announces the position before doing anything.
    sweep via zoom view · items LOGGED → APPLIED → GOOD/RETRY · POSITION block
    = cold pickup after any interruption. **Log every dictated item there the
    moment it is said.**
-   **STATE at the day-39 checkpoint:** T1 swept 0 → 140 s (partial — nine
-   parts untouched); **batch 1 = #2 #3 #4, logged with apply specs, NOT
-   applied**; #1 resolved KEEP. Next action = apply batch 1, re-render,
-   hand back the timecode list for review. See OPEN AT SESSION END.
+   **STATE (day 40, 2026-08-31):** T1 swept 0 → 140 s (partial — nine parts
+   untouched); **batch 1 = #2 #3 #4, APPLIED and re-rendered**, eleven
+   batteries green; #1 resolved KEEP. Next action = the composer verdicts
+   each applied item GOOD ✓ / RETRY ↻, then decides whether the sweep
+   resumes at T1-past-140 or T2. See OPEN AT SESSION END.
 
 4. **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
@@ -81,14 +82,18 @@ it and announces the position before doing anything.
    (approved mp4s, print PDF, save-version chain) need an explicit
    archive decision — a git tag alone does not capture them.**
 
-### NEXT STEPS · MODEL · CLEAR (day 39 checkpoint)
+### NEXT STEPS · MODEL · CLEAR (day 40, 2026-08-31)
 
-1. **APPLY BATCH 1** — three specified edits + `--rebuild-ir` + the timecode
-   list back to the composer. **Opus** (executing a written plan; every spec
-   is already measured). No clear needed before it — this IS the post-clear
-   task.
-2. **REVIEW + RESUME THE SWEEP** — composer verdicts each item, then decides
+1. ☑ **APPLY BATCH 1** — done 2026-08-31 on Opus. Three edits landed exactly
+   as specced, each verified by measurement rather than by eye (cuivré: 20 of
+   22 marks raised +0.15 ss, zero demoted · cl-50: 5 of 4358 overlays changed,
+   all cl-50 · curveMeter 0.3 → 0.6, registry parity with the other two
+   meters). Rebuilt: 4481 events, VALID, 68 pp. Eleven batteries green.
+2. ► **REVIEW + RESUME THE SWEEP** — composer verdicts each applied item
+   **GOOD ✓ / RETRY ↻** (recorded in the ledger as said), then decides
    T1-past-140 or T2. **Fable** (judgment on the look). Same task, no clear.
+   *Note for the review: #4 is NOT visible in the print PDF — animated layer
+   only, it shows in the app view and lands in the video at step 6.*
 3. **Steps 4–7 unchanged** — PERFORMANCE NOTES (Fable) · ABSTRACT check ·
    FINAL RENDERS (Opus) · SUBMISSION PACKAGE + ARCHIVE POINT (Fable).
    **Clear at the step-3 → step-4 boundary** (subject change: proofread →
@@ -99,41 +104,46 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 39 — MID-SESSION CHECKPOINT, proofread loop paused mid-step-3)**
+**(day 40, 2026-08-31 — batch 1 APPLIED; proofread loop still open at step 3,
+now awaiting the composer's verdicts)**
 
 **POST-CLEAR MODEL: read this block, then `docs/PROOFREAD_LEDGER.md`. Do NOT
 re-read the day-28/29 beaming logs, do NOT re-measure the figures, do NOT
-re-scan the score.** Everything batch 1 needs is already written down.
+re-scan the score.** The ledger's POSITION block is the live anchor.
 
 - **Where we are:** running order step **3 PROOFREAD LOOP**, active. The
   composer swept **T1 only, 0 → 140 s**, then ended the sitting. **T2–T10,
   and T1 past 140 s, are UNSWEPT — the proofread is PARTIAL, not done.**
-- **Batch 1 = three corrections, LOGGED, NOT APPLIED.** Each carries a
-  cold-executable **APPLY SPEC** in the ledger:
-  - **#2 cuivré text gap** — `notation/lib/layout.js`, the techText block:
-    baseline gap `tightGapSs` (0.15) → `gapMediumSs` (0.3, already in the
-    registry). ONE LINE (NITS day 31 said so; the composer has now said go).
-    Keep the lane-line clearance test so T8 stays on its tag-row fallback.
-  - **#3 T1 @78.49 dynamics** — cl-50, five notes. In the `provenance.build`
-    string inside `notation/ir/db1.ir.json`, that cluster's
-    `--dyn 1:mf --accents 1,2,3,4` becomes `--dyn 1:f,5:mf` (accents
-    dropped). Then rebuild — the build script re-runs that very string.
-  - **#4 curveMeter shadow** — `notation/registry/container.json`,
-    `curveMeter.fillOpacity` **0.3 → 0.6**. Also amend `docs/WISHLIST.md` W1,
-    whose "curveMeter deliberately stays at 0.3" line this supersedes.
-    Animated layer only (app + video), not the PDF — costs nothing, since
-    running-order step 6 re-renders the video anyway.
-- **THE NEXT CONCRETE STEP:** apply those three, re-render with
-  `bash print/score/build.sh --rebuild-ir`, then hand the composer the
-  **timecode list of what changed**. They review item by item, verdicting
-  GOOD / RETRY — record each verdict in the ledger *as it is said*, because
-  the review itself may be interrupted.
+- **Batch 1 = three corrections, APPLIED 2026-08-31 and re-rendered.** Each
+  had a cold-executable APPLY SPEC in the ledger and each spec held; the
+  ledger now carries a *done:* line with the measurement for each. What
+  changed:
+  - **#2 cuivré text gap** — `notation/lib/layout.js` techText block, the one
+    constant 0.15 → 0.3. **22 marks in the score · 20 raised +0.15 ss · 2
+    already on the tag-row fallback, unchanged (T8 @40.934, T1 @86.58) · zero
+    demoted.** Measured by running `layoutSection` under both versions.
+  - **#3 T1 @78.49 dynamics** — cl-50's build args are now `--dyn 1:f,5:mf`,
+    rebuilt. **Confined: 4358 overlays before and after, exactly 5 replaced,
+    all cl-50.** f on note 1, mf on note 5, zero accent ink.
+  - **#4 curveMeter shadow** — `animated.curveMeter.fillOpacity` **0.3 → 0.6**;
+    registry now reads curveMeter 0.6 · glissMeter 0.6 · crescMeter 0.6.
+    WISHLIST W1's "deliberately stays at 0.3" struck and marked SUPERSEDED.
+    **Animated layer only — NOT in the print PDF**; it lands in the video at
+    step 6.
+- **THE NEXT CONCRETE STEP:** the composer verdicts each applied item
+  **GOOD ✓ / RETRY ↻** against the fresh PDF. Record each verdict in the
+  ledger *as it is said* — the review itself may be interrupted. RETRY items
+  rejoin the next apply round.
 - **Then** the composer decides whether the sweep resumes (T1 past 140 s, or
   on to T2). Do not assume — ask.
 - **#1 needs nothing** — resolved KEEP (the 38.48 beaming stands as drawn).
 - **Traps for this work:** the IR schema is a GATE — a rejected build DELETES
   the page (the build script snapshots to `.bak` first) · the print score is
-  drawn from the IR, so `--rebuild-ir` is the step that is easy to miss.
+  drawn from the IR, so `--rebuild-ir` is the step that is easy to miss ·
+  **the build's GEOMETRY block prints 2 findings (T9 @36.87, T10 @39.08) and
+  they are PRE-EXISTING tier-3, composer-approved** (NOTATION_POLISH,
+  CLOUD02D_BRACKETS) — do not read them as damage you just caused · the tempo
+  MISMATCH block is the known day-36 rounding artifact.
 
 - *(day 39 earlier: both former items DONE — ENS closed (D82), M1/M2 promoted (D81).)*
 

@@ -680,14 +680,14 @@
                 // The em estimate mirrors engraving.render.textScale (1.3): the
                 // rendered height is size × textScale, and layout stays in ss.
                 if (dev.techText) {
-                  const tight = o.tightGapSs != null ? o.tightGapSs : 0.15;
+                  const gapM = o.gapMediumSs != null ? o.gapMediumSs : 0.3;   // day 39: MEDIUM, was tightGapSs 0.15 (NITS day 30/31 — the composer said go)
                   const laneHalf = (o.chainSide && o.chainSide.laneHalfSs) || 6.51;
                   const em = TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3);
-                  const base = yDraw + nhO.hSs / 2 + tight;   // baseline just above the head
+                  const base = yDraw + nhO.hSs / 2 + gapM;   // baseline a MEDIUM gap above the head
                   // fits only if the text also CLEARS THE LANE LINE by the same
-                  // tight gap — at 0.01 ss of daylight (T8's G4) it reads as
+                  // medium gap — at 0.01 ss of daylight (T8's G4) it reads as
                   // touching, which is the composer's "can't go above" case
-                  if (base + em + tight <= laneHalf + 1e-9)
+                  if (base + em + gapM <= laneHalf + 1e-9)
                     items.push({ k: 'text', t: e.onset, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, size: TS.technique, color: '#000' });
                   else
                     items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: '#000' });
