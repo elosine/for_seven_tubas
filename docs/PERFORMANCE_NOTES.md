@@ -236,12 +236,34 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   conductors · dotted vertical line · go-time); the two captures generated
   by capture_lane.js side by side (new .pair CSS in our styles copy) with
   captions; regen commands in the HTML comment.
-- **OPEN (composer asked for a better phrasing):** "notation is spatially
-  proportionate with time." Drafted onto the page meanwhile: *"The notation
-  is proportional: horizontal space corresponds directly to time."*
-  Alternatives offered in chat. Composer picks.
-- note: E2's window shows the staccato A entering at the right edge (the
-  G's bar ends 7.50, the A hits 7.515 — same lane, adjacent by the piece's
-  own design). Trimming the window would clip the bar's end and break the
-  "hold until the END of the line" reading, so the neighbour stays.
+- **phrasing RESOLVED — composer picked (b), day 40:** *"Notation is spaced
+  proportionally in time — distance on the page equals duration."* On the
+  page.
+- note: E2's window shows the staccato A entering at the right edge — the
+  composer's own reference screenshot includes it too; it stays.
+- **IMAGES RETRY → v2 (day 40):** the first captures were wrong (thin pale
+  arcs, missing impact discs, bricks showing) — v1 capture_lane.js had
+  invented its own single-lane geometry. Composer: *"images are problematic…
+  have a go first… I'll do a correct one or two more passes, and then lets
+  move on"* — and offered manual Inkscape clipping as the fallback. **v2
+  renders THE JURY FRAME itself** (static_page.js — the same shared module
+  the video and print draw through, D4 bricks off — + the exporter's exact
+  lane recipe) **and crops to the lane via the viewBox** — nothing is
+  re-scaled by hand, so the image cannot differ from the app. All images
+  regenerated through v2. Also per composer, day 40: **no captions on
+  images** (figcaptions removed; standing rule for the page).
+- verdict: *(pending — composer looks at the v2 images)*
+
+## C3 · Notated Clusters · DRAFTED (day 40) — on the page, after Curve-Based Crescendo
+- said: *"Notated clusters. These clusters of notation are written out in
+  spatially proportionate notation. The bouncing ball gives the onset of the
+  cluster. The notated rhythmic values are approximate and meant to give a
+  sense of phrasing. The tuplets are not necessarily precise but inform the
+  rhythmic flow of the phrase in conjunction with the scrolling cursor.
+  t9 at 37.23 include from ~36.05 to ~40.56."*
+- done: section on the page, text as dictated (commas only); image
+  `clusters_37_T9.svg` — T9 (part 8), span 36.05–40.56, cursor at 37.23 —
+  the CLOUD02-I figured region, beams + tuplet brackets under the cursor.
+  Section PLACEMENT (after Curve-Based Crescendo) was AI's ordering call —
+  composer may reorder.
 - verdict: *(pending)*

@@ -16228,3 +16228,27 @@ captured at their 6.94, cursor mid-hold). One open phrasing question:
 "notation is spatially proportionate with time" — a draft stands on the page,
 alternatives offered. The page now reads: intro → Animated Conduction Tools
 (2 examples) → Curve-Based Crescendo.
+
+
+**16 · THE IMAGE RETRY, AND THE LESSON IS THE SAME ONE AS THE METERS.**
+Composer: the E1/E2 images were wrong — thin pale arcs, missing impact
+discs, bricks visible — *"images are problematic… have a go first and see if
+you can't get these right… I'll do a correct one or two more passes, and
+then lets move on"* (Inkscape clipping offered as the fallback). Diagnosis
+took one look at the two screenshots side by side: **capture_lane v1 had
+invented its own single-lane view geometry instead of using the app's** —
+the exact failure mode the morning's meter work was about (a second copy of
+a look, drifting). **v2 renders the jury frame itself** — static_page.js,
+the SAME shared module the video and print exporters draw through (D4
+bricks off), plus export_video's lane recipe verbatim — **and crops to the
+requested lane/span via the SVG viewBox**, so no number is ever re-scaled
+by hand. All four images regenerated; the pair's two figures get
+flex-grow = natural width so both render at ONE scale. Layout verified by
+DOM geometry (all images complete, natural sizes correct, no gaps — the
+browser-pane screenshot that suggested a broken page was a stale capture).
+Also landed this pass: **phrasing (b) chosen** ("Notation is spaced
+proportionally in time — distance on the page equals duration"), **no
+captions on images** (standing rule), and **C3 Notated Clusters** dictated
+and placed (T9, span 36.05–40.56, cursor 37.23 — the CLOUD02-I figured
+region; placement after Curve-Based Crescendo is the AI's ordering call,
+composer may reorder).
