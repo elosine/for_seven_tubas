@@ -205,3 +205,43 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   lives in the morph sections) — composer to call: fold into the morph
   section's note, adapt here with a this-score image, or drop.
 - verdict: *(pending — composer looks at the mock page)*
+
+## C2 · INTRO + Animated Conduction Tools · DRAFTED (day 40) — on the page, above C1
+- said (verbatim, cleaned only for punctuation): *"intro paragraph at top:
+  The score for Bloom Convergence balance is a computer animated score that
+  is served from the cloud and plays in a web browser, like an online video
+  game. — Animated Conduction Tools (heading for first section, place this
+  above curve-based). There are a number of animated conduction tools that
+  are intuitive to follow and aid performers in realizing the score. A
+  scrolling cursor runs throughout the piece at a consistent speed and
+  indicates when things are to be played (named things in bold like A curve
+  follower). Notation is spatially proportionate with time (is there a
+  better way to state this). Bouncing ball conductors aid with rhythmic
+  precision. The dotted vertical line marks the go-time. In the first
+  example you will play the notated staccato A when the scrolling cursor
+  reaches the go line and the ball bounces. In the second example, begin
+  the G at go-time and hold until the cursor reaches the end of the line.
+  E1 and 2 side by side. E1: t4 7.33 with cursor in the shot. E2 6.94."*
+  *(An earlier interrupted fragment named "t4 5.76 · 7.33 · around 5.93,
+  precisely at go time" — 5.93 is the G's true onset; kept as the trail.)*
+- read as / resolved against the data: **E1 = ev-wc-14, T4 staccato A1,
+  onset 7.515** — captured at the composer's t=7.33: cursor visibly
+  approaching the go line, ball descending into impact. **E2 = ev-wc-13,
+  T4 fortepiano G1, onset 5.93, dur 1.57 (ends 7.50)** — captured at the
+  composer's t=6.94: cursor mid-hold along the ring bar, which is the
+  "hold until the end of the line" moment. The composer's timecodes were
+  scrubber positions, not onsets — resolved, not corrected.
+- done: intro paragraph + the new section on the page ABOVE Curve-Based
+  Crescendo; named things bolded (scrolling cursor · bouncing-ball
+  conductors · dotted vertical line · go-time); the two captures generated
+  by capture_lane.js side by side (new .pair CSS in our styles copy) with
+  captions; regen commands in the HTML comment.
+- **OPEN (composer asked for a better phrasing):** "notation is spatially
+  proportionate with time." Drafted onto the page meanwhile: *"The notation
+  is proportional: horizontal space corresponds directly to time."*
+  Alternatives offered in chat. Composer picks.
+- note: E2's window shows the staccato A entering at the right edge (the
+  G's bar ends 7.50, the A hits 7.515 — same lane, adjacent by the piece's
+  own design). Trimming the window would clip the bar's end and break the
+  "hold until the END of the line" reading, so the neighbour stays.
+- verdict: *(pending)*

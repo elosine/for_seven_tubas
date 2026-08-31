@@ -16214,3 +16214,17 @@ The gliss sub-block is held back pending the composer's call.
 
 
 **14 · THE VIDEO IS RE-RENDERED AND MEASURED (running-order step 6, video half).** phase3+phase4 completed in the background (all five mp4s fresh: V-MAIN, ZOOM-MASTER, V-TOP, V-BOT, V-CUT — V-CUT 6.9 min, 55.5 fps, ffmpeg exit 0). **phase5 verdicts:** cut-source checks PASS (V-CUT matches the right source at every probe, <1%) · meter-colour checks PASS (gliss #f57e47, cresc #bafd4e in the film — both within 12 of the app; the compositor fix and A1 are in the film) · **the drift check reads 0.00% at the two morph probes (~303, ~450) and 0.65% at t=730 — which is the day-40 fix ITSELF showing in the film** (standdown to one meter, the tube, congruence, fillOpacity 0.6 all live at 730; the archive holds the OLD look). Confinement proven at film level: only frames carrying general curve followers differ from the approved copy; morph frames are byte-zero. **The archive step (NEW dated folder) deliberately NOT taken** — it waits on the composer approving these renders as the submission copy.
+
+**15 · C2 DICTATED AND LANDED — the intro and the conduction-tools section.**
+The composer dictated the page top: the cloud/browser/video-game intro
+sentence and an "Animated Conduction Tools" section placed above the
+crescendo, with the scrolling cursor · bouncing-ball conductors · dotted
+go-line vocabulary bolded, and two side-by-side examples. Their timecodes
+were scrubber positions; resolved against the IR without being "corrected":
+E1 = T4's staccato A1 (onset 7.515, captured at their 7.33 — cursor
+approaching, ball descending), E2 = T4's fortepiano G1 (onset 5.93 — the
+"around 5.93, precisely at go time" from their own interrupted first pass —
+captured at their 6.94, cursor mid-hold). One open phrasing question:
+"notation is spatially proportionate with time" — a draft stands on the page,
+alternatives offered. The page now reads: intro → Animated Conduction Tools
+(2 examples) → Curve-Based Crescendo.
