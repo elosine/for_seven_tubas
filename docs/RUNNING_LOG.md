@@ -16191,3 +16191,6 @@ statics never moved. **Running order advanced: step 4 PERFORMANCE NOTES
 active.** Composer asked the video effort — answer: ~21 min unattended
 compute + a phase5 measure, zero composer effort; it runs under the
 performance-notes work.
+
+
+**12 · STEP 4 OPENED — the SQ source secured locally, the dictation doc built.** The composer pointed at the string-quartet Performance Instructions on their site; the SAME file lives in the local piece-#1 repo (docs/notation_instructions/index.html), so it was pulled from disk, not the web. All eleven sections extracted verbatim into docs/PERFORMANCE_NOTES.md Part A, each with a first-guess carry-over flag (Curve-Based Crescendo, Conducted Articulation, the Notation-Fragments abandon rule, the accel/decel concept = strongest candidates; the string-technique sections flagged strings-specific). Part B = this piece's eighteen device stubs in score order, the dictation targets. Part C empty, fills as the composer speaks — same as-it-is-said rhythm as the proofread ledger. Meanwhile the video render runs in the background.
