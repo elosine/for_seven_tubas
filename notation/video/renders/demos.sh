@@ -8,10 +8,10 @@
 #   bash notation/video/renders/demos.sh all      all five
 #
 # Structure per video (composer spec, day 40):
-#   [Bloom static, label on image, 10 s peak-beating audio]
+#   [Bloom static, label on image, 30 s peak-beating audio (day-40 revision)]
 #   [whole Bloom section, two lanes, pair demo audio]
 #   [1.5 s white gap]
-#   [Convergence static, "N Hz" label, 10 s section-start audio]
+#   [Convergence static, "N Hz" label, 30 s section-start audio]
 #   [whole Convergence section]
 # No minimums (composer: "too precise"), no Balance segment.
 set -euo pipefail
@@ -41,26 +41,28 @@ build_pair() {
   [ -f "$WAV" ] || { echo "!! missing $WAV"; exit 1; }
   echo "=== $NAME (Tuba $TA + Tuba $TB) ==="
 
-  # ---- 1. probe stills from the exporter's own probe mechanism
+  # ---- 1. probe stills (skipped when already present)
+  if [ ! -f "$TMP/$NAME-bloom.png" ]; then
   node tools/export_video.js --parts "$PARTS" --probe "$BPEAK" --probeDir "$TMP" | tail -1
   mv "$TMP/db1_video_t${BPEAK/./-}"*.png "$TMP/$NAME-bloom.png" 2>/dev/null || \
     mv "$TMP"/db1_video_t*.png "$TMP/$NAME-bloom.png"
   node tools/export_video.js --parts "$PARTS" --probe 260.5 --probeDir "$TMP" | tail -1
   mv "$TMP/db1_video_t260-500.png" "$TMP/$NAME-conv.png"
+  fi
 
-  # ---- 2. static segments: 10 s, label drawn on the image, held audio
-  local BSS; BSS=$(node -e "console.log(($BPEAK-5).toFixed(2))")
-  ffmpeg -y -v error -loop 1 -t 10 -i "$TMP/$NAME-bloom.png" -ss "$BSS" -t 10 -i "$WAV" \
+  # ---- 2. static segments: 30 s, label drawn on the image, held audio
+  local BSS; BSS=$(node -e "console.log(($BPEAK-15).toFixed(2))")
+  ffmpeg -y -v error -loop 1 -t 30 -i "$TMP/$NAME-bloom.png" -ss "$BSS" -t 30 -i "$WAV" \
     -vf "drawtext=text='Bloom — Tuba $TA + Tuba $TB':fontfile=$FONT:fontsize=58:fontcolor=black:x=70:y=48" \
     -c:v libx264 -crf 16 -pix_fmt yuv420p -r 30 -c:a aac -b:a 256k -ar 48000 -shortest "$TMP/$NAME-s1.mp4"
-  ffmpeg -y -v error -loop 1 -t 10 -i "$TMP/$NAME-conv.png" -ss 259.6 -t 10 -i "$WAV" \
+  ffmpeg -y -v error -loop 1 -t 30 -i "$TMP/$NAME-conv.png" -ss 259.6 -t 30 -i "$WAV" \
     -vf "drawtext=text='Convergence — $CHZ Hz — Tuba $TA + Tuba $TB':fontfile=$FONT:fontsize=58:fontcolor=black:x=70:y=48" \
     -c:v libx264 -crf 16 -pix_fmt yuv420p -r 30 -c:a aac -b:a 256k -ar 48000 -shortest "$TMP/$NAME-s2.mp4"
 
-  # ---- 3. section playbacks, two lanes, exporter defaults (fades as the piece video)
-  node tools/export_video.js --parts "$PARTS" --t0 141.4 --t1 "$BEND" --audio "$WAV" \
+  # ---- 3. section playbacks (skipped when already rendered)
+  [ -f "$TMP/$NAME-bloom.mp4" ] || node tools/export_video.js --parts "$PARTS" --t0 141.4 --t1 "$BEND" --audio "$WAV" \
     --out "$TMP/$NAME-bloom.mp4" 2>&1 | grep --line-buffered -E "^export_video|^done|pages" | tail -2
-  node tools/export_video.js --parts "$PARTS" --t0 259.6 --t1 "$CEND" --audio "$WAV" \
+  [ -f "$TMP/$NAME-convplay.mp4" ] || node tools/export_video.js --parts "$PARTS" --t0 259.6 --t1 "$CEND" --audio "$WAV" \
     --out "$TMP/$NAME-convplay.mp4" 2>&1 | grep --line-buffered -E "^export_video|^done|pages" | tail -2
 
   # ---- 4. the gap (white, silent, 1.5 s) — built once
