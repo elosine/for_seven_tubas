@@ -215,12 +215,10 @@
           // at the peak ("why it isn't a sharp right top corner"); the shelf
           // was the drawn cut-ramp's honest x — legibility wins, the <=2%
           // time stretch of the rise is accepted. Sounding data untouched.
-          let samples = it.samples;
-          if (it.cut) {
-            let iMax = 0;
-            for (let i = 1; i < samples.length; i++) if (samples[i] > samples[iMax]) iMax = i;
-            if (iMax >= 1) samples = samples.slice(0, iMax + 1);
-          }
+          // day 40: the truncation moved to layout.drawnLevelSamples — the
+          // samples arrive FINAL (one source for the page and the meters);
+          // the stretch over the full note span is implicit in n-over-[t0,t1].
+          const samples = it.samples;
           const n = samples.length;
           const pts = [];
           for (let i = 0; i < n; i++) {

@@ -486,11 +486,15 @@
       ov.setAttribute('viewBox', '0 0 ' + view.widthPx + ' ' + view.heightPx);
       $('sheet').appendChild(ov);
       const score = state.scores[state.ir.source.score] || null;
+      const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
       state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
         { parts: state.ir.source.parts, meta: $('metaov').checked,
           // per-note GCs come from the SAME device rules the engraving uses
           // (D50) — one resolver, built by layout, handed to animobj
-          deviceOf: NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {}) });
+          deviceOf: _dev,
+          // day 40: the meters ride the DRAWN curve (layout is the one
+          // source) — congruent with the page by construction
+          drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;

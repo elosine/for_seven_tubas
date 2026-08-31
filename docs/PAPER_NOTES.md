@@ -3023,3 +3023,19 @@ resolution move is the quotable part: they stopped asking what it looked like
 and asked what SYSTEM it obeyed — *"can you just look and confirm that it is
 using the middle gap, and I'll just accept that?"* — trading perception for
 verification exactly where perception stops working.
+
+
+**Day 40 addendum — the composer defines the device, then the fix lands.**
+The root-cause session ended with the composer stating the meter's semantics
+outright: *"tube back, that was always supposed to be there, players can
+judge where they are in relation to the whole, if the top is max loudness,
+they can see at any instant how loud they should be in relation to max."*
+That sentence did two jobs at once: it reversed an AI change (the tube had
+been removed as "shadow") by supplying the meaning the AI could not see — the
+tube is a performance gauge, not chrome — and it implicitly ratified the
+invariant the analysis had proposed (the fill must ride the drawn curve).
+The fix that followed was architectural, not cosmetic: one function now owns
+the drawn level (layout), both the page and the followers consume it, and a
+permanent battery asserts the congruence the composer had been asking for
+across three sessions in the only vocabulary they had — "shadow",
+"overshoot", "accurately predict the curve."

@@ -191,9 +191,13 @@ function raster(svg, background) {
 }
 
 // ---------------------------------------------------------------- anim layer
+const _dev = Layout.deviceResolver(ir, (C.engraving || {}).layout || {});
 const animInstances = AnimObj.collect(ir, score, C.animated, {
   parts: ir.source.parts, meta: false,     // D4: META off
-  deviceOf: Layout.deviceResolver(ir, (C.engraving || {}).layout || {}),
+  deviceOf: _dev,
+  // day 40: the meters ride the DRAWN curve (layout.drawnLevelSamples is the
+  // one source) — the video stays pixel-congruent with the app by sharing it
+  drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),
 });
 function overlaySvg(view, t) {
   const inner = AnimObj.frameSvg(animInstances, view, t, C.animated);

@@ -607,3 +607,12 @@ found`). Harmless on this machine, where the working copies were written LF and
 never re-checked-out. The fix when wanted: a one-line `.gitattributes`
 (`*.sh text eol=lf`) plus `git add --renormalize`. Not urgent — single-machine
 repo; noted so a future clone failure has its answer waiting.
+
+
+- **animView can trail the sheet by one async render (day 40):** rapid zoom/
+  video page turns fire overlapping async `renderContainerView` calls; a
+  slower earlier render can finish last and leave `state.animView` one page
+  behind the sheet — meters then draw at wrong x (seen live: bar at x=−1664)
+  until the next render self-heals. Transient, horizontal, cosmetic. Fix
+  shape: a render generation counter (drop stale completions). Surfaced
+  during the day-40 congruence hunt.

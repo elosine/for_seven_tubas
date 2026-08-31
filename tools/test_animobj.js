@@ -302,6 +302,56 @@ tp.attachAudio(audioStub, 100);
 eq(tp.now(), 107, 1e-12, 'audio-slaved: S1 t = currentTime + offset');
 tp.detachAudio(); eq(tp.now(), 107, 1e-12, 'detach keeps the position');
 
+// ---------- day 40: METER-vs-PAGE CONGRUENCE + THE TUBE ----------
+// The invariant (composer, day 40): the bar's top equals the drawn curve's
+// edge at the cursor — everywhere, at all times. And every meter carries its
+// full-scale TUBE ("the top is max loudness"). Runs the REAL pipeline on db1.
+{
+  const G3 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
+  const db1 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'db1.ir.json'), 'utf8'));
+  const LO3 = (C.engraving || {}).layout || {};
+  const dev3 = Layout.deviceResolver(db1, LO3);
+  const inst3 = Anim.collect(db1, null, C.animated, { parts: db1.source.parts, meta: false,
+    deviceOf: dev3, drawnOf: e => Layout.drawnLevelSamples(e, dev3(e) || {}) });
+  // 6a. DATA congruence: each meter's samples === the page's envcurve samples
+  const pageCurves = new Map();   // part|t0 -> samples (what render will draw)
+  for (const sy of Layout.layoutSection(db1, G3, LO3).systems)
+    for (const it of sy.items || [])
+      if (it.k === 'envcurve') pageCurves.set(sy.part + '|' + it.t0.toFixed(4), it.samples);
+  let matched = 0, mismatched = 0, missing = 0;
+  const meters3 = inst3.filter(i => i.kind === 'curveMeter');
+  for (const i of meters3) {
+    const page = pageCurves.get(i.part + '|' + i.t0.toFixed(4));
+    if (!page) { missing++; continue; }
+    const same = page.length === i.samples.length && page.every((v, k) => Math.abs(v - i.samples[k]) < 1e-9);
+    if (same) matched++; else mismatched++;
+  }
+  ok(meters3.length > 30, 'congruence: db1 has a real meter population (' + meters3.length + ')');   // 57 at day 40 (post-standdown: density builds + openers + the 685-709 swells)
+  ok(mismatched === 0, "congruence: every meter rides the page's own drawn samples (" + mismatched + ' diverge)');
+  ok(missing === 0, 'congruence: every meter has a page curve to ride (' + missing + ' orphans)');
+  // 6b. THE TUBE everywhere: full-scale frame on every meter kind
+  const view3 = { widthPx: 1920, heightPx: 1080, window: [0, 800], xOfSeconds: t => t,
+    systems: Array.from({ length: 10 }, (_, i) => ({ yTopPx: i * 100, yBotPx: i * 100 + 100, ssPx: 7.9 })),
+    system(p) { return this.systems[p]; } };
+  const tubeOf = (i, expectH, name) => {
+    const t = (i.t0 + i.t1) / 2;
+    const svg = String(Anim.frameSvg([i], view3, t, C.animated, { cursor: false }));
+    const m = [...svg.matchAll(/<rect [^>]*height="([\d.]+)"[^>]*fill="none"[^>]*>/g)];
+    ok(m.length === 1, 'tube: ' + name + ' draws exactly one frame');
+    if (m.length === 1) eq(+m[0][1], expectH, 0.11, 'tube: ' + name + ' frame = full scale');
+  };
+  const kinds = {
+    'curveMeter (full lane)': [meters3[0], 100],
+    'crescMeter FULL (final cresc)': [inst3.find(i => i.kind === 'crescMeter' && i.full), 100],
+    'crescMeter half (morph)': [inst3.find(i => i.kind === 'crescMeter' && !i.full), 50],
+    'glissMeter (morph)': [inst3.find(i => i.kind === 'glissMeter'), 50],
+  };
+  for (const [name, pair] of Object.entries(kinds)) {
+    ok(!!pair[0], 'tube: db1 carries a ' + name);
+    if (pair[0]) tubeOf(pair[0], pair[1], name);
+  }
+}
+
 if (process.argv.includes('--prove-red')) {
   if (failures > 0) { console.log('PROVE-RED OK: the stateful object was caught'); process.exit(0); }
   console.error('PROVE-RED BROKEN: a stateful object passed the determinism test');

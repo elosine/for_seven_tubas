@@ -16088,3 +16088,80 @@ day-31 three-tier note (0.15 dot · 0.30 MEDIUM · 0.45 standard) and accepted.
 asked for the timecode and lane). Lesson filed: when a fix moves something by
 a pixel, SAY the pixel count when handing it over — "verified, 20 of 22
 raised" reads as "you will see it", and they could not.
+
+
+**8 · THE OVERSHOOT SURVIVED THE FIX — composer calls for root-cause analysis
+before any more edits.** Verbatim: *"Let's take a minute to talk about what the
+problem is and make sure we're diagnosing it correctly. Like I said, this has
+been several goes, and I don't want to just keep not solving the problem. We
+got the morph part right. And in my previous scores, we didn't have these sort
+of curve issues. the curve meter could accurately predict the curve… why has
+there been several misses? … Analyze it, please, and talk to me about it first
+before correcting anything."* Evidence: screenshots at 70.38 · 75.92 · 695.61
+(clear overshoot, frame-hug fix already live) + the morph as the correct
+reference.
+
+**Analysis findings (measured, NO code changed):**
+- **Mechanism 1, CONFIRMED by measurement — the band and the bar read
+  different data.** The drawn envcurve applies two DRAWING-ONLY transforms the
+  meter never heard of: `cut` (day 22 — truncate at peak, stretch the rise
+  over the full note) and `curveZero` (day 36 — swell floor remapped to 0).
+  The meter rides raw `e.level.samples`. Measured deltas at the composer's
+  own timecodes: 70.38 → bar 67.0% vs band 64.8% (**+2.2% of lane**) ·
+  75.92 → **+1.9%** · 695.61 → **+5.9%** (cut+curveZero stack) · 730 →
+  **0.0%** (final cresc now congruent after the standdown) · morph → 0 by
+  construction (overlay samples are both drawn and ridden — which is exactly
+  why the morph is right).
+- **Mechanism 2, SUSPECTED, not yet confirmed:** the sheet is drawn with the
+  current view; the meters are drawn with `state.animView`, a SECOND stored
+  geometry (notation.html play loop, line ~745), coupled by discipline only.
+  If they diverge (mode/window changes), the bar's y-scale is off by whole
+  staff-heights — the magnitude the screenshots suggest, which mechanism 1's
+  2–6% cannot explain. Needs one end-to-end measurement on the live page in
+  the composer's own view mode.
+- **Why several misses (the process diagnosis, owed honestly):** (1) the
+  invariant was never written down — *bar top == drawn curve edge, at the
+  cursor, everywhere, always*; every fix (alpha, opacity, doubling, frame)
+  was real and was verified against itself, never against that; (2) the
+  "drawing only, sound untouched" transforms were a virtue for the page and a
+  silent lie to the follower — no one owned the pair; (3) THREE places hold
+  level logic (layout transform, render transform, animobj raw) with no
+  shared function, so drift is structural.
+
+Proposed cure (awaiting composer approval): one drawn-level-at-t function
+owned by layout, consumed by both render and animobj; meters take the very
+view object the sheet just rendered with; a piece-wide congruence battery
+(every leveled event, K probe times, assert |barTop − bandEdge| ≤ 1 px).
+
+
+**9 · THE CONGRUENCE FIX (the composer's root-cause session paid off).** The
+composer's go — *"tube back, that was always supposed to be there, players can
+judge where they are in relation to the whole, if the top is max loudness,
+they can see at any instant how loud they should be in relation to max; and
+double check that tube is everywhere and then good to go"* — is a DESIGN
+RULING, not just a look call: the tube is a relative-to-max gauge for the
+players. Logged verbatim in the ledger and the animobj comments.
+
+**What was built:** `layout.drawnLevelSamples(e, dev)` — curveZero remap +
+the cut truncation MOVED out of render.js — is now the one source of the
+drawn level. render draws it; the meters ride it via injected `drawnOf`
+(deviceOf's D50 pattern), wired in BOTH notation.html and export_video.js so
+the app and the video read one truth. The tube (full-scale outline) restored
+on all four meter kinds.
+
+**Step 0 findings, for the record:** mechanism 2 (two stored views) is dead
+as a cause — the container views set animView from the very view the sheet
+renders with; a settled page measures congruent. But the hunt caught a real
+TRANSIENT: rapid page turns can leave animView one async render behind the
+sheet (the bar drew at x=−1664 mid-click-storm). Horizontal, self-healing on
+the next render, not the composer's symptom — filed to NITS rather than fixed
+in this pass.
+
+**Measured, end-to-end through the real pipeline (render vs meters, same
+view):** before = 2.6–9.7 px overshoot per 103 px lane; after = **0.6–3.3 px,
+and the residual is not data** — it is the bar's designed 11 px stand-off
+left of the cursor (level NOW vs the band ~48 ms older; steep rises turn
+that into 1–3 px of slope). The new PERMANENT test_animobj section asserts
+data congruence (57 meters, 0 diverging, 0 orphans) and tube-everywhere
+(four kinds, full scale each). **Snapshots 75/75 byte-stable — the printed
+page did not move.** Eleven batteries green.

@@ -18,10 +18,11 @@
   #4 went RETRY (opacity was the wrong diagnosis) and is **re-APPLIED as
   batch 2**: standdown at the final cresc + frames hug fills, verified
   numerically in node AND the live page; eleven batteries green.
-- **PICK UP HERE → #4 needs the composer's LOOK** (~76 s · ~700 · ~730;
-  morph ~302 must look unchanged; hard-reload first — animobj.js is code).
-  After that verdict the sweep resumes (composer decides: T1 past 140 s,
-  or T2).
+- **PICK UP HERE → #4 needs the composer's LOOK after the SECOND apply**
+  (congruence root-cause fix + THE TUBE restored on all four meter kinds —
+  see the item). Spots: ~70–76 s · ~695 · ~730 · morph ~302 unchanged;
+  hard-reload first — animobj/layout/render are code. After that verdict the
+  sweep resumes (composer decides: T1 past 140 s, or T2).
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 
@@ -282,8 +283,37 @@ a part is only ✓ when the composer says they're done with it.)*
   mid-note). Eleven batteries green.
 - **where it shows:** the app now (hard-reload the tab — animobj.js is code);
   the video at running-order step 6. Never the PDF.
-- verdict: *(pending — composer look: ~76 s density build · ~700 swells ·
-  ~730 final crescendo · ~302 morph must look UNCHANGED)*
+- **SECOND APPLY (day 40, after the composer's root-cause session):** the
+  composer stopped the loop — *"talk to me about it first before correcting
+  anything"* — and the analysis found the real invariant had never been
+  stated: **the bar's top equals the drawn curve's edge, at the cursor,
+  everywhere, always.** Root cause: the page transforms envelopes for
+  legibility (`cut` day 22 · `curveZero` day 36, both recorded "drawing
+  only") and the meter rode the RAW samples. Measured end-to-end (real render
+  vs real meter, same view): overshoot up to **9.7 px per 103 px lane**.
+- **THE FIX:** `layout.drawnLevelSamples(e, dev)` is now THE ONE SOURCE of
+  the drawn level — render draws it, the meters ride it via injected
+  `drawnOf` (the D50 deviceOf pattern; wired in notation.html AND
+  export_video.js so app and video cannot drift). render.js's own cut
+  truncation deleted.
+- **THE TUBE restored, per composer ruling (verbatim):** *"tube back, that
+  was always supposed to be there, players can judge where they are in
+  relation to the whole, if the top is max loudness, they can see at any
+  instant how loud they should be in relation to max."* Full-scale outline on
+  ALL FOUR meter kinds — verified: curveMeter full-lane · crescMeter FULL
+  full-lane · crescMeter half (morph) half-lane · glissMeter half-lane.
+- **VERIFIED:** new PERMANENT battery section in test_animobj (data
+  congruence: all 57 meters ride the page's own envcurve samples, 0 diverge,
+  0 orphans + tube-everywhere). End-to-end re-measure: worst overshoot
+  **9.7 → 3.3 px**, and the residual is NOT data — it is the bar's designed
+  11 px stand-off left of the cursor (the bar shows the level NOW; the band
+  under it is ~48 ms older; on a steep rise that slope is 1–3 px). Statics
+  untouched: snapshots 75/75 byte-stable, print PDF unaffected. Eleven
+  batteries green.
+- verdict: *(pending — composer look, hard reload first: ~70–76 s density
+  build · ~695 swells · ~730 final cresc · ~302 morph unchanged. If the eye
+  still catches the 1–3 px stand-off slope, the one-line option is to sample
+  the level at the bar's own x instead of the cursor's now.)*
 
 <!-- ITEM FORMAT — one chunk per item, statuses in the heading line:
 

@@ -433,12 +433,10 @@
               // shape on the page is the shape of the swell. DRAWING ONLY,
               // and opt-in per device, so the morph pages and MAIN DRAFT's
               // surges are untouched.
-              let smp = e.level.samples;
-              if (dev.curveZero) {
-                const lo = Math.min(...smp), hi = Math.max(...smp);
-                if (hi > lo) smp = smp.map(v => +((v - lo) * hi / (hi - lo)).toFixed(5));
-              }
-              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: smp, ev: e.id, cut: !!dev.cut });
+              // day 40: transforms unified in drawnLevelSamples (curveZero
+              // here + the cut truncation formerly done in render.js) — ONE
+              // source, drawn by render and ridden by the meters alike.
+              items.push({ k: 'envcurve', t0: e.onset, t1: e.onset + e.duration, samples: drawnLevelSamples(e, dev), ev: e.id, cut: !!dev.cut });
             }
             if (dev.goLine) items.push({ k: 'goline', t: e.onset, ev: e.id });
             // THE ONSET HEAD (day 35, the morph section): a small black
@@ -1964,5 +1962,28 @@
     return { systems, window: [w0, w1], warnings, hideMarkers: !!ir.hideMarkers };
   }
 
-  return { layoutSection, deviceResolver, staffPosBass, ledgersFor, dotYFor, stemLenFor };
+  // day 40 (PROOFREAD_LEDGER #4): THE ONE SOURCE OF THE DRAWN LEVEL. The page
+  // may transform an envelope for legibility (curveZero day 36: swell floor
+  // remapped to 0; cut day 22: truncate at the peak, the rise stretched over
+  // the full note span). Those were recorded "drawing only, sounding data
+  // untouched" — true for the sound, but the animated follower rides the
+  // DRAWN curve, so it must read the same transforms or it overshoots the
+  // page (measured day 40: up to ~10% of lane height). render.js draws these
+  // samples; animobj rides them via the injected drawnOf (the deviceOf
+  // pattern, D50 — no second copy of the rules).
+  function drawnLevelSamples(e, dev) {
+    let smp = (e.level && e.level.samples) || [];
+    if (dev && dev.curveZero) {
+      const lo = Math.min(...smp), hi = Math.max(...smp);
+      if (hi > lo) smp = smp.map(v => +((v - lo) * hi / (hi - lo)).toFixed(5));
+    }
+    if (dev && dev.cut && smp.length) {
+      let iMax = 0;
+      for (let i = 1; i < smp.length; i++) if (smp[i] > smp[iMax]) iMax = i;
+      if (iMax >= 1) smp = smp.slice(0, iMax + 1);
+    }
+    return smp;
+  }
+
+  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, ledgersFor, dotYFor, stemLenFor };
 });

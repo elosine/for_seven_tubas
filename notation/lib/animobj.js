@@ -152,14 +152,10 @@
       : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
     const w = st.wPx || 8;
     const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
-    // Day 40 (PROOFREAD_LEDGER #4 RETRY): in the FULL variant (the final
-    // crescendo) the frame hugs the fill — nothing above the current level,
-    // so the follower's top IS the wedge height. The half-lane morph variant
-    // keeps its approved full-half frame, untouched.
-    const frY = inst.full ? (yB - lvl * H) : yMid;
-    const frH = inst.full ? (lvl * H) : H;
+    // Day 40, THE TUBE (composer ruling — see curveMeter): the full-scale
+    // frame in BOTH variants; the top of the tube = max loudness.
     return [
-      '<rect x="' + x.toFixed(1) + '" y="' + frY.toFixed(1) + '" width="' + w + '" height="' + frH.toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + yMid.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
         '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
       '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
         '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
@@ -193,15 +189,17 @@
       : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
     const w = st.wPx || 8;
     const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
-    // Day 40 (PROOFREAD_LEDGER #4 RETRY): the frame used to span the FULL
-    // lane, so an empty outlined box always stood above the fill — the
-    // composer's "shadow" in the density builds and the 685-709 swells. The
-    // outline now HUGS the fill: nothing is drawn above the current level.
-    const fillY = yB - lvl * H, fillH = lvl * H;
+    // Day 40, THE TUBE (composer ruling, verbatim: "tube back, that was
+    // always supposed to be there, players can judge where they are in
+    // relation to the whole, if the top is max loudness, they can see at any
+    // instant how loud they should be in relation to max"): the outline
+    // spans the FULL scale deliberately. The fill rides the DRAWN curve
+    // (drawnOf), so the bar top sits ON the band edge — congruent by
+    // construction; the earlier "shadow" was the fill overshooting the page.
     return [
-      '<rect x="' + x.toFixed(1) + '" y="' + fillY.toFixed(1) + '" width="' + w + '" height="' + fillH.toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
         '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
-      '<rect x="' + x.toFixed(1) + '" y="' + fillY.toFixed(1) + '" width="' + w + '" height="' + fillH.toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
         '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
     ];
   });
@@ -259,6 +257,9 @@
     // the go line. The resolver comes from the caller (layout.deviceResolver)
     // so this module keeps no second copy of the membership rules (D50).
     const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
+    // day 40: the drawn-curve source (layout.drawnLevelSamples via the
+    // caller) — the meters ride the PAGE's curve, not the raw envelope.
+    const drawnOf = typeof O.drawnOf === 'function' ? O.drawnOf : null;
     // W1b (day 37, composer: "there is still bleed in the meters"): spans where
     // a SECTION meter owns the part's lane — any gliss overlay, or any cresc
     // overlay. Inside these, per-event curveMeters stand down (below).
@@ -310,7 +311,7 @@
         const e = evById.get(id);
         if (e && e.level && e.level.samples && e.level.samples.length >= 2) {
           if (laneOwned(c.part, e.onset, e.onset + e.duration)) continue;
-          out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: e.level.samples, _src: 'ir-level' });
+          out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: (drawnOf && drawnOf(e)) || e.level.samples, _src: 'ir-level' });
         }
       }
     }
