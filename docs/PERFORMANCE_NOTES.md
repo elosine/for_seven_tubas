@@ -307,4 +307,5 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   session `Bloom-Convergence-Balance_demoRecording.rpp` is presumably
   this) · a notation-block illustration pending a composer timecode pick ·
   the CONVERGENCE ends-apart flag above.
+- amendment (composer, day 40): the tuning-pegs sentence added (*"Think of the pair of tubas as the two strings and the glissandos as the tuning pegs — in this case, both tuning pegs move"*) after the guitar-tuning sentence; the "pairs glissando away…" sentence MOVED to directly after "…fast and vice versa". Applied to the page.
 - verdict: *(pending)*
