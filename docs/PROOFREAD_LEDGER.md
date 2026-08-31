@@ -10,10 +10,17 @@
 
 ## POSITION — read this first on any pickup
 
-- **Sweep:** not started — waiting on the composer's first part
-- **Parts done:** none of 10
-- **Batch state:** collecting batch 1 (0 items) · nothing applied · nothing awaiting review
-- **Pick up:** composer dictates corrections; AI logs them as ITEMS below
+- **Sweep:** T1 proofed **0 → 140 s**; composer ENDED the proofreading
+  sitting there (day 39, mid-session checkpoint). Parts T2–T10 unswept, and
+  T1 past 140 s unswept — **the sweep is PARTIAL, not finished.**
+- **Parts done:** none of 10 complete (T1 partial to 140 s)
+- **Batch state:** batch 1 = **3 items, all LOGGED with cold-executable
+  APPLY SPECs, none applied yet** (#2 cuivré gap · #3 T1 78.49 dynamics ·
+  #4 curveMeter shadow). #1 resolved KEEP, no work owed.
+- **PICK UP HERE → APPLY BATCH 1.** Do the three APPLY SPEC blocks below,
+  re-render, then give the composer the timecode list for review. Only
+  after that does the sweep resume (composer decides: continue T1 past
+  140 s, or move to T2).
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 
@@ -49,7 +56,7 @@
 
 | part | state |
 |---|---|
-| T1 | — |
+| T1 | ► proofed 0 → 140 s (#1 keep · #2 #3 logged) |
 | T2 | — |
 | T3 | — |
 | T4 | — |
@@ -67,7 +74,128 @@ a part is only ✓ when the composer says they're done with it.)*
 
 ## ITEMS
 
-*(none yet — format below)*
+### #1 · T1 @ ~38.48 (cl-22, group 5, notes 11–14) · GOOD ✓ — KEEP (composer, day 39)
+- said: "two one at 38.48 — do we have any record of why I made that beaming
+  decision? why beam the one normal 16th with the 7:4 rather than the 16th
+  with the previous 16th rest and the 7:4 in its own beaming"
+- read as: T1 ("tuba one"), the figure whose 16th rest sits at ≈38.47 —
+  beam group cl-22e = plain 16th @38.614 + 7:4 triple @38.775–39.090
+- answer (from the record): the grouping is the composer's own — day 28 T1
+  verdict, golden cuts after notes 2,5,7,10,14 → [11–14] one group; no legal
+  seam after note 11 (gap into the 7:4 = 161 ms ≈ the tuplet's own 158/157 —
+  same pace, and D67 cuts only land where the pace changes); bracket covers
+  only the off-grid beat (composer ruling "Aa" day 28: bracket scope per
+  beat — note 11 sits exactly ON the one-grid lattice, pos 19). Principle =
+  D69, composer verbatim: *"there should be some communication to the
+  performer if there is a speed change… the seven-four bracket is
+  appropriate."* D-log 6.1 (day 29) kept the brackets with "composer to
+  flag if they should go" — so changing it is open.
+- if changed: the alternative ([rest+16th] as a two-unit, 7:4 alone) is
+  buildable — beamBreak after 11 + beamOverLeft (the D-log 1.6 "group of
+  two" device); a plain --cuts 11 would refuse (one-note figure).
+- **measured (composer asked, day 39):** written-vs-played, grid anchored at
+  the gesture's first note (36.218, unit 125 ms):
+  n11 +21 · n12 −14 · n13 +1 · n14 +15 · n15 +12 · n16 +17 ms — worst 21,
+  all inside the 30 ms one-notehead threshold. The 7:4 = septuplet slots
+  1·3·5 of the 500 ms beat at pos 20 (leading + interleaved septuplet
+  rests; three double-beamed 16ths under the bracket). Written step 143 ms
+  vs played 158–161 (~10 % quick, drift ≤15 ms over three notes). Least
+  accurate spot = the n11→n12 junction: written 196 vs played 161 ms
+  (n11 late, n12 early). **The @39.36 gap is REAL**: the day-28 seam after
+  n14 — written 268 vs played 265 ms (3 ms true); drawn as the beat
+  window's trailing septuplet rest + a plain 16th rest, then group 6
+  ([n15 n16] = 16th · 16th-rest · 16th). It reads big because it is:
+  1.7× the played tuplet step, rendered at 1.9× (the tight-written
+  septuplet exaggerates the contrast slightly).
+- follow-up (day 39): composer asked the rule for the plain pair @39.36
+  ("note rest note — new tempo?"). Answered from the record: one grid per
+  gesture (Ba) · new grid only at a breath ≥500 ms · bracket only where
+  notes miss the grid (Aa). The pair is ON-grid (+12/+17 ms) → left plain,
+  no retempo — matches the composer's own recollection. No change asked.
+- verdict: **KEEP the beaming** — composer, day 39: "keep the beaming."
+  No change made; the record (D69 grouping + Aa bracket scope) stands.
+
+### #2 · ALL parts, every cuivré text · LOGGED (batch 1)
+- said: "move, or make all the cuivrés — the text — have the medium gap
+  instead of the smallest gap, between them and the next thing, which is
+  probably the notehead"
+- read as: raise every **cuivré text mark** from the tight gap to a MEDIUM
+  gap above the notehead — **global**, all parts, whole score.
+- this ACTIVATES the deferred day-30 NITS item (journal §2 "Open, not
+  blocking"): *"a midway constant between tight 0.15 and the standard,
+  then raise the marks; T8's fallback survives."* At apply time: pull the
+  exact spec from NITS.md day 30, set the midway constant, re-render,
+  spot-check a cuivré in each affected part (incl. T8's fallback case).
+- **APPLY SPEC (gathered day 39 — cold-executable):** the constant already
+  EXISTS. In `notation/lib/layout.js`, the **techText block** (inside the
+  nh-unit) takes the baseline gap from `tightGapSs` (0.15) — change it to
+  `gapMediumSs` (0.3, already in `notation/registry/container.json:233`).
+  **One line.** NITS day 31: *"when they say go, it is one line: the techText
+  baseline gap 0.15 → gapMediumSs."* The composer has now said go.
+  Keep the lane-line clearance test so **T8 stays on its tag-row fallback**.
+  After: re-render + spot-check a cuivré in each affected part.
+
+### #3 · T1 @ 78.49 (cluster 78.332–80.094@0) · LOGGED (batch 1)
+- said: "change the dynamics: f at start, mark the last partial mf, no
+  accents. We're bumping the dynamic rule because most of them are louder —
+  take the louder version as the base, use a quieter marking for the one
+  that's softer. Plus it's the last one, so we don't have to restate the f"
+- read as: the T1 figure at 78.332–80.094 (currently `--dyn 1:mf
+  --accents 1,2,3,4`) becomes: **f on note 1 · mf on the LAST note · zero
+  accents** (`--dyn 1:f,5:mf`, drop `--accents`).
+- **APPLY SPEC (measured day 39 — cold-executable):** the cluster is
+  **cl-50, T1, FIVE notes** — 78.482 · 78.819 · 79.227 · 79.639 · 79.944.
+  Current build args: `--cluster 78.332-80.094@0 --figures --dyn 1:mf
+  --accents 1,2,3,4` → **`--cluster 78.332-80.094@0 --figures --dyn
+  1:f,5:mf`** (accents dropped). The mapping is exact: notes 1–4 were the
+  accented (loud) ones, note 5 the unaccented soft last one — which is why
+  f-base + mf-on-5 says the same thing with two marks instead of five.
+  **Edit `provenance.build` INSIDE `notation/ir/db1.ir.json`**, then
+  `bash print/score/build.sh --rebuild-ir` (the rebuild re-runs that string).
+- rule stated by the composer (capture, don't generalize yet): **the
+  ambient dynamic should be the MAJORITY loudness** — when most notes are
+  loud, base = the louder dynamic, mark the softer exception; and a softer
+  LAST note needs no f restated after it. Candidate refinement of the
+  day-24 ambient-mf + accents encoding — flagged for the rule ledger if it
+  recurs.
+
+
+### #4 · GLOBAL (all curve followers outside the morph sections) · LOGGED (batch 1)
+- said: "the curve followers at the end starting around 685 — none of these
+  were fixed from the morph section. There's the additional shadow behind
+  the actual curve follower. We got rid of those in the morph section but
+  not here. All of these, and the long crescendo at the end, and the few in
+  the beginning… the image comes from ~76 s, and in the density build
+  sections there's a number of curve followers in the different parts, and
+  those all still have the shadow. So it looks like we fixed it in the
+  morph, but nowhere else."
+- read as: raise `curveMeter.fillOpacity` **0.3 → 0.6** in
+  `notation/registry/container.json` — the general curve follower used
+  everywhere OUTSIDE the morph sections.
+- **DIAGNOSED, and the composer is exactly right — it is one number.** Day 36
+  W1 fixed the shadow in two steps: (1) the exporter's premultiplied-alpha
+  compositor bug (whole piece, fixed in `tools/export_video.js`), and (2) the
+  residual shadow = **staff lines reading through a 30 % fill**, cured by
+  `fillOpacity` 0.3 → 0.60 — but variant A1 was only ever built for the two
+  MORPH meters. WISHLIST W1 says so in as many words: *"`curveMeter`
+  deliberately stays at 0.3 — it was not one of the variants."* Registry
+  today: `glissMeter` 0.6 · `cresMeter` 0.6 · **`curveMeter` 0.3**. Same
+  limeGreen #99FF00, same mechanism, same 8 px bar.
+- scope of the change: every non-morph curve follower — the density builds,
+  the long crescendo at the end (~685+), the few at the beginning. Emitted
+  in `notation/lib/animobj.js:297` for every event carrying a drawn level;
+  morph lanes already stand down via the W1b `laneOwned` exception, so
+  raising this cannot touch the morph sections.
+- **ANIMATED LAYER, not print** — this changes the app view and the video,
+  not the PDF. Costs nothing extra: running-order step 6 re-renders the
+  video anyway (~21 min).
+- **APPLY SPEC (cold-executable):** `notation/registry/container.json`
+  → `curveMeter.fillOpacity` **0.3 → 0.6** (line ~391). Add a `_note`
+  recording day 39 + the reason (parity with glissMeter/cresMeter variant
+  A1). **Also amend `docs/WISHLIST.md` W1**, which currently reads
+  *"curveMeter deliberately stays at 0.3"* — that line is now superseded and
+  would otherwise contradict the registry.
+- verdict: *(pending — apply with batch 1)*
 
 <!-- ITEM FORMAT — one chunk per item, statuses in the heading line:
 

@@ -15874,3 +15874,68 @@ you can say exactly what's been done and where to pick up"*):
 - **Apply rule carried in the doc:** fixes land at the durable layer
   (registry / tools / save / build args) so `--rebuild-ir` reproduces
   them; never hand-edit IR a rebuild would overwrite.
+
+### day 39 — the PROOFREAD LOOP's first sitting: three findings, and the ledger proves itself
+
+Step 3 opened. T1 swept 0 → 140 s in the zoom view; the composer ended the
+sitting there (partial sweep, T2–T10 untouched). Batch 1 = three corrections,
+none applied. Four ledger items; the three findings below are the substance.
+
+**1 · "Why did I make that beaming decision?" — the record answered it.**
+The composer asked, of T1 @38.48, why one plain 16th is beamed with a 7:4
+rather than being grouped with the 16th rest before it. **Answer came entirely
+from the archive**: the grouping is theirs (day-28 T1 verdict, golden cuts
+2,5,7,10,14 → [11–14] one group); no legal seam after note 11 because the gap
+into the tuplet is **161 ms** against the tuplet's own 158/157 — *same pace*,
+and D67 cuts only where the pace changes; the bracket omits note 11 because
+note 11 sits **on** the lattice and bracket scope is per beat (their "Aa"
+ruling). Verdict: **KEEP**. *No re-derivation was needed and none was done —
+the day-28/29 logs held the whole answer.*
+
+**2 · The figure MEASURED, written vs played** (composer asked "how accurate is
+that 7:4?"). Grid anchored at the gesture's first note (36.218, unit 125 ms):
+
+    n11 +21 · n12 −14 · n13 +1 · n14 +15 · n15 +12 · n16 +17 ms
+
+**Worst 21 ms — all six inside the 30 ms one-notehead threshold.** The 7:4 is
+septuplet slots 1·3·5 of the 500 ms beat at pos 20 (leading + interleaved
+septuplet rests). Written step **143 ms vs played 158–161** — the septuplet
+runs ~10 % quick, but over three notes the drift never exceeds 15 ms. The
+worst joint is the **entry** into the tuplet: written 196, played 161.
+**The @39.36 gap the composer flagged as "much bigger" is REAL and honest:
+written 268 vs played 265 ms — 3 ms true.** It is the day-28 seam after n14;
+it reads big because it *is* 1.7× the played tuplet step (drawn at 1.9×).
+
+**3 · THE SHADOW: fixed in the morph section and nowhere else — the composer
+was exactly right, and it is ONE NUMBER.** They reported the shadow surviving
+on every curve follower outside the morph sections (the density builds ~76 s,
+the long final crescendo from ~685, a few at the start). Diagnosis from W1:
+day 36 fixed the shadow in two moves — the exporter's premultiplied-alpha
+compositor bug (whole piece), then the residual = **staff lines reading
+through a 30 % fill**, cured by `fillOpacity` 0.3 → 0.60. But **variant A1 was
+only ever built for the two MORPH meters.** WISHLIST W1 says so in as many
+words: *"`curveMeter` deliberately stays at 0.3 — it was not one of the
+variants."* Registry today: `glissMeter` 0.6 · `cresMeter` 0.6 ·
+**`curveMeter` 0.3** — same limeGreen, same 8 px bar, weaker fill.
+Raising it cannot disturb the morph sections (those lanes already stand down
+via the W1b `laneOwned` exception). **Animated layer only** — costs nothing,
+since running-order step 6 re-renders the video anyway.
+*A scoped decision, correctly recorded, that outlived its scope — the doc that
+justified stopping at the morph meters is the same doc that made the gap
+findable in one grep.*
+
+**4 · A dynamics rule stated (T1 @78.49, cl-50, five notes).** Composer:
+f at the start, mf on the last partial, **no accents** — *"we're bumping the
+dynamic rule because most of them are louder, so take the louder version as
+the base and just use a quieter marking for the one that's softer. Plus it's
+the last one, so we don't have to restate the f."* The mapping is exact: notes
+1–4 were the accented loud ones, note 5 the unaccented soft one — **the same
+music said with two marks instead of five.** Candidate refinement of the
+day-24 ambient-mf + accents encoding; captured, not yet generalized.
+
+**The ledger did its job on its first day.** `docs/PROOFREAD_LEDGER.md` was
+built to the composer's interruptibility spec at the top of the sitting, and
+by the checkpoint every item carries a **cold-executable APPLY SPEC** —
+the cuivré lift is one named line, the dynamics change is a measured
+five-note edit to `provenance.build`, the shadow is one registry number.
+Nothing about batch 1 needs this conversation.

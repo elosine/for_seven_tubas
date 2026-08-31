@@ -63,6 +63,11 @@ it and announces the position before doing anything.
    sweep via zoom view · items LOGGED → APPLIED → GOOD/RETRY · POSITION block
    = cold pickup after any interruption. **Log every dictated item there the
    moment it is said.**
+   **STATE at the day-39 checkpoint:** T1 swept 0 → 140 s (partial — nine
+   parts untouched); **batch 1 = #2 #3 #4, logged with apply specs, NOT
+   applied**; #1 resolved KEEP. Next action = apply batch 1, re-render,
+   hand back the timecode list for review. See OPEN AT SESSION END.
+
 4. **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
    recordings ("part of the apparatus").
@@ -76,14 +81,61 @@ it and announces the position before doing anything.
    (approved mp4s, print PDF, save-version chain) need an explicit
    archive decision — a git tag alone does not capture them.**
 
+### NEXT STEPS · MODEL · CLEAR (day 39 checkpoint)
+
+1. **APPLY BATCH 1** — three specified edits + `--rebuild-ir` + the timecode
+   list back to the composer. **Opus** (executing a written plan; every spec
+   is already measured). No clear needed before it — this IS the post-clear
+   task.
+2. **REVIEW + RESUME THE SWEEP** — composer verdicts each item, then decides
+   T1-past-140 or T2. **Fable** (judgment on the look). Same task, no clear.
+3. **Steps 4–7 unchanged** — PERFORMANCE NOTES (Fable) · ABSTRACT check ·
+   FINAL RENDERS (Opus) · SUBMISSION PACKAGE + ARCHIVE POINT (Fable).
+   **Clear at the step-3 → step-4 boundary** (subject change: proofread →
+   front matter), via `/session-end` then `/session-start`.
+
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-- *(day 39: both former items DONE — ENS closed (D82), M1/M2 promoted (D81).)*
-- Deliberately uncommitted, unchanged: `reaper/7_tubas_rack.rpp` ·
-  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` · `scores/Litany.pdf`.
+**(day 39 — MID-SESSION CHECKPOINT, proofread loop paused mid-step-3)**
+
+**POST-CLEAR MODEL: read this block, then `docs/PROOFREAD_LEDGER.md`. Do NOT
+re-read the day-28/29 beaming logs, do NOT re-measure the figures, do NOT
+re-scan the score.** Everything batch 1 needs is already written down.
+
+- **Where we are:** running order step **3 PROOFREAD LOOP**, active. The
+  composer swept **T1 only, 0 → 140 s**, then ended the sitting. **T2–T10,
+  and T1 past 140 s, are UNSWEPT — the proofread is PARTIAL, not done.**
+- **Batch 1 = three corrections, LOGGED, NOT APPLIED.** Each carries a
+  cold-executable **APPLY SPEC** in the ledger:
+  - **#2 cuivré text gap** — `notation/lib/layout.js`, the techText block:
+    baseline gap `tightGapSs` (0.15) → `gapMediumSs` (0.3, already in the
+    registry). ONE LINE (NITS day 31 said so; the composer has now said go).
+    Keep the lane-line clearance test so T8 stays on its tag-row fallback.
+  - **#3 T1 @78.49 dynamics** — cl-50, five notes. In the `provenance.build`
+    string inside `notation/ir/db1.ir.json`, that cluster's
+    `--dyn 1:mf --accents 1,2,3,4` becomes `--dyn 1:f,5:mf` (accents
+    dropped). Then rebuild — the build script re-runs that very string.
+  - **#4 curveMeter shadow** — `notation/registry/container.json`,
+    `curveMeter.fillOpacity` **0.3 → 0.6**. Also amend `docs/WISHLIST.md` W1,
+    whose "curveMeter deliberately stays at 0.3" line this supersedes.
+    Animated layer only (app + video), not the PDF — costs nothing, since
+    running-order step 6 re-renders the video anyway.
+- **THE NEXT CONCRETE STEP:** apply those three, re-render with
+  `bash print/score/build.sh --rebuild-ir`, then hand the composer the
+  **timecode list of what changed**. They review item by item, verdicting
+  GOOD / RETRY — record each verdict in the ledger *as it is said*, because
+  the review itself may be interrupted.
+- **Then** the composer decides whether the sweep resumes (T1 past 140 s, or
+  on to T2). Do not assume — ask.
+- **#1 needs nothing** — resolved KEEP (the 38.48 beaming stands as drawn).
+- **Traps for this work:** the IR schema is a GATE — a rejected build DELETES
+  the page (the build script snapshots to `.bak` first) · the print score is
+  drawn from the IR, so `--rebuild-ir` is the step that is easy to miss.
+
+- *(day 39 earlier: both former items DONE — ENS closed (D82), M1/M2 promoted (D81).)*
 
 ### OPEN QUESTIONS
 

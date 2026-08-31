@@ -2940,3 +2940,46 @@ assignment gesture copied from paper. Live flexibility is traded away
 knowingly; the flexible thing is the PIECE, not the app. Also lived-experience
 pruning: looping rescinded entirely — *"looping was problmatic in 1st verson"* —
 the repeat move is the conductor hitting the mark again.
+
+---
+
+## Day 39 — the archive answers the composer about the composer
+
+**The exchange, in one line:** the composer asked *why they had made a
+notation decision*, and the system answered from its own record — not by
+re-deriving, and not by asking them to remember.
+
+**Composer (day 39, T1 @38.48):** *"Do we have any record of why I made that
+beaming decision? Why did I beam the one normal sixteenth along with the seven
+four rather than… the sixteenth with the previous sixteenth rest, and then the
+seven four in its own beaming?"*
+
+**What the answer was made of** — three artifacts, none of them this
+conversation: the day-28 verdict rounds (the cuts are the composer's own), D67
+(a cut lands where the pace changes) supplying the *reason* there is no seam
+at that joint, and the "Aa" ruling fixing bracket scope per beat. Plus one
+measurement made on the spot: the gap into the tuplet is 161 ms against the
+tuplet's own 158/157 — **the same pace, so nothing to cut.**
+
+**Why this is the paper's point, not an anecdote.** The composer's question was
+not "what did I decide" (a lookup) but **"why did I decide it"** — the thing
+that normally survives only in a person's head and dies there. The process kept
+the grouping, the principle, the rejected alternative, and the numeric evidence
+in separate documents, and they reassembled into an argument on demand, months
+of working-days later. **The composer then reversed nothing** — they said
+*"keep the beaming."* The record did not merely explain the past decision; it
+re-earned it.
+
+**The AI's own framing, verbatim, offered back to the composer:** *"Beams say
+what belongs together; the bracket says where the pace bends inside it."*
+
+**The counter-case, same sitting, and it belongs next to the above.** The
+composer reported a visual defect surviving everywhere except the morph
+sections. The record explained that too — but this time it explained a **gap**:
+day 36 had fixed the shadow for two named figures and recorded, deliberately,
+*"curveMeter deliberately stays at 0.3 — it was not one of the variants."*
+A correctly-scoped decision, correctly documented, that **outlived its scope**.
+The same discipline that let the archive defend a decision let it expose an
+un-generalized one — in a single grep. *The moral is not "write things down";
+it is that a decision's recorded SCOPE is the thing that later tells you where
+the fix did not reach.*
