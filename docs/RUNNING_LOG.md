@@ -16211,3 +16211,6 @@ ending dynamic" is true here — the census said yes** (item 12's numbers:
 97 curves, all bottom-anchored, every rising curve topping out ≥80%, 67 ppp
 marks pairing the 67 rising curves) — so the SQ sentence stands unedited.
 The gliss sub-block is held back pending the composer's call.
+
+
+**14 · THE VIDEO IS RE-RENDERED AND MEASURED (running-order step 6, video half).** phase3+phase4 completed in the background (all five mp4s fresh: V-MAIN, ZOOM-MASTER, V-TOP, V-BOT, V-CUT — V-CUT 6.9 min, 55.5 fps, ffmpeg exit 0). **phase5 verdicts:** cut-source checks PASS (V-CUT matches the right source at every probe, <1%) · meter-colour checks PASS (gliss #f57e47, cresc #bafd4e in the film — both within 12 of the app; the compositor fix and A1 are in the film) · **the drift check reads 0.00% at the two morph probes (~303, ~450) and 0.65% at t=730 — which is the day-40 fix ITSELF showing in the film** (standdown to one meter, the tube, congruence, fillOpacity 0.6 all live at 730; the archive holds the OLD look). Confinement proven at film level: only frames carrying general curve followers differ from the approved copy; morph frames are byte-zero. **The archive step (NEW dated folder) deliberately NOT taken** — it waits on the composer approving these renders as the submission copy.
