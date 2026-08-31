@@ -69,6 +69,12 @@ const w0 = mid - winSpan / 2, w1 = mid + winSpan / 2;
 const model = Layout.layoutSection(ir, glyphs, Object.assign(
   { m4AttackLines: false, frameParts: FRAME_PARTS },
   (C.engraving && C.engraving.layout) || {}));
+// v3.1 (day 40, composer: neighbouring lanes leak into the crop headroom):
+// draw ONLY the target lane by default — the view keeps ALL ten systems, so
+// geometry is untouched; the neighbours are simply not drawn. --keepNeighbors
+// restores the full frame (e.g. for a multi-lane shot).
+const ONLY = process.argv.indexOf('--keepNeighbors') < 0;
+if (ONLY) model.systems = model.systems.filter(sy => sy.part === part);
 const view = Coords.makeView({ widthPx: W, heightPx: H, window: [w0, w1], systems });
 
 // ---- static page (shared module: D4 bricks off, engraving registry) ----
@@ -83,7 +89,7 @@ const inst = Anim.collect(ir, null, C.animated, {
   parts: ir.source.parts, meta: false,
   deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}),
 });
-const overlay = Anim.frameSvg(inst, view, t, C.animated);
+const overlay = Anim.frameSvg(ONLY ? inst.filter(i => i.part === undefined || i.part === part) : inst, view, t, C.animated);
 svg = svg.replace('</svg>', '<g class="anim">' + overlay + '</g></svg>');
 
 // ---- crop to the lane + span, via the viewBox — no rescaling ----

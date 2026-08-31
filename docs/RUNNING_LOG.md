@@ -16281,3 +16281,6 @@ together"; BALANCE holds a ten-note chord, no glissando, drawn as such.
 C2's example sentences amended mid-turn ("you would…", go-line hyphenated
 everywhere). Chart palette kept page-native (ink line, one orange accent),
 single measure per panel — no categorical set to validate.
+
+
+**18 · CROP NOTES APPLIED — and leakage killed at the source, not in Inkscape.** Composer approved the v3 look with three crop notes (E1: cut the above-lane note at right and the previous bar stub at left; E2: crop out what is essentially example one; clusters: the top/bottom-track leakage). Answer: capture_lane v3.1 — the frame keeps all ten systems for geometry but DRAWS only the target lane (model.systems filtered; anim instances too; --keepNeighbors restores the full frame). E1 re-spanned 7.05–7.95, E2 5.5–7.05. File sizes tell it: clusters 534 KB → 54 KB, E1/E2 ~80 → ~19 KB — the difference WAS the neighbours. The Inkscape fallback stands unneeded; a full-frame SVG for hand-editing is one flag away if ever wanted.
