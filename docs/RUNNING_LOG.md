@@ -16194,3 +16194,20 @@ performance-notes work.
 
 
 **12 · STEP 4 OPENED — the SQ source secured locally, the dictation doc built.** The composer pointed at the string-quartet Performance Instructions on their site; the SAME file lives in the local piece-#1 repo (docs/notation_instructions/index.html), so it was pulled from disk, not the web. All eleven sections extracted verbatim into docs/PERFORMANCE_NOTES.md Part A, each with a first-guess carry-over flag (Curve-Based Crescendo, Conducted Articulation, the Notation-Fragments abandon rule, the accel/decel concept = strongest candidates; the string-technique sections flagged strings-specific). Part B = this piece's eighteen device stubs in score order, the dictation targets. Part C empty, fills as the composer speaks — same as-it-is-said rhythm as the proofread ledger. Meanwhile the video render runs in the background.
+
+**13 · C1 ON THE PAGE — the mock exists and the first image is generated,
+not clipped.** Composer asked "are you able to clip an image?" — answer
+became a tool: `tools/capture_lane.js` renders one part's lane at one
+instant as a standalone SVG through the SAME modules the app and video use
+(renderSection + frameSvg with drawnOf), so an instruction image can never
+drift from the score. First capture: T2 @ 691.19 (the 689.43–691.83 swell,
+`ev-wc-ta4-2452`), window 688.8–692.0 — go line, ppp→fff arrow, ledgered
+G1, the wedge, the tube at the cursor. The mock page
+`docs/notation_instructions/index.html` mirrors the SQ page (stylesheet
+copied verbatim); section 1 carries the composer's trimmed text (the
+animated-dial sentence removed — no dial in this piece). **Before landing
+the text the composer asked whether "bottom = starting dynamic, top =
+ending dynamic" is true here — the census said yes** (item 12's numbers:
+97 curves, all bottom-anchored, every rising curve topping out ≥80%, 67 ppp
+marks pairing the 67 rising curves) — so the SQ sentence stands unedited.
+The gliss sub-block is held back pending the composer's call.

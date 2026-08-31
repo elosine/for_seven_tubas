@@ -10,15 +10,15 @@
 
 ## POSITION — read this first on any pickup
 
-- **Step 4 ACTIVE (day 40).** Source material secured: the SQ No. 1
-  Performance Instructions, pulled from the LOCAL repo
-  (`string_quartet_no1-composer/docs/notation_instructions/index.html` — the
-  same file the composer's site serves). All eleven sections below.
-- **Dictation NOT started yet.** Next action: composer goes through the
-  score and dictates; log each item here the moment it is said.
-- Final format owed at the end (mirroring the SQ page): HTML + images per
-  device. Image capture from the app is a build step at the END, after the
-  text settles.
+- **Step 4 ACTIVE (day 40). THE MOCK PAGE EXISTS:**
+  `docs/notation_instructions/index.html` (+ the SQ stylesheet, copied) —
+  served at http://localhost:5200/docs/notation_instructions/index.html.
+  **Images are generated, not screenshotted:** `tools/capture_lane.js`
+  renders one part's lane at one instant as a standalone SVG through the
+  REAL modules (renderSection + frameSvg, drawnOf wired) — regeneration
+  commands live as comments next to each <img> in the HTML.
+- **C1 landed (Curve-Based Crescendo).** Dictation continues — composer goes
+  through the score; log each item the moment it is said.
 
 ---
 
@@ -183,4 +183,25 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
 
 # PART C — THE DICTATED NOTES
 
-*(empty — filled as the composer speaks)*
+## C1 · Curve-Based Crescendo · DRAFTED (day 40) — on the mock page
+- said: keep the SQ section; new image from THIS score at **691.19, T2**;
+  keep the text **minus the last sentence** ("An animated dial…" — this
+  piece has no dial).
+- checked first (composer asked): *"bottom = starting dynamic, top = ending
+  dynamic — is this true in this score?"* **Measured census, day 40: all 97
+  drawn curves start at the lane bottom (≤5%); every rising curve (57
+  per-event + 10 final-cresc) ends AT its own top; none peak below 80% of
+  the lane; exactly 67 ppp marks = one per rising curve.** So the sentence
+  is true here as written — the absolute lane scale (top = max loudness,
+  the tube ruling) and the SQ's relative reading coincide because the
+  curves all span bottom-to-top. The 30 morph arcs rise-and-fall (end ≠
+  top) — they get their own prose in the morph section, not this one.
+- done: `docs/notation_instructions/index.html` section 1 — text as
+  dictated; image `images/curve_cresc_691_T2.svg` generated from
+  `ev-wc-ta4-2452` (T2, 689.43–691.83 swell on G1), window 688.8–692.0,
+  cursor + tube at 691.19. Regen command in the HTML comment.
+- **OPEN:** the SQ sub-block "Curve-Based Crescendos with Glissandos" is
+  HELD BACK (its image is SQ notation; this piece's gliss+cresc pairing
+  lives in the morph sections) — composer to call: fold into the morph
+  section's note, adapt here with a this-score image, or drop.
+- verdict: *(pending — composer looks at the mock page)*
