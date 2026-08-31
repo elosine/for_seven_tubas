@@ -311,7 +311,14 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
 - demos paragraph dictated (day 40) and on the page: *"I have prepared demo recordings at the links below. These demonstrate how the maximum and minimum beating levels sound in each section for each pair and then provide a two-tuba demo of each beating section."* Five per-pair link slots stubbed; URLs land when the videos exist (plan questions a–e open in chat).
 - verdict: *(pending)*
 
-## DEMO VIDEOS — build spec (day 40, composer-approved so far; NOT built)
+## DEMO VIDEOS — BUILT + APPROVED (day 40; awaiting YouTube URLs only)
+
+> **Status: the five videos are built and composer-approved** ("ok those are
+> good ty"). notation/video/renders/demos/demo-{T1T2,T3T4,T5T6,T7T8,T9T10}.mp4,
+> 4:52–5:00 each. Statics carry SUSTAINED max beating from demo-heldmax.wav
+> (option b; one wrong-track drop found by symptom and fixed by the composer).
+> **Remaining: composer uploads to YouTube → five URLs into the page's link
+> slots.** Build spec below as executed; demos.sh re-runs everything.
 - **Template = the existing full-demo pipeline** (composer: "make sure we are
   consulting that process… not reinventing the wheel"): audio = MIDI through
   the Reaper rack, rendered by the composer (as the full demo was made);
