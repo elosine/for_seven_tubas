@@ -16006,3 +16006,39 @@ number the review can be argued from ("20 of 22 raised, none demoted"; "5 of 435
 overlays changed, all cl-50"). The composer's eye is then spent on the question
 only it can answer — *is that the right look* — instead of on *did the change
 land where I asked*.
+
+**5 · VERIFIED IN THE RUNNING APP (composer asked "did the main score get
+updated, and which save file").** The question exposed a distinction worth
+writing down plainly, because it will recur every round of this loop:
+
+**Batch 1 touched NO SAVE FILE.** `scores/` is untouched;
+**`piece-final-draft-001` is unchanged**. The three fixes live at three other
+layers — the **IR** (`notation/ir/db1.ir.json` = "MAIN DRAFT — all notation so
+far" in the picker), the **renderer** (`notation/lib/layout.js`), and the
+**registry** (`notation/registry/container.json`). That is the ledger's own
+apply rule working as designed (*"fixes land at the durable layer so
+`--rebuild-ir` reproduces them"*) — the piece DATA did not change, only how it
+is drawn and marked. A proofread correction is not a composition edit.
+
+**Checked in the browser at localhost:5200, not inferred from the diff:**
+- the live page fetches `container.json` fresh → served registry reads
+  `curveMeter` **0.6** · `glissMeter` 0.6 · `crescMeter` 0.6, with the
+  `_noteDay39` present;
+- ran the **live-loaded** `layout.js` over db1 inside the page: **22 cuivré
+  marks · 2 on the tag row · baseline 4.2416 ss** — identical to the offline
+  measurement, so the browser has the new code;
+- rendered db1 at 84.3–86.3 s: the T1 cuivré sits at the medium gap;
+- rendered db1 at 78.3–80.3 s: **f on note 1, mf on the last, no accents**,
+  5:4 bracket intact. Item #3 confirmed by eye as well as by overlay diff.
+
+**Trap #3 did NOT apply, and it is worth saying why.** The known trap is that
+`notation.html` omits `engraving` when it calls the renderer in the scroll view
+(line 386; line 462 passes it), so an `engraving.render` number can be changed
+and the live page will not move. `curveMeter` is **not** in that block — it is
+`animated.curveMeter`, and line 495 hands animobj the whole `C.animated` object.
+Different path, no trap. *Checked before claiming it, precisely because the
+existing trap made the claim doubtful.*
+
+**One practical consequence for the composer:** `layout.js` is a `.js` file, so
+an already-open notation tab needs a **hard reload** to see the cuivré change.
+Data files (the IR, the registry) hot-reload; code does not.
