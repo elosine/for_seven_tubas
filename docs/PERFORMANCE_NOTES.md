@@ -310,3 +310,26 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
 - amendment (composer, day 40): the tuning-pegs sentence added (*"Think of the pair of tubas as the two strings and the glissandos as the tuning pegs — in this case, both tuning pegs move"*) after the guitar-tuning sentence; the "pairs glissando away…" sentence MOVED to directly after "…fast and vice versa". Applied to the page.
 - demos paragraph dictated (day 40) and on the page: *"I have prepared demo recordings at the links below. These demonstrate how the maximum and minimum beating levels sound in each section for each pair and then provide a two-tuba demo of each beating section."* Five per-pair link slots stubbed; URLs land when the videos exist (plan questions a–e open in chat).
 - verdict: *(pending)*
+
+## DEMO VIDEOS — build spec (day 40, composer-approved so far; NOT built)
+- **Template = the existing full-demo pipeline** (composer: "make sure we are
+  consulting that process… not reinventing the wheel"): audio = MIDI through
+  the Reaper rack, rendered by the composer (as the full demo was made);
+  picture = export_video.js + the phase-script pattern.
+- **Shape: five videos, one per pair** (T1+T2 … T9+T10):
+  labeled static image (label ON the image, no separate card) + held-beating
+  sound, 10 s per static segment → whole BLOOM section, two-lane score
+  animation with the pair demo audio → 1–2 s gap → Convergence: high static
+  (10 s) then LOW/nadir static (10 s) → whole CONVERGENCE section. No
+  BALANCE segment.
+- **a)** no stems; composer solos pairs in Reaper from the MIDI. AI hands the
+  exact render list (parts + spans) at build time.
+- **b)** two-lane renders; probe the exporter sparse-lane path first;
+  fallback = crop the existing full-frame video + insert sound.
+- **c)** label on image · 10 s statics (also covers the 0.2 Hz nadir: two
+  full cycles at 10 s).
+- **e) OPEN** — composer listening to the nadir points first. Measured:
+  T1+T2 0.24 Hz @291 s (4:51) · T3+T4 0.73 @299 (4:59) · T5+T6 0.80 @295
+  (4:55) · T7+T8 1.15 @293 (4:53) · T9+T10 1.93 @298 (4:58); highs all at
+  259.6 s (4:20): 9/13/18/27/36 Hz.
+
