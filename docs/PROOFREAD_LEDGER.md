@@ -14,14 +14,14 @@
   sitting there (day 39, mid-session checkpoint). Parts T2–T10 unswept, and
   T1 past 140 s unswept — **the sweep is PARTIAL, not finished.**
 - **Parts done:** none of 10 complete (T1 partial to 140 s)
-- **Batch state:** batch 1 = **3 items, ALL APPLIED and re-rendered**
-  (2026-08-31): #2 cuivré gap · #3 T1 78.49 dynamics · #4 curveMeter
-  shadow. Eleven batteries green; the print PDF is fresh (68 pp).
-  #1 resolved KEEP, no work owed.
-- **PICK UP HERE → REVIEW BATCH 1.** The timecode list has gone to the
-  composer; each item wants a verdict, **GOOD ✓ or RETRY ↻**, recorded here
-  as it is said. Only after that does the sweep resume (composer decides:
-  continue T1 past 140 s, or move to T2).
+- **Batch state (day 40):** #1 KEEP · **#2 GOOD ✓ · #3 GOOD ✓** ·
+  #4 went RETRY (opacity was the wrong diagnosis) and is **re-APPLIED as
+  batch 2**: standdown at the final cresc + frames hug fills, verified
+  numerically in node AND the live page; eleven batteries green.
+- **PICK UP HERE → #4 needs the composer's LOOK** (~76 s · ~700 · ~730;
+  morph ~302 must look unchanged; hard-reload first — animobj.js is code).
+  After that verdict the sweep resumes (composer decides: T1 past 140 s,
+  or T2).
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 
@@ -116,7 +116,7 @@ a part is only ✓ when the composer says they're done with it.)*
 - verdict: **KEEP the beaming** — composer, day 39: "keep the beaming."
   No change made; the record (D69 grouping + Aa bracket scope) stands.
 
-### #2 · ALL parts, every cuivré text · APPLIED (batch 1)
+### #2 · ALL parts, every cuivré text · GOOD ✓ (composer, day 40)
 - said: "move, or make all the cuivrés — the text — have the medium gap
   instead of the smallest gap, between them and the next thing, which is
   probably the notehead"
@@ -149,8 +149,17 @@ a part is only ✓ when the composer says they're done with it.)*
   — and T1 @86.58, already there before) · ZERO flipped to the fallback.**
   That last number was the real risk of moving both gaps at once; it did not
   happen. Eleven batteries green.
+- **review (day 40):** composer hard-refreshed and saw no change — five times.
+  Diagnosed: the server WAS serving the new code (verified by curl); the raise
+  is 0.15 ss ≈ **1.2 px at main-view scale** (2.4 px in zoom ×2) — a real but
+  near-invisible move. The three-tier system confirmed against the registry's
+  own day-31 note: 0.15 dot · **0.30 cuivré (now)** · 0.45 dynamics. Composer
+  accepted on that confirmation, per their stated condition ("can you just
+  look and confirm that it is using the middle gap, and I'll just accept
+  that").
+- verdict: **GOOD ✓** — "those two are good" (day 40).
 
-### #3 · T1 @ 78.49 (cluster 78.332–80.094@0) · APPLIED (batch 1)
+### #3 · T1 @ 78.49 (cluster 78.332–80.094@0) · GOOD ✓ (composer, day 40)
 - said: "change the dynamics: f at start, mark the last partial mf, no
   accents. We're bumping the dynamic rule because most of them are louder —
   take the louder version as the base, use a quieter marking for the one
@@ -175,6 +184,8 @@ a part is only ✓ when the composer says they're done with it.)*
   (`ev-wc-1750`, 79.944) gains `dynMark` **mf**. The stray
   `beamHasArtic: accent` on the beam group is gone too, so the figure now
   carries zero accent ink. Two marks where there were five.
+- verdict: **GOOD ✓** — "those two are good" (day 40; composer reviewed at
+  T1 78.48, the timecode handed over on request).
 - rule stated by the composer (capture, don't generalize yet): **the
   ambient dynamic should be the MAJORITY loudness** — when most notes are
   loud, base = the louder dynamic, mark the softer exception; and a softer
@@ -183,7 +194,7 @@ a part is only ✓ when the composer says they're done with it.)*
   recurs.
 
 
-### #4 · GLOBAL (all curve followers outside the morph sections) · APPLIED (batch 1)
+### #4 · GLOBAL (all curve followers outside the morph sections) · re-APPLIED (batch 2, day 40)
 - said: "the curve followers at the end starting around 685 — none of these
   were fixed from the morph section. There's the additional shadow behind
   the actual curve follower. We got rid of those in the morph section but
@@ -229,7 +240,50 @@ a part is only ✓ when the composer says they're done with it.)*
   day 39 — cosmetic, noted so a later read does not go hunting.)*
 - **NOT VISIBLE IN THE PRINT PDF** — animated layer only. It lands in the app
   view now and in the video at running-order step 6.
-- verdict: *(pending — composer review)*
+- **verdict: RETRY ↻** — composer, day 40: *"the meters are still not
+  correct, overshoots."* Correct — **the day-39 diagnosis was wrong; opacity
+  was never the mechanism.** The 0.6 change stays (parity with the morph
+  meters), but it could not fix what the composer sees.
+- **REAL CAUSE (probed in the live app, day 40, before proposing anything):**
+  two geometry issues, one per region —
+  1. **The outline FRAME always spans the full lane** (`animobj.js`, all
+     three meter renderers draw `rect y=laneTop height=laneH` regardless of
+     level). Above the bright fill there is an empty outlined box running to
+     the lane top — the "shadow" in the density builds (~76 s: one meter,
+     fill 0.74, frame to the top) and the 685–709 swells.
+  2. **At the final crescendo (709.4–751.4, the fullHeight cresc) TWO meters
+     ride the same cursor x** — each note's own per-event curveMeter (its
+     surge envelope) PLUS the section crescMeter (the big wedge). Probed
+     t=730: 9 of 10 parts doubled, per-event lvl 0.62–0.63 vs section
+     0.55–0.56 — the taller per-event fill pokes above the wedge = the pale
+     tip. The W1b standdown (day 37) DELIBERATELY excluded fullHeight cresc
+     (code comment: "the trance's fullHeight crescendo is NOT in this map,
+     so its per-event meters are untouched") — right call for the midline-
+     bleed problem it was solving, wrong for this one.
+- **PROPOSED FIX (awaiting composer go):** (a) extend the W1b standdown to
+  fullHeight cresc spans — one follower at the end, the section one, matching
+  the wedge exactly; (b) the frame hugs the fill (outline y/height = fill
+  y/height) on the per-event curveMeter and the FULL crescMeter — nothing
+  ever drawn above the current level. **Morph half-lane meters untouched**
+  (approved look). Blast radius measured: exactly 10 fullHeight overlays in
+  db1, all the final crescendo; test_animobj carries no assertions on these
+  meters.
+- **done (day 40, composer's go: "good thank you"):** `notation/lib/animobj.js`,
+  three edits — (a) the W1b ownership map (`halfLane` → `owned`) now includes
+  ALL cresc overlays, fullHeight included; (b) curveMeter's outline frame =
+  the fill's y/height; (c) crescMeter's frame likewise, **FULL variant only**
+  (`inst.full ? …`) — the half-lane morph frame kept.
+- **verified (node probe + the LIVE page after reload, both):**
+  t=730 & t=745 → **exactly 1 meter per part** (crescMeter FULL), frame==fill
+  on every emitted rect · t=76.2 → 1 curveMeter, hugged · t=700 swells →
+  per-event meters, hugged · **t=302 morph → glissMeter+crescMeter pair
+  unchanged, half-lane frames still 50.0 px on the fake lane** · leveled
+  events straddling the 709.4 boundary: **0** (the standdown cuts nothing
+  mid-note). Eleven batteries green.
+- **where it shows:** the app now (hard-reload the tab — animobj.js is code);
+  the video at running-order step 6. Never the PDF.
+- verdict: *(pending — composer look: ~76 s density build · ~700 swells ·
+  ~730 final crescendo · ~302 morph must look UNCHANGED)*
 
 <!-- ITEM FORMAT — one chunk per item, statuses in the heading line:
 

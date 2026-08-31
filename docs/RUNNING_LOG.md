@@ -16042,3 +16042,49 @@ existing trap made the claim doubtful.*
 **One practical consequence for the composer:** `layout.js` is a `.js` file, so
 an already-open notation tab needs a **hard reload** to see the cuivré change.
 Data files (the IR, the registry) hot-reload; code does not.
+
+
+**6 · THE METER FIX APPLIED (composer: "good thank you") — and the day-39
+diagnosis formally reversed.** The composer's framing of the ask, verbatim,
+because it names the bar the loop has to clear: *"This has been plaguing us for
+a while now. We've had several goes at this. I just want to make sure we're
+getting this resolved… Just tell me what's going on or what we tried to fix
+already in this last pass."* What was going on, measured in the live app before
+touching anything: **(1)** every meter drew its outline frame at FULL LANE
+height regardless of level — the empty box above the fill is the "shadow" in
+the density builds and the 685–709 swells; **(2)** at the final crescendo
+(709.4–751.4, the fullHeight cresc) **two meters rode the same cursor x** —
+each note's surge follower plus the section wedge follower (probed t=730:
+9 of 10 parts doubled, per-event lvl 0.62–0.63 over section 0.55–0.56 — the
+pale tip). The day-37 W1b standdown had EXCLUDED fullHeight cresc on purpose,
+in as many words, for a different problem (midline bleed). The day-39/40
+opacity change (0.3 → 0.6) stays as parity but fixed neither mechanism.
+
+**The fix, three edits in `notation/lib/animobj.js`:** the W1b ownership map
+(renamed `halfLane` → `owned`) now takes ALL cresc overlays — per-event
+curveMeters stand down under the final crescendo too; curveMeter's frame hugs
+its fill; crescMeter's frame hugs its fill in the FULL variant only, so the
+half-lane morph meters keep their approved frames untouched.
+
+**Verified twice — node probe AND the live page after a forced reload:**
+t=730/745 exactly ONE meter per part (the wedge follower), frame==fill on
+every emitted rect · t=76.2 one hugged meter · t=700 swells hugged ·
+**t=302 morph pair unchanged, half-lane frames intact** · leveled events
+straddling 709.4: ZERO (the standdown cuts no note mid-flight). Eleven
+batteries green. Shows in the app on a hard reload and in the step-6 video
+re-render; the PDF never had it.
+
+**7 · The cuivré non-mystery, resolved by a curl.** The composer hard-refreshed
+five times and still saw "no change"; the AI's stale-tab theory was WRONG — a
+curl of :5200 showed the server serving the new layout.js all along. The real
+explanation: the raise is 0.15 ss ≈ **1.2 px at main-view scale** (2.4 px in
+zoom ×2) — a real move below the threshold of "I refreshed and something
+changed". The composer then re-anchored the check to the SYSTEM, not the look:
+*"there's the full gap… the close one for the staccato dot, and the cuivré was
+meant to be the middle one. can you just look and confirm that it is using the
+middle gap, and I'll just accept that?"* — confirmed against the registry's
+day-31 three-tier note (0.15 dot · 0.30 MEDIUM · 0.45 standard) and accepted.
+**#2 GOOD ✓ · #3 GOOD ✓** (dynamics reviewed at T1 78.48 after the composer
+asked for the timecode and lane). Lesson filed: when a fix moves something by
+a pixel, SAY the pixel count when handing it over — "verified, 20 of 22
+raised" reads as "you will see it", and they could not.

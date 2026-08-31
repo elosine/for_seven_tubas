@@ -2983,3 +2983,43 @@ The same discipline that let the archive defend a decision let it expose an
 un-generalized one — in a single grep. *The moral is not "write things down";
 it is that a decision's recorded SCOPE is the thing that later tells you where
 the fix did not reach.*
+
+
+---
+
+**Day 40 — the wrong fix survives its first review, and what caught it (both
+sides verbatim).** Day 39's ledger item #4 diagnosed a visual defect
+confidently: *"the composer is exactly right — it is one number"* (fillOpacity
+0.3 → 0.6). Day 40 applied it. The composer looked once and reversed it in
+five words: **"the meters are still not correct , overshoots"** — then, asked
+to explain, raised the stakes: **"This has been plaguing us for a while now.
+We've had several goes at this. I just want to make sure we're getting this
+resolved."** The AI's response was to probe the running app before defending
+anything, and the probe falsified the day-39 diagnosis: the defect was never
+opacity but geometry — a full-lane outline frame above every fill, and, at the
+final crescendo, two followers stacked on one cursor (t=730: 9 of 10 parts,
+0.62 vs 0.56). The AI's reversal, verbatim: *"your report was right and the
+day-39 diagnosis was wrong — opacity was never the mechanism."*
+
+Two things for the paper. **First, the failure mode:** day 39 pattern-matched
+the composer's words onto the nearest prior fix (W1's staff-lines-through-fill
+story) because that story had a documented happy ending. The composer's
+original wording — *"the additional shadow BEHIND the actual curve follower"* —
+described the geometry precisely; the record's gravity pulled the reading
+toward the known fix anyway. **Second, the recovery mode:** what un-stuck it
+was not better exegesis but a measurement with numbers attached, and the
+composer's own escalation protocol — stepping back (*"Let's take a step back…
+make sure we're on the same page"*), then serializing (*"let's take one issue
+at a time"*), then demanding the state of the world in plain terms (*"Just
+tell me what's going on"*). The division of labor held: the composer never
+debugged; they managed the conversation until the AI's evidence caught up
+with their eye.
+
+**The companion vignette — five hard refreshes chasing 1.2 pixels.** The
+cuivré gap fix was real, verified, and invisible: 0.15 ss ≈ 1.2 px on screen.
+The AI's first theory (stale browser tab) sent the composer refreshing five
+times; a curl of the server disproved it in one line. The composer's
+resolution move is the quotable part: they stopped asking what it looked like
+and asked what SYSTEM it obeyed — *"can you just look and confirm that it is
+using the middle gap, and I'll just accept that?"* — trading perception for
+verification exactly where perception stops working.

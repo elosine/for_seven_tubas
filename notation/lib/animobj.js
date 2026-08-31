@@ -152,8 +152,14 @@
       : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
     const w = st.wPx || 8;
     const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    // Day 40 (PROOFREAD_LEDGER #4 RETRY): in the FULL variant (the final
+    // crescendo) the frame hugs the fill — nothing above the current level,
+    // so the follower's top IS the wedge height. The half-lane morph variant
+    // keeps its approved full-half frame, untouched.
+    const frY = inst.full ? (yB - lvl * H) : yMid;
+    const frH = inst.full ? (lvl * H) : H;
     return [
-      '<rect x="' + x.toFixed(1) + '" y="' + yMid.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + frY.toFixed(1) + '" width="' + w + '" height="' + frH.toFixed(1) +
         '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
       '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
         '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
@@ -187,10 +193,15 @@
       : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
     const w = st.wPx || 8;
     const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    // Day 40 (PROOFREAD_LEDGER #4 RETRY): the frame used to span the FULL
+    // lane, so an empty outlined box always stood above the fill — the
+    // composer's "shadow" in the density builds and the 685-709 swells. The
+    // outline now HUGS the fill: nothing is drawn above the current level.
+    const fillY = yB - lvl * H, fillH = lvl * H;
     return [
-      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + fillY.toFixed(1) + '" width="' + w + '" height="' + fillH.toFixed(1) +
         '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
-      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+      '<rect x="' + x.toFixed(1) + '" y="' + fillY.toFixed(1) + '" width="' + w + '" height="' + fillH.toFixed(1) +
         '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
     ];
   });
@@ -249,21 +260,26 @@
     // so this module keeps no second copy of the membership rules (D50).
     const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
     // W1b (day 37, composer: "there is still bleed in the meters"): spans where
-    // a HALF-LANE section meter owns the part's lane — any gliss overlay, or a
-    // cresc overlay without fullHeight. Inside these, per-event curveMeters
-    // stand down (below); the trance's fullHeight crescendo is NOT in this map,
-    // so its per-event meters are untouched.
-    const halfLane = new Map();   // part -> [[t0,t1], ...]
+    // a SECTION meter owns the part's lane — any gliss overlay, or any cresc
+    // overlay. Inside these, per-event curveMeters stand down (below).
+    // Day 40 (PROOFREAD_LEDGER #4 RETRY, composer: "the meters are still not
+    // correct, overshoots"): the day-37 version EXCLUDED fullHeight cresc, so
+    // at the final crescendo (709.4-751.4) every note's own meter rode ON TOP
+    // of the section follower — two fills at the same x, the per-event one
+    // poking above the wedge (probed t=730: 9 of 10 parts doubled, 0.62 vs
+    // 0.56). The section follower is THE follower; per-event meters now stand
+    // down under fullHeight cresc too.
+    const owned = new Map();   // part -> [[t0,t1], ...]
     for (const ov of ((ir && ir.overlays) || [])) {
       const tg = ov.target || {};
       if (tg.part === undefined || !tg.span) continue;
-      if (ov.kind === 'gliss' || (ov.kind === 'cresc' && !(ov.value && ov.value.fullHeight))) {
-        if (!halfLane.has(tg.part)) halfLane.set(tg.part, []);
-        halfLane.get(tg.part).push(tg.span);
+      if (ov.kind === 'gliss' || ov.kind === 'cresc') {
+        if (!owned.has(tg.part)) owned.set(tg.part, []);
+        owned.get(tg.part).push(tg.span);
       }
     }
     const laneOwned = (part, a, b) =>
-      (halfLane.get(part) || []).some(s2 => a < s2[1] && b > s2[0]);
+      (owned.get(part) || []).some(s2 => a < s2[1] && b > s2[0]);
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
         // day 36: a chunk gc device may carry its own PRESET — the trance
