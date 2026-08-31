@@ -66,7 +66,11 @@ const ir = rd(path.join('notation', 'ir', irId + '.ir.json'));
 let score = null;
 try { score = rd(path.join('scores', ir.source.score + '.json')); } catch (e) { score = null; }
 
-const FRAME_PARTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];   // the jury frame: all lanes, always
+// day 40 (demo videos): --parts 0,1 renders a subset of lanes through the
+// sparse-lane path (PP fix B). DEFAULT = all ten, the jury frame, unchanged —
+// confinement proven by a byte-identical default probe frame.
+const FRAME_PARTS = (arg('parts', '') || '').split(',').filter(Boolean).map(Number);
+if (!FRAME_PARTS.length) FRAME_PARTS.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 const model = Layout.layoutSection(ir, glyphs, Object.assign(
   { m4AttackLines: false, frameParts: FRAME_PARTS },
   (C.engraving && C.engraving.layout) || {}));
@@ -193,12 +197,12 @@ function raster(svg, background) {
 // ---------------------------------------------------------------- anim layer
 const _dev = Layout.deviceResolver(ir, (C.engraving || {}).layout || {});
 const animInstances = AnimObj.collect(ir, score, C.animated, {
-  parts: ir.source.parts, meta: false,     // D4: META off
+  parts: FRAME_PARTS, meta: false,         // D4: META off; day 40: scoped to the rendered lanes
   deviceOf: _dev,
   // day 40: the meters ride the DRAWN curve (layout.drawnLevelSamples is the
   // one source) — the video stays pixel-congruent with the app by sharing it
   drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),
-});
+}).filter(i => i.part === undefined || FRAME_PARTS.includes(i.part));   // day 40: no instance may reference an undrawn lane
 function overlaySvg(view, t) {
   const inner = AnimObj.frameSvg(animInstances, view, t, C.animated);
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
