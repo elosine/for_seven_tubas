@@ -267,3 +267,44 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   Section PLACEMENT (after Curve-Based Crescendo) was AI's ordering call —
   composer may reorder.
 - verdict: *(pending)*
+
+
+## C4 · Acoustic Beating (the middle movement) · DRAFTED (day 40) — on the page
+- said (dictation, day 40): the movement intro (*"The middle movement of this
+  piece uses acoustic beating as the central musical material… pairs…
+  micro-glissandos… beating glissandos… guitar tuning method… one goes up
+  while another goes down, and then back together"*), a CHART request
+  (*"timeline… the labels on the y, the left [= the pairs]… the sequence:
+  starting beating in Hertz, approximately, to the peak beating amount, and
+  then back down, for all three sections, and I'll have a note about the
+  last one having no glissando"*), the demo-recordings paragraph (*"I have
+  created demo examples… (we'll have to create these)"*), and the Notation
+  block (*"two curves, green bottom = dynamic level, orange top = beating
+  level in this movement; dotted vertical go-lines are rearticulation
+  points — breathe before, rearticulate at the line; pitches at section
+  starts are approximate, calibrate using beating speed/timbre; final
+  section = held chord, crescendos, no glissando"*).
+- **THE CHART IS MEASURED, NOT TYPED** — `tools/gen_beating_chart.js` reads
+  the save's morphBend curves and draws the beat-rate trajectory per pair
+  (|f1−f2| in Hz). What the data says:
+  - **BLOOM:** five unison pairs (T1+T2 F2 · T3+T4 Bb2 · T5+T6 Eb3 ·
+    T7+T8 Ab3 · T9+T10 C#4) bloom apart and return — 0 → **2.0 / 2.6 /
+    3.3 / 4.3 / 5.4 Hz** (higher pairs faster, max split ~35–40 cents) → 0.
+  - **CONVERGENCE:** the INVERSE, with waves — pairs start ~200 cents apart
+    (**9 / 13 / 18 / 27 / 36 Hz**), fuse to near-unison (~**0.2–1.9 Hz**)
+    around 291–299 s, re-open, approach again, and END APART. *(Measured,
+    not assumed; the composer's "and then back together" narrative fits
+    BLOOM — CONVERGENCE re-opens at its end. FLAGGED for the composer's
+    eye on the chart.)*
+  - **BALANCE:** one note per part (a ten-note chord), no glissando —
+    drawn as a held dashed line + the note, no fake beat values.
+- done: the section on the page after Notated Clusters — intro + chart +
+  demos placeholder (*recordings to be added*) + the Notation block, all
+  go-lines hyphenated. ALSO C2's example sentences amended per mid-turn
+  dictation ("you would play… / you would begin the G at the go-line and
+  hold it…").
+- **OPEN:** demo recordings to produce and link (the composer's Reaper
+  session `Bloom-Convergence-Balance_demoRecording.rpp` is presumably
+  this) · a notation-block illustration pending a composer timecode pick ·
+  the CONVERGENCE ends-apart flag above.
+- verdict: *(pending)*

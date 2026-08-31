@@ -16252,3 +16252,32 @@ captions on images** (standing rule), and **C3 Notated Clusters** dictated
 and placed (T9, span 36.05–40.56, cursor 37.23 — the CLOUD02-I figured
 region; placement after Curve-Based Crescendo is the AI's ordering call,
 composer may reorder).
+
+
+**17 · THE IMAGE MYSTERY DIED BY DIFF, AND C4 LANDED WITH A MEASURED CHART.**
+The composer's "images still wrong, what is the back up? inkscape, or is
+there a better way?" got answered by an element-by-element census of the
+app's own DOM against the v2 composite at the same window: the anim layer
+diffed EMPTY and the sheet diff was one number — **the app's zoom view draws
+GC arcs at stroke 3.0, v2 drew 1.5.** The zoom view is the video frame ×2 on
+both axes; v2 rendered video scale, so every mark read thin — the same class
+of bug as v1 (a look reproduced at the wrong parameters), caught this time
+by measuring instead of staring. **v3 = one line** (frame height × zoom,
+window / zoom) and all four images regenerated at the geometry the composer
+actually proofreads in. Backup ladder if a shot still displeases: harvest
+the SVG straight from the app's DOM at reachable timecodes, or hand the
+composer full-frame SVGs to crop in Inkscape — reimplementation is off the
+table either way.
+
+**C4 (Acoustic Beating) landed:** the movement intro, the Notation block
+(green = dynamic, orange = beating level, go-lines = rearticulation points),
+the demos placeholder, and **the beating-sequence chart generated from the
+save's own morphBend data** (tools/gen_beating_chart.js — nothing typed):
+BLOOM's five unison pairs bloom 0 → 2.0–5.4 Hz → 0 (higher pairs faster);
+CONVERGENCE inverts — pairs start ~200¢ apart at 9–36 Hz, fuse to 0.2–1.9 Hz
+near 291–299 s, wave, and by the measurement END APART, which is flagged to
+the composer on the record since their dictated narrative says "back
+together"; BALANCE holds a ten-note chord, no glissando, drawn as such.
+C2's example sentences amended mid-turn ("you would…", go-line hyphenated
+everywhere). Chart palette kept page-native (ink line, one orange accent),
+single measure per panel — no categorical set to validate.

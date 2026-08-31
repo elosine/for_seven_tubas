@@ -47,10 +47,16 @@ const ir = rd(path.join('notation', 'ir', irId + '.ir.json'));
 const FRAME_PARTS = ir.source.parts.slice();
 const rz = (C.realizations || {})['video-jury'] || {};
 const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
+// v3 (day 40, composer: 'images still wrong'): render at the ZOOM geometry,
+// not the video frame. Diffed against the app's own DOM: the zoom view is the
+// video frame x zoom on BOTH axes (H x zoom, window / zoom), which doubles
+// ssPx and stroke widths (arcs 1.5 -> 3.0 at x2) - the look the composer
+// proofreads in. Pad fractions stay identical, so geometry = video x zoom.
 const W = (C.frame && C.frame.widthPx) || 1920;
-const H = (C.frame && C.frame.heightPx) || 1080;
-const topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H;
-const gap = lanes.gapPx / H;
+const H0 = (C.frame && C.frame.heightPx) || 1080;
+const H = Math.round(H0 * zoom);
+const topPad = lanes.padTopPx / H0, botPad = lanes.padBotPx / H0;
+const gap = lanes.gapPx / H0;
 const systems = Coords.systemsForParts(FRAME_PARTS, { topPad, botPad, gap, weights: lanes.weights });
 
 // ---- window: the span centred at the app-zoom horizontal scale ----
