@@ -10,19 +10,18 @@
 
 ## POSITION — read this first on any pickup
 
-- **Sweep:** T1 proofed **0 → 140 s**; composer ENDED the proofreading
-  sitting there (day 39, mid-session checkpoint). Parts T2–T10 unswept, and
-  T1 past 140 s unswept — **the sweep is PARTIAL, not finished.**
-- **Parts done:** none of 10 complete (T1 partial to 140 s)
+- **SWEEP CLOSED — composer, day 40: "proofreading sweep is done."** The
+  formal ledger pass covered T1 0 → 140 s; the composer declared the sweep
+  complete (their call, on record).
 - **Batch state (day 40):** #1 KEEP · **#2 GOOD ✓ · #3 GOOD ✓** ·
   #4 went RETRY (opacity was the wrong diagnosis) and is **re-APPLIED as
   batch 2**: standdown at the final cresc + frames hug fills, verified
   numerically in node AND the live page; eleven batteries green.
 - **ALL FOUR ITEMS CLOSED: #1 KEEP · #2 GOOD ✓ · #3 GOOD ✓ · #4 GOOD ✓**
-  (day 40). **PICK UP HERE → the SWEEP itself, which is PARTIAL:** T1 done
-  0 → 140 s only; T1 past 140 s and T2–T10 unswept. Composer decides where
-  the sweep resumes — or whether the running order jumps to renders first
-  (video re-render owes the meter fixes; the print PDF is already current).
+  (day 40) — and the sweep is CLOSED (above). **THIS LEDGER IS DONE.** The
+  running order moved on: video re-render started (day 40, background);
+  next active step = PERFORMANCE NOTES. A future correction reopens this
+  file with a new item, same loop.
 
 *(AI updates this block at every interaction — it is the cold-resume anchor.)*
 

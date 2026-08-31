@@ -55,49 +55,49 @@ it and announces the position before doing anything.
    global CLAUDE.md section; RUNNING_LOG day 39 has the account.*
 2. ☑ **CLEAR** (done 2026-08-29 — cleared and reopened on Fable via
    `/session-start`; boundary wrap was step 1's).
-3. ► **PROOFREAD LOOP** (Fable) — composer proofreads the print score;
-   corrections logged to a ledger as dictated; AI applies; print
-   re-renders (`build.sh --rebuild-ir`, 3 s) per round. = PLANNER
-   "Polish proof". Open density/barline calls land here too.
+3. ☑ **PROOFREAD LOOP** (done 2026-08-31, day 40) — four items, four
+   closures (#1 KEEP · #2 cuivré medium gap · #3 cl-50 dynamics · #4 the
+   meter congruence root-cause fix + THE TUBE restored). Composer closed
+   the sweep: "proofreading sweep is done." The ledger is the full record.
    **The ledger is BUILT: `docs/PROOFREAD_LEDGER.md`** (day 39) — part-by-part
    sweep via zoom view · items LOGGED → APPLIED → GOOD/RETRY · POSITION block
    = cold pickup after any interruption. **Log every dictated item there the
    moment it is said.**
-   **STATE (day 40, 2026-08-31):** T1 swept 0 → 140 s (partial — nine parts
-   untouched); **batch 1 = #2 #3 #4, APPLIED and re-rendered**, eleven
-   batteries green; #1 resolved KEEP. Next action = the composer verdicts
-   each applied item GOOD ✓ / RETRY ↻, then decides whether the sweep
-   resumes at T1-past-140 or T2. See OPEN AT SESSION END.
+   *(Closed state: all verdicts GOOD; the day-40 congruence work grew out of
+   #4 — layout.drawnLevelSamples is the one drawn-level source, the tube is
+   a composer-defined performance gauge, test_animobj carries the permanent
+   congruence + tube battery.)*
 
-4. **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
+4. ► **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
-   recordings ("part of the apparatus").
+   recordings ("part of the apparatus"). ACTIVE as of day 40.
 5. **ABSTRACT** — verify status (composer believes done); finish if not.
-6. **FINAL RENDERS** (Opus fine — written commands) — video `phase3.sh →
-   phase4.sh` (~21 min) + `phase5.sh` measure · print `--rebuild-ir` ·
-   NEW dated archive folder (never overwrite `2026-08-27-submission`).
+6. **FINAL RENDERS** (Opus fine — written commands) — **video render
+   STARTED day 40 in the background** (phase3 → phase4, ~21 min; outputs to
+   `notation/video/renders/`, archive untouched; `phase5.sh` measure owed
+   when it lands). **Print already current** — batch-1 rebuild, and the
+   later fixes are animated-layer only (byte-stable snapshots prove it).
+   Remaining at this step: phase5 measure · NEW dated archive folder (never
+   overwrite `2026-08-27-submission`).
 7. **SUBMISSION PACKAGE + ARCHIVE POINT** (Fable for the organizing
    decisions) — collect what Penn State needs · SAVE_FILES.md current ·
    git tag at the submission state · **the gitignored deliverables
    (approved mp4s, print PDF, save-version chain) need an explicit
    archive decision — a git tag alone does not capture them.**
 
-### NEXT STEPS · MODEL · CLEAR (day 40, 2026-08-31)
+### NEXT STEPS · MODEL · CLEAR (day 40, 2026-08-31 — proofread CLOSED)
 
-1. ☑ **APPLY BATCH 1** — done 2026-08-31 on Opus. Three edits landed exactly
-   as specced, each verified by measurement rather than by eye (cuivré: 20 of
-   22 marks raised +0.15 ss, zero demoted · cl-50: 5 of 4358 overlays changed,
-   all cl-50 · curveMeter 0.3 → 0.6, registry parity with the other two
-   meters). Rebuilt: 4481 events, VALID, 68 pp. Eleven batteries green.
-2. ► **REVIEW + RESUME THE SWEEP** — composer verdicts each applied item
-   **GOOD ✓ / RETRY ↻** (recorded in the ledger as said), then decides
-   T1-past-140 or T2. **Fable** (judgment on the look). Same task, no clear.
-   *Note for the review: #4 is NOT visible in the print PDF — animated layer
-   only, it shows in the app view and lands in the video at step 6.*
-3. **Steps 4–7 unchanged** — PERFORMANCE NOTES (Fable) · ABSTRACT check ·
-   FINAL RENDERS (Opus) · SUBMISSION PACKAGE + ARCHIVE POINT (Fable).
-   **Clear at the step-3 → step-4 boundary** (subject change: proofread →
-   front matter), via `/session-end` then `/session-start`.
+1. ► **PERFORMANCE NOTES** (Fable — judgment + the composer's voice) —
+   running-order step 4, ACTIVE. Sources: NOTATION_STANDARDS · the D-log ·
+   demo recordings. The video render runs in the background meanwhile.
+   *(The approved order said clear at the step-3→4 boundary; the composer
+   moved straight on in-session — checkpoint if the chat grows heavy.)*
+2. **PHASE 5 MEASURE when the render lands** (~21 min from start) — verify
+   the five mp4s (duration equality, drift check), then a look-check of the
+   fixed meters in V-MAIN. **Opus fine** (written command).
+3. **ABSTRACT check** (step 5, Fable) · then **step 6 remainder**: NEW dated
+   archive folder + SAVE_FILES current · **step 7 SUBMISSION PACKAGE**
+   (Fable). Clear at the notes → abstract boundary if the chat is heavy.
 
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.

@@ -16177,3 +16177,17 @@ tube) is animated-layer only, PROVEN static-identical by the byte-stable
 snapshot battery. **The video is the stale deliverable** — it owes the
 curveMeter opacity, the standdown, the congruence fix, and the tube; that is
 running-order step 6's ~21 min phase3→phase4 + phase5 measure.
+
+
+**11 · STEP 3 CLOSED BY THE COMPOSER — "proofreading sweep is done."** The
+formal ledger pass covered T1 0 → 140 s; the composer declared the sweep
+complete (their call, recorded in the ledger POSITION). Four items, four
+closures. **The video render started immediately** (phase3 → phase4,
+background, ~21 min; outputs to renders/, the 2026-08-27 archive untouched) —
+it owes the day-40 animated-layer fixes (opacity · standdown · congruence ·
+tube). **Print needs nothing:** the batch-1 PDF is still exact — the later
+fixes are animated-layer only and the byte-stable snapshot battery proves the
+statics never moved. **Running order advanced: step 4 PERFORMANCE NOTES
+active.** Composer asked the video effort — answer: ~21 min unattended
+compute + a phase5 measure, zero composer effort; it runs under the
+performance-notes work.
