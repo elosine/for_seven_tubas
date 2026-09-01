@@ -24,21 +24,22 @@ mkdir -p "$TMP"
 cp -n /c/Windows/Fonts/georgia.ttf "$TMP/georgia.ttf" 2>/dev/null || true
 FONT="$TMP/georgia.ttf"
 
-# pair rows: NAME PARTS TUBA_A TUBA_B BLOOM_END BLOOM_PEAK CONV_END CONV_HZ BHELD CHELD
+# pair rows: NAME PARTS TUBA_A TUBA_B BLOOM_END BLOOM_PEAK CONV_END CONV_HZ BHELD CHELD BLOOM_HZ
 # (ends = the pair's own last curve end, measured from the save; peaks and Hz
 #  from the day-40 beating census — the same data as the chart. BHELD/CHELD =
 #  offsets into demo-heldmax.wav, the option-b sustained-max dyads, one second
-#  into each 32 s slot; see tools/gen_demo_heldmax_midi.js.)
+#  into each 32 s slot; see tools/gen_demo_heldmax_midi.js. BLOOM_HZ = the
+#  pair's Bloom max beating, printed exactly as the chart prints it.)
 ROWS=(
-  "T1T2  0,1 1 2  253.5 179 378.0 9  11  211"
-  "T3T4  2,3 3 4  255.3 186 380.3 13 51  251"
-  "T5T6  4,5 5 6  253.6 188 381.1 18 91  291"
-  "T7T8  6,7 7 8  252.4 176 381.8 27 131 331"
-  "T9T10 8,9 9 10 258.0 182 381.9 36 171 371"
+  "T1T2  0,1 1 2  253.5 179 378.0 9  11  211 2"
+  "T3T4  2,3 3 4  255.3 186 380.3 13 51  251 2.6"
+  "T5T6  4,5 5 6  253.6 188 381.1 18 91  291 3.3"
+  "T7T8  6,7 7 8  252.4 176 381.8 27 131 331 4.3"
+  "T9T10 8,9 9 10 258.0 182 381.9 36 171 371 5.4"
 )
 
 build_pair() {
-  local NAME=$1 PARTS=$2 TA=$3 TB=$4 BEND=$5 BPEAK=$6 CEND=$7 CHZ=$8 BHELD=$9 CHELD=${10}
+  local NAME=$1 PARTS=$2 TA=$3 TB=$4 BEND=$5 BPEAK=$6 CEND=$7 CHZ=$8 BHELD=$9 CHELD=${10} BHZ=${11}
   local WAV=notation/audio/demo-$NAME.wav
   local HELD=notation/audio/demo-heldmax.wav
   [ -f "$HELD" ] || { echo "!! missing $HELD"; exit 1; }
@@ -58,7 +59,7 @@ build_pair() {
   # (option b, day 40: the dyad render demo-heldmax.wav, not the demo mix —
   #  the music never holds its maximum longer than ~15 s; the dyads do.)
   ffmpeg -y -v error -loop 1 -t 30 -i "$TMP/$NAME-bloom.png" -ss "$BHELD" -t 30 -i "$HELD" \
-    -vf "drawtext=text='Bloom — Tuba $TA + Tuba $TB':fontfile=$FONT:fontsize=58:fontcolor=black:x=70:y=48" \
+    -vf "drawtext=text='Bloom — $BHZ Hz — Tuba $TA + Tuba $TB':fontfile=$FONT:fontsize=58:fontcolor=black:x=70:y=48" \
     -c:v libx264 -crf 16 -pix_fmt yuv420p -r 30 -c:a aac -b:a 256k -ar 48000 -shortest "$TMP/$NAME-s1.mp4"
   ffmpeg -y -v error -loop 1 -t 30 -i "$TMP/$NAME-conv.png" -ss "$CHELD" -t 30 -i "$HELD" \
     -vf "drawtext=text='Convergence — $CHZ Hz — Tuba $TA + Tuba $TB':fontfile=$FONT:fontsize=58:fontcolor=black:x=70:y=48" \

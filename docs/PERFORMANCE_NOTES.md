@@ -368,4 +368,13 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   down to approximately unison."* Convergence segment = the HIGH static only
   (at the section start, 259.6 s); no nadir statics. The nadir table stays
   above for the record (chart data), not for the videos.
+- **LABEL SCARE + Hz ADDED (day 40, after approval):** composer thought the
+  opening text had vanished — verified PRESENT in all five finals by frame
+  extraction (the label-less files they likely saw: the tmp/ playback
+  intermediates, unlabelled by design). Then, composer: Bloom labels lack
+  the frequency — *"could you add the frequency as well? For the Blooms."*
+  demos.sh: BLOOM_HZ column added, Bloom statics now read
+  **"Bloom — N Hz — Tuba A + Tuba B"** (N = 2 / 2.6 / 3.3 / 4.3 / 5.4,
+  printed exactly as the chart prints them). Five videos rebuilt
+  (statics + concat only). Convergence labels unchanged.
 
