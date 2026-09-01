@@ -14,6 +14,9 @@
 //        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir db1]
 //
 //   --span   the time range the image shows (the crop)
+//   --toPart crop a contiguous RANGE of lanes, --part through --toPart
+//            (multi-lane shots, e.g. three tempos side by side); default =
+//            the single --part lane
 //   --zoom   horizontal scale, app-zoom units: px/s = 1920 / (11.41 / zoom).
 //            Default 2 (the composer's working zoom). The render window is
 //            centred on the span at that scale; a span wider than the window
@@ -31,6 +34,7 @@ const arg = (name, dflt) => {
   return i >= 0 ? process.argv[i + 1] : dflt;
 };
 const part = parseInt(arg('part', '0'), 10);
+const toPart = parseInt(arg('toPart', String(part)), 10);
 const t = parseFloat(arg('t', '0'));
 const [s0, s1] = arg('span', '0-10').split('-').map(Number);
 const zoom = parseFloat(arg('zoom', '2'));
@@ -73,8 +77,12 @@ const model = Layout.layoutSection(ir, glyphs, Object.assign(
 // draw ONLY the target lane by default — the view keeps ALL ten systems, so
 // geometry is untouched; the neighbours are simply not drawn. --keepNeighbors
 // restores the full frame (e.g. for a multi-lane shot).
+// v3.2 (day 40, C5 multitempo): --toPart widens the kept range to a
+// contiguous run of lanes; a single lane is the range [part, part].
+const iA = FRAME_PARTS.indexOf(part), iB = FRAME_PARTS.indexOf(toPart);
+const KEEP = new Set(FRAME_PARTS.slice(Math.min(iA, iB), Math.max(iA, iB) + 1));
 const ONLY = process.argv.indexOf('--keepNeighbors') < 0;
-if (ONLY) model.systems = model.systems.filter(sy => sy.part === part);
+if (ONLY) model.systems = model.systems.filter(sy => KEEP.has(sy.part));
 const view = Coords.makeView({ widthPx: W, heightPx: H, window: [w0, w1], systems });
 
 // ---- static page (shared module: D4 bricks off, engraving registry) ----
@@ -89,16 +97,17 @@ const inst = Anim.collect(ir, null, C.animated, {
   parts: ir.source.parts, meta: false,
   deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}),
 });
-const overlay = Anim.frameSvg(ONLY ? inst.filter(i => i.part === undefined || i.part === part) : inst, view, t, C.animated);
+const overlay = Anim.frameSvg(ONLY ? inst.filter(i => i.part === undefined || KEEP.has(i.part)) : inst, view, t, C.animated);
 svg = svg.replace('</svg>', '<g class="anim">' + overlay + '</g></svg>');
 
 // ---- crop to the lane + span, via the viewBox — no rescaling ----
-const sys = view.system(part);
+const sysA = view.system(part), sysB = view.system(toPart);
 // headroom above the lane so GC arc apexes are not clipped (they legitimately
 // overflow the lane band in the frame); a little below for descenders.
 const padTop = parseFloat(arg('padTop', '30'));
 const padBot = parseFloat(arg('padBot', '6'));
-const y0 = sys.yTopPx - padTop, hCrop = (sys.yBotPx - sys.yTopPx) + padTop + padBot;
+const yTop = Math.min(sysA.yTopPx, sysB.yTopPx), yBot = Math.max(sysA.yBotPx, sysB.yBotPx);
+const y0 = yTop - padTop, hCrop = (yBot - yTop) + padTop + padBot;
 const x0 = view.xOfSeconds(s0), x1 = view.xOfSeconds(s1);
 const wCrop = x1 - x0;
 svg = svg
@@ -110,6 +119,7 @@ svg = svg
 
 fs.mkdirSync(path.dirname(path.join(ROOT, out)), { recursive: true });
 fs.writeFileSync(path.join(ROOT, out), svg);
-console.log('wrote ' + out + '  (' + svg.length + ' bytes · T' + (part + 1) + ' @ ' + t +
+console.log('wrote ' + out + '  (' + svg.length + ' bytes · T' + (part + 1) +
+  (toPart !== part ? '-T' + (toPart + 1) : '') + ' @ ' + t +
   ' s · span ' + s0 + '-' + s1 + ' · window ' + w0.toFixed(2) + '-' + w1.toFixed(2) +
   ' · crop ' + wCrop.toFixed(0) + 'x' + hCrop.toFixed(0) + ')');

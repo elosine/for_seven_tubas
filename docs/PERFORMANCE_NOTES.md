@@ -311,6 +311,33 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
 - demos paragraph dictated (day 40) and on the page: *"I have prepared demo recordings at the links below. These demonstrate how the maximum and minimum beating levels sound in each section for each pair and then provide a two-tuba demo of each beating section."* Five per-pair link slots stubbed; URLs land when the videos exist (plan questions a–e open in chat).
 - verdict: *(pending)*
 
+## C5 · Multiple Tempos · DRAFTED (day 40) — on the page, after Acoustic Beating
+- said: *"The heading is multiple tempos. The final section of this piece
+  consists of a steady pulse and rapidly changing tempos. The tempo you are
+  playing in is marked with hashes at the top. and a bouncing ball marks out
+  the tempo. and then can you find a section? maybe three tracks with
+  bouncing balls and different heights and use that as the image for this
+  one"*
+- image spec: AI to find an instant where ~3 tracks show bouncing balls at
+  visibly different heights (= different simultaneous tempos) and capture it.
+- found by MEASUREMENT, not eyeballing: a scratch probe swept the trance
+  (500–752 s, 0.02 s steps) through the REAL gc.js ball physics — 843
+  instants had 3 adjacent parts at 3 different tempos with balls in flight;
+  bounded to heights 0.12–0.92 (each ball unambiguously INSIDE its own lane —
+  the first pick had T9 at impact + T10 at apex stacking at the shared lane
+  boundary, two dots touching) → 42 candidates. **Winner: t=530.1,
+  T8/T9/T10 at ♩=110.5 / 126.3 / 118.4, ball heights 0.13 / 0.58 / 0.90**
+  (a rising staircase) — the one window where ALL THREE lanes also carry
+  their own tempo hash in the span (529.03 / 529.70 / 529.46).
+- done: section on the page after Acoustic Beating (placement = dictation
+  order, AI's call); text as dictated, comma cleanup only; image
+  `images/multitempo_530_T8T9T10.svg`, span 528.6–532.4. **capture_lane.js
+  → v3.2: new `--toPart` crops a contiguous RANGE of lanes** (multi-lane
+  shots); single-lane behaviour unchanged. Regen command in the HTML comment.
+- verified: SVG rendered in-browser — three lanes, per-lane ♩= marks + beat
+  ticks along each lane top, three balls on the cursor at low/mid/high.
+- verdict: *(pending — composer looks at the page)*
+
 ## DEMO VIDEOS — BUILT + APPROVED (day 40; awaiting YouTube URLs only)
 
 > **Status: the five videos are built and composer-approved** ("ok those are
