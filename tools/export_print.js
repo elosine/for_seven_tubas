@@ -49,13 +49,14 @@ const atArg = arg('at', null);        // select the page CONTAINING this second
 const wantRuler = arg('ruler', 'on') !== 'off';
 const wantMarks = arg('marks', 'on') !== 'off';
 const wantCover = arg('cover', 'off') !== 'off';
+const wantInstructions = arg('instructions', 'off') !== 'off';
 const htmlOnly = flag('htmlOnly');
 const quiet = flag('quiet');
 
 if (!outFile) {
   console.error('usage: export_print.js --out <file.pdf> [--ir db1] [--sec N] [--pages a-b] [--at SEC]');
   console.error('       [--format tabloid-landscape|letter-landscape] [--margin 0.5]');
-  console.error('       [--ruler on|off] [--marks on|off] [--cover on|off] [--htmlOnly]');
+  console.error('       [--ruler on|off] [--marks on|off] [--cover on|off] [--instructions on|off] [--htmlOnly]');
   process.exit(2);
 }
 
@@ -274,6 +275,45 @@ function coverSvg() {
   return fs.readFileSync(p, 'utf8');
 }
 
+// ------------------------------------------------- performance instructions
+// Page 2 of the print score (day 40, composer: "separate the performance
+// instructions into two columns and lay them out as a second page of the
+// print score"). ONE SOURCE: docs/notation_instructions/index.html — the
+// dictation mock page IS the front matter; this function only re-dresses it
+// for paper (two CSS columns, the score's Crimson faces, images inlined so
+// the SVGs' own 'Crimson Pro Light' <text> resolves against the embedded
+// fonts — an <img> would isolate them and fall back).
+function instructionsHtml() {
+  if (!wantInstructions) return null;
+  const src = path.join(ROOT, 'docs', 'notation_instructions', 'index.html');
+  if (!fs.existsSync(src)) { console.error('  ! --instructions on but docs/notation_instructions/index.html is missing; skipping'); return null; }
+  let body = /<body>([\s\S]*)<\/body>/.exec(fs.readFileSync(src, 'utf8'))[1];
+  body = body.replace(/<!--[\s\S]*?-->/g, '');            // regen-command comments
+  // title block spans both columns; the rest flows
+  const tm = /<h1>([\s\S]*?)<\/h1>\s*<p class="subtitle">([\s\S]*?)<\/p>/.exec(body);
+  const title = tm ? tm[1] : 'Performance Instructions';
+  const subtitle = tm ? tm[2] : '';
+  if (tm) body = body.replace(tm[0], '');
+  // inline every image (all SVG, all with viewBox — they scale by CSS width).
+  // Per-figure widths, % of the column: the two big panels (the 3-lane
+  // multitempo shot, the beating chart) cannot ride at full column width or
+  // the page overflows — measured day 40, content ran 0.55 of a column over.
+  const FIGW = {
+    multitempo_530_T8T9T10: 66, beating_sequence_chart: 72,
+    curve_cresc_691_T2: 90, clusters_37_T9: 85, beating_notation_224_T7: 85,
+  };
+  body = body.replace(/<img\s+src="([^"]+)"[^>]*>/g, (_, rel) => {
+    const p = path.join(ROOT, 'docs', 'notation_instructions', rel);
+    if (!fs.existsSync(p)) { console.error('  ! instructions image missing: ' + rel); return ''; }
+    const svg = fs.readFileSync(p, 'utf8').replace(/^<\?xml[^>]*\?>\s*/, '');
+    const w = FIGW[path.basename(rel, '.svg')];
+    return '<div class="figwrap"' + (w ? ' style="width:' + w + '%"' : '') + '>' + svg + '</div>';
+  });
+  return '<div class="page ins"><div class="insframe">' +
+    '<div class="institle"><span class="t">' + title + '</span><span class="s">' + subtitle + '</span></div>' +
+    '<div class="cols">' + body + '</div></div></div>';
+}
+
 function buildHtml() {
   const out = [];
   out.push('<!doctype html><meta charset="utf-8"><title>' + esc(irId) + ' — print score</title>');
@@ -287,10 +327,28 @@ function buildHtml() {
     '.fol{position:absolute;left:' + margin + 'px;width:' + blockW + 'px;top:' + (pageH - margin - footerPx + 3) + 'px;' +
     'font:11px "Crimson Pro Light",serif;color:#8a8a8a;display:flex;justify-content:space-between;}\n' +
     '.cov svg{display:block;}\n' +
+    // ---- the performance-instructions page (page 2) ----
+    '.insframe{position:absolute;left:' + margin + 'px;top:' + margin + 'px;width:' + blockW + 'px;height:' + (pageH - 2 * margin) + 'px;' +
+    "font-family:'Crimson Pro Light',serif;color:#111;}\n" +
+    '.institle{display:flex;align-items:baseline;gap:18px;border-bottom:0.75px solid #111;padding-bottom:4px;margin-bottom:9px;}\n' +
+    '.institle .t{font-size:21px;letter-spacing:3px;}\n' +
+    '.institle .s{font-size:12px;font-style:italic;color:#444;}\n' +
+    '.cols{column-count:2;column-gap:36px;height:' + (pageH - 2 * margin - 46) + 'px;font-size:10.4px;line-height:1.36;}\n' +
+    '.cols h3{font-size:12.5px;letter-spacing:1.5px;margin:7px 0 3px;}\n' +
+    '.cols p{margin:0 0 5px;}\n' +
+    '.cols ul{margin:0 0 5px 16px;padding:0;}\n' +
+    '.cols li{break-inside:avoid;}\n' +
+    '.cols a{color:inherit;text-decoration:none;}\n' +
+    '.cols figure{margin:0;}\n' +
+    '.cols .pair{display:flex;gap:8px;margin:2px 0 5px;width:92%;}\n' +
+    '.figwrap{break-inside:avoid;margin:2px 0 5px;}\n' +
+    '.figwrap svg{display:block;width:100%;height:auto;}\n' +
     '</style>');
 
   const cov = coverSvg();
   if (cov) out.push('<div class="page cov">' + cov + '</div>');
+  const ins = instructionsHtml();
+  if (ins) out.push(ins);
 
   sel.forEach((i, n) => {
     const view = viewFor(i);
@@ -366,4 +424,4 @@ if (!fs.existsSync(outAbs)) {
   process.exit(1);
 }
 console.log('wrote ' + path.relative(ROOT, outAbs) + '  (' + (fs.statSync(outAbs).size / 1024 / 1024).toFixed(1) + ' MB, ' +
-  (sel.length + (wantCover && coverSvg() ? 1 : 0)) + ' pages)');
+  (sel.length + (wantCover && coverSvg() ? 1 : 0) + (wantInstructions && instructionsHtml() ? 1 : 0)) + ' pages)');

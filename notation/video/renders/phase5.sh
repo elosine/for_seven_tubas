@@ -21,7 +21,7 @@
 set -e
 cd "$(dirname "$0")/../../.."
 R=notation/video/renders
-A=notation/video/approved/2026-08-27-submission
+A=notation/video/approved/2026-08-31-submission   # day 40: supersedes 2026-08-27 (kept)
 F=$R/phase5_frames          # *.png is gitignored under notation/video/
 mkdir -p "$F"
 

@@ -74,16 +74,18 @@ whether either is the conductor's copy — is not decided and is not assumed her
 **Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
 and are not needed for the submission.
 
-**NOW ► (2026-08-31, day 40, latest) SUBMISSION ARC: proofread CLOSED · video RE-RENDERED and measured · PERFORMANCE NOTES mid-build.**
-All four proofread items closed GOOD (cuivré medium gap · cl-50 dynamics · the
-meter congruence root-cause fix + THE TUBE restored, with a permanent battery).
-The five renders are fresh with the meter fixes (phase5: morph probes 0.00%,
-t=730 = the fix itself; archive folder still pending approval-to-supersede).
-Performance Instructions page exists (docs/notation_instructions/) with five
-sections; the five per-pair DEMO VIDEOS are built and approved (awaiting
-YouTube URLs only). Remaining: more device sections by dictation · the
-composer's edit pass · abstract check · archive + submission package.
-**Penn State deadline Sept 4.**
+**NOW ► (2026-08-31, day 40, latest) SUBMISSION PIECES IN PLACE: video ARCHIVED (V-CUT approved) · print score carries the instructions as PAGE 2 · demos LINKED.**
+The composer approved today's V-CUT ("that v cut is fine… let's use that") —
+the five day-40 renders are archived in
+`notation/video/approved/2026-08-31-submission/` (byte-verified; supersedes
+2026-08-27, which stays; phase5's drift check re-pointed). The print score
+now runs **69 pages: cover · Performance Instructions (two columns, sourced
+live from docs/notation_instructions/index.html) · 67 music pages** — all
+vector, fonts embedded (`bash print/score/build.sh`). The five demo videos
+are on YouTube and LINKED from the instructions page; demo apparatus closed.
+Remaining: submission package + forms (composer, next session) · abstract
+check · C1–C5 verdicts / any further dictation · git tag + the
+gitignored-deliverables archive call. **Penn State deadline Sept 4.**
 
 **NOW ► (2026-08-26, day 36) THE TRANCE IS DONE AND THE PIECE IS IN ONE FILE.**
 The final crescendo now takes the **full lane height** (it was inheriting the

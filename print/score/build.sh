@@ -47,6 +47,6 @@ if [ "$REBUILD" = "1" ]; then
 fi
 
 echo "=== RENDERING THE PRINT SCORE ==="
-node tools/export_print.js --ir "$IR" --cover on --out "$OUT" "${PASS[@]}"
+node tools/export_print.js --ir "$IR" --cover on --instructions on --out "$OUT" "${PASS[@]}"
 echo "=== DONE ==="
 ls -la "$OUT"

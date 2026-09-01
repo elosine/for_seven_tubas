@@ -72,31 +72,35 @@ it and announces the position before doing anything.
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
    recordings ("part of the apparatus"). ACTIVE as of day 40.
 5. **ABSTRACT** — verify status (composer believes done); finish if not.
-6. **FINAL RENDERS** (Opus fine — written commands) — **video render
-   STARTED day 40 in the background** (phase3 → phase4, ~21 min; outputs to
-   `notation/video/renders/`, archive untouched; `phase5.sh` measure owed
-   when it lands). **Print already current** — batch-1 rebuild, and the
-   later fixes are animated-layer only (byte-stable snapshots prove it).
-   Remaining at this step: phase5 measure · NEW dated archive folder (never
-   overwrite `2026-08-27-submission`).
-7. **SUBMISSION PACKAGE + ARCHIVE POINT** (Fable for the organizing
-   decisions) — collect what Penn State needs · SAVE_FILES.md current ·
-   git tag at the submission state · **the gitignored deliverables
-   (approved mp4s, print PDF, save-version chain) need an explicit
-   archive decision — a git tag alone does not capture them.**
+6. ☑ **FINAL RENDERS** (done 2026-08-31) — video re-rendered with the
+   day-40 fixes, `phase5.sh` measured (morph probes 0.00%, t=730 = the fix),
+   **V-CUT approved by the composer and the set ARCHIVED byte-verified in
+   `notation/video/approved/2026-08-31-submission/`** (2026-08-27 kept;
+   phase5's drift check re-pointed). **Print score rebuilt at 69 pages:
+   cover · Performance Instructions as PAGE 2 (two columns, sourced from
+   docs/notation_instructions/index.html at build time) · 67 music pages.**
+7. ► **SUBMISSION PACKAGE + ARCHIVE POINT** (Fable for the organizing
+   decisions; composer fills forms next session) — collect what Penn State
+   needs · SAVE_FILES.md current · git tag at the submission state · **the
+   gitignored deliverables (approved mp4s incl. the five demos, WAVs, print
+   PDF, save-version chain) need an explicit archive decision — a git tag
+   alone does not capture them.** Step 4 stays OPEN alongside (C1–C5
+   verdicts · any further dictation) — fold in before submitting.
 
-### NEXT STEPS · MODEL · CLEAR (day 40 checkpoint — cleared mid-step-4)
+### NEXT STEPS · MODEL · CLEAR (day 40 late — submission pieces placed)
 
-1. ► **STEP 4 CONTINUES on Fable** (dictation + verdicts): YouTube URLs into
-   the link slots · more device sections by dictation · the composer's
-   C1–C4 edit pass. `/postclear` reads PERFORMANCE_NOTES.md and goes.
+1. ► **STEP 7 SUBMISSION PACKAGE (next session, Fable)** — collect the
+   Penn State pieces: **V-CUT from
+   `notation/video/approved/2026-08-31-submission/`** + **print PDF
+   (69 pp; `bash print/score/build.sh`, 3 s)** · composer fills the forms ·
+   SAVE_FILES current · git tag · the gitignored-deliverables archive call
+   (approved mp4s incl. demos, WAVs, print PDF, save chain).
 2. **STEP 5 ABSTRACT check** (Fable, quick — composer believes it is done).
-3. **STEP 6 remainder** — the NEW dated archive folder decision (supersede
-   `2026-08-27-submission` with the re-measured renders) + SAVE_FILES
-   current · **STEP 7 SUBMISSION PACKAGE + archive point** (Fable for the
-   organizing decisions; the gitignored deliverables — approved mp4s, print
-   PDF, save chain, now demo mp4s/WAVs — need the explicit archive call).
-   **Deadline Sept 4.** Clear again at the step-4 → step-5 boundary if heavy.
+3. **STEP 4 stays OPEN** — C1–C5 verdicts (composer's end-of-pass edit
+   sweep) · held-back gliss sub-block (C1) · any further device dictation.
+   The print score's page 2 re-reads the instructions page AT BUILD TIME,
+   so late edits only need a 3 s rebuild.
+   **Deadline Sept 4.** This wrap is a clean clear point.
 
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
@@ -209,8 +213,9 @@ None.
 
 | | |
 |---|---|
-| **VIDEO — DONE, APPROVED, ARCHIVED** | `notation/video/approved/2026-08-27-submission/` — five post-W1b mp4s, 22 819 frames each, + cut list + README. Revert point **`b4b7cb4`** (measured: nothing on the render path changed since). Rebuild: `phase3.sh` → `phase4.sh` (~21.4 min); measure: `phase5.sh` |
-| **PRINT SCORE — GENERATES** | `bash print/score/build.sh [--rebuild-ir] [--sec N]` → `print/score/BCB-score-DRAFT.pdf`, 68 pages, 3 s, gitignored. **Print is drawn from the IR, not the save file — `--rebuild-ir` is the step that is easy to miss** |
+| **VIDEO — DONE, APPROVED, ARCHIVED (day 40)** | **`notation/video/approved/2026-08-31-submission/`** — the day-40 re-renders with the proofread fixes, V-CUT composer-approved ("let's use that"), byte-verified vs renders/, + cut list + README. The 2026-08-27 set is KEPT (pre-fix). Rebuild: `phase3.sh` → `phase4.sh` (~21.4 min); measure: `phase5.sh` (drift check points at the 08-31 folder) |
+| **PRINT SCORE — GENERATES, 69 pp** | `bash print/score/build.sh [--rebuild-ir] [--sec N]` → `print/score/BCB-score-DRAFT.pdf`, 3 s, gitignored: cover · **Performance Instructions page 2 (two columns, sourced from docs/notation_instructions/index.html at build time)** · 67 music pages. All vector, fonts embedded. **Print is drawn from the IR — `--rebuild-ir` is the step that is easy to miss** |
+| **DEMO VIDEOS — DONE, ON YOUTUBE, LINKED** | five per-pair beating demos, linked from the instructions page (URLs verified per-video); build: `notation/video/renders/demos.sh all` |
 | **COVER** | `print/cover/` — built day 36, `--cover on` prepends it |
 | **PARTS** | not built, not needed for the submission |
 
