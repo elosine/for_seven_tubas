@@ -10,28 +10,22 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 40 (2026-08-31, Claude Code / **Fable 5**, several sittings across clears)
+### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, late-night sitting)
 
-- **THE SUBMISSION PIECES ARE IN PLACE (steps 3 + 6 ☑).** Proofread CLOSED
-  (4/4 GOOD; congruence root-cause fix + THE TUBE, permanent battery) ·
-  video re-rendered with the fixes, phase5-measured, **V-CUT approved
-  ("let's use that") and ARCHIVED byte-verified in
-  `notation/video/approved/2026-08-31-submission/`** (08-27 kept; phase5
-  drift check re-pointed) · **print score 69 pp with the Performance
-  Instructions as PAGE 2** (D83 — two columns, ONE source: the web mock
-  re-read at build time; zero raster, fonts embedded).
-- **PERFORMANCE NOTES built by dictation** (`docs/PERFORMANCE_NOTES.md` +
-  the mock page): six sections live — intro/conduction · curve-cresc ·
-  clusters · acoustic beating (measured chart) · **Multiple Tempos (C5)**
-  with a measured 3-lane multitempo capture (capture_lane v3.2 `--toPart`).
-  C1–C5 verdicts await the composer's edit pass.
-- **THE DEMO APPARATUS CLOSED end to end:** five per-pair beating demos
-  built → approved → **Bloom-Hz labels added** (chart-exact 2/2.6/3.3/4.3/
-  5.4) → uploaded → **five YouTube links LIVE on the instructions page**,
-  each URL verified against its own watch-page title before wiring.
-- Label scare resolved by frame extraction (nothing was ever missing — the
-  tmp/ playback intermediates are unlabelled by design).
-- Full trail: **RUNNING_LOG day-40 entries 1–32**.
+- **🎉 SUBMITTED. The Penn State composition form went in 2026-09-01**,
+  three days before the Sept 4 deadline — the composer filled and
+  submitted it live in-session.
+- **Form support, everything measured or from the record (RUNNING_LOG
+  entries 33–37):** title exact as the cover prints it (*Bloom —
+  Convergence — Balance, for Tuba Ensemble*) · **duration MEASURED from
+  the WAV** (sound 2.37–751.70 s → sounding 749.3 s ≈ 12:29; "ca. 12.5
+  minutes" on the form) · **bio copy-edited to exactly 100 words**
+  ("improviser" ruled standard and unified) · **program note = the
+  composer's own text through two AI passes, 92 words** — final verbatim
+  in RUNNING_LOG 37.
+- **The step-7 WRAP is still owed:** git tag at the submission state · the
+  gitignored-deliverables archive call · SAVE_FILES check. Composer named
+  next session's work: **the ABSTRACT submission (step 5 ►)**.
 
 ### NEXT UP — day 39 RUNNING ORDER (composer-approved agenda, 2026-08-29)
 
@@ -77,7 +71,9 @@ it and announces the position before doing anything.
 4. ► **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
    the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
    recordings ("part of the apparatus"). ACTIVE as of day 40.
-5. **ABSTRACT** — verify status (composer believes done); finish if not.
+5. ► **ABSTRACT SUBMISSION** — named by the composer (day 41) as next
+   session's work. Verify what exists (composer believed done); finish +
+   composer submits.
 6. ☑ **FINAL RENDERS** (done 2026-08-31) — video re-rendered with the
    day-40 fixes, `phase5.sh` measured (morph probes 0.00%, t=730 = the fix),
    **V-CUT approved by the composer and the set ARCHIVED byte-verified in
@@ -85,52 +81,53 @@ it and announces the position before doing anything.
    phase5's drift check re-pointed). **Print score rebuilt at 69 pages:
    cover · Performance Instructions as PAGE 2 (two columns, sourced from
    docs/notation_instructions/index.html at build time) · 67 music pages.**
-7. ► **SUBMISSION PACKAGE + ARCHIVE POINT** (Fable for the organizing
-   decisions; composer fills forms next session) — collect what Penn State
-   needs · SAVE_FILES.md current · git tag at the submission state · **the
-   gitignored deliverables (approved mp4s incl. the five demos, WAVs, print
-   PDF, save-version chain) need an explicit archive decision — a git tag
-   alone does not capture them.** Step 4 stays OPEN alongside (C1–C5
-   verdicts · any further dictation) — fold in before submitting.
+7. ◐ **SUBMISSION PACKAGE + ARCHIVE POINT** — **THE FORM IS SUBMITTED
+   (2026-09-01 ✓)**; title/duration/bio/program note supported in-session
+   (RUNNING_LOG 33–37). **The wrap REMAINS:** SAVE_FILES.md current · git
+   tag at the submission state · **the gitignored deliverables (approved
+   mp4s incl. the five demos, WAVs, print PDF, save-version chain) need an
+   explicit archive decision — a git tag alone does not capture them.**
+   Step 4 stays OPEN alongside (C1–C5 verdicts · any further dictation).
 
-### NEXT STEPS · MODEL · CLEAR (day 40 late — submission pieces placed)
+### NEXT STEPS · MODEL · CLEAR (day 41 close — COMPOSITION SUBMITTED)
 
-1. ► **STEP 7 SUBMISSION PACKAGE (next session, Fable)** — collect the
-   Penn State pieces: **V-CUT from
-   `notation/video/approved/2026-08-31-submission/`** + **print PDF
-   (69 pp; `bash print/score/build.sh`, 3 s)** · composer fills the forms ·
-   SAVE_FILES current · git tag · the gitignored-deliverables archive call
-   (approved mp4s incl. demos, WAVs, print PDF, save chain).
-2. **STEP 5 ABSTRACT check** (Fable, quick — composer believes it is done).
-3. **STEP 4 stays OPEN** — C1–C5 verdicts (composer's end-of-pass edit
-   sweep) · held-back gliss sub-block (C1) · any further device dictation.
-   The print score's page 2 re-reads the instructions page AT BUILD TIME,
-   so late edits only need a 3 s rebuild.
-   **Deadline Sept 4.** This wrap is a clean clear point.
+1. ► **STEP 5 ABSTRACT SUBMISSION (next session, Fable)** — the
+   symposium / research-presentation side. Verify what already exists
+   (composer believed it done; `docs/PAPER_OUTLINE.md` + PAPER topic picks
+   are the likely material), finish the text, composer submits. Fable —
+   judgment + prose, same as the program note was.
+2. **STEP 7 WRAP (after the abstract; Fable for the archive decision,
+   execution Opus-able)** — git tag at the submission state · the
+   gitignored-deliverables archive call (approved mp4s incl. five demos,
+   WAVs + heldmax, print PDF, save chain) · SAVE_FILES check.
+3. **STEP 4 stays OPEN** — C1–C5 verdicts · held-back gliss sub-block
+   (C1) · further dictation. Page 2 re-reads the mock at build time —
+   late edits cost one 3 s rebuild.
+   **Session ended at the submit click — this IS the clear point; start
+   next on Fable.**
 
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 40 wrap, 2026-08-31 — clean stop; next session = THE SUBMISSION
-PACKAGE, step 7 ►)**
+**(day 41 wrap, 2026-09-01 — clean stop right after the SUBMIT click;
+next session = ABSTRACT SUBMISSION, step 5 ►)**
 
-- **Step 7 ► (next session, Fable):** collect the package — **V-CUT** from
-  `notation/video/approved/2026-08-31-submission/` + **print PDF**
-  (`bash print/score/build.sh`, 69 pp, 3 s) · composer fills the Penn
-  State forms · SAVE_FILES current · **git tag at the submission state** ·
-  **the gitignored-deliverables archive call** (approved mp4s incl. the
-  five demos, demo WAVs + heldmax, print PDF, save chain — a tag alone
-  does not capture them).
-- **Step 4 stays OPEN alongside:** C1–C5 verdicts (composer's end-of-pass
-  sweep on the mock page) · the held-back gliss sub-block (C1) · further
-  device dictation if wanted (trance/accelerando · cuivré · dynamics ·
-  GC balls · setup · print matters). **Print page 2 re-reads the mock at
-  build time — late edits cost one 3 s rebuild.**
-- **Step 5 ABSTRACT check** still owed (composer believes it is done).
-- Working ledger: `docs/PERFORMANCE_NOTES.md` (POSITION block first) ·
-  the CONVERGENCE ends-apart flag on the chart awaits the composer's eye.
+- **The composition form is IN** (2026-09-01, three days early). Canonical
+  local copies of what the submission points at: **V-CUT** in
+  `notation/video/approved/2026-08-31-submission/` · **print PDF**
+  `print/score/BCB-score-DRAFT.pdf` (69 pp, built 08-31 23:19) · the five
+  YouTube demo links on the instructions page. Uploads/hosting were the
+  composer's own actions; specifics are not in the repo record.
+- **Step 7 wrap owed:** git tag · the gitignored-deliverables archive
+  call · SAVE_FILES check.
+- **Step 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block (C1) ·
+  further dictation (a 3 s rebuild reaches print) · the CONVERGENCE
+  ends-apart flag awaits the composer's eye.
+- Submission-support numbers live in **RUNNING_LOG 33–38** (measured
+  sounding duration 749.3 s ≈ 12:29 · the 100-word bio · the 92-word
+  program note, both verbatim).
 - **Deliberately uncommitted (composer's own files, never staged by AI):**
   `reaper/7_tubas_rack.rpp` (M) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`
   (??) · `scores/Litany.pdf` (??). Build outputs gitignored as before
@@ -160,6 +157,11 @@ None.
 
 Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
+- **day 40 (Fable) — THE SUBMISSION PIECES:** proofread closed 4/4 · V-CUT
+  approved + archived byte-verified (08-31 folder; 08-27 kept) · print 69 pp
+  with the Performance Instructions as page 2 (D83, one source) · demo
+  apparatus closed end to end, five YouTube links live · performance notes
+  C1–C5 drafted by dictation. RUNNING_LOG day-40 entries 1–32.
 - **day 39 (Fable) — ENS CLOSED (D82) · M1/M2 PROMOTED (D81) · THE SYSTEM MADE
   PORTABLE.** The running order became a first-class device (one step · position
   at every wrap · reorg on approval · survives clear); five user-level skills in
@@ -1638,6 +1640,13 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §5 Done
 
+- **2026-09-01 (day 41) — SUBMITTED: the Penn State composition submission
+  is IN**, three days ahead of the Sept 4 deadline. Form supported
+  in-session — title exact per the cover · duration measured (sounding
+  749.3 s ≈ 12:29) · bio at exactly 100 words · the composer's 92-word
+  program note through two edit passes (RUNNING_LOG 33–37) — and the
+  composer submitted live. Remaining from step 7: git tag · the
+  gitignored-deliverables archive call · SAVE_FILES check.
 - **2026-08-31 (day 40) — THE SUBMISSION-PIECES MILESTONE:** the piece's three
   outward artifacts stand ready for Penn State (deadline Sept 4). (1) **Video** —
   the day-40 re-renders carrying the proofread fixes, **V-CUT composer-approved**
@@ -1796,7 +1805,19 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-08-31, day 40 — CURRENT)* **Everything you need to submit is on disk;
+- *(2026-09-01, day 41 — CURRENT)* **It's in. Nothing is owed tonight.**
+  You submitted the composition form three days early. The local canon of
+  what you submitted: `notation/video/approved/2026-08-31-submission/V-CUT.mp4`
+  and `print/score/BCB-score-DRAFT.pdf` (69 pp). The 92-word program note
+  and the 100-word bio are preserved verbatim in RUNNING_LOG 36–37 if you
+  ever need them again (bios get reused). **Next session, at your word:
+  the abstract submission (step 5)** — then the quiet wrap whenever you
+  want it (git tag · the archive call for the gitignored deliverables ·
+  SAVE_FILES). Your open calls are unchanged and none block anything:
+  C1–C5 verdicts on the mock page · the held-back gliss sub-block · the
+  CONVERGENCE ends-apart detail.
+
+- *(2026-08-31, day 40)* **Everything you need to submit is on disk;
   what's left is yours (forms) and the wrap (tag + archive call).** The video to
   submit is `notation/video/approved/2026-08-31-submission/V-CUT.mp4` — **this
   folder supersedes the 08-27 one** (kept, but don't grab the old V-CUT by
