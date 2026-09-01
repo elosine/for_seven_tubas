@@ -10,22 +10,28 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 39 (2026-08-29, Claude Code / **Fable 5**) — IN PROGRESS
+### LAST SESSION — day 40 (2026-08-31, Claude Code / **Fable 5**, several sittings across clears)
 
-- **The RUNNING ORDER became a first-class device** (composer spec: one step
-  at a time · position announced at every wrap · reorg on approval only ·
-  survives clear) — and the whole session system was made **PORTABLE**: five
-  user-level skills in `~/.claude/skills/` (session-start · session-end ·
-  checkpoint · postclear · **running-order**, new) + a "Session system"
-  section in the global `~/.claude/CLAUDE.md`. Music repos untouched;
-  project-level procedures still win here. Account: RUNNING_LOG day 39.
-- **ENS CLOSED at requirements level (D82):** zoom = one part at a time, a
-  DISPLAY view state commanded from wherever control lives; local play on
-  stands only while the room is stopped; A/B-loop candidate dead. *"Closed"
-  = requirements settled, plan NOT drawn* — all scenarios gather first, then
-  Phases 2–4.
-- **D81 promoted:** M1/M2 resolved upstream (composition-time tailoring,
-  baked transpositions, con assigns parts like paper); PLAN §3 annotated.
+- **THE SUBMISSION PIECES ARE IN PLACE (steps 3 + 6 ☑).** Proofread CLOSED
+  (4/4 GOOD; congruence root-cause fix + THE TUBE, permanent battery) ·
+  video re-rendered with the fixes, phase5-measured, **V-CUT approved
+  ("let's use that") and ARCHIVED byte-verified in
+  `notation/video/approved/2026-08-31-submission/`** (08-27 kept; phase5
+  drift check re-pointed) · **print score 69 pp with the Performance
+  Instructions as PAGE 2** (D83 — two columns, ONE source: the web mock
+  re-read at build time; zero raster, fonts embedded).
+- **PERFORMANCE NOTES built by dictation** (`docs/PERFORMANCE_NOTES.md` +
+  the mock page): six sections live — intro/conduction · curve-cresc ·
+  clusters · acoustic beating (measured chart) · **Multiple Tempos (C5)**
+  with a measured 3-lane multitempo capture (capture_lane v3.2 `--toPart`).
+  C1–C5 verdicts await the composer's edit pass.
+- **THE DEMO APPARATUS CLOSED end to end:** five per-pair beating demos
+  built → approved → **Bloom-Hz labels added** (chart-exact 2/2.6/3.3/4.3/
+  5.4) → uploaded → **five YouTube links LIVE on the instructions page**,
+  each URL verified against its own watch-page title before wiring.
+- Label scare resolved by frame extraction (nothing was ever missing — the
+  tmp/ playback intermediates are unlabelled by design).
+- Full trail: **RUNNING_LOG day-40 entries 1–32**.
 
 ### NEXT UP — day 39 RUNNING ORDER (composer-approved agenda, 2026-08-29)
 
@@ -107,97 +113,28 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 40, 2026-08-31 — MID-SESSION CHECKPOINT, running-order step 4
-PERFORMANCE NOTES active)**
+**(day 40 wrap, 2026-08-31 — clean stop; next session = THE SUBMISSION
+PACKAGE, step 7 ►)**
 
-**POST-CLEAR MODEL: read this block, then `docs/PERFORMANCE_NOTES.md` (its
-POSITION block + the C-items + the DEMO VIDEOS block). That ledger is the
-live anchor for step 4. Do NOT re-read the proofread ledger (closed), the
-beaming logs, or the morph docs.**
-
-- **THE TASK:** running-order **step 4 — Performance Instructions** (the
-  front matter), built by dictation on the mock page
-  `docs/notation_instructions/index.html` (served at
-  http://localhost:5200/docs/notation_instructions/index.html; SQ-style).
-- **STATE:** five sections live — intro · Animated Conduction Tools (2
-  captured examples) · Curve-Based Crescendo · Notated Clusters · Acoustic
-  Beating (measured beating chart GOOD ✓ · demos paragraph + 5 link slots ·
-  Notation block + T7 breath-curve image). **C1–C4 await the composer's
-  end-of-pass verdicts** (their call: "keep things as is for now, edit pass
-  at the end"). Images come from `tools/capture_lane.js` (v3.1: zoom
-  geometry, only-lane; regen commands sit as comments beside each <img>).
-- **THE DEMO APPARATUS IS CLOSED (day 40):** five videos built + approved
-  ("ok those are good ty"), rebuilt with Bloom-Hz labels ("Bloom — N Hz —
-  Tuba A + Tuba B", N = 2/2.6/3.3/4.3/5.4), uploaded, and **the five
-  YouTube links are LIVE on the instructions page** (each URL verified
-  against its own watch-page title before wiring). demos.sh rebuilds
-  everything (~2 min; playbacks cached in demos/tmp/). Statics = sustained
-  max from `notation/audio/demo-heldmax.wav` (option b).
-- **ALSO DONE THIS SESSION (earlier):** proofread step 3 CLOSED (4/4 GOOD;
-  meter congruence root-cause fix + THE TUBE, permanent battery in
-  test_animobj) · the piece video re-rendered with the fixes + phase5
-  measured (morph probes 0.00%, t=730 delta = the fix; NEW ARCHIVE FOLDER
-  STILL PENDING composer approval to supersede `2026-08-27-submission`).
-- **NEXT CONCRETE STEP (instruction):** *(URLs LANDED and wired, day 40 —
-  that branch is consumed.)* If the composer returns with dictation,
-  continue Part C in `docs/PERFORMANCE_NOTES.md` (log as said, capture_lane
-  for images — C5 Multiple Tempos landed this way, incl. the new `--toPart`
-  multi-lane crops). If they call the edit pass, walk C1→C5 verdicts in
-  the ledger.
-- **Resume reads: `docs/PERFORMANCE_NOTES.md` (all of it), nothing else
-  beyond §2.** (RUNNING_LOG day-40 entries 1–26 are the full account if a
-  specific question arises — not required reading.)
-- **Decisions pending the composer:** YouTube URLs · C1–C4 verdicts + the
-  held-back gliss sub-block (C1) · which further device sections the notes
-  get (trance/accelerando · cuivré · dynamics system · GC balls · setup ·
-  print matters) · the step-6 archive folder + step-7 gitignored-deliverables
-  archive decision (now including demo WAVs + mp4s).
-- **Deliberately uncommitted (git status at checkpoint):**
-  - `reaper/7_tubas_rack.rpp` (M) — composer's live session (demo imports
-    etc.); theirs, never staged by AI.
-  - `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) — composer's
-    demo-recording session; theirs.
-  - `scores/Litany.pdf` (??) — composer's reference PDF at the scores root;
-    theirs to keep or move.
-  - `notation/video/renders/demos/` — now gitignored (build outputs:
-    mp4s + tmp cache); `notation/audio/demo-*.wav|.mid`-rendered WAVs
-    already ignored. The .mid IS committed.
-
-- **Where we are:** running order step **3 PROOFREAD LOOP**, active. The
-  composer swept **T1 only, 0 → 140 s**, then ended the sitting. **T2–T10,
-  and T1 past 140 s, are UNSWEPT — the proofread is PARTIAL, not done.**
-- **Batch 1 = three corrections, APPLIED 2026-08-31 and re-rendered.** Each
-  had a cold-executable APPLY SPEC in the ledger and each spec held; the
-  ledger now carries a *done:* line with the measurement for each. What
-  changed:
-  - **#2 cuivré text gap** — `notation/lib/layout.js` techText block, the one
-    constant 0.15 → 0.3. **22 marks in the score · 20 raised +0.15 ss · 2
-    already on the tag-row fallback, unchanged (T8 @40.934, T1 @86.58) · zero
-    demoted.** Measured by running `layoutSection` under both versions.
-  - **#3 T1 @78.49 dynamics** — cl-50's build args are now `--dyn 1:f,5:mf`,
-    rebuilt. **Confined: 4358 overlays before and after, exactly 5 replaced,
-    all cl-50.** f on note 1, mf on note 5, zero accent ink.
-  - **#4 curveMeter shadow** — `animated.curveMeter.fillOpacity` **0.3 → 0.6**;
-    registry now reads curveMeter 0.6 · glissMeter 0.6 · crescMeter 0.6.
-    WISHLIST W1's "deliberately stays at 0.3" struck and marked SUPERSEDED.
-    **Animated layer only — NOT in the print PDF**; it lands in the video at
-    step 6.
-- **THE NEXT CONCRETE STEP:** the composer verdicts each applied item
-  **GOOD ✓ / RETRY ↻** against the fresh PDF. Record each verdict in the
-  ledger *as it is said* — the review itself may be interrupted. RETRY items
-  rejoin the next apply round.
-- **Then** the composer decides whether the sweep resumes (T1 past 140 s, or
-  on to T2). Do not assume — ask.
-- **#1 needs nothing** — resolved KEEP (the 38.48 beaming stands as drawn).
-- **Traps for this work:** the IR schema is a GATE — a rejected build DELETES
-  the page (the build script snapshots to `.bak` first) · the print score is
-  drawn from the IR, so `--rebuild-ir` is the step that is easy to miss ·
-  **the build's GEOMETRY block prints 2 findings (T9 @36.87, T10 @39.08) and
-  they are PRE-EXISTING tier-3, composer-approved** (NOTATION_POLISH,
-  CLOUD02D_BRACKETS) — do not read them as damage you just caused · the tempo
-  MISMATCH block is the known day-36 rounding artifact.
-
-- *(day 39 earlier: both former items DONE — ENS closed (D82), M1/M2 promoted (D81).)*
+- **Step 7 ► (next session, Fable):** collect the package — **V-CUT** from
+  `notation/video/approved/2026-08-31-submission/` + **print PDF**
+  (`bash print/score/build.sh`, 69 pp, 3 s) · composer fills the Penn
+  State forms · SAVE_FILES current · **git tag at the submission state** ·
+  **the gitignored-deliverables archive call** (approved mp4s incl. the
+  five demos, demo WAVs + heldmax, print PDF, save chain — a tag alone
+  does not capture them).
+- **Step 4 stays OPEN alongside:** C1–C5 verdicts (composer's end-of-pass
+  sweep on the mock page) · the held-back gliss sub-block (C1) · further
+  device dictation if wanted (trance/accelerando · cuivré · dynamics ·
+  GC balls · setup · print matters). **Print page 2 re-reads the mock at
+  build time — late edits cost one 3 s rebuild.**
+- **Step 5 ABSTRACT check** still owed (composer believes it is done).
+- Working ledger: `docs/PERFORMANCE_NOTES.md` (POSITION block first) ·
+  the CONVERGENCE ends-apart flag on the chart awaits the composer's eye.
+- **Deliberately uncommitted (composer's own files, never staged by AI):**
+  `reaper/7_tubas_rack.rpp` (M) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`
+  (??) · `scores/Litany.pdf` (??). Build outputs gitignored as before
+  (renders/demos/, demo WAVs, print PDF).
 
 ### OPEN QUESTIONS
 
@@ -223,6 +160,11 @@ None.
 
 Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
+- **day 39 (Fable) — ENS CLOSED (D82) · M1/M2 PROMOTED (D81) · THE SYSTEM MADE
+  PORTABLE.** The running order became a first-class device (one step · position
+  at every wrap · reorg on approval · survives clear); five user-level skills in
+  `~/.claude/skills/` + a global CLAUDE.md section (project procedures still win);
+  the proofread ledger built. RUNNING_LOG day 39.
 - **day 38 (Fable) — THE REMAINING ARCHITECTURE opened.** 5-phase workflow
   (FRAME→GATHER→HARDEN→ARCHITECTURE→PLAN); six areas; prior-art inventory
   (piece #1 = the deployed generation; #4 has zero network code; notation
@@ -504,6 +446,25 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D83** *(2026-08-31, day 40)* — **THE PERFORMANCE INSTRUCTIONS HAVE ONE SOURCE,
+  AND PRINT PAGE 2 IS A VIEW OF IT.** The front matter is built by dictation on the
+  web mock (`docs/notation_instructions/index.html`); the print score's page 2 is
+  generated FROM THAT FILE at build time (`export_print.js --instructions on` —
+  build.sh passes it): title block spans both columns, the body flows into two CSS
+  columns (the composer's ask verbatim: *"separate the performance instructions
+  into two columns and then lay them out as a second page of the print score"*),
+  regen comments stripped, and the SVG images INLINED — an `<img>` would isolate
+  the captures' own `'Crimson Pro Light'` `<text>` from the embedded `@font-face`
+  and fall back to a wrong serif. **Why one source:** the mock is where dictation
+  lands and verdicts happen; a hand-copied print version would drift within a day —
+  late edits now reach paper with a 3 s rebuild. **Rejected:** a separate
+  print-only document (two sources, guaranteed drift) · `<img>` references (fonts
+  isolate; the temp print HTML lives elsewhere, so relative paths break too).
+  Per-figure print widths are constants in export_print.js (multitempo 66 % ·
+  chart 72 % · singles 85–90 %) — measured to fit ONE page with 47 px slack, not
+  guessed (the first render overran by 0.55 of a column). Result: 69 pages
+  (cover · instructions · 67 music), zero raster, fonts subset-embedded
+  (Crimson Pro Light ×2, Georgia ×2 via the beating chart).
 - **D82** *(2026-08-29, day 39)* — **ENS CLOSED AT REQUIREMENTS LEVEL — zoom one-part-at-a-
   time as DISPLAY view state; local play only while the room is stopped.** Zoom (composer:
   "zoom -a"): click a part → the composer-score zoom view, click again → back; one part at
@@ -1677,6 +1638,18 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §5 Done
 
+- **2026-08-31 (day 40) — THE SUBMISSION-PIECES MILESTONE:** the piece's three
+  outward artifacts stand ready for Penn State (deadline Sept 4). (1) **Video** —
+  the day-40 re-renders carrying the proofread fixes, **V-CUT composer-approved**
+  and archived byte-verified in `notation/video/approved/2026-08-31-submission/`
+  (phase5: morph probes 0.00 %; the t=730 delta vs the 08-27 set IS the fix, on
+  the record; old folder kept). (2) **Print score** — 69 pp vector PDF: cover ·
+  **Performance Instructions as page 2** (D83, two columns, one source) · 67
+  music pages; fonts subset-embedded, zero raster. (3) **The demo apparatus** —
+  five per-pair beating demos (sustained-max statics, chart-exact Hz labels), on
+  YouTube, linked from the instructions page with per-video verified mapping.
+  Remaining at step 7: package assembly · forms (composer) · git tag · the
+  gitignored-deliverables archive call.
 - **2026-08-26 (day 36) — THE VIDEO MILESTONE (VIDEO_BUILD_PLAN phases 0–5):** the piece
   has audio and four films. `notation/audio/piece-final-draft-001.wav` (2 ch / 48 kHz /
   24-bit, **762.000 s**, digital silence until 2.0319 s against `db1`'s first onset of
@@ -1822,6 +1795,22 @@ instruction. The instructions are the four reference blocks that follow.*
   sitting; V4/V5 exports trail until submission.
 
 ## §6 Human Notes
+
+- *(2026-08-31, day 40 — CURRENT)* **Everything you need to submit is on disk;
+  what's left is yours (forms) and the wrap (tag + archive call).** The video to
+  submit is `notation/video/approved/2026-08-31-submission/V-CUT.mp4` — **this
+  folder supersedes the 08-27 one** (kept, but don't grab the old V-CUT by
+  habit). The score to submit is `print/score/BCB-score-DRAFT.pdf` — 69 pages,
+  and **page 2 is your Performance Instructions in two columns**. Dictate any
+  change to the instructions page and the PDF picks it up with one command
+  (`bash print/score/build.sh`, 3 s) — the page is read fresh at every build.
+  The five demo links are live on the instructions page and print as visible
+  URLs (they stay clickable in the PDF). **Your open calls, none blocking
+  submission:** the C1–C5 edit-pass verdicts on the mock page · the held-back
+  gliss sub-block (C1) · whether more device sections get notes · the
+  CONVERGENCE chart's ends-apart detail · and at step 7, the archive call for
+  the gitignored deliverables (mp4s incl. demos, WAVs, PDF, save chain) — a git
+  tag alone does not capture them.
 
 - *(2026-08-27, day 37 — CURRENT)* **Both big deliverables are in hand, and nothing
   is owed.** The **video is finished** — you approved the fixed cut, and those five
