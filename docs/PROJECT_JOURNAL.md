@@ -122,23 +122,24 @@ beaming logs, or the morph docs.**
   end-of-pass verdicts** (their call: "keep things as is for now, edit pass
   at the end"). Images come from `tools/capture_lane.js` (v3.1: zoom
   geometry, only-lane; regen commands sit as comments beside each <img>).
-- **THE DEMO VIDEOS ARE BUILT AND APPROVED** ("ok those are good ty"):
-  `notation/video/renders/demos/demo-{T1T2..T9T10}.mp4`, 4:52–5:00 each,
-  rebuilt by `notation/video/renders/demos.sh all` in ~90 s (playbacks
-  cached in demos/tmp/). Statics = sustained max from
-  `notation/audio/demo-heldmax.wav` (option b; generator
-  `tools/gen_demo_heldmax_midi.js`). **Awaiting ONLY the five YouTube URLs.**
+- **THE DEMO APPARATUS IS CLOSED (day 40):** five videos built + approved
+  ("ok those are good ty"), rebuilt with Bloom-Hz labels ("Bloom — N Hz —
+  Tuba A + Tuba B", N = 2/2.6/3.3/4.3/5.4), uploaded, and **the five
+  YouTube links are LIVE on the instructions page** (each URL verified
+  against its own watch-page title before wiring). demos.sh rebuilds
+  everything (~2 min; playbacks cached in demos/tmp/). Statics = sustained
+  max from `notation/audio/demo-heldmax.wav` (option b).
 - **ALSO DONE THIS SESSION (earlier):** proofread step 3 CLOSED (4/4 GOOD;
   meter congruence root-cause fix + THE TUBE, permanent battery in
   test_animobj) · the piece video re-rendered with the fixes + phase5
   measured (morph probes 0.00%, t=730 delta = the fix; NEW ARCHIVE FOLDER
   STILL PENDING composer approval to supersede `2026-08-27-submission`).
-- **NEXT CONCRETE STEP (instruction):** when the composer returns with the
-  five YouTube URLs, replace the five `<em>link to follow</em>` items in
-  the demos <ul> of `docs/notation_instructions/index.html` with links,
-  commit, push. If they return with dictation instead, continue Part C in
-  `docs/PERFORMANCE_NOTES.md` (log as said, capture_lane for images). If
-  they call the edit pass, walk C1→C4 verdicts in the ledger.
+- **NEXT CONCRETE STEP (instruction):** *(URLs LANDED and wired, day 40 —
+  that branch is consumed.)* If the composer returns with dictation,
+  continue Part C in `docs/PERFORMANCE_NOTES.md` (log as said, capture_lane
+  for images — C5 Multiple Tempos landed this way, incl. the new `--toPart`
+  multi-lane crops). If they call the edit pass, walk C1→C5 verdicts in
+  the ledger.
 - **Resume reads: `docs/PERFORMANCE_NOTES.md` (all of it), nothing else
   beyond §2.** (RUNNING_LOG day-40 entries 1–26 are the full account if a
   specific question arises — not required reading.)

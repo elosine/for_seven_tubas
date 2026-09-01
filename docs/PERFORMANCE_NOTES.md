@@ -303,10 +303,10 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   go-lines hyphenated. ALSO C2's example sentences amended per mid-turn
   dictation ("you would play… / you would begin the G at the go-line and
   hold it…").
-- **OPEN:** demo recordings to produce and link (the composer's Reaper
-  session `Bloom-Convergence-Balance_demoRecording.rpp` is presumably
-  this) · a notation-block illustration pending a composer timecode pick ·
-  the CONVERGENCE ends-apart flag above.
+- **OPEN:** the CONVERGENCE ends-apart flag above (composer's eye on the
+  chart). *(Resolved since: demos produced, approved, and LINKED — see the
+  DEMO VIDEOS block; the notation-block illustration is on the page at the
+  composer's picked timecode, T7 @ 224.32.)*
 - amendment (composer, day 40): the tuning-pegs sentence added (*"Think of the pair of tubas as the two strings and the glissandos as the tuning pegs — in this case, both tuning pegs move"*) after the guitar-tuning sentence; the "pairs glissando away…" sentence MOVED to directly after "…fast and vice versa". Applied to the page.
 - demos paragraph dictated (day 40) and on the page: *"I have prepared demo recordings at the links below. These demonstrate how the maximum and minimum beating levels sound in each section for each pair and then provide a two-tuba demo of each beating section."* Five per-pair link slots stubbed; URLs land when the videos exist (plan questions a–e open in chat).
 - verdict: *(pending)*
@@ -338,14 +338,18 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   ticks along each lane top, three balls on the cursor at low/mid/high.
 - verdict: *(pending — composer looks at the page)*
 
-## DEMO VIDEOS — BUILT + APPROVED (day 40; awaiting YouTube URLs only)
+## DEMO VIDEOS — CLOSED (day 40: built · approved · Hz labels · links live)
 
-> **Status: the five videos are built and composer-approved** ("ok those are
-> good ty"). notation/video/renders/demos/demo-{T1T2,T3T4,T5T6,T7T8,T9T10}.mp4,
-> 4:52–5:00 each. Statics carry SUSTAINED max beating from demo-heldmax.wav
-> (option b; one wrong-track drop found by symptom and fixed by the composer).
-> **Remaining: composer uploads to YouTube → five URLs into the page's link
-> slots.** Build spec below as executed; demos.sh re-runs everything.
+> **Status: DONE.** The five videos are built, composer-approved ("ok those
+> are good ty"), rebuilt once more with Bloom-Hz labels, uploaded by the
+> composer, and **linked from the instructions page** — each URL verified
+> against its own YouTube title before wiring (pattern-a titles; URLs came
+> in exact pair order): T1T2 n9HFN30aGYo · T3T4 PnJre7J_xgI · T5T6
+> zlqiG6Dki2E · T7T8 OZHjSIHwhcU · T9T10 HiSCkZz7AuI.
+> notation/video/renders/demos/demo-{T1T2..T9T10}.mp4, 4:52–5:00 each.
+> Statics carry SUSTAINED max beating from demo-heldmax.wav (option b; one
+> wrong-track drop found by symptom and fixed by the composer). Build spec
+> below as executed; demos.sh re-runs everything.
 - **Template = the existing full-demo pipeline** (composer: "make sure we are
   consulting that process… not reinventing the wheel"): audio = MIDI through
   the Reaper rack, rendered by the composer (as the full demo was made);
