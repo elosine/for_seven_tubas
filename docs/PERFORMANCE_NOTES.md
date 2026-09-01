@@ -307,6 +307,9 @@ undictated · `DRAFTED` · `GOOD ✓`.)*
   chart). *(Resolved since: demos produced, approved, and LINKED — see the
   DEMO VIDEOS block; the notation-block illustration is on the page at the
   composer's picked timecode, T7 @ 224.32.)*
+- amendment (composer, day 40, post-links): *"put 'beating glissandos' in
+  quotes"* at its introduction — now …to generate “beating glissandos,”
+  where… (curly quotes, comma inside). Applied to the page.
 - amendment (composer, day 40): the tuning-pegs sentence added (*"Think of the pair of tubas as the two strings and the glissandos as the tuning pegs — in this case, both tuning pegs move"*) after the guitar-tuning sentence; the "pairs glissando away…" sentence MOVED to directly after "…fast and vice versa". Applied to the page.
 - demos paragraph dictated (day 40) and on the page: *"I have prepared demo recordings at the links below. These demonstrate how the maximum and minimum beating levels sound in each section for each pair and then provide a two-tuba demo of each beating section."* Five per-pair link slots stubbed; URLs land when the videos exist (plan questions a–e open in chat).
 - verdict: *(pending)*
