@@ -7,14 +7,79 @@
 > Facts + past selections: `docs/PENN_STATE_RESEARCH.md` § the symposium side.
 > Source outline: `docs/PAPER_OUTLINE.md` § INTRO.
 >
-> **Status: DRAFT B is the live draft** — the composer's own, day 37. DRAFT A
-> (the AI's) is kept below it as a parts bin, not as a competitor.
+> **Status: DRAFT G is the live text (day 41, 2026-09-01)** — DRAFT F (the
+> composer's day-37 edit) with the four flagged items closed on the composer's
+> "go ahead a–d", the timecodes composer-confirmed against the live video, and
+> the real time-marked YouTube links wired in. DRAFT A (the AI's) is kept far
+> below as a parts bin, not as a competitor.
 
 ---
 
-# ✅ DRAFT F — THE COMPOSER'S EDIT (day 37) — **THE CURRENT ABSTRACT**
+# ✅ DRAFT G — a–d CLOSED (day 41, 2026-09-01) — **THE CURRENT ABSTRACT**
 
-> The composer's own pass over the copy-edit. **This is the live text.**
+> DRAFT F plus the four flagged items, closed on the composer's word
+> ("go ahead a-d"):
+> **(a)** the parsing snag fixed — *"…slowly unwind, and complex
+> micro-counterpoint…"* ("creating" dropped; body 289 → **288 words**).
+> **(b)** the title names the paper again — *"…and Computer-Animated Notation
+> System"* restored from DRAFT E (hyphenated as a compound modifier).
+> **(c)** em dashes throughout — title and the in-body title mention now match
+> every other document in the repo.
+> **(d)** the timecodes **CONFIRMED BY THE COMPOSER against the live video**
+> (day 41: *"I confirmed the times"* + the two `t=` links) — 10:15 and 4:33
+> stand. Data verification behind them in RUNNING_LOG day-41 entry 39: at
+> 610–617 s all ten parts play G1/G2/G3 staccato at the SAME ♩=100.2, five
+> phase streams offset in exact 120 ms steps (the composer's own marker:
+> "PS3 G oct"); at 259.56 s all ten parts enter together on D–E–A–B stacked
+> across three octaves — each pair 200 cents apart — and converge (marker:
+> "ACT-CONVERGE-01"). Video ID verified against its own title
+> (oembed: "Bloom - Convergence - Balance · for tuba ensemble - Justin Yang
+> (score following + demo recording)", channel Justin Yang). The composer's
+> `si=` share tokens stripped from the links; `t=` kept.
+
+**Counts: body 288 ✅ under 300 · title 10 · links + technical requirements sit
+outside the prose cap (per the day-37 ruling).**
+
+**Bloom — Convergence — Balance for Tuba Ensemble and Computer-Animated Notation System**
+
+> At time 10:15 in the piece, Bloom — Convergence — Balance, ten tubas are
+> playing octaves in a complex rhythmic web. A few moments later they snap to a
+> crisp unison in an instant. Beginning at 4:33, the same ten tubas quietly
+> intone a hollow-sounding chord which, over the next twenty seconds, transforms
+> into a kinetic pulsing texture bearing more similarity to a jet engine than a
+> brass choir. In the first example, all ten players are in fact playing the same
+> steady tempo, but each stream of pulses is slightly out of phase with the
+> others. In the second example, pairs of performers create fields of acoustic
+> beating by slowly and slightly detuning from each other, like slowly tuning a
+> guitar but in reverse. How is the ensemble executing these unlikely scenarios?
+> They are playing from an animated notation system that uses simple animations
+> like bouncing balls and curve tracers as musical notation. The score plays like
+> a video game, allowing performers to realize feats such as rapidly switching to
+> precise tempos, playing gradual crescendos that slowly unwind, and complex
+> micro-counterpoint with no unifying pulse. These animations have enabled me,
+> the composer, to pursue novel and difficult-to-control musical forces with
+> subtlety and fluidity. This composition has three sections. The first section
+> deploys Xenakis-style clouds of staccato tuba sound grains in flowing shapes.
+> The middle section streams fields of acoustic beating (à la Alvin Lucier)
+> using micro-glissandos, staggered articulations and crescendos. The final
+> section builds on the work of Steve Reich and Conlon Nancarrow, producing
+> textures from streams of phase-shifted pulses and multiple simultaneous
+> tempos. This paper will outline how this piece was created, how the animated
+> notation was refined and how aural experimentation uncovered musically
+> interesting structures.
+
+*Recording (score-following video): https://youtu.be/XZVPO8LBU1g —
+Example 1 at 10:15: https://youtu.be/XZVPO8LBU1g?t=610 ·
+Example 2 at 4:33: https://youtu.be/XZVPO8LBU1g?t=273*
+
+*Technical requirements: Laptop with presentation software and audio and video
+playback.*
+
+---
+
+# DRAFT F — the composer's edit (day 37) — superseded by G
+
+> The composer's own pass over the copy-edit. **G above is the live text.**
 > DRAFT E below is kept as the source it came from.
 
 **Counts, measured:**
@@ -79,22 +144,16 @@ animations/notation repetition · **no serial commas** (a consistent convention)
 "me, the composer" · "This composition / this piece" · "staccato tuba sound
 grains" · "streams fields" · hyphens rather than em-dashes in the title.
 
-## Still open — one real item, three small
+## ~~Still open~~ ALL FOUR CLOSED (day 41 → DRAFT G)
 
-1. **The list-1 parsing snag, unaddressed.** *"…playing gradual crescendos that
-   slowly unwind and creating complex micro-counterpoint…"* — the relative
-   clause lets a reader momentarily attach *and creating* to *unwind*, as though
-   the crescendos were doing the creating. **This is a parsing defect, not a
-   comma preference.** Fixable without adding a serial comma: *"…crescendos that
-   slowly unwind, and complex micro-counterpoint with no unifying pulse"* —
-   drops the third gerund and the ambiguity with it. **11 words of headroom
-   available.**
-2. **Title now reads as the piece, not the paper** — "for Tuba Ensemble" names
-   the work; the notation system was dropped from it. Deliberate?
-3. **Em-dashes** — every other document in this repo writes *Bloom — Convergence
-   — Balance*. The abstract uses hyphens. Worth matching before submission.
-4. **10:15 and 4:33 still unconfirmed** — both land in the right sections, but
-   the previous pair were placeholders.
+1. ~~The list-1 parsing snag~~ **FIXED in G** — the prepared wording taken
+   verbatim ("…slowly unwind, and complex micro-counterpoint…"); body 288.
+2. ~~Title reads as the piece~~ **RESTORED in G** — "…and Computer-Animated
+   Notation System" back from DRAFT E, hyphenated.
+3. ~~Em-dashes~~ **MATCHED in G** — title + in-body mention.
+4. ~~10:15 and 4:33 unconfirmed~~ **CONFIRMED by the composer** (day 41,
+   against the live video, with the `t=` links to prove it) — and the data
+   agrees on every checkable claim (RUNNING_LOG day-41 entry 39).
 
 ---
 
