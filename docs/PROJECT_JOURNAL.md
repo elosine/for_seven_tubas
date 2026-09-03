@@ -10,22 +10,27 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, late-night sitting)
+### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night in three acts)
 
-- **🎉 SUBMITTED. The Penn State composition form went in 2026-09-01**,
-  three days before the Sept 4 deadline — the composer filled and
-  submitted it live in-session.
-- **Form support, everything measured or from the record (RUNNING_LOG
-  entries 33–37):** title exact as the cover prints it (*Bloom —
-  Convergence — Balance, for Tuba Ensemble*) · **duration MEASURED from
-  the WAV** (sound 2.37–751.70 s → sounding 749.3 s ≈ 12:29; "ca. 12.5
-  minutes" on the form) · **bio copy-edited to exactly 100 words**
-  ("improviser" ruled standard and unified) · **program note = the
-  composer's own text through two AI passes, 92 words** — final verbatim
-  in RUNNING_LOG 37.
-- **The step-7 WRAP is still owed:** git tag at the submission state · the
-  gitignored-deliverables archive call · SAVE_FILES check. Composer named
-  next session's work: **the ABSTRACT submission (step 5 ►)**.
+- **🎉 THE COMPOSITION IS SUBMITTED (2026-09-01, three days early).** Form
+  support all measured or from the record (RUNNING_LOG 33–38): cover-exact
+  title · WAV-measured duration (sounding 749.3 s ≈ 12:29 → "ca. 12.5
+  min") · bio at exactly 100 words · the composer's 92-word program note
+  through two passes.
+- **THE ABSTRACT TEXT IS DONE — DRAFT G** (`docs/PENN_STATE_ABSTRACT.md`):
+  a–d closed on the composer's word (parsing fix → 288 words · paper title
+  restored · em dashes · **timecodes composer-confirmed against the live
+  video**, with the data verifying every checkable claim — RUNNING_LOG 39);
+  three time-marked YouTube links wired, video ID title-verified.
+  **REMAINS: host as a doc (Drive, live through Nov 1) + composer submits
+  the form — DEADLINE FRI SEPT 4, 11:59 pm ET.**
+- **THE PERFORMANCE ARC IS SET UP for fits-and-spurts work (D84):**
+  `docs/PERFORMANCE_SCORE_ORDER.md` — brief-on-resume contract ("brief
+  me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
+  first ►) + the 4-chunk paper thread + a position log. **The proposed
+  order awaits the composer's approval at the first sitting.**
+- Step-7 wrap still owed: git tag · gitignored-deliverables archive call ·
+  SAVE_FILES check.
 
 ### NEXT UP — day 39 RUNNING ORDER (composer-approved agenda, 2026-08-29)
 
@@ -33,6 +38,12 @@ piece #3's `docs/` — registered as an additional working directory.
 deadline **Sept 4**. Architecture gathering (sectional · individual · mental
 models · 1c) RESUMES AFTER the submission arc — deferred by the composer
 day 39, not dropped.
+
+**Day 41: this arc is effectively CLOSED** — the form is in; the abstract
+text is final (hosting + submit remain, see NEXT STEPS). **The architecture
+gathering now resumes as THE PERFORMANCE ARC — standing organizer
+`docs/PERFORMANCE_SCORE_ORDER.md` (D84), chunk 1 ► SEC.** The list below
+stays as the submission arc's record.
 
 **HOW THIS LIST WORKS (composer requirement, day 39):** the composer focuses
 on ONE step at a time — **► marks the active step; ☑ marks done** (update the
@@ -89,45 +100,51 @@ it and announces the position before doing anything.
    explicit archive decision — a git tag alone does not capture them.**
    Step 4 stays OPEN alongside (C1–C5 verdicts · any further dictation).
 
-### NEXT STEPS · MODEL · CLEAR (day 41 close — COMPOSITION SUBMITTED)
+### NEXT STEPS · MODEL · CLEAR (day 41 final — abstract text done, organizer built)
 
-1. ► **STEP 5 ABSTRACT SUBMISSION (next session, Fable)** — the
-   symposium / research-presentation side. Verify what already exists
-   (composer believed it done; `docs/PAPER_OUTLINE.md` + PAPER topic picks
-   are the likely material), finish the text, composer submits. Fable —
-   judgment + prose, same as the program note was.
-2. **STEP 7 WRAP (after the abstract; Fable for the archive decision,
-   execution Opus-able)** — git tag at the submission state · the
-   gitignored-deliverables archive call (approved mp4s incl. five demos,
-   WAVs + heldmax, print PDF, save chain) · SAVE_FILES check.
-3. **STEP 4 stays OPEN** — C1–C5 verdicts · held-back gliss sub-block
-   (C1) · further dictation. Page 2 re-reads the mock at build time —
-   late edits cost one 3 s rebuild.
-   **Session ended at the submit click — this IS the clear point; start
-   next on Fable.**
+1. ► **ABSTRACT: HOST + SUBMIT — DEADLINE FRIDAY SEPT 4, 11:59 pm ET**
+   (composer action; any model assists, minutes). The text is DONE
+   (DRAFT G, 288 words, links wired). Remains: a hosted doc (composer's
+   Drive; live through Nov 1) · the form
+   https://forms.gle/Feo1k4mLCWS5ZiCp9. AI generates the upload-ready
+   file on request; log the field-by-field record like the composition
+   form's.
+2. **THE PERFORMANCE ARC (D84) — first sitting on Fable, clear first.**
+   Composer says **"brief me"**; AI briefs from
+   `docs/PERFORMANCE_SCORE_ORDER.md` (► chunk 1 SEC, conversation mode)
+   and gets the proposed order approved or reshuffled.
+3. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
+   git tag at the submission state · gitignored-deliverables archive call
+   (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
+   chain) · SAVE_FILES check.
+4. **STEP 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block
+   (C1) · further dictation — a 3 s rebuild reaches print.
+   **This wrap is the clear point.**
 
 Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 41 wrap, 2026-09-01 — clean stop right after the SUBMIT click;
-next session = ABSTRACT SUBMISSION, step 5 ►)**
+**(day 41 full wrap, 2026-09-01 — session-end run; next session = EITHER
+the abstract hosting/submit (deadline Fri Sept 4!) OR "brief me" on the
+performance arc)**
 
-- **The composition form is IN** (2026-09-01, three days early). Canonical
-  local copies of what the submission points at: **V-CUT** in
+- **► ABSTRACT, the one dated item:** DRAFT G is final in
+  `docs/PENN_STATE_ABSTRACT.md` (288 words · links wired · times
+  confirmed). Owed: hosted doc (Drive, live through Nov 1) + the form
+  (https://forms.gle/Feo1k4mLCWS5ZiCp9) **by Fri Sept 4, 11:59 pm ET** —
+  composer submits; AI makes the upload file on request.
+- **The composition form is IN** (2026-09-01). Local canon: **V-CUT** in
   `notation/video/approved/2026-08-31-submission/` · **print PDF**
-  `print/score/BCB-score-DRAFT.pdf` (69 pp, built 08-31 23:19) · the five
-  YouTube demo links on the instructions page. Uploads/hosting were the
-  composer's own actions; specifics are not in the repo record.
-- **Step 7 wrap owed:** git tag · the gitignored-deliverables archive
-  call · SAVE_FILES check.
-- **Step 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block (C1) ·
-  further dictation (a 3 s rebuild reaches print) · the CONVERGENCE
-  ends-apart flag awaits the composer's eye.
-- Submission-support numbers live in **RUNNING_LOG 33–38** (measured
-  sounding duration 749.3 s ≈ 12:29 · the 100-word bio · the 92-word
-  program note, both verbatim).
+  `print/score/BCB-score-DRAFT.pdf` (69 pp) · the piece video on YouTube
+  (XZVPO8LBU1g, title-verified) · five demo links live.
+- **The performance arc is racked and ready (D84):**
+  `docs/PERFORMANCE_SCORE_ORDER.md` — ► chunk 1 SEC; the proposed order
+  itself awaits composer approval at the first sitting.
+- **Step 7 wrap owed:** git tag · gitignored-deliverables archive call ·
+  SAVE_FILES check. **Step 4 open:** C1–C5 verdicts · held-back gliss
+  sub-block · CONVERGENCE ends-apart flag.
 - **Deliberately uncommitted (composer's own files, never staged by AI):**
   `reaper/7_tubas_rack.rpp` (M) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`
   (??) · `scores/Litany.pdf` (??). Build outputs gitignored as before
@@ -446,8 +463,33 @@ instruction. The instructions are the four reference blocks that follow.*
    *Corollary for verification: `ok()` prints only on failure, so a passing guard
    is invisible — the only proof a guard works is making it go red on purpose.*
 
+13. **A MEASURED CLAIM AND A PERCEPTUAL ANCHOR HAVE DIFFERENT OWNERS.**
+    (day 41) The abstract's "Beginning at 4:33…" looked wrong in the data —
+    the chord's entry measures at 4:19.6 — and the AI was one edit away from
+    "correcting" it when the composer's mid-turn message landed: they had
+    already confirmed 4:33 by ear against the video. The data's job was to
+    verify the CHECKABLE claims (octaves, one tempo ♩=100.2, 120 ms phase
+    steps, the ten-pitch chord — all true to the letter); WHERE a described
+    listening moment begins is the composer's ear's call, and "the moment the
+    texture becomes the thing described" need not be the moment the first
+    note enters. **Generalisation: data verifies what a sentence asserts; it
+    does not get to move the sentence's anchor when the anchor is
+    perceptual.** *(The near-miss is a logged dead end, RUNNING_LOG 39.)*
+
 ## §4 Decisions
 
+- **D84** *(2026-09-01, day 41)* — **A FITS-AND-SPURTS ARC RUNS ON A STANDING
+  ORGANIZER DOC.** The performance-versions arc gets
+  `docs/PERFORMANCE_SCORE_ORDER.md`: the day-39 running-order device (► one
+  active chunk · marks at the wrap · reorg only on approval · survives
+  clears) EXTENDED with a where-this-stands summary, ~one-sitting chunks
+  with done criteria, a position log, and a brief-on-resume contract
+  ("brief me" → last sitting · active chunk · next, nothing else). **Why:**
+  the composer will work in short sittings weeks apart (their words in
+  RUNNING_LOG 40); §2 carries every arc and is too heavy to be the cheap
+  cold brief for one. **Rejected:** tracking the arc only in journal §2
+  (crowds the global resume block; a brief would cost a full §2 read) · a
+  PLAN.md-only view (statuses without position or a brief protocol).
 - **D83** *(2026-08-31, day 40)* — **THE PERFORMANCE INSTRUCTIONS HAVE ONE SOURCE,
   AND PRINT PAGE 2 IS A VIEW OF IT.** The front matter is built by dictation on the
   web mock (`docs/notation_instructions/index.html`); the print score's page 2 is
@@ -1805,17 +1847,23 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-09-01, day 41 — CURRENT)* **It's in. Nothing is owed tonight.**
-  You submitted the composition form three days early. The local canon of
-  what you submitted: `notation/video/approved/2026-08-31-submission/V-CUT.mp4`
-  and `print/score/BCB-score-DRAFT.pdf` (69 pp). The 92-word program note
-  and the 100-word bio are preserved verbatim in RUNNING_LOG 36–37 if you
-  ever need them again (bios get reused). **Next session, at your word:
-  the abstract submission (step 5)** — then the quiet wrap whenever you
-  want it (git tag · the archive call for the gitignored deliverables ·
-  SAVE_FILES). Your open calls are unchanged and none block anything:
-  C1–C5 verdicts on the mock page · the held-back gliss sub-block · the
-  CONVERGENCE ends-apart detail.
+- *(2026-09-01, day 41 wrap — CURRENT)* **One dated thing, then everything
+  moves at your pace.** (1) **THE ABSTRACT: host it and submit the form by
+  FRIDAY SEPT 4, 11:59 pm ET.** The text is finished — DRAFT G, 288 words,
+  your confirmed times, the three YouTube links. Say the word and I produce
+  the upload-ready file for your Drive; you paste its link into
+  https://forms.gle/Feo1k4mLCWS5ZiCp9 and submit (tick "send me a copy of
+  my responses" if the form offers it). (2) **The performance arc is set up
+  for your fits-and-spurts.** In any future session say **"brief me"** and
+  you get exactly three lines: what happened last · the active chunk ·
+  what's next. The order lives in `docs/PERFORMANCE_SCORE_ORDER.md` —
+  eleven screen-side chunks (sectional scenario first) plus a four-chunk
+  paper thread for whenever the mood is paper; **the proposed order is
+  mine, and your first sitting starts by approving or reshuffling it.**
+  (3) Quiet leftovers, no deadlines: the step-7 wrap (git tag · the
+  archive call for the gitignored deliverables · SAVE_FILES) · C1–C5
+  verdicts · the CONVERGENCE ends-apart detail. Your program note and bio
+  are preserved verbatim (RUNNING_LOG 36–37) — bios get reused.
 
 - *(2026-08-31, day 40)* **Everything you need to submit is on disk;
   what's left is yours (forms) and the wrap (tag + archive call).** The video to

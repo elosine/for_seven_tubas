@@ -21,6 +21,10 @@ plans around it** · no clear evidence means no diagnosis.
 
 - **What now / what next (composer's working view):** `docs/PLANNER.md` —
   Section-1 containers, materials, open questions; raw notes append at bottom
+- **Performance arc (fits-and-spurts) organizer:** `docs/PERFORMANCE_SCORE_ORDER.md`
+  (D84) — when the composer says **"brief me"** (or resumes this arc), read it
+  and brief EXACTLY: last sitting · active chunk ► · what's next. Update its
+  marks + POSITION LOG at every wrap.
 - **Which save file is which:** `docs/SAVE_FILES.md` — the `piece-sNN` chain,
   which frozen save each notation page reads, the bump protocol. **AI keeps it
   current at every bump and new page, and names files by exact filename /

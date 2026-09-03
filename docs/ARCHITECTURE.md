@@ -21,8 +21,9 @@
 
 **Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED at requirements level
 (day 39). Next: sectional + individual scenarios + the composer's mental
-models + 1c evaluation — RESUMES AFTER the submission arc (day-39 running
-order, journal §2). "Closed" = requirements settled, plan NOT drawn
+models + 1c evaluation — NOW RESUMING as THE PERFORMANCE ARC (day 41):
+position, chunking and the brief-on-resume contract live in
+`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► SEC first). "Closed" = requirements settled, plan NOT drawn
 (composer's definition, day 39): all scenarios gather first, then Phases
 2–4; the 2c adversarial pass re-tests ENS with everything else.**
 
