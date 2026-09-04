@@ -19,11 +19,11 @@
 - **PHASE 4 — PLAN**: 4a phased into PLAN.md with per-phase verification in the
   running app · 4b model/clear map.
 
-**Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED at requirements level
-(day 39). Next: sectional + individual scenarios + the composer's mental
-models + 1c evaluation — NOW RESUMING as THE PERFORMANCE ARC (day 41):
-position, chunking and the brief-on-resume contract live in
-`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► SEC first). "Closed" = requirements settled, plan NOT drawn
+**Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED (day 39, D82) · SEC
+CLOSED (day 41, D85). Next: IND + PERF + PORTAL scenarios · CONTROLS ·
+ANNOTATION-UX · the composer's mental models · 1c evaluation — position,
+chunking and the brief-on-resume contract live in
+`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► IND next). "Closed" = requirements settled, plan NOT drawn
 (composer's definition, day 39): all scenarios gather first, then Phases
 2–4; the 2c adversarial pass re-tests ENS with everything else.**
 
@@ -406,6 +406,136 @@ up the plan"* — and the project flow confirmed in the same breath:
 **requirements for ALL scenarios first, then the plans** (the Phase 1→4
 order as adopted). M1/M2 supersession promoted to journal §4 as **D81** at
 this wrap; PLAN §3 annotated.
+
+#### SEC — sectional / small-group rehearsal, iteration 1 (day 41, 2026-09-01; composer verbatim in COMPOSER_LOG day 41)
+
+**The scenario as given:**
+
+- **Two contexts, one module:** a small group **breaks off from the large
+  group mid-rehearsal**, or meets **independently, away from rehearsal** —
+  "a small group of players wants to get together and practice, they'll be
+  able to."
+- **On-the-fly group formation** — players form their own group themselves;
+  no composer/conductor setup step.
+- **Durable recurring rooms** — "they could reliably come back to the same
+  room if that same group rehearses over and over again." Formed on the
+  fly, persistent thereafter.
+- **HEADLESS CONTROL** — "anybody could control the score." Explicitly NO
+  leader model; piece #1's leader-passing named as the pain ("too much
+  like this one's a leader. now this one's the leader").
+- **The flow:** "very simple interface login. choose the room and start
+  playing now."
+
+**Consequences (AI reading, to confirm):**
+
+- The ENS rule "stands have no room transport" is **ENS-scoped policy, not
+  global** — in SEC every stand carries transport. (The per-module-policy
+  principle doing exactly its job; the dictation confirms the sectional
+  side of it.)
+- No leader ⇒ no leader-transfer machinery, no "first command claims
+  leadership." Candidate policy: **every member equal, last command wins,
+  no locks.**
+- The standing-rooms machinery generalizes: **a room per GROUP**,
+  member-formed, listed at login.
+
+**Surfaced, not resolved here:**
+
+- **THE PARTS THREAD (composer):** "the players themselves are playing
+  their own parts. so we haven't discussed that yet… how do we format
+  those and make those" — promoted to a proposed chunk in
+  `PERFORMANCE_SCORE_ORDER.md` (after the scenario chunks). ENS
+  iteration 4 already holds the seed: **a stand's part view = a live VIEW
+  of the IR** (no pre-built per-part PDFs); what a part SHOWS is the open
+  question, and scenario findings bank into it.
+- **Vet round pending (a–d):** break-off tie-back to the main room
+  (recall gesture, or human coordination?) · room identity at "choose the
+  room" (names? "your rooms" list?) · conflict policy under headless
+  control (last-command-wins?) · does a sectional see the group's lanes or
+  all ten (→ PARTS input).
+
+#### SEC — iteration 2 (day 41): a–d ruled; the ensemble features carry
+
+**Ruled by the composer ("a just human. B, yes. c yes… d…" — verbatim in
+COMPOSER_LOG):**
+
+- **a — break-off tie-back: HUMAN.** No recall machinery; "back in 10" is
+  coordination, not code.
+- **b — room identity: YES.** Named rooms, auto-created at first
+  formation; login shows **your rooms**.
+- **c — conflict policy: YES.** Every member equal, **last command wins**,
+  no locks, no claims.
+- **d — the view: OWN PART ONLY.** "They'll only be playing their parts…
+  [Tuba] 1 through 4 is meeting, then each will see their individual
+  parts, but those four parts will be coordinated." A stand shows YOUR
+  part in every module; "coordinated" = the room clock. Free navigation
+  stays ("skip around or move to a different rehearsal [number]").
+  **→ First PARTS input banked: the stand's view is the player's own
+  part, everywhere.**
+- **The ensemble features CARRY** (composer: "we talked about some of the
+  features of the ensemble, like different speeds, etcetera") — the
+  inherited set, for the record: speed presets 50/70/85/100 (a transport
+  right — in SEC, everyone's) · "again" · pre-roll on jumps · local play
+  while the room is stopped · stands follow while it plays · annotations
+  private · offline floor · wake lock.
+
+#### SEC — iteration 3 (day 41): f/g ruled; e sharpened, solution proposed
+
+**Ruled by the composer (verbatim in COMPOSER_LOG):**
+
+- **f — one room at a time: YES.** No dual membership.
+- **g — demos: ZERO integration.** "They can just pull up a browser and go
+  to YouTube independently. it doesn't have to integrate with the score."
+  Nothing reachable-from-the-stand is required either.
+
+**e — constraints sharpened (composer: "let's think of a solution"):**
+one person creates (anyone) · the room appears in the other players'
+selection · the creator must NOT scroll/pick from a player list · roster
+provenance is itself a question ("how do we build the roster?") and the
+roster changes · the system must NOT accumulate managed rooms · players
+must NOT have to remember to delete rooms · no long lists of
+previously-created rooms.
+
+**AI PROPOSAL — "LIVE ROOMS ONLY: the room is who's in it" (pending the
+composer's verdict):**
+
+- Any player taps **Start a sectional** → a live room opens with them in
+  it. Every logged-in player's room choice shows exactly: **the ensemble
+  room + any sectional live right now**, auto-labeled from its members
+  ("Sectional — T1 T2 T3 T4"). One tap joins. The room **dies when empty**
+  (short grace, as piece #1's rooms did). Nothing is stored, ever.
+- Constraint map: creator picks nobody (joiners self-select — the piece's
+  own "whoever shows up" philosophy) · nothing to delete and no stale
+  lists (only live rooms exist; rarely more than one or two) · **"come
+  back to the same room" REFRAMED:** nothing in a sectional needs memory —
+  annotations are private and follow the player globally, position is one
+  rh# tap — so "the same room" = the same people meeting again through the
+  identical two-tap flow, zero stored objects. If some state ever earns
+  persistence (last position?), it can key silently to the member set —
+  NOT proposed now.
+- Side effect: **iteration 2's b ("named rooms") resolves to AUTO-LABELS**
+  — no one ever types a room name.
+
+**The roster (answer to "how do we build the roster?"):** it already
+exists as a consequence of ENS iteration 4 — pre-registration through the
+off-rehearsal process + con assigning parts "like handing out paper
+parts" = a player↔part registry. **SEC never builds or edits a roster; it
+reads the current one**, so roster changes are enrollment events and the
+sectional flow never breaks. Under live-rooms it is barely consulted at
+all — joining is self-service; the label shows who is present.
+
+#### SEC — iteration 4 (day 41): live-rooms ADOPTED — **SEC CLOSED**
+
+**Composer: "yes good."** The live-rooms model is adopted as proposed in
+iteration 3, with its side effects: b resolves to auto-labels ·
+"come back to the same room" = the same people, zero stored objects ·
+roster = a read-only view of the ENS-iteration-4 registration/assignment
+registry. **SEC is closed at the composer's standing definition (as ENS,
+D82): requirements settled, plan not drawn.** Promoted to journal §4 as
+**D85**. Findings banked onward: **PARTS** ← the stand shows the player's
+own part, everywhere · **PORTAL** ← the room selection is two kinds only
+(the ensemble room + sectionals live right now) · **NET** ← sectional
+rooms are ephemeral, die-when-empty; nothing in SEC needs room
+persistence.
 
 ## 2 · DESIGN
 

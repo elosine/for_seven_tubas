@@ -63,12 +63,13 @@
 dictates, AI logs verbatim + vets, iterations until closed — the same loop
 that closed ENS in four iterations)*
 
-1. ► **SEC — sectional / small-group scenario** (Fable, conversation mode).
-   Walk through a sectional the way ENS was walked. Known gaps from the day-38
-   map: nothing is subset-aware (which parts, which material); composer
-   principle on record: in sectionals everyone can start/stop.
-   **Done =** SEC closed at requirements level in ARCHITECTURE.md.
-2. **IND — individual practice scenario** (Fable). Does solo practice need the
+1. ☑ **SEC — sectional / small-group scenario** (CLOSED day 41 → **D85**;
+   four iterations, one sitting). Two contexts one module · on-the-fly
+   groups · **LIVE ROOMS ONLY** (the room is who's in it; nothing stored) ·
+   headless control, last command wins · own part only · ensemble features
+   carry · human tie-back · one room at a time · demos zero-integration ·
+   roster = read-only registry. Full record: ARCHITECTURE.md § SEC.
+2. ► **IND — individual practice scenario** (Fable). Does solo practice need the
    server at all? Which practice aids — and confirm the global looping
    rescission holds here too (or gets a solo-only exception).
    **Done =** IND closed.
@@ -79,6 +80,15 @@ that closed ENS in four iterations)*
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
+— **PROPOSED day 41, awaiting composer approval: a PARTS chunk here** (the
+   stand's part view + part formatting — what a part shows, which lanes,
+   adaptations like the day-35 beating-frequency indicator idea, the
+   make-process; seed: ENS iteration 4's "a part = a live VIEW of the IR").
+   Surfaced by the composer in SEC iteration 1 ("the players themselves are
+   playing their own parts. so we haven't discussed that yet"). Placed after
+   the scenario chunks so every consumer is known before it is specced;
+   scenario findings bank into it meanwhile.
+
 5. **CONTROLS session** (Fable; the composer named this a dedicated session,
    day 38). The swipe/tap vocabularies, per device (tablet = fingers,
    laptop = mouse + keys). **Done =** vocabulary agreed and filed.
@@ -125,6 +135,21 @@ chunk 11's plan).
 
 ## POSITION LOG (newest first — one line per sitting)
 
-- **2026-09-01 (day 41):** organizer created at the composer's ask. **The
-  order above is the AI's proposal — approve or reorder it at the first
-  sitting.** ► = chunk 1 (SEC). Nothing started yet.
+- **2026-09-01 (day 41, sitting 1 WRAP — SEC CLOSED ☑ → D85):** live-rooms
+  model adopted ("yes good") after four iterations in one sitting; findings
+  banked to PARTS / PORTAL / NET. **► moves to chunk 2 (IND).** The
+  PARTS-chunk insertion is still marked proposed — composer yes/no owed.
+  Committed + pushed at the wrap.
+
+- **2026-09-01 (day 41, sitting 1 — SEC UNDERWAY):** SEC iteration 1
+  dictated and logged (ARCHITECTURE.md § SEC · COMPOSER_LOG day 41):
+  break-off + independent meetups · on-the-fly group formation · durable
+  recurring rooms · HEADLESS control, no leader (piece #1's leader-juggling
+  named the pain) · "login. choose the room and start playing now." The
+  PARTS question surfaced → PARTS chunk PROPOSED (see THE ORDER).
+  **Iteration 2: a–d RULED** (human tie-back · named rooms + your-rooms
+  list · last-command-wins · OWN PART ONLY — first PARTS input banked) and
+  the ensemble features carry. **Open: AI additions round e–g** (first-join
+  mechanics · one-room-at-a-time · the pair demos need nothing built).
+- **2026-09-01 (day 41):** organizer created at the composer's ask; order
+  proposed. ► = chunk 1 (SEC).

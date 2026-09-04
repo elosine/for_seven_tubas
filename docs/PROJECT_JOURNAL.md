@@ -29,6 +29,10 @@ piece #3's `docs/` — registered as an additional working directory.
   me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
   first ►) + the 4-chunk paper thread + a position log. **The proposed
   order awaits the composer's approval at the first sitting.**
+- **SEC CLOSED — the arc's first chunk ☑ (→ D85, same night):** the
+  sectional scenario gathered and adopted in four dictation iterations —
+  live-rooms model (the room is who's in it, nothing stored), headless
+  control, own part only. ► IND is next.
 - Step-7 wrap still owed: git tag · gitignored-deliverables archive call ·
   SAVE_FILES check.
 
@@ -109,10 +113,10 @@ it and announces the position before doing anything.
    https://forms.gle/Feo1k4mLCWS5ZiCp9. AI generates the upload-ready
    file on request; log the field-by-field record like the composition
    form's.
-2. **THE PERFORMANCE ARC (D84) — first sitting on Fable, clear first.**
-   Composer says **"brief me"**; AI briefs from
-   `docs/PERFORMANCE_SCORE_ORDER.md` (► chunk 1 SEC, conversation mode)
-   and gets the proposed order approved or reshuffled.
+2. **THE PERFORMANCE ARC (D84) — ► chunk 2 IND next (Fable, conversation
+   mode).** Chunk 1 SEC CLOSED day 41 (→ D85, live-rooms model). Composer
+   says **"brief me"**; AI briefs from `docs/PERFORMANCE_SCORE_ORDER.md`.
+   Still owed there: a yes/no on the proposed PARTS-chunk insertion.
 3. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -478,6 +482,26 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D85** *(2026-09-01, day 41)* — **SEC CLOSED at requirements level
+  (performance arc chunk 1).** A sectional = any subset; TWO contexts, one
+  module (break off mid-rehearsal / meet independently). Groups form ON
+  THE FLY: one creator (anyone), joiners self-select. **LIVE ROOMS ONLY —
+  the room is who's in it:** the selection shows the ensemble room + any
+  sectional live right now, auto-labeled from members; the room dies when
+  empty; NOTHING is stored — "come back to the same room" = the same
+  people through the same two-tap flow (annotations are player-global,
+  position is one rh# tap, so a sectional needs no memory). **HEADLESS
+  control:** every member equal, last command wins, no locks, NO leader
+  (piece #1's leader-passing named as the pain). View = **own part only**,
+  coordinated by the room clock. Ensemble features carry (speed presets ·
+  "again" · pre-roll · local play while stopped · private annotations ·
+  offline floor · wake lock). Break-off tie-back is HUMAN. One room at a
+  time. Demos: zero integration (YouTube in their own browser). Roster =
+  a READ-ONLY view of the ENS registration/assignment registry (D81
+  upstream). **Rejected:** creator picks members from a roster · stored /
+  standing sectional rooms · any leader model · demo/score integration.
+  Trail: COMPOSER_LOG day 41 · ARCHITECTURE.md § SEC iterations 1–4 ·
+  RUNNING_LOG 41–44.
 - **D84** *(2026-09-01, day 41)* — **A FITS-AND-SPURTS ARC RUNS ON A STANDING
   ORGANIZER DOC.** The performance-versions arc gets
   `docs/PERFORMANCE_SCORE_ORDER.md`: the day-39 running-order device (► one

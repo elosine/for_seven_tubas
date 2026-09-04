@@ -2492,3 +2492,23 @@ all the requirements, but have yet to draw up the plan. And the way we're
 continuing this project is we'll develop the requirements for all the
 scenarios and then write up all the plans. Is that correct? But after the
 confirmation, we can move on to the next thing in my current running order."*
+
+### Day 41 (2026-09-01) — SEC scenario: sectional / small-group rehearsal, iteration 1 (typed/dictated)
+
+*"So then sectional rehearsals will be small group rehearsals, which might break off from the large group in a rehearsal, and they'll need to be able to do rehearse independently themselves or away from the rehearsal of a small group of players wants to get together and practice, they'll be able to. so they should be able to form their own group on the fly. and then... so they should have headless control. So anybody could control the score. And then they could reliably come back to the same room if that same group rehearses over and over again. and then the string quartet score had too much like this one's a leader. now this one's the leader. I just want very simple interface login. choose the room and start playing now. I'm not sure we ever mentioned it. with the ensemble on all of these rehearsal scores, the players themselves are playing their own parts. so we haven't discussed that yet. so I don't know if the parts discussion should come first. how do we format those and make those or we continue to build the requirements with her ensemble tipe"*
+
+*(last words = dictation garble, read as "with the ensemble type"; the question being: does the PARTS discussion come first, or do we continue gathering scenario requirements.)*
+
+### Day 41 — SEC iteration 2: the a–d rulings (dictated)
+
+*"a just human. k. B, yes. c yes The, I believe, d as in dog, I believe that they'll only be playing their parts. So let's say two zero one through four is meeting, then each will see their individual parts, but those four parts will be coordinated. and they still have all the ability to skip around or move to a different rehearsal. And I think we talked about some of the features of the ensemble, like different speeds, etcetera. other things to consider?"*
+
+*("two zero one through four" = dictation garble, read as "Tuba 1 through 4"; "move to a different rehearsal" read as "a different rehearsal number/spot in the score.")*
+
+### Day 41 — SEC iteration 3: e/f/g (dictated)
+
+*"for e, I think I'd prefer that one person create a room. It could be anyone, and then that room will appear in the other players' potential selection. actually let's think through this one more pass so I don't necessarily want the room Creator to have to scroll through a long list of players and the roster might change. and then how do we build the roster? but also, I don't want the system to have to manage a bunch of rooms or the players to have to remember to delete the room if they don't need it anymore or to have to scroll through a long list of rooms that have been previously created. so let's think of a solution for this f. yes no dual membership g. no need for any kind of external links or anything like that. if they want to use the demo videos they can just pull up a browser and go to YouTube independently. it doesn't have to integrate with the score"*
+
+### Day 41 — SEC iteration 4: the verdict
+
+*"yes good"* — the live-rooms model adopted as proposed. SEC closed at requirements level (→ D85).
