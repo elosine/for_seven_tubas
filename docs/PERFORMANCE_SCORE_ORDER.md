@@ -135,19 +135,38 @@ single-player extracts · the beating-frequency indicator idea for the parts
 rehearsal · rehearsal logging · the network build itself (comes out of
 chunk 11's plan).
 
-## COMPOSER'S NOTED TOPICS (day 41 sitting 2 — "just note for now"; placement in the order on composer approval at a wrap)
+## COMPOSER'S NOTED TOPICS → THE PROPOSED ENGINE CHUNK (day 41 sitting 2)
 
-- **The ANIMATION ENGINE** as its own discussion (named three times —
-  emphasis theirs): the clock-driven animation on stands, its robustness.
-- **Network syncing + robustness** — wants explicit coverage; today it
-  lives implicitly in HARDEN/ARCHITECTURE; candidate = a dedicated NET
-  sitting after the scenario chunks.
-- **Performance mode + REDUNDANCY during performance** — banked into
-  chunk 3 (PERF), which already carries "vet hardest /
-  network-failure-on-stage"; redundancy is now a named keyword there.
+The three noted topics (animation engine · network syncing/robustness ·
+performance redundancy) **consolidate into one proposed chunk — ENGINE**
+(PERF iteration 1: the composer wants proven commercial-grade engineering
+models, "video games, massive multiplayer games," and delegates
+engine/codebase selection to AI expertise):
+
+- **ENGINE (proposed; placement after the scenario chunks, before or at
+  HARDEN):** the AI prepares a **technology brief** — game-engine sync
+  patterns (authoritative clock · interpolation · dead-reckoning), the
+  start-anchor/local-clock model ("after GO the network is optional" —
+  fixed timeline), animation-engine smoothness on stand hardware,
+  redundancy machinery (stand dead-reckoning + hot-spare + minimal
+  override), and codebase candidates (harden piece #1's own protocol vs
+  Colyseus-class frameworks; wake lock; PWA/offline; WebSocket vs
+  WebRTC-LAN) — presented for composer verdicts in one sitting.
+  **Done =** models chosen, engineering requirements frozen for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-09-01 (day 41, sitting 2 cont. — PERF OPENED via precedent
+  survey + the engineering redirect):** survey filed (ARCHITECTURE § PERF
+  precedent survey; Polytempo Network = the sibling; paper lineage to
+  PAPER_NOTES). Then the redirect (PERF iteration 1): **ceremony OUT**
+  ("started on the fly… not a lot of locking"), redundancy nod
+  (stand clocks + spare machine), engineering models = commercial/MMO
+  grade, codebases delegated to AI. **Proposed and pending composer
+  verdict:** PERFORMANCE = THE ENS ROOM, HARDENED · "after GO the
+  network is optional" (fixed-timeline star, drift ≈ 15 ms/750 s
+  ESTIMATE) · the ENGINE chunk (see above). PARTS-chunk yes/no still
+  floats.
 - **2026-09-01 (day 41, sitting 2 WRAP — IND CLOSED ☑ → D86):** two
   iterations; a–e ruled (serverless solo · NO LOOP, the last door shut ·
   gesture default pinned · paged swiping · three-item menu). Gestures

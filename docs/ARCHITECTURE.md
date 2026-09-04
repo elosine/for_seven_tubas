@@ -674,6 +674,52 @@ question (stand-level only / + hot-spare server / + emergency menu) ·
 keep the one-GO ceremony (piece #1's readiness → countdown → locked →
 auto-stop already matches show-control practice).
 
+#### PERF — iteration 1 (day 41 sitting 2): the engineering redirect (composer verbatim in COMPOSER_LOG)
+
+**What the composer ruled / asked:**
+
+- **The art-genre precedents are not the ask** — the animation is worked
+  out. The ask: **proven, commercial-grade engineering models** — robust
+  sync, smooth animation, redundancy — "video games, massive multiplayer
+  games." **Engine/codebase selection delegated to AI expertise.**
+- **Redundancy nod (preliminary):** the spare-machine idea "sounds good
+  on top of the individual… machine clocks" — stand dead-reckoning +
+  hot-spare machine.
+- **THE CEREMONY REVERSAL:** piece #1's performance mode was "too
+  onerous and fragile" — too many steps to start/enter the room, it got
+  stuck, notification fiddling. **The performance score "ideally could
+  just be started on the fly and not need a lot of locking or
+  preparation."** This kills the survey takeaway "keep the one-GO
+  ceremony": readiness roster · countdown · mode-lock are OUT. What
+  survives for free: follow-only stands (ENS already gives stands no
+  transport).
+
+**AI reframe (proposed):** **PERFORMANCE = THE ENS ROOM, HARDENED.** Same
+flow as rehearsal — con hits play, everyone follows — zero added
+ceremony; the difference is entirely under the hood (redundancy,
+robustness posture).
+
+**AI star insight (proposed, to vet):** **after GO, the network is
+optional.** The piece is a FIXED TIMELINE (~12.5 min): one GO
+distributes a shared start anchor, and every stand can finish the entire
+piece on its LOCAL clock. Typical device-clock drift ~20 ppm ≈ **15 ms
+over the whole 750 s** *(estimate — empirical gate to measure real
+devices, phase 2b)*, far under ensemble threshold. Network corrections
+after GO are a luxury, not a dependency — **the show cannot be stopped
+by the network once it has begun.** Redundancy reframes around this.
+
+**Scope ruling proposed (the composer's "what needs discussed here"):**
+PERF (this scenario) stays EXPERIENCE-level and is nearly done — the
+concert flow is now: walk in → the ENS room → con plays → stands follow
+→ piece ends. The engineering — **animation engine · network
+syncing/robustness · redundancy machinery · codebase picks** — 
+consolidates into one proposed **ENGINE chunk** whose deliverable is an
+AI-prepared technology brief (game-engine patterns: authoritative clock,
+interpolation, dead-reckoning; candidates incl. Colyseus vs hardening
+piece #1's own protocol; rAF time-based rendering — drawAtTime already
+is; wake lock; PWA/offline caching; WebSocket vs WebRTC-LAN), presented
+for composer verdicts.
+
 ## 2 · DESIGN
 
 *(not started)*
