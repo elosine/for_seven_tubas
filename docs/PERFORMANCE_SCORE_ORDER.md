@@ -82,17 +82,21 @@ that closed ENS in four iterations)*
    (self-sufficient stands · hot-spare machine · one podium resync
    gesture) · **after GO the network is optional** (fixed-timeline
    star). Survey + full record: ARCHITECTURE.md § PERF.
+3.5 ► **ENGINE — the technology brief** (AI prepares, composer verdicts;
+   RULED next, day 41). Charter above (animation-engine hard look +
+   renderer candidates · network robustness + codebase pick · the
+   composer-runnable TEST KIT). **Done =** models chosen, engineering
+   requirements frozen for HARDEN.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
-— **PROPOSED day 41, awaiting composer approval: a PARTS chunk here** (the
-   stand's part view + part formatting — what a part shows, which lanes,
-   adaptations like the day-35 beating-frequency indicator idea, the
-   make-process; seed: ENS iteration 4's "a part = a live VIEW of the IR").
-   Surfaced by the composer in SEC iteration 1 ("the players themselves are
-   playing their own parts. so we haven't discussed that yet"). Placed after
-   the scenario chunks so every consumer is known before it is specced;
-   scenario findings bank into it meanwhile.
+4.5 **PARTS — the stand's part view + part formatting** (APPROVED into the
+   order, day 41 wrap). What a part shows, which lanes, adaptations like the
+   day-35 beating-frequency indicator idea, the make-process. Seed: ENS
+   iteration 4's "a part = a live VIEW of the IR"; first input banked from
+   SEC d (own part, everywhere). Placed after the scenario chunks so every
+   consumer is known before it is specced. **Done =** part-view
+   requirements closed.
 
 5. **CONTROLS session** (Fable; the composer named this a dedicated session,
    day 38). The swipe/tap vocabularies, per device (tablet = fingers,
@@ -144,8 +148,9 @@ The three noted topics (animation engine · network syncing/robustness ·
 performance redundancy) consolidated and **approved by the composer's
 PERF-iteration-2 words** ("take a hard look at the animation engine…
 even if we have to adapt something different… I lean on you for network
-robustness and engine… devise some testing… hard data"). **Placement —
-next vs after PORTAL — is the composer's call (AI proposes: next).**
+robustness and engine… devise some testing… hard data"). **PLACEMENT
+RULED (composer, day 41 wrap): ENGINE IS NEXT** — the ► after PERF,
+ahead of PORTAL.
 
 - **ENGINE — the AI-prepared technology brief, one verdict sitting:**
   1. **Animation-engine hard look.** The jitter admission is on record
@@ -171,13 +176,18 @@ next vs after PORTAL — is the composer's call (AI proposes: next).**
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-09-01 (day 41, sitting 2 WRAP — three scenarios closed; ENGINE
+  is ►):** SEC (D85) · IND (D86) · PERF (D87) all closed this sitting;
+  precedent survey filed; ENGINE approved and **RULED next** by the
+  composer; **PARTS chunk RULED into the order** (4.5). Session wrapped
+  here — **next session opens on the ENGINE brief** (AI prepares the
+  technology brief + test kit as homework; composer verdicts). Everything
+  committed + pushed.
 - **2026-09-01 (day 41, sitting 2 cont. — PERF CLOSED ☑ → D87 · ENGINE
   APPROVED):** a = RULING (performance = the ENS room hardened; no
   ceremony; on-the-fly start) · b = all three redundancy rungs · the
   animation admission logged (jittery in performance; renderer may
-  differ) · the testing mandate (composer-runnable, hard data). **► next
-  = composer's call: ENGINE (AI brief, proposed) or PORTAL (default
-  track).** Committed + pushed.
+  differ) · the testing mandate (composer-runnable, hard data).
 - **2026-09-01 (day 41, sitting 2 cont. — PERF OPENED via precedent
   survey + the engineering redirect):** survey filed (ARCHITECTURE § PERF
   precedent survey; Polytempo Network = the sibling; paper lineage to

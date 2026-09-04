@@ -10,26 +10,19 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night in three acts)
+### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
 
-- **🎉 THE COMPOSITION IS SUBMITTED (2026-09-01, three days early).** Form
-  support all measured or from the record (RUNNING_LOG 33–38): cover-exact
-  title · WAV-measured duration (sounding 749.3 s ≈ 12:29 → "ca. 12.5
-  min") · bio at exactly 100 words · the composer's 92-word program note
-  through two passes.
-- **THE ABSTRACT TEXT IS DONE — DRAFT G** (`docs/PENN_STATE_ABSTRACT.md`):
-  a–d closed on the composer's word (parsing fix → 288 words · paper title
-  restored · em dashes · **timecodes composer-confirmed against the live
-  video**, with the data verifying every checkable claim — RUNNING_LOG 39);
-  three time-marked YouTube links wired, video ID title-verified.
-  **SUBMITTED (composer's report, same night): hosted + form in — PENN
-  STATE FULLY CLOSED, both submissions three days early.** Standing
-  obligation only: hosted copies live through Nov 1, 2026.
-- **THE PERFORMANCE ARC IS SET UP for fits-and-spurts work (D84):**
-  `docs/PERFORMANCE_SCORE_ORDER.md` — brief-on-resume contract ("brief
-  me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
-  first ►) + the 4-chunk paper thread + a position log. **The proposed
-  order awaits the composer's approval at the first sitting.**
+- **🎉 PENN STATE FULLY CLOSED — both submissions in, three days early.**
+  Composition submitted 2026-09-01 (form support measured/from the record,
+  RUNNING_LOG 33–38: cover-exact title · WAV duration 749.3 s ≈ 12:29 ·
+  100-word bio · 92-word program note). Abstract DRAFT G finished (a–d
+  closed → 288 words, times composer-confirmed + data-verified, links
+  wired — RUNNING_LOG 39) and composer-hosted + submitted (entry 45).
+  Standing obligation only: hosted copies live through Nov 1, 2026.
+- **THE PERFORMANCE ARC OPENED AND RAN (D84 organizer):** brief-on-resume
+  contract + chunked order in `docs/PERFORMANCE_SCORE_ORDER.md`; the order
+  is composer-approved and live, with ENGINE ruled next and a PARTS chunk
+  added (4.5).
 - **THREE SCENARIO CHUNKS CLOSED IN ONE NIGHT — SEC (☑ D85) · IND
   (☑ D86) · PERF (☑ D87):** SEC = live-rooms, headless, own part only.
   IND = serverless solo, pinned taps, three-item menu, looping dead
@@ -116,12 +109,17 @@ it and announces the position before doing anything.
 composition + abstract, composer-hosted and composer-submitted. **Nothing
 dated remains anywhere.** Standing: hosted copies live through Nov 1, 2026.
 
-1. ► **THE PERFORMANCE ARC (D84) — next: the ENGINE brief (AI prepares,
-   composer verdicts) or PORTAL (dictation) — composer's call.** SEC,
-   IND and PERF all CLOSED day 41 (→ D85, D86, D87 — three scenarios in
-   one night). Composer says **"brief me"**; AI briefs from
-   `docs/PERFORMANCE_SCORE_ORDER.md`. Still floating: the PARTS-chunk
-   yes/no.
+1. ► **THE PERFORMANCE ARC (D84) — next: the ENGINE brief (RULED next,
+   day 41; AI prepares as homework, composer verdicts).** AI drafts a
+   technology brief + a composer-runnable test kit: animation-engine hard
+   look + renderer candidates (compositor-SVG · canvas/WebGL · the
+   pre-rendered-part-video ace) · network robustness + codebase pick
+   (harden piece #1's protocol vs Colyseus-class) · the browser test kit
+   (rAF jitter · dropped frames · cross-device drift · renderer A/B) +
+   cheap-device guidance. **Fable to design/recommend; the test-kit
+   BUILD is Opus once specced.** SEC/IND/PERF all closed (D85–D87);
+   PARTS chunk confirmed into the order (4.5). Say **"brief me"** or
+   "engine brief" to open it.
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -135,9 +133,15 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 41 end, 2026-09-01 — PENN STATE FULLY CLOSED; next session =
-"brief me" → ► IND, or any undated leftover at will)**
+**(day 41 end, 2026-09-01 — PENN STATE FULLY CLOSED + three performance
+scenarios closed; next session = the ENGINE brief)**
 
+- **NEXT SESSION = THE ENGINE BRIEF (►).** AI-prepared homework
+  (technology brief + composer-runnable test kit; charter in
+  `docs/PERFORMANCE_SCORE_ORDER.md` § THE ENGINE CHUNK and ARCHITECTURE
+  § PERF iteration 2). The composer picks the renderer + network path by
+  verdict; then PORTAL, then PARTS (4.5), then CONTROLS/ANNOTATION/mental
+  models/1c, then HARDEN→ARCH→PLAN.
 - **ABSTRACT SUBMITTED (composer's report, 2026-09-01):** DRAFT G went
   in — hosted + form done composer-side. **Penn State is fully closed**,
   both submissions three days early. Standing obligation only: the
