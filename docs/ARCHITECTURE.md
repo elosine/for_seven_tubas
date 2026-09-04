@@ -20,11 +20,12 @@
   running app · 4b model/clear map.
 
 **Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED (day 39, D82) · SEC
-CLOSED (day 41, D85) · IND CLOSED (day 41, D86). Next: PERF + PORTAL
-scenarios · CONTROLS · ANNOTATION-UX · the composer's mental models · 1c
-evaluation · the composer's noted topics (animation engine · a NET
-sitting) — position, chunking and the brief-on-resume contract live in
-`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► PERF next). "Closed" = requirements settled, plan NOT drawn
+CLOSED (day 41, D85) · IND CLOSED (day 41, D86) · PERF CLOSED (day 41,
+D87). Next: the ENGINE brief (approved charter — animation engine ·
+network robustness · codebases · the composer-runnable test kit) ·
+PORTAL scenario · CONTROLS · ANNOTATION-UX · mental models · 1c —
+position and chunking in `docs/PERFORMANCE_SCORE_ORDER.md` (D84; ► next
+= ENGINE vs PORTAL, composer's call). "Closed" = requirements settled, plan NOT drawn
 (composer's definition, day 39): all scenarios gather first, then Phases
 2–4; the 2c adversarial pass re-tests ENS with everything else.**
 
@@ -719,6 +720,45 @@ interpolation, dead-reckoning; candidates incl. Colyseus vs hardening
 piece #1's own protocol; rAF time-based rendering — drawAtTime already
 is; wake lock; PWA/offline caching; WebSocket vs WebRTC-LAN), presented
 for composer verdicts.
+
+#### PERF — iteration 2 (day 41): a/b ruled — **PERF CLOSED** · the ENGINE charter
+
+**Composer: "A Yes. As ruling. b yes to all three" (verbatim in COMPOSER_LOG):**
+
+- **a — RULED: PERFORMANCE = THE ENS ROOM, HARDENED.** Started on the
+  fly; NO ceremony — no readiness roster, no countdown, no mode lock
+  (piece #1's performance mode: "too onerous and fragile"). Stands
+  follow-only (already free from ENS). The concert flow IS the rehearsal
+  flow; every difference lives under the hood.
+- **b — RULED: all three redundancy rungs.** (1) **Self-sufficient
+  stands** — after GO the show finishes on local clocks (fixed-timeline
+  star; drift ≈15 ms over 750 s, ESTIMATE — empirical gate owed);
+  (2) **hot-spare machine** in the room, stands re-home; (3) **one quiet
+  podium gesture: resync-everyone.** None of it adds a step to starting.
+
+**PERF is closed (requirements settled, plan not drawn). → D87.**
+
+**THE ENGINE CHARTER (composer's words constitute approval of the chunk):**
+
+- **The animation admission:** fine for composing, **"subpar for
+  performance — jittery"**; piece #1's iron-out attempts didn't fix it;
+  the bar = *"simple online video games… much smoother."* **License
+  granted: the performance stand's renderer may be a DIFFERENT engine**
+  than the composer/presentation scores use.
+- **Delegation:** *"I lean on you for network robustness and engine"* —
+  codebase/engine recommendation is the AI's to draft, the composer's to
+  verdict.
+- **The testing mandate:** empirical tests the composer can personally
+  run with limited resources (possibly a few acquired machines),
+  yielding **hard data** — becomes the ENGINE brief's third deliverable
+  (a browser test kit: rAF inter-frame jitter histograms / dropped
+  frames · long-task stalls · cross-device clock drift · renderer A/B on
+  identical hardware) + cheap-device guidance.
+- Renderer candidates to be argued in the brief (listed, NOT decided):
+  compositor-transform-only SVG · canvas/WebGL (PixiJS-class) · **the
+  repo's own ace: pre-rendered per-part VIDEOS via the proven frame-exact
+  exporter** — smoothness by construction; sync reduces to seeking video
+  by the room clock (a solved commercial problem).
 
 ## 2 · DESIGN
 

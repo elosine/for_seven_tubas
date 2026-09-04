@@ -75,10 +75,13 @@ that closed ENS in four iterations)*
    play-stop / menu) · menu = annotate + jump + speed, nothing else ·
    **the looping door SHUT — loops dead everywhere**. Full record:
    ARCHITECTURE.md § IND.
-3. ► **PERF — the performance-module scenario** (Fable; composer: "vet
-   hardest" + day-41 note: **redundancy during performance**). The concert
-   itself: ceremony, conductor role on stage, network-failure-on-stage
-   behavior. May take two sittings. **Done =** PERF closed.
+3. ☑ **PERF — the performance-module scenario** (CLOSED day 41 sitting 2
+   → **D87**; precedent survey + two iterations). **Performance = the
+   ENS room, HARDENED** — on-the-fly start, NO ceremony (piece #1's
+   ruled "too onerous and fragile") · all three redundancy rungs
+   (self-sufficient stands · hot-spare machine · one podium resync
+   gesture) · **after GO the network is optional** (fixed-timeline
+   star). Survey + full record: ARCHITECTURE.md § PERF.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
@@ -135,27 +138,46 @@ single-player extracts · the beating-frequency indicator idea for the parts
 rehearsal · rehearsal logging · the network build itself (comes out of
 chunk 11's plan).
 
-## COMPOSER'S NOTED TOPICS → THE PROPOSED ENGINE CHUNK (day 41 sitting 2)
+## THE ENGINE CHUNK — APPROVED (day 41 sitting 2; charter in ARCHITECTURE § PERF iteration 2)
 
 The three noted topics (animation engine · network syncing/robustness ·
-performance redundancy) **consolidate into one proposed chunk — ENGINE**
-(PERF iteration 1: the composer wants proven commercial-grade engineering
-models, "video games, massive multiplayer games," and delegates
-engine/codebase selection to AI expertise):
+performance redundancy) consolidated and **approved by the composer's
+PERF-iteration-2 words** ("take a hard look at the animation engine…
+even if we have to adapt something different… I lean on you for network
+robustness and engine… devise some testing… hard data"). **Placement —
+next vs after PORTAL — is the composer's call (AI proposes: next).**
 
-- **ENGINE (proposed; placement after the scenario chunks, before or at
-  HARDEN):** the AI prepares a **technology brief** — game-engine sync
-  patterns (authoritative clock · interpolation · dead-reckoning), the
-  start-anchor/local-clock model ("after GO the network is optional" —
-  fixed timeline), animation-engine smoothness on stand hardware,
-  redundancy machinery (stand dead-reckoning + hot-spare + minimal
-  override), and codebase candidates (harden piece #1's own protocol vs
-  Colyseus-class frameworks; wake lock; PWA/offline; WebSocket vs
-  WebRTC-LAN) — presented for composer verdicts in one sitting.
-  **Done =** models chosen, engineering requirements frozen for HARDEN.
+- **ENGINE — the AI-prepared technology brief, one verdict sitting:**
+  1. **Animation-engine hard look.** The jitter admission is on record
+     (fine for composing, subpar for performance; piece #1's fixes
+     didn't take); bar = online-game smoothness; **license granted: the
+     performance stand's renderer may DIFFER from the composer /
+     presentation scores.** Candidates argued, not pre-decided:
+     compositor-transform-only SVG · canvas/WebGL (PixiJS-class) · **the
+     repo's ace — pre-rendered per-part videos from the proven
+     frame-exact exporter** (smoothness by construction; sync =
+     seek-by-clock, a solved commercial problem).
+  2. **Network robustness + codebase picks.** Game-engine patterns
+     (authoritative clock · interpolation · dead-reckoning) · harden
+     piece #1's proven protocol vs a Colyseus-class framework · wake
+     lock · PWA/offline · WebSocket vs WebRTC-LAN.
+  3. **THE TEST KIT — composer-runnable, hard data.** A browser test
+     page: rAF inter-frame jitter histogram + dropped frames · long-task
+     stalls · cross-device clock drift · renderer A/B on the same
+     hardware. Plus cheap-device guidance (refurb Chromebooks / base
+     iPads = the realistic zoo).
+  **Done =** models chosen by verdict; engineering requirements frozen
+  for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-09-01 (day 41, sitting 2 cont. — PERF CLOSED ☑ → D87 · ENGINE
+  APPROVED):** a = RULING (performance = the ENS room hardened; no
+  ceremony; on-the-fly start) · b = all three redundancy rungs · the
+  animation admission logged (jittery in performance; renderer may
+  differ) · the testing mandate (composer-runnable, hard data). **► next
+  = composer's call: ENGINE (AI brief, proposed) or PORTAL (default
+  track).** Committed + pushed.
 - **2026-09-01 (day 41, sitting 2 cont. — PERF OPENED via precedent
   survey + the engineering redirect):** survey filed (ARCHITECTURE § PERF
   precedent survey; Polytempo Network = the sibling; paper lineage to

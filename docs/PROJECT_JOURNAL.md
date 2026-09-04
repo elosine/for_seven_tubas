@@ -30,13 +30,15 @@ piece #3's `docs/` — registered as an additional working directory.
   me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
   first ►) + the 4-chunk paper thread + a position log. **The proposed
   order awaits the composer's approval at the first sitting.**
-- **SEC CLOSED (chunk 1 ☑ → D85) and IND CLOSED (chunk 2 ☑ → D86), same
-  night:** SEC = live-rooms model (the room is who's in it, nothing
-  stored), headless control, own part only. IND = serverless solo on the
-  offline floor, pinned tap gestures, three-item menu, **the looping door
-  shut — loops dead everywhere**. Composer parked three topics (animation
-  engine · net syncing/robustness · performance redundancy) → organizer's
-  NOTED TOPICS. ► PERF is next.
+- **THREE SCENARIO CHUNKS CLOSED IN ONE NIGHT — SEC (☑ D85) · IND
+  (☑ D86) · PERF (☑ D87):** SEC = live-rooms, headless, own part only.
+  IND = serverless solo, pinned taps, three-item menu, looping dead
+  everywhere. PERF = **the ENS room hardened** — on-the-fly start, NO
+  ceremony, three redundancy rungs, **after GO the network is optional**
+  (fixed-timeline star, drift estimate gated). **ENGINE chunk APPROVED**
+  (jitter admission; the performance renderer may differ from the
+  composer score; AI owns the brief + a composer-runnable test kit).
+  ► next = ENGINE brief or PORTAL, composer's call.
 - Step-7 wrap still owed: git tag · gitignored-deliverables archive call ·
   SAVE_FILES check.
 
@@ -114,11 +116,12 @@ it and announces the position before doing anything.
 composition + abstract, composer-hosted and composer-submitted. **Nothing
 dated remains anywhere.** Standing: hosted copies live through Nov 1, 2026.
 
-1. ► **THE PERFORMANCE ARC (D84) — chunk 3 PERF next (Fable, conversation
-   mode, clear first; likely the biggest scenario — "vet hardest" +
-   redundancy).** SEC and IND both CLOSED day 41 (→ D85, D86). Composer
-   says **"brief me"**; AI briefs from `docs/PERFORMANCE_SCORE_ORDER.md`.
-   Still owed there: a yes/no on the proposed PARTS-chunk insertion.
+1. ► **THE PERFORMANCE ARC (D84) — next: the ENGINE brief (AI prepares,
+   composer verdicts) or PORTAL (dictation) — composer's call.** SEC,
+   IND and PERF all CLOSED day 41 (→ D85, D86, D87 — three scenarios in
+   one night). Composer says **"brief me"**; AI briefs from
+   `docs/PERFORMANCE_SCORE_ORDER.md`. Still floating: the PARTS-chunk
+   yes/no.
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -483,6 +486,27 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D87** *(2026-09-01, day 41)* — **PERF CLOSED at requirements level
+  (performance arc chunk 3).** **Performance = the ENS room, HARDENED:**
+  started on the fly; NO ceremony — no readiness roster, no countdown,
+  no mode lock (piece #1's performance mode ruled *"too onerous and
+  fragile"* — too many steps, it got stuck, notification fiddling);
+  stands follow-only (already free from ENS). The concert flow IS the
+  rehearsal flow; every difference lives under the hood. **Redundancy =
+  three rungs, all adopted:** (1) self-sufficient stands — after one GO
+  the show finishes on local clocks (the piece is a fixed ~12.5-min
+  timeline; drift ≈15 ms/750 s is an ESTIMATE with an empirical gate
+  owed) — **the network cannot stop a begun performance**; (2) a
+  hot-spare machine in the room, stands re-home; (3) ONE quiet podium
+  gesture: resync-everyone. **Why:** simplicity is the robustness; none
+  of it adds a step to starting. **Rejected:** piece #1's ceremony ·
+  stand-side transport in concert · recovery UI on stage. **With it, the
+  ENGINE charter:** the jitter admission (animation fine composing,
+  subpar performing; the bar = online-game smoothness) · **license to
+  adapt a DIFFERENT renderer for the performance stand** · network/
+  codebase choice delegated to AI ("I lean on you") · a composer-runnable
+  TEST KIT owed (hard data, limited resources). Trail: COMPOSER_LOG
+  day 41 sitting 2 · ARCHITECTURE § PERF · RUNNING_LOG 49–51.
 - **D86** *(2026-09-01, day 41)* — **IND CLOSED at requirements level
   (performance arc chunk 2).** Individual practice is **SERVERLESS**: no
   room; log in once so the stand holds your part + identity; thereafter
