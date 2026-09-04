@@ -594,6 +594,86 @@ only."**
 onward: the pinned gestures → CONTROLS · serverless-solo → NET (IND
 needs zero room infrastructure).
 
+#### PERF — precedent survey (day 41 sitting 2, composer's ask: "look around and surface… good models"; web-verified this day)
+
+**A · The direct genre — networked animated scores:**
+
+- **Decibel ScorePlayer** (Decibel ensemble, Perth — Cat Hope / Lindsay
+  Vickery; iPad app, ~2013→): network-synced scrolling graphic scores
+  over plain Wi-Fi; full-score or part view; rehearsal slider + scroll
+  speed. **Teaches:** a decade of real concerts on ordinary Wi-Fi — the
+  tech bar is modest; the practice aids that stuck (jump + speed) are
+  exactly our IND menu.
+- **SmartVox** (Jonathan Bell, TENOR 2018): browser-based audiovisual
+  parts on the performers' OWN phones/tablets — type a URL, you're in;
+  scrolling-cursor sync for non-pulsed music; in-room or remote.
+  **Teaches:** browsers-as-stands is concert-proven; the zero-install
+  URL flow matches our portal philosophy.
+- **OscillaScore** (Rob Canning, TENOR 2025): browser SVG animated
+  scores; animation, cue logic and annotation embedded in the SVG.
+  **Teaches:** SVG-native score animation is current practice; ours
+  (vector pages, drawAtTime) sits squarely in it.
+- **Polytempo Network** (Philippe Kocher, ICST Zurich) — **the
+  polytemporal sibling**: a networked app that conducts each player
+  separately — animated bars mimicking conducting gesture (down = beat),
+  or a click, PER-DEVICE TEMPO, built for music in several simultaneous
+  tempos. **Teaches:** per-player visual conduction of independent tempos
+  works on stage — direct validation of the trance's multitempo balls;
+  his design conclusion (animate the CONDUCTOR'S GESTURE) is the GC
+  ball's own logic. → PAPER material.
+
+**B · A century of visual click:**
+
+- **Film-scoring streamers & punches** (1930s→): lines sweep to a hit
+  point, flashes mark it, click tracks under. **Teaches:** "moving object
+  arrives at a line = now" is hundred-year-old professional grammar — the
+  go-line + cursor + ball generalizes it; players trust it under
+  pressure.
+- **Theater/touring click practice** (in-ears, QLab/Ableton rigs):
+  performance sync is ONE-WAY and dumb-robust — timecode flows, players
+  follow, nothing talks back. **Teaches:** FOLLOW-ONLY is the stage
+  posture (= piece #1's locked playback).
+
+**C · Sync-technology models:**
+
+- **Ableton Link**: leaderless peer-to-peer LAN sync (tempo/beat/phase);
+  anyone joins/leaves without interrupting; states MERGE rather than
+  being commanded; open source. **Teaches:** leaderless consensus is
+  proven (philosophically = SEC's headless last-command-wins); BUT Link
+  syncs a beat grid, not a timeline — its model fits our social layer
+  more than PERF; its join/leave bar ("no interruption") is the right
+  bar for our rooms.
+- **Game netcode** (the composer's own frame): authoritative server
+  clock · client-side prediction · drift correction · graceful
+  degradation. **Teaches:** piece #1 already implements the core
+  (authoritative scoreTime, clockSync, RTT, scheduled starts); the ideas
+  worth adopting are clients SIMULATING through dropouts (our stands
+  have the tempo map — dead-reckoning is free), quiet resync, and
+  observability (server sees each client's drift).
+- **SMPTE/LTC + show control (QLab)**: one-way timecode, cue-based GO,
+  operator authority. **Teaches:** performance wants CUE-GRADE
+  simplicity — one GO, the rest is machinery.
+
+**D · Redundancy practice (the composer's named keyword):**
+
+- **Redundant playback rigs** (touring/theater standard — e.g. Radial
+  SW8, iConnectivity PlayAUDIO12): TWO identical machines run the same
+  show in lockstep; every command goes to BOTH; failover is a SWITCH,
+  not a scramble. **The grammar:** redundancy = a parallel twin ·
+  failover = instant switch · twins hear everything always. **Mapped to
+  us:** (i) cheapest and uniquely ours — every STAND is its own spare:
+  on signal loss it keeps animating on its local clock (dead-reckoning)
+  and resyncs quietly; (ii) optional hot-spare server in the room,
+  stands re-home to it; (iii) piece #1's emergency menu = the manual
+  override precedent.
+
+**Requirement-shaping takeaways queued for the PERF walkthrough:**
+follow-only stands in performance mode · the offline floor as redundancy
+layer 1 (no modal errors on stage, ever) · the redundancy posture
+question (stand-level only / + hot-spare server / + emergency menu) ·
+keep the one-GO ceremony (piece #1's readiness → countdown → locked →
+auto-stop already matches show-control practice).
+
 ## 2 · DESIGN
 
 *(not started)*

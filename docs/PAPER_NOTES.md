@@ -3039,3 +3039,16 @@ the drawn level (layout), both the page and the followers consume it, and a
 permanent battery asserts the congruence the composer had been asking for
 across three sessions in the only vocabulary they had — "shadow",
 "overshoot", "accurately predict the curve."
+
+---
+
+## Day 41 (2026-09-01) — THE PRECEDENT LINEAGE (from the PERF survey; for the talk/paper's related-work)
+
+The performance-module precedent survey (ARCHITECTURE.md § PERF precedent survey, RUNNING_LOG 49) doubles as the paper's related-work spine — the piece's practice sits in a real lineage:
+
+- **Polytempo Network (Philippe Kocher, ICST Zurich)** — networked per-player visual conduction for POLYTEMPORAL music; his design conclusion (animate the conductor's gesture) is independently the GC ball's logic. The closest scholarly sibling to the trance's multitempo balls.
+- **Film-scoring streamers & punches** — the "moving object arrives at a line = now" grammar is ~100 years of professional practice; the go-line + cursor + bouncing ball generalize it.
+- **Decibel ScorePlayer (Hope/Vickery)** — a decade of networked scrolling graphic scores in concert; **SmartVox (Jonathan Bell)** — browser parts on performers' own phones; **OscillaScore (Canning, TENOR 2025)** — SVG-native animated scores. The browser-stand approach is an active TENOR research thread, and this piece's contribution (composer-tooled generation + measured congruence + the conduction devices) can be positioned against it.
+- **Ableton Link** — leaderless tempo consensus as proven prior art for the sectional module's headless control.
+
+*(AI's framing, day 41: "the piece has a genuine lineage, including one system that's nearly a sibling" — the abstract's video-game analogy now has scholarly anchors on every side: game netcode for the plumbing, Polytempo for the conduction, TENOR browser scores for the stand.)*
