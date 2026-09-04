@@ -22,8 +22,9 @@ piece #3's `docs/` — registered as an additional working directory.
   restored · em dashes · **timecodes composer-confirmed against the live
   video**, with the data verifying every checkable claim — RUNNING_LOG 39);
   three time-marked YouTube links wired, video ID title-verified.
-  **REMAINS: host as a doc (Drive, live through Nov 1) + composer submits
-  the form — DEADLINE FRI SEPT 4, 11:59 pm ET.**
+  **SUBMITTED (composer's report, same night): hosted + form in — PENN
+  STATE FULLY CLOSED, both submissions three days early.** Standing
+  obligation only: hosted copies live through Nov 1, 2026.
 - **THE PERFORMANCE ARC IS SET UP for fits-and-spurts work (D84):**
   `docs/PERFORMANCE_SCORE_ORDER.md` — brief-on-resume contract ("brief
   me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
@@ -104,24 +105,22 @@ it and announces the position before doing anything.
    explicit archive decision — a git tag alone does not capture them.**
    Step 4 stays OPEN alongside (C1–C5 verdicts · any further dictation).
 
-### NEXT STEPS · MODEL · CLEAR (day 41 final — abstract text done, organizer built)
+### NEXT STEPS · MODEL · CLEAR (day 41 end — PENN STATE FULLY CLOSED)
 
-1. ► **ABSTRACT: HOST + SUBMIT — DEADLINE FRIDAY SEPT 4, 11:59 pm ET**
-   (composer action; any model assists, minutes). The text is DONE
-   (DRAFT G, 288 words, links wired). Remains: a hosted doc (composer's
-   Drive; live through Nov 1) · the form
-   https://forms.gle/Feo1k4mLCWS5ZiCp9. AI generates the upload-ready
-   file on request; log the field-by-field record like the composition
-   form's.
-2. **THE PERFORMANCE ARC (D84) — ► chunk 2 IND next (Fable, conversation
-   mode).** Chunk 1 SEC CLOSED day 41 (→ D85, live-rooms model). Composer
-   says **"brief me"**; AI briefs from `docs/PERFORMANCE_SCORE_ORDER.md`.
-   Still owed there: a yes/no on the proposed PARTS-chunk insertion.
-3. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
+**Both Penn State submissions are IN (2026-09-01, three days early):**
+composition + abstract, composer-hosted and composer-submitted. **Nothing
+dated remains anywhere.** Standing: hosted copies live through Nov 1, 2026.
+
+1. ► **THE PERFORMANCE ARC (D84) — chunk 2 IND next (Fable, conversation
+   mode, clear first).** Chunk 1 SEC CLOSED day 41 (→ D85, live-rooms
+   model). Composer says **"brief me"**; AI briefs from
+   `docs/PERFORMANCE_SCORE_ORDER.md`. Still owed there: a yes/no on the
+   proposed PARTS-chunk insertion.
+2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
    chain) · SAVE_FILES check.
-4. **STEP 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block
+3. **STEP 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block
    (C1) · further dictation — a 3 s rebuild reaches print.
    **This wrap is the clear point.**
 
@@ -130,15 +129,14 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
-**(day 41 full wrap, 2026-09-01 — session-end run; next session = EITHER
-the abstract hosting/submit (deadline Fri Sept 4!) OR "brief me" on the
-performance arc)**
+**(day 41 end, 2026-09-01 — PENN STATE FULLY CLOSED; next session =
+"brief me" → ► IND, or any undated leftover at will)**
 
-- **► ABSTRACT, the one dated item:** DRAFT G is final in
-  `docs/PENN_STATE_ABSTRACT.md` (288 words · links wired · times
-  confirmed). Owed: hosted doc (Drive, live through Nov 1) + the form
-  (https://forms.gle/Feo1k4mLCWS5ZiCp9) **by Fri Sept 4, 11:59 pm ET** —
-  composer submits; AI makes the upload file on request.
+- **ABSTRACT SUBMITTED (composer's report, 2026-09-01):** DRAFT G went
+  in — hosted + form done composer-side. **Penn State is fully closed**,
+  both submissions three days early. Standing obligation only: the
+  hosted copies (score · recording · abstract) stay live **through
+  Nov 1, 2026**.
 - **The composition form is IN** (2026-09-01). Local canon: **V-CUT** in
   `notation/video/approved/2026-08-31-submission/` · **print PDF**
   `print/score/BCB-score-DRAFT.pdf` (69 pp) · the piece video on YouTube
@@ -1706,6 +1704,13 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §5 Done
 
+- **2026-09-01 (day 41, late) — PENN STATE FULLY CLOSED: the abstract went
+  in too.** DRAFT G (288 words · three time-marked YouTube links ·
+  timecodes composer-confirmed and data-verified) hosted and submitted by
+  the composer. **Both Penn State submissions in, three days ahead of the
+  Sept 4 deadline.** Standing: hosted copies stay live through Nov 1,
+  2026. Same night: the performance arc opened and its first chunk closed
+  (SEC → D85).
 - **2026-09-01 (day 41) — SUBMITTED: the Penn State composition submission
   is IN**, three days ahead of the Sept 4 deadline. Form supported
   in-session — title exact per the cover · duration measured (sounding
@@ -1871,23 +1876,18 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-09-01, day 41 wrap — CURRENT)* **One dated thing, then everything
-  moves at your pace.** (1) **THE ABSTRACT: host it and submit the form by
-  FRIDAY SEPT 4, 11:59 pm ET.** The text is finished — DRAFT G, 288 words,
-  your confirmed times, the three YouTube links. Say the word and I produce
-  the upload-ready file for your Drive; you paste its link into
-  https://forms.gle/Feo1k4mLCWS5ZiCp9 and submit (tick "send me a copy of
-  my responses" if the form offers it). (2) **The performance arc is set up
-  for your fits-and-spurts.** In any future session say **"brief me"** and
-  you get exactly three lines: what happened last · the active chunk ·
-  what's next. The order lives in `docs/PERFORMANCE_SCORE_ORDER.md` —
-  eleven screen-side chunks (sectional scenario first) plus a four-chunk
-  paper thread for whenever the mood is paper; **the proposed order is
-  mine, and your first sitting starts by approving or reshuffling it.**
-  (3) Quiet leftovers, no deadlines: the step-7 wrap (git tag · the
-  archive call for the gitignored deliverables · SAVE_FILES) · C1–C5
-  verdicts · the CONVERGENCE ends-apart detail. Your program note and bio
-  are preserved verbatim (RUNNING_LOG 36–37) — bios get reused.
+- *(2026-09-01, day 41 end — CURRENT)* **PENN STATE IS DONE — both
+  submissions in, three days early. Nothing dated remains.** One standing
+  obligation: the hosted copies (score PDF · recording · abstract doc)
+  stay live **through Nov 1, 2026** — don't move or delete them from
+  Drive/YouTube before then. Everything else moves at your pace:
+  **"brief me"** resumes the performance arc — SEC closed tonight
+  (live-rooms model, D85), **► IND (individual practice) is next**, and
+  one small yes/no is owed on the proposed PARTS chunk in the order.
+  Quiet leftovers, no deadlines: the step-7 wrap (git tag · the archive
+  call for the gitignored deliverables · SAVE_FILES) · C1–C5 verdicts ·
+  the CONVERGENCE ends-apart detail. Your program note and bio are
+  preserved verbatim (RUNNING_LOG 36–37) — bios get reused.
 
 - *(2026-08-31, day 40)* **Everything you need to submit is on disk;
   what's left is yours (forms) and the wrap (tag + archive call).** The video to

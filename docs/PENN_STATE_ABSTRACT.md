@@ -7,7 +7,9 @@
 > Facts + past selections: `docs/PENN_STATE_RESEARCH.md` § the symposium side.
 > Source outline: `docs/PAPER_OUTLINE.md` § INTRO.
 >
-> **Status: DRAFT G is the live text (day 41, 2026-09-01)** — DRAFT F (the
+> **Status: SUBMITTED 2026-09-01 (composer's report: "Penn State closed all
+> submitted") — Penn State fully closed; the hosted copy stays live through
+> Nov 1, 2026.** DRAFT G was the submitted text — DRAFT F (the
 > composer's day-37 edit) with the four flagged items closed on the composer's
 > "go ahead a–d", the timecodes composer-confirmed against the live video, and
 > the real time-marked YouTube links wired in. DRAFT A (the AI's) is kept far
