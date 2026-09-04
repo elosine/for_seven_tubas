@@ -30,10 +30,13 @@ piece #3's `docs/` — registered as an additional working directory.
   me"), 11 screen-side chunks (GATHER→HARDEN→ARCHITECTURE→PLAN, SEC
   first ►) + the 4-chunk paper thread + a position log. **The proposed
   order awaits the composer's approval at the first sitting.**
-- **SEC CLOSED — the arc's first chunk ☑ (→ D85, same night):** the
-  sectional scenario gathered and adopted in four dictation iterations —
-  live-rooms model (the room is who's in it, nothing stored), headless
-  control, own part only. ► IND is next.
+- **SEC CLOSED (chunk 1 ☑ → D85) and IND CLOSED (chunk 2 ☑ → D86), same
+  night:** SEC = live-rooms model (the room is who's in it, nothing
+  stored), headless control, own part only. IND = serverless solo on the
+  offline floor, pinned tap gestures, three-item menu, **the looping door
+  shut — loops dead everywhere**. Composer parked three topics (animation
+  engine · net syncing/robustness · performance redundancy) → organizer's
+  NOTED TOPICS. ► PERF is next.
 - Step-7 wrap still owed: git tag · gitignored-deliverables archive call ·
   SAVE_FILES check.
 
@@ -111,11 +114,11 @@ it and announces the position before doing anything.
 composition + abstract, composer-hosted and composer-submitted. **Nothing
 dated remains anywhere.** Standing: hosted copies live through Nov 1, 2026.
 
-1. ► **THE PERFORMANCE ARC (D84) — chunk 2 IND next (Fable, conversation
-   mode, clear first).** Chunk 1 SEC CLOSED day 41 (→ D85, live-rooms
-   model). Composer says **"brief me"**; AI briefs from
-   `docs/PERFORMANCE_SCORE_ORDER.md`. Still owed there: a yes/no on the
-   proposed PARTS-chunk insertion.
+1. ► **THE PERFORMANCE ARC (D84) — chunk 3 PERF next (Fable, conversation
+   mode, clear first; likely the biggest scenario — "vet hardest" +
+   redundancy).** SEC and IND both CLOSED day 41 (→ D85, D86). Composer
+   says **"brief me"**; AI briefs from `docs/PERFORMANCE_SCORE_ORDER.md`.
+   Still owed there: a yes/no on the proposed PARTS-chunk insertion.
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -480,6 +483,23 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D86** *(2026-09-01, day 41)* — **IND CLOSED at requirements level
+  (performance arc chunk 2).** Individual practice is **SERVERLESS**: no
+  room; log in once so the stand holds your part + identity; thereafter
+  the adopted offline floor IS the module (score cached, local play,
+  annotations), with annotations syncing quietly when next online. **The
+  complete surface:** swipe left/right = next/previous page (one
+  screenful; while playing the score follows the cursor) · single tap =
+  place cursor · two-finger tap = play/stop · three-finger or long press
+  = menu · **menu = annotate · jump (rh#/time) · speed presets — three
+  items, nothing else.** Repetition = tap the cursor back + play. **The
+  looping door is SHUT — no loop in IND, so looping is now dead
+  everywhere** (the day-39 global rescission's one named re-entry door,
+  closed by the composer: "no loop"). Gesture mapping = pinned working
+  default; the CONTROLS chunk refines it across modules. **Rejected:**
+  any loop machinery · a fourth menu item · a metronome (the GC balls
+  conduct). Trail: COMPOSER_LOG day 41 sitting 2 · ARCHITECTURE § IND ·
+  RUNNING_LOG 46–48.
 - **D85** *(2026-09-01, day 41)* — **SEC CLOSED at requirements level
   (performance arc chunk 1).** A sectional = any subset; TWO contexts, one
   module (break off mid-rehearsal / meet independently). Groups form ON

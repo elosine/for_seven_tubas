@@ -69,14 +69,16 @@ that closed ENS in four iterations)*
    headless control, last command wins · own part only · ensemble features
    carry · human tie-back · one room at a time · demos zero-integration ·
    roster = read-only registry. Full record: ARCHITECTURE.md § SEC.
-2. ► **IND — individual practice scenario** (Fable). Does solo practice need the
-   server at all? Which practice aids — and confirm the global looping
-   rescission holds here too (or gets a solo-only exception).
-   **Done =** IND closed.
-3. **PERF — the performance-module scenario** (Fable; composer: "vet
-   hardest"). The concert itself: ceremony, conductor role on stage,
-   network-failure-on-stage behavior. May take two sittings.
-   **Done =** PERF closed.
+2. ☑ **IND — individual practice scenario** (CLOSED day 41 sitting 2 →
+   **D86**; two iterations). Serverless solo (the offline floor IS the
+   module; quiet annotation sync) · swipes = pages · pinned taps (cursor /
+   play-stop / menu) · menu = annotate + jump + speed, nothing else ·
+   **the looping door SHUT — loops dead everywhere**. Full record:
+   ARCHITECTURE.md § IND.
+3. ► **PERF — the performance-module scenario** (Fable; composer: "vet
+   hardest" + day-41 note: **redundancy during performance**). The concert
+   itself: ceremony, conductor role on stage, network-failure-on-stage
+   behavior. May take two sittings. **Done =** PERF closed.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
@@ -133,7 +135,27 @@ single-player extracts · the beating-frequency indicator idea for the parts
 rehearsal · rehearsal logging · the network build itself (comes out of
 chunk 11's plan).
 
+## COMPOSER'S NOTED TOPICS (day 41 sitting 2 — "just note for now"; placement in the order on composer approval at a wrap)
+
+- **The ANIMATION ENGINE** as its own discussion (named three times —
+  emphasis theirs): the clock-driven animation on stands, its robustness.
+- **Network syncing + robustness** — wants explicit coverage; today it
+  lives implicitly in HARDEN/ARCHITECTURE; candidate = a dedicated NET
+  sitting after the scenario chunks.
+- **Performance mode + REDUNDANCY during performance** — banked into
+  chunk 3 (PERF), which already carries "vet hardest /
+  network-failure-on-stage"; redundancy is now a named keyword there.
+
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-09-01 (day 41, sitting 2 WRAP — IND CLOSED ☑ → D86):** two
+  iterations; a–e ruled (serverless solo · NO LOOP, the last door shut ·
+  gesture default pinned · paged swiping · three-item menu). Gestures
+  banked to CONTROLS; serverless banked to NET. Mid-sitting the composer
+  parked three topics (animation engine · network syncing/robustness ·
+  performance redundancy) — filed under COMPOSER'S NOTED TOPICS above.
+  **► moves to chunk 3 (PERF)** — the "vet hardest" one. PARTS-chunk
+  yes/no still owed. Committed + pushed at the wrap.
 
 - **2026-09-01 (day 41, sitting 1 WRAP — SEC CLOSED ☑ → D85):** live-rooms
   model adopted ("yes good") after four iterations in one sitting; findings

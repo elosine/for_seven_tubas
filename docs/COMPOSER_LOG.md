@@ -2512,3 +2512,15 @@ confirmation, we can move on to the next thing in my current running order."*
 ### Day 41 — SEC iteration 4: the verdict
 
 *"yes good"* — the live-rooms model adopted as proposed. SEC closed at requirements level (→ D85).
+
+### Day 41, sitting 2 — IND scenario: individual rehearsal, iteration 1 (dictated)
+
+*"Let's work on the individual rehearsal requirements. I'd like the hand gestures to be very simple. swipe left to go to next page, swipe right back, then some version of single finger, two finger click, and I guess three finger click or long press. So then play and stop and move the cursor and then, uh, small menu. then the menu might include annotate. And maybe others, like, jump or something, but not... or maybe speeds too. But I'd like to try to make this menu minimal and easy to control. And what else for individual?"*
+
+### Day 41, sitting 2 — parked note mid-IND (dictated)
+
+*"And let me just take a note before I forget. I'd like to cover animation, animation, animation, and the animation engine. and then the network syncing and robustness. And then the performance mode? and redundancy. during performance. Just note for now."*
+
+### Day 41, sitting 2 — IND iteration 2: the rulings
+
+*"a. yes, B. no loop, c working default, d Yes, e those three only"*

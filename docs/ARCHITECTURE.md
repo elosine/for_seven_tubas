@@ -20,10 +20,11 @@
   running app · 4b model/clear map.
 
 **Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED (day 39, D82) · SEC
-CLOSED (day 41, D85). Next: IND + PERF + PORTAL scenarios · CONTROLS ·
-ANNOTATION-UX · the composer's mental models · 1c evaluation — position,
-chunking and the brief-on-resume contract live in
-`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► IND next). "Closed" = requirements settled, plan NOT drawn
+CLOSED (day 41, D85) · IND CLOSED (day 41, D86). Next: PERF + PORTAL
+scenarios · CONTROLS · ANNOTATION-UX · the composer's mental models · 1c
+evaluation · the composer's noted topics (animation engine · a NET
+sitting) — position, chunking and the brief-on-resume contract live in
+`docs/PERFORMANCE_SCORE_ORDER.md` (D84, ► PERF next). "Closed" = requirements settled, plan NOT drawn
 (composer's definition, day 39): all scenarios gather first, then Phases
 2–4; the 2c adversarial pass re-tests ENS with everything else.**
 
@@ -536,6 +537,62 @@ own part, everywhere · **PORTAL** ← the room selection is two kinds only
 (the ensemble room + sectionals live right now) · **NET** ← sectional
 rooms are ephemeral, die-when-empty; nothing in SEC needs room
 persistence.
+
+#### IND — individual practice, iteration 1 (day 41 sitting 2; composer verbatim in COMPOSER_LOG)
+
+**The scenario as given — gestures first:**
+
+- **Hand gestures VERY SIMPLE:** swipe left = next page · swipe right =
+  previous page.
+- **Three tap primitives** — single-finger, two-finger,
+  three-finger-or-long-press — covering **three actions**: play/stop ·
+  move the cursor · open a **small menu**. Exact finger↔action mapping
+  left loose ("some version of") — **banked as the CONTROLS chunk's
+  seed**.
+- **The menu: MINIMAL.** Candidates named: annotate · maybe jump · maybe
+  speeds. *"I'd like to try to make this menu minimal and easy to
+  control."*
+
+**Already in place for IND from prior rulings (compiled):**
+
+- **The OFFLINE FLOOR is IND's foundation** (ENS iteration 3, adopted): a
+  loaded stand is fully functional solo, offline — score cached, local
+  play + annotations, zero server.
+- View = **own part** (SEC d: "everywhere").
+- Annotations private, follow the player → consequence: **quiet sync when
+  next online**.
+- Speed presets 50/70/85/100 · "again" · pre-roll all exist.
+- **Looping rescinded globally with IND named as the only explicit
+  re-entry door** — must be asked in this scenario.
+- Phones too small as a score; stands only.
+
+**Vet round pending (a–e):** serverless solo (no room at all?) · the
+looping door · pin the gesture mapping now vs defer to CONTROLS · paged
+browsing confirm (screenful per swipe; playing = score follows the
+cursor) · menu v1 contents.
+
+#### IND — iteration 2 (day 41): a–e ruled — **IND CLOSED**
+
+**Composer: "a. yes, B. no loop, c working default, d Yes, e those three
+only."**
+
+- **a — SERVERLESS SOLO: YES.** No room at all; log in once (part +
+  identity); the offline floor is the module; annotations sync quietly
+  when next online.
+- **b — NO LOOP.** The one explicit re-entry door (day-39 global
+  rescission) closed by the composer — **looping is now dead everywhere
+  in the system**. Repetition = tap the cursor back + play.
+- **c — gesture default PINNED:** single tap = place cursor · two-finger
+  tap = play/stop · three-finger or long press = menu. The CONTROLS
+  chunk refines across modules.
+- **d — paged swiping: YES.** One screenful per swipe while browsing;
+  playing = the score follows the cursor.
+- **e — menu v1 = THREE ITEMS ONLY:** annotate · jump (rh#/time) · speed
+  presets. (No "again" in IND's surface — cursor + play covers it.)
+
+**IND is closed (requirements settled, plan not drawn). → D86.** Banked
+onward: the pinned gestures → CONTROLS · serverless-solo → NET (IND
+needs zero room infrastructure).
 
 ## 2 · DESIGN
 
