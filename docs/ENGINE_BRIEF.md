@@ -203,6 +203,52 @@ this before HARDEN freezes anything.**
   (IND is fully serverless, already ruled D86). Screen Wake Lock API +
   player guidance; support per device: **KIT** (T5).
 
+### Why the servo can't reproduce piece #1's jitter — the autopsy *(added day 42; composer: "the syncing engine just had additional consequences… introduced its own jitter — will this continuous sync cause its own?")*
+
+Read from piece #1's own code + IMPLEMENTATION_PROGRESS (grounded, not
+recalled). What #1's sync ecosystem actually did:
+
+- **Periodic traffic all show long, all on the client main thread:**
+  `heartbeat` every **500 ms** · `scorePositionCheck` every **3 s** ·
+  server loop-check every **200 ms** · client UI polls at **200 ms** ·
+  client ping every 5 s — beside a **per-frame canvas redraw** through a
+  subscriber AnimationEngine (the same per-frame-rebuild class of sin as
+  our `innerHTML` finding, plus message handling contending with it).
+- **Corrections were LATE AND BIG:** deadband **50 ms**, then the error
+  absorbed over **30 frames (~0.5 s)** — arithmetic from its own
+  numbers: ≈ a **10% speed change for half a second**, right at the
+  visible edge. So corrections only fired once drift was already large,
+  and then they were perceivable events.
+- **Verified on localhost** — which hides all network noise; real-wifi
+  behavior was never the tested case.
+
+**The inversion this design makes — the control law: correct EARLY and
+TINY, never late and big.**
+
+- Deadband small (~5–10 ms), trims capped at **≤1–2%** — the error is
+  never allowed to grow to visible size, so no correction is ever a
+  visible event. (#1: 10% for 0.5 s; here: 1% for a few seconds.)
+- **Nothing periodic rides the wire during the show.** The tuple changes
+  only on commands; the client's few-second ping is ~100 bytes and its
+  handler is a subtraction. No heartbeat spam (liveness is
+  socket-level), no position pushes, and looping is dead by ruling —
+  #1's 200 ms loop checker has no equivalent here.
+- **The correction path writes one number** (a rate), decoupled from
+  drawing — which for the video stand is a hardware decoder JS cannot
+  stutter, and for renderer A is a retained overlay, not a per-frame
+  rebuild.
+- **Observability instead of trust:** every trim is logged; T4 measures
+  the closed-loop residual on real wifi and real devices. Hunting (a
+  mis-tuned servo oscillating on measurement noise — the one real way a
+  servo makes its own jitter) shows up as data in the kit, not as a
+  discovery on stage.
+- **Residual risks, named:** servo mis-tune → hunting (caught by T4 +
+  the trim log; the filter is min-RTT best-of-N with a sanity clamp) ·
+  pathological networks (clamped; and gross error is never trim-fixed —
+  rehearsal may snap, performance never) · and per D87 the concert can
+  run **armed-but-silent** (auto-trims off entirely; only the podium
+  gesture corrects) — the strictest posture, left as a HARDEN dial.
+
 ### Transport: WebSocket, and nothing fancier
 
 - **Socket.IO v4** over HTTPS/WSS: auto-reconnect with backoff, rooms,
