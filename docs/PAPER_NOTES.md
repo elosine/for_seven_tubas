@@ -3052,3 +3052,10 @@ The performance-module precedent survey (ARCHITECTURE.md § PERF precedent surve
 - **Ableton Link** — leaderless tempo consensus as proven prior art for the sectional module's headless control.
 
 *(AI's framing, day 41: "the piece has a genuine lineage, including one system that's nearly a sibling" — the abstract's video-game analogy now has scholarly anchors on every side: game netcode for the plumbing, Polytempo for the conduction, TENOR browser scores for the stand.)*
+
+---
+
+## Day 42 (2026-09-23) — THE JITTER HAD AN ADDRESS (engine brief; process evidence)
+
+- The performance-arc jitter complaint (D87's admission: *"fine for composing… but subpar for performance — jittery"*, with piece #1's iron-out attempts having failed) resolved on inspection into a single line: the animation overlay is rebuilt from an SVG **string** via `innerHTML` every frame — parse, node churn, layout, GC, 60 times a second — while everything around it (static sheet drawn once · pure time functions · page-mode turns) was already architected for smooth retained-mode animation. **Process point for the paper:** the composing-first architecture — deterministic `drawAtTime` built so the video exporter could prove frame-exactness — accidentally pre-built the performance fix; the "hard look at the animation engine" took one targeted read to find the defect *because the surrounding invariants were already under test* (test_animobj's no-clock-reads battery). ENGINE_BRIEF.md §1–2 · RUNNING_LOG 56.
+- AI's recommendation shape, verbatim for later: *"A for every interactive module · C for the concert stand · B held as the measured fallback — and the kit's device data confirms or overturns this before HARDEN freezes anything."* The renderer became per-module under D87's license — the concert stand may run pre-rendered per-part video (smoothness and network-independence by construction) while rehearsal keeps the live, interactive engine.

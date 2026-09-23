@@ -760,6 +760,23 @@ for composer verdicts.
   exporter** — smoothness by construction; sync reduces to seeking video
   by the room clock (a solved commercial problem).
 
+### ENGINE — the technology brief (chunk 3.5, day 42, 2026-09-23)
+
+Delivered for verdicts → **`docs/ENGINE_BRIEF.md`** (the full brief; this
+is the pointer). Contents: the jitter diagnosis WITH AN ADDRESS (the
+animation overlay is rebuilt from an SVG string via `innerHTML` every
+frame; the engine around it — static sheet drawn once, pure time
+functions, page-mode turns — is already retained-mode-ready) · renderer
+candidates with a per-module recommendation (A fix-in-place for
+IND/SEC/ENS · C pre-rendered per-part video for the PERF stand · B
+PixiJS-class benched as measured fallback) · the sync model (state-tuple
+dead-reckoning · NTP-style offsets · slew-never-jump · after-GO offline)
+· codebase (own small Socket.IO server hardening piece #1's protocol;
+Colyseus and WebRTC both REJECTED, reasons in the brief) · hosting
+posture (D88: one always-on deployment serves all pieces) · the
+composer-runnable TEST KIT spec (T1–T5). Verdicts V1–V4 close the chunk;
+measured results become AR-N requirements in HARDEN.
+
 ## 2 · DESIGN
 
 *(not started)*

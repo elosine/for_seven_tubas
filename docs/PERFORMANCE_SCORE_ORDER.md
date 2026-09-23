@@ -107,8 +107,9 @@ that closed ENS in four iterations)*
 3.5 ► **ENGINE — the technology brief** (AI prepares, composer verdicts;
    RULED next, day 41). Charter above (animation-engine hard look +
    renderer candidates · network robustness + codebase pick · the
-   composer-runnable TEST KIT). **Done =** models chosen, engineering
-   requirements frozen for HARDEN.
+   composer-runnable TEST KIT). **Brief DELIVERED day 42 →
+   `docs/ENGINE_BRIEF.md`; verdicts V1–V4 pending.** **Done =** models
+   chosen, engineering requirements frozen for HARDEN.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
@@ -197,6 +198,16 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-09-23 (day 42 cont. — ENGINE brief DELIVERED; verdicts
+  pending):** the grounding read found the jitter's address (per-frame
+  `innerHTML` overlay rebuild; the engine otherwise pre-built for
+  retained mode). **`docs/ENGINE_BRIEF.md` delivered:** per-module
+  renderer recommendation (A fix-in-place for IND/SEC/ENS · C per-part
+  video for the PERF stand · B benched) · own small Socket.IO server
+  hardening #1's protocol (no Colyseus, no WebRTC) · hosting posture ·
+  the composer-runnable test-kit spec. **Chunk stays ► until V1–V4
+  land; then the kit build = Opus.** RUNNING_LOG 56.
 
 - **2026-09-23 (day 42 — THE TEMPUS COLLISION ruled → D88):** the
   composer's sequencing question ("finish the plan here vs build for
