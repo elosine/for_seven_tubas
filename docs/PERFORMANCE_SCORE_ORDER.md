@@ -79,6 +79,38 @@
   of the order is proposed after the ENGINE verdicts — lands on
   composer approval, as always.
 
+## THE WHOLE ARC — TOP LINE (day 42; the composer's ask. The chunk
+order beneath is unchanged — this is the same arc in one glance.)
+
+**DECIDE — what the system must be**
+1. ☑ Scenarios gathered: ENS · SEC · IND · PERF (D82, D85–D87)
+2. ☑ ENGINE verdicts: renderers per module · own server + floor rule ·
+   Hetzner · kit approved (D89)
+3. ► KIT BUILD (Opus, racked — "build the kit")
+4. KIT RUNS on real machines — every ESTIMATE becomes a number
+5. PORTAL gather (Fable — may run any time before HARDEN)
+6. PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
+   final vet (compressible per D88)
+7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
+8. ARCHITECTURE — the design, composer-reviewed
+9. PLAN — build chunks enumerated, per-phase verification, model map
+
+**BUILD — Opus, chunk by chunk (order finalized at 9; expected shape)**
+10. The engine fix (A) in the stand renderer
+11. The server — rooms + clock + floor rule — live on Hetzner
+12. The stand app: IND solo → ENS/SEC rooms → PERF hardening + the
+    video concert stand (C)
+13. PORTAL build (join links / QR)
+
+**DEPLOY — Tempus first (D88)**
+14. Tempus content in: per-part videos rendered · deployed · delivered
+    rehearsal-ready (+ pro forma paper parts)
+15. Tempus rehearsals = live burn-in; features/updates continue for
+    the later pieces
+16. Ports: the tubas and each next piece as they come due
+
+*(The paper thread P1–P4 runs beside all of it, independent.)*
+
 ## THE ORDER
 
 *(one chunk ≈ one short sitting · GATHER chunks are conversation: composer
