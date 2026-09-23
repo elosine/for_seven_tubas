@@ -103,23 +103,27 @@ it and announces the position before doing anything.
    explicit archive decision — a git tag alone does not capture them.**
    Step 4 stays OPEN alongside (C1–C5 verdicts · any further dictation).
 
-### NEXT STEPS · MODEL · CLEAR (day 41 end — PENN STATE FULLY CLOSED)
+### NEXT STEPS · MODEL · CLEAR (day 42, 2026-09-23 — TEMPUS DEPLOYS FIRST, D88)
 
-**Both Penn State submissions are IN (2026-09-01, three days early):**
-composition + abstract, composer-hosted and composer-submitted. **Nothing
-dated remains anywhere.** Standing: hosted copies live through Nov 1, 2026.
+**Penn State is IN (both submissions, 2026-09-01).** Standing: hosted
+copies live through Nov 1, 2026. **New driver (D88): Tempus's Leipzig
+dates now set this arc's clock** — rehearsal-ready before ~Oct 29
+(selection = score+parts due); concerts Nov 26–28.
 
-1. ► **THE PERFORMANCE ARC (D84) — next: the ENGINE brief (RULED next,
-   day 41; AI prepares as homework, composer verdicts).** AI drafts a
-   technology brief + a composer-runnable test kit: animation-engine hard
-   look + renderer candidates (compositor-SVG · canvas/WebGL · the
-   pre-rendered-part-video ace) · network robustness + codebase pick
-   (harden piece #1's protocol vs Colyseus-class) · the browser test kit
+1. ► **THE ENGINE BRIEF — now written against TEMPUS AS DEPLOYMENT #1
+   (D88: one module system for all pieces; parts delivery = the modules;
+   paper parts pro forma).** AI drafts the technology brief + a
+   composer-runnable test kit: animation-engine hard look + renderer
+   candidates (compositor-SVG · canvas/WebGL · the pre-rendered-
+   part-video ace) · network robustness + codebase pick (harden piece
+   #1's protocol vs Colyseus-class) · **HOSTING posture for remote
+   self-serve rooms (new, D88 consequence)** · the browser test kit
    (rAF jitter · dropped frames · cross-device drift · renderer A/B) +
-   cheap-device guidance. **Fable to design/recommend; the test-kit
-   BUILD is Opus once specced.** SEC/IND/PERF all closed (D85–D87);
-   PARTS chunk confirmed into the order (4.5). Say **"brief me"** or
-   "engine brief" to open it.
+   players'-own-devices guidance. **Fable to design/recommend; the
+   test-kit BUILD is Opus once specced.** After verdicts: re-cut the
+   order into a dated Leipzig path (PORTAL back on the critical path;
+   CONTROLS/ANNOTATION/mental-models/vet defer past November). Say
+   **"brief me"** or "engine brief" to open it.
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -489,6 +493,28 @@ instruction. The instructions are the four reference blocks that follow.*
     perceptual.** *(The near-miss is a logged dead end, RUNNING_LOG 39.)*
 
 ## §4 Decisions
+
+- **D88** *(2026-09-23, day 42, composer)* — **ONE MODULE SYSTEM; TEMPUS
+  DEPLOYS FIRST; parts delivery = the modules, paper parts pro forma.**
+  Every piece's players read the SAME rehearsal/performance modules — the
+  system is piece-independent infrastructure; each piece is content. An
+  ensemble's "parts delivery" = rehearsal-ready access to the modules;
+  paper parts exist PRO FORMA only (festival formality — Tempus repo 2c).
+  **Deployment #1 = Tempus (`septet_2026`)**, the only hard dates:
+  selection ~2026-10-29 = score+parts due (4 weeks before the Nov 26–28
+  Leipzig concerts) → **rehearsal-ready BEFORE ~Oct 29, built on spec,
+  not on selection news.** Later pieces — including this one, undated —
+  get ports as they come due; development continues during Tempus
+  rehearsals (*"features and updates for the later ones"*). *Why:* Tempus
+  carries the only real deadline; the modules were shared by design since
+  the port lineage (Tempus D2 there: same delivery format as #4/#5).
+  *Rejected:* finishing the tuba arc as tuba-only first · paper parts as
+  the real delivery. *Consequences (AI, on record):* PORTAL back on the
+  critical path (remote players self-serve join) · a HOSTED posture
+  needed for remote rooms (IND stays serverless) · CONTROLS /
+  ANNOTATION-UX / mental-models / vet compress or defer past November ·
+  the ENGINE brief written against Tempus devices + dates. Verbatim:
+  RUNNING_LOG 53–54 · COMPOSER_LOG day 42.
 
 - **D87** *(2026-09-01, day 41)* — **PERF CLOSED at requirements level
   (performance arc chunk 3).** **Performance = the ENS room, HARDENED:**

@@ -57,6 +57,25 @@
   to-dos** (PLANNER, day 37); what distinguishes them is deliberately
   UNDECIDED — the composer's question, never assumed.
 
+## DEPLOYMENT — RULED (2026-09-23, day 42 → D88)
+
+- **All pieces read the SAME modules.** The system is piece-independent
+  infrastructure; each piece is content.
+- **Deployment #1 = TEMPUS (`septet_2026`)** — the only hard dates: if
+  selected (~Oct 29), score + parts due 4 weeks before the Nov 26–28
+  Leipzig concerts = due AT selection → **rehearsal-ready BEFORE
+  ~Oct 29, built on spec, not on selection news.**
+- **Parts delivery = the rehearsal/performance modules themselves;
+  paper parts PRO FORMA** (festival formality — Tempus repo 2c).
+- **This piece (undated) becomes a port target like the others**;
+  features/updates continue during Tempus rehearsals.
+- Consequences for the order: **ENGINE stays ► (now against Tempus
+  devices + dates) · PORTAL returns to the critical path · a HOSTED
+  posture joins the ENGINE brief · CONTROLS / ANNOTATION-UX /
+  mental-models / vet compress or defer past November.** The dated
+  re-cut is proposed after the ENGINE verdicts — lands on composer
+  approval, as always.
+
 ## THE ORDER
 
 *(one chunk ≈ one short sitting · GATHER chunks are conversation: composer
@@ -175,6 +194,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-09-23 (day 42 — THE TEMPUS COLLISION ruled → D88):** the
+  composer's sequencing question ("finish the plan here vs build for
+  the septet") answered: FALSE FORK — one module system, **Tempus
+  deploys first** (parts delivery = the modules · paper parts pro
+  forma · rehearsal-ready before ~Oct 29 · ports for later pieces ·
+  development continues during Tempus rehearsals). ENGINE remains ►,
+  now written against Leipzig as deployment #1; hosting joins its
+  charter. RUNNING_LOG 53–54 · COMPOSER_LOG day 42.
 
 - **2026-09-01 (day 41, sitting 2 WRAP — three scenarios closed; ENGINE
   is ►):** SEC (D85) · IND (D86) · PERF (D87) all closed this sitting;
