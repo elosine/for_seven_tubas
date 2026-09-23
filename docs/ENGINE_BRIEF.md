@@ -113,6 +113,63 @@ from the composer/presentation scores. The choice is **per-module**.
   the service worker before the show · live annotation on the moving
   score doesn't apply in concert (rehearsal uses A).
 
+### C's sync risk & backstops *(added day 42 — the composer's question: guesstimate of falling out of sync; backstops like periodic timecode, or strictly unnecessary?)*
+
+**Where desync can come from (four sources, two that matter):**
+
+1. **Start alignment at GO** — clock-offset error ≤ RTT/2 (±5–25 ms on
+   venue wifi, ±1–5 ms LAN — ESTIMATE) plus decoder spin-up. One-time,
+   and the servo (below) washes it out within seconds.
+2. **Local clock drift during the piece** — THE real accumulator. Device
+   crystals run ±20–50 ppm off true (ESTIMATE; T3 measures the zoo).
+   Worst PAIR of stands, pure free-run, 12.5 min: **±30–75 ms apart by
+   the final bars** — and the final movement is the phase-critical one
+   (composed offsets are 80–120 ms steps; error must stay ≥5× under
+   that grid, i.e. ≤ ~15–25 ms).
+3. **The video's own motor** — a `<video>` element's playback clock is
+   not the system clock; unsupervised it wanders. **Fully eliminated by
+   backstop 1** (the servo watches the displayed frame, not the motor).
+4. **Frame quantization** — ±8–17 ms at 60/30 fps. The same floor the
+   live renderer has on a 60 Hz screen. Render parts at 60 fps.
+
+**The backstops (three, all invisible — no periodic snap needed):**
+
+- **B1 — the frame servo (always on, network or not):** per displayed
+  frame (`requestVideoFrameCallback`, fallback: `currentTime` polling),
+  compare shown media time against the piece clock; trim `playbackRate`
+  by ≤1–2% until closed, then 1.0. Closes ~10–20 ms of error per second
+  of nudging; on a moving score a 1% speed trim is imperceptible. This
+  is the live-edge technique every commercial player uses. **Seeks are
+  never used for correction** (a seek hitches); seeks are only for
+  jumps (rehearsal navigation).
+- **B2 — quiet continuous re-sync while any network exists:** the
+  NTP-style estimator keeps pinging every few seconds; refined offsets
+  feed the same servo. This is the composer's "timecode every 10–30 s"
+  instinct — made **continuous and slewed instead of periodic and
+  snapped**. Holds cross-stand error at ±5–15 ms (wifi) / ±1–5 ms (LAN)
+  for the whole show (ESTIMATE; T3/T4 measure). If wifi dies mid-show,
+  nothing stops — error is frozen at its held value and then grows only
+  a few ms per minute.
+- **B3 — offline hardening:** (i) **pre-show self-calibration** — during
+  warm-up each stand measures its own clock's ppm against the server for
+  ~10 min, then compensates that known bias during free-run → end-of-
+  piece residual ~±5–15 ms with NO network after GO (ESTIMATE); (ii) the
+  **podium's one resync gesture** (D87 rung 3) remains the human
+  override if the con ever perceives smear.
+
+**The reframe that matters for V1:** the live renderer (A) free-runs on
+the SAME device clocks — source 2 is identical for both. Video adds only
+source 3, which B1 removes entirely. **After the servo, C is no riskier
+than A for sync — and strictly smoother in drawing.** The residual risk
+for BOTH renderers is local clock quality: T3 measures it per device;
+B3(i) compensates it.
+
+**Bottom line: backstops yes — but as a continuous invisible servo, not
+10-second timecode snaps.** Normal night (network up): ±5–15 ms all
+show. Worst night (network gone at GO, no calibration): ±30–75 ms by the
+end — audible in the phase material, which is why B1+B3 are in the spec
+rather than optional.
+
 ### The recommendation, as a sentence
 
 **A for every interactive module · C for the concert stand · B held as
@@ -221,7 +278,9 @@ lands here as a number.
   side with a phone in slow-mo; count frames between flashes — hard
   data with no lab.
 - **T4 — video sync behavior:** seek latency histogram · `currentTime`
-  accuracy vs clock · `playbackRate` nudge response (matters only for C).
+  accuracy vs clock · `playbackRate` nudge response · **frame-servo
+  residual** (B1 closed-loop error over a 10-min run, with and without
+  network) · `requestVideoFrameCallback` support (matters only for C).
 - **T5 — device report card:** wake-lock support · screen/DPR · codec
   support · OffscreenCanvas · storage quota (for cached video) — one
   glance per device.
