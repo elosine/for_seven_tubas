@@ -2538,3 +2538,7 @@ confirmation, we can move on to the next thing in my current running order."*
 *"everyone for all pieces will read the same modules. And while I may or may not include paper parts, their parts delivery really will be the rehearsal slash performance modules. Just do paper parts pro forma. But at the same time, I would want to deliver rehearsal ready or animated score. I imagine that we will get the parts ready for the Tempest store [= Tempus score]. And then what we'll do is have a port ready for the other ones as they become due. And while the rehearsals, etc., are going on for Tempest, I'll be able to include features and updates for the later ones."*
 
 *(Asked in the same sitting, opening the question: "I think my Tempest septet will be deadline for their parts will be sooner. So my question is, do I finish up the plan here in the tuba piece? Or should we document everything and then work as if we're building for the septet?")*
+
+### Day 42 — the ruling amended, same sitting (dictated)
+
+*"Also, I plan on creating performance/rehearsal ready modules for all pieces regardless of acceptance. An acceptance provides good opportunity for user testing. Also I don't need ai to manage deadlines, just awareness for what order to do things."*

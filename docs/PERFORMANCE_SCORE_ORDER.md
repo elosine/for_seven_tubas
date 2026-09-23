@@ -61,20 +61,23 @@
 
 - **All pieces read the SAME modules.** The system is piece-independent
   infrastructure; each piece is content.
-- **Deployment #1 = TEMPUS (`septet_2026`)** — the only hard dates: if
-  selected (~Oct 29), score + parts due 4 weeks before the Nov 26–28
-  Leipzig concerts = due AT selection → **rehearsal-ready BEFORE
-  ~Oct 29, built on spec, not on selection news.**
+- **Deployment #1 = TEMPUS (`septet_2026`)** — first in ORDER because
+  it comes due first. Its dates, held for AWARENESS only: selection
+  ~Oct 29 = score + parts due (4 weeks before the Nov 26–28 Leipzig
+  concerts). **Amended same sitting: modules get built for ALL pieces
+  regardless of acceptance — an acceptance = a user-testing
+  opportunity. The AI does not manage deadlines; dates inform the
+  order, nothing more.**
 - **Parts delivery = the rehearsal/performance modules themselves;
   paper parts PRO FORMA** (festival formality — Tempus repo 2c).
 - **This piece (undated) becomes a port target like the others**;
   features/updates continue during Tempus rehearsals.
-- Consequences for the order: **ENGINE stays ► (now against Tempus
-  devices + dates) · PORTAL returns to the critical path · a HOSTED
+- Consequences for the order: **ENGINE stays ► (written against Tempus
+  devices first) · PORTAL returns to the critical path · a HOSTED
   posture joins the ENGINE brief · CONTROLS / ANNOTATION-UX /
-  mental-models / vet compress or defer past November.** The dated
-  re-cut is proposed after the ENGINE verdicts — lands on composer
-  approval, as always.
+  mental-models / vet fall after the Tempus deployment.** The re-cut
+  of the order is proposed after the ENGINE verdicts — lands on
+  composer approval, as always.
 
 ## THE ORDER
 
