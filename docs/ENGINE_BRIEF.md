@@ -203,6 +203,32 @@ this before HARDEN freezes anything.**
   (IND is fully serverless, already ruled D86). Screen Wake Lock API +
   player guidance; support per device: **KIT** (T5).
 
+**THE FLOOR RULE (composer-ruled, day 42):** *"it just takes the best of
+all the worlds — if the drift is too much via network, it just sticks
+with the internal video clock."* **The local clock is the FLOOR; the
+network is a bounded adviser that must demonstrably improve on it or be
+ignored.** Corrections are improvements or no-ops — compounding is
+impossible by construction:
+
+1. **Confidence-gated:** every offset estimate carries its own
+   uncertainty (RTT/2 + sample variance). A correction applies only when
+   the measured error exceeds that uncertainty with margin. A noisy,
+   asymmetric, or broken network balloons the uncertainty → the gate
+   never opens → the stand free-runs on its own clock.
+2. **Clamped authority:** total correction is bounded (~10–20 ms/min —
+   ESTIMATE, tuned at HARDEN) no matter what the network claims.
+   A wildly-wrong estimate cannot run away; worst case it nudges within
+   the clamp before rejection catches it.
+3. **Outlier rejection:** min-RTT best-of-N + median over history; a
+   sudden wild offset is refused until it persists cleanly.
+4. **No peer contagion:** stands never sync to each other — each
+   estimates against the server alone — so one machine's bad network
+   cannot infect the room; that machine's own stand out-rules its bad
+   network in favor of its local clock.
+5. **The calibration is local too:** B3's ppm compensation is learned
+   pre-show while the network is trustworthy, then applied locally with
+   zero live dependency — the improvement without the dependency.
+
 ### Why the servo can't reproduce piece #1's jitter — the autopsy *(added day 42; composer: "the syncing engine just had additional consequences… introduced its own jitter — will this continuous sync cause its own?")*
 
 Read from piece #1's own code + IMPLEMENTATION_PROGRESS (grounded, not
@@ -322,7 +348,10 @@ lands here as a number.
   10 min (the real ppm of the real zoo). **Plus the zero-rig visual
   check:** both screens flash a shared-clock beacon; film them side by
   side with a phone in slow-mo; count frames between flashes — hard
-  data with no lab.
+  data with no lab. **Plus the SABOTAGE test (the floor rule, proven):**
+  a kit toggle feeds one stand deliberately wrong offsets (fixed bias ·
+  jittered · drifting lie) and the log shows the stand refusing them —
+  staying within the clamp, on its own clock.
 - **T4 — video sync behavior:** seek latency histogram · `currentTime`
   accuracy vs clock · `playbackRate` nudge response · **frame-servo
   residual** (B1 closed-loop error over a 10-min run, with and without
