@@ -113,20 +113,18 @@ only: selection ~Oct 29 = score+parts due; concerts Nov 26–28).
 acceptance = a user-testing opportunity. The AI holds dates for
 ordering awareness only; it does not manage deadlines.**
 
-1. ► **THE ENGINE BRIEF — now written against TEMPUS AS DEPLOYMENT #1
-   (D88: one module system for all pieces; parts delivery = the modules;
-   paper parts pro forma).** AI drafts the technology brief + a
-   composer-runnable test kit: animation-engine hard look + renderer
-   candidates (compositor-SVG · canvas/WebGL · the pre-rendered-
-   part-video ace) · network robustness + codebase pick (harden piece
-   #1's protocol vs Colyseus-class) · **HOSTING posture for remote
-   self-serve rooms (new, D88 consequence)** · the browser test kit
-   (rAF jitter · dropped frames · cross-device drift · renderer A/B) +
-   players'-own-devices guidance. **Fable to design/recommend; the
-   test-kit BUILD is Opus once specced.** After verdicts: re-cut the
-   order into the Tempus-first path (PORTAL back on the critical path;
-   CONTROLS/ANNOTATION/mental-models/vet fall after the Tempus
-   deployment). Say **"brief me"** or "engine brief" to open it.
+1. ☑ **ENGINE CLOSED (day 42 → D89) — brief delivered and all four
+   verdicts landed in one sitting:** renderer per module (A fix-in-place
+   for IND/SEC/ENS · C per-part video for the concert stand · B benched
+   on kit data) · own small Socket.IO server + THE FLOOR RULE (no
+   Colyseus/WebRTC) · Hetzner, one VPS, all pieces · kit spec approved.
+   Full record: `docs/ENGINE_BRIEF.md`.
+   **► THE KIT BUILD IS RACKED (organizer 3.6): Opus, any time —
+   a fresh Opus session reads ENGINE_BRIEF.md whole (§5b = the build
+   plan); the words: "build the kit."** Not building now (composer,
+   day 42). **PORTAL (chunk 4, Fable, GATHER) may run first** — say
+   "brief me". After the kit RUNS on real devices: the Tempus-first
+   re-cut of the order, then HARDEN with measured numbers.
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -496,6 +494,29 @@ instruction. The instructions are the four reference blocks that follow.*
     perceptual.** *(The near-miss is a logged dead end, RUNNING_LOG 39.)*
 
 ## §4 Decisions
+
+- **D89** *(2026-09-23, day 42)* — **ENGINE CLOSED — the four verdicts
+  (performance arc chunk 3.5).** **V1 renderer, per module under D87's
+  license:** A — retained overlay + compositor transforms, the current
+  engine fixed in place (the jitter's address: the per-frame `innerHTML`
+  overlay rebuild) — for IND/SEC/ENS · C — pre-rendered per-part video
+  via the frame-exact exporter — for the concert stand · B —
+  canvas/WebGL — benched, enters only if the kit measures A short.
+  **V2 network:** our own small Socket.IO server hardening piece #1's
+  protocol — one broadcast state-tuple, dead-reckoning, corrections
+  EARLY-AND-TINY (piece #1's autopsy: late-and-big + ambient traffic
+  was its self-jitter), nothing periodic mid-show, and **THE FLOOR
+  RULE** (the local clock is the floor; the network improves or
+  abstains, never compounds — confidence gate · clamp · outlier
+  rejection · no peer contagion · local calibration). Colyseus and
+  WebRTC rejected. **V3 hosting:** Hetzner (piece #1's own home), one
+  small VPS, ALL pieces on one deployment, one deploy script (=
+  disaster recovery = hot-spare stand-up). **V4:** the
+  composer-runnable test kit approved (T1–T5 incl. the sabotage test);
+  every ESTIMATE becomes a measured number before HARDEN freezes
+  requirements. *Build status:* the kit build is RACKED for Opus
+  (ENGINE_BRIEF.md §5b cold-start plan — "build the kit"). *Record:*
+  ENGINE_BRIEF.md whole · RUNNING_LOG 56–64 · COMPOSER_LOG day 42.
 
 - **D88** *(2026-09-23, day 42, composer)* — **ONE MODULE SYSTEM; TEMPUS
   DEPLOYS FIRST; parts delivery = the modules, paper parts pro forma.**

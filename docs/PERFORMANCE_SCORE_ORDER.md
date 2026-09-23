@@ -104,12 +104,20 @@ that closed ENS in four iterations)*
    (self-sufficient stands · hot-spare machine · one podium resync
    gesture) · **after GO the network is optional** (fixed-timeline
    star). Survey + full record: ARCHITECTURE.md § PERF.
-3.5 ► **ENGINE — the technology brief** (AI prepares, composer verdicts;
-   RULED next, day 41). Charter above (animation-engine hard look +
-   renderer candidates · network robustness + codebase pick · the
-   composer-runnable TEST KIT). **Brief DELIVERED day 42 →
-   `docs/ENGINE_BRIEF.md`; verdicts V1–V4 pending.** **Done =** models
-   chosen, engineering requirements frozen for HARDEN.
+3.5 ☑ **ENGINE — CLOSED day 42 → D89** (brief delivered AND all four
+   verdicts landed the same sitting: V1 renderer per module — A
+   fix-in-place for IND/SEC/ENS · C per-part video for the concert
+   stand · B benched on kit data · V2 own small Socket.IO server, #1's
+   protocol hardened, THE FLOOR RULE in, no Colyseus/WebRTC · V3
+   Hetzner, one VPS, all pieces, one deploy script · V4 kit spec
+   approved). Full record: **`docs/ENGINE_BRIEF.md`** (diagnosis ·
+   candidates · sync backstops · piece-#1 autopsy · risk register ·
+   floor rule · kit spec §5 + build plan §5b).
+3.6 ► **KIT BUILD — racked, ready any time (Opus).** Cold start = a
+   fresh Opus session reads ENGINE_BRIEF.md whole (§5b is the build
+   plan); the words: **"build the kit."** Not building now at the
+   composer's word (day 42). PORTAL (4) may run first at the
+   composer's preference — both are clean cold starts.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
@@ -198,6 +206,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-09-23 (day 42 WRAP — ENGINE CLOSED ☑ → D89; kit racked ►
+  3.6):** all four verdicts landed in the same sitting the brief was
+  delivered — V1 renderer per module (A / C / B-benched) after a
+  plain-language walkthrough · V2 own server + floor rule after the
+  sync-drift assessment, the piece-#1 autopsy, and the risk register ·
+  V3 Hetzner one-box-all-pieces · V4 kit approved. **Kit build racked
+  for Opus ("build the kit"; ENGINE_BRIEF §5b), not building now;
+  PORTAL may run first.** RUNNING_LOG 56–64 · COMPOSER_LOG day 42.
 
 - **2026-09-23 (day 42 cont. — ENGINE brief DELIVERED; verdicts
   pending):** the grounding read found the jitter's address (per-frame

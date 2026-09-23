@@ -306,6 +306,46 @@ TINY, never late and big.**
   correction, reconnect-resume, drift logging (so problems are visible in
   data, not vibes).
 
+**A's cons & risks — the honest register (composer's ask, day 42; each
+with its mitigation and what remains):**
+
+1. **We own every bug, and the failure venue is a rehearsal.** No
+   community has run this exact code. *Mitigation:* tiny surface (state
+   = one tuple + a member list) · observability designed in (every trim
+   and drift logged — problems appear as data) · **Tempus rehearsals are
+   the burn-in** (the composer's own D88 amendment: acceptance = user
+   testing). *Residual:* an edge case can still first appear live.
+2. **Multi-device timing bugs don't reproduce on a desk.** *Mitigation:*
+   the kit (T3/T4) + a headless multi-client chaos test in the build
+   plan (spawn N fake stands, kill/rejoin them, assert sync claims).
+   *Residual:* the chaos test is only as good as the chaos we script.
+3. **Bespoke = future maintenance is ours.** No docs or community
+   outside the repo. *Mitigation:* the repo's doc discipline; a protocol
+   small enough to document COMPLETELY (a one-page spec is a build
+   deliverable). *Residual:* real, accepted — frameworks have version
+   churn instead, which is not better.
+4. **Scope re-accretion — piece #1's server grew to 1200+ lines of
+   heartbeats, loop checkers, auth phases.** *Mitigation:* the rulings
+   already deleted the accreting features (no ceremony · no loops · no
+   leader · live rooms only · nothing stored); the autopsy block above
+   is the standing anti-checklist. *Residual:* discipline, not
+   structure.
+5. **Copy-the-code trap:** "hardening #1" by pasting re-imports its
+   habits. *Mitigation:* already ruled — greenfield rewrite, concepts
+   only. 
+6. **Open-by-design rooms have a small abuse surface** (a leaked URL =
+   a stranger can join and, under last-command-wins, stop playback).
+   *Mitigation:* deferred to PORTAL by design (join links/QR scoping,
+   registry part-binding); basic rate limiting in the server from day
+   one. *Residual:* acceptable for rehearsals; revisit at PORTAL.
+7. **Not risks:** scale (10–20 clients is nothing) · Socket.IO itself
+   (one ubiquitous, stable dependency).
+
+The two that deserve respect are 1 and 2 — both are exactly what the
+observability + kit + Tempus-rehearsal burn-in exist to catch, and both
+would be WORSE under a framework (same distributed-timing problem,
+plus someone else's abstractions between us and the bug).
+
 ---
 
 ## 4 · Hosting *(new in the charter per D88 — remote ensembles self-serve)*
@@ -315,16 +355,34 @@ TINY, never late and big.**
   room is ~10 clients exchanging a few messages a minute) · **one
   deployment serves EVERY piece** (the system is piece-independent;
   a piece is content + a room namespace, e.g. `/tempus`, `/tubas`).
-- **Options:** (a) wherever piece #1 already lives — it runs Socket.IO
-  at justinwenloyang.com today, so a Node-capable home may already
-  exist; (b) a ~$5/mo VPS (Hetzner/DigitalOcean class) with Caddy +
-  Let's Encrypt; (c) a PaaS (Render/Railway/Fly) on an always-on plan —
-  avoid free tiers that sleep (a cold start exactly when an ensemble
-  gathers is the one failure mode this must never have).
-- **Recommendation:** (a) if piece #1's host can run this server
-  alongside; otherwise (b). Either way: one process, all pieces.
-- **The question only the composer can answer (V3):** what hosts piece
-  #1 today — and is it comfortable being the shared home?
+- **The fact (composer, day 42):** piece #1 was hosted on a **Hetzner**
+  server; the composer is happy to stay there if it's good enough, open
+  to more robust; the plan is **all pieces on the same shared server**;
+  traffic modest but real during rehearsal/performance windows.
+- **Recommendation: STAY HETZNER.** One small VPS (CX22-class,
+  ~€4–6/mo flat), Caddy (auto-HTTPS) + Node + auto-restart, one
+  deployment serving every piece under namespaces (e.g.
+  `play.<domain>/tempus`, `/tubas`). Reuse the old box if it still
+  runs; a fresh one stands up in minutes either way.
+- **Why it's genuinely a good fit, not just familiar:** never sleeps
+  (the kill-criterion — a PaaS free tier cold-starting exactly when an
+  ensemble gathers is the one forbidden failure) · full WebSocket
+  support (static/serverless hosts like Vercel/Netlify can't hold the
+  socket server at all) · **flat-rate bandwidth** — part videos are the
+  one heavy asset (10 stands × ~300 MB on first load ≈ 3 GB/rehearsal
+  cache-fill; Hetzner includes ~20 TB flat, while PaaS per-GB egress
+  meters exactly this) · German data centers ≈ 15–30 ms RTT from a
+  Leipzig venue (ideal for the first deployment; the floor rule makes
+  distance a comfort factor, not a correctness one; Hetzner US exists
+  if a US-heavy season comes).
+- **What "more robust" actually buys here:** little — the architecture
+  already took the server out of the critical path (after GO nothing is
+  needed; rehearsal recovers by rejoining in seconds; live rooms hold
+  nothing worth backing up). The cheap 99%: uptime monitoring (free
+  ping service) + process auto-restart + **a one-script deploy** — which
+  doubles as disaster recovery AND stands up the venue hot-spare laptop
+  as the same server. Paying more (managed PaaS) buys zero-ops, not
+  more reliability.
 
 ---
 
@@ -367,18 +425,65 @@ lands here as a number.
 
 ---
 
+## 5b · KIT BUILD PLAN — for a cold Opus session
+
+> Racked day 42 (composer: not building now — ready at any time). A
+> fresh **Opus** session reads THIS FILE whole; no other context is
+> needed. The words that open it: **"build the kit."**
+
+- **Deliverables:** `testkit/index.html` (one static page, all tests,
+  plain HTML/JS, no build tooling) · `testkit/server.js` (tiny Node:
+  static serving + the T3 clock endpoint + the sabotage toggle) ·
+  `testkit/README.md` (run protocol + a per-device results-table
+  template) · `testkit/assets/` (content below).
+- **Content assets, generated during the build:** one REAL exported
+  page from a busy section of `db1` as SVG (for the A0 · A1/A2 · B
+  lanes) + a ~60 s, 60 fps video of the SAME material via the proven
+  exporter (for the C lane). Same music in every lane, or the
+  comparison is invalid.
+- **Done-criteria per test:** T1 → histogram + dropped-frame % +
+  long-task list, copyable JSON · T2 → all four renderer lanes
+  instrumented by T1, one side-by-side card · T3 → 10-min offset +
+  drift-rate log, the beacon-flash mode, and the sabotage toggle
+  (fixed / jittered / drifting lies) with a visible refusal log ·
+  T4 → seek-latency histogram, `currentTime` accuracy, closed-loop
+  servo residual (10 min, network on AND off) · T5 → the report card
+  (wake lock · codecs · OffscreenCanvas · rVFC · storage quota · DPR).
+- **Constraints:** touches NOTHING in the score apps · fully offline
+  except T3 · every result both a human card and a JSON blob.
+- **Verification (AI_METHODOLOGY):** the build session runs every test
+  in the preview browser and confirms sane numbers before claiming
+  done — including one deliberate wrong-clock case to prove T3/T4
+  can detect what they claim to detect.
+
 ## 6 · THE VERDICT SHEET (what closes this chunk)
 
 - **V1 — renderer strategy:** adopt **A (fix-in-place) for IND/SEC/ENS +
   C (per-part video) for the PERF stand, B benched as measured
   fallback** — with the kit's data as the confirm/overturn gate?
+  **☑ APPROVED (composer, day 42 — after the plain-language walkthrough
+  of A: "Okay, that one is good then"; C already endorsed in the sync
+  exchange: "the video proposal sounds correct").**
 - **V2 — network:** adopt **our own small Socket.IO server hardening
   piece #1's protocol; state-tuple dead-reckoning; slew-only
   corrections; no Colyseus; no WebRTC**?
+  **☑ APPROVED (composer, day 42 — "A, good in principle" + "Okay,
+  good" after the §3 risk register; floor rule ruled the same
+  sitting).**
 - **V3 — hosting:** what hosts piece #1 today, and does the shared
   always-on home live there (a) or on a small VPS (b)?
+  **☑ APPROVED (composer, day 42 — "Hetzner good"): Hetzner, one small
+  VPS (CX22-class), ALL pieces on one deployment, one deploy script
+  (doubling as disaster recovery + the hot-spare stand-up); reuse the
+  old piece-#1 box if alive, else fresh.**
 - **V4 — the kit:** approve the §5 spec for the **Opus build** as the
   next executable step?
+  **☑ APPROVED (composer, day 42 — "V4 y"; not building now, racked
+  per §5b, ready at any time).**
+
+**ALL FOUR VERDICTS LANDED day 42 → the chunk is CLOSED (journal §4
+D89). ESTIMATES convert to measured numbers when the kit runs; HARDEN
+freezes requirements from there.**
 
 ## 7 · What freezes for HARDEN once verdicted
 
