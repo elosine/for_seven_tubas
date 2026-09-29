@@ -180,6 +180,20 @@ this before HARDEN freezes anything.**
 
 ## 3 · Network: sync model, transport, codebase
 
+### The requirements, in priority order (as put to the composer at the V2 verdict, day 42)
+
+1. **Starts on the fly** — no ceremony, no locking (D87; piece #1's
+   named failure).
+2. **After GO, zero network needed** — wifi dying cannot stop the show.
+3. **Corrections invisible and never compounding** — THE FLOOR RULE
+   (below).
+4. **Rooms self-service** — no leader, anyone commands, last command
+   wins (D85).
+5. **Rejoin in seconds** — a dropped stand comes back in sync without
+   fuss.
+6. **Few moving parts** — *"lean simple to use not feature rich but
+   robust and can do all the main functions really well."*
+
 ### The sync model (the heart — and it's small)
 
 - **State-tuple dead-reckoning.** The room's whole transport state is one

@@ -2542,3 +2542,29 @@ confirmation, we can move on to the next thing in my current running order."*
 ### Day 42 — the ruling amended, same sitting (dictated)
 
 *"Also, I plan on creating performance/rehearsal ready modules for all pieces regardless of acceptance. An acceptance provides good opportunity for user testing. Also I don't need ai to manage deadlines, just awareness for what order to do things."*
+
+### Day 42 — the ENGINE verdict sitting (dictated; verbatim, in order)
+
+On the video proposal's sync risk:
+
+*"regarding the performance score and the video proposal. What's the risk, or can you give me assessment on um, them falling out of sync? And I'm talking relatively precise. You know, give me a guesstimate of sync, uh, falling out of sync, of uh, latency or whatever. And would there, would there be backstops? So like, still time code syncing every whatever, even every, say, 10 seconds or 30 seconds or something like that, or some other type of. of backup, or is that just strictly not necessary?"*
+
+The piece-#1 scar:
+
+*"And with piece one, we ran into a lot of additional issues because the engine and whatnot provided these. The video, the syncing engine just had additional consequences and management issues like then it introduced its own jitter, etc. The backstops are invisible in the background then? Or will this continuous sync cause its own jitter or other risks?"*
+
+THE FLOOR RULE (ruled):
+
+*"Okay, good. I guess the overall question is just that the, well, two, the video proposal sounds correct from what I understand about the clock speed, even uh, individual iPad that drift never really risks to be that much, even if it was non-networked, you sent a go signal and then everyone ran. I guess what I want to understand is you're correct that ideally we would have a backstop so it wouldn't even drift a, you know, a few milliseconds. But I don't want that network backup to introduce its own additional drift uh, in addition to the video. So what I mean to say is, um, I guess we're taking the, so, you know, the whole spectrum. If the network goes down or if one machine's network is wildly out of sync with the others, it doesn't compound the problem. It just takes the best of, it takes, the best of all the worlds. So if the drift is too much via network, then it just sticks with the internal video clock. Next stop."*
+
+V1, after the plain-language walkthrough of option A: *"Okay, that one is good then."*
+
+V2: *"can you clarify and simplify the actual talking points for the network? What remains to be decided and what are the, I guess the pros and cons, what, what are the alternatives? And what are the most important requirements?"* → *"A, good in principle what are the cons/ risks?"* → after the risk register: *"Okay, good. Then what are the recommendations for the hosting? I previously hosted the piece one on a Hertzner show [= Hetzner server]. I'm happy to have something. I mean, if that's good enough, that's fine. I'm happy to have something more robust. So I think the plan is to have all my pieces on the same share [= server]. I don't necessarily expect a ton of traffic, but enough during rehearsal and performance times. And maybe you can break down the considerations and if there's any differentiation between the different hosting options."*
+
+V3: *"Hetzner good"*
+
+V4 + status: *"V4 y,and then just give status. Probably not building now is plan written? And ready for build at any time?"*
+
+*"Can you give rundown and order of the whole build. Top line"*
+
+2026-09-29, status check: *"Where are we with this plan is it done and ready to build?"*

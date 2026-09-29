@@ -10,6 +10,11 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
+> **► CURRENT POSITION (2026-09-29, mid-session checkpoint): ENGINE
+> CLOSED (D89); ► = THE KIT BUILD (Opus). Read OPEN AT SESSION END's
+> first entry first — the day-41 LAST SESSION block below is history,
+> superseded.**
+
 ### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
 
 - **🎉 PENN STATE FULLY CLOSED — both submissions in, three days early.**
@@ -137,6 +142,47 @@ Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
+
+**(day 42, 2026-09-23 → 09-29 — mid-session checkpoint — ENGINE CLOSED
+(D89); ► THE KIT BUILD)** *(supersedes the day-41 entry below)*
+
+- **Task + state:** the performance arc — organizer
+  `docs/PERFORMANCE_SCORE_ORDER.md` (whole-arc top line: 16 steps,
+  DECIDE → BUILD → DEPLOY). Steps 1–2 ☑: scenarios (D82 · D85–D87) and
+  ENGINE (D89 — all four verdicts in one sitting). **Needle: 3.6 ► KIT
+  BUILD — racked, not started.** D88 frames everything: one module
+  system for all pieces; Tempus deploys first (dates = ordering
+  awareness only — the AI does not manage deadlines); modules built for
+  every piece regardless of acceptance.
+- **Latest deliverable:** `docs/ENGINE_BRIEF.md` — diagnosis (the
+  per-frame `innerHTML` overlay rebuild = the jitter's address) ·
+  renderers per module (A fix-in-place for IND/SEC/ENS · C per-part
+  video for the concert stand · B benched) · sync backstops + THE FLOOR
+  RULE · piece-#1 autopsy · risk register · Hetzner hosting · kit spec
+  §5 + cold-start build plan §5b.
+- **Next concrete step (Opus):** build the test kit exactly per
+  `docs/ENGINE_BRIEF.md` §5b — create `testkit/` (`index.html`, one
+  static page · `server.js`, tiny Node on its own port — 5200/4700 are
+  the score/sandbox — plus a `.claude/launch.json` entry for
+  preview_start · `README.md`, run protocol + results template ·
+  `assets/`); generate the two content assets from the SAME busy `db1`
+  material (one page as SVG + ~60 s / 60 fps video via the exporter —
+  pipeline scripts in THE DELIVERABLES table below); implement T1–T5
+  incl. the T3 sabotage toggle; verify every test in the preview
+  browser, incl. one deliberate wrong-clock case, before claiming done.
+  Touch nothing in the score apps. Wrap: organizer 3.6 ☑ + position log
+  · RUNNING_LOG · commit + push. **If the composer's first words name
+  PORTAL ("brief me"), that is chunk 4 on Fable instead — and if this
+  resumes on Fable, confirm which in one line before starting.**
+- **Resume reads:** `docs/ENGINE_BRIEF.md` whole (§5 + §5b are the
+  build; §1–§3 define what T2–T4 measure). Nothing else.
+- **Pending the composer:** kit vs PORTAL first (the ► says kit) ·
+  which devices are on hand for kit runs (§5 zoo guidance) · undated:
+  step-7 wrap (tag · archive call · SAVE_FILES) · step-4 C1–C5.
+- **Deliberately uncommitted — the composer's own files, never staged
+  by AI:** `reaper/7_tubas_rack.rpp` (M) ·
+  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) ·
+  `scores/Litany.pdf` (??).
 
 **(day 41 end, 2026-09-01 — PENN STATE FULLY CLOSED + three performance
 scenarios closed; next session = the ENGINE brief)**

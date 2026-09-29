@@ -239,6 +239,12 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-09-29 (day 42 cont. — status check + CHECKPOINT):** composer
+  asked "is it done and ready to build?" — yes for the kit (3.6 ►,
+  racked, unstarted); the full build waits on kit numbers + steps 5–9
+  by design. Checkpoint taken on Opus; **the needle has not moved:
+  3.6 ► KIT BUILD.** RUNNING_LOG 66.
+
 - **2026-09-23 (day 42 WRAP — ENGINE CLOSED ☑ → D89; kit racked ►
   3.6):** all four verdicts landed in the same sitting the brief was
   delivered — V1 renderer per module (A / C / B-benched) after a
