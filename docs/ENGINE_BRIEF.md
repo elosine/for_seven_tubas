@@ -8,6 +8,11 @@
 > Numbers marked **ESTIMATE** are unmeasured; claims marked **KIT** are what
 > the test kit exists to measure. Per AI_METHODOLOGY, nothing here is a
 > confidence claim until measured.
+>
+> **AMENDED day 42 (2026-09-29) by the kit build** — building and verifying
+> the kit corrected two claims in §2 C and measured two estimates. Each
+> amendment is marked in place (**CORRECTED** / **MEASURED**); the full
+> account and the first numbers are **§8**.
 
 ---
 
@@ -109,7 +114,10 @@ from the composer/presentation scores. The choice is **per-module**.
   hard-cut page turns reproduce exactly.
 - Costs: content changes need a re-render batch (automatable; rendering
   is already scripted) · a ~12-min 1080p part ≈ **150–400 MB (ESTIMATE —
-  the build measures; codec/bitrate tunable)**, preloaded and cached by
+  the build measures; codec/bitrate tunable)** — **MEASURED (kit build):
+  the busiest 60 s of the full score at 1080p60 encodes at 0.9 Mbps → the
+  whole piece ≈ 80 MB; ≈ 100 MB with a keyframe every second, which seeks
+  ~12× faster and is the recommended encode (§8)**, preloaded and cached by
   the service worker before the show · live annotation on the moving
   score doesn't apply in concert (rehearsal uses A).
 
@@ -131,6 +139,14 @@ from the composer/presentation scores. The choice is **per-module**.
    backstop 1** (the servo watches the displayed frame, not the motor).
 4. **Frame quantization** — ±8–17 ms at 60/30 fps. The same floor the
    live renderer has on a 60 Hz screen. Render parts at 60 fps.
+   **CORRECTED (kit build): NOT the same floor.** A display shows whole
+   frames at vsync instants, at a phase the video stand does not choose,
+   so its shown error carries a per-stand term of up to **±½ frame
+   (±8.3 ms at 60 fps)** — stand-to-stand up to ~17 ms worst, ~5.6 ms
+   mean. The live renderer draws the exact position for each vsync and has
+   no such term. Still ≥ 5× under the composed 80–120 ms grid; 120 fps
+   parts on 120 Hz screens halve it. The servo cannot beat it — it can
+   only avoid adding to it (§8).
 
 **The backstops (three, all invisible — no periodic snap needed):**
 
@@ -139,7 +155,14 @@ from the composer/presentation scores. The choice is **per-module**.
   compare shown media time against the piece clock; trim `playbackRate`
   by ≤1–2% until closed, then 1.0. Closes ~10–20 ms of error per second
   of nudging; on a moving score a 1% speed trim is imperceptible. This
-  is the live-edge technique every commercial player uses. **Seeks are
+  is the live-edge technique every commercial player uses.
+  **CORRECTED (kit build):** a trim is realized on screen as whole
+  repeated or skipped frames — correcting 16.7 ms costs exactly ONE
+  repeated frame, however gently it is trimmed. The servo's visible cost
+  is therefore counted in frame events per minute (T4 reports it). The
+  built servo learns the player's own drift and holds the continuous
+  lead at the centre of the frame band, so its steady-state cost is ~0
+  (§8). **Seeks are
   never used for correction** (a seek hitches); seeks are only for
   jumps (rehearsal navigation).
 - **B2 — quiet continuous re-sync while any network exists:** the
@@ -506,3 +529,104 @@ hosting posture (V3) · the kit as the empirical gate for: device jitter
 ceiling, real drift ppm, video sync precision, wake-lock coverage — each
 becoming an AR-N requirement with a measured number attached instead of
 an ESTIMATE.
+
+---
+
+## 8 · THE KIT, BUILT — and what it has measured so far *(day 42, 2026-09-29, Opus)*
+
+**Built per §5b** → `testkit/` (`README.md` = the composer's run
+protocol). The page runs T5 device card · T1 frame health · T2 the five
+renderer lanes · T4 the video stand + frame servo · T3 the clock + the
+floor-rule sabotage · the beacon. Around it: the dependency-free server,
+the asset builder (the busiest 60 s of the piece, drawn by the real
+engine), and three kinds of verification — Node simulation batteries
+for the two control laws (floor rule 15/15, servo 10/10), a headless-Edge
+harness that runs every test in a real browser engine, and per-lane
+screenshots pixel-compared against today's engine (A1 identical, A2
+0.35 %, B 0.74 %, C 5.3 % = compression; evidence:
+`testkit/results/verification-lanes-same-instant.png`).
+
+### First numbers — the dev PC, headless Edge
+
+**A functional check and a desktop baseline, NOT a stand's numbers.**
+Edge 154 · Intel UHD 630 · headless 100 Hz refresh · 1886×983 · full
+record: `testkit/results/dev-pc-headless-edge-verification__*.json`.
+
+**T2 — main-thread cost per frame** (typical · 95 % · worst), same
+busiest minute, idle:
+
+| renderer | typical | 95 % | worst |
+|---|---|---|---|
+| A0 today's engine (verbatim) | 1.9 ms | 5.8 ms | 12.6 ms |
+| A1 retained SVG | 0.5 ms | 1.0 ms | 4.3 ms |
+| A2 GPU layers | 0.4 ms | 1.0 ms | 3.5 ms |
+| B canvas | 0.2 ms | 0.5 ms | 1.8 ms |
+| C video (main thread idle) | 0.1 ms | 0.2 ms | 0.6 ms |
+
+- Every lane makes 100 % of its frames on this PC — too fast to tell
+  them apart by dropped frames, which is exactly why cost is recorded.
+- The fix cuts the per-frame cost **~4× typical, ~6× at the 95th
+  percentile**. PROJECTION (not a measurement): a stand 5–10× slower
+  than this PC would put A0's 95 % frame at ~30–60 ms against a 16.7 ms
+  budget — the composer's jitter — and A1/A2 at ~5–10 ms, inside it.
+  The stands decide it.
+- Video lane: 60 frames shown per second, **0 skipped, 0 held, 0 decoder
+  drops**; H.264 1080p60 decodes in hardware ("power-efficient").
+
+**T4 — the video stand:**
+
+- **Seek** — exporter encode: median 67 ms, worst 290 ms · **1-second
+  keyframes: median 19 ms, worst 36 ms** (first frame shown in 8 ms).
+  → performance videos are encoded with 1-s keyframes (+30 % size).
+- **On its own:** 60 frames/s shown, 0 skips/holds/drops; the player
+  drifts only **~3 ppm** against the local clock; `video.currentTime`
+  is a **continuous** clock (servo's best mode); Edge shows the
+  **nearest** frame at each refresh (detected).
+- **1 % speed changes** are honoured (1.01× → 1.0099; 0.99× → 0.99).
+- **Servo, room clock (network):** the +80 ms wrong-clock step closed in
+  **3.5 s**, overshoot 2.8 ms; steady shown error **2.7 ms typical, 7.2 ms
+  at 95 %** (half a frame = 8.3 ms); no hunting (zero rate changes once
+  settled in the local-clock run).
+- **Video size (MEASURED):** the whole piece ≈ **80 MB** (≈ 100 MB with
+  1-s keyframes) — the brief's 150–400 MB estimate was 2–4× high.
+
+**T3 — the clock and the floor rule** (localhost, round trip 1.4 ms):
+
+| the server… | plain sync — worst | floor rule — worst |
+|---|---|---|
+| tells the truth | 0.1 ms | 0.1 ms |
+| jumps +250 ms | 250.1 ms | **0.2 ms** |
+| drifts 1000 ppm | 39.7 ms | **0.3 ms** |
+
+- Server and page share this PC's clock, so drift reads ≈ 0
+  (−1.2 ± 1.4 ppm) — as it must. Real stands will show real drift.
+
+### What is settled, and what only the stands can settle
+
+- **Settled (this build):** the floor rule works in a real browser
+  engine, not just in simulation · the servo holds video to the clock
+  without hunting · 1-s keyframes · the video-size estimate · the page
+  and the pipeline work end to end.
+- **Open until the stands run:** whether A1/A2 hold 60 fps on the cheap
+  devices (the cost ratio says they should — that is a projection) ·
+  each device's real clock drift (= the free-run floor, and what
+  calibration buys) · real Wi-Fi round trips · each browser's frame
+  choice and `currentTime` continuity · wake-lock under HTTPS.
+
+### Findings for HARDEN and the build (RUNNING_LOG 67–70)
+
+- §2 C CORRECTED twice (in place): the video stand's ±½-frame floor ·
+  a speed trim = whole repeated/skipped frames.
+- Production evaluates **all 4202** animated instances every frame; the
+  engine fix indexes them by time as well as keeping the nodes.
+- The room server's clock is raw monotonic, never NTP-slewed.
+- The servo design (`testkit/js/servo.js`): feed-forward of the known
+  clock rate · player drift learned against the local clock · the
+  continuous lead steered to the frame band's centre · one-sign
+  detection of the browser's frame choice.
+
+### The device table — filled from `testkit/results/` as the stands report
+
+| device | T1 idle on time | T2 cost/frame 95 % A0 · A1 · A2 · B | T2 video repeats+skips /min | T3 clock drift | T4 servo frame events /min | T4 seek (1-s keyframes) |
+|---|---|---|---|---|---|---|
+| dev PC (headless Edge, baseline) | 100 % | 5.8 · 1.0 · 1.0 · 0.5 ms | 0 | ≈ 0 (shared clock) | 0 – 1.6 | 19 ms |

@@ -10,9 +10,10 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-09-29, mid-session checkpoint): ENGINE
-> CLOSED (D89); ► = THE KIT BUILD (Opus). Read OPEN AT SESSION END's
-> first entry first — the day-41 LAST SESSION block below is history,
+> **► CURRENT POSITION (2026-09-29, day 42 cont.): THE TEST KIT IS BUILT
+> AND VERIFIED (`testkit/`); ► = the kit RUNS on the composer's devices
+> (organizer 3.7 / top-line step 4). Read OPEN AT SESSION END's first
+> entry first — the day-41 LAST SESSION block below is history,
 > superseded.**
 
 ### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
@@ -124,12 +125,14 @@ ordering awareness only; it does not manage deadlines.**
    on kit data) · own small Socket.IO server + THE FLOOR RULE (no
    Colyseus/WebRTC) · Hetzner, one VPS, all pieces · kit spec approved.
    Full record: `docs/ENGINE_BRIEF.md`.
-   **► THE KIT BUILD IS RACKED (organizer 3.6): Opus, any time —
-   a fresh Opus session reads ENGINE_BRIEF.md whole (§5b = the build
-   plan); the words: "build the kit."** Not building now (composer,
-   day 42). **PORTAL (chunk 4, Fable, GATHER) may run first** — say
-   "brief me". After the kit RUNS on real devices: the Tempus-first
-   re-cut of the order, then HARDEN with measured numbers.
+   ☑ **THE KIT IS BUILT AND VERIFIED (organizer 3.6, 2026-09-29, Opus)**
+   — `testkit/`; first numbers + two corrections: ENGINE_BRIEF §8.
+   **► NEXT (organizer 3.7): the composer runs the kit on real devices**
+   (`testkit/README.md`; no model needed at the devices). Then an AI
+   (Opus is fine — it is filing) reads `testkit/results/` into §8's
+   table. **PORTAL (chunk 4, Fable, GATHER) may run any time** — say
+   "brief me". After the device numbers: the Tempus-first re-cut of the
+   order, then HARDEN with measured numbers (Fable).
 2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
    git tag at the submission state · gitignored-deliverables archive call
    (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
@@ -143,8 +146,39 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
 
+**(day 42 cont., 2026-09-29 — THE KIT IS BUILT AND VERIFIED; ► it runs
+on the composer's devices)** *(supersedes the checkpoint entry below)*
+
+- **What exists:** `testkit/` — the page (T5 device card · T1 frame
+  health · T2 five renderer lanes · T4 video stand + frame servo · T3
+  clock + floor-rule sabotage · beacon), `server.js` (dependency-free,
+  port 4760), `build_assets.js` (the busiest 60 s of db1, drawn by the
+  real engine; ~1.5 min), `test_syncclock.js` 15/15 + `test_servo.js`
+  10/10 (simulation batteries), `verify_headless.js` (the kit verifies
+  itself in headless Edge; `--shots` = the renderer fidelity check),
+  `README.md` (the composer's run protocol). Assets are gitignored
+  (regenerate). First numbers (this PC, headless): ENGINE_BRIEF §8.
+- **Next concrete step (the composer's, no AI needed at the devices):**
+  `node testkit/server.js` on the PC → on each device open the printed
+  LAN address → name the device → **Run all tests** (quick ≈ 13 min) →
+  **Save to server**. Then any AI: read `testkit/results/*.json`, file
+  the per-device numbers into ENGINE_BRIEF §8's table, and say which
+  ESTIMATEs they close. PORTAL (chunk 4, Fable, "brief me") can run
+  before, between or after.
+- **Findings already in the record (RUNNING_LOG 67–70):** the brief's §2
+  C was CORRECTED twice (video's ±½-frame floor; trims = whole frames) ·
+  performance videos should be encoded with 1-s keyframes (seeks ~12×
+  faster) · production evaluates all 4202 animated instances per frame
+  (the fix indexes them by time) · the server's clock must be raw
+  monotonic, not NTP-slewed.
+- **Resume reads:** `docs/ENGINE_BRIEF.md` §8 · `testkit/README.md`.
+- **Deliberately uncommitted — the composer's own files, never staged by
+  AI:** `reaper/7_tubas_rack.rpp` (M) ·
+  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) ·
+  `scores/Litany.pdf` (??). `testkit/assets/` is gitignored (built).
+
 **(day 42, 2026-09-23 → 09-29 — mid-session checkpoint — ENGINE CLOSED
-(D89); ► THE KIT BUILD)** *(supersedes the day-41 entry below)*
+(D89); ► THE KIT BUILD)** *(SUPERSEDED — the kit is built; see above)*
 
 - **Task + state:** the performance arc — organizer
   `docs/PERFORMANCE_SCORE_ORDER.md` (whole-arc top line: 16 steps,

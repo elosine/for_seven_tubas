@@ -4,21 +4,37 @@
     {
       "name": "score",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["score/server.js"],
+      "runtimeArgs": [
+        "score/server.js"
+      ],
       "port": 5200
     },
     {
       "name": "sandbox",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["sandbox/serve.js"],
+      "runtimeArgs": [
+        "sandbox/serve.js"
+      ],
       "port": 4700
     },
     {
       "name": "score-verify",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["score/server.js"],
-      "env": { "PORT": "5210" },
+      "runtimeArgs": [
+        "score/server.js"
+      ],
+      "env": {
+        "PORT": "5210"
+      },
       "port": 5210
+    },
+    {
+      "name": "testkit",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "testkit/server.js"
+      ],
+      "port": 4760
     }
   ]
 }

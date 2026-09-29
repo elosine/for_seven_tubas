@@ -74,14 +74,18 @@ whether either is the conductor's copy — is not decided and is not assumed her
 **Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
 and are not needed for the submission.
 
-**NOW ► (2026-09-29, day 42, latest) THE PIECE IS SUBMITTED (Penn State, both forms, 09-01) · THE PERFORMANCE ARC: ENGINE CLOSED (D89) · ► THE KIT BUILD (Opus, racked).**
+**NOW ► (2026-09-29, day 42, latest) THE TEST KIT IS BUILT AND VERIFIED (`testkit/`) · ► it runs on the composer's devices.**
 Work now is the performance system every piece will read (D88 — one
 module system; Tempus deploys first). Organizer:
-`docs/PERFORMANCE_SCORE_ORDER.md` (whole-arc top line, 16 steps).
-Immediately next: the test kit per `docs/ENGINE_BRIEF.md` §5b ("build
-the kit", Opus) — or PORTAL (Fable) at the composer's word. Quiet
-leftovers, undated: step-7 wrap (tag · archive call · SAVE_FILES) ·
-C1–C5.
+`docs/PERFORMANCE_SCORE_ORDER.md` (whole-arc top line; ► 3.7 = step 4).
+Immediately next: the composer runs the kit on real devices
+(`testkit/README.md`) — or PORTAL (Fable) at the composer's word. First
+numbers + the two corrections to the brief: `docs/ENGINE_BRIEF.md` §8.
+Quiet leftovers, undated: step-7 wrap (tag · archive call · SAVE_FILES)
+· C1–C5.
+
+**NOW ► (2026-09-29, day 42) THE PIECE IS SUBMITTED (Penn State, both forms, 09-01) · THE PERFORMANCE ARC: ENGINE CLOSED (D89) · ► THE KIT BUILD (Opus, racked).**
+*(superseded the same day — the kit is built)*
 
 **NOW ► (2026-08-31, day 40) SUBMISSION PIECES IN PLACE: video ARCHIVED (V-CUT approved) · print score carries the instructions as PAGE 2 · demos LINKED.**
 The composer approved today's V-CUT ("that v cut is fine… let's use that") —

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stand Test Kit</title>
+<style>
+  :root {
+    --ink: #1d1f22; --soft: #5d636b; --line: #d9dde2; --paper: #f7f7f5; --card: #fff;
+    --good: #1a7f37; --meh: #9a6700; --bad: #c62828; --accent: #c2186f;
+  }
+  @font-face { font-family: 'Crimson Pro Light'; font-style: normal; font-weight: 300; src: url('assets/fonts/CrimsonPro-Light.ttf') format('truetype'); }
+  @font-face { font-family: 'Crimson Pro Light'; font-style: italic; font-weight: 300; src: url('assets/fonts/CrimsonPro-LightItalic.ttf') format('truetype'); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 24px; margin: 8px 0 2px; }
+  h1 + p { margin: 0 0 14px; color: var(--soft); }
+  h3 { margin: 0 0 2px; font-size: 18px; }
+  h4 { margin: 12px 0 4px; font-size: 15px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+  label { font-weight: 600; }
+  input[type=text] { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 240px; }
+  .tests { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin: 12px 0; }
+  .test { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .test p { margin: 0; color: var(--soft); font-size: 14px; }
+  button { font: inherit; font-weight: 600; padding: 10px 14px; border-radius: 10px; border: 1px solid #b9bfc7; background: #fff; color: var(--ink); cursor: pointer; }
+  button.big { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  body.running button[data-run], body.running #beacon { opacity: .45; pointer-events: none; }
+  #status { min-height: 26px; padding: 8px 12px; border-radius: 8px; background: #eef1f4; margin: 8px 0; }
+  #status.ok { background: #e3f4e8; } #status.warn { background: #fdecea; }
+  .note, .sub, #lan, #assets { color: var(--soft); font-size: 13px; margin: 4px 0; }
+  .warnbox { background: #fff8e1; border: 1px solid #f0d58a; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin: 12px 0; overflow-x: auto; }
+  table { border-collapse: collapse; margin: 6px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 4px 10px 4px 0; vertical-align: top; }
+  table.grid th, table.grid td { border-bottom: 1px solid #eee; padding: 5px 10px; }
+  td.good { color: var(--good); font-weight: 600; } td.meh { color: var(--meh); font-weight: 600; } td.bad, .bad { color: var(--bad); font-weight: 600; }
+  details { margin-top: 8px; } pre { font-size: 11px; max-height: 320px; overflow: auto; background: #f4f5f7; padding: 8px; border-radius: 6px; }
+  .empty { color: var(--soft); }
+  #t3live { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 10px 0; }
+  #t3chart { width: 100%; height: 220px; display: block; }
+  #t3count { font-size: 13px; color: var(--soft); margin: 4px 0; }
+  #t3log { font-size: 13px; margin: 6px 0 0; padding-left: 18px; max-height: 190px; overflow: auto; }
+  /* the theater: every visual test runs full-screen on black */
+  #theater { position: fixed; inset: 0; background: #000; z-index: 10; display: none; overflow: hidden; }
+  #stage { position: absolute; background: #fff; overflow: hidden; }
+  #hud { position: absolute; left: 10px; top: 6px; color: #bbb; font: 12px system-ui, sans-serif; z-index: 3; pointer-events: none; text-shadow: 0 0 3px #000; }
+  #th-exit { position: absolute; right: 8px; top: 6px; z-index: 4; padding: 4px 10px; font-size: 13px; opacity: .7; }
+  .sheet { position: absolute; inset: 0; }
+  .sheet > svg, .pg, .pg > svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  .ov { pointer-events: none; }
+  .movers { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; pointer-events: none; }
+  .mv { position: absolute; left: 0; top: 0; will-change: transform; }
+  .mvsvg { position: absolute; left: 0; top: 0; }
+  .cv, .vid, .bc { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  .vid { object-fit: contain; background: #fff; }
+  .readout { position: absolute; right: 10px; bottom: 4px; font: 11px ui-monospace, Consolas, monospace; color: #555; }
+  .readout span { margin-left: 12px; }
+  .t1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; color: #555; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Stand Test Kit</h1>
+  <p>Hard numbers for the performance system, measured on the machine you are holding. (ENGINE brief, V4.)</p>
+
+  <div class="row">
+    <label for="label">This device:</label>
+    <input id="label" type="text" placeholder="e.g. iPad 2018, Chromebook, my laptop" autocomplete="off">
+  </div>
+  <div class="row">
+    <label><input type="radio" name="mode" id="quick" checked> quick run (about 10 min)</label>
+    <label><input type="radio" name="mode" id="full"> full run (about 40 min)</label>
+  </div>
+  <p id="insecure" class="warnbox" hidden>This page is open over plain http on a network address, so two checks will read "needs HTTPS": the keep-screen-on lock and the offline cache. Everything else is measured normally. Set this device's screen lock to "never" while testing.</p>
+
+  <div class="row"><button class="big" data-run="all">Run all tests</button><span class="note">keep the screen on and do not touch it while a test runs</span></div>
+
+  <div class="tests">
+    <div class="test"><b>T5 · this device</b><p>What the machine is and what it can do. 2 seconds.</p><button data-run="T5">Run T5</button></div>
+    <div class="test"><b>T1 · frame health</b><p>The device's own frame timing, idle and under load. 20 s / 1 min.</p><button data-run="T1">Run T1</button></div>
+    <div class="test"><b>T2 · renderers</b><p>The busiest minute of the piece drawn five ways: today's engine, two fixes, canvas, video. 3 / 10 min.</p><button data-run="T2">Run T2</button></div>
+    <div class="test"><b>T4 · video stand</b><p>Seeks, the player on its own, speed changes, and the frame servo with a deliberate wrong clock. 2 / 12 min.</p><label class="note"><input type="checkbox" id="t4net"> also on the room clock (network)</label><button data-run="T4">Run T4</button></div>
+    <div class="test"><b>T3 · clock + floor rule</b><p>This device's clock drift, then the server lies to it — does it hold? 4 / 16 min.</p><button data-run="T3">Run T3</button></div>
+    <div class="test"><b>Beacon</b><p>Two or more devices: open this on each, film them side by side in slow motion, count frames between flashes.</p><button id="beacon">Open the beacon</button></div>
+  </div>
+
+  <div id="status">Ready.</div>
+
+  <section id="t3live" hidden>
+    <div class="row" style="justify-content:space-between;margin:0"><div id="t3phase"></div><button id="t3stop" type="button">stop T3</button></div>
+    <canvas id="t3chart"></canvas>
+    <div id="t3count"></div>
+    <ul id="t3log"></ul>
+  </section>
+
+  <div id="cards"></div>
+
+  <div class="row">
+    <button id="save" class="big" disabled>Save to server</button>
+    <button id="copy" disabled>Copy JSON</button>
+    <button id="clear">Clear results</button>
+  </div>
+  <p id="assets"></p>
+  <p id="lan"></p>
+</main>
+
+<script src="assets/engine/coords.js"></script>
+<script src="assets/engine/gc.js"></script>
+<script src="assets/engine/animobj.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/syncclock.js"></script>
+<script src="js/servo.js"></script>
+<script src="js/lanes.js"></script>
+<script src="js/t_clock.js"></script>
+<script src="js/t_video.js"></script>
+<script src="js/t_device.js"></script>
+<script src="js/kit.js"></script>
+</body>
+</html>

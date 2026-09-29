@@ -86,8 +86,9 @@ order beneath is unchanged — this is the same arc in one glance.)
 1. ☑ Scenarios gathered: ENS · SEC · IND · PERF (D82, D85–D87)
 2. ☑ ENGINE verdicts: renderers per module · own server + floor rule ·
    Hetzner · kit approved (D89)
-3. ► KIT BUILD (Opus, racked — "build the kit")
-4. KIT RUNS on real machines — every ESTIMATE becomes a number
+3. ☑ KIT BUILT + VERIFIED (day 42, Opus) — `testkit/`, see 3.6
+4. ► KIT RUNS on real machines — every ESTIMATE becomes a number
+   (the composer's step: testkit/README.md is the run protocol)
 5. PORTAL gather (Fable — may run any time before HARDEN)
 6. PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
    final vet (compressible per D88)
@@ -145,11 +146,21 @@ that closed ENS in four iterations)*
    approved). Full record: **`docs/ENGINE_BRIEF.md`** (diagnosis ·
    candidates · sync backstops · piece-#1 autopsy · risk register ·
    floor rule · kit spec §5 + build plan §5b).
-3.6 ► **KIT BUILD — racked, ready any time (Opus).** Cold start = a
-   fresh Opus session reads ENGINE_BRIEF.md whole (§5b is the build
-   plan); the words: **"build the kit."** Not building now at the
-   composer's word (day 42). PORTAL (4) may run first at the
-   composer's preference — both are clean cold starts.
+3.6 ☑ **KIT BUILT + VERIFIED (day 42, 2026-09-29, Opus — composer:
+   "Go build the kit as much as possible independently no clear").**
+   `testkit/` — the page (T5 · T1 · T2 five renderer lanes · T4 video
+   stand + frame servo · T3 clock + floor-rule sabotage · beacon), the
+   dependency-free server, the asset builder (the busiest 60 s of the
+   piece, drawn by the real engine), two simulation batteries (floor
+   rule 15/15, servo 10/10), a headless self-verification harness, and
+   README.md (the composer's run protocol). Record: RUNNING_LOG 67–70 ·
+   ENGINE_BRIEF §8 (first numbers + the two corrections to §2 C).
+3.7 ► **KIT RUNS on the composer's devices** (= top-line step 4). The
+   composer's step, no AI needed at the devices: `node testkit/server.js`
+   on the PC, open the printed address on each device, name it, "Run all
+   tests", "Save to server". Then an AI reads `testkit/results/` and files
+   the numbers (brief §8 table) — that closes the ESTIMATEs for HARDEN.
+   PORTAL (4, Fable) can run before, after or between.
 4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
@@ -238,6 +249,16 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-09-29 (day 42 cont. — THE KIT BUILT + VERIFIED ☑ 3.6; ► 3.7 the
+  kit runs on real devices):** Opus, "as much as possible independently,
+  no clear". `testkit/` complete; control laws proven in simulation
+  (15/15, 10/10); every test verified in headless Edge; renderers
+  pixel-checked. First numbers (dev PC baseline): the fix cuts per-frame
+  cost ~4–6× · floor rule 0.2–0.3 ms under 250-ms and 1000-ppm lies ·
+  servo closes an 80-ms step in ~3.5–4.2 s without hunting · 1-s
+  keyframes seek ~12× faster. Brief §2 C corrected twice. RUNNING_LOG
+  67–70 · ENGINE_BRIEF §8.
 
 - **2026-09-29 (day 42 cont. — status check + CHECKPOINT):** composer
   asked "is it done and ready to build?" — yes for the kit (3.6 ►,
