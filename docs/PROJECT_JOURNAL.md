@@ -2059,7 +2059,32 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-09-01, day 41 end — CURRENT)* **PENN STATE IS DONE — both
+- *(2026-10-03, day 43 — CURRENT)* **READY FOR SUNDAY: testing is a
+  double-click.** `start_testkit.bat` at the repo root starts everything
+  (first run may rebuild the kit's content, ~90 s). It prints the
+  address — open it on each device, name the device, **Run all tests**
+  (quick ≈ 10 min), **Save to server**. Device order: desktop (one
+  windowed run) · laptop (full run — the first real drift + Wi-Fi
+  numbers) · the two side by side for the **beacon**, filmed in slow-mo
+  · the Fire tablet last, as the floor (partial failures are data).
+  Before each run: plugged in · auto-lock OFF · same Wi-Fi · the page
+  stays in front. When results exist, say **"file the results"** in any
+  session. **The iPad buy (researched 10-03):** best value =
+  **iPad Air M1 refurbished, ~$260–290** (the keeper — fast, USB-C,
+  years of updates ahead) · cheapest credible floor = **iPad 9th gen
+  refurbished, ~$175** (still runs current iPadOS 26, but it's the
+  oldest supported tier — short runway; fine as a pure test
+  instrument) · new comparison: base 11" A16 runs ~$349–399 since the
+  June 2026 price hike, with sale dips to ~$299. Where: Apple Certified
+  Refurbished · Best Buy refurb · Back Market · Amazon Renewed ·
+  Swappa. At purchase: **Activation Lock OFF (seller signed out of
+  iCloud) — the deal-breaker** · full-size, Wi-Fi-only is fine · 64 GB
+  is plenty (the whole piece as video ≈ 100 MB) · not a mini · prefer
+  refurb-with-warranty over a private sale (battery). Not needed for
+  Sunday — the three house devices come first; the iPad is the one
+  WebKit/Safari data point and is wanted before HARDEN freezes.
+
+- *(2026-09-01, day 41 end)* **PENN STATE IS DONE — both
   submissions in, three days early. Nothing dated remains.** One standing
   obligation: the hosted copies (score PDF · recording · abstract doc)
   stay live **through Nov 1, 2026** — don't move or delete them from
