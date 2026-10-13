@@ -2083,6 +2083,13 @@ instruction. The instructions are the four reference blocks that follow.*
   refurb-with-warranty over a private sale (battery). Not needed for
   Sunday — the three house devices come first; the iPad is the one
   WebKit/Safari data point and is wanted before HARDEN freezes.
+  **Battery (researched 10-12):** only **Apple Certified Refurbished**
+  fits a NEW battery (+ new shell, 1-year warranty). **Back Market** is
+  a legitimate marketplace, but the seller varies and its battery is a
+  MINIMUM (85 % for tablets per its help center), not new; 30-day
+  return + 1-year warranty. **Amazon Renewed Premium** = 90 % minimum +
+  1 year (the badge must be on the listing). For the TEST the battery
+  does not matter (plugged in) — it matters only for a keeper.
 
 - *(2026-09-01, day 41 end)* **PENN STATE IS DONE — both
   submissions in, three days early. Nothing dated remains.** One standing
