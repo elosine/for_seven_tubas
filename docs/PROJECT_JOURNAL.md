@@ -2059,7 +2059,22 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-10-03, day 43 — CURRENT)* **READY FOR SUNDAY: testing is a
+- *(2026-10-18, day 44 — CURRENT)* **TEST-DAY RUNDOWN — the iPad is
+  in.** Prep once: every device plugged in · Low Power Mode OFF ·
+  Auto-Lock NEVER · same Wi-Fi. Double-click `start_testkit.bat`; if
+  Windows asks, ALLOW Node on Private networks; on other devices use the
+  `192.168.…` address it prints. Order: (1) desktop, in a normal browser
+  window at http://localhost:4760/ — proves the pipeline end to end ·
+  (2) **iPad, FULL run, with "also on the room clock" ticked** — the
+  device that matters · (3) laptop, quick · (4) **beacon**: iPad +
+  laptop side by side, filmed in slow motion, the video file dropped
+  into `testkit/results/` · (5) Fire tablet, quick, as the floor.
+  Every run: name the device → Run all tests → Save to server. Jot down
+  anything seen by eye (a stutter, a test that errored). Then say
+  **"file the results"** — the AI files the numbers and measures the
+  beacon video.
+
+- *(2026-10-03, day 43)* **READY FOR SUNDAY: testing is a
   double-click.** `start_testkit.bat` at the repo root starts everything
   (first run may rebuild the kit's content, ~90 s). It prints the
   address — open it on each device, name the device, **Run all tests**

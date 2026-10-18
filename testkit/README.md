@@ -42,6 +42,13 @@ It prints the address to open on the other devices, e.g.
 - set its auto-lock to **never**
 - close other apps
 - keep the page in front — a hidden page gets no frames (the kit says so)
+- turn **Low Power Mode off** (iPad/iPhone) — it throttles the frame rate
+- on the PC, the first time: if Windows asks about Node, **allow it on
+  Private networks** — otherwise the other devices cannot reach the kit
+- on the other devices use the **192.168.…** address (another address,
+  e.g. 10.… or 100.…, is usually a VPN and will not work)
+- the iPad: do a **full run** with **"also on the room clock"** ticked —
+  it is the presumed stand and the only Safari device
 
 ---
 
