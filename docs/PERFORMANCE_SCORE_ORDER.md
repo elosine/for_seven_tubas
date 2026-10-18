@@ -159,7 +159,7 @@ that closed ENS in four iterations)*
    ENGINE_BRIEF §8 "The stands").** V1 holds, refined: A = A2 (GPU layers).
    Open: the iPad's video (one slow-motion check) · three clock faults and
    Safari's start/seek handling, found by real Wi-Fi.
-3.8 ◇ **PROPOSED — awaiting the composer's approval: FIX + RE-TEST** (Opus).
+3.8 ► **APPROVED 2026-10-18 (composer: "yes, approve 3.8 — go ahead with the fix and retest and do the optional slo mo filming"): FIX + RE-TEST** (Opus).
    The three floor-rule faults in `js/syncclock.js` (noise from measured
    scatter, a calibration quality bar, a percentile spike filter) · Safari
    pre-roll + predictive seeks in the servo path · the kit's T3 yardstick

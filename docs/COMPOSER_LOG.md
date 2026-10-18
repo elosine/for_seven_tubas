@@ -2572,3 +2572,7 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 ### Day 43 (2026-10-03) — the device inventory + the iPad presumption (dictated)
 
 *"I have my desktop computer with okay specs from about 10 years ago. I have a laptop with a touch screen. It has tablet mode. I have a old Amazon tablet that's not probably not viable. It's definitely too small, but it might be worth running as an edge case. Just to see what kind of results that will lend. And then for example, I don't know if it's useful, but I can run the laptop and the desktop on multiple screens, different instances. But I imagine, I guess they'll have the same drift. So also let me know if it'd be worth borrowing or… let me know if it's substantially useful or crucial, critical that I test this on a iPad. **That's my presumed destination. I think most professional performers will use the full-size iPad, even just to read PDFs.** So just let me know if it's essential that I borrow or rent one, and I can do so."*
+
+### Day 44 (2026-10-18) — 3.8 approved
+
+*"yes, approve 3.8 — go ahead with the fix and retest and do the optional slo mo filming"*

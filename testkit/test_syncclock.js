@@ -37,21 +37,37 @@ const LIES = {
   subtle: (R, since) => since * 80e-6,      // 80 ppm: 4.8 ms per minute — a clock could do this
 };
 
+// THE MEASURED NETWORKS (the stands, 2026-10-18 — RUNNING_LOG 75). The first
+// battery ran only on `tidy`, and real Wi-Fi exposed three faults it never
+// could. Each returns the two one-way delays of one ping (ms).
+const NETS = {
+  tidy: R => { const leg = () => 1.5 + R() * 1.0 + (-Math.log(1 - R())) * 0.8 + (R() < 0.05 ? 20 + R() * 60 : 0); return [leg(), leg()]; },
+  // laptop on home Wi-Fi: fast, but about 1 packet in 8 is held 20–120 ms on one leg (measured: median 6, p95 118)
+  laptop: R => { const leg = () => 1.4 + (-Math.log(1 - R())) * 0.5 + (R() < 0.12 ? 20 + R() * 100 : 0); return [leg(), leg()]; },
+  // iPad: slow but STEADY — a power-save hold on both legs most of the time, so
+  // the round trip is long while the offset barely moves (measured: min 7,
+  // median 17, p95 18; the plain filter's offset scatter 0.6 ms)
+  ipad: R => { const ps = R() < 0.92 ? 5 : 0; const leg = () => 3.4 + ps + (R() - 0.5) * 0.6 + (R() < 0.01 ? 50 + R() * 250 : 0); return [leg(), leg()]; },
+  // Fire on poor Wi-Fi: each leg delayed independently — asymmetric and heavy-tailed (measured: median 69, p95 134)
+  fire: R => { const leg = () => 5 + (-Math.log(1 - R())) * 25 + (R() < 0.05 ? 50 + R() * 100 : 0); return [leg(), leg()]; },
+};
+
 function run(sc) {
   const R = mulberry32(sc.seed || 7);
   const drift = (sc.driftPpm || 0) * 1e-6;
   const Loff = 123456.7;
   const L = tt => Loff + tt * (1 + drift);                  // the stand's clock at true time tt
-  const delay = () => 1.5 + R() * 1.0 + (-Math.log(1 - R())) * 0.8 + (R() < 0.05 ? 20 + R() * 60 : 0);
+  const net = NETS[sc.net || 'tidy'];
+  const lies = sc.lies || (sc.lie ? [sc.lie] : []);
   const lieAt = (S) => {
-    const lie = sc.lie;
-    if (!lie) return 0;
-    const a = lie.fromMin * 60000, b = lie.toMin * 60000;
-    if (S < a || S >= b) return 0;
-    return LIES[lie.mode](R, S - a);
+    for (const lie of lies) {
+      const a = lie.fromMin * 60000, b = lie.toMin * 60000;
+      if (S >= a && S < b) return LIES[lie.mode](R, S - a);
+    }
+    return 0;
   };
   const ping = tt => {
-    const d1 = delay(), d2 = delay();
+    const [d1, d2] = net(R);
     const Strue = tt + d1;
     return { Ls: L(tt), S: Strue + lieAt(Strue), Lr: L(tt + d1 + d2) };
   };
@@ -155,6 +171,45 @@ const scenarios = [
     check: r => [['no re-lock', r.status.count.relocks === 0], ['holds the local clock (≤ 4 ms)', Math.abs(r.errEnd) <= 4]] },
 ];
 
+// THE T3 FULL RUN, as the iPad ran it: an 8-minute honest baseline, calibrate,
+// then the four lies with honest recoveries between. Honest windows start 18 s
+// after a lie ends (the plain filter's 8-sample window still holds lies until then).
+const T3FULL = {
+  minutes: 16.25, calibrateAtMin: 8,
+  lies: [{ mode: 'bias', fromMin: 8, toMin: 9 }, { mode: 'jitter', fromMin: 9.75, toMin: 10.75 },
+    { mode: 'drift', fromMin: 11.5, toMin: 12.5 }, { mode: 'subtle', fromMin: 13.25, toMin: 15.25 }],
+  windows: { h1: [4, 8], bias: [8, 9], h2: [9.3, 9.75], jitter: [9.75, 10.75], h3: [11.05, 11.5], drift: [11.5, 12.5],
+    h4: [12.8, 13.25], subtle: [13.25, 15.25], h5: [15.55, 16.25] },
+};
+const honestMax = (r, which) => Math.max(...['h1', 'h2', 'h3', 'h4', 'h5'].map(k => (which === 'plain' ? r.naiveMaxIn[k] : r.errMaxIn[k]) || 0));
+// the standard is the composer's own floor rule: while the network is honest the
+// floor clock must be no worse than plain sync (+1 ms); while it lies, it holds
+function realistic(net, driftPpm, b) {
+  return Object.assign({ name: 'REAL Wi-Fi: ' + net + ' (' + driftPpm + ' ppm) — the T3 full run', net, driftPpm }, T3FULL, {
+    check: r => {
+      const fh = honestMax(r, 'floor'), nh = honestMax(r, 'plain');
+      return [
+        b.mayRefuse
+          ? ['calibration refused as too uncertain — or right within max(' + b.cal + ' ppm, 3σ)', !r.cal || !!r.cal.refused || Math.abs(r.cal.clockPpm - driftPpm) <= Math.max(b.cal, 3 * r.cal.sigmaPpm)]
+          : ['calibrated within ' + b.cal + ' ppm', !!(r.cal && !r.cal.refused && Math.abs(r.cal.clockPpm - driftPpm) <= b.cal)],
+        ['honest: floor ≤ max(' + b.floor + ', plain + 1) — floor ' + fh.toFixed(1) + ', plain ' + nh.toFixed(1) + ' ms', fh <= Math.max(b.floor, nh + 1)],
+        ['bias / jitter / drift lies: floor ≤ ' + b.lie + ' ms', ['bias', 'jitter', 'drift'].every(k => r.errMaxIn[k] <= b.lie)],
+        ['the subtle lie after calibration: floor ≤ ' + b.subtle + ' ms', r.errMaxIn.subtle <= b.subtle],
+      ];
+    },
+  });
+}
+scenarios.push(
+  realistic('ipad', 28, { cal: 2, floor: 2.5, lie: 4, subtle: 6 }),
+  realistic('laptop', -14, { cal: 3, floor: 2.5, lie: 4, subtle: 6 }),
+  // poor Wi-Fi: an honest calibration may be refused — the stand then runs uncalibrated
+  realistic('fire', 40, { cal: 5, floor: 6, lie: 10, subtle: 12, mayRefuse: true }),
+  { name: 'REAL Wi-Fi: fire — a 100-s baseline (the quick run): calibration refused, or right', net: 'fire', driftPpm: 40, minutes: 6, calibrateAtMin: 1.67,
+    windows: { after: [2.5, 6] },
+    check: r => [['refused — or certain (σ ≤ 5 ppm) AND right (within 5 ppm)', !r.cal || !!r.cal.refused || (r.cal.sigmaPpm <= 5 && Math.abs(r.cal.clockPpm - 40) <= 5)],
+      ['honest afterwards: floor ≤ plain + 2 ms', r.errMaxIn.after <= (r.naiveMaxIn.after || 0) + 2]] },
+);
+
 let failed = 0;
 console.log('test_syncclock — the floor rule in simulation (ping every 2 s; errors are room clock − true server time)\n');
 for (const sc of scenarios) {
@@ -166,7 +221,7 @@ for (const sc of scenarios) {
   console.log((ok ? 'PASS ' : 'FAIL ') + sc.name);
   console.log('     error max ' + r.errMax.toFixed(1) + ' ms' +
     Object.keys(r.errMaxIn).map(k => ' · ' + k + ' ' + r.errMaxIn[k].toFixed(1) + ' (naive ' + r.naiveMaxIn[k].toFixed(1) + ')').join('') +
-    ' · naive max ' + r.naiveMax.toFixed(1) + ' ms' + (r.cal ? ' · calibrated ' + r.cal.clockPpm.toFixed(1) + ' ± ' + r.cal.sigmaPpm.toFixed(1) + ' ppm' : ''));
+    ' · naive max ' + r.naiveMax.toFixed(1) + ' ms' + (r.cal ? ' · calibrat' + (r.cal.refused ? 'ion REFUSED (' + r.cal.reason + ')' : 'ed') + ' ' + (r.cal.clockPpm != null ? r.cal.clockPpm.toFixed(1) : '?') + ' ± ' + r.cal.sigmaPpm.toFixed(1) + ' ppm' : ''));
   console.log('     corrections ' + ct.corrections + ' (' + ct.correctedMs.toFixed(1) + ' ms) · refused: jump ' + rf.jump + ', rate ' + rf.rate +
     ', holdover ' + rf.holdover + ', spike ' + rf.spike + ', clamp ' + rf.clamp + ' · trips ' + ct.trips + ' · relocks ' + ct.relocks);
   for (const c of checks) if (!c[1]) console.log('     ✗ ' + c[0]);
