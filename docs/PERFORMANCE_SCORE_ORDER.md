@@ -166,6 +166,12 @@ that closed ENS in four iterations)*
    · a realistic-Wi-Fi simulation from the measured round trips · then a
    15-minute iPad re-run (+ Fire). **Done =** the floor clock within ~2 ms
    in honest stretches on the iPad. Then HARDEN (9).
+   **Progress:** ☑ the code (v3 floor clock 19/19 on the measured
+   networks · fast-sample yardstick · pre-roll + steady anchor + aimed
+   seeks · the film check, proven on synthetic films · dev-PC headless
+   run clean) — RUNNING_LOG 76–77, ENGINE_BRIEF §8 "3.8 — the repairs".
+   ► **the iPad re-test + the slow-mo film = the composer's step**
+   (journal §6 CURRENT note "THE RE-TEST (3.8)").
 3.7 (as planned) **KIT RUNS on the composer's devices** (= top-line step 4). The
    composer's step, no AI needed at the devices: `node testkit/server.js`
    on the PC, open the printed address on each device, name it, "Run all
@@ -260,6 +266,12 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-18 (day 44, later — 3.8 APPROVED; the code ☑, ► the iPad
+  re-test):** the three clock faults fixed test-first (iPad honest
+  0.0–2.1 ms in simulation, was 12.5), the T3 yardstick, the Safari
+  start + aimed seeks, and a film check for the slow-mo phone. Dev PC
+  clean. Waiting on the composer's iPad re-run + film. RUNNING_LOG 76–77.
 
 - **2026-10-18 (day 44 — THE STANDS REPORTED ☑ 3.7; ◇ 3.8 proposed):**
   desktop, iPad (full run), laptop, Fire + the beacon (Pixel 8a slow-mo).

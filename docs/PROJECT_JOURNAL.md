@@ -10,11 +10,14 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 44): THE STANDS HAVE REPORTED
-> (organizer 3.7 ☑ tested); ◇ = the proposed FIX + RE-TEST chunk (3.8),
-> awaiting the composer's yes. Read OPEN AT SESSION END's first
-> entry first — the day-41 LAST SESSION block below is history,
-> superseded.**
+> **► CURRENT POSITION (2026-10-18, day 44, later): 3.8 FIX + RE-TEST
+> APPROVED — the code is done and verified on the dev PC (RUNNING_LOG
+> 76–77); ► the composer's iPad re-test + slow-mo film (§6 CURRENT note
+> "THE RE-TEST (3.8)"). On "file the results": analyse the iPad JSON and
+> the film (`python testkit/analyze_filmcheck.py <film> <out.json>`),
+> compare film vs the browser's count, close 3.8. Read OPEN AT SESSION
+> END's first entry first — the day-41 LAST SESSION block below is
+> history, superseded.**
 
 ### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
 
@@ -161,9 +164,9 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
   junk calibration accepted; spike-filter starvation) · Safari video:
   ~0.5 s start stall, seeks 150–200 ms late · the kit's T3 yardstick
   biased on noisy Wi-Fi (re-scored by hand).
-- **Pending the composer:** approve 3.8 (FIX + RE-TEST, Opus) · optional:
-  film the iPad playing the T2 video lane in slow motion (settles
-  whether Safari really drops ~1 in 9 frames).
+- **Pending the composer:** ~~approve 3.8~~ APPROVED, code done
+  (RUNNING_LOG 76–77) · ► the iPad re-test with the new **film check**
+  (it replaces "film the T2 lane": a counting clip made for the camera).
 - **Resume reads:** ENGINE_BRIEF §8 "The stands" · RUNNING_LOG 75.
 
 **(day 42 cont., 2026-09-29 — THE KIT IS BUILT AND VERIFIED; ► it runs
@@ -2079,7 +2082,18 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-10-18, day 44 — CURRENT)* **TEST-DAY RUNDOWN — the iPad is
+- *(2026-10-18, day 44, later — CURRENT)* **THE RE-TEST (3.8) — the iPad, ~25 min
+  plus the film.** The kit server can stay as it is (or double-click
+  `start_testkit.bat`). On the iPad: **reload** the kit page (it fetches
+  the new code) · name it `'iPad retest'` · choose **full** · tick **"also
+  on the room clock"** · tap **Run the film check** and film it with the
+  phone in slow motion (start during the 5-s countdown, straight on, the
+  picture filling the frame) · then **Run T4** · then **Run T3** · **Save to
+  server** · copy the phone film into `testkit\results\` · say **"file the
+  results"**. Optional: the Fire, **Run T3** quick (checks the new
+  calibration bar on poor Wi-Fi).
+
+- *(2026-10-18, day 44)* **TEST-DAY RUNDOWN — the iPad is
   in.** Prep once: every device plugged in · Low Power Mode OFF ·
   Auto-Lock NEVER · same Wi-Fi. Double-click `start_testkit.bat`; if
   Windows asks, ALLOW Node on Private networks; on other devices use the

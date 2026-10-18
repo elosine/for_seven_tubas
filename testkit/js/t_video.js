@@ -123,7 +123,14 @@
   async function servoRun(stage, src, o) {
     const v = makeVideo(stage, src);
     await ready(v);
-    await seekTo(v, 0);
+    // PRE-ROLL (3.8): Safari stalled ~0.5 s right after play() (the iPad, 2026-10-18).
+    // Play briefly, pause, return to the start — the decoder and buffers are warm
+    // before "GO". Any stall that still happens is measured, not hidden.
+    try { await v.play(); } catch (e) { /* measured as-is */ }
+    await S.sleep(1200);
+    v.pause();
+    await seekTo(v, 0).catch(() => {});
+    await S.sleep(200);
     const fps = o.fps || 60, frameMs = 1000 / fps;
     const servo = new TK.Servo({ fps });
     const dur = (v.duration || 60) * 1000;
@@ -131,26 +138,54 @@
     const clockNow = x => clock ? clock.now(x) : x;
     const clockRate = x => clock ? (clock.now(x + 1000) - clock.now(x)) / 1000 : 1;
     let anchorClock = null, anchorMedia = 0, runStart = null, settleUntil = 0, loops = 0, stepOn = false;
+    // PREDICTIVE SEEKS (3.8): Safari landed each seek 150–200 ms late. Aim ahead by
+    // this device's measured seek time, and learn it from every seek.
+    let seekLat = o.seekLatencyMs != null ? o.seekLatencyMs : 50;
+    let seekAt = null, seekTo2 = null, landing = null;
+    const seeks = [];
+    // the start: wait for STEADY presentation before anchoring the piece clock
+    const startGaps = [];
+    let firstEdt = null, lastEdt = null, steadyRun = 0;
     const rows = [];
     let stop = false;
     const cb = (now, md) => {
       if (stop) return;
       const edt = md.expectedDisplayTime, mt = md.mediaTime * 1000;
-      if (anchorClock === null) { anchorClock = clockNow(edt); anchorMedia = mt; runStart = edt; }
+      if (anchorClock === null) {
+        if (firstEdt === null) firstEdt = edt;
+        if (lastEdt !== null) { const g = edt - lastEdt; startGaps.push(g); steadyRun = g <= 3 * frameMs ? steadyRun + 1 : 0; }
+        lastEdt = edt;
+        if (steadyRun < 30 && edt - firstEdt < 5000) { v.requestVideoFrameCallback(cb); return; }
+        anchorClock = clockNow(edt); anchorMedia = mt; runStart = edt;
+      }
       const el = edt - runStart;
       if (!stepOn && o.stepAtS != null && el >= o.stepAtS * 1000) stepOn = true;
       let target = clockNow(edt) - anchorClock + anchorMedia + (stepOn ? o.stepMs : 0);
       if (target > dur - 800) {
-        // loop the clip without disturbing the error: media and target wrap together
+        // loop the clip without disturbing the error: media and target wrap together;
+        // the seek aims where the target WILL be when the seek lands
         const wrap = dur - 2000;
         anchorMedia -= wrap;
         target -= wrap;
-        v.currentTime = Math.max(0, target / 1000);
+        seekTo2 = target + seekLat * v.playbackRate;
+        seekAt = performance.now();
+        v.currentTime = Math.max(0, seekTo2 / 1000);
         servo.reset();
         v.playbackRate = servo.rate = 1;
-        settleUntil = edt + 1500; loops++;
+        settleUntil = edt + 1500; loops++; landing = 'pending';
         v.requestVideoFrameCallback(cb);
         return;
+      }
+      if (seekAt !== null && Math.abs(mt - seekTo2) < 250) {
+        // the first frame from the new position: learn this device's seek time
+        const lat = performance.now() - seekAt;
+        seekLat = 0.6 * seekLat + 0.4 * lat;
+        seeks.push({ latencyMs: S.r1(lat) });
+        seekAt = null;
+      }
+      if (landing === 'pending' && edt >= settleUntil) {
+        if (seeks.length) seeks[seeks.length - 1].landingErrMs = S.r1(mt - target);
+        landing = null;
       }
       if (edt < settleUntil) {
         // frames from before the seek can still arrive — the servo does not act on them
@@ -211,8 +246,13 @@
       if (inStep) { skipsStep += sk; holdsStep += hd; } else { skipsSteady += sk; holdsSteady += hd; }
     }
     const steadyMin = steady.length ? (steady[steady.length - 1].el - steady[0].el) / 60000 : 0;
+    const sg = S.sorted(startGaps);
+    const landings = seeks.filter(x => x.landingErrMs != null).map(x => Math.abs(x.landingErrMs));
     return {
       clock: clock ? 'room (SyncClock, network)' : 'local (performance.now)', mode: servo.mode, seconds: o.seconds, loops,
+      start: { preRoll: true, worstGapMs: startGaps.length ? S.r1(sg[sg.length - 1]) : null, framesBeforeSteady: startGaps.length + 1,
+        stalled: startGaps.some(g => g > 100) },
+      seeks: { aimedAheadMs: S.r1(seekLat), list: seeks, worstLandingErrMs: landings.length ? S.r1(Math.max(...landings)) : null },
       shownErrorMs: { p50: S.r1(S.pct(absErr, 50)), p95: S.r1(S.pct(absErr, 95)), max: S.r1(S.pct(absErr, 100)) },
       smoothedErrorMs: { p50: S.r1(S.pct(absErrF, 50)), p95: S.r1(S.pct(absErrF, 95)), max: S.r1(S.pct(absErrF, 100)) },
       halfFrameMs: S.r2(half),
@@ -265,12 +305,13 @@
       if (aborted) throw new Error('stopped by the user');
 
       const continuous = out.freeRun.currentTime.continuous;
-      out.servoLocal = await servoRun(th.stage, 'assets/clip_g60.mp4', { fps, seconds: o.quick ? 40 : 300, stepAtS: 10, stepMs: 80, continuous,
+      const seekLatencyMs = out.seek && out.seek[1] && out.seek[1].firstFrameMs ? out.seek[1].firstFrameMs.median : (out.seek && out.seek[1] ? out.seek[1].seekedMs.median : 50);
+      out.servoLocal = await servoRun(th.stage, 'assets/clip_g60.mp4', { fps, seconds: o.quick ? 40 : 300, stepAtS: 10, stepMs: 80, continuous, seekLatencyMs,
         hud: s => th.hud(s), aborted: () => aborted });
       if (aborted) throw new Error('stopped by the user');
       if (o.withNetwork) {
         const clock = await TK.clock.room.ensure();
-        out.servoRoom = await servoRun(th.stage, 'assets/clip_g60.mp4', { fps, seconds: o.quick ? 40 : 300, stepAtS: 10, stepMs: 80, continuous, clock,
+        out.servoRoom = await servoRun(th.stage, 'assets/clip_g60.mp4', { fps, seconds: o.quick ? 40 : 300, stepAtS: 10, stepMs: 80, continuous, clock, seekLatencyMs,
           hud: s => th.hud(s), aborted: () => aborted });
       }
     } finally {
@@ -279,5 +320,56 @@
     return out;
   }
 
-  TK.video = { runT4, seekTest, servoRun, analyseFreeRun };
+  // ------------------------------------------------------------ FILM CHECK (3.8)
+  // The browser's own counters could not settle whether Safari shows every frame
+  // (~53/s by its frame callbacks, ~35/s by its decoder). A phone filming the
+  // screen can: this plays the counting clip (make_filmcheck.js) and records the
+  // browser's claim during the SAME playback; analyze_filmcheck.py reads the film.
+  async function filmCheck() {
+    const th = L().theater.open();
+    let aborted = false;
+    th.onExit = () => { aborted = true; };
+    try {
+      const v = makeVideo(th.stage, 'assets/filmcheck.mp4');
+      await ready(v);
+      try { await v.play(); } catch (e) { /* pre-roll as-is */ }
+      await S.sleep(800);
+      v.pause();
+      await seekTo(v, 0).catch(() => {});
+      for (let c = 5; c > 0; c--) {
+        if (aborted) throw new Error('stopped by the user');
+        th.hud('FILM CHECK — start the slow-motion recording now · plays in ' + c + ' s');
+        await S.sleep(1000);
+      }
+      th.hud('FILM CHECK — keep filming (30 s)');
+      const samples = [];
+      let stop = false;
+      if (L().hasRVFC) {
+        const cb = (now, md) => { if (stop) return; samples.push({ edt: md.expectedDisplayTime, mt: md.mediaTime * 1000, pf: md.presentedFrames }); v.requestVideoFrameCallback(cb); };
+        v.requestVideoFrameCallback(cb);
+      }
+      const q0 = v.getVideoPlaybackQuality ? v.getVideoPlaybackQuality() : null;
+      try { await v.play(); } catch (e) { /* measured as-is */ }
+      const t0 = performance.now();
+      while (!v.ended && performance.now() - t0 < 32000) {
+        if (aborted) break;
+        await S.sleep(250);
+      }
+      stop = true;
+      const q1 = v.getVideoPlaybackQuality ? v.getVideoPlaybackQuality() : null;
+      v.pause();
+      th.hud('FILM CHECK — done · stop filming');
+      await S.sleep(1500);
+      return {
+        clip: 'filmcheck.mp4 — 30 s at 60 fps', rvfc: L().hasRVFC,
+        browserSays: L().hasRVFC ? L().presentation(samples, 60) : null,
+        decoder: q0 && q1 ? { frames: q1.totalVideoFrames - q0.totalVideoFrames, dropped: q1.droppedVideoFrames - q0.droppedVideoFrames } : null,
+        filmSays: 'pending — copy the phone video into testkit/results/ and say "file the results"',
+      };
+    } finally {
+      th.close();
+    }
+  }
+
+  TK.video = { runT4, seekTest, servoRun, analyseFreeRun, filmCheck };
 })(typeof self !== 'undefined' ? self : this);

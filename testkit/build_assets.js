@@ -374,6 +374,12 @@ if (!NO_VIDEO) {
     video.projectedFullPieceMB.clip + ' / ' + video.projectedFullPieceMB.clip_g60 + ' MB · rendered in ' + video.renderSeconds + ' s');
 }
 
+// ------------------------------------------------------------------ the film-check clip (3.8)
+if (!NO_VIDEO) {
+  const fc = spawnSync(process.execPath, [path.join(KIT, 'make_filmcheck.js')], { stdio: 'inherit' });
+  if (fc.status !== 0) { console.error('make_filmcheck failed'); process.exit(1); }
+}
+
 // ------------------------------------------------------------------ manifest
 for (const sub of ['', 'pages', 'engine', 'fonts']) {
   const dir = path.join(OUT, sub);

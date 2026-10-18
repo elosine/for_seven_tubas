@@ -60,6 +60,11 @@
       const r = await TK.video.runT4({ quick: mode() === 'quick', withNetwork: $('#t4net').checked }, s => status(s));
       stamp('T4', r); status('T4 done.', 'ok');
     },
+    async FILM() {
+      status('Film check — start the slow-motion recording during the countdown, screen filling the frame, straight on…');
+      stamp('FILM', await TK.video.filmCheck());
+      status('Film check done — stop filming, press Save to server, then copy the phone video into testkit\\results\\ on the computer.', 'ok');
+    },
     async T3() {
       const live = $('#t3live');
       live.hidden = false;
@@ -148,7 +153,9 @@
       return card('T2 · the renderer shoot-out', 'A0 today\'s engine · A1 retained SVG · A2 GPU layers · B canvas · C video', h, 'T2');
     },
     T3(r) {
+      const cal = r.calibration;
       let h = '<table>' + row('this clock', r.drift ? esc(r.drift.meaning) + ' (± ' + r.drift.sigmaPpm + ' ppm)' : 'not enough data') +
+        row('calibration', !cal ? '—' : cal.refused ? 'refused — ' + esc(cal.reason) + ' (the stand stays uncalibrated rather than follow a guess)' : 'applied: ' + cal.clockPpm + ' ± ' + cal.sigmaPpm + ' ppm') +
         row('network round trip', 'median ' + r.rttMs.median + ' ms · worst ' + r.rttMs.max + ' ms') + '</table>';
       h += '<table class="grid"><tr><th>phase</th><th>what the server did</th><th>plain sync — worst error</th><th>floor rule — worst error</th><th>refused</th></tr>';
       for (const e of r.episodes) {
@@ -175,15 +182,25 @@
           row('the +80 ms wrong-clock step', s.step ? 'closed in ' + fmt(s.step.closedAfterS, ' s') + ' · overshoot ' + fmt(s.step.overshootMs, ' ms') + ' · cost ' + s.step.frameEvents + ' repeated/skipped frames (on a 60 Hz screen 80 ms is ' + s.step.expectedFrameEvents + ' frames)' : '—') +
           row('steady state: shown error', 'typical ' + fmt(s.shownErrorMs.p50, ' ms') + ' · 95% within ' + fmt(s.shownErrorMs.p95, ' ms') + ' (half a frame = ' + s.halfFrameMs + ' ms)') +
           row('steady state: frames the servo cost', fmt(s.steady.skips + s.steady.holds) + ' in ' + fmt(s.steady.minutes, ' min') + ' (' + fmt(s.steady.frameEventsPerMin, '/min') + ')') +
+          (s.start ? row('the start (after pre-roll)', s.start.stalled ? '<b class="bad">stalled</b> — worst gap ' + s.start.worstGapMs + ' ms' : 'no stall — worst gap ' + fmt(s.start.worstGapMs, ' ms')) : '') +
+          (s.seeks && s.seeks.list.length ? row('jumps (aimed ' + s.seeks.aimedAheadMs + ' ms ahead)', s.seeks.list.length + ' seeks · worst landing ' + fmt(s.seeks.worstLandingErrMs, ' ms off')) : '') +
           row('servo', s.servo.rateChanges + ' rate changes · engaged ' + s.servo.engagedPct + '% of frames · learned player drift ' + s.servo.learnedPlayerDriftPpm + ' ppm') + '</table>';
       };
       h += sv('servo on the local clock', r.servoLocal) + sv('servo on the room clock (network)', r.servoRoom);
       return card('T4 · the video stand', 'seeks, the player on its own, speed changes, and the frame servo', h, 'T4');
     },
   };
+  renderers.FILM = r => {
+    const p = r.browserSays || {};
+    return card('Film check', 'what the browser SAYS it showed — the phone film decides', '<table>' +
+      row('frames shown per second (the browser\'s count)', fmt(p.framesShownPerSec)) +
+      row('frames it says it skipped', fmt(p.skips) + (p.eventsPerMin != null ? ' (' + p.eventsPerMin + '/min)' : '')) +
+      row('decoder count', r.decoder ? r.decoder.frames + ' decoded · ' + r.decoder.dropped + ' dropped' : '—') +
+      row('the film', esc(r.filmSays)) + '</table>', 'FILM');
+  };
   function render() {
     const out = [];
-    for (const k of ['T5', 'T1', 'T2', 'T3', 'T4']) {
+    for (const k of ['T5', 'T1', 'T2', 'T3', 'T4', 'FILM']) {
       const r = R.tests[k];
       if (!r) continue;
       try { out.push(r.error && Object.keys(r).length === 1 ? card(k, 'stopped', '<p class="bad">' + esc(r.error) + '</p>', k) : renderers[k](r)); }

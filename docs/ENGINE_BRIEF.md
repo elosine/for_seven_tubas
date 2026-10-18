@@ -708,3 +708,34 @@ apart, ~32 ms by the end from a common GO. Calibration (B3(i)) matters.
 
 **Seeks:** 1-s keyframes win on every device (iPad 71 vs 132 ms, Fire
 526 vs 1197 ms).
+
+
+### 3.8 — the repairs (2026-10-18, Opus; RUNNING_LOG 76–77)
+
+**The floor clock, v3 (`js/syncclock.js`)** — test-first: the battery now
+runs the three MEASURED networks (iPad steady-slow, laptop spiky, Fire
+poor) through the full T3 sequence, against the composer's own standard:
+honest network → no worse than plain sync; lying network → hold.
+- A sample's noise = the smaller of [its measured scatter + half its
+  extra delay over the typical round trip] and [half its extra delay
+  over the fastest path]; every fit weighted by it.
+- Spikes judged against the typical round trip, not the single best.
+- After calibration **the model owns the rate**: the network may only
+  nudge the level.
+- Calibration needs ≥ 30 samples and an HONEST σ ≤ 5 ppm (σ from a
+  block jackknife — the fit's own ± was 2× too confident on poor Wi-Fi).
+- A slow lie caught late also takes back the corrections it caused.
+- Result in simulation: iPad honest **0.0–2.1 ms** (was 12.5), laptop
+  0.1–1.9, every lie held; Fire refuses its uncertain calibration and
+  still holds every lie within 8 ms. 19/19 scenarios.
+
+**The kit:** T3 scores against FAST samples only (the old yardstick was
+biased on noisy Wi-Fi) · T4 pre-rolls before "GO" and aims every seek
+ahead by the device's measured seek time, and reports the start and each
+landing · a **film check** (`make_filmcheck.js` · `analyze_filmcheck.py`
+· proven on synthetic films: 60.03/s shown when nothing is dropped,
+53.36/s and 6.67 skipped/s when one frame in 9 is).
+
+**What the iPad re-test must show:** the floor clock within ~2 ms in
+honest stretches · no start stall, seeks landing within about a frame ·
+the film's count of frames shown, against Safari's counters.

@@ -66,12 +66,33 @@
     },
     // the honest line: the server's TRUE stamps, fitted over the run — the
     // yardstick for both the floor-rule clock and the naive one
+    // Only the FAST samples: a delayed packet's honest stamp still carries its
+    // path's asymmetry, and on noisy Wi-Fi the first kit's line through every
+    // sample was biased by several ms (the laptop's "9 ms", RUNNING_LOG 75).
+    // A run over 10 minutes may warm the crystal: a gentle curve is allowed.
     truth(from, to) {
-      const xs = [], ys = [];
-      for (const s of this.samples.slice(from || 0, to)) if (s.tru != null) { xs.push(s.mid); ys.push(s.tru); }
-      return S.linfit(xs, ys);
+      const all = this.samples.slice(from || 0, to).filter(s => s.tru != null);
+      if (all.length < 3) return null;
+      const r = all.map(s => s.rtt).sort((a, b) => a - b);
+      const cut = r[Math.floor(0.25 * (r.length - 1))] + 2;
+      const pts = all.filter(s => s.rtt <= cut);
+      const use = pts.length >= 8 ? pts : all;
+      const span = use[use.length - 1].mid - use[0].mid;
+      return span > 600000 ? quadfit(use.map(s => s.mid), use.map(s => s.tru)) : S.linfit(use.map(s => s.mid), use.map(s => s.tru));
     },
   };
+
+  function quadfit(xs, ys) {
+    const n = xs.length, xm = xs.reduce((a, b) => a + b, 0) / n;
+    const A = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    for (let i = 0; i < n; i++) {
+      const d = xs[i] - xm, p = [1, d, d * d];
+      for (let r = 0; r < 3; r++) { for (let c = 0; c < 3; c++) A[r][c] += p[r] * p[c]; A[r][3] += p[r] * ys[i]; }
+    }
+    for (let c = 0; c < 3; c++) for (let r = 0; r < 3; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k < 4; k++) A[r][k] -= f * A[c][k]; }
+    const cf = A.map((row, i) => row[3] / row[i]);
+    return { n, at: x => cf[0] + cf[1] * (x - xm) + cf[2] * (x - xm) * (x - xm) };
+  }
 
   // ------------------------------------------------------------ live chart
   function drawChart(cv, samples, truthFit, windowMs) {
@@ -153,7 +174,8 @@
           // 100-s baseline yields ~70 s of trusted history; 35 s is the floor
           drift = room.clock.drift(35000);
           cal = room.clock.calibrate(performance.now(), 35000);
-          u.phase('calibrate', 'none', 0, cal ? 'calibrated: ' + (cal.clockPpm >= 0 ? '+' : '') + cal.clockPpm.toFixed(1) + ' ppm' : 'calibration skipped (too little data)');
+          u.phase('calibrate', 'none', 0, !cal ? 'calibration skipped (too little data)' : cal.refused ? 'calibration refused — ' + cal.reason + ' (the stand stays uncalibrated)'
+            : 'calibrated: ' + (cal.clockPpm >= 0 ? '+' : '') + cal.clockPpm.toFixed(1) + ' ± ' + cal.sigmaPpm.toFixed(1) + ' ppm');
           continue;
         }
         const [name, mode, secs] = step;
@@ -198,7 +220,9 @@
       drift: drift ? { clockPpm: S.r1(drift.clockPpm), sigmaPpm: S.r2(drift.sigmaPpm), spanS: S.r0(drift.spanS), n: drift.n, residualMs: S.r2(drift.residualMs),
         meaning: 'this device\'s clock runs ' + Math.abs(drift.clockPpm).toFixed(1) + ' ppm ' + (drift.clockPpm >= 0 ? 'fast' : 'slow') + ' against the server — free-running, it would drift ' +
           (Math.abs(drift.clockPpm) * 750e-3).toFixed(1) + ' ms over the 12.5-minute piece' } : null,
-      calibration: cal ? { clockPpm: S.r1(cal.clockPpm), sigmaPpm: S.r2(cal.sigmaPpm) } : null,
+      calibration: !cal ? null : cal.refused ? { refused: true, reason: cal.reason, clockPpm: S.r1(cal.clockPpm), sigmaPpm: S.r2(cal.sigmaPpm) }
+        : { clockPpm: S.r1(cal.clockPpm), sigmaPpm: S.r2(cal.sigmaPpm) },
+      yardstick: 'fast samples only (round trip within the fastest quarter + 2 ms); a gentle curve for runs over 10 min',
       episodes,
       final: room.clock.status(performance.now()),
       decisions: room.clock.log.filter(e => e.kind !== 'correct').slice(-40).map(e => ({ atS: S.r1((e.L - t0) / 1000), kind: e.kind, msg: e.msg })),

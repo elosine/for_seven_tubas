@@ -64,6 +64,22 @@ For a real sync check with no lab equipment:
 
 ---
 
+## The film check — does the screen really show every frame?
+
+The browser's own counters can disagree with each other (the iPad's did).
+A phone filming the screen cannot:
+
+1. On the device, tap **Run the film check**.
+2. During the 5-second countdown, start the phone's **slow-motion**
+   recording. Point it straight at the screen; let the picture fill the
+   frame.
+3. Keep filming until the screen says **done** (30 s), then stop.
+4. Tap **Save to server**; copy the phone video into `testkit/results/`.
+5. Say **"file the results"** — the AI reads the film
+   (`python testkit/analyze_filmcheck.py <film> <result.json>`).
+
+---
+
 ## What each test measures
 
 - **T5 · this device** — screen, refresh rate, graphics, whether it
