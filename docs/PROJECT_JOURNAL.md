@@ -10,9 +10,9 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-09-29, day 42 cont.): THE TEST KIT IS BUILT
-> AND VERIFIED (`testkit/`); ► = the kit RUNS on the composer's devices
-> (organizer 3.7 / top-line step 4). Read OPEN AT SESSION END's first
+> **► CURRENT POSITION (2026-10-18, day 44): THE STANDS HAVE REPORTED
+> (organizer 3.7 ☑ tested); ◇ = the proposed FIX + RE-TEST chunk (3.8),
+> awaiting the composer's yes. Read OPEN AT SESSION END's first
 > entry first — the day-41 LAST SESSION block below is history,
 > superseded.**
 
@@ -145,6 +145,26 @@ Parked past submission: rehearsal/performance score builds (PLANNER) ·
 CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
 
 ### OPEN AT SESSION END
+
+**(day 44, 2026-10-18 — THE STANDS REPORTED; ◇ fix + re-test proposed)**
+
+- **Done:** four devices ran every test (desktop · iPad full run · laptop
+  · Fire) + the beacon; filed in ENGINE_BRIEF §8 "The stands" and
+  RUNNING_LOG 75. Results JSONs in `testkit/results/`; the 155 MB beacon
+  video stays local (gitignored).
+- **What it settled:** V1 holds, refined — A = A2 (GPU layers): on the
+  Fire, today's engine 57 % of frames on time, A1 89.6 %, A2 99.4 %, B and
+  C 100 %. The iPad has headroom (today's engine 6 of 16.7 ms). Every
+  lie refused. Beacon: two screens 7.7 ms apart.
+- **What it found (to fix):** floor clock 8–14 ms off in honest stretches
+  on the iPad, 17–25 ms on the Fire (noise judged from RTT not scatter;
+  junk calibration accepted; spike-filter starvation) · Safari video:
+  ~0.5 s start stall, seeks 150–200 ms late · the kit's T3 yardstick
+  biased on noisy Wi-Fi (re-scored by hand).
+- **Pending the composer:** approve 3.8 (FIX + RE-TEST, Opus) · optional:
+  film the iPad playing the T2 video lane in slow motion (settles
+  whether Safari really drops ~1 in 9 frames).
+- **Resume reads:** ENGINE_BRIEF §8 "The stands" · RUNNING_LOG 75.
 
 **(day 42 cont., 2026-09-29 — THE KIT IS BUILT AND VERIFIED; ► it runs
 on the composer's devices)** *(supersedes the checkpoint entry below)*

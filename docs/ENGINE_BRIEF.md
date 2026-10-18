@@ -630,3 +630,81 @@ busiest minute, idle:
 | device | T1 idle on time | T2 cost/frame 95 % A0 · A1 · A2 · B | T2 video repeats+skips /min | T3 clock drift | T4 servo frame events /min | T4 seek (1-s keyframes) |
 |---|---|---|---|---|---|---|
 | dev PC (headless Edge, baseline) | 100 % | 5.8 · 1.0 · 1.0 · 0.5 ms | 0 | ≈ 0 (shared clock) | 0 – 1.6 | 19 ms |
+| desktop (Chrome 155 · Intel UHD 630 · 100 Hz) | 100 % | 6.5 · 2.2 · 2.3 · 0.8 ms | 0 | ≈ 0 (it is the server's own clock) | 0 | 31 ms |
+| **iPad (Safari 26 · Apple GPU · 60 Hz)** | 99.9 % | 6 · 4 · 4 · 1 ms (Safari times to 1 ms) | ~400 by its counters — OPEN | **+28.3 ± 0.4 ppm** (8-min baseline) | steady 0 between seeks; seeks/start NOT OK | 71 ms |
+| laptop (Chrome 155 · Intel UHD · 60 Hz) | 99.8 % | 9.4 · 4.0 · 4.0 · 2.9 ms | 0 | −14.3 ± 4.4 ppm (68 s, rough) | 0 | 14 ms |
+| Fire tablet (Chromium 138 · Mali-G52 · 60 Hz) | 100 % | **29.5 · 11.2 · 10.7 · 5.5 ms** | 0 | not measurable (Wi-Fi) | 1.6 | 526 ms |
+
+### The stands (2026-10-18) — what four real devices said
+
+Full record: `testkit/results/{desktop,ipad,winlaptop,fire}__2026-10-18*.json`
+and `beacon-analysis.json`; the analysis is RUNNING_LOG 75.
+
+**Renderers — the decisive result is the cheap tablet.** Frames on time,
+idle, the busiest minute:
+
+| device | A0 today's engine | A1 retained SVG | A2 GPU layers | B canvas | C video |
+|---|---|---|---|---|---|
+| desktop · laptop · iPad | 100 % | 100 % | 100 % | 100 % | 100 % |
+| **Fire tablet** | **57 %** (31 % of frames lost) | 89.6 % | **99.4 %** | 100 % | 100 % |
+
+- The Fire reproduces the composer's performance jitter with today's
+  engine, and shows the fix working. A1 alone is NOT enough on a weak
+  device; **A2 (GPU layers) is the form of A to build.** B (canvas) has
+  the most headroom (cost 5.5 ms vs A2's 10.7 on the Fire) and stays the
+  measured fallback.
+- **The iPad has headroom to spare:** today's engine costs 6 ms of its
+  16.7 ms frame. The presumed stand is not where the jitter lives.
+- V1 holds — refined: A = A2.
+
+**Video (C).** Chromium devices: flawless — 60 frames shown per second,
+0 skipped, 0 held, 0 decoder drops; the servo closed the +80 ms step in
+3.3–3.9 s at exactly the predicted cost (~5 frames) and held steady.
+**iPad/Safari: two OPEN problems.**
+1. Safari's counters report only ~53 of 60 frames shown per second
+   during plain playback, and its decoder counter disagrees with that
+   (~35/s) — the counters cannot settle it; one slow-motion film of the
+   iPad playing the video lane can.
+2. The servo holds 2–8 ms between events, but Safari stalls ~0.5 s just
+   after playback starts and lands each seek 150–200 ms late; the servo
+   then closes the gap only at its 2 % limit (10–25 s). The concert has
+   no seeks after GO, but it has a start, and rehearsal has jumps →
+   pre-roll before GO, predictive seeks.
+
+**Clocks and the floor rule.** Every lie was refused on every device —
+the plain sync followed the +250 ms lie the full 250 ms everywhere. But
+re-scored against a clean yardstick (the kit's own yardstick was biased
+by delayed packets on noisy Wi-Fi — a kit flaw), the floor clock's
+accuracy while the network was HONEST:
+
+| device | round trip (median) | floor rule, honest stretches | through the lies |
+|---|---|---|---|
+| desktop | 6 ms | ≤ 0.6 ms | ≤ 0.5 ms |
+| laptop | 6 ms | ≤ 1.3 ms | ≤ 0.3 ms |
+| **iPad** | 17 ms (very steady) | **8–14 ms** — worse than plain sync (~2) | 0.3 ms (bias, jitter) |
+| **Fire** | 69 ms (noisy) | **17–25 ms** after a bad calibration | — |
+
+Three faults in `js/syncclock.js`, found only by real Wi-Fi (the
+simulation's network was too tidy):
+1. **Noise judged from the round trip, not from the measured scatter.**
+   On the iPad's slow-but-steady Wi-Fi the gates were ±40 ms wide; after
+   a holdover the clock resumed on a ~20-s trend projected ~100 s
+   forward and corrected ~9 ms the wrong way.
+2. **A junk calibration was accepted** (Fire: 158 ± 169 ppm from 5
+   samples) — calibration needs a quality bar.
+3. **The spike filter starves on noisy Wi-Fi** (Fire: 97 of 123 samples
+   discarded; desktop 54) — it compares to the single best round trip
+   instead of a low percentile.
+
+**Beacon (iPad + laptop, Pixel 8a at 120 fps, 37 flashes):** the two
+screens flashed **7.7 ms apart on average** (sd 3.1), drifting from ~5
+to ~13 ms over 37 s — consistent with one clock still slewing off the
+~10 ms error above. Within ensemble tolerance; at 13 ms, just under the
+≥ 5×-below-the-80 ms-grid rule.
+
+**Clock drift, measured:** the iPad runs +28.3 ppm — free-running it
+would drift 21 ms over the 12.5-minute piece; iPad vs laptop ≈ 43 ppm
+apart, ~32 ms by the end from a common GO. Calibration (B3(i)) matters.
+
+**Seeks:** 1-s keyframes win on every device (iPad 71 vs 132 ms, Fire
+526 vs 1197 ms).

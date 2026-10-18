@@ -87,7 +87,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 2. ☑ ENGINE verdicts: renderers per module · own server + floor rule ·
    Hetzner · kit approved (D89)
 3. ☑ KIT BUILT + VERIFIED (day 42, Opus) — `testkit/`, see 3.6
-4. ► KIT RUNS on real machines — every ESTIMATE becomes a number
+4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. PORTAL gather (Fable — may run any time before HARDEN)
 6. PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
@@ -155,7 +155,18 @@ that closed ENS in four iterations)*
    rule 15/15, servo 10/10), a headless self-verification harness, and
    README.md (the composer's run protocol). Record: RUNNING_LOG 67–70 ·
    ENGINE_BRIEF §8 (first numbers + the two corrections to §2 C).
-3.7 ► **KIT RUNS on the composer's devices** (= top-line step 4). The
+3.7 ☑ **TESTED — four devices + the beacon (2026-10-18; filed: RUNNING_LOG 75,
+   ENGINE_BRIEF §8 "The stands").** V1 holds, refined: A = A2 (GPU layers).
+   Open: the iPad's video (one slow-motion check) · three clock faults and
+   Safari's start/seek handling, found by real Wi-Fi.
+3.8 ◇ **PROPOSED — awaiting the composer's approval: FIX + RE-TEST** (Opus).
+   The three floor-rule faults in `js/syncclock.js` (noise from measured
+   scatter, a calibration quality bar, a percentile spike filter) · Safari
+   pre-roll + predictive seeks in the servo path · the kit's T3 yardstick
+   · a realistic-Wi-Fi simulation from the measured round trips · then a
+   15-minute iPad re-run (+ Fire). **Done =** the floor clock within ~2 ms
+   in honest stretches on the iPad. Then HARDEN (9).
+3.7 (as planned) **KIT RUNS on the composer's devices** (= top-line step 4). The
    composer's step, no AI needed at the devices: `node testkit/server.js`
    on the PC, open the printed address on each device, name it, "Run all
    tests", "Save to server". Then an AI reads `testkit/results/` and files
@@ -249,6 +260,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-18 (day 44 — THE STANDS REPORTED ☑ 3.7; ◇ 3.8 proposed):**
+  desktop, iPad (full run), laptop, Fire + the beacon (Pixel 8a slow-mo).
+  The Fire reproduced the jitter (today's engine 57 % of frames on time)
+  and the GPU-layer fix holds 99.4 %; the iPad has headroom to spare;
+  every lie refused; but three clock faults (iPad 8–14 ms, Fire 17–25 ms
+  in honest stretches) and Safari's video start/seek need a fix + re-test
+  chunk — proposed, not yet approved. Beacon: two screens 7.7 ms apart.
+  RUNNING_LOG 75 · ENGINE_BRIEF §8.
 
 - **2026-09-29 (day 42 cont. — THE KIT BUILT + VERIFIED ☑ 3.6; ► 3.7 the
   kit runs on real devices):** Opus, "as much as possible independently,
