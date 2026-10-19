@@ -739,3 +739,26 @@ landing · a **film check** (`make_filmcheck.js` · `analyze_filmcheck.py`
 **What the iPad re-test must show:** the floor clock within ~2 ms in
 honest stretches · no start stall, seeks landing within about a frame ·
 the film's count of frames shown, against Safari's counters.
+
+### The re-test (3.8 closed, 2026-10-18; RUNNING_LOG 78)
+
+| on the iPad | first run (3.7) | re-test (3.8) |
+|---|---|---|
+| floor clock, honest stretches | 8–14 ms (re-scored) | **0.0–2.4 ms** (plain sync 1.9) |
+| floor clock, every lie | held | held (≤ 1.4 ms) |
+| calibration | 28.3 ± 0.36 ppm | 22.3 ± 0.42 ppm — **the rate moved 6 ppm in 2 h: calibrate every session** |
+| video start | ~0.5 s stall | **no stall** (worst gap 50 ms) |
+| servo between seeks | — | **5–7 ms** |
+| at a loop-back seek | ~210 ms, ~14 s to clear | ~150 ms, ~10 s to clear |
+| frames on screen (the film) | ? ("~1 in 9 dropped") | **every frame: 60.05/s, 0 skipped** |
+
+- **Safari's frame callbacks undercount** (56.2/s, 113 phantom skips in the
+  same 30 s the film counted 60.05 and 0); its decoder count agrees with the
+  film. On Safari, judge frames by the decoder or a film.
+- **Seeks matter only for rehearsal jumps** (a performance plays straight
+  through). HARDEN requirement, proposed: on Safari a jump = pause → seek →
+  ready → start on a clock moment. Why the aimed seek still lands ~150 ms
+  off is NOT diagnosed.
+- **The film reader** needed six versions on the real film (drift,
+  reflections, a long exposure catching two frames, a sensor read across
+  the picture); two eye checks overturned two confident counts.

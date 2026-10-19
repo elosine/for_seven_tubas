@@ -1,0 +1,34 @@
+{
+ "film": "testkit/results/beacon2PXL_20261018_235150415.mp4",
+ "method": "v6 \u2014 border checked against 16:9 per second and re-measured every camera frame; the still picture subtracted; each of the 60 places looked at where it must be; the NEXT bar ahead; timed by true wraps; unbroken seconds only",
+ "mirrored": false,
+ "cameraFramesSeeingTwoFrames": 0.677,
+ "cameraFramesPerVideoSecond": 120.0,
+ "phoneSaysCaptureFps": "120.000000",
+ "secondsCounted": 27.98,
+ "secondsInFilm": 41,
+ "bordersFoundDirectly": 26,
+ "bordersTrusted": 26,
+ "framesShownPerSecond": 60.05,
+ "skippedPerSecond": 0.0,
+ "skippedTotal": 0,
+ "heldPerSecond": 0.0,
+ "steps": {
+  "normal": 1679,
+  "skips": 0,
+  "jumps": 0,
+  "backSteps": 0
+ },
+ "shownEachSecond": {
+  "min": 58,
+  "median": 60.0,
+  "max": 61
+ },
+ "runLengthCameraFrames": {
+  "1": 57,
+  "2": 1569,
+  "3": 54
+ },
+ "skipSpacingVideoFrames": null,
+ "meaning": "a 60 Hz screen showing every frame reads 60 shown, 0 skipped, 0 held; runs cluster at cameraFps/60 camera frames per shown frame (2 at 120 fps; 1+3 pairs are the camera's phase, not the screen)"
+}

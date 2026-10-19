@@ -10,13 +10,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 44, later): 3.8 FIX + RE-TEST
-> APPROVED — the code is done and verified on the dev PC (RUNNING_LOG
-> 76–77); ► the composer's iPad re-test + slow-mo film (§6 CURRENT note
-> "THE RE-TEST (3.8)"). On "file the results": analyse the iPad JSON and
-> the film (`python testkit/analyze_filmcheck.py <film> <out.json>`),
-> compare film vs the browser's count, close 3.8. Read OPEN AT SESSION
-> END's first entry first — the day-41 LAST SESSION block below is
+> **► CURRENT POSITION (2026-10-18, day 44, night): 3.8 ☑ CLOSED — the
+> iPad re-test + the slow-mo film filed (RUNNING_LOG 78, ENGINE_BRIEF §8
+> "The re-test"). The floor clock holds 0.0–2.4 ms on the real iPad; the
+> screen shows every frame. Carried into HARDEN: per-session calibration ·
+> Safari rehearsal-jump seeks · Safari frames by decoder/film. Next on the
+> organizer's top line: see PERFORMANCE_SCORE_ORDER.md. Read OPEN AT
+> SESSION END's first entry first — the day-41 LAST SESSION block below is
 > history, superseded.**
 
 ### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
@@ -164,9 +164,9 @@ CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
   junk calibration accepted; spike-filter starvation) · Safari video:
   ~0.5 s start stall, seeks 150–200 ms late · the kit's T3 yardstick
   biased on noisy Wi-Fi (re-scored by hand).
-- **Pending the composer:** ~~approve 3.8~~ APPROVED, code done
-  (RUNNING_LOG 76–77) · ► the iPad re-test with the new **film check**
-  (it replaces "film the T2 lane": a counting clip made for the camera).
+- **Pending the composer:** ~~approve 3.8~~ ~~the iPad re-test~~ — 3.8 ☑
+  CLOSED (RUNNING_LOG 78): floor clock 0.0–2.4 ms honest on the iPad;
+  every frame shown on screen (the film); seeks ~150 ms → HARDEN.
 - **Resume reads:** ENGINE_BRIEF §8 "The stands" · RUNNING_LOG 75.
 
 **(day 42 cont., 2026-09-29 — THE KIT IS BUILT AND VERIFIED; ► it runs

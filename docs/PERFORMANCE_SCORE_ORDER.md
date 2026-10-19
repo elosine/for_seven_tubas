@@ -159,7 +159,7 @@ that closed ENS in four iterations)*
    ENGINE_BRIEF §8 "The stands").** V1 holds, refined: A = A2 (GPU layers).
    Open: the iPad's video (one slow-motion check) · three clock faults and
    Safari's start/seek handling, found by real Wi-Fi.
-3.8 ► **APPROVED 2026-10-18 (composer: "yes, approve 3.8 — go ahead with the fix and retest and do the optional slo mo filming"): FIX + RE-TEST** (Opus).
+3.8 ☑ **CLOSED 2026-10-18 — FIX + RE-TEST** (Opus; approved: "yes, approve 3.8 — go ahead with the fix and retest and do the optional slo mo filming").
    The three floor-rule faults in `js/syncclock.js` (noise from measured
    scatter, a calibration quality bar, a percentile spike filter) · Safari
    pre-roll + predictive seeks in the servo path · the kit's T3 yardstick
@@ -170,8 +170,13 @@ that closed ENS in four iterations)*
    networks · fast-sample yardstick · pre-roll + steady anchor + aimed
    seeks · the film check, proven on synthetic films · dev-PC headless
    run clean) — RUNNING_LOG 76–77, ENGINE_BRIEF §8 "3.8 — the repairs".
-   ► **the iPad re-test + the slow-mo film = the composer's step**
-   (journal §6 CURRENT note "THE RE-TEST (3.8)").
+   ☑ **the iPad re-test + the film (RUNNING_LOG 78, brief §8 "The re-test"):**
+   floor clock 0.0–2.4 ms honest (was 8–14), every lie held → Done MET ·
+   no start stall · servo 5–7 ms between seeks, ~150 ms at a seek (was
+   ~210) · the film: every frame shown (Safari's callbacks undercount).
+   Into HARDEN (9): calibrate every session (the rate moved 6 ppm in 2 h) ·
+   Safari rehearsal jumps = pause → seek → ready → start on a clock moment
+   (proposed; the 150 ms not diagnosed) · Safari frames by decoder/film.
 3.7 (as planned) **KIT RUNS on the composer's devices** (= top-line step 4). The
    composer's step, no AI needed at the devices: `node testkit/server.js`
    on the PC, open the printed address on each device, name it, "Run all
@@ -266,6 +271,13 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-18 (day 44, night — 3.8 ☑ CLOSED):** the iPad re-test + the
+  slow-mo film filed. Floor clock 0.0–2.4 ms honest on the real iPad (was
+  8–14) — Done MET. Start stall gone; seeks better (150 vs 210 ms), not
+  fixed — a rehearsal-jump requirement for HARDEN. The film: every frame
+  shown; the film reader took six versions and two eye checks to be right.
+  RUNNING_LOG 78. Next on the top line: 5. PORTAL gather (Fable).
 
 - **2026-10-18 (day 44, later — 3.8 APPROVED; the code ☑, ► the iPad
   re-test):** the three clock faults fixed test-first (iPad honest
