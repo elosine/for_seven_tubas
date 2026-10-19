@@ -313,6 +313,12 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-10-19 (day 45, after midnight — ► 1b MENTAL MODELS OPENED, order
+  chunk 7):** composer: "go". This chunk is the composer dictating their own
+  picture (rooms · roles · the flow of a rehearsal) in their words; the AI asks
+  open questions one at a time, offers no options, logs verbatim, reframes
+  nothing until the vet (1c). RUNNING_LOG 84.
+
 - **2026-10-19 (day 45, after midnight — ANNOTATION CLOSED ☑ → D93; ► 1b
   mental models, order chunk 7; 6.5 PERFORMANCE PROTOCOL proposed):** four
   questions one per turn: three tools · a clear in-and-out (+ the composer's

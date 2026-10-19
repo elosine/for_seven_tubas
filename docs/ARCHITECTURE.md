@@ -1013,6 +1013,227 @@ marks show in the concert as a layer over the video, with a show/hide switch (fo
 menu item) · every gesture tested on every platform before the build commits (HARDEN
 carry-in) · the concert-time stand's passivity → the PERFORMANCE PROTOCOL conversation.
 
+#### PORTAL — iteration 3 (day 45, 2026-10-19): the handout made concrete (composer: "let's talk through those actual details")
+
+**Proposed (AI), verdict pending — the three screens, in order:**
+
+1. **The composer's admin page:** "New ensemble" → name + piece (+ version) → the
+   system makes the ensemble page and ONE gatekeeper link. The composer writes an
+   ordinary email to the gatekeeper with that one link in it. (The email does NOT
+   carry the part links — the gatekeeper decides names and doubling, and the same
+   page is later their rehearsal page.)
+2. **The gatekeeper opens the link — the ENSEMBLE PAGE:** the ensemble's name, the
+   piece, and a row per part (Flute · Clarinet · … / Tuba 1 … Tuba 10). Each row: an
+   optional name box · that part's link · COPY · SHARE (the device's own share sheet:
+   mail, message) · "add another player" · "new link" (reissue). Plus "print the QR
+   sheet" (one page, every part's QR, labelled). Plus "Rehearsal" — the same page
+   opens as the remote / display when rehearsal starts. **NO automatic email from
+   the server:** it would need an email service, spam deliverability, and the
+   gatekeeper typing every address — the gatekeeper sends the links themselves,
+   however they like (one group email listing each part's link; one message per
+   player; the QR sheet at the first rehearsal). Two taps per player with SHARE.
+3. **The player taps the link in the email or message:** the part opens in the
+   browser; a one-time hint says "Add to Home Screen"; from then on the icon. Lost
+   the icon or new iPad = tap the same link again (nothing expires unless the
+   gatekeeper reissues it). No account, no password, nothing to type.
+
+**Rehearsal night, proposed (composer: "let's dig in on this"):**
+- **The gatekeeper's link is an icon too** (the same "Add to Home Screen" hint). On
+  the night they tap it; no email hunting. It opens ON THE REMOTE — start/stop, the
+  letters, the speeds, the live position — filling the screen; a "Players" button in
+  a corner opens the list (names, links, add another, new link) when needed. The
+  very first open, before anything is handed out, lands on the list instead.
+- **The player taps their icon → their part. Nothing else. Zero clicks.** The part
+  opens where they last left it; the rehearsal number and time sit in a corner; a
+  small dot says "in the room". The room's first jump or play snaps everyone
+  anyway. The only thing that can appear on top: a thin banner when a small group
+  is live ("Sectional — Flute Clarinet · join") — otherwise nothing. (Where "start
+  a sectional" lives — a fifth menu item? — goes to the cross-check, 1c.)
+- **The gatekeeper in a chamber ensemble is also a player:** two icons — their part,
+  and the ensemble page. In chamber mode the remote matters little; any stand
+  controls.
+
+#### 1b — the composer's mental model, iteration 1 (day 45, 2026-10-19; verbatim in COMPOSER_LOG: the Tuesday rehearsal walk-through)
+
+**The picture as given (the composer's sequence):** parts handed out BEFORE rehearsal
+through ONE GATEKEEPER (the composer emails one person — leader, first violin — who
+registers the rest and sends them off; "same as the tuba… probably better to have just
+one gatekeeper anyways") · each performer has a bookmark, opens it at the stand ·
+"let's try a playthrough" — one play button, or anyone? · rehearsal letters (E, F): one
+person picks, or each flips? how to start on E · "a little slower" · "let me just hear
+the flute and clarinet" — "probably the best way, just everyone plays" · scribbled
+notes, do they save? · the pianist flips back while the leader talks · "piano, 4:10,
+show me" — does the leader have to find and start it, or can she start herself? ("it
+might be a little bit awkward for the leader to have to find the place and start it
+every time, especially in these professional ensembles where there might not be just a
+central leader. But I still want to keep the control simple") · F, repeats, slower,
+from mid-F · the break: play and annotate independently "without having to open a
+different type of score" · from the top · next day the violist opens the score and it
+is "precisely as it did the night before", same interface, same entry, "no portal,
+they just open up that page. Maybe there's a login".
+
+**Mapped against the decisions (AI, same turn — the composer asked to "talk me
+through"):** every step is covered by a ruling EXCEPT ONE. Covered: one gatekeeper =
+D90's admin → conductor-link flow (the "conductor" is whoever leads) · the bookmark IS
+the login, the page joins the ensemble's standing room on open (D90, ENS it. 3) ·
+rehearsal letters exist as shared score data with one-tap jump + ~5 s pre-roll; one
+person taps, every stand snaps (ENS; letters still to be AUTHORED — banked) · speed =
+one tap, room-level (ENS) · "hear the flute and clarinet" = the room plays, the others
+rest — nothing to build (composer's own preference) · scribbles save themselves,
+private, no save button; drawing happens while the room is stopped (D93, D86) · free
+browse while stopped, snap when the room moves (ENS) · the pianist starts HERSELF:
+local play while the room is stopped (D82) — the leader need only say "4:10" ·
+mid-F = tap a letter or a time, or click the display directly (D82) · the break = the
+same page, local play + marks (D82, D86) · next day = the icon, the marks, the same
+interface, no login (D90, D86).
+
+**THE ONE GAP — who holds play/stop/jump in a chamber ensemble with no conductor.**
+ENS ruled: stands have no room transport; the conductor's remote has it (D82). SEC
+ruled: every stand has it, last command wins (D85). A professional septet rehearsing
+without a conductor fits neither as written. PROPOSED (verdict pending): the ensemble
+room carries ONE SETTING, chosen by the gatekeeper when the ensemble is set up —
+**CONDUCTED** (one remote controls; stands follow; the tubas) or **CHAMBER** (every
+stand can play, stop, jump a letter, change speed; last command wins — the sectional
+machinery; Tempus). Nothing else differs. Alternatives: always headless (14 tubas'
+taps fighting) · always conducted (a chamber group must nominate a device — the
+composer's "awkward").
+
+**The analysis as put to the composer (same sitting) — what CHAMBER means on the stand,
+and the consequence the composer themselves flagged:** in chamber mode a player's
+two-finger tap plays THE ROOM (every stand follows, last tap wins — D92's sectional
+reading); so "piano, show me 4:10" = her tap moves everyone's stand, which the
+composer already preferred ("just everyone plays"). But the BREAK then needs a way to
+practise ALONE without moving the others: proposed, the "in the room" dot on the
+stand is a one-tap switch — tap = alone (local everything), tap again = back in the
+room (snap). The same dot is where a live sectional is joined. This fills a gap no
+scenario had closed: HOW a stand moves between the ensemble room · a sectional ·
+alone (SEC "one room at a time" + IND "no room" assumed it without a control). In
+CONDUCTED mode the two-finger tap is local play while the room is stopped (D82) and
+the remote plays the room; the dot works the same way.
+
+#### 1b — iteration 2 (day 45): the conductorless analysis, two issues, and THE TRACKING LIST
+
+**The AI's analysis of conductorless rehearsal (general knowledge, flagged unverified):**
+quartets and chamber groups play from their OWN PART, the full score studied at home;
+the Orpheus-type leader plays and leads from the first chair, part on the stand, score
+studied; where to start is SAID ("from E"), the start is a PHYSICAL CUE, nobody
+operates anyone else's part. → the controls in such groups are words and gestures, the
+giver changing moment to moment.
+
+**The composer's two issues (verbatim in COMPOSER_LOG) and the ETHOS: "recreate or get
+close to the paper score situation."**
+
+**ISSUE 1 — THE STUDY SCORE (new):** any member may want the FULL SCORE to sit and
+study without the instrument, and annotate it; also their part; marks perhaps copied
+across. "Make sure that our decisions from before, just annotations, are compatible."
+*Tracked; its own short conversation after issue 2.*
+
+**ISSUE 2 — start/stop and independence, the composer's picture:** ONE CENTRAL CONTROL
+("I don't necessarily want everyone to have control… maybe it's cleaner"), the leader
+(e.g. the violinist) has her part and can bring up the full score to refresh her
+memory; the rest flip pages and annotate freely, like paper; "let's take E" → they
+flip there themselves; when the leader hits go, every screen jumps to E and starts,
+"with some sort of lead in or whatever… or probably not, maybe"; "a play mode where
+the scores are synced, and then as soon as that play mode stops, the scores aren't
+necessarily synced anymore."
+*AI read-back: this IS the full-rehearsal rule already ruled (D82 — stands free while
+the room is stopped, snap and follow when it plays; one remote; the jump lands ~5 s
+early, ENS iteration 3). Applied to chamber groups too → NO per-ensemble switch; the
+CONDUCTED/CHAMBER proposal and "the dot" for alone-practice are SUPERSEDED (local play
+while stopped already covers the break).* **New question it leaves:** how a PLAYING
+leader holds the control. Proposed: the gatekeeper ticks "leader" on one player's row;
+that stand alone carries a thin control strip (play/stop · the letters · speeds); the
+conductor's remote is the same thing on a device with no part. Alternative: the
+leader's phone as the remote beside the iPad.
+
+**THE LEADER'S STRIP, as proposed (composer: "talk through precisely what that strip
+would look like… does it collapse or slide away?"):**
+- **Where:** a thin band ABOVE the music, the full width of the screen; the part draws
+  below it in the remaining height. Nothing is ever covered.
+- **Left to right:** PLAY/STOP (one button, large enough to hit) · AGAIN · the
+  rehearsal letters as small buttons (A B C D E F …) · the four speeds · a small
+  TIME box (tap, type 4:10, go) · the live position (letter + time).
+- **A letter tap snaps every stand to that letter** (the room is stopped); then PLAY.
+- **On go: the strip STAYS, same height, nothing on the screen moves.** Everything
+  but STOP and the position greys out — while the room plays, nothing else applies.
+  (Sliding away was rejected: stopping would then cost a tap to reveal it first.)
+- **On stop:** the buttons come back. Below it the leader's part works exactly as any
+  player's (swipes, taps, the menu).
+- **BOTH forms exist, same controls:** the strip on the leader's stand (the default:
+  one icon, one explanation) and the same set full-screen on a phone or tablet with
+  no part — the conductor's remote, or a leader who prefers a second device. The
+  gatekeeper ticks "leader" on a row to give a stand the strip; the ensemble icon's
+  "Rehearsal" is the stand-alone remote. **Decide by use:** the composer asks the
+  first ensembles which they prefer and watches what problems arise.
+- **"No remote at all" for a chamber ensemble** = no leader ticked: every stand is
+  free, nothing snaps, playing together is by nod only, the scores run independently.
+  Kept as a possibility the composer is "open to considering"; not the default.
+- **RULED (composer): "good" — in principle.** Its DESIGN (transparency, real estate,
+  height) is done BY EYE together with the part scores in the build — the same
+  sitting that sets the part's size (D91). "Let's make sure we pay attention to its
+  design."
+
+**THE TRACKING LIST (composer: "keep track… organize and resurface"):**
+1. ✓ The study score — closed (three questions).
+2. ✓ How the playing leader holds the control — the strip (and the remote as
+   the second form); design by eye in the build.
+3. ✓ The lead-in on a jump: ~5 s RE-CONFIRMED ("That's fine… the same with any
+   time… 4:15, it'll start at 4:10"). Letters and typed times alike.
+4. ✓ How the leader names the spot: both on the strip (letters + the time box).
+5. How a player joins a live sectional from the stand (the dot's surviving job) —
+   to the cross-check (1c), with "start a sectional" placement.
+6. The Tuesday list: steps 2–13 still to be checked one by one at the composer's
+   pace (step 1 ✓).
+
+#### THE STUDY SCORE (day 45, from 1b issue 1; composer: "make sure that our decisions from before, just annotations, are compatible")
+
+**The AI's analysis — it fits, little to add:**
+- The full score already exists as an animated page (the composer / presentation
+  score; the conductor's display). A player's part is a VIEW of the same data (D81);
+  the full score is simply the other view. Nothing new to draw.
+- Private marks (D93) are stored as (player · which view · score-time · the stroke).
+  Marks made on the full score live on the full score; marks on the part live on the
+  part. NO automatic copying between them (the composer: "maybe they copy over" — by
+  hand, if they want). Compatible as ruled.
+- Studying without the instrument = the part or the full score, alone, offline, with
+  the three tools — exactly IND (D86) with a second view.
+
+**Three questions put, one per turn:** (1) how a player opens the full score — a menu
+item "full score / my part" (the menu's fifth item) vs a second icon from the
+ensemble page; (2) pinch-zoom on the STUDY score only (ten lanes on an iPad are small;
+the study score is never a synced stand, so the no-zoom reason does not apply);
+(3) when the room starts playing while a player is on the full score — the stand
+returns to their part (stands follow; "she wouldn't be playing from it").
+
+**Question 1 — RULED "1": the menu.** "Full score" / "my part" is the menu's FIFTH item
+(the menu is now: annotate · jump · speed · marks on/off · full score). One tap from
+anywhere, for the leader's "let me just check" moment.
+
+**Question 2 — zoom on the study score. The composer put a third candidate beside
+pinch-zoom and no-zoom: the notation workshop's FIXED ZOOM** (verbatim in
+COMPOSER_LOG) — tap ZOOM → about double, the score REPAGINATES (each page now half
+the time), the same left/right swipes turn pages, up/down swipes reach the parts that
+do not fit, tap again → out. **Side by side (AI):** NO ZOOM — simplest rule; seven to
+ten lines on a ten-inch screen too small to study. PINCH — familiar; but adjusted
+every time, horizontal + vertical panning, the page dissolves, swipes collide with
+pans. FIXED ZOOM — pages stay pages, the same swipe vocabulary, no fiddling, ONE new
+gesture (up/down, only here); ALREADY BUILT in the notation app and the SAME
+mechanism as the conductor's display zoom (D82) — one thing to build, not two. The
+"one or two parts at a time" variation is left aside: "my part" already is the
+one-part view. *AI recommendation: the fixed zoom.*
+**RULED (composer): "yes, fixed zoom."** A ZOOM button on the study score: about
+double, repaginated, left/right swipes turn pages, up/down swipes reach the rest of
+the lines, tap again to return. Pinch stays off everywhere.
+
+**Question 3 — RULED "yes, back to the part."** When the room plays, a stand on the
+full score returns to the player's part and follows; the full score is for stopped
+moments. (The full score following along is the conductor's DISPLAY role, not a
+player's stand.)
+
+**THE STUDY SCORE CLOSED (day 45):** the full score as the menu's fifth item · marks
+per view, no copying · the fixed zoom (double, repaginated, same swipes, up/down) ·
+back to the part when the room plays. Folds into D94 with 1b.
+
 ## 2 · DESIGN
 
 *(not started)*
