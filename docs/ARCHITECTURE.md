@@ -923,6 +923,44 @@ span set by eye in the build · drawn live from the score data in rehearsal, the
 picture as video in concert. **Banked:** rehearsal numbers must still be AUTHORED into
 the score (composer-module task, before the first ensemble — ENS iteration 3).
 
+#### CONTROLS — the gesture vocabulary, iteration 1 (day 45, 2026-10-19; composer verbatim in COMPOSER_LOG)
+
+**Bound from upstream:** IND's pinned default (D86 c) — swipe left/right = next/previous
+page · one-finger tap = place cursor · two-finger tap = play/stop · three fingers or
+long press = menu (annotate · jump · speed) · ENS stands: no room transport, local play
+while the room is stopped (D82) · SEC stands: room transport, last command wins (D85) ·
+tablet = fingers, laptop = mouse + keys · no stylus assumed.
+
+**Question 1 — one vocabulary in every module? RULED "yes".** The gesture is the same
+everywhere; what it DOES follows the module's rules already decided (two-finger tap =
+local play in a full rehearsal while the room is stopped; = the room's play/stop in a
+sectional; = play/stop when alone). A player never learns a second set.
+
+**Question 2 — the foot pedal: RULED "no pedal functionality".** Nothing designed,
+documented or tested for pedals. (Bluetooth page-turner pedals send keyboard keys; if
+the laptop mapping below answers those keys, a pedal may work incidentally — not a
+feature, not promised.)
+
+**Question 3 — the laptop: RULED "yes".** Click = place cursor · space bar = play/stop ·
+left / right arrow = previous / next page · a small on-screen menu button in a corner
+(no three-finger press with a mouse). Nothing else; no shortcuts to learn.
+
+**Question 4 — the conductor's remote: RULED "yes" — exactly the ENS set, nothing
+added.** Start/stop · jump (tap a rehearsal number, or type a time) · "again" · speed
+50/70/85/100 · the part buttons (tap = zoom that part on the display, tap again = back)
+· the live position (rehearsal number + time, large). Anything missing surfaces in the
+first rehearsal and is added then.
+
+**Question 5 — pinch-zoom: RULED "no pinch zoom".** The part's size is chosen by eye in
+the build; pinching would break one-screen-per-swipe and the page layout.
+
+**CONTROLS CLOSED (day 45, same sitting) → D92.** The vocabulary, whole: TABLET — swipe
+left/right = next/previous page · one-finger tap = place cursor · two-finger tap =
+play/stop · three fingers or long press = menu (annotate · jump · speed); the same in
+every module, the effect following the module's rules. LAPTOP — click = cursor · space
+= play/stop · arrows = pages · a menu button in a corner. CONDUCTOR'S REMOTE — the ENS
+set exactly. NOT: pedals · pinch-zoom · shortcuts.
+
 ## 2 · DESIGN
 
 *(not started)*

@@ -101,7 +101,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ☑ PARTS gather (day 45 → D91) · ► then CONTROLS · ANNOTATION-UX · mental models ·
+6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ► ANNOTATION-UX · mental models ·
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -219,10 +219,13 @@ that closed ENS in four iterations)*
    consumer is known before it is specced. **Done =** part-view
    requirements closed.
 
-5. ► **CONTROLS session** (Fable; the composer named this a dedicated session,
+5. ☑ **CONTROLS session — CLOSED day 45 → D92** (five questions: one vocabulary
+   everywhere · no pedal · laptop = click / space / arrows / menu button · the
+   remote = the ENS set exactly · no pinch zoom). Record: ARCHITECTURE § CONTROLS.
+   *(As planned:)* **CONTROLS session** (Fable; the composer named this a dedicated session,
    day 38). The swipe/tap vocabularies, per device (tablet = fingers,
    laptop = mouse + keys). **Done =** vocabulary agreed and filed.
-6. **ANNOTATION-UX session** (Fable; dedicated, day 38). "Simple universal
+6. ► **ANNOTATION-UX session** (Fable; dedicated, day 38). "Simple universal
    functions": scopes (private / to-one-player / to-everyone), the conductor's
    paper→digital transfer path, one-gesture undo.
    **Done =** annotation requirements closed.
@@ -296,6 +299,23 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-19 (day 45, after midnight — CONTROLS CLOSED ☑ → D92; ►
+  ANNOTATION-UX session, order chunk 6):** five questions, one per turn:
+  one vocabulary everywhere ("yes") · "no pedal functionality" · the laptop
+  mapping ("yes") · the remote = the ENS set ("yes") · "no pinch zoom".
+  Three chunks closed this sitting (PORTAL D90 · PARTS D91 · CONTROLS D92).
+  RUNNING_LOG 82.
+
+- **2026-10-19 (day 45, after midnight — ► CONTROLS session OPENED, order
+  chunk 5):** composer: "go for next". Banked inputs in hand: the IND gesture
+  default pinned (swipe = pages · one-finger tap = cursor · two-finger tap =
+  play/stop · three-finger or long press = menu; menu = annotate · jump ·
+  speed) · ENS stands have no room transport, local play while stopped ·
+  SEC every stand carries transport · the conductor's remote = start/stop/
+  jump/again/speeds + part-zoom buttons for the display · tablet = fingers,
+  laptop = mouse + keys · no stylus assumed · the foot pedal (day 45).
+  RUNNING_LOG 82.
 
 - **2026-10-18 (day 45, later — PARTS CLOSED ☑ → D91; ► CONTROLS session,
   order chunk 5):** three questions, one per turn: own notes + rehearsal

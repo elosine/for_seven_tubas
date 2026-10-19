@@ -2618,3 +2618,17 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Question 2 — the beating-frequency indicator: option 1 leave it parked for a later version; option 2 design it now for the first build:)* **"1"**
 
 *(Question 3 — how much music per screen: not decided now, set by eye on the real iPad during the build:)* **"good"** — PARTS closed.
+
+### Day 45 (2026-10-19, after midnight) — CONTROLS session opened (dictated, one question per turn)
+
+*(After PARTS closed: "You can stop here, or keep going.")* **"go for next"**
+
+*(Question 1 — the same gestures in every module; what a gesture does follows the room's rules:)* **"yes"**
+
+*(Question 2 — the foot pedal: page turns only, or also play/stop:)* **"no pedal functionality"**
+
+*(Question 3 — the laptop: click = cursor · space = play/stop · left/right arrows = pages · a small menu button in a corner; nothing else:)* **"yes"**
+
+*(Question 4 — the conductor's remote is exactly the ENS set: start/stop · jump by rehearsal number or typed time · again · four speeds · part-zoom buttons · the live position in large type; nothing added:)* **"yes"**
+
+*(Question 5 — pinch to zoom on the part:)* **"no pinch zoom"** — CONTROLS closed.

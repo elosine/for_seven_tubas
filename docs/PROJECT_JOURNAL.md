@@ -10,11 +10,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 45, late): PORTAL ☑ → D90 and
-> PARTS ☑ → D91, both closed this sitting. ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): the CONTROLS session (order chunk 5)
-> — Fable; the composer says "brief me". **The Tempus re-cut was REFUSED
-> (day 45): the whole system first; order unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-19, day 45, after midnight): PORTAL ☑ D90 ·
+> PARTS ☑ D91 · CONTROLS ☑ D92, all closed this sitting. ► NEXT on the
+> organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): the ANNOTATION-UX session
+> (order chunk 6) — Fable; the composer says "brief me". **The Tempus re-cut
+> was REFUSED (day 45): the whole system first; order unchanged.** Nothing
+> in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -38,13 +39,14 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► CONTROLS session** (order chunk 5; Fable, "brief me"): the swipe and tap
-  vocabulary per device — tablet fingers, laptop mouse and keys. Clear before it.
+- **► ANNOTATION-UX session** (order chunk 6; Fable, "brief me"): scribbling on
+  the score — all marks private (ENS), finger-first, few tools, one-gesture
+  undo, the conductor's paper-to-digital path. Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ 5. PORTAL gather → D90 · ☑ 6. PARTS gather → D91 (both day 45, one sitting).
+- ☑ 5. PORTAL gather → D90 · ☑ 6. PARTS gather → D91 · ☑ CONTROLS → D92 (all day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -62,7 +64,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** PORTAL (D90) and PARTS (D91) closed and filed; nothing in
+**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91) and CONTROLS (D92) closed and filed; nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -408,6 +410,23 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D92** *(2026-10-19, day 45)* — **CONTROLS CLOSED at requirements level
+  (performance arc chunk 5).** **One gesture vocabulary in every module;
+  what a gesture does follows the module's rules.** TABLET: swipe left /
+  right = next / previous page · one-finger tap = place cursor · two-finger
+  tap = play/stop (local play in a full rehearsal while the room is stopped;
+  the room's play/stop in a sectional; play/stop alone) · three fingers or
+  long press = menu (annotate · jump · speed). LAPTOP: click = cursor · space
+  = play/stop · left / right arrow = pages · a menu button in a corner.
+  CONDUCTOR'S REMOTE: exactly the ENS set — start/stop · jump by rehearsal
+  number or typed time · "again" · speed 50/70/85/100 · part-zoom buttons ·
+  the live position in large type. **NOT:** pedal support of any kind ("no
+  pedal functionality") · pinch-zoom · keyboard shortcuts. **Why:** a player
+  learns one set once; the part's size is chosen by eye in the build so
+  zooming is unneeded; fewer things to go wrong on a stand. **Rejected:**
+  pedal page-turns (even as the free keyboard-key path) · pedal play/stop ·
+  pinch-zoom · additions to the remote before a rehearsal asks for them.
+  Trail: COMPOSER_LOG day 45 · ARCHITECTURE § CONTROLS · RUNNING_LOG 82.
 - **D91** *(2026-10-18, day 45)* — **PARTS CLOSED at requirements level
   (performance arc chunk 4.5 / top-line 6).** The stand shows **the player's
   own notes, plus the rehearsal number and the time in a corner** — no cue
