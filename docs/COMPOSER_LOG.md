@@ -2602,3 +2602,9 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Question 3 — the conductor's one link on two devices, monitor shows and tablet controls:)* **"y"**
 
 *(Question 4 — versions follow the ensemble page; icons update, nothing re-installed:)* **"y"** — PORTAL closed.
+
+### Day 45 (2026-10-18, late) — after PORTAL closed: the Tempus re-cut REFUSED, the whole system first (dictated)
+
+*(The AI proposed re-cutting the order so Tempus gets a working system sooner — parts → freeze → design → plan → build, with controls, annotations, mental models and the final cross-check after the first deployment:)*
+
+*"First, can we take a step back and just orient me or remind me of what everything has happened? We had a long planning conversation. Was that just to establish the requirements? Uh, what was to go into the plan? Is that what that was? And now are we building the actual parts of the plan based on testing and whatnot? Is that what's happening now? With regard to the Tempest septet, I think we will have the time to roll out the, or to finish the entire plan, to roll out the whole system. That may be, might be better than to ship something, one part of it, and then, you know, ship an amended part. They said early November, and it wasn't clear when, early November for the notification, it wasn't clear how soon after they would need parts, but even then, I think, November 1st or first week of November is realistic. So let's aim to build the entire plan and the entire build. And then do we have a testing stage for when things are built that I can test myself here?"*

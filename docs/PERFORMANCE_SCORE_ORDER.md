@@ -78,6 +78,17 @@
   mental-models / vet fall after the Tempus deployment.** The re-cut
   of the order is proposed after the ENGINE verdicts — lands on
   composer approval, as always.
+- **RE-CUT REFUSED (composer, day 45, 2026-10-18): THE WHOLE SYSTEM FIRST.**
+  *"I think we will have the time to… finish the entire plan, to roll out the
+  whole system. That may be… better than to ship something, one part of it,
+  and then… ship an amended part… let's aim to build the entire plan and the
+  entire build."* The order below stands unchanged. **Dates as the composer
+  said them (awareness only):** Tempus notification "early November"; parts
+  "November 1st or first week of November is realistic". **A composer-run
+  TEST STAGE after the build is owed** (composer: "do we have a testing stage
+  for when things are built that I can test myself here?") — the PLAN step
+  writes it in explicitly: built chunks tested by the composer at home on
+  the iPad · laptop · Fire before any ensemble sees them.
 
 ## THE WHOLE ARC — TOP LINE (day 42; the composer's ask. The chunk
 order beneath is unchanged — this is the same arc in one glance.)

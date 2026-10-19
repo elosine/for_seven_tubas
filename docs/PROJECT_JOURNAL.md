@@ -13,8 +13,8 @@ piece #3's `docs/` — registered as an additional working directory.
 > **► CURRENT POSITION (2026-10-18, day 45, late): PORTAL CLOSED ☑ → D90
 > (top-line 5 / order chunk 4, one sitting). ► NEXT on the organizer
 > (`docs/PERFORMANCE_SCORE_ORDER.md`): 6. PARTS gather (order chunk 4.5) —
-> Fable; the composer says "brief me". **Raise first: D88's Tempus-first
-> re-cut of the order** (the device numbers are in). Nothing in flight.**
+> Fable; the composer says "brief me". **The Tempus re-cut was REFUSED
+> (day 45): the whole system first; order unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -39,7 +39,10 @@ piece #3's `docs/` — registered as an additional working directory.
 ### NEXT UP
 
 - **► 6. PARTS gather** (order chunk 4.5; Fable, "brief me"). Clear before it.
-  **Raise first:** D88's Tempus-first re-cut of the organizer order.
+  **Re-cut refused (day 45):** the whole plan and the whole build before
+  Tempus; the order stands. A composer-run test stage after the build goes
+  into the PLAN step. Tempus dates as said: notification early November;
+  parts first week of November realistic.
 - ☑ 5. PORTAL gather — closed day 45 → D90 (one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
