@@ -101,7 +101,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ► mental models · PERFORMANCE PROTOCOL (new, composer day 45) ·
+6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ► PERFORMANCE PROTOCOL (new, composer day 45) ·
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -233,12 +233,17 @@ that closed ENS in four iterations)*
    functions": scopes (private / to-one-player / to-everyone), the conductor's
    paper→digital transfer path, one-gesture undo.
    **Done =** annotation requirements closed.
-6.5 **PERFORMANCE PROTOCOL** (Fable; PROPOSED from the composer's day-45 words —
-   placement to confirm). The concert-time stand: "maybe it's simpler just… to
+6.5 ► **PERFORMANCE PROTOCOL** (Fable; from the composer's day-45 words; taken
+   next after 1b — say if the vet should come first). The concert-time stand: "maybe it's simpler just… to
    be a completely passive stand for performance time before and after the
    performance"; the night's sequence; when a player sets marks on/off. **Done =**
    the concert protocol stated. (No menu DURING the performance is already ruled.)
-7. ► **1b — the composer's mental models** (Fable). How the composer pictures
+7. ☑ **1b — the composer's mental models — CLOSED day 45 → D94** (the Tuesday
+   walk-through, thirteen moments all checked · one central control for every
+   ensemble, the leader's strip · the handout and rehearsal night concrete · the
+   lead-in re-confirmed · THE STUDY SCORE closed inside it). Record: ARCHITECTURE
+   § 1b iterations 1–2, § THE STUDY SCORE, § PORTAL iteration 3. *(As planned:)*
+   **1b — the composer's mental models** (Fable). How the composer pictures
    rooms, roles, the flow — logged before the AI evaluation reframes anything.
    **Done =** logged to ARCHITECTURE.md + COMPOSER_LOG.
 8. **1c + 1d — AI evaluation + vet loop** (Fable). Gaps, conflicts, what was
@@ -312,6 +317,16 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-19 (day 45, ~2 a.m. — 1b CLOSED ☑ → D94; ► 6.5 PERFORMANCE
+  PROTOCOL, then 1c + 1d the cross-check):** the composer narrated a Tuesday
+  rehearsal; all thirteen moments checked against the rulings; the
+  conducted/chamber switch and the dot DROPPED (the composer's picture = D82
+  for every ensemble); the leader's strip (design by eye in the build); the
+  handout + rehearsal night made concrete; the 5 s lead-in and the immediate
+  jump confirmed; the study score closed (menu item · marks per view · fixed
+  zoom · back to the part). FIVE chunks + the study score in one sitting
+  (D90–D94). RUNNING_LOG 79–84.
 
 - **2026-10-19 (day 45, after midnight — ► 1b MENTAL MODELS OPENED, order
   chunk 7):** composer: "go". This chunk is the composer dictating their own

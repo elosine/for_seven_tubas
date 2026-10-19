@@ -10,13 +10,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-19, day 45, after midnight): PORTAL ☑ D90 ·
-> PARTS ☑ D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93, all closed this sitting.
-> ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): 1b the
-> composer's mental models (order chunk 7) — Fable; the composer says "brief
-> me". A PERFORMANCE PROTOCOL conversation (6.5) is proposed from the
-> composer's words; placement to confirm. **The Tempus re-cut was REFUSED
-> (day 45): the whole system first; order unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-19, day 45, ~2 a.m.): PORTAL ☑ D90 · PARTS ☑
+> D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93 · 1b MENTAL MODELS + THE STUDY SCORE
+> ☑ D94 — all in one sitting. ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): 6.5 PERFORMANCE PROTOCOL (short), then
+> 1c + 1d the cross-check — Fable; the composer says "brief me". **The Tempus
+> re-cut was REFUSED (day 45): the whole system first; order unchanged.**
+> Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -40,15 +40,16 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 1b — the composer's mental models** (order chunk 7; Fable, "brief me"):
-  how the composer pictures rooms, roles and the flow — logged before the AI
-  evaluation reframes anything. Then 6.5 PERFORMANCE PROTOCOL (proposed) and
-  1c + 1d the vet. Clear before it.
+- **► 6.5 PERFORMANCE PROTOCOL** (Fable, "brief me"; short): the concert-time
+  stand — completely passive before and after the piece? when marks on/off is
+  set for the night; the night's sequence. Then **1c + 1d the cross-check**
+  (carry-in: joining a sectional from the stand; where "start a sectional"
+  lives; the menu now has five items). Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 (all day 45, one sitting).
+- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 · ☑ 1b + the study score → D94 (all day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -66,7 +67,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91), CONTROLS (D92) and ANNOTATION (D93) closed and filed; nothing in
+**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91), CONTROLS (D92), ANNOTATION (D93) and 1b + the study score (D94) closed and filed; nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -412,6 +413,39 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D94** *(2026-10-19, day 45)* — **1b MENTAL MODELS CLOSED + THE STUDY
+  SCORE (performance arc chunk 7).** The composer's picture: *"recreate or
+  get close to the paper score situation"* — narrated as a Tuesday rehearsal,
+  thirteen moments, every one checked against the rulings. **It equalled the
+  full-rehearsal rule (D82) applied to EVERY ensemble:** ONE CENTRAL CONTROL;
+  everyone else free while the room is stopped (flip, scribble, local play);
+  a letter tap jumps every stand AT ONCE, before play ("the immediate jump
+  is fine"); ~5 s lead-in on every jump, letters and typed times alike. **The
+  leader's control, two forms, same buttons:** a thin STRIP above the
+  leader's own part (play/stop · again · the letters · speeds · a time box ·
+  the position; stays on go, greys to STOP; the gatekeeper ticks "leader" on
+  a row) — the default — and the same set full-screen on a device with no
+  part (the conductor's remote); decide by use with the first ensembles; "no
+  remote at all" kept as a possibility. Strip design by eye in the build.
+  **The handout, concrete:** admin page → one gatekeeper link by ordinary
+  email → the ENSEMBLE PAGE (a row per part: optional name · link · copy ·
+  share · add another · new link; a printable QR sheet; "Rehearsal") → the
+  player taps, adds to the home screen, the icon IS the part; NO automatic
+  email. **Rehearsal night:** the gatekeeper's icon opens the remote (Players
+  behind a button); the player's icon opens their part, zero clicks, where
+  they left it. **THE STUDY SCORE:** the full score is the menu's FIFTH item
+  ("full score / my part"); marks per view, no copying; the notation
+  workshop's FIXED ZOOM (double, repaginated, same swipes, up/down for the
+  rest) — pinch off everywhere; the room playing returns a stand to its
+  part. **Why:** the paper analogy was simpler than the mechanisms the AI
+  reached for, and already built. **Rejected / dropped:** a per-ensemble
+  CONDUCTED/CHAMBER switch · a "step out of the room" dot · automatic email
+  · pinch-zoom · the full score following for a player · a second icon for
+  the study score. **Banked:** joining a sectional from the stand and where
+  "start a sectional" lives → 1c · the strip's design → the build · a
+  PERFORMANCE PROTOCOL conversation (6.5). Trail: COMPOSER_LOG day 45 ·
+  ARCHITECTURE § 1b it. 1–2, § THE STUDY SCORE, § PORTAL it. 3 · RUNNING_LOG
+  84 · PAPER_NOTES day 45.
 - **D93** *(2026-10-19, day 45)* — **ANNOTATION CLOSED at requirements level
   (performance arc chunk 6).** **Three tools only:** a pen (one colour, one
   thickness, finger-drawn) · an eraser · undo. **A clear in-and-out:** menu →

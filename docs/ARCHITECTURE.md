@@ -1182,8 +1182,15 @@ would look like… does it collapse or slide away?"):**
 4. ✓ How the leader names the spot: both on the strip (letters + the time box).
 5. How a player joins a live sectional from the stand (the dot's surviving job) —
    to the cross-check (1c), with "start a sectional" placement.
-6. The Tuesday list: steps 2–13 still to be checked one by one at the composer's
-   pace (step 1 ✓).
+6. ✓ The Tuesday list: all thirteen checked. The pianist (step 10) never gets the
+   strip — her two-finger tap plays her own stand only (D82). **Confirmed: a letter
+   tap on the strip jumps every stand AT ONCE, before play** ("the immediate jump is
+   fine"); players may still flip there themselves when the leader only says it.
+
+**1b CLOSED (day 45, one long sitting) → D94.** The composer's picture, in one line:
+*"recreate or get close to the paper score situation"* — and it turned out to equal
+the full-rehearsal rule already ruled, applied to every ensemble. Item 5 (joining a
+sectional from the stand; where "start a sectional" lives) → the cross-check 1c.
 
 #### THE STUDY SCORE (day 45, from 1b issue 1; composer: "make sure that our decisions from before, just annotations, are compatible")
 

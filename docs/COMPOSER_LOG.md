@@ -2694,3 +2694,5 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(The three side by side; the fixed zoom recommended:)* **"yes, fixed zoom"**
 
 *(Study score question 3 — the room starts while a player is on the full score: back to the part, or the full score follows:)* **"yes, back to the part"** — the study score closed.
+
+*(The pianist never gets the strip — her own two-finger tap plays her stand only; the one thing to know: a letter tap on the strip jumps every stand at once, before play:)* **"yes, the immediate jump is fine"** — the Tuesday, all thirteen ✓; 1b closed.
