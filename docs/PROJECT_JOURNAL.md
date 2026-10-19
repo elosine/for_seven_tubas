@@ -10,265 +10,59 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 44, night): 3.8 ☑ CLOSED — the
-> iPad re-test + the slow-mo film filed (RUNNING_LOG 78, ENGINE_BRIEF §8
-> "The re-test"). The floor clock holds 0.0–2.4 ms on the real iPad; the
-> screen shows every frame. Carried into HARDEN: per-session calibration ·
-> Safari rehearsal-jump seeks · Safari frames by decoder/film. Next on the
-> organizer's top line: see PERFORMANCE_SCORE_ORDER.md. Read OPEN AT
-> SESSION END's first entry first — the day-41 LAST SESSION block below is
-> history, superseded.**
+> **► CURRENT POSITION (2026-10-18, day 44, session end): the performance
+> arc's top-line step 4 ☑ (the kit ran on real devices) and 3.8 ☑ (the fix
+> + re-test). ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`):
+> 5. PORTAL gather — Fable; the composer says "brief me". Nothing in
+> flight.**
 
-### LAST SESSION — day 41 (2026-08-31 → 09-01, Claude Code / **Fable 5**, one long night, several sittings)
+### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
-- **🎉 PENN STATE FULLY CLOSED — both submissions in, three days early.**
-  Composition submitted 2026-09-01 (form support measured/from the record,
-  RUNNING_LOG 33–38: cover-exact title · WAV duration 749.3 s ≈ 12:29 ·
-  100-word bio · 92-word program note). Abstract DRAFT G finished (a–d
-  closed → 288 words, times composer-confirmed + data-verified, links
-  wired — RUNNING_LOG 39) and composer-hosted + submitted (entry 45).
-  Standing obligation only: hosted copies live through Nov 1, 2026.
-- **THE PERFORMANCE ARC OPENED AND RAN (D84 organizer):** brief-on-resume
-  contract + chunked order in `docs/PERFORMANCE_SCORE_ORDER.md`; the order
-  is composer-approved and live, with ENGINE ruled next and a PARTS chunk
-  added (4.5).
-- **THREE SCENARIO CHUNKS CLOSED IN ONE NIGHT — SEC (☑ D85) · IND
-  (☑ D86) · PERF (☑ D87):** SEC = live-rooms, headless, own part only.
-  IND = serverless solo, pinned taps, three-item menu, looping dead
-  everywhere. PERF = **the ENS room hardened** — on-the-fly start, NO
-  ceremony, three redundancy rungs, **after GO the network is optional**
-  (fixed-timeline star, drift estimate gated). **ENGINE chunk APPROVED**
-  (jitter admission; the performance renderer may differ from the
-  composer score; AI owns the brief + a composer-runnable test kit).
-  ► next = ENGINE brief or PORTAL, composer's call.
-- Step-7 wrap still owed: git tag · gitignored-deliverables archive call ·
-  SAVE_FILES check.
+- **D88:** one module system for all pieces · Tempus deploys first · modules
+  built for every piece regardless of acceptance · the AI holds dates for
+  ordering awareness only.
+- **D89 — ENGINE CLOSED:** A fix-in-place for IND/SEC/ENS · C per-part video
+  for the concert stand · B benched · own Socket.IO server + THE FLOOR RULE ·
+  Hetzner, one VPS · the test kit. Record: `docs/ENGINE_BRIEF.md`.
+- **The kit built + verified (3.6), then run on desktop · iPad · laptop ·
+  Fire + a slow-mo beacon (3.7, RUNNING_LOG 75):** A = A2 (GPU layers) holds
+  99.4 % of frames on the Fire (today's engine 57 %); three floor-clock
+  faults and Safari's start/seek found by real Wi-Fi.
+- **3.8 fix + re-test (RUNNING_LOG 76–78):** floor clock v3 → 0.0–2.4 ms on
+  honest Wi-Fi on the real iPad (was 8–14), every lie held · the video start
+  stall gone · a slow-mo FILM CHECK proved Safari shows every frame (its
+  frame callbacks undercount; its decoder is right) — the film reader took
+  six versions and two eye checks to be right.
+- The composer bought an iPad (the WebKit stand). Testing = double-click
+  `start_testkit.bat` + `testkit/README.md`.
 
-### NEXT UP — day 39 RUNNING ORDER (composer-approved agenda, 2026-08-29)
+### NEXT UP
 
-**The arc: close ENS → submission cleanups → archive point.** Penn State
-deadline **Sept 4**. Architecture gathering (sectional · individual · mental
-models · 1c) RESUMES AFTER the submission arc — deferred by the composer
-day 39, not dropped.
-
-**Day 41: this arc is effectively CLOSED** — the form is in; the abstract
-text is final (hosting + submit remain, see NEXT STEPS). **The architecture
-gathering now resumes as THE PERFORMANCE ARC — standing organizer
-`docs/PERFORMANCE_SCORE_ORDER.md` (D84), chunk 1 ► SEC.** The list below
-stays as the submission arc's record.
-
-**HOW THIS LIST WORKS (composer requirement, day 39):** the composer focuses
-on ONE step at a time — **► marks the active step; ☑ marks done** (update the
-marks the moment a step wraps, not later). **At every step wrap the AI states:
-what finished · what's next · where we are in the order.** The AI monitors the
-order and PROPOSES reorganizations when useful — **changes land only on
-composer approval**; the version in this doc is always the approved one. This
-block is the live position and survives every clear — a post-clear model reads
-it and announces the position before doing anything.
-
-1. ☑ **ENS CLOSE** (done 2026-08-29 → D81, D82) — settle the ZOOM thread (composer's proposal:
-   click a part → composer-score zoom view · click again → off · phone:
-   10 toggle buttons) + the local-play nod (stands: no room transport;
-   local play while the room is stopped) + formally kill the A/B-loop
-   candidate (looping rescinded globally, iteration 4) → mark ENS CLOSED
-   in ARCHITECTURE.md. **Wrap:** promote M1/M2 supersession to §4 + PLAN
-   §3 annotation · RUNNING_LOG · commit+push.
-   *☑ Detour (approved, day 39): session system made portable — five
-   user-level skills in `~/.claude/skills/` (incl. new `/running-order`) +
-   global CLAUDE.md section; RUNNING_LOG day 39 has the account.*
-2. ☑ **CLEAR** (done 2026-08-29 — cleared and reopened on Fable via
-   `/session-start`; boundary wrap was step 1's).
-3. ☑ **PROOFREAD LOOP** (done 2026-08-31, day 40) — four items, four
-   closures (#1 KEEP · #2 cuivré medium gap · #3 cl-50 dynamics · #4 the
-   meter congruence root-cause fix + THE TUBE restored). Composer closed
-   the sweep: "proofreading sweep is done." The ledger is the full record.
-   **The ledger is BUILT: `docs/PROOFREAD_LEDGER.md`** (day 39) — part-by-part
-   sweep via zoom view · items LOGGED → APPLIED → GOOD/RETRY · POSITION block
-   = cold pickup after any interruption. **Log every dictated item there the
-   moment it is said.**
-   *(Closed state: all verdicts GOOD; the day-40 congruence work grew out of
-   #4 — layout.drawnLevelSamples is the one drawn-level source, the tube is
-   a composer-defined performance gauge, test_animobj carries the permanent
-   congruence + tube battery.)*
-
-4. ► **PERFORMANCE NOTES** (Fable) — PLANNER "Performance Instructions",
-   the front matter. Sources: NOTATION_STANDARDS · the D-log · demo
-   recordings ("part of the apparatus"). ACTIVE as of day 40.
-5. ► **ABSTRACT SUBMISSION** — named by the composer (day 41) as next
-   session's work. Verify what exists (composer believed done); finish +
-   composer submits.
-6. ☑ **FINAL RENDERS** (done 2026-08-31) — video re-rendered with the
-   day-40 fixes, `phase5.sh` measured (morph probes 0.00%, t=730 = the fix),
-   **V-CUT approved by the composer and the set ARCHIVED byte-verified in
-   `notation/video/approved/2026-08-31-submission/`** (2026-08-27 kept;
-   phase5's drift check re-pointed). **Print score rebuilt at 69 pages:
-   cover · Performance Instructions as PAGE 2 (two columns, sourced from
-   docs/notation_instructions/index.html at build time) · 67 music pages.**
-7. ◐ **SUBMISSION PACKAGE + ARCHIVE POINT** — **THE FORM IS SUBMITTED
-   (2026-09-01 ✓)**; title/duration/bio/program note supported in-session
-   (RUNNING_LOG 33–37). **The wrap REMAINS:** SAVE_FILES.md current · git
-   tag at the submission state · **the gitignored deliverables (approved
-   mp4s incl. the five demos, WAVs, print PDF, save-version chain) need an
-   explicit archive decision — a git tag alone does not capture them.**
-   Step 4 stays OPEN alongside (C1–C5 verdicts · any further dictation).
-
-### NEXT STEPS · MODEL · CLEAR (day 42, 2026-09-23 — TEMPUS DEPLOYS FIRST, D88)
-
-**Penn State is IN (both submissions, 2026-09-01).** Standing: hosted
-copies live through Nov 1, 2026. **New order (D88, amended same day):
-Tempus deploys first because it comes due first** (dates for awareness
-only: selection ~Oct 29 = score+parts due; concerts Nov 26–28).
-**Modules get built for ALL pieces regardless of acceptance —
-acceptance = a user-testing opportunity. The AI holds dates for
-ordering awareness only; it does not manage deadlines.**
-
-1. ☑ **ENGINE CLOSED (day 42 → D89) — brief delivered and all four
-   verdicts landed in one sitting:** renderer per module (A fix-in-place
-   for IND/SEC/ENS · C per-part video for the concert stand · B benched
-   on kit data) · own small Socket.IO server + THE FLOOR RULE (no
-   Colyseus/WebRTC) · Hetzner, one VPS, all pieces · kit spec approved.
-   Full record: `docs/ENGINE_BRIEF.md`.
-   ☑ **THE KIT IS BUILT AND VERIFIED (organizer 3.6, 2026-09-29, Opus)**
-   — `testkit/`; first numbers + two corrections: ENGINE_BRIEF §8.
-   **► NEXT (organizer 3.7): the composer runs the kit on real devices**
-   (`testkit/README.md`; no model needed at the devices). Then an AI
-   (Opus is fine — it is filing) reads `testkit/results/` into §8's
-   table. **PORTAL (chunk 4, Fable, GATHER) may run any time** — say
-   "brief me". After the device numbers: the Tempus-first re-cut of the
-   order, then HARDEN with measured numbers (Fable).
-2. **STEP-7 WRAP (any session, quick; Fable for the archive decision):**
-   git tag at the submission state · gitignored-deliverables archive call
-   (approved mp4s incl. five demos, WAVs + heldmax, print PDF, save
-   chain) · SAVE_FILES check.
-3. **STEP 4 stays OPEN:** C1–C5 verdicts · held-back gliss sub-block
-   (C1) · further dictation — a 3 s rebuild reaches print.
-   **This wrap is the clear point.**
-
-Parked past submission: rehearsal/performance score builds (PLANNER) ·
-CONTROLS session · ANNOTATION-UX session · sectional/individual scenarios.
+- **► 5. PORTAL gather** (Fable, "brief me"). Clear before it.
+- **Carried into HARDEN (organizer 9), from the measurements:** calibrate
+  every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
+  rehearsal jumps = pause → seek → ready → start on a clock moment
+  (PROPOSED, not built; why an aimed seek still lands ~150 ms off is NOT
+  diagnosed) · on Safari, count frames by the decoder or a film, never the
+  frame callbacks.
+- **To raise with the composer when the order next moves:** D88's
+  Tempus-first re-cut of the organizer order (planned "after the device
+  numbers" — they are in).
+- **Owed, undated (the day-39 submission order):** step 4 PERFORMANCE NOTES
+  (C1–C5 verdicts · held-back gliss sub-block · CONVERGENCE ends-apart flag)
+  · step 7 wrap (git tag at the submission state · the gitignored-
+  deliverables archive call · SAVE_FILES check). The full day-39 list is in
+  git history (journal before 13a0f7d).
 
 ### OPEN AT SESSION END
 
-**(day 44, 2026-10-18 — THE STANDS REPORTED; ◇ fix + re-test proposed)**
-
-- **Done:** four devices ran every test (desktop · iPad full run · laptop
-  · Fire) + the beacon; filed in ENGINE_BRIEF §8 "The stands" and
-  RUNNING_LOG 75. Results JSONs in `testkit/results/`; the 155 MB beacon
-  video stays local (gitignored).
-- **What it settled:** V1 holds, refined — A = A2 (GPU layers): on the
-  Fire, today's engine 57 % of frames on time, A1 89.6 %, A2 99.4 %, B and
-  C 100 %. The iPad has headroom (today's engine 6 of 16.7 ms). Every
-  lie refused. Beacon: two screens 7.7 ms apart.
-- **What it found (to fix):** floor clock 8–14 ms off in honest stretches
-  on the iPad, 17–25 ms on the Fire (noise judged from RTT not scatter;
-  junk calibration accepted; spike-filter starvation) · Safari video:
-  ~0.5 s start stall, seeks 150–200 ms late · the kit's T3 yardstick
-  biased on noisy Wi-Fi (re-scored by hand).
-- **Pending the composer:** ~~approve 3.8~~ ~~the iPad re-test~~ — 3.8 ☑
-  CLOSED (RUNNING_LOG 78): floor clock 0.0–2.4 ms honest on the iPad;
-  every frame shown on screen (the film); seeks ~150 ms → HARDEN.
-- **Resume reads:** ENGINE_BRIEF §8 "The stands" · RUNNING_LOG 75.
-
-**(day 42 cont., 2026-09-29 — THE KIT IS BUILT AND VERIFIED; ► it runs
-on the composer's devices)** *(supersedes the checkpoint entry below)*
-
-- **What exists:** `testkit/` — the page (T5 device card · T1 frame
-  health · T2 five renderer lanes · T4 video stand + frame servo · T3
-  clock + floor-rule sabotage · beacon), `server.js` (dependency-free,
-  port 4760), `build_assets.js` (the busiest 60 s of db1, drawn by the
-  real engine; ~1.5 min), `test_syncclock.js` 15/15 + `test_servo.js`
-  10/10 (simulation batteries), `verify_headless.js` (the kit verifies
-  itself in headless Edge; `--shots` = the renderer fidelity check),
-  `README.md` (the composer's run protocol). Assets are gitignored
-  (regenerate). First numbers (this PC, headless): ENGINE_BRIEF §8.
-- **Next concrete step (the composer's, no AI needed at the devices):**
-  `node testkit/server.js` on the PC → on each device open the printed
-  LAN address → name the device → **Run all tests** (quick ≈ 13 min) →
-  **Save to server**. Then any AI: read `testkit/results/*.json`, file
-  the per-device numbers into ENGINE_BRIEF §8's table, and say which
-  ESTIMATEs they close. PORTAL (chunk 4, Fable, "brief me") can run
-  before, between or after.
-- **Findings already in the record (RUNNING_LOG 67–70):** the brief's §2
-  C was CORRECTED twice (video's ±½-frame floor; trims = whole frames) ·
-  performance videos should be encoded with 1-s keyframes (seeks ~12×
-  faster) · production evaluates all 4202 animated instances per frame
-  (the fix indexes them by time) · the server's clock must be raw
-  monotonic, not NTP-slewed.
-- **Resume reads:** `docs/ENGINE_BRIEF.md` §8 · `testkit/README.md`.
-- **Deliberately uncommitted — the composer's own files, never staged by
-  AI:** `reaper/7_tubas_rack.rpp` (M) ·
-  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) ·
-  `scores/Litany.pdf` (??). `testkit/assets/` is gitignored (built).
-
-**(day 42, 2026-09-23 → 09-29 — mid-session checkpoint — ENGINE CLOSED
-(D89); ► THE KIT BUILD)** *(SUPERSEDED — the kit is built; see above)*
-
-- **Task + state:** the performance arc — organizer
-  `docs/PERFORMANCE_SCORE_ORDER.md` (whole-arc top line: 16 steps,
-  DECIDE → BUILD → DEPLOY). Steps 1–2 ☑: scenarios (D82 · D85–D87) and
-  ENGINE (D89 — all four verdicts in one sitting). **Needle: 3.6 ► KIT
-  BUILD — racked, not started.** D88 frames everything: one module
-  system for all pieces; Tempus deploys first (dates = ordering
-  awareness only — the AI does not manage deadlines); modules built for
-  every piece regardless of acceptance.
-- **Latest deliverable:** `docs/ENGINE_BRIEF.md` — diagnosis (the
-  per-frame `innerHTML` overlay rebuild = the jitter's address) ·
-  renderers per module (A fix-in-place for IND/SEC/ENS · C per-part
-  video for the concert stand · B benched) · sync backstops + THE FLOOR
-  RULE · piece-#1 autopsy · risk register · Hetzner hosting · kit spec
-  §5 + cold-start build plan §5b.
-- **Next concrete step (Opus):** build the test kit exactly per
-  `docs/ENGINE_BRIEF.md` §5b — create `testkit/` (`index.html`, one
-  static page · `server.js`, tiny Node on its own port — 5200/4700 are
-  the score/sandbox — plus a `.claude/launch.json` entry for
-  preview_start · `README.md`, run protocol + results template ·
-  `assets/`); generate the two content assets from the SAME busy `db1`
-  material (one page as SVG + ~60 s / 60 fps video via the exporter —
-  pipeline scripts in THE DELIVERABLES table below); implement T1–T5
-  incl. the T3 sabotage toggle; verify every test in the preview
-  browser, incl. one deliberate wrong-clock case, before claiming done.
-  Touch nothing in the score apps. Wrap: organizer 3.6 ☑ + position log
-  · RUNNING_LOG · commit + push. **If the composer's first words name
-  PORTAL ("brief me"), that is chunk 4 on Fable instead — and if this
-  resumes on Fable, confirm which in one line before starting.**
-- **Resume reads:** `docs/ENGINE_BRIEF.md` whole (§5 + §5b are the
-  build; §1–§3 define what T2–T4 measure). Nothing else.
-- **Pending the composer:** kit vs PORTAL first (the ► says kit) ·
-  which devices are on hand for kit runs (§5 zoo guidance) · undated:
-  step-7 wrap (tag · archive call · SAVE_FILES) · step-4 C1–C5.
-- **Deliberately uncommitted — the composer's own files, never staged
-  by AI:** `reaper/7_tubas_rack.rpp` (M) ·
-  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) ·
-  `scores/Litany.pdf` (??).
-
-**(day 41 end, 2026-09-01 — PENN STATE FULLY CLOSED + three performance
-scenarios closed; next session = the ENGINE brief)**
-
-- **NEXT SESSION = THE ENGINE BRIEF (►).** AI-prepared homework
-  (technology brief + composer-runnable test kit; charter in
-  `docs/PERFORMANCE_SCORE_ORDER.md` § THE ENGINE CHUNK and ARCHITECTURE
-  § PERF iteration 2). The composer picks the renderer + network path by
-  verdict; then PORTAL, then PARTS (4.5), then CONTROLS/ANNOTATION/mental
-  models/1c, then HARDEN→ARCH→PLAN.
-- **ABSTRACT SUBMITTED (composer's report, 2026-09-01):** DRAFT G went
-  in — hosted + form done composer-side. **Penn State is fully closed**,
-  both submissions three days early. Standing obligation only: the
-  hosted copies (score · recording · abstract) stay live **through
-  Nov 1, 2026**.
-- **The composition form is IN** (2026-09-01). Local canon: **V-CUT** in
-  `notation/video/approved/2026-08-31-submission/` · **print PDF**
-  `print/score/BCB-score-DRAFT.pdf` (69 pp) · the piece video on YouTube
-  (XZVPO8LBU1g, title-verified) · five demo links live.
-- **The performance arc is racked and ready (D84):**
-  `docs/PERFORMANCE_SCORE_ORDER.md` — ► chunk 1 SEC; the proposed order
-  itself awaits composer approval at the first sitting.
-- **Step 7 wrap owed:** git tag · gitignored-deliverables archive call ·
-  SAVE_FILES check. **Step 4 open:** C1–C5 verdicts · held-back gliss
-  sub-block · CONVERGENCE ends-apart flag.
-- **Deliberately uncommitted (composer's own files, never staged by AI):**
-  `reaper/7_tubas_rack.rpp` (M) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`
-  (??) · `scores/Litany.pdf` (??). Build outputs gitignored as before
-  (renders/demos/, demo WAVs, print PDF).
+**(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
+pushed. Local only (gitignored): the two slow-mo films in `testkit/results/`
+(155 + 170 MB). **Deliberately uncommitted — the composer's own files, never
+staged by AI:** `reaper/7_tubas_rack.rpp` (M) ·
+`reaper/Bloom-Convergence-Balance_demoRecording.rpp` (??) ·
+`scores/Litany.pdf` (??). `testkit/assets/` is gitignored (rebuilt by
+`build_assets.js`).
 
 ### OPEN QUESTIONS
 
@@ -294,6 +88,13 @@ None.
 
 Read top-down; anything below is superseded by the OPEN entry above where they differ.
 
+- **days 42–44 (Fable + Opus) — ENGINE CLOSED (D89) · TEMPUS FIRST (D88) · THE KIT
+  BUILT, RUN AND FIXED:** brief + four verdicts in one sitting · `testkit/` built and
+  self-verified · four devices + a slow-mo beacon · the floor clock and Safari start
+  repaired and re-tested on the iPad (3.8 ☑) · the film check. RUNNING_LOG 53–78.
+- **day 41 (Fable) — PENN STATE FULLY CLOSED** (both submissions, 09-01, three days
+  early; hosted copies live through Nov 1) · the performance arc opened (D84) · SEC ·
+  IND · PERF closed (D85–D87) · ENGINE chunk approved. RUNNING_LOG 33–52.
 - **day 40 (Fable) — THE SUBMISSION PIECES:** proofread closed 4/4 · V-CUT
   approved + archived byte-verified (08-31 folder; 08-27 kept) · print 69 pp
   with the Performance Instructions as page 2 (D83, one source) · demo
@@ -1910,6 +1711,12 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §5 Done
 
+- **2026-10-18 (day 44) — THE KIT RAN ON REAL STANDS, AND WHAT IT FOUND WAS
+  FIXED** (organizer step 4 ☑ · 3.7 ☑ · 3.8 ☑). Desktop · iPad · laptop · Fire +
+  a slow-mo beacon; the GPU-layer renderer (A2) holds 99.4 % of frames on the
+  weakest device; the floor clock holds 0.0–2.4 ms on honest Wi-Fi on the real
+  iPad (was 8–14) and refuses every lie; a slow-mo film proved Safari shows
+  every frame. RUNNING_LOG 75–78 · ENGINE_BRIEF §8.
 - **2026-09-01 (day 41, late) — PENN STATE FULLY CLOSED: the abstract went
   in too.** DRAFT G (288 words · three time-marked YouTube links ·
   timecodes composer-confirmed and data-verified) hosted and submitted by
@@ -2082,7 +1889,7 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §6 Human Notes
 
-- *(2026-10-18, day 44, later — CURRENT)* **THE RE-TEST (3.8) — the iPad, ~25 min
+- *(2026-10-18, day 44, later — ☑ DONE same night: filed in RUNNING_LOG 78)* **THE RE-TEST (3.8) — the iPad, ~25 min
   plus the film.** The kit server can stay as it is (or double-click
   `start_testkit.bat`). On the iPad: **reload** the kit page (it fetches
   the new code) · name it `'iPad retest'` · choose **full** · tick **"also
@@ -2093,7 +1900,7 @@ instruction. The instructions are the four reference blocks that follow.*
   results"**. Optional: the Fire, **Run T3** quick (checks the new
   calibration bar on poor Wi-Fi).
 
-- *(2026-10-18, day 44)* **TEST-DAY RUNDOWN — the iPad is
+- *(2026-10-18, day 44 — ☑ DONE: all five ran, filed in RUNNING_LOG 75)* **TEST-DAY RUNDOWN — the iPad is
   in.** Prep once: every device plugged in · Low Power Mode OFF ·
   Auto-Lock NEVER · same Wi-Fi. Double-click `start_testkit.bat`; if
   Windows asks, ALLOW Node on Private networks; on other devices use the
