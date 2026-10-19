@@ -101,7 +101,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ► ANNOTATION-UX · mental models ·
+6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ► mental models · PERFORMANCE PROTOCOL (new, composer day 45) ·
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -225,17 +225,30 @@ that closed ENS in four iterations)*
    *(As planned:)* **CONTROLS session** (Fable; the composer named this a dedicated session,
    day 38). The swipe/tap vocabularies, per device (tablet = fingers,
    laptop = mouse + keys). **Done =** vocabulary agreed and filed.
-6. ► **ANNOTATION-UX session** (Fable; dedicated, day 38). "Simple universal
+6. ☑ **ANNOTATION-UX session — CLOSED day 45 → D93** (pen · eraser · undo · a
+   clear in-and-out · no conductor path · marks in the concert over the video
+   with a show/hide switch as a fourth menu item · every gesture tested on every
+   platform before the build). Record: ARCHITECTURE § ANNOTATION.
+   *(As planned:)* **ANNOTATION-UX session** (Fable; dedicated, day 38). "Simple universal
    functions": scopes (private / to-one-player / to-everyone), the conductor's
    paper→digital transfer path, one-gesture undo.
    **Done =** annotation requirements closed.
-7. **1b — the composer's mental models** (Fable). How the composer pictures
+6.5 **PERFORMANCE PROTOCOL** (Fable; PROPOSED from the composer's day-45 words —
+   placement to confirm). The concert-time stand: "maybe it's simpler just… to
+   be a completely passive stand for performance time before and after the
+   performance"; the night's sequence; when a player sets marks on/off. **Done =**
+   the concert protocol stated. (No menu DURING the performance is already ruled.)
+7. ► **1b — the composer's mental models** (Fable). How the composer pictures
    rooms, roles, the flow — logged before the AI evaluation reframes anything.
    **Done =** logged to ARCHITECTURE.md + COMPOSER_LOG.
 8. **1c + 1d — AI evaluation + vet loop** (Fable). Gaps, conflicts, what was
    left out — across ALL closed scenarios; iterate until nothing new surfaces.
    **Done =** GATHER phase closed.
-9. **2a–2d — HARDEN** (Fable; likely two sittings). Classify
+9. **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
+   composer): a GESTURE TEST on every platform — iPad · Fire · Android if
+   borrowable — before the build commits to the mapping; three-finger and
+   long-press especially ("test and calibrate it well… universal across the
+   platforms").** Classify
    must/should/could × decided/open/empirical · empirical gates (probes before
    commitments) · adversarial pass (ENS gets re-tested against everything
    else) · **freeze stable AR-N IDs**. **Done =** requirements frozen.
@@ -299,6 +312,23 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-19 (day 45, after midnight — ANNOTATION CLOSED ☑ → D93; ► 1b
+  mental models, order chunk 7; 6.5 PERFORMANCE PROTOCOL proposed):** four
+  questions one per turn: three tools · a clear in-and-out (+ the composer's
+  requirement: test every gesture on every platform → HARDEN carry-in) · no
+  conductor path · marks in the concert with a switch; no menu during the
+  performance confirmed; the concert-time stand's passivity banked to the new
+  conversation. FOUR chunks closed this sitting (D90–D93). RUNNING_LOG 83.
+
+- **2026-10-19 (day 45, after midnight — ► ANNOTATION-UX session OPENED, order
+  chunk 6):** composer: "go". Banked inputs in hand: ALL MARKS PRIVATE, no
+  scopes (ENS iteration 2 — the chunk's "scopes" item is already answered) ·
+  "mimic the paper score", finger-first, few tools, piece #1's toolbar "too
+  clunky" · marks anchor to score-time, kept on the server, follow the player
+  everywhere, sync quietly (ENS iteration 3, IND) · "don't assume everyone
+  has stylus" · the conductor's marks = notes to self, path open ("lets
+  discuss this more"). RUNNING_LOG 83.
 
 - **2026-10-19 (day 45, after midnight — CONTROLS CLOSED ☑ → D92; ►
   ANNOTATION-UX session, order chunk 6):** five questions, one per turn:

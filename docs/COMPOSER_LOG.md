@@ -2632,3 +2632,21 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Question 4 — the conductor's remote is exactly the ENS set: start/stop · jump by rehearsal number or typed time · again · four speeds · part-zoom buttons · the live position in large type; nothing added:)* **"yes"**
 
 *(Question 5 — pinch to zoom on the part:)* **"no pinch zoom"** — CONTROLS closed.
+
+### Day 45 (2026-10-19, after midnight) — ANNOTATION session opened (dictated, one question per turn)
+
+*(After CONTROLS closed: "Stop here, or say go.")* **"go"**
+
+*(Question 1 — the tools: a pen (one colour, one thickness), an eraser, undo; nothing else:)* **"yes, three tools only"**
+
+*(Question 2 — a clear in-and-out of drawing: menu → annotate → the finger draws, swipes paused → done; the room starting ends drawing by itself:)*
+
+*"good But for this and actually everything, let's make sure we test and calibrate it well. And then just confirm that these gestures, in particular, more rare ones like the three fingers, are universal across the platforms like Android and potentially Amazon."*
+
+*(Question 3 — the conductor's marks: no special path; a conductor who wants digital marks uses a touch tablet showing the score, same three tools; paper = pencil; a monitor cannot be drawn on:)* **"yes"**
+
+*(Question 4 — marks show in the concert, as a layer over the video:)* **"yes but they should be able to toggle them, is this possible?"**
+
+*(Clarified: the menu = press-and-hold or three fingers → annotate · jump · speed; proposed a fourth item, marks on/off. Then: "But how about for performance? They don't have access to this menu during performance, do they?" — answered: while the room plays a stand responds to nothing; while stopped it behaves normally; so the switch is set before the downbeat.)*
+
+*"Yes, I definitely don't want any menu available during the performance. However, let's just keep it a question for even before the performance. Maybe it's simpler just not to have, just to be a completely passive stand for, you know, performance time before and after the performance, etc. I don't know if this is part of that conversation or comes later, but maybe later we'll have a talk about the performance protocol"*

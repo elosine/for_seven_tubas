@@ -11,11 +11,12 @@ piece #3's `docs/` — registered as an additional working directory.
 ## §2 Resume Here
 
 > **► CURRENT POSITION (2026-10-19, day 45, after midnight): PORTAL ☑ D90 ·
-> PARTS ☑ D91 · CONTROLS ☑ D92, all closed this sitting. ► NEXT on the
-> organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): the ANNOTATION-UX session
-> (order chunk 6) — Fable; the composer says "brief me". **The Tempus re-cut
-> was REFUSED (day 45): the whole system first; order unchanged.** Nothing
-> in flight.**
+> PARTS ☑ D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93, all closed this sitting.
+> ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): 1b the
+> composer's mental models (order chunk 7) — Fable; the composer says "brief
+> me". A PERFORMANCE PROTOCOL conversation (6.5) is proposed from the
+> composer's words; placement to confirm. **The Tempus re-cut was REFUSED
+> (day 45): the whole system first; order unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -39,14 +40,15 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► ANNOTATION-UX session** (order chunk 6; Fable, "brief me"): scribbling on
-  the score — all marks private (ENS), finger-first, few tools, one-gesture
-  undo, the conductor's paper-to-digital path. Clear before it.
+- **► 1b — the composer's mental models** (order chunk 7; Fable, "brief me"):
+  how the composer pictures rooms, roles and the flow — logged before the AI
+  evaluation reframes anything. Then 6.5 PERFORMANCE PROTOCOL (proposed) and
+  1c + 1d the vet. Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ 5. PORTAL gather → D90 · ☑ 6. PARTS gather → D91 · ☑ CONTROLS → D92 (all day 45, one sitting).
+- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 (all day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -64,7 +66,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91) and CONTROLS (D92) closed and filed; nothing in
+**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91), CONTROLS (D92) and ANNOTATION (D93) closed and filed; nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -410,6 +412,28 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D93** *(2026-10-19, day 45)* — **ANNOTATION CLOSED at requirements level
+  (performance arc chunk 6).** **Three tools only:** a pen (one colour, one
+  thickness, finger-drawn) · an eraser · undo. **A clear in-and-out:** menu →
+  annotate → the finger draws, swipes paused → done; the room starting
+  playback ends drawing by itself. **No conductor path:** paper = pencil; a
+  monitor is not drawn on; a touch tablet as the score gets the same tools.
+  **Marks show in the concert** as a layer over the per-part video (renderer
+  C composites an annotation layer, anchored to score-time), **with a
+  show/hide switch** as a fourth menu item (amends D86 e's three to four).
+  **No menu during the performance** ("I definitely don't want any menu
+  available during the performance") — while the room plays a stand responds
+  to nothing. **Requirement added:** every gesture tested and calibrated on
+  every platform (iPad · Fire · Android) before the build commits — HARDEN
+  carry-in; iPadOS's own three-finger gestures are a known, unverified risk,
+  long press the safer path. **Open, banked to a new PERFORMANCE PROTOCOL
+  conversation (6.5, proposed):** a completely passive stand at concert time
+  before and after the piece, and when marks on/off is set for the night.
+  **Why:** mimic the paper part — pencil marks go on stage with the player;
+  few tools because piece #1's toolbar was "too clunky". **Rejected:**
+  colours / highlighter / typed text · modeless two-finger drawing · a
+  special conductor annotation path · rehearsal-only marks. Trail:
+  COMPOSER_LOG day 45 · ARCHITECTURE § ANNOTATION · RUNNING_LOG 83.
 - **D92** *(2026-10-19, day 45)* — **CONTROLS CLOSED at requirements level
   (performance arc chunk 5).** **One gesture vocabulary in every module;
   what a gesture does follows the module's rules.** TABLET: swipe left /

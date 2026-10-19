@@ -961,6 +961,58 @@ every module, the effect following the module's rules. LAPTOP — click = cursor
 = play/stop · arrows = pages · a menu button in a corner. CONDUCTOR'S REMOTE — the ENS
 set exactly. NOT: pedals · pinch-zoom · shortcuts.
 
+#### ANNOTATION — the scribble, iteration 1 (day 45, 2026-10-19; composer verbatim in COMPOSER_LOG)
+
+**Bound from upstream:** all marks private, no scopes (ENS iteration 2) · "mimic the
+paper score", finger-first, few tools · anchored to (part, score-time), server-kept,
+following the player everywhere, quiet sync (ENS iteration 3, IND) · no stylus assumed.
+
+**Question 1 — the tools: RULED "yes, three tools only".** A pen (one colour, one
+thickness, drawn with a finger) · an eraser (touch a mark, it goes) · undo (one tap
+takes back the last stroke). No colours, no typed text, no shapes, no highlighter.
+
+**Question 2 — entering and leaving drawing: RULED "good".** Menu → annotate → the
+finger draws; swipes and taps do nothing else meanwhile; a small bar shows the three
+tools + DONE; done returns the finger to normal; the room starting playback ends
+drawing by itself and the part follows. (Modeless two-finger drawing rejected: too
+easy to trigger on a stand.)
+**REQUIREMENT ADDED (composer): "for this and actually everything, let's make sure we
+test and calibrate it well… confirm that these gestures, in particular, more rare ones
+like the three fingers, are universal across the platforms like Android and
+potentially Amazon."** → an EMPIRICAL GATE for HARDEN: a gesture test (every gesture in
+the vocabulary, on the iPad · the Fire · an Android device if one can be borrowed) run
+by the composer, kit-style, BEFORE the build commits to the mapping. Known risk, NOT
+verified here: iPadOS claims some three-finger gestures for the system (undo / copy /
+paste swipes); long press — already the ruled alternative — is the safer path; long
+press and two-finger touches need the browser's own callout / zoom behaviour
+suppressed, which the no-pinch-zoom ruling already implies.
+
+**Question 3 — the conductor's marks: RULED "yes" — no special conductor path.** Paper
+conductor = pencil; a big monitor cannot be drawn on and the remote is not a score; a
+conductor who wants digital marks uses a touch tablet in the display role and gets the
+same three tools. Nothing else is built. (Closes the day-38 "via touch screen can
+annotate main score somehow, lets discuss this more".)
+
+**Question 4 — marks in the concert: RULED "yes but they should be able to toggle
+them".** Marks are a layer over the per-part video (a build implication for renderer
+C: the stand composites an annotation layer on the video, anchored to score-time).
+A SHOW / HIDE MARKS toggle, per device, remembered. Possible: yes — the layer is
+separate by construction. Where it lives: proposed as a fourth menu item ("marks
+on/off"; amends D86 e "three items only" to four), two taps from anywhere.
+**RESOLVED (composer):** the fourth menu item stands for every mode that HAS the menu.
+**"I definitely don't want any menu available during the performance"** — while the
+room plays, a stand responds to nothing (the ENS rule, now stated for the concert).
+**OPEN, banked to a new conversation — THE PERFORMANCE PROTOCOL:** whether the stand
+is *completely passive* at concert time, before and after the piece too ("maybe it's
+simpler just… to be a completely passive stand for performance time"); if so, where
+and when a player sets marks on/off for the night. Not decided here.
+
+**ANNOTATION CLOSED (day 45, same sitting) → D93.** Three tools (pen · eraser · undo) ·
+a clear in-and-out via the menu, the room starting ends drawing · no conductor path ·
+marks show in the concert as a layer over the video, with a show/hide switch (fourth
+menu item) · every gesture tested on every platform before the build commits (HARDEN
+carry-in) · the concert-time stand's passivity → the PERFORMANCE PROTOCOL conversation.
+
 ## 2 · DESIGN
 
 *(not started)*
