@@ -895,6 +895,34 @@ link; private marks follow it · links open, one-tap reissue, rate limiting · t
 conductor's link on two devices = display + control · versions follow the ensemble
 page. Named for deploy step 14: operating instructions + help protocol / FAQ.
 
+#### PARTS — the stand's part view, iteration 1 (day 45, 2026-10-18 later; composer verbatim in COMPOSER_LOG)
+
+**Bound from upstream:** own part only, everywhere (D85) · a live VIEW of the score
+data, no PDFs (D81) · the full-size iPad is the stand (day 43) · zoom one-part-at-a-time
+is the conductor's display, not the stand (D82) · live engine in rehearsal, per-part
+video in concert (D89) · the beating-frequency indicator idea parked here (day 35).
+
+**Question 1 — what is on the screen besides the player's own notes? RULED "1":**
+just the player's notes, plus the rehearsal number and the time in a corner. No cue
+strip of other players (option 2, as paper parts carry cues — deferred: the score
+animates, so position is never lost; cues return only if a rehearsal shows they are
+missed).
+
+**Question 2 — the beating-frequency indicator: RULED "1" — stays parked.** The first
+version of the parts ships without it; the idea and its measured data (PLANNER, day
+35) wait for a later version, after players have used the system.
+
+**Question 3 — how much music per screen: RULED "good" — NOT decided on paper.** Set by
+eye on the real iPad during the build (the full score shows ~12 s; a single part may
+show more time, bigger notes, or both; the composer looks at a few sizes and picks).
+
+**PARTS CLOSED (day 45, same sitting as PORTAL) → D91.** Requirements settled, plan not
+drawn: the stand shows the player's own notes + the rehearsal number and the time in a
+corner · no cue strip (deferred) · the beating indicator parked · the screen's time
+span set by eye in the build · drawn live from the score data in rehearsal, the same
+picture as video in concert. **Banked:** rehearsal numbers must still be AUTHORED into
+the score (composer-module task, before the first ensemble — ENS iteration 3).
+
 ## 2 · DESIGN
 
 *(not started)*

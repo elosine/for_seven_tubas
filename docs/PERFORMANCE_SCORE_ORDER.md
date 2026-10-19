@@ -101,7 +101,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ► PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
+6. ☑ PARTS gather (day 45 → D91) · ► then CONTROLS · ANNOTATION-UX · mental models ·
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -207,7 +207,11 @@ that closed ENS in four iterations)*
    help protocol / FAQ. Record: ARCHITECTURE § PORTAL. *(As planned:)* The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
-4.5 ► **PARTS — the stand's part view + part formatting** (APPROVED into the
+4.5 ☑ **PARTS — CLOSED day 45 → D91** (same sitting as PORTAL; three questions):
+   own notes + rehearsal number + time in a corner, no cue strip · the beating
+   indicator stays parked · the screen's time span set by eye on the iPad in the
+   build · banked: rehearsal numbers still to be authored into the score. Record:
+   ARCHITECTURE § PARTS. *(As approved:)* **PARTS — the stand's part view + part formatting** (APPROVED into the
    order, day 41 wrap). What a part shows, which lanes, adaptations like the
    day-35 beating-frequency indicator idea, the make-process. Seed: ENS
    iteration 4's "a part = a live VIEW of the IR"; first input banked from
@@ -215,7 +219,7 @@ that closed ENS in four iterations)*
    consumer is known before it is specced. **Done =** part-view
    requirements closed.
 
-5. **CONTROLS session** (Fable; the composer named this a dedicated session,
+5. ► **CONTROLS session** (Fable; the composer named this a dedicated session,
    day 38). The swipe/tap vocabularies, per device (tablet = fingers,
    laptop = mouse + keys). **Done =** vocabulary agreed and filed.
 6. **ANNOTATION-UX session** (Fable; dedicated, day 38). "Simple universal
@@ -292,6 +296,22 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-18 (day 45, later — PARTS CLOSED ☑ → D91; ► CONTROLS session,
+  order chunk 5):** three questions, one per turn: own notes + rehearsal
+  number + time, no cues ("1") · beating indicator parked ("1") · time span
+  by eye on the iPad in the build ("good"). Two chunks closed this sitting
+  (PORTAL D90, PARTS D91); the Tempus re-cut refused — order unchanged.
+  RUNNING_LOG 81.
+
+- **2026-10-18 (day 45, later — ► PARTS gather OPENED, order chunk 4.5 /
+  top-line 6; same sitting as PORTAL):** composer: "good move on". Banked
+  inputs in hand: own part everywhere (SEC) · a part = a live view of the
+  score data, not a PDF (ENS iteration 4) · the full-size iPad is the
+  presumed stand (day 43) · zoom one part at a time is the conductor's
+  display, not the stand (D82) · rehearsal stand = the live engine, concert
+  stand = per-part video (D89) · the beating-frequency indicator idea parked
+  since day 35 (PLANNER). RUNNING_LOG 81.
 
 - **2026-10-18 (day 45, late — PORTAL CLOSED ☑ → D90; ► PARTS gather, order
   chunk 4.5 / top-line 6):** one sitting. The composer's double-check (three

@@ -10,10 +10,10 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 45, late): PORTAL CLOSED ☑ → D90
-> (top-line 5 / order chunk 4, one sitting). ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): 6. PARTS gather (order chunk 4.5) —
-> Fable; the composer says "brief me". **The Tempus re-cut was REFUSED
+> **► CURRENT POSITION (2026-10-18, day 45, late): PORTAL ☑ → D90 and
+> PARTS ☑ → D91, both closed this sitting. ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): the CONTROLS session (order chunk 5)
+> — Fable; the composer says "brief me". **The Tempus re-cut was REFUSED
 > (day 45): the whole system first; order unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
@@ -38,12 +38,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 6. PARTS gather** (order chunk 4.5; Fable, "brief me"). Clear before it.
+- **► CONTROLS session** (order chunk 5; Fable, "brief me"): the swipe and tap
+  vocabulary per device — tablet fingers, laptop mouse and keys. Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ 5. PORTAL gather — closed day 45 → D90 (one sitting).
+- ☑ 5. PORTAL gather → D90 · ☑ 6. PARTS gather → D91 (both day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -61,7 +62,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** PORTAL closed and filed (D90); nothing in
+**(day 45, late, 2026-10-18)** PORTAL (D90) and PARTS (D91) closed and filed; nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -407,6 +408,22 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D91** *(2026-10-18, day 45)* — **PARTS CLOSED at requirements level
+  (performance arc chunk 4.5 / top-line 6).** The stand shows **the player's
+  own notes, plus the rehearsal number and the time in a corner** — no cue
+  strip of other players (paper-style cues deferred: the animation keeps
+  position; they return only if a rehearsal shows they are missed) · **the
+  beating-frequency indicator stays parked** (not in the first build; idea
+  and measured data in PLANNER) · **the screen's time span is set by eye on
+  the real iPad during the build**, not decided on paper. Bound from
+  upstream, restated: own part everywhere (D85) · a live view of the score
+  data, no PDFs (D81) · the full-size iPad is the stand (day 43) · live
+  engine in rehearsal, per-part video in concert (D89). **Why:** the first
+  build is already large; nothing here is needed to rehearse or perform.
+  **Rejected:** cues in the first version · designing the indicator now ·
+  a paper decision on page size. **Banked:** rehearsal numbers must be
+  AUTHORED into the score before the first ensemble (composer-module
+  task). Trail: COMPOSER_LOG day 45 · ARCHITECTURE § PARTS · RUNNING_LOG 81.
 - **D90** *(2026-10-18, day 45)* — **PORTAL CLOSED at requirements level
   (performance arc chunk 4 / top-line 5).** **The door = THE LINK IS THE
   PART** (paper parts, digital). The composer — the SOLE ADMIN, no public

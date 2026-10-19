@@ -2608,3 +2608,13 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(The AI proposed re-cutting the order so Tempus gets a working system sooner — parts → freeze → design → plan → build, with controls, annotations, mental models and the final cross-check after the first deployment:)*
 
 *"First, can we take a step back and just orient me or remind me of what everything has happened? We had a long planning conversation. Was that just to establish the requirements? Uh, what was to go into the plan? Is that what that was? And now are we building the actual parts of the plan based on testing and whatnot? Is that what's happening now? With regard to the Tempest septet, I think we will have the time to roll out the, or to finish the entire plan, to roll out the whole system. That may be, might be better than to ship something, one part of it, and then, you know, ship an amended part. They said early November, and it wasn't clear when, early November for the notification, it wasn't clear how soon after they would need parts, but even then, I think, November 1st or first week of November is realistic. So let's aim to build the entire plan and the entire build. And then do we have a testing stage for when things are built that I can test myself here?"*
+
+*(After "what is no recut?" was answered in two sentences:)* **"good move on"** — the PARTS gather opens, same sitting.
+
+### Day 45 (2026-10-18, later) — PARTS gather (dictated, one question per turn)
+
+*(Question 1 — besides your own notes: option 1 just your notes + rehearsal number + time; option 2 your notes + cues of other players, as paper parts have:)* **"1"**
+
+*(Question 2 — the beating-frequency indicator: option 1 leave it parked for a later version; option 2 design it now for the first build:)* **"1"**
+
+*(Question 3 — how much music per screen: not decided now, set by eye on the real iPad during the build:)* **"good"** — PARTS closed.
