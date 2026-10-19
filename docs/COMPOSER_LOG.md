@@ -2576,3 +2576,29 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 ### Day 44 (2026-10-18) — 3.8 approved
 
 *"yes, approve 3.8 — go ahead with the fix and retest and do the optional slo mo filming"*
+
+### Day 45 (2026-10-18 late) — PORTAL gather opened: the paper-parts analogy and a double-check (dictated)
+
+*(After "explain to me in much more simple language where we are now, what we're trying to build, and what this portal is" and a plain-words catch-up:)*
+
+*"Okay, then let's discuss this. Give me some options. Let's start with how a player currently uses sheet music. So presumably they have an iPad at the stand, they're playing three pieces, they have some sort of third-party commercial app that just loads PDFs or something. They may or may not have some sort of foot pedal. And they're just loaded in one by one, or do they click on them? I guess there would be intermission or breaks between pieces so they can. And I think the analogy I was using before is the actual paper parts. They come to first rehearsal, they have to, they, you know, the conductor hands out their parts or they have to go and grab their parts. And then they use those parts to rehearse at home or practice. And then they bring them to the venue to perform. So we might have a different sort of performance score. And I thought we did talk about this. So can you do a double check? There was, anyways, I, I remember making some decisions about either, it's kind of vague now, either, oh yeah, there's a list of all the players or something like that, or something about assigning the parts, or the players just get their own, and I decided it might be hard to have a list of them. I don't know. I, I def, we definitely talked about this. Can you do a, a scan again and see?"*
+
+*(After the three door options, A recommended:)*
+
+*"Yes, the lean is toward A, but talk me through the scenario from the beginning. So how would then the conductor get the score and then assign the parts? What are we doing there? So in other words, imagine I'm writing instructions for this piece. The, for example, Tempest decide to play it. I have to tell them what exactly. Go to this website, download this, or and then open this, and then type in some names. What what actually happens uh, before they get to the handing out to A? And then describe at that point what happens at A. Everybody comes to, you know, pick up their score for the first rehearsal. They're with their iPad. Do they come to the conductor and scan the QR code? Or do they, the conductor email them a link? Or what, what happens exactly?"*
+
+*(The one decision put — the composer as the only admin, vs conductor self-serve:)* **"A, me only"**
+
+*(The vet round was put as four lettered items; the composer asked for simpler language, full words, one question at a time: "I'm having to use a fair bit of mental power and analysis just to understand what is on the table." Re-put as question 1 of 4 — one link per part, or one link per player:)*
+
+*"So ostensibly option two, but then what's the mechanism? So, you know, the, we ran the scenario from before, I send an email, how does then, but I don't know that there's two tuba threes. So then what does the conductor do? Does, does he have an option of adding a part? Or how does that work? And then we're talking about the tuba piece because this is where I started it. It's like more likely the Tempest piece will be first, but it's fine. We can continue in the with the tuba. But in those fixed ensembles where there definitely isn't a doubling, I guess this, the issue is just moot, or do we have to make sure we take the invariable ensembles into account as well?"*
+
+*(Question 1 — the "add another player" mechanism, fixed ensembles moot:)* **"good"**
+
+*(Question 2 — a link reaching the wrong person: protect the links, or keep them open and let the conductor reissue:)*
+
+*"yes, option 2 But we'll have to describe these scenarios in the operating instructions. But we, we can talk about that a little bit later. There, there probably needs to be some sort of helpline slash quality assurance type of thing. I'm going to predict that at least the first ensemble or first few ensembles, or I, I should say I'll probably tell them to contact me as soon as possible with any issues. But we should have some sort of uh you know help protocol or mitigation setup beforehand and have scenarios like these like what you know um software developer might have like as an FAQ or something like that but we'll deal with that later"*
+
+*(Question 3 — the conductor's one link on two devices, monitor shows and tablet controls:)* **"y"**
+
+*(Question 4 — versions follow the ensemble page; icons update, nothing re-installed:)* **"y"** — PORTAL closed.

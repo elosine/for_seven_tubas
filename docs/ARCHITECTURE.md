@@ -777,6 +777,124 @@ posture (D88: one always-on deployment serves all pieces) · the
 composer-runnable TEST KIT spec (T1–T5). Verdicts V1–V4 close the chunk;
 measured results become AR-N requirements in HARDEN.
 
+#### PORTAL — login / join, iteration 1 (day 45, 2026-10-18 late; composer verbatim in COMPOSER_LOG)
+
+**The double-check (composer: "I thought we did talk about this… a list of all the
+players… assigning the parts… the players just get their own… hard to have a list") —
+what the record holds, all three already ruled:**
+
+- **ENS iteration 3 (day 38, adopted "a y"):** STANDING ROOMS — the ensemble's room is
+  durable; **login → your part; codes never appear in the weekly flow.**
+- **ENS iteration 4 (day 38):** pre-registration, no drop-ins; **con assigns players
+  parts "like handing out paper parts"**; "at rehearsal, just login, no midflight
+  changes". → a player↔part REGISTRY exists as a consequence.
+- **SEC iteration 3 (day 41):** "I don't necessarily want the room Creator to have to
+  scroll through a long list of players and the roster might change. and then how do
+  we build the roster?" → LIVE ROOMS: sectionals read the registry, never build it;
+  joiners self-select. *This is the "hard to have a list" memory.*
+
+**What those leave open = this chunk:** the DOOR itself — how a player is registered
+and how "login" happens with zero typing; con's entry; the composer's view; the
+no-internet night; the leaked link.
+
+**The scenario as given (composer):** the stand today = an iPad with a commercial PDF
+reader (three pieces loaded, maybe a foot pedal, breaks between pieces to switch).
+The analogy = PAPER PARTS: handed out (or collected) at the first rehearsal, taken
+home to practice, brought to the venue to perform. "So we might have a different sort
+of performance score" — *AI: no separate door; PERF = the ENS room hardened (D87).*
+
+**Options put (AI), the door only — lettered, verdict pending:**
+- **A — the link IS the part** (paper parts, digital): con sends each player a personal
+  link/QR = that part in that ensemble; one tap, saved to the home screen; thereafter
+  it is simply there, like a PDF in the reader. Registration = being handed the link.
+- **B — one ensemble door, pick your name:** one link/QR for the whole ensemble; first
+  tap shows the registered names; tap yours → your part; remembered on the device.
+- **C — an account per player** (piece #1 made lighter): sign up once, join by code.
+  Most identity, most steps; not recommended against "too clunky".
+*AI recommendation: A, B as the large-ensemble fallback. Foot pedal → CONTROLS chunk.*
+
+**Composer: "the lean is toward A" — then asked for the whole scenario from the
+beginning, as the INSTRUCTIONS an ensemble would receive. THE FLOW AS PROPOSED (AI,
+verdict pending):**
+
+0. **The composer opens the ensemble** (admin = the composer only; no public sign-up,
+   which also ends piece #1's spam bots): ensemble name + piece (+ the tailored
+   version). The system makes the ensemble page and ONE conductor link. The composer
+   emails the conductor that link. Nothing to download — a web page that installs
+   itself as an icon ("Add to Home Screen").
+1. **The conductor assigns:** the ensemble page lists the parts; con types a name
+   beside each (optional — the only typing in the system). Each part has its own
+   link + QR. Con hands them out by any channel — email in advance (how PDF parts
+   go today), QR shown at the podium, or one printed sheet of QRs. Same links.
+2. **The player (A):** tap the link or scan the QR → their part opens; one-time
+   "Add to Home Screen" → an icon beside the PDF reader. From then on: the icon →
+   their part. At home = practice, offline (IND). At rehearsal = already in the
+   ensemble room; when con starts, it follows. Late = tap the icon, land in sync.
+3. **Changes** = the same gesture: con edits the page, a new link goes out
+   ("collecting their paper part and issuing a new part"). Two players on one part
+   = the same link on two devices; each device is its own stand, annotations
+   private per device.
+4. **Con's own entry = the conductor link** (the ensemble page doubles as the
+   podium: display + control roles). **The composer's view** = the list of
+   ensembles × pieces. **No-internet night** = the hot-spare laptop on a hotspot;
+   stands are already cached; the podium QR repoints them (HARDEN detail).
+
+*The one decision put: the composer as the only admin (0), vs conductor self-serve.*
+
+**RULED (composer): "A, me only."** The composer is the sole admin: opens every
+ensemble, sends every conductor link. No public sign-up anywhere.
+
+#### PORTAL — iteration 2 (day 45): the vet round, a–d (AI; verdicts pending)
+
+Door A is taken as adopted ("the lean is toward A", then the whole flow walked on
+it) — say so if not. What the flow leaves open:
+
+- **a — one link per PLAYER, not per part (refinement).** Identity = the link. Two
+  players doubling Tuba 3 = two rows on con's page ("Tuba 3 — Ann", "Tuba 3 — Bo"),
+  two links. Then private annotations follow the LINK, so a new iPad (tap the email
+  again) recovers them, and doubling never merges two players' marks. Cost: con
+  taps "+ another player" for a doubled part.
+  **Composer: "ostensibly option two, but then what's the mechanism?"** — the
+  conductor's page lists the parts exactly as the piece defines them (Tempus: seven
+  rows, nothing to add). Beside each part, one small button: **"add another player"**
+  → a second row for that part with its own link. The composer never needs to know
+  about doubling in advance; the conductor does it on the page, like handing out a
+  second copy of a part. Fixed ensembles never tap it — one system, both cases.
+  Re-tailoring to N parts (ENS iteration 4) remains the first answer for a large
+  ensemble; the button is the fallback when the piece is not re-tailored.
+  **RULED (composer): "good" — one link per player; "add another player" beside each part.**
+- **b — the leaked link.** A forwarded link = someone else on that stand. Proposal:
+  links are open (no passwords — a rehearsal, not a bank); con can REISSUE any
+  player's link in one tap (the old one dies), the same gesture as a part change.
+  Rate limiting server-side from day one (engine brief risk 6).
+  **RULED (composer): "yes, option 2."** Open links · one-tap reissue (the old link
+  dies) · rate limiting. **New deliverable named, parked to deployment:** the
+  OPERATING INSTRUCTIONS must describe these scenarios, and a HELP PROTOCOL /
+  FAQ must exist before the first ensembles ("I'll probably tell them to contact
+  me as soon as possible with any issues… some sort of help protocol or
+  mitigation setup beforehand… like an FAQ"). "We'll deal with that later."
+- **c — the conductor link on two devices** = the ENS roles: big monitor shows the
+  score, tablet controls (DISPLAY/CONTROL are roles, not devices — ENS it. 2). No
+  new door for the podium. **CONFIRMED (composer): "y".**
+- **d — versions follow the ensemble.** If the composer re-tailors the piece, the
+  ensemble page points at the new version and every icon updates on next open
+  (a web page, not a file). Players never re-install. *Property of A, stated.*
+  **CONFIRMED (composer): "y".**
+
+Banked onward: the no-internet night (hot-spare + podium QR repoint) → HARDEN ·
+the composer's admin page (ensembles × pieces) → ARCHITECTURE/PLAN · the sectional
+choice behind the icon = SEC as closed.
+
+**PORTAL CLOSED (day 45, one sitting) → D90.** Requirements settled, plan not drawn:
+the composer is the sole admin (opens ensembles, sends one conductor link; no public
+sign-up) · the conductor's page lists the parts as the piece defines them, optional
+names beside them, "add another player" for doubling · ONE LINK PER PLAYER, handed out
+by any channel · the player taps once, adds to the home screen, and the icon IS the
+part everywhere (home offline · rehearsal in the room · late in sync) · identity = the
+link; private marks follow it · links open, one-tap reissue, rate limiting · the
+conductor's link on two devices = display + control · versions follow the ensemble
+page. Named for deploy step 14: operating instructions + help protocol / FAQ.
+
 ## 2 · DESIGN
 
 *(not started)*

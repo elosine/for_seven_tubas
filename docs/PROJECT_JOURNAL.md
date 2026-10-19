@@ -10,11 +10,11 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-18, day 44, session end): the performance
-> arc's top-line step 4 ☑ (the kit ran on real devices) and 3.8 ☑ (the fix
-> + re-test). ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`):
-> 5. PORTAL gather — Fable; the composer says "brief me". Nothing in
-> flight.**
+> **► CURRENT POSITION (2026-10-18, day 45, late): PORTAL CLOSED ☑ → D90
+> (top-line 5 / order chunk 4, one sitting). ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): 6. PARTS gather (order chunk 4.5) —
+> Fable; the composer says "brief me". **Raise first: D88's Tempus-first
+> re-cut of the order** (the device numbers are in). Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -38,7 +38,9 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 5. PORTAL gather** (Fable, "brief me"). Clear before it.
+- **► 6. PARTS gather** (order chunk 4.5; Fable, "brief me"). Clear before it.
+  **Raise first:** D88's Tempus-first re-cut of the organizer order.
+- ☑ 5. PORTAL gather — closed day 45 → D90 (one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -55,6 +57,9 @@ piece #3's `docs/` — registered as an additional working directory.
   git history (journal before 13a0f7d).
 
 ### OPEN AT SESSION END
+
+**(day 45, late, 2026-10-18)** PORTAL closed and filed (D90); nothing in
+flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
 pushed. Local only (gitignored): the two slow-mo films in `testkit/results/`
@@ -399,6 +404,35 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D90** *(2026-10-18, day 45)* — **PORTAL CLOSED at requirements level
+  (performance arc chunk 4 / top-line 5).** **The door = THE LINK IS THE
+  PART** (paper parts, digital). The composer — the SOLE ADMIN, no public
+  sign-up — opens an ensemble (name · piece · version) and emails the
+  conductor ONE link. The conductor's page lists the parts as the piece
+  defines them, names typed beside them optional (the only typing in the
+  system); ONE LINK + QR PER PLAYER ("add another player" beside a part for
+  doubling; fixed ensembles never tap it); handed out by any channel (email
+  ahead · podium QR · a printed sheet). The player taps once → the part
+  opens → "Add to Home Screen" → the icon IS the part (home = offline
+  practice · rehearsal = in the room · late = in sync). Identity = the link;
+  private marks follow it (a new iPad recovers them). Links OPEN, no
+  passwords; a stray link is fixed by a one-tap REISSUE (the old dies); rate
+  limiting from day one. The conductor's link on two devices = display +
+  control (the ENS roles). Versions follow the ensemble page (icons update,
+  nothing re-installed). **Why:** "like handing out paper parts" made
+  literal; zero typing for players; the conductor's habits (how PDF parts
+  go today) unchanged; the composer already knows every ensemble that plays
+  the music; "this is a rehearsal, not a bank account." **Rejected:** one
+  ensemble door + pick-your-name (one more tap; a stranger can take a name —
+  kept as the large-ensemble fallback, not built) · accounts per player
+  (piece #1's clunk) · conductor self-serve (sign-up + spam defence) ·
+  protected links (the typing returns). **Named, parked to deploy step 14:**
+  operating instructions describing these scenarios + a help protocol / FAQ
+  before the first ensembles ("contact me as soon as possible with any
+  issues"). **Banked:** the no-internet night (hot-spare + podium QR
+  repoint) → HARDEN · the composer's admin page (ensembles × pieces) →
+  ARCHITECTURE. Trail: COMPOSER_LOG day 45 · ARCHITECTURE § PORTAL
+  iterations 1–2 · RUNNING_LOG 79.
 - **D89** *(2026-09-23, day 42)* — **ENGINE CLOSED — the four verdicts
   (performance arc chunk 3.5).** **V1 renderer, per module under D87's
   license:** A — retained overlay + compositor transforms, the current

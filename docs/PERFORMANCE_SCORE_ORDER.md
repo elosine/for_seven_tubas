@@ -89,8 +89,8 @@ order beneath is unchanged — this is the same arc in one glance.)
 3. ☑ KIT BUILT + VERIFIED (day 42, Opus) — `testkit/`, see 3.6
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
-5. PORTAL gather (Fable — may run any time before HARDEN)
-6. PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
+5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
+6. ► PARTS gather · then CONTROLS · ANNOTATION-UX · mental models ·
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -105,7 +105,10 @@ order beneath is unchanged — this is the same arc in one glance.)
 
 **DEPLOY — Tempus first (D88)**
 14. Tempus content in: per-part videos rendered · deployed · delivered
-    rehearsal-ready (+ pro forma paper parts)
+    rehearsal-ready (+ pro forma paper parts) **+ the OPERATING
+    INSTRUCTIONS and a HELP PROTOCOL / FAQ (composer, day 45: the stray-link
+    and reissue scenarios described; "contact me as soon as possible with
+    any issues" for the first ensembles; set up BEFORE the first ensemble)**
 15. Tempus rehearsals = live burn-in; features/updates continue for
     the later pieces
 16. Ports: the tubas and each next piece as they come due
@@ -183,10 +186,17 @@ that closed ENS in four iterations)*
    tests", "Save to server". Then an AI reads `testkit/results/` and files
    the numbers (brief §8 table) — that closes the ESTIMATEs for HARDEN.
    PORTAL (4, Fable) can run before, after or between.
-4. **PORTAL — login / join scenario** (Fable). The "too clunky" fix: show up →
+4. ☑ **PORTAL — login / join scenario** (CLOSED day 45 → **D90**; one sitting, four
+   questions one per turn). THE LINK IS THE PART: the composer (sole admin) opens
+   the ensemble → one conductor link → the conductor's page lists the parts, one
+   link + QR per PLAYER ("add another player" for doubling) → the player taps once,
+   adds to the home screen, the icon IS the part everywhere · links open, one-tap
+   reissue · the conductor's link = the podium (display + control) · versions
+   follow the ensemble page. Parked to deploy step 14: operating instructions +
+   help protocol / FAQ. Record: ARCHITECTURE § PORTAL. *(As planned:)* The "too clunky" fix: show up →
    log in → in. Link/QR join with zero typing; late joiner lands in sync.
    **Done =** PORTAL closed.
-4.5 **PARTS — the stand's part view + part formatting** (APPROVED into the
+4.5 ► **PARTS — the stand's part view + part formatting** (APPROVED into the
    order, day 41 wrap). What a part shows, which lanes, adaptations like the
    day-35 beating-frequency indicator idea, the make-process. Seed: ENS
    iteration 4's "a part = a live VIEW of the IR"; first input banked from
@@ -271,6 +281,29 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-18 (day 45, late — PORTAL CLOSED ☑ → D90; ► PARTS gather, order
+  chunk 4.5 / top-line 6):** one sitting. The composer's double-check (three
+  rulings already bound it, no portal walk-through existed) · the door = THE
+  LINK IS THE PART · the flow walked as the instructions an ensemble receives ·
+  the composer the sole admin ("A, me only") · four questions ruled one per
+  turn after the composer asked for simpler language and full words (one link
+  per player + "add another player" · open links + one-tap reissue · the
+  conductor's link on two devices · versions follow the ensemble). New
+  deliverable parked on deploy step 14: operating instructions + help protocol
+  / FAQ. **Raise at the next move: D88's Tempus-first re-cut of the order.**
+  RUNNING_LOG 79.
+
+- **2026-10-18 (day 45, late — ► PORTAL gather OPENED; top-line 5 / order
+  chunk 4):** new session on Fable after the day-44 wrap. The banked
+  inputs assembled before the composer dictates: ENS iteration 4
+  (pre-registration, no drop-ins · con assigns parts "like handing out
+  paper parts" · login must work on the LAN with no internet) · SEC
+  (room choice is two kinds only: the ensemble room + a live sectional) ·
+  piece #1's pain points (room codes typed by hand · landing hand-built
+  per piece · JWT rejoin) · the engine brief (HTTPS · one deployment for
+  every piece · the leaked-URL abuse surface deferred HERE · the hot-spare
+  LAN box reached by the same QR). Done = PORTAL closed. RUNNING_LOG 79.
 
 - **2026-10-18 (day 44, night — 3.8 ☑ CLOSED):** the iPad re-test + the
   slow-mo film filed. Floor clock 0.0–2.4 ms honest on the real iPad (was
