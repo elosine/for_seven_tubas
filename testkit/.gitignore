@@ -3,3 +3,6 @@ assets/
 # phone videos for the beacon: measured, then kept local (too big for git)
 results/*.mp4
 results/*.mov
+# 9a bench screenshots (tools/a2_bench.js --shots): local evidence, rebuilt on demand
+results/a2shots/
+results/shots/

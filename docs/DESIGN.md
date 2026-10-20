@@ -169,6 +169,18 @@ so print and video stay byte-identical to today. The part view is `renderSection
 with `frameParts = [part]`; the full score is the same call with all parts. The
 Fire's 99.4 % frames-on-time is the bar.
 
+*As built (9a, day 45 — `notation/lib/animlive.js`; RUNNING_LOG 91):* the overlay
+is built once for the whole piece, not once per page — a turn hands it the next
+page's plan and creates no DOM; its elements are pooled by look (shape · size ·
+colour · opacity), so their count is the most ever alive at once; a time index
+built once per instance list lets a page plan only what can be alive on it; and
+every piece that moves sideways RIDES one container that slides with the cursor,
+so per frame a piece writes only its own vertical change (a ball's height, a
+meter's level). Held to frameSvg by `tools/test_animlive.js` (the whole piece,
+every element, within the string path's 0.05 px rounding). Two page costs found
+on the way and fixed outside the renderer: the hot reload waits while the music
+plays, and the time pill shows tenths while playing.
+
 **C — the concert stand (AR-51).** A `<video>` element per part, rendered by
 `tools/export_video.js --parts N` with a keyframe every second and the 5-s lead-in
 baked in; the servo keeps it on the room clock; **the marks layer** is an SVG over

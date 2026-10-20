@@ -1,0 +1,239 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "trace page a2 x10 compare",
+  "injectCss": null,
+  "at": "2026-10-20T14:48:38.905Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    156.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 1365,
+        "seconds": 15,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 20,
+        "p99": 29.9,
+        "max": 190.1,
+        "missedFrames": 135,
+        "missedPct": 9,
+        "stalls": 2,
+        "onTimePct": 93.3,
+        "bins": {
+          "onTime": 1273,
+          "late": 0,
+          "dropped1": 77,
+          "dropped2to3": 13,
+          "stall": 2
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 2,
+          "totalMs": 334,
+          "maxMs": 193
+        },
+        "mainThreadFrameMs": {
+          "p50": 11,
+          "p95": 23,
+          "max": 195.2
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 129
+        },
+        {
+          "t": 156,
+          "ms": 97.5
+        }
+      ],
+      "playedTo": 157.5,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      },
+      "trace": {
+        "mainThreadEvents": 34922,
+        "tasks": 8346,
+        "longTasks": 3,
+        "top": [
+          {
+            "name": "FireAnimationFrame",
+            "ms": 3907,
+            "n": 3919
+          },
+          {
+            "name": "FunctionCall animLoop @notation.html?renderer=a2:865",
+            "ms": 2945,
+            "n": 2553
+          },
+          {
+            "name": "Layerize",
+            "ms": 2465,
+            "n": 1366
+          },
+          {
+            "name": "UpdateLayoutTree",
+            "ms": 1651,
+            "n": 1366
+          },
+          {
+            "name": "Commit",
+            "ms": 1318,
+            "n": 1366
+          },
+          {
+            "name": "PrePaint",
+            "ms": 723,
+            "n": 1366
+          },
+          {
+            "name": "FunctionCall step @:10",
+            "ms": 371,
+            "n": 1366
+          },
+          {
+            "name": "FunctionCall mc.port1.onmessage @:6",
+            "ms": 260,
+            "n": 1365
+          },
+          {
+            "name": "Layout",
+            "ms": 175,
+            "n": 161
+          },
+          {
+            "name": "UpdateLayer",
+            "ms": 164,
+            "n": 10782
+          },
+          {
+            "name": "Paint",
+            "ms": 160,
+            "n": 411
+          },
+          {
+            "name": "ParseHTML",
+            "ms": 53,
+            "n": 4
+          },
+          {
+            "name": "V8.StackGuard",
+            "ms": 42,
+            "n": 36
+          },
+          {
+            "name": "V8.HandleInterrupts",
+            "ms": 42,
+            "n": 36
+          },
+          {
+            "name": "MajorGC",
+            "ms": 40,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_MARK_COMPACTOR",
+            "ms": 38,
+            "n": 2
+          },
+          {
+            "name": "HitTest",
+            "ms": 34,
+            "n": 30
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE",
+            "ms": 18,
+            "n": 4
+          },
+          {
+            "name": "PageTimingMetricsSender::SendNow",
+            "ms": 11,
+            "n": 48
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE_UPDATE_POINTERS",
+            "ms": 10,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_HEAP_ENSURE_SWEEPING_COMPLETED",
+            "ms": 10,
+            "n": 3
+          },
+          {
+            "name": "TimerFire",
+            "ms": 8,
+            "n": 17
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE_UPDATE_POINTERS_TO_NEW_ROOTS",
+            "ms": 7,
+            "n": 2
+          },
+          {
+            "name": "MinorGC",
+            "ms": 6,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_MC_INCREMENTAL",
+            "ms": 5,
+            "n": 10
+          }
+        ],
+        "long": [
+          {
+            "atMs": 2471,
+            "ms": 193.7,
+            "inside": [
+              "FireAnimationFrame 129.5 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 129.3 ms",
+              "ParseHTML 34.2 ms",
+              "PrePaint 22.7 ms"
+            ]
+          },
+          {
+            "atMs": 2666,
+            "ms": 31.5,
+            "inside": [
+              "UpdateLayoutTree 7.4 ms",
+              "FireAnimationFrame 5.1 ms",
+              "Layerize 4.6 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 4.0 ms"
+            ]
+          },
+          {
+            "atMs": 14478,
+            "ms": 142,
+            "inside": [
+              "FireAnimationFrame 98.0 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 97.6 ms",
+              "ParseHTML 18.3 ms",
+              "UpdateLayoutTree 12.4 ms"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

@@ -322,7 +322,7 @@ console.log('  trace: ' + tracks.length + ' tracks · mean ' + (activeSum / NF).
   ' elements per frame · ' + (traceJson.length / 1048576).toFixed(2) + ' MB');
 
 // ------------------------------------------------------------------ lane A0 inputs (the engine, verbatim)
-for (const f2 of ['coords.js', 'gc.js', 'animobj.js']) {
+for (const f2 of ['coords.js', 'gc.js', 'animobj.js', 'animlive.js']) {   // animlive: lane A2L (9a)
   fs.copyFileSync(path.join(ROOT, 'notation', 'lib', f2), path.join(OUT, 'engine', f2));
 }
 const engineInputs = {

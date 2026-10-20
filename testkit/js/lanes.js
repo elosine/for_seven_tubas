@@ -7,6 +7,8 @@
 //       that moved are set. Pages pre-parsed; a turn is a visibility flip.
 //   A2  GPU layers — every moving element is its own layer, moved with
 //       transform only (no layout, no repaint of the page).
+//   A2L the REAL A2 renderer (9a) — notation/lib/animlive.js itself over the
+//       piece's real instances and state functions; the 9a bar is read here.
 //   B   canvas, game-engine style — the page rasterized once per page, the
 //       moving elements redrawn on a second canvas every frame.
 //   C   pre-rendered video — the exporter's own frames, drawn by the hardware
@@ -282,6 +284,35 @@
     },
   };
 
+  // ------------------------------------------------------------ A2L: the real A2 renderer (9a)
+  // Not a replay: notation/lib/animlive.js itself (copied to assets/engine by
+  // build_assets.js), over the piece's REAL instances (engine_inputs.json —
+  // the same 4000+ the app collects), stepping the real state functions every
+  // frame; ONE overlay, handed the next page's plan at every turn, exactly as
+  // notation.html does. This is the lane the 9a bar is read from.
+  const A2L = {
+    id: 'A2L', label: 'A2L · the real A2 renderer',
+    desc: 'notation/lib/animlive.js itself — one overlay over the piece\'s real instances (movers as GPU layers, pooled), the real state functions run per frame, only transforms written; a turn hands it the next page\'s plan, as the notation page does',
+    async setup(stage) {
+      if (typeof NotationAnimLive === 'undefined') throw new Error('engine script animlive.js not loaded (rebuild: node testkit/build_assets.js)');
+      stage.innerHTML = '<div class="sheet"></div>';
+      const sheet = stage.firstChild;
+      const pageEls = pagesInto(sheet);
+      return { sheet, pageEls, si: -1, live: null, k: stage.clientWidth / A.W };
+    },
+    frame(ctx, t) {
+      const si = segAt(t);
+      if (si !== ctx.si) {
+        turnTo(ctx, si);
+        const view = NotationCoords.makeView(A.engine.segments[si].cfg);
+        if (!ctx.live) { ctx.live = NotationAnimLive.mount(ctx.sheet, view); ctx.live.setScale(ctx.k); }
+        ctx.live.setLayers([{ scene: NotationAnimLive.plan(A.engine.instances, view, A.engine.style), opacity: 1 }]);
+      }
+      ctx.live.frame(t);
+    },
+    teardown(ctx) { if (ctx.live) ctx.live.destroy(); return null; },
+  };
+
   // ------------------------------------------------------------ B: canvas
   let fontCss = null;
   async function embeddedFonts() {
@@ -434,7 +465,7 @@
     },
   };
 
-  const LANES = { A0, A1, A2, B, C };
+  const LANES = { A0, A1, A2, A2L, B, C };
 
   // ------------------------------------------------------------ the runner
   // THE COST OF A FRAME, device-independent: the lane's own JavaScript, and the
@@ -485,7 +516,7 @@
   }
 
   async function runT2(opts, say) {
-    const o = Object.assign({ seconds: 15, warm: 1, loads: ['off', 'heavy'], lanes: ['A0', 'A1', 'A2', 'B', 'C'] }, opts || {});
+    const o = Object.assign({ seconds: 15, warm: 1, loads: ['off', 'heavy'], lanes: ['A0', 'A1', 'A2', 'A2L', 'B', 'C'] }, opts || {});
     await loadAssets(say);
     const th = theater.open();
     const out = {

@@ -86,14 +86,19 @@ A phone filming the screen cannot:
   decodes 1080p60 video in hardware, keep-screen-on, storage.
 - **T1 · frame health** — the device's own frame timing, idle and under
   a synthetic load. The floor every renderer stands on.
-- **T2 · renderers** — the busiest minute of the piece drawn five ways:
-  - A0 today's engine, exactly as the notation app runs it
+- **T2 · renderers** — the busiest minute of the piece drawn six ways:
+  - A0 today's engine, exactly as the notation app ran it before 9a
   - A1 retained SVG (the fix: build once, change only what moved)
   - A2 GPU layers (the fix, with every moving element on its own layer)
+  - **A2L the real A2 renderer** (9a, day 45) — `notation/lib/animlive.js`
+    itself, the piece's real animated objects, the code the notation page
+    now runs. **The 9a bar is read here: frames on time ≥ 99 % on the Fire.**
   - B canvas (the game-engine way)
   - C pre-rendered video (the concert stand)
   The key column is **main-thread cost per frame**: the headroom a
   cheap device has.
+  *After any change to `notation/lib/animlive.js`, rebuild the kit's copy:
+  `node testkit/build_assets.js --no-video` (keeps the two videos).*
 - **T4 · video stand** — seek speed, the player on its own, 1 % speed
   changes, and the frame servo holding the video to the clock through
   a deliberate +80 ms wrong-clock step.
@@ -141,7 +146,13 @@ headline numbers, for a comparison table:
   the DevTools protocol (throwaway profile). The Claude preview pane
   delivers **no animation frames while hidden**, so this is how the kit
   verifies itself. `--shots` renders every lane at the same instant and
-  screenshots it — the fidelity check.
+  screenshots it — the fidelity check. `--throttle N` slows the page's
+  main thread N times (a stand-in for a cheap tablet; the Fire measures
+  ~8–10× this PC); `--t2-lanes A2,A2L --t2-seconds 30` runs T2 on just
+  those lanes. **This PC's headless browser runs at 100 Hz** (the
+  monitor's refresh), so its "on time" is judged against a 10 ms frame,
+  not the stands' 16.7 ms — compare lanes with each other, not with a
+  device.
 - `test_syncclock.js`, `test_servo.js` — Node simulation batteries for
   the two control modules (`js/syncclock.js` = the floor rule,
   `js/servo.js` = the frame servo). Run both after any change to either.

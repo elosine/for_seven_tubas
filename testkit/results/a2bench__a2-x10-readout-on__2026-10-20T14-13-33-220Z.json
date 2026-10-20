@@ -1,0 +1,79 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "a2 x10 readout on",
+  "injectCss": null,
+  "at": "2026-10-20T14:13:33.220Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    171.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 2544,
+        "seconds": 30,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 20,
+        "p99": 30,
+        "max": 150.1,
+        "missedFrames": 456,
+        "missedPct": 15.2,
+        "stalls": 3,
+        "onTimePct": 85.1,
+        "bins": {
+          "onTime": 2166,
+          "late": 0,
+          "dropped1": 334,
+          "dropped2to3": 41,
+          "stall": 3
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 3,
+          "totalMs": 399,
+          "maxMs": 157
+        },
+        "mainThreadFrameMs": {
+          "p50": 16.2,
+          "p95": 26.3,
+          "max": 165.6
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 104
+        },
+        {
+          "t": 155.99,
+          "ms": 89.8
+        },
+        {
+          "t": 167.99,
+          "ms": 58.2
+        }
+      ],
+      "playedTo": 171.57,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

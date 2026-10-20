@@ -616,3 +616,18 @@ repo; noted so a future clone failure has its answer waiting.
   until the next render self-heals. Transient, horizontal, cosmetic. Fix
   shape: a render generation counter (drop stale completions). Surfaced
   during the day-40 congruence hunt.
+
+- **A fresh device opens the notation picker's FIRST entry — MORPH x01, not MAIN
+  DRAFT (day 45, 9a).** The day-35 comment in notation.html says the manifest lists
+  MAIN DRAFT first; it no longer does (the morph pages come before it). Only bites a
+  browser with no saved UI (a new tablet). Worked around for the 9a check by
+  `?ir=db1` in the link; the fix is the manifest order (or a default to `db1` when
+  nothing is saved). Deferred: the composer's own browsers remember their choice.
+
+- **A page turn re-renders the whole page on the main thread (day 45, 9a):** ~6–20 ms
+  on the dev PC, ~60–130 ms at CPU ×10 (≈ the Fire) = ~4–7 frames at a hard cut, five
+  times a minute on the full score. The kit's lanes flip pre-parsed pages, so the 9a
+  bar does not include it. Fix shape: render the NEXT page off the main thread (a
+  worker running `renderSection`, the page arriving as a string, parsed at the turn).
+  Belongs with the stand's own page turns (9h, one part = a tenth of the page);
+  deferred from the workshop page because a page cache there could show a stale page.

@@ -150,7 +150,7 @@
       }
       h += '</table><p class="note">every lane plays the same music: ' + r.seconds + ' s of the busiest minute of the piece, from ' + r.window[0].toFixed(1) +
         ' s. The cost column is the one that travels to other devices: a tablet 5× slower than this one pays 5× the cost, against a 16.7 ms budget per frame at 60 Hz. For C the main thread draws nothing — its smoothness is the last column.</p>';
-      return card('T2 · the renderer shoot-out', 'A0 today\'s engine · A1 retained SVG · A2 GPU layers · B canvas · C video', h, 'T2');
+      return card('T2 · the renderer shoot-out', 'A0 today\'s engine · A1 retained SVG · A2 GPU layers · A2L the real A2 renderer · B canvas · C video', h, 'T2');
     },
     T3(r) {
       const cal = r.calibration;

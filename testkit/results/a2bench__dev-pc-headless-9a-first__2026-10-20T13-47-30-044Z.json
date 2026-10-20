@@ -1,0 +1,321 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "dev PC headless 9a first",
+  "at": "2026-10-20T13:47:30.044Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    201.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a0",
+      "cpuSlowdown": 1,
+      "frames": {
+        "frames": 5960,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 10.2,
+        "max": 20.1,
+        "missedFrames": 39,
+        "missedPct": 0.65,
+        "stalls": 0,
+        "onTimePct": 99.3,
+        "bins": {
+          "onTime": 5921,
+          "late": 0,
+          "dropped1": 39,
+          "dropped2to3": 0,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "mainThreadFrameMs": {
+          "p50": 5.3,
+          "p95": 13.9,
+          "max": 27.8
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 6.9
+        },
+        {
+          "t": 155.99,
+          "ms": 6.5
+        },
+        {
+          "t": 167.99,
+          "ms": 6.2
+        },
+        {
+          "t": 179.99,
+          "ms": 4.4
+        },
+        {
+          "t": 191.99,
+          "ms": 4.4
+        }
+      ],
+      "playedTo": 201.53,
+      "movers": 0
+    },
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 1,
+      "frames": {
+        "frames": 5998,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 10.2,
+        "max": 20,
+        "missedFrames": 1,
+        "missedPct": 0.02,
+        "stalls": 0,
+        "onTimePct": 100,
+        "bins": {
+          "onTime": 5997,
+          "late": 0,
+          "dropped1": 1,
+          "dropped2to3": 0,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "mainThreadFrameMs": {
+          "p50": 1.6,
+          "p95": 3.5,
+          "max": 28.7
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 16.1
+        },
+        {
+          "t": 155.99,
+          "ms": 12
+        },
+        {
+          "t": 168,
+          "ms": 12.9
+        },
+        {
+          "t": 179.99,
+          "ms": 11.9
+        },
+        {
+          "t": 192,
+          "ms": 9.3
+        }
+      ],
+      "playedTo": 201.52,
+      "movers": 41
+    },
+    {
+      "renderer": "a0",
+      "cpuSlowdown": 6,
+      "frames": {
+        "frames": 1579,
+        "seconds": 60,
+        "refreshHz": 25.1,
+        "periodMs": 39.9,
+        "p50": 39.9,
+        "p95": 70,
+        "p99": 80.1,
+        "max": 120.1,
+        "missedFrames": 242,
+        "missedPct": 13.29,
+        "stalls": 0,
+        "onTimePct": 69.9,
+        "bins": {
+          "onTime": 1103,
+          "late": 235,
+          "dropped1": 240,
+          "dropped2to3": 1,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 127,
+          "totalMs": 7036,
+          "maxMs": 122
+        },
+        "mainThreadFrameMs": {
+          "p50": 43.2,
+          "p95": 99.3,
+          "max": 150.2
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 47
+        },
+        {
+          "t": 155.99,
+          "ms": 45.8
+        },
+        {
+          "t": 167.99,
+          "ms": 45.9
+        },
+        {
+          "t": 179.99,
+          "ms": 30.1
+        },
+        {
+          "t": 191.99,
+          "ms": 30.7
+        }
+      ],
+      "playedTo": 201.67,
+      "movers": 0
+    },
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 6,
+      "frames": {
+        "frames": 5412,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 19.9,
+        "p99": 40,
+        "max": 130,
+        "missedFrames": 587,
+        "missedPct": 9.78,
+        "stalls": 33,
+        "onTimePct": 95,
+        "bins": {
+          "onTime": 5139,
+          "late": 0,
+          "dropped1": 143,
+          "dropped2to3": 97,
+          "stall": 33
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 24,
+          "totalMs": 1890,
+          "maxMs": 114
+        },
+        "mainThreadFrameMs": {
+          "p50": 7.5,
+          "p95": 24.2,
+          "max": 160.5
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 82.3
+        },
+        {
+          "t": 155.99,
+          "ms": 76.3
+        },
+        {
+          "t": 167.99,
+          "ms": 89.5
+        },
+        {
+          "t": 180,
+          "ms": 94.7
+        },
+        {
+          "t": 191.99,
+          "ms": 79
+        }
+      ],
+      "playedTo": 201.53,
+      "movers": 41
+    }
+  ],
+  "shots": {
+    "at": [
+      150,
+      170.5,
+      190
+    ],
+    "dir": "testkit/results/a2shots",
+    "diff": [
+      {
+        "t": 150,
+        "differ8": 4584,
+        "differ48": 1875,
+        "max": 174,
+        "bbox48": [
+          975,
+          8,
+          983,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.019,
+          "p95AbsPx": 0.3
+        }
+      },
+      {
+        "t": 170.5,
+        "differ8": 4562,
+        "differ48": 1516,
+        "max": 174,
+        "bbox48": [
+          429,
+          8,
+          437,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      },
+      {
+        "t": 190,
+        "differ8": 4555,
+        "differ48": 1452,
+        "max": 174,
+        "bbox48": [
+          1599,
+          8,
+          1607,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      }
+    ]
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

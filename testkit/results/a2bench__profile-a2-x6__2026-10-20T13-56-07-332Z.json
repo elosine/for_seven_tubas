@@ -1,0 +1,176 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "profile a2 x6",
+  "at": "2026-10-20T13:56:07.332Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    161.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 6,
+      "frames": {
+        "frames": 1764,
+        "seconds": 20,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 40.1,
+        "max": 149.9,
+        "missedFrames": 237,
+        "missedPct": 11.84,
+        "stalls": 18,
+        "onTimePct": 95,
+        "bins": {
+          "onTime": 1676,
+          "late": 0,
+          "dropped1": 28,
+          "dropped2to3": 42,
+          "stall": 18
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 12,
+          "totalMs": 1020,
+          "maxMs": 137
+        },
+        "mainThreadFrameMs": {
+          "p50": 5.9,
+          "p95": 27.7,
+          "max": 160.2
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 117.3
+        },
+        {
+          "t": 155.99,
+          "ms": 113.4
+        }
+      ],
+      "playedTo": 162.03,
+      "movers": 41,
+      "profile": {
+        "totalMs": 20420,
+        "top": [
+          {
+            "fn": "(program) @:0",
+            "ms": 10611
+          },
+          {
+            "fn": "(idle) @:0",
+            "ms": 6179
+          },
+          {
+            "fn": "paint @animlive.js:310",
+            "ms": 1998
+          },
+          {
+            "fn": "showTnow @notation.html:843",
+            "ms": 216
+          },
+          {
+            "fn": "step @:10",
+            "ms": 172
+          },
+          {
+            "fn": "frameAt @animlive.js:261",
+            "ms": 161
+          },
+          {
+            "fn": "requestAnimationFrame @:0",
+            "ms": 148
+          },
+          {
+            "fn": "fetch @:0",
+            "ms": 89
+          },
+          {
+            "fn": "drawOverlayFrame @notation.html:785",
+            "ms": 79
+          },
+          {
+            "fn": "(garbage collector) @:0",
+            "ms": 79
+          },
+          {
+            "fn": "animLoop @notation.html:849",
+            "ms": 71
+          },
+          {
+            "fn": "renderSection @render.js:15",
+            "ms": 61
+          },
+          {
+            "fn": "step @animlive.js:192",
+            "ms": 61
+          },
+          {
+            "fn": "getElementById @:0",
+            "ms": 56
+          },
+          {
+            "fn": "step @animlive.js:145",
+            "ms": 54
+          },
+          {
+            "fn": "gc @animlive.js:69",
+            "ms": 51
+          },
+          {
+            "fn": "now @transport.js:23",
+            "ms": 49
+          },
+          {
+            "fn": "renderContainerView @notation.html:426",
+            "ms": 47
+          },
+          {
+            "fn": "meterLevel @animlive.js:57",
+            "ms": 45
+          },
+          {
+            "fn": "mc.port1.onmessage @:6",
+            "ms": 34
+          },
+          {
+            "fn": "$ @notation.html:132",
+            "ms": 20
+          },
+          {
+            "fn": "(anonymous) @render.js:108",
+            "ms": 18
+          },
+          {
+            "fn": "now @:0",
+            "ms": 12
+          },
+          {
+            "fn": "params @gc.js:49",
+            "ms": 11
+          },
+          {
+            "fn": "pollChanges @notation.html:988",
+            "ms": 10
+          }
+        ]
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

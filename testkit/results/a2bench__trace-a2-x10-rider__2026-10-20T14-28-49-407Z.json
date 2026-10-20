@@ -1,0 +1,248 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "trace a2 x10 rider",
+  "injectCss": null,
+  "at": "2026-10-20T14:28:49.407Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    156.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 1351,
+        "seconds": 15,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 20,
+        "p99": 30,
+        "max": 200.1,
+        "missedFrames": 149,
+        "missedPct": 9.93,
+        "stalls": 3,
+        "onTimePct": 92.5,
+        "bins": {
+          "onTime": 1250,
+          "late": 0,
+          "dropped1": 85,
+          "dropped2to3": 13,
+          "stall": 3
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 2,
+          "totalMs": 352,
+          "maxMs": 204
+        },
+        "mainThreadFrameMs": {
+          "p50": 11.6,
+          "p95": 23.5,
+          "max": 205.6
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 103.4
+        },
+        {
+          "t": 156,
+          "ms": 122.9
+        }
+      ],
+      "playedTo": 157.64,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      },
+      "trace": {
+        "mainThreadEvents": 34889,
+        "tasks": 8260,
+        "longTasks": 4,
+        "top": [
+          {
+            "name": "FireAnimationFrame",
+            "ms": 3990,
+            "n": 3875
+          },
+          {
+            "name": "FunctionCall animLoop @notation.html?renderer=a2:865",
+            "ms": 3032,
+            "n": 2523
+          },
+          {
+            "name": "Layerize",
+            "ms": 2521,
+            "n": 1352
+          },
+          {
+            "name": "UpdateLayoutTree",
+            "ms": 1689,
+            "n": 1352
+          },
+          {
+            "name": "Commit",
+            "ms": 1370,
+            "n": 1352
+          },
+          {
+            "name": "PrePaint",
+            "ms": 738,
+            "n": 1352
+          },
+          {
+            "name": "FunctionCall step @:10",
+            "ms": 380,
+            "n": 1352
+          },
+          {
+            "name": "FunctionCall mc.port1.onmessage @:6",
+            "ms": 321,
+            "n": 1351
+          },
+          {
+            "name": "Paint",
+            "ms": 228,
+            "n": 409
+          },
+          {
+            "name": "Layout",
+            "ms": 195,
+            "n": 160
+          },
+          {
+            "name": "UpdateLayer",
+            "ms": 178,
+            "n": 10932
+          },
+          {
+            "name": "V8.StackGuard",
+            "ms": 93,
+            "n": 42
+          },
+          {
+            "name": "V8.HandleInterrupts",
+            "ms": 91,
+            "n": 42
+          },
+          {
+            "name": "MajorGC",
+            "ms": 59,
+            "n": 3
+          },
+          {
+            "name": "V8.GC_MARK_COMPACTOR",
+            "ms": 57,
+            "n": 3
+          },
+          {
+            "name": "HitTest",
+            "ms": 38,
+            "n": 30
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE",
+            "ms": 32,
+            "n": 6
+          },
+          {
+            "name": "ParseHTML",
+            "ms": 30,
+            "n": 4
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE_UPDATE_POINTERS",
+            "ms": 19,
+            "n": 3
+          },
+          {
+            "name": "TimerFire",
+            "ms": 14,
+            "n": 17
+          },
+          {
+            "name": "V8.GC_MC_INCREMENTAL",
+            "ms": 13,
+            "n": 13
+          },
+          {
+            "name": "V8.GC_MC_INCREMENTAL_EMBEDDER_TRACING",
+            "ms": 11,
+            "n": 13
+          },
+          {
+            "name": "PageTimingMetricsSender::SendNow",
+            "ms": 11,
+            "n": 48
+          },
+          {
+            "name": "V8.GC_HEAP_ENSURE_SWEEPING_COMPLETED",
+            "ms": 10,
+            "n": 4
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE_UPDATE_POINTERS_TO_NEW_ROOTS",
+            "ms": 10,
+            "n": 3
+          }
+        ],
+        "long": [
+          {
+            "atMs": 154,
+            "ms": 30.8,
+            "inside": [
+              "Layout 12.2 ms",
+              "Layerize 3.8 ms",
+              "UpdateLayoutTree 3.2 ms"
+            ]
+          },
+          {
+            "atMs": 2467,
+            "ms": 148.5,
+            "inside": [
+              "FireAnimationFrame 104.9 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 103.9 ms",
+              "ParseHTML 14.7 ms",
+              "UpdateLayoutTree 14.5 ms"
+            ]
+          },
+          {
+            "atMs": 8499,
+            "ms": 32.7,
+            "inside": [
+              "FireAnimationFrame 10.9 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 7.8 ms",
+              "Layerize 4.2 ms",
+              "FireAnimationFrame 4.0 ms"
+            ]
+          },
+          {
+            "atMs": 14469,
+            "ms": 204.3,
+            "inside": [
+              "FireAnimationFrame 123.4 ms",
+              "FunctionCall animLoop @notation.html?renderer=a2 122.9 ms",
+              "Paint 31.1 ms",
+              "Paint 21.5 ms"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

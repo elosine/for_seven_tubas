@@ -1,0 +1,77 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "shots after rider",
+  "injectCss": null,
+  "at": "2026-10-20T14:22:52.028Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    201.5
+  ],
+  "size": "1920,1080",
+  "runs": [],
+  "shots": {
+    "at": [
+      150,
+      170.5,
+      190
+    ],
+    "dir": "testkit/results/a2shots",
+    "diff": [
+      {
+        "t": 150,
+        "differ8": 4584,
+        "differ48": 1875,
+        "max": 174,
+        "bbox48": [
+          975,
+          8,
+          983,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.019,
+          "p95AbsPx": 0.3
+        }
+      },
+      {
+        "t": 170.5,
+        "differ8": 4562,
+        "differ48": 1516,
+        "max": 174,
+        "bbox48": [
+          429,
+          8,
+          437,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      },
+      {
+        "t": 190,
+        "differ8": 4555,
+        "differ48": 1452,
+        "max": 174,
+        "bbox48": [
+          1599,
+          8,
+          1607,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      }
+    ]
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

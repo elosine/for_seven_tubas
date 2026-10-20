@@ -1,0 +1,304 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "trace kit A2L x10",
+  "injectCss": null,
+  "at": "2026-10-20T14:46:51.905Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    156.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "kitLane": "A2L",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 1445,
+        "seconds": 15,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 20,
+        "max": 80,
+        "missedFrames": 55,
+        "missedPct": 3.67,
+        "stalls": 2,
+        "onTimePct": 97.2,
+        "bins": {
+          "onTime": 1405,
+          "late": 0,
+          "dropped1": 33,
+          "dropped2to3": 5,
+          "stall": 2
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 2,
+          "totalMs": 148,
+          "maxMs": 87
+        },
+        "load": "off",
+        "laneJsMs": {
+          "p50": 0.8,
+          "p95": 1.7,
+          "max": 15
+        },
+        "mainThreadFrameMs": {
+          "p50": 6.1,
+          "p95": 12.9,
+          "max": 89.8
+        }
+      },
+      "trace": {
+        "mainThreadEvents": 33050,
+        "tasks": 9320,
+        "longTasks": 11,
+        "top": [
+          {
+            "name": "FireAnimationFrame",
+            "ms": 2813,
+            "n": 1517
+          },
+          {
+            "name": "Layerize",
+            "ms": 2704,
+            "n": 1519
+          },
+          {
+            "name": "FunctionCall step @lanes.js:490",
+            "ms": 2327,
+            "n": 1517
+          },
+          {
+            "name": "UpdateLayoutTree",
+            "ms": 2191,
+            "n": 1518
+          },
+          {
+            "name": "Commit",
+            "ms": 1432,
+            "n": 1519
+          },
+          {
+            "name": "PrePaint",
+            "ms": 841,
+            "n": 1519
+          },
+          {
+            "name": "RunMicrotasks",
+            "ms": 559,
+            "n": 21
+          },
+          {
+            "name": "Layout",
+            "ms": 285,
+            "n": 22
+          },
+          {
+            "name": "FunctionCall mc.port1.onmessage @lanes.js:487",
+            "ms": 201,
+            "n": 1444
+          },
+          {
+            "name": "UpdateLayer",
+            "ms": 195,
+            "n": 12578
+          },
+          {
+            "name": "ParseHTML",
+            "ms": 157,
+            "n": 16
+          },
+          {
+            "name": "Paint",
+            "ms": 103,
+            "n": 90
+          },
+          {
+            "name": "HitTest",
+            "ms": 42,
+            "n": 34
+          },
+          {
+            "name": "MajorGC",
+            "ms": 36,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_MARK_COMPACTOR",
+            "ms": 34,
+            "n": 2
+          },
+          {
+            "name": "TimerFire",
+            "ms": 20,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE",
+            "ms": 16,
+            "n": 4
+          },
+          {
+            "name": "EvaluateScript",
+            "ms": 12,
+            "n": 1
+          },
+          {
+            "name": "PageTimingMetricsSender::SendNow",
+            "ms": 10,
+            "n": 41
+          },
+          {
+            "name": "V8.StackGuard",
+            "ms": 9,
+            "n": 44
+          },
+          {
+            "name": "V8.GC_MC_EVACUATE_UPDATE_POINTERS",
+            "ms": 8,
+            "n": 2
+          },
+          {
+            "name": "V8.HandleInterrupts",
+            "ms": 8,
+            "n": 44
+          },
+          {
+            "name": "V8.GC_MC_MARK",
+            "ms": 8,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_HEAP_ENSURE_SWEEPING_COMPLETED",
+            "ms": 7,
+            "n": 2
+          },
+          {
+            "name": "V8.GC_MC_MARK_FULL_CLOSURE_PARALLEL",
+            "ms": 6,
+            "n": 2
+          }
+        ],
+        "long": [
+          {
+            "atMs": 34,
+            "ms": 53,
+            "inside": []
+          },
+          {
+            "atMs": 89,
+            "ms": 97.3,
+            "inside": [
+              "MinorGC 5.2 ms",
+              "V8.GC_SCAVENGER 4.6 ms",
+              "V8.GC_SCAVENGER_SCAVENGE 4.6 ms"
+            ]
+          },
+          {
+            "atMs": 193,
+            "ms": 37.1,
+            "inside": []
+          },
+          {
+            "atMs": 285,
+            "ms": 507.1,
+            "inside": [
+              "RunMicrotasks 506.5 ms",
+              "Layout 115.3 ms",
+              "UpdateLayoutTree 104.3 ms",
+              "ParseHTML 57.6 ms"
+            ]
+          },
+          {
+            "atMs": 793,
+            "ms": 36.3,
+            "inside": [
+              "PrePaint 23.5 ms"
+            ]
+          },
+          {
+            "atMs": 842,
+            "ms": 146.3,
+            "inside": [
+              "Layout 123.5 ms",
+              "PrePaint 9.8 ms",
+              "UpdateLayoutTree 6.6 ms"
+            ]
+          },
+          {
+            "atMs": 1775,
+            "ms": 196.5,
+            "inside": [
+              "FireAnimationFrame 117.5 ms",
+              "FunctionCall step @lanes.js 117.1 ms",
+              "UpdateLayoutTree 36.7 ms",
+              "Paint 16.0 ms"
+            ]
+          },
+          {
+            "atMs": 2360,
+            "ms": 34.4,
+            "inside": [
+              "Layerize 15.5 ms",
+              "UpdateLayoutTree 10.3 ms",
+              "FireAnimationFrame 4.6 ms",
+              "FunctionCall step @lanes.js 3.4 ms"
+            ]
+          },
+          {
+            "atMs": 4261,
+            "ms": 89.4,
+            "inside": [
+              "UpdateLayoutTree 54.9 ms",
+              "FireAnimationFrame 12.8 ms",
+              "FunctionCall step @lanes.js 12.5 ms",
+              "Paint 9.4 ms"
+            ]
+          },
+          {
+            "atMs": 16262,
+            "ms": 61.7,
+            "inside": [
+              "UpdateLayoutTree 37.6 ms",
+              "Paint 9.8 ms",
+              "Paint 8.0 ms",
+              "FireAnimationFrame 7.2 ms"
+            ]
+          },
+          {
+            "atMs": 17773,
+            "ms": 30.4,
+            "inside": [
+              "FireAnimationFrame 22.0 ms",
+              "RunMicrotasks 13.0 ms",
+              "FunctionCall step @lanes.js 9.0 ms"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots",
+    "diff": [
+      {
+        "t": 0,
+        "differ8": 0,
+        "differ48": 0,
+        "max": 1,
+        "bbox48": null,
+        "cursorOffset": null
+      }
+    ]
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

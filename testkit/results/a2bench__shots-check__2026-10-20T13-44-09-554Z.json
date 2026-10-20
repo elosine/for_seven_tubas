@@ -1,0 +1,25 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "shots-check",
+  "at": "2026-10-20T13:44:09.554Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    201.5
+  ],
+  "size": "1920,1080",
+  "runs": [],
+  "shots": {
+    "at": [
+      150,
+      170.5,
+      190
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": [
+    "pixel diff failed: Traceback (most recent call last):\r\n  File \"C:\\Users\\jwloy\\AppData\\Local\\Temp\\a2_bench_diff.py\", line 7, in <module>\r\n    d = np.abs(A - B).max(axis=2)\r\n               ~~^~~\r\nValueError: operands could not be broadcast together with shapes (983,1886,3) (949,1886,3) \r\n"
+  ]
+}

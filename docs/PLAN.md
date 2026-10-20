@@ -2191,7 +2191,14 @@ while building the real score.
 
 ### P0 — THE SPIKES (prototype before building on them; DESIGN §14)
 
-- **9a — SPIKE: the A2 renderer on the real page** — `todo` — the live overlay
+- **9a — SPIKE: the A2 renderer on the real page** — `BUILT + VERIFIED on the PC
+  2026-10-20 (day 45, Opus; RUNNING_LOG 91) → the devices: the kit's T2 lane A2L on
+  the Fire + THE COMPOSER'S CHECK; then the Fable verdict.` Built: `notation/lib/
+  animlive.js` (one overlay for the piece, pooled elements, a time index, riders) ·
+  `tools/test_animlive.js` (whole-piece parity with frameSvg, 55,286 comparisons) ·
+  `tools/a2_bench.js` (the real page, headless, a0 vs A2) · kit lane A2L. Bench of
+  record, CPU ×6: A2 99.7 % on time vs a0 59.6 %. The check link:
+  `/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0`. *(As planned:)* the live overlay
   built once per page, movers as GPU layers (`will-change: transform`), the
   exporter's string path untouched. AR-50. **VERIFY:** every existing battery green
   (`test_render test_animobj test_snapshots …`) · `prove_unmoved` against today's

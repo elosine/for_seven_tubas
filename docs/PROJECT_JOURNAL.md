@@ -10,13 +10,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-20, day 45, ~5:45 a.m.): THE DECIDE BAND IS
-> CLOSED — GATHER (D90–D96) · REQUIREMENTS frozen (D97) · DESIGN approved (D98)
-> · PLAN approved (D99), all in one sitting. ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): **9a — SPIKE: the A2 renderer on the
-> real page — OPUS, COLD** (the brief = PLAN.md §9 + DESIGN.md +
-> REQUIREMENTS.md; nothing else needed). Fable returns for the verdict after
-> each spike and for the design sitting in 9i. Nothing in flight.**
+> **► CURRENT POSITION (2026-10-20, day 45, afternoon): 9a — THE A2 RENDERER ON
+> THE REAL PAGE — BUILT AND VERIFIED ON THE PC** (RUNNING_LOG 91). The notation
+> page now runs `notation/lib/animlive.js`; CPU ×6 bench: 99.7 % of frames on
+> time vs 59.6 % before. **► NEXT: the devices — THE COMPOSER'S CHECK (the page
+> on the iPad and the Fire by eye) + the kit's T2 on the Fire (lane A2L ≥ 99 %)
+> — then a FABLE verdict on 9a, then 9b (Opus, cold).** Nothing in flight.
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -40,10 +39,17 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9a — SPIKE: the A2 renderer on the real page** (PLAN.md §9; Opus, cold,
-  one session; clear before it). Done = every battery green · prove_unmoved
-  clean · the kit's T2 lane on the Fire ≥ 99 % with the real busiest minute ·
-  the composer's eye on the iPad and the Fire. Then a Fable verdict, then 9b.
+- **► 9a — the devices (the composer, ~15 min; no model needed):**
+  1. PC: `node score/server.js` and `node testkit/server.js`.
+  2. iPad and Fire, the check link —
+     `http://192.168.1.15:5200/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0`
+     — watch the busiest minute: smooth by eye? (a page turns every 12 s; a
+     brief hitch AT the turn is the known NITS item, not the renderer).
+  3. Fire only: the kit `http://192.168.1.15:4760/` → **Run T2** → **Save to
+     server**; the bar is lane **A2L ≥ 99 %** frames on time.
+  Then **Fable: the 9a verdict** (go / re-plan) → **9b** (Opus, cold, clear before).
+- ☑ 9a built + PC-verified (day 45, RUNNING_LOG 91): twelve batteries green ·
+  prove_unmoved clean · bench of record in `testkit/results/a2bench__dev-pc-headless-9a-of-record__…`.
 - ☑ 11 PLAN → D99 (day 45): PLAN.md §9 approved on "Approved".
 - ☑ 10 ARCHITECTURE → D98 (day 45): `docs/DESIGN.md` approved on "Approved".
 - ☑ 9 HARDEN → D97 (day 45): `docs/REQUIREMENTS.md` frozen on "Freeze".
@@ -68,6 +74,22 @@ piece #3's `docs/` — registered as an additional working directory.
   git history (journal before 13a0f7d).
 
 ### OPEN AT SESSION END
+
+**(day 45, 2026-10-20 afternoon — 9a built, Opus)**
+- **Task and state:** 9a built and verified on the PC; nothing half-done. Waits on
+  the devices (NEXT UP above) and a Fable verdict.
+- **New files:** `notation/lib/animlive.js` (the A2 renderer) · `tools/test_animlive.js`
+  (battery, ~20 s) · `tools/a2_bench.js` (the real page headless: `--throttle`,
+  `--trace`, `--profile`, `--kit-lane`, `--inject-css`, `--shots`) · kit lane A2L
+  (`testkit/js/lanes.js`; `verify_headless.js --throttle --t2-lanes`).
+- **Changed on the notation page (all measured, RUNNING_LOG 91):** A2 by default
+  (`?renderer=a0` = the old path, measuring only) · the hot reload waits while the
+  music plays · the pill shows tenths while playing · MIDI requested only while its
+  box is ticked · link options `?ir= &t= &play=1 &midi=0` · test hooks
+  `__notationGoto/Play/Pause/State`.
+- **After any change to animlive.js:** `node testkit/build_assets.js --no-video`
+  refreshes the kit's copy.
+- **Deliberately uncommitted:** the composer's three files, as below.
 
 **(day 45, 2026-10-20 ~6 a.m. — mid-session checkpoint)**
 - **Task and state:** the performance arc's DECIDE band is CLOSED (D90–D99, one
@@ -231,7 +253,7 @@ instruction. The instructions are the four reference blocks that follow.*
 | **prove a page did not move** | `node tools/prove_unmoved.js --before <path> --after <ir-id\|path> [--expect-added N]` — the day-34 fold case: compare a page against a version of itself from git or an archive. `notate_block` calls the same library internally, so a generated rebuild proves itself without anyone remembering this |
 | normalise one-shot written lengths | `node tools/set_brick.js --score <name> --group <id> --brick 0.05 [--apply]` |
 | move ONE note by hand | `node tools/move_object.js --score piece-s25-finished01 --object wc-N --toPart P [--apply]`, then ledger it |
-| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability test_notate_block` — all green at close (**11 since day 35**) |
+| batteries | `test_layout test_render test_animobj test_splice test_snapshots test_coords test_stamps test_pattern_fit test_midiplayer test_playability test_notate_block test_animlive` — all green at close (**12 since day 45**: `test_animlive` holds the A2 renderer to frameSvg, ~20 s) |
 
 ### Things to know before building anything (hard-won, day 24)
 

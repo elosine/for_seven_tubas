@@ -1,0 +1,477 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "dev PC headless 9a of record",
+  "injectCss": null,
+  "at": "2026-10-20T14:51:15.005Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    201.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a0",
+      "cpuSlowdown": 1,
+      "frames": {
+        "frames": 5977,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 10.2,
+        "max": 60,
+        "missedFrames": 22,
+        "missedPct": 0.37,
+        "stalls": 2,
+        "onTimePct": 99.8,
+        "bins": {
+          "onTime": 5963,
+          "late": 0,
+          "dropped1": 12,
+          "dropped2to3": 0,
+          "stall": 2
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "mainThreadFrameMs": {
+          "p50": 5,
+          "p95": 7.5,
+          "p99": 11.8,
+          "max": 27.9,
+          "fits60HzPct": 99.7,
+          "fits100HzPct": 98.4,
+          "n": 5977
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 7.2
+        },
+        {
+          "t": 155.99,
+          "ms": 6.5
+        },
+        {
+          "t": 167.99,
+          "ms": 6.4
+        },
+        {
+          "t": 179.99,
+          "ms": 4.6
+        },
+        {
+          "t": 191.99,
+          "ms": 4.4
+        }
+      ],
+      "playedTo": 201.54,
+      "overlay": null
+    },
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 1,
+      "frames": {
+        "frames": 5999,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 10.2,
+        "max": 10.4,
+        "missedFrames": 0,
+        "missedPct": 0,
+        "stalls": 0,
+        "onTimePct": 100,
+        "bins": {
+          "onTime": 5999,
+          "late": 0,
+          "dropped1": 0,
+          "dropped2to3": 0,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "mainThreadFrameMs": {
+          "p50": 0.6,
+          "p95": 2.1,
+          "p99": 2.8,
+          "max": 15.1,
+          "fits60HzPct": 100,
+          "fits100HzPct": 99.9,
+          "n": 5999
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 8.4
+        },
+        {
+          "t": 155.99,
+          "ms": 11.8
+        },
+        {
+          "t": 167.99,
+          "ms": 8.2
+        },
+        {
+          "t": 179.99,
+          "ms": 7.2
+        },
+        {
+          "t": 192,
+          "ms": 6.8
+        }
+      ],
+      "playedTo": 201.51,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    },
+    {
+      "renderer": "a0",
+      "cpuSlowdown": 6,
+      "frames": {
+        "frames": 1837,
+        "seconds": 60,
+        "refreshHz": 33.3,
+        "periodMs": 30,
+        "p50": 30,
+        "p95": 60,
+        "p99": 70,
+        "max": 100.1,
+        "missedFrames": 406,
+        "missedPct": 18.1,
+        "stalls": 0,
+        "onTimePct": 59.6,
+        "bins": {
+          "onTime": 1094,
+          "late": 349,
+          "dropped1": 382,
+          "dropped2to3": 12,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 227,
+          "totalMs": 12930,
+          "maxMs": 93
+        },
+        "mainThreadFrameMs": {
+          "p50": 30,
+          "p95": 56.6,
+          "p99": 70.6,
+          "max": 93.8,
+          "fits60HzPct": 8.2,
+          "fits100HzPct": 0.1,
+          "n": 1837
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 68.9
+        },
+        {
+          "t": 156,
+          "ms": 52.2
+        },
+        {
+          "t": 167.99,
+          "ms": 58.3
+        },
+        {
+          "t": 180,
+          "ms": 40.9
+        },
+        {
+          "t": 191.99,
+          "ms": 42.3
+        }
+      ],
+      "playedTo": 201.59,
+      "overlay": null
+    },
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 6,
+      "frames": {
+        "frames": 5961,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 10.1,
+        "max": 60.1,
+        "missedFrames": 38,
+        "missedPct": 0.63,
+        "stalls": 5,
+        "onTimePct": 99.7,
+        "bins": {
+          "onTime": 5943,
+          "late": 0,
+          "dropped1": 13,
+          "dropped2to3": 0,
+          "stall": 5
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 5,
+          "totalMs": 319,
+          "maxMs": 65
+        },
+        "mainThreadFrameMs": {
+          "p50": 5.2,
+          "p95": 8.3,
+          "p99": 12.4,
+          "max": 66,
+          "fits60HzPct": 99.6,
+          "fits100HzPct": 97.7,
+          "n": 5961
+        }
+      },
+      "turns": [
+        {
+          "t": 143.99,
+          "ms": 48.5
+        },
+        {
+          "t": 155.99,
+          "ms": 45.7
+        },
+        {
+          "t": 168,
+          "ms": 47.1
+        },
+        {
+          "t": 179.99,
+          "ms": 43.6
+        },
+        {
+          "t": 191.99,
+          "ms": 46.6
+        }
+      ],
+      "playedTo": 201.54,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    },
+    {
+      "renderer": "a0",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 1022,
+        "seconds": 60.1,
+        "refreshHz": 20,
+        "periodMs": 50,
+        "p50": 50,
+        "p95": 110,
+        "p99": 129.9,
+        "max": 220.1,
+        "missedFrames": 282,
+        "missedPct": 21.63,
+        "stalls": 0,
+        "onTimePct": 62.9,
+        "bins": {
+          "onTime": 643,
+          "late": 109,
+          "dropped1": 259,
+          "dropped2to3": 11,
+          "stall": 0
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 510,
+          "totalMs": 39311,
+          "maxMs": 218
+        },
+        "mainThreadFrameMs": {
+          "p50": 50.5,
+          "p95": 106,
+          "p99": 129.6,
+          "max": 220.7,
+          "fits60HzPct": 0.1,
+          "fits100HzPct": 0.1,
+          "n": 1022
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 78.5
+        },
+        {
+          "t": 156,
+          "ms": 92.8
+        },
+        {
+          "t": 167.99,
+          "ms": 84.3
+        },
+        {
+          "t": 180,
+          "ms": 70.5
+        },
+        {
+          "t": 191.99,
+          "ms": 107
+        }
+      ],
+      "playedTo": 201.73,
+      "overlay": null
+    },
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 5807,
+        "seconds": 60,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 20,
+        "max": 149.9,
+        "missedFrames": 192,
+        "missedPct": 3.2,
+        "stalls": 6,
+        "onTimePct": 97.9,
+        "bins": {
+          "onTime": 5686,
+          "late": 0,
+          "dropped1": 100,
+          "dropped2to3": 15,
+          "stall": 6
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 5,
+          "totalMs": 640,
+          "maxMs": 154
+        },
+        "mainThreadFrameMs": {
+          "p50": 5.8,
+          "p95": 11.7,
+          "p99": 18.3,
+          "max": 155.1,
+          "fits60HzPct": 98.4,
+          "fits100HzPct": 91.5,
+          "n": 5807
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 98.9
+        },
+        {
+          "t": 155.99,
+          "ms": 103.3
+        },
+        {
+          "t": 167.99,
+          "ms": 78.2
+        },
+        {
+          "t": 180,
+          "ms": 85.9
+        },
+        {
+          "t": 191.99,
+          "ms": 70.8
+        }
+      ],
+      "playedTo": 201.54,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      150,
+      170.5,
+      190
+    ],
+    "dir": "testkit/results/a2shots",
+    "diff": [
+      {
+        "t": 150,
+        "differ8": 4584,
+        "differ48": 1875,
+        "max": 174,
+        "bbox48": [
+          975,
+          8,
+          983,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.019,
+          "p95AbsPx": 0.3
+        }
+      },
+      {
+        "t": 170.5,
+        "differ8": 4562,
+        "differ48": 1516,
+        "max": 174,
+        "bbox48": [
+          429,
+          8,
+          437,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      },
+      {
+        "t": 190,
+        "differ8": 4555,
+        "differ48": 1452,
+        "max": 174,
+        "bbox48": [
+          1599,
+          8,
+          1607,
+          1071
+        ],
+        "cursorOffset": {
+          "rows": 1064,
+          "medianPx": -0.006,
+          "p95AbsPx": 0.287
+        }
+      }
+    ]
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

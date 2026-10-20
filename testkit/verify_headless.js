@@ -31,6 +31,12 @@ const FULL = flag('full');
 const LABEL = arg('label', 'headless-' + (FULL ? 'full' : 'quick'));
 const SIZE = arg('size', '1920,1080');
 const URL0 = 'http://localhost:' + PORT + '/';
+// 9a: --throttle N slows the page's main thread N times (DevTools CPU throttling —
+// a stand-in for a cheap tablet; the Fire measures ~8–10× this PC) and
+// --t2-lanes A2,A2L --t2-seconds 30 runs T2 on just those lanes, no load
+const THROTTLE = parseFloat(arg('throttle', '1'));
+const T2_LANES = arg('t2-lanes', null);
+const T2_SECONDS = parseFloat(arg('t2-seconds', '30'));
 
 const CANDIDATES = [
   arg('browser', null),
@@ -122,7 +128,7 @@ async function main() {
       const T = parseFloat(arg('shot-at', '15'));
       const outDir = arg('shots-dir', path.join(__dirname, 'results', 'shots'));
       fs.mkdirSync(outDir, { recursive: true });
-      for (const id of ['A0', 'A1', 'A2', 'B', 'C']) {
+      for (const id of ['A0', 'A1', 'A2', 'A2L', 'B', 'C']) {
         await evaluate(`(async () => {
           const L = TK.lanes, A = await L.loadAssets(), th = L.theater.open();
           th.stage.innerHTML = '';
@@ -141,6 +147,11 @@ async function main() {
         console.log('  shot ' + id + ' -> ' + path.relative(process.cwd(), file));
         await evaluate(`(async () => { const L = TK.lanes; const lane = L.LANES['${id}']; if (lane.teardown) await lane.teardown(window.__ctx); L.theater.close(); return true; })()`, 20000);
       }
+    }
+    if (THROTTLE > 1) { await cdp.send('Emulation.setCPUThrottlingRate', { rate: THROTTLE }); console.log('  CPU slowed ×' + THROTTLE); }
+    if (T2_LANES) {
+      const r = await evaluate('TK.lanes.runT2({ seconds: ' + T2_SECONDS + ', loads: [\"off\"], lanes: ' + JSON.stringify(T2_LANES.split(',')) + ' }).then(r => { TK.kit.R.tests.T2 = r; return r; })', (T2_SECONDS + 30) * T2_LANES.split(',').length * 1000 + 60000);
+      for (const [id, ln] of Object.entries(r.lanes)) { const f = ln.runs.off.frames || {}; console.log('  T2 ' + id + ' : on time ' + f.onTimePct + ' % · missed ' + f.missedFrames + ' (' + f.missedPct + ' %) · frame cost p50 ' + (f.mainThreadFrameMs || {}).p50 + ' / p95 ' + (f.mainThreadFrameMs || {}).p95 + ' ms' + (ln.runs.off.error ? ' · ERROR ' + ln.runs.off.error : '')); }
     }
     const budget = { T5: 60e3, T1: 200e3, T2: 1500e3, T4: 1800e3, T3: 1800e3 };
     for (const t of TESTS) {

@@ -283,7 +283,10 @@ that closed ENS in four iterations)*
 11. ☑ **4a–4b — PLAN — APPROVED day 45 → D99** (PLAN.md §9, 9a–9p). *(As planned:)* **4a–4b — PLAN** (Fable).
 
 **THE BUILD CHUNKS (appended per the contract above; detail in PLAN.md §9):**
-12. ► **9a — SPIKE: the A2 renderer on the real page** (Opus, cold). Then 9b · 9c ·
+12. ► **9a — SPIKE: the A2 renderer on the real page** (Opus, cold) — **BUILT +
+    VERIFIED ON THE PC (day 45); awaiting the devices: the kit's T2 lane A2L on the
+    Fire (≥ 99 %) and THE COMPOSER'S CHECK (the page on the iPad and the Fire, the
+    busiest minute, by eye); then the Fable verdict.** Then 9b · 9c ·
     9d · 9e · 9f (the spikes, a Fable verdict after each) · 9g the server · 9h–9m
     the stand (9i holds the design sitting, Fable) · 9n the door · 9o Tempus
     content + instructions · 9p the dress run. Each chunk: one cold Opus session;
@@ -344,6 +347,16 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, afternoon — ► 9a BUILT, PC-VERIFIED; the devices next):**
+  Opus, cold after /postclear; composer: "go ahead and build as much as possible
+  independently". `notation/lib/animlive.js` on the notation page (A2 by default) ·
+  parity battery 55,286 comparisons green · bench of record CPU ×6: A2 99.7 % on
+  time vs a0 59.6 % · three page costs found by trace and fixed (the hot reload
+  waits while playing · one overlay, pooled elements, a time index · the pill in
+  tenths while playing) · kit lane A2L costs what the Fire-proven A2 lane costs ·
+  twelve batteries green · prove_unmoved clean. Waiting on: the Fire's T2 and the
+  composer's eye. RUNNING_LOG 91.
 
 - **2026-10-20 (day 45, ~5:45 a.m. — PLAN APPROVED ☑ → D99; THE DECIDE BAND
   CLOSED; ► 9a, the first spike):** composer: "Approved". In ONE sitting, from

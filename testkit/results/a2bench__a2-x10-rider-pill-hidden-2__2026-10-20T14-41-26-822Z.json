@@ -1,0 +1,79 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "a2 x10 rider pill hidden 2",
+  "injectCss": "#tnow{display:none!important}",
+  "at": "2026-10-20T14:41:26.822Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    171.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 2858,
+        "seconds": 30,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 20,
+        "max": 150,
+        "missedFrames": 142,
+        "missedPct": 4.73,
+        "stalls": 3,
+        "onTimePct": 96.6,
+        "bins": {
+          "onTime": 2762,
+          "late": 0,
+          "dropped1": 82,
+          "dropped2to3": 11,
+          "stall": 3
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 3,
+          "totalMs": 406,
+          "maxMs": 155
+        },
+        "mainThreadFrameMs": {
+          "p50": 7.7,
+          "p95": 19.7,
+          "max": 161.6
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 89.6
+        },
+        {
+          "t": 155.99,
+          "ms": 102.1
+        },
+        {
+          "t": 167.99,
+          "ms": 89.2
+        }
+      ],
+      "playedTo": 171.55,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}

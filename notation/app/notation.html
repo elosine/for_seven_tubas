@@ -59,7 +59,10 @@
   #tnow { display: none; }
   body.cmode.tshow #tnow { display: block; position: fixed; right: 10px; bottom: 8px; z-index: 10;
                      font: 13px/1 monospace; color: #ddd; background: #111c;
-                     padding: 5px 9px; border-radius: 4px; pointer-events: none; }
+                     padding: 5px 9px; border-radius: 4px; pointer-events: none;
+                     /* 9a: a fixed width and containment — a new number repaints
+                        this box and nothing around it */
+                     width: 10ch; text-align: right; contain: layout paint; }
   body.cmode #bar.shown ~ #tnow, body.cmode #bar:hover ~ #tnow { display: none; }
   #tbar { font: 13px/1 monospace; opacity: 0.9; display: none; }
   body.cmode #stale { position: fixed; left: 8px; bottom: 34px; z-index: 10;
@@ -123,6 +126,7 @@
 <script src="/notation/lib/graphic.js"></script>
 <script src="/notation/lib/transport.js"></script>
 <script src="/notation/lib/animobj.js"></script>
+<script src="/notation/lib/animlive.js"></script>
 <script src="/sandbox/instruments.js"></script>
 <script src="/sonify_core.js"></script>
 <script src="/notation/lib/midiplayer.js"></script>
@@ -149,6 +153,16 @@
   let midiWasPlaying = false;
   state.transport = NotationTransport.makeTransport();
   state.midi = { outputs: null, ccPoints: null, players: {}, failed: false, warned: false };
+  // THE RENDERER (9a, DESIGN §7, AR-50): the animation overlay is A2 — built
+  // once per page, movers as GPU layers, only transforms written per frame
+  // (notation/lib/animlive.js). `?renderer=a0` brings back the per-frame
+  // innerHTML rebuild it replaced — kept ONLY as the measuring baseline for
+  // tools/a2_bench.js; nothing else selects it. The exporters never ran here.
+  const RENDERER = new URLSearchParams(location.search).get('renderer') === 'a0' ? 'a0' : 'a2';
+  window.__notationRenderer = RENDERER;
+  state.live = null;     // the mounted A2 overlay of the current page
+  state.fitK = 1;        // the displayed scale fitSheet chose
+  state.turnLog = [];    // what each page turn cost (tools/a2_bench.js)
   // ---- PER-PART SOLO ----------------------------------------------------
   // The effective scope: the save's parts, narrowed by solo. ONE function,
   // so the page, the animation overlay and the MIDI player can never
@@ -202,10 +216,35 @@
   // never per frame.
   function splitAnim() {
     const all = state.animInstances || [];
-    if (!state.solo.size) { state.animOn = all; state.animOff = null; return; }
-    const on = new Set(soloScope());
-    state.animOn = all.filter(i => i.part === undefined || on.has(i.part));
-    state.animOff = all.filter(i => i.part !== undefined && !on.has(i.part));
+    if (!state.solo.size) { state.animOn = all; state.animOff = null; }
+    else {
+      const on = new Set(soloScope());
+      state.animOn = all.filter(i => i.part === undefined || on.has(i.part));
+      state.animOff = all.filter(i => i.part !== undefined && !on.has(i.part));
+    }
+    mountLive();
+  }
+  // A2: hand the overlay the current page's scenes — on every page render and
+  // every solo change; never per frame. ONE overlay per frame size (video
+  // 1920×1080, zoom ×Z), kept across pages: a turn re-plans, it builds no
+  // DOM. The solo split is frameSvg's two passes: soloed instances at full
+  // ink owning the cursor, the rest at 0.3.
+  function mountLive() {
+    const vv = $('view').value;
+    if (RENDERER !== 'a2' || (vv !== 'video' && vv !== 'zoom') || !state.animView) {
+      if (state.live) state.live.setLayers([]);
+      return;
+    }
+    const view = state.animView, st = state.animStyle;
+    if (!state.live || state.live.W !== view.widthPx || state.live.H !== view.heightPx) {
+      if (state.live) state.live.destroy();
+      state.live = NotationAnimLive.mount($('sheet'), view);
+    }
+    state.live.attach($('sheet'));   // the page re-render (innerHTML) took it off
+    const layers = [{ scene: NotationAnimLive.plan(state.animOn || state.animInstances || [], view, st), opacity: 1 }];
+    if (state.animOff && state.animOff.length) layers.push({ scene: NotationAnimLive.plan(state.animOff, view, st, { cursor: false }), opacity: 0.3 });
+    state.live.setLayers(layers);
+    state.live.setScale(state.fitK);
   }
   function soloChanged() {
     // the OLD player stops being ticked the moment the scope changes, so
@@ -284,6 +323,13 @@
       $('parts').appendChild(opt);
     }
     restoreUi();                 // day 22: controls survive a reload
+    // 9a THE CHECK: `?ir=db1` opens that score file (a fresh device would open
+    // the picker's first entry); `?midi=0` = no MIDI request at all (a tablet
+    // would ask for a permission it has no use for); `?t=` and `?play=1` at
+    // the end of this script
+    const Q0 = new URLSearchParams(location.search);
+    if (Q0.get('ir') && [...$('ir').options].some(o => o.value === Q0.get('ir'))) $('ir').value = Q0.get('ir');
+    if (Q0.get('midi') === '0') $('midi').checked = false;
     // primary mode (⚙ off) knows only the presentation score
     if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
     await loadIr($('ir').value);
@@ -349,7 +395,9 @@
       document.body.classList.toggle('tshow', $('tshow').checked);
       $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
       setCmode(vv === 'video' || vv === 'zoom');
-      if (vv === 'video' || vv === 'zoom') { ensureLoop(); ensureMidi(); }
+      // MIDI is requested only when its box is ticked (9a: a tablet opening the
+      // check link with ?midi=0 must not be asked for a MIDI permission)
+      if (vv === 'video' || vv === 'zoom') { ensureLoop(); if ($('midi').checked) ensureMidi(); }
       else state.lastContainerMode = null;   // fix A: re-entering zoom re-centers
       if (graphic) return renderGraphicView();
       if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
@@ -477,28 +525,40 @@
       }
       svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
       $('sheet').innerHTML = svg;
-      // V2: the ANIMATION OVERLAY — a second SVG over the static page;
-      // redrawn per frame from pure state(t), never touching the page.
-      const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      ov.id = 'animov';
-      ov.setAttribute('width', view.widthPx); ov.setAttribute('height', view.heightPx);
-      // viewBox so fit-scaling (CSS size) scales the overlay's CONTENT too
-      ov.setAttribute('viewBox', '0 0 ' + view.widthPx + ' ' + view.heightPx);
-      $('sheet').appendChild(ov);
+      // V2: the ANIMATION OVERLAY over the static page, from pure state(t),
+      // never touching the page. A2 (9a): handed this page by applySolo →
+      // mountLive (the innerHTML above took it off the sheet; it goes back on).
+      // The a0 baseline: a second SVG, rebuilt by innerHTML per frame.
+      if (RENDERER === 'a0') {
+        const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        ov.id = 'animov';
+        ov.setAttribute('width', view.widthPx); ov.setAttribute('height', view.heightPx);
+        // viewBox so fit-scaling (CSS size) scales the overlay's CONTENT too
+        ov.setAttribute('viewBox', '0 0 ' + view.widthPx + ' ' + view.heightPx);
+        $('sheet').appendChild(ov);
+      }
+      // the instances depend on the piece, not the page: collected once and
+      // kept until the IR, the score, the registry or META changes (9a — a
+      // page turn used to re-collect all 4000+ of them)
       const score = state.scores[state.ir.source.score] || null;
-      const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
-      state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
-        { parts: state.ir.source.parts, meta: $('metaov').checked,
-          // per-note GCs come from the SAME device rules the engraving uses
-          // (D50) — one resolver, built by layout, handed to animobj
-          deviceOf: _dev,
-          // day 40: the meters ride the DRAWN curve (layout is the one
-          // source) — congruent with the page by construction
-          drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
+      const meta = $('metaov').checked;
+      const ck = state.animCache;
+      if (!ck || ck.ir !== state.ir || ck.score !== score || ck.C !== C || ck.meta !== meta) {
+        const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
+        state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
+          { parts: state.ir.source.parts, meta,
+            // per-note GCs come from the SAME device rules the engraving uses
+            // (D50) — one resolver, built by layout, handed to animobj
+            deviceOf: _dev,
+            // day 40: the meters ride the DRAWN curve (layout is the one
+            // source) — congruent with the page by construction
+            drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
+        state.animCache = { ir: state.ir, score, C, meta };
+      }
       state.animView = view;
       state.animStyle = C.animated;
       state.lastView = view;
-      applySolo();   // fresh page + fresh instances: re-assert dim and split
+      applySolo();   // fresh page + fresh instances: re-assert dim and split (and mount A2)
       // FIT-TO-WINDOW (day 22): the frame stays 1920×1080 internally (jury
       // geometry untouched) but DISPLAYS scaled to the window — Score fits
       // whole; Zoom fits width and scrolls height by design. F11 on a
@@ -757,29 +817,56 @@
     const endT = Math.min(w1, srcEnd);
     if (state.transport.isPlaying() && t >= endT - 1e-9) {
       // system turn: hard cut to the next page/window
+      const c0 = performance.now();
       if (vv === 'video' && state.vPages && state.pageIdx < state.vPages.length - 1) {
         state.pageIdx++; render();
       } else if (vv === 'zoom' && t < srcEnd) {
         state.zoomT0 = w1; render();
       } else { state.transport.pause(); $('play').textContent = '▶'; }
+      // what a turn costs the main thread (9a: tools/a2_bench.js reads it)
+      state.turnLog.push({ t, ms: performance.now() - c0 });
+      if (state.turnLog.length > 200) state.turnLog.shift();
       return { turned: true, t };
     }
-    const ov = document.getElementById('animov');
-    if (ov) {
-      // solo up: soloed objects at full ink (and they own the cursor), the
-      // rest inside one dimming group - the page's 0.3 for its animation
-      const on = state.animOn || state.animInstances || [];
-      let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle);
-      if (state.animOff && state.animOff.length)
-        svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false }) + '</g>';
-      ov.innerHTML = svg;
+    if (state.live) state.live.frame(t);   // A2: the movers' transforms, nothing else
+    else if (RENDERER === 'a0') {
+      const ov = document.getElementById('animov');
+      if (ov) {
+        // solo up: soloed objects at full ink (and they own the cursor), the
+        // rest inside one dimming group - the page's 0.3 for its animation
+        const on = state.animOn || state.animInstances || [];
+        let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle);
+        if (state.animOff && state.animOff.length)
+          svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false }) + '</g>';
+        ov.innerHTML = svg;
+      }
     }
     return { turned: false, t, window: [w0, w1] };
   }
   window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
+  // headless verification (tools/a2_bench.js, 9a): the bar's own acts, callable —
+  // go to a time (its page, the clock there), play, pause, and where things are
+  window.__notationGoto = t => {
+    const vv = $('view').value;
+    if (vv === 'video' && state.vPages) {
+      const i = state.vPages.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+      if (i >= 0 && i !== state.pageIdx) { state.pageIdx = i; render(); }
+    }
+    state.transport.seek(t); ensureLoop();
+    return { pageIdx: state.pageIdx, window: state.animView && state.animView.window };
+  };
+  window.__notationPlay = () => { if (!state.transport.isPlaying()) $('play').click(); return true; };
+  window.__notationPause = () => { if (state.transport.isPlaying()) $('play').click(); return true; };
+  window.__notationState = () => ({ renderer: RENDERER, t: state.transport.now(), playing: state.transport.isPlaying(),
+    pageIdx: state.pageIdx, pages: state.vPages ? state.vPages.length : 0, turns: state.turnLog.slice(),
+    overlay: state.live ? state.live.stats() : null });
   let tnowShown = '';
   function showTnow(t) {
-    const s = 't ' + t.toFixed(2) + ' s';
+    // 9a: while the music plays the pill shows TENTHS, so it changes 10 times a
+    // second, not 60 — every change re-lays-out and repaints it, and at CPU ×10
+    // the per-frame version cost ~6 ms of a 16.7 ms frame (tools/a2_bench.js
+    // --inject-css). The hundredths come back the moment it stops.
+    const s = 't ' + t.toFixed(state.transport.isPlaying() ? 1 : 2) + ' s';
     if (s === tnowShown) return;
     tnowShown = s;
     $('tnow').textContent = s; $('tbar').textContent = s;
@@ -842,10 +929,15 @@
     const k = mode === 'video'
       ? Math.min(1, window.innerWidth / W, window.innerHeight / H)
       : Math.min(1, window.innerWidth / W);
-    for (const el of sheet.querySelectorAll('svg')) {
+    // the page (and the a0 overlay) are the sheet's own SVG children; the
+    // A2 overlay is a layer stage scaled by transform inside a clip box the
+    // page's displayed size (no phantom scroll space)
+    for (const el of sheet.querySelectorAll(':scope > svg')) {
       el.style.width = (+el.getAttribute('width') * k) + 'px';
       el.style.height = (+el.getAttribute('height') * k) + 'px';
     }
+    state.fitK = k;
+    if (state.live) state.live.setScale(k);
     // symmetric letterbox: center the page against the dark backdrop
     sheet.style.width = (W * k) + 'px';
     sheet.style.margin = '0 auto';
@@ -919,6 +1011,11 @@
   // itself, and a gate makes the page stale the moment it is next seen.)
   const watch = { sig: {}, irName: null };
   async function pollChanges() {
+    // 9a: the hot reload WAITS WHILE THE MUSIC PLAYS. Re-reading the IR (6.6 MB
+    // for db1) and comparing it every second was a ~36 ms main-thread task a
+    // second at CPU ×6 (tools/a2_bench.js --trace) — a stutter every second
+    // on a cheap stand. It catches up within a second of the pause.
+    if (state.transport.isPlaying()) return;
     const cur = $('ir').value;
     const urls = {
       container: '/notation/registry/container.json',
@@ -1024,6 +1121,14 @@
   detectRender();
 
   window.addEventListener('resize', render);
+
+  // 9a THE CHECK — a link that opens the score at a time and plays it, so a
+  // tablet needs no keyboard: `?t=141.5` goes to that time (its page, the
+  // clock there), `&play=1` starts playing. E.g. the busiest minute:
+  //   /notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0
+  const Q = new URLSearchParams(location.search);
+  if (Q.has('t') && isFinite(parseFloat(Q.get('t')))) window.__notationGoto(parseFloat(Q.get('t')));
+  if (Q.get('play') === '1') window.__notationPlay();
 })();
 </script>
 </body>

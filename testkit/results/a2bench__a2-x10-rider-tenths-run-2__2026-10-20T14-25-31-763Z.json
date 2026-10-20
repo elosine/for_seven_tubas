@@ -1,0 +1,79 @@
+{
+  "tool": "tools/a2_bench.js",
+  "label": "a2 x10 rider+tenths run 2",
+  "injectCss": null,
+  "at": "2026-10-20T14:25:31.763Z",
+  "ir": "db1",
+  "window": [
+    141.5,
+    171.5
+  ],
+  "size": "1920,1080",
+  "runs": [
+    {
+      "renderer": "a2",
+      "cpuSlowdown": 10,
+      "frames": {
+        "frames": 2816,
+        "seconds": 30,
+        "refreshHz": 100,
+        "periodMs": 10,
+        "p50": 10,
+        "p95": 10.1,
+        "p99": 20.1,
+        "max": 210.1,
+        "missedFrames": 184,
+        "missedPct": 6.13,
+        "stalls": 3,
+        "onTimePct": 95.9,
+        "bins": {
+          "onTime": 2700,
+          "late": 0,
+          "dropped1": 93,
+          "dropped2to3": 20,
+          "stall": 3
+        },
+        "hiddenDuringRun": false,
+        "longTasks": {
+          "supported": true,
+          "count": 3,
+          "totalMs": 480,
+          "maxMs": 205
+        },
+        "mainThreadFrameMs": {
+          "p50": 9.3,
+          "p95": 20.6,
+          "max": 211.6
+        }
+      },
+      "turns": [
+        {
+          "t": 144,
+          "ms": 111.5
+        },
+        {
+          "t": 155.99,
+          "ms": 146.6
+        },
+        {
+          "t": 167.99,
+          "ms": 71.5
+        }
+      ],
+      "playedTo": 171.55,
+      "overlay": {
+        "elements": 41,
+        "pooled": 0
+      }
+    }
+  ],
+  "shots": {
+    "at": [
+      0
+    ],
+    "dir": "testkit/results/a2shots"
+  },
+  "browser": "Edg/155.0.4283.62",
+  "gitHead": "959b83c",
+  "problems": []
+}
