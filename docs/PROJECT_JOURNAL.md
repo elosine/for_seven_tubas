@@ -69,8 +69,31 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D99 closed and filed — the DECIDE band whole. Nothing in
-flight. The composer's own files unchanged from the day-44 note below.
+**(day 45, 2026-10-20 ~6 a.m. — mid-session checkpoint)**
+- **Task and state:** the performance arc's DECIDE band is CLOSED (D90–D99, one
+  sitting). Nothing half-done. The BUILD band starts next.
+- **Latest deliverables:** `docs/REQUIREMENTS.md` (frozen, D97) · `docs/DESIGN.md`
+  (approved, D98) · `docs/PLAN.md` §9 THE PERFORMANCE SYSTEM BUILD, chunks 9a–9p
+  (approved, D99).
+- **Next step, as an instruction:** on **Opus**, build **9a — SPIKE: the A2
+  renderer on the real page** exactly as PLAN.md §9 words it: retain the live
+  overlay's DOM once per page, move only the movers' transforms per frame, each
+  mover a GPU layer (`will-change: transform`); leave the exporter's string path
+  (`frameSvg`) untouched. VERIFY: every battery green · `prove_unmoved` clean ·
+  the kit's T2 lane with the REAL busiest minute ≥ 99 % frames on time on the
+  Fire (today 57 %). Then hand the composer THE CHECK (the notation page on the
+  iPad and the Fire, busiest minute, smooth by eye) and stop for a Fable verdict.
+- **Resume reads:** PLAN.md §9 (the 9a entry and the section's header) ·
+  DESIGN.md §7 (A2) · ENGINE_BRIEF.md §2 "A — Fix in place" + §1 (the jitter's
+  address) · REQUIREMENTS.md AR-50. Nothing else.
+- **Decisions pending the composer:** none.
+- **Working style, standing (memory):** full words, no abbreviations, one question
+  per turn with the recommendation beside it; no "it is late / stop or go on?"
+  prompts.
+- **Deliberately uncommitted** (`git status --short`), the composer's own files,
+  never staged by AI: `reaper/7_tubas_rack.rpp` (M — the composer's Reaper rack) ·
+  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` (?? — the composer's demo
+  recording session) · `scores/Litany.pdf` (?? — the composer's own score file).
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
 pushed. Local only (gitignored): the two slow-mo films in `testkit/results/`
