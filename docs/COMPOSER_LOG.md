@@ -2740,3 +2740,7 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 **"Go"** — the AI drafts `docs/REQUIREMENTS.md`; the composer reviews.
 
 *(The register presented: 71 lines, four open with owners, seven gates, the "no" list; "say freeze, or name the lines":)* **"Freeze"** → D97.
+
+### Day 45 (2026-10-20, ~4:30 a.m.) — ARCHITECTURE opened
+
+**"Go"** — the AI drafts `docs/DESIGN.md` against the AR-IDs; the composer reviews (3c).

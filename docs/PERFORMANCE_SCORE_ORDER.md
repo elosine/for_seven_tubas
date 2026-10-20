@@ -327,6 +327,15 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-10-20 (day 45, ~4:30 a.m. — ► 10 ARCHITECTURE, DRAFTED; composer
+  review pending):** composer: "Go". `docs/DESIGN.md` written against the
+  AR-IDs: one server · one stand page in five roles · the state machine of
+  modes × inputs · the kit's clock and servo reused as modules · A2 live, C
+  video with the marks layer · the door, hosting, the spare, the offline
+  floor · twelve rejected alternatives · every scenario replayed (all hold,
+  two pending gates) · seven risk spikes. Done = the composer's approval →
+  D98. RUNNING_LOG 88.
+
 - **2026-10-20 (day 45, ~4 a.m. — HARDEN FROZEN ☑ → D97; ► 10 ARCHITECTURE):**
   composer: "Freeze". EIGHT chunks + the study score in one sitting (D90–D97).
   ARCHITECTURE opens on "brief me" / "go": 3a the design draft with

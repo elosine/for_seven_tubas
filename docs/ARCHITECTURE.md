@@ -1464,7 +1464,18 @@ state · source decision · why; §K the seven empirical gates (E-1…E-7); §L 
 adversarial pass; §M the out-and-rejected list. Drafted and **FROZEN day 45
 (2026-10-20; composer: "Freeze") → D97.** Phase 3 designs against the AR-IDs.
 
-## 2 · DESIGN
+## 2 · DESIGN — lives in `docs/DESIGN.md`
+
+Phase 3 (3a draft with alternatives rejected · 3b scenario replay · 3c composer
+review · 3d risk spikes) is written as **`docs/DESIGN.md`**: the parts of the
+system · the data model · the protocol (eleven messages) · the floor clock reused
+with persistence across sleeps · the one-tuple transport read by the live engine
+(through transport.js's injectable timebase) and by the video servo · THE STAND'S
+STATE MACHINE (ALONE · REHEARSAL stopped/playing · SECTIONAL · CONCERT
+stopped/playing × every input) · the renderers (A2 live, C video + the marks
+layer) · the door concretely · hosting and the spare · the offline floor · the
+build surfaces · twelve rejected alternatives · the replay of every scenario · seven
+risk spikes. Drafted day 45 (2026-10-20); **composer review pending** → D98.
 
 *(not started)*
 
