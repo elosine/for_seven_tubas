@@ -10,13 +10,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-20, day 45, ~3:30 a.m.): GATHER CLOSED — D90
-> PORTAL · D91 PARTS · D92 CONTROLS · D93 ANNOTATION · D94 mental models + the
-> study score · D95 PERFORMANCE PROTOCOL · D96 the cross-check, all in one
-> sitting. ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): 9 =
-> HARDEN — Fable, likely two sittings; the composer says "brief me". **The
-> Tempus re-cut was REFUSED (day 45): the whole system first; order
-> unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-20, day 45, ~4 a.m.): GATHER CLOSED (D90–D96)
+> and HARDEN FROZEN (D97 — `docs/REQUIREMENTS.md`, AR-1…AR-71, gates E-1…E-7),
+> all in one sitting. ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`):
+> 10 = ARCHITECTURE — Fable drafts against the AR-IDs, composer reviews; two
+> sittings; the composer says "brief me". **The Tempus re-cut was REFUSED
+> (day 45): the whole system first; order unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -40,12 +39,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9 HARDEN** (order chunk 9; Fable, likely two sittings; "brief me"):
-  classify every requirement must/should/could × decided/open/empirical · the
-  empirical gates (the gesture test on every platform · calibration across
-  sleeps · the Safari rehearsal-jump seek) · the adversarial pass (ENS
-  re-tested against everything) · freeze stable AR-N IDs with the measured
-  numbers. Done = requirements frozen. Clear before it.
+- **► 10 ARCHITECTURE** (order chunk 10; Fable drafts, composer reviews; two
+  sittings; "brief me"): 3a the design against the AR-IDs with alternatives
+  considered and rejected · 3b every scenario replayed through it · 3c composer
+  review · 3d risk spikes. Carry-ins (REQUIREMENTS §L): REHEARSAL falling back
+  to ALONE when the room empties · two leader devices · a stand with no video
+  on the night. Done = design approved. Clear before it.
+- ☑ 9 HARDEN → D97 (day 45): `docs/REQUIREMENTS.md` frozen on "Freeze".
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
@@ -68,8 +68,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D96 closed and filed (GATHER CLOSED). **HARDEN IN FLIGHT: `docs/REQUIREMENTS.md`
-DRAFTED (AR-1…AR-71, gates E-1…E-7) — the composer's review freezes it → D97.** Otherwise nothing in
+**(day 45, late, 2026-10-18)** D90–D97 closed and filed (GATHER CLOSED; HARDEN FROZEN — `docs/REQUIREMENTS.md`). Nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -415,6 +414,27 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D97** *(2026-10-20, day 45)* — **HARDEN FROZEN — `docs/REQUIREMENTS.md`
+  (performance arc chunk 9; composer: "Freeze").** Seventy-one requirements,
+  AR-1…AR-71, in ten areas (the door · rooms and modes · the stand · controls
+  · annotations · clock and sync · rendering · network/server/hosting · the
+  performance · delivery and support), each MUST/SHOULD/COULD ×
+  DECIDED/OPEN/EMPIRICAL with its source decision and its why; the measured
+  numbers attached (floor clock 0.0–2.4 ms honest on the iPad · calibration
+  ≥ 30 samples, σ ≤ 5 ppm, every session · free-run worst case ≈ 32 ms over
+  751 s, under the 30 ms threshold · Fire frames on time 99.4 % with A2 ·
+  servo 5–7 ms · beacon 7.7 ms). OPEN by owner: AR-20 the part's size
+  (composer, by eye) · AR-43 calibration across sleeps (build + kit test) ·
+  AR-53 the video size (measure) · AR-69 rehearsal letters (composer, per
+  piece). Seven empirical gates E-1…E-7 (gestures on every platform ·
+  calibration across sleeps · the video on the device · wake lock over HTTPS ·
+  the chaos test · the design sitting · suspend-and-return). The adversarial
+  pass answered by AR lines; three design-time items to phase 3. §M the
+  rejected list. **Rule from here:** an ID never changes or moves; a change
+  is an amendment (old line struck, new ID appended, why recorded). **Why:**
+  the composer's definition — requirements first, every scenario, then the
+  plan; the numbers are measured, not estimated (D89 § 7). Trail: RUNNING_LOG
+  87 · ARCHITECTURE § 1.5.
 - **D96** *(2026-10-20, day 45)* — **THE CROSS-CHECK CLOSED; PHASE 1 GATHER
   CLOSED (performance arc chunk 8).** Every ruling re-read against every
   other; eight findings, six ruled: **(1) the leader's switch is THREE-WAY —

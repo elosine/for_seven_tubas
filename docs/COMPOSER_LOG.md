@@ -2738,3 +2738,5 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 ### Day 45 (2026-10-20, ~3:30 a.m.) — HARDEN opened
 
 **"Go"** — the AI drafts `docs/REQUIREMENTS.md`; the composer reviews.
+
+*(The register presented: 71 lines, four open with owners, seven gates, the "no" list; "say freeze, or name the lines":)* **"Freeze"** → D97.

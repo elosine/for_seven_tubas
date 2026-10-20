@@ -1461,9 +1461,8 @@ surfaced. **GATHER CLOSED (day 45) → D96.**
 Phase 2 (2a classify · 2b empirical gates · 2c adversarial pass · 2d freeze) is
 written as ONE register: **`docs/REQUIREMENTS.md`** — AR-1…AR-71, each with class ·
 state · source decision · why; §K the seven empirical gates (E-1…E-7); §L the
-adversarial pass; §M the out-and-rejected list. Drafted day 45 (2026-10-20);
-**composer review pending** — frozen on their word. Phase 3 designs against the
-AR-IDs.
+adversarial pass; §M the out-and-rejected list. Drafted and **FROZEN day 45
+(2026-10-20; composer: "Freeze") → D97.** Phase 3 designs against the AR-IDs.
 
 ## 2 · DESIGN
 

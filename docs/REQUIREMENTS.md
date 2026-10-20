@@ -15,8 +15,9 @@
 > owed — says by whom) · **EMPIRICAL** (bound to a measured number; the number is
 > attached, or the gate that will attach it is named).
 >
-> Status: **DRAFTED day 45 (2026-10-20) — composer review pending.** Frozen on the
-> composer's word; then phase 3 ARCHITECTURE designs against these IDs.
+> Status: **FROZEN — composer: "Freeze" (day 45, 2026-10-20) → D97.** Phase 3
+> ARCHITECTURE designs against these IDs. A change from here is an amendment:
+> the old line struck, a new ID appended, the why recorded.
 
 ---
 

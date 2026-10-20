@@ -103,8 +103,8 @@ order beneath is unchanged — this is the same arc in one glance.)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
 6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ☑ PERFORMANCE PROTOCOL (day 45 → D95) · ☑
    final vet (day 45 → D96) — GATHER CLOSED
-7. ► HARDEN — requirements frozen with the measured numbers (AR-IDs)
-8. ARCHITECTURE — the design, composer-reviewed
+7. ☑ HARDEN — requirements frozen with the measured numbers (AR-1…AR-71, day 45 → D97)
+8. ► ARCHITECTURE — the design, composer-reviewed
 9. PLAN — build chunks enumerated, per-phase verification, model map
 
 **BUILD — Opus, chunk by chunk (order finalized at 9; expected shape)**
@@ -256,7 +256,9 @@ that closed ENS in four iterations)*
    vet loop** (Fable). Gaps, conflicts, what was
    left out — across ALL closed scenarios; iterate until nothing new surfaces.
    **Done =** GATHER phase closed.
-9. ► **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
+9. ☑ **2a–2d — HARDEN — FROZEN day 45 → D97** (`docs/REQUIREMENTS.md`: AR-1…AR-71 ·
+   gates E-1…E-7 · the adversarial pass · the rejected list; one sitting, one
+   review, "Freeze"). *(As planned:)* **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
    composer): a GESTURE TEST on every platform — iPad · Fire · Android if
    borrowable — before the build commits to the mapping; three-finger and
    long-press especially ("test and calibrate it well… universal across the
@@ -264,7 +266,7 @@ that closed ENS in four iterations)*
    must/should/could × decided/open/empirical · empirical gates (probes before
    commitments) · adversarial pass (ENS gets re-tested against everything
    else) · **freeze stable AR-N IDs**. **Done =** requirements frozen.
-10. **3a–3d — ARCHITECTURE** (Fable drafts, composer reviews; two sittings).
+10. ► **3a–3d — ARCHITECTURE** (Fable drafts, composer reviews; two sittings).
     Draft with alternatives-considered-and-rejected · scenario replay through
     the design · risk spikes. **Done =** design approved.
 11. **4a–4b — PLAN** (Fable). Phased into PLAN.md with per-phase verification
@@ -324,6 +326,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, ~4 a.m. — HARDEN FROZEN ☑ → D97; ► 10 ARCHITECTURE):**
+  composer: "Freeze". EIGHT chunks + the study score in one sitting (D90–D97).
+  ARCHITECTURE opens on "brief me" / "go": 3a the design draft with
+  alternatives considered and rejected, against the AR-IDs · 3b every scenario
+  replayed through it · 3c composer review · 3d risk spikes. Design-time items
+  carried in from REQUIREMENTS §L: REHEARSAL falling back to ALONE when the
+  room empties · two leader devices · a stand with no video on the night.
+  RUNNING_LOG 87.
 
 - **2026-10-20 (day 45, ~4 a.m. — ► 9 HARDEN, DRAFTED; composer review
   pending):** composer: "Go". `docs/REQUIREMENTS.md` written — 71 requirements
