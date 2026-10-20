@@ -2746,3 +2746,7 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 **"Go"** — the AI drafts `docs/DESIGN.md` against the AR-IDs; the composer reviews (3c).
 
 *(The design presented in five lines; "say approved, or ask":)* **"Approved"** → D98.
+
+### Day 45 (2026-10-20, ~5:30 a.m.) — PLAN opened
+
+**"Go"** — the AI writes PLAN.md §9; the composer reviews.

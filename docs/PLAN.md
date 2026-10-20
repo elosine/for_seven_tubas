@@ -2168,6 +2168,172 @@ while building the real score.
   *"those figures were made by a mistake… you can just disregard those figures
   entirely."* Dropped; db1 is 36 clusters, none past 40.4 s.
 
+## 9. THE PERFORMANCE SYSTEM BUILD — `todo` (planned 2026-10-20, day 45 → D99; requirements `docs/REQUIREMENTS.md` D97 · design `docs/DESIGN.md` D98)
+
+> **How to read this section.** One chunk = one cold Opus session started from
+> `docs/PLAN.md` §9 + `docs/DESIGN.md` + `docs/REQUIREMENTS.md` (the AR lines named
+> in the chunk). Every chunk ends with (1) **VERIFY** — proven in the running app
+> (the preview browser and `testkit/verify_headless.js`-style headless Edge; a
+> confidence claim must be verified, per AI_METHODOLOGY) and (2) **THE COMPOSER'S
+> CHECK** — a short checklist the composer runs on the iPad · laptop · Fire before
+> the chunk is called done (AR-70). Position lives in
+> `docs/PERFORMANCE_SCORE_ORDER.md` (BUILD band). Order = dependency; the spikes
+> come first because everything rests on them (DESIGN §14).
+>
+> **Model / clear map (4b):** every chunk = Opus, cold, one session, clear at the
+> boundary. Fable for: the verdict after each spike (go / re-plan) · the design
+> sitting inside 9i (the composer's eye) · any re-cut of this section. The
+> organizer's "brief me" carries position across clears.
+>
+> **Size, stated once:** sixteen chunks. At one chunk per sitting ≈ three weeks of
+> daily sittings. The Tempus date the composer gave (parts "first week of
+> November") is awareness only; the order does not bend to it.
+
+### P0 — THE SPIKES (prototype before building on them; DESIGN §14)
+
+- **9a — SPIKE: the A2 renderer on the real page** — `todo` — the live overlay
+  built once per page, movers as GPU layers (`will-change: transform`), the
+  exporter's string path untouched. AR-50. **VERIFY:** every existing battery green
+  (`test_render test_animobj test_snapshots …`) · `prove_unmoved` against today's
+  pages · the kit's T2 lane on the Fire with the REAL busiest minute ≥ 99 % frames
+  on time (today 57 %). **THE COMPOSER'S CHECK:** the notation page on the iPad and
+  the Fire, the busiest minute, smooth by eye.
+- **9b — SPIKE: marks over the video** — `todo` — a mark drawn on the live part at
+  three places; the part rendered to video (`export_video --parts N`, 1-s
+  keyframes, 5-s lead-in); the SVG marks layer positioned by the same score-time →
+  page mapping. AR-39, 51. **VERIFY:** the mark sits on the same note at all three
+  places, within one notehead, measured on screenshots. **CHECK:** eye, iPad.
+- **9c — SPIKE: calibration across sleeps (gate E-2)** — `todo` — `syncclock.js`
+  persists samples + the fitted rate; reloads and accumulates on return. AR-43.
+  **VERIFY:** a new kit test T3b (open · measure · sleep 30 min · return · reload)
+  — the accumulated calibration meets AR-42's bar and agrees with a continuous
+  one within σ, in simulation and in headless. **CHECK:** T3b on the iPad with the
+  PDF app in front for 30 minutes.
+- **9d — SPIKE: the home-screen app on the iPad (gates E-3 · E-4 · E-7) + the
+  box** — `todo` — the Hetzner VPS stood up with HTTPS and a placeholder page
+  (`deploy.sh`, `/health`, PM2, nginx, Let's Encrypt — no `node_modules` in git);
+  a manifest + service worker + a 100 MB video in the Cache API + the wake lock.
+  AR-25, 53, 55, 56. **VERIFY:** installed to the home screen; airplane mode; the
+  page and the video open; the screen stays on 15 min; a suspend-and-return
+  reconnects in seconds; the video's size and first-open time measured and
+  written into REQUIREMENTS AR-53. **CHECK:** the composer installs it on the iPad
+  and does the airplane-mode test.
+- **9e — SPIKE: the gesture test on every platform (gate E-1)** — `todo` — a kit
+  page T6: every gesture of AR-26/27/28 (swipes, one/two/three-finger taps, long
+  press, the laptop keys), each logged as hit / missed / stolen by the system.
+  AR-71. **VERIFY:** on the dev PC, the laptop, headless. **CHECK:** the composer
+  runs T6 on the iPad, the Fire, and a borrowed Android tablet; every gesture
+  lands, or the mapping is re-ruled (Fable) before 9h.
+- **9f — SPIKE: ALONE → REHEARSAL auto-join + the share and QR sheets** — `todo` —
+  a stand idling under ALONE joins within a second of the leader's flip,
+  including after a sleep; the Web Share API from a home-screen page; the print
+  stylesheet for the QR sheet. AR-2, 9, 16. **VERIFY:** two headless stands + a
+  flip; the share sheet on the laptop; the QR page printed to PDF. **CHECK:** the
+  composer shares a link from the iPad to their own email; prints the QR sheet.
+
+### P1 — THE SERVER
+
+- **9g — The server** — `todo` — one Node process: the registry (ensembles, part
+  rows, tokens; JSON files) · rooms (the standing room; sectionals live-only,
+  member sets, gone when empty; REHEARSAL → ALONE after 30 empty minutes) · the
+  clock service (raw monotonic) · the eleven messages of DESIGN §3 with their
+  authority rules · `hello` → `welcome` · rate limiting · the admin API behind the
+  admin key · `--spare` mode from a registry snapshot. AR-1, 5, 9, 10, 13, 54,
+  55, 57, 58, 59. **VERIFY:** a headless protocol battery (every message, every
+  authority refusal) · **the chaos test (gate E-5):** N fake stands, kill / rejoin
+  / drop the server mid-piece, every survivor within the AR-44/47 numbers ·
+  deployed to the box, `/health` green. **CHECK:** none at the device yet (the
+  admin page comes in 9n); the composer sees the chaos-test numbers.
+
+### P2 — THE STAND
+
+- **9h — The stand: shell · room client · transport · the live part** — `todo` —
+  the page opened by a token; `hello`; the floor clock as the timebase for
+  `transport.js`; the part view (`renderSection`, `frameParts = [part]`) under
+  A2; the states ALONE · REHEARSAL stopped / playing with the follow rules
+  (snap on jump, follow on play, free while stopped, local play while stopped);
+  the dot (readiness colour only, for now); the rehearsal number + time in a
+  corner. AR-3, 11, 12, 14, 18, 19, 26, 33, 34, 41, 44, 45. **VERIFY:** two
+  headless stands + a scripted leader: jump → both at tE − 5; play → both
+  following within the AR-47 bar; a local play never touches the room. **CHECK:**
+  the composer's iPad + laptop as two stands, the phone as the leader (9i's
+  strip arrives next — for this check a scripted leader page).
+- **9i — The strip · the remote · the display · the switch — and THE DESIGN
+  SITTING (gate E-6)** — `todo` — the leader's strip above the part (play/stop ·
+  again · letters · speeds · time box · position · ready count · the three-way
+  switch; stays on play, greys to STOP + RESYNC + position); the remote as the
+  same controls full-screen + the part-zoom buttons + "show the score here"; the
+  display role; RESYNC. AR-6, 9, 30, 31, 32, 46. **The design sitting (Fable, the
+  composer's eye, the real iPad):** the part at several sizes · the strip's height
+  and transparency · the menu's look — the composer picks (AR-20, 27, 30).
+  **VERIFY:** the Tuesday's thirteen steps scripted as a headless scenario — all
+  hold. **CHECK:** the composer as leader on the iPad, the laptop and Fire as
+  players: a letter, play, slower, again, stop; the big display on the desktop.
+- **9j — The menu · annotations · the study score** — `todo` — the five-item menu;
+  pen / eraser / undo with the bar and the clear in-and-out; marks anchored to
+  (view, score-time), local store + quiet sync; marks on/off; the full score as the
+  fifth item with the fixed zoom; the room playing ends drawing and returns the
+  stand to its part. AR-21, 22, 27, 36–40. **VERIFY:** a mark survives a reload, a
+  re-render, and a second device with the same token; the study score's zoom
+  repaginates; drawing ends on play (headless). **CHECK:** the composer scribbles
+  on the iPad, hides and shows marks, opens the full score, zooms, plays.
+- **9k — Sectionals** — `todo` — the dot's room choice (Ensemble · live sectionals
+  · Start · Leave); headless rooms, last command wins; the sectional's tuple;
+  auto-labels from members. AR-13, 14, 15. **VERIFY:** three headless stands form
+  a sectional, any member plays it, one leaves, the room dies when empty.
+  **CHECK:** iPad + laptop form a sectional while the Fire stays in the ensemble
+  room.
+- **9l — CONCERT** — `todo` — the switch's third position: the video renderer
+  (`<video>` + `servo.js` + Safari pre-roll + aimed seeks) + the marks layer;
+  every stand passive; speeds locked; the ready count; RESYNC live; STOP · letter
+  · PLAY restart; the 5-s lead-in at the top from the video. AR-33, 48, 49, 51,
+  61–65. **VERIFY:** the kit's T4 bar on every lane (servo 5–7 ms between seeks;
+  no start stall); a scripted restart from a letter; a stand with no video plays
+  live with an amber dot (never refused). **CHECK:** the composer runs the
+  concert-night protocol at home: sound check · the PDF app for 30 minutes · tap
+  · "3 of 3" · PLAY · a restart · the end.
+- **9m — The offline floor** — `todo` — the service worker caches the page, the
+  IR + layout, letters, fonts; the video verified on every open and re-fetched
+  with a progress bar; marks sync when back online. AR-53, 56. **VERIFY:**
+  airplane mode: ALONE works whole (part, local play, marks, study score); a
+  deleted video re-fetches with a visible bar. **CHECK:** the composer, airplane
+  mode, on the iPad.
+
+### P3 — THE DOOR
+
+- **9n — The admin page and the ensemble page** — `todo` — admin: new ensemble ·
+  pieces · versions · the gatekeeper link · the list; the ensemble page: rows ·
+  names · copy · share · add another player · new link (token rotation) · the QR
+  sheet · the leader tick · "Rehearsal"; the first-open "Add to Home Screen" hint;
+  the plain refusal for a revoked token. AR-1–8. **VERIFY:** a headless
+  walk-through of the handout; a reissued token refused with the message.
+  **CHECK:** the composer plays all three roles on three devices: admin on the
+  desktop → gatekeeper on the laptop → player on the iPad, including one reissue.
+
+### P4 — CONTENT AND DELIVERY (Tempus first, D88)
+
+- **9o — Tempus content + the instructions** — `todo` — the piece registered
+  (content folder: IR, layout, letters, part names); **rehearsal letters authored
+  by the composer (AR-69, composer-module task)**; per-part videos rendered; the
+  ensemble created; the OPERATING INSTRUCTIONS + the HELP PROTOCOL / FAQ written
+  (AR-67, 68; the device lines; the stray-link scenario; the night; the optional
+  spare); the spare procedure tried once on the laptop. **VERIFY:** every part
+  video plays in sync on the kit; the instructions walked by someone who has not
+  seen the system. **CHECK:** the composer reads the instructions cold.
+
+### P5 — THE COMPOSER'S TEST STAGE (AR-70) — before any ensemble
+
+- **9p — The dress run at home** — `todo` — iPad + laptop + Fire as three stands,
+  the phone as the remote; every scenario's checklist in one evening: the handout
+  → a Tuesday (all thirteen) → a sectional → alone, offline → concert night with a
+  restart → a reissue. **VERIFY:** the kit's numbers held on every device during
+  the run (the dot's readiness log). **CHECK:** = the chunk. **Done = the Tempus
+  handout goes out.**
+
+**Parked beyond the first build (so nothing is lost):** the beating indicator
+(AR-24) · cue strips · the tubas' per-ensemble tailoring run · the composer's
+admin view beyond a list · demo-audio playback · rehearsal logging.
+
 ## Parking lot
 
 - **P3 — Release vocabulary & notation devices** *(composer, 2026-08-10)*: names +

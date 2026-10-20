@@ -69,7 +69,8 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D98 closed and filed (GATHER · HARDEN · ARCHITECTURE). Nothing in
+**(day 45, late, 2026-10-18)** D90–D98 closed and filed. **PLAN IN FLIGHT: PLAN.md §9 (9a–9p) DRAFTED — the
+composer's approval → D99.** Otherwise nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and

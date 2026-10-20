@@ -107,12 +107,22 @@ order beneath is unchanged — this is the same arc in one glance.)
 8. ☑ ARCHITECTURE — the design, composer-approved (day 45 → D98)
 9. ► PLAN — build chunks enumerated, per-phase verification, model map
 
-**BUILD — Opus, chunk by chunk (order finalized at 9; expected shape)**
-10. The engine fix (A) in the stand renderer
-11. The server — rooms + clock + floor rule — live on Hetzner
-12. The stand app: IND solo → ENS/SEC rooms → PERF hardening + the
-    video concert stand (C)
-13. PORTAL build (join links / QR)
+**BUILD — Opus, chunk by chunk (ENUMERATED day 45 → PLAN.md §9, 9a–9p; one
+cold session per chunk; each ends with VERIFY in the running app + THE
+COMPOSER'S CHECK on the iPad · laptop · Fire)**
+10. P0 THE SPIKES — 9a A2 on the real page · 9b marks over the video · 9c
+    calibration across sleeps · 9d the home-screen app + the box · 9e the
+    gesture test on every platform · 9f auto-join + the share/QR sheets
+11. P1 THE SERVER — 9g (registry · rooms · clock · the eleven messages ·
+    admin API · spare mode · the chaos test · deployed)
+12. P2 THE STAND — 9h shell + room client + the live part · 9i the strip,
+    the remote, the display, the switch + THE DESIGN SITTING (Fable) · 9j
+    the menu, annotations, the study score · 9k sectionals · 9l CONCERT ·
+    9m the offline floor
+13. P3 THE DOOR — 9n the admin page + the ensemble page
+13.5 P4 CONTENT — 9o Tempus content + the operating instructions + the
+    help protocol / FAQ (rehearsal letters = the composer)
+13.7 P5 THE COMPOSER'S TEST STAGE — 9p the dress run at home → the handout
 
 **DEPLOY — Tempus first (D88)**
 14. Tempus content in: per-part videos rendered · deployed · delivered
@@ -327,6 +337,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, ~5:30 a.m. — ► 11 PLAN, DRAFTED; composer review
+  pending):** composer: "Go". PLAN.md §9 written — sixteen chunks 9a–9p in
+  six phases (the spikes · the server · the stand · the door · content · the
+  dress run), each with VERIFY in the running app and THE COMPOSER'S CHECK;
+  the model / clear map (Opus cold per chunk; Fable for spike verdicts, the
+  design sitting, re-cuts); the size stated: ~three weeks of daily sittings.
+  The BUILD band above re-written to the chunks. Done = the composer's
+  approval → D99, and the DECIDE band is closed. RUNNING_LOG 89.
 
 - **2026-10-20 (day 45, ~5 a.m. — ARCHITECTURE APPROVED ☑ → D98; ► 11 PLAN):**
   composer: "Approved". NINE chunks + the study score in one sitting (D90–D98).
