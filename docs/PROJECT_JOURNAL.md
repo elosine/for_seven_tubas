@@ -10,12 +10,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-19, day 45, ~3 a.m.): PORTAL ☑ D90 · PARTS ☑
-> D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93 · 1b + THE STUDY SCORE ☑ D94 ·
-> PERFORMANCE PROTOCOL ☑ D95 — all in one sitting. ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): 8 = 1c + 1d THE CROSS-CHECK — Fable;
-> the composer says "brief me". **The Tempus re-cut was REFUSED (day 45): the
-> whole system first; order unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-20, day 45, ~3:30 a.m.): GATHER CLOSED — D90
+> PORTAL · D91 PARTS · D92 CONTROLS · D93 ANNOTATION · D94 mental models + the
+> study score · D95 PERFORMANCE PROTOCOL · D96 the cross-check, all in one
+> sitting. ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`): 9 =
+> HARDEN — Fable, likely two sittings; the composer says "brief me". **The
+> Tempus re-cut was REFUSED (day 45): the whole system first; order
+> unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -39,16 +40,17 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 1c + 1d THE CROSS-CHECK** (order chunk 8; Fable, "brief me"): every
-  ruling of day 45 against every ruling before it — gaps, conflicts, what was
-  left out; iterate until nothing new surfaces. Carry-ins: joining a sectional
-  from the stand · where "start a sectional" lives · the five-item menu. Done =
-  GATHER closed; then HARDEN (9). Clear before it.
+- **► 9 HARDEN** (order chunk 9; Fable, likely two sittings; "brief me"):
+  classify every requirement must/should/could × decided/open/empirical · the
+  empirical gates (the gesture test on every platform · calibration across
+  sleeps · the Safari rehearsal-jump seek) · the adversarial pass (ENS
+  re-tested against everything) · freeze stable AR-N IDs with the measured
+  numbers. Done = requirements frozen. Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 · ☑ 1b + the study score → D94 · ☑ PERFORMANCE PROTOCOL → D95 (all day 45, one sitting).
+- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 · ☑ 1b + the study score → D94 · ☑ PERFORMANCE PROTOCOL → D95 · ☑ the cross-check → D96, GATHER CLOSED (all day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -66,7 +68,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D95 closed and filed (portal · parts · controls · annotation · mental models + study score · performance protocol); nothing in
+**(day 45, late, 2026-10-18)** D90–D96 closed and filed (portal · parts · controls · annotation · mental models + study score · performance protocol · the cross-check — GATHER CLOSED); nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -412,6 +414,28 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D96** *(2026-10-20, day 45)* — **THE CROSS-CHECK CLOSED; PHASE 1 GATHER
+  CLOSED (performance arc chunk 8).** Every ruling re-read against every
+  other; eight findings, six ruled: **(1) the leader's switch is THREE-WAY —
+  ALONE (default; every stand its own; the strip's play local) · REHEARSAL
+  (stands join and follow the strip) · CONCERT (video, passive, speeds
+  locked)** — fixes the conflict that home practice with the strip would
+  have moved every open stand; players still click nothing; **(2) the DOT is
+  the room choice** — Ensemble · a live sectional · Start a sectional · Leave
+  (Leave only inside a sectional); **(3) STOP and RESYNC stay live during
+  play** on the strip (PERF rung 3 kept); **(4) inside a sectional your tap
+  moves the group** — practise alone = leave via the dot (no leader in
+  sectionals, as D85); **(5) the menu stays FIVE items** (annotate · jump ·
+  speed · marks on/off · full score), designed by eye in the build with the
+  strip and the part's size; **(6) "show the score here"** on the remote
+  makes a device the display. Filed without ruling: (7) marks on/off set
+  before the concert switch → the instructions; (8) rehearsal letters must
+  be authored into each piece before its first rehearsal → PLANNER. Pass 2
+  clean. **Why:** the gather is done when a second pass finds nothing — the
+  composer's definition (day 38). **Rejected:** a join tap for every player
+  at every rehearsal · a sixth menu item for sectionals · dropping the quiet
+  resync · a leader in sectionals · trimming the menu to four. Trail:
+  COMPOSER_LOG day 45 · ARCHITECTURE § 1c · RUNNING_LOG 86.
 - **D95** *(2026-10-19, day 45)* — **PERFORMANCE PROTOCOL CLOSED (performance
   arc chunk 6.5).** **THE CONCERT SWITCH:** one switch on the leader's strip
   (and the remote), on at sound check, off after — every stand shows the

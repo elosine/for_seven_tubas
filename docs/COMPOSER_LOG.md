@@ -2718,3 +2718,19 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Item D — restart from a letter on stage: the letters stay live on the strip under "concert", or locked:)* **"1"**
 
 *(Item G — the spare laptop: optional at the composer's discretion (the composer brings it to the first concerts), or required of every ensemble:)* **"1"** — the performance protocol closed.
+
+### Day 45 (2026-10-19, ~3 a.m.) — 1c + 1d THE CROSS-CHECK opened
+
+**"go"**
+
+*(Finding 1 — home practice would move other stands; the leader's switch three-way: ALONE · REHEARSAL · CONCERT:)* **"Y"**
+
+*(Finding 2 — the room choice on the dot: Ensemble · a live sectional · Start a sectional · Leave:)* **"Y"**
+
+*(Finding 3 — resync mid-piece: RESYNC as the one other live button during play, or drop the quiet gesture:)* **"1"**
+
+*(Finding 4 — no solo play inside a sectional; accept it (leave via the dot to practise alone), or give the sectional a leader:)* **"1"**
+
+*(Finding 5 — the menu at five items, keep or trim:)* **"1 but let's take some time to design like strip"**
+
+*(Finding 6 — "show the score here" on the remote makes a device the display:)* **"Y"** — findings 7 (an instruction line) and 8 (a to-do) need no ruling; the cross-check's second pass found nothing new; GATHER closed.

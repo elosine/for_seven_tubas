@@ -101,9 +101,9 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ☑ PERFORMANCE PROTOCOL (day 45 → D95) · ►
-   final vet (compressible per D88)
-7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
+6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ☑ PERFORMANCE PROTOCOL (day 45 → D95) · ☑
+   final vet (day 45 → D96) — GATHER CLOSED
+7. ► HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
 9. PLAN — build chunks enumerated, per-phase verification, model map
 
@@ -248,10 +248,15 @@ that closed ENS in four iterations)*
    **1b — the composer's mental models** (Fable). How the composer pictures
    rooms, roles, the flow — logged before the AI evaluation reframes anything.
    **Done =** logged to ARCHITECTURE.md + COMPOSER_LOG.
-8. ► **1c + 1d — AI evaluation + vet loop** (Fable). Gaps, conflicts, what was
+8. ☑ **1c + 1d — THE CROSS-CHECK — CLOSED day 45 → D96; GATHER CLOSED** (eight
+   findings, six ruled: the leader's three-way switch ALONE · REHEARSAL · CONCERT
+   · the dot = the room choice · STOP + RESYNC live during play · no solo play
+   inside a sectional · the menu stays five · "show the score here"; pass 2
+   clean). Record: ARCHITECTURE § 1c. *(As planned:)* **1c + 1d — AI evaluation +
+   vet loop** (Fable). Gaps, conflicts, what was
    left out — across ALL closed scenarios; iterate until nothing new surfaces.
    **Done =** GATHER phase closed.
-9. **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
+9. ► **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
    composer): a GESTURE TEST on every platform — iPad · Fire · Android if
    borrowable — before the build commits to the mapping; three-finger and
    long-press especially ("test and calibrate it well… universal across the
@@ -319,6 +324,14 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, ~3:30 a.m. — THE CROSS-CHECK CLOSED ☑ → D96; GATHER
+  CLOSED; ► 9 HARDEN):** eight findings, six ruled one per turn, pass 2 clean.
+  SEVEN chunks + the study score in one sitting (D90–D96). HARDEN opens on
+  "brief me": classify must/should/could × decided/open/empirical · the
+  empirical gates (the gesture test on every platform · calibration across
+  sleeps) · the adversarial pass · freeze AR-IDs with the measured numbers.
+  RUNNING_LOG 79–86.
 
 - **2026-10-19 (day 45, ~3 a.m. — PERFORMANCE PROTOCOL CLOSED ☑ → D95; ► 8 the
   cross-check, 1c + 1d):** the performance read back, concert night walked

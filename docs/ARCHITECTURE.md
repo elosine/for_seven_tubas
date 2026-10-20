@@ -19,6 +19,10 @@
 - **PHASE 4 — PLAN**: 4a phased into PLAN.md with per-phase verification in the
   running app · 4b model/clear map.
 
+**Status (day 45, 2026-10-19): PHASE 1 GATHER CLOSED → D96 — every scenario and
+cross-cutting conversation settled (D82–D96); next = PHASE 2 HARDEN (organizer
+chunk 9). The line below is the day-41 status, kept for the trail.**
+
 **Status: PHASE 1 GATHER — 0a/0b done; ENS CLOSED (day 39, D82) · SEC
 CLOSED (day 41, D85) · IND CLOSED (day 41, D86) · PERF CLOSED (day 41,
 D87). Next: the ENGINE brief (approved charter — animation engine ·
@@ -1393,6 +1397,64 @@ server sends one "start at T"; after that the network is optional · a restart =
 stop · letter · play · the end rests on the last page · the spare laptop optional.
 A stand that never calibrated still plays (worst measured case ~32 ms by the end,
 only if the network also dies). Mixed devices are the normal case.
+
+### 1c + 1d · THE CROSS-CHECK (day 45, ~3 a.m.) — every ruling against every other
+
+**Pass 1 (AI; ENS · SEC · IND · PERF · ENGINE · PORTAL · PARTS · CONTROLS · ANNOTATION ·
+1b · STUDY SCORE · PERFORMANCE PROTOCOL re-read). Clean: ~30 pairs checked agree
+(the link = the login = IND's "log in once" · own part everywhere · marks private
+and per view · the strip = ENS's controller with live position · the remote form
+keeps the ten part-zoom buttons for the display, the strip form does not · the
+spare optional vs the mechanism required · passivity under CONCERT vs the clock
+still measuring · a player's menu "jump" is local in the ensemble room, the
+strip's letter is the room's). FINDINGS, heaviest first:**
+
+1. **HOME PRACTICE vs THE STANDING ROOM (conflict).** D94: the icon opens the part
+   "in the ensemble's room", zero clicks; the leader's strip PLAY is the room's.
+   So the leader practising at home with the strip would move every other stand
+   that happens to be open at home. IND wants "no room at all" alone. PROPOSED: the
+   leader's switch becomes THREE-WAY — ALONE (default: every stand is its own; the
+   strip's play is local) · REHEARSAL (stands join and follow the strip) · CONCERT
+   (video, passive). The leader flips it at the start and end of a rehearsal;
+   players still click nothing. Sectionals form under REHEARSAL (break-off) or
+   under ALONE (an independent meet-up). **RULED "Y" — the three-way switch.**
+2. **THE ROOM CHOICE (gap).** SEC: "the room choice shows the ensemble room + any
+   sectional live now"; D94 gave the icon zero clicks and proposed a banner for a
+   live sectional; "start a sectional" has no home. PROPOSED: the stand's DOT is
+   the room choice — tap it: Ensemble ✓ · Sectional (Flute Clarinet) · Start a
+   sectional · Leave. Not a menu item. Passive under CONCERT. **RULED "Y".**
+3. **RESYNC DURING THE PIECE (conflict).** PERF rung 3 = "one quiet podium gesture:
+   resync-everyone", mid-piece; D94: the strip greys to STOP + position on go.
+   PROPOSED: RESYNC is the one other button live during play, on the strip only
+   (leader's hands). Alternative: drop rung 3; the restart (stop · letter · play,
+   D95) is the only recovery. **RULED "1" — STOP and RESYNC live during play.**
+4. **NO SOLO PLAY INSIDE A SECTIONAL (consequence to confirm).** D85 headless + D92
+   "two-finger tap = the room's play in a sectional" ⇒ your tap moves the group;
+   SEC it. 2's "local play while stopped carries" cannot also hold. Practising
+   alone = leave the sectional (the dot). Confirm, or give the sectional's creator
+   the strip instead (one control, as D94) — which D85 rejected ("no leader").
+   **RULED "1" — accepted: inside a sectional your tap moves the group; practise
+   alone = leave via the dot.**
+5. **THE MENU IS FIVE ITEMS** (annotate · jump · speed · marks on/off · full score)
+   against D86 e "three only". **RULED "1" — five, and its DESIGN gets a sitting
+   by eye in the build, like the strip** ("let's take some time to design, like
+   strip").
+6. **THE DISPLAY DEVICE (small gap).** D94: the conductor's icon opens the remote;
+   nothing makes a big monitor "the display". PROPOSED: a "show the score here"
+   button on the remote turns that device into the display (ENS roles). **RULED "Y".**
+7. **MARKS ON/OFF BEFORE THE CONCERT SWITCH** — an instruction line (players set it
+   at sound check; or the leader flips CONCERT last).
+8. **REHEARSAL LETTERS MUST BE AUTHORED** into each piece before its first rehearsal
+   (composer-module task) — a PLANNER to-do for Tempus; nothing in the system
+   invents them. *(7 → the instructions; 8 → PLANNER, before Tempus's first rehearsal.)*
+
+**Pass 2 (AI; the pass-1 rulings against everything):** clean. One refinement recorded,
+no decision needed — the dot's LEAVE appears only inside a sectional (back to the
+ensemble room); in the ensemble room under REHEARSAL a stand cannot leave (it would
+stop following the leader and confuse its player); under ALONE there is nothing to
+leave. Under ALONE a stand keeps a light connection when online — for quiet mark
+sync and to join by itself the moment the leader flips REHEARSAL. Nothing new
+surfaced. **GATHER CLOSED (day 45) → D96.**
 
 ## 2 · DESIGN
 
