@@ -2168,7 +2168,7 @@ while building the real score.
   *"those figures were made by a mistake… you can just disregard those figures
   entirely."* Dropped; db1 is 36 clusters, none past 40.4 s.
 
-## 9. THE PERFORMANCE SYSTEM BUILD — `todo` (planned 2026-10-20, day 45 → D99; requirements `docs/REQUIREMENTS.md` D97 · design `docs/DESIGN.md` D98)
+## 9. THE PERFORMANCE SYSTEM BUILD — `todo` (planned AND APPROVED 2026-10-20, day 45 → D99 — composer: "Approved"; requirements `docs/REQUIREMENTS.md` D97 · design `docs/DESIGN.md` D98)
 
 > **How to read this section.** One chunk = one cold Opus session started from
 > `docs/PLAN.md` §9 + `docs/DESIGN.md` + `docs/REQUIREMENTS.md` (the AR lines named

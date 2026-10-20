@@ -10,13 +10,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-20, day 45, ~5 a.m.): GATHER CLOSED (D90–D96) ·
-> HARDEN FROZEN (D97, `docs/REQUIREMENTS.md`) · ARCHITECTURE APPROVED (D98,
-> `docs/DESIGN.md`), all in one sitting. ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): 11 = PLAN — Fable phases the build into
-> PLAN.md with per-phase verification + the model/clear map; the composer says
-> "go". **The Tempus re-cut was REFUSED (day 45): the whole system first; order
-> unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-20, day 45, ~5:45 a.m.): THE DECIDE BAND IS
+> CLOSED — GATHER (D90–D96) · REQUIREMENTS frozen (D97) · DESIGN approved (D98)
+> · PLAN approved (D99), all in one sitting. ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): **9a — SPIKE: the A2 renderer on the
+> real page — OPUS, COLD** (the brief = PLAN.md §9 + DESIGN.md +
+> REQUIREMENTS.md; nothing else needed). Fable returns for the verdict after
+> each spike and for the design sitting in 9i. Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -40,11 +40,11 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 11 PLAN** (order chunk 11; Fable; "go"): 4a the build phased into PLAN.md
-  — the seven risk spikes (DESIGN §14) first, then server · stand · portal ·
-  content, each chunk with its verification in the running app and the
-  composer-run test stage (AR-70) · 4b the model / clear map · the chunks
-  appended to the organizer. Done = plan written. Clear before it.
+- **► 9a — SPIKE: the A2 renderer on the real page** (PLAN.md §9; Opus, cold,
+  one session; clear before it). Done = every battery green · prove_unmoved
+  clean · the kit's T2 lane on the Fire ≥ 99 % with the real busiest minute ·
+  the composer's eye on the iPad and the Fire. Then a Fable verdict, then 9b.
+- ☑ 11 PLAN → D99 (day 45): PLAN.md §9 approved on "Approved".
 - ☑ 10 ARCHITECTURE → D98 (day 45): `docs/DESIGN.md` approved on "Approved".
 - ☑ 9 HARDEN → D97 (day 45): `docs/REQUIREMENTS.md` frozen on "Freeze".
   **Re-cut refused (day 45):** the whole plan and the whole build before
@@ -69,8 +69,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D98 closed and filed. **PLAN IN FLIGHT: PLAN.md §9 (9a–9p) DRAFTED — the
-composer's approval → D99.** Otherwise nothing in
+**(day 45, late, 2026-10-18)** D90–D99 closed and filed — the DECIDE band whole. Nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -416,6 +415,29 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D99** *(2026-10-20, day 45)* — **PLAN APPROVED — PLAN.md §9, THE PERFORMANCE
+  SYSTEM BUILD (performance arc chunk 11; composer: "Approved"). THE DECIDE
+  BAND IS CLOSED.** Sixteen chunks 9a–9p in six phases: P0 the spikes (9a A2 on
+  the real page · 9b marks over the video · 9c calibration across sleeps · 9d
+  the home-screen app + the Hetzner box · 9e the gesture test on every
+  platform · 9f auto-join + the share/QR sheets) · P1 9g the server (the
+  chaos test; deployed) · P2 the stand (9h shell + live part · 9i the strip,
+  remote, display, switch + THE DESIGN SITTING · 9j menu, annotations, study
+  score · 9k sectionals · 9l CONCERT · 9m the offline floor) · P3 9n the door
+  · P4 9o Tempus content + the operating instructions + the help protocol /
+  FAQ (rehearsal letters = the composer, AR-69) · P5 9p the composer's dress
+  run at home with the Tempus score (AR-70) → the handout. Every chunk names
+  its AR lines, its VERIFY in the running app, and THE COMPOSER'S CHECK on the
+  iPad · laptop · Fire. **Model / clear map:** Opus cold per chunk, clear at
+  every boundary; Fable for the verdict after each spike, the design sitting,
+  and any re-cut. **Size, stated once:** ≈ three weeks of daily sittings; the
+  Tempus date is awareness only. **Inside the plan (composer's question):**
+  the design conversations (9i) and the end testing (9p, with the Tempus
+  content from 9o); outside it: Tempus's own rehearsals, the burn-in (D88).
+  **Why:** the spikes first because everything rests on them (DESIGN §14);
+  one cold session per chunk because the docs are the handoff
+  (SESSION_HYGIENE). Trail: RUNNING_LOG 89 · PLAN.md §9 · the organizer's
+  BUILD band.
 - **D98** *(2026-10-20, day 45)* — **ARCHITECTURE APPROVED — `docs/DESIGN.md`
   (performance arc chunk 10; composer: "Approved").** One small Node server
   (Socket.IO; the registry, rooms, clock, state broadcast, videos, rate
@@ -1943,6 +1965,15 @@ instruction. The instructions are the four reference blocks that follow.*
   checks is a mirror; here, a check that shares an EAR with it is too.)*
 
 ## §5 Done
+
+- **2026-10-20 (day 45, one sitting from "brief me" to the approved build plan) —
+  THE DECIDING IS DONE.** Portal (D90) · parts (D91) · controls (D92) ·
+  annotation (D93) · the composer's picture + the study score (D94) · the
+  performance protocol (D95) · the cross-check (D96) · `docs/REQUIREMENTS.md`
+  frozen (D97) · `docs/DESIGN.md` approved (D98) · PLAN.md §9 approved (D99).
+  The AI's density was corrected by the composer mid-sitting ("spell out full
+  words… one question at a time") and the method held: one question per turn,
+  thirty-odd rulings. Next: the build, Opus, chunk by chunk.
 
 - **2026-10-18 (day 44) — THE KIT RAN ON REAL STANDS, AND WHAT IT FOUND WAS
   FIXED** (organizer step 4 ☑ · 3.7 ☑ · 3.8 ☑). Desktop · iPad · laptop · Fire +

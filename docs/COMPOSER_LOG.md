@@ -2750,3 +2750,5 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 ### Day 45 (2026-10-20, ~5:30 a.m.) — PLAN opened
 
 **"Go"** — the AI writes PLAN.md §9; the composer reviews.
+
+*(The plan presented; "Design conversations here or outside the plan? End user testing at end by me presumably with tempus score outside of plan?" — answered: both inside — the design sitting in 9i, the dress run 9p with the Tempus content from 9o; Tempus's own rehearsals are the outside part, the burn-in.)* **"Approved"** → D99. THE DECIDE BAND IS CLOSED.

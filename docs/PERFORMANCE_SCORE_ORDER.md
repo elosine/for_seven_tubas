@@ -105,12 +105,12 @@ order beneath is unchanged — this is the same arc in one glance.)
    final vet (day 45 → D96) — GATHER CLOSED
 7. ☑ HARDEN — requirements frozen with the measured numbers (AR-1…AR-71, day 45 → D97)
 8. ☑ ARCHITECTURE — the design, composer-approved (day 45 → D98)
-9. ► PLAN — build chunks enumerated, per-phase verification, model map
+9. ☑ PLAN — build chunks enumerated, per-phase verification, model map (day 45 → D99). **THE DECIDE BAND IS CLOSED.**
 
 **BUILD — Opus, chunk by chunk (ENUMERATED day 45 → PLAN.md §9, 9a–9p; one
 cold session per chunk; each ends with VERIFY in the running app + THE
 COMPOSER'S CHECK on the iPad · laptop · Fire)**
-10. P0 THE SPIKES — 9a A2 on the real page · 9b marks over the video · 9c
+10. ► P0 THE SPIKES — ► 9a A2 on the real page · 9b marks over the video · 9c
     calibration across sleeps · 9d the home-screen app + the box · 9e the
     gesture test on every platform · 9f auto-join + the share/QR sheets
 11. P1 THE SERVER — 9g (registry · rooms · clock · the eleven messages ·
@@ -280,7 +280,14 @@ that closed ENS in four iterations)*
     sitting, one review). *(As planned:)* **3a–3d — ARCHITECTURE** (Fable drafts, composer reviews; two sittings).
     Draft with alternatives-considered-and-rejected · scenario replay through
     the design · risk spikes. **Done =** design approved.
-11. ► **4a–4b — PLAN** (Fable). Phased into PLAN.md with per-phase verification
+11. ☑ **4a–4b — PLAN — APPROVED day 45 → D99** (PLAN.md §9, 9a–9p). *(As planned:)* **4a–4b — PLAN** (Fable).
+
+**THE BUILD CHUNKS (appended per the contract above; detail in PLAN.md §9):**
+12. ► **9a — SPIKE: the A2 renderer on the real page** (Opus, cold). Then 9b · 9c ·
+    9d · 9e · 9f (the spikes, a Fable verdict after each) · 9g the server · 9h–9m
+    the stand (9i holds the design sitting, Fable) · 9n the door · 9o Tempus
+    content + instructions · 9p the dress run. Each chunk: one cold Opus session;
+    ☑ when its VERIFY and THE COMPOSER'S CHECK both pass; the ► moves on. Phased into PLAN.md with per-phase verification
     in the running app + a model/clear map. **The build chunks get enumerated
     here and appended to this order.**
 
@@ -337,6 +344,15 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, ~5:45 a.m. — PLAN APPROVED ☑ → D99; THE DECIDE BAND
+  CLOSED; ► 9a, the first spike):** composer: "Approved". In ONE sitting, from
+  "brief me" to the approved build plan: D90 PORTAL · D91 PARTS · D92 CONTROLS ·
+  D93 ANNOTATION · D94 mental models + the study score · D95 PERFORMANCE
+  PROTOCOL · D96 the cross-check · D97 REQUIREMENTS frozen · D98 DESIGN
+  approved · D99 PLAN approved. Next sitting = **Opus, cold, "9a"** (PLAN.md §9
+  + DESIGN.md + REQUIREMENTS.md are the whole brief); Fable returns for the
+  verdict after it. RUNNING_LOG 79–89.
 
 - **2026-10-20 (day 45, ~5:30 a.m. — ► 11 PLAN, DRAFTED; composer review
   pending):** composer: "Go". PLAN.md §9 written — sixteen chunks 9a–9p in
