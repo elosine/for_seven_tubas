@@ -68,7 +68,8 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D96 closed and filed (portal · parts · controls · annotation · mental models + study score · performance protocol · the cross-check — GATHER CLOSED); nothing in
+**(day 45, late, 2026-10-18)** D90–D96 closed and filed (GATHER CLOSED). **HARDEN IN FLIGHT: `docs/REQUIREMENTS.md`
+DRAFTED (AR-1…AR-71, gates E-1…E-7) — the composer's review freezes it → D97.** Otherwise nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and

@@ -2734,3 +2734,7 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Finding 5 — the menu at five items, keep or trim:)* **"1 but let's take some time to design like strip"**
 
 *(Finding 6 — "show the score here" on the remote makes a device the display:)* **"Y"** — findings 7 (an instruction line) and 8 (a to-do) need no ruling; the cross-check's second pass found nothing new; GATHER closed.
+
+### Day 45 (2026-10-20, ~3:30 a.m.) — HARDEN opened
+
+**"Go"** — the AI drafts `docs/REQUIREMENTS.md`; the composer reviews.

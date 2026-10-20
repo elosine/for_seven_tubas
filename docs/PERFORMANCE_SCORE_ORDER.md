@@ -325,6 +325,14 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-10-20 (day 45, ~4 a.m. — ► 9 HARDEN, DRAFTED; composer review
+  pending):** composer: "Go". `docs/REQUIREMENTS.md` written — 71 requirements
+  (AR-1…AR-71) in ten areas, classed MUST/SHOULD/COULD × DECIDED/OPEN/EMPIRICAL
+  with the measured numbers attached · 7 empirical gates (E-1…E-7) · the
+  adversarial pass · the rejected list. Nothing new in it — every line a
+  ruling or a measurement. Done = the composer's word freezes it → D97.
+  RUNNING_LOG 87.
+
 - **2026-10-20 (day 45, ~3:30 a.m. — THE CROSS-CHECK CLOSED ☑ → D96; GATHER
   CLOSED; ► 9 HARDEN):** eight findings, six ruled one per turn, pass 2 clean.
   SEVEN chunks + the study score in one sitting (D90–D96). HARDEN opens on
