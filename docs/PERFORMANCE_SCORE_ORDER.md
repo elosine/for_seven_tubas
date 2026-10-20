@@ -104,8 +104,8 @@ order beneath is unchanged — this is the same arc in one glance.)
 6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ☑ PERFORMANCE PROTOCOL (day 45 → D95) · ☑
    final vet (day 45 → D96) — GATHER CLOSED
 7. ☑ HARDEN — requirements frozen with the measured numbers (AR-1…AR-71, day 45 → D97)
-8. ► ARCHITECTURE — the design, composer-reviewed
-9. PLAN — build chunks enumerated, per-phase verification, model map
+8. ☑ ARCHITECTURE — the design, composer-approved (day 45 → D98)
+9. ► PLAN — build chunks enumerated, per-phase verification, model map
 
 **BUILD — Opus, chunk by chunk (order finalized at 9; expected shape)**
 10. The engine fix (A) in the stand renderer
@@ -266,10 +266,11 @@ that closed ENS in four iterations)*
    must/should/could × decided/open/empirical · empirical gates (probes before
    commitments) · adversarial pass (ENS gets re-tested against everything
    else) · **freeze stable AR-N IDs**. **Done =** requirements frozen.
-10. ► **3a–3d — ARCHITECTURE** (Fable drafts, composer reviews; two sittings).
+10. ☑ **3a–3d — ARCHITECTURE — APPROVED day 45 → D98** (`docs/DESIGN.md`; one
+    sitting, one review). *(As planned:)* **3a–3d — ARCHITECTURE** (Fable drafts, composer reviews; two sittings).
     Draft with alternatives-considered-and-rejected · scenario replay through
     the design · risk spikes. **Done =** design approved.
-11. **4a–4b — PLAN** (Fable). Phased into PLAN.md with per-phase verification
+11. ► **4a–4b — PLAN** (Fable). Phased into PLAN.md with per-phase verification
     in the running app + a model/clear map. **The build chunks get enumerated
     here and appended to this order.**
 
@@ -326,6 +327,13 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-20 (day 45, ~5 a.m. — ARCHITECTURE APPROVED ☑ → D98; ► 11 PLAN):**
+  composer: "Approved". NINE chunks + the study score in one sitting (D90–D98).
+  PLAN opens on "go": 4a the build phased into PLAN.md — the seven risk spikes
+  first, then server · stand · portal · content, each with its verification in
+  the running app and the composer-run test stage (AR-70) · 4b the model /
+  clear map · the build chunks appended to this order. RUNNING_LOG 88.
 
 - **2026-10-20 (day 45, ~4:30 a.m. — ► 10 ARCHITECTURE, DRAFTED; composer
   review pending):** composer: "Go". `docs/DESIGN.md` written against the

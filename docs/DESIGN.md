@@ -5,7 +5,8 @@
 > the alternatives considered and rejected; §13 replays every scenario through the
 > design; §14 names the risk spikes to prototype first. Composer review = 3c.
 >
-> Status: **DRAFTED day 45 (2026-10-20) — composer review pending.**
+> Status: **APPROVED — composer: "Approved" (day 45, 2026-10-20) → D98.** Phase 4
+> PLAN enumerates the build chunks from §11 and §14.
 
 ---
 

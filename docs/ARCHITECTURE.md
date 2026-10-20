@@ -1475,7 +1475,7 @@ STATE MACHINE (ALONE · REHEARSAL stopped/playing · SECTIONAL · CONCERT
 stopped/playing × every input) · the renderers (A2 live, C video + the marks
 layer) · the door concretely · hosting and the spare · the offline floor · the
 build surfaces · twelve rejected alternatives · the replay of every scenario · seven
-risk spikes. Drafted day 45 (2026-10-20); **composer review pending** → D98.
+risk spikes. Drafted and **APPROVED day 45 (2026-10-20; composer: "Approved") → D98.**
 
 *(not started)*
 

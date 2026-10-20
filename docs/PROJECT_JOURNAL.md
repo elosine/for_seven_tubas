@@ -10,12 +10,13 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-20, day 45, ~4 a.m.): GATHER CLOSED (D90–D96)
-> and HARDEN FROZEN (D97 — `docs/REQUIREMENTS.md`, AR-1…AR-71, gates E-1…E-7),
-> all in one sitting. ► NEXT on the organizer (`docs/PERFORMANCE_SCORE_ORDER.md`):
-> 10 = ARCHITECTURE — Fable drafts against the AR-IDs, composer reviews; two
-> sittings; the composer says "brief me". **The Tempus re-cut was REFUSED
-> (day 45): the whole system first; order unchanged.** Nothing in flight.**
+> **► CURRENT POSITION (2026-10-20, day 45, ~5 a.m.): GATHER CLOSED (D90–D96) ·
+> HARDEN FROZEN (D97, `docs/REQUIREMENTS.md`) · ARCHITECTURE APPROVED (D98,
+> `docs/DESIGN.md`), all in one sitting. ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): 11 = PLAN — Fable phases the build into
+> PLAN.md with per-phase verification + the model/clear map; the composer says
+> "go". **The Tempus re-cut was REFUSED (day 45): the whole system first; order
+> unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -39,12 +40,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 10 ARCHITECTURE** (order chunk 10; Fable drafts, composer reviews; two
-  sittings; "brief me"): 3a the design against the AR-IDs with alternatives
-  considered and rejected · 3b every scenario replayed through it · 3c composer
-  review · 3d risk spikes. Carry-ins (REQUIREMENTS §L): REHEARSAL falling back
-  to ALONE when the room empties · two leader devices · a stand with no video
-  on the night. Done = design approved. Clear before it.
+- **► 11 PLAN** (order chunk 11; Fable; "go"): 4a the build phased into PLAN.md
+  — the seven risk spikes (DESIGN §14) first, then server · stand · portal ·
+  content, each chunk with its verification in the running app and the
+  composer-run test stage (AR-70) · 4b the model / clear map · the chunks
+  appended to the organizer. Done = plan written. Clear before it.
+- ☑ 10 ARCHITECTURE → D98 (day 45): `docs/DESIGN.md` approved on "Approved".
 - ☑ 9 HARDEN → D97 (day 45): `docs/REQUIREMENTS.md` frozen on "Freeze".
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
@@ -68,8 +69,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** D90–D97 closed and filed. **ARCHITECTURE IN FLIGHT: `docs/DESIGN.md` DRAFTED — the composer's
-review approves it → D98.** Otherwise nothing in
+**(day 45, late, 2026-10-18)** D90–D98 closed and filed (GATHER · HARDEN · ARCHITECTURE). Nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -415,6 +415,34 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D98** *(2026-10-20, day 45)* — **ARCHITECTURE APPROVED — `docs/DESIGN.md`
+  (performance arc chunk 10; composer: "Approved").** One small Node server
+  (Socket.IO; the registry, rooms, clock, state broadcast, videos, rate
+  limiting, admin API; JSON files, no database) on the Hetzner box as piece
+  #1 ran. ONE web page is the whole stand — player's part · leader's part +
+  strip · remote · display · study score — chosen by the token in the link
+  and the leader's mode. Tokens are identity. Eleven protocol messages;
+  the network carries state changes only. The kit's floor clock
+  (syncclock.js) and video servo (servo.js) reused AS IS, plus calibration
+  persistence across sleeps (gate E-2). One transport tuple read by the live
+  engine through transport.js's injectable timebase and by the servo; the 5 s
+  lead-in = anchorScoreTime − 5. THE STATE MACHINE: ALONE · REHEARSAL
+  stopped/playing · SECTIONAL · CONCERT stopped/playing × every input;
+  REHEARSAL falls back to ALONE after 30 empty minutes; two leader devices
+  last-wins; no video on the night → live A2, dot amber. Renderers: A2
+  (overlay retained, movers as GPU layers; the exporter's string path
+  untouched) and C (video + an SVG marks layer positioned by the same
+  score-time → page mapping). The door concretely (/s/<token>; Web Share;
+  a print QR sheet; a manifest). The spare = the same repo on a laptop from
+  a registry snapshot saved at sound check. Offline floor = service worker +
+  the video in the Cache API. **Rejected:** a framework server · WebRTC · a
+  database · accounts · live rendering in concert · video in rehearsal · a
+  performance ceremony · periodic sync traffic · a native app · peer sync ·
+  page-coordinate marks · a join tap. **Scenario replay:** every scenario
+  holds; concert night pending gates E-2 and E-7. **Risk spikes first:** the
+  A2 refactor · marks over the video · calibration across sleeps · the
+  home-screen app on the iPad · ALONE → REHEARSAL auto-join · the share and
+  QR sheets · the chaos test. Trail: RUNNING_LOG 88 · ARCHITECTURE § 2.
 - **D97** *(2026-10-20, day 45)* — **HARDEN FROZEN — `docs/REQUIREMENTS.md`
   (performance arc chunk 9; composer: "Freeze").** Seventy-one requirements,
   AR-1…AR-71, in ten areas (the door · rooms and modes · the stand · controls
