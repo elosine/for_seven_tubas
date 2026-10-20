@@ -10,13 +10,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ## §2 Resume Here
 
-> **► CURRENT POSITION (2026-10-19, day 45, ~2 a.m.): PORTAL ☑ D90 · PARTS ☑
-> D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93 · 1b MENTAL MODELS + THE STUDY SCORE
-> ☑ D94 — all in one sitting. ► NEXT on the organizer
-> (`docs/PERFORMANCE_SCORE_ORDER.md`): 6.5 PERFORMANCE PROTOCOL (short), then
-> 1c + 1d the cross-check — Fable; the composer says "brief me". **The Tempus
-> re-cut was REFUSED (day 45): the whole system first; order unchanged.**
-> Nothing in flight.**
+> **► CURRENT POSITION (2026-10-19, day 45, ~3 a.m.): PORTAL ☑ D90 · PARTS ☑
+> D91 · CONTROLS ☑ D92 · ANNOTATION ☑ D93 · 1b + THE STUDY SCORE ☑ D94 ·
+> PERFORMANCE PROTOCOL ☑ D95 — all in one sitting. ► NEXT on the organizer
+> (`docs/PERFORMANCE_SCORE_ORDER.md`): 8 = 1c + 1d THE CROSS-CHECK — Fable;
+> the composer says "brief me". **The Tempus re-cut was REFUSED (day 45): the
+> whole system first; order unchanged.** Nothing in flight.**
 
 ### LAST SESSION — days 42–44 (2026-09-23 → 10-18, Claude Code — Fable 5 + Opus 5.5, several sittings)
 
@@ -40,16 +39,16 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 6.5 PERFORMANCE PROTOCOL** (Fable, "brief me"; short): the concert-time
-  stand — completely passive before and after the piece? when marks on/off is
-  set for the night; the night's sequence. Then **1c + 1d the cross-check**
-  (carry-in: joining a sectional from the stand; where "start a sectional"
-  lives; the menu now has five items). Clear before it.
+- **► 1c + 1d THE CROSS-CHECK** (order chunk 8; Fable, "brief me"): every
+  ruling of day 45 against every ruling before it — gaps, conflicts, what was
+  left out; iterate until nothing new surfaces. Carry-ins: joining a sectional
+  from the stand · where "start a sectional" lives · the five-item menu. Done =
+  GATHER closed; then HARDEN (9). Clear before it.
   **Re-cut refused (day 45):** the whole plan and the whole build before
   Tempus; the order stands. A composer-run test stage after the build goes
   into the PLAN step. Tempus dates as said: notification early November;
   parts first week of November realistic.
-- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 · ☑ 1b + the study score → D94 (all day 45, one sitting).
+- ☑ PORTAL → D90 · ☑ PARTS → D91 · ☑ CONTROLS → D92 · ☑ ANNOTATION → D93 · ☑ 1b + the study score → D94 · ☑ PERFORMANCE PROTOCOL → D95 (all day 45, one sitting).
 - **Carried into HARDEN (organizer 9), from the measurements:** calibrate
   every session at warm-up (the iPad's rate moved 6 ppm in 2 h) · Safari
   rehearsal jumps = pause → seek → ready → start on a clock moment
@@ -67,7 +66,7 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 45, late, 2026-10-18)** PORTAL (D90), PARTS (D91), CONTROLS (D92), ANNOTATION (D93) and 1b + the study score (D94) closed and filed; nothing in
+**(day 45, late, 2026-10-18)** D90–D95 closed and filed (portal · parts · controls · annotation · mental models + study score · performance protocol); nothing in
 flight. The composer's own files unchanged from the day-44 note below.
 
 **(day 44 end, 2026-10-18)** Nothing in flight; every 3.8 file committed and
@@ -413,6 +412,34 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D95** *(2026-10-19, day 45)* — **PERFORMANCE PROTOCOL CLOSED (performance
+  arc chunk 6.5).** **THE CONCERT SWITCH:** one switch on the leader's strip
+  (and the remote), on at sound check, off after — every stand shows the
+  per-part VIDEO (D89 C), every stand is PASSIVE (no menu, no local play, no
+  swipes; waits for PLAY), speeds locked at 100, marks as each player last set
+  them; play/stop, the letters and the ready count stay live. **The night:**
+  "open your part when you sit down to warm up" — the video is already on the
+  device (downloaded at the first open of the link; re-fetched with a
+  progress bar if evicted); the clock is measured only while the part is in
+  front and must ACCUMULATE ACROSS SLEEPS (a build item with a kit test —
+  not built, not tested); a green dot + "6 of 7 ready" as an indicator, never
+  a gate; one pass at sound check is the sync test. **Start:** PLAY → the
+  server sends one "start at T"; ~5 s lead-in at the top as everywhere; after
+  that the network is optional. **On stage:** stop · letter · play restarts
+  everyone (the letters stay live under the switch). **The end:** the last
+  page. **The spare laptop: OPTIONAL,** the composer's for the first
+  concerts. **Never refused:** an uncalibrated stand still plays — no visible
+  difference with the network up; worst measured case ~21–32 ms by the end
+  only if the network also dies (under the ~30 ms one-notehead threshold).
+  **Mixed devices are the normal case** (four kinds ran the kit; the beacon
+  measured an iPad and a laptop 7.7 ms apart). **Why:** D87's "no ceremony"
+  kept — one switch, not a readiness roster; the composer's "completely
+  passive stand" answered by the same switch that selects the renderer.
+  **Rejected:** no switch (passivity tied to "room playing"; rehearsal on
+  video seeks) · PLAY as the downbeat · locking the letters under the switch
+  · a required spare. **To the instructions (F):** Auto-Lock never · Low Power
+  off · plugged in · open early, leave it on screen when you can. Trail:
+  COMPOSER_LOG day 45 · ARCHITECTURE § PERFORMANCE PROTOCOL · RUNNING_LOG 85.
 - **D94** *(2026-10-19, day 45)* — **1b MENTAL MODELS CLOSED + THE STUDY
   SCORE (performance arc chunk 7).** The composer's picture: *"recreate or
   get close to the paper score situation"* — narrated as a Tuesday rehearsal,

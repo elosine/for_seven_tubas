@@ -2696,3 +2696,25 @@ V4 + status: *"V4 y,and then just give status. Probably not building now is plan
 *(Study score question 3 — the room starts while a player is on the full score: back to the part, or the full score follows:)* **"yes, back to the part"** — the study score closed.
 
 *(The pianist never gets the strip — her own two-finger tap plays her stand only; the one thing to know: a letter tap on the strip jumps every stand at once, before play:)* **"yes, the immediate jump is fine"** — the Tuesday, all thirteen ✓; 1b closed.
+
+### Day 45 (2026-10-19, ~2 a.m.) — PERFORMANCE PROTOCOL opened (dictated)
+
+*"Just to note, I don't need these sorts of notifications or checks, please. It's about two in the morning let's go ahead and discuss in some detail what the performance looks like. Why don't you fill me in on what you understand the version to be, and then I'll give my comments after."*
+
+*(The performance read back, four gaps put:)* **"The part's video is already on the iPad, loaded earlier. The clock calibrates itself quietly while they warm up. When does this happen?"**
+
+*"Okay, same thing. Just keep track of the issues as we move through this and just surface them as when they're next. So let's talk through in some detail concert night. There is most likely some sort of sound check or whatever before doors open, I imagine. And so then at that point, maybe they have some paper scores on their stand, they have their iPad with, well, let's just pretend it's just their iPads because the paper is of no consequence. They have their iPads, but they're looking at playing several pieces. They open one piece using one of those third-party apps, opening the PDF. They have that open. Whatever, their displaying software has some playlist or something. And then what happens with my piece? They open the icon, and then what happens? And then what does the leader need to do? And then talk me through, you can just, you don't have to go into too much detail, but talk me through a little bit about what happens when, what needs to happen at sound check, like the loading and all that, what happens at play, and just talk a little bit about what the server's doing in the background through all that."*
+
+*(Concert night walked through; the suspend finding:)* **"Does the app have to be on focus for the 10 minutes, or they tap it, the part opens, and what if then they switch to one of their PDF scores or somewhere, something else, their calendar or something?"**
+
+*"ok we'll have to have that in the instructions. Just to clarify, they just have to do it sometime during performance night. So what about the case when they get into the hall, say an hour before performance, run these checks, do a quick sound check or whatever, and then just leave the iPad on the stand for an hour until performance time? And then can you explain to me what happens if they didn't get a chance to complete that 10-minute check? Is it still ostensibly okay, or it's the performance is not possible?"*
+
+*"ok that is good, And then how about just to maybe add to the list, how about a mixed device? Like some people are using Androids, some people are using PCs, etc."*
+
+*(Item A — the "concert" switch on the leader's strip: video on every stand, stands passive, speeds locked at 100, marks as last set; vs no switch:)* **"a"** → **"yes"**
+
+*(Item C — the first note: play = the downbeat, or the same 5 s lead-in at the top:)* **"2"**
+
+*(Item D — restart from a letter on stage: the letters stay live on the strip under "concert", or locked:)* **"1"**
+
+*(Item G — the spare laptop: optional at the composer's discretion (the composer brings it to the first concerts), or required of every ensemble:)* **"1"** — the performance protocol closed.

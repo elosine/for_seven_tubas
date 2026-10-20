@@ -101,7 +101,7 @@ order beneath is unchanged — this is the same arc in one glance.)
 4. ☑ KIT RUNS on real machines (2026-10-18: desktop · iPad · laptop · Fire · beacon) — every ESTIMATE becomes a number
    (the composer's step: testkit/README.md is the run protocol)
 5. ☑ PORTAL gather (CLOSED day 45, 2026-10-18 late → D90; one sitting)
-6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ► PERFORMANCE PROTOCOL (new, composer day 45) ·
+6. ☑ PARTS gather (day 45 → D91) · ☑ CONTROLS (day 45 → D92) · ☑ ANNOTATION-UX (day 45 → D93) · ☑ mental models + the study score (day 45 → D94) · ☑ PERFORMANCE PROTOCOL (day 45 → D95) · ►
    final vet (compressible per D88)
 7. HARDEN — requirements frozen with the measured numbers (AR-IDs)
 8. ARCHITECTURE — the design, composer-reviewed
@@ -233,8 +233,10 @@ that closed ENS in four iterations)*
    functions": scopes (private / to-one-player / to-everyone), the conductor's
    paper→digital transfer path, one-gesture undo.
    **Done =** annotation requirements closed.
-6.5 ► **PERFORMANCE PROTOCOL** (Fable; from the composer's day-45 words; taken
-   next after 1b — say if the vet should come first). The concert-time stand: "maybe it's simpler just… to
+6.5 ☑ **PERFORMANCE PROTOCOL — CLOSED day 45 → D95** (the night walked through;
+   the CONCERT switch · calibration across sleeps → build item · 5 s lead-in at
+   the top · restart from a letter · the spare optional · mixed devices normal).
+   Record: ARCHITECTURE § PERFORMANCE PROTOCOL. *(As proposed:)* The concert-time stand: "maybe it's simpler just… to
    be a completely passive stand for performance time before and after the
    performance"; the night's sequence; when a player sets marks on/off. **Done =**
    the concert protocol stated. (No menu DURING the performance is already ruled.)
@@ -246,7 +248,7 @@ that closed ENS in four iterations)*
    **1b — the composer's mental models** (Fable). How the composer pictures
    rooms, roles, the flow — logged before the AI evaluation reframes anything.
    **Done =** logged to ARCHITECTURE.md + COMPOSER_LOG.
-8. **1c + 1d — AI evaluation + vet loop** (Fable). Gaps, conflicts, what was
+8. ► **1c + 1d — AI evaluation + vet loop** (Fable). Gaps, conflicts, what was
    left out — across ALL closed scenarios; iterate until nothing new surfaces.
    **Done =** GATHER phase closed.
 9. **2a–2d — HARDEN** (Fable; likely two sittings). **Carry-in (day 45,
@@ -317,6 +319,13 @@ ahead of PORTAL.
   for HARDEN.
 
 ## POSITION LOG (newest first — one line per sitting)
+
+- **2026-10-19 (day 45, ~3 a.m. — PERFORMANCE PROTOCOL CLOSED ☑ → D95; ► 8 the
+  cross-check, 1c + 1d):** the performance read back, concert night walked
+  through with the server's part; eight items tracked and closed one per turn.
+  SIX chunks + the study score in one sitting (D90–D95). Carry-ins for the
+  cross-check: joining a sectional from the stand · where "start a sectional"
+  lives · the menu is now five items. RUNNING_LOG 79–85.
 
 - **2026-10-19 (day 45, ~2 a.m. — 1b CLOSED ☑ → D94; ► 6.5 PERFORMANCE
   PROTOCOL, then 1c + 1d the cross-check):** the composer narrated a Tuesday

@@ -1241,6 +1241,159 @@ player's stand.)
 per view, no copying · the fixed zoom (double, repaginated, same swipes, up/down) ·
 back to the part when the room plays. Folds into D94 with 1b.
 
+#### PERFORMANCE PROTOCOL (chunk 6.5, day 45, ~2 a.m.; composer: "fill me in on what you understand the version to be, and then I'll give my comments")
+
+**The performance as the record has it (AI's read-back, from D87 · D89 · D90 · D93 · D94):**
+- BEFORE: players arrive, tap their icon → their part, in the ensemble's room (D90).
+  The part's VIDEO is already on the device (cached — the offline floor); the clock
+  calibrates silently at warm-up (HARDEN carry-in). Marks on/off set from the menu
+  while stopped (D93). The leader has the strip, or the conductor the remote (D94).
+- THE START: on the fly, no ceremony — no readiness roster, no countdown, no mode
+  lock (D87). The leader taps PLAY; every stand's video starts together.
+- DURING: stands follow only; nothing on a stand responds (D93 "no menu during the
+  performance"); the per-part VIDEO (renderer C, D89) with the player's marks
+  overlaid; after GO the network is optional — the show finishes on local clocks
+  (D87 rung 1); the hot-spare laptop on a hotspot if the server dies (rung 2); ONE
+  quiet podium gesture, resync-everyone (rung 3).
+- THE END: the video ends; the stand rests on the last page.
+- IF IT FALLS APART: the leader taps STOP, a letter, PLAY — a restart from a letter
+  with the usual 5 s lead-in; no recovery UI on stage (D87).
+
+**Gaps the read-back exposed (AI), put to the composer as the open points:**
+1. **How does the stand know it is concert night?** D89 says video (C) for the concert
+   stand, live drawing (A) for rehearsal; nothing yet selects C. Proposed: ONE SWITCH,
+   "concert", on the leader's strip / the ensemble page — flipped for the night,
+   flipped back after. The same switch can make the stands PASSIVE before and after
+   the piece (the composer's open question): no menu, no local play, marks as set.
+   One switch, not a ceremony (D87 rejected the ceremony, not a switch).
+2. **The very first note:** from 0:00 there is nothing before the first note. A short
+   lead-in at the top (the cursor starts a few seconds before 0:00) or none (the
+   leader's nod is the cue; PLAY = the downbeat).
+3. **Restart from a letter on stage** — allowed via the strip (STOP · letter · PLAY)?
+4. **Speeds in concert:** 100 only; the strip's speed buttons do nothing under
+   "concert".
+
+**Composer: "When does this happen?" (the video on the iPad; the clock calibrating) —
+answered, and it becomes PROTOCOL:**
+- **The video** downloads the FIRST time the player opens their link (at home, the
+  day the link arrives) and stays on the device; on the night nothing downloads.
+  If the iPad has thrown it away (tight storage; long unused — Safari's eviction
+  of unused site data is a known, unverified risk for pages NOT on the home screen),
+  the stand fetches it again when opened, with a progress bar, over the room's
+  Wi-Fi or the player's data.
+- **The clock** measures itself against the server the whole time the stand is open
+  in the room; FULL calibration needs ~10 minutes of that (the kit: an 8-minute
+  baseline, ≥ 30 trusted samples, σ ≤ 5 ppm; the rate must be measured EVERY
+  session — it moved 6 ppm in 2 h). A stand opened at the last second still runs
+  in time while the network is up; it only loses margin (up to ~20–30 ms by the
+  end of the piece, measured) if the network then dies mid-piece.
+- → **The protocol line: "open your part when you sit down to warm up, not at the
+  downbeat."** Both happen by themselves from there.
+- **A ready sign, not a gate:** the stand's dot turns green when the video is on the
+  device and the clock is calibrated; the leader's strip shows "6 of 7 ready". An
+  indicator only — nothing stops PLAY (D87: no readiness ceremony).
+
+**CONCERT NIGHT, walked through (composer's ask; AI's read-back, "concert" switch
+assumed as proposed):**
+- **Sound check.** The other pieces live in the PDF app. For this piece each player
+  taps the icon once: the part opens, the stand checks the video is on the device
+  (fetches it if not), joins the room, starts measuring the clock; the dot goes
+  green within ~10 minutes. The leader opens the strip, sees "6 of 7 ready", flips
+  "concert" (proposed), runs one pass — a letter, play, stop — every stand follows;
+  that pass is the sync test. Then everyone switches back to the PDF app.
+- **During the other pieces.** The page is SUSPENDED behind the PDF app: the
+  connection drops, the clock calibration is KEPT (stored). → HARDEN requirement:
+  keep the calibration across a suspend and re-verify it on return. A sound-check
+  calibration reused three hours later carries the measured ~6 ppm/2 h drift ≈ a few
+  ms over the piece — covered by the network corrections while the network is up.
+- **This piece is next.** Players tap the icon: the page reconnects in a second or
+  two, the dot is green, the stand sits passive at the top of the part. The leader
+  sees "7 of 7 ready". Nod. PLAY.
+- **At PLAY — what the server does.** ONE message to every stand: "start at server
+  time T", T a second or two ahead so every stand has it before T. Each stand turns
+  T into its own calibrated clock, pre-rolls the video, starts it exactly at T. From
+  then on each stand runs on its own clock; the server keeps answering the small
+  clock checks; corrections are early-and-tiny (the floor rule); if the network
+  vanishes nothing changes on stage.
+- **The end.** The video ends; stands rest on the last page; players switch to the
+  PDF app for the next piece. After the concert the leader flips "concert" off.
+- **The server through all of it:** before — holds the room, answers clock pings
+  (dozens a minute per stand), serves the video if a stand lacks it, counts ready
+  stands; at play — one message; during — pings only, nothing the show depends on;
+  the hot-spare laptop at the venue can run the same server on a hotspot, stands
+  re-home by the QR.
+
+**TRACKING LIST (performance protocol):**
+A. ✓ **THE "CONCERT" SWITCH — RULED "yes".** One switch on the leader's strip (and the
+   remote), on at sound check, off after. On: every stand shows the per-part VIDEO
+   (renderer C) · every stand is PASSIVE (no menu, no local play, no swipes; sits at
+   the start, waits for PLAY) · speeds locked at 100 (item E folded in) · marks as
+   each player last set them (set BEFORE the switch). Still live: play/stop, the
+   letters, the ready count. Rejected: no switch (video + passivity tied to "room
+   playing" — a stray touch before the piece; rehearsal jumps on video seeks).
+B. Suspend behind another app → HARDEN, sharpened by the composer's question ("does the
+   app have to be on focus for the 10 minutes?"): the clock is measured ONLY while the
+   part is in front (a background page on iPad is asleep; timers stop, the connection
+   drops). The ten minutes need NOT be continuous: the stand must KEEP its samples
+   (persistently — iOS may discard a suspended page outright) and ADD to them on
+   every return; the device clock keeps running through a suspend, so samples from
+   5:00 and 5:20 fit one line — the wider span even sharpens the rate. The kit
+   calibrated from continuous samples only; accumulating across visits is NOT built
+   and NOT tested → a build item with a kit test. Protocol line: "open it early and
+   leave it in front for a few minutes when you can; every return adds." Uncalibrated
+   with the network up is still in sync; calibration is the margin for a network
+   failure.
+C. ✓ The first note — RULED "2": the same ~5 s lead-in at the top as everywhere else;
+   PLAY runs the cursor through empty space to the first note; one rule, no
+   exception. (Build note: the per-part video must carry those seconds before 0:00.)
+D. ✓ Restart from a letter on stage — RULED "1": the letters stay live on the strip
+   under "concert"; STOP · letter · PLAY restarts everyone with the lead-in; no
+   emergency screen; the strip responds only while stopped, so nothing is hit by
+   accident.
+E. ✓ Speeds locked at 100 under "concert" — folded into A.
+F. Device lines for the instructions: Auto-Lock never · Low Power off · plugged in ·
+   "open your part early; leave it on screen when you can; every return adds"
+   (composer: "we'll have to have that in the instructions").
+   **Answered (composer's two cases):** (i) the iPad left on the stand for an hour
+   with the part in front = the best case — the wake lock keeps the screen on, the
+   measurement runs the whole hour, fully calibrated by the downbeat; if the screen
+   does go dark, the page sleeps and resumes on wake. (ii) The 10 minutes never
+   completed = THE PERFORMANCE IS STILL POSSIBLE; the system never refuses to play.
+   With the network up during the piece there is no visible difference (live
+   corrections). Only if the network ALSO dies mid-piece does an uncalibrated stand
+   free-run: measured iPad drift +28 ppm ≈ 21 ms over the 12.5-minute piece; two
+   uncalibrated devices 43 ppm apart ≈ 32 ms by the end — the worst case, two
+   failures at once, and still under the ~30 ms a reader's eye tolerates (the
+   one-notehead threshold). A partial calibration is never WRONG: the quality bar
+   (≥ 30 samples, σ ≤ 5 ppm) passes it or the stand stays uncalibrated. "6 of 7
+   ready" means one stand is uncalibrated, not broken; the leader plays anyway.
+G. ✓ The hot spare — RULED "1": OPTIONAL, at the composer's discretion; described in
+   the instructions; the composer brings it to the first concerts; never a burden
+   on every ensemble (the case it covers — the server dying between sound check and
+   the downbeat with no way to restart it — is narrow).
+H. **MIXED DEVICES (composer: "some people are using Androids, some people are
+   using PCs").** By design fine: the stand is a web page; every device syncs ITSELF
+   to the server, so a room of iPads, Android tablets, Windows laptops and a Fire is
+   the normal case, not a special one. Evidence in hand: the kit ran on four kinds
+   (desktop Chrome · Windows laptop Chrome · iPad Safari · Fire Chromium) — every
+   test, none errored; the beacon filmed an iPad and a laptop 7.7 ms apart = the
+   mixed-device proof already. Not yet in hand: a true Android tablet (the Fire is
+   Android-based Chromium, close but not identical) → borrow one for the gesture
+   test (HARDEN carry-in). Per-device differences the build must absorb: screen
+   size (the part's size is set by eye on the iPad; a laptop scales up; phones are
+   not stands) · one video file serves all (scaled) · Safari vs Chromium video
+   paths (both measured, both repaired in 3.8).
+
+**PERFORMANCE PROTOCOL CLOSED (day 45) → D95.** The night: open early (the video is
+already there; the clock measures while in front, accumulating across returns —
+build item B) · the leader flips CONCERT at sound check (video · passive stands ·
+speeds locked · marks as set) · one pass as the sync test · back to the PDF app ·
+this piece: tap the icon, "7 of 7 ready", nod, PLAY · ~5 s lead-in at the top · the
+server sends one "start at T"; after that the network is optional · a restart =
+stop · letter · play · the end rests on the last page · the spare laptop optional.
+A stand that never calibrated still plays (worst measured case ~32 ms by the end,
+only if the network also dies). Mixed devices are the normal case.
+
 ## 2 · DESIGN
 
 *(not started)*
