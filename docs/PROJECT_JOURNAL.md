@@ -1,5 +1,13 @@
 # PROJECT JOURNAL — for seven tubas
 
+<!-- card:score -->
+<!-- Chief of Staff card: rewrite these three lines (and the date) at the end of every session on this project. Plain words, one line each. Read by home-management/tools/brief.js; list in home-management/docs/PROJECTS.md. -->
+> **▶ Where I left off** · updated 2026-10-22
+> - **Last:** 9a built — the new renderer runs on the notation page; on the PC 99.7 % of frames on time (Oct 20).
+> - **Decided:** one module system for every piece; Tempus deploys first; the whole plan and build before Tempus.
+> - **Next:** your device check (~15 min) — iPad + Fire by eye, then Run T2 on the Fire; then the 9a verdict → 9b.
+<!-- /card -->
+
 ## §1 Quick-Start
 
 Piece #4 in the lineage; started 2026-08-10 as a detour from piece #3 (which resumes
