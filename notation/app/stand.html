@@ -177,11 +177,20 @@
       for (let r = 0; r < ROWS && first + r < state.planned.length; r++) {
         const pg = state.planned[first + r];
         const f0 = (r * rowH + laneAir) / H, f1 = (r * rowH + laneAir + laneH) / H;
-        const view = NotationCoords.makeView({ widthPx: W, heightPx: H, window: [pg.t0, pg.t0 + s], gutterPx,
+        // A ROW ENDS WHERE ITS MUSIC ENDS (day 46, the composer: "the cursors don't
+        // go all the way to the end"): the page rules cut one row in five short, by
+        // up to cutSlackSeconds, to keep a figure whole on the next row. The row's
+        // view is only as wide as its own music at the constant px per second —
+        // a ragged right edge, the end bar at the cut, the cursor running to it —
+        // rather than drawing to the edge music the cursor never reaches.
+        const rowSeconds = Math.min(s, pg.t1 - pg.t0);
+        const rowW = Math.min(W, gutterPx + rowSeconds * pxPerS);
+        const view = NotationCoords.makeView({ widthPx: rowW, heightPx: H, window: [pg.t0, pg.t0 + rowSeconds], gutterPx,
           systems: [{ part: PART - 1, laneFrac0: f0, laneFrac1: f1 }], ssPerSystem });
         const ownsEnd = first + r === state.planned.length - 1;
         let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
           reshow: pg.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+          hideBricks: true,   // the parachute bricks are a workshop look, not the part's (composer, day 46)
         });
         // the rows stack: the paper is the sheet's, not each SVG's (render.js
         // paints a full-frame paper rect first — the row above would vanish)
