@@ -2355,10 +2355,12 @@ while building the real score.
      precision; the fine attacks are a GC's. Speed is not pushed up by precision.
   4. **The GCs and balls as a fixed point** — how their shapes follow the speed; the
      least-impact way to keep their feel (the composer's eye).
-  5. **Prior art** — one sitting, three sources (printed systems in seconds ·
-     scrolling-score research · karaoke/teleprompter/rhythm-game look-ahead), looking
-     for a stated speed WITH its reason, look-ahead norms, any readability measure;
-     out: one page of numbers and whether each transfers.
+  5. **Prior art** — **DONE day 46: `docs/SPEED_PRIOR_ART.md`.** Vickery (ICMC 2014)
+     gives the speeds with reasons: printed scores run 1.3–2.4 cm/s; the ceiling for
+     reading moving notation is 2–3 cm/s (Picking 1997, Gilman & Underwood 2003). On
+     this iPad 52 px = 1 cm: today's 6 s row = 3.6 cm/s, above both; 8 s = 2.7; 10 s =
+     2.1; 12 s = 1.85. MOLA's primary text read (7.5 mm holds; 8.0 a candidate). **With
+     step 2 the band is 8–10 s a row**; step 7 picks inside it.
   6. **Row replacement** — how rows refresh (a whole-page turn today vs rows replaced
      at the top as the cursor descends — the composer's idea), with data on the
      look-ahead at the bottom row and the string quartet's pagination lesson; the

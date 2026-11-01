@@ -50,9 +50,11 @@ piece #3's `docs/` — registered as an additional working directory.
   before 9i; PLAN §9 → 9s):** two dials ruled (`?ss=` size · `?s=` speed) · step 1
   DONE (a 7.5 mm staff, `?ss=9.75`) · step 2 DONE (fit: the cluster floor 154 px/s =
   a row ≤ 7.3 s; today 187; 8 s at the limit; 10 s needs the cluster standard to
-  pack) · step 3 answered (moderate precision) · **next: step 5 prior art (mine, one
-  sitting)**, then 4 + 7 together on the iPad (the GCs' feel · the eye test at 6 and
-  8 s on the 34–45 s clusters), 6 row replacement (data + the composer), 8 the decision.
+  pack) · step 3 answered (moderate precision) · step 5 DONE (`docs/SPEED_PRIOR_ART.md`:
+  printed scores 1.3–2.4 cm/s, the reading ceiling 2–3 cm/s; today's 6 s row = 3.6 cm/s;
+  **the band is 8–10 s a row**) · **next: steps 4 + 7 on the iPad** — 6 · 8 · 10 s on the
+  34–45 s clusters and on a GC passage, staff 7.5 and 8.0; the composer looks · then 6
+  row replacement (data + the composer) · 8 the decision.
 - ☑ 9h-1 CLOSED (day 46, RUNNING_LOG 94–95): THE COMPOSER'S CHECK passed on the iPad —
   full screen, nothing cut, the cursor at the first note, the pulse gone (the
   resampled line, snapped). The blur in motion = the display's sample-and-hold →
