@@ -341,14 +341,23 @@
       if (!free) { free = []; pools.set(m.key, free); }
       free.push(m);
     }
+    // a layer may carry clip: [t0, t1) — outside it the whole layer is hidden
+    // (the stand's rows, 9h-1: a row's window runs to t0 + s but its music
+    // ends at the page rules' cut, where the next row begins; without the
+    // clip two rows showed a cursor at once)
     function setLayers(next) {
       for (const L of layers) for (const p of L.scene.pieces) if (p._m) { release(p._m); p._m = null; }
       layers = [];
-      next.forEach((L, n) => { if (L && L.scene) { group(n, L.opacity); layers.push({ scene: L.scene, n }); } });
+      next.forEach((L, n) => { if (L && L.scene) { group(n, L.opacity); groups[n].g.style.display = ''; groups[n].hidden = false; layers.push({ scene: L.scene, n, clip: L.clip || null }); } });
     }
     function frameAt(t) {
       for (let li = 0; li < layers.length; li++) {
         const L = layers[li], ps = L.scene.pieces, G = groups[L.n];
+        if (L.clip) {
+          const hide = t < L.clip[0] || t >= L.clip[1];
+          if (hide !== G.hidden) { G.g.style.display = hide ? 'none' : ''; G.hidden = hide; }
+          if (hide) continue;
+        }
         L.scene.step(t);
         const rtf = 'translate3d(' + L.scene.xc + 'px,0,0)';
         if (rtf !== G.tf) { G.rider.style.transform = rtf; G.tf = rtf; }

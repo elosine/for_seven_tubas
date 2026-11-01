@@ -1,0 +1,110 @@
+{
+ "tool": "tools/stand_check.js",
+ "at": "2026-11-01T21:13:01.186Z",
+ "ir": "db1",
+ "t": 141.5,
+ "size": "1180,820",
+ "port": 5299,
+ "ownServer": true,
+ "parts": [
+  {
+   "part": 1,
+   "url": "http://localhost:5299/notation/app/stand.html?part=1&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 427,
+   "pieces": 25,
+   "overlay": {
+    "elements": 5,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 10
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 2.5
+   },
+   "shot": "testkit\\results\\stand_shots\\part1.png",
+   "problems": []
+  },
+  {
+   "part": 6,
+   "url": "http://localhost:5299/notation/app/stand.html?part=6&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 426,
+   "pieces": 26,
+   "overlay": {
+    "elements": 5,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 10
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 3.599999964237213
+   },
+   "shot": "testkit\\results\\stand_shots\\part6.png",
+   "problems": []
+  }
+ ],
+ "head": {
+  "viewport": true,
+  "appleCapable": true,
+  "manifest": true,
+  "icon": true,
+  "manifestDisplay": "standalone",
+  "iconServed": true
+ },
+ "ok": true,
+ "browser": "Edg/156.0.4314.58",
+ "gitHead": "8fafd94"
+}
