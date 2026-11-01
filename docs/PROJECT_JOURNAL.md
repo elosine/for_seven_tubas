@@ -41,7 +41,8 @@ piece #3's `docs/` — registered as an additional working directory.
 
 - **► 9a — the devices (the composer, ~15 min; no model needed):**
   1. PC: `node score/server.js` and `node testkit/server.js`.
-  2. iPad and Fire, the check link —
+  2. iPad and Fire, the check link — short form `192.168.1.15:5200/c` (a redirect in
+     score/server.js, day 46; the full link was too much to type on a tablet) →
      `http://192.168.1.15:5200/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0`
      — watch the busiest minute: smooth by eye? (a page turns every 12 s; a
      brief hitch AT the turn is the known NITS item, not the renderer).

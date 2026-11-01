@@ -337,6 +337,13 @@ const server = http.createServer((req, res) => {
     const url = decodeURIComponent(req.url.split('?')[0]);
     const R = wrapRes(res);
 
+    // Short link for the stands (9a device check) — the full link is too much to
+    // type on an iPad or a Fire.
+    if (req.method === 'GET' && url === '/c') {
+        res.writeHead(302, { Location: '/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0' });
+        return res.end();
+    }
+
     // APIs
     if (req.method === 'POST' && url === '/api/composer/save') {
         return readBody(req, (err, body) => {
