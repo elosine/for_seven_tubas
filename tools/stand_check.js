@@ -31,6 +31,10 @@ const QX = arg('q', '');
 // (and one just before the first row ends) — the places where a cursor could
 // sit over a clef, a row could show its cursor past its cut, two could show at once
 const SEAMS = process.argv.includes('--seams');
+// --crisp: for the first part, eight shots of the cursor at sub-pixel phases
+// (t steps of 1/7 of a frame) — tools/cursor_crisp.py measures how the line's
+// pixel profile changes shot to shot (with ?snap=0 it should; snapped it should not)
+const CRISP = process.argv.includes('--crisp');
 const OUT = path.join(ROOT, 'testkit', 'results');
 const SHOT_DIR = path.join(OUT, 'stand_shots');
 const BASE = 'http://localhost:' + PORT + '/notation/app/stand.html';
@@ -174,6 +178,22 @@ async function main() {
               fs.writeFileSync(path.join(ROOT, file), Buffer.from(shot.data, 'base64'));
               row.seams.push({ row: i + 1, tag, t: +tt.toFixed(3), shot: file });
             }
+          }
+          await evalJs('window.__standGoto(' + T + ')');
+        }
+        if (CRISP && part === PARTS[0]) {
+          const rows = await evalJs('window.__standRows ? window.__standRows() : null');
+          const rw = rows && rows[1] || rows && rows[0];
+          row.crisp = [];
+          const tag = QX ? QX.replace(/[^a-z0-9.=]+/gi, '_') : 'snap';
+          for (let i = 0; i < 8; i++) {
+            const tt = rw.t0 + 0.5 + i * (1 / 60) / 7;
+            await evalJs('window.__standGoto(' + tt + ')');
+            await sleep(200);
+            const sh = await cdp.send('Page.captureScreenshot', { format: 'png' });
+            const file = path.join('testkit', 'results', 'stand_shots', 'crisp_' + tag + '_' + i + '.png');
+            fs.writeFileSync(path.join(ROOT, file), Buffer.from(sh.data, 'base64'));
+            row.crisp.push({ i, t: +tt.toFixed(5), shot: file });
           }
           await evalJs('window.__standGoto(' + T + ')');
         }

@@ -198,7 +198,8 @@
     const F = state.frame;
     if (!state.live || state.live.W !== F.widthPx || state.live.H !== F.heightPx) {
       if (state.live) state.live.destroy();
-      state.live = NotationAnimLive.mount($('sheet'), F);
+      // ?snap=0 turns the device-pixel snapping off (the A/B for the pulse)
+      state.live = NotationAnimLive.mount($('sheet'), F, { snap: Q.get('snap') !== '0' });
     }
     state.live.attach($('sheet'));
     // each row shows its overlay only while t is inside ITS music — from its

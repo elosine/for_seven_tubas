@@ -289,9 +289,21 @@
   //
   // The host may have its contents replaced (the page re-renders by
   // innerHTML); attach(host) puts the overlay back on top.
-  function mount(host, frame) {
+  // opts.snap (default true): the rider's x — and the cursor line's own offset —
+  // land on whole DEVICE pixels. A composited layer at a fractional offset is
+  // resampled by the GPU: a 3-px line smears over 4 and its brightness
+  // profile changes every frame as the fraction walks — on-time motion that
+  // "pulses" (the composer, the stand on the iPad, day 46). A game snaps its
+  // sprites for the same reason. At 60 Hz the step is 6 or 7 device px either
+  // way; the eye cannot see which, but it can see the shimmer.
+  function mount(host, frame, opts) {
     const doc = host.ownerDocument;
     const W = frame.widthPx, H = frame.heightPx;
+    const snap = !(opts && opts.snap === false);
+    const dpr = (doc.defaultView && doc.defaultView.devicePixelRatio) || 1;
+    let scale = 1;
+    const q = () => scale * dpr;                       // CSS px → device px
+    const snapX = x => snap ? Math.round(x * q()) / q() : x;
     const clip = doc.createElement('div');
     clip.className = 'animlive';
     clip.id = 'animov';
@@ -359,7 +371,7 @@
           if (hide) continue;
         }
         L.scene.step(t);
-        const rtf = 'translate3d(' + L.scene.xc + 'px,0,0)';
+        const rtf = 'translate3d(' + snapX(L.scene.xc) + 'px,0,0)';
         if (rtf !== G.tf) { G.rider.style.transform = rtf; G.tf = rtf; }
         for (let i = 0; i < ps.length; i++) {
           const p = ps[i];
@@ -371,6 +383,7 @@
       }
     }
     function setScale(k) {
+      scale = k;
       clip.style.width = (W * k) + 'px'; clip.style.height = (H * k) + 'px';
       stage.style.transform = k === 1 ? '' : 'scale(' + k + ')';
     }
