@@ -27,6 +27,10 @@ const IR = arg('ir', 'db1');
 const PLAY_MS = parseInt(arg('play-ms', '1500'), 10);
 // --q "s=6&z=1.2": extra page parameters (the size knobs) — the shot's name carries them
 const QX = arg('q', '');
+// --seams: for the first part, a shot just after each row of the page begins
+// (and one just before the first row ends) — the places where a cursor could
+// sit over a clef, a row could show its cursor past its cut, two could show at once
+const SEAMS = process.argv.includes('--seams');
 const OUT = path.join(ROOT, 'testkit', 'results');
 const SHOT_DIR = path.join(OUT, 'stand_shots');
 const BASE = 'http://localhost:' + PORT + '/notation/app/stand.html';
@@ -157,6 +161,21 @@ async function main() {
           row.turn = { fromPage: before + 1, toPage: st2.pageIdx + 1, ok: st2.pageIdx === before + 1 && !st2.error, turnMs: st2.turns.length ? st2.turns[st2.turns.length - 1].ms : null };
           await evalJs('window.__standGoto(' + T + ')');
           await sleep(300);
+        }
+        if (SEAMS && part === PARTS[0]) {
+          const rows = await evalJs('window.__standRows ? window.__standRows() : null');
+          row.seams = [];
+          for (const [i, rw] of (rows || []).entries()) {
+            for (const [tag, tt] of [['start', rw.t0 + 0.05], ['end', rw.t1 - 0.05]]) {
+              await evalJs('window.__standGoto(' + tt + ')');
+              await sleep(250);
+              const shot = await cdp.send('Page.captureScreenshot', { format: 'png' });
+              const file = path.join('testkit', 'results', 'stand_shots', 'seam_row' + (i + 1) + '_' + tag + '.png');
+              fs.writeFileSync(path.join(ROOT, file), Buffer.from(shot.data, 'base64'));
+              row.seams.push({ row: i + 1, tag, t: +tt.toFixed(3), shot: file });
+            }
+          }
+          await evalJs('window.__standGoto(' + T + ')');
         }
         const shot = await cdp.send('Page.captureScreenshot', { format: 'png' });
         row.shot = path.join('testkit', 'results', 'stand_shots', 'part' + part + (QX ? '__' + QX.replace(/[^a-z0-9.=]+/gi, '_') : '') + '.png');

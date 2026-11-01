@@ -198,6 +198,13 @@ decisions."*
   whole stand by a developer page.)
 - **The real thing before the proxy.** When the product can be put in front of the
   composer, do that — not a stress test of one component on the developer's page.
+- **Look at the seams before the composer does** (day 46, after the composer caught a
+  cursor in the gutter: *"we need to make sure these parts … are really at a
+  professional level … some quality assurance"*). Before any composer's check, the
+  AI screenshots every boundary — a row's start and end, a page turn, the first and
+  last page, the first note after a clef — and looks, as a professional's eye would
+  go there first. `tools/stand_check.js --seams` is the pattern; every chunk's VERIFY
+  names its seams.
 - **Decisions already ruled (the D-numbers) are not re-asked.** Ordering, sequencing
   and folding inside an approved plan is the AI's call, recorded with the why. Only a
   NEW question goes to the composer — in plain words, one at a time.

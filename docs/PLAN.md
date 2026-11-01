@@ -2174,7 +2174,8 @@ while building the real score.
 > `docs/PLAN.md` §9 + `docs/DESIGN.md` + `docs/REQUIREMENTS.md` (the AR lines named
 > in the chunk). Every chunk ends with (1) **VERIFY** — proven in the running app
 > (the preview browser and `testkit/verify_headless.js`-style headless Edge; a
-> confidence claim must be verified, per AI_METHODOLOGY) and (2) **THE COMPOSER'S
+> confidence claim must be verified, per AI_METHODOLOGY; **and the SEAMS looked at
+> by the AI first — screenshots at every boundary, day 46**) and (2) **THE COMPOSER'S
 > CHECK** — a short checklist the composer runs on the iPad · laptop before the
 > chunk is called done (AR-70; the Fire dropped as a target, D100 day 46 — it stays
 > the kit's slow-device probe only). Position lives in

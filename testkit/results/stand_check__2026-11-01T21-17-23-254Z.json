@@ -1,0 +1,128 @@
+{
+ "tool": "tools/stand_check.js",
+ "at": "2026-11-01T21:17:23.254Z",
+ "ir": "db1",
+ "t": 141.5,
+ "size": "1180,820",
+ "port": 5299,
+ "ownServer": true,
+ "parts": [
+  {
+   "part": 1,
+   "url": "http://localhost:5299/notation/app/stand.html?part=1&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 427,
+   "pieces": 25,
+   "overlay": {
+    "elements": 5,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 10
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 2.600000023841858
+   },
+   "seams": [
+    {
+     "row": 1,
+     "tag": "start",
+     "t": 135.887,
+     "shot": "testkit\\results\\stand_shots\\seam_row1_start.png"
+    },
+    {
+     "row": 1,
+     "tag": "end",
+     "t": 141.787,
+     "shot": "testkit\\results\\stand_shots\\seam_row1_end.png"
+    },
+    {
+     "row": 2,
+     "tag": "start",
+     "t": 141.887,
+     "shot": "testkit\\results\\stand_shots\\seam_row2_start.png"
+    },
+    {
+     "row": 2,
+     "tag": "end",
+     "t": 147.787,
+     "shot": "testkit\\results\\stand_shots\\seam_row2_end.png"
+    },
+    {
+     "row": 3,
+     "tag": "start",
+     "t": 147.887,
+     "shot": "testkit\\results\\stand_shots\\seam_row3_start.png"
+    },
+    {
+     "row": 3,
+     "tag": "end",
+     "t": 153.787,
+     "shot": "testkit\\results\\stand_shots\\seam_row3_end.png"
+    },
+    {
+     "row": 4,
+     "tag": "start",
+     "t": 153.887,
+     "shot": "testkit\\results\\stand_shots\\seam_row4_start.png"
+    },
+    {
+     "row": 4,
+     "tag": "end",
+     "t": 159.787,
+     "shot": "testkit\\results\\stand_shots\\seam_row4_end.png"
+    },
+    {
+     "row": 5,
+     "tag": "start",
+     "t": 159.887,
+     "shot": "testkit\\results\\stand_shots\\seam_row5_start.png"
+    },
+    {
+     "row": 5,
+     "tag": "end",
+     "t": 165.787,
+     "shot": "testkit\\results\\stand_shots\\seam_row5_end.png"
+    }
+   ],
+   "shot": "testkit\\results\\stand_shots\\part1.png",
+   "problems": []
+  }
+ ],
+ "head": {
+  "viewport": true,
+  "appleCapable": true,
+  "manifest": true,
+  "icon": true,
+  "manifestDisplay": "standalone",
+  "iconServed": true
+ },
+ "ok": true,
+ "browser": "Edg/156.0.4314.58",
+ "gitHead": "b63cccc"
+}

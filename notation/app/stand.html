@@ -231,9 +231,12 @@
     state.live.frame(t);
     return { turned: false, t };
   }
-  function animLoop() {
+  // each frame is drawn at the FRAME's time (the rAF timestamp), not at the
+  // callback's — a game loop's rule; the callback's lateness varies frame to
+  // frame and would read as a faint pulse in the motion
+  function animLoop(ts) {
     rafId = null;
-    drawOverlayFrame();
+    drawOverlayFrame(typeof ts === 'number' ? state.transport.nowAt(ts) : undefined);
     if (state.transport.isPlaying()) rafId = requestAnimationFrame(animLoop);
   }
   function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
@@ -321,6 +324,7 @@
 
   // headless check + the composer's link: ?t= and ?play=1, and the state
   window.__standGoto = t => { goto(t); return { pageIdx: state.pageIdx, page: state.size && state.size.page }; };
+  window.__standRows = () => (state.rows || []).map(r => ({ t0: r.pg.t0, t1: r.pg.t1, window: r.view.window, gutterPx: r.view.gutterPx }));
   window.__standPlay = () => { play(); return true; };
   window.__standPause = () => { pause(); return true; };
   window.__standState = () => ({

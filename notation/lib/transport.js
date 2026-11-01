@@ -31,6 +31,15 @@
       if (audio) return audio.currentTime + offset;
       return playing ? base + (tb.now() - mark) : base;
     }
+    // nowAt(tsMs): the position at a requestAnimationFrame timestamp — the
+    // frame's own time, on the same performance.now timebase, so every frame
+    // is drawn at its display moment rather than at whatever instant the
+    // callback happened to run (the stand, 9h-1: the composer saw a faint
+    // "pulse" in otherwise on-time motion). Audio-slaved: the audio clock.
+    function nowAt(tsMs) {
+      if (audio) return audio.currentTime + offset;
+      return playing ? base + (tsMs / 1000 - mark) : base;
+    }
     function play() {
       if (audio) { audio.play(); return; }
       if (!playing) { mark = tb.now(); playing = true; }
@@ -48,7 +57,7 @@
     function isPlaying() { return audio ? !audio.paused : playing; }
     function setOffset(v) { offset = v; }
 
-    return { now, play, pause, seek, attachAudio, detachAudio, isPlaying, setOffset };
+    return { now, nowAt, play, pause, seek, attachAudio, detachAudio, isPlaying, setOffset };
   }
 
   return { makeTransport };
