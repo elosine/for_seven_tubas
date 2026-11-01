@@ -48,10 +48,11 @@ piece #3's `docs/` — registered as an additional working directory.
   is new · simple words · every reply ends with "Your steps".
 - **9s — THE CURSOR SPEED EVALUATION (runs beside 9g; Fable or Opus, any sitting
   before 9i; PLAN §9 → 9s):** two dials ruled (`?ss=` size · `?s=` speed) · step 1
-  DONE (a 7.5 mm staff, `?ss=9.75`) · step 3 answered (moderate precision) · **step 2
-  next: measure fit** — the slowest speed that still draws the densest passage in
-  every part. Then 4–8 (the GCs' feel · prior art · row replacement · the eye test ·
-  the decision).
+  DONE (a 7.5 mm staff, `?ss=9.75`) · step 2 DONE (fit: the cluster floor 154 px/s =
+  a row ≤ 7.3 s; today 187; 8 s at the limit; 10 s needs the cluster standard to
+  pack) · step 3 answered (moderate precision) · **next: step 5 prior art (mine, one
+  sitting)**, then 4 + 7 together on the iPad (the GCs' feel · the eye test at 6 and
+  8 s on the 34–45 s clusters), 6 row replacement (data + the composer), 8 the decision.
 - ☑ 9h-1 CLOSED (day 46, RUNNING_LOG 94–95): THE COMPOSER'S CHECK passed on the iPad —
   full screen, nothing cut, the cursor at the first note, the pulse gone (the
   resampled line, snapped). The blur in motion = the display's sample-and-hold →

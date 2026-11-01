@@ -2342,9 +2342,15 @@ while building the real score.
      the standard read (MOLA · Gould · the German guideline) · the stand's reading
      distance = a printed part's, no correction · mm → CSS px for the iPad · the
      dial built · AR-20 amended.
-  2. **Measure fit** — from the score, per part, the closest events and the room the
-     engraving needs at the fixed staff; the slowest speed that still draws
-     everything (the piece-specific floor). Sub-steps when reached.
+  2. **Measure fit** — **DONE day 46 (RUNNING_LOG 96):** two floors at the 7.5 mm
+     staff. (A) between figures, 110 px/s (a row ≤ 10 s; one pair in part 10; nine
+     parts would take 15–19 s). (B) inside cluster figures, whose heads sit BY TIME:
+     **154 px/s — a row ≤ 7.3 s** (pairs 0.12–0.14 s apart with accidentals, the
+     34–45 s passage). Today's 187 px/s (6 s) breaks nothing; 8 s rows leave three
+     cluster pairs at the limit (the eye decides); 10 s and beyond needs the cluster
+     standard to pack, a notation decision. **The per-piece rule:** floor speed = (room
+     ÷ tightest gap) × staff space over every consecutive pair, clusters included —
+     one pass over the IR. The room numbers are an engraving estimate; step 7 is the proof.
   3. **The cursor's job** — ANSWERED by the composer (RUNNING_LOG 96): moderate
      precision; the fine attacks are a GC's. Speed is not pushed up by precision.
   4. **The GCs and balls as a fixed point** — how their shapes follow the speed; the
