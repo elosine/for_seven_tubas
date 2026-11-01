@@ -2369,12 +2369,14 @@ while building the real score.
      at the top as the cursor descends — the composer's idea), with data on the
      look-ahead at the bottom row and the string quartet's pagination lesson; the
      composer decides.
-  7. **The eye test** — rows of 6 · 8 · 10 s at the fixed staff (7.5 mm, and 8.0 as a
-     candidate), rows per screen 4 and 5, the lane at the jury's 13.2 ss, on the iPad
-     in two places: the 34–45 s clusters (fit) and a GC passage (feel); the composer
-     looks and says.
-  8. **The decision** — a universal target speed, a per-piece fit rule, into
-     REQUIREMENTS (AR-20) and the stand's defaults (`?s=`, `?rows=`).
+  7. **The eye test** — **DONE day 46** (`notation/app/eyetest.html`: six variants, two
+     places, on the iPad): *"8 seconds, 5 rows, 7.5 mm reads best."* (Along the way:
+     the GC ball re-scaled by the staff; rows end where their music ends; the bricks
+     off.) Step 4's feel: the GCs at 8 s accepted with the rest.
+  8. **The decision** — **DONE day 46 (RUNNING_LOG 97):** rows of **8 s · 5 rows · 7.5
+     mm** — the stand's defaults; AR-20 amended; the per-piece rule: 8 s at 7.5 mm is
+     the target, the fit pass may shorten it, never below 6 s, the eye closes it.
+     **9s closes when step 6 (row replacement) is decided.**
 - **9i — The strip · the remote · the display · the switch — and THE DESIGN
   SITTING (gate E-6)** — `todo` — the leader's strip above the part (play/stop ·
   again · letters · speeds · time box · position · ready count · the three-way

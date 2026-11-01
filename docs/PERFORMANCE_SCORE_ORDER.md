@@ -356,6 +356,15 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-01 (day 46, evening, Fable — 9s THE SPEED EVALUATION opened and all but
+  closed; THE SPEED DECIDED: 8 s a row · 5 rows · 7.5 mm):** the composer's ask for a
+  data-based speed; two dials ruled; the note size from MOLA (7.5 mm); fit measured
+  from the score (the cluster floor 7.3 s); the literature's band (Vickery 2014:
+  2–3 cm/s ceiling; `docs/SPEED_PRIOR_ART.md`); the eye test on the iPad — *"8
+  seconds, 5 rows, 7.5 mm reads best."* Along the way: the GC ball re-scaled by the
+  staff, rows end where their music ends, the bricks off, the drawing lane fixed at
+  the jury's 13.2 ss. Open: 9s step 6, row replacement (the composer's). ► 9g the
+  server still next for Opus (RUNNING_LOG 96–97).
 - **2026-11-01 (day 46, 4:40 p.m., Fable — 9h-1 CLOSED ☑, THE COMPOSER'S CHECK PASSED
   on the iPad; ► 9g THE SERVER):** full screen · nothing cut (three sizing attempts;
   the measured box won) · the cursor at the first note · the pulse gone (the

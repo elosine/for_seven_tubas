@@ -115,7 +115,15 @@
   confirm). On the iPad class (5.2 CSS px/mm) 7.5 mm = a staff space of 9.75 px —
   `stand.html ?ss=9.75`, the default. TWO DIALS from here (the composer, day 46):
   `?ss=` the size · `?s=` the speed; the old coupling is `?ss=auto`, comparison only.
-  The speed itself: PLAN 9s, steps 2–8.
+  **DECIDED day 46 (PLAN 9s; RUNNING_LOG 97) — THE SPEED: rows of 8 s at the 7.5 mm
+  staff, five rows to a screen** (the composer's eye after the data: "8 seconds, 5
+  rows, 7.5 mm reads best"). On the iPad 140 px/s = 2.7 cm/s — inside the 2–3 cm/s
+  reading ceiling (Vickery 2014; `docs/SPEED_PRIOR_ART.md`), above this piece's
+  cluster floor (7.3 s). The drawing lane 13.2 ss; the GC scaled by the staff. **The
+  rule for any piece:** 8 s a row at 7.5 mm is the target; a fit pass over the score
+  (room ÷ tightest gap, clusters included) may shorten it, never below 6 s; the
+  composer's eye on the densest passage closes it. Row replacement (how rows
+  refresh) is still open: PLAN 9s step 6.
 - **AR-21 · MUST · DECIDED (D94)** — THE STUDY SCORE: the full score is the menu's
   fifth item ("full score / my part"); marks per view, no copying; the FIXED ZOOM
   (tap → about double, repaginated, the same left/right swipes, up/down for the
