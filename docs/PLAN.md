@@ -2227,9 +2227,11 @@ while building the real score.
 > ONCE, inside the chunk that needs it — not as a sitting of its own. The Fable verdict
 > after each spike becomes the composer's check after each chunk.
 
-- **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — `BUILT +
-  PC-VERIFIED 2026-11-01 (day 46, Fable, no clear; RUNNING_LOG 94) → THE COMPOSER'S
-  CHECK on the iPad, then the Fable verdict`. *As built:* a part is ROWS — several
+- **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — `DONE
+  2026-11-01 (day 46, Fable, no clear; RUNNING_LOG 94–95): THE COMPOSER'S CHECK
+  PASSED on the iPad — full screen · nothing cut · the cursor at the first note · the
+  pulse gone (the resampled cursor line, snapped to device pixels). The blur in motion
+  (the display's sample-and-hold) → 9i: speed · size · blur decided together`. *As built:* a part is ROWS — several
   systems per page (`?rows=`, default 5), each an `?s=`-second window (default 6)
   at one px per second, the jury frame's density kept (staff space scales with px
   per second; `?z=` an extra factor) — the one-system page of the first build put

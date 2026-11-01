@@ -289,10 +289,11 @@ that closed ENS in four iterations)*
     jittery in the meters, smooth in the balls — on the FULL score, a view no player
     has. Carried to 9h-1, judged there on the part. The Fire's kit run dropped (tests
     only when make-or-break). CLOSED as a spike (RUNNING_LOG 92).
-13. ► **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — **BUILT
-    + PC-VERIFIED day 46 (Fable, no clear; RUNNING_LOG 94): a part as ROWS, the
-    home-screen head, A2, the gestures; `stand_check` green ×10. THE COMPOSER'S
-    CHECK on the iPad next, then the Fable verdict.** — `notation/app/stand.html`: home-screen installable (full
+13. ☑ **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — **CLOSED
+    day 46 (Fable; RUNNING_LOG 94–95): a part as ROWS, the home-screen head, A2
+    snapped, the gestures; THE COMPOSER'S CHECK PASSED on the iPad — full screen,
+    nothing cut, the cursor at the first note, the pulse gone. The blur in motion →
+    9i (speed · size · blur).** ► **9g THE SERVER is next** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -355,6 +356,14 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-01 (day 46, 4:40 p.m., Fable — 9h-1 CLOSED ☑, THE COMPOSER'S CHECK PASSED
+  on the iPad; ► 9g THE SERVER):** full screen · nothing cut (three sizing attempts;
+  the measured box won) · the cursor at the first note · the pulse gone (the
+  resampled cursor line, measured with `stand_check --crisp`, snapped to device
+  pixels, confirmed by eye: *"the pulse is gone, more or less"*). The blur in motion
+  is the display's sample-and-hold → 9i's sitting (speed · size · blur);
+  `blurtest.html` built for the composer's eye. Next sitting: /clear → Opus, cold,
+  builds 9g (RUNNING_LOG 95).
 - **2026-11-01 (day 46, later, Fable — D100 the Fire dropped as a target; ► 9h-1 BUILT +
   PC-VERIFIED; THE COMPOSER'S CHECK next):** composer: *"a fire isn't a viable use case
   … go and build here no clear."* Built `notation/app/stand.html` — a part as ROWS (five

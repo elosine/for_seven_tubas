@@ -39,22 +39,17 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9h-1 — THE STAND, FIRST SLICE — BUILT + PC-VERIFIED (day 46, Fable; RUNNING_LOG
-  94) → THE COMPOSER'S CHECK on the iPad (no model needed):**
-  1. Score server running (CLAUDE.md § Apps — the composer starts it).
-  2. iPad, Safari: `http://192.168.1.15:5200/notation/app/stand.html?part=1&t=141.5`
-     → Share → Add to Home Screen → Add → open it from the icon.
-  3. Full screen, no toolbar? The part fills the screen, nothing cut? Two-finger
-     tap = play: the busiest minute smooth by eye, the METERS especially? One
-     finger = cursor · swipe = page. Size knobs in the link: `&s=` seconds per row
-     (6) · `&rows=` rows per page (5) · `&z=` extra factor.
-  Then **Fable: the verdict** (the look · the meters · the size to carry into 9i)
-  → **9g the server** (Opus, cold, clear before).
-- ☑ 9h-1 built (day 46): `notation/app/stand.html` — a part as ROWS (several
-  systems per page, the constant time scale kept, the jury density kept), the
-  home-screen head, A2, the AR-26 gestures; `tools/stand_check.js` green for all
-  ten parts (opens · draws · plays · turns the page in 2–12 ms); `/p/N` redirect
-  after the server's next restart. The Fire dropped as a target (D100).
+- **► 9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
+  RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
+  share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
+  13, 54, 55, 57, 58, 59 — then the code that answers. **The composer starts the
+  servers** (CLAUDE.md § Apps). **Working rules from day 46:** tests only when
+  make-or-break · the AI looks at the seams first · the composer decides only what
+  is new · simple words · every reply ends with "Your steps".
+- ☑ 9h-1 CLOSED (day 46, RUNNING_LOG 94–95): THE COMPOSER'S CHECK passed on the iPad —
+  full screen, nothing cut, the cursor at the first note, the pulse gone (the
+  resampled line, snapped). The blur in motion = the display's sample-and-hold →
+  9i's sitting (speed · size · blur); `blurtest.html` for the composer's eye.
 - ☑ 9a DEVICE-CHECKED (day 46, the composer, the iPad; RUNNING_LOG 92): the iPad was
   100 % on time before 9a, so timing was never its question; the look judged jittery in
   the METERS on the full score, the balls smooth → judged again on the part in 9h-1.

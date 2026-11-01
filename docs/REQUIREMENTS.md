@@ -101,7 +101,9 @@
 - **AR-20 · MUST · OPEN (by eye, the composer, in the build — D91)** — The part's
   size / the screen's time span: chosen by eye on the real iPad; a design sitting
   with the strip (AR-30) and the menu (AR-27). *Why:* a paper decision would be a
-  guess.
+  guess. **Day 46:** the sitting's third axis is the BLUR in motion — a 60 Hz screen
+  smears a tracked line by its travel per frame (3 px at 6 s a row); slower rows and
+  a thicker, softer cursor are the levers; `notation/app/blurtest.html` shows them.
 - **AR-21 · MUST · DECIDED (D94)** — THE STUDY SCORE: the full score is the menu's
   fifth item ("full score / my part"); marks per view, no copying; the FIXED ZOOM
   (tap → about double, repaginated, the same left/right swipes, up/down for the
