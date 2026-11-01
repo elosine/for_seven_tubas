@@ -1,0 +1,462 @@
+{
+ "tool": "tools/stand_check.js",
+ "at": "2026-11-01T20:48:58.320Z",
+ "ir": "db1",
+ "t": 141.5,
+ "size": "1180,820",
+ "port": 5299,
+ "ownServer": true,
+ "parts": [
+  {
+   "part": 1,
+   "url": "http://localhost:5299/notation/app/stand.html?part=1&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 427,
+   "pieces": 25,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 2
+   },
+   "shot": "testkit\\results\\stand_shots\\part1.png",
+   "problems": []
+  },
+  {
+   "part": 2,
+   "url": "http://localhost:5299/notation/app/stand.html?part=2&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 418,
+   "pieces": 25,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 1.899999976158142
+   },
+   "shot": "testkit\\results\\stand_shots\\part2.png",
+   "problems": []
+  },
+  {
+   "part": 3,
+   "url": "http://localhost:5299/notation/app/stand.html?part=3&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 421,
+   "pieces": 27,
+   "overlay": {
+    "elements": 16,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 17
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 6.100000023841858
+   },
+   "shot": "testkit\\results\\stand_shots\\part3.png",
+   "problems": []
+  },
+  {
+   "part": 4,
+   "url": "http://localhost:5299/notation/app/stand.html?part=4&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 414,
+   "pieces": 26,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 3.400000035762787
+   },
+   "shot": "testkit\\results\\stand_shots\\part4.png",
+   "problems": []
+  },
+  {
+   "part": 5,
+   "url": "http://localhost:5299/notation/app/stand.html?part=5&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 415,
+   "pieces": 25,
+   "overlay": {
+    "elements": 16,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 17
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 11.5
+   },
+   "shot": "testkit\\results\\stand_shots\\part5.png",
+   "problems": []
+  },
+  {
+   "part": 6,
+   "url": "http://localhost:5299/notation/app/stand.html?part=6&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 426,
+   "pieces": 26,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 11.699999988079071
+   },
+   "shot": "testkit\\results\\stand_shots\\part6.png",
+   "problems": []
+  },
+  {
+   "part": 7,
+   "url": "http://localhost:5299/notation/app/stand.html?part=7&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 421,
+   "pieces": 25,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 11.899999976158142
+   },
+   "shot": "testkit\\results\\stand_shots\\part7.png",
+   "problems": []
+  },
+  {
+   "part": 8,
+   "url": "http://localhost:5299/notation/app/stand.html?part=8&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 422,
+   "pieces": 26,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 7.399999976158142
+   },
+   "shot": "testkit\\results\\stand_shots\\part8.png",
+   "problems": []
+  },
+  {
+   "part": 9,
+   "url": "http://localhost:5299/notation/app/stand.html?part=9&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 421,
+   "pieces": 26,
+   "overlay": {
+    "elements": 16,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 17
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 11.599999964237213
+   },
+   "shot": "testkit\\results\\stand_shots\\part9.png",
+   "problems": []
+  },
+  {
+   "part": 10,
+   "url": "http://localhost:5299/notation/app/stand.html?part=10&ir=db1&t=141.5",
+   "ok": true,
+   "error": "",
+   "pages": 27,
+   "pageIdx": 5,
+   "size": {
+    "W": 1180,
+    "H": 820,
+    "rows": 5,
+    "rowsMax": 5,
+    "s": 6,
+    "ss": 9.47,
+    "pxPerS": 187.1,
+    "laneSs": 16.3,
+    "k": 1.199,
+    "page": [
+     135.837,
+     165.837
+    ]
+   },
+   "instances": 417,
+   "pieces": 27,
+   "overlay": {
+    "elements": 21,
+    "pooled": 0
+   },
+   "played": {
+    "from": 141.5,
+    "to": 143.01,
+    "advanced": true,
+    "playingWas": true,
+    "elements": 22
+   },
+   "turn": {
+    "fromPage": 6,
+    "toPage": 7,
+    "ok": true,
+    "turnMs": 8.699999988079071
+   },
+   "shot": "testkit\\results\\stand_shots\\part10.png",
+   "problems": []
+  }
+ ],
+ "head": {
+  "viewport": true,
+  "appleCapable": true,
+  "manifest": true,
+  "icon": true,
+  "manifestDisplay": "standalone",
+  "iconServed": true
+ },
+ "ok": true,
+ "browser": "Edg/156.0.4314.58",
+ "gitHead": "ef93e46"
+}
