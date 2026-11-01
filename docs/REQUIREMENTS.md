@@ -103,7 +103,11 @@
   with the strip (AR-30) and the menu (AR-27). *Why:* a paper decision would be a
   guess. **Day 46:** the sitting's third axis is the BLUR in motion — a 60 Hz screen
   smears a tracked line by its travel per frame (3 px at 6 s a row); slower rows and
-  a thicker, softer cursor are the levers; `notation/app/blurtest.html` shows them.
+  a thicker, softer cursor were the candidate levers; `notation/app/blurtest.html`
+  put them to the composer's eye — *"1 and 2 look about the same. 3 looks the best.
+  And 4 looks the worst"*: the blur is the display's, SPEED is the lever, a thick
+  soft cursor is worse. The sitting trades seconds per row against the staff's size;
+  the cursor stays thin and sharp.
 - **AR-21 · MUST · DECIDED (D94)** — THE STUDY SCORE: the full score is the menu's
   fifth item ("full score / my part"); marks per view, no copying; the FIXED ZOOM
   (tap → about double, repaginated, the same left/right swipes, up/down for the
