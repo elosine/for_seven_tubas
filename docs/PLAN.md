@@ -2178,7 +2178,9 @@ while building the real score.
 > CHECK** — a short checklist the composer runs on the iPad · laptop · Fire before
 > the chunk is called done (AR-70). Position lives in
 > `docs/PERFORMANCE_SCORE_ORDER.md` (BUILD band). Order = dependency; the spikes
-> come first because everything rests on them (DESIGN §14).
+> came first because everything rests on them (DESIGN §14). **Re-cut day 46:** the
+> stand's first slice (9h-1) comes first and the spikes fold into the chunks they
+> serve — the RE-CUT block at the top of P0.
 >
 > **Model / clear map (4b):** every chunk = Opus, cold, one session, clear at the
 > boundary. Fable for: the verdict after each spike (go / re-plan) · the design
@@ -2192,8 +2194,13 @@ while building the real score.
 ### P0 — THE SPIKES (prototype before building on them; DESIGN §14)
 
 - **9a — SPIKE: the A2 renderer on the real page** — `BUILT + VERIFIED on the PC
-  2026-10-20 (day 45, Opus; RUNNING_LOG 91) → the devices: the kit's T2 lane A2L on
-  the Fire + THE COMPOSER'S CHECK; then the Fable verdict.` Built: `notation/lib/
+  2026-10-20 (day 45, Opus; RUNNING_LOG 91) · DEVICE-CHECKED 2026-11-01 (day 46, the
+  composer, the iPad) → VERDICT (Fable, RUNNING_LOG 92): the renderer runs. On the iPad
+  frame timing was already 100 % before 9a (kit, 2026-10-19), so timing was never the
+  iPad's question; the LOOK was judged "jittery" in the meters and smooth in the balls,
+  on the FULL score — a view no player will have. The look is judged again on the
+  stand's part (9h-1). The Fire's kit T2 run was not made and is no longer asked for
+  (composer, day 46: tests only when make-or-break). CLOSED as a spike.` Built: `notation/lib/
   animlive.js` (one overlay for the piece, pooled elements, a time index, riders) ·
   `tools/test_animlive.js` (whole-piece parity with frameSvg, 55,286 comparisons) ·
   `tools/a2_bench.js` (the real page, headless, a0 vs A2) · kit lane A2L. Bench of
@@ -2205,19 +2212,59 @@ while building the real score.
   pages · the kit's T2 lane on the Fire with the REAL busiest minute ≥ 99 % frames
   on time (today 57 %). **THE COMPOSER'S CHECK:** the notation page on the iPad and
   the Fire, the busiest minute, smooth by eye.
-- **9b — SPIKE: marks over the video** — `todo` — a mark drawn on the live part at
+> **RE-CUT, day 46 (2026-11-01, Fable; RUNNING_LOG 93) — THE STAND'S FIRST SLICE GOES
+> NEXT; the remaining spikes fold into the chunks they serve.** Composer: *"I only want
+> to do tests if it's like a make or break … I want to start implementing this as soon
+> as possible and avoid unnecessary tests or ones that aren't effective."* The 9a device
+> check showed why: one component, measured on the developer's page, in a Safari tab,
+> at full-score size, told the composer nothing about the stand — and raised the two
+> questions only the stand itself answers (the full screen; the part's size). So the
+> ORDER inside §9 changes; nothing ruled in D90–D99 changes. **9h-1 is next.** The
+> folds: 9b → inside 9l · 9c → inside 9h-2 · 9d's home-screen piece → inside 9h-1, its
+> box → inside 9g · 9e → inside 9i · 9f → inside 9g/9h-2. Each keeps its VERIFY, run
+> ONCE, inside the chunk that needs it — not as a sitting of its own. The Fable verdict
+> after each spike becomes the composer's check after each chunk.
+
+- **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — `todo · NEXT
+  (Opus, cold, clear before)` — a new page `notation/app/stand.html` on the score
+  server: the stand of DESIGN §2 as far as a stand ALONE goes — no server, no room, no
+  token yet; `?part=N` picks the part (N = 1…10). **The head:** `viewport` with
+  `viewport-fit=cover` · `apple-mobile-web-app-capable` · a web manifest with
+  `display: standalone` + an icon — so Share → Add to Home Screen opens it as a
+  full-screen app with no Safari toolbar (9d's home-screen piece; the wake lock waits
+  for HTTPS on the box). **The body:** the part view — `renderSection` with
+  `frameParts = [N-1]`, paged so one page fills the screen's height inside the safe
+  areas, nothing cut, at the size the page gives (9i's sitting picks the final size) ·
+  the A2 overlay (`animlive.js`, the on layer only) · the transport as today
+  (`performance.now`; ALONE's local play) · ONE control for now — a play/stop tap
+  target that fades while playing (the strip comes in 9i) · a tap on the page while
+  stopped seeks, as the workshop does · page turns as today. The `?t=` and `?play=1`
+  hooks kept for the headless check. Nothing of the workshop's bar. AR-3, 11, 25, 26,
+  33, 50. **VERIFY (make-or-break only):** headless Edge opens `stand.html?part=N` for
+  all ten parts without an error and the overlay reports pieces for the busiest minute
+  · the `<head>` carries the three lines · the existing batteries stay green
+  (`test_animlive` already covers the renderer — nothing re-proven). **THE COMPOSER'S
+  CHECK:** on the iPad, open `http://192.168.1.15:5200/notation/app/stand.html?part=1`
+  in Safari → Share → Add to Home Screen → open it from the icon: full screen, no
+  toolbar, the part fills the screen with nothing cut · play the busiest minute
+  (`?t=141.5`): smooth by eye, the METERS especially · then the Fire the same way
+  (Silk: menu → Add to Home Screen). **If the meters still jitter on the part, that is
+  a make-or-break item of its own:** a targeted look at the two pieces that change
+  shape every frame (the fill's `scaleY`, the pie's path) — RUNNING_LOG 92's lead, not
+  yet a diagnosis.
+- **9b — SPIKE: marks over the video** — `folded into 9l, day 46` — a mark drawn on the live part at
   three places; the part rendered to video (`export_video --parts N`, 1-s
   keyframes, 5-s lead-in); the SVG marks layer positioned by the same score-time →
   page mapping. AR-39, 51. **VERIFY:** the mark sits on the same note at all three
   places, within one notehead, measured on screenshots. **CHECK:** eye, iPad.
-- **9c — SPIKE: calibration across sleeps (gate E-2)** — `todo` — `syncclock.js`
+- **9c — SPIKE: calibration across sleeps (gate E-2)** — `folded into 9h-2, day 46` — `syncclock.js`
   persists samples + the fitted rate; reloads and accumulates on return. AR-43.
   **VERIFY:** a new kit test T3b (open · measure · sleep 30 min · return · reload)
   — the accumulated calibration meets AR-42's bar and agrees with a continuous
   one within σ, in simulation and in headless. **CHECK:** T3b on the iPad with the
   PDF app in front for 30 minutes.
 - **9d — SPIKE: the home-screen app on the iPad (gates E-3 · E-4 · E-7) + the
-  box** — `todo` — the Hetzner VPS stood up with HTTPS and a placeholder page
+  box** — `folded, day 46: the home-screen piece into 9h-1, the box into 9g` — the Hetzner VPS stood up with HTTPS and a placeholder page
   (`deploy.sh`, `/health`, PM2, nginx, Let's Encrypt — no `node_modules` in git);
   a manifest + service worker + a 100 MB video in the Cache API + the wake lock.
   AR-25, 53, 55, 56. **VERIFY:** installed to the home screen; airplane mode; the
@@ -2225,13 +2272,13 @@ while building the real score.
   reconnects in seconds; the video's size and first-open time measured and
   written into REQUIREMENTS AR-53. **CHECK:** the composer installs it on the iPad
   and does the airplane-mode test.
-- **9e — SPIKE: the gesture test on every platform (gate E-1)** — `todo` — a kit
+- **9e — SPIKE: the gesture test on every platform (gate E-1)** — `folded into 9i, day 46` — a kit
   page T6: every gesture of AR-26/27/28 (swipes, one/two/three-finger taps, long
   press, the laptop keys), each logged as hit / missed / stolen by the system.
   AR-71. **VERIFY:** on the dev PC, the laptop, headless. **CHECK:** the composer
   runs T6 on the iPad, the Fire, and a borrowed Android tablet; every gesture
   lands, or the mapping is re-ruled (Fable) before 9h.
-- **9f — SPIKE: ALONE → REHEARSAL auto-join + the share and QR sheets** — `todo` —
+- **9f — SPIKE: ALONE → REHEARSAL auto-join + the share and QR sheets** — `folded into 9g / 9h-2, day 46` —
   a stand idling under ALONE joins within a second of the leader's flip,
   including after a sleep; the Web Share API from a home-screen page; the print
   stylesheet for the QR sheet. AR-2, 9, 16. **VERIFY:** two headless stands + a
@@ -2254,7 +2301,7 @@ while building the real score.
 
 ### P2 — THE STAND
 
-- **9h — The stand: shell · room client · transport · the live part** — `todo` —
+- **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `todo` —
   the page opened by a token; `hello`; the floor clock as the timebase for
   `transport.js`; the part view (`renderSection`, `frameParts = [part]`) under
   A2; the states ALONE · REHEARSAL stopped / playing with the follow rules

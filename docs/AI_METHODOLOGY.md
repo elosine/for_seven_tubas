@@ -183,3 +183,24 @@ that worked first time teaches almost nothing.
 4. Is the answer at the top?
 5. **Did anything just happen that the paper will want — a verdict, a
    measurement, a correction? Then it is already written down, not queued.**
+
+## Addendum, day 46 (2026-11-01) — tests only when make-or-break; decisions only when new
+
+The composer, after the 9a device check: *"I only want to do tests if it's like a make
+or break. I don't need … super double verification tests. … I'll make a decision when
+it's actually absolutely necessary to make a new decision. I don't need to rehash old
+decisions."*
+
+- **A test runs once, where it is make-or-break.** A battery that already proves a
+  claim is not re-proven on a device "to be extra sure". A device check is for what
+  only the device can show — and it is framed for a cold composer: what it is, what it
+  is not, what to look at. (The 9a check was not framed, and the composer judged the
+  whole stand by a developer page.)
+- **The real thing before the proxy.** When the product can be put in front of the
+  composer, do that — not a stress test of one component on the developer's page.
+- **Decisions already ruled (the D-numbers) are not re-asked.** Ordering, sequencing
+  and folding inside an approved plan is the AI's call, recorded with the why. Only a
+  NEW question goes to the composer — in plain words, one at a time.
+- The rule on confidence claims (§3 above) stands: what is claimed is verified — once.
+- **The servers are the composer's to start and stop** (CLAUDE.md § Apps): the AI gives
+  the documented lines and links and does not run them to "test" them.

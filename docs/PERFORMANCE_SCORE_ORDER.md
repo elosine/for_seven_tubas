@@ -110,9 +110,9 @@ order beneath is unchanged — this is the same arc in one glance.)
 **BUILD — Opus, chunk by chunk (ENUMERATED day 45 → PLAN.md §9, 9a–9p; one
 cold session per chunk; each ends with VERIFY in the running app + THE
 COMPOSER'S CHECK on the iPad · laptop · Fire)**
-10. ► P0 THE SPIKES — ► 9a A2 on the real page · 9b marks over the video · 9c
-    calibration across sleeps · 9d the home-screen app + the box · 9e the
-    gesture test on every platform · 9f auto-join + the share/QR sheets
+10. ☑ P0 THE SPIKES — 9a A2 on the real page ☑ (day 46) · 9b–9f FOLDED into the
+    chunks they serve (RE-CUT day 46, PLAN §9) — ► now sits on 9h-1, the stand's
+    first slice (item 13 below)
 11. P1 THE SERVER — 9g (registry · rooms · clock · the eleven messages ·
     admin API · spare mode · the chaos test · deployed)
 12. P2 THE STAND — 9h shell + room client + the live part · 9i the strip,
@@ -283,16 +283,21 @@ that closed ENS in four iterations)*
 11. ☑ **4a–4b — PLAN — APPROVED day 45 → D99** (PLAN.md §9, 9a–9p). *(As planned:)* **4a–4b — PLAN** (Fable).
 
 **THE BUILD CHUNKS (appended per the contract above; detail in PLAN.md §9):**
-12. ► **9a — SPIKE: the A2 renderer on the real page** (Opus, cold) — **BUILT +
-    VERIFIED ON THE PC (day 45); awaiting the devices: the kit's T2 lane A2L on the
-    Fire (≥ 99 %) and THE COMPOSER'S CHECK (the page on the iPad and the Fire, the
-    busiest minute, by eye); then the Fable verdict.** Then 9b · 9c ·
-    9d · 9e · 9f (the spikes, a Fable verdict after each) · 9g the server · 9h–9m
-    the stand (9i holds the design sitting, Fable) · 9n the door · 9o Tempus
-    content + instructions · 9p the dress run. Each chunk: one cold Opus session;
-    ☑ when its VERIFY and THE COMPOSER'S CHECK both pass; the ► moves on. Phased into PLAN.md with per-phase verification
-    in the running app + a model/clear map. **The build chunks get enumerated
-    here and appended to this order.**
+12. ☑ **9a — SPIKE: the A2 renderer on the real page** (Opus, cold) — BUILT + VERIFIED
+    ON THE PC (day 45) · DEVICE-CHECKED day 46 (the composer, the iPad): timing was
+    never the iPad's problem (100 % on time before and after 9a); the LOOK judged
+    jittery in the meters, smooth in the balls — on the FULL score, a view no player
+    has. Carried to 9h-1, judged there on the part. The Fire's kit run dropped (tests
+    only when make-or-break). CLOSED as a spike (RUNNING_LOG 92).
+13. ► **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** (Opus,
+    cold, clear before) — `notation/app/stand.html`: home-screen installable (full
+    screen, no Safari toolbar), the part view under A2, local play, one tap target.
+    **Done =** the composer opens it from the iPad's home screen; full screen; the
+    part fills the screen with nothing cut; the busiest minute smooth by eye, the
+    meters especially. **Then** 9g the server · 9h-2 the room client · 9i the strip +
+    the design sitting (Fable) · 9j · 9k · 9l concert · 9m · 9n · 9o · 9p. **The
+    spikes 9b–9f are folded into those chunks** (PLAN §9, the RE-CUT block, day 46 —
+    composer: "I only want to do tests if it's like a make or break").
 
 **THE PAPER THREAD — independent of the screen chunks; any of these fits a
 short sitting whenever the mood is paper:**
@@ -348,6 +353,14 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-01 (day 46, Fable — 9a DEVICE-CHECKED ☑ (the look, not the timing, found
+  wanting — on the full score); §9 RE-CUT; ► 9h-1 THE STAND'S FIRST SLICE):** composer:
+  *"it still seems pretty jittery … B minus … no one's really going to be watching the
+  full score on the iPad … I only want to do tests if it's like a make or break … I
+  want to start implementing."* Facts read: the iPad was 100 % on time before 9a (kit,
+  Oct 19); the balls smooth, the meters not — the pieces that change shape per frame
+  (a lead, RUNNING_LOG 92). The spikes 9b–9f fold into the chunks they serve; the old
+  9h is now 9h-2. Next sitting: /clear → Opus, cold, builds 9h-1 (RUNNING_LOG 93).
 - **2026-10-20 (day 45, afternoon — ► 9a BUILT, PC-VERIFIED; the devices next):**
   Opus, cold after /postclear; composer: "go ahead and build as much as possible
   independently". `notation/lib/animlive.js` on the notation page (A2 by default) ·

@@ -39,16 +39,23 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9a — the devices (the composer, ~15 min; no model needed):**
-  1. PC: `node score/server.js` and `node testkit/server.js`.
-  2. iPad and Fire, the check link — short form `192.168.1.15:5200/c` (a redirect in
-     score/server.js, day 46; the full link was too much to type on a tablet) →
-     `http://192.168.1.15:5200/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0`
-     — watch the busiest minute: smooth by eye? (a page turns every 12 s; a
-     brief hitch AT the turn is the known NITS item, not the renderer).
-  3. Fire only: the kit `http://192.168.1.15:4760/` → **Run T2** → **Save to
-     server**; the bar is lane **A2L ≥ 99 %** frames on time.
-  Then **Fable: the 9a verdict** (go / re-plan) → **9b** (Opus, cold, clear before).
+- **► 9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad (Opus, cold;
+  CLEAR before).** Read first, only: PLAN §9 → the RE-CUT block + the 9h-1 chunk ·
+  DESIGN §2 (the stand) + §7 (A2 as built) · REQUIREMENTS AR-3, 11, 25, 26, 33, 50 —
+  then the code that answers: notation.html's `renderContainerView` / `splitAnim` /
+  `mountLive` / `animLoop` · `animlive.js` `mount` / `setLayers` · `render.js`
+  `renderSection`. Build `notation/app/stand.html` as the chunk says. The composer's
+  check is on the iPad from the home screen (the chunk's CHECK list). **The composer
+  starts the servers** (CLAUDE.md § Apps) — never the AI.
+  **Working rules from day 46 (composer, verbatim in RUNNING_LOG 93):** tests only
+  when make-or-break — nothing the batteries prove is re-proven on a device · the
+  composer decides only what is NEW; settled decisions (D-numbers) are not re-asked;
+  ordering inside the approved plan is the AI's call, recorded · simple words.
+- ☑ 9a DEVICE-CHECKED (day 46, the composer, the iPad; RUNNING_LOG 92): the iPad was
+  100 % on time before 9a, so timing was never its question; the look judged jittery in
+  the METERS on the full score, the balls smooth → judged again on the part in 9h-1.
+  The Fire's kit run dropped. §9 RE-CUT (RUNNING_LOG 93): 9b–9f folded into the chunks
+  they serve; the old 9h → 9h-2.
 - ☑ 9a built + PC-verified (day 45, RUNNING_LOG 91): twelve batteries green ·
   prove_unmoved clean · bench of record in `testkit/results/a2bench__dev-pc-headless-9a-of-record__…`.
 - ☑ 11 PLAN → D99 (day 45): PLAN.md §9 approved on "Approved".
