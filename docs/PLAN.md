@@ -2323,6 +2323,44 @@ while building the real score.
   following within the AR-47 bar; a local play never touches the room. **CHECK:**
   the composer's iPad + laptop as two stands, the phone as the leader (9i's
   strip arrives next — for this check a scripted leader page).
+- **9s — THE CURSOR SPEED EVALUATION (AR-20 by data; the composer's ask, day 46)** —
+  `open · step 1 DONE, step 2 next (Fable or Opus; any sitting before 9i; runs beside
+  9g)` — *"What we have for the demonstration score was somewhat arbitrary … I want
+  some sort of more data-based proper evaluation."* **RULED day 46: TWO DIALS** — the
+  note size and the cursor speed set separately (`stand.html ?ss=` and `?s=`); the
+  first build's coupling (the staff scaling with the speed) kept as `?ss=auto` for
+  comparison only. **The top line (the planning method; sub-steps written as each
+  step is reached):**
+  1. **Fix the note size** from printed parts — **DONE day 46:** a staff of **7.5 mm**
+     on the stand, floor 7.0 mm (MOLA's current guidelines: "the most readable
+     staff size for all instruments is 7.5 mm; 7.0 mm may be readable for winds as
+     they generally use their own stands" — tubas use their own; Gould 6.5–7 mm for
+     parts and the German orchestral-material guideline's 7.5 mm floor either side;
+     the primary MOLA PDF to confirm). On the iPad class (264 ppi = 5.2 CSS px/mm)
+     7.5 mm = 39 px = a staff space of **9.75 px** — `?ss=9.75`, the default. A
+     laptop or a larger tablet scales by its own px/mm (AR-23). Sub-steps as done:
+     the standard read (MOLA · Gould · the German guideline) · the stand's reading
+     distance = a printed part's, no correction · mm → CSS px for the iPad · the
+     dial built · AR-20 amended.
+  2. **Measure fit** — from the score, per part, the closest events and the room the
+     engraving needs at the fixed staff; the slowest speed that still draws
+     everything (the piece-specific floor). Sub-steps when reached.
+  3. **The cursor's job** — ANSWERED by the composer (RUNNING_LOG 96): moderate
+     precision; the fine attacks are a GC's. Speed is not pushed up by precision.
+  4. **The GCs and balls as a fixed point** — how their shapes follow the speed; the
+     least-impact way to keep their feel (the composer's eye).
+  5. **Prior art** — one sitting, three sources (printed systems in seconds ·
+     scrolling-score research · karaoke/teleprompter/rhythm-game look-ahead), looking
+     for a stated speed WITH its reason, look-ahead norms, any readability measure;
+     out: one page of numbers and whether each transfers.
+  6. **Row replacement** — how rows refresh (a whole-page turn today vs rows replaced
+     at the top as the cursor descends — the composer's idea), with data on the
+     look-ahead at the bottom row and the string quartet's pagination lesson; the
+     composer decides.
+  7. **The eye test** — three or four speeds at the fixed note size, with GCs and
+     balls, on the iPad; the composer looks.
+  8. **The decision** — a universal target speed, a per-piece fit rule, into
+     REQUIREMENTS (AR-20) and the stand's defaults (`?s=`, `?rows=`).
 - **9i — The strip · the remote · the display · the switch — and THE DESIGN
   SITTING (gate E-6)** — `todo` — the leader's strip above the part (play/stop ·
   again · letters · speeds · time box · position · ready count · the three-way

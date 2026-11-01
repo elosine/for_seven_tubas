@@ -107,7 +107,15 @@
   put them to the composer's eye — *"1 and 2 look about the same. 3 looks the best.
   And 4 looks the worst"*: the blur is the display's, SPEED is the lever, a thick
   soft cursor is worse. The sitting trades seconds per row against the staff's size;
-  the cursor stays thin and sharp.
+  the cursor stays thin and sharp. **Day 46, PLAN 9s step 1 — THE NOTE SIZE IS FIXED:
+  a 7.5 mm staff on the stand, floor 7.0 mm** (MOLA's current guidelines: "the most
+  readable staff size for all instruments is 7.5 mm; 7.0 mm may be readable for winds
+  as they generally use their own stands" — tubas do; Gould 6.5–7 mm for parts; the
+  German orchestral-material guideline 7.5 mm as a floor; the primary MOLA PDF to
+  confirm). On the iPad class (5.2 CSS px/mm) 7.5 mm = a staff space of 9.75 px —
+  `stand.html ?ss=9.75`, the default. TWO DIALS from here (the composer, day 46):
+  `?ss=` the size · `?s=` the speed; the old coupling is `?ss=auto`, comparison only.
+  The speed itself: PLAN 9s, steps 2–8.
 - **AR-21 · MUST · DECIDED (D94)** — THE STUDY SCORE: the full score is the menu's
   fifth item ("full score / my part"); marks per view, no copying; the FIXED ZOOM
   (tap → about double, repaginated, the same left/right swipes, up/down for the

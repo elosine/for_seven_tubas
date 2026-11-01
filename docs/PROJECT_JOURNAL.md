@@ -46,6 +46,12 @@ piece #3's `docs/` — registered as an additional working directory.
   servers** (CLAUDE.md § Apps). **Working rules from day 46:** tests only when
   make-or-break · the AI looks at the seams first · the composer decides only what
   is new · simple words · every reply ends with "Your steps".
+- **9s — THE CURSOR SPEED EVALUATION (runs beside 9g; Fable or Opus, any sitting
+  before 9i; PLAN §9 → 9s):** two dials ruled (`?ss=` size · `?s=` speed) · step 1
+  DONE (a 7.5 mm staff, `?ss=9.75`) · step 3 answered (moderate precision) · **step 2
+  next: measure fit** — the slowest speed that still draws the densest passage in
+  every part. Then 4–8 (the GCs' feel · prior art · row replacement · the eye test ·
+  the decision).
 - ☑ 9h-1 CLOSED (day 46, RUNNING_LOG 94–95): THE COMPOSER'S CHECK passed on the iPad —
   full screen, nothing cut, the cursor at the first note, the pulse gone (the
   resampled line, snapped). The blur in motion = the display's sample-and-hold →

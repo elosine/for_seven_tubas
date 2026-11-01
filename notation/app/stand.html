@@ -67,6 +67,7 @@
   const PART = Math.min(10, Math.max(1, parseInt(Q.get('part') || '1', 10) || 1));
   const IR = Q.get('ir') || 'db1';
   const S_DEFAULT = 6, ROWS_DEFAULT = 5;
+  const SS_DEFAULT = 9.75;   // a 7.5 mm staff on the iPad class (AR-20, day 46)
   const ROWS = Math.min(12, Math.max(1, parseInt(Q.get('rows') || String(ROWS_DEFAULT), 10) || ROWS_DEFAULT));
   const Z_EXTRA = Math.max(0.25, parseFloat(Q.get('z')) || 1);
   const state = { scores: {}, pageIdx: 0, live: null, rows: null, layers: null, turnLog: [] };
@@ -134,11 +135,25 @@
       const G0 = (C.prefatory && C.prefatory.gutterPx) || 0;
       const ssJury = ((C.staff && C.staff.staffHeightPx) || 31.6) / 4;
       const juryPxPerS = (juryW - G0) / regSeconds;
-      // the gutter scales with the music, so solve the two together:
-      // pxPerS = (W − G0·k) / s with k = pxPerS / juryPxPerS
-      const pxPerS = W / (s + G0 / juryPxPerS);
-      const k = (pxPerS / juryPxPerS) * Z_EXTRA;
-      const ss = ssJury * k;
+      // THE TWO DIALS (day 46, the composer: "2 dials" — PLAN 9s, the speed
+      // evaluation): ?ss= the staff space in CSS px — THE NOTE SIZE, fixed from
+      // printed parts (step 1: a 7.5 mm staff on the stand, MOLA; on the iPad
+      // class 5.2 CSS px/mm → 39 px → ss 9.75) · ?s= seconds per row — THE SPEED.
+      // ?ss=auto keeps the first build's coupling (the full score's density,
+      // the staff scaling with the speed) for comparison only.
+      const ssArg = Q.get('ss');
+      let ss, pxPerS, k;
+      if (ssArg === 'auto') {
+        // the gutter scales with the music, so solve the two together:
+        // pxPerS = (W − G0·k) / s with k = pxPerS / juryPxPerS
+        pxPerS = W / (s + G0 / juryPxPerS);
+        k = (pxPerS / juryPxPerS) * Z_EXTRA;
+        ss = ssJury * k;
+      } else {
+        ss = (parseFloat(ssArg) || SS_DEFAULT) * Z_EXTRA;
+        k = ss / ssJury;
+        pxPerS = (W - Math.min(W * 0.4, G0 * k)) / s;
+      }
       const gutterPx = Math.min(W * 0.4, G0 * k);
       const rowH = H / ROWS, padFrac = 0.03;
       const laneH = rowH * (1 - 2 * padFrac);
@@ -187,7 +202,8 @@
       state.rows = rows;
       state.frame = { widthPx: W, heightPx: H };
       state.animStyle = C.animated;
-      state.size = { W, H, rows: rows.length, rowsMax: ROWS, s, ss: +ss.toFixed(2), pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), k: +k.toFixed(3),
+      state.size = { W, H, rows: rows.length, rowsMax: ROWS, s, ss: +ss.toFixed(2), staffMmIpad: +(ss * 4 / 5.2).toFixed(2),
+        pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), k: +k.toFixed(3), coupling: ssArg === 'auto' ? 'auto' : 'fixed',
         page: [rows[0].pg.t0, rows[rows.length - 1].pg.t1] };
       mountLive();
       $('err').textContent = '';
