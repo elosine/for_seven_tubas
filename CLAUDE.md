@@ -96,6 +96,25 @@ after a clear, and it must say what is next, with what model, right now.
 
 ## Apps
 
+**The composer starts and stops the servers. The AI never starts, restarts or kills
+them** (composer, 2026-11-01 — after a long run of wrong links). Give these exact
+lines and links, copied from here, and don't test them by running servers.
+
+| What | The composer's line (works in Command Prompt and PowerShell) |
+|---|---|
+| Score server | `node C:\Users\jwloy\GitHub\for_seven_tubas\score\server.js` |
+| Kit server | `node C:\Users\jwloy\GitHub\for_seven_tubas\testkit\server.js` |
+
+| Page | On the PC | On the iPad / Fire (same Wi-Fi) |
+|---|---|---|
+| 9a check page | `http://localhost:5200/c` | `http://192.168.1.15:5200/c` (short) · full: `http://192.168.1.15:5200/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0` |
+| Kit | `http://localhost:4760/` | `http://192.168.1.15:4760/` |
+
+- The PC's address on the home network is `192.168.1.15` (Ethernet). `10.2.0.2` is
+  the VPN — never give that one.
+- The tablets also get the links as QR codes, which the AI draws in the chat with the
+  full link inside (no server needed to draw them).
+
 - **Composer score:** `node score/server.js` → http://localhost:5200/composer.html
   (7 tracks, Tuba 1–7; D8 mechanics — CTRL+S versions capped 20 gitignored, 5 s
   autosave — but the canonical file is NOT `7tubas.json` (a day-1 stub): the piece
