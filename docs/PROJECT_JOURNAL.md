@@ -39,7 +39,12 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
+- **► 9h-1b — THE CIRCULAR BUFFER on the stand (D101; Opus, cold, CLEAR before — or
+  Fable in the sitting; ~1 h).** Read: PLAN §9 → 9h-1b · the 9h-1 chunk · D101 · the
+  string quartet's `docs/STRING_QUARTET_PIPELINE_PLAN.md` § Page-Turn Mechanism:
+  Circular Buffer — then `stand.html` (render / rows / drawOverlayFrame / goto).
+  The composer's check on the installed Tuba part. **Then:**
+- **9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
   13, 54, 55, 57, 58, 59 — then the code that answers. **The composer starts the
@@ -55,8 +60,7 @@ piece #3's `docs/` — registered as an additional working directory.
   **the band is 8–10 s a row**) · steps 4 + 7 + 8 DONE — **THE SPEED DECIDED: 8 s a row ·
   5 rows · 7.5 mm** (the composer's eye; the stand's defaults; AR-20; RUNNING_LOG 97) ·
   **open: step 6 row replacement** (how rows refresh — a whole-page turn today vs rows
-  replaced at the top; data on look-ahead at the bottom row; the string quartet's
-  lesson) — the composer decides when the data is in; then 9s closes.
+  replaced at the top) — **DECIDED: the circular buffer, D101 → 9h-1b. 9s CLOSED.**
 - ☑ 9h-1 CLOSED (day 46, RUNNING_LOG 94–95): THE COMPOSER'S CHECK passed on the iPad —
   full screen, nothing cut, the cursor at the first note, the pulse gone (the
   resampled line, snapped). The blur in motion = the display's sample-and-hold →
@@ -485,6 +489,14 @@ instruction. The instructions are the four reference blocks that follow.*
   stays in the kit as the slow-device probe (what dropping frames looks like);
   nothing is tuned for it; the composer's checks are the iPad and the laptop.
   AR-23 and AR-50 amended (REQUIREMENTS, frozen → amendment lines).
+- **D101** *(2026-11-01, day 46)* — **THE CIRCULAR BUFFER: rows reload as the cursor
+  leaves them; the cursor wraps to the top.** Composer: *"b"*, on the data (the
+  string quartet's own parts mode, built and checked, rows of 8 s; 8 of 19
+  whole-page ends in part 1 with the next note within 0.5 s). At least ROWS − 1 rows
+  of future music visible always (32 s at five 8-s rows). A row marker for the eye
+  is 9i's. Build: PLAN 9h-1b. **And the speed, decided the same evening (RUNNING_LOG
+  97): rows of 8 s · 5 rows · a 7.5 mm staff** — the stand's defaults, AR-20, the
+  per-piece fit rule. PLAN 9s closed.
 - **D99** *(2026-10-20, day 45)* — **PLAN APPROVED — PLAN.md §9, THE PERFORMANCE
   SYSTEM BUILD (performance arc chunk 11; composer: "Approved"). THE DECIDE
   BAND IS CLOSED.** Sixteen chunks 9a–9p in six phases: P0 the spikes (9a A2 on

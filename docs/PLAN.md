@@ -2324,8 +2324,8 @@ while building the real score.
   the composer's iPad + laptop as two stands, the phone as the leader (9i's
   strip arrives next — for this check a scripted leader page).
 - **9s — THE CURSOR SPEED EVALUATION (AR-20 by data; the composer's ask, day 46)** —
-  `open · step 1 DONE, step 2 next (Fable or Opus; any sitting before 9i; runs beside
-  9g)` — *"What we have for the demonstration score was somewhat arbitrary … I want
+  `CLOSED day 46, all eight steps in one evening (Fable; RUNNING_LOG 96–97): rows of 8
+  s · 5 rows · 7.5 mm (AR-20) and the circular buffer (D101 → 9h-1b)` — *"What we have for the demonstration score was somewhat arbitrary … I want
   some sort of more data-based proper evaluation."* **RULED day 46: TWO DIALS** — the
   note size and the cursor speed set separately (`stand.html ?ss=` and `?s=`); the
   first build's coupling (the staff scaling with the speed) kept as `?ss=auto` for
@@ -2365,10 +2365,11 @@ while building the real score.
      this iPad 52 px = 1 cm: today's 6 s row = 3.6 cm/s, above both; 8 s = 2.7; 10 s =
      2.1; 12 s = 1.85. MOLA's primary text read (7.5 mm holds; 8.0 a candidate). **With
      step 2 the band is 8–10 s a row**; step 7 picks inside it.
-  6. **Row replacement** — how rows refresh (a whole-page turn today vs rows replaced
-     at the top as the cursor descends — the composer's idea), with data on the
-     look-ahead at the bottom row and the string quartet's pagination lesson; the
-     composer decides.
+  6. **Row replacement** — **DECIDED day 46 → D101, THE CIRCULAR BUFFER** (the composer:
+     "b"): the data — the string quartet's parts mode is this very mechanism, built and
+     checked, rows of 8 s; here 8 of 19 whole-page ends in part 1 had the next note
+     within 0.5 s of the cut. Rows reload as the cursor leaves them; the cursor wraps;
+     ≥ 4 rows of future always. Built in 9h-1b. **9s CLOSED day 46.**
   7. **The eye test** — **DONE day 46** (`notation/app/eyetest.html`: six variants, two
      places, on the iPad): *"8 seconds, 5 rows, 7.5 mm reads best."* (Along the way:
      the GC ball re-scaled by the staff; rows end where their music ends; the bricks
@@ -2377,6 +2378,24 @@ while building the real score.
      mm** — the stand's defaults; AR-20 amended; the per-piece rule: 8 s at 7.5 mm is
      the target, the fit pass may shorten it, never below 6 s, the eye closes it.
      **9s closes when step 6 (row replacement) is decided.**
+- **9h-1b — THE CIRCULAR BUFFER on the stand (D101)** — `todo · NEXT (Opus, cold, clear
+  before — or Fable in the same sitting; ~1 h)` — in `notation/app/stand.html`: the
+  ROWS slots become a ring over the planned rows — slot k shows planned row n + k;
+  when the cursor leaves a row, that slot reloads with the next unseen row (the
+  string quartet's "the row the cursor just left reloads with the next upcoming
+  page"); the cursor wraps from the bottom slot to the top; `goto(t)` lays the ring
+  out so the row holding t keeps its slot order (the quartet's distribution formula);
+  the end of the piece leaves the later slots empty. The overlay re-plans ONLY the
+  reloaded row (one scene per slot; `setLayers` with the changed scene); a reload
+  costs what a page turn cost (2–12 ms). `__standRows` reports the ring; the seam
+  shots cover a wrap (`--seams` at the ring's turn). The played row is not dimmed
+  (it reloads at once). AR-11, 26, 33. **VERIFY (make-or-break only):** headless —
+  playing through two full rings in part 1, every row's music appears before its
+  time and no row shows twice; the wrap lands the cursor at the top slot's first
+  note; a goto into the middle of the piece lays the ring out right; the batteries
+  stay green. **THE COMPOSER'S CHECK:** the installed Tuba part on the iPad, from
+  the busiest minute: the cursor runs down and wraps; the next music is always there
+  above; nothing jumps or flickers at a reload.
 - **9i — The strip · the remote · the display · the switch — and THE DESIGN
   SITTING (gate E-6)** — `todo` — the leader's strip above the part (play/stop ·
   again · letters · speeds · time box · position · ready count · the three-way
