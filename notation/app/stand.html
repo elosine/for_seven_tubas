@@ -21,12 +21,14 @@
   html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
   /* the frame IS the screen: no chrome, no scroll, no selection, no pinch
      (AR-22); the safe-area insets keep the page off a notch or home bar */
-  body { position: fixed; inset: 0; box-sizing: border-box; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
-         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
-  /* box-sizing border-box: with height 100% AND the inset padding, the body's
-     box ran past the screen by the status bar's height and the last row was
-     cut (iPad, day 46, the second screenshot) */
-  #sheet { position: relative; background: #fff; margin: 0 auto; overflow: hidden; }
+  body { position: fixed; inset: 0; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  /* the sheet is laid out by CSS — below the status bar, to the screen's other
+     three edges — and the frame is MEASURED from it (getBoundingClientRect),
+     never computed from innerHeight or the insets: on the home-screen app two
+     computed versions each left the last row short (iPad, day 46). The home
+     indicator at the bottom overlays the music; a black strip there read as a bug. */
+  #sheet { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; right: 0; bottom: 0;
+           background: #fff; overflow: hidden; }
   /* a page = several systems (rows) of this part, each its own SVG the size of
      the frame, stacked — a paper part's shape */
   #sheet > svg { position: absolute; left: 0; top: 0; display: block; }
@@ -85,8 +87,9 @@
   // not computed from innerHeight, which on the home-screen app disagreed
   // with the insets and left a black band at the bottom (iPad, day 46).
   function frameSize() {
-    const W = Math.max(320, Math.floor(document.body.clientWidth));
-    const H = Math.max(240, Math.floor(document.body.clientHeight));
+    const r = $('sheet').getBoundingClientRect();
+    const W = Math.max(320, Math.floor(r.width));
+    const H = Math.max(240, Math.floor(r.height));
     return { W, H };
   }
   // the home-screen app settles its viewport after the first paint: re-measure
@@ -170,7 +173,6 @@
         rows.push({ pg, view, r });
       }
       const sheet = $('sheet');
-      sheet.style.width = W + 'px'; sheet.style.height = H + 'px';
       sheet.innerHTML = html;
       // the instances: the whole piece once, then THIS part's (and the
       // score-level ones, part undefined)
