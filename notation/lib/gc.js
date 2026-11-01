@@ -43,6 +43,7 @@
     impactInsetPx: 5,     // impactY = trackBottom - 5
     heightInsetPx: 10,    // h = staffHeight - 10
     frameHeightPx: 1080,  // the px above are stated at this frame height
+    frameStaffSpacePx: 7.9,  // … whose staff space is 31.6 / 4 — the scale's true reference (day 46)
     samples: 100,         // per phase, as piece #1 (numSamples)
   };
 
@@ -87,11 +88,19 @@
     return pts;
   }
 
-  // lane geometry for a system, in px: the frame-scale factor, impact y,
-  // and the drop height — piece #1's renderGC numbers
+  // lane geometry for a system, in px: the scale factor, impact y, and the
+  // drop height — piece #1's renderGC numbers.
+  // THE SCALE FOLLOWS THE STAFF (day 46): the look's px were stated at the
+  // 1080-high jury frame, whose staff space is 7.9 px; scaling by the system's
+  // own staff space keeps the ball the same size AGAINST THE NOTEHEADS on any
+  // page. Scaling by the frame's height (the old rule) made the ball 24 %
+  // smaller on the stand's 820-px screen while its noteheads were 23 % bigger —
+  // the composer: "the GC ball is too small … relative to the note head size …
+  // both the ball and the impact point." On the jury frame and the zoom view
+  // (height and staff scale together) the two rules agree, so nothing there moves.
   function laneGeom(sys, view, look) {
     const L = Object.assign({}, LOOK, look || {});
-    const k = view.heightPx / L.frameHeightPx;
+    const k = sys && sys.ssPx > 0 ? sys.ssPx / L.frameStaffSpacePx : view.heightPx / L.frameHeightPx;
     const impactY = sys.yBotPx - L.impactInsetPx * k;
     const h = sys.heightPx - L.heightInsetPx * k;
     return { k, impactY, h, look: L };

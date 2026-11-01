@@ -85,11 +85,14 @@ const circleAt = t => { const m = Anim._registry.gc(byKind('gc')[0], view, t, gc
   if (![c.cx, c.cy, c.r].every(Number.isFinite)) { failures++; console.error('FAIL gc: non-finite geometry at t=' + t + ' ' + m[0]); }
   return c; };
 const yAt = t => { const c = circleAt(t); return c ? c.cy : null; };
-// piece #1's geometry: k = frame magnification; height = lane − 10; ball r 5;
-// stated at the 1080 frame. The LANDING HEIGHT is registry data (day 24: the
+// piece #1's geometry: height = lane − 10; ball r 5; stated at the 1080 frame,
+// whose staff space is 7.9 px. k = THE STAFF'S magnification (day 46: the ball
+// keeps its size against the noteheads on any page — the stand's 820-px screen
+// had shrunk it while its staff grew; on the jury frame the staff rule and the
+// old frame-height rule agree). The LANDING HEIGHT is registry data (day 24: the
 // composer lowered the ball to the lane edge so bottom-octave heads stop
 // sharing a position with the disc), so read it rather than restate it.
-const k = view.heightPx / GCm.LOOK.frameHeightPx;
+const k = view.system(0).ssPx / GCm.LOOK.frameStaffSpacePx;
 // ...and the two copies MUST agree, or the ball lands where the disc is not.
 // They live in different registry blocks and nothing else checks them.
 ok(C.animated.gc.look.impactInsetPx === C.engraving.render.gc.look.impactInsetPx,
