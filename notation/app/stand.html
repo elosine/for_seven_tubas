@@ -68,6 +68,14 @@
   const IR = Q.get('ir') || 'db1';
   const S_DEFAULT = 6, ROWS_DEFAULT = 5;
   const SS_DEFAULT = 9.75;   // a 7.5 mm staff on the iPad class (AR-20, day 46)
+  // THE DRAWING LANE (day 46, the composer on rows per screen and the GCs' feel):
+  // the GC's drop and the meters span the LANE's height (gc.js), so a taller
+  // row made taller arcs — "it felt awkward, so I shrank the GCs". The lane the
+  // drawing sees is now its own height in staff spaces, centred in the row; the
+  // row count only adds air around it. Default: the jury frame's lane, which the
+  // composer approved — 104 px at a 31.6 px staff = 13.2 ss. ?lane= overrides.
+  const LANE_DEFAULT = 13.2;
+  const LANE_SS = Math.max(6, parseFloat(Q.get('lane')) || LANE_DEFAULT);
   const ROWS = Math.min(12, Math.max(1, parseInt(Q.get('rows') || String(ROWS_DEFAULT), 10) || ROWS_DEFAULT));
   const Z_EXTRA = Math.max(0.25, parseFloat(Q.get('z')) || 1);
   const state = { scores: {}, pageIdx: 0, live: null, rows: null, layers: null, turnLog: [] };
@@ -156,8 +164,11 @@
       }
       const gutterPx = Math.min(W * 0.4, G0 * k);
       const rowH = H / ROWS, padFrac = 0.03;
-      const laneH = rowH * (1 - 2 * padFrac);
+      // the drawing lane: LANE_SS staff spaces tall, centred in the row (clamped
+      // to the row when the screen is short); the rest of the row is air
+      const laneH = Math.min(rowH * (1 - 2 * padFrac), LANE_SS * ss);
       const ssPerSystem = laneH / ss;
+      const laneAir = (rowH - laneH) / 2;
       const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
       const srcEnd = state.ir.source.window[1];
       const first = state.pageIdx * ROWS;
@@ -165,7 +176,7 @@
       let html = '';
       for (let r = 0; r < ROWS && first + r < state.planned.length; r++) {
         const pg = state.planned[first + r];
-        const f0 = (r + padFrac) / ROWS, f1 = (r + 1 - padFrac) / ROWS;
+        const f0 = (r * rowH + laneAir) / H, f1 = (r * rowH + laneAir + laneH) / H;
         const view = NotationCoords.makeView({ widthPx: W, heightPx: H, window: [pg.t0, pg.t0 + s], gutterPx,
           systems: [{ part: PART - 1, laneFrac0: f0, laneFrac1: f1 }], ssPerSystem });
         const ownsEnd = first + r === state.planned.length - 1;
@@ -203,7 +214,7 @@
       state.frame = { widthPx: W, heightPx: H };
       state.animStyle = C.animated;
       state.size = { W, H, rows: rows.length, rowsMax: ROWS, s, ss: +ss.toFixed(2), staffMmIpad: +(ss * 4 / 5.2).toFixed(2),
-        pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), k: +k.toFixed(3), coupling: ssArg === 'auto' ? 'auto' : 'fixed',
+        pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), laneWanted: LANE_SS, rowPx: +rowH.toFixed(1), k: +k.toFixed(3), coupling: ssArg === 'auto' ? 'auto' : 'fixed',
         page: [rows[0].pg.t0, rows[rows.length - 1].pg.t1] };
       mountLive();
       $('err').textContent = '';

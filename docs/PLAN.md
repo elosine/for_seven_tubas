@@ -2354,7 +2354,11 @@ while building the real score.
   3. **The cursor's job** — ANSWERED by the composer (RUNNING_LOG 96): moderate
      precision; the fine attacks are a GC's. Speed is not pushed up by precision.
   4. **The GCs and balls as a fixed point** — how their shapes follow the speed; the
-     least-impact way to keep their feel (the composer's eye).
+     least-impact way to keep their feel (the composer's eye). **Day 46, the mechanism
+     found:** gc.js draws the GC's drop as the LANE's height, so rows per screen set the
+     arc; the stand now gives the drawing its own lane (`?lane=`, default the jury's
+     13.2 ss) centred in the row — the row count (3 · 4 · 5, the composer: "much fewer
+     … if necessary") only adds air. The arc's WIDTH still follows the speed: judged in 7.
   5. **Prior art** — **DONE day 46: `docs/SPEED_PRIOR_ART.md`.** Vickery (ICMC 2014)
      gives the speeds with reasons: printed scores run 1.3–2.4 cm/s; the ceiling for
      reading moving notation is 2–3 cm/s (Picking 1997, Gilman & Underwood 2003). On
@@ -2365,8 +2369,10 @@ while building the real score.
      at the top as the cursor descends — the composer's idea), with data on the
      look-ahead at the bottom row and the string quartet's pagination lesson; the
      composer decides.
-  7. **The eye test** — three or four speeds at the fixed note size, with GCs and
-     balls, on the iPad; the composer looks.
+  7. **The eye test** — rows of 6 · 8 · 10 s at the fixed staff (7.5 mm, and 8.0 as a
+     candidate), rows per screen 4 and 5, the lane at the jury's 13.2 ss, on the iPad
+     in two places: the 34–45 s clusters (fit) and a GC passage (feel); the composer
+     looks and says.
   8. **The decision** — a universal target speed, a per-piece fit rule, into
      REQUIREMENTS (AR-20) and the stand's defaults (`?s=`, `?rows=`).
 - **9i — The strip · the remote · the display · the switch — and THE DESIGN
