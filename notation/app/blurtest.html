@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Blur test</title>
+<!-- 9h-1, day 46 — IS THE BLUR IN MOTION THE SCREEN OR THE DRAWING? The composer:
+     "compared to video games … they don't have blurs … these are fairly
+     rudimentary, and so they should be able to be displayed without blur."
+     Four bars sweep at the stand's speeds. Row 1 is the browser's OWN smoothest
+     path (a CSS keyframe animation on the compositor — no code of ours runs per
+     frame). Row 2 is our way (requestAnimationFrame + a snapped transform). If the
+     two blur the same, the blur is the display holding each frame while the eye
+     tracks the bar (sample-and-hold), and no drawing removes it. Rows 3 and 4
+     show the two things that DO change it: speed, and the bar's own shape. -->
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #fff; font-family: sans-serif; }
+  body { position: fixed; inset: 0; touch-action: none; -webkit-user-select: none; user-select: none; }
+  .lane { position: absolute; left: 0; right: 0; height: 22%; border-bottom: 1px solid #ddd; overflow: hidden; }
+  .lane .label { position: absolute; left: 12px; top: 8px; font-size: 15px; color: #555; pointer-events: none; }
+  .staff { position: absolute; left: 60px; right: 60px; top: 50%; height: 0; border-top: 1px solid #222; box-shadow: 0 10px 0 #222, 0 20px 0 #222, 0 -10px 0 #222, 0 -20px 0 #222; }
+  .bar { position: absolute; top: 20%; height: 60%; width: 3px; background: #FF15A0; will-change: transform; }
+  .bar.soft { width: 7px; background: none; }
+  .bar.soft::before { content: ''; position: absolute; inset: 0; background: #FF15A0; filter: blur(1px); border-radius: 2px; }
+  @keyframes sweep6 { from { transform: translate3d(60px,0,0); } to { transform: translate3d(calc(100vw - 60px),0,0); } }
+  @keyframes sweep12 { from { transform: translate3d(60px,0,0); } to { transform: translate3d(calc(100vw - 60px),0,0); } }
+  .css6 { animation: sweep6 6s linear infinite; }
+  .css12 { animation: sweep12 12s linear infinite; }
+  body.paused .bar { animation-play-state: paused; }
+  #hint { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); font-size: 14px; color: #888; }
+</style>
+</head>
+<body>
+<div class="lane" style="top:0%"><div class="label">1 · the browser's own animation (CSS), 6 s a sweep — nothing of ours runs</div><div class="staff"></div><div class="bar css6"></div></div>
+<div class="lane" style="top:22%"><div class="label">2 · our way (requestAnimationFrame, snapped), 6 s a sweep</div><div class="staff"></div><div class="bar" id="ours"></div></div>
+<div class="lane" style="top:44%"><div class="label">3 · the browser's own animation at HALF speed, 12 s a sweep</div><div class="staff"></div><div class="bar css12"></div></div>
+<div class="lane" style="top:66%"><div class="label">4 · a thicker, soft-edged bar at full speed, 6 s a sweep</div><div class="staff"></div><div class="bar soft css6"></div></div>
+<div id="hint">tap anywhere: pause / play — compare each bar still and moving</div>
+<script>
+(function () {
+  // row 2: the stand's loop — the frame's own time, x snapped to device pixels
+  const el = document.getElementById('ours');
+  const dpr = window.devicePixelRatio || 1;
+  let paused = false, t0 = null, held = 0;
+  function frame(ts) {
+    if (t0 === null) t0 = ts;
+    if (!paused) {
+      const W = window.innerWidth - 120, period = 6000;
+      const x = 60 + W * (((ts - t0) % period) / period);
+      el.style.transform = 'translate3d(' + (Math.round(x * dpr) / dpr) + 'px,0,0)';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  document.body.addEventListener('click', () => {
+    paused = !paused;
+    document.body.classList.toggle('paused', paused);
+    if (!paused) t0 = null;   // our bar restarts its sweep; the CSS ones resume
+  });
+})();
+</script>
+</body>
+</html>
