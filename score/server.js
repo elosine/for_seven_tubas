@@ -343,6 +343,12 @@ const server = http.createServer((req, res) => {
         res.writeHead(302, { Location: '/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0' });
         return res.end();
     }
+    // The stand (9h-1): /p/3 opens part 3 — short enough to type on a tablet
+    const mPart = req.method === 'GET' && /^\/p\/(\d{1,2})$/.exec(url);
+    if (mPart) {
+        res.writeHead(302, { Location: '/notation/app/stand.html?part=' + mPart[1] });
+        return res.end();
+    }
 
     // APIs
     if (req.method === 'POST' && url === '/api/composer/save') {

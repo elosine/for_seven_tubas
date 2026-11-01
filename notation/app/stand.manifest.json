@@ -1,0 +1,12 @@
+{
+  "name": "Tuba part",
+  "short_name": "Tuba part",
+  "description": "for seven tubas — the stand: one part, full screen (9h-1)",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "stand-icon.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

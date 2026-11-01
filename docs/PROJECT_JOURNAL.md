@@ -39,18 +39,22 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad (Opus, cold;
-  CLEAR before).** Read first, only: PLAN §9 → the RE-CUT block + the 9h-1 chunk ·
-  DESIGN §2 (the stand) + §7 (A2 as built) · REQUIREMENTS AR-3, 11, 25, 26, 33, 50 —
-  then the code that answers: notation.html's `renderContainerView` / `splitAnim` /
-  `mountLive` / `animLoop` · `animlive.js` `mount` / `setLayers` · `render.js`
-  `renderSection`. Build `notation/app/stand.html` as the chunk says. The composer's
-  check is on the iPad from the home screen (the chunk's CHECK list). **The composer
-  starts the servers** (CLAUDE.md § Apps) — never the AI.
-  **Working rules from day 46 (composer, verbatim in RUNNING_LOG 93):** tests only
-  when make-or-break — nothing the batteries prove is re-proven on a device · the
-  composer decides only what is NEW; settled decisions (D-numbers) are not re-asked;
-  ordering inside the approved plan is the AI's call, recorded · simple words.
+- **► 9h-1 — THE STAND, FIRST SLICE — BUILT + PC-VERIFIED (day 46, Fable; RUNNING_LOG
+  94) → THE COMPOSER'S CHECK on the iPad (no model needed):**
+  1. Score server running (CLAUDE.md § Apps — the composer starts it).
+  2. iPad, Safari: `http://192.168.1.15:5200/notation/app/stand.html?part=1&t=141.5`
+     → Share → Add to Home Screen → Add → open it from the icon.
+  3. Full screen, no toolbar? The part fills the screen, nothing cut? Two-finger
+     tap = play: the busiest minute smooth by eye, the METERS especially? One
+     finger = cursor · swipe = page. Size knobs in the link: `&s=` seconds per row
+     (6) · `&rows=` rows per page (5) · `&z=` extra factor.
+  Then **Fable: the verdict** (the look · the meters · the size to carry into 9i)
+  → **9g the server** (Opus, cold, clear before).
+- ☑ 9h-1 built (day 46): `notation/app/stand.html` — a part as ROWS (several
+  systems per page, the constant time scale kept, the jury density kept), the
+  home-screen head, A2, the AR-26 gestures; `tools/stand_check.js` green for all
+  ten parts (opens · draws · plays · turns the page in 2–12 ms); `/p/N` redirect
+  after the server's next restart. The Fire dropped as a target (D100).
 - ☑ 9a DEVICE-CHECKED (day 46, the composer, the iPad; RUNNING_LOG 92): the iPad was
   100 % on time before 9a, so timing was never its question; the look judged jittery in
   the METERS on the full score, the balls smooth → judged again on the part in 9h-1.
@@ -468,6 +472,13 @@ instruction. The instructions are the four reference blocks that follow.*
 
 ## §4 Decisions
 
+- **D100** *(2026-11-01, day 46)* — **THE FIRE IS NOT A TARGET.** Composer: *"a fire
+  isn't a viable use case … we don't need to actually test for a fire … drop any
+  fire tests unless it's useful to show something about the system we're using …
+  we shouldn't be trying to optimize so the score runs on the fire."* The Fire
+  stays in the kit as the slow-device probe (what dropping frames looks like);
+  nothing is tuned for it; the composer's checks are the iPad and the laptop.
+  AR-23 and AR-50 amended (REQUIREMENTS, frozen → amendment lines).
 - **D99** *(2026-10-20, day 45)* — **PLAN APPROVED — PLAN.md §9, THE PERFORMANCE
   SYSTEM BUILD (performance arc chunk 11; composer: "Approved"). THE DECIDE
   BAND IS CLOSED.** Sixteen chunks 9a–9p in six phases: P0 the spikes (9a A2 on

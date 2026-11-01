@@ -2175,8 +2175,9 @@ while building the real score.
 > in the chunk). Every chunk ends with (1) **VERIFY** — proven in the running app
 > (the preview browser and `testkit/verify_headless.js`-style headless Edge; a
 > confidence claim must be verified, per AI_METHODOLOGY) and (2) **THE COMPOSER'S
-> CHECK** — a short checklist the composer runs on the iPad · laptop · Fire before
-> the chunk is called done (AR-70). Position lives in
+> CHECK** — a short checklist the composer runs on the iPad · laptop before the
+> chunk is called done (AR-70; the Fire dropped as a target, D100 day 46 — it stays
+> the kit's slow-device probe only). Position lives in
 > `docs/PERFORMANCE_SCORE_ORDER.md` (BUILD band). Order = dependency; the spikes
 > came first because everything rests on them (DESIGN §14). **Re-cut day 46:** the
 > stand's first slice (9h-1) comes first and the spikes fold into the chunks they
@@ -2225,8 +2226,15 @@ while building the real score.
 > ONCE, inside the chunk that needs it — not as a sitting of its own. The Fable verdict
 > after each spike becomes the composer's check after each chunk.
 
-- **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — `todo · NEXT
-  (Opus, cold, clear before)` — a new page `notation/app/stand.html` on the score
+- **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — `BUILT +
+  PC-VERIFIED 2026-11-01 (day 46, Fable, no clear; RUNNING_LOG 94) → THE COMPOSER'S
+  CHECK on the iPad, then the Fable verdict`. *As built:* a part is ROWS — several
+  systems per page (`?rows=`, default 5), each an `?s=`-second window (default 6)
+  at one px per second, the jury frame's density kept (staff space scales with px
+  per second; `?z=` an extra factor) — the one-system page of the first build put
+  800-px curves over a 19-px staff; the A2 overlay takes one scene per row;
+  `tools/stand_check.js` green for all ten parts; `/p/N` the short link. *(As
+  planned:)* — a new page `notation/app/stand.html` on the score
   server: the stand of DESIGN §2 as far as a stand ALONE goes — no server, no room, no
   token yet; `?part=N` picks the part (N = 1…10). **The head:** `viewport` with
   `viewport-fit=cover` · `apple-mobile-web-app-capable` · a web manifest with
@@ -2247,8 +2255,8 @@ while building the real score.
   CHECK:** on the iPad, open `http://192.168.1.15:5200/notation/app/stand.html?part=1`
   in Safari → Share → Add to Home Screen → open it from the icon: full screen, no
   toolbar, the part fills the screen with nothing cut · play the busiest minute
-  (`?t=141.5`): smooth by eye, the METERS especially · then the Fire the same way
-  (Silk: menu → Add to Home Screen). **If the meters still jitter on the part, that is
+  (`?t=141.5`): smooth by eye, the METERS especially. (The Fire is not a target —
+  D100, day 46.) **If the meters still jitter on the part, that is
   a make-or-break item of its own:** a targeted look at the two pieces that change
   shape every frame (the fill's `scaleY`, the pie's path) — RUNNING_LOG 92's lead, not
   yet a diagnosis.

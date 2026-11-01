@@ -6,3 +6,5 @@ results/*.mov
 # 9a bench screenshots (tools/a2_bench.js --shots): local evidence, rebuilt on demand
 results/a2shots/
 results/shots/
+# 9h-1 stand_check screenshots: local evidence, rebuilt on demand
+results/stand_shots/

@@ -113,7 +113,10 @@
   iPad; MIXED DEVICES are the normal case (iPad · Android tablet · Windows laptop ·
   Fire); a laptop scales up; phones are not stands (acceptable as a remote). *Why:*
   "most professional performers will use the full-size iPad"; every stand syncs
-  itself.
+  itself. **AMENDED day 46 (D100):** the Fire is NOT a target — *"a fire isn't a
+  viable use case … we shouldn't be trying to optimize so the score runs on the
+  fire."* It stays in the kit as the slow-device probe only; the composer's checks
+  are the iPad and the laptop.
 - **AR-24 · COULD · PARKED (day 35, D91)** — The beating-frequency indicator: not in
   the first build; idea and measured data in PLANNER.
 - **AR-25 · MUST · DECIDED (ENS it. 3/4)** — Wake lock: a stand in a room does not
@@ -229,7 +232,9 @@
   in place (the per-frame overlay rebuild was the jitter's address; all animated
   instances indexed by time). **The bar: frames on time on the Fire ≥ 99 %
   (measured 99.4 %; today's engine 57 %); desktop · laptop · iPad 100 %.** Cost
-  p95 on the Fire 10.7 ms of a 16.7 ms frame.
+  p95 on the Fire 10.7 ms of a 16.7 ms frame. **AMENDED day 46 (D100):** the Fire
+  bar is historical — it proved the renderer has headroom; the bar that counts is
+  the iPad's, by the composer's eye on the part (9h-1).
 - **AR-51 · MUST · DECIDED (D89, D95)** — The CONCERT stand uses renderer **C**: the
   pre-rendered per-part VIDEO from the frame-exact exporter; 1-s keyframes
   (measured the fastest seeks on every device: desktop 31 · laptop 14 · iPad 71 ·

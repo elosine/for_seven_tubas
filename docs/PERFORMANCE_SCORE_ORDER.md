@@ -289,8 +289,10 @@ that closed ENS in four iterations)*
     jittery in the meters, smooth in the balls — on the FULL score, a view no player
     has. Carried to 9h-1, judged there on the part. The Fire's kit run dropped (tests
     only when make-or-break). CLOSED as a spike (RUNNING_LOG 92).
-13. ► **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** (Opus,
-    cold, clear before) — `notation/app/stand.html`: home-screen installable (full
+13. ► **9h-1 — THE STAND, FIRST SLICE: one part, full screen, on the iPad** — **BUILT
+    + PC-VERIFIED day 46 (Fable, no clear; RUNNING_LOG 94): a part as ROWS, the
+    home-screen head, A2, the gestures; `stand_check` green ×10. THE COMPOSER'S
+    CHECK on the iPad next, then the Fable verdict.** — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -353,6 +355,15 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-01 (day 46, later, Fable — D100 the Fire dropped as a target; ► 9h-1 BUILT +
+  PC-VERIFIED; THE COMPOSER'S CHECK next):** composer: *"a fire isn't a viable use case
+  … go and build here no clear."* Built `notation/app/stand.html` — a part as ROWS (five
+  6-s systems per page by default, the jury density kept, `?s=` `?rows=` `?z=` as the
+  size knobs), home-screen head (full screen, no toolbar), A2, the AR-26 gestures;
+  `tools/stand_check.js` green for all ten parts (opens · draws · plays · turns in
+  2–12 ms). The first build's one-system page showed why rows: 800-px curves over a
+  19-px staff. Next: the composer installs it on the iPad and looks (RUNNING_LOG 94);
+  then the Fable verdict; then 9g the server (Opus, cold, clear).
 - **2026-11-01 (day 46, Fable — 9a DEVICE-CHECKED ☑ (the look, not the timing, found
   wanting — on the full score); §9 RE-CUT; ► 9h-1 THE STAND'S FIRST SLICE):** composer:
   *"it still seems pretty jittery … B minus … no one's really going to be watching the

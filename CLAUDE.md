@@ -109,6 +109,10 @@ lines and links, copied from here, and don't test them by running servers.
 |---|---|---|
 | 9a check page | `http://localhost:5200/c` | `http://192.168.1.15:5200/c` (short) · full: `http://192.168.1.15:5200/notation/app/notation.html?ir=db1&t=141.5&play=1&midi=0` |
 | Kit | `http://localhost:4760/` | `http://192.168.1.15:4760/` |
+| The stand, part N (9h-1) | `http://localhost:5200/notation/app/stand.html?part=N` | `http://192.168.1.15:5200/p/N` (short) · full: `http://192.168.1.15:5200/notation/app/stand.html?part=N` — add `&t=141.5` for the busiest minute; `&s=` `&rows=` `&z=` size the part |
+
+- **The Fire is not a target** (D100, day 46). The composer's devices are the iPad and
+  the laptop; the Fire is only the kit's slow-device probe, never a thing to optimize for.
 
 - The PC's address on the home network is `192.168.1.15` (Ethernet). `10.2.0.2` is
   the VPN — never give that one.

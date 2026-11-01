@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- 9h-1 THE STAND, FIRST SLICE (PLAN §9, day 46): one part, full screen, on the
+     iPad. The three lines that make Share → Add to Home Screen open this page as
+     a full-screen app with no Safari toolbar (9d's home-screen piece): -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="stand.manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tuba part">
+<link rel="apple-touch-icon" href="stand-icon.png">
+<title>Tuba part</title>
+<style>
+  :root { color-scheme: light; }
+  /* the decided notation text font (V0.7) — served from /notation/app/fonts */
+  @font-face { font-family: 'Crimson Pro Light'; font-style: normal; font-weight: 300; src: url('fonts/CrimsonPro-Light.ttf') format('truetype'); }
+  @font-face { font-family: 'Crimson Pro Light'; font-style: italic; font-weight: 300; src: url('fonts/CrimsonPro-LightItalic.ttf') format('truetype'); }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
+  /* the frame IS the screen: no chrome, no scroll, no selection, no pinch
+     (AR-22); the safe-area insets keep the page off a notch or home bar */
+  body { position: fixed; inset: 0; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  #sheet { position: relative; background: #fff; margin: 0 auto; overflow: hidden; }
+  /* a page = several systems (rows) of this part, each its own SVG the size of
+     the frame, stacked — a paper part's shape */
+  #sheet > svg { position: absolute; left: 0; top: 0; display: block; }
+  #animov { position: absolute; top: 0; left: 0; pointer-events: none; }
+  /* the one-time hint (the strip comes in 9i) */
+  #hint { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); background: #000b; color: #eee;
+          font: 15px sans-serif; padding: 8px 14px; border-radius: 16px; opacity: 0; transition: opacity .5s; pointer-events: none; white-space: nowrap; }
+  #hint.on { opacity: 1; }
+  #err { position: fixed; left: 8px; bottom: 8px; color: #b00; background: #fff8; font: 12px monospace; white-space: pre-wrap; max-width: 90vw; }
+  #err:empty { display: none; }
+</style>
+</head>
+<body>
+<div id="sheet"></div>
+<div id="hint"></div>
+<div id="err"></div>
+<script src="/notation/lib/coords.js"></script>
+<script src="/notation/lib/stamps.js"></script>
+<script src="/notation/lib/layout.js"></script>
+<script src="/notation/lib/gc.js"></script>
+<script src="/notation/lib/render.js"></script>
+<script src="/notation/lib/splice.js"></script>
+<script src="/notation/lib/transport.js"></script>
+<script src="/notation/lib/animobj.js"></script>
+<script src="/notation/lib/animlive.js"></script>
+<script>
+(async function () {
+  const $ = id => document.getElementById(id);
+  const Q = new URLSearchParams(location.search);
+  // ?part=N (1…10) picks the part — the token of 9g will carry this later.
+  // THE SIZE KNOBS (AR-20: "the part's size / the screen's time span: chosen by
+  // eye on the real iPad" — 9i's sitting; here as link parameters so the
+  // composer can try sizes without a build): ?s= seconds per system (row) ·
+  // ?rows= systems per page · ?z= an extra factor on the staff. Also ?ir= the
+  // score file · ?t= go to a time · ?play=1 start playing (the check's hooks).
+  const PART = Math.min(10, Math.max(1, parseInt(Q.get('part') || '1', 10) || 1));
+  const IR = Q.get('ir') || 'db1';
+  const S_DEFAULT = 6, ROWS_DEFAULT = 5;
+  const ROWS = Math.min(12, Math.max(1, parseInt(Q.get('rows') || String(ROWS_DEFAULT), 10) || ROWS_DEFAULT));
+  const Z_EXTRA = Math.max(0.25, parseFloat(Q.get('z')) || 1);
+  const state = { scores: {}, pageIdx: 0, live: null, rows: null, layers: null, turnLog: [] };
+  state.transport = NotationTransport.makeTransport();
+  let rafId = null;
+
+  async function loadScore(name) {
+    if (state.scores[name]) return state.scores[name];
+    const r = await fetch('/api/composer/load/' + name);
+    if (!r.ok) throw new Error('score fetch ' + name + ' ' + r.status);
+    const j = await r.json();
+    state.scores[name] = j.data || j;
+    return state.scores[name];
+  }
+
+  // THE FRAME is the screen, in CSS px, inside the safe areas.
+  function frameSize() {
+    const cs = getComputedStyle(document.body);
+    const pad = s => parseFloat(s) || 0;
+    const W = Math.max(320, Math.floor(window.innerWidth - pad(cs.paddingLeft) - pad(cs.paddingRight)));
+    const H = Math.max(240, Math.floor(window.innerHeight - pad(cs.paddingTop) - pad(cs.paddingBottom)));
+    return { W, H };
+  }
+  const pageSeconds = () => Math.max(2, parseFloat(Q.get('s')) || S_DEFAULT);
+  function pageCount() { return Math.ceil(state.planned.length / ROWS); }
+  // the planned page (one system's worth, s seconds, cut by the page rules)
+  // that holds t — and the screen page (ROWS of them) it sits on
+  function plannedOf(t) {
+    const P = state.planned;
+    let i = P.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+    if (i < 0) i = t >= P[P.length - 1].t1 - 1e-9 ? P.length - 1 : 0;
+    return i;
+  }
+  const pageOf = t => Math.floor(plannedOf(t) / ROWS);
+
+  // A page: ROWS systems of this part stacked top to bottom, each its own
+  // s-second window at the SAME px per second (the constant time scale of the
+  // full score, kept). THE SIZE keeps the jury frame's density — the staff
+  // space scales with the px per second, so a system is the full score's lane
+  // enlarged, never a denser packing the layout was not proven at: fewer
+  // seconds per row = bigger everything. Each row is a full-frame SVG with its
+  // system placed in its slot; the A2 overlay gets one scene per row.
+  function render() {
+    try {
+      const C = state.container;
+      const { W, H } = frameSize();
+      const s = pageSeconds();
+      if (!state.planned || state.plannedS !== s) {
+        state.planned = NotationSplice.planPages(state.ir, state.pageRules, s);
+        state.plannedS = s;
+        state.pageIdx = Math.min(state.pageIdx, pageCount() - 1);
+      }
+      const juryW = (C.frame && C.frame.widthPx) || 1920;
+      const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+      const G0 = (C.prefatory && C.prefatory.gutterPx) || 0;
+      const ssJury = ((C.staff && C.staff.staffHeightPx) || 31.6) / 4;
+      const juryPxPerS = (juryW - G0) / regSeconds;
+      // the gutter scales with the music, so solve the two together:
+      // pxPerS = (W − G0·k) / s with k = pxPerS / juryPxPerS
+      const pxPerS = W / (s + G0 / juryPxPerS);
+      const k = (pxPerS / juryPxPerS) * Z_EXTRA;
+      const ss = ssJury * k;
+      const gutterPx = Math.min(W * 0.4, G0 * k);
+      const rowH = H / ROWS, padFrac = 0.03;
+      const laneH = rowH * (1 - 2 * padFrac);
+      const ssPerSystem = laneH / ss;
+      const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
+      const srcEnd = state.ir.source.window[1];
+      const first = state.pageIdx * ROWS;
+      const rows = [];
+      let html = '';
+      for (let r = 0; r < ROWS && first + r < state.planned.length; r++) {
+        const pg = state.planned[first + r];
+        const f0 = (r + padFrac) / ROWS, f1 = (r + 1 - padFrac) / ROWS;
+        const view = NotationCoords.makeView({ widthPx: W, heightPx: H, window: [pg.t0, pg.t0 + s], gutterPx,
+          systems: [{ part: PART - 1, laneFrac0: f0, laneFrac1: f1 }], ssPerSystem });
+        const ownsEnd = first + r === state.planned.length - 1;
+        let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
+          reshow: pg.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+        });
+        // the rows stack: the paper is the sheet's, not each SVG's (render.js
+        // paints a full-frame paper rect first — the row above would vanish)
+        svg = svg.replace(/ style="background:[^"]*"/, '')
+                 .replace(/<rect x="0" y="0" width="[\d.]+" height="[\d.]+" fill="[^"]*"\/>/, '');
+        // the system's terminal barline, as the full score draws it
+        let endBar = '';
+        if (eb) {
+          const sys = view.systems[0];
+          const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
+          endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + sys.yTopPx.toFixed(1) +
+            '" width="' + eb.wPx + '" height="' + (sys.yBotPx - sys.yTopPx).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
+        }
+        html += svg.replace('</svg>', endBar + '</svg>');
+        rows.push({ pg, view, r });
+      }
+      const sheet = $('sheet');
+      sheet.style.width = W + 'px'; sheet.style.height = H + 'px';
+      sheet.innerHTML = html;
+      // the instances: the whole piece once, then THIS part's (and the
+      // score-level ones, part undefined)
+      if (!state.animInstances) {
+        const score = state.scores[state.ir.source.score] || null;
+        const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
+        const all = NotationAnimObj.collect(state.ir, score, C.animated,
+          { parts: state.ir.source.parts, meta: false, deviceOf: _dev,
+            drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
+        state.animInstances = all.filter(i => i.part === undefined || i.part === PART - 1);
+      }
+      state.rows = rows;
+      state.frame = { widthPx: W, heightPx: H };
+      state.animStyle = C.animated;
+      state.size = { W, H, rows: rows.length, rowsMax: ROWS, s, ss: +ss.toFixed(2), pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), k: +k.toFixed(3),
+        page: [rows[0].pg.t0, rows[rows.length - 1].pg.t1] };
+      mountLive();
+      $('err').textContent = '';
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+  // A2 (9a): one overlay per frame size, kept across pages; a turn re-plans.
+  // One scene per row — each shows its own window's pieces, its own cursor;
+  // a row not holding t has its rider off the frame, clipped.
+  function mountLive() {
+    const F = state.frame;
+    if (!state.live || state.live.W !== F.widthPx || state.live.H !== F.heightPx) {
+      if (state.live) state.live.destroy();
+      state.live = NotationAnimLive.mount($('sheet'), F);
+    }
+    state.live.attach($('sheet'));
+    state.layers = state.rows.map(row => ({ scene: NotationAnimLive.plan(state.animInstances, row.view, state.animStyle), opacity: 1 }));
+    state.live.setLayers(state.layers);
+    state.live.setScale(1);
+  }
+
+  // ---- the clock on the page ------------------------------------------------
+  function pageEnd() {
+    const rows = state.rows, last = rows[rows.length - 1];
+    const srcEnd = state.ir.source.window[1];
+    const hasNext = state.pageIdx < pageCount() - 1;
+    return Math.min(hasNext ? last.pg.t1 : last.view.window[1], srcEnd);
+  }
+  function drawOverlayFrame(tArg) {
+    if (!state.rows) return null;
+    const t = tArg !== undefined ? tArg : state.transport.now();
+    if (state.transport.isPlaying() && t >= pageEnd() - 1e-9) {
+      const c0 = performance.now();
+      if (state.pageIdx < pageCount() - 1) { state.pageIdx++; render(); }
+      else state.transport.pause();
+      state.turnLog.push({ t, ms: performance.now() - c0 });
+      if (state.turnLog.length > 200) state.turnLog.shift();
+      return { turned: true, t };
+    }
+    state.live.frame(t);
+    return { turned: false, t };
+  }
+  function animLoop() {
+    rafId = null;
+    drawOverlayFrame();
+    if (state.transport.isPlaying()) rafId = requestAnimationFrame(animLoop);
+  }
+  function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
+  function goto(t) {
+    const P = pageOf(t);
+    if (P !== state.pageIdx) { state.pageIdx = P; render(); }
+    state.transport.seek(t); ensureLoop();
+  }
+  let wakeLock = null;
+  async function play() {
+    if (!state.rows) return;
+    const t = state.transport.now();
+    const t0 = state.rows[0].pg.t0, t1 = pageEnd();
+    if (t < t0 || t >= t1) state.transport.seek(t0);
+    state.transport.play(); ensureLoop();
+    // AR-25: the screen stays awake while the part plays (needs HTTPS; silent otherwise)
+    try { if (navigator.wakeLock && !wakeLock) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) { wakeLock = null; }
+  }
+  function pause() { state.transport.pause(); ensureLoop(); if (wakeLock) { try { wakeLock.release(); } catch (e) { } wakeLock = null; } }
+  function togglePlay() { if (state.transport.isPlaying()) pause(); else play(); }
+  function turnPage(d) {
+    if (!state.planned) return;
+    const i = Math.min(pageCount() - 1, Math.max(0, state.pageIdx + d));
+    if (i === state.pageIdx) return;
+    state.pageIdx = i; render();
+    state.transport.seek(state.rows[0].pg.t0); ensureLoop();
+  }
+  // one-finger tap = place the cursor (AR-26): the row under the finger, the
+  // time under it, inside that row's music
+  function seekAt(clientX, clientY) {
+    if (!state.rows) return;
+    const rect = $('sheet').getBoundingClientRect();
+    const r = Math.min(state.rows.length - 1, Math.max(0, Math.floor((clientY - rect.top) / rect.height * ROWS)));
+    const view = state.rows[r].view;
+    const t = view.secondsOfX((clientX - rect.left) * (view.widthPx / rect.width));
+    const [w0, w1] = view.window;
+    if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
+  }
+
+  // ---- THE GESTURES (AR-26, one vocabulary): swipe = pages · one-finger tap =
+  // cursor · two-finger tap = play / stop. Laptop (AR-28): click = cursor ·
+  // space = play / stop · arrows = pages.
+  let touch = null;
+  const sheet = $('sheet');
+  sheet.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const f = e.touches[0];
+    if (!touch) touch = { t: performance.now(), n: 0, x: f.clientX, y: f.clientY, dx: 0, dy: 0, moved: false };
+    touch.n = Math.max(touch.n, e.touches.length);
+  }, { passive: false });
+  sheet.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!touch) return;
+    const f = e.touches[0];
+    touch.dx = f.clientX - touch.x; touch.dy = f.clientY - touch.y;
+    if (Math.hypot(touch.dx, touch.dy) > 12) touch.moved = true;
+  }, { passive: false });
+  sheet.addEventListener('touchend', e => {
+    e.preventDefault();
+    if (!touch || e.touches.length) return;
+    const dt = performance.now() - touch.t;
+    if (touch.moved) {
+      if (Math.abs(touch.dx) > 60 && Math.abs(touch.dx) > 2 * Math.abs(touch.dy)) turnPage(touch.dx < 0 ? 1 : -1);
+    } else if (dt < 500) {
+      if (touch.n >= 2) togglePlay(); else seekAt(touch.x, touch.y);
+    }
+    touch = null;
+  }, { passive: false });
+  sheet.addEventListener('touchcancel', () => { touch = null; });
+  sheet.addEventListener('click', e => { if (!('ontouchstart' in window) || e.detail === 0) seekAt(e.clientX, e.clientY); });
+  window.addEventListener('keydown', e => {
+    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+    else if (e.key === 'ArrowRight') turnPage(1);
+    else if (e.key === 'ArrowLeft') turnPage(-1);
+  });
+  window.addEventListener('resize', () => { if (state.ir) render(); });
+
+  // the one-time hint: how to play (the strip and the menu come in 9i)
+  function hint(text, ms) {
+    const h = $('hint'); h.textContent = text; h.classList.add('on');
+    clearTimeout(hint.tm); hint.tm = setTimeout(() => h.classList.remove('on'), ms || 4000);
+  }
+
+  // headless check + the composer's link: ?t= and ?play=1, and the state
+  window.__standGoto = t => { goto(t); return { pageIdx: state.pageIdx, page: state.size && state.size.page }; };
+  window.__standPlay = () => { play(); return true; };
+  window.__standPause = () => { pause(); return true; };
+  window.__standState = () => ({
+    part: PART, ir: IR, ready: !!state.rows, error: $('err').textContent,
+    t: state.transport.now(), playing: state.transport.isPlaying(),
+    pageIdx: state.pageIdx, pages: state.planned ? pageCount() : 0,
+    size: state.size || null, turns: state.turnLog.slice(),
+    pieces: state.layers ? state.layers.reduce((a, L) => a + L.scene.pieces.length, 0) : null,
+    instances: state.animInstances ? state.animInstances.length : null,
+    overlay: state.live ? state.live.stats() : null,
+    standalone: !!(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)),
+  });
+
+  try {
+    const [glyphs, pageRules, container, irRes] = await Promise.all([
+      fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
+      fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
+      fetch('/notation/registry/container.json').then(r => { if (!r.ok) throw new Error('container fetch ' + r.status); return r.json(); }),
+      fetch('/notation/ir/' + IR + '.ir.json').then(r => { if (!r.ok) throw new Error('IR fetch ' + IR + ' ' + r.status); return r.json(); }),
+    ]);
+    state.glyphs = glyphs; state.pageRules = pageRules; state.container = container; state.ir = irRes;
+    try { await loadScore(state.ir.source.score); } catch (e) { /* the score-level objects are optional */ }
+    state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
+      { frameParts: state.ir.source.parts },
+      (container.engraving && container.engraving.layout) || {}));
+    render();
+    if (Q.has('t') && isFinite(parseFloat(Q.get('t')))) goto(parseFloat(Q.get('t')));
+    else ensureLoop();
+    if (Q.get('play') === '1') play();
+    else hint('two fingers: play / stop · one finger: cursor · swipe: page', 5000);
+  } catch (e) { $('err').textContent = String(e.stack || e); }
+})();
+</script>
+</body>
+</html>
