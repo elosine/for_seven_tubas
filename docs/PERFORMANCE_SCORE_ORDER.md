@@ -295,8 +295,9 @@ that closed ENS in four iterations)*
     nothing cut, the cursor at the first note, the pulse gone. The blur in motion →
     9i (speed · size · blur).** → 9s THE SPEED EVALUATION closed the same evening
     (8 s · 5 rows · 7.5 mm; D101 the circular buffer). ► **9h-1b THE CIRCULAR
-    BUFFER — BUILT + PC-VERIFIED the same evening (RUNNING_LOG 98); the composer's
-    check on the installed Tuba part next**, then **9g THE SERVER** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
+    BUFFER — DONE the same evening (RUNNING_LOG 98–99; the composer: "the cycle
+    works"; the curves' gap at the row edges fixed)**. ► **9g THE SERVER is next**
+    (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -359,6 +360,12 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-01 (day 46, late evening, Fable, no clear — 9h-1b THE CIRCULAR BUFFER
+  built, PC-verified and PASSED by the composer):** rows as a ring, a slot reloads as
+  the cursor leaves it, the cursor wraps (RUNNING_LOG 98); the composer on the
+  installed Tuba part: *"the cycle works"* — and spotted the section curves starting
+  short of the staff's left edge in every row; cause and fix in render.js the same
+  minute (RUNNING_LOG 99). ► **9g THE SERVER is next** (Opus, cold, clear before).
 - **2026-11-01 (day 46, evening, Fable — 9s THE SPEED EVALUATION opened and all but
   closed; THE SPEED DECIDED: 8 s a row · 5 rows · 7.5 mm):** the composer's ask for a
   data-based speed; two dials ruled; the note size from MOLA (7.5 mm); fit measured

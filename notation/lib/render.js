@@ -78,6 +78,32 @@
     // pass opts.ownsEnd = true.
     const ownsEnd = !opts || opts.ownsEnd !== false;
     const inWin = t => t >= w0 - 1e-9 && (ownsEnd ? t <= w1 + 1e-9 : t < w1 - 1e-9);
+    // A section's drawn curve, cut at the window: the samples on the
+    // section's own grid that fall inside [w0, w1], PLUS the interpolated
+    // value at each window edge the section crosses — so the fill meets the
+    // row's left edge and its right edge flush. (Day 46, the composer on the
+    // stand: "the curves are never flush with the left side where the staff
+    // lines begin" — a row starts between two samples and the polygon began
+    // at the first sample inside, up to one sample step late; the same gap
+    // at the right.) Returns [[t, value], ...] in time order.
+    const curveInWin = it => {
+      const n = it.samples.length, span = it.t1 - it.t0;
+      if (n < 2 || span <= 0) return [];
+      const at = t => {                       // linear interpolation on the grid
+        const u = Math.min(Math.max((t - it.t0) / span, 0), 1) * (n - 1);
+        const i = Math.min(Math.floor(u), n - 2), f = u - i;
+        return it.samples[i] + (it.samples[i + 1] - it.samples[i]) * f;
+      };
+      const a = Math.max(it.t0, w0), b = Math.min(it.t1, w1);
+      if (b <= a) return [];
+      const pts = [[a, at(a)]];
+      for (let i = 0; i < n; i++) {
+        const t = it.t0 + span * (i / (n - 1));
+        if (t > a + 1e-9 && t < b - 1e-9) pts.push([t, it.samples[i]]);
+      }
+      pts.push([b, at(b)]);
+      return pts;
+    };
 
     for (const sysModel of model.systems) {
       let sys;
@@ -218,14 +244,8 @@
           // day 40: the truncation moved to layout.drawnLevelSamples — the
           // samples arrive FINAL (one source for the page and the meters);
           // the stretch over the full note span is implicit in n-over-[t0,t1].
-          const samples = it.samples;
-          const n = samples.length;
-          const pts = [];
-          for (let i = 0; i < n; i++) {
-            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
-          }
+          // flush to the window's edges (curveInWin), day 46
+          const pts = curveInWin(it).map(p => [view.xOfSeconds(p[0]), yB - p[1] * (yB - yT)]);
           if (pts.length >= 2) {
             const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             if (EC.fillOpacity > 0) {
@@ -303,12 +323,8 @@
           const CC = E.crescCurve;
           const yB = sys.yBotPx;
           const yCeil = it.full ? sys.yTopPx : (sys.yTopPx + sys.yBotPx) / 2;
-          const n2 = it.samples.length, cp = [];
-          for (let i = 0; i < n2; i++) {
-            const t = it.t0 + (it.t1 - it.t0) * (i / (n2 - 1));
-            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yCeil)]);
-          }
+          // flush to the window's edges (curveInWin), day 46
+          const cp = curveInWin(it).map(p => [view.xOfSeconds(p[0]), yB - p[1] * (yB - yCeil)]);
           if (cp.length >= 2) {
             const cline = cp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             if (CC.fillOpacity > 0) {
@@ -328,12 +344,8 @@
           if (it.t1 < w0 || it.t0 > w1) continue;
           const GC2 = E.glissCurve;
           const yT = sys.yTopPx, yMid = (sys.yTopPx + sys.yBotPx) / 2;
-          const n = it.samples.length, gp = [];
-          for (let i = 0; i < n; i++) {
-            const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (t < w0 - 1e-9 || t > w1 + 1e-9) continue;
-            gp.push([view.xOfSeconds(t), yMid - it.samples[i] * (yMid - yT)]);
-          }
+          // flush to the window's edges (curveInWin), day 46
+          const gp = curveInWin(it).map(p => [view.xOfSeconds(p[0]), yMid - p[1] * (yMid - yT)]);
           if (gp.length >= 2) {
             const line = gp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             // the fill closes on the HALF-LANE baseline, not the lane floor —

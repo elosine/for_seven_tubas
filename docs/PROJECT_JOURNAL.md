@@ -39,12 +39,10 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9h-1b — THE CIRCULAR BUFFER — BUILT + PC-VERIFIED (day 46, Fable; RUNNING_LOG
-  98) → THE COMPOSER'S CHECK:** the installed Tuba part on the iPad (it reloads on
-  launch): play from the busiest minute — the cursor runs down and wraps to the top,
-  the next music always there above, nothing jumps at a reload. Then the Fable
-  verdict (one line). **Then:**
-- **9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
+- **9h-1b — THE CIRCULAR BUFFER — DONE (day 46, Fable; RUNNING_LOG 98–99).** The
+  composer on the installed Tuba part: "the cycle works." The section curves now meet
+  the row edges flush (their gap was a renderer habit, fixed in render.js). **NEXT:**
+- **► 9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
   13, 54, 55, 57, 58, 59 — then the code that answers. **The composer starts the

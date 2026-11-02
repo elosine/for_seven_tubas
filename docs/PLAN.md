@@ -2378,9 +2378,10 @@ while building the real score.
      mm** — the stand's defaults; AR-20 amended; the per-piece rule: 8 s at 7.5 mm is
      the target, the fit pass may shorten it, never below 6 s, the eye closes it.
      **9s closes when step 6 (row replacement) is decided.**
-- **9h-1b — THE CIRCULAR BUFFER on the stand (D101)** — `BUILT + PC-VERIFIED 2026-11-01
-  (day 46, Fable, no clear; RUNNING_LOG 98) → THE COMPOSER'S CHECK on the installed
-  Tuba part` — in `notation/app/stand.html`: the
+- **9h-1b — THE CIRCULAR BUFFER on the stand (D101)** — `DONE 2026-11-01 (day 46,
+  Fable, no clear; RUNNING_LOG 98–99) — the composer on the installed Tuba part: "the
+  cycle works"; the section curves' gap at the row edges found there and fixed on the
+  spot (render.js curveInWin)` — in `notation/app/stand.html`: the
   ROWS slots become a ring over the planned rows — slot k shows planned row n + k;
   when the cursor leaves a row, that slot reloads with the next unseen row (the
   string quartet's "the row the cursor just left reloads with the next upcoming
