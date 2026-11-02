@@ -59,13 +59,21 @@ piece #3's `docs/` — registered as an additional working directory.
   tracks; battery 75/75 · chaos OK · stand check 7/7. **DEPLOYED and CHECKED** (RUNNING_LOG 108): the composer's
   five lines ran first time — `scattered-substance.justinwenloyang.com`, folder `ss`, PM2
   `ss-server`, port 5301; `Home test` ens-f79ddbed with seven named links; the Flute part
-  on the iPad from the box. **9t DONE.** **► NEXT: 9h-2 on Tempus**
-  — the page opened by a token (its own part, the title from the server); the floor
-  clock; the follow states. Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
-  `septet_2026/server/protocol.js` · `septet_2026/notation/app/stand.html` ·
-  `septet_2026/testkit/js/syncclock.js`. The code goes into `septet_2026` (a working
-  directory of the session); the record stays here. Opus, cold, clear before — or here
-  without a clear, the composer's call (day 46: "move forward here until further notice").
+  on the iPad from the box. **9t DONE.** **9h-2 — THE STAND'S ROOM CLIENT — BUILT + PC-VERIFIED on Tempus** (day 46 afternoon,
+  Fable, no clear; RUNNING_LOG 109; `septet_2026` commit 7ed8734): `notation/lib/roomclient.js`
+  · `stand.html` opened by `/s/<token>` (the part, the piece and the title from the
+  welcome; the follow states; the corner and the dot) · `leader.html` (the scripted
+  leader for the check) · `tools/room_check.js` 39/39 (two headless stands 0.0 ms apart
+  on the room's position). **OPEN: the composer's check** — deploy (the septet's
+  later-deploy line), then iPad = Flute, laptop = Bass Cl., phone = `leader.html?token=`
+  the gatekeeper's code: REHEARSAL · JUMP · PLAY · STOP · 70 · AGAIN · the two-finger tap
+  while stopped and while playing. **► NEXT: 9i on Tempus** — the strip · the remote ·
+  the display · the switch, and THE DESIGN SITTING (gate E-6) where the composer's part
+  findings are raised (Fable, the composer's eye, the real iPad). Read first, only: PLAN
+  §9 → 9i · DESIGN §6–§7 · `septet_2026/notation/app/stand.html` (the room block) ·
+  `septet_2026/notation/app/leader.html` (what the strip replaces) ·
+  `septet_2026/notation/lib/roomclient.js`. The code goes into `septet_2026`; the record
+  stays here.
 - **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,

@@ -302,7 +302,9 @@ that closed ENS in four iterations)*
     server per piece).** → **PLAN A, D103 (late morning): the building moves to
     Tempus.** → **9t THE PORT TO TEMPUS DONE the same day (RUNNING_LOG 107–108, `docs/PORTING.md`;
     deployed by the composer's five lines, the Flute part on the iPad from
-    `scattered-substance.justinwenloyang.com`).** ► **9h-2 on Tempus is next.** — `notation/app/stand.html`: home-screen installable (full
+    `scattered-substance.justinwenloyang.com`).** → **9h-2 THE ROOM CLIENT built and PC-verified on Tempus the same afternoon
+    (RUNNING_LOG 109; the composer's check open).** ► **9i is next** (the strip · the
+    remote · the design sitting). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -365,6 +367,16 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, afternoon, Fable, no clear — 9h-2 THE STAND'S ROOM CLIENT built
+  and PC-verified on Tempus):** `roomclient.js` (hello by token · the kit's floor clock
+  fed by pings · the tuple read as a transport · persistence re-verified · the welcome
+  cached), the stand page opened by `/s/<token>` with the follow states and the
+  corner, `leader.html` as the scripted leader, `tools/room_check.js` 39/39 — the two
+  headless stands 0.0 ms apart on the room's position, snap on jump, free and local
+  while stopped, nothing while playing, ALONE only listens (RUNNING_LOG 109; septet
+  commit 7ed8734). Open: the composer's check — iPad + laptop as stands, the phone as
+  the leader. ► **9i next** (the strip · the remote · the display · the switch · THE
+  DESIGN SITTING with the composer's part findings) — Fable for the sitting.
 - **2026-11-02 (day 46, midday, Fable, no clear — 9t THE PORT TO TEMPUS built and
   PC-verified):** the septet's library was ours at 752b886 plus their print work;
   three files took the stand's changes (gc.js by patch, render.js behind

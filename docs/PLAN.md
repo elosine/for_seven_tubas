@@ -2357,7 +2357,7 @@ while building the real score.
 
 ### P2 — THE STAND
 
-- **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `todo` —
+- **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `BUILT + PC-VERIFIED on Tempus 2026-11-02 (day 46 afternoon, Fable, no clear; RUNNING_LOG 109; septet_2026 commit 7ed8734): roomclient.js · stand.html by token · leader.html · room_check 39/39, the two stands 0.0 ms apart. OPEN: the composer's check (iPad + laptop + the phone as the leader)` —
   the page opened by a token; `hello`; the floor clock as the timebase for
   `transport.js`; the part view (`renderSection`, `frameParts = [part]`) under
   A2; the states ALONE · REHEARSAL stopped / playing with the follow rules
