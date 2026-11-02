@@ -2189,6 +2189,15 @@ while building the real score.
 > sitting inside 9i (the composer's eye) · any re-cut of this section. The
 > organizer's "brief me" carries position across clears.
 >
+> **The public face (composer, day 46 overnight — "this is the prototype or the
+> architecture for all of my performance scores … be careful and mindful of how things
+> should look and be, particularly public-facing things"):** every surface a player, a
+> gatekeeper or a stranger can see — the host name · the stand's title and home-screen
+> name · the door pages (unknown / replaced link) · the root page · the printed links
+> and the QR sheet · the instructions — is finished work, reviewed by the composer's
+> eye before the first real handout. Piece-neutral names on everything outside (AR-55:
+> one server for all pieces). The list, with where each is fixed: RUNNING_LOG 102.
+>
 > **Size, stated once:** sixteen chunks. At one chunk per sitting ≈ three weeks of
 > daily sittings. The Tempus date the composer gave (parts "first week of
 > November") is awareness only; the order does not bend to it.
@@ -2302,9 +2311,9 @@ while building the real score.
   clear; RUNNING_LOG 100): server/ — the protocol battery 75/75 · the chaos test OK
   (12 stands, 0.07 ms spread, rejoin 30 ms, the server killed mid-piece and every stand
   back within 1 s with the tuple identical) · the stand page served through it. OPEN:
-  the deploy to the box — piece #1's Hetzner box, shared; the subdomain
-  tubas.justinwenloyang.com; the composer's five lines in server/README.md § The box
-  (RUNNING_LOG 101)` — *(as planned:)* one Node process: the registry (ensembles, part
+  the deploy to the box — piece #1's Hetzner box, shared; the subdomain's NAME
+  PENDING the composer's word, piece-neutral (`tubas` withdrawn, RUNNING_LOG 102); the
+  composer's five lines in server/README.md § The box (RUNNING_LOG 101)` — *(as planned:)* one Node process: the registry (ensembles, part
   rows, tokens; JSON files) · rooms (the standing room; sectionals live-only,
   member sets, gone when empty; REHEARSAL → ALONE after 30 empty minutes) · the
   clock service (raw monotonic) · the eleven messages of DESIGN §3 with their
@@ -2324,7 +2333,8 @@ while building the real score.
   A2; the states ALONE · REHEARSAL stopped / playing with the follow rules
   (snap on jump, follow on play, free while stopped, local play while stopped);
   the dot (readiness colour only, for now); the rehearsal number + time in a
-  corner. AR-3, 11, 12, 14, 18, 19, 26, 33, 34, 41, 44, 45. **VERIFY:** two
+  corner; the page title and home-screen name from the part, not "Tuba part" (the
+  public face, RUNNING_LOG 102). AR-3, 11, 12, 14, 18, 19, 26, 33, 34, 41, 44, 45. **VERIFY:** two
   headless stands + a scripted leader: jump → both at tE − 5; play → both
   following within the AR-47 bar; a local play never touches the room. **CHECK:**
   the composer's iPad + laptop as two stands, the phone as the leader (9i's

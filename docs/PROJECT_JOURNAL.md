@@ -45,8 +45,11 @@ piece #3's `docs/` — registered as an additional working directory.
 - **9g — THE SERVER — BUILT + PC-VERIFIED (day 46 overnight, Fable; RUNNING_LOG 100):**
   `server/` on Socket.IO; `tools/test_server.js` 75/75; `tools/chaos_test.js` OK; the
   stand loads through it. **OPEN: the deploy to the box** — the composer's five lines
-  (`server/README.md` § The box; the quartet's box, shared; the subdomain
-  `tubas.justinwenloyang.com`; RUNNING_LOG 101). The AI cannot read or touch the box
+  (`server/README.md` § The box; the quartet's box, shared; the subdomain's NAME
+  PENDING the composer's word — piece-neutral per AR-55, `tubas` withdrawn, RUNNING_LOG
+  102; the lines: RUNNING_LOG 101). **The public face** is now a standing principle
+  (PLAN §9 header): every player-visible surface is finished work, reviewed by the
+  composer's eye before the first handout. The AI cannot read or touch the box
   from a session (production reads are refused) — give lines, never run them. **► NEXT: 9h-2 — the stand's room client · the floor clock · the follow states**
   (Opus, cold; CLEAR before). Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
   `server/protocol.js` (the vocabulary as built) · `stand.html` · `testkit/js/syncclock.js`.
