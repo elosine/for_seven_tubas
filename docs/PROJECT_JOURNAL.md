@@ -44,7 +44,8 @@ piece #3's `docs/` — registered as an additional working directory.
   the row edges flush (their gap was a renderer habit, fixed in render.js). **NEXT:**
 - **9g — THE SERVER — BUILT + PC-VERIFIED (day 46 overnight, Fable; RUNNING_LOG 100):**
   `server/` on Socket.IO; `tools/test_server.js` 75/75; `tools/chaos_test.js` OK; the
-  stand loads through it. **OPEN: the deploy to the box** — the composer's five lines
+  stand loads through it. **DEPLOYED to the box — day 46 morning, by the composer's five lines, every one first
+  time; the Tuba 1 link on the iPad shows the part over HTTPS; RUNNING_LOG 104.** The lines
   (`server/README.md` § The box; the quartet's box, shared; the address
   `bloom-convergence-balance.justinwenloyang.com` — one running server per piece, D102,
   AR-72 replaces AR-55; RUNNING_LOG 102–103; the lines rewritten for the name). **The public face** is now a standing principle

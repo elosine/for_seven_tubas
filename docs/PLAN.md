@@ -2308,13 +2308,13 @@ while building the real score.
 
 ### P1 — THE SERVER
 
-- **9g — The server** — `BUILT + PC-VERIFIED 2026-11-02 (day 46 overnight, Fable, no
-  clear; RUNNING_LOG 100): server/ — the protocol battery 75/75 · the chaos test OK
+- **9g — The server** — `BUILT + PC-VERIFIED + DEPLOYED + CHECKED 2026-11-02 (day 46 overnight and morning,
+  Fable, no clear; RUNNING_LOG 100, 104): server/ — the protocol battery 75/75 · the chaos test OK
   (12 stands, 0.07 ms spread, rejoin 30 ms, the server killed mid-piece and every stand
-  back within 1 s with the tuple identical) · the stand page served through it. OPEN:
-  the deploy to the box — piece #1's Hetzner box, shared; the address
-  bloom-convergence-balance.justinwenloyang.com (D102: one running server per piece,
-  AR-72; RUNNING_LOG 102–103); the composer's five lines in server/README.md § The box` — *(as planned:)* one Node process: the registry (ensembles, part
+  back within 1 s with the tuple identical) · the stand page served through it. DEPLOYED
+  to piece #1's Hetzner box, shared, by the composer's five lines (server/README.md § The
+  box) at bloom-convergence-balance.justinwenloyang.com (D102: one running server per
+  piece, AR-72; RUNNING_LOG 102–104); the part page on the iPad over HTTPS` — *(as planned:)* one Node process: the registry (ensembles, part
   rows, tokens; JSON files) · rooms (the standing room; sectionals live-only,
   member sets, gone when empty; REHEARSAL → ALONE after 30 empty minutes) · the
   clock service (raw monotonic) · the eleven messages of DESIGN §3 with their

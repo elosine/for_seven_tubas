@@ -296,8 +296,10 @@ that closed ENS in four iterations)*
     9i (speed · size · blur).** → 9s THE SPEED EVALUATION closed the same evening
     (8 s · 5 rows · 7.5 mm; D101 the circular buffer). ► **9h-1b THE CIRCULAR
     BUFFER — DONE the same evening (RUNNING_LOG 98–99; the composer: "the cycle
-    works"; the curves' gap at the row edges fixed)**. → **9g THE SERVER built and PC-verified
-    the same night (RUNNING_LOG 100; the deploy to the box is the composer's).** ► **9h-2
+    works"; the curves' gap at the row edges fixed)**. → **9g THE SERVER built, PC-verified, and the next morning DEPLOYED and CHECKED
+    (RUNNING_LOG 100–104: the composer's five lines on the box; the part page on the iPad
+    over HTTPS through `bloom-convergence-balance.justinwenloyang.com`; D102 one running
+    server per piece).** ► **9h-2
     THE STAND'S ROOM CLIENT is next** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
@@ -361,6 +363,16 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, morning, Fable, no clear — 9g DEPLOYED and CHECKED; D102):**
+  the composer's five lines, every one first time: the A record, clone + PM2
+  `bcb-server` beside the quartet's, nginx + certbot, `/health` through
+  `https://bloom-convergence-balance.justinwenloyang.com`; the piece registered (ten
+  parts), `Home test` created, links printed from the domain; the Tuba 1 QR on the
+  iPad → the part page over HTTPS, playing (RUNNING_LOG 104). The night's decisions:
+  the public face as a standing principle (RUNNING_LOG 102) · D102 one program for
+  all pieces, one running server per piece, the title's words hyphenated in front of
+  the composer's domain; AR-72 replaces AR-55; the rule on old rules (RUNNING_LOG 103).
+  ► **9h-2 is next** (Opus, cold, clear).
 - **2026-11-02 (day 46 overnight, Fable, no clear — 9g THE SERVER built and
   PC-verified):** `server/` (registry · rooms · clock · the eleven messages · admin ·
   the door · the spare) on Socket.IO by AR-54; the protocol battery 75/75; the chaos
