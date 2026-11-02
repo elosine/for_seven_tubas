@@ -2298,7 +2298,12 @@ while building the real score.
 
 ### P1 — THE SERVER
 
-- **9g — The server** — `todo` — one Node process: the registry (ensembles, part
+- **9g — The server** — `BUILT + PC-VERIFIED 2026-11-02 (day 46 overnight, Fable, no
+  clear; RUNNING_LOG 100): server/ — the protocol battery 75/75 · the chaos test OK
+  (12 stands, 0.07 ms spread, rejoin 30 ms, the server killed mid-piece and every stand
+  back within 1 s with the tuple identical) · the stand page served through it. OPEN:
+  the deploy to the box (the composer's — README steps 1–5; does piece #1's Hetzner box
+  still exist?)` — *(as planned:)* one Node process: the registry (ensembles, part
   rows, tokens; JSON files) · rooms (the standing room; sectionals live-only,
   member sets, gone when empty; REHEARSAL → ALONE after 30 empty minutes) · the
   clock service (raw monotonic) · the eleven messages of DESIGN §3 with their

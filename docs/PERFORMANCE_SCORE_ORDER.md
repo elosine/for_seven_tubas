@@ -296,8 +296,9 @@ that closed ENS in four iterations)*
     9i (speed · size · blur).** → 9s THE SPEED EVALUATION closed the same evening
     (8 s · 5 rows · 7.5 mm; D101 the circular buffer). ► **9h-1b THE CIRCULAR
     BUFFER — DONE the same evening (RUNNING_LOG 98–99; the composer: "the cycle
-    works"; the curves' gap at the row edges fixed)**. ► **9g THE SERVER is next**
-    (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
+    works"; the curves' gap at the row edges fixed)**. → **9g THE SERVER built and PC-verified
+    the same night (RUNNING_LOG 100; the deploy to the box is the composer's).** ► **9h-2
+    THE STAND'S ROOM CLIENT is next** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -360,6 +361,13 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46 overnight, Fable, no clear — 9g THE SERVER built and
+  PC-verified):** `server/` (registry · rooms · clock · the eleven messages · admin ·
+  the door · the spare) on Socket.IO by AR-54; the protocol battery 75/75; the chaos
+  test (gate E-5) OK with 12 stands — 0.07 ms spread, a stand rejoins in 30 ms, the
+  server killed mid-piece and every stand back within 1 s on the identical tuple; the
+  stand page loads through the server alone (RUNNING_LOG 100). Open: the deploy to
+  the box (the composer's; README steps 1–5). ► **9h-2 is next** (Opus, cold, clear).
 - **2026-11-01 (day 46, late evening, Fable, no clear — 9h-1b THE CIRCULAR BUFFER
   built, PC-verified and PASSED by the composer):** rows as a ring, a slot reloads as
   the cursor leaves it, the cursor wraps (RUNNING_LOG 98); the composer on the

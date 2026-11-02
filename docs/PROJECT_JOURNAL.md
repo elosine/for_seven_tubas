@@ -42,7 +42,14 @@ piece #3's `docs/` — registered as an additional working directory.
 - **9h-1b — THE CIRCULAR BUFFER — DONE (day 46, Fable; RUNNING_LOG 98–99).** The
   composer on the installed Tuba part: "the cycle works." The section curves now meet
   the row edges flush (their gap was a renderer habit, fixed in render.js). **NEXT:**
-- **► 9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
+- **9g — THE SERVER — BUILT + PC-VERIFIED (day 46 overnight, Fable; RUNNING_LOG 100):**
+  `server/` on Socket.IO; `tools/test_server.js` 75/75; `tools/chaos_test.js` OK; the
+  stand loads through it. **OPEN: the deploy to the box** — the composer's step
+  (`server/README.md` § The box); the one question: does piece #1's Hetzner box still
+  exist? **► NEXT: 9h-2 — the stand's room client · the floor clock · the follow states**
+  (Opus, cold; CLEAR before). Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
+  `server/protocol.js` (the vocabulary as built) · `stand.html` · `testkit/js/syncclock.js`.
+- **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
   13, 54, 55, 57, 58, 59 — then the code that answers. **The composer starts the
