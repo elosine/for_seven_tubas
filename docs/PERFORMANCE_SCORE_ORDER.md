@@ -302,8 +302,9 @@ that closed ENS in four iterations)*
     server per piece).** → **PLAN A, D103 (late morning): the building moves to
     Tempus.** → **9t THE PORT TO TEMPUS DONE the same day (RUNNING_LOG 107–108, `docs/PORTING.md`;
     deployed by the composer's five lines, the Flute part on the iPad from
-    `scattered-substance.justinwenloyang.com`).** → **9h-2 THE ROOM CLIENT built and PC-verified on Tempus the same afternoon
-    (RUNNING_LOG 109; the composer's check open).** ► **9i is next** (the strip · the
+    `scattered-substance.justinwenloyang.com`).** → **9h-2 THE ROOM CLIENT DONE on Tempus the same afternoon
+    (RUNNING_LOG 109; checked by the composer on the iPad, the laptop and the phone over
+    the box).** ► **9i is next** (the strip · the
     remote · the design sitting). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
@@ -367,6 +368,14 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, late afternoon, Fable, no clear — 9h-2 CHECKED → DONE):** the
+  composer's three-device check over the box — iPad Flute, laptop Bass Cl., the phone
+  as the scripted leader: play · stop · speeds · local play · swipes · the block while
+  playing · jump to 3:55 · AGAIN, all hold. Two fixes from the check (a bare number in
+  the leader's time box is minutes; AGAIN shows where it goes), redeployed by the
+  composer's one line (RUNNING_LOG 109). ► **9i next** — the strip · the remote · the
+  display · the switch · THE DESIGN SITTING (Fable, the composer's eye, the real iPad)
+  where the dot, the corner and the part findings are raised.
 - **2026-11-02 (day 46, afternoon, Fable, no clear — 9h-2 THE STAND'S ROOM CLIENT built
   and PC-verified on Tempus):** `roomclient.js` (hello by token · the kit's floor clock
   fed by pings · the tuple read as a transport · persistence re-verified · the welcome

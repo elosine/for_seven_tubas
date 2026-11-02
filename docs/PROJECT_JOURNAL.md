@@ -59,15 +59,16 @@ piece #3's `docs/` — registered as an additional working directory.
   tracks; battery 75/75 · chaos OK · stand check 7/7. **DEPLOYED and CHECKED** (RUNNING_LOG 108): the composer's
   five lines ran first time — `scattered-substance.justinwenloyang.com`, folder `ss`, PM2
   `ss-server`, port 5301; `Home test` ens-f79ddbed with seven named links; the Flute part
-  on the iPad from the box. **9t DONE.** **9h-2 — THE STAND'S ROOM CLIENT — BUILT + PC-VERIFIED on Tempus** (day 46 afternoon,
-  Fable, no clear; RUNNING_LOG 109; `septet_2026` commit 7ed8734): `notation/lib/roomclient.js`
+  on the iPad from the box. **9t DONE.** **9h-2 — THE STAND'S ROOM CLIENT — DONE on Tempus** (day 46 afternoon,
+  Fable, no clear; RUNNING_LOG 109; `septet_2026` commit 7ed8734 + the leader-page fix): `notation/lib/roomclient.js`
   · `stand.html` opened by `/s/<token>` (the part, the piece and the title from the
   welcome; the follow states; the corner and the dot) · `leader.html` (the scripted
   leader for the check) · `tools/room_check.js` 39/39 (two headless stands 0.0 ms apart
-  on the room's position). **OPEN: the composer's check** — deploy (the septet's
-  later-deploy line), then iPad = Flute, laptop = Bass Cl., phone = `leader.html?token=`
-  the gatekeeper's code: REHEARSAL · JUMP · PLAY · STOP · 70 · AGAIN · the two-finger tap
-  while stopped and while playing. **► NEXT: 9i on Tempus** — the strip · the remote ·
+  on the room's position). **CHECKED by the composer over the box** — iPad = Flute,
+  laptop = Bass Cl., phone = the leader page: play · stop · speeds · local play · swipes
+  · the block while playing · jump to 3:55 · AGAIN, all hold ("jump landed, both at
+  3:55, again works"). Carried to 9i's sitting: the dot's look and meaning, the corner,
+  the composer's part findings. **► NEXT: 9i on Tempus** — the strip · the remote ·
   the display · the switch, and THE DESIGN SITTING (gate E-6) where the composer's part
   findings are raised (Fable, the composer's eye, the real iPad). Read first, only: PLAN
   §9 → 9i · DESIGN §6–§7 · `septet_2026/notation/app/stand.html` (the room block) ·

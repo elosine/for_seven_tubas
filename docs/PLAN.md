@@ -2357,7 +2357,7 @@ while building the real score.
 
 ### P2 — THE STAND
 
-- **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `BUILT + PC-VERIFIED on Tempus 2026-11-02 (day 46 afternoon, Fable, no clear; RUNNING_LOG 109; septet_2026 commit 7ed8734): roomclient.js · stand.html by token · leader.html · room_check 39/39, the two stands 0.0 ms apart. OPEN: the composer's check (iPad + laptop + the phone as the leader)` —
+- **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `DONE 2026-11-02 (day 46 afternoon, Fable, no clear; RUNNING_LOG 109; septet_2026 commit 7ed8734 + the leader-page fix): roomclient.js · stand.html by token · leader.html · room_check 39/39, the two stands 0.0 ms apart. CHECKED by the composer over the box — iPad Flute · laptop Bass Cl. · phone leader: play, stop, speeds, local play, swipes, the block while playing, jump to 3:55, AGAIN. Carried to 9i's sitting: the dot's look, the corner, the part findings` —
   the page opened by a token; `hello`; the floor clock as the timebase for
   `transport.js`; the part view (`renderSection`, `frameParts = [part]`) under
   A2; the states ALONE · REHEARSAL stopped / playing with the follow rules
