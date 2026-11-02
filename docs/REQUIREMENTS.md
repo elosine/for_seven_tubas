@@ -13,7 +13,9 @@
 > version, droppable under pressure) · **COULD** (parked; not in the first build).
 > State: **DECIDED** (ruled, fixed) · **OPEN** (ruled in principle, a detail still
 > owed — says by whom) · **EMPIRICAL** (bound to a measured number; the number is
-> attached, or the gate that will attach it is named).
+> attached, or the gate that will attach it is named) · **SUPERSEDED → AR-N (D###)**
+> (struck where it sits, never deleted; the new line appended; the why in the decision;
+> D102).
 >
 > Status: **FROZEN — composer: "Freeze" (day 45, 2026-10-20) → D97.** Phase 3
 > ARCHITECTURE designs against these IDs. A change from here is an amendment:
@@ -278,10 +280,15 @@
   priorities in order: starts on the fly · after GO zero network · corrections
   invisible and never compounding · rooms self-service · rejoin in seconds · few
   moving parts.
-- **AR-55 · MUST · DECIDED (D88, D89)** — Hetzner, one small VPS, ALL pieces on one
+- ~~**AR-55 · MUST · DECIDED (D88, D89)** — Hetzner, one small VPS, ALL pieces on one
   deployment (a piece = content + a room namespace, e.g. `/tempus`, `/tubas`); one
   deploy script = disaster recovery = hot-spare stand-up; HTTPS (wake lock, PWA,
-  camera-QR); always-on during rehearsal windows; tiny load (~10 clients a room).
+  camera-QR); always-on during rehearsal windows; tiny load (~10 clients a room).~~
+  **SUPERSEDED → AR-72 (D102, day 46 overnight).** The line bundled the composer's D88
+  (one module system; each piece is content — stands) with the AI's hosting verdict in
+  D89 (one deployment for all pieces), which was never discussed on its own. Composer:
+  *"the one single server might be an old decision, one that I wish we would have had
+  the opportunity to revisit."*
 - **AR-56 · MUST · DECIDED (D86, ENS it. 3)** — THE OFFLINE FLOOR: a loaded stand is
   fully functional alone, offline — score cached, local play, marks — with zero
   server.
@@ -343,6 +350,17 @@
   laptop · Fire before any ensemble sees it (as the test kit was).
 - **AR-71 · MUST · DECIDED (D93)** — Every gesture TESTED AND CALIBRATED on every
   platform before the build commits to the mapping. Gate E-1.
+- **AR-72 · MUST · DECIDED (D102; replaces AR-55)** — ONE PROGRAM FOR ALL PIECES, ONE
+  RUNNING SERVER PER PIECE. The box is shared (piece #1's Hetzner VPS: nginx, certbot,
+  PM2, the deploy user); each piece runs its own server from its own repo on its own
+  port, with its own data, registry, admin key, PM2 entry, nginx block and certificate,
+  at its own address: the piece in front of the composer's domain, the title's words
+  lowercase and hyphenated — `bloom-convergence-balance.justinwenloyang.com`. One
+  deploy script per piece = disaster recovery = hot-spare stand-up; HTTPS; always-on
+  during rehearsal windows. The apex `justinwenloyang.com` stays free for the publisher
+  site. *Why:* it is how the composer already works (one repo per piece); deploys and
+  crashes stay inside a piece; no refactor now. *Rejected:* one shared server under a
+  neutral name · the path form `justinwenloyang.com/<piece>` · a publisher domain now.
 
 ---
 

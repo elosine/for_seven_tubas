@@ -3,8 +3,8 @@
 // page of 9n does the same over the same API). The key is read from
 // server/data/admin.key (or ADMIN_KEY, or --key).
 //
-//   node tools/admin.js register tubas "for seven tubas" db1     piece id · title · IR name
-//   node tools/admin.js create "Penn State Tubas" tubas          an ensemble → the links
+//   node tools/admin.js register bcb "Bloom - Convergence - Balance" db1     piece id · title · IR name
+//   node tools/admin.js create "Penn State Tubas" bcb            an ensemble → the links
 //   node tools/admin.js ensembles                                 every ensemble, live counts
 //   node tools/admin.js links <ensembleId>                        the gatekeeper link + every player's
 //   node tools/admin.js leader <ensembleId> <rowId>               tick the leader

@@ -631,3 +631,10 @@ repo; noted so a future clone failure has its answer waiting.
   worker running `renderSection`, the page arriving as a string, parsed at the turn).
   Belongs with the stand's own page turns (9h, one part = a tenth of the page);
   deferred from the workshop page because a page cache there could show a stale page.
+
+- **The piece's title in the registry carries plain hyphens** (`register bcb "Bloom -
+  Convergence - Balance" db1`, README § The box): the title's own em dashes are not
+  typed into a shell line (console code pages mangle them). Fix shape: the admin page
+  (9n) edits the title from a text field; until then the hyphen form shows wherever
+  the piece title is printed (the ensemble page, the welcome). Filed day 46 overnight
+  (RUNNING_LOG 103).

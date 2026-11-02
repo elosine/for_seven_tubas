@@ -208,6 +208,16 @@ decisions."*
 - **Decisions already ruled (the D-numbers) are not re-asked.** Ordering, sequencing
   and folding inside an approved plan is the AI's call, recorded with the why. Only a
   NEW question goes to the composer — in plain words, one at a time.
+  **The one exception (day 46 overnight, D102 — the composer: *"we have to be better
+  about sorting out old rules and new rules … I don't want to get trapped in a rule
+  structure that no longer applies"*):** a decided line is RE-OPENED, and named to the
+  composer, when building on it makes something permanent or public — a name, a link, a
+  handout, a file format — or when a newer decision touches it. Say which line, what it
+  would fix in place, and the alternatives; then build on the answer. A superseded line
+  is struck where it sits and marked `SUPERSEDED → AR-N (D###)`, never deleted. The
+  case that taught it: AR-55 carried an AI verdict from day 42 forward as if it were the
+  composer's, and the AI built to it the night it was about to become a public address
+  (RUNNING_LOG 101–103).
 - The rule on confidence claims (§3 above) stands: what is claimed is verified — once.
 - **The servers are the composer's to start and stop** (CLAUDE.md § Apps): the AI gives
   the documented lines and links and does not run them to "test" them.

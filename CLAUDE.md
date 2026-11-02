@@ -104,7 +104,7 @@ lines and links, copied from here, and don't test them by running servers.
 |---|---|
 | Score server | `node C:\Users\jwloy\GitHub\for_seven_tubas\score\server.js` |
 | Kit server | `node C:\Users\jwloy\GitHub\for_seven_tubas\testkit\server.js` |
-| Stand server (9g) | `node C:\Users\jwloy\GitHub\for_seven_tubas\server\server.js` → `http://localhost:5300/` · admin line `node C:\Users\jwloy\GitHub\for_seven_tubas\tools\admin.js` · `server/README.md` |
+| Stand server (9g) | `node C:\Users\jwloy\GitHub\for_seven_tubas\server\server.js` → `http://localhost:5300/` · admin line `node C:\Users\jwloy\GitHub\for_seven_tubas\tools\admin.js` · on the box: `https://bloom-convergence-balance.justinwenloyang.com` (one running server per piece, D102; the deploy lines: `server/README.md` § The box) |
 
 | Page | On the PC | On the iPad / Fire (same Wi-Fi) |
 |---|---|---|

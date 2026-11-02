@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # deploy.sh — the one deploy script = disaster recovery = hot-spare stand-up
-# (DESIGN §9; AR-55). Run ON THE BOX from the repository root:
+# (DESIGN §9; AR-72, was AR-55 — one running server per piece, D102). Run ON THE BOX
+# from this piece's folder (/home/deploy/bcb):
 #
 #     bash server/deploy.sh
 #
@@ -16,8 +17,8 @@ echo "== install (production dependencies only)"
 npm ci --omit=dev
 
 echo "== restart"
-if pm2 describe stand-server >/dev/null 2>&1; then
-  pm2 restart stand-server --update-env
+if pm2 describe bcb-server >/dev/null 2>&1; then
+  pm2 restart bcb-server --update-env
 else
   pm2 start server/ecosystem.config.js
 fi
@@ -34,5 +35,5 @@ for i in 1 2 3 4 5 6 7 8 9 10; do
   sleep 1
 done
 echo "!! /health did not answer on port ${PORT}"
-pm2 logs stand-server --lines 30 --nostream
+pm2 logs bcb-server --lines 30 --nostream
 exit 1

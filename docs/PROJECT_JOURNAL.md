@@ -45,9 +45,9 @@ piece #3's `docs/` — registered as an additional working directory.
 - **9g — THE SERVER — BUILT + PC-VERIFIED (day 46 overnight, Fable; RUNNING_LOG 100):**
   `server/` on Socket.IO; `tools/test_server.js` 75/75; `tools/chaos_test.js` OK; the
   stand loads through it. **OPEN: the deploy to the box** — the composer's five lines
-  (`server/README.md` § The box; the quartet's box, shared; the subdomain's NAME
-  PENDING the composer's word — piece-neutral per AR-55, `tubas` withdrawn, RUNNING_LOG
-  102; the lines: RUNNING_LOG 101). **The public face** is now a standing principle
+  (`server/README.md` § The box; the quartet's box, shared; the address
+  `bloom-convergence-balance.justinwenloyang.com` — one running server per piece, D102,
+  AR-72 replaces AR-55; RUNNING_LOG 102–103; the lines rewritten for the name). **The public face** is now a standing principle
   (PLAN §9 header): every player-visible surface is finished work, reviewed by the
   composer's eye before the first handout. The AI cannot read or touch the box
   from a session (production reads are refused) — give lines, never run them. **► NEXT: 9h-2 — the stand's room client · the floor clock · the follow states**
@@ -498,6 +498,22 @@ instruction. The instructions are the four reference blocks that follow.*
   stays in the kit as the slow-device probe (what dropping frames looks like);
   nothing is tuned for it; the composer's checks are the iPad and the laptop.
   AR-23 and AR-50 amended (REQUIREMENTS, frozen → amendment lines).
+- **D102** *(2026-11-02, day 46 overnight)* — **ONE PROGRAM FOR ALL PIECES, ONE RUNNING
+  SERVER PER PIECE; the piece in front of the domain; the title's words, hyphenated.**
+  Composer: *"a if that is the recommendation"*, after *"the one single server might be
+  an old decision, one that I wish we would have had the opportunity to revisit."*
+  AR-55 had bundled D88 (the composer's: one module system, each piece is content —
+  stands) with D89's hosting verdict (the AI's: all pieces on one deployment — struck,
+  → AR-72). Each piece: its own repo, process, port, data, registry, admin key, PM2
+  entry, nginx block, certificate and address on the shared Hetzner box. Address form
+  A, `<title-words-hyphenated>.justinwenloyang.com`; this piece
+  `bloom-convergence-balance.justinwenloyang.com` (PM2 `bcb-server`, folder `bcb`,
+  port 5300); the apex stays free for the publisher site the composer intends later.
+  *Rejected:* one shared server under a neutral name · the path form
+  `justinwenloyang.com/<piece>` · a publisher domain now. **With it, the rule on old
+  rules** (AI_METHODOLOGY addendum): a DECIDED line is re-opened, and named to the
+  composer, when building on it makes something permanent or public, or when a newer
+  decision touches it; REQUIREMENTS gains the state SUPERSEDED. RUNNING_LOG 102–103.
 - **D101** *(2026-11-01, day 46)* — **THE CIRCULAR BUFFER: rows reload as the cursor
   leaves them; the cursor wraps to the top.** Composer: *"b"*, on the data (the
   string quartet's own parts mode, built and checked, rows of 8 s; 8 of 19

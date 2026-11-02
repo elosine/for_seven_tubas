@@ -220,6 +220,12 @@ swipe vocabulary, vertical swipes for the lines that do not fit.
 - As piece #1 ran: Node + PM2 behind nginx with Let's Encrypt on the Hetzner VPS;
   `node_modules` never in git (the April incident); one `deploy.sh` (pull → install
   → restart → health check); `/health`.
+- **One running server per piece (D102; AR-72, was AR-55).** The box is shared; each
+  piece runs its own process from its own repo on its own port, with its own data,
+  registry, admin key, PM2 entry, nginx block and certificate, at
+  `<title-words-hyphenated>.justinwenloyang.com`. This piece:
+  `bloom-convergence-balance.justinwenloyang.com`, PM2 `bcb-server`, port 5300. The
+  apex `justinwenloyang.com` stays free for the publisher site. `server/README.md` § The box.
 - **The spare** = the same repository run on a laptop (`node server.js --spare`):
   it serves the stand page and the piece content from disk, accepts the ensemble's
   tokens from a registry snapshot the leader downloads to the laptop at sound check
