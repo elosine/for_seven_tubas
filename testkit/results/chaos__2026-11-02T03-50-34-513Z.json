@@ -1,0 +1,65 @@
+{
+ "n": 12,
+ "steps": [
+  {
+   "step": "joined",
+   "stands": 12,
+   "offsetsMs": [
+    1793591424754.54,
+    1793591424754.55,
+    1793591424754.59,
+    1793591424754.51,
+    1793591424754.52,
+    1793591424754.52,
+    1793591424754.52,
+    1793591424754.52,
+    1793591424754.52,
+    1793591424754.51,
+    1793591424754.54,
+    1793591424754.53
+   ],
+   "rttMs": 0.44
+  },
+  {
+   "step": "playing",
+   "tuple": "1|1793591428494.635|100|1|true",
+   "spreadMs": 0.07,
+   "positionS": 100.713
+  },
+  {
+   "step": "stand killed + rejoined",
+   "rejoinMs": 30,
+   "sameTuple": true,
+   "spreadMs": 0.07
+  },
+  {
+   "step": "server killed + restarted",
+   "downMs": 1627,
+   "allBack": true,
+   "reconnectMsAfterUp": [
+    739,
+    783,
+    974,
+    869,
+    736,
+    740,
+    812,
+    810,
+    840,
+    739,
+    786,
+    843
+   ],
+   "tupleIdentical": true,
+   "spreadMs": 0.04,
+   "positionS": 105.701,
+   "spreadWhileDownMs": 0.07
+  },
+  {
+   "step": "stopped",
+   "everyone": true,
+   "at": 105.701
+  }
+ ],
+ "ok": true
+}

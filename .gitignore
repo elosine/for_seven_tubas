@@ -55,3 +55,6 @@ print/score/*.pdf
 print/score/*.__print.html
 # day 40: demo-video build outputs (mp4s already covered; tmp/ pngs+font+intermediates)
 notation/video/renders/demos/
+
+# The performance server (9g): the registry, marks and the admin key live here, never in git
+server/data/

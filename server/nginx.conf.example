@@ -1,0 +1,25 @@
+# nginx site for the stand server (DESIGN §9; AR-55). Copy to
+# /etc/nginx/sites-available/stand, link into sites-enabled, then
+# `certbot --nginx -d stand.example.org` adds the HTTPS block and the redirect.
+#
+# The WebSocket upgrade headers are the part that matters: without them
+# Socket.IO's connection never upgrades and every stand fails to join.
+
+server {
+    listen 80;
+    server_name stand.example.org;   # <- the real host name
+
+    client_max_body_size 2m;
+
+    location / {
+        proxy_pass http://127.0.0.1:5300;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 3600s;    # a rehearsal is long; never cut an idle socket
+        proxy_send_timeout 3600s;
+    }
+}
