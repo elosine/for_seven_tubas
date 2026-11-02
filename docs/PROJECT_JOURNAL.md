@@ -77,10 +77,12 @@ piece #3's `docs/` — registered as an additional working directory.
   from the remote, the big corner) · the 5-s pre-roll on every jump and on TOP (the
   corner counts down) · `node tools/admin.js letters ss A=1:00 …` and `leader <ens>
   Flute` · `tools/strip_check.js` THE TUESDAY 60/60 (the thirteen from the leader's
-  strip on three headless stands, the remote and the display; the stands 0.56 ms apart).
-  **OPEN: the composer's check** — deploy · tick the Flute as leader · set test letters ·
-  iPad = the Flute icon (the band above the part) · phone = the remote by its QR · PC =
-  the display link. **► NEXT: THE DESIGN SITTING (gate E-6) on Tempus** — Fable, the
+  strip on three headless stands, the remote and the display; the stands 0.56 ms apart;
+  66/66 after the composer's look). **CHECKED by the composer** on the iPad (the band),
+  the phone (the remote), the PC (the display) and the laptop (a player) — "all working
+  now" — after two display faults they found (every click zoomed the flute; "show the
+  score here" forgot the chosen part) were fixed and clicked for real in the check.
+  **► NOW: THE DESIGN SITTING (gate E-6) on Tempus** — Fable, the
   composer's eye, the real iPad: the band's look · the corner · AGAIN's rule (the last
   jump) · the top's countdown · the display's size · the dot · the composer's part
   findings. Read first, only: PLAN §9 → 9i · RUNNING_LOG 110 ("carried to the design

@@ -370,6 +370,13 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, evening, Fable, no clear — 9i CHECKED by the composer):** the
+  band on the iPad, the remote on the phone, the display on the PC, the laptop as a
+  player — "all working now", after two display faults the composer found (every click
+  zoomed the flute; "show the score here" forgot the chosen part) were fixed and the
+  check learned to click for real (66/66; RUNNING_LOG 110). ► **THE DESIGN SITTING
+  (gate E-6) now** — the composer's eye on the real iPad: their part findings first,
+  then the band, the corner and the dot, AGAIN and the countdown, the display.
 - **2026-11-02 (day 46, evening, Fable, no clear — 9i THE STRIP · THE REMOTE · THE
   DISPLAY · THE SWITCH built and PC-verified on Tempus):** `strip.js` (one set of
   buttons, two layouts), the band above the ticked leader's part, `remote.html` on the
