@@ -638,3 +638,6 @@ repo; noted so a future clone failure has its answer waiting.
   (9n) edits the title from a text field; until then the hyphen form shows wherever
   the piece title is printed (the ensemble page, the welcome). Filed day 46 overnight
   (RUNNING_LOG 103).
+- **9i (day 46):** AGAIN's "last jump" lives on the device that pressed it — a jump from the phone's remote and AGAIN from the iPad's strip would disagree. If the sitting wants one memory for the room, the tuple carries `lastStart` (a small server change).
+- **9i (day 46):** `remote.html` has no web manifest — "Add to Home Screen" works through the Apple metas; the icon, the title and the Players list behind a button are 9n's.
+- **9i (day 46):** the strip is one row that scrolls sideways on a narrow screen (the iPad in portrait); the sitting decides whether it wraps or thins.

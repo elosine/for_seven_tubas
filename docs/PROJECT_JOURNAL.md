@@ -68,13 +68,24 @@ piece #3's `docs/` — registered as an additional working directory.
   laptop = Bass Cl., phone = the leader page: play · stop · speeds · local play · swipes
   · the block while playing · jump to 3:55 · AGAIN, all hold ("jump landed, both at
   3:55, again works"). Carried to 9i's sitting: the dot's look and meaning, the corner,
-  the composer's part findings. **► NEXT: 9i on Tempus** — the strip · the remote ·
-  the display · the switch, and THE DESIGN SITTING (gate E-6) where the composer's part
-  findings are raised (Fable, the composer's eye, the real iPad). Read first, only: PLAN
-  §9 → 9i · DESIGN §6–§7 · `septet_2026/notation/app/stand.html` (the room block) ·
-  `septet_2026/notation/app/leader.html` (what the strip replaces) ·
-  `septet_2026/notation/lib/roomclient.js`. The code goes into `septet_2026`; the record
-  stays here.
+  the composer's part findings. **9i — THE STRIP · THE REMOTE · THE DISPLAY · THE
+  SWITCH — BUILT + PC-VERIFIED on Tempus** (day 46 evening, Fable, no clear; RUNNING_LOG
+  110): `notation/lib/strip.js` (one set of buttons, two layouts) · the strip above the
+  ticked leader's part, the tick live from the roster · `remote.html` on the gatekeeper's
+  link (the same controls full screen, the display's part buttons, "show the score here")
+  · the display (`?view=display`: the full score, one system a screen, zoom by tap or
+  from the remote, the big corner) · the 5-s pre-roll on every jump and on TOP (the
+  corner counts down) · `node tools/admin.js letters ss A=1:00 …` and `leader <ens>
+  Flute` · `tools/strip_check.js` THE TUESDAY 60/60 (the thirteen from the leader's
+  strip on three headless stands, the remote and the display; the stands 0.56 ms apart).
+  **OPEN: the composer's check** — deploy · tick the Flute as leader · set test letters ·
+  iPad = the Flute icon (the band above the part) · phone = the remote by its QR · PC =
+  the display link. **► NEXT: THE DESIGN SITTING (gate E-6) on Tempus** — Fable, the
+  composer's eye, the real iPad: the band's look · the corner · AGAIN's rule (the last
+  jump) · the top's countdown · the display's size · the dot · the composer's part
+  findings. Read first, only: PLAN §9 → 9i · RUNNING_LOG 110 ("carried to the design
+  sitting") · `septet_2026/notation/lib/strip.js` · `septet_2026/notation/app/stand.html`
+  (the strip and display blocks). The code goes into `septet_2026`; the record stays here.
 - **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,

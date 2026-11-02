@@ -2445,7 +2445,7 @@ while building the real score.
   the busiest minute: the cursor runs down and wraps; the next music is always there
   above; nothing jumps or flickers at a reload.
 - **9i — The strip · the remote · the display · the switch — and THE DESIGN
-  SITTING (gate E-6)** — `todo` — the leader's strip above the part (play/stop ·
+  SITTING (gate E-6)** — `BUILT + PC-VERIFIED on Tempus 2026-11-02 (day 46 evening, Fable, no clear; RUNNING_LOG 110): notation/lib/strip.js (one set of buttons, two layouts) · the strip above the ticked leader's part · remote.html on the gatekeeper's link · the display (?view=display: the full score, zoom by tap or from the remote) · the 5-s pre-roll on every jump and the top · tools/strip_check.js THE TUESDAY 60/60. OPEN: the composer's check, then THE DESIGN SITTING` — the leader's strip above the part (play/stop ·
   again · letters · speeds · time box · position · ready count · the three-way
   switch; stays on play, greys to STOP + RESYNC + position); the remote as the
   same controls full-screen + the part-zoom buttons + "show the score here"; the

@@ -304,8 +304,10 @@ that closed ENS in four iterations)*
     deployed by the composer's five lines, the Flute part on the iPad from
     `scattered-substance.justinwenloyang.com`).** → **9h-2 THE ROOM CLIENT DONE on Tempus the same afternoon
     (RUNNING_LOG 109; checked by the composer on the iPad, the laptop and the phone over
-    the box).** ► **9i is next** (the strip · the
-    remote · the design sitting). — `notation/app/stand.html`: home-screen installable (full
+    the box).** → **9i THE STRIP · THE REMOTE · THE DISPLAY built and PC-verified the same
+    evening (RUNNING_LOG 110; the Tuesday's thirteen 60/60 from the leader's strip).**
+    ► **9i's check and THE DESIGN SITTING are next** (the composer's eye, the real
+    iPad; the part findings raised there). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -368,6 +370,16 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, evening, Fable, no clear — 9i THE STRIP · THE REMOTE · THE
+  DISPLAY · THE SWITCH built and PC-verified on Tempus):** `strip.js` (one set of
+  buttons, two layouts), the band above the ticked leader's part, `remote.html` on the
+  gatekeeper's link, the display (the full score, zoom by tap or from the remote), the
+  5-s pre-roll on every jump and the top, the letters by an admin line;
+  `tools/strip_check.js` THE TUESDAY, all thirteen, 60/60 — three headless stands 0.56 ms
+  apart, AGAIN back to the last jump, the pianist's own play never touching the room,
+  RESYNC live (RUNNING_LOG 110). Open: the composer's check on the three devices. ►
+  **THE DESIGN SITTING next** (Fable, the composer's eye, the real iPad — the band, the
+  corner, AGAIN, the countdown, the display, the dot, the part findings).
 - **2026-11-02 (day 46, late afternoon, Fable, no clear — 9h-2 CHECKED → DONE):** the
   composer's three-device check over the box — iPad Flute, laptop Bass Cl., the phone
   as the scripted leader: play · stop · speeds · local play · swipes · the block while
