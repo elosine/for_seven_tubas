@@ -96,7 +96,7 @@ Copy `server/` whole, `tools/admin.js`, `tools/test_server.js`, `tools/chaos_tes
 Rename, one piece = one running server (D102): `server.js` default port (5301 for the
 septet; the next piece 5302), `ecosystem.config.js` name + PORT, `deploy.sh` name +
 folder + port, `server/README.md` § The box (address, folder, PM2 name, nginx site,
-piece id, the admin lines), `tools/admin.js` examples + default port.
+piece id, the admin lines, **and the clone URL** — missed on the first run, caught before the composer ran it), `tools/admin.js` examples + default port.
 
 **Part names:** `registry.js` `registerPiece` reads them from the score file the IR
 points at (`scores/<source.score>.json` → `tracks[i].name`), falling back to
