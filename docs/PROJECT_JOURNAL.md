@@ -51,15 +51,21 @@ piece #3's `docs/` — registered as an additional working directory.
   AR-72 replaces AR-55; RUNNING_LOG 102–103; the lines rewritten for the name). **The public face** is now a standing principle
   (PLAN §9 header): every player-visible surface is finished work, reviewed by the
   composer's eye before the first handout. The AI cannot read or touch the box
-  from a session (production reads are refused) — give lines, never run them. **► NEXT: 9t — THE PORT TO TEMPUS** (plan A, D103). **Fable first** (the renderer
-  question: the septet's larger notation fork vs the stand's needs; decide the smallest
-  change; prove the film unchanged), **then Opus** for the copying from the recipe.
-  CLEAR before. **The session runs HERE with `C:\Users\jwloy\GitHub\septet_2026` added
-  as a working directory.** Read first, only: `docs/PORT_TO_TEMPUS.md` (whole) — it
-  names everything else. The recipe goes to `docs/PORTING.md` as the work happens. The
-  record stays in this repo; the septet's journal gets one pointer line. **Then** 9h-2
-  on Tempus (Opus, cold, clear): the page opened by a token; the floor clock; the follow
-  states — DESIGN §3–§6 · `server/protocol.js` · `stand.html` · `testkit/js/syncclock.js`.
+  from a session (production reads are refused) — give lines, never run them. **9t — THE PORT TO TEMPUS — BUILT + PC-VERIFIED** (day 46 midday, Fable, no clear;
+  RUNNING_LOG 107; the recipe `docs/PORTING.md`; `septet_2026` commit 2f2a8f6, pushed).
+  The septet's library was ours at 752b886 plus their print work; three files took the
+  stand's changes and the seven film pages stayed byte-identical; the stand reads the
+  septet's ensemble registry (clefs, grand staff, labels); part names from the score's
+  tracks; battery 75/75 · chaos OK · stand check 7/7. **OPEN: the box** — the composer's
+  five lines (`septet_2026/server/README.md` § The box: `scattered-substance.justinwenloyang.com`,
+  folder `ss`, PM2 `ss-server`, port 5301, nginx site `ss`, piece id `ss`), then the
+  Flute QR on the iPad (the walk-through, RUNNING_LOG 104). **► NEXT: 9h-2 on Tempus**
+  — the page opened by a token (its own part, the title from the server); the floor
+  clock; the follow states. Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
+  `septet_2026/server/protocol.js` · `septet_2026/notation/app/stand.html` ·
+  `septet_2026/testkit/js/syncclock.js`. The code goes into `septet_2026` (a working
+  directory of the session); the record stays here. Opus, cold, clear before — or here
+  without a clear, the composer's call (day 46: "move forward here until further notice").
 - **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,

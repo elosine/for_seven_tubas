@@ -300,8 +300,9 @@ that closed ENS in four iterations)*
     (RUNNING_LOG 100–104: the composer's five lines on the box; the part page on the iPad
     over HTTPS through `bloom-convergence-balance.justinwenloyang.com`; D102 one running
     server per piece).** → **PLAN A, D103 (late morning): the building moves to
-    Tempus.** ► **9t THE PORT TO TEMPUS is next** (Fable for the renderer question, then
-    Opus; clear; `docs/PORT_TO_TEMPUS.md`); 9h-2 follows, on Tempus. — `notation/app/stand.html`: home-screen installable (full
+    Tempus.** → **9t THE PORT TO TEMPUS built and PC-verified the same midday (RUNNING_LOG 107,
+    `docs/PORTING.md`; the box open, the composer's five lines).** ► **9h-2 on Tempus is
+    next.** — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -364,6 +365,15 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, midday, Fable, no clear — 9t THE PORT TO TEMPUS built and
+  PC-verified):** the septet's library was ours at 752b886 plus their print work;
+  three files took the stand's changes (gc.js by patch, render.js behind
+  `opts.flushCurves`), the seven film pages byte-identical before and after; the
+  stand reads the septet's ensemble registry (treble · grand staff · alto; "Fl" ·
+  "Pno" · "Va"); part names from the score's tracks; battery 75/75 · chaos OK · stand
+  check 7/7 in `septet_2026` (commit 2f2a8f6). The recipe: `docs/PORTING.md`
+  (RUNNING_LOG 107). Open: the box, the composer's five lines. ► **9h-2 on Tempus
+  is next** (Opus, cold, clear — or here, the composer's call).
 - **2026-11-02 (day 46, late morning, Fable, planning — PLAN A, D103):** the building
   moves to Tempus. New chunks 9t THE PORT TO TEMPUS (first; brief
   `docs/PORT_TO_TEMPUS.md`; the renderer question on Fable, the copying on Opus; the

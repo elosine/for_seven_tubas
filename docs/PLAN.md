@@ -2335,7 +2335,11 @@ while building the real score.
 
 ### P1b — THE PORT TO TEMPUS (plan A, D103 — the building moves to Tempus from here)
 
-- **9t — THE PORT TO TEMPUS** — `todo` — **the brief: `docs/PORT_TO_TEMPUS.md`** (read
+- **9t — THE PORT TO TEMPUS** — `BUILT + PC-VERIFIED 2026-11-02 (day 46 midday, Fable, no
+  clear; RUNNING_LOG 107; the recipe docs/PORTING.md; septet_2026 commit 2f2a8f6): the film
+  byte-identical, the ensemble registry read, battery 75/75 · chaos OK · stand check 7/7.
+  OPEN: the box — the composer's five lines (septet_2026/server/README.md § The box), then
+  the Flute QR on the iPad` — **the brief: `docs/PORT_TO_TEMPUS.md`** (read
   it whole, then only what it names). Tempus (`septet_2026`, "Scattered Substance", 7
   parts, its score already in the stand's format) gets the stand page, the overlay and
   the server, and its own server on the box at
