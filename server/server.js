@@ -103,6 +103,14 @@ function ipOf(req) {
   if (TRUST_PROXY && req.headers['x-forwarded-for']) return String(req.headers['x-forwarded-for']).split(',')[0].trim();
   return req.socket.remoteAddress || 'unknown';
 }
+// The origin the links are printed with: PUBLIC_ORIGIN if set, else the request's
+// own host — behind nginx (TRUST_PROXY) with its forwarded scheme, so the box
+// needs no domain setting at all.
+function originOf(headers) {
+  if (ORIGIN) return ORIGIN;
+  const proto = (TRUST_PROXY && headers['x-forwarded-proto']) || 'http';
+  return proto + '://' + (headers.host || ('localhost:' + PORT));
+}
 function lanUrls() {
   const out = [];
   for (const list of Object.values(os.networkInterfaces())) {
@@ -155,7 +163,7 @@ async function admin(req, res, u) {
   if (!key || key.length !== ADMIN_KEY.length || !crypto.timingSafeEqual(Buffer.from(key), Buffer.from(ADMIN_KEY))) return send(res, 401, { ok: false, error: 'admin key' });
   const op = u.pathname.slice('/admin/'.length);
   const body = req.method === 'POST' ? JSON.parse((await readBody(req, 1048576)) || '{}') : {};
-  const origin = ORIGIN || ('http://' + (req.headers.host || ('localhost:' + PORT)));
+  const origin = originOf(req.headers);
   try {
     if (op === 'piece.register' && req.method === 'POST') return send(res, 200, { ok: true, piece: registry.registerPiece(body) });
     if (op === 'ensemble.create' && req.method === 'POST') return send(res, 200, { ok: true, ensemble: registry.gatekeeperView(registry.createEnsemble(body), origin) });
@@ -246,7 +254,7 @@ const rooms = makeRooms(registry, {
   onModeFallback: ensId => { log('REHEARSAL → ALONE after ' + Math.round(IDLE_MS / 60000) + ' empty minutes: ' + ensId); io.to('ens:' + ensId).emit('mode', { mode: 'ALONE', roomState: null, serverTime: clock.now() }); },
 });
 attachProtocol(io, {
-  registry, rooms, marks, log, spare: !!SPARE, trustProxy: TRUST_PROXY, origin: ORIGIN,
+  registry, rooms, marks, log, spare: !!SPARE, trustProxy: TRUST_PROXY, originOf,
   limiters: { hello: makeLimiter({ burst: 20, perMin: 30 }), sectional: makeLimiter({ burst: 10, perMin: 10 }) },
 });
 

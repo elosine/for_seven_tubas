@@ -99,7 +99,7 @@ function attachProtocol(io, ctx) {
         rooms: rooms.roomsList(ens.id), roster: rosterOf(ens.id), letters: P ? P.letters : [],
         serverTime: clock.now(), spare: !!ctx.spare,
       };
-      if (me.role === 'gatekeeper') welcome.rows = registry.gatekeeperView(ens, ctx.origin).rows;
+      if (me.role === 'gatekeeper') welcome.rows = registry.gatekeeperView(ens, ctx.originOf(socket.handshake.headers)).rows;
       socket.emit('welcome', welcome);
       ok(cb, welcome);
       broadcastRoster(ens.id);
@@ -246,12 +246,12 @@ function attachProtocol(io, ctx) {
       if (!requireHello(cb, 'parts.set') || !gatekeeperOnly(cb, 'parts.set')) return;
       try { registry.setParts(me.ensId, msg && msg.rows); } catch (e) { return refuse(cb, 'parts.set', e.message); }
       broadcastRoster(me.ensId);
-      ok(cb, registry.gatekeeperView(ensOf(), ctx.origin));
+      ok(cb, registry.gatekeeperView(ensOf(), ctx.originOf(socket.handshake.headers)));
     });
     socket.on('row.add', (msg, cb) => {
       if (!requireHello(cb, 'row.add') || !gatekeeperOnly(cb, 'row.add')) return;
       try { registry.addRow(me.ensId, msg && msg.partIndex); } catch (e) { return refuse(cb, 'row.add', e.message); }
-      ok(cb, registry.gatekeeperView(ensOf(), ctx.origin));
+      ok(cb, registry.gatekeeperView(ensOf(), ctx.originOf(socket.handshake.headers)));
     });
     socket.on('token.reissue', (msg, cb) => {
       if (!requireHello(cb, 'token.reissue') || !gatekeeperOnly(cb, 'token.reissue')) return;
@@ -265,7 +265,7 @@ function attachProtocol(io, ctx) {
         }
       }
       if (which === 'gatekeeper') me.token = ensOf().gatekeeper;
-      ok(cb, registry.gatekeeperView(ensOf(), ctx.origin));
+      ok(cb, registry.gatekeeperView(ensOf(), ctx.originOf(socket.handshake.headers)));
     });
     socket.on('snapshot', (_msg, cb) => {
       if (!requireHello(cb, 'snapshot') || !gatekeeperOnly(cb, 'snapshot')) return;

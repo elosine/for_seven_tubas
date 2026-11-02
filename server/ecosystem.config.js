@@ -4,9 +4,10 @@ module.exports = {
     name: 'stand-server',
     script: 'server/server.js',
     cwd: __dirname + '/..',
-    env: { NODE_ENV: 'production', PORT: 5300 },
-    // ADMIN_KEY: set it in the shell that starts PM2, or let the server generate
-    // one into server/data/admin.key on first start (printed once to the log).
+    // TRUST_PROXY: behind nginx, read the real address and scheme from the
+    // forwarded headers (the rate limiter, the printed links). The admin key is
+    // generated into server/data/admin.key on first start.
+    env: { NODE_ENV: 'production', PORT: 5300, TRUST_PROXY: '1' },
     max_memory_restart: '300M',
     autorestart: true,
     restart_delay: 1000,
