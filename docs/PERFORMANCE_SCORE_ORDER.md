@@ -299,8 +299,9 @@ that closed ENS in four iterations)*
     works"; the curves' gap at the row edges fixed)**. → **9g THE SERVER built, PC-verified, and the next morning DEPLOYED and CHECKED
     (RUNNING_LOG 100–104: the composer's five lines on the box; the part page on the iPad
     over HTTPS through `bloom-convergence-balance.justinwenloyang.com`; D102 one running
-    server per piece).** ► **9h-2
-    THE STAND'S ROOM CLIENT is next** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
+    server per piece).** → **PLAN A, D103 (late morning): the building moves to
+    Tempus.** ► **9t THE PORT TO TEMPUS is next** (Fable for the renderer question, then
+    Opus; clear; `docs/PORT_TO_TEMPUS.md`); 9h-2 follows, on Tempus. — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -363,6 +364,13 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 (day 46, late morning, Fable, planning — PLAN A, D103):** the building
+  moves to Tempus. New chunks 9t THE PORT TO TEMPUS (first; brief
+  `docs/PORT_TO_TEMPUS.md`; the renderer question on Fable, the copying on Opus; the
+  recipe `docs/PORTING.md` written as it is done) and 9q THE PORT BACK + THE PORTING
+  STRUCTURE (last). 9h-2 … 9p on Tempus. Plan B's trigger named. The composer's part
+  findings wait for 9i's sitting unless blocking. ► **9t is next** (Fable, then Opus;
+  clear; the session here with `septet_2026` added as a working directory).
 - **2026-11-02 (day 46, morning, Fable, no clear — 9g DEPLOYED and CHECKED; D102):**
   the composer's five lines, every one first time: the A record, clone + PM2
   `bcb-server` beside the quartet's, nginx + certbot, `/health` through

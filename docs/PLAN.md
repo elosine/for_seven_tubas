@@ -2199,6 +2199,13 @@ while building the real score.
 > address — the title's words, lowercase and hyphenated, in front of the composer's
 > domain (D102, AR-72). The list, with where each is fixed: RUNNING_LOG 102–103.
 >
+> **RE-CUT day 46, late morning — PLAN A (D103): the building moves to Tempus.** 9t THE
+> PORT TO TEMPUS comes first (P1b below; brief `docs/PORT_TO_TEMPUS.md`); 9h-2 … 9p are
+> built in `septet_2026`; 9q THE PORT BACK + THE PORTING STRUCTURE closes the arc. The
+> sessions run in this repo with `septet_2026` added as a working directory; the record
+> stays here. Plan B (the composer's, if the Tempus date presses): port + 9h-2 + a
+> minimal leader page + the instructions → handout; the rest after.
+>
 > **Size, stated once:** sixteen chunks. At one chunk per sitting ≈ three weeks of
 > daily sittings. The Tempus date the composer gave (parts "first week of
 > November") is awareness only; the order does not bend to it.
@@ -2326,6 +2333,24 @@ while building the real score.
   deployed to the box, `/health` green. **CHECK:** none at the device yet (the
   admin page comes in 9n); the composer sees the chaos-test numbers.
 
+### P1b — THE PORT TO TEMPUS (plan A, D103 — the building moves to Tempus from here)
+
+- **9t — THE PORT TO TEMPUS** — `todo` — **the brief: `docs/PORT_TO_TEMPUS.md`** (read
+  it whole, then only what it names). Tempus (`septet_2026`, "Scattered Substance", 7
+  parts, its score already in the stand's format) gets the stand page, the overlay and
+  the server, and its own server on the box at
+  `scattered-substance.justinwenloyang.com` (D102; PM2 `ss-server`, port 5301). **The
+  renderer question first, on Fable:** the septet's notation library is the larger fork
+  and carries the print score's rules; the stand must draw Tempus with Tempus's
+  renderer — find the smallest change that gives the stand its API and prove the film
+  unchanged (the septet's dump check). Then the copying on Opus from the recipe. **The
+  recipe is written as it is done: `docs/PORTING.md`** — the first run of the porting
+  procedure 9q makes standard. **VERIFY:** the battery and the chaos test green in the
+  septet repo; the seams of Tempus's rows looked at by the AI. **CHECK:** the composer
+  scans a QR and a Tempus part opens full screen on the iPad from the box, the rows
+  cycling, the cursor playing. **Plan B's trigger lives here:** if the renderer
+  question looks like more than one sitting, stop and say so.
+
 ### P2 — THE STAND
 
 - **9h-2 — The stand: room client · the floor clock · the follow states (on 9h-1's page; 9c's calibration across sleeps and 9f's auto-join fold in here)** — `todo` —
@@ -2422,7 +2447,10 @@ while building the real score.
   same controls full-screen + the part-zoom buttons + "show the score here"; the
   display role; RESYNC. AR-6, 9, 30, 31, 32, 46. **The design sitting (Fable, the
   composer's eye, the real iPad):** the part at several sizes · the strip's height
-  and transparency · the menu's look — the composer picks (AR-20, 27, 30).
+  and transparency · the menu's look — the composer picks (AR-20, 27, 30). **The
+  composer's part findings are raised IN this sitting, on Tempus's part, not as they
+  come** (day 46: "I prefer to do the part fixing in the same focused session"), unless
+  one blocks playing.
   **VERIFY:** the Tuesday's thirteen steps scripted as a headless scenario — all
   hold. **CHECK:** the composer as leader on the iPad, the laptop and Fire as
   players: a letter, play, slower, again, stop; the big display on the desktop.
@@ -2486,6 +2514,18 @@ while building the real score.
   restart → a reissue. **VERIFY:** the kit's numbers held on every device during
   the run (the dot's readiness log). **CHECK:** = the chunk. **Done = the Tempus
   handout goes out.**
+
+- **9q — THE PORT BACK TO THE TUBAS, AND THE PORTING STRUCTURE MADE STANDARD** —
+  `todo` — after the Tempus handout. The finished system comes back to
+  `for_seven_tubas` by the recipe (`docs/PORTING.md`, two runs old by then); the recipe
+  becomes the standard: how a piece is converted and made performance-ready, in order,
+  and **how a fix reaches every piece already ported** (the composer, day 46: "report
+  and disseminate any fixes or errors we find throughout the whole system and
+  retroactively to the pieces we already got performance ready"). Decide then, with
+  two ports behind us, whether the shared modules move to `composition-system` and
+  each piece pulls them, or a copy-and-diff script carries them. **VERIFY:** the tubas'
+  stand passes the same battery, chaos test and seams as Tempus's. **CHECK:** the
+  composer converts the NEXT piece by the recipe alone.
 
 **Parked beyond the first build (so nothing is lost):** the beating indicator
 (AR-24) · cue strips · the tubas' per-ensemble tailoring run · the composer's

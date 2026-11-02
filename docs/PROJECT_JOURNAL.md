@@ -51,9 +51,15 @@ piece #3's `docs/` — registered as an additional working directory.
   AR-72 replaces AR-55; RUNNING_LOG 102–103; the lines rewritten for the name). **The public face** is now a standing principle
   (PLAN §9 header): every player-visible surface is finished work, reviewed by the
   composer's eye before the first handout. The AI cannot read or touch the box
-  from a session (production reads are refused) — give lines, never run them. **► NEXT: 9h-2 — the stand's room client · the floor clock · the follow states**
-  (Opus, cold; CLEAR before). Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
-  `server/protocol.js` (the vocabulary as built) · `stand.html` · `testkit/js/syncclock.js`.
+  from a session (production reads are refused) — give lines, never run them. **► NEXT: 9t — THE PORT TO TEMPUS** (plan A, D103). **Fable first** (the renderer
+  question: the septet's larger notation fork vs the stand's needs; decide the smallest
+  change; prove the film unchanged), **then Opus** for the copying from the recipe.
+  CLEAR before. **The session runs HERE with `C:\Users\jwloy\GitHub\septet_2026` added
+  as a working directory.** Read first, only: `docs/PORT_TO_TEMPUS.md` (whole) — it
+  names everything else. The recipe goes to `docs/PORTING.md` as the work happens. The
+  record stays in this repo; the septet's journal gets one pointer line. **Then** 9h-2
+  on Tempus (Opus, cold, clear): the page opened by a token; the floor clock; the follow
+  states — DESIGN §3–§6 · `server/protocol.js` · `stand.html` · `testkit/js/syncclock.js`.
 - **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
@@ -499,6 +505,22 @@ instruction. The instructions are the four reference blocks that follow.*
   stays in the kit as the slow-device probe (what dropping frames looks like);
   nothing is tuned for it; the composer's checks are the iPad and the laptop.
   AR-23 and AR-50 amended (REQUIREMENTS, frozen → amendment lines).
+- **D103** *(2026-11-02, day 46, late morning)* — **PLAN A: THE BUILDING MOVES TO
+  TEMPUS. The porting structure is the end deliverable. Plan B named.** Composer:
+  *"a"* — then the balance: a standard, ordered porting procedure for every later
+  piece, with a way to carry fixes back to pieces already done; *but* if that costs
+  too much time against the Tempus date, get Tempus up first and build the procedure
+  on the next piece. The data that decided it: `septet_2026` already holds its score in
+  the stand's format; a port is small; but the code would exist twice, and fixes asked
+  for on Tempus's part would land only there. New chunks: **9t the port to Tempus**
+  (first; the renderer question on Fable, then Opus; the recipe written as it is done,
+  `docs/PORTING.md`; brief `docs/PORT_TO_TEMPUS.md`) and **9q the port back + the
+  structure made standard** (last). 9h-2 … 9p are built on Tempus. **Plan B's trigger:**
+  the port or any Tempus chunk runs long against the date → port + 9h-2 + a minimal
+  leader page + the instructions → handout; the rest after. **The part fixes:** the
+  composer's findings are raised IN the design sitting (9i), on Tempus's part, not as
+  they come (*"I prefer to do the part fixing in the same focused session"*), unless
+  blocking. RUNNING_LOG 105–106.
 - **D102** *(2026-11-02, day 46 overnight)* — **ONE PROGRAM FOR ALL PIECES, ONE RUNNING
   SERVER PER PIECE; the piece in front of the domain; the title's words, hyphenated.**
   Composer: *"a if that is the recommendation"*, after *"the one single server might be
