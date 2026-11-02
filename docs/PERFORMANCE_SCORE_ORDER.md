@@ -300,9 +300,9 @@ that closed ENS in four iterations)*
     (RUNNING_LOG 100–104: the composer's five lines on the box; the part page on the iPad
     over HTTPS through `bloom-convergence-balance.justinwenloyang.com`; D102 one running
     server per piece).** → **PLAN A, D103 (late morning): the building moves to
-    Tempus.** → **9t THE PORT TO TEMPUS built and PC-verified the same midday (RUNNING_LOG 107,
-    `docs/PORTING.md`; the box open, the composer's five lines).** ► **9h-2 on Tempus is
-    next.** — `notation/app/stand.html`: home-screen installable (full
+    Tempus.** → **9t THE PORT TO TEMPUS DONE the same day (RUNNING_LOG 107–108, `docs/PORTING.md`;
+    deployed by the composer's five lines, the Flute part on the iPad from
+    `scattered-substance.justinwenloyang.com`).** ► **9h-2 on Tempus is next.** — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the

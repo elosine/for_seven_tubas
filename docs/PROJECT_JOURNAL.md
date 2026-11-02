@@ -56,10 +56,10 @@ piece #3's `docs/` — registered as an additional working directory.
   The septet's library was ours at 752b886 plus their print work; three files took the
   stand's changes and the seven film pages stayed byte-identical; the stand reads the
   septet's ensemble registry (clefs, grand staff, labels); part names from the score's
-  tracks; battery 75/75 · chaos OK · stand check 7/7. **OPEN: the box** — the composer's
-  five lines (`septet_2026/server/README.md` § The box: `scattered-substance.justinwenloyang.com`,
-  folder `ss`, PM2 `ss-server`, port 5301, nginx site `ss`, piece id `ss`), then the
-  Flute QR on the iPad (the walk-through, RUNNING_LOG 104). **► NEXT: 9h-2 on Tempus**
+  tracks; battery 75/75 · chaos OK · stand check 7/7. **DEPLOYED and CHECKED** (RUNNING_LOG 108): the composer's
+  five lines ran first time — `scattered-substance.justinwenloyang.com`, folder `ss`, PM2
+  `ss-server`, port 5301; `Home test` ens-f79ddbed with seven named links; the Flute part
+  on the iPad from the box. **9t DONE.** **► NEXT: 9h-2 on Tempus**
   — the page opened by a token (its own part, the title from the server); the floor
   clock; the follow states. Read first, only: PLAN §9 → 9h-2 · DESIGN §3–§6 ·
   `septet_2026/server/protocol.js` · `septet_2026/notation/app/stand.html` ·
