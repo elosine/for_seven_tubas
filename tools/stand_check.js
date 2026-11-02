@@ -152,17 +152,23 @@ async function main() {
         const after = await evalJs('window.__standState()');
         await evalJs('window.__standPause()');
         row.played = { from: +t0.toFixed(2), to: +after.t.toFixed(2), advanced: after.t - t0 > PLAY_MS / 1000 * 0.8, playingWas: after.playing, elements: after.overlay && after.overlay.elements };
-        // and it turns the page: start one second before this page's end, play
-        // two seconds, land on the next page with no error
-        const pageEnd = after.size && after.size.page && after.size.page[1];
-        if (pageEnd && after.pageIdx < after.pages - 1) {
-          await evalJs('window.__standGoto(' + (pageEnd - 1) + ')');
-          const before = await evalJs('window.__standState().pageIdx');
+        // and the ring wraps (D101): start one second before the LAST slot's row
+        // ends, play two seconds — the cursor's row advances by one, lands in slot
+        // 0 (the top), and every slot shows the right row (cur … cur + ROWS − 1)
+        const ringRows = await evalJs('window.__standRows ? window.__standRows() : null');
+        const bottom = ringRows && ringRows[ringRows.length - 1];   // the row in the bottom slot
+        if (bottom && bottom.idx < after.rowsTotal - 1) {
+          await evalJs('window.__standGoto(' + (bottom.t1 - 1) + ')');
+          const before = await evalJs('window.__standState().cur');
           await evalJs('window.__standPlay()');
           await sleep(2000);
           const st2 = await evalJs('window.__standState()');
           await evalJs('window.__standPause()');
-          row.turn = { fromPage: before + 1, toPage: st2.pageIdx + 1, ok: st2.pageIdx === before + 1 && !st2.error, turnMs: st2.turns.length ? st2.turns[st2.turns.length - 1].ms : null };
+          const R = st2.size.rowsMax;
+          const ringOk = st2.ring.every((idx, k) => idx === null || idx % R === k) &&
+            st2.ring.filter(x => x !== null).every(idx => idx >= st2.cur && idx < st2.cur + R);
+          row.turn = { fromRow: before, toRow: st2.cur, slot: st2.cur % R, ok: st2.cur === before + 1 && st2.cur % R === 0 && ringOk && !st2.error,
+            turnMs: st2.turns.length ? st2.turns[st2.turns.length - 1].ms : null, ring: st2.ring };
           await evalJs('window.__standGoto(' + T + ')');
           await sleep(300);
         }
@@ -170,6 +176,7 @@ async function main() {
           const rows = await evalJs('window.__standRows ? window.__standRows() : null');
           row.seams = [];
           for (const [i, rw] of (rows || []).entries()) {
+            if (!rw) continue;
             for (const [tag, tt] of [['start', rw.t0 + 0.05], ['end', rw.t1 - 0.05]]) {
               await evalJs('window.__standGoto(' + tt + ')');
               await sleep(250);
@@ -183,7 +190,7 @@ async function main() {
         }
         if (CRISP && part === PARTS[0]) {
           const rows = await evalJs('window.__standRows ? window.__standRows() : null');
-          const rw = rows && rows[1] || rows && rows[0];
+          const rw = (rows || []).filter(Boolean)[1] || (rows || []).filter(Boolean)[0];
           row.crisp = [];
           const tag = QX ? QX.replace(/[^a-z0-9.=]+/gi, '_') : 'snap';
           for (let i = 0; i < 8; i++) {
@@ -207,7 +214,7 @@ async function main() {
       console.log(`part ${String(part).padStart(2)}  ${row.ok ? 'OK ' : 'BAD'}  pages ${row.pages}  at page ${row.pageIdx + 1}  instances ${row.instances}  pieces ${row.pieces}` +
         (row.size ? `  frame ${row.size.W}×${row.size.H}  staff space ${row.size.ss} px  ${row.size.pxPerS} px/s  ${row.size.s} s × ${row.size.rows} rows` : '') +
         (row.played ? `  played ${row.played.from}→${row.played.to} s  elements ${row.played.elements}` : '') +
-        (row.turn ? `  turn ${row.turn.fromPage}→${row.turn.toPage} ${row.turn.ok ? 'ok' : 'BAD'} ${row.turn.turnMs != null ? row.turn.turnMs.toFixed(0) + ' ms' : ''}` : '') +
+        (row.turn ? `  wrap row ${row.turn.fromRow}→${row.turn.toRow} slot ${row.turn.slot} ${row.turn.ok ? 'ok' : 'BAD'} ${row.turn.turnMs != null ? row.turn.turnMs.toFixed(0) + ' ms' : ''}` : '') +
         (row.error ? '\n   ' + row.error.split('\n')[0] : '') + (row.problems.length ? '\n   ' + row.problems.join('\n   ') : ''));
     }
     const headOk = report.head && report.head.viewport && report.head.appleCapable && report.head.manifest && report.head.icon && report.head.manifestDisplay === 'standalone' && report.head.iconServed;

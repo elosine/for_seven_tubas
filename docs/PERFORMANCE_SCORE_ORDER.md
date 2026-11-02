@@ -295,7 +295,8 @@ that closed ENS in four iterations)*
     nothing cut, the cursor at the first note, the pulse gone. The blur in motion →
     9i (speed · size · blur).** → 9s THE SPEED EVALUATION closed the same evening
     (8 s · 5 rows · 7.5 mm; D101 the circular buffer). ► **9h-1b THE CIRCULAR
-    BUFFER is next** (Opus, cold, clear; ~1 h), then **9g THE SERVER**. — `notation/app/stand.html`: home-screen installable (full
+    BUFFER — BUILT + PC-VERIFIED the same evening (RUNNING_LOG 98); the composer's
+    check on the installed Tuba part next**, then **9g THE SERVER** (Opus, cold, clear). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the

@@ -82,7 +82,13 @@
   const LANE_SS = Math.max(6, parseFloat(Q.get('lane')) || LANE_DEFAULT);
   const ROWS = Math.min(12, Math.max(1, parseInt(Q.get('rows') || String(ROWS_DEFAULT), 10) || ROWS_DEFAULT));
   const Z_EXTRA = Math.max(0.25, parseFloat(Q.get('z')) || 1);
-  const state = { scores: {}, pageIdx: 0, live: null, rows: null, layers: null, turnLog: [] };
+  // THE CIRCULAR BUFFER (D101, day 46 — the composer: "b"; the string quartet's
+  // parts mode, built there and checked): the screen's ROWS slots are a ring over
+  // the planned rows — planned row i always lives in slot i mod ROWS, so the
+  // screen shows rows cur … cur + ROWS − 1; when the cursor leaves row cur, its
+  // slot reloads with row cur + ROWS; the cursor runs down the slots and wraps to
+  // the top. At least ROWS − 1 rows of future music are visible at every moment.
+  const state = { scores: {}, cur: 0, live: null, slots: null, layers: null, geomKey: '', turnLog: [] };
   state.transport = NotationTransport.makeTransport();
   let rafId = null;
 
@@ -95,10 +101,9 @@
     return state.scores[name];
   }
 
-  // THE FRAME is the screen, in CSS px, inside the safe areas: the body's own
-  // content box (position fixed, inset 0, padded by the insets) — measured,
-  // not computed from innerHeight, which on the home-screen app disagreed
-  // with the insets and left a black band at the bottom (iPad, day 46).
+  // THE FRAME is the screen, in CSS px, inside the safe areas: the sheet's own
+  // laid-out box — measured, never computed from innerHeight or the insets,
+  // which on the home-screen app each left the last row short (iPad, day 46).
   function frameSize() {
     const r = $('sheet').getBoundingClientRect();
     const W = Math.max(320, Math.floor(r.width));
@@ -114,161 +119,167 @@
   }
   function refit() { if (state.ir && sizeChanged()) render(); }
   const pageSeconds = () => Math.max(2, parseFloat(Q.get('s')) || S_DEFAULT);
-  function pageCount() { return Math.ceil(state.planned.length / ROWS); }
-  // the planned page (one system's worth, s seconds, cut by the page rules)
-  // that holds t — and the screen page (ROWS of them) it sits on
+  // the planned row (one system's worth, s seconds, cut by the page rules) that holds t
   function plannedOf(t) {
     const P = state.planned;
     let i = P.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
     if (i < 0) i = t >= P[P.length - 1].t1 - 1e-9 ? P.length - 1 : 0;
     return i;
   }
-  const pageOf = t => Math.floor(plannedOf(t) / ROWS);
+  const slotOf = i => i % ROWS;
+  const srcEnd = () => state.ir.source.window[1];
 
-  // A page: ROWS systems of this part stacked top to bottom, each its own
-  // s-second window at the SAME px per second (the constant time scale of the
-  // full score, kept). THE SIZE keeps the jury frame's density — the staff
-  // space scales with the px per second, so a system is the full score's lane
-  // enlarged, never a denser packing the layout was not proven at: fewer
-  // seconds per row = bigger everything. Each row is a full-frame SVG with its
-  // system placed in its slot; the A2 overlay gets one scene per row.
+  // THE GEOMETRY of a row, computed once per frame size: the staff from the
+  // size dial, the speed from the seconds dial, the drawing lane centred in the
+  // row. THE SIZE keeps the jury frame's reference: the staff space is the dial
+  // (default 7.5 mm), the gutter and the lane scale with it.
+  function geometry() {
+    const C = state.container;
+    const { W, H } = frameSize();
+    const s = pageSeconds();
+    const juryW = (C.frame && C.frame.widthPx) || 1920;
+    const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+    const G0 = (C.prefatory && C.prefatory.gutterPx) || 0;
+    const ssJury = ((C.staff && C.staff.staffHeightPx) || 31.6) / 4;
+    const juryPxPerS = (juryW - G0) / regSeconds;
+    // THE TWO DIALS (day 46, the composer: "2 dials"): ?ss= the staff space in CSS
+    // px — THE NOTE SIZE, fixed from printed parts (a 7.5 mm staff; on the iPad
+    // class 5.2 CSS px/mm → ss 9.75) · ?s= seconds per row — THE SPEED. ?ss=auto
+    // keeps the first build's coupling (the staff scaling with the speed), for
+    // comparison only.
+    const ssArg = Q.get('ss');
+    let ss, pxPerS, k;
+    if (ssArg === 'auto') {
+      pxPerS = W / (s + G0 / juryPxPerS);
+      k = (pxPerS / juryPxPerS) * Z_EXTRA;
+      ss = ssJury * k;
+    } else {
+      ss = (parseFloat(ssArg) || SS_DEFAULT) * Z_EXTRA;
+      k = ss / ssJury;
+      pxPerS = (W - Math.min(W * 0.4, G0 * k)) / s;
+    }
+    const gutterPx = Math.min(W * 0.4, G0 * k);
+    const rowH = H / ROWS, padFrac = 0.03;
+    const laneH = Math.min(rowH * (1 - 2 * padFrac), LANE_SS * ss);
+    const laneAir = (rowH - laneH) / 2;
+    return { W, H, s, ss, k, pxPerS, gutterPx, rowH, laneH, laneAir, ssPerSystem: laneH / ss, coupling: ssArg === 'auto' ? 'auto' : 'fixed' };
+  }
+
+  // ONE ROW in one slot: a full-frame SVG with the system in the slot's lane, and
+  // its scene for the overlay. A ROW ENDS WHERE ITS MUSIC ENDS (the composer: "the
+  // cursors don't go all the way to the end"): the page rules cut one row in five
+  // short to keep a figure whole on the next row; the row's view is only as wide
+  // as its own music at the constant px per second — a ragged right edge, the end
+  // bar at the cut, the cursor running to it.
+  function buildSlot(k, i) {
+    const C = state.container, G = state.geom, pg = state.planned[i];
+    const f0 = (k * G.rowH + G.laneAir) / G.H, f1 = (k * G.rowH + G.laneAir + G.laneH) / G.H;
+    const rowSeconds = Math.min(G.s, pg.t1 - pg.t0);
+    const rowW = Math.min(G.W, G.gutterPx + rowSeconds * G.pxPerS);
+    const view = NotationCoords.makeView({ widthPx: rowW, heightPx: G.H, window: [pg.t0, pg.t0 + rowSeconds], gutterPx: G.gutterPx,
+      systems: [{ part: PART - 1, laneFrac0: f0, laneFrac1: f1 }], ssPerSystem: G.ssPerSystem });
+    const ownsEnd = i === state.planned.length - 1;
+    let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
+      reshow: pg.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+      hideBricks: true,   // the parachute bricks are a workshop look, not the part's (composer, day 46)
+    });
+    // the rows stack: the paper is the sheet's, not each SVG's (render.js paints
+    // a full-frame paper rect first — the row above would vanish)
+    svg = svg.replace(/ style="background:[^"]*"/, '')
+             .replace(/<rect x="0" y="0" width="[\d.]+" height="[\d.]+" fill="[^"]*"\/>/, '');
+    // the system's terminal barline, as the full score draws it
+    const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
+    let endBar = '';
+    if (eb) {
+      const sys = view.systems[0], se = srcEnd();
+      const xEnd = (se > view.window[0] && se < view.window[1]) ? view.xOfSeconds(se) : view.widthPx;
+      endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + sys.yTopPx.toFixed(1) +
+        '" width="' + eb.wPx + '" height="' + (sys.yBotPx - sys.yTopPx).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
+    }
+    const tpl = document.createElement('template');
+    tpl.innerHTML = svg.replace('</svg>', endBar + '</svg>');
+    const el = tpl.content.firstElementChild;
+    const old = state.slots[k];
+    if (old && old.el.parentNode) old.el.parentNode.replaceChild(el, old.el);
+    else $('sheet').appendChild(el);
+    state.slots[k] = { k, idx: i, pg, view, el };
+    // each row shows its overlay only while t is inside ITS music — from its
+    // start to the page rules' cut, where the next row begins
+    state.layers[k] = { scene: NotationAnimLive.plan(state.animInstances, view, state.animStyle), opacity: 1,
+      clip: [pg.t0, Math.min(pg.t1, srcEnd() + 1)] };
+  }
+  function clearSlot(k) {
+    const old = state.slots[k];
+    if (old && old.el.parentNode) old.el.parentNode.removeChild(old.el);
+    state.slots[k] = null; state.layers[k] = null;
+  }
+
+  // (re)lay the ring out for state.cur: only the slots whose row changed are
+  // rebuilt — one slot at a row change, every slot at a goto or a frame change
   function render() {
     try {
-      const C = state.container;
-      const { W, H } = frameSize();
       const s = pageSeconds();
       if (!state.planned || state.plannedS !== s) {
         state.planned = NotationSplice.planPages(state.ir, state.pageRules, s);
         state.plannedS = s;
-        state.pageIdx = Math.min(state.pageIdx, pageCount() - 1);
       }
-      const juryW = (C.frame && C.frame.widthPx) || 1920;
-      const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
-      const G0 = (C.prefatory && C.prefatory.gutterPx) || 0;
-      const ssJury = ((C.staff && C.staff.staffHeightPx) || 31.6) / 4;
-      const juryPxPerS = (juryW - G0) / regSeconds;
-      // THE TWO DIALS (day 46, the composer: "2 dials" — PLAN 9s, the speed
-      // evaluation): ?ss= the staff space in CSS px — THE NOTE SIZE, fixed from
-      // printed parts (step 1: a 7.5 mm staff on the stand, MOLA; on the iPad
-      // class 5.2 CSS px/mm → 39 px → ss 9.75) · ?s= seconds per row — THE SPEED.
-      // ?ss=auto keeps the first build's coupling (the full score's density,
-      // the staff scaling with the speed) for comparison only.
-      const ssArg = Q.get('ss');
-      let ss, pxPerS, k;
-      if (ssArg === 'auto') {
-        // the gutter scales with the music, so solve the two together:
-        // pxPerS = (W − G0·k) / s with k = pxPerS / juryPxPerS
-        pxPerS = W / (s + G0 / juryPxPerS);
-        k = (pxPerS / juryPxPerS) * Z_EXTRA;
-        ss = ssJury * k;
-      } else {
-        ss = (parseFloat(ssArg) || SS_DEFAULT) * Z_EXTRA;
-        k = ss / ssJury;
-        pxPerS = (W - Math.min(W * 0.4, G0 * k)) / s;
+      state.cur = Math.min(Math.max(0, state.cur), state.planned.length - 1);
+      const G = geometry();
+      const key = [G.W, G.H, G.s, G.ss, ROWS, LANE_SS].join('|');
+      if (key !== state.geomKey || !state.slots) {
+        $('sheet').innerHTML = '';
+        if (state.live) { state.live.destroy(); state.live = null; }
+        state.slots = new Array(ROWS).fill(null); state.layers = new Array(ROWS).fill(null);
+        state.geomKey = key;
       }
-      const gutterPx = Math.min(W * 0.4, G0 * k);
-      const rowH = H / ROWS, padFrac = 0.03;
-      // the drawing lane: LANE_SS staff spaces tall, centred in the row (clamped
-      // to the row when the screen is short); the rest of the row is air
-      const laneH = Math.min(rowH * (1 - 2 * padFrac), LANE_SS * ss);
-      const ssPerSystem = laneH / ss;
-      const laneAir = (rowH - laneH) / 2;
-      const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
-      const srcEnd = state.ir.source.window[1];
-      const first = state.pageIdx * ROWS;
-      const rows = [];
-      let html = '';
-      for (let r = 0; r < ROWS && first + r < state.planned.length; r++) {
-        const pg = state.planned[first + r];
-        const f0 = (r * rowH + laneAir) / H, f1 = (r * rowH + laneAir + laneH) / H;
-        // A ROW ENDS WHERE ITS MUSIC ENDS (day 46, the composer: "the cursors don't
-        // go all the way to the end"): the page rules cut one row in five short, by
-        // up to cutSlackSeconds, to keep a figure whole on the next row. The row's
-        // view is only as wide as its own music at the constant px per second —
-        // a ragged right edge, the end bar at the cut, the cursor running to it —
-        // rather than drawing to the edge music the cursor never reaches.
-        const rowSeconds = Math.min(s, pg.t1 - pg.t0);
-        const rowW = Math.min(W, gutterPx + rowSeconds * pxPerS);
-        const view = NotationCoords.makeView({ widthPx: rowW, heightPx: H, window: [pg.t0, pg.t0 + rowSeconds], gutterPx,
-          systems: [{ part: PART - 1, laneFrac0: f0, laneFrac1: f1 }], ssPerSystem });
-        const ownsEnd = first + r === state.planned.length - 1;
-        let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
-          reshow: pg.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
-          hideBricks: true,   // the parachute bricks are a workshop look, not the part's (composer, day 46)
-        });
-        // the rows stack: the paper is the sheet's, not each SVG's (render.js
-        // paints a full-frame paper rect first — the row above would vanish)
-        svg = svg.replace(/ style="background:[^"]*"/, '')
-                 .replace(/<rect x="0" y="0" width="[\d.]+" height="[\d.]+" fill="[^"]*"\/>/, '');
-        // the system's terminal barline, as the full score draws it
-        let endBar = '';
-        if (eb) {
-          const sys = view.systems[0];
-          const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
-          endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + sys.yTopPx.toFixed(1) +
-            '" width="' + eb.wPx + '" height="' + (sys.yBotPx - sys.yTopPx).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
-        }
-        html += svg.replace('</svg>', endBar + '</svg>');
-        rows.push({ pg, view, r });
-      }
-      const sheet = $('sheet');
-      sheet.innerHTML = html;
-      // the instances: the whole piece once, then THIS part's (and the
-      // score-level ones, part undefined)
+      state.geom = G;
+      // the instances: the whole piece once, then THIS part's (and the score-level ones)
       if (!state.animInstances) {
+        const C = state.container;
         const score = state.scores[state.ir.source.score] || null;
         const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
         const all = NotationAnimObj.collect(state.ir, score, C.animated,
           { parts: state.ir.source.parts, meta: false, deviceOf: _dev,
             drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
         state.animInstances = all.filter(i => i.part === undefined || i.part === PART - 1);
+        state.animStyle = C.animated;
       }
-      state.rows = rows;
-      state.frame = { widthPx: W, heightPx: H };
-      state.animStyle = C.animated;
-      state.size = { W, H, rows: rows.length, rowsMax: ROWS, s, ss: +ss.toFixed(2), staffMmIpad: +(ss * 4 / 5.2).toFixed(2),
-        pxPerS: +pxPerS.toFixed(1), laneSs: +ssPerSystem.toFixed(1), laneWanted: LANE_SS, rowPx: +rowH.toFixed(1), k: +k.toFixed(3), coupling: ssArg === 'auto' ? 'auto' : 'fixed',
-        page: [rows[0].pg.t0, rows[rows.length - 1].pg.t1] };
+      const n = state.planned.length;
+      for (let i = state.cur; i < state.cur + ROWS; i++) {
+        const k = slotOf(i);
+        if (i >= n) { clearSlot(k); continue; }
+        if (state.slots[k] && state.slots[k].idx === i) continue;
+        buildSlot(k, i);
+      }
+      const last = Math.min(n - 1, state.cur + ROWS - 1);
+      state.size = { W: G.W, H: G.H, rows: last - state.cur + 1, rowsMax: ROWS, s: G.s, ss: +G.ss.toFixed(2), staffMmIpad: +(G.ss * 4 / 5.2).toFixed(2),
+        pxPerS: +G.pxPerS.toFixed(1), laneSs: +G.ssPerSystem.toFixed(1), laneWanted: LANE_SS, rowPx: +G.rowH.toFixed(1), k: +G.k.toFixed(3), coupling: G.coupling,
+        page: [state.planned[state.cur].t0, state.planned[last].t1] };
       mountLive();
       $('err').textContent = '';
     } catch (e) { $('err').textContent = String(e.stack || e); }
   }
-  // A2 (9a): one overlay per frame size, kept across pages; a turn re-plans.
-  // One scene per row — each shows its own window's pieces, its own cursor;
-  // a row not holding t has its rider off the frame, clipped.
+  // A2 (9a): one overlay per frame size, kept across rows; a reload re-plans
+  // one slot's scene. One scene per slot — a slot not holding t has its rider
+  // off the frame, and its layer clipped to its own music.
   function mountLive() {
-    const F = state.frame;
-    if (!state.live || state.live.W !== F.widthPx || state.live.H !== F.heightPx) {
-      if (state.live) state.live.destroy();
-      // ?snap=0 turns the device-pixel snapping off (the A/B for the pulse)
-      state.live = NotationAnimLive.mount($('sheet'), F, { snap: Q.get('snap') !== '0' });
-    }
-    state.live.attach($('sheet'));
-    // each row shows its overlay only while t is inside ITS music — from its
-    // start to the page rules' cut, where the next row begins (the window
-    // runs on to t0 + s, so without the clip two rows showed a cursor)
-    const srcEnd = state.ir.source.window[1];
-    state.layers = state.rows.map(row => ({
-      scene: NotationAnimLive.plan(state.animInstances, row.view, state.animStyle), opacity: 1,
-      clip: [row.pg.t0, Math.min(row.pg.t1, srcEnd + 1)],
-    }));
+    const G = state.geom;
+    if (!state.live) state.live = NotationAnimLive.mount($('sheet'), { widthPx: G.W, heightPx: G.H }, { snap: Q.get('snap') !== '0' });
+    state.live.attach($('sheet'));   // the overlay stays the sheet's last child, above every row
     state.live.setLayers(state.layers);
     state.live.setScale(1);
   }
 
   // ---- the clock on the page ------------------------------------------------
-  function pageEnd() {
-    const rows = state.rows, last = rows[rows.length - 1];
-    const srcEnd = state.ir.source.window[1];
-    const hasNext = state.pageIdx < pageCount() - 1;
-    return Math.min(hasNext ? last.pg.t1 : last.view.window[1], srcEnd);
-  }
+  const rowEnd = () => Math.min(state.planned[state.cur].t1, srcEnd());
   function drawOverlayFrame(tArg) {
-    if (!state.rows) return null;
+    if (!state.slots) return null;
     const t = tArg !== undefined ? tArg : state.transport.now();
-    if (state.transport.isPlaying() && t >= pageEnd() - 1e-9) {
+    if (state.transport.isPlaying() && t >= rowEnd() - 1e-9) {
+      // the row change: the cursor leaves row cur — its slot reloads with row
+      // cur + ROWS (one slot built), the cursor goes on in the next slot
       const c0 = performance.now();
-      if (state.pageIdx < pageCount() - 1) { state.pageIdx++; render(); }
+      if (state.cur < state.planned.length - 1) { state.cur++; render(); }
       else state.transport.pause();
       state.turnLog.push({ t, ms: performance.now() - c0 });
       if (state.turnLog.length > 200) state.turnLog.shift();
@@ -278,8 +289,7 @@
     return { turned: false, t };
   }
   // each frame is drawn at the FRAME's time (the rAF timestamp), not at the
-  // callback's — a game loop's rule; the callback's lateness varies frame to
-  // frame and would read as a faint pulse in the motion
+  // callback's — a game loop's rule
   function animLoop(ts) {
     rafId = null;
     drawOverlayFrame(typeof ts === 'number' ? state.transport.nowAt(ts) : undefined);
@@ -287,39 +297,40 @@
   }
   function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
   function goto(t) {
-    const P = pageOf(t);
-    if (P !== state.pageIdx) { state.pageIdx = P; render(); }
+    const i = plannedOf(t);
+    if (i !== state.cur) { state.cur = i; render(); }
     state.transport.seek(t); ensureLoop();
   }
   let wakeLock = null;
   async function play() {
-    if (!state.rows) return;
-    const t = state.transport.now();
-    const t0 = state.rows[0].pg.t0, t1 = pageEnd();
-    if (t < t0 || t >= t1) state.transport.seek(t0);
+    if (!state.slots) return;
+    const t = state.transport.now(), t0 = state.planned[state.cur].t0;
+    if (t < t0 || t >= rowEnd()) state.transport.seek(t0);
     state.transport.play(); ensureLoop();
     // AR-25: the screen stays awake while the part plays (needs HTTPS; silent otherwise)
     try { if (navigator.wakeLock && !wakeLock) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) { wakeLock = null; }
   }
   function pause() { state.transport.pause(); ensureLoop(); if (wakeLock) { try { wakeLock.release(); } catch (e) { } wakeLock = null; } }
   function togglePlay() { if (state.transport.isPlaying()) pause(); else play(); }
+  // a swipe = a screenful of rows (AR-26's "page")
   function turnPage(d) {
     if (!state.planned) return;
-    const i = Math.min(pageCount() - 1, Math.max(0, state.pageIdx + d));
-    if (i === state.pageIdx) return;
-    state.pageIdx = i; render();
-    state.transport.seek(state.rows[0].pg.t0); ensureLoop();
+    const i = Math.min(state.planned.length - 1, Math.max(0, state.cur + d * ROWS));
+    if (i === state.cur) return;
+    state.cur = i; render();
+    state.transport.seek(state.planned[i].t0); ensureLoop();
   }
-  // one-finger tap = place the cursor (AR-26): the row under the finger, the
+  // one-finger tap = place the cursor (AR-26): the slot under the finger, the
   // time under it, inside that row's music
   function seekAt(clientX, clientY) {
-    if (!state.rows) return;
+    if (!state.slots) return;
     const rect = $('sheet').getBoundingClientRect();
-    const r = Math.min(state.rows.length - 1, Math.max(0, Math.floor((clientY - rect.top) / rect.height * ROWS)));
-    const view = state.rows[r].view;
-    const t = view.secondsOfX((clientX - rect.left) * (view.widthPx / rect.width));
+    const k = Math.min(ROWS - 1, Math.max(0, Math.floor((clientY - rect.top) / rect.height * ROWS)));
+    const slot = state.slots[k]; if (!slot) return;
+    const view = slot.view;
+    const t = view.secondsOfX((clientX - rect.left) * (view.widthPx / rect.width) * (rect.width / state.geom.W));
     const [w0, w1] = view.window;
-    if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
+    if (t >= w0 && t <= w1) goto(t);
   }
 
   // ---- THE GESTURES (AR-26, one vocabulary): swipe = pages · one-finger tap =
@@ -369,16 +380,18 @@
   }
 
   // headless check + the composer's link: ?t= and ?play=1, and the state
-  window.__standGoto = t => { goto(t); return { pageIdx: state.pageIdx, page: state.size && state.size.page }; };
-  window.__standRows = () => (state.rows || []).map(r => ({ t0: r.pg.t0, t1: r.pg.t1, window: r.view.window, gutterPx: r.view.gutterPx }));
+  window.__standGoto = t => { goto(t); return { cur: state.cur, page: state.size && state.size.page }; };
+  window.__standRows = () => (state.slots || []).map((sl, k) => sl ? { slot: k, idx: sl.idx, t0: sl.pg.t0, t1: sl.pg.t1, window: sl.view.window, gutterPx: sl.view.gutterPx } : null);
   window.__standPlay = () => { play(); return true; };
   window.__standPause = () => { pause(); return true; };
   window.__standState = () => ({
-    part: PART, ir: IR, ready: !!state.rows, error: $('err').textContent,
+    part: PART, ir: IR, ready: !!state.slots, error: $('err').textContent,
     t: state.transport.now(), playing: state.transport.isPlaying(),
-    pageIdx: state.pageIdx, pages: state.planned ? pageCount() : 0,
+    cur: state.cur, rowsTotal: state.planned ? state.planned.length : 0,
+    pageIdx: Math.floor(state.cur / ROWS), pages: state.planned ? Math.ceil(state.planned.length / ROWS) : 0,
+    ring: (state.slots || []).map(sl => sl ? sl.idx : null),
     size: state.size || null, turns: state.turnLog.slice(),
-    pieces: state.layers ? state.layers.reduce((a, L) => a + L.scene.pieces.length, 0) : null,
+    pieces: state.layers ? state.layers.reduce((a, L) => a + (L ? L.scene.pieces.length : 0), 0) : null,
     instances: state.animInstances ? state.animInstances.length : null,
     overlay: state.live ? state.live.stats() : null,
     standalone: !!(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)),

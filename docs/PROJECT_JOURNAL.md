@@ -39,11 +39,11 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### NEXT UP
 
-- **► 9h-1b — THE CIRCULAR BUFFER on the stand (D101; Opus, cold, CLEAR before — or
-  Fable in the sitting; ~1 h).** Read: PLAN §9 → 9h-1b · the 9h-1 chunk · D101 · the
-  string quartet's `docs/STRING_QUARTET_PIPELINE_PLAN.md` § Page-Turn Mechanism:
-  Circular Buffer — then `stand.html` (render / rows / drawOverlayFrame / goto).
-  The composer's check on the installed Tuba part. **Then:**
+- **► 9h-1b — THE CIRCULAR BUFFER — BUILT + PC-VERIFIED (day 46, Fable; RUNNING_LOG
+  98) → THE COMPOSER'S CHECK:** the installed Tuba part on the iPad (it reloads on
+  launch): play from the busiest minute — the cursor runs down and wraps to the top,
+  the next music always there above, nothing jumps at a reload. Then the Fable
+  verdict (one line). **Then:**
 - **9g — THE SERVER (Opus, cold; CLEAR before).** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
