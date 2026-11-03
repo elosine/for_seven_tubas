@@ -305,9 +305,12 @@ that closed ENS in four iterations)*
     `scattered-substance.justinwenloyang.com`).** → **9h-2 THE ROOM CLIENT DONE on Tempus the same afternoon
     (RUNNING_LOG 109; checked by the composer on the iPad, the laptop and the phone over
     the box).** → **9i THE STRIP · THE REMOTE · THE DISPLAY built and PC-verified the same
-    evening (RUNNING_LOG 110; the Tuesday's thirteen 60/60 from the leader's strip).**
-    ► **9i's check and THE DESIGN SITTING are next** (the composer's eye, the real
-    iPad; the part findings raised there). — `notation/app/stand.html`: home-screen installable (full
+    evening (RUNNING_LOG 110; the Tuesday's thirteen 60/60 from the leader's strip).** →
+    **9i CHECKED by the composer on four devices; THE DESIGN SITTING opened — six notation
+    topics settled (RUNNING_LOG 111) and THE SEAMS BUILT after midnight 2026-11-03
+    (RUNNING_LOG 112; seam_check 73/73).**
+    ► **the composer's eye on the seams is next** (the iPad after their redeploy), then
+    the sitting's other topics (the band · the corner and the dot · AGAIN · the display). — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -370,6 +373,14 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-02 evening → 11-03 after midnight (day 46–47, Fable, no clear — THE DESIGN
+  SITTING: six notation topics settled, THE SEAMS BUILT):** the row's end, the GC at the
+  seam, the plain notehead, the beam, the rest by sorting and the trill ruled in conversation
+  (RUNNING_LOG 111); then built to the preview on the composer's "go for everything here on
+  Fable" — seams planned per part from the ink, time-bound ink cut at both edges, head units
+  never, marks pushed, the staff to 3 px of the edge with no bar (RUNNING_LOG 112; seam_check
+  73/73, the shots looked at by the AI). ► **the composer's eye on the seams** (the iPad
+  after their redeploy), then the band, the corner and the dot, AGAIN, the display.
 - **2026-11-02 (day 46, evening, Fable, no clear — 9i CHECKED by the composer):** the
   band on the iPad, the remote on the phone, the display on the PC, the laptop as a
   player — "all working now", after two display faults the composer found (every click

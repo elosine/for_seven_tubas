@@ -82,12 +82,25 @@ piece #3's `docs/` — registered as an additional working directory.
   the phone (the remote), the PC (the display) and the laptop (a player) — "all working
   now" — after two display faults they found (every click zoomed the flute; "show the
   score here" forgot the chosen part) were fixed and clicked for real in the check.
-  **► NOW: THE DESIGN SITTING (gate E-6) on Tempus** — Fable, the
-  composer's eye, the real iPad: the band's look · the corner · AGAIN's rule (the last
-  jump) · the top's countdown · the display's size · the dot · the composer's part
-  findings. Read first, only: PLAN §9 → 9i · RUNNING_LOG 110 ("carried to the design
-  sitting") · `septet_2026/notation/lib/strip.js` · `septet_2026/notation/app/stand.html`
-  (the strip and display blocks). The code goes into `septet_2026`; the record stays here.
+  **THE DESIGN SITTING (gate E-6) opened the same evening on Tempus** (Fable, no clear, the
+  composer's rule: "go for everything here on Fable"): six notation topics SETTLED in
+  conversation — the row's end · the GC at the seam · the plain notehead · the beam · the
+  rest by sorting · the trill (RUNNING_LOG 111, the composer's words verbatim) — and **THE
+  SEAMS BUILT + PC-VERIFIED after midnight 2026-11-03** (RUNNING_LOG 112): the seams planned
+  per part from the laid-out ink (`septet_2026/notation/lib/seams.js`), time-bound ink cut at
+  both edges and the marks pushed (`render.js opts.clamp`), the staff to 3 px of the edge with
+  no bar (`stand.html`), the rules as data (`page_rules.json` → `stand`) and as a standard
+  (the septet's `NOTATION_STANDARDS.md` §4); `tools/seam_check.js` 73/73 on the seven parts
+  and the display; `strip_check` still green.
+  **► NOW: THE COMPOSER'S EYE ON THE SEAMS** — their deploy line (septet `server/README.md`
+  § The box, the one-line redeploy), then the Flute's link on the iPad and the display on the
+  PC as before: the rows' ends, a cut arc, a cut beam (the Bass Cl. at 8:40, the Piano at
+  9:44), a row that opens with a head at the first pixel (the Viola at 0:48), a trill clamped
+  left (the Flute at 2:24). Findings collected, fixed together on their go. **Then** the
+  sitting's other topics: the band's look · the corner and the dot · AGAIN's rule and the
+  countdown · the display's size. Read first, only: PLAN §9 → 9i · RUNNING_LOG 111–112 · the
+  septet's NOTATION_STANDARDS §4 · `seams.js` · `stand.html` (buildSlot, render). The code
+  goes into `septet_2026`; the record stays here.
 - **9g as it was planned (for the record):** Read first, only: PLAN §9 → the
   RE-CUT block + the 9g chunk (and the folds into it: 9d's box, 9f's auto-join and
   share/QR sheets) · DESIGN §3 (the eleven messages) · REQUIREMENTS AR-1, 5, 9, 10,
