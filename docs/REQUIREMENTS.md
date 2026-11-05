@@ -125,7 +125,11 @@
   rule for any piece:** 8 s a row at 7.5 mm is the target; a fit pass over the score
   (room ÷ tightest gap, clusters included) may shorten it, never below 6 s; the
   composer's eye on the densest passage closes it. Row replacement (how rows
-  refresh) is still open: PLAN 9s step 6.
+  refresh) is still open: PLAN 9s step 6. **→ D101, the circular buffer (9h-1b, day 46).
+  Day 49 (RUNNING_LOG 113) — FOUR ROWS A SCREEN,** the composer's eye on the Viola at
+  0:40 (the stacks above a top row's heads need the air five rows left them); the 8 s row
+  and the 7.5 mm staff stand; `stand.html ROWS_DEFAULT = 4`. The row's start time at its
+  left and the rehearsal letters in the part where they fall (RUNNING_LOG 113, 115).
 - **AR-21 · MUST · DECIDED (D94)** — THE STUDY SCORE: the full score is the menu's
   fifth item ("full score / my part"); marks per view, no copying; the FIXED ZOOM
   (tap → about double, repaginated, the same left/right swipes, up/down for the

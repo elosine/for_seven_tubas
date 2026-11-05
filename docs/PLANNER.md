@@ -74,7 +74,9 @@ whether either is the conductor's copy — is not decided and is not assumed her
 **Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
 and are not needed for the submission.
 
-**NOW ► (2026-11-04, day 48, latest) THE PERFORMANCE SYSTEM ON TEMPUS: 9i's DESIGN SITTING — the seams built and PC-verified (RUNNING_LOG 112) · ► the composer's eye on the iPad.** The septet's stand rows are now the strip of paper cut at each seam (the septet's NOTATION_STANDARDS §4). Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
+**NOW ► (2026-11-05, day 49, latest) THE PERFORMANCE SYSTEM ON TEMPUS: 9i's DESIGN SITTING — the composer's eye on the seams begun; four rows · the row's start time · the letters in the part · the half-second curve rule RULED and BUILT (RUNNING_LOG 113–115) · ► the composer's redeploy, then the swipe talk with the marks on screen, then the Piano GCs.** Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
+
+**NOW ► (2026-11-04, day 48) THE PERFORMANCE SYSTEM ON TEMPUS: 9i's DESIGN SITTING — the seams built and PC-verified (RUNNING_LOG 112) · ► the composer's eye on the iPad.** The septet's stand rows are now the strip of paper cut at each seam (the septet's NOTATION_STANDARDS §4). Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
 
 **NOW ► (2026-09-29, day 42) THE TEST KIT IS BUILT AND VERIFIED (`testkit/`) · ► it runs on the composer's devices.**
 Work now is the performance system every piece will read (D88 — one

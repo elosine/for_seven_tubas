@@ -92,8 +92,14 @@ piece #3's `docs/` — registered as an additional working directory.
   no bar (`stand.html`), the rules as data (`page_rules.json` → `stand`) and as a standard
   (the septet's `NOTATION_STANDARDS.md` §4); `tools/seam_check.js` 73/73 on the seven parts
   and the display; `strip_check` still green.
-  **► NOW: THE COMPOSER'S EYE ON THE SEAMS** — their deploy line (septet `server/README.md`
-  § The box, the one-line redeploy), then the Flute's link on the iPad and the display on the
+  **► NOW (day 49): THE SITTING'S FIRST BUILD ROUND, on the box after the composer's redeploy** —
+  four rows · the row's start time and number · the letters in the part · the half-second curve
+  rule · the dynamic chain (RUNNING_LOG 113–115). **Next: the SWIPE TALK with the marks on screen**
+  (the model proposed: a swipe turns the page relative to what is on screen, reading order, the ring
+  only while playing — the composer looks first) · **the Piano GCs** (held: height, width, spacing,
+  the impact point at mid-staff against the ball bouncing at the bottom) · the Piano 9:44 and Flute
+  2:16 seams. *The eye's first pass as it was planned:* their deploy line (septet `server/README.md`
+  § The box → "Every later deploy"), then the Flute's link on the iPad and the display on the
   PC as before: the rows' ends, a cut arc, a cut beam (the Bass Cl. at 8:40, the Piano at
   9:44), a row that opens with a head at the first pixel (the Viola at 0:48), a trill clamped
   left (the Flute at 2:24). Findings collected, fixed together on their go. **Then** the
@@ -155,29 +161,34 @@ piece #3's `docs/` — registered as an additional working directory.
 ### OPEN AT SESSION END
 
 **(day 49, 2026-11-05 — mid-session checkpoint; Fable, the design sitting)**
-- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus. The seams are BUILT and
-  on the box (RUNNING_LOG 112). The composer has begun the eye test on the iPad and ruled
-  three things from the Viola at 0:40 (RUNNING_LOG 113): **four rows a screen** · **the
-  row's start time at the left of every row** · **the rehearsal letters drawn in the part
-  where they fall**. Those three are THE FINDINGS LIST for the fix round — nothing built
-  yet; the composer's rule: collect, then fix together on their go. The three seam spots
-  (the Flute 2:16, the Bass Cl. 8:32, the Piano 9:44) are not yet looked at.
-- **Latest deliverable:** `septet_2026/tools/qr_spots.js` — one labelled SVG sheet of QR
-  codes opening the stand at the four spots on the box, four rows a screen.
-- **Next step, as an instruction:** from `C:\Users\jwloy\GitHub\septet_2026` run
-  `node tools/qr_spots.js`, then send `testkit/results/qr/spots.svg` to the composer with
-  SendUserFile (it renders inline). Then ask what they see at the right end of the top row
-  on code 1, the Flute. Collect each finding in one line; add it to RUNNING_LOG 113's list.
-  On their go: `ROWS_DEFAULT = 4` in `stand.html` · the row-start time at each row's left
-  (small, grey, m:ss, by the part label) · the letters in the part at their time (the
-  room's `state.letters`; outside the room none) · anything else found; then
-  `node tools/seam_check.js` and `node tools/strip_check.js`, commit, push, and give the
-  composer the box's redeploy line (septet `server/README.md` § The box).
-- **Resume reads:** RUNNING_LOG 113 (the findings, verbatim) · the septet's
-  `docs/NOTATION_STANDARDS.md` §4 (the seam rules). Code only when building: `stand.html`
-  (`ROWS_DEFAULT`, `buildSlot`, the corner's `letterAt`).
-- **Decisions pending the composer:** the look of the three seam spots; whether the
-  rehearsal letters show outside the room too (the stand has them only from the welcome).
+- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus — the composer's eye on the
+  seams, THE FIRST BUILD ROUND DONE (RUNNING_LOG 113–115): RULED four rows a screen · the row's
+  start time at each row's left · the rehearsal letters in the part · the half-second rule for
+  curves (the GC arc exempt; the seam moves left, the curve stays cut, a short start allowed by
+  its head and go line); BUILT with the dynamic-chain fix (the smushed *ppp → fff*) and the row
+  number as a talk aid; seam_check 81/81 · strip_check 66/66; committed and pushed in
+  `septet_2026`. The Bass Cl. seam looked at (the cut beam as ruled). HELD for the talk: the
+  Piano GCs (height · width · spacing · the impact point at mid-staff vs the ball bouncing at the
+  bottom) · the swipe's model (the composer: weird after a tap; the code: a swipe moves four
+  rows from the TAPPED row in the ring's layout; proposed: a swipe turns the page relative to
+  what is on screen, reading order, the ring only while playing — build nothing until ruled).
+  Not yet looked at: the Piano 9:44 and Flute 2:16 seams.
+- **Latest deliverable:** the build round above, on the box after the composer runs the redeploy
+  line (septet `server/README.md` § The box → "Every later deploy"); the QR sheet
+  (`node tools/qr_spots.js` in `septet_2026`, drawn in chat as inline SVG — SendUserFile
+  showed the composer a tile, not the codes).
+- **Next step, as an instruction:** the composer redeploys and looks with the marks on screen.
+  Then THE SWIPE TALK first, one topic (they describe what they see by row number and time;
+  read the model back, one question); then the Piano GCs. Build nothing for either until
+  ruled. New findings go on RUNNING_LOG 115's list; the next build round on their go.
+- **Resume reads:** RUNNING_LOG 113–115 (the findings and rulings, verbatim) · the septet's
+  `docs/NOTATION_STANDARDS.md` §4 (the seam rules, now with the curve rule, the dynamic chain
+  and the row's marks). Code only when building: `stand.html` (`turnPage`, `goto`, `slotOf`,
+  `buildSlot`), `seams.js` (`curveFix`), `notation/lib/gc.js` for the GCs' look.
+- **Decisions pending the composer:** the swipe's model · the Piano GCs' look · whether the
+  row number stays (drawn as a talk aid) · whether the rehearsal letters show outside the room
+  too (the stand has them only from the welcome; `&letters=A=1:00,…` on a plain link is a
+  check aid) · the Piano 9:44 and Flute 2:16 seams.
 - **Working rules in force:** the shortest reply that answers — one line per point, no
   scaffolding (the composer, day 49: "too much brain effort to read your replies, even when
   you're saying something simple") · "Your steps" closes every reply · the composer runs

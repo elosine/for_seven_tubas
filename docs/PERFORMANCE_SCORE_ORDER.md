@@ -309,8 +309,12 @@ that closed ENS in four iterations)*
     **9i CHECKED by the composer on four devices; THE DESIGN SITTING opened — six notation
     topics settled (RUNNING_LOG 111) and THE SEAMS BUILT after midnight 2026-11-03
     (RUNNING_LOG 112; seam_check 73/73).**
-    ► **the composer's eye on the seams is next** (the iPad after their redeploy), then
-    the sitting's other topics (the band · the corner and the dot · AGAIN · the display). — `notation/app/stand.html`: home-screen installable (full
+    → **THE EYE ON THE SEAMS BEGAN (day 49, RUNNING_LOG 113–115): four rows · the row's start
+    time · the letters in the part · the half-second curve rule RULED; BUILT with the dynamic-chain
+    fix and a row number as a talk aid (seam_check 81/81 · strip_check 66/66).**
+    ► **the composer's redeploy, then the SWIPE TALK with the marks on screen** · the Piano GCs
+    (height · width · spacing · the impact point vs the ball's bounce) · the Piano 9:44 and Flute
+    2:16 seams · the band · the corner and the dot · AGAIN · the display. — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -373,6 +377,13 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-05 (day 49, later, Fable — the sitting's FIRST BUILD ROUND):** the Bass Cl. seam looked
+  at (the cut beam as ruled); **the half-second rule for curves ruled** (the GC arc exempt; the seam
+  moves, the curve stays cut, a short start allowed by its head and go line — RUNNING_LOG 114); the
+  swipe observed, not ruled; the Piano GCs HELD for the talk; the smushed dynamics found and fixed.
+  **BUILT:** four rows · the row's time and number · the letters in the part · the curve rule · the
+  dynamic chain (RUNNING_LOG 115; seam_check 81/81 · strip_check 66/66). ► **the composer's
+  redeploy line, then the swipe talk with the marks on screen; the Piano GCs after.**
 - **2026-11-05 (day 49, Fable — the composer's eye on the seams begins):** from the Viola at
   0:40 on the iPad: a high note's stack cut by the screen's top (the row's air, not the seams)
   → **four rows a screen ruled**; **the row's start time at each row's left and the rehearsal
