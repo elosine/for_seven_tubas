@@ -194,7 +194,7 @@ piece #3's `docs/` — registered as an additional working directory.
   `docs/NOTATION_STANDARDS.md` §4 (the seam rules, now with the curve rule, the dynamic chain
   and the row's marks). Code only when building: `stand.html` (`turnPage`, `goto`, `slotOf`,
   `buildSlot`), `seams.js` (`curveFix`), `notation/lib/gc.js` for the GCs' look.
-- **Decisions pending the composer:** the GC's width (the dial), then its height · whether the
+- **Decisions pending the composer:** the GC's height at the ruled width 0.525 s · THREE rows a screen for the Piano, judged in the full-screen (home-screen) app (noted day 49) · whether the
   row number stays (drawn as a talk aid) · whether the rehearsal letters show outside the room
   too (the stand has them only from the welcome; `&letters=A=1:00,…` on a plain link is a
   check aid) · the Piano 9:44 and Flute 2:16 seams. RULED today: the swipe (118), the GC's
