@@ -177,18 +177,28 @@ piece #3's `docs/` — registered as an additional working directory.
   line (septet `server/README.md` § The box → "Every later deploy"); the QR sheet
   (`node tools/qr_spots.js` in `septet_2026`, drawn in chat as inline SVG — SendUserFile
   showed the composer a tile, not the codes).
-- **Next step, as an instruction:** the composer redeploys and looks with the marks on screen.
-  Then THE SWIPE TALK first, one topic (they describe what they see by row number and time;
-  read the model back, one question); then the Piano GCs. Build nothing for either until
-  ruled. New findings go on RUNNING_LOG 115's list; the next build round on their go.
+- **Later the same day (RUNNING_LOG 116–119):** the marks moved to one stack over the part label
+  (*"the stack placement is fine"*) · a rehearsal letter trialled on the Bass Cl. link · **THE SWIPE
+  RULED (118):** a swipe is the previous or next SCREEN (four pages in order, the cursor at the
+  start of page 1) · a tap moves only the cursor · pages flip at PLAY, every played page at once,
+  then one at a time · the landing cursor bug (117) — NOT YET BUILT · **THE PIANO GCs (119):** the
+  impact point RULED in the middle, between the staves; the ball bug (the whole lane, not the
+  GC's system) FIXED; the width dial `?gcdur=` built with three QR codes (0.6 · 0.45 · 0.4) for
+  the composer's eye.
+- **Next step, as an instruction:** the composer's eye on the three widths (their redeploy, the
+  three codes); they rule the width, then the height by eye. **Then build THE SWIPE as ruled in
+  RUNNING_LOG 118** (the base offset so a swipe lands a fresh screen in order; `goto` without a
+  re-lay for a tap; the re-lay at play start; `refit()` + `ensureLoop()` for the landing cursor),
+  `seam_check` + `strip_check`, commit, push, the redeploy line. New findings go on the list.
 - **Resume reads:** RUNNING_LOG 113–115 (the findings and rulings, verbatim) · the septet's
   `docs/NOTATION_STANDARDS.md` §4 (the seam rules, now with the curve rule, the dynamic chain
   and the row's marks). Code only when building: `stand.html` (`turnPage`, `goto`, `slotOf`,
   `buildSlot`), `seams.js` (`curveFix`), `notation/lib/gc.js` for the GCs' look.
-- **Decisions pending the composer:** the swipe's model · the Piano GCs' look · whether the
+- **Decisions pending the composer:** the GC's width (the dial), then its height · whether the
   row number stays (drawn as a talk aid) · whether the rehearsal letters show outside the room
   too (the stand has them only from the welcome; `&letters=A=1:00,…` on a plain link is a
-  check aid) · the Piano 9:44 and Flute 2:16 seams.
+  check aid) · the Piano 9:44 and Flute 2:16 seams. RULED today: the swipe (118), the GC's
+  impact point (119).
 - **Working rules in force:** the shortest reply that answers — one line per point, no
   scaffolding (the composer, day 49: "too much brain effort to read your replies, even when
   you're saying something simple") · "Your steps" closes every reply · the composer runs
