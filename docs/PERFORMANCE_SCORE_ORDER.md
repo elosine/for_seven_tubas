@@ -373,6 +373,12 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-05 (day 49, Fable — the composer's eye on the seams begins):** from the Viola at
+  0:40 on the iPad: a high note's stack cut by the screen's top (the row's air, not the seams)
+  → **four rows a screen ruled**; **the row's start time at each row's left and the rehearsal
+  letters in the part ruled** (RUNNING_LOG 113). `septet tools/qr_spots.js` makes the iPad's
+  QR sheet. ► **the three seam spots next** (Flute 2:16 · Bass Cl. 8:32 · Piano 9:44), then
+  the fix round on the composer's go.
 - **2026-11-02 evening → 11-03 after midnight (day 46–47, Fable, no clear — THE DESIGN
   SITTING: six notation topics settled, THE SEAMS BUILT):** the row's end, the GC at the
   seam, the plain notehead, the beam, the rest by sorting and the trill ruled in conversation

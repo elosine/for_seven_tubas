@@ -154,59 +154,46 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 48, 2026-11-04 — mid-session checkpoint; Opus wrap after a long Fable sitting)**
-- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus. Six notation topics
-  SETTLED in conversation (RUNNING_LOG 111) and THE SEAMS BUILT + PC-VERIFIED (RUNNING_LOG
-  112): `seam_check` 73/73 on the seven parts and the display, `strip_check` 66/66, the
-  film and print batteries green. **Waiting on the composer's eye on the iPad.**
-- **Latest deliverables (all in `septet_2026`):** `notation/lib/seams.js` (new) ·
-  `notation/lib/render.js` (`opts.clamp`, `inkExtentSs`, `isUnitItem`) ·
-  `notation/lib/animlive.js` (`opts.cursorInside`) · `notation/lib/layout.js` (the header
-  tag, non-enumerable) · `notation/app/stand.html` (the seams per parts drawn, the staff to
-  3 px of the edge, no bar) · `notation/registry/page_rules.json` → `stand` ·
-  `tools/seam_check.js` (new) · `docs/NOTATION_STANDARDS.md` §4 THE STAND'S SEAMS (the rules).
-  Commits `eb1cd5c` + `5779757` (§4 moved there from the tubas' file, where a splice had put
-  it by mistake), pushed.
-- **The composer's preview (already given to them, 2026-11-04):** the box redeploy line
-  `ssh -i C:\Users\jwloy\.ssh\id_ed25519 root@5.161.233.35 "su - deploy -c 'cd /home/deploy/ss && bash server/deploy.sh'"`
-  · the Flute part on the iPad and the display (the gatekeeper's link + `?view=display`) on the PC —
-  the links are NOT written here (they are access tokens; the repo is pushed): print them with
-  `node tools/admin.js links ens-f79ddbed` against the box's server (septet `server/README.md` § The box).
-  Places to look: the Flute at 2:24 (a trill's column clamped left) · the display's Bass Cl.
-  at 8:40 and Piano at 9:44 (cut beams) · the Viola at 0:48 (a head at a row's first pixel).
-  The composer asked whether running a line had broken anything: no — nothing on the PC
-  touches the box. Whether they have redeployed yet is not known.
-- **Next step, as an instruction:** ask the composer what they saw on the iPad and the
-  display. Collect the findings as they name them (one at a time, plain words); fix them
-  together only on their go, in `septet_2026`, then re-run `node tools/seam_check.js` and
-  `node tools/strip_check.js` (both from `septet_2026`), commit, push, and give the redeploy
-  line again. After the seams are accepted, the sitting's other topics, one at a time: the
-  band's look · the corner and the dot · AGAIN's rule and the countdown · the display's size.
-- **Resume reads:** `RUNNING_LOG` entries 111–112 (the rulings verbatim; what was built and
-  measured) · the septet's `docs/NOTATION_STANDARDS.md` §4 · `docs/NITS.md` (the four "The
-  seams" lines). Code only when a finding needs it: `septet_2026/notation/lib/seams.js`,
-  `render.js` (search `opts.clamp`), `stand.html` (`buildSlot`, `render`).
-- **Decisions pending the composer:** whatever the eye test finds; the four NITS lines (the
-  ottava's sign not re-shown · *sempre secco* clamped not avoided · the clamp's left bound ·
-  the run-on beam fragment over a rest at a row's start).
-- **Working rules in force (this sitting):** simple words, one topic at a time, facts and
-  factors not lettered menus · every reply ends with "Your steps" · the composer runs every
-  box line and starts every server · **never `git stash` in `septet_2026`** (it carries the
-  composer's uncommitted scores; one round trip on day 47 swept and restored them) · the
-  scratch `splice.js` writes to the tubas repo whatever the cwd — patch the septet's files
-  with explicit absolute paths.
+**(day 49, 2026-11-05 — mid-session checkpoint; Fable, the design sitting)**
+- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus. The seams are BUILT and
+  on the box (RUNNING_LOG 112). The composer has begun the eye test on the iPad and ruled
+  three things from the Viola at 0:40 (RUNNING_LOG 113): **four rows a screen** · **the
+  row's start time at the left of every row** · **the rehearsal letters drawn in the part
+  where they fall**. Those three are THE FINDINGS LIST for the fix round — nothing built
+  yet; the composer's rule: collect, then fix together on their go. The three seam spots
+  (the Flute 2:16, the Bass Cl. 8:32, the Piano 9:44) are not yet looked at.
+- **Latest deliverable:** `septet_2026/tools/qr_spots.js` — one labelled SVG sheet of QR
+  codes opening the stand at the four spots on the box, four rows a screen.
+- **Next step, as an instruction:** from `C:\Users\jwloy\GitHub\septet_2026` run
+  `node tools/qr_spots.js`, then send `testkit/results/qr/spots.svg` to the composer with
+  SendUserFile (it renders inline). Then ask what they see at the right end of the top row
+  on code 1, the Flute. Collect each finding in one line; add it to RUNNING_LOG 113's list.
+  On their go: `ROWS_DEFAULT = 4` in `stand.html` · the row-start time at each row's left
+  (small, grey, m:ss, by the part label) · the letters in the part at their time (the
+  room's `state.letters`; outside the room none) · anything else found; then
+  `node tools/seam_check.js` and `node tools/strip_check.js`, commit, push, and give the
+  composer the box's redeploy line (septet `server/README.md` § The box).
+- **Resume reads:** RUNNING_LOG 113 (the findings, verbatim) · the septet's
+  `docs/NOTATION_STANDARDS.md` §4 (the seam rules). Code only when building: `stand.html`
+  (`ROWS_DEFAULT`, `buildSlot`, the corner's `letterAt`).
+- **Decisions pending the composer:** the look of the three seam spots; whether the
+  rehearsal letters show outside the room too (the stand has them only from the welcome).
+- **Working rules in force:** the shortest reply that answers — one line per point, no
+  scaffolding (the composer, day 49: "too much brain effort to read your replies, even when
+  you're saying something simple") · "Your steps" closes every reply · the composer runs
+  every box line and starts every server · **never `git stash` in `septet_2026`** · the
+  access links are never written into a repo (the day-48 commit was refused for it; print
+  them with `node tools/admin.js links ens-f79ddbed` against the box).
 - **Deliberately uncommitted — `for_seven_tubas`:** `reaper/7_tubas_rack.rpp` (the composer's
-  REAPER session) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp` and `scores/Litany.pdf`
-  (the composer's files) · `testkit/results/chaos__…` and thirteen `stand_check__…` (run results,
-  kept as evidence, never committed).
-- **Deliberately uncommitted — `septet_2026`:** `scores/piece-septet.json`, `bank/panel_snapshots.json`,
-  `reaper/septet_rack.rpp` (the composer's work in progress) · `bank/passages/*.json` (six),
-  `scores/Sec3.json`, `scores/SeptetSec03-Materials-B/C/D.json`, `scores/piece-septet-v1.31/32/33-*.json`,
-  `scores/spectralMorph.json`, `scores/zz-ai-*.json` (the composer's saves and AI scratch scores) ·
-  `docs/Tempus-Lab2026_Application_English_JYang.pdf`, `docs/application/` (the composer's
-  application papers). None of them is this sitting's.
-- **Resume on:** Opus is fine for collecting findings and small fixes; switch to Fable only
-  if a finding reopens a notation rule.
+  REAPER session) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`, `scores/Litany.pdf`
+  (the composer's files) · `testkit/results/*` (run results, kept as evidence).
+- **Deliberately uncommitted — `septet_2026`:** `scores/piece-septet.json`,
+  `bank/panel_snapshots.json`, `reaper/septet_rack.rpp` (the composer's work in progress) ·
+  `bank/passages/*.json`, `scores/Sec3.json`, `scores/SeptetSec03-Materials-*.json`,
+  `scores/piece-septet-v1.3*.json`, `scores/spectralMorph.json`, `scores/zz-ai-*.json` (the
+  composer's saves and AI scratch scores) · `docs/Tempus-Lab2026_Application_English_JYang.pdf`,
+  `docs/application/` (the composer's application papers). None is this sitting's.
+- **Resume on:** Fable (the sitting continues: findings and rulings).
 
 **(day 45, 2026-10-20 afternoon — 9a built, Opus)**
 - **Task and state:** 9a built and verified on the PC; nothing half-done. Waits on
