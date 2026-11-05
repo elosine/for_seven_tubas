@@ -160,51 +160,49 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
-**(day 49, 2026-11-05 — mid-session checkpoint; Fable, the design sitting)**
-- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus — the composer's eye on the
-  seams, THE FIRST BUILD ROUND DONE (RUNNING_LOG 113–115): RULED four rows a screen · the row's
-  start time at each row's left · the rehearsal letters in the part · the half-second rule for
-  curves (the GC arc exempt; the seam moves left, the curve stays cut, a short start allowed by
-  its head and go line); BUILT with the dynamic-chain fix (the smushed *ppp → fff*) and the row
-  number as a talk aid; seam_check 81/81 · strip_check 66/66; committed and pushed in
-  `septet_2026`. The Bass Cl. seam looked at (the cut beam as ruled). HELD for the talk: the
-  Piano GCs (height · width · spacing · the impact point at mid-staff vs the ball bouncing at the
-  bottom) · the swipe's model (the composer: weird after a tap; the code: a swipe moves four
-  rows from the TAPPED row in the ring's layout; proposed: a swipe turns the page relative to
-  what is on screen, reading order, the ring only while playing — build nothing until ruled).
-  Not yet looked at: the Piano 9:44 and Flute 2:16 seams.
-- **Latest deliverable:** the build round above, on the box after the composer runs the redeploy
-  line (septet `server/README.md` § The box → "Every later deploy"); the QR sheet
-  (`node tools/qr_spots.js` in `septet_2026`, drawn in chat as inline SVG — SendUserFile
-  showed the composer a tile, not the codes).
-- **Later the same day (RUNNING_LOG 116–119):** the marks moved to one stack over the part label
-  (*"the stack placement is fine"*) · a rehearsal letter trialled on the Bass Cl. link · **THE SWIPE
-  RULED (118):** a swipe is the previous or next SCREEN (four pages in order, the cursor at the
-  start of page 1) · a tap moves only the cursor · pages flip at PLAY, every played page at once,
-  then one at a time · the landing cursor bug (117) — NOT YET BUILT · **THE PIANO GCs (119):** the
-  impact point RULED in the middle, between the staves; the ball bug (the whole lane, not the
-  GC's system) FIXED; the width dial `?gcdur=` built with three QR codes (0.6 · 0.45 · 0.4) for
-  the composer's eye.
-- **Next step, as an instruction:** the composer's eye on the three widths (their redeploy, the
-  three codes); they rule the width, then the height by eye. **Then build THE SWIPE as ruled in
-  RUNNING_LOG 118** (the base offset so a swipe lands a fresh screen in order; `goto` without a
-  re-lay for a tap; the re-lay at play start; `refit()` + `ensureLoop()` for the landing cursor),
-  `seam_check` + `strip_check`, commit, push, the redeploy line. New findings go on the list.
-- **Resume reads:** RUNNING_LOG 113–115 (the findings and rulings, verbatim) · the septet's
-  `docs/NOTATION_STANDARDS.md` §4 (the seam rules, now with the curve rule, the dynamic chain
-  and the row's marks). Code only when building: `stand.html` (`turnPage`, `goto`, `slotOf`,
-  `buildSlot`), `seams.js` (`curveFix`), `notation/lib/gc.js` for the GCs' look.
-- **Decisions pending the composer:** the GC's height at the ruled width 0.525 s · THREE rows a screen for the Piano, judged in the full-screen (home-screen) app (noted day 49) · whether the
-  row number stays (drawn as a talk aid) · whether the rehearsal letters show outside the room
-  too (the stand has them only from the welcome; `&letters=A=1:00,…` on a plain link is a
-  check aid) · the Piano 9:44 and Flute 2:16 seams. RULED today: the swipe (118), the GC's
-  impact point (119).
-- **Working rules in force:** the shortest reply that answers — one line per point, no
-  scaffolding (the composer, day 49: "too much brain effort to read your replies, even when
-  you're saying something simple") · "Your steps" closes every reply · the composer runs
-  every box line and starts every server · **never `git stash` in `septet_2026`** · the
-  access links are never written into a repo (the day-48 commit was refused for it; print
-  them with `node tools/admin.js links ens-f79ddbed` against the box).
+**(day 49, 2026-11-05, evening — mid-session checkpoint #2; Fable, the design sitting)**
+- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus, the composer's eye on the stand.
+  **Today's rulings, all built and on the box unless marked:** FOUR rows a screen · the row's start
+  time and number as one stack over the part label (*"the stack placement is fine"*, the number STAYS)
+  · the rehearsal letters boxed in the part where they fall (a plain link needs `&letters=`) · THE
+  HALF-SECOND RULE for curves at a seam (the GC arc exempt) · the dynamic chain pushed as one · **THE
+  SEAMS CLOSED** by the composer's eye (*"seams done"*) · **THE PIANO GCs CLOSED:** the impact between
+  the staves, the ball lands on it (a bug fixed), the width 0.525 s on the stand (`page_rules.stand.
+  gcDurationSeconds`; `?gcdur=` for a look), the height as it is · **THE SWIPE RULED, NOT BUILT**
+  (RUNNING_LOG 118): a swipe = the previous or next SCREEN of four pages in order, the cursor at the
+  start of page 1; a tap moves only the cursor; pages flip at PLAY, every played page at once, then
+  one at a time; plus the landing-cursor bug (117: `refit()` re-renders without an overlay frame).
+  RUNNING_LOG 113–119 carry every ruling in the composer's words.
+- **Latest deliverable:** septet_2026 at `ddc60fe` (the width), on the box after the composer's
+  redeploy. The QR codes are drawn in chat as inline SVG from `tools/qr_spots.js` (`--extra` for a
+  link suffix, `--out`, one spot per argument `part:seconds:title`); SendUserFile shows a tile, not
+  the codes — draw them with the widget.
+- **Next step, as an instruction:** (1) THREE ROWS FOR THE PIANO — make a QR for
+  `part=3&t=0&rows=3` (and one at `rows=4` beside it), draw both in chat, and ask the composer to
+  judge them in the full-screen app (the home-screen install, no Safari toolbar); if three wins,
+  the question is whether it is the Piano's own default (per-part rows) — build only on their word.
+  (2) THE PROOFING PASS — the composer will go through every part: make one QR sheet of all seven
+  parts at 0:00 (`node tools/qr_spots.js --out … "1:0:Flute" "2:0:Bass Cl." … "7:0:Cello"`), draw
+  it, and collect their findings one line each on a RUNNING_LOG list; fix together on their go.
+  (3) THE SWIPE BUILD, when they say: `stand.html` — a base offset so a swipe or jump lands a fresh
+  screen in order (`slotOf = i => ((i − base) % ROWS + ROWS) % ROWS`, `base` set at every swipe, jump
+  and landing); `turnPage` relative to the screen's first/last row, not `cur`; `goto()` for a tap
+  without `render()` (the cursor only); the re-lay at play start (`play()` → `render()` for
+  `cur..cur+ROWS−1`, which replaces every played page at once) and the normal one-page reload at
+  each row change; `refit()` → `ensureLoop()` after its render. Then `node tools/seam_check.js`
+  (91/91 today) and `node tools/strip_check.js` (66/66), commit, push, the redeploy line.
+- **Resume reads:** RUNNING_LOG 118 (the swipe, verbatim) and 119 (the GCs) · the septet's
+  `docs/NOTATION_STANDARDS.md` §4. Code only when building: `stand.html` (`slotOf`, `render`,
+  `drawOverlayFrame`, `goto`, `play`, `turnPage`, `refit`).
+- **Decisions pending the composer:** three rows for the Piano (and whether rows are per part) ·
+  the proofing findings · the swipe build's timing · letters outside the room · the rest of the
+  sitting's list (the band's look · the corner and the dot · AGAIN and the countdown · the
+  display's size).
+- **Working rules in force:** the shortest reply that answers — one line per point, bullets ·
+  "Your steps" closes every reply · **every reply after a push carries the redeploy line in its own
+  bash block** (memory: redeploy-line-every-time) · the QR codes drawn in chat, not sent as a file ·
+  the composer runs every box line and starts every server · **never `git stash` in `septet_2026`**
+  · the access links are never written into a repo.
 - **Deliberately uncommitted — `for_seven_tubas`:** `reaper/7_tubas_rack.rpp` (the composer's
   REAPER session) · `reaper/Bloom-Convergence-Balance_demoRecording.rpp`, `scores/Litany.pdf`
   (the composer's files) · `testkit/results/*` (run results, kept as evidence).
@@ -214,7 +212,8 @@ piece #3's `docs/` — registered as an additional working directory.
   `scores/piece-septet-v1.3*.json`, `scores/spectralMorph.json`, `scores/zz-ai-*.json` (the
   composer's saves and AI scratch scores) · `docs/Tempus-Lab2026_Application_English_JYang.pdf`,
   `docs/application/` (the composer's application papers). None is this sitting's.
-- **Resume on:** Fable (the sitting continues: findings and rulings).
+- **Resume on:** Fable (the sitting continues: the composer's eye and rulings; the swipe build
+  could go to Opus cold when they call it).
 
 **(day 45, 2026-10-20 afternoon — 9a built, Opus)**
 - **Task and state:** 9a built and verified on the PC; nothing half-done. Waits on

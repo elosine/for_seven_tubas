@@ -312,9 +312,11 @@ that closed ENS in four iterations)*
     → **THE EYE ON THE SEAMS BEGAN (day 49, RUNNING_LOG 113–115): four rows · the row's start
     time · the letters in the part · the half-second curve rule RULED; BUILT with the dynamic-chain
     fix and a row number as a talk aid (seam_check 81/81 · strip_check 66/66).**
-    ► **the composer's redeploy, then the SWIPE TALK with the marks on screen** · the Piano GCs
-    (height · width · spacing · the impact point vs the ball's bounce) · the Piano 9:44 and Flute
-    2:16 seams · the band · the corner and the dot · AGAIN · the display. — `notation/app/stand.html`: home-screen installable (full
+    → **THE SEAMS CLOSED by the composer's eye · THE SWIPE RULED (118, not built) · THE PIANO GCs
+    CLOSED (119: the impact between the staves, the ball on it, 0.525 s).**
+    ► **three rows for the Piano in the full-screen app, then the composer's PROOFING PASS through
+    every part (the QR sheet), the swipe build on their word** · then the band · the corner and
+    the dot · AGAIN · the display · letters outside the room. — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
     part fills the screen with nothing cut; the busiest minute smooth by eye, the
@@ -377,6 +379,13 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-05 (day 49, evening, Fable — THE SITTING'S SECOND HALF):** the marks moved to one stack
+  over the part label (ruled fine, the number stays) · the swipe read from the composer's shots and
+  RULED (118: screens of four pages in order, the tap moves only the cursor, the flip at play) ·
+  the Piano GCs organized and CLOSED (119: the impact between the staves, the ball bug fixed, the
+  width 0.525 s by eye, the height as is) · the seams CLOSED by the composer. ► **after the clear:
+  three rows for the Piano in the full-screen app, then the proofing pass part by part (the QR
+  sheet); the swipe build when the composer calls it.**
 - **2026-11-05 (day 49, later, Fable — the sitting's FIRST BUILD ROUND):** the Bass Cl. seam looked
   at (the cut beam as ruled); **the half-second rule for curves ruled** (the GC arc exempt; the seam
   moves, the curve stays cut, a short start allowed by its head and go line — RUNNING_LOG 114); the
