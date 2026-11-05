@@ -160,6 +160,42 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
+**(day 49, 2026-11-05, late evening — mid-session checkpoint #3; Fable, the design sitting)**
+- **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus. Since checkpoint #2: **THREE ROWS FOR THE
+  PIANO** ruled by the composer's eye in the full-screen app and built as the Piano's own default (rows per
+  part by staff count, `page_rules.stand.rowsDefault` 4 · `rowsByStaves {2: 3}`; RUNNING_LOG 120) · the Piano
+  9:44 and Flute 2:16 seam spots CORRECTED to done (the composer, several times) · **THE SWIPE BUILT** as ruled
+  (118): the ring's base, a tap = the cursor only, the flip at play, a fresh screen on a jump or landing ·
+  **THE LANDING CURSOR** fixed and PROVED (117; `refit` asks for a frame) · **THE THREE SEAM NITS BUILT** (the
+  group ottava re-shown, *sempre secco* avoided by the planner, a row-opening unit's marks bound at its head's
+  left edge). RUNNING_LOG 120–121 carry every ruling and measurement. All checks green: swipe_check 26/26
+  (proved red) · seam_check 99/99 · strip_check 66/66 · ottava_reshow_check 8/8.
+- **Latest deliverable:** `septet_2026` pushed (the build commit after `3237958`); on the box only after the
+  composer's redeploy line (given in chat). The seven-part proofing QR sheet drawn in chat
+  (`tools/qr_spots.js --out testkit/results/qr/proof_all_parts.svg "1:0:Flute" … "7:0:Cello"`; no `&rows=`,
+  the stand decides).
+- **Next step, as an instruction:** THE PROOFING PASS. The composer scans a part from the sheet, reads it
+  through, names what they see. Collect each finding as ONE LINE on a RUNNING_LOG list (entry 122), in their
+  words, with the part and the time; ask nothing but the one question that only they can answer; fix them
+  together on their go, then the checks (`node tools/seam_check.js` · `strip_check.js` · `swipe_check.js`),
+  commit, push, the redeploy line in its own bash block.
+- **Resume reads:** RUNNING_LOG 120–121 · the septet's `docs/NOTATION_STANDARDS.md` §4 (the nits' row) and §5
+  (the swipe). Code only when fixing: `stand.html` (`slotOf`, `goto`, `play`, `turnPage`, `refit`),
+  `render.js` (the clamp pass, the ottava branch), `seams.js` (`inkMap`).
+- **Decisions pending the composer:** the proofing findings · letters outside the room · the rest of the
+  sitting's list (the band's look · the corner and the dot · AGAIN and the countdown · the display's size ·
+  the strip on an iPad held upright · the piece title's plain hyphens on the welcome and ensemble pages).
+- **Working rules in force:** the shortest reply that answers — bullets · "Your steps" closes every reply ·
+  **every reply after a push carries the redeploy line in its own bash block** · the QR codes drawn in chat
+  with the widget · the composer runs every box line and starts every server · **never `git stash` in
+  `septet_2026`** · the access links are never written into a repo · a Bash command over ~8 KB fails (split
+  the scripts) · a node script goes to a file, never `node -e` with apostrophes.
+- **Deliberately uncommitted — `for_seven_tubas`:** `reaper/7_tubas_rack.rpp` ·
+  `reaper/Bloom-Convergence-Balance_demoRecording.rpp` · `scores/Litany.pdf` · `testkit/results/*`.
+- **Deliberately uncommitted — `septet_2026`:** as checkpoint #2 (the composer's scores, snapshots, rack,
+  passages, application papers) plus `testkit/results/*` (run results and shots). None is this sitting's.
+- **Resume on:** Fable (the composer's eye and rulings continue).
+
 **(day 49, 2026-11-05, evening — mid-session checkpoint #2; Fable, the design sitting)**
 - **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus, the composer's eye on the stand.
   **Today's rulings, all built and on the box unless marked:** FOUR rows a screen · the row's start

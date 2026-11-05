@@ -314,8 +314,9 @@ that closed ENS in four iterations)*
     fix and a row number as a talk aid (seam_check 81/81 · strip_check 66/66).**
     → **THE SEAMS CLOSED by the composer's eye · THE SWIPE RULED (118, not built) · THE PIANO GCs
     CLOSED (119: the impact between the staves, the ball on it, 0.525 s).**
-    ► **three rows for the Piano in the full-screen app, then the composer's PROOFING PASS through
-    every part (the QR sheet), the swipe build on their word** · then the band · the corner and
+    → **THREE ROWS FOR THE PIANO ruled and built as its default (120) · THE SWIPE BUILT as ruled, the landing
+    cursor fixed and proved, the three seam nits built (121; swipe_check 26/26 · seam_check 99/99 · strip_check 66/66).**
+    ► **the composer's PROOFING PASS through every part (the QR sheet), findings fixed together on their go** · then the band · the corner and
     the dot · AGAIN · the display · letters outside the room. — `notation/app/stand.html`: home-screen installable (full
     screen, no Safari toolbar), the part view under A2, local play, one tap target.
     **Done =** the composer opens it from the iPad's home screen; full screen; the
@@ -379,6 +380,11 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-05 (day 49, late evening, Fable — THE BUILD BEFORE THE PROOFING):** three rows for the Piano
+  judged in the full-screen app and made its default (120) · the composer hit the ring's rotation on a right
+  swipe (9 · 6 · 7 · 8) — the known fault, the swipe build called · THE SWIPE, the landing cursor and the three
+  seam nits BUILT, checked and proved (121) · the two seam spots corrected to done at the composer's word.
+  ► **the proofing pass, part by part from the QR sheet, after the redeploy.**
 - **2026-11-05 (day 49, evening, Fable — THE SITTING'S SECOND HALF):** the marks moved to one stack
   over the part label (ruled fine, the number stays) · the swipe read from the composer's shots and
   RULED (118: screens of four pages in order, the tap moves only the cursor, the flip at play) ·
