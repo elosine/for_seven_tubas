@@ -380,6 +380,8 @@ ahead of PORTAL.
 
 ## POSITION LOG (newest first — one line per sitting)
 
+- **2026-11-12 (Fable — PAUSED):** the composer accepted to the JACK Studio Readings (2026-11-23) and pivoted to the
+  string quartet's performance score. The needle stays here: ► **the proofing pass**, resumed after the readings.
 - **2026-11-05 (day 49, late evening, Fable — THE BUILD BEFORE THE PROOFING):** three rows for the Piano
   judged in the full-screen app and made its default (120) · the composer hit the ring's rotation on a right
   swipe (9 · 6 · 7 · 8) — the known fault, the swipe build called · THE SWIPE, the landing cursor and the three

@@ -74,7 +74,9 @@ whether either is the conductor's copy — is not decided and is not assumed her
 **Not the same job as PARTS** (ten single-player extracts), which remain unbuilt
 and are not needed for the submission.
 
-**NOW ► (2026-11-05, day 49, late evening, latest) THE PERFORMANCE SYSTEM ON TEMPUS: 9i — THREE ROWS FOR THE PIANO, its default (RUNNING_LOG 120) · THE SWIPE BUILT as ruled, the landing cursor fixed and proved, the three seam nits built (121) — all pushed, on the box after the composer's redeploy · ► THE PROOFING PASS: the composer through every part from the QR sheet, findings collected one line each, fixed together on their go.** Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
+**NOW ► (2026-11-12, latest) PAUSED — THE STRING QUARTET READINGS (JACK Studio, 2026-11-23): the composer pivots to the quartet's performance score (its own repo). The septet sitting resumes at the proofing pass (journal §2 checkpoint #3; RUNNING_LOG 122).**
+
+**NOW ► (2026-11-05, day 49, late evening) THE PERFORMANCE SYSTEM ON TEMPUS: 9i — THREE ROWS FOR THE PIANO, its default (RUNNING_LOG 120) · THE SWIPE BUILT as ruled, the landing cursor fixed and proved, the three seam nits built (121) — all pushed, on the box after the composer's redeploy · ► THE PROOFING PASS: the composer through every part from the QR sheet, findings collected one line each, fixed together on their go.** Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
 
 **NOW ► (2026-11-05, day 49, evening) THE PERFORMANCE SYSTEM ON TEMPUS: 9i's DESIGN SITTING — the seams CLOSED by the composer's eye · four rows · the time-and-number stack · the letters · the half-second curve rule · the Piano GCs CLOSED (the impact between the staves, 0.525 s) — all on the box (RUNNING_LOG 113–119) · THE SWIPE RULED, not built (118) · ► three rows for the Piano in the full-screen app, then the composer's proofing pass through every part (the QR sheet), the swipe build on their word.** Organizer: `docs/PERFORMANCE_SCORE_ORDER.md`.
 

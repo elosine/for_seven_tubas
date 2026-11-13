@@ -160,6 +160,14 @@ piece #3's `docs/` — registered as an additional working directory.
 
 ### OPEN AT SESSION END
 
+**(2026-11-12 — PAUSED FOR THE STRING QUARTET READINGS; Fable)** The composer was accepted to the JACK Studio Readings
+(2026-11-23) and pivoted (RUNNING_LOG 122). **This sitting resumes exactly at checkpoint #3 below: the proofing pass,**
+after the readings. The redeploy line for the 121 build was given; whether the composer ran it is not recorded — check the
+box's stand (a swipe lands a fresh screen in order) before the pass. **NEXT STEPS · MODEL · CLEAR:** (1) the quartet's
+readings, in the quartet's own repo and journal (Fable for the assessment and the plan; Opus for any build) · (2) back here:
+`/postclear` on this checkpoint, Fable, the proofing pass · (3) then the swipe build's leftovers: none; the sitting's
+remaining topics (the band · the corner and the dot · AGAIN and the countdown · the display's size).
+
 **(day 49, 2026-11-05, late evening — mid-session checkpoint #3; Fable, the design sitting)**
 - **Task and state:** 9i THE DESIGN SITTING (gate E-6) on Tempus. Since checkpoint #2: **THREE ROWS FOR THE
   PIANO** ruled by the composer's eye in the full-screen app and built as the Piano's own default (rows per
